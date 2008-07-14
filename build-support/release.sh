@@ -10,4 +10,6 @@ else
     echo Enter details of new tag:
     read TAGNAME
     hg tag "$TAGNAME"
+    echo
+    echo "Don't forget to push the new tag upstream!"
 fi
