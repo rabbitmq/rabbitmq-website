@@ -54,8 +54,18 @@ $ ant dist</pre>
 	<doc:heading>Required Libraries and Tools</doc:heading>
 
 	<p>
-	  In order to build RabbitMQ, you will need a few tools. For
-	  building the server:
+	  In order to build RabbitMQ, you will need a few tools.
+	</p>
+
+	<p>
+	  Both the server and the Java client libraries require a
+	  recent version of <a
+	  href="http://www.python.org/download/">Python</a>, for
+	  generating AMQP framing code.
+	</p>
+
+	<p>
+	  Besides Python, for building the server, you will need
 	</p>
 
 	<ul class="compact">
@@ -66,19 +76,12 @@ $ ant dist</pre>
 	  </li>
 
 	  <li>
-	    a recent version of <a
-	    href="http://www.python.org/download/">Python</a>, for
-	    generating AMQP framing code from the AMQP XML
-	    specification
-	  </li>
-
-	  <li>
 	    a recent version of <a href="http://www.gnu.org/software/make/">GNU make</a>
 	  </li>
 	</ul>
 
 	<p>
-	  and for building the Java client libraries:
+	  Besides Python, for building the Java client libraries, you will need
 	</p>
 
 	<ul class="compact">
@@ -98,44 +101,38 @@ $ ant dist</pre>
 	  </li>
 	</ul>
 
+	<p>
+	  To build the .NET/C# client libraries, you will need
+	</p>
+
+	<ul class="compact">
+	  <li>
+	    a .NET runtime:
+	    <ul>
+	      <li>
+		Microsoft's .NET 1.1, 2.0, 3.0 and 3.5 (versions older
+		than 3.0 do not support WCF)
+	      </li>
+	      <li>
+		Mono 1.2.5 or newer (does not support WCF)
+	      </li>
+	    </ul>
+	  </li>
+	  <li>
+	    <a href="http://nant.sourceforge.net/">NAnt</a> v0.85 or newer
+	  </li>
+	</ul>
+
       </doc:section>
 
       <doc:section name="building">
 	<doc:heading>Building the source</doc:heading>
 
-	<p>
-	  The source code distribution is split into two main parts:
-	  the server code and the java client library code. Both make
-	  use of the included <code>docs/specs</code> directory, which
-	  contains the machine-readable AMQP protocol specification
-	  XML document.
-	</p>
-
-	<doc:subsection name="top-makefile">
-	<doc:heading>Top-level Makefile</doc:heading>
-
-	<p>
-	  The top-level Makefile contains targets <code>all</code>,
-	  <code>server</code>, <code>client</code>, and
-	  <code>clean</code>. <code>all</code> will clean and then
-	  build everything. <code>server</code> and
-	  <code>client</code> will invoke the respective build targets
-	  for the server and client. <code>clean</code> will remove
-	  any built targets.
-	</p>
-
-	<p>
-	  The top-level Makefile also contains a bunch of other targets 
-	  which are used in preparing a release - these are unlikely to 
-	  be of interest.
-	</p>
-	</doc:subsection>
-
 	<doc:subsection name="building-server">
 	  <doc:heading>Building the server</doc:heading>
 
 	  <p>
-	    Change to the <code>erlang/rabbit</code> directory, and
+	    Change to the <code>rabbitmq-server</code> directory, and
 	    type <code>make</code>.
 	  </p>
 
@@ -169,23 +166,10 @@ $ ant dist</pre>
 		above description of <code>MNESIA_DIR</code>.
 	      </dd>
 
-	      <dt>dist</dt>
+	      <dt>srcdist</dt>
 	      <dd>
-		Builds the server and then constructs a directory
-		containing a binary server distribution. By default,
-		the distribution will be placed in
-		<code>./dist</code>, but this can be overridden by
-		setting the <code>DIST_DIR</code> variable:
-		<p>
-		  <code>make dist DIST_DIR=/some/place/to/put/a/distribution</code>
-		</p>
-		<p>
-		  The server startup scripts are by default placed in
-		  <code>$(DIST_DIR)/sbin</code>, and this too can be
-		  overridden, by setting <code>SBIN_DIR</code>:
-		</p>
- <pre>make dist DIST_DIR=/tmp/dist/usr/lib/erlang/lib/rabbitmq_server-<i>version</i> \
-          SBIN_DIR=/tmp/dist/usr/sbin</pre>
+		Runs the "clean" target, and constructs a source-code
+		distribution tarball in <code>./dist</code>.
 	      </dd>
 	    </dl>
 	  </p>
@@ -195,10 +179,9 @@ $ ant dist</pre>
 	  <doc:heading>Building the Java client libraries</doc:heading>
 
 	  <p>
-	    Ensure <code>JAVA_HOME</code> is correctly set. Change to 
-	    the <code>java</code> directory, edit 
-	    <code>config.properties.xml</code> to fit your needs and
-	    type <code>ant</code>.
+	    Ensure <code>JAVA_HOME</code> is correctly set. Change to
+	    the <code>rabbitmq-java-client</code> directory and type
+	    <code>ant</code>.
 	  </p>
 
 	  <p>
@@ -240,6 +223,22 @@ $ ant dist</pre>
 		</p>
 	      </dd>
 	    </dl>
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="building-dotnet-client">
+	  <doc:heading>Building the .NET/C# client libraries</doc:heading>
+
+	  <p>
+	    Change to the <code>rabbitmq-dotnet</code> directory
+	    and type <code>nant</code>.
+	  </p>
+
+	  <p>
+	    For further information, please see the "Building the
+	    Client" section of the .NET Client Library User Guide,
+	    available from the <a href="dotnet.html">.NET client
+	    download page</a>.
 	  </p>
 	</doc:subsection>
       </doc:section>

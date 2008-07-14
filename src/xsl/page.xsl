@@ -218,7 +218,7 @@ Technologies Ltd.</div>
 
   <xsl:template match="r:downloads[@signature='no']/r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:value-of select="@description"/></td>
+      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
     </tr>
   </xsl:template>
@@ -236,7 +236,7 @@ Technologies Ltd.</div>
 
   <xsl:template match="r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:value-of select="@description"/></td>
+      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
       <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
     </tr>
