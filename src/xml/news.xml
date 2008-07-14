@@ -1,0 +1,121 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - News</title>
+    <link rel="alternate" type="application/atom+xml" href="news.atom"/>
+  </head>
+  <body>
+    <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed.</a></p>
+    <doc:feed>
+      <!-- Please give news items a doc:date/@iso.  It is used in the
+           Atom feed, for the updated time and as a guid.
+             date +"%FT%T%z"
+           will give you a suitable value.
+      -->
+      <doc:item>
+        <doc:date iso="2008-04-01T00:00:00Z">09 July 2008</doc:date>
+        <doc:title>
+          AMQP: Secure business messaging for the future
+        </doc:title>
+        <doc:link>resources/AMQP_Solution_Brief_final.pdf</doc:link>
+        <doc:text>
+          Intel believe the remarkable results of RabbitMQ perfomance tests in their Low Latency Lab indicate that AMQP is set to revolutionise the financial messaging industry <a href="resources/AMQP_Solution_Brief_final.pdf">AMQP: Secure business messaging for the future</a>.
+        </doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2008-04-01T00:00:00Z">01 April 2008</doc:date>
+        <doc:title>
+          RabbitMQ 1.3.0 released
+        </doc:title>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-April/000010.html</doc:link>
+	<doc:text>
+          The RabbitMQ team is pleased to announce the release of
+          RabbitMQ 1.3.0.<br/> This release has beta status. It fixes
+          a number of race conditions and other bugs, improves
+          performance and has better error reporting. Further details
+          are available <a
+          href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-April/000010.html">here</a>.
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2007-09-27T00:00:00Z">27 September 2007</doc:date>
+        <doc:title>
+          RabbitMQ 1.2.0 released
+        </doc:title>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-September/000009.html</doc:link>
+	<doc:text>
+          The RabbitMQ team is pleased to announce the release of
+          RabbitMQ 1.2.0.<br/> This release has beta status. It 
+          improves performance when running a server close to capacity 
+          and simplifies cluster configuration, along with the 
+          usual bug fixes and minor enhancements. Further details are 
+          available <a
+          href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-September/000009.html">here</a>.
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2007-08-29T00:00:00Z">29 August 2007</doc:date>
+        <doc:title>
+          RabbitMQ 1.1.1 released
+        </doc:title>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000008.html</doc:link>
+	<doc:text>
+          The RabbitMQ team is pleased to announce the release of
+          RabbitMQ 1.1.1.<br/> This release has beta status and
+          focuses on two areas: improved interoperability with Qpid M1
+          Java client and server, and some bug fixes and minor
+          enhancements. Further details are available <a
+          href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000008.html">here</a>.
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2007-08-01T00:00:00Z">01 August 2007</doc:date>
+	<doc:title>
+          RabbitMQ 1.1.0 released
+        </doc:title>
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000007.html</doc:link>
+	<doc:text>
+          The RabbitMQ team is pleased to announce the release of
+          RabbitMQ 1.1.0. <br/> This release has alpha status and
+          contains several bug fixes and enhancements in the RabbitMQ
+          server, the Java client libraries, and the examples, as well
+          as improvements to the documentation and packaging. Further
+          details are available <a
+          href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000007.html">here</a>.
+	</doc:text>
+      </doc:item>  
+      <doc:item>
+	<doc:date iso="2007-03-18T00:00:00Z">18 March 2007</doc:date>
+	<doc:title>Rabbit Technologies joins AMQP working group</doc:title>
+	<doc:link>resources/RabbitMQ_WorkingGroupRelease_180307.pdf</doc:link>
+	<doc:text>
+	  Rabbit Technologies, a joint venture between <a href="http://www.lshift.net/">LShift</a>
+	  and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, is
+	  pleased to announce its appointment to the AMQP Working Group. The goal
+	  of the working group is to create specifications for defining and
+	  building messaging infrastructure that provides developers with a simple
+	  and more powerful way of constructing messaging dependent applications.
+	  You can read the full press release <a href="resources/RabbitMQ_WorkingGroupRelease_180307.pdf">here</a>.
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2007-02-08T00:00:00Z">08 February 2007</doc:date>
+	<doc:title>Launch of RabbitMQ Open Source Enterprise Messaging</doc:title>
+	<doc:link>resources/RabbitMQ_PressRelease_080207.pdf</doc:link>
+	<doc:text>
+	  <a href="http://www.lshift.net/">LShift</a> and <a href="http://www.cohesiveft.com/">CohesiveFT</a> have launched RabbitMQ, a complete
+	  open source implementation of Advanced Message Queuing Protocol (<a href="">AMQP</a>),
+	  the emerging standard for high performance enterprise
+	  messaging. You can read the full press release <a href="resources/RabbitMQ_PressRelease_080207.pdf">here</a>.
+	</doc:text>
+      </doc:item>
+    </doc:feed>
+  
+  <p>You can also  <a href="http://lists.rabbitmq.com">
+  join our mailing list </a> to keep up-to-date with the latest developments
+  and discussion.</p>
+  
+  </body>
+</html>

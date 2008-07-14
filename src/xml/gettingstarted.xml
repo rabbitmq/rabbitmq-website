@@ -1,0 +1,43 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Getting Started</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:section>
+	<doc:heading>Getting Started with RabbitMQ Broker</doc:heading>
+	<p>
+	  Once you've <a href="install.html">installed</a> the server
+	  and started it running, you'll want to perform a couple of
+	  basic administrative tasks.
+	</p>
+
+	<doc:subsection>
+	  <doc:heading>Change the admin password</doc:heading>
+	  <p>
+	    The <a href="admin-guide.html#default-state">default
+	    database</a> contains a user named "guest" with a password
+	    of "guest". Use the <a
+	    href="admin-guide.html#change_password">password-changing
+	    tool</a> from the command-line to set it to something
+	    private.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection>
+	  <doc:heading>Decide on strictness</doc:heading>
+	  <p>
+	    For interoperability reasons, the RabbitMQ broker defaults
+	    to a fairly loose interpretation of the AMQP standard in
+	    the area of access control. You may wish to <a
+	    href="interoperability.html#strict_ticket_checking">tighten
+	    up the checking of AMQP tickets</a>.
+	  </p>
+	</doc:subsection>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

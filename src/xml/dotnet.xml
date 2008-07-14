@@ -1,0 +1,116 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY releaseTag "release_20080125">
+<!ENTITY buildTag1 "1.2.8025.1831">
+<!ENTITY buildTag2 "1.2.8025.1832">
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
+  </head>
+  <body>
+    <h2>
+      RabbitMQ .NET/C# AMQP client library and WCF binding
+    </h2>
+
+    <p>
+      The RabbitMQ .NET client is an implementation of an AMQP client
+      library for C# (and, implicitly, other .NET languages), and a
+      binding exposing AMQP services via Microsoft's Windows
+      Communication Foundation (WCF).
+    </p>
+
+    <p>
+      The client library implements AMQP specifications version 0-8,
+      0-8bis (0-8 as modified by QPid for their M2 release) and 0-9
+      (omitting sections of the specification marked "work in
+      progress", i.e. the <tt>Message</tt> content-class). A single
+      binary copy of the library contains support for all three
+      protocol variants, and code can select a variant to use at
+      runtime. The library has been tested against
+    </p>
+
+    <ul>
+      <li>RabbitMQ 1.2.x (AMQP 0-8)</li>
+      <li>QPid M2 (AMQP 0-8bis, 0-9 (in the M2.1 branch))</li>
+      <li>OpenAMQ 1.2c4 (AMQP 0-9)</li>
+    </ul>
+
+    <p>
+      The library is open-source, and is dual-licensed under <a
+      href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+      License v2</a> and <a href="mpl.html">the Mozilla Public License
+      v1.1</a>.
+    </p>
+
+    <h3>
+      Download the library and documentation
+    </h3>
+
+    <h4>The library</h4>
+
+    <p>
+      The library is available as source, or compiled in a few
+      different forms:
+    </p>
+
+    <ul>
+      <li>
+	<a
+	href="/releases/source/rabbitmq-dotnet-&releaseTag;.zip">Source
+	code and tools (zip)</a>
+      </li>
+      <li>
+	<a
+	href="/releases/binary/rabbitmq-dotnet-&buildTag1;-net-1.1.zip">Binary,
+	compiled for .NET 1.1 (zip)</a> - includes example code
+      </li>
+      <li>
+	<a
+	href="/releases/binary/rabbitmq-dotnet-&buildTag2;-net-2.0.zip">Binary,
+	compiled for .NET 2.0 and newer (zip)</a> - includes example
+	code, the WCF binding and WCF examples
+      </li>
+    </ul>
+
+    <h4>The documentation</h4>
+
+    <p>
+      <a href="/releases/doc/rabbitmq-dotnet-&releaseTag;/">This
+      directory</a> contains all the available documentation:
+    </p>
+
+    <ul>
+      <li>
+	<a
+	href="/releases/doc/rabbitmq-dotnet-&releaseTag;/rabbitmq-dotnet-&buildTag2;-user-guide.pdf">The
+	User Guide (pdf)</a>
+      </li>
+
+      <li>
+	A description of <a
+	href="/releases/doc/rabbitmq-dotnet-&releaseTag;/rabbitmq-dotnet-&buildTag2;-wcf-service-model.pdf">the
+	WCF binding and Service Model (pdf)</a>.
+      </li>
+
+      <li>
+	The .NET AMQP client library API Guide, generated from the source code using <a
+	href="http://www.lshift.net/~tonyg/ndocproc/doc/index.html">NDocProc</a>,
+	as
+	<ul>
+	  <li>a <a href="/releases/doc/rabbitmq-dotnet-&releaseTag;/rabbitmq-dotnet-&buildTag2;-api-guide.pdf">pdf</a> file</li>
+	  <li>a <a href="/releases/doc/rabbitmq-dotnet-&releaseTag;/rabbitmq-dotnet-&buildTag2;-net-2.0-htmldoc.zip">downloadable ZIP</a> of the generated HTML documentation</li>
+	  <li>an <a href="/releases/doc/rabbitmq-dotnet-&releaseTag;/rabbitmq-dotnet-&buildTag2;-net-2.0-htmldoc/">online-browsable copy</a> of the generated HTML documentation</li>
+	</ul>
+      </li>
+    </ul>
+
+    <p>
+      For more information you can <a
+      href="http://lists.rabbitmq.com">join our mailing list</a>, or
+      alternatively contact us directly at <a
+      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+    </p>
+  </body>
+</html>

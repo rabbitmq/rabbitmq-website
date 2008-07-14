@@ -1,0 +1,242 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Interoperability</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:section name="qpid">
+	<doc:heading>Interoperation with Qpid</doc:heading>
+
+	<p>
+	  We have performed basic interoperability testing against <a
+	  href="http://people.apache.org/dist/incubator/qpid/M1-incubating/java/">Qpid's
+	  M1 release</a>. So far, we have run
+	</p>
+
+	<p>
+	  <ul class="compact">
+	    <li>RabbitMQ's Java client against Qpid's M1 Java broker</li>
+	    <li>Qpid's M1 Java client against RabbitMQ's Erlang broker</li>
+	    <li>
+	      Qpid's <a
+	      href="http://cwiki.apache.org/qpid/pythonbrokertest.html">Python
+	      test-suite</a> against RabbitMQ's Erlang broker
+	    </li>
+	  </ul>
+	</p>
+
+        <doc:subsection name="qpid-client">
+          <doc:heading>Qpid Java client -&gt; RabbitMQ broker</doc:heading>
+          <ul>
+            <li>The Qpid clients do not currently call the
+            "access.request" method, instead using a fixed ticket
+            number of zero.
+              <p>
+                RabbitMQ works around this by using a configurable
+                "strict ticket checking" mode. By default this mode is
+                disabled, which results in RabbitMQ fabricating
+                suitable tickets on the fly, as if "access.request"
+                had been invoked.  This provides out-of-the-box
+                interoperability between Qpid Java clients and
+                RabbitMQ servers.
+              </p>
+              <a name="strict_ticket_checking"></a>              
+              <p>
+                To enable "strict" ticket checking, run the following
+                command inside a RabbitMQ Erlang shell:
+              </p>
+              <pre class="sourcecode">rabbit_misc:set_config(strict_ticket_checking, enabled).</pre>
+              <p>
+                To disable "strict" ticket checking, run
+              </p>
+              <pre class="sourcecode">rabbit_misc:set_config(strict_ticket_checking, disabled).</pre>
+              <p>
+                Note that even when strict ticket checking is
+                disabled, access control is still enforced. Hence
+                users accounts must still be provisioned with suitable
+                access rights to the appropriate virtual hosts and
+                realms. Failure to do so will result in the Qpid
+                client reporting "Unable to connect" or
+                <code>ACCESS_REFUSED</code> errors, and RabbitMQ's log
+                file will contain errors such as
+              </p>
+              <pre class="sourcecode">VHost access refused: no mapping for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;
+...
+Ticket fabrication for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;, Realm "/data" failed: access_refused</pre>
+              <p>
+                Use RabbitMQ's <a
+                href="admin-guide.html#access-control">administration
+                tool</a> to provision user access, based on the
+                information provided in the error messages.
+              </p>
+            </li>
+            <li>The Qpid Java client does not properly handle
+              negotiated maximum frame sizes of zero (meaning
+              "unlimited").
+              <p>
+                If the server presents a maximum frame size of zero
+                during connection negotiation, subsequent attempts by
+                the Qpid client to publish a message result in a
+                "<code>Error in client:
+                  java.lang.NegativeArraySizeException</code>" error
+                message.
+              </p>
+              <p>
+                The RabbitMQ server works around this limitation by
+                presenting a maximum frame size of 131072 octets
+                during connection negotiation.
+              </p>
+            </li>
+            <li>Some of the Qpid Java client tests and examples use
+            features that are not implemented in RabbitMQ.
+              <p>
+                The discrepancies are listed <a
+                href="#qpid-python-tests">below</a>. In most of these
+                cases RabbitMQ has a dummy implementation in place for
+                improved interoperability. The main exception are
+                "headers" exchanges. An attempt to use them will
+                result in the Qpid client reporting a
+                <code>COMMAND_INVALID</code> error.
+              </p>
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="qpid-server">
+          <doc:heading>RabbitMQ Java client -&gt; Qpid Java
+            broker</doc:heading>
+          <ul>
+            <li>The Qpid Java broker does not currently implement the
+            "access.request" method, instead throwing an exception and
+            closing the connection when that method is invoked.
+              <p>
+                In order to make interoperability easier, the RabbitMQ
+                Java client can be configured to suppress the sending
+                of the "access.request" method and instead return a
+                fixed ticket number of zero.
+              </p>
+              <p>
+                To enable this behaviour, invoke the <a
+                href="/javadoc/com/rabbitmq/client/ConnectionParameters.html#setSuppressAccessRequest(boolean)">ConnectionParameters.setSuppressAccessRequest</a>
+                method, or set the
+                <code>com.rabbitmq.client.ConnectionParameters.suppressAccessRequest</code>
+                system property, which provides the default value for
+                the former.
+              </p>
+            </li>
+            <li>Some of the RabbitMQ Java client tests and examples
+            use features that are not implemented in Qpid.
+              <p>
+                One such case are "fanout" exchanges, which are
+                implemented in RabbitMQ and used in several of the
+                examples. Qpid will report an error "<code>Unknown
+                exchange type: fanout</code>" in its logs and close the
+                connection.
+              </p>
+            </li>
+          </ul>
+        </doc:subsection>
+
+	<doc:subsection name="qpid-python-tests">
+	  <doc:heading>Test results from Qpid/Python Test Suite</doc:heading>
+	  <p>
+	    The Qpid project is developing a <a
+	    href="http://cwiki.apache.org/qpid/pythonbrokertest.html">broker-neutral
+	    test suite in Python</a>. The following table details the
+	    results of running the AMQP 0-8 tests from that test suite
+	    against the RabbitMQ Erlang broker.
+	  </p>
+          <p>
+            Note that the 0-8 spec file that comes with the test suite
+            is different from the official spec. In order to run the
+            tests you must <a
+	      href="https://jira.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">download the official spec</a> and run the test suite as follows:
+          <pre class="sourcecode">run-tests -v -s <i>specfile</i></pre>
+          </p>
+	  <qpid-tests xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	    <qpid-test name="test_example" class="tests.example.ExampleTest"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_rollback" class="tests.tx.TxTests">
+              <status value="invalid"/>
+              <notes>
+                The test assumes that delivered messages are requeued
+                on rollback, which is in violation of the spec.
+              </notes>
+            </qpid-test>
+	    <qpid-test name="test_auto_rollback" class="tests.tx.TxTests">
+              <status value="invalid"/>
+              <notes>
+                The test is actually the same as test_rollback and is
+                therefore invalid for the same reason.
+              </notes>
+            </qpid-test>
+	    <qpid-test name="test_commit" class="tests.tx.TxTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_commit_overlapping_acks" class="tests.tx.TxTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_ack" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_cancel" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_consume_exclusive" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_consume_no_local" class="tests.basic.BasicTests">
+	      <status value="planned">failing</status>
+	      <notes>"no_local" planned but unimplemented</notes>
+	    </qpid-test>
+	    <qpid-test name="test_consume_queue_errors" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_consume_unique_consumers" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_get" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_qos_prefetch_count" class="tests.basic.BasicTests">
+	      <status value="planned">failing</status>
+	      <notes>prefetch windowing planned but unimplemented</notes>
+	    </qpid-test>
+	    <qpid-test name="test_qos_prefetch_size" class="tests.basic.BasicTests">
+	      <status value="planned">failing</status>
+	      <notes>prefetch windowing planned but unimplemented</notes>
+	    </qpid-test>
+	    <qpid-test name="test_recover_requeue" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test" class="tests.exchange.DeclareMethodPassiveFieldNotFoundRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testDefaultExchange" class="tests.exchange.DefaultExchangeRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testMatchAll" class="tests.exchange.HeadersExchangeTests">
+	      <status value="planned">failing</status>
+	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
+	    </qpid-test>
+	    <qpid-test name="testMatchAny" class="tests.exchange.HeadersExchangeTests">
+	      <status value="planned">failing</status>
+	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
+	    </qpid-test>
+	    <qpid-test name="testDifferentDeclaredType" class="tests.exchange.MiscellaneousErrorsTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testTypeNotKnown" class="tests.exchange.MiscellaneousErrorsTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testDirect" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testFanout" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testHeaders" class="tests.exchange.RecommendedTypesRuleTests">
+	      <status value="planned">failing</status>
+	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
+	    </qpid-test>
+	    <qpid-test name="testTopic" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testAmqDirect" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testAmqFanOut" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testAmqMatch" class="tests.exchange.RequiredInstancesRuleTests">
+	      <status value="planned">failing</status>
+	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
+	    </qpid-test>
+	    <qpid-test name="testAmqTopic" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_amqp_basic_13" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_basic_delivery_immediate" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_basic_delivery_queued" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_closed_channel" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_invalid_channel" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_bind" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_declare_exclusive" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_declare_passive" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_delete_ifempty" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_delete_ifunused" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_delete_simple" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="test_purge" class="tests.queue.QueueTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testAssertEmptyFail" class="tests.testlib.TestBaseTest"><status value="ok"/></qpid-test>
+	    <qpid-test name="testAssertEmptyPass" class="tests.testlib.TestBaseTest"><status value="ok"/></qpid-test>
+	    <qpid-test name="testMessageProperties" class="tests.testlib.TestBaseTest"><status value="ok"/></qpid-test>
+	  </qpid-tests>
+	</doc:subsection>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

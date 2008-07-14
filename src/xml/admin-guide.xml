@@ -1,0 +1,687 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Administration Guide</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+	This is the RabbitMQ Server Administrator's Guide. <i>(Note: it
+	is still under development. Please contact us if you have any
+	suggestions or wished-for features!)</i>
+      </p>
+
+      <doc:toc class="compact">
+	<doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="installation">
+	<doc:heading>Building and installation</doc:heading>
+	<p>
+	  Please see the <a href="build.html">build</a> and <a
+	  href="install.html">installation</a> guides for instructions
+	  on compiling, installing, starting and shutting down the
+	  server.
+	</p>
+      </doc:section>
+
+      <doc:section name="default-state">
+	<doc:heading>Default database contents</doc:heading>
+
+	<p>
+	  When the server first starts running, and detects that its
+	  database is uninitialised or has been deleted, it
+	  initialises a fresh database with the following resources:
+	</p>
+
+	<ul class="compact">
+	  <li>
+	    a virtual host named <code>/</code>
+	  </li>
+	  <li>
+	    realms <code>/data</code> and <code>/admin</code> within
+	    the <code>/</code> virtual host
+	  </li>
+	  <li>
+	    a user named <code>guest</code> with a default password of
+	    <code>guest</code>, granted full access to all realms
+	    within the <code>/</code> virtual host. See <a
+	    href="#change_password">here</a> for password-changing
+	    instructions.
+	  </li>
+	</ul>
+      </doc:section>
+
+      <doc:section name="management-overview">
+        <doc:heading>Management overview</doc:heading>
+        <p>
+          <code>rabbitmqctl</code> is a command line tool for managing
+          a RabbitMQ broker. It performs all actions by connecting to
+          one of the broker's node. By default that is the node named
+          "rabbit" on the local host. This can be overridden by
+          explicitly specifying the node name before the command using
+          the "-n" flag, e.g.
+        </p>
+        <pre>rabbitmqctl -n rabbit@shortstop add_user tonyg changeit</pre>
+        <p>
+          This command instructs the RabbitMQ broker at the Erlang
+          node rabbit@shortstop to create a user named tonyg with
+          (initial) password changeit.
+        </p>
+        <p>
+          On a host named "server.example.com", the node name of the
+          RabbitMQ Erlang node will usually be
+          <code>rabbit@server</code> (unless <b>NODENAME</b> has been
+          set to some non-default value at broker startup time). The
+          output of <code>hostname -s</code> is usually the correct
+          suffix to use after the "@" sign.
+        </p>
+      </doc:section>
+
+      <doc:section name="app-management">
+        <doc:heading>Application and cluster management</doc:heading>
+
+        <doc:subsection name="stop">
+          <doc:heading>Stopping the RabbitMQ node</doc:heading>
+          <pre class="sourcecode">rabbitmqctl stop</pre>
+          <p>
+            Stops the Erlang node on which RabbitMQ is running. To
+            restart the node follow the instructions for <i>Running
+            the Server</i> in the <a href="install.html">installation
+            guide</a>.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl stop</pre>
+	  <p>
+	    This command instructs the RabbitMQ node to terminate.
+	  </p>
+        </doc:subsection>
+
+        <doc:subsection name="stop_app">
+          <doc:heading>Stopping the RabbitMQ application</doc:heading>
+          <pre class="sourcecode">rabbitmqctl stop_app</pre>
+          <p>
+            Stops the RabbitMQ application, leaving the Erlang node
+            running.
+          </p>
+          <p>
+            This command is typically run prior to performing other
+            management actions that require the RabbitMQ application
+            to be stopped, e.g. <a
+            href="#reset"><code>reset</code></a>.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl stop_app</pre>
+	  <p>
+	    This command instructs the RabbitMQ node to stop the
+            RabbitMQ application.
+	  </p>
+        </doc:subsection>
+
+        <doc:subsection name="start_app">
+          <doc:heading>Starting the RabbitMQ application</doc:heading>
+          <pre class="sourcecode">rabbitmqctl start_app</pre>
+          <p>
+            Starts the RabbitMQ application.
+          </p>
+          <p>
+            This command is typically run after performing other
+            management actions that required the RabbitMQ application
+            to be stopped, e.g. <a
+            href="#reset"><code>reset</code></a>.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl start_app</pre>
+	  <p>
+	    This command instructs the RabbitMQ node to start the
+	    RabbitMQ application.
+	  </p>
+        </doc:subsection>
+
+        <doc:subsection name="status">
+          <doc:heading>Displaying the RabbitMQ broker status</doc:heading>
+          <pre class="sourcecode">rabbitmqctl status</pre>
+          <p>
+            Displays various information about the RabbitMQ broker,
+            such as whether the RabbitMQ application on the current
+            node, its version number, what nodes are part of the
+            broker, which of these are running.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl status</pre>
+	  <p>
+	    This command displays information about the RabbitMQ
+	    broker.
+	  </p>
+        </doc:subsection>
+
+        <doc:subsection name="reset">
+          <doc:heading>Resetting a RabbitMQ node</doc:heading>
+          <pre class="sourcecode">rabbitmqctl reset</pre>
+          <pre class="sourcecode">rabbitmqctl force_reset</pre>
+          <p>
+            Return a RabbitMQ node to its virgin state.
+          </p>
+          <p>
+            Removes the node from any cluster it belongs to, removes
+            all data from the management database, such as configured
+            users, vhosts and realms, and deletes all persistent
+            messages.
+          </p>
+          <p>
+            The <code>force_reset</code> command differs from
+            <code>reset</code> in that it resets the node
+            unconditionally, regardless of the current management
+            database state and cluster configuration. It should only
+            be used as a last resort if the database or cluster
+            configuration has been corrupted.
+          </p>
+          <p>
+            For <code>reset</code> and <code>force_reset</code> to
+            succeed the RabbitMQ application must have been stopped,
+            e.g. with <a href="#stop_app"><code>stop_app</code></a>.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl reset</pre>
+	  <p>
+	    This command resets the RabbitMQ node.
+	  </p>
+        </doc:subsection>
+
+	<doc:subsection name="cluster">
+	  <doc:heading>Cluster management</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl cluster <i>clusternode</i> <i>...</i></pre>
+	  <dl>
+	    <dt>clusternode</dt>
+	    <dd>
+              Subset of the nodes of the cluster to which this node
+              should be connected.
+            </dd>
+          </dl>
+          <p>
+            Instruct the node to become member of a cluster with the
+            specified nodes.
+          </p>
+          <p>
+            Cluster nodes can be of two types: disk or ram. Disk nodes
+            replicate data in ram and on disk, thus providing
+            redundancy in the event of node failure and recovery from
+            global events such as power failure across all nodes. Ram
+            nodes replicate data in ram only and are mainly used for
+            scalability. A cluster must always have at least one disk node.
+          </p>
+          <p>
+            If the current node is to become a disk node it needs to
+            appear in the cluster node list. Otherwise it becomes a
+            ram node. If the node list is empty or only contains the
+            current node then the node becomes a standalone,
+            i.e. non-clustered, (disk) node.
+          </p>
+          <p>
+            After executing the <code>cluster</code> command, whenever
+            the RabbitMQ application is started on the current node it
+            will attempt to connect to the specified nodes, thus
+            becoming an active node in the cluster comprising those
+            nodes (and possibly others).
+          </p>
+          <p>
+            The list of nodes does not have to contain all the
+            cluster's nodes; a subset is sufficient. Also, clustering
+            generally succeeds as long as at least one of the
+            specified nodes is active. Hence adjustments to the list
+            are only necessary if the cluster configuration is to be
+            altered radically.
+          </p>
+          <p>
+            For this command to succeed the RabbitMQ application must
+            have been stopped, e.g. with <a
+            href="#stop_app"><code>stop_app</code></a>. Furthermore,
+            turning a standalone node into a clustered node requires
+            the node be <a href="#reset"><code>reset</code></a> first,
+            in order to avoid accidental destruction of data with the
+            <code>cluster</code> command.
+          </p>
+          <p>
+            For more details see the <a
+            href="clustering.html">clustering guide</a>.
+          </p>
+	  <p>
+	    Example:
+	  </p>
+	  <pre>rabbitmqctl cluster rabbit@tanto hare@elena</pre>
+	  <p>
+	    This command instructs the RabbitMQ node to join the
+	    cluster with nodes <code>rabbit@tanto</code> and
+	    <code>hare@elena</code>. If the node is one of these then
+	    it becomes a disk node, otherwise a ram node.
+	  </p>
+	</doc:subsection>
+
+      </doc:section>
+
+      <doc:section name="user-management">
+	<doc:heading>User management</doc:heading>
+
+	<doc:subsection name="add_user">
+	  <doc:heading>Creating a user</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl add_user <i>username</i> <i>password</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user to create.
+	    </dd>
+	    <dt>password</dt>
+	    <dd>
+	      The password the created user will use to log in to the
+	      broker.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl add_user tonyg changeit</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to create a
+	    user named <code>tonyg</code> with (initial) password
+	    <code>changeit</code>.
+	  </p>
+	</doc:subsection>
+	    
+	<doc:subsection name="delete_user">
+	  <doc:heading>Deleting a user</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl delete_user <i>username</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user to delete.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl delete_user tonyg</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to delete the
+	    user named <code>tonyg</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="change_password">
+	  <doc:heading>Changing a user's password</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl change_password <i>username</i> <i>newpassword</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user whose password is to be changed.
+	    </dd>
+	    <dt>newpassword</dt>
+	    <dd>
+	      The new password for the user.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl change_password tonyg newpass</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to change the
+	    password for the user named <code>tonyg</code> to
+	    <code>newpass</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_users">
+	  <doc:heading>Listing users</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_users</pre>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_users</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list all users.
+	  </p>
+	</doc:subsection>
+      </doc:section>
+
+      <doc:section name="access-control">
+        <doc:heading>Access control</doc:heading>
+      
+	<doc:subsection name="add_vhost">
+	  <doc:heading>Creating a virtual host</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl add_vhost <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host entry to create.
+	    </dd>
+	  </dl>
+	  <p>
+	    Note that the virtual host is created with the two default
+	    realms, <code>/data</code> and <code>/admin</code>.
+	  </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl add_vhost test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to create a new
+	    virtual host called <code>test</code>, with the default
+	    <code>/data</code> and <code>/admin</code> realms, and
+	    with no users allowed access to the virtual host or its
+	    realms.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="delete_vhost">
+	  <doc:heading>Deleting a virtual host</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl delete_vhost <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host entry to delete.
+	    </dd>
+	  </dl>
+	  <p>
+	    Deleting a virtual host deletes all its exchanges,
+            queues, user mappings, realms and associated permissions.
+	  </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl delete_vhost test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to delete the
+	    virtual host called <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_vhosts">
+	  <doc:heading>Listing virtual hosts</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_vhosts</pre>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_vhosts</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list all
+            virtual hosts.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="map_user_vhost">
+	  <doc:heading>Granting access to a virtual host</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl map_user_vhost <i>username</i> <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user to grant access to the specified
+	      virtual host.
+	    </dd>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host to grant access to.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl map_user_vhost tonyg test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to grant the
+            user named <code>tonyg</code> access to the virtual host
+            called <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="unmap_user_vhost">
+	  <doc:heading>Denying access to a virtual host</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl unmap_user_vhost <i>username</i> <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user to deny access to the specified
+	      virtual host.
+	    </dd>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of virtual host to deny access to.
+	    </dd>
+	  </dl>
+	  <p>
+	    Denying a user access to a virtual host also deletes all
+	    their permissions for realms of that virtual host.
+	  </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl unmap_user_vhost tonyg test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to deny the
+            user named <code>tonyg</code> access to the virtual host
+            called <code>test</code>, and to remove all their
+            permissions for realms of that virtual host.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_user_vhosts">
+	  <doc:heading>Listing virtual hosts accessible to user</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_user_vhost <i>username</i> </pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user for which to list the virtual hosts
+              that they have been granted access.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_user_vhosts tonyg</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list all the
+	    virtual hosts to which the user named <code>tonyg</code>
+	    has been granted access.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_vhost_users">
+	  <doc:heading>Listing users with access to a virtual host</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_vhost_users <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host for which to list the users
+              that have been granted access to it.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_vhosts_user test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list all the
+	    users which have been granted access to the virtual host
+            called <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="add_realm">
+	  <doc:heading>Creating a realm</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl add_realm <i>vhostpath</i> <i>realm</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host in which to create the realm.
+	    </dd>
+	    <dt>realm</dt>
+	    <dd>
+	      The name of the realm (i.e. <code>/data</code>,
+              <code>/admin</code> etc.) to create.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl add_realm test /data/test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to create a new
+            realm named <code>/data/test</code> in the virtual host
+            called <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="delete_realm">
+	  <doc:heading>Deleting a realm</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl delete_realm <i>vhostpath</i> <i>realm</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host in which to delete the realm.
+	    </dd>
+	    <dt>realm</dt>
+	    <dd>
+	      The name of the realm (i.e. <code>/data</code>,
+              <code>/admin</code> etc.) to delete.
+	    </dd>
+	  </dl>
+	  <p>
+	    Deleting a realm deletes all associated user permissions.
+	  </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl delete_realm test /data/test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to delete the
+	    realm named <code>/data/test</code>, and its associated
+	    user permissions, in the virtual host called
+	    <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_realms">
+	  <doc:heading>Listing realms</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_realms <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The name of the virtual host for which to list the realms.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_realm test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list all the
+	    realms configured for the virtual host called
+	    <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="set_permissions">
+	  <doc:heading>Setting user permissions</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl set_permissions <i>username</i> <i>vhostpath</i> <i>realm</i> <i>[flag ...]</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user whose permissions are being adjusted.
+	    </dd>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The virtual host containing the realm to allow or
+	      disallow access to.
+	    </dd>
+	    <dt>realm</dt>
+	    <dd>
+	      The name of the realm (i.e. <code>/data</code>,
+	      <code>/admin</code> etc.) we are to adjust the
+	      permissions for.
+	    </dd>
+	    <dt>flag</dt>
+	    <dd>
+	      Zero or more flag definitions - any of
+	      <code>passive</code>, <code>active</code>,
+	      <code>write</code>, <code>read</code> or
+	      <code>all</code>. If no flags are supplied, the server
+	      will remove all permissions for the named realm from the
+	      named user.
+	    </dd>
+	  </dl>
+          <p>
+            Note that for this command to succeed the username must
+            have been granted access to the virtual host, e.g. by
+            using the <a
+            href="#map_user_vhost"><code>map_user_vhost</code></a>
+            command, and the realm must have been added to the virtual
+            host, e.g. by using the <a
+            href="#add_realm"><code>add_realm</code></a> command.
+          </p>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl set_permissions tonyg test /data all</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to allow user
+	    <code>tonyg</code> full access to the <code>/data</code>
+	    realm within the <code>test</code> virtual host.
+	  </p>
+	  <pre>rabbitmqctl set_permissions tonyg test /data write passive</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to permit
+	    <code>tonyg</code> to publish messages to exchanges and to
+	    assert the existence of previously created exchanges and
+	    queues, but not to read from queues or create his own
+	    queues or exchanges.
+	  </p>
+	  <pre>rabbitmqctl set_permissions tonyg test /data</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to prevent
+	    <code>tonyg</code> from accessing or creating any resource
+	    within the <code>/data</code> realm of the
+	    <code>test</code> virtual host.
+	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="list_permissions">
+	  <doc:heading>Listing user permissions</doc:heading>
+	  <pre class="sourcecode">rabbitmqctl list_permissions <i>username</i> <i>vhostpath</i></pre>
+	  <dl>
+	    <dt>username</dt>
+	    <dd>
+	      The name of the user whose permissions to show.
+	    </dd>
+	    <dt>vhostpath</dt>
+	    <dd>
+	      The virtual host for which to show the named user's
+              permissions.
+	    </dd>
+	  </dl>
+	  <p>
+	    For example:
+	  </p>
+	  <pre>rabbitmqctl list_permissions tonyg test</pre>
+	  <p>
+	    This command instructs the RabbitMQ broker to list the
+            permissions for the user named <code>tonyg</code> in
+            realms of the virtual host called <code>test</code>.
+	  </p>
+	</doc:subsection>
+
+      </doc:section>
+
+    </doc:div>
+  </body>
+</html>

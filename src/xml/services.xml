@@ -1,0 +1,32 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Support Services</title>
+  </head>
+  <body>
+    <doc:div>
+    <p class="intro">Commercial support services are available from Rabbit Technologies, LShift, and CohesiveFT - helping you to evaluate the potential that AMQP offers your enterprise.</p>
+    <p>
+        <ul>
+        <li>Assess your existing messaging strategies and plan your migration
+to, or integration with RabbitMQ</li>
+        <li>Register to Build and Download a free <a href="http://www.cohesiveft.com/Elastic_Server/Main/Elastic_Server_Beta_Registration/">RabbitMQ
+Elastic Server&#8482;</a>
+</li>
+        <li>Fast encoding of FPML over RabbitMQ for post-trade support</li>
+        <li>Trade consolidation from FIX connections onto a RabbitMQ bus</li>
+        <li>Integration of RabbitMQ to service bus implementations like <a href="http://mulesource.com/">Mule</a>
+or <a href="http://incubator.apache.org/servicemix/home.html">ServiceMix</a>
+</li>
+        <li>Realise the benefits of an architecture that offers exceptionally high reliability, availability and scalability</li>
+    </ul>
+  </p>
+  <p>For more information you can <a href="http://lists.rabbitmq.com">join our 
+  mailing list</a>, or alternatively contact us directly at <a href="
+  mailto:info@rabbitmq.com">info@rabbitmq.com</a>. 
+  </p>
+    </doc:div>
+  </body>
+</html>

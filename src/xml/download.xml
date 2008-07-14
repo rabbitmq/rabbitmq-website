@@ -1,0 +1,325 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY currentVersion "1.3.0">
+<!ENTITY currentStatus "beta">
+<!ENTITY javaDebMinorVersion "1">
+<!ENTITY serverDebMinorVersion "1">
+<!ENTITY javaRPMMinorVersion "1">
+<!ENTITY serverRPMMinorVersion "1">
+]>
+<html>
+  <head>
+    <title>RabbitMQ - Download</title>
+  </head>
+  <body>
+    <h2>
+      Downloading and Installing RabbitMQ
+    </h2>
+      
+    <p class="intro">
+      Our goal is to streamline the broker installation process such
+      that you can have RabbitMQ up and running within two minutes of
+      completing your download. If this doesn't happen to you, please
+      let us know at <a
+      href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+    </p>
+    
+    <div class="highlights">
+    <h3>Short-cuts</h3>
+    <ul>
+      <li>
+        <strong>Windows users:</strong> We have a <a
+        href="#bundle">complete bundle</a> available - contains the
+        RabbitMQ server and Java client libraries as well as a
+        complete Erlang distribution, ready to install.
+      </li>
+    </ul>
+    </div>
+
+    <p>
+      The RabbitMQ server is an implementation of an AMQP broker. The 
+      RabbitMQ Java client library allows Java code to interface to AMQP 
+      brokers. Future releases will include client libraries for 
+      other languages. Of course, other AMQP implementations can 
+      interoperate with RabbitMQ.
+    </p>
+
+    <p>
+      Both the RabbitMQ server and Java client libraries are platform 
+      neutral, so the binary distributions listed below differ only 
+      in how they are packaged to conform to various operating systems' 
+      packaging conventions.
+    </p>
+
+    <p>
+      In order to compile or run the server, you will need to have
+      downloaded and installed Erlang. Your operating system may come
+      with a package for working with Erlang, or you may need to <a
+      href="http://www.erlang.org/download.html">download and install
+      Erlang</a> yourself.
+    </p>
+
+    <p>
+      In order to compile or run the RabbitMQ client library, you will
+      need a Java development or runtime environment available,
+      respectively.
+    </p>
+
+    <h3>Status</h3>
+    <p>
+      The current release of RabbitMQ is <b>&currentVersion;</b>,
+      which has <b>&currentStatus;</b> status.
+    </p>
+
+      <h3>Binary distributions</h3>
+      <p>
+	Please see the <a href="install.html">Installation
+	instructions</a> and our <a href="gettingstarted.html">Getting
+	Started</a> page.
+      </p>
+      
+  <a name="bundle"></a>
+	<h4>Windows</h4>
+        <p>
+          As a convenient alternative for Windows users, a complete bundle
+          download exists, which contains the RabbitMQ server and
+          client libraries as well as a complete Erlang distribution,
+          ready to install.
+        </p>
+	<downloads xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <download id="bundle" description="Server, Client, Erlang distribution" downloadfile="complete-rabbitmq-bundle-&currentVersion;.zip" downloadpath="windows"/>
+	  <download description="Server" downloadfile="rabbitmq-server-&currentVersion;.zip" downloadpath="binary"/>
+	  <download description="Client" downloadfile="librabbitmq-java-&currentVersion;.zip" downloadpath="binary"/>
+	</downloads>
+  
+	<h4>Debian GNU/Linux / Ubuntu Linux</h4>
+	<p>Tested against Debian 4.0 (Etch), testing (Lenny) and Ubuntu
+         7.10 (Gutsy Gibbon). You could also use our 
+         <a href="debian.html#apt">APT repository</a>.</p>
+	<downloads xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <download description="Server" downloadfile="rabbitmq-server_&currentVersion;-&serverDebMinorVersion;_all.deb" downloadpath="debs" />
+	  <download description="Client" downloadfile="librabbitmq-java_&currentVersion;-&javaDebMinorVersion;_all.deb" downloadpath="debs" />
+	</downloads>	
+
+	<h4>Fedora / Red Hat / openSUSE / CentOS</h4>
+	<p>Tested against Fedora 8, RHEL 5.1, openSUSE 10.3 and CentOS 5. We strongly recommend using your distribution's packaged version of Erlang to run the server. This is part of Fedora, and in <a href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> for RHEL. To enable EPEL on your Red Hat machine, see the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a>. Then just <code>yum install erlang</code>.</p>
+	<p>This RPM should be fairly universal - if you have success using it with any other RPM-based distribution, please <a href="mailto:support@rabbitmq.com">let us know</a>.</p>
+	<downloads xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <download description="Server" downloadfile="rabbitmq-server-&currentVersion;-&serverRPMMinorVersion;.noarch.rpm" downloadpath="fedora"/>
+	  <download description="Client" downloadfile="librabbitmq-java-&currentVersion;-&serverRPMMinorVersion;.noarch.rpm" downloadpath="fedora"/>
+	</downloads>
+
+	<h4>Generic Unix</h4>
+	<p>This architecture-neutral binary package can be used on any Unix or Linux variant not listed.</p>
+	<downloads xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <download description="Server" downloadfile="rabbitmq-server-&currentVersion;.tar.gz" downloadpath="binary" id="generic"/>
+	  <download description="Client" downloadfile="librabbitmq-java-&currentVersion;.tar.gz" downloadpath="binary"/>
+	</downloads>
+
+      <h3>Source distributions</h3>
+      <p>
+        Both the RabbitMQ server and Java client libraries are 
+        platform neutral, so you only need to build 
+        from source if you want to hack on the server itself or 
+        the client libraries - if you're looking at this option 
+        because your operating system isn't listed, you might find 
+        it easier to use the <a href="#generic">Generic Unix</a> 
+        package.
+      </p>
+      <p>
+	The source distribution contains source code and support
+	libraries for both the RabbitMQ server and the
+	RabbitMQ client library. Please see the <a href="build.html">build
+	instructions</a>. The two packages below differ only in 
+        the archive format.
+      </p>
+
+	<downloads xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">	
+	  <download description="Source" downloadfile="rabbitmq-&currentVersion;.tar.gz" downloadpath="source"/>
+	  <download description="&#160;" downloadfile="rabbitmq-&currentVersion;.zip" downloadpath="source"/>
+	</downloads>	          
+
+    <h3 class="clear">Compatibility</h3>
+    <p>
+      The current RabbitMQ release implements <a
+      href="https://jira.amqp.org/confluence/display/AMQP/Download">AMQP
+      protocol version 0-8</a>. Please see the <a
+      href="compatibility.html">compatibility</a> page for more
+      information on interoperation and standards-conformance.
+    </p>
+
+    <h3 class="clear">Signing</h3>
+    <p>
+      All our packages are signed. Please see <a 
+      href="signatures.html">checking signatures</a> for details on how 
+      to verify them.
+    </p>
+<!--
+    <h3 class="clear">Maven Artifact</h3>
+    <p>
+      The RabbitMQ Java Client library is now available as a Maven artifact on the 
+      central Maven repository (http://repo1.maven.org/maven2/) and mirrors thereof.
+    </p>
+    <p>
+      To include it in your project, add this dependency to your pom:
+      <pre class="sourcecode">
+&lt;dependency&gt;
+  &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
+  &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
+  &lt;version&gt;1.3.0&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+    </p>
+-->
+    <h3 class="clear">Contacts</h3>
+
+    <p>
+      For help compiling or installing RabbitMQ, please contact <a
+      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
+      for general RabbitMQ queries. You can also 
+      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+    </p>
+
+    <br/>
+
+    <h2 id="experimental">Experimental Downloads</h2>
+
+    <p>
+      We make some experimental code available for download as
+      snapshots and <a href="http://www.selenic.com/mercurial/">mercurial</a> repositories. As
+      with the main RabbitMQ code base, we welcome
+      feedback and contributions.
+    </p>
+
+    <h3 id="rabbitmq-server">rabbitmq-server</h3>
+
+    <p>
+      The AMQP server itself, implemented in Erlang. Depends on the
+      code-generation library module. Please see the <a
+      href="build.html">build instructions</a>.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-server"
+		  url="http://hg.rabbitmq.com/rabbitmq-server/"/>
+      <repository type="hg" shortname="rabbitmq-codegen"
+		  url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-java-client">rabbitmq-java-client</h3>
+
+    <p>
+      The Java AMQP client library and example programs. Depends on
+      the code-generation library module. Please see the <a
+      href="build.html">build instructions</a>.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-java-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-java-client/"/>
+      <repository type="hg" shortname="rabbitmq-codegen"
+		  url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-dotnet-client">rabbitmq-dotnet-client</h3>
+
+    <p>
+      The .NET/C# AMQP client library, WCF binding, and example programs.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-dotnet-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-http">rabbitmq-http2</h3>
+    
+    <p>
+      An AMQP-over-HTTP protocol binding for RabbitMQ and some
+      Javascript libraries for interacting with RabbitMQ over HTTP, as
+      well as some examples.
+    </p>
+
+    <p>
+      Besides the RabbitMQ server itself, you will need both the
+      <code>rabbitmq-http2</code> adapter and the
+      <code>erlang-rfc4627</code> JSON and JSON-RPC support library it
+      depends on.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-http2"
+		  url="http://hg.rabbitmq.com/rabbitmq-http2/"/>
+      <repository type="hg" shortname="erlang-rfc4627"
+		  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
+    
+    <p>
+      An Erlang client for RabbitMQ. This client offers both a networked version 
+      that uses standard TCP-based AMQP framing and a direct client that uses
+      native Erlang message passing to a RabbitMQ broker.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-erlang-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-stomp">rabbitmq-stomp</h3>
+
+    <p>
+      A gateway for exposing AMQP functionality via the <a
+      href="http://stomp.codehaus.org/Protocol">STOMP protocol</a>, as
+      implemented by many <a
+      href="http://stomp.codehaus.org/Clients">clients</a> for various
+      programming languages, and a few other <a
+      href="http://stomp.codehaus.org/Brokers">servers</a> besides
+      RabbitMQ.
+    </p>
+
+    <p>
+      Please see the <a
+      href="http://hg.rabbitmq.com/rabbitmq-stomp/file/tip/README">readme</a>
+      file and our various <a
+      href="http://www.lshift.net/blog/index.php?s=stomp">blog
+      articles</a> about the adapter for more information on compiling
+      and configuring it.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-stomp"
+		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
+
+    <p>
+      A gateway for exposing RabbitMQ's AMQP services to the global
+      XMPP network, by integrating RabbitMQ with <a
+      href="http://www.process-one.net/en/ejabberd/">ejabberd</a>.
+    </p>
+
+    <p>
+      By bridging between the two systems, we benefit from the
+      combination of XMPP's internet-scale addressing and federation,
+      XMPP's presence model, AMQP's store-and-forward capability and
+      AMQP's routing and filtering.
+    </p>
+
+    <p>
+      Please see <a
+      href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/tip/doc/index.html">the
+      documentation</a> for more information on building and
+      configuring the gateway.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-xmpp"
+		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
+    </repositories>
+
+  </body>
+</html>
