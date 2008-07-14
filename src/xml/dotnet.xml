@@ -63,14 +63,15 @@
       </li>
       <li>
 	<a
-	  href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-1.1.zip">Binary,
-	compiled for .NET 1.1 (zip)</a> - includes example code
-      </li>
-      <li>
-	<a
 	  href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-2.0.zip">Binary,
 	compiled for .NET 2.0 and newer (zip)</a> - includes example
 	code, the WCF binding and WCF examples
+      </li>
+      <li>
+        <a
+          href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-3.0-wcf.zip">Binary,
+          compiled for .NET 3.0 and newer (zip)</a> - includes
+          example code, the WCF binding and WCF examples
       </li>
     </ul>
 
