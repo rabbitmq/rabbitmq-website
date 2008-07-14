@@ -1,14 +1,15 @@
 #!/bin/sh
 
-if CHANGES=`darcs whatsnew --look-for-adds`
+if [ -n "`hg status`" ]
 then
-    echo >&2 "Changed detected... aborting release";
+    echo >&2 "Changes detected... aborting release";
     echo >&2 "Please record the changes below and try again:"
-    echo >&2 $CHANGES
+    hg status >&2
     exit 1
 else
-    echo Last version was `darcs changes | grep tagged | head -1`
     echo Enter details of new tag:
-    darcs tag -i
-    darcs push
+    read TAGNAME
+    hg tag "$TAGNAME"
+    echo
+    echo "Don't forget to push the new tag upstream!"
 fi
