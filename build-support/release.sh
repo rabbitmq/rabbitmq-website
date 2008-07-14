@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if CHANGES=`hg status`
+if [ -n "`hg status`" ]
 then
     echo >&2 "Changes detected... aborting release";
     echo >&2 "Please record the changes below and try again:"
