@@ -44,6 +44,12 @@
       v1.1</a>.
     </p>
     
+    <p>
+      In order to compile or run the RabbitMQ .NET/C# client library,
+      you will need an appropriate .NET SDK or runtime environment
+      available, respectively.
+    </p>
+    
     <h3>
       Status
     </h3>
@@ -116,11 +122,14 @@
       </li>
     </ul>
 
+    <h3>Support</h3>
+    
     <p>
-      For more information you can <a
-      href="http://lists.rabbitmq.com">join our mailing list</a>, or
-      alternatively contact us directly at <a
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+      For help compiling or installing RabbitMQ, please contact <a
+        href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
+      for general RabbitMQ queries. You can also 
+      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
   </body>
 </html>
