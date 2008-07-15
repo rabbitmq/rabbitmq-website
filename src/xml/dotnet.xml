@@ -43,6 +43,15 @@
       License v2</a> and <a href="mpl.html">the Mozilla Public License
       v1.1</a>.
     </p>
+    
+    <h3>
+      Status
+    </h3>
+    
+    <p>
+      The current release of RabbitMQ .NET/C# AMQP library is <b>
+        &version-dotnet-client;</b>, which has <b>beta</b> status.
+    </p>
 
     <h3>
       Download the library and documentation
@@ -78,7 +87,7 @@
     <h4>The documentation</h4>
 
     <p>
-      <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;/">This
+      <a href="/releases/&dir-dotnet-client;/">This
       directory</a> contains all the available documentation:
     </p>
 
