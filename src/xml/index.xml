@@ -39,7 +39,14 @@
       <div class="col">
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
-        <li>Intel believe the remarkable results of RabbitMQ perfomance tests in their Low Latency Lab indicate that AMQP is set to revolutionise the financial messaging industry <a href="resources/AMQP_Solution_Brief_final.pdf">AMQP: Secure business messaging for the future</a>.</li>
+        <li>
+          The RabbitMQ team is pleased to announce the release of the RabbitMQ .Net/C# AMQP client library 1.4.0.
+          <p>This release has beta status and focuses on the following areas:
+          bug fixes for a number of race conditions, improved shutdown protocol,
+          bug fix for usage of read timeouts in .Net sockets.<br/>
+          Further details are available <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-July/000011.html">here</a>.</p>
+        </li>
       </ul>
       </div>
     </div>
