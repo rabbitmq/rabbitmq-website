@@ -79,7 +79,7 @@
 	    and users to analyse the live state of the system and to
 	    create configurations which can be loaded into the system,
 	    creating particular setups of exchanges, queues, bindings,
-	    users, virtual hosts and realms.
+	    users and virtual hosts.
 	  </p>
 	</doc:roadmapentry>
 

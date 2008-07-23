@@ -57,8 +57,8 @@
                 Note that even when strict ticket checking is
                 disabled, access control is still enforced. Hence
                 users accounts must still be provisioned with suitable
-                access rights to the appropriate virtual hosts and
-                realms. Failure to do so will result in the Qpid
+                access rights to the appropriate virtual hosts.
+                Failure to do so will result in the Qpid
                 client reporting "Unable to connect" or
                 <code>ACCESS_REFUSED</code> errors, and RabbitMQ's log
                 file will contain errors such as
