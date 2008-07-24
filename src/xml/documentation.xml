@@ -1,6 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Documentation</title>
@@ -44,7 +47,7 @@
 	    Guide</a>
 	  </li>
 	  <li>
-	    <a href="javadoc/">Javadoc documentation</a>
+	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
 	</ul>
       </doc:section>

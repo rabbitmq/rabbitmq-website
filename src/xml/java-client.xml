@@ -101,8 +101,8 @@
 
     <p>
       The Javadoc documentation is <a
-      href="/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">browseable on-line</a>,
-      or you can download it for off-line use:
+      href="&dir-current-javadoc;">browseable on-line</a>, or you can
+      download it for off-line use:
     </p>
 
     <r:downloads>

@@ -14,3 +14,4 @@
 <!ENTITY nameVersion-dotnet-client "rabbitmq-dotnet-client-&version-dotnet-client;">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
+<!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">

@@ -1,6 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - API Guide</title>
@@ -15,7 +18,8 @@
 	using RPC services exposed via AMQP.
       </p>
       <p class="intro">
-	For more details, please see the relevant Javadoc <a href="javadoc/">documentation</a>.
+	For more details, please see the relevant Javadoc <a
+	href="&dir-current-javadoc;">documentation</a>.
       </p>
 
       <doc:toc class="compact">
@@ -37,7 +41,8 @@
 
 	<p>
 	  For more detail on the classes used in this document, please
-	  see the <a href="javadoc/">Javadoc documentation</a>.
+	  see the <a href="&dir-current-javadoc;">Javadoc
+	  documentation</a>.
 	</p>
 
 	<p>
