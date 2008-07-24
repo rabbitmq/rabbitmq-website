@@ -57,7 +57,7 @@
 	<li>RabbitMQ server, written on top of the widely-used <a
 	href="faq.html#what-is-otp">Open Telecom Platform</a></li>
 
-	<li>RabbitMQ <a href="api-guide.html">Java client</a></li>
+	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a></li>
 
 	<li>RabbitMQ <a href="dotnet.html">.NET/C# client</a>, with support for WCF</li>
 
