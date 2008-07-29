@@ -145,47 +145,6 @@
       feedback and contributions.
     </p>
 
-    <h3 id="rabbitmq-server">rabbitmq-server</h3>
-
-    <p>
-      The AMQP server itself, implemented in Erlang. Depends on the
-      code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-server"
-		  url="http://hg.rabbitmq.com/rabbitmq-server/"/>
-      <repository type="hg" shortname="rabbitmq-codegen"
-		  url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-java-client">rabbitmq-java-client</h3>
-
-    <p>
-      The Java AMQP client library and example programs. Depends on
-      the code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-java-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-java-client/"/>
-      <repository type="hg" shortname="rabbitmq-codegen"
-		  url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-dotnet-client">rabbitmq-dotnet-client</h3>
-
-    <p>
-      The .NET/C# AMQP client library, WCF binding, and example programs.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-dotnet-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
-    </repositories>
-
     <h3 id="rabbitmq-http">rabbitmq-http2</h3>
     
     <p>

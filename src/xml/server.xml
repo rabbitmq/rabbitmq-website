@@ -183,6 +183,17 @@
       Windows bundle</a>, containing server and client packages as
       well as the Erlang/OTP system installer.
     </p>
+    
+    <h3>Mercurial repositories</h3>
+    <br/>
+    
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-server"
+        url="http://hg.rabbitmq.com/rabbitmq-server/"/>
+      <repository type="hg" shortname="rabbitmq-codegen"
+        url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
+    </repositories>
+    
 
     <h3>Support</h3>
 

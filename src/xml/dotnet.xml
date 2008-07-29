@@ -126,6 +126,14 @@
 	form)
       </r:download>
     </r:downloads>
+    
+    <h3>Mercurial repository</h3>
+    <br/>
+    
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-dotnet-client"
+        url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
+    </repositories>
 
     <h3>Support</h3>
 

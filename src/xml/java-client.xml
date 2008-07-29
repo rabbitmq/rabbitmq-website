@@ -129,6 +129,17 @@
   &lt;version&gt;1.3.0&lt;/version&gt;
 &lt;/dependency&gt;</pre>
     </p>
+    
+    <h3>Mercurial repositories</h3>
+    <br/>
+    
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-java-client"
+        url="http://hg.rabbitmq.com/rabbitmq-java-client/"/>
+      <repository type="hg" shortname="rabbitmq-codegen"
+        url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
+    </repositories>
+    
 
     <h3>Support</h3>
 
