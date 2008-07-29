@@ -12,9 +12,8 @@
         <ul>
         <li>Assess your existing messaging strategies and plan your migration
 to, or integration with RabbitMQ</li>
-        <li>Register to Build and Download a free <a href="http://www.cohesiveft.com/Elastic_Server/Main/Elastic_Server_Beta_Registration/">RabbitMQ
-Elastic Server&#8482;</a>
-</li>
+        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ in the Cloud</a></li>
+        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ in a VM</a></li>
         <li>Fast encoding of FPML over RabbitMQ for post-trade support</li>
         <li>Trade consolidation from FIX connections onto a RabbitMQ bus</li>
         <li>Integration of RabbitMQ to service bus implementations like <a href="http://mulesource.com/">Mule</a>
