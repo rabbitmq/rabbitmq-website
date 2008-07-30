@@ -71,7 +71,7 @@
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-release.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Source code and tools (zip)
       </r:download>
