@@ -115,6 +115,7 @@
 	A tar.gz file containing generated Javadoc documentation
       </r:download>
     </r:downloads>
+    <!--
     <h3>Maven Artifact</h3>
     <p>
       The RabbitMQ Java AMQP library is now available as a Maven artifact on the 
@@ -129,7 +130,7 @@
   &lt;version&gt;1.3.0&lt;/version&gt;
 &lt;/dependency&gt;</pre>
     </p>
-    
+    -->
     <h3>Mercurial repositories</h3>
     <br/>
     
