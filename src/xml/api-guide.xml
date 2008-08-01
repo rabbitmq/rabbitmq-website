@@ -133,11 +133,14 @@ channel.queueBind(ticket, <b>queueName</b>, <b>exchangeName</b>, <b>routingKey</
 
 	  <p>
 	    This will actively declare the following objects:
-	    <ol>
-	      <li>a non-durable, non-autodelete exchange of "direct" type</li>
-	      <li>a non-durable, non-exclusive, non-autodelete queue</li>
-	    </ol>
-	    
+	  </p>
+
+	  <ol>
+	    <li>a non-durable, non-autodelete exchange of "direct" type</li>
+	    <li>a non-durable, non-exclusive, non-autodelete queue</li>
+	  </ol>
+
+	  <p>
 	    both of which can be customised by using additional parameters. 
 	    Here neither of them have any special arguments.
 	  </p>
