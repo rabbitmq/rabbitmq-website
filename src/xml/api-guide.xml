@@ -360,24 +360,25 @@ Connection conn = factory.newConnection(<b>hostName</b>, <b>portNumber</b>);
 
 	  <p>
 	    There are three variants of <code>ConnectionFactory.useSslProtocol</code>:
-	    <ul>
-	      <li>
-		<code>useSslProtocol()</code> - uses the default SSL
-		protocol (SSLv3) with a blindly-trusting
-		<code>TrustManager</code>;
-	      </li>
-	      <li>
-		<code>useSslProtocol(String protocol)</code> - uses
-		the supplied SSL protocol name with a blindly-trusting
-		<code>TrustManager</code>; or
-	      </li>
-	      <li>
-		<code>useSslProtocol(String protocol, TrustManager
-		tm)</code> - uses the supplied SSL protocol name and
-		<code>TrustManager</code>.
-	      </li>
-	    </ul>
 	  </p>
+
+	  <ul>
+	    <li>
+	      <code>useSslProtocol()</code> - uses the default SSL
+	      protocol (SSLv3) with a blindly-trusting
+	      <code>TrustManager</code>;
+	    </li>
+	    <li>
+	      <code>useSslProtocol(String protocol)</code> - uses
+	      the supplied SSL protocol name with a blindly-trusting
+	      <code>TrustManager</code>; or
+	    </li>
+	    <li>
+	      <code>useSslProtocol(String protocol, TrustManager
+	      tm)</code> - uses the supplied SSL protocol name and
+	      <code>TrustManager</code>.
+	    </li>
+	  </ul>
 
 	  <p>
 	    Each of the three variants ends up calling
