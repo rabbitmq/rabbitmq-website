@@ -465,70 +465,98 @@ Map mapCall(Object[] keyValuePairs)</pre>
       <doc:section name="shutdown">
         <doc:heading>Shutdown Protocol</doc:heading>
           <doc:subsection name="shutdown-overview">
-            <doc:heading>Overview of the AMQP client shutdown</doc:heading>
-            <p>
-             The AMQP connection and channel share the same general approach to managing network failure, internal failure,
-             and explicit local shutdown.
-            </p>
-            <p>
-             The AMQP connection and channel have the following lifecycle states:
-              <ul>
-                <li>
-                 <code>open</code>: the object is ready to use
-                </li>
-                <li>
-                 <code>closing</code>: the object has been explicitly notified to shut down locally, has issued a shutdown
-                 request to any supporting lower-layer objects, and is waiting for their shutdown procedures to complete
-                </li>
-                <li>
-                 <code>closed</code>: the object has received all shutdown-complete notification(s) from any lower-layer objects,
-                 and as a consequence has shut itself down
-                </li>
-              </ul>
-             Those objects always end up in the closed state, regardless of the reason that casued the closure, like an application
-             request, an internal client library failure, a remote network request or network failure.
-            </p>
-            <p>
-             The AMQP connection and channel objects posses the following shutdown-related methods:
-              <ul>
-                <li>
-                 <code>addShutdownListener(ShutdownListener listener)</code> and <code>removeShutdownListener(ShutdownListener
-                 listener)</code>, to manage any listeners, which will be fired when the object transitions to <code>closed</code>
-                 state. Note that, adding a ShutdownListener to an object that is already closed will fire the listener immediately
-                </li>
-                <li>
-                 <code>getCloseReason()</code>, to allow the investigation of what was the reason of the object's shutdown
-                </li>
-                <li>
-                 <code>isOpen()</code>, useful for testing whether the object is in an open state
-                </li>
-                <li>
-                 <code>close(int closeCode, String closeMessage)</code>, to explictly notify the object to shut down
-                </li>
-              </ul>
-             Simply usage of listeners would look like:
-            </p>
-            <pre class="sourcecode"><b>import</b> com.rabbitmq.client.ShutdownSignalException
-<b>import</b> com.rabbitmq.client.ShutdownListener
+	    <doc:heading>Overview of the AMQP client shutdown</doc:heading>
+	    <p>
+	      The AMQP connection and channel share the same general
+	      approach to managing network failure, internal failure,
+	      and explicit local shutdown.
+	    </p>
+	    <p>
+	      The AMQP connection and channel have the following lifecycle states:
+	    </p>
+	    <ul>
+	      <li>
+		<code>open</code>: the object is ready to use
+	      </li>
+	      <li>
+		<code>closing</code>: the object has been explicitly
+		notified to shut down locally, has issued a shutdown
+		request to any supporting lower-layer objects, and is
+		waiting for their shutdown procedures to complete
+	      </li>
+	      <li>
+		<code>closed</code>: the object has received all
+		shutdown-complete notification(s) from any lower-layer
+		objects, and as a consequence has shut itself down
+	      </li>
+	    </ul>
+	    <p>
+	      Those objects always end up in the closed state,
+	      regardless of the reason that casued the closure, like
+	      an application request, an internal client library
+	      failure, a remote network request or network failure.
+	    </p>
+	    <p>
+	      The AMQP connection and channel objects possess the
+	      following shutdown-related methods:
+	    </p>
+	    <ul>
+	      <li>
+		<code>addShutdownListener(ShutdownListener
+		listener)</code> and
+		<code>removeShutdownListener(ShutdownListener
+		listener)</code>, to manage any listeners, which will
+		be fired when the object transitions to
+		<code>closed</code> state. Note that, adding a
+		ShutdownListener to an object that is already closed
+		will fire the listener immediately
+	      </li>
+	      <li>
+		<code>getCloseReason()</code>, to allow the
+		investigation of what was the reason of the object's
+		shutdown
+	      </li>
+	      <li>
+		<code>isOpen()</code>, useful for testing whether the
+		object is in an open state
+	      </li>
+	      <li>
+		<code>close(int closeCode, String
+		closeMessage)</code>, to explictly notify the object
+		to shut down
+	      </li>
+	    </ul>
+	    <p>
+	      Simple usage of listeners would look like:
+	    </p>
+            <pre class="sourcecode"><b>import</b> com.rabbitmq.client.ShutdownSignalException;
+<b>import</b> com.rabbitmq.client.ShutdownListener;
 
 connection.addShutdownListener(<b>new</b> ShutdownListener() {
-      <b>public void</b> service(new ShutdownSignalException cause)
-      {
-          ...
-      }
-    });</pre>
-          </doc:subsection>
-          <doc:subsection name="shutdown-cause">
-            <doc:heading>Information about the circumstances of a shutdown</doc:heading>
-            <p>
-             One can retrieve the <code>ShutdownSignalException</code>, which contains all the information available about the close
-             reason, either by explictly calling the <code>getCloseReason()</code> method or by using the <code>cause</code> parameter in the
-             <code>service(ShutdownSignalException cause)</code> method of the <code>ShutdownListener</code> class.
-            </p>
-            <p>
-             The <code>ShutdownSignalException</code> class provides methods to analyze the reason of the shutdown. By calling the
-             <code>isHardError()</code> method we get information whether it was a connection or a channel error.
-            </p>
+    <b>public void</b> service(new ShutdownSignalException cause)
+    {
+        ...
+    }
+});</pre>
+	  </doc:subsection>
+	  <doc:subsection name="shutdown-cause">
+	    <doc:heading>Information about the circumstances of a shutdown</doc:heading>
+	    <p>
+	      One can retrieve the
+	      <code>ShutdownSignalException</code>, which contains all
+	      the information available about the close reason, either
+	      by explictly calling the <code>getCloseReason()</code>
+	      method or by using the <code>cause</code> parameter in
+	      the <code>service(ShutdownSignalException cause)</code>
+	      method of the <code>ShutdownListener</code> class.
+	    </p>
+	    <p>
+	      The <code>ShutdownSignalException</code> class provides
+	      methods to analyze the reason of the shutdown. By
+	      calling the <code>isHardError()</code> method we get
+	      information whether it was a connection or a channel
+	      error.
+	    </p>
             <pre class="sourcecode"><b>public void</b> service(ShutdownSignalException cause)
 {
   <b>if</b> (cause.isHardError())
@@ -549,10 +577,14 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           <doc:subsection name="shutdown-atomicity">
             <doc:heading>Atomicity and use of the isOpen() method</doc:heading>
             <p>
-             Use of the <code>isOpen()</code> method of channel and connection objects is not recommended for production code, because the
-             value returned by the method is dependent on the existence of the shutdown cause.
-             The following code illustrates the possibility of race conditions:
-             <pre class="sourcecode"><b>public void</b> brokenMethod(Channel channel)
+             Use of the <code>isOpen()</code> method of channel and
+             connection objects is not recommended for production
+             code, because the value returned by the method is
+             dependent on the existence of the shutdown cause.  The
+             following code illustrates the possibility of race
+             conditions:
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> brokenMethod(Channel channel)
 {
     <b>if</b> (channel.isOpen())
     {
@@ -563,11 +595,19 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
         channel.txCommit();
     }
 }</pre>
-             Instead, we should normally ignore such checking, and simply attempt the action desired. If during the execution of the code the
-             channel of the connection is closed, a <code>ShutdownSignalException</code> will be thrown indicating that the object is 
-             in an invalid state. We should also catch for <code>IOException</code> caused either by <code>SocketException</code>, when broker closes the connection unexpectedly, or <code>ShutdownSignalException</code>, when broker initiated clean close.
-
-             <pre class="sourcecode"><b>public void</b> validMethod(Channel channel)
+	    <p>
+	      Instead, we should normally ignore such checking, and
+	      simply attempt the action desired. If during the
+	      execution of the code the channel of the connection is
+	      closed, a <code>ShutdownSignalException</code> will be
+	      thrown indicating that the object is in an invalid
+	      state. We should also catch for <code>IOException</code>
+	      caused either by <code>SocketException</code>, when
+	      broker closes the connection unexpectedly, or
+	      <code>ShutdownSignalException</code>, when broker
+	      initiated clean close.
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> validMethod(Channel channel)
 {
     <b>try</b> {
         ...
@@ -582,7 +622,6 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
         ...
     } 
 }</pre>
-            </p>
           </doc:subsection>
       </doc:section>
 
