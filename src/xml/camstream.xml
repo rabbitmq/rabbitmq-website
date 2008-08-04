@@ -71,10 +71,6 @@
         <ul>
           <li>a user <i>camstream</i> with password <i>camstream</i>,</li>
           <li>a virtual host <i>/camstream</i>,</li>
-          <li>permissions that grant the <i>camstream</i> user full
-            access to the <i>/data</i> realm of the <i>/camstream</i>
-            virtual host.
-          </li>
         </ul>
         <p>
           Follow the instructions in the <a
@@ -87,8 +83,6 @@ $ <i>rabbitmqctl add_vhost /camstream</i>
 Creating vhost "/camstream" ...done.
 $ <i>rabbitmqctl map_user_vhost camstream /camstream</i>
 Mapping user "camstream" to vhost "/camstream" ...done.
-$ <i>rabbitmqctl set_permissions camstream /camstream /data all</i>
-Setting permissions for user "camstream", vhost "/camstream", realm "/data" ...done.</pre>
       </doc:section>
       <doc:section name="running">
 	<doc:heading>Running Camstream</doc:heading>
