@@ -85,7 +85,7 @@
 	<classes xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <class name="connection" handler="connection" index="10"><status value="ok"/></class>
 	  <class name="channel" handler="channel" index="20"><status value="ok"/></class>
-	  <class name="access" handler="connection" index="30"><status value="ok"/></class>
+	  <class name="access" handler="connection" index="30"><status value="unsupported">deprecated</status></class>
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
@@ -126,8 +126,8 @@
 	  <method name="channel.alert"><status value="unsupported">deprecated</status></method>
 	  <method name="channel.close"><status value="ok"/></method>
 	  <method name="channel.close-ok"><status value="ok"/></method>
-	  <method name="access.request"><status value="ok"/></method>
-	  <method name="access.request-ok"><status value="ok"/></method>
+	  <method name="access.request"><status value="unsupported">deprecated</status></method>
+	  <method name="access.request-ok"><status value="unsupported">deprecated</status></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
 	  <method name="exchange.delete"><status value="ok"/></method>
@@ -1717,7 +1717,7 @@
 	      server
 	    </actor>
 	    <text>
-	      (deprecated) The server MUST implement the /data realm and MAY implement the /admin realm. The mapping of resources to realms is not defined in the protocol - this is a server-side configuration issue. 
+	      The server MUST implement the /data realm and MAY implement the /admin realm. The mapping of resources to realms is not defined in the protocol - this is a server-side configuration issue. 
 	    </text>
 	  </rule>
 	  <rule>
@@ -1735,7 +1735,7 @@
 	      server
 	    </actor>
 	    <text>
-	      (deprecated) If the specified realm is not known to the server, the server must raise a channel exception with reply code 402 (invalid path). 
+	      If the specified realm is not known to the server, the server must raise a channel exception with reply code 402 (invalid path). 
 	    </text>
 	  </rule>
 	  <rule>
@@ -1753,7 +1753,7 @@
 	      client
 	    </actor>
 	    <text>
-	      (deprecated) The client MUST NOT use access tickets except within the same channel as originally granted. 
+	      The client MUST NOT use access tickets except within the same channel as originally granted. 
 	    </text>
 	  </rule>
 	  <rule>
@@ -1771,7 +1771,7 @@
 	      
 	    </actor>
 	    <text>
-	      (deprecated) The server MUST isolate access tickets per channel and treat an attempt by a client to mix these as a connection exception. 
+	      The server MUST isolate access tickets per channel and treat an attempt by a client to mix these as a connection exception. 
 	    </text>
 	  </rule>
 	  <rule>

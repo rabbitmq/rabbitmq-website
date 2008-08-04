@@ -71,6 +71,8 @@
         <ul>
           <li>a user <i>camstream</i> with password <i>camstream</i>,</li>
           <li>a virtual host <i>/camstream</i>,</li>
+	  <li>a mapping between the user <i>camstream</i> and the virutal host <i>camstream</i>, 
+	  in order to allow that user access to that particular virtual host.</li>
         </ul>
         <p>
           Follow the instructions in the <a
