@@ -115,7 +115,7 @@
     <p>
       For instructions on building the server from the source-code
       bundle in the table above, please see the <a
-      href="build.html">build page</a>.
+      href="build-server.html">build page</a>.
     </p>
 
     <h4>Debian GNU/Linux and Ubuntu Linux</h4>
