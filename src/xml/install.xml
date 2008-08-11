@@ -145,7 +145,7 @@
                 <dd>
                   Defaults to
                   <code>%RABBITMQ_BASE%\rabbitmq_cluster.config</code>. If
-                  this file is present it used by the server to
+                  this file is present it is used by the server to
                   auto-configure a RabbitMQ cluster. See the <a
                   href="clustering.html">clustering guide</a> for
                   details.
@@ -310,7 +310,7 @@
         <dd>
           Defaults to
           <code>/etc/default/rabbitmq_cluster.config</code>. If
-          this file is present it used by the server to
+          this file is present it is used by the server to
           auto-configure a RabbitMQ cluster. See the <a
           href="clustering.html">clustering guide</a>
           for details.
