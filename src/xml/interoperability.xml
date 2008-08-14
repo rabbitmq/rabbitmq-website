@@ -89,9 +89,7 @@
           <ul>
             <li>The Qpid Java broker does not currently implement the
             "access.request" method, instead throwing an exception and
-            closing the connection when that method is invoked. The "access.request" method is handled
-	    by the RabbitMQ broker as a NOOP, so it makes no difference whether you use it or not.
-	    This is a backwards compatibility feature of RabbitMQ and may be removed in the future. 
+            closing the connection when that method is invoked.
               <p>
                 In order to make interoperability easier, the RabbitMQ
                 Java client can be configured to suppress the sending
@@ -106,6 +104,15 @@
                 system property, which provides the default value for
                 the former.
               </p>
+              <p>
+                Note that the "access.request" method is handled by
+                the RabbitMQ broker as a NOOP. Furthermore, no checks
+                are performed on tickets during the processing of
+                other AMQP commands. So instead of suppressing the
+                sending of the "access.request" methods, client code
+                can simply omit the request and supply an arbitrary
+                ticket number in all AMQP commands that require it.
+                </p>
             </li>
             <li>Some of the RabbitMQ Java client tests and examples
             use features that are not implemented in Qpid.
