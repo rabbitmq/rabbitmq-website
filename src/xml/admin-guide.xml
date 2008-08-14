@@ -199,6 +199,27 @@
 	    This command resets the RabbitMQ node.
 	  </p>
         </doc:subsection>
+      	
+      	<doc:subsection name="reopen_logs">
+      	  <doc:heading>Reopening log files</doc:heading>
+      		<pre class="sourcecode">rabbitmqctl reopen_logs </pre>
+      		<p>
+      			Instruct the RabbitMQ node to close and reopen the log files
+      		</p>
+      		<p>
+      			This command might be helpful when you are e.g. writing your
+      			own logrotate script and you do not want to restart the RabbitMQ
+      			node.
+      		</p>
+      		<p>
+      			Example:
+      		</p>
+      		<pre>rabbitmqctl reopen_logs</pre>
+      		<p>
+      			This command instructs the RabbitMQ node to reopen
+      			the log files.
+      		</p>
+      	</doc:subsection>
 
 	<doc:subsection name="cluster">
 	  <doc:heading>Cluster management</doc:heading>
