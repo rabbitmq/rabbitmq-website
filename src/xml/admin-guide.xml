@@ -362,6 +362,14 @@
 	      The name of the virtual host entry to create.
 	    </dd>
 	  </dl>
+         <p>
+           For example:
+         </p>
+         <pre>rabbitmqctl add_vhost test</pre>
+         <p>
+            This command instructs the RabbitMQ broker to create a new
+            virtual host called <code>test</code>.
+         </p>
 	</doc:subsection>
 
 	<doc:subsection name="delete_vhost">
