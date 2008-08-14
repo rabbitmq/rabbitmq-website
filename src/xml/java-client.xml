@@ -93,7 +93,7 @@
     <p>
       Please see <a href="signatures.html">checking signatures</a> for
       details on how to verify the signatures on our packages, and the
-      <a href="build.html">build page</a> for instructions on
+      <a href="build-java-client.html">build page</a> for instructions on
       compiling from source-code.
     </p>
 

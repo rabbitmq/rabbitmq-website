@@ -20,7 +20,7 @@
       <doc:section name="installation">
 	<doc:heading>Building and installation</doc:heading>
 	<p>
-	  Please see the <a href="build.html">build</a> and <a
+	  Please see the <a href="build-server.html">build</a> and <a
 	  href="install.html">installation</a> guides for instructions
 	  on compiling, installing, starting and shutting down the
 	  server.
