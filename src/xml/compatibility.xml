@@ -194,7 +194,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      v0-8, 2.2.6
 	    </xref>
@@ -212,7 +212,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -1742,7 +1742,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="planned"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -1760,7 +1760,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -1868,7 +1868,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -2030,7 +2030,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -2552,7 +2552,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -2858,7 +2858,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -2948,7 +2948,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
@@ -3074,7 +3074,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="unsupported">deprecated</status>
 	    <xref>
 	      
 	    </xref>
