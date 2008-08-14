@@ -85,6 +85,7 @@ $ <i>rabbitmqctl add_vhost /camstream</i>
 Creating vhost "/camstream" ...done.
 $ <i>rabbitmqctl map_user_vhost camstream /camstream</i>
 Mapping user "camstream" to vhost "/camstream" ...done.
+        </pre>
       </doc:section>
       <doc:section name="running">
 	<doc:heading>Running Camstream</doc:heading>
