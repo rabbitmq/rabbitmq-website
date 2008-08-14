@@ -88,10 +88,14 @@
 
                 <dt>RABBITMQ_BASE</dt>
                 <dd>
-                  Defaults to the directory <code>rabbitmq</code> in
-                  the user's home directory, e.g.
+                  Defaults to the directory <code>RabbitMQ</code> in
+                  the user's application data directory, e.g.
 
-                  <code>C:\Documents and Settings\User\rabbitmq</code>.
+                  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>.
+
+                  Under Windows Vista the location would be slightly different, e.g.
+
+                  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code>
 
                   This is the base directory containing
                   sub-directories for the RabbitMQ Server's database
@@ -141,7 +145,7 @@
                 <dd>
                   Defaults to
                   <code>%RABBITMQ_BASE%\rabbitmq_cluster.config</code>. If
-                  this file is present it used by the server to
+                  this file is present it is used by the server to
                   auto-configure a RabbitMQ cluster. See the <a
                   href="clustering.html">clustering guide</a> for
                   details.
@@ -191,14 +195,13 @@
 	      available, all dependencies should be properly met.
 	    </li>
 	    <li>
-	      To adjust the defaults, edit
-	      <code>/etc/default/rabbitmq</code>, setting
-	      environment variables to affect
-	      <code>/etc/init.d/rabbitmq-server</code> as described in the
-	      Generic Unix section below. You can additionally set 
-	      <code>NODE_COUNT</code> in <code>/etc/default/rabbitmq</code> 
-	      to define <a href="clustering.html#single-machine">the number
-	      of nodes to run on a single machine</a>.
+	      To adjust the settings used for starting the server,
+	      edit <code>/etc/default/rabbitmq</code>, setting
+	      environment variables as described in the <a
+	      href="#generic-unix">Generic Unix</a> section below. You
+	      can additionally set <code>NODE_COUNT</code> to define
+	      <a href="clustering.html#single-machine">the number of
+	      nodes to run on a single machine</a>.
 	    </li>
 	  </ul>
 	</doc:subsection>
@@ -246,28 +249,25 @@
 	    </li>
 	    <li>
 	      Download
-	      <code>rabbitmq-server-<i>version</i>.tar.gz</code>,
+	      <code>rabbitmq-server-generic-unix-<i>version</i>.tar.gz</code>,
 	      where <i>version</i> is the version of RabbitMQ Server
 	      you want to install.
 	    </li>
 	    <li>
 	      Contained in the tarball is a directory named
-	      <code>rabbitmq_server-<i>version</i></code>. You can 
-	      <b>either</b> extract the tarball
-	      into <code>/usr/lib/erlang/lib</code> directory (or
-	      wherever your Erlang installation places its application
-	      and library directory) <b>or</b> extract it elsewhere and set
-	      the environment variable ERLANG_HOME to point to your Erlang 
-	      directory (e.g. <code>/usr/lib/erlang</code>).
+	      <code>rabbitmq-server-generic-unix-<i>version</i></code>. You
+	      can <b>either</b> extract the tarball into
+	      <code>/usr/lib/erlang/lib</code> directory (or wherever
+	      your Erlang installation places its application and
+	      library directory) <b>or</b> extract it elsewhere and
+	      set the environment variable ERLANG_HOME to point to
+	      your Erlang directory
+	      (e.g. <code>/usr/lib/erlang</code>).
 	    </li>
 	    <li>
 	      Within the <code>sbin</code> directory is a shell script
 	      <code>rabbitmq-server</code> which may need
-	      customisation for your installation. You can either edit
-	      the file directly, or place shell commands in
-	      <code>/etc/default/rabbitmq</code>, which is a shell
-	      script included by the distribution
-	      <code>rabbitmq-server</code> script. Environment
+	      customisation for your installation. Environment
 	      variables available for configuration are
 
 	      <dl>
@@ -310,7 +310,7 @@
         <dd>
           Defaults to
           <code>/etc/default/rabbitmq_cluster.config</code>. If
-          this file is present it used by the server to
+          this file is present it is used by the server to
           auto-configure a RabbitMQ cluster. See the <a
           href="clustering.html">clustering guide</a>
           for details.

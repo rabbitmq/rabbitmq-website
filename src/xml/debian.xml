@@ -44,8 +44,7 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  <li>
 	    Install packages as usual; for instance,
 
-	    <pre class="sourcecode">sudo apt-get install rabbitmq-server
-sudo apt-get install librabbitmq-java</pre>
+	    <pre class="sourcecode">sudo apt-get install rabbitmq-server</pre>
 	  </li>
 	</ol>
       </doc:section>

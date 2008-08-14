@@ -6,243 +6,32 @@
     <title>RabbitMQ - Build Instructions</title>
   </head>
   <body>
-    <doc:div>
-      <p class="intro">
-	This section describes the process for obtaining a copy of the
-	RabbitMQ source code, as well as instructions for building the
-	server and the client libraries from source.
-      </p>
+    <p class="intro">
+      This section provides links to the build instructions
+      of the RabbitMQ AMQP server and available client libraries.
+    </p>
 
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
+    <h2>Building the source</h2>
 
-      <doc:section name="obtaining">
-	<doc:heading>Obtaining the source</doc:heading>
+    <h3>RabbitMQ AMQP server</h3>
 
-	<br />
-	<ul>
-	  <li>
-	    Either download an released source code distribution from
-	    the <a href="download.html">download page</a>, or
-	  </li>
+    <p>
+      See <a href="build-server.html">server
+      build instructions</a>.
+    </p>
 
-	  <li>Check the code out directly from our mercurial repositories:
+    <h3>RabbitMQ Java AMQP client library</h3>
+    
+    <p>
+      See <a href="build-java-client.html">Java client
+      library build instructions</a>.
+    </p>
 
-	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
-$ hg clone http://hg.rabbitmq.com/rabbitmq-server
-$ cd rabbitmq-server
-$ make</pre>
+    <h3>RabbitMQ .NET/C# AMQP client library and WCF bindings</h3>
 
-	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
-$ hg clone http://hg.rabbitmq.com/rabbitmq-java-client
-$ cd rabbitmq-java-client
-$ ant dist</pre>
-	  </li>
-	</ul>
-
-	<p>
-	  If you choose to check the code out using mercurial, be
-	  aware that the code-generation module is a dependency of
-	  both the core server and the Java client library. If you're
-	  working with a released source code distribution, though,
-	  the code-generation module is included.
-	</p>
-      </doc:section>
-
-      <doc:section name="prerequisites">
-	<doc:heading>Required Libraries and Tools</doc:heading>
-
-	<p>
-	  In order to build RabbitMQ, you will need a few tools. For
-	  building the server:
-	</p>
-
-	<ul class="compact">
-	  <li>
-	    the <a
-	    href="http://www.erlang.org/download.html">Erlang</a>
-	    development and runtime tools
-	  </li>
-
-	  <li>
-	    a recent version of <a
-	    href="http://www.python.org/download/">Python</a>, for
-	    generating AMQP framing code from the AMQP XML
-	    specification
-	  </li>
-
-	  <li>
-	    a recent version of <a href="http://www.gnu.org/software/make/">GNU make</a>
-	  </li>
-	</ul>
-
-	<p>
-	  and for building the Java client libraries:
-	</p>
-
-	<ul class="compact">
-	  <li>
-	    a <a
-	    href="http://java.sun.com/javase/downloads/index.jsp">Java
-	    compiler</a>, for Java language version 1.5 or newer
-	  </li>
-
-	  <li>
-	    <a href="http://ant.apache.org/">Ant</a>, version 1.6 or
-	    newer, including the optional <code>ant-trax.jar</code>
-	    (if you download ant from the above then this is included;
-	    if you are using the <code>ant</code> debian package then
-	    you also need to install the <code>ant-optional</code>
-	    package).
-	  </li>
-	</ul>
-
-      </doc:section>
-
-      <doc:section name="building">
-	<doc:heading>Building the source</doc:heading>
-
-	<p>
-	  The source code distribution is split into two main parts:
-	  the server code and the java client library code. Both make
-	  use of the included <code>docs/specs</code> directory, which
-	  contains the machine-readable AMQP protocol specification
-	  XML document.
-	</p>
-
-	<doc:subsection name="top-makefile">
-	<doc:heading>Top-level Makefile</doc:heading>
-
-	<p>
-	  The top-level Makefile contains targets <code>all</code>,
-	  <code>server</code>, <code>client</code>, and
-	  <code>clean</code>. <code>all</code> will clean and then
-	  build everything. <code>server</code> and
-	  <code>client</code> will invoke the respective build targets
-	  for the server and client. <code>clean</code> will remove
-	  any built targets.
-	</p>
-
-	<p>
-	  The top-level Makefile also contains a bunch of other targets 
-	  which are used in preparing a release - these are unlikely to 
-	  be of interest.
-	</p>
-	</doc:subsection>
-
-	<doc:subsection name="building-server">
-	  <doc:heading>Building the server</doc:heading>
-
-	  <p>
-	    Change to the <code>erlang/rabbit</code> directory, and
-	    type <code>make</code>.
-	  </p>
-
-	  <p>
-	    Other interesting Makefile targets include
-	  </p>
-
-	  <p>
-	    <dl>
-	      <dt>all</dt>
-	      <dd>
-		The default target. Builds the server.
-	      </dd>
-
-	      <dt>run</dt>
-	      <dd>
-		Builds the server and starts an instance with an
-		interactive Erlang shell. This will by default create
-		a Mnesia database in <code>/tmp/rabbit-mnesia</code>,
-		but this location can be overridden by setting the
-		Makefile variable <code>MNESIA_DIR</code>:
-		<p>
-		  <code>make run MNESIA_DIR=/some/other/location/for/rabbit-mnesia</code>
-		</p>
-	      </dd>
-
-	      <dt>clean</dt>
-	      <dd>
-		Removes build products and wipes the Mnesia database
-		directory used by the <code>run</code> target. See the
-		above description of <code>MNESIA_DIR</code>.
-	      </dd>
-
-	      <dt>dist</dt>
-	      <dd>
-		Builds the server and then constructs a directory
-		containing a binary server distribution. By default,
-		the distribution will be placed in
-		<code>./dist</code>, but this can be overridden by
-		setting the <code>DIST_DIR</code> variable:
-		<p>
-		  <code>make dist DIST_DIR=/some/place/to/put/a/distribution</code>
-		</p>
-		<p>
-		  The server startup scripts are by default placed in
-		  <code>$(DIST_DIR)/sbin</code>, and this too can be
-		  overridden, by setting <code>SBIN_DIR</code>:
-		</p>
- <pre>make dist DIST_DIR=/tmp/dist/usr/lib/erlang/lib/rabbitmq_server-<i>version</i> \
-          SBIN_DIR=/tmp/dist/usr/sbin</pre>
-	      </dd>
-	    </dl>
-	  </p>
-	</doc:subsection>
-
-	<doc:subsection name="building-java-client">
-	  <doc:heading>Building the Java client libraries</doc:heading>
-
-	  <p>
-	    Ensure <code>JAVA_HOME</code> is correctly set. Change to 
-	    the <code>java</code> directory, edit 
-	    <code>config.properties.xml</code> to fit your needs and
-	    type <code>ant</code>.
-	  </p>
-
-	  <p>
-	    Other interesting build.xml targets include
-	  </p>
-
-	  <p>
-	    <dl>
-	      <dt>build</dt>
-	      <dd>
-		The default target. Builds the client library classes
-		into <code>build/classes</code>.
-	      </dd>
-
-	      <dt>clean</dt>
-	      <dd>
-		Removes the entire <code>build/</code> directory,
-		including compiled classes, built jar files, and any
-		distributions placed under <code>build/dist</code>.
-	      </dd>
-
-	      <dt>jar</dt>
-	      <dd>
-		Builds a jar file from the client library classes into
-		<code>build/lib</code>.
-	      </dd>
-
-	      <dt>dist</dt>
-	      <dd>
-		Constructs a directory, by default
-		<code>build/dist</code>, containing the RabbitMQ
-		client jar files as well as all the libraries the AMQP
-		client depends on from <code>lib</code>. The
-		distribution output directory can be overridden by
-		setting the Ant property <code>dist.out</code> to a
-		new location:
-		<p>
-		  <code>ant -Ddist.out=/some/place/to/put/a/distribution dist</code>
-		</p>
-	      </dd>
-	    </dl>
-	  </p>
-	</doc:subsection>
-      </doc:section>
-    </doc:div>
+    <p>
+      See <a href="build-dotnet-client.html">.Net/C# AMQP client
+      library and WCF bindings build instructions</a>.
+    </p>
   </body>
 </html>

@@ -240,6 +240,9 @@ th, td {
 	text-align: left;
 	padding: 2px 0.5em 2px 0.5em;
 }
+tr {
+	vertical-align: top;
+}
 
 .highlights {
   border: #8a948f 4px solid;
@@ -316,6 +319,23 @@ td.signature, th.signature {
 	float: right;
 	color: #8a948f;
 	font-weight: bold;
+}
+
+.downloadlabel th {
+	font-size: 120%;
+	font-weight: bold;
+	text-align: center;
+	padding: 0.5em;
+	border: #8a948f 4px solid;
+	background: #f6fcb0;
+}
+
+.downloadlabel a {
+	color: black;
+}
+
+.downloadlabel th:hover {
+	background: #e4e4e4;
 }
 
 .subscribe {

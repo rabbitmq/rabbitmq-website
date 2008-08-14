@@ -1,6 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - API Guide</title>
@@ -15,7 +18,8 @@
 	using RPC services exposed via AMQP.
       </p>
       <p class="intro">
-	For more details, please see the relevant Javadoc <a href="javadoc/">documentation</a>.
+	For more details, please see the relevant Javadoc <a
+	href="&dir-current-javadoc;">documentation</a>.
       </p>
 
       <doc:toc class="compact">
@@ -37,7 +41,8 @@
 
 	<p>
 	  For more detail on the classes used in this document, please
-	  see the <a href="javadoc/">Javadoc documentation</a>.
+	  see the <a href="&dir-current-javadoc;">Javadoc
+	  documentation</a>.
 	</p>
 
 	<p>
@@ -128,11 +133,14 @@ channel.queueBind(ticket, <b>queueName</b>, <b>exchangeName</b>, <b>routingKey</
 
 	  <p>
 	    This will actively declare the following objects:
-	    <ol>
-	      <li>a non-durable, non-autodelete exchange of "direct" type</li>
-	      <li>a non-durable, non-exclusive, non-autodelete queue</li>
-	    </ol>
-	    
+	  </p>
+
+	  <ol>
+	    <li>a non-durable, non-autodelete exchange of "direct" type</li>
+	    <li>a non-durable, non-exclusive, non-autodelete queue</li>
+	  </ol>
+
+	  <p>
 	    both of which can be customised by using additional parameters. 
 	    Here neither of them have any special arguments.
 	  </p>
@@ -352,24 +360,25 @@ Connection conn = factory.newConnection(<b>hostName</b>, <b>portNumber</b>);
 
 	  <p>
 	    There are three variants of <code>ConnectionFactory.useSslProtocol</code>:
-	    <ul>
-	      <li>
-		<code>useSslProtocol()</code> - uses the default SSL
-		protocol (SSLv3) with a blindly-trusting
-		<code>TrustManager</code>;
-	      </li>
-	      <li>
-		<code>useSslProtocol(String protocol)</code> - uses
-		the supplied SSL protocol name with a blindly-trusting
-		<code>TrustManager</code>; or
-	      </li>
-	      <li>
-		<code>useSslProtocol(String protocol, TrustManager
-		tm)</code> - uses the supplied SSL protocol name and
-		<code>TrustManager</code>.
-	      </li>
-	    </ul>
 	  </p>
+
+	  <ul>
+	    <li>
+	      <code>useSslProtocol()</code> - uses the default SSL
+	      protocol (SSLv3) with a blindly-trusting
+	      <code>TrustManager</code>;
+	    </li>
+	    <li>
+	      <code>useSslProtocol(String protocol)</code> - uses
+	      the supplied SSL protocol name with a blindly-trusting
+	      <code>TrustManager</code>; or
+	    </li>
+	    <li>
+	      <code>useSslProtocol(String protocol, TrustManager
+	      tm)</code> - uses the supplied SSL protocol name and
+	      <code>TrustManager</code>.
+	    </li>
+	  </ul>
 
 	  <p>
 	    Each of the three variants ends up calling
@@ -456,6 +465,168 @@ Map mapCall(Object[] keyValuePairs)</pre>
 	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a 
 	  transport mechanism, and just provide a wrapping layer on top of it.
 	</p>
+      </doc:section>
+      <doc:section name="shutdown">
+        <doc:heading>Shutdown Protocol</doc:heading>
+          <doc:subsection name="shutdown-overview">
+	    <doc:heading>Overview of the AMQP client shutdown</doc:heading>
+	    <p>
+	      The AMQP connection and channel share the same general
+	      approach to managing network failure, internal failure,
+	      and explicit local shutdown.
+	    </p>
+	    <p>
+	      The AMQP connection and channel have the following lifecycle states:
+	    </p>
+	    <ul>
+	      <li>
+		<code>open</code>: the object is ready to use
+	      </li>
+	      <li>
+		<code>closing</code>: the object has been explicitly
+		notified to shut down locally, has issued a shutdown
+		request to any supporting lower-layer objects, and is
+		waiting for their shutdown procedures to complete
+	      </li>
+	      <li>
+		<code>closed</code>: the object has received all
+		shutdown-complete notification(s) from any lower-layer
+		objects, and as a consequence has shut itself down
+	      </li>
+	    </ul>
+	    <p>
+	      Those objects always end up in the closed state,
+	      regardless of the reason that casued the closure, like
+	      an application request, an internal client library
+	      failure, a remote network request or network failure.
+	    </p>
+	    <p>
+	      The AMQP connection and channel objects possess the
+	      following shutdown-related methods:
+	    </p>
+	    <ul>
+	      <li>
+		<code>addShutdownListener(ShutdownListener
+		listener)</code> and
+		<code>removeShutdownListener(ShutdownListener
+		listener)</code>, to manage any listeners, which will
+		be fired when the object transitions to
+		<code>closed</code> state. Note that, adding a
+		ShutdownListener to an object that is already closed
+		will fire the listener immediately
+	      </li>
+	      <li>
+		<code>getCloseReason()</code>, to allow the
+		investigation of what was the reason of the object's
+		shutdown
+	      </li>
+	      <li>
+		<code>isOpen()</code>, useful for testing whether the
+		object is in an open state
+	      </li>
+	      <li>
+		<code>close(int closeCode, String
+		closeMessage)</code>, to explictly notify the object
+		to shut down
+	      </li>
+	    </ul>
+	    <p>
+	      Simple usage of listeners would look like:
+	    </p>
+            <pre class="sourcecode"><b>import</b> com.rabbitmq.client.ShutdownSignalException;
+<b>import</b> com.rabbitmq.client.ShutdownListener;
+
+connection.addShutdownListener(<b>new</b> ShutdownListener() {
+    <b>public void</b> service(new ShutdownSignalException cause)
+    {
+        ...
+    }
+});</pre>
+	  </doc:subsection>
+	  <doc:subsection name="shutdown-cause">
+	    <doc:heading>Information about the circumstances of a shutdown</doc:heading>
+	    <p>
+	      One can retrieve the
+	      <code>ShutdownSignalException</code>, which contains all
+	      the information available about the close reason, either
+	      by explictly calling the <code>getCloseReason()</code>
+	      method or by using the <code>cause</code> parameter in
+	      the <code>service(ShutdownSignalException cause)</code>
+	      method of the <code>ShutdownListener</code> class.
+	    </p>
+	    <p>
+	      The <code>ShutdownSignalException</code> class provides
+	      methods to analyze the reason of the shutdown. By
+	      calling the <code>isHardError()</code> method we get
+	      information whether it was a connection or a channel
+	      error.
+	    </p>
+            <pre class="sourcecode"><b>public void</b> service(ShutdownSignalException cause)
+{
+  <b>if</b> (cause.isHardError())
+  {
+    Connection conn = cause.getConnection();
+    <b>if</b> (!cause.isInitiatedByApplication())
+    {
+      Object reason = cause.getReason();
+      ...
+    }
+    ...
+  } <b>else</b> {
+    Channel ch = cause.getChannel();
+    ...
+  }
+}</pre>
+          </doc:subsection>
+          <doc:subsection name="shutdown-atomicity">
+            <doc:heading>Atomicity and use of the isOpen() method</doc:heading>
+            <p>
+             Use of the <code>isOpen()</code> method of channel and
+             connection objects is not recommended for production
+             code, because the value returned by the method is
+             dependent on the existence of the shutdown cause.  The
+             following code illustrates the possibility of race
+             conditions:
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> brokenMethod(Channel channel)
+{
+    <b>if</b> (channel.isOpen())
+    {
+        // The following code depends on the channel being in open state.
+        // However there is a possibility of the change in the channel state
+        // between isOpen() and txCommit() call
+        ...
+        channel.txCommit();
+    }
+}</pre>
+	    <p>
+	      Instead, we should normally ignore such checking, and
+	      simply attempt the action desired. If during the
+	      execution of the code the channel of the connection is
+	      closed, a <code>ShutdownSignalException</code> will be
+	      thrown indicating that the object is in an invalid
+	      state. We should also catch for <code>IOException</code>
+	      caused either by <code>SocketException</code>, when
+	      broker closes the connection unexpectedly, or
+	      <code>ShutdownSignalException</code>, when broker
+	      initiated clean close.
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> validMethod(Channel channel)
+{
+    <b>try</b> {
+        ...
+        channel.txCommit();
+    } <b>catch</b> (ShutdownSignalException sse) {
+        // possibly check if channel was closed
+        // by the time we started action and reasons for
+        // closing it
+        ...
+    } <b>catch</b> (IOException ioe) {
+        // check why connection was closed
+        ...
+    } 
+}</pre>
+          </doc:subsection>
       </doc:section>
 
 <!-- Removed because we decided to exclude these libs from the release.

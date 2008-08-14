@@ -1,6 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Interoperability</title>
@@ -91,7 +94,7 @@
               </p>
               <p>
                 To enable this behaviour, invoke the <a
-                href="/javadoc/com/rabbitmq/client/ConnectionParameters.html#setSuppressAccessRequest(boolean)">ConnectionParameters.setSuppressAccessRequest</a>
+                href="&dir-current-javadoc;com/rabbitmq/client/ConnectionParameters.html#setSuppressAccessRequest(boolean)">ConnectionParameters.setSuppressAccessRequest</a>
                 method, or set the
                 <code>com.rabbitmq.client.ConnectionParameters.suppressAccessRequest</code>
                 system property, which provides the default value for
