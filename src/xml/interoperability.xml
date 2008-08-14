@@ -34,9 +34,15 @@
         <doc:subsection name="qpid-client">
           <doc:heading>Qpid Java client -&gt; RabbitMQ broker</doc:heading>
           <ul>
-            <li>The Qpid clients do not currently call the
-            "access.request" method, instead using a fixed ticket
-            number of zero.
+            <li>When using any AMQP client, including Qpid's Java
+              client, the required users accounts must first be created
+              and granted access to the appropriate virtual hosts.
+              <p>
+                Failure to do so will result in the Qpid
+              client reporting "Unable to connect" or
+              <code>ACCESS_REFUSED</code> errors, and RabbitMQ's log
+              file will contain errors such as
+              </p>
               <pre class="sourcecode">VHost access refused: no mapping for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;</pre>
               <p>
                 Use RabbitMQ's <a
