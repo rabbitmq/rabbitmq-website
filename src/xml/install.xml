@@ -22,7 +22,7 @@
       <doc:section name="windows">
 	<doc:heading>Windows</doc:heading>
 
-	<doc:subsection>
+	<doc:subsection name="install-windows-bundle">
 	  <doc:heading>Installation from a complete bundle</doc:heading>
 
 	  <p>
@@ -33,7 +33,7 @@
 	  </p>
 	</doc:subsection>
 
-	<doc:subsection>
+	<doc:subsection name="install-windows-separately">
 	  <doc:heading>Installation from separate components</doc:heading>
 
 	  <ul>
@@ -155,7 +155,7 @@
 	  </ul>
 	</doc:subsection>
 
-	<doc:subsection>
+	<doc:subsection name="running-windows">
 	  <doc:heading>Running the Server</doc:heading>
 
 	  <p>
@@ -176,14 +176,28 @@
             href="admin-guide.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
-      </doc:section>
+        
+    <doc:subsection name="logging-windows">
+      <doc:heading>Logging</doc:heading>
+        <p>
+          Output from the server is sent to a <b>NODENAME</b>.log file
+          in the <b>LOG_BASE</b> directory. Additional log data is
+          written to <b>NODENAME</b>-sasl.log.
+        </p>
+        <p>
+          The log files are created afresh every time the broker
+          starts. In order to retain a complete log history the
+          startup scripts append the contents to corresponding
+          <code>.bak</code> files prior to starting the broker.
+        </p>
+    </doc:subsection>
+    </doc:section>
 
       <doc:section name="debian">
 	<doc:heading>Debian GNU/Linux</doc:heading>
 
-	<doc:subsection>
+	<doc:subsection name="install-debian">
 	  <doc:heading>Installation Instructions</doc:heading>
-
 	  <ul>
 	    <li>
 	      Install rabbitmq-server_<i>version</i>_all.deb (which
@@ -206,7 +220,7 @@
 	  </ul>
 	</doc:subsection>
 
-	<doc:subsection>
+	<doc:subsection name="running-debian">
 	  <doc:heading>Running the Server</doc:heading>
 	  <p>
 	    The server is started as a daemon by default when the
@@ -235,12 +249,98 @@
             <code>/etc/default/rabbitmq</code>.
         </p>
 	</doc:subsection>
-      </doc:section>
+    <doc:subsection name="logging-debian">
+       <doc:heading>Logging</doc:heading>
+       <p>
+          Output from the server is sent to a <b>NODENAME</b>.log file
+          in the <b>LOG_BASE</b> directory. Additional log data is
+          written to <b>NODENAME</b>-sasl.log.
+       </p>
+       <p>
+         The log files use <code>logrotate</code> program to do all
+         the necessary rotation and compression (when needed). The
+         script runs weekly, but you can easily change that. By default
+         <code>logrotate</code> will handle files located in default
+         <code>/var/log/rabbitmq</code> directory. See
+         <code>/etc/logrotate.d/rabbitmq-server</code> for default
+         <code>logrotate</code> configuration file. 
+       </p>
+    </doc:subsection>
+    </doc:section>
+
+    <doc:section name="rpm">
+      <doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat, etc.)</doc:heading>
+        
+      <doc:subsection name="install-rpm">
+        <doc:heading>Installation Instructions</doc:heading>
+        <ul>
+          <li>
+            Install rabbitmq-server-<i>version</i>-noarch.rpm (which
+            you can download by hand at our <a 
+            href="server.html">download page</a>).
+            Note that the package depends on erlang package(s).
+            We strongly recommend using your distribution's packaged
+            version of Erlang to run the server. See
+            <a href="http://fedoraproject.org/wiki/EPEL/">EPEL</a>
+            if there is no official erlang package for your distribution.
+          </li>
+          <li>
+            To adjust the settings used for starting the server,
+            edit <code>/etc/default/rabbitmq</code>, setting
+            environment variables as described in the <a
+            href="#generic-unix">Generic Unix</a> section below. You
+            can additionally set <code>NODE_COUNT</code> to define
+            <a href="clustering.html#single-machine">the number of
+            nodes to run on a single machine</a>.
+          </li>
+        </ul>
+      </doc:subsection>
+        
+      <doc:subsection name="running-rpm">
+        <doc:heading>Running the Server</doc:heading>
+        <p>
+          The server is started as a daemon by default when the
+          RabbitMQ Server package is installed. Start and stop the
+          server as usual using <code>invoke-rc.d
+          rabbitmq-server <i>stop/start/etc</i></code>.
+        </p>
+        <p>
+          The server is set up to run as system user <code>rabbitmq</code>. 
+          This means that if you change the location 
+          of the Mnesia database or logs as described below, you must
+          ensure the files are owned by this user.
+        </p>
+        <p>
+          The startup script waits for a limited amount of time, 30
+          seconds by default, for the broker nodes to start. When
+          that time is exceeded a <code>TIMEOUT</code> is
+          reported. The cause of this could be a misconfiguration or
+          other error. However, it is also possible that the node
+          simply is taking a long time to start up, perhaps because
+          the machine it is running on is heavily loaded, or there
+          are many persisted messages or durable queues and
+          exchanges that need to be recovered. For that reason the
+          timeout can be adjusted by setting <code>START_ARGS</code>
+          to "<code>-maxwait <i>timeout_in_seconds</i></code>" in
+          <code>/etc/default/rabbitmq</code>.
+        </p>
+      </doc:subsection>
+      <doc:subsection name="logging-rpm">
+        <doc:heading>Logging</doc:heading>
+        <p>
+          Logging is done in the same way as for
+          <a href="#logging-debian">Debian GNU</a>
+        </p>
+      </doc:subsection>
+
+
+
+      </doc:section>      
 
       <doc:section name="generic-unix">
 	<doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
 
-	<doc:subsection>
+	<doc:subsection name="install-generic-unix">
 	  <doc:heading>Installation Instructions</doc:heading>
 
 	  <ul>
@@ -320,7 +420,7 @@
 	  </ul>
 	</doc:subsection>
 
-	<doc:subsection>
+	<doc:subsection name="running-generic-unix">
 	  <doc:heading>Running the Server</doc:heading>
 
 	  <p>
@@ -339,21 +439,22 @@
             written to the console.
           </p>
 	</doc:subsection>
-      </doc:section>
-
-      <doc:section name="logging">
-	<doc:heading>Logging</doc:heading>
-        <p>
-          Output from the server is sent to a <b>NODENAME</b>.log file
-          in the <b>LOG_BASE</b> directory. Additional log data is
-          written to <b>NODENAME</b>-sasl.log.
-        </p>
-        <p>
-          The log files are created afresh every time the broker
-          starts. In order to retain a complete log history the
-          startup scripts append the contents to corresponding
-          <code>.bak</code> files prior to starting the broker.
-        </p>
+        
+    <doc:subsection name="logging-generic-unix">
+      <doc:heading>Logging</doc:heading>
+      <p>
+        Output from the server is sent to a <b>NODENAME</b>.log file
+        in the <b>LOG_BASE</b> directory. Additional log data is
+        written to <b>NODENAME</b>-sasl.log.
+      </p>
+      <p>
+        In order to retain a complete log history the broker appends
+        its output to the mentioned log files.
+        You can easily set up log rotation process by creating 
+        <code>logrotate</code> script as it is done for
+        <a href="#logging-debian">Debian and RPM based distributions</a>.
+      </p>
+    </doc:subsection>
       </doc:section>
 
       <doc:section name="troubleshooting">
