@@ -88,7 +88,7 @@ ConnectionFactory factory = <b>new</b> ConnectionFactory(<b>params</b>);
 Connection conn = factory.newConnection(<b>hostName</b>, <b>portNumber</b>);
 </pre>	  
 	  <p>
-	    The Connection interface can then be used to open a channel and request an access ticket to a realm: 
+	    The Connection interface can then be used to open a channel and request an access ticket to a realm (please not that realms are deprecated and are no longer required - the RabbitMQ Java client currently maintains the access request functionality for compatibility reasons, but it is possible that this will be removed in the future): 
 	  </p>
 	  
 <pre class="sourcecode">
