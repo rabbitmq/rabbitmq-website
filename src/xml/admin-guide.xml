@@ -202,23 +202,30 @@
       	
       	<doc:subsection name="reopen_logs">
       	  <doc:heading>Reopening log files</doc:heading>
-      		<pre class="sourcecode">rabbitmqctl reopen_logs </pre>
-      		<p>
-      			Instruct the RabbitMQ node to close and reopen the log files
-      		</p>
-      		<p>
-      			This command might be helpful when you are e.g. writing your
-      			own logrotate script and you do not want to restart the RabbitMQ
-      			node.
-      		</p>
-      		<p>
-      			Example:
-      		</p>
-      		<pre>rabbitmqctl reopen_logs</pre>
-      		<p>
-      			This command instructs the RabbitMQ node to reopen
-      			the log files.
-      		</p>
+	  <pre class="sourcecode">rabbitmqctl reopen_logs <i>[suffix]</i></pre>
+	  <p>
+	    Instruct the RabbitMQ node to close and reopen the log files
+	  </p>
+	  <p>
+	    When the <i>suffix</i> value is provided, the RabbitMQ broker will
+	    attempt to append the current contents of the log file to the file
+	    with name composed of the original name and the suffix. It will
+	    create a new file if such a file does not already exist.
+	  </p>
+	  <p>
+	    This command might be helpful when you are e.g. writing your
+	    own logrotate script and you do not want to restart the RabbitMQ
+	    node.
+	  </p>
+	  <p>
+	    Example:
+	  </p>
+	  <pre>rabbitmqctl reopen_logs .1</pre>
+	  <p>
+	    This command instructs the RabbitMQ node to append the current content
+	    of the log files to the files with names consisting of the original logs'
+	    names and ".1" suffix, e.g. rabbit.log.1. Finally, the old log files are reopened.
+	  </p>
       	</doc:subsection>
 
 	<doc:subsection name="cluster">
