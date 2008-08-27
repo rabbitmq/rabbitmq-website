@@ -335,8 +335,8 @@
       <doc:subsection name="logging-rpm">
         <doc:heading>Logging</doc:heading>
         <p>
-          Logging uses logrotate script in the same way as for
-          <a href="#logging-debian">Debian GNU</a>
+          Logging uses <code>logrotate</code> script in the same way
+          as for <a href="#logging-debian">Debian GNU</a>
         </p>
       </doc:subsection>
 
