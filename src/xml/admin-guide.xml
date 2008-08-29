@@ -216,7 +216,7 @@
 	  </p>
 	  <p>
 	    When an error occurs while appending the contents of the old log
-	    file, operation behaves in the same way as if no <i>suffix</i> was
+	    file, the operation behaves in the same way as if no <i>suffix</i> was
 	    specified.
 	  </p>
 	  <p>
