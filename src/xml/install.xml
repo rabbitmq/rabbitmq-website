@@ -187,15 +187,15 @@
         <p>
           The log files are created afresh every time the broker
           starts. In order to retain a complete log history the
-          startup scripts append the contents to corresponding
+          startup scripts append the contents to the corresponding
           <code>.1</code> files prior to starting the broker.
         </p>
 	<p>
-	  You can easily write your own log rotation script using
+	  You can easily write your own log rotation script using the 
 	  <code>rotate_logs_all</code> command in
-	  <code>rabbitmq-multi.bat</code> or <code>rotate_logs</code>
-	  in <code>rabbitmqctl.bat</code> if you want to perform log
-	  rotation selectively.
+	  <code>rabbitmq-multi.bat</code> or the <code>rotate_logs</code>
+	  command in <code>rabbitmqctl.bat</code> if you want to perform
+	  log rotation selectively.
 	</p>
     </doc:subsection>
     </doc:section>
@@ -456,7 +456,7 @@
       </p>
       <p>
         In order to retain a complete log history the startup scripts,
-        by default, append the contents to corresponding <code>.1</code>
+        by default, append the contents to the corresponding <code>.1</code>
         files prior to starting the broker.
         You can easily set up log rotation process by creating 
         <code>logrotate</code> script as it is done for
