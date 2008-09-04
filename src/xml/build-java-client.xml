@@ -52,12 +52,14 @@ $ ant dist</pre>
 
 	<p>
 	  The Java client libraries requires a recent version of <a
-	  href="http://www.python.org/download/">Python</a>, for
-	  generating AMQP framing code.
+	  href="http://www.python.org/download/">Python</a>  and
+	  <a href="http://sourceforge.net/projects/json-py/">json.py</a>
+	  (an implementation of a <a href="http://json.org">JSON</a>
+	  reader and writer in Python), for generating AMQP framing code.
 	</p>
 
 	<p>
-	  Besides Python, for building the Java client libraries, you will need
+	  Additionally, for building the Java client libraries, you will need
 	</p>
 
 	<ul class="compact">
