@@ -1,0 +1,1401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<!-- taken from the generated pretty-printed erlang code -->
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #cccccc;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ff0000;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #0000ff;
+      }
+      .reference {
+        /* font-lock-reference-face */
+        color: #458b74;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #ff00ff;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .prompt {
+        color: #0000ff;
+        font-style: italic;
+      }
+
+      .input {
+        color: #ff00ff;
+      }
+
+    -->
+    </style>
+<title>RabbitMQ</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20080925" />
+<meta name="author" content="Alexis Richardson, Matthias Radestock, and Tony Garnock-Jones" />
+<meta name="company" content="Rabbit Technologies" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<link rel="stylesheet" href="ex.css" type="text/css" />
+<!-- S5 JS -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="layout">
+
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<!-- <div id="header"></div> -->
+<div id="footer">
+<h1>RabbitMQ</h1>
+<h2>An Open Source Messaging Broker That Just Works</h2>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+  <h1>RabbitMQ</h1>
+  <h2>An Open Source Messaging Broker That<br/>Just Works</h2>
+  <h3>Alexis Richardson<br/>Matthias Radestock<br/>Tony Garnock-Jones<br/></h3>
+  <br/>
+  <h4>Rabbit Technologies Ltd.</h4>
+  <br/>
+  <h4><i>info@rabbitmq.com</i></h4>
+  <i>Copyright &copy; 2008 Rabbit Technologies Ltd.</i>
+</div>
+
+<div class="slide">
+<div class="center"><h1>Part II</h1></div>
+<div class="center"><h4>presented by Matthias Radestock</h4></div>
+</div>
+
+
+<div class="slide">
+<h1>A Brief Introduction to Erlang/OTP</h1>
+
+<div class="center"><img src="timeline.png" /></div>
+            
+<div class="handout">
+<h3>20 years of history</h3>
+<ul>
+<li>Erlang is not some PhD student's recent pet project - it was born
+              out of real commercial concerns 20 years ago, and has
+              seen continuous development and commercial use over that
+              time.</li>
+<li>Because for the first few years initial deployments were few and
+              all within Ericsson, the designers of the language had
+              the opportunity and incentive to evolve the language and
+              correct any mistakes.</li>
+<li>Even now the language and platform are still evolving, but in a
+              very controlled way - Ericsson do eat their own
+              dogfood.</li>
+</ul>
+<h3>recent surge in interest</h3>
+<ul>
+<li>Massive growth in community over the last couple of years</li>
+<li>probably because of multi-core, grid / cloud, internet</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Erlang Processes</h1>
+<div class="center"><img
+            src="diagrams/erlang-processes.png" /></div>
+<ul>
+<li>fast creation, light-weight</li>
+<li>shared nothing</li>
+<li>own gc; soft real-time</li>
+<li>functional - abstraction, concise code, no mutable vars</li>
+</ul>
+<div class="handout">
+Erlang systems are built out of communicating processes. Here's how
+          processes are created ...
+</div>
+</div>
+
+<div class="slide">
+<h1>Communication and Concurrency</h1>
+<div class="center"><img
+            src="diagrams/communication-and-concurrency.png" /></div>
+<ul>
+<li>async send, blocking receive with optional timeout</li>
+<li>per-process message queue</li>
+<li>libs for more complex communication patterns, e.g. call,
+            multi-cast</li>
+<li>same code when distributed</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>The <span class="initial">O</span>pen <span
+            class="initial">T</span>elecom <span
+            class="initial">P</span>latform</h1>
+<div class="center"><img src="otp.png" /></div>
+<div class="handout">
+Questions?
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li class="highlight">good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>AMQP architecture (revisited)</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-1.png" /></div>
+<div class="handout">
+<ul>
+<li>concentrate on server for rest of the talk</li>
+<li>similarities between structure of client and server, in particular
+              when it comes to protocol handling</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>AMQP architecture (refined)</h1>
+<div class="center"><img
+            src="diagrams/amqp-arch-to-rabbitmq-design-2.png" /></div>
+<div class="handout">
+<ul>
+<li>refine relationship between connection and the channels it
+              carries</li>
+<li>introduction of framing - AMQP commands (create queue, delete
+              queue, publish message, etc) are chopped up into frames
+              for interleaving on transport - useful for e.g. large
+              messages</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>RabbitMQ server design</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-3.png" /></div>
+<div class="handout">
+<ul>
+<li>domain of discourse of AMQP is very similar to Erlang/OTP</li>
+<li>actual implementation is identical to architecture</li>
+<li>each of the nodes corresponds to a separate Erlang module, and
+                process (taking into account the multiplicities)</li>
+<li>only two minor exceptions - mux, which is handled as part of
+                gen_tcp, and mnesia, which is a collection of processes
+</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li class="highlight">concise</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+<ul>
+<li>naturalness of the from the AMQP logical architecture to the
+              Erlang-based design of RabbitMQ mapping results in
+              small, readable codebase where there is a direct
+              correspondence between AMQP features and code
+              fragments</li>
+<li>this makes the code easy to understand, modify and extend - keep
+                up with evolution of spec, try experimental features,
+                build extensions (recall that this is a major focus
+                for RabbitMQ)</li>
+</ul>
+So how small is the code base, really? Here are some stats ...
+</div>
+</div>
+
+<div class="slide">
+<h1>Look, it is tiny!</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-3a-compact-code-base.png" /></div>
+<div class="handout">
+from left to right:
+<ul>
+<li>networking stack on top of gen_tcp - mostly generic, i.e. not
+                RabbitMQ-specific</li>
+<li>reader - dealing with AMQP connection management, demux, error
+                handling</li>
+<li>framing channel and writer - codec; mostly auto-generated from
+                spec</li>
+<li>channel, amqqueue, exchanges/routing (on top of mnesia) - the
+                AMQP model; bulk of the code</li>
+</ul>
+<br/>
+also
+<ul>
+<li>clustering - more about that later</li>
+<li>persistence - messages can be stored durably on disc and survive
+                broker restarts</li>
+<li>management - CLI for administering RabbitMQ</li>
+<li>deprecated code is realms and tickets; will disappear from spec
+                soon</li>
+</ul>
+summary - ~5000 LOC
+<br/>
+but this is not just down to the naturalness of the mapping between
+            the AMQP architecture and RabbitMQ design. Erlang language
+            features play a big part too. Some examples of that next ...
+</div>
+</div>
+
+<div class="slide">
+<h1>Binaries</h1>
+<pre>
+<span class="function-name">decode_method</span>('<span class="string">basic.publish</span>',
+              &lt;&lt;<span class="variable-name">F0</span>:16/unsigned,
+                <span class="variable-name">F1Len</span>:8/unsigned, <span class="variable-name">F1</span>:<span class="variable-name">F1Len</span>/binary,
+                <span class="variable-name">F2Len</span>:8/unsigned, <span class="variable-name">F2</span>:<span class="variable-name">F2Len</span>/binary,
+                <span class="variable-name">F3Bits</span>:8&gt;&gt;) <span class="function-name">-&gt;</span>
+    <span class="variable-name">F3</span> = (<span class="variable-name">F3Bits</span> band 1) /= 0,
+    <span class="variable-name">F4</span> = (<span class="variable-name">F3Bits</span> band 2) /= 0,
+    #'<span class="string">basic.publish</span>'{ticket      = <span class="variable-name">F0</span>,
+                     exchange    = <span class="variable-name">F1</span>,
+                     routing_key = <span class="variable-name">F2</span>,
+                     mandatory   = <span class="variable-name">F3</span>,
+                     immediate   = <span class="variable-name">F4</span>};
+</pre>
+<div class="handout">
+This is some of the auto-generated code; decoding an AMQP method frame
+            into an Erlang data structure
+<ul>
+  <li>length prefixed strings</li>
+</ul>
+<p>
+It is hard to see how this could be any more concise.
+</p>
+<p>
+  Going the other way - packing terms into a binary blob, rather than
+  unpacking - uses exactly the same syntax, and is just as smooth.
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>List Comprehension and HOF</h1>
+<br/>
+<pre>
+<span class="function-name">upmap</span>(<span class="variable-name">F</span>, <span class="variable-name">L</span>) <span class="function-name">-&gt;</span>
+    <span class="variable-name">Parent</span> = <span class="keyword">self</span>(),
+    <span class="variable-name">Ref</span> = <span class="keyword">make_ref</span>(),
+    [<span class="keyword">receive</span> {<span class="variable-name">Ref</span>, <span class="variable-name">Result</span>} <span class="function-name">-&gt;</span> <span class="variable-name">Result</span> <span class="keyword">end</span>
+     || <span class="variable-name">_</span> &lt;- [<span class="keyword">spawn</span>(<span class="keyword">fun</span>() <span class="function-name">-&gt;</span> <span class="variable-name">Parent</span> ! {<span class="variable-name">Ref</span>, <span class="variable-name">F</span>(<span class="variable-name">X</span>)} <span class="keyword">end</span>)
+              || <span class="variable-name">X</span> &lt;- <span class="variable-name">L</span>]].
+
+    </pre>
+<div class="handout">
+<ul>
+<li>Functional programming at work</li>
+<li>While a lot of code for a presentation, it is not a lot for what
+                it does!</li>
+<li>upmap - unordered parallel map</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li class="highlight">good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Exploiting Parallelism</h1>
+<div class="center"><img src="diagrams/scalability-parallelism.png" /></div>
+<div class="handout">
+three different areas of parallelism that arise naturually from AMQP
+          and that RabbitMQ is exploiting, thanks to Erlang's
+          fine-grained parallelism
+<ul>
+<li>8-stage pipeline end-to-end between producer and consumer</li>
+<li>parallelism across connections and channels - with
+              queues acting as synchronisation points (queues are about
+              the only stateful part of the core AMQP model)</li>
+<li>queues as active processes</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Clustering</h1>
+<div class="center"><img src="diagrams/scalability-clustering-realisation.png" /></div>
+<div class="handout">
+logical view remains unchanged, but under the covers
+<ul>
+<li>multiple nodes share routing information</li>
+<li>queues are distributed</li>
+<li>messages are routed efficiently between nodes</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>good performance, and it scales</li>
+  <li class="highlight">excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+<ul>
+<li>for free, almost</li>
+<li>the Erlang shell in conjunction with the myriad of OTP tools to
+        inspect, trace, profile, debug, modify a running system</li>
+<li>augmented by our own command line tools</li>
+</ul>
+...on to some examples of both...
+</div>
+</div>
+
+<div class="slide">
+<h1>Where has all the memory gone?</h1>
+<pre>
+<span class="prompt">(rabbit@t)1&gt;</span> <span class="input">[{_, Pid} | _] =
+               lists:reverse(
+                 lists:sort(
+                   [{process_info(P, memory), P}
+                    || P <- processes()])).</span>
+[{{memory,16434364},&lt;0.160.0&gt;}, ...]
+<span class="prompt">(rabbit@t)2&gt;</span> <span class="input">process_info(Pid, dictionary).</span>
+{dictionary,
+    [{'$ancestors',
+      [rabbit_amqqueue_sup,rabbit_sup,&lt;0.106.0&gt;]},
+     {'$initial_call',
+      {gen,init_it,
+       [gen_server,&lt;0.138.0&gt;,&lt;0.138.0&gt;,
+        rabbit_amqqueue_process,
+        {amqqueue,
+         {resource,&lt;&lt;"/"&gt;&gt;,queue,&lt;&lt;"test queue"&gt;&gt;},
+         false,false,[],[],none},
+        []]}}]}</span>
+</pre>
+<div class="handout">
+just tell the story
+</div>
+</div>
+
+<div class="slide">
+<h1>Setting up a RabbitMQ cluster</h1>
+<pre>
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl stop_app</span>
+Stopping node rabbit@rabbit2 ...done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl reset</span>
+Resetting node rabbit@rabbit2 ...done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl cluster rabbit@rabbit1</span>
+Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...
+done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl start_app</span>
+Starting node rabbit@rabbit2 ...done.
+
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl status</span>
+Status of node rabbit@rabbit2 ...
+[...,
+ {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+done.
+</pre>
+<div class="handout">
+don't talk through it
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li class="highlight">we can hide it</li>
+</ul>
+<div class="handout">
+You do not need to know anything about Erlang to use RabbitMQ
+</div>
+</div>
+
+<div class="slide">
+<h1>Making <small>Erlang</small> <small></small>disappear</small></h1>
+<ul>
+  <li>AMQP is a <em>protocol</em></li>
+  <li>AMQP client libraries exist for many languages and are
+            <em>broker neutral</em></li>
+  <li>RabbitMQ is packaged for various platforms</li>
+  <li>admin scripts, log files</li>
+</ul>
+<div class="handout">
+<ul>
+  <li>two aspects - one to do with the protocol, the other with the
+              operational side</li>
+  <li>users write client code, typically using one the available
+              broker-neutral libs; they don't need to care what the
+              server is written in</li>
+  <li>one still needs to get a server up and running, configure it and
+              look after it. Need to hide Erlang there too. Hence ...</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP? - Summary</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<br/>
+<div class="center">
+<p class="highlight">
+  protocol handling is an Erlang/OTP sweet spot
+</p>
+<p>
+  (more detail <a
+  href="http://www.rabbitmq.com/resources/erlang-exchange-talk-final/ex.html">here</a>)
+</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Tony's section of the talk BEGINS -->
+<!-- ============================================================ -->
+
+<div class="slide">
+<div class="center"><h1>Part III</h1></div>
+<div class="center"><h4>presented by Tony Garnock-Jones</h4></div>
+</div>
+
+<!-- The essence of messaging, and the future of AMQP as we see it -->
+
+<div class="slide">
+<h1>Web messaging &amp; the future</h1>
+<p>
+  Messaging and queueing are ubiquitous. Everybody's doing it.
+</p>
+<ul>
+  <li>Email (SMTP, IMAP/POP3, Mailman, ...)</li>
+  <li>Feeds (RSS/Atom, AtomPub)</li>
+  <li>Instant Messaging (XMPP, XEP-60 aka. pubsub)</li>
+  <li>HTTP, REST, Comet</li>
+  <li>Web services, CORBA, RPC</li>
+  <li>Databases and File Systems (SQL, FTP, WebDAV, NFS)</li>
+  <li>etc. (syslog, ...)</li>
+</ul>
+<div class="handout">
+<p>
+  Everybody's doing it; but noone's got it right -- yet.
+</p>
+<p>
+  The same basic ideas of messaging and queueing keep coming up over
+  and over and over again. There's the problem of idempotency to deal
+  with. There's the problem of ensuring your request is heard to deal
+  with. There're all of the issues of network failure to deal
+  with. Lots of variations on the theme are already in wide use -- not
+  just the email infrastructure, but all the tools listed above and
+  more have been pressed into service as ways of getting messages or
+  lists of work-items delivered between separate parties.
+</p>
+<p>
+  Building our XMPP-AMQP gateway taught us a lot. We're starting to be
+  able to see the shape of the essence of messaging.
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>Messaging at internet scale</h1>
+<ul>
+  <li>
+    Encapsulating state (messaging is fundamentally stateless)
+    <ul>
+      <li>stateless messages</li>
+      <li>stateful applications</li>
+    </ul>
+  </li>
+  <li>
+    Responsibility transfer
+    <ul>
+      <li>contracts about who is to blame for a lost message; application-level delegation</li>
+      <li>plan for failure!</li>
+      <li>QoS and SLAs appear here</li>
+    </ul>
+  </li>
+  <li>
+    State synchronisation
+    <ul>
+      <li>a very common <i>application</i> of messaging</li>
+      <li>idempotent state updates, or responsibility-transferred non-idempotent updates</li>
+      <li>metacircular: use it to build efficient responsibility transfer!</li>
+    </ul>
+  </li>
+</ul>
+<div class="handout">
+<p>
+  Delegation at the application level, not the transport level. This
+  is what SMTP got wrong: relaying is transport-level
+  delegation. Lifting responsibility-transfer to the application level
+  fixes the issue: the application (not the transport) makes smart
+  decisions about whether to delegate responsibility or not.
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>Threefold nature of shared queues</h1>
+<ul>
+  <li>Transfer: "from the ends"; messages in flight ("messaging")</li>
+  <li>Browsing: "from the side"; messages at rest ("queueing")</li>
+  <li>Synchronisation makes use of both: uses browsing to build efficient responsible transfer of messages</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Transfer from the ends</h1>
+<div class="center"><img src="diagrams/threefold-nature-of-queues-1.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Browsing from the side</h1>
+<div class="center"><img src="diagrams/threefold-nature-of-queues-2.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Responsibility transfer (1/2)</h1>
+<div class="center"><img src="diagrams/threefold-nature-of-queues-1a.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Responsibility transfer (2/2)</h1>
+<div class="center"><img src="diagrams/threefold-nature-of-queues-1b.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Synchronisation</h1>
+<div class="center"><img src="diagrams/threefold-nature-of-queues-3.png" /></div>
+<div class="handout">
+<p>
+  Layering is vital here.
+</p>
+<ul>
+  <li>The simplest choice of operations at the low levels assembles to support the next layer</li>
+  <li>Proper layering makes implementation easy, as well as pinning down corner-cases in the semantics</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>The holy grail (1/3)</h1>
+<ul>
+  <li>
+    AMQP already gets us part-way there:
+    <ul>
+      <li>Transfer (delivery, subscription, responsibility)</li>
+      <li>Local transactions (grouping, exactly-/atleast-/atmost-once)</li>
+      <li>Routing (exchanges, filtering, topics)</li>
+      <li>Buffering (queues, relays)</li>
+    </ul>
+  </li>
+  <li>
+    We want to cleanly integrate the rest:
+    <ul>
+      <li>Browsing (list, get, put, delete)</li>
+      <li>Internet-sized (global addressing, federation)</li>
+      <li>Trustable identity (addressing, PKI)</li>
+      <li>Peer to peer</li>
+      <li>Management (statistics, resource limits)</li>
+    </ul>
+  </li>
+</ul>
+<div class="handout">
+<pre>
+WebDAV: and by extension, other (networked) file systems
+Some of these things -- duplicate detection, for instance -- are application-level issues; others include the decision about how durably to store messages: persistent storage to disk is an option that can be switched on or off on a per-queue basis
+http://wiki.secondlife.com/wiki/Chttp
+http://www.mnot.net/drafts/draft-nottingham-http-poe-00.txt
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<h1>The holy grail (2/3)</h1>
+<div class="comparison-table-slide">
+<table class="comparison-table" cellspacing="0" cellpadding="0">
+<tr class="headings">
+<th>Protocol</th>
+<th>Injection</th>
+<th>Browsing</th>
+<th>Subscription</th>
+<th>Responsibility Transfer</th>
+<th>Duplicate detection</th>
+<th>Federated&nbsp;/ Global</th>
+<th>Peer-to-peer&nbsp;/ Symmetric (vs. Client-Server)</th>
+</tr>
+<tr class="idealrow">
+<th>IDEAL</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Optional</td>
+<td class="ideal">Optional</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>AMQP</th>
+<td class="ideal">Y</td>
+<td>N [6]</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y [7]</td>
+<td>N</td>
+<td>N</td>
+<td>Partial [8]</td>
+</tr>
+<tr>
+<th>Twitter</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>?</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<th>TCP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>XMPP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td>N [1]</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>Atompub</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y [3]</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Pubsub</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>Partial [4]</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Atom/RSS</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>POE, CHTTP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>WebDAV</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>--</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>SMTP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>IMAP</th>
+<td>Partial</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>Partial [3]</td>
+<td>--</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Mailman</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>--</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<th>POP3</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>Partial [3]</td>
+<td>--</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Bittorrent</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<th>HTTP</th>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Comet</th>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</table>
+</div>
+<div class="handout">
+<p>
+  Talk about: Resp xfer; federation; peer-to-peer
+</p>
+<pre>
+1	There are XEPs that touch on this area
+2	The "offline storage" modules often provided act as a kind of buffer
+3	Deletion can act as an acceptance of responsibility
+4	There's an acknowledgement for publication only, not delivery
+5	Aggregators sort of do this
+6	Queue browsing is being worked on in the AMQP WG
+7	AMQP 0-10 introduces a form of responsibility transfer
+8	0-10's message transfers are quasi-symmetric; the wire-protocol is symmetric; the model is not
+9	Management and monitoring is being worked on in the AMQP WG
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<h1>The holy grail (3/3)</h1>
+<div class="comparison-table-slide">
+<table class="comparison-table" cellspacing="0" cellpadding="0">
+<tr class="headings">
+<th>Protocol</th>
+<th>Unicast Routing</th>
+<th>Multicast&nbsp;/ Complex Routing</th>
+<th>Relaying</th>
+<th>Queueing&nbsp;/ Buffering</th>
+<th>Presence&nbsp;/ Lifecycle Events</th>
+<th>Management&nbsp;/ Monitoring</th>
+<th>Trust model</th>
+</tr>
+<tr class="idealrow">
+<th>IDEAL</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">???</td>
+</tr>
+<tr>
+<th>AMQP</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y [9]</td>
+<td>--</td>
+</tr>
+<tr>
+<th>Twitter</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<th>TCP</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>Some</td>
+<td>--</td>
+</tr>
+<tr>
+<th>XMPP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N [2]</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>DNS</td>
+</tr>
+<tr>
+<th>Atompub</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<th>Pubsub</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>XMPP</td>
+</tr>
+<tr>
+<th>Atom/RSS</th>
+<td>N</td>
+<td>N [5]</td>
+<td class="ideal">N [5]</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<th>POE, CHTTP</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<th>WebDAV</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>SMTP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>Implied</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>complicated</td>
+</tr>
+<tr>
+<th>IMAP</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>Mailman</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>POP3</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>Bittorrent</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>HTTP</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+<tr>
+<th>Comet</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>--</td>
+</tr>
+</table>
+</div>
+<div class="handout">
+<p>
+  Talk about: relaying; presence
+</p>
+<pre>
+1	There are XEPs that touch on this area
+2	The "offline storage" modules often provided act as a kind of buffer
+3	Deletion can act as an acceptance of responsibility
+4	There's an acknowledgement for publication only, not delivery
+5	Aggregators sort of do this
+6	Queue browsing is being worked on in the AMQP WG
+7	AMQP 0-10 introduces a form of responsibility transfer
+8	0-10's message transfers are quasi-symmetric; the wire-protocol is symmetric; the model is not
+9	Management and monitoring is being worked on in the AMQP WG
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<h1>Data languages (1/3)</h1>
+<p>
+  AMQP's current wire protocols and data languages perform well, but
+  are missing a few features that will be required as AMQP grows to
+  internet scale.
+</p>
+<p>
+  The <i>ideal</i> data language:
+</p>
+<ul>
+  <li>
+    Schemas, type definitions
+  </li>
+  <li>
+    Abstract syntax essential: different concrete syntaxes useful in different contexts
+    <ul>
+      <li>for optimisation</li>
+      <li>for scaling down, scaling up, and scaling to the web</li>
+      <li>for interoperation with "legacy" protocols</li>
+    </ul>
+  </li>
+  <li>
+    Extensibility
+  </li>
+  <li>
+    Friendly to crypto (canonical form for signability)
+  </li>
+  <li>
+    Widely-supported protocol already in use: ideal!
+  </li>
+</ul>
+<div class="handout">
+<p>
+  Human-readable concrete syntax is a debuggable representation
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>Data languages (2/3)</h1>
+<div class="comparison-table-slide">
+<table class="comparison-table" cellspacing="0" cellpadding="0">
+<tr class="headings">
+<th>Language</th>
+<th>Schemas</th>
+<th>Multiple concrete syntaxes</th>
+<th>Parseable without schema</th>
+<th>Metacircular</th>
+<th>Extensible</th>
+<th>Unbounded integers (bignums)</th>
+<th>Good support for binary data</th>
+</tr>
+<tr class="idealrow">
+<th>IDEAL</th>
+<td class="ideal">Y</td>
+<td class="ideal">Optional</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>ASN.1</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>Protocol Buffers</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N [5]</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>XML</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>JSON</th>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+</tr>
+<tr>
+<th>SPKI</th>
+<td>N</td>
+<td>N</td>
+<td>N [2]</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>AMQP</th>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td class="ideal">Y</td>
+</tr>
+</table>
+</div>
+<div class="handout">
+<pre>
+1	Ordering of key-value pairs within tables is missing; otherwise, it's more-or-less canonical as it stands
+2	The "display type" attached to a byte-string compensates partially for this, but numbers are not distinct from byte-strings
+3	SPKI doesn't care what interpretation you place on the bytes it packages
+4	XML schemas don't line up with common programming-language data types very well (not even RelaxNG)
+5	But it could be!
+6	There are good tools, but they're commercial. C and C++ are well served; Java less so; other languages still less so.
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<h1>Data languages (3/3)</h1>
+<div class="comparison-table-slide">
+<table class="comparison-table" cellspacing="0" cellpadding="0">
+<tr class="headings">
+<th>Language</th>
+<th>Canonical form defined</th>
+<th>Multiple programming-language support</th>
+<th>In wide use already</th>
+<th>Unicode support</th>
+<th>"Efficient" concrete syntax</th>
+<th>Good tools widely available already</th>
+<th>Simple to use, understand, implement</th>
+</tr>
+<tr class="idealrow">
+<th>IDEAL</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>ASN.1</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N [6]</td>
+<td>N</td>
+</tr>
+<tr>
+<th>Protocol Buffers</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>XML</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td>N [4]</td>
+</tr>
+<tr>
+<th>JSON</th>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>SPKI</th>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N [3]</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+</tr>
+<tr>
+<th>AMQP</th>
+<td>N [1]</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td class="ideal">Y</td>
+<td class="ideal">Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</table>
+</div>
+<div class="handout">
+<pre>
+1	Ordering of key-value pairs within tables is missing; otherwise, it's more-or-less canonical as it stands
+2	The "display type" attached to a byte-string compensates partially for this, but numbers are not distinct from byte-strings
+3	SPKI doesn't care what interpretation you place on the bytes it packages
+4	XML schemas don't line up with common programming-language data types very well (not even RelaxNG)
+5	But it could be!
+6	There are good tools, but they're commercial. C and C++ are well served; Java less so; other languages still less so.
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<h1>Learning from XMPP and AMQP</h1>
+<p>
+  Implementing our XMPP-AMQP gateway provided a good foundation for
+  the preceding analysis. XMPP and AMQP complement each other: the
+  areas where they differ give strong design and layering clues.
+</p>
+<ul>
+  <li>XMPP has internet-scale addressing and federation</li>
+  <li>XMPP has a presence model</li>
+  <li>AMQP mandates a store-and-forward capability</li>
+  <li>AMQP has programmable routing and filtering (using exchanges and bindings)</li>
+  <li>AMQP has local transactions and responsibility transfer</li>
+</ul>
+</div>
+
+<!--
+<div class="slide">
+<h1>SLIDE TITLE</h1>
+<ul>
+  <li>BULLET POINTS</li>
+</ul>
+<div class="handout">
+<p>
+  SPEAKING NOTES
+</p>
+</div>
+</div>
+-->
+
+<div class="slide">
+<h1>What next for AMQP?</h1>
+<ul>
+  <li>community - wiki, mailing lists, expert involvement</li>
+  <li>responsibility transfer</li>
+  <li>management and monitoring</li>
+  <li>federation and global addressing</li>
+  <li>encryption, signing, trust and identity</li>
+</ul>
+<div class="handout">
+<p>
+  (Conclusion of this segment) We've been looking at the ways
+  messaging is in use on the internet today, and incorporating those
+  patterns and techniques into the development of RabbitMQ and of AMQP
+  itself.
+</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Tony's section of the talk ENDS -->
+<!-- ============================================================ -->
+
+<div class="slide">
+<h1>What next for RabbitMQ?</h1>
+<ul>
+  <li>community - wiki, hg, dev list, AMQP</li>
+  <li>AMQP test suite and interop</li>
+  <li>modularity - packages and plugins</li>
+  <li>more clients, adapters, gateways and transports</li>
+  <li>features - distributed queues, federation, management</li>
+  <li>features - tracking the AMQP standard</li>
+  <li>performance improvements and bug fixes</li>
+</ul>
+<br/>
+<h2 class="center"><a href="http://www.rabbitmq.com">www.rabbitmq.com</a></h2>
+<div class="handout">
+<p>
+  RabbitMQ is available; it's in use by customers; grab a copy and try
+  it out! We also have a public server running; join the mailing list
+  to report any problems or suggestions.
+</p>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>
