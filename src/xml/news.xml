@@ -21,29 +21,18 @@
         </doc:title>
         <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-October/000012.html</doc:link>
         <doc:text>
-	  <p>
-	    The RabbitMQ team is pleased to announce the release of
-	    RabbitMQ 1.4.0.
-	  </p>
-	  <p>
-There is a talk on RabbitMQ this Thursday October 16th.
-    </p>
-    <p>
-The agenda will be:
-    </p>
-    <ol>
-      <li>Overview - why RabbitMQ and AMQP</li>
-      <li>How we got away with less then 5k LOC in the server</li>
-      <li>Ben's hackathon showing what you can do and how</li>
-    </ol>
-    <p>
-    It will start at 6:30pm and be at the LShift offices in London:
-    <a href="http://www.lshift.net/contact">http://www.lshift.net/contact/</a>
-    </p>
-    <p>
-    A few beers may be provided and some RabbitMQ t-shirts are available
-    for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming. 
-    </p>
+
+            There is a talk on RabbitMQ this Thursday October 16th. The agenda will be:
+          <ol class="plain">
+            <li>Overview - why RabbitMQ and AMQP</li>
+            <li>How we got away with less then 5k LOC in the server</li>
+            <li>Ben's hackathon showing what you can do and how</li>
+          </ol>
+          <p>
+          It will start at 6:30pm and be at the <a href="http://www.lshift.net/contact">LShift offices</a> in London. 
+          A few beers may be provided and some RabbitMQ t-shirts are available
+          for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming. 
+          </p>
 
 
 	</doc:text>
