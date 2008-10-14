@@ -40,14 +40,20 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>
-	  The RabbitMQ team is pleased to announce the release of
-	  RabbitMQ 1.4.0.
-	  <p>
-	    This release has beta status, and includes bug fixes,
-	    packaging enhancements, and performance
-	    improvements. Further details are available <a
-	    href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-July/000012.html">here</a>.
-	  </p>
+      	  <p>
+            There is a talk on RabbitMQ this Thursday October 16th. The agenda will be:
+          </p>
+          <ol>
+            <li>Overview - why RabbitMQ and AMQP</li>
+            <li>How we got away with less then 5k LOC in the server</li>
+            <li>Ben's hackathon showing what you can do and how</li>
+          </ol>
+          <p>
+          It will start at 6:30pm and be at the LShift offices in London:
+          <a href="http://www.lshift.net/contact">http://www.lshift.net/contact/</a>. 
+          A few beers may be provided and some RabbitMQ t-shirts are available
+          for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming. 
+          </p>
         </li>
       </ul>
       </div>

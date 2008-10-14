@@ -15,6 +15,61 @@
            will give you a suitable value.
       -->
       <doc:item>
+        <doc:date iso="2008-10-14T00:00:00Z">14 October 2008</doc:date>
+        <doc:title>
+          RabbitMQ talk this Thursday 16th in London
+        </doc:title>
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-October/000012.html</doc:link>
+        <doc:text>
+	  <p>
+	    The RabbitMQ team is pleased to announce the release of
+	    RabbitMQ 1.4.0.
+	  </p>
+	  <p>
+There is a talk on RabbitMQ this Thursday October 16th.
+    </p>
+    <p>
+The agenda will be:
+    </p>
+    <ol>
+      <li>Overview - why RabbitMQ and AMQP</li>
+      <li>How we got away with less then 5k LOC in the server</li>
+      <li>Ben's hackathon showing what you can do and how</li>
+    </ol>
+    <p>
+    It will start at 6:30pm and be at the LShift offices in London:
+    <a href="http://www.lshift.net/contact">http://www.lshift.net/contact/</a>
+    </p>
+    <p>
+    A few beers may be provided and some RabbitMQ t-shirts are available
+    for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming. 
+    </p>
+
+
+	</doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2008-09-30T00:00:00Z">30 September 2008</doc:date>
+        <doc:title>
+          RabbitMQ Tech Talk at Google London 
+        </doc:title>
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-September/000012.html</doc:link>
+        <doc:text>
+	  <p>
+Matthias Radestock (LShift TD), Tony Garnock-Jones (LShift Senior Developer) and Alexis Richardson (CohesiveFT CEO) spoke at the Google London meeting.
+	  </p>
+	  <p>
+The presentation dealt with the AMQP protocol, how we built our Erlang implementation of it (RabbitMQ), and how it might address, eg., Twitter's scaling problems.
+	  </p>
+	  <p>
+	    Further details are available at <a
+	    href="http://google-ukdev.blogspot.com/2008/09/rabbitmq-tech-talk-at-google-london.html">Google's developer blog.</a>.
+	  </p>
+	</doc:text>
+      </doc:item>
+                  
+      <doc:item>
         <doc:date iso="2008-07-30T00:00:00Z">30 July 2008</doc:date>
         <doc:title>
           RabbitMQ version 1.4.0 released
