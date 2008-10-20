@@ -103,8 +103,8 @@ int ticket = channel.accessRequest(<b>realm</b>);
 	    To disconnect, simply close the channel and the connection:
 	  </p>
 
-	  <pre class="sourcecode">channel.close(AMQP.REPLY_SUCCESS, <b>&quot;Goodbye&quot;</b>);
-conn.close(AMQP.REPLY_SUCCESS, <b>&quot;Goodbye&quot;</b>);</pre>
+	  <pre class="sourcecode">channel.close();
+conn.close();</pre>
 
 	  <p>
 	    Note that closing the channel may be considered good practice, but isn't strictly necessary here - it will be done
