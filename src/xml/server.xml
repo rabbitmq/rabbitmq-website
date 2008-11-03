@@ -185,7 +185,11 @@
     </p>
     
     <h3>Mercurial repositories</h3>
-    <br/>
+    <p>
+      The AMQP server itself, implemented in Erlang. Depends on the
+      code-generation library module. Please see the <a
+      href="build.html">build instructions</a>.
+    </p>
     
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-server"

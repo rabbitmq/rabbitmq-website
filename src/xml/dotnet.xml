@@ -129,7 +129,7 @@
     </r:downloads>
     
     <h3>Mercurial repository</h3>
-    <br/>
+    <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
     
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-dotnet-client"
