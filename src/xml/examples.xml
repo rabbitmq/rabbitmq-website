@@ -16,21 +16,6 @@
 	<doc:heading>Table of Contents</doc:heading>
       </doc:toc>
 
-      <doc:section name="camstream">
-	<doc:heading>Camstream - Streaming video over AMQP</doc:heading>
-	<p>
-	  Camstream uses AMQP to route live, streaming video from one
-	  or more webcams to one or more displays. A capture program
-	  injects frames into a named AMQP fanout exchange, and a
-	  corresponding playback program uses an anonymous auto-delete
-	  queue to retrieve a stream from a named exchange.
-	</p>
-	<p>
-	  For more information, and to download or try out Camstream, please see <a href="camstream.html">the Camstream page</a>.
-	</p>
-	<!-- <img src="img/camstream-diagram.png" alt="Camstream network diagram"/> -->
-      </doc:section>
-
       <doc:section name="demo-server">
 	<doc:heading>Publicly-accessible Demonstration Broker Service</doc:heading>
 	<p>
