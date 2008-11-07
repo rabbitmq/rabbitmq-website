@@ -62,6 +62,16 @@
 	  features are yet to be implemented, including "channel.qos"
 	  prefetch windowing and "channel.flow" flow control (TCP
 	  windowing still provides primitive flow control).
+        </p>
+        <p>
+          The "access.request" method is to be deprecated in future
+          version of the AMQP specification. Currently the RabbitMQ
+          broker implements it as NOOP for backwards compatibility
+          purposes. When a client sends an "access.request" command to
+          the RabbitMQ broker, the broker performs no checks and
+          returns a fixed ticket number. Furthermore, any ticket
+          number is considered valid in the processing of other AMQP
+          commands.
 	</p>
 	<p>
 	  See also the detailed specification compatibility tables
