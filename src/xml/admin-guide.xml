@@ -23,7 +23,9 @@
 	  Please see the <a href="build-server.html">build</a> and <a
 	  href="install.html">installation</a> guides for instructions
 	  on compiling, installing, starting and shutting down the
-	  server.
+	  server. See the <a href="service-guide.html">service</a> 
+          guide for instructions on running the server as a Windows
+          Service.
 	</p>
       </doc:section>
 
