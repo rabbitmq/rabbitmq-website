@@ -40,7 +40,7 @@
           local system account. It is therefore necessary to synchronise Erlang
           cookies between the local system account (typically
           <code>C:\WINDOWS\.erlang.cookie</code> and the account that will be used to
-          run <code>rabbitctl</code>.
+          run <code>rabbitmqctl</code>.
         </p>
 
         <doc:subsection name="install">
@@ -52,6 +52,15 @@
             will update the service parameters if environment variables 
             were modified. Please refer to the <a href="install.html">installation</a> 
             guide for a description of the relevant environment variables.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="remove">
+          <doc:heading>Removing the RabbitMQ service</doc:heading>
+          <pre class="sourcecode">rabbitmq-service remove</pre>
+          <p>
+            Removes the broker Windows service. The service must be stopped
+            when this command is run.
           </p>
         </doc:subsection>
 
