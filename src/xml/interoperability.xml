@@ -87,33 +87,6 @@
           <doc:heading>RabbitMQ Java client -&gt; Qpid Java
             broker</doc:heading>
           <ul>
-            <li>The Qpid Java broker does not currently implement the
-            "access.request" method, instead throwing an exception and
-            closing the connection when that method is invoked.
-              <p>
-                In order to make interoperability easier, the RabbitMQ
-                Java client can be configured to suppress the sending
-                of the "access.request" method and instead return a
-                fixed ticket number of zero.
-              </p>
-              <p>
-                To enable this behaviour, invoke the <a
-                href="&dir-current-javadoc;com/rabbitmq/client/ConnectionParameters.html#setSuppressAccessRequest(boolean)">ConnectionParameters.setSuppressAccessRequest</a>
-                method, or set the
-                <code>com.rabbitmq.client.ConnectionParameters.suppressAccessRequest</code>
-                system property, which provides the default value for
-                the former.
-              </p>
-              <p>
-                Note that the "access.request" method is handled by
-                the RabbitMQ broker as a NOOP. Furthermore, no checks
-                are performed on tickets during the processing of
-                other AMQP commands. So instead of suppressing the
-                sending of the "access.request" methods, client code
-                can simply omit the request and supply an arbitrary
-                ticket number in all AMQP commands that require it.
-                </p>
-            </li>
             <li>Some of the RabbitMQ Java client tests and examples
             use features that are not implemented in Qpid.
               <p>
