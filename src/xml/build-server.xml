@@ -55,9 +55,11 @@ $ make</pre>
 	<p>
 	  The server requires a recent version of <a
 	  href="http://www.python.org/download/">Python</a> and
-	  <a href="http://sourceforge.net/projects/json-py/">json.py</a>
+	  <a href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
 	  (an implementation of a <a href="http://json.org">JSON</a>
 	  reader and writer in Python), for generating AMQP framing code.
+	  simplejson.py is included as a standard json library in the core
+          Python since 2.6 release. 
 	</p>
 
 	<p>
