@@ -91,9 +91,13 @@
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.i386.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for RPM-based Linux
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.x86_64.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for RPM-based Linux (64-bit)
       </r:download>
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
 		  downloadpath="&dir-server;">
