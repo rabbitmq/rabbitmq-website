@@ -56,8 +56,8 @@ $ ant dist</pre>
 	  <a href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
 	  (an implementation of a <a href="http://json.org">JSON</a>
 	  reader and writer in Python), for generating AMQP framing code.
-          simplejson.py is included as a standard json library in the core
-          Python since 2.6 release. 
+          simplejson.py is included as a standard json library in the Python
+          core since 2.6 release. 
 	</p>
 
 	<p>
