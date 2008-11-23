@@ -68,6 +68,10 @@
       &version-server;</b>, which has <b>beta</b> status.
     </p>
 
+    <p class="warning">
+      This version of the RabbitMQ server does <em>not</em> work with Erlang/OTP R12B-5. Please use R12B-4 or earlier.
+    </p>
+
     <h3>
       Download the RabbitMQ AMQP Server
     </h3>
