@@ -78,6 +78,16 @@
           output of <code>hostname -s</code> is usually the correct
           suffix to use after the "@" sign.
         </p>
+        <p>
+          <code>rabbitmqctl</code> produces verbose output by default. 
+          Quiet mode can be selected by specifying the "-q" flag, e.g.
+        </p>
+        <pre>rabbitmqctl -q status</pre>
+        <p>
+          This option is useful when post-processing the results.
+          The "-q" flag does not affect the display of errors. 
+          Flags must precede all other parameters to <code>rabbitmqctl</code>. 
+        </p>
       </doc:section>
 
       <doc:section name="app-management">
