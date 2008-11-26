@@ -351,15 +351,6 @@ td.signature, th.signature {
 	background: #e4e4e4;
 }
 
-.warning {
-	font-weight: bold;
-	text-align: center;
-	padding: 0.5em;
-	color: black;
-	border: #8a948f 4px solid;
-	background: #f6fcb0;
-}
-
 .subscribe {
         float: right;
 }

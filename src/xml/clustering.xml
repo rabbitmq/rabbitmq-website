@@ -17,7 +17,7 @@
         <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
           several Erlang <i>nodes</i>, each running the RabbitMQ
-          <i>application</i> and sharing users, virtual hosts, realms,
+          <i>application</i> and sharing users, virtual hosts,
           queues, exchanges, etc. Sometimes we refer to the collection
           of nodes as a <i>cluster</i>.
         </p>
