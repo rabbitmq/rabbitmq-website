@@ -24,8 +24,8 @@
 	  href="install.html">installation</a> guides for instructions
 	  on compiling, installing, starting and shutting down the
 	  server. See the <a href="service-guide.html">service</a> 
-          guide for instructions on running the server as a Windows
-          Service.
+	  guide for instructions on running the server as a Windows
+	  Service.
 	</p>
       </doc:section>
 
