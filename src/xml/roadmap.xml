@@ -79,7 +79,7 @@
 	    and users to analyse the live state of the system and to
 	    create configurations which can be loaded into the system,
 	    creating particular setups of exchanges, queues, bindings,
-	    users, virtual hosts and realms.
+	    users and virtual hosts.
 	  </p>
 	</doc:roadmapentry>
 
@@ -165,7 +165,7 @@
 	<doc:roadmapentry>
 	  <doc:heading>Type-safety: encapsulation of AMQP entities</doc:heading>
 	  <p>
-	    Currently, entities such as Queues, Exchanges and Tickets
+	    Currently, entities such as Queues and Exchanges
 	    are represented in the Java Client API by simple strings
 	    or integers. For improved type-safety, the API will be
 	    extended to use an object-oriented representation of these

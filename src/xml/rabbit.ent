@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!ENTITY camstreamVersion "0.23">
-<!ENTITY urlBase "examples/camstream/">
-<!ENTITY vUrl "&urlBase;&camstreamVersion;/">
 <!ENTITY version-java-client "1.4.0">
 <!ENTITY version-dotnet-client "1.4.0">
 <!ENTITY version-server "1.4.0">

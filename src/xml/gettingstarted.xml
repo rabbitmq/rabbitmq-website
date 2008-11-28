@@ -26,17 +26,7 @@
 	    private.
 	  </p>
 	</doc:subsection>
-
-	<doc:subsection>
-	  <doc:heading>Decide on strictness</doc:heading>
-	  <p>
-	    For interoperability reasons, the RabbitMQ broker defaults
-	    to a fairly loose interpretation of the AMQP standard in
-	    the area of access control. You may wish to <a
-	    href="interoperability.html#strict_ticket_checking">tighten
-	    up the checking of AMQP tickets</a>.
-	  </p>
-	</doc:subsection>
+	
       </doc:section>
     </doc:div>
   </body>
