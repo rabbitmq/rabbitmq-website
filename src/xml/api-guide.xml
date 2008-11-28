@@ -88,7 +88,7 @@ ConnectionFactory factory = <b>new</b> ConnectionFactory(<b>params</b>);
 Connection conn = factory.newConnection(<b>hostName</b>, <b>portNumber</b>);
 </pre>	  
 	  <p>
-	    The Connection interface can then be used to open a channel and request an access ticket to a realm: 
+	    The Connection interface can then be used to open a channel and request an access ticket to a realm (please not that realms are deprecated and are no longer required - the RabbitMQ Java client currently maintains the access request functionality for compatibility reasons, but it is possible that this will be removed in the future): 
 	  </p>
 	  
 <pre class="sourcecode">
@@ -103,8 +103,8 @@ int ticket = channel.accessRequest(<b>realm</b>);
 	    To disconnect, simply close the channel and the connection:
 	  </p>
 
-	  <pre class="sourcecode">channel.close(AMQP.REPLY_SUCCESS, <b>&quot;Goodbye&quot;</b>);
-conn.close(AMQP.REPLY_SUCCESS, <b>&quot;Goodbye&quot;</b>);</pre>
+	  <pre class="sourcecode">channel.close();
+conn.close();</pre>
 
 	  <p>
 	    Note that closing the channel may be considered good practice, but isn't strictly necessary here - it will be done

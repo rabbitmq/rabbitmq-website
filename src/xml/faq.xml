@@ -442,7 +442,7 @@
 	    <p>
 	      Authorization is implemented in RabbitMQ using a
 	      distributed database table mapping users to virtual
-	      hosts and realms.
+	      hosts.
 	    </p>
 	    <p>
 	      Message authentication, for instance using <a
@@ -583,7 +583,7 @@
 	    <p>
 	      Like other messaging systems, AMQP and RabbitMQ provide
 	      internal addressing mechanisms based on notions such as
-	      routing keys, exchange addresses, realms and queue
+	      routing keys, exchange addresses and queue
 	      names.
 	    </p>
 	    <p>

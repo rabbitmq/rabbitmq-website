@@ -17,7 +17,7 @@
         <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
           several Erlang <i>nodes</i>, each running the RabbitMQ
-          <i>application</i> and sharing users, virtual hosts, realms,
+          <i>application</i> and sharing users, virtual hosts,
           queues, exchanges, etc. Sometimes we refer to the collection
           of nodes as a <i>cluster</i>.
         </p>
@@ -92,7 +92,7 @@
             can be as long or short as you like.
           </p>
           <p>
-            Erlang will automatically create a random cookie file when the RabbitMQ server starts up. This will be typically located in <code>/var/lib/rabbitmq/.erlang.cookie</code> on Unix systems and <code>C:\Documents and Settings\<i>Current User</i>\rabbitmq\.erlang.cookie</code> on Windows systems. The easiest way to proceed is to allow one node to create the file, and then copy it to all the other nodes in the cluster.
+            Erlang will automatically create a random cookie file when the RabbitMQ server starts up. This will be typically located in <code>/var/lib/rabbitmq/.erlang.cookie</code> on Unix systems and <code>C:\Documents and Settings\<i>Current User</i>\Application Data\RabbitMQ\.erlang.cookie</code> on Windows systems. The easiest way to proceed is to allow one node to create the file, and then copy it to all the other nodes in the cluster.
           </p>
           <p>
             As an alternative, you can insert the option "<code>-setcookie
