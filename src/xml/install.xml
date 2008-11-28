@@ -196,8 +196,8 @@
                 <dl>
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
-                    The default value of this path is <code><nobr>C:\Program
-                    Files\erl5.5.5\erts-5.5.5\bin</nobr></code>. The given path
+                    The default value of this path is
+                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
@@ -232,9 +232,8 @@
                 "<code>Service <i>SERVICENAME</i> started</code>", then the 
                 service was started correctly. If the output reads "<code>The process 
                 terminated unexpectedly</code>" instead, then the service did 
-                not start correctly. Check the environment variables 
-                and make sure the current working directory is set to 
-                <code>sbin</code>.
+                not start correctly. Check that the environmental variables are set
+                correctly.
               </li>
               <li>
                 Confirm that the service list in the operating system
