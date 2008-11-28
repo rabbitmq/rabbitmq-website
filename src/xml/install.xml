@@ -156,7 +156,7 @@
 	</doc:subsection>
 
 	<doc:subsection>
-	  <doc:heading>Running the Server</doc:heading>
+	  <doc:heading>Running the Server as an Application</doc:heading>
 
 	  <p>
 	    Currently, it's sufficient to change directory to
@@ -176,6 +176,79 @@
             href="admin-guide.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
+
+	<doc:subsection>
+	  <doc:heading>Running the Server as a Service</doc:heading>
+          <p>
+            The server can be run as a service instead of an application. The server 
+            will run in the security context of the system account, without the need
+            for a user to be logged in on a console. The server should not be run as a 
+            service and application simultaneously.
+          </p>
+          <p>
+            <ul>
+              <li>
+                The <code>rabbitmq-service.bat</code> script in the 
+                <code>sbin</code> directory is used to manage the service. 
+                The <code>rabbitmq-service.bat</code> script accepts the same environment 
+                variables as <code>rabbitmq-server.bat</code>, except <b>ERLANG_HOME</b>. 
+                Configure the following additional variables:
+                <dl>
+                  <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
+                  <dd>
+                    The default value of this path is
+                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
+                    must contain the <code>erlsrv.exe</code> Erlang service wrapper
+                    script.
+                  </dd>
+                  <dt>SERVICENAME</dt>
+                  <dd>
+                    This name will appear in the list of services reported by
+                    the operating system.
+                  </dd>
+                  <dt>CONSOLE_LOG</dt>
+                  <dd>
+                    Set this varable to <code>new</code> or <code>reuse</code> to have 
+                    the console output from the server redirected to a file named 
+                    <code>SERVICENAME</code>.debug in the default <code>RABBITMQ_BASE</code> 
+                    directory. If <code>CONSOLE_LOG</code> is set to <code>new</code> then a
+                    new file will be created each time the service starts. If 
+                    <code>CONSOLE_LOG</code> is set to <code>reuse</code>
+                    then the file will be overwritten each time the service starts.
+                    If <code>CONSOLE_LOG</code> is unset then console output from the
+                    server will be discarded.
+                  </dd>
+                </dl>
+              </li>
+              <li>
+                Open a command shell (<code>cmd.exe</code>) in the
+                <code>sbin</code> directory. Install the service by
+                executing <pre class="sourcecode">rabbitmq-service.bat install</pre>
+              </li>
+              <li>
+                The service will now appear in the services control panel. 
+                Execute <pre class="sourcecode">rabbitmq-service.bat start</pre> to start the server.
+                If the output from this command is
+                "<code>Service <i>SERVICENAME</i> started</code>", then the 
+                service was started correctly. If the output reads "<code>The process 
+                terminated unexpectedly</code>" instead, then the service did 
+                not start correctly. Check that the environmental variables are set
+                correctly.
+              </li>
+              <li>
+                Confirm that the service list in the operating system
+                service list (<code>services.msc</code>) reports a
+                "Started" status for the value of <b>SERVICENAME</b>.
+              </li>
+            </ul>
+          </p>
+          <p>
+            Refer to the <a href="service-guide.html">service</a> guide
+            for a complete description of <code>rabbitmq-service.bat</code> 
+            arguments.
+          </p>
+	</doc:subsection>
+
       </doc:section>
 
       <doc:section name="debian">
