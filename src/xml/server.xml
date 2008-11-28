@@ -91,9 +91,13 @@
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.i386.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for RPM-based Linux
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.x86_64.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for RPM-based Linux (64-bit)
       </r:download>
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
 		  downloadpath="&dir-server;">
@@ -185,7 +189,11 @@
     </p>
     
     <h3>Mercurial repositories</h3>
-    <br/>
+    <p>
+      The AMQP server itself, implemented in Erlang. Depends on the
+      code-generation library module. Please see the <a
+      href="build.html">build instructions</a>.
+    </p>
     
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-server"
