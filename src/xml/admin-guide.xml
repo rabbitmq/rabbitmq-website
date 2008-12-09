@@ -70,10 +70,10 @@
         <p>
           On a host named "server.example.com", the node name of the
           RabbitMQ Erlang node will usually be
-          <code>rabbit@server</code> (unless <b>NODENAME</b> has been
-          set to some non-default value at broker startup time). The
-          output of <code>hostname -s</code> is usually the correct
-          suffix to use after the "@" sign.
+          <code>rabbit@server</code> (unless <b>RABBITMQ_NODENAME</b>
+          has been set to some non-default value at broker startup
+          time). The output of <code>hostname -s</code> is usually the
+          correct suffix to use after the "@" sign.
         </p>
         <p>
           <code>rabbitmqctl</code> produces verbose output by default. 

@@ -604,14 +604,15 @@ $ rabbitmq-multi stop_all</pre>
           <pre class="sourcecode">
 [rabbit@<i>machine</i>].</pre>
           <p>
-			 You can also start multiple nodes on the same host
-			 manually by repeated invocation of 
-			 <code>rabbitmq-server</code> (
-			 <code>rabbitmq-server.bat</code> on Windows). You must ensure that for 
-			 each invocation you set the environment variables 
-			 <code>NODENAME</code>, <code>NODE_IP_ADDRESS</code> and
-			 <code>NODE_PORT</code> to suitable values ("0.0.0.0" means
-			 "all IP addresses").
+	    You can also start multiple nodes on the same host
+	    manually by repeated invocation of
+	    <code>rabbitmq-server</code> (
+	    <code>rabbitmq-server.bat</code> on Windows). You must
+	    ensure that for each invocation you set the environment
+	    variables <code>RABBITMQ_NODENAME</code>,
+	    <code>RABBITMQ_NODE_IP_ADDRESS</code> and
+	    <code>RABBITMQ_NODE_PORT</code> to suitable values
+	    ("0.0.0.0" means "all IP addresses").
           </p>
       </doc:section>
     </doc:div>
