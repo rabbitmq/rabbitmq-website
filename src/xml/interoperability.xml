@@ -34,41 +34,16 @@
         <doc:subsection name="qpid-client">
           <doc:heading>Qpid Java client -&gt; RabbitMQ broker</doc:heading>
           <ul>
-            <li>The Qpid clients do not currently call the
-            "access.request" method, instead using a fixed ticket
-            number of zero.
+            <li>When using any AMQP client, including Qpid's Java
+              client, the required users accounts must first be created
+              and granted access to the appropriate virtual hosts.
               <p>
-                RabbitMQ works around this by using a configurable
-                "strict ticket checking" mode. By default this mode is
-                disabled, which results in RabbitMQ fabricating
-                suitable tickets on the fly, as if "access.request"
-                had been invoked.  This provides out-of-the-box
-                interoperability between Qpid Java clients and
-                RabbitMQ servers.
+                Failure to do so will result in the Qpid
+              client reporting "Unable to connect" or
+              <code>ACCESS_REFUSED</code> errors, and RabbitMQ's log
+              file will contain errors such as
               </p>
-              <a name="strict_ticket_checking"></a>              
-              <p>
-                To enable "strict" ticket checking, run the following
-                command inside a RabbitMQ Erlang shell:
-              </p>
-              <pre class="sourcecode">rabbit_misc:set_config(strict_ticket_checking, enabled).</pre>
-              <p>
-                To disable "strict" ticket checking, run
-              </p>
-              <pre class="sourcecode">rabbit_misc:set_config(strict_ticket_checking, disabled).</pre>
-              <p>
-                Note that even when strict ticket checking is
-                disabled, access control is still enforced. Hence
-                users accounts must still be provisioned with suitable
-                access rights to the appropriate virtual hosts and
-                realms. Failure to do so will result in the Qpid
-                client reporting "Unable to connect" or
-                <code>ACCESS_REFUSED</code> errors, and RabbitMQ's log
-                file will contain errors such as
-              </p>
-              <pre class="sourcecode">VHost access refused: no mapping for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;
-...
-Ticket fabrication for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;, Realm "/data" failed: access_refused</pre>
+              <pre class="sourcecode">VHost access refused: no mapping for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;</pre>
               <p>
                 Use RabbitMQ's <a
                 href="admin-guide.html#access-control">administration
@@ -112,24 +87,6 @@ Ticket fabrication for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&g
           <doc:heading>RabbitMQ Java client -&gt; Qpid Java
             broker</doc:heading>
           <ul>
-            <li>The Qpid Java broker does not currently implement the
-            "access.request" method, instead throwing an exception and
-            closing the connection when that method is invoked.
-              <p>
-                In order to make interoperability easier, the RabbitMQ
-                Java client can be configured to suppress the sending
-                of the "access.request" method and instead return a
-                fixed ticket number of zero.
-              </p>
-              <p>
-                To enable this behaviour, invoke the <a
-                href="&dir-current-javadoc;com/rabbitmq/client/ConnectionParameters.html#setSuppressAccessRequest(boolean)">ConnectionParameters.setSuppressAccessRequest</a>
-                method, or set the
-                <code>com.rabbitmq.client.ConnectionParameters.suppressAccessRequest</code>
-                system property, which provides the default value for
-                the former.
-              </p>
-            </li>
             <li>Some of the RabbitMQ Java client tests and examples
             use features that are not implemented in Qpid.
               <p>
