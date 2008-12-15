@@ -247,7 +247,7 @@ GetResponse response = channel.basicGet(ticket, <b>queueName</b>, noAck);
 	  <doc:heading>Retrieving messages by subscription</doc:heading>
 
 	  <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
-<b>import</b> com.rabbitmq.client.DefaultConsumer;</pre>
+<b>import</b> com.rabbitmq.client.QueueingConsumer;</pre>
 
 	  <p>
 	    Another way to receive messages is to set up a subscription using the <code>Consumer</code>
@@ -255,28 +255,67 @@ GetResponse response = channel.basicGet(ticket, <b>queueName</b>, noAck);
 	    having to be requested proactively.
 	  </p>
 	  <p>
-	    The easiest way to implement a <code>Consumer</code> object is to subclass the convenience class 
-	    <code>DefaultConsumer</code>, then override methods as necessary. You will generally want to override
-	    the core interface method <code>handleDelivery</code> :
+	    The easiest and safest supplied implementation of <code>Consumer</code> is the
+	    <code>QueueingConsumer</code> convenience class:
 	  </p>
 
 	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-channel.basicConsume(ticket, <b>queueName</b>, noAck,
-     <b>new</b> DefaultConsumer(<b>channel</b>) {
-	 <b>@Override</b><b> public</b> <b>void</b> handleDelivery(String <b>consumerTag</b>,
-				Envelope <b>envelope</b>,
-				AMQP.BasicProperties <b>properties</b>,
-				byte[] <b>body</b>)
-	     <b>throws</b> IOException {
-	     String routingKey = envelope.getRoutingKey();
-	     String contentType = properties.contentType;
-	     long deliveryTag = envelope.getDeliveryTag();
-	     <i>// (process the message components ...) </i>
+QueueingConsumer consumer = <b>new</b> QueueingConsumer(channel);
+channel.basicConsume(queueName, noAck, consumer);
+<b>while</b> (<i>/* decide whether to continue reading */</i>) {
+    QueueingConsumer.Delivery delivery;
+    <b>try</b> {
+        delivery = consumer.nextDelivery();
+    } <b>catch</b> (InterruptedException ie) {
+        <b>continue</b>;
+    }
+    <i>// (process the message components ...)
+</i>    channel.basicAck(delivery.getEnvelope().getDeliveryTag(), <b>false</b>);
+}</pre>
 
-	     channel.basicAck(deliveryTag, false);
-	 }
+	  <p>
+	    If, instead, you decide to implement the <code>Consumer</code> interface yourself, be
+	    warned that its methods will be called from within the connection's thread, and so they
+	    must not in turn invoke any blocking AMQP operation (such as <code>queueDeclare</code>,
+	    <code>txCommit</code>, or <code>basicCancel</code>). If they do, the channel will
+	    deadlock. Only asynchronous AMQP operations are safe for use within callbacks, such as:
+	  </p>
+
+	  <ul>
+	    <li><code>basicAck</code></li>
+	    <li><code>basicPublish</code></li>
+	  </ul>
+
+	  <p>
+	    It's partly because of this complication that using <code>QueueingConsumer</code> is the
+	    safest way of receiving messages by subscription.
+	  </p>
+
+	  <p>
+	    If, with the above caveats in mind, you do decide to implement the <code>Consumer</code>
+	    interface yourself, one good option is to subclass the convenience class
+	    <code>DefaultConsumer</code>, overriding methods as necessary. You will generally want
+	    to override the core interface method <code>handleDelivery</code>:
+	  </p>
+
+	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
+channel.basicConsume(ticket, queueName, noAck,
+     <b>new</b> DefaultConsumer(channel) {
+         @Override <b>public</b> <b>void</b> handleDelivery(String consumerTag,
+                                              Envelope envelope,
+                                              AMQP.BasicProperties properties,
+                                              <b>byte</b>[] body)
+             <b>throws</b> IOException
+         {
+             String routingKey = envelope.getRoutingKey();
+             String contentType = properties.contentType;
+             <b>long</b> deliveryTag = envelope.getDeliveryTag();
+             <i>// (process the message components ...) 
+</i>
+             channel.basicAck(deliveryTag, <b>false</b>); <i>// asynchronous, thus safe!
+</i>         }
      });</pre>
-		     
+
 	  <p>
 	    More sophisticated consumers will need to override further methods. 
 	    In particular, <code>handleShutdownSignal</code> traps channel / connection
@@ -285,19 +324,22 @@ channel.basicConsume(ticket, <b>queueName</b>, noAck,
 	  </p>
 
 	  <p>
-	    Consumers can also implement <code>handleCancelOk</code> method to be notified of cancellations. 
+	    Consumers can also implement the <code>handleCancelOk</code> method to be notified of
+	    cancellations.
 	  </p>
+
 	  <p>
-	    You can cancel an active consumer with <code>Channel.basicCancel</code> : 
+	    You can cancel an active consumer with <code>Channel.basicCancel</code>:
 	  </p>
 
 	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
 
 	  <p>
-	    When calling the API methods, you always refer to consumers by their delivery tags, which can be either
-	    client- or server-generated as explained in <a href="http://www.amqp.org/">the AMQP specification document</a>.
+	    When calling the API methods relating to <code>Consumer</code>s, individual
+	    subscriptions are always referred to by their consumer tags, which can be either client-
+	    or server-generated as explained in <a href="http://www.amqp.org/">the AMQP
+	    specification document</a>.
 	  </p>
-
 	</doc:subsection>
 
 	<doc:subsection name="returning">
