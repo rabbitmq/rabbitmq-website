@@ -830,6 +830,15 @@
 	    your platform.
 	  </p>
 
+          <p>
+            The memory threshold at which the flow control is
+            triggered can be adjusted by modifying
+            the
+            <pre class="sourcecode">-os_mon system_memory_high_watermark 0.95</pre>
+            line in the <code>rabbitmq-server</code>
+            / <code>rabbitmq-server.bat</code> script.
+          </p>
+
 	  <p>
 	    The feature has been tested and found to work on various
 	    Linux distributions; there are known issues with Mac OS
