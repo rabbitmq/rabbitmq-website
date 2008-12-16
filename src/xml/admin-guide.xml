@@ -812,8 +812,8 @@
 	    memory-pressure-detection feature has been added to the
 	    codebase, so that when the server notices available memory
 	    drop below 5% of the total memory available to the system,
-	    it throttles publishers with the 'channel.flow' AMQP
-	    command.
+	    it throttles publishers with the <code>channel.flow</code>
+	    AMQP command.
 	  </p>
 
 	  <p>
@@ -831,10 +831,10 @@
 	  </p>
 
 	  <p>
-	    The feature has been tested on various Linux
-	    distributions; there are known issues with Mac OS
-	    X. Please report back to the <a
-	    href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
+	    The feature has been tested and found to work on various
+	    Linux distributions; there are known issues with Mac OS
+	    X. Please report back to
+	    the <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
 	    mailing list</a> your experiences using the feature on
 	    your platform!
 	  </p>
