@@ -820,7 +820,7 @@
 	    This new feature is disabled by default. To enable it, add
 	  </p>
 
-	  <pre class="sourcecode">-rabbit start_memsup true</pre>
+	  <pre class="sourcecode">-rabbit memory_alarms true</pre>
 
 	  <p>
 	    to your <code>RABBITMQ_SERVER_START_ARGS</code>
