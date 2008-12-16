@@ -793,6 +793,53 @@
         </doc:subsection>
       </doc:section>
 
+      <doc:section name="experimental">
+        <doc:heading>Experimental Features</doc:heading>
+
+	<p>
+	  This section describes additions to the server that are
+	  considered experimental.
+	</p>
+
+        <doc:subsection name="memsup">
+          <doc:heading>Memory-based flow control</doc:heading>
+
+	  <p>
+	    In versions of the RabbitMQ server prior to version 1.5.0,
+	    it was possible for clients to attempt to store so many
+	    messages within the server that it outgrew the available
+	    memory. With the release of version 1.5.0, an experimental
+	    memory-pressure-detection feature has been added to the
+	    codebase, so that when the server notices available memory
+	    drop below 5% of the total memory available to the system,
+	    it throttles publishers with the 'channel.flow' AMQP
+	    command.
+	  </p>
+
+	  <p>
+	    This new feature is disabled by default. To enable it, add
+	  </p>
+
+	  <pre class="sourcecode">-rabbit start_memsup true</pre>
+
+	  <p>
+	    to your <code>RABBITMQ_SERVER_START_ARGS</code>
+	    environment variable or to the
+	    <code>SERVER_START_ARGS</code> definition in
+	    <code>/etc/default/rabbitmq</code>, as appropriate for
+	    your platform.
+	  </p>
+
+	  <p>
+	    The feature has been tested on various Linux
+	    distributions; there are known issues with Mac OS
+	    X. Please report back to the <a
+	    href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
+	    mailing list</a> your experiences using the feature on
+	    your platform!
+	  </p>
+	</doc:subsection>
+      </doc:section>
     </doc:div>
   </body>
 </html>
