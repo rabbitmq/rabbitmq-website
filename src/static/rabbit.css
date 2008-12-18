@@ -119,19 +119,24 @@ li {
 	padding: 1ex 1em;
 }
 		
-ol.plain {
+ol.plain, ul.plain {
   margin: 5px 0px 0px 10px;	
   padding: 0px 0px 0px 0px;
 }
 
-ol.plain li {
+ol.plain li, ul.plain li {
 	background: none;
-	list-style-type : decimal !important;	
   margin: 0px 0px 0px 10px;	
   padding: 0px 0px 0px 0px;
 	border-bottom: none;
 }
-
+ul.plain li {
+	list-style-type : disc !important;	
+}
+ol.plain li {
+	list-style-type : decimal !important;	
+}
+	
 .col li {
 	border-bottom: #e4e4e4 1px solid;
 }

@@ -13,7 +13,47 @@
            Atom feed, for the updated time and as a guid.
              date +"%FT%T%z"
            will give you a suitable value.
-      -->
+      -->      <doc:item>
+    <doc:date iso="2008-12-18T00:00:00Z">18 December 2008</doc:date>
+        <doc:title>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.0.
+        </doc:title>
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-December/002682.html</doc:link>
+        <doc:text>
+
+<p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.0.</p>
+
+<p>This release has beta status and focuses on the following areas:</p>
+
+<ul class="plain">
+<li>removal of tickets and realms</li>
+<li>implementation of 'queue.unbind'</li>
+<li>producer throttling when running low on memory</li>
+<li>improved scalability of queue and binding creation and deletion</li>
+<li>disabled Nagle for more consistent latency</li>
+<li>added several management/info commands to rabbitmqctl</li>
+<li>bug fixes in the area of connection and channel closure</li>
+<li>support the latest Erlang/OTP release (R12B-5)</li>
+<li>improved configurability via environment variables</li>
+</ul>
+<p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20081218/35c6c574/attachment.txt">release notes</a>.</p>
+
+<p>Binary and source distributions of the new release can be found in the
+usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+
+<p>We recommend that all users of earlier versions of RabbitMQ upgrade to
+this latest release.</p>
+
+<p>As always, we welcome any questions, bug reports, and other feedback
+on this release, as well as general suggestions for features and
+enhancements in future releases. Mail us via the RabbitMQ discussion
+list at <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>, or directly at
+<a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
+
+
+	</doc:text>
+      </doc:item>
+      
       <doc:item>
         <doc:date iso="2008-10-14T00:00:00Z">14 October 2008</doc:date>
         <doc:title>

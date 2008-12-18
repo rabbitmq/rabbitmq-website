@@ -38,21 +38,15 @@
       </ul>
       <div class="col">
       
-      <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       
+      <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-      	  <p>
-            Matthias Radestock (LShift TD), Tony Garnock-Jones (LShift Senior Developer) and Alexis Richardson (CohesiveFT CEO) spoke at the Google London meeting.
-      	  </p>
-      	  <p>
-            The presentation dealt with the AMQP protocol, how we built our Erlang implementation of it (RabbitMQ), and how it might address, eg., Twitter's scaling problems.
-      	  </p>
-      	  <p>
-      	    Further details are available at <a
-      	    href="http://google-ukdev.blogspot.com/2008/09/rabbitmq-tech-talk-at-google-london.html">Google's developer blog.</a>.
-      	  </p>
+            The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.0.
 
+      	  <p>
+            Read <a href="news.html">more about this release</a>.
+          </p>
         </li>
       </ul>
       
