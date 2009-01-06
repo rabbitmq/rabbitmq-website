@@ -93,12 +93,21 @@
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.i386.rpm"
 		  downloadpath="&dir-server;">
-	Packaged as RPM for RPM-based Linux
+	Packaged as RPM for Fedora RPM-based Linux
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.x86_64.rpm"
 		  downloadpath="&dir-server;">
-	Packaged as RPM for RPM-based Linux (64-bit)
+	Packaged as RPM for Fedora RPM-based Linux (64-bit)
       </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.i386.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for Suse RPM-based Linux
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.x86_64.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for Suse RPM-based Linux (64-bit)
+      </r:download>
+
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
 		  downloadpath="&dir-server;">
 	Packaged for generic Unix systems
@@ -142,7 +151,7 @@
     <h4>RPM-based Linux</h4>
 
     <p>
-      The RPM file from the table above has been tested against
+      The RPM files from the table above has been tested against
     </p>
 
     <ul class="compact">
