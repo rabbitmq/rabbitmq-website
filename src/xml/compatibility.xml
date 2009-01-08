@@ -92,12 +92,12 @@
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="file" handler="channel" index="70"><status value="planned"/></class>
-	  <class name="stream" handler="channel" index="80"><status value="planned"/></class>
+	  <class name="file" handler="channel" index="70"><status value="deprecated"/></class>
+	  <class name="stream" handler="channel" index="80"><status value="deprecated"/></class>
 	  <class name="tx" handler="channel" index="90"><status value="ok"/></class>
-	  <class name="dtx" handler="channel" index="100"><status value=""/></class>
-	  <class name="tunnel" handler="tunnel" index="110"><status value=""/></class>
-	  <class name="test" handler="channel" index="120"><status value=""/></class>
+	  <class name="dtx" handler="channel" index="100"><status value="deprecated"/></class>
+	  <class name="tunnel" handler="tunnel" index="110"><status value="deprecated"/></class>
+	  <class name="test" handler="channel" index="120"><status value="deprecated"/></class>
 	</classes>
       </doc:section>
 
