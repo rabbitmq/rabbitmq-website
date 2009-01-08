@@ -144,13 +144,10 @@
 	    <qpid-test name="test_consume_queue_errors" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_consume_unique_consumers" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_get" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
-	    <qpid-test name="test_qos_prefetch_count" class="tests.basic.BasicTests">
-	      <status value="planned">failing</status>
-	      <notes>prefetch windowing planned but unimplemented</notes>
-	    </qpid-test>
+	    <qpid-test name="test_qos_prefetch_count" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_qos_prefetch_size" class="tests.basic.BasicTests">
 	      <status value="planned">failing</status>
-	      <notes>prefetch windowing planned but unimplemented</notes>
+	      <notes>prefetch size windowing planned but unimplemented</notes>
 	    </qpid-test>
 	    <qpid-test name="test_recover_requeue" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test" class="tests.exchange.DeclareMethodPassiveFieldNotFoundRuleTests"><status value="ok"/></qpid-test>
