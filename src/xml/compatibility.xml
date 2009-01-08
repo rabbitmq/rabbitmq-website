@@ -59,9 +59,9 @@
 	<doc:heading>Unimplemented Features</doc:heading>
 	<p>
 	  Currently, we have implemented the core AMQP features. Some
-	  features are yet to be implemented, including "channel.qos"
-	  prefetch windowing and "channel.flow" flow control (TCP
-	  windowing still provides primitive flow control).
+	  features are yet to be implemented, including "basic.qos"
+	  prefetch windowing (TCP windowing still provides primitive
+	  flow control).
         </p>
         <p>
           The "access.request" method is to be deprecated in future
@@ -88,16 +88,16 @@
 	<classes xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <class name="connection" handler="connection" index="10"><status value="ok"/></class>
 	  <class name="channel" handler="channel" index="20"><status value="ok"/></class>
-	  <class name="access" handler="connection" index="30"><status value="unsupported">deprecated</status></class>
+	  <class name="access" handler="connection" index="30"><status value="deprecated"/></class>
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="file" handler="channel" index="70"><status value="planned"/></class>
-	  <class name="stream" handler="channel" index="80"><status value="planned"/></class>
+	  <class name="file" handler="channel" index="70"><status value="deprecated"/></class>
+	  <class name="stream" handler="channel" index="80"><status value="deprecated"/></class>
 	  <class name="tx" handler="channel" index="90"><status value="ok"/></class>
-	  <class name="dtx" handler="channel" index="100"><status value=""/></class>
-	  <class name="tunnel" handler="tunnel" index="110"><status value=""/></class>
-	  <class name="test" handler="channel" index="120"><status value=""/></class>
+	  <class name="dtx" handler="channel" index="100"><status value="deprecated"/></class>
+	  <class name="tunnel" handler="tunnel" index="110"><status value="deprecated"/></class>
+	  <class name="test" handler="channel" index="120"><status value="deprecated"/></class>
 	</classes>
       </doc:section>
 
@@ -124,13 +124,13 @@
 	  <method name="connection.close-ok"><status value="ok"/></method>
 	  <method name="channel.open"><status value="ok"/></method>
 	  <method name="channel.open-ok"><status value="ok"/></method>
-	  <method name="channel.flow"><status value="planned"/></method>
-	  <method name="channel.flow-ok"><status value="planned"/></method>
-	  <method name="channel.alert"><status value="unsupported">deprecated</status></method>
+	  <method name="channel.flow"><status value="partial"/></method>
+	  <method name="channel.flow-ok"><status value="partial"/></method>
+	  <method name="channel.alert"><status value="deprecated"/></method>
 	  <method name="channel.close"><status value="ok"/></method>
 	  <method name="channel.close-ok"><status value="ok"/></method>
-	  <method name="access.request"><status value="unsupported">deprecated</status></method>
-	  <method name="access.request-ok"><status value="unsupported">deprecated</status></method>
+	  <method name="access.request"><status value="deprecated"/></method>
+	  <method name="access.request-ok"><status value="deprecated"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
 	  <method name="exchange.delete"><status value="ok"/></method>
@@ -194,7 +194,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      v0-8, 2.2.6
 	    </xref>
@@ -212,7 +212,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1580,7 +1580,8 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="planned"/>
+	    <status value="partial"/>
+	    <notes>The clients handle Channel.Flow, but the server doesn't.</notes>
 	    <xref>
 	      
 	    </xref>
@@ -1598,7 +1599,8 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="planned"/>
+	    <status value="partial"/>
+	    <notes>The server may issue a Channel.Flow under certain conditions, such as memory pressure. The clients do not automatically issue a Channel.Flow.</notes>
 	    <xref>
 	      
 	    </xref>
@@ -1688,7 +1690,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1702,7 +1704,7 @@
 	      server
 	    </actor>
 	    <text>
-	      (deprecated) The realm name MUST start with either "/data" (for application resources) or "/admin" (for server administration resources). If the realm starts with any other path, the server MUST raise a connection exception with reply code 403 (access refused). 
+	      The realm name MUST start with either "/data" (for application resources) or "/admin" (for server administration resources). If the realm starts with any other path, the server MUST raise a connection exception with reply code 403 (access refused). 
 	    </text>
 	  </rule>
 	  <rule>
@@ -1742,7 +1744,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1760,7 +1762,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1868,7 +1870,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2030,7 +2032,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2552,7 +2554,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2858,7 +2860,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2948,7 +2950,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -3074,7 +3076,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
