@@ -59,7 +59,7 @@
 	<doc:heading>Unimplemented Features</doc:heading>
 	<p>
 	  Currently, we have implemented the core AMQP features. Some
-	  features are yet to be implemented, including "channel.qos"
+	  features are yet to be implemented, including "basic.qos"
 	  prefetch windowing and "channel.flow" flow control (TCP
 	  windowing still provides primitive flow control).
         </p>
