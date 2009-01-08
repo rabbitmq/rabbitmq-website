@@ -298,6 +298,7 @@ td.signature, th.signature {
 .amqpRules .status_partial		{background: #cf0;}
 .amqpRules .status_invalid		{background: #cf0;}
 .amqpRules .status_unsupported		{background: #fc0;}
+.amqpRules .status_deprecated		{background: #fc0;}
 .amqpRules .status_failing		{background: #c00; color: white;}
 
 .platformHighlight {

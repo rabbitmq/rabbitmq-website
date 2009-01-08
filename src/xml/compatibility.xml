@@ -88,7 +88,7 @@
 	<classes xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <class name="connection" handler="connection" index="10"><status value="ok"/></class>
 	  <class name="channel" handler="channel" index="20"><status value="ok"/></class>
-	  <class name="access" handler="connection" index="30"><status value="unsupported">deprecated</status></class>
+	  <class name="access" handler="connection" index="30"><status value="deprecated"/></class>
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
@@ -126,11 +126,11 @@
 	  <method name="channel.open-ok"><status value="ok"/></method>
 	  <method name="channel.flow"><status value="planned"/></method>
 	  <method name="channel.flow-ok"><status value="planned"/></method>
-	  <method name="channel.alert"><status value="unsupported">deprecated</status></method>
+	  <method name="channel.alert"><status value="deprecated"/></method>
 	  <method name="channel.close"><status value="ok"/></method>
 	  <method name="channel.close-ok"><status value="ok"/></method>
-	  <method name="access.request"><status value="unsupported">deprecated</status></method>
-	  <method name="access.request-ok"><status value="unsupported">deprecated</status></method>
+	  <method name="access.request"><status value="deprecated"/></method>
+	  <method name="access.request-ok"><status value="deprecated"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
 	  <method name="exchange.delete"><status value="ok"/></method>
@@ -194,7 +194,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      v0-8, 2.2.6
 	    </xref>
@@ -212,7 +212,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1688,7 +1688,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="ok"/>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1702,7 +1702,7 @@
 	      server
 	    </actor>
 	    <text>
-	      (deprecated) The realm name MUST start with either "/data" (for application resources) or "/admin" (for server administration resources). If the realm starts with any other path, the server MUST raise a connection exception with reply code 403 (access refused). 
+	      The realm name MUST start with either "/data" (for application resources) or "/admin" (for server administration resources). If the realm starts with any other path, the server MUST raise a connection exception with reply code 403 (access refused). 
 	    </text>
 	  </rule>
 	  <rule>
@@ -1742,7 +1742,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1760,7 +1760,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -1868,7 +1868,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2030,7 +2030,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2552,7 +2552,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2858,7 +2858,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -2948,7 +2948,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
@@ -3074,7 +3074,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="unsupported">deprecated</status>
+	    <status value="deprecated"/>
 	    <xref>
 	      
 	    </xref>
