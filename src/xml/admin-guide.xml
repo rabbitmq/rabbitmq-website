@@ -719,7 +719,7 @@
           <dl>
             <dt>node</dt> 
             <dd>
-              Node on which the process associated with the queue resides.
+              Node on which the process associated with the connection resides.
             </dd> 
             <dt>address</dt> 
             <dd>
