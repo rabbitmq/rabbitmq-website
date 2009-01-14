@@ -510,7 +510,7 @@
 
         <doc:subsection name="list_user_vhosts">
           <doc:heading>Listing virtual hosts accessible to user</doc:heading>
-          <pre class="sourcecode">rabbitmqctl list_user_vhost <i>username</i> </pre>
+          <pre class="sourcecode">rabbitmqctl list_user_vhosts <i>username</i> </pre>
           <dl>
             <dt>username</dt>
             <dd>
