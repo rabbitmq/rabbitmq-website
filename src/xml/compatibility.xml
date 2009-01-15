@@ -446,6 +446,42 @@
 	    </text>
 	  </rule>
 	  <rule>
+	    <status value="ok">does</status>
+	    <xref>
+	      v0-9-1, 3.1.3.4
+	    </xref>
+	    <context>
+	      
+	    </context>
+	    <type>
+	      SHOULD
+	    </type>
+	    <actor>
+	      server
+	    </actor>
+	    <text>
+	      Implement "headers" exchanges
+	    </text>
+	  </rule>
+	  <rule>
+	    <status value="ok"/>
+	    <xref>
+	      v0-9-1, 3.1.3.4
+	    </xref>
+	    <context>
+	      
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	      server
+	    </actor>
+	    <text>
+	      Predeclare "amq.match"/"amq.headers" exchange (only if "headers" exchange implemented)
+	    </text>
+	  </rule>
+	  <rule>
 	    <status value="ok"/>
 	    <xref>
 	      v0-8, 3.1.3.5
@@ -1813,6 +1849,24 @@
 	    </actor>
 	    <text>
 	      The server SHOULD implement the topic exchange type, and predeclare the corresponding exchange named amq.topic in each virtual host. 
+	    </text>
+	  </rule>
+	  <rule>
+	    <status value="ok">does</status>
+	    <xref>
+
+	    </xref>
+	    <context>
+	      v0-9-1
+	    </context>
+	    <type>
+	      SHOULD
+	    </type>
+	    <actor>
+	      server
+	    </actor>
+	    <text>
+	      The server SHOULD implement the headers exchange type, and predeclare the corresponding exchange named amq.match/amq.headers in each virtual host. 
 	    </text>
 	  </rule>
 	  <rule>

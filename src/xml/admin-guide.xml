@@ -666,7 +666,8 @@
             </dd>
             <dt>type</dt>
             <dd>
-              The exchange type (one of [<code>direct</code>, <code>topic</code>,
+              The exchange type (one of [<code>direct</code>,
+              <code>topic</code>, <code>headers</code>,
               <code>fanout</code>]).
             </dd>
             <dt>durable</dt>
