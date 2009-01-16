@@ -59,9 +59,7 @@
 	<doc:heading>Unimplemented Features</doc:heading>
 	<p>
 	  Currently, we have implemented the core AMQP features. Some
-	  features are yet to be implemented, including "basic.qos"
-	  prefetch windowing (TCP windowing still provides primitive
-	  flow control).
+	  other features are yet to be implemented.
         </p>
         <p>
           The "access.request" method is to be deprecated in future
@@ -143,8 +141,13 @@
 	  <method name="queue.purge-ok"><status value="ok"/></method>
 	  <method name="queue.delete"><status value="ok"/></method>
 	  <method name="queue.delete-ok"><status value="ok"/></method>
-	  <method name="basic.qos"><status value="planned"/></method>
-	  <method name="basic.qos-ok"><status value="planned"/></method>
+	  <method name="basic.qos">
+            <status value="partial"/>
+            <notes>The server supports non-global prefetch count
+            limits; global limits and prefetch size limits are not
+            implemented.</notes>
+          </method>
+	  <method name="basic.qos-ok"><status value="partial"/></method>
 	  <method name="basic.consume"><status value="ok"/></method>
 	  <method name="basic.consume-ok"><status value="ok"/></method>
 	  <method name="basic.cancel"><status value="ok"/></method>
@@ -2860,7 +2863,10 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="planned"/>
+	    <status value="partial"/>
+            <notes>
+              This is implemented for prefetch counts. Prefetch size limits are not supported.
+            </notes>
 	    <xref>
 	      amq_basic_17
 	    </xref>
@@ -2878,7 +2884,7 @@
 	    </text>
 	  </rule>
 	  <rule>
-	    <status value="planned"/>
+	    <status value="ok">doesn't</status>
 	    <xref>
 	      amq_basic_18
 	    </xref>
