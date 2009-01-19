@@ -48,7 +48,7 @@
 
     <p>
       The current release of RabbitMQ Java AMQP library is <b>
-      &version-java-client;</b>, which has <b>beta</b> status.
+      &version-java-client;</b>, which has <b>&status-java-client;</b> status.
     </p>
 
     <h3>

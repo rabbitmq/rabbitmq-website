@@ -595,9 +595,9 @@
             <dd>
               Queue arguments.
             </dd>
-            <dt>pid</dt>
+            <dt>node</dt>
             <dd>
-              Erlang process identifier associated with the queue.
+              Node on which the process associated with the queue resides.
             </dd>
             <dt>messages_ready</dt>
             <dd>
@@ -717,9 +717,9 @@
             can take any value from the list that follows:
           </p>
           <dl>
-            <dt>pid</dt> 
+            <dt>node</dt> 
             <dd>
-              Erlang process identifier associated with the connection.
+              Node on which the process associated with the connection resides.
             </dd> 
             <dt>address</dt> 
             <dd>
