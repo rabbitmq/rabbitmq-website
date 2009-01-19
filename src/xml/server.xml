@@ -65,7 +65,7 @@
 
     <p>
       The current release of RabbitMQ AMQP Server is <b>
-      &version-server;</b>, which has <b>beta</b> status.
+      &version-server;</b>, which has <b>&status-server;</b> status.
     </p>
 
     <h3>

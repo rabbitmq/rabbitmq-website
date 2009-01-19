@@ -56,7 +56,7 @@
 
     <p>
       The current release of RabbitMQ .NET/C# AMQP library is <b>
-      &version-dotnet-client;</b>, which has <b>beta</b> status.
+      &version-dotnet-client;</b>, which has <b>&status-dotnet-client;</b> status.
     </p>
 
     <h3>
