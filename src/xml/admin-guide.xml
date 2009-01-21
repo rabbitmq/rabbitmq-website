@@ -595,21 +595,21 @@
             <dd>
               Queue arguments.
             </dd>
-            <dt>pid</dt>
+            <dt>node</dt>
             <dd>
-              Erlang process identifier associated with the queue.
+              Node on which the process associated with the queue resides.
             </dd>
             <dt>messages_ready</dt>
             <dd>
-              Number of ready messages.
+              Number of messages ready to be delivered to clients.
             </dd>
             <dt>messages_unacknowledged</dt>
             <dd>
-              Number of unacknowledged messages.
+              Number of messages delivered to clients but not yet acknowledged.
             </dd>
             <dt>messages_uncommitted</dt>
             <dd>
-              Number of uncommitted messages.
+              Number of messages published in as yet uncommitted transactions
             </dd>
             <dt>messages</dt>
             <dd>
@@ -618,7 +618,8 @@
             </dd>
             <dt>acks_uncommitted</dt>
             <dd>
-              Number of uncommitted acknowledgements.
+              Number of acknowledgements received in as yet uncommitted
+              transactions.
             </dd>
             <dt>consumers</dt>
             <dd>
@@ -718,9 +719,9 @@
             can take any value from the list that follows:
           </p>
           <dl>
-            <dt>pid</dt> 
+            <dt>node</dt> 
             <dd>
-              Erlang process identifier associated with the connection.
+              Node on which the process associated with the connection resides.
             </dd> 
             <dt>address</dt> 
             <dd>
@@ -806,10 +807,10 @@
           <doc:heading>Memory-based flow control</doc:heading>
 
 	  <p>
-	    In versions of the RabbitMQ server prior to version 1.5.0,
+	    In versions of the RabbitMQ server prior to version 1.5.x,
 	    it was possible for clients to attempt to store so many
 	    messages within the server that it outgrew the available
-	    memory. With the release of version 1.5.0, an experimental
+	    memory. With the release of version 1.5.x, an experimental
 	    memory-pressure-detection feature has been added to the
 	    codebase, so that when the server notices available memory
 	    drop below 5% of the total memory available to the system,
@@ -818,7 +819,14 @@
 	  </p>
 
 	  <p>
-	    This new feature is disabled by default. To enable it, add
+	    The feature has been tested and found to work on various
+	    Linux distributions, and is therefore enabled on those
+            platforms by default.
+          </p>
+
+	  <p>
+            To enable the feature when running the RabbitMQ on other
+            platforms, add
 	  </p>
 
 	  <pre class="sourcecode">-rabbit memory_alarms true</pre>
@@ -832,6 +840,12 @@
 	  </p>
 
           <p>
+            Similarly, to disable the feature add
+          </p>
+
+	  <pre class="sourcecode">-rabbit memory_alarms false</pre>
+
+          <p>
             The memory threshold at which the flow control is
             triggered can be adjusted by modifying
             the
@@ -841,12 +855,10 @@
           </p>
 
 	  <p>
-	    The feature has been tested and found to work on various
-	    Linux distributions; there are known issues with Mac OS
-	    X. Please report back to
-	    the <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
-	    mailing list</a> your experiences using the feature on
-	    your platform!
+            Please report back to the <a
+            href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
+            mailing list</a> your experiences using the feature on
+            your platform!
 	  </p>
 	</doc:subsection>
       </doc:section>
