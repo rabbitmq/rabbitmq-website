@@ -451,6 +451,12 @@
           choose to dilvuge their names to other users.
         </p>
 
+        <p>
+          RabbitMQ may cache the results of access control checks on a
+          per-connection or per-channel basis. Hence changes to user
+          permissions may only take effect when the user reconnects.
+        </p>
+
         <doc:subsection name="add_vhost">
           <doc:heading>Creating a virtual host</doc:heading>
           <pre class="sourcecode">rabbitmqctl add_vhost <i>vhostpath</i></pre>
