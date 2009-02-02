@@ -194,7 +194,7 @@
 
     <p>
       Please see the <a
-      href="http://hg.rabbitmq.com/rabbitmq-stomp/file/tip/README">readme</a>
+      href="http://hg.rabbitmq.com/rabbitmq-stomp/file/default/README">readme</a>
       file and our various <a
       href="http://www.lshift.net/blog/index.php?s=stomp">blog
       articles</a> about the adapter for more information on compiling
@@ -223,7 +223,7 @@
 
     <p>
       Please see <a
-      href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/tip/doc/index.html">the
+      href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
       documentation</a> for more information on building and
       configuring the gateway.
     </p>
