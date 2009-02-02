@@ -421,19 +421,61 @@
         </p>
 
         <p>
-          RabbitMQ distinguishes between <em>configuration</em> and
-          <em>messaging</em> operations on a resource. The former
-          alter the messaging topology. Examples are exchange and
-          queue declaration and binding. The latter involve messaging
-          operations such as publication, setting up consumers, and
-          purging queues.
+          RabbitMQ distinguishes between <em>configure</em>,
+          <em>write</em> and <em>read</em> operations on a
+          resource. The <em>configure</em> operations create or
+          destroy resources, or alter their behaviour. The
+          <em>write</em> operations inject messages into a
+          resource. And the <em>read</em> operations retrieve messages
+          from a resource.
         </p>
 
         <p>
           In order to perform an operation on a resource the user must
           have been granted the appropriate permissions for it. The
-          permissions are expressed as a pair of regular expressions -
-          one for configuration and one for messaging - on per-vhost
+          following table shows what permissions on what type of
+          resource are required for all the AMQP commands which
+          perform permission checks.
+          <table>
+            <tr>
+              <th>AMQP command</th>
+              <th>configure</th>
+              <th>write</th>
+              <th>read</th>
+            </tr>
+            <tr>
+              <td>exchange.declare</td><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>exchange.delete</td><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.delete</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.bind</td><td/><td>queue</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>basic.publish</td><td/><td>exchange</td><td/>
+            </tr>
+            <tr>
+              <td>basic.get</td><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>basic.consume</td><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>queue.purge</td><td/><td/><td>queue</td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          Permissions are expressed as a triple of regular expressions
+          - one each for configure, write and read - on per-vhost
           basis. The user is granted the respective permission for
           operations on all resources with names matching the regular
           expressions. <i>(Note: For convenience RabbitMQ maps AMQP's
@@ -443,12 +485,12 @@
 
         <p>
           Some AMQP operations can create resources with
-          server-generated names. Every user has configuration and
-          messaging permissions for such resources. However, the names
-          are strong and not discoverable as part of the protocol,
-          only through management functionality. Therefore these
-          resources are in effect private to the user unless they
-          choose to dilvuge their names to other users.
+          server-generated names. Every user has configure, write and
+          read permissions for such resources. However, the names are
+          strong and not discoverable as part of the protocol, only
+          through management functionality. Therefore these resources
+          are in effect private to the user unless they choose to
+          dilvuge their names to other users.
         </p>
 
         <p>
@@ -514,7 +556,7 @@
 
         <doc:subsection name="set_permissions">
           <doc:heading>Setting user permissions</doc:heading>
-          <pre class="sourcecode">rabbitmqctl set_permissions [<i>-p vhostpath</i>] <i>username</i> <i>regexp</i> <i>regexp</i></pre>
+          <pre class="sourcecode">rabbitmqctl set_permissions [<i>-p vhostpath</i>] <i>username</i> <i>regexp</i> <i>regexp</i> <i>regexp</i></pre>
           <dl>
             <dt>vhostpath</dt>
             <dd>
@@ -529,20 +571,20 @@
             <dt>regexp</dt>
             <dd>
               The regular expressions for matching resource names for
-              which the user is granted configuration and messaging
+              which the user is granted configure, write and read
               permissions, respectively.
             </dd>
           </dl>
           <p>
             For example:
           </p>
-          <pre>rabbitmqctl set_permissions -p /myvhost tonyg "^tonyg-.*" ".*"</pre>
+          <pre>rabbitmqctl set_permissions -p /myvhost tonyg "^tonyg-.*" ".*" ".*"</pre>
           <p>
             This command instructs the RabbitMQ broker to grant the
             user named <code>tonyg</code> access to the virtual host
-            called <code>/myvhost</code>, with configuration
-            permissions on all resources whose names starts with
-            "tonyg-", and messaging permissions on all resources.
+            called <code>/myvhost</code>, with configure permissions
+            on all resources whose names starts with "tonyg-", and
+            write and read permissions on all resources.
           </p>
         </doc:subsection>
 
