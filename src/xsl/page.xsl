@@ -256,7 +256,7 @@ Technologies Ltd.</div>
   <xsl:template match="r:repository[@type = 'hg']">
     <tr>
       <td>
-	<a href="{@url}archive/tip.zip"><xsl:value-of select="@shortname"/></a>
+	<a href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
 	<code>hg clone <xsl:value-of select="@url"/></code>

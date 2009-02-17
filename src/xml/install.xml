@@ -445,14 +445,13 @@
 	    </li>
 	    <li>
 	      Contained in the tarball is a directory named
-	      <code>rabbitmq-server-generic-unix-<i>version</i></code>. You
-	      can <b>either</b> extract the tarball into
+	      <code>rabbitmq_server-<i>version</i></code>. You can
+	      <b>either</b> extract the tarball into
 	      <code>/usr/lib/erlang/lib</code> directory (or wherever
 	      your Erlang installation places its application and
-	      library directory) <b>or</b> extract it elsewhere and
-	      set the environment variable ERLANG_HOME to point to
-	      your Erlang directory
-	      (e.g. <code>/usr/lib/erlang</code>).
+	      library directory), which allows the RabbitMQ modules to
+	      be found by other Erlang applications, <b>or</b> extract
+	      it elsewhere.
 	    </li>
 	    <li>
 	      Within the <code>sbin</code> directory is a shell script
