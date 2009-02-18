@@ -365,8 +365,8 @@
         <doc:heading>Installation Instructions</doc:heading>
         <ul>
           <li>
-            Install rabbitmq-server-<i>version</i>-noarch.rpm (which
-            you can download by hand at our <a 
+            Install rabbitmq-server-<i>version</i>-<i>architecture</i>.rpm
+            (which you can download by hand at our <a 
             href="server.html">download page</a>).
             Note that the package depends on erlang package(s).
             We strongly recommend using your distribution's packaged
