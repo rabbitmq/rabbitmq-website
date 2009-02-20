@@ -391,10 +391,11 @@
       <doc:subsection name="running-rpm">
         <doc:heading>Running the Server</doc:heading>
         <p>
-          The server is started as a daemon by default when the
+          The server is not started as a daemon by default when the
           RabbitMQ Server package is installed. Start and stop the
-          server as usual using <code>invoke-rc.d
-          rabbitmq-server <i>stop/start/etc</i></code>.
+          server as usual using <code>/sbin/service rabbitmq-server
+          <i>stop/start/etc</i></code>. To start the daemon by default
+          when the system boots, run <code>chkconfig rabbitmq-server on</code>.
         </p>
         <p>
           The server is set up to run as system user <code>rabbitmq</code>. 
