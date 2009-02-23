@@ -510,7 +510,7 @@
 
         <doc:subsection name="list_user_vhosts">
           <doc:heading>Listing virtual hosts accessible to user</doc:heading>
-          <pre class="sourcecode">rabbitmqctl list_user_vhost <i>username</i> </pre>
+          <pre class="sourcecode">rabbitmqctl list_user_vhosts <i>username</i> </pre>
           <dl>
             <dt>username</dt>
             <dd>
@@ -601,15 +601,15 @@
             </dd>
             <dt>messages_ready</dt>
             <dd>
-              Number of ready messages.
+              Number of messages ready to be delivered to clients.
             </dd>
             <dt>messages_unacknowledged</dt>
             <dd>
-              Number of unacknowledged messages.
+              Number of messages delivered to clients but not yet acknowledged.
             </dd>
             <dt>messages_uncommitted</dt>
             <dd>
-              Number of uncommitted messages.
+              Number of messages published in as yet uncommitted transactions
             </dd>
             <dt>messages</dt>
             <dd>
@@ -618,7 +618,8 @@
             </dd>
             <dt>acks_uncommitted</dt>
             <dd>
-              Number of uncommitted acknowledgements.
+              Number of acknowledgements received in as yet uncommitted
+              transactions.
             </dd>
             <dt>consumers</dt>
             <dd>
