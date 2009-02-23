@@ -298,10 +298,11 @@
 	    </li>
 	    <li>
 	      To adjust the settings used for starting the server,
-	      edit <code>/etc/default/rabbitmq</code>, setting
+	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
 	      href="#generic-unix">Generic Unix</a> section below. You
-	      can additionally set <code>NODE_COUNT</code> to define
+	      can additionally set <code>NODE_COUNT</code> in 
+	      <code>/etc/default/rabbitmq</code> to define
 	      <a href="clustering.html#single-machine">the number of
 	      nodes to run on a single machine</a>.
 	    </li>
@@ -335,7 +336,7 @@
             timeout can be adjusted by setting
             <code>MULTI_START_ARGS</code> to
 	    "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	    in <code>/etc/default/rabbitmq</code>.
+	    in <code>/etc/rabbitmq/rabbitmq.conf</code>.
         </p>
 	</doc:subsection>
     <doc:subsection name="logging-debian">
@@ -365,8 +366,8 @@
         <doc:heading>Installation Instructions</doc:heading>
         <ul>
           <li>
-            Install rabbitmq-server-<i>version</i>-noarch.rpm (which
-            you can download by hand at our <a 
+            Install rabbitmq-server-<i>version</i>-<i>architecture</i>.rpm
+            (which you can download by hand at our <a 
             href="server.html">download page</a>).
             Note that the package depends on erlang package(s).
             We strongly recommend using your distribution's packaged
@@ -376,10 +377,11 @@
           </li>
           <li>
             To adjust the settings used for starting the server,
-            edit <code>/etc/default/rabbitmq</code>, setting
+            edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
             environment variables as described in the <a
             href="#generic-unix">Generic Unix</a> section below. You
-            can additionally set <code>NODE_COUNT</code> to define
+            can additionally set <code>NODE_COUNT</code> in
+            <code>/etc/sysconfig/rabbitmq</code> to define
             <a href="clustering.html#single-machine">the number of
             nodes to run on a single machine</a>.
           </li>
@@ -389,10 +391,11 @@
       <doc:subsection name="running-rpm">
         <doc:heading>Running the Server</doc:heading>
         <p>
-          The server is started as a daemon by default when the
+          The server is not started as a daemon by default when the
           RabbitMQ Server package is installed. Start and stop the
-          server as usual using <code>invoke-rc.d
-          rabbitmq-server <i>stop/start/etc</i></code>.
+          server as usual using <code>/sbin/service rabbitmq-server
+          <i>stop/start/etc</i></code>. To start the daemon by default
+          when the system boots, run <code>chkconfig rabbitmq-server on</code>.
         </p>
         <p>
           The server is set up to run as system user <code>rabbitmq</code>. 
@@ -412,7 +415,7 @@
           to be recovered. For that reason the timeout can be adjusted
           by setting <code>MULTI_START_ARGS</code> to
 	  "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	  in <code>/etc/default/rabbitmq</code>.
+	  in <code>/etc/rabbitmq/rabbitmq.conf</code>.
         </p>
       </doc:subsection>
       <doc:subsection name="logging-rpm">
@@ -498,7 +501,7 @@
         <dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
         <dd>
           Defaults to
-          <code>/etc/default/rabbitmq_cluster.config</code>. If
+          <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. If
           this file is present it is used by the server to
           auto-configure a RabbitMQ cluster. See the <a
           href="clustering.html">clustering guide</a>

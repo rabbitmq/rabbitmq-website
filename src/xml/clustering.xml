@@ -537,7 +537,7 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
             location as defined in the start up files (see the <a
             href="install.html">installation guide</a>). For example,
             on a Unix system the file would typically have the path
-            <code>/etc/default/rabbitmq_cluster.config</code>. Now we
+            <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. Now we
             simply start the nodes.
           </p>
           <pre class="sourcecode">
