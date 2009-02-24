@@ -25,10 +25,6 @@
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.3.</p>
 
 	  <p>This release has 'final' status and fixes a number of bugs in the
-	  server, the .net client, and the Debian/RPM packaging.</p>
-
-
-	  <p>This release has 'final' status and fixes a number of bugs in the
 	  server, the Java client, the .net client, and the Debian/RPM packaging.</p>
 
 	  <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003479.html">release notes</a>.</p>
