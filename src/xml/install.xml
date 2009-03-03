@@ -446,28 +446,27 @@
 	  system.
 	</blockquote>
 	<p>
-	  At the time of writing, only version 1.3.0 of the RabbitMQ
-	  server is available, but version 1.5.3 has been submitted to
-	  the project (see <a
-	  href="https://trac.macports.org/ticket/18665">MacPorts
-	  ticket #18665</a> for details) and will, with luck, be
-	  accepted shortly.  (Thanks to Chris Pettitt for <a
+	  At the time of writing, version 1.5.3 of the RabbitMQ server
+	  is available. (Thanks to Chris Pettitt for <a
 	  href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003485.html">updating
 	  the port</a> and for supplying the text that this section is
 	  based on.)
 	</p>
 	<p>
-	  The most current portfile and supporting files are always
-	  available as <a
-	  href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/">part
-	  of our source-code repository</a>.
+	  If you wish to track the packaging from our development
+	  repository, rather than using the officially-released
+	  MacPorts packaging, you can use the portfile from the <a
+	  href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
+	  directory in the <code>rabbitmq-server</code> mercurial
+	  repository.
 	</p>
 
 	<doc:subsection name="install-macports">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <p>
 	    If you want to use the version distributed with MacPorts,
-	    installation is as simple as
+	    installation is as simple as (<code>sudo port sync</code>
+	    followed by)
 	  </p>
 	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
 	  <p>
