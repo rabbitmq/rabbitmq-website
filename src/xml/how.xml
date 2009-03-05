@@ -19,15 +19,17 @@
         <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens, an introduction to messaging</a></li>
         <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a></li>
         <li><a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queueing</a></li>
+        <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
       </ul>
       
       <h3>Specific configurations</h3>
       <ul>
-        <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
+        <li><a href="http://www.rabbitmq.com/java-client.html">Java client </a></li>
         <li>Ruby client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a> and <a href="http://github.com/tmm1/amqp/tree/master">code</a></li>
-        <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a> and <a href="http://barryp.org/software/py-amqplib/">client library code</a></li>
+        <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a> and <a href="http://barryp.org/software/py-amqplib/">client library code</a></li> <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a></li>
-        <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
+       
+        <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
       </ul>
       
@@ -41,7 +43,7 @@
       <h3>Blogs and general posts</h3>      
       <ul>
         <li><a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift blogs</a></li>
-        <li><a href="http://hopper.squarespace.com/">Ben's blog</a>  </li>
+        <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs on RabbitMQ</a>  </li>
         <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a></li>
         <li><a href="http://search.twitter.com/search?q=rabbitmq">Noise</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
