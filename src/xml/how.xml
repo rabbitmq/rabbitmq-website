@@ -29,12 +29,12 @@
         <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a>, <a href="http://barryp.org/software/py-amqplib/">client library code</a>, <a href="https://launchpad.net/txamqp">Twisted</a> and <a href="http://orbited.org">Orbited</a></li> 
         <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
         <li><a href="http://code.google.com/p/php-amqplib/">PHP client</a></li> 
-        <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a> and <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a>, and <a href="http://flexonrails.net/?p=106">Flex</a></li>
+        <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and <a href="http://flexonrails.net/?p=106">Flex</a></li>
        
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
         <li><a href="http://github.com/dpp/liftweb/tree/master/lift-amqp">Scala/Lift</a></li>
-        <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Erlang</a>, and <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a> and <a href="http://github.com/deguzman/couchdb-solr2/tree/master">CouchDB</a></li>
+        <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Erlang</a>,  <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a> and <a href="http://github.com/deguzman/couchdb-solr2/tree/master">CouchDB</a></li>
       </ul>
       
       <h3>Going further</h3>
