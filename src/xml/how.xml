@@ -12,40 +12,46 @@
       <p>You will find more detailed information elsewhere on the site, but this page provides shortcuts to some real world experiences.</p>
    
       <h3>Quick start</h3>
-      <ul>
-        <li><a href="http://www.rabbitmq.com/documentation.html">RabbitMQ documentation</a></li>
+      <ul>      
+        <li><a href="http://www.rabbitmq.com/documentation.html">RabbitMQ documentation and Getting Started Guide</a> </li>
         <li><a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP Messaging with RabbitMQ</a></li>
         <li><a href="http://google-ukdev.blogspot.com/2008/09/rabbitmq-tech-talk-at-google-london.html">RabbitMQ Tech Talk at Google London</a></li>
         <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens, an introduction to messaging</a></li>
-        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a></li>
+        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a></li>
         <li><a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queueing</a></li>
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
       </ul>
       
       <h3>Specific configurations</h3>
       <ul>
-        <li><a href="http://www.rabbitmq.com/java-client.html">Java client </a></li>
-        <li>Ruby client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a> and <a href="http://github.com/tmm1/amqp/tree/master">code</a></li>
-        <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a> and <a href="http://barryp.org/software/py-amqplib/">client library code</a></li> <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
-        <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a></li>
+        <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a> and <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
+        <li>Ruby client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a>,  <a href="http://github.com/tmm1/amqp/tree/master">code</a>, <a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a>, <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> and <a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a></li>
+        <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a>, <a href="http://barryp.org/software/py-amqplib/">client library code</a>, <a href="https://launchpad.net/txamqp">Twisted</a> and <a href="http://orbited.org">Orbited</a></li> 
+        <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
+        <li><a href="http://code.google.com/p/php-amqplib/">PHP client</a></li> 
+        <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a> and <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a>, and <a href="http://flexonrails.net/?p=106">Flex</a></li>
        
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
+        <li><a href="http://github.com/dpp/liftweb/tree/master/lift-amqp">Scala/Lift</a></li>
+        <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Erlang</a>, and <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a> and <a href="http://github.com/deguzman/couchdb-solr2/tree/master">CouchDB</a></li>
       </ul>
       
       <h3>Going further</h3>
       <ul>
-        <li><a href="http://hg.rabbitmq.com/">Code respository</a></li>
-        <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
+        <li><a href="http://hg.rabbitmq.com/">Code repository</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a></li>
+        <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
+        <li>Talk to us on irc.freenode.net #rabbitmq (<a href="http://dev.rabbitmq.com/irclog/">see logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (<a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>)</li>
       </ul>
       
       <h3>Blogs and general posts</h3>      
       <ul>
         <li><a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift blogs</a></li>
-        <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs on RabbitMQ</a>  </li>
-        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a></li>
-        <li><a href="http://search.twitter.com/search?q=rabbitmq">Noise</a></li>
+        <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs</a>  </li>
+        <li><a href="http://somic.org/category/rabbitmq/">Dmitriy's blogs</a></li>
+        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">some use cases</a></li>
+        <li><a href="http://search.twitter.com/search?q=rabbitmq">What people are saying on Twitter</a> and <a href="http://addictomatic.com/topic/rabbitmq">on the web</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
         <li>Open Enterprise's series on messaging middleware and AMQP <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Part 1</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a></li>
       </ul>
