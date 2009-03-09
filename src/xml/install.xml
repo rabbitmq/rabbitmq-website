@@ -433,10 +433,8 @@
 
 	<p>
 	  A portfile for the RabbitMQ server is included in <a
-	  href="http://www.macports.org/">MacPorts</a>. Users of Mac
-	  OS X who do not use MacPorts can use the <a
-	  href="#generic-unix">Generic Unix</a> installation
-	  instructions below. From the MacPorts home page:
+	  href="http://www.macports.org/">MacPorts</a>. From the
+	  MacPorts home page:
 	</p>
 	<blockquote>
 	  The MacPorts Project is an open-source community
@@ -445,20 +443,21 @@
 	  based open-source software on the Mac OS X operating
 	  system.
 	</blockquote>
+        <p>
+          Users of Mac OS X who do not use MacPorts can use the <a
+          href="#generic-unix">Generic Unix</a> installation
+          instructions below.
+        </p>
 	<p>
-	  At the time of writing, version 1.5.3 of the RabbitMQ server
-	  is available. (Thanks to Chris Pettitt for <a
-	  href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003485.html">updating
-	  the port</a> and for supplying the text that this section is
-	  based on.)
-	</p>
-	<p>
-	  If you wish to track the packaging from our development
-	  repository, rather than using the officially-released
-	  MacPorts packaging, you can use the portfile from the <a
-	  href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
-	  directory in the <code>rabbitmq-server</code> mercurial
-	  repository.
+          The officially released MacPorts packaging may not always
+          contain the lastest released version of RabbitMQ.
+        </p>
+        <p>
+          If you wish to track the packaging from our development
+          repository, you can use the portfile from the <a
+          href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
+          directory in the <code>rabbitmq-server</code> mercurial
+          repository.
 	</p>
 
 	<doc:subsection name="install-macports">
