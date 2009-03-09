@@ -428,6 +428,90 @@
 
       </doc:section>
 
+      <doc:section name="macports">
+	<doc:heading>Mac OS X with MacPorts</doc:heading>
+
+	<p>
+	  A portfile for the RabbitMQ server is included in <a
+	  href="http://www.macports.org/">MacPorts</a>. From the
+	  MacPorts home page:
+	</p>
+	<blockquote>
+	  The MacPorts Project is an open-source community
+	  initiative to design an easy-to-use system for compiling,
+	  installing, and upgrading either command-line, X11 or Aqua
+	  based open-source software on the Mac OS X operating
+	  system.
+	</blockquote>
+        <p>
+          Users of Mac OS X who do not use MacPorts can use the <a
+          href="#generic-unix">Generic Unix</a> installation
+          instructions below.
+        </p>
+	<p>
+          The officially released MacPorts packaging may not always
+          contain the lastest released version of RabbitMQ.
+        </p>
+        <p>
+          If you wish to track the packaging from our development
+          repository, you can use the portfile from the <a
+          href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
+          directory in the <code>rabbitmq-server</code> mercurial
+          repository.
+	</p>
+
+	<doc:subsection name="install-macports">
+	  <doc:heading>Installation Instructions</doc:heading>
+	  <p>
+	    If you want to use the version distributed with MacPorts,
+	    installation is as simple as (<code>sudo port sync</code>
+	    followed by)
+	  </p>
+	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
+	  <p>
+	    If, instead, you want to use the portfile from our
+	    source-code repository, follow these steps:
+	  </p>
+	  <ol>
+
+	    <li><a
+	    href="http://guide.macports.org/#development.local-repositories">Set
+	    up a local MacPorts repository</a>.</li>
+
+	    <li>Retrieve and extract the <a
+	    href="http://hg.rabbitmq.com/rabbitmq-server/archive/default.zip">latest
+	    rabbitmq-server snapshot</a>.</li>
+
+	    <li>Move the contents of the directory
+	    <code>rabbitmq-server-default/packaging/macports/</code>
+	    into the root of your local MacPorts repository.</li>
+
+	    <li>Run <code>portindex</code> in the root of your local
+	    MacPorts repository.</li>
+
+	    <li>Finally, run <code>sudo port install
+	    rabbitmq-server</code>.</li>
+
+	  </ol>
+	</doc:subsection>
+	<doc:subsection name="running-macports">
+	  <doc:heading>Running the Server</doc:heading>
+	  <p>
+	    To start the server, you can either use launchctl (see the
+	    instructions emitted during the <code>sudo port
+	    install</code> step) or you can start it from the command
+	    line with <code>sudo -H -u rabbitmq
+	    rabbitmq-server</code>.
+	  </p>
+	  <p>
+	    <code>rabbitmqctl</code> automatically (through sudo) runs
+	    in the context of the rabbitmq user so that the Erlang
+	    cookie can be read from
+	    <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
+	  </p>
+	</doc:subsection>
+      </doc:section>
+
       <doc:section name="generic-unix">
 	<doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
 
