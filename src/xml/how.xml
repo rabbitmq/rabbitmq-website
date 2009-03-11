@@ -31,6 +31,8 @@
         <li><a href="http://code.google.com/p/php-amqplib/">PHP client</a></li> 
         <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and <a href="http://flexonrails.net/?p=106">Flex</a></li>
        
+        <li>JSON/HTTP, our experimental project, <a href="http://www.rabbitmq.com/download.html#rabbitmq-http">rabbitmq-http2</a> and <a href="http://hg.rabbitmq.com/rabbitmq-http2/file/default/README">code</a>. </li>
+        <li><a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a></li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
         <li><a href="http://github.com/dpp/liftweb/tree/master/lift-amqp">Scala/Lift</a></li>
