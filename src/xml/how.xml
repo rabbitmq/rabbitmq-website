@@ -56,6 +56,7 @@
         <li>What people are saying <a href="http://search.twitter.com/search?q=rabbitmq">on Twitter</a> and <a href="http://addictomatic.com/topic/rabbitmq">on the web</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
         <li>Open Enterprise's series on messaging middleware and AMQP <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Part 1</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a></li>
+        <li><a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging - a general introduction by Bob Pasker</a></li>
       </ul>
 
    
