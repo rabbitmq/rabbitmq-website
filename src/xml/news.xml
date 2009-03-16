@@ -13,8 +13,47 @@
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->      
+      -->     
+      <doc:item>
+	<doc:date iso="2009-03-16:00:00Z">16 March 2009</doc:date>
+	<doc:title>
+   RabbitMQ and AMQP team speak at QCon
+	</doc:title>
 
+	<doc:link>/resources/RabbitMQcon.pdf</doc:link>
+
+	<doc:text>
+	  <p>The RabbitMQ and AMQP team gave a presentation at QCon London last week. Slides presented are available here:</p>
+  <ul>
+    <li><a href="/resources/RabbitMQcon.pdf">RabbitMQ slides</a></li>
+    <li><a href="/resources/AMQP-QCon-London-2000-5.pdf">AMQP's chairman slides</a></li>
+  </ul>
+  <p>See also:</p>
+      <ul>
+    <li><a href="http://search.twitter.com/search?q=amqp+qcon">What people are saying on Twitter</a></li>
+    <li><a href="http://gojko.net/2009/03/11/qcon-london-2009-mom-interoperability-finally/">Gojko Adzic's review of the event</a></li>
+  </ul>
+  <p>If you're looking for a place to start <a href="/how">try here</a>.</p>
+      
+	</doc:text>
+      </doc:item>
+
+	
+	
+      <doc:item>
+	<doc:date iso="2009-03-11:00:00Z">11 March 2009</doc:date>
+	<doc:title>
+   RabbitMQ team is at Qcon London
+	</doc:title>
+	<doc:link>http://qconlondon.com/london-2009/conference/</doc:link>
+
+	<doc:text>
+	  <p>The LShift/RabbitMQ team is pleased to announce its second visit to Qcon London, please do come and say hello.</p>
+	  <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="http://www.rabbitmq.com/how">how to use RabbitMQ</a>.</p>	  
+      
+	</doc:text>
+      </doc:item>
+      
       <doc:item>
 	<doc:date iso="2009-02-24:00:00Z">24 February 2009</doc:date>
 	<doc:title>
