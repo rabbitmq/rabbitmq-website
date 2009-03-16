@@ -1,0 +1,69 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Mercurial</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+	This page describes the way we work with Mercurial on the
+	RabbitMQ project.
+      </p>
+
+      <doc:section name="overview">
+	<doc:heading>What is Mercurial?</doc:heading>
+
+	<p>
+	  <a href="http://www.selenic.com/mercurial/">Mercurial</a> is
+	  a fast, lightweight <a
+	  href="http://en.wikipedia.org/wiki/Revision_control">Source
+	  Control Management system</a> designed for efficient
+	  handling of very large distributed projects.
+	</p>
+	<p>
+	  We use Mercurial on the RabbitMQ project to manage almost
+	  all our source-code.
+	</p>
+	<ul>
+	  <li>Mercurial has numerous <a
+	  href="http://www.selenic.com/mercurial/wiki/index.cgi/Tutorial">tutorials</a>.</li>
+
+	  <li>RabbitMQ's Mercurial repositories are <a
+	  href="http://hg.rabbitmq.com/">listed here</a>. Individual
+	  project pages on this website will generally point you in
+	  the direction of the specific combinations of modules you'll
+	  need to check out.</li>
+	</ul>
+      </doc:section>
+
+      <doc:section name="branchperbug">
+	<doc:heading>Branching policy: Branch per bug</doc:heading>
+	<p>
+	  We use the technique of <i>branch per bug</i> when
+	  developing RabbitMQ code, where each feature or bug fix is
+	  developed on a branch of its own (using <code>hg
+	  branch</code>) and merged into the <code>default</code>
+	  (trunk) branch only when the hurdle of QA is passed. We use
+	  our Bugzilla instance to track each work item, so branches
+	  follow the pattern <code>bug<i>N</i></code>.
+	</p>
+	<p>
+	  More information on this style of development can be found
+	  in the following links:
+	</p>
+	<ul>
+	  <li><a
+	  href="http://www.lshift.net/blog/2008/06/19/mercurial-merge-technique">Mercurial
+	  Merge Technique</a> on the LShift blog.</li>
+
+	  <li><a
+	  href="http://hgbook.red-bean.com/hgbookch8.html#x12-1660008.6">Dealing
+	  with multiple named branches in a repository</a> from the
+	  Mercurial book.</li>
+	</ul>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

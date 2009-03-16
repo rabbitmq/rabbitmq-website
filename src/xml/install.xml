@@ -480,7 +480,7 @@
 
 	    <li>Retrieve and extract the <a
 	    href="http://hg.rabbitmq.com/rabbitmq-server/archive/default.zip">latest
-	    rabbitmq-server snapshot</a>.</li>
+	    stable rabbitmq-server snapshot</a>.</li>
 
 	    <li>Move the contents of the directory
 	    <code>rabbitmq-server-default/packaging/macports/</code>
