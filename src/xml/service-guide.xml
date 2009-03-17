@@ -43,7 +43,12 @@
           run <code>rabbitmqctl</code> (on Windows XP typically located in
           <code>C:\Documents and Settings\User\.erlang.cookie</code>).
         </p>
-
+        <p>
+          The account used to run the service must have write access to
+          <b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and 
+          <b>RABBITMQ_LOG_BASE</b>. The account can be changed using the
+          operating system service utility (services.msc).
+        </p>
         <doc:subsection name="install">
           <doc:heading>Installing the RabbitMQ service</doc:heading>
           <pre class="sourcecode">rabbitmq-service install</pre>
