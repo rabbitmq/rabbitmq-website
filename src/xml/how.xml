@@ -38,15 +38,17 @@
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
         <li><a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">Scala/Lift</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Erlang</a>, <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a> and <a href="http://github.com/deguzman/couchdb-solr2/tree/master">CouchDB</a></li>
+        <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">RabbitMQ in Django</a></li>
       </ul>
       
       <h3>Going further</h3>
       <ul>
-        <li><a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">AMQP</a></li>
+        <li>More information on the the open standard: <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a></li>
         <li><a href="http://hg.rabbitmq.com/">Code repository</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
         <li>Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (see <a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>)</li>
+
       </ul>
       
       <h3>Blogs and general posts</h3>      
