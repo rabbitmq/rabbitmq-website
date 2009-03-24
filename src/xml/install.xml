@@ -282,19 +282,27 @@
       </doc:section>
 
       <doc:section name="debian">
-	<doc:heading>Debian GNU/Linux</doc:heading>
+	<doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
 
 	<doc:subsection name="install-debian">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <ul>
 	    <li>
-	      Install rabbitmq-server_<i>version</i>_all.deb (which
-	      you can download by hand, or by using our <a
-	      href="debian.html#apt">APT repository</a>). The server
-	      should start with appropriate defaults. Note that the
-	      package depends on erlang-base packages, so if you use apt
-	      on a Debian distribution that has erlang-base packages
-	      available, all dependencies should be properly met.
+              Install the rabbitmq-server package from your chosen
+              distribution - at the time of writing, RabbitMQ is
+              included in Debian unstable (Sid) and Ubuntu 9.04
+              (Jaunty Jackalope). 
+            </li>
+            <li>
+              Alternatively, install
+              rabbitmq-server_<i>version</i>_all.deb, which you can
+              download by hand, or by using our <a
+              href="debian.html#apt">APT repository</a>. The server
+              should start with appropriate defaults. Note that the
+              package depends on erlang-base packages, so if you use
+              apt on a Debian distribution that has erlang-base
+              packages available, all dependencies should be properly
+              met.
 	    </li>
 	    <li>
 	      To adjust the settings used for starting the server,
