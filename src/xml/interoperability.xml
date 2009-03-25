@@ -74,10 +74,7 @@
                 The discrepancies are listed <a
                 href="#qpid-python-tests">below</a>. In most of these
                 cases RabbitMQ has a dummy implementation in place for
-                improved interoperability. The main exception are
-                "headers" exchanges. An attempt to use them will
-                result in the Qpid client reporting a
-                <code>COMMAND_INVALID</code> error.
+                improved interoperability.
               </p>
             </li>
           </ul>
@@ -144,40 +141,25 @@
 	    <qpid-test name="test_consume_queue_errors" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_consume_unique_consumers" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_get" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
-	    <qpid-test name="test_qos_prefetch_count" class="tests.basic.BasicTests">
-	      <status value="planned">failing</status>
-	      <notes>prefetch windowing planned but unimplemented</notes>
-	    </qpid-test>
+	    <qpid-test name="test_qos_prefetch_count" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_qos_prefetch_size" class="tests.basic.BasicTests">
 	      <status value="planned">failing</status>
-	      <notes>prefetch windowing planned but unimplemented</notes>
+	      <notes>prefetch size windowing planned but unimplemented</notes>
 	    </qpid-test>
 	    <qpid-test name="test_recover_requeue" class="tests.basic.BasicTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test" class="tests.exchange.DeclareMethodPassiveFieldNotFoundRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testDefaultExchange" class="tests.exchange.DefaultExchangeRuleTests"><status value="ok"/></qpid-test>
-	    <qpid-test name="testMatchAll" class="tests.exchange.HeadersExchangeTests">
-	      <status value="planned">failing</status>
-	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
-	    </qpid-test>
-	    <qpid-test name="testMatchAny" class="tests.exchange.HeadersExchangeTests">
-	      <status value="planned">failing</status>
-	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
-	    </qpid-test>
+	    <qpid-test name="testMatchAll" class="tests.exchange.HeadersExchangeTests"><status value="ok"/></qpid-test>
+	    <qpid-test name="testMatchAny" class="tests.exchange.HeadersExchangeTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testDifferentDeclaredType" class="tests.exchange.MiscellaneousErrorsTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testTypeNotKnown" class="tests.exchange.MiscellaneousErrorsTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testDirect" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testFanout" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
-	    <qpid-test name="testHeaders" class="tests.exchange.RecommendedTypesRuleTests">
-	      <status value="planned">failing</status>
-	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
-	    </qpid-test>
+	    <qpid-test name="testHeaders" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testTopic" class="tests.exchange.RecommendedTypesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testAmqDirect" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testAmqFanOut" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
-	    <qpid-test name="testAmqMatch" class="tests.exchange.RequiredInstancesRuleTests">
-	      <status value="planned">failing</status>
-	      <notes>"headers" exchanges are not part of AMQP 0-8</notes>
-	    </qpid-test>
+	    <qpid-test name="testAmqMatch" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="testAmqTopic" class="tests.exchange.RequiredInstancesRuleTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_amqp_basic_13" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>
 	    <qpid-test name="test_basic_delivery_immediate" class="tests.broker.BrokerTests"><status value="ok"/></qpid-test>

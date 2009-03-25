@@ -402,7 +402,103 @@
 
       <doc:section name="access-control">
         <doc:heading>Access control</doc:heading>
-        
+
+        <p>
+          When an AMQP client establishes a connection to an AMQP
+          server, it specifies a virtual host within which it intends
+          to operate. A first level of access control is enforced at
+          this point, with the server checking whether the user has
+          any permissions to access the virtual hosts, and rejecting
+          the connection attempt otherwise.
+        </p>
+
+        <p>
+          Resources, i.e. exchanges and queues, are named entities
+          inside a particular virtual host; the same name denotes a
+          different resource in each virtual host. A second level of
+          access control is enforced when certain operations are
+          performed on resources.
+        </p>
+
+        <p>
+          RabbitMQ distinguishes between <em>configure</em>,
+          <em>write</em> and <em>read</em> operations on a
+          resource. The <em>configure</em> operations create or
+          destroy resources, or alter their behaviour. The
+          <em>write</em> operations inject messages into a
+          resource. And the <em>read</em> operations retrieve messages
+          from a resource.
+        </p>
+
+        <p>
+          In order to perform an operation on a resource the user must
+          have been granted the appropriate permissions for it. The
+          following table shows what permissions on what type of
+          resource are required for all the AMQP commands which
+          perform permission checks.
+          <table>
+            <tr>
+              <th>AMQP command</th>
+              <th>configure</th>
+              <th>write</th>
+              <th>read</th>
+            </tr>
+            <tr>
+              <td>exchange.declare</td><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>exchange.delete</td><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.delete</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.bind</td><td/><td>queue</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>basic.publish</td><td/><td>exchange</td><td/>
+            </tr>
+            <tr>
+              <td>basic.get</td><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>basic.consume</td><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>queue.purge</td><td/><td/><td>queue</td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          Permissions are expressed as a triple of regular expressions
+          - one each for configure, write and read - on per-vhost
+          basis. The user is granted the respective permission for
+          operations on all resources with names matching the regular
+          expressions. <i>(Note: For convenience RabbitMQ maps AMQP's
+          default exchange's blank name to 'amq.default' when
+          performing permission checks.)</i>
+        </p>
+
+        <p>
+          Some AMQP operations can create resources with
+          server-generated names. Every user has configure, write and
+          read permissions for such resources. However, the names are
+          strong and not discoverable as part of the protocol, only
+          through management functionality. Therefore these resources
+          are in effect private to the user unless they choose to
+          dilvuge their names to other users.
+        </p>
+
+        <p>
+          RabbitMQ may cache the results of access control checks on a
+          per-connection or per-channel basis. Hence changes to user
+          permissions may only take effect when the user reconnects.
+        </p>
+
         <doc:subsection name="add_vhost">
           <doc:heading>Creating a virtual host</doc:heading>
           <pre class="sourcecode">rabbitmqctl add_vhost <i>vhostpath</i></pre>
@@ -458,98 +554,109 @@
           </p>
         </doc:subsection>
 
-        <doc:subsection name="map_user_vhost">
-          <doc:heading>Granting access to a virtual host</doc:heading>
-          <pre class="sourcecode">rabbitmqctl map_user_vhost <i>username</i> <i>vhostpath</i></pre>
+        <doc:subsection name="set_permissions">
+          <doc:heading>Setting user permissions</doc:heading>
+          <pre class="sourcecode">rabbitmqctl set_permissions [<i>-p vhostpath</i>] <i>username</i> <i>regexp</i> <i>regexp</i> <i>regexp</i></pre>
           <dl>
+            <dt>vhostpath</dt>
+            <dd>
+              The name of the virtual host to which to grant the user
+              access, defaulting to <code>/</code>.
+            </dd>
             <dt>username</dt>
             <dd>
               The name of the user to grant access to the specified
               virtual host.
             </dd>
-            <dt>vhostpath</dt>
+            <dt>regexp</dt>
             <dd>
-              The name of the virtual host to grant access to.
+              The regular expressions for matching resource names for
+              which the user is granted configure, write and read
+              permissions, respectively.
             </dd>
           </dl>
           <p>
             For example:
           </p>
-          <pre>rabbitmqctl map_user_vhost tonyg test</pre>
+          <pre>rabbitmqctl set_permissions -p /myvhost tonyg "^tonyg-.*" ".*" ".*"</pre>
           <p>
             This command instructs the RabbitMQ broker to grant the
             user named <code>tonyg</code> access to the virtual host
-            called <code>test</code>.
+            called <code>/myvhost</code>, with configure permissions
+            on all resources whose names starts with "tonyg-", and
+            write and read permissions on all resources.
           </p>
         </doc:subsection>
 
-        <doc:subsection name="unmap_user_vhost">
-          <doc:heading>Denying access to a virtual host</doc:heading>
-          <pre class="sourcecode">rabbitmqctl unmap_user_vhost <i>username</i> <i>vhostpath</i></pre>
+        <doc:subsection name="clear_permissions">
+          <doc:heading>Clearing user permissions</doc:heading>
+          <pre class="sourcecode">rabbitmqctl clear_permissions [<i>-p vhostpath</i>] <i>username</i></pre>
           <dl>
-            <dt>username</dt>
-            <dd>
-              The name of the user to deny access to the specified
-              virtual host.
-            </dd>
             <dt>vhostpath</dt>
             <dd>
-              The name of virtual host to deny access to.
+              The name of the virtual host to which to deny the user
+              access, defaulting to <code>/</code>.
+            </dd>
+            <dt>username</dt>
+            <dd>
+              The name of the user to grant access to the specified
+              virtual host.
             </dd>
           </dl>
           <p>
             For example:
           </p>
-          <pre>rabbitmqctl unmap_user_vhost tonyg test</pre>
+          <pre>rabbitmqctl clear_permissions -p /myvhost tonyg</pre>
           <p>
             This command instructs the RabbitMQ broker to deny the
             user named <code>tonyg</code> access to the virtual host
-            called <code>test</code>.
+            called <code>/myvhost</code>.
           </p>
         </doc:subsection>
 
-        <doc:subsection name="list_user_vhosts">
-          <doc:heading>Listing virtual hosts accessible to user</doc:heading>
-          <pre class="sourcecode">rabbitmqctl list_user_vhosts <i>username</i> </pre>
-          <dl>
-            <dt>username</dt>
-            <dd>
-              The name of the user for which to list the virtual hosts
-              that they have been granted access.
-            </dd>
-          </dl>
-          <p>
-            For example:
-          </p>
-          <pre>rabbitmqctl list_user_vhosts tonyg</pre>
-          <p>
-            This command instructs the RabbitMQ broker to list all the
-            virtual hosts to which the user named <code>tonyg</code>
-            has been granted access.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="list_vhost_users">
-          <doc:heading>Listing users with access to a virtual host</doc:heading>
-          <pre class="sourcecode">rabbitmqctl list_vhost_users <i>vhostpath</i></pre>
+        <doc:subsection name="list_permissions">
+          <doc:heading>Listing permissions in a virtual host</doc:heading>
+          <pre class="sourcecode">rabbitmqctl list_permissions [<i>-p vhostpath</i>]</pre>
           <dl>
             <dt>vhostpath</dt>
             <dd>
               The name of the virtual host for which to list the users
-              that have been granted access to it.
+              that have been granted access to it, and their
+              permissions. Defaults to <code>/</code>.
             </dd>
           </dl>
           <p>
             For example:
           </p>
-          <pre>rabbitmqctl list_vhosts_user test</pre>
+          <pre>rabbitmqctl list_permissions -p /myvhost</pre>
           <p>
             This command instructs the RabbitMQ broker to list all the
             users which have been granted access to the virtual host
-            called <code>test</code>.
+            called <code>/myvhost</code>, and the permissions they
+            have for operations on resources in that virtual host.
           </p>
         </doc:subsection>
 
+        <doc:subsection name="list_user_permissions">
+          <doc:heading>Listing user permissions</doc:heading>
+          <pre class="sourcecode">rabbitmqctl list_user_permissions <i>username</i></pre>
+          <dl>
+            <dt>username</dt>
+            <dd>
+              The name of the user for which to list the permissions.
+            </dd>
+          </dl>
+          <p>
+            For example:
+          </p>
+          <pre>rabbitmqctl list_user_permissions tonyg</pre>
+          <p>
+            This command instructs the RabbitMQ broker to list all the
+            virtual hosts to which the user named <code>tonyg</code>
+            has been granted access, and the permissions the user has
+            for operations on resources in these virtual hosts.
+          </p>
+        </doc:subsection>
 
       </doc:section>
 
@@ -667,7 +774,8 @@
             </dd>
             <dt>type</dt>
             <dd>
-              The exchange type (one of [<code>direct</code>, <code>topic</code>,
+              The exchange type (one of [<code>direct</code>,
+              <code>topic</code>, <code>headers</code>,
               <code>fanout</code>]).
             </dd>
             <dt>durable</dt>
