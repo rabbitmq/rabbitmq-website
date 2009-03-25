@@ -83,7 +83,7 @@
 	</p>
       </doc:section>
 
-      <doc:section name="defaultbranch">
+      <doc:section name="maintenancebranches">
 	<doc:heading>Maintenance branches</doc:heading>
 	<p>
 	  Sometimes we create branches for maintenance work, which are
