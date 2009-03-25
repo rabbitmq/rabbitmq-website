@@ -47,7 +47,17 @@
 	  branch</code>) and merged into the <code>default</code>
 	  (trunk) branch only when the hurdle of QA is passed. We use
 	  our Bugzilla instance to track each work item, so branches
-	  follow the pattern <code>bug<i>N</i></code>.
+	  follow the pattern <code>bug<i>NNNNN</i></code>.
+	</p>
+	<p>
+	  This means that the <code>default</code> branch contains all
+	  the work that has been QA'd so far that is scheduled to
+	  appear in the next release. The <code>default</code> branch
+	  of each RabbitMQ repository is usually roughly in sync with
+	  the <code>default</code> branches of the others. Generally,
+	  you can track QA'd development work by tracking the
+	  <code>default</code> branches of the RabbitMQ repositories
+	  of interest.
 	</p>
 	<p>
 	  More information on this style of development can be found
