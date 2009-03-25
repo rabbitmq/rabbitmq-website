@@ -243,9 +243,12 @@ Technologies Ltd.</div>
   </xsl:template>
 
   <xsl:template match="r:repositories">
+    <p>
+      For information on how we use mercurial, please see <a href="mercurial.html">this page</a>.
+    </p>
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Latest snapshot</th>
+	<th>Snapshot</th>
 	<th>Repository checkout command</th>
 	<th>Repository overview</th>
       </tr>
