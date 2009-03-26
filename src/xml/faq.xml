@@ -372,7 +372,20 @@
 	    </p>
 	  </doc:a>
 	</doc:faq>
+	
+	<doc:faq name="c-implementation">
+	  <doc:heading>Do you think a C/C++ implementation could achieve better throughputs?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Potentially yes, but to get the same kind of reliability and
+    scalability, compact code base, etc that we have in RabbitMQ one would
+    end up re-inventing a large chunk of Erlang/OTP - that's hundreds of man
+    years of engineering effort.
 
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="smp-support">
 	  <doc:heading>Will RabbitMQ use SMP, when it's available?</doc:heading>
 	  <doc:a>
@@ -394,9 +407,19 @@
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="web-frameworks">
-	  <doc:heading>
-	    Can I create RabbitMQ applications using web frameworks (eg
+	<doc:faq name="SMSstore-forward">
+	  <doc:heading>Do you think RabbitMQ, as a core module, could handle real time traffic of
+something like an SMSC (SMS foreward&amp;store, .)?</doc:heading>
+	  <doc:a>
+	    <p>
+Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
+    in their SMSC infrastructure. At present these systems are not based on
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="support-store-and-forward">
+	   <doc:heading>Can I create RabbitMQ applications using web frameworks (eg
 	    Spring, or Ruby-On-Rails)?
 	  </doc:heading>
 	  <doc:a>
@@ -594,28 +617,22 @@
 	      schemes and systems.
 	    </p>
 	  </doc:a>
-	</doc:faq>
-      </doc:section>
 
-      <doc:section name="integration">
-	<doc:heading>Integration</doc:heading>
-
-	<doc:faq name="rabbit-client-support">
-	  <doc:heading>What clients will RabbitMQ support?</doc:heading>
-	  <doc:a>
-	    <p>
-	      At present, the RabbitMQ suite offers a client library
-	      for Java applications. Support for in-browser Javascript
-	      (via AJAX mechanisms, including JSON and JSON-RPC) and
-	      native Erlang client access is planned for the near
-	      future. We will develop client interfaces to RabbitMQ's
-	      features in response to demand.
+	<doc:faq name="addressing-in-amqp">
+<doc:heading>How is RabbitMQ scaled and the load balance handled?</doc:heading>
+<p>
+	      Like other messaging systems, AMQP and RabbitMQ provide
+	      internal addressing mechanisms based on notions such as
+	      routing keys, exchange addresses and queue
+	      names.
 	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="java-client">
-	  <doc:heading>How do I use RabbitMQ from Java?</doc:heading>
+	    <p>
+At the core we are relying on Erlang/OTP to distribute one logical AMQP
+    broker across several physical nodes, with the necessary broker state
+    being maintained in an instance of OTP's distributed database Mnesia.
+    There are certain aspects of the AMQP spec that are currently undergoing
+    revision that impact this area, so watch out for associated new features
+    and documentation in future releases of RabbitMQ.
 	  <doc:a>
 	    <p>
 	      Please see our <a href="api-guide.html">Java client API guide</a>.
