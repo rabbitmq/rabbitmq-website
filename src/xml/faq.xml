@@ -22,7 +22,6 @@
 
       <doc:section name="background">
 	<doc:heading>Background</doc:heading>
-
 	<doc:faq name="what-is-amqp">
 	  <doc:heading>What is AMQP?</doc:heading>
 	  <doc:a>
@@ -123,13 +122,13 @@
 	      business reasons supporting the use of Erlang and OTP,
 	      we recommend the following:
 	      <ul>
-                <li>
-                  An <a
-                  href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
-                  of Erlang and OTP</a> by Ericsson, the original
-                  developer of the technology and one of its major
-                  commercial users.
-                </li>
+      <li>
+        An <a
+        href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
+        of Erlang and OTP</a> by Ericsson, the original
+        developer of the technology and one of its major
+        commercial users.
+      </li>
     <li>
 		  An <a
 		  href="http://www.ddj.com/architect/201001928"> 
@@ -409,7 +408,7 @@
 
 	<doc:faq name="SMSstore-forward">
 	  <doc:heading>Do you think RabbitMQ, as a core module, could handle real time traffic of
-something like an SMSC (SMS foreward&amp;store, .)?</doc:heading>
+something like an SMSC (SMS foreward&amp;store)?</doc:heading>
 	  <doc:a>
 	    <p>
 Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
@@ -617,35 +616,39 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      schemes and systems.
 	    </p>
 	  </doc:a>
-
-	<doc:faq name="addressing-in-amqp">
-<doc:heading>How is RabbitMQ scaled and the load balance handled?</doc:heading>
-<p>
-	      Like other messaging systems, AMQP and RabbitMQ provide
-	      internal addressing mechanisms based on notions such as
-	      routing keys, exchange addresses and queue
-	      names.
-	    </p>
+	</doc:faq>
+	
+		<doc:faq name="scale-balance">
+	  <doc:heading>How is RabbitMQ scaled and the load balance handled?</doc:heading>
+	  <doc:a>
 	    <p>
-At the core we are relying on Erlang/OTP to distribute one logical AMQP
+	     At the core we are relying on Erlang/OTP to distribute one logical AMQP
     broker across several physical nodes, with the necessary broker state
     being maintained in an instance of OTP's distributed database Mnesia.
     There are certain aspects of the AMQP spec that are currently undergoing
     revision that impact this area, so watch out for associated new features
     and documentation in future releases of RabbitMQ.
-	  <doc:a>
-	    <p>
-	      Please see our <a href="api-guide.html">Java client API guide</a>.
-	    </p>
-	    <p>
-	      The RabbitMQ client library is supplied as a JAR file,
-	      rabbitmq-client.jar, with a minimal number of external
-	      dependencies (currently
-	      backport-util-concurrent-2.2.jar, commons-io-1.2.jar,
-	      and commons-lang-2.0.jar).
+
 	    </p>
 	  </doc:a>
 	</doc:faq>
+	
+      </doc:section>
+
+      <doc:section name="integration">
+	<doc:heading>Integration</doc:heading>
+
+	<doc:faq name="rabbit-client-support">
+	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
+	  <doc:a>
+	    <p>
+	      We maintain <a href="/how.html#clients">a list of clients</a>, which is fairly complete.  If you don't
+see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">email our mailing list.</a>
+	    </p>
+	  </doc:a>
+	</doc:faq>
+ 
+
 
 	<doc:faq name="dotnet-client">
 	  <doc:heading>I use .NET - what do I need to know to use RabbitMQ?</doc:heading>
