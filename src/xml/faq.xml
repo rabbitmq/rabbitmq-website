@@ -413,6 +413,8 @@ something like an SMSC (SMS foreward&amp;store)?</doc:heading>
 	    <p>
 Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
     in their SMSC infrastructure. At present these systems are not based on
+    AMQP/RabbitMQ, but there is no reason why they couldn't be.
+
 	    </p>
 	  </doc:a>
 	</doc:faq>
