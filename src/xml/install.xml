@@ -178,84 +178,124 @@
 	  </p>
 	</doc:subsection>
 
-	<doc:subsection name="running-windows-service">
-	  <doc:heading>Running the Server as a Service</doc:heading>
-	  <p>
-	    The server can be run as a service instead of an application. The server 
-	    will run in the security context of the system account, without the need
-	    for a user to be logged in on a console. The server should not be run as a 
-	    service and application simultaneously.
-	  </p>
-	  <p>
-	    <ul>
-	      <li>
-		The <code>rabbitmq-service.bat</code> script in the 
-		<code>sbin</code> directory is used to manage the service. 
-		The <code>rabbitmq-service.bat</code> script accepts the same environment 
-		variables as <code>rabbitmq-server.bat</code>, except <b>ERLANG_HOME</b>. 
-		Configure the following additional variables:
-		<dl>
-		  <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
-		  <dd>
-		    The default value of this path is
-		    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
-		    must contain the <code>erlsrv.exe</code> Erlang service wrapper
-		    script.
-		  </dd>
-		  <dt>RABBITMQ_SERVICENAME</dt>
-		  <dd>
-		    This name will appear in the list of services reported by
-		    the operating system.
-		  </dd>
-		  <dt>RABBITMQ_CONSOLE_LOG</dt>
-		  <dd>
-		    Set this varable to <code>new</code> or
-		    <code>reuse</code> to have the console output from
-		    the server redirected to a file named
-		    <code>RABBITMQ_SERVICENAME</code>.debug in the
-		    default <code>RABBITMQ_BASE</code> directory. If
-		    <code>RABBITMQ_CONSOLE_LOG</code> is set to
-		    <code>new</code> then a new file will be created
-		    each time the service starts. If
-		    <code>RABBITMQ_CONSOLE_LOG</code> is set to
-		    <code>reuse</code> then the file will be
-		    overwritten each time the service starts.  If
-		    <code>RABBITMQ_CONSOLE_LOG</code> is unset then
-		    console output from the server will be discarded.
-		  </dd>
-		</dl>
-	      </li>
-	      <li>
-		Open a command shell (<code>cmd.exe</code>) in the
-		<code>sbin</code> directory. Install the service by
-		executing <pre class="sourcecode">rabbitmq-service.bat install</pre>
-	      </li>
-	      <li>
-		The service will now appear in the services control
-		panel.  Execute <pre
-		class="sourcecode">rabbitmq-service.bat start</pre> to
-		start the server.  If the output from this command is
-		"<code>Service <i>RABBITMQ_SERVICENAME</i>
-		started</code>", then the service was started
-		correctly. If the output reads "<code>The process
-		terminated unexpectedly</code>" instead, then the
-		service did not start correctly. Check that the
-		environmental variables are set correctly.
-	      </li>
-	      <li>
-		Confirm that the service list in the operating system
-		service list (<code>services.msc</code>) reports a
-		"Started" status for the value of
-		<b>RABBITMQ_SERVICENAME</b>.
-	      </li>
-	    </ul>
-	  </p>
-	  <p>
-	    Refer to the <a href="service-guide.html">service</a> guide
-	    for a complete description of <code>rabbitmq-service.bat</code> 
-	    arguments.
-	  </p>
-	</doc:subsection>
+        <doc:subsection name="running-windows-service">
+          <doc:heading>Running the Server as a Service</doc:heading>
+          <p>
+            The server can be run as a service instead of an application. The server 
+            will run in the security context of the system account, without the need
+            for a user to be logged in on a console. The server should not be run as a 
+            service and application simultaneously.
+          </p>
+          <p>
+            <ul>
+              <li>
+                The <code>rabbitmq-service.bat</code> script in the 
+                <code>sbin</code> directory is used to manage the service. 
+                The <code>rabbitmq-service.bat</code> script recognises many of the same
+                environment variables as <code>rabbitmq-server.bat</code>. 
+                <dl>
+                  <dt>RABBITMQ_BASE</dt>
+                  <dd>
+                    This is the base directory containing sub-directories for database and 
+                    log files. The account that the service will run as must have read and 
+                    write access to this location. The default location will not normally 
+                    meet this requirement, so this variable must be set explicitly and the 
+                    permissions must be verified.
+                  </dd>
+                  <dt>RABBITMQ_MNESIA_BASE</dt>
+                  <dd>
+                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
+                  </dd>
+                  <dt>RABBITMQ_LOG_BASE</dt>
+                  <dd>
+                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
+                  </dd>
+                  <dt>RABBITMQ_NODENAME</dt>
+                  <dd>
+                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
+                  </dd>
+                  <dt>RABBITMQ_NODE_IP_ADDRESS</dt>
+                  <dd>
+                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
+                  </dd>
+                  <dt>RABBITMQ_NODE_PORT</dt>
+                  <dd>
+                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
+                  </dd>
+                  <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
+                  <dd>
+                    The default value of this path is
+                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
+                    must contain the <code>erlsrv.exe</code> Erlang service wrapper
+                    script.
+                  </dd>
+                  <dt>RABBITMQ_SERVICENAME</dt>
+                  <dd>
+                    This name will appear in the list of services reported by
+                    the operating system.
+                  </dd>
+                  <dt>RABBITMQ_CONSOLE_LOG</dt>
+                  <dd>
+                    Set this variable to <code>new</code> or
+                    <code>reuse</code> to have the console output from
+                    the server redirected to a file named
+                    <code>RABBITMQ_SERVICENAME</code>.debug in the
+                    default <code>RABBITMQ_BASE</code> directory. If
+                    <code>RABBITMQ_CONSOLE_LOG</code> is set to
+                    <code>new</code> then a new file will be created
+                    each time the service starts. If
+                    <code>RABBITMQ_CONSOLE_LOG</code> is set to
+                    <code>reuse</code> then the file will be
+                    overwritten each time the service starts.  If
+                    <code>RABBITMQ_CONSOLE_LOG</code> is unset then
+                    console output from the server will be discarded.
+                 </dd>
+                </dl>
+              </li>
+              <li>
+                Log in as an administrator and open a command shell (<code>cmd.exe</code>) 
+                in the <code>sbin</code> directory where the broker was installed. 
+                Install the service by executing <pre class="sourcecode">rabbitmq-service.bat install</pre>
+              </li>
+              <li>
+                Ensure that a service with the name <code>RABBITMQ_SERVICENAME</code>
+                now appears in the services control panel (<code>services.msc</code>). 
+                Confirm that the service account has full access to the <code>RABBITMQ_BASE</code>
+                directory. The account must also have write access to its home folder 
+                (typically %SYSTEMROOT% for the Local System account) in order to write 
+                the erlang cookie file (<code>.erlang.cookie</code>).
+              </li>
+              <li>
+                Execute <pre
+                class="sourcecode">rabbitmq-service.bat start</pre> to
+                start the server.  If the output from this command is
+                "<code>Service <i>RABBITMQ_SERVICENAME</i>
+                started</code>", then the service was started
+                correctly. If the output reads "<code>The process
+                terminated unexpectedly</code>" instead, then the
+                service did not start correctly. Check that the
+                environment variables are set correctly. The logfiles in
+                <code>RABBITMQ_BASE</code> may also contain useful diagnostic
+                information.
+              </li>
+              <li>
+                Confirm that the service list in the operating system
+                service list (<code>services.msc</code>) reports a
+                "Started" status for the service named <b>RABBITMQ_SERVICENAME</b>.
+              </li>
+              <li>
+                Ensure that the Erlang cookie file created by the service
+                contains the same string as the one used by the account that
+                will subsequently execute the <code>rabbitmqctl.bat</code> script. 
+              </li>
+            </ul>
+          </p>
+          <p>
+            Refer to the <a href="service-guide.html">service</a> guide
+            for a complete description of <code>rabbitmq-service.bat</code> 
+            arguments. 
+          </p>
+        </doc:subsection>
 
 	<doc:subsection name="logging-windows">
 	  <doc:heading>Logging</doc:heading>
