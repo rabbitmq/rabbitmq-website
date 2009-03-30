@@ -189,10 +189,14 @@
           <p>
             <ul>
               <li>
-                The <code>rabbitmq-service.bat</code> script in the 
-                <code>sbin</code> directory is used to manage the service. 
-                The <code>rabbitmq-service.bat</code> script recognises many of the same
-                environment variables as <code>rabbitmq-server.bat</code>. 
+                The <code>rabbitmq-service.bat</code> script in the
+                <code>sbin</code> directory is used to manage the
+                service.  The <code>rabbitmq-service.bat</code> script
+                recognises many of the same environment variables as
+                <code>rabbitmq-server.bat</code> (see <doc:link
+                linkend="#install-windows-separately">the previous
+                section</doc:link>), as well as a few additional
+                ones. Of particular importance are:
                 <dl>
                   <dt>RABBITMQ_BASE</dt>
                   <dd>
@@ -201,26 +205,6 @@
                     write access to this location. The default location will not normally 
                     meet this requirement, so this variable must be set explicitly and the 
                     permissions must be verified.
-                  </dd>
-                  <dt>RABBITMQ_MNESIA_BASE</dt>
-                  <dd>
-                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
-                  </dd>
-                  <dt>RABBITMQ_LOG_BASE</dt>
-                  <dd>
-                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
-                  </dd>
-                  <dt>RABBITMQ_NODENAME</dt>
-                  <dd>
-                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
-                  </dd>
-                  <dt>RABBITMQ_NODE_IP_ADDRESS</dt>
-                  <dd>
-                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
-                  </dd>
-                  <dt>RABBITMQ_NODE_PORT</dt>
-                  <dd>
-                    See <doc:link linkend="#install-windows-separately">the previous section</doc:link>
                   </dd>
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
