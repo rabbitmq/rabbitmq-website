@@ -242,12 +242,23 @@
                 Install the service by executing <pre class="sourcecode">rabbitmq-service.bat install</pre>
               </li>
               <li>
-                Ensure that a service with the name <code>RABBITMQ_SERVICENAME</code>
+                Ensure that a service with the name <b>RABBITMQ_SERVICENAME</b>
                 now appears in the services control panel (<code>services.msc</code>). 
-                Confirm that the service account has full access to the <code>RABBITMQ_BASE</code>
-                directory. The account must also have write access to its home folder 
-                (typically %SYSTEMROOT% for the Local System account) in order to write 
-                the erlang cookie file (<code>.erlang.cookie</code>).
+                Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
+                <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
+                directories. 
+              </li>
+              <li>
+                If the service account is different from the account that will 
+                run the <code>rabbitmqctl.bat</code> script then the Erlang 
+                security cookies for those accounts must be synchronised before
+                running <code>rabbitmqctl.bat</code>. The cookie is stored in a 
+                file named <code>.erlang.cookie</code> and stored in the home 
+                or <code>%APPDATA%</code> directory of the account. Local service 
+                account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code> 
+                while user account cookies are typically stored in 
+                <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.
+                The contents of the two cookie files must be identical.
               </li>
               <li>
                 Execute <pre
