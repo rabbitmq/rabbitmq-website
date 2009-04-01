@@ -56,6 +56,9 @@
 	<doc:heading>General</doc:heading>
 	<ul>
 	  <li>
+	    <a href="how.html">How easy is it</a> to set up RabbitMQ.
+	  </li>
+	  <li>
 	    <a href="install.html">Installation instructions</a> for
 	    RabbitMQ packages
 	  </li>
