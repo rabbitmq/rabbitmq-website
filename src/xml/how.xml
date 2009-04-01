@@ -42,7 +42,7 @@
       
       <h3>Going further</h3>
       <ul>
-        <li>More information on the the open standard: <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a></li>
+        <li>More information on the open standard: <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a></li>
         <li><a href="http://hg.rabbitmq.com/">Code repository</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
@@ -61,6 +61,7 @@
         <li>What people are saying <a href="http://search.twitter.com/search?q=rabbitmq">on Twitter</a> and <a href="http://addictomatic.com/topic/rabbitmq">on the web</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
         <li>Open Enterprise's series on messaging middleware and AMQP <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Part 1</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a></li>
+        <li><a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Another good introduction</a> to why you might need messaging, presented at Rails Conf 2008 by Jon Dahl</li>
       </ul>
 
    
