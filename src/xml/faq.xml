@@ -10,9 +10,9 @@
       <h2>Frequently Asked Questions</h2>
 
       <p class="intro">
-	Please see also the <a href="documentation.html">documentation
-	index</a> page. If you have a question not answered here,
-	why not <a href="http://lists.rabbitmq.com">join our mailing list</a> or
+If you don't find the information you're looking for below, try also this <a href="/how.html">overview of information resources</a>, and the general <a href="documentation">documentation</a> available on this site.  
+	If you have a question not answered here,
+	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
 	alternatively, contact us directly at <a
 	href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
    
