@@ -23,6 +23,7 @@
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
       </ul>
       
+      <a name="clients" />
       <h3>Specific configurations</h3>
       <ul>
         <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a>,  <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a> and <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
@@ -35,6 +36,7 @@
         <li>JSON/HTTP, our experimental project, <a href="http://www.rabbitmq.com/download.html#rabbitmq-http">rabbitmq-http2</a> and <a href="http://hg.rabbitmq.com/rabbitmq-http2/file/default/README">code</a>. </li>
         <li><a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a></li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
+        <li><a href="http://www.nicklevine.org/cl-rabbit/ ">CL-RABBIT</a> - an interface from LispWorks to RabbitMQ</li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP</a></li>
         <li><a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">Scala/Lift</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Erlang</a>, <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a> and <a href="http://github.com/deguzman/couchdb-solr2/tree/master">CouchDB</a></li>
