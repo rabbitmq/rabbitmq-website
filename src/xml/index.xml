@@ -42,11 +42,10 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-            The RabbitMQ and AMQP team gave a presentation at QCon London last week and slides are now available.
+The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.4.
 
-      	  <p>
-            Read <a href="news.html">more about this event</a>.
-          </p>
+<p>This release has 'final' status and fixes a small number of bugs in the server, 
+the startup and control scripts on Windows, and the Debian/RPM packaging. Read <a href="/news.html">more about this release</a>.</p>
         </li>
       </ul>
       
