@@ -314,6 +314,47 @@
           </p>
         </doc:subsection>
 
+        <doc:subsection name="control-variables">
+          <doc:heading>Reading and writing per-node broker control variables</doc:heading>
+	  <p>
+	    Some aspects of the operation of the broker can be altered
+	    while the broker is running. Three
+	    <code>rabbitmqctl</code> commands are provided for
+	    examining and altering the variables that control these
+	    aspects:
+	  </p>
+          <pre class="sourcecode">rabbitmqctl set_env <i>variable</i> <i>erlangterm</i>
+rabbitmqctl get_env <i>variable</i>
+rabbitmqctl unset_env <i>variable</i></pre>
+	  <p>
+	    <b>NB</b>: Control variables affect <i>only</i> the node
+	    they are set on. Other nodes in a cluster are, unless
+	    otherwise specified, not affected.
+	  </p>
+	  <p>
+	    The first command, <code>set_env</code>, sets the value of
+	    a control variable. The <code><i>erlangterm</i></code>
+	    must be a string formatted as a legal Erlang term.
+	  </p>
+	  <p>
+	    The second command, <code>get_env</code>, displays the
+	    value of a control variable. If the variable is not set,
+	    the value <code>undefined</code> will be displayed;
+	    otherwise, <code>{ok,<i>Value</i>}</code> will be
+	    displayed in Erlang term format.
+	  </p>
+	  <p>
+	    The third command, <code>unset_env</code>, un-defines a
+	    control variable. Subsequent <code>get_env</code> commands
+	    for the named variable will then display
+	    <code>undefined</code>.
+	  </p>
+	  <p>
+	    Individual control variables are documented in other
+	    sections of this document.
+	  </p>
+	</doc:subsection>
+
       </doc:section>
 
       <doc:section name="user-management">
@@ -966,6 +1007,97 @@
             href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
             mailing list</a> your experiences using the feature on
             your platform!
+	  </p>
+	</doc:subsection>
+
+        <doc:subsection name="firehose">
+          <doc:heading>Firehose</doc:heading>
+	  <p>
+	    Sometimes, during development or debugging, it's useful to
+	    be able to see every message that is published, and every
+	    message that is delivered. RabbitMQ has an experimental
+	    "firehose" feature, where the administrator names (on a
+	    per-node, per-vhost basis) an exchange to which publish-
+	    and delivery-notifications should be CCed.
+	  </p>
+	  <p>
+	    When the feature is switched off, it has no effect on
+	    performance; when it is switched on, it makes a
+	    significant difference. <b>Be cautious</b> in using this
+	    feature on production systems!
+	  </p>
+	  <h4>Enabling the firehose</h4>
+	  <p>
+	    To enable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Decide which node, and which vhost, you want to enable
+	      it for. In the examples below, we assume the default
+	      vhost, "<code>/</code>".
+	    </li>
+	    <li>
+	      Within your chosen vhost, declare the exchange you want
+	      to use to get trace messages, create associated queues
+	      and bindings, and begin consuming. In the examples
+	      below, we will use "<code>firehose</code>" as the
+	      exchange name.
+	    </li>
+	    <li>
+	      Run <code>rabbitmqctl set_env
+	      '{trace_exchange,&lt;&lt;"<i>vhost</i>"&gt;&gt;}'
+	      '&lt;&lt;"<i>exchangename</i>"&gt;&gt;'</code>.
+	    </li>
+	  </ol>
+	  <p>
+	    For example, using the assumptions above about the
+	    exchange name and vhost to use, the final
+	    <code>rabbitmqctl</code> command would be
+	  </p>
+	  <pre class="sourcecode">rabbitmqctl set_env '{trace_exchange,&lt;&lt;"/"&gt;&gt;}' '&lt;&lt;"firehose"&gt;&gt;'</pre>
+	  <h4>Disabling the firehose</h4>
+	  <p>
+	    To disable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Run <code>rabbitmqctl unset_env
+	      '{trace_exchange,&lt;&lt;"<i>vhost</i>"&gt;&gt;}'</code>.
+	    </li>
+	    <li>
+	      Clean up the queues and exchanges used by the firehose.
+	    </li>
+	  </ol>
+	  <p>
+	    For our running example, that would be
+	  </p>
+	  <pre class="sourcecode">rabbitmqctl unset_env '{trace_exchange,&lt;&lt;"/"&gt;&gt;}'</pre>
+	  <h4>Firehose notification format</h4>
+	  <p>
+	    When the firehost is enabled, you will start receiving
+	    messages to the named exchange, with
+	  </p>
+	  <ul>
+	    <li>
+	      routing key either
+	      "<code>publish.<i>exchangename</i></code>", for messages
+	      entering the broker, or
+	      "<code>deliver.<i>queuename</i></code>", for messages
+	      leaving the broker;
+	    </li>
+	    <li>
+	      content type of "<code>application/x-amqp-table;
+	      version=0-8</code>";
+	    </li>
+	    <li>
+	      body in AMQP 0-8 "table" wire format, as described by
+	      the "field table" production in section 4.2.1 of the
+	      AMQP 0-8 specification.
+	    </li>
+	  </ul>
+	  <p>
+	    The fields in the notification message body table describe
+	    the original message that was published or delivered.
 	  </p>
 	</doc:subsection>
       </doc:section>
