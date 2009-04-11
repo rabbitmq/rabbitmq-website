@@ -1074,7 +1074,7 @@ rabbitmqctl unset_env <i>variable</i></pre>
 	  <pre class="sourcecode">rabbitmqctl unset_env '{trace_exchange,&lt;&lt;"/"&gt;&gt;}'</pre>
 	  <h4>Firehose notification format</h4>
 	  <p>
-	    When the firehost is enabled, you will start receiving
+	    When the firehose is enabled, you will start receiving
 	    messages to the named exchange, with
 	  </p>
 	  <ul>
