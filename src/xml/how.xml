@@ -23,7 +23,7 @@
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
       </ul>
       
-      <h3 id="clients">Specific configurations...</h3>
+      <h3 id="clients">Specific configurations</h3>
       <ul>
         <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a>,  <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a> and <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
         <li>Ruby client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a>,  <a href="http://github.com/tmm1/amqp/tree/master">Ruby/EventMachine AMQP client</a>, and <a href="http://github.com/bmizerany/lizzy/">this neat tool for using RabbitMQ from Ruby</a>, see also the <a href="http://groups.google.com/group/ruby-amqp/">Google group</a>, <a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a>, <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> and <a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a></li>
