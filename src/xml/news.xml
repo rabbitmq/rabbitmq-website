@@ -14,7 +14,27 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->     
+    
+<p>RabbitMQ included in Ubuntu!</p>
+
+<p> Read <a href="/news.html">more about this release</a>.</p>
+
+ <doc:item>
+	<doc:date iso="2009-03-16:00:00Z">23 April 2009</doc:date>
+	<doc:title>
+   RabbitMQ included in Ubuntu
+	</doc:title>
+
+	<doc:link>http://www.emediawire.com/releases/2009/4/prweb2340344.htm</doc:link>
+
+	<doc:text>
+<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for the emerging standard for high-performance enterprise messaging through RabbitMQ.</p>
+
+	</doc:text>
+      </doc:item>
+
       
+            
       
       <doc:item>
 	<doc:date iso="2009-03-16:00:00Z">6 April 2009</doc:date>

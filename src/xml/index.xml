@@ -42,10 +42,9 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.4.
+<p>RabbitMQ included in Ubuntu!</p>
 
-<p>This release has 'final' status and fixes a small number of bugs in the server, 
-the startup and control scripts on Windows, and the Debian/RPM packaging. Read <a href="/news.html">more about this release</a>.</p>
+<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for the emerging standard for high-performance enterprise messaging through RabbitMQ. Read <a href="/news.html">more about this release</a>.</p>
         </li>
       </ul>
       
