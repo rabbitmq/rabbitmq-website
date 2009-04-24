@@ -42,9 +42,9 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-<p>RabbitMQ included in Ubuntu!</p>
+<p>Canonical adds RabbitMQ AMQP to Ubuntu 9.04</p>
 
-<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for the emerging standard for high-performance enterprise messaging through RabbitMQ. Read <a href="/news.html">more about this release</a>.</p>
+<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for the emerging standard for messaging through RabbitMQ. Read <a href="/news.html">more about this release</a>.</p>
         </li>
       </ul>
       
