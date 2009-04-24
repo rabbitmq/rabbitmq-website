@@ -44,7 +44,7 @@
         <li>  
 Canonical adds RabbitMQ AMQP to Ubuntu 9.04
 
-<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for the emerging standard for messaging through RabbitMQ. Read <a href="/news.html">Read more</a>.</p>
+<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for AMQP through RabbitMQ. <a href="/news.html">Read more</a>.</p>
         </li>
       </ul>
       
