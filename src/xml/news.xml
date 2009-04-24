@@ -14,7 +14,33 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->     
+    
+
+ <doc:item>
+	<doc:date iso="2009-03-23:00:00Z">23 April 2009</doc:date>
+	<doc:title>
+   Canonical adds RabbitMQ AMQP to Ubuntu 9.04
+	</doc:title>
+
+	<doc:link>http://www.emediawire.com/releases/2009/4/prweb2340344.htm</doc:link>
+
+	<doc:text>
+<p>
+   Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now
+   includes support for the emerging standard for messaging through RabbitMQ.</p>
+
+<p>
+   See Canonical's <a href="http://www.emediawire.com/releases/2009/4/prweb2340344.htm">press release</a> for more information on the release.</p>
+
+<p>
+   We look forward to hearing more from Ubuntu users and would welcome
+   more feedback, bug requests and other contributions. Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (or see <a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>).</p>
+
+	</doc:text>
+      </doc:item>
+
       
+            
       
       <doc:item>
 	<doc:date iso="2009-03-16:00:00Z">6 April 2009</doc:date>
