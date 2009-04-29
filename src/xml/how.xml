@@ -58,7 +58,8 @@ decentralised microblogging</li>
         <li><a href="http://somic.org/category/rabbitmq/">Dmitriy's blogs</a></li>
         <li><a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging - a general introduction by Bob Pasker</a></li>
         <li><a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Another good introduction</a> to why you might need messaging, presented at Rails Conf 2008 by Jon Dahl</li>
-        <li><a href="http://www.igvita.com/2009/04/06/henry-ford-event-driven-architecture/">Scaling your achitecture using events. Includes an introduction to AMQP</a></li>
+        <li><a href="http://www.igvita.com/2009/04/06/henry-ford-event-driven-architecture/">Scaling your achitecture using events - includes an introduction to AMQP</a></li>
+        <li>Aaron's blog on <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">how to build a rabbit management console</a></li>
         <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">some use cases</a></li>
         <li>What people are saying <a href="http://search.twitter.com/search?q=rabbitmq">on Twitter</a> and <a href="http://addictomatic.com/topic/rabbitmq">on the web</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
