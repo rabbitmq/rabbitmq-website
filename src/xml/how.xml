@@ -25,14 +25,17 @@
       
       <h3 id="clients">Specific configurations</h3>
       <ul>
-        <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a>,  <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a> and <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
+        <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a>,  
+        <a href="api-guide.html">Java API-guide</a>,
+        <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a> and 
+        <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
         <li>Ruby client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a>,  <a href="http://github.com/tmm1/amqp/tree/master">Ruby/EventMachine AMQP client</a>, <a href="http://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a> and this <a href="http://github.com/bmizerany/lizzy/">neat tool for using RabbitMQ from Ruby</a>, see also the <a href="http://groups.google.com/group/ruby-amqp/">Google group</a>, <a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a>, <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> and <a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a></li>
         <li>Python <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">introduction</a>, <a href="http://barryp.org/software/py-amqplib/">client library code</a>, <a href="https://launchpad.net/txamqp">Twisted</a>,  <a href="http://orbited.org">Orbited</a> and <a href="http://pypi.python.org/pypi/carrot/0.2.1">RabbitMQ in Django</a></li> 
         <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
         <li><a href="http://code.google.com/p/php-amqplib/">PHP client</a></li> 
         <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and <a href="http://flexonrails.net/?p=106">Flex</a></li>     
         <li>JSON/HTTP, our experimental project, <a href="http://www.rabbitmq.com/download.html#rabbitmq-http">rabbitmq-http2</a> and <a href="http://hg.rabbitmq.com/rabbitmq-http2/file/default/README">code</a></li>
-        <li><a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a></li>
+        <li><a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and also an experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a></li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a>.  See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in
 decentralised microblogging</li>
@@ -45,7 +48,7 @@ decentralised microblogging</li>
       <ul>
         <li>More information on the open standard: <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a></li>
         <li><a href="http://hg.rabbitmq.com/">Code repository</a></li>
-        <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a></li>
+        <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a> or <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">management console</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
         <li>A <a href="http://www.intelfasterfs.com/2007/11/intel-low-latency-trading-lab-set-to-improve-financial-trading-performance/">report</a> of high performance testing done by Intel in 2007, and an <a href="http://www.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team</li>
         <li>Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (see <a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>)</li>
@@ -54,7 +57,7 @@ decentralised microblogging</li>
       <h3 id="blogs">Blogs and general posts</h3>      
       <ul>
         <li><a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift blogs</a></li>
-        <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs</a>  </li>
+        <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs</a></li>
         <li><a href="http://somic.org/category/rabbitmq/">Dmitriy's blogs</a></li>
         <li><a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging - a general introduction by Bob Pasker</a></li>
         <li><a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Another good introduction</a> to why you might need messaging, presented at Rails Conf 2008 by Jon Dahl</li>

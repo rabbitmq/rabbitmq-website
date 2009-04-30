@@ -49,6 +49,9 @@
 	  <li>
 	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
+	  <li>
+	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
+	  </li>
 	</ul>
       </doc:section>
 
@@ -67,8 +70,7 @@
 	    RabbitMQ server and client libraries from source
 	  </li>
 	  <li>
-	    Information on <a href="compatibility.html">compatibility and
-	    conformance</a> with the AMQP specification and other AMQP
+	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> and other AMQP
 	    implementations
 	  </li>
 	  <li>
@@ -85,6 +87,9 @@
 	    Information on <a href="erlang.html">Erlang's suitability
 	    for AMQP implementations</a>
 	  </li>
+          <li>
+            Read the <a href="specification.html">specification</a>
+          </li>
 <!--
       <li>
 	RabbitMQ Developer's Guide

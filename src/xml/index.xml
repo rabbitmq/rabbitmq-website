@@ -7,15 +7,15 @@
   </head>
   <body>
     <p class="intro">RabbitMQ is an implementation of <a
-      href="faq.html#what-is-amqp">AMQP</a>, the emerging standard for high performance enterprise messaging.
+      href="specification.html">AMQP</a>, the emerging standard for high performance messaging.
     </p>
 
     <div class="col columnLeft">
       <h3>Features</h3>
       <ul>
 
-	<li>A complete, <a href="compatibility.html">conformant</a>
-	and <a href="interoperability.html">interoperable</a>
+	<li>A complete, <a href="specification.html">conformant</a> 
+ and <a href="interoperability.html">interoperable</a>
 	implementation of the published AMQP specification
         </li>
 	

@@ -26,7 +26,7 @@ If you don't find the information you're looking for below, try also this <a hre
 	  <doc:heading>What is AMQP?</doc:heading>
 	  <doc:a>
 	    <p>
-	      <a href="http://www.amqp.org/">AMQP</a> is a standard
+	      <a href="specification.html">AMQP</a> is a standard
 	      wire-level protocol and semantic framework for high
 	      performance enterprise messaging.
 	    </p>
