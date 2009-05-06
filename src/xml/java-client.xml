@@ -25,7 +25,7 @@
       The current release implements <a
       href="https://jira.amqp.org/confluence/display/AMQP/Download">AMQP
       protocol version 0-8</a>. Please see the <a
-      href="compatibility.html">compatibility</a> page for more
+      href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
     </p>
 
@@ -98,6 +98,8 @@
     </p>
 
     <h4>The documentation</h4>
+    
+    <p>Please refer to the <a href="api-guide.html">API guide</a>.</p>
 
     <p>
       The Javadoc documentation is <a
