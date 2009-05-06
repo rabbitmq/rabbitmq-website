@@ -127,7 +127,16 @@
 	form)
       </r:download>
     </r:downloads>
-    
+
+    <h4>Other versions</h4>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-dotnet-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      .NET/C# Client library or documentation other than the above.
+    </p>
+
+
     <h3>Mercurial repository</h3>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
     

@@ -123,6 +123,14 @@
       details on how to verify the signatures on our packages.
     </p>
 
+    <h4>Other versions</h4>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
+      you want to download a version of the RabbitMQ Server other than
+      the above.
+    </p>
+
     <h4>Source Code</h4>
 
     <p>

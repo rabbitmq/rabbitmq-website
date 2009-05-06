@@ -94,6 +94,11 @@
       RabbitMQ.
     </p>
 
+    <p>
+      Consult <a href="/releases/bundles/">the archive</a> if you want
+      to download a version of the bundle other than the above.
+    </p>
+
     <h3 class="clear">Specification</h3>
     <p>
       The current RabbitMQ server and Java client library releases
