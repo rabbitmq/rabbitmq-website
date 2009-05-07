@@ -2,4 +2,4 @@ syntax: glob
 *~
 
 syntax: regexp
-^target$
+^target/
