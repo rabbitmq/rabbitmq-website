@@ -21,10 +21,16 @@
         <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a></li>
         <li><a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queueing</a></li>
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
+        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">some use cases</a></li>
       </ul>
       
       <h3 id="clients">Specific configurations</h3>
       <ul>
+      	<li>We support numerous operating system platforms. RabbitMQ is 
+      	available for numerous Linux and Unix formats - see <a href="download.html">the full list</a>
+      	on our download  page. RabbitMQ is available as a <a href="download.html">Windows package</a>
+      	where it can be run as a service. RabbitMQ installs have been created by the community for OpenSolaris, MacOSX, BSD and
+			Gentoo. Please contact us if you cannot find what you need.</li>
         <li><a href="http://www.rabbitmq.com/java-client.html">Java client</a>,  
         <a href="api-guide.html">Java API-guide</a>,
         <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a> and 
@@ -56,18 +62,18 @@ decentralised microblogging</li>
       
       <h3 id="blogs">Blogs and general posts</h3>      
       <ul>
+        <li>Open Enterprise's series on messaging middleware and AMQP <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Part 1</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a></li>
+        <li><a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging - a general introduction by Bob Pasker</a></li>
         <li><a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift blogs</a></li>
         <li><a href="http://hopper.squarespace.com/blog/category/rabbitmq">Ben's blogs</a></li>
         <li><a href="http://somic.org/category/rabbitmq/">Dmitriy's blogs</a></li>
-        <li><a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging - a general introduction by Bob Pasker</a></li>
         <li><a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Another good introduction</a> to why you might need messaging, presented at Rails Conf 2008 by Jon Dahl</li>
         <li><a href="http://www.igvita.com/2009/04/06/henry-ford-event-driven-architecture/">Scaling your achitecture using events - includes an introduction to AMQP</a></li>
         <li>Aaron's blog on <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">how to build a rabbit management console</a></li>
-        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">some use cases</a></li>
         <li>What people are saying <a href="http://search.twitter.com/search?q=rabbitmq">on Twitter</a> and <a href="http://addictomatic.com/topic/rabbitmq">on the web</a></li>
         <li><a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 users charter and scope</a></li>
-        <li>Open Enterprise's series on messaging middleware and AMQP <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Part 1</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>, <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a></li>
-      </ul>
+        <li>See <a href="http://en.wikipedia.org/wiki/AMQP">wikipedia on AMQP</a></li>
+       </ul>
 
    
     </doc:div>
