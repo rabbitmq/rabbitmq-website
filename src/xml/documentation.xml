@@ -80,8 +80,7 @@
 	    running some of Qpid's tests against the RabbitMQ broker)
 	  </li>
 	  <li>
-	    The RabbitMQ development <a href="how.html">quick reference</a>
-	    and <a href="faq.html">FAQ</a>
+	    The RabbitMQ <a href="faq.html">FAQ</a>
 	  </li>
 	  <li>
 	    Information on <a href="erlang.html">Erlang's suitability

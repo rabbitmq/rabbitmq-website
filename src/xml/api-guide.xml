@@ -33,10 +33,7 @@
 
 	<p>
 	  The client API is closely modelled on the AMQP protocol specification,
-	  with little additional abstraction. (Future releases
-	  will provide increased type-safety by encapsulating AMQP
-	  entities more thoroughly; please see the <a
-	  href="roadmap.html">roadmap</a> for more detail.)
+	  with little additional abstraction.
 	</p>
 
 	<p>
