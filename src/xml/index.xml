@@ -7,15 +7,15 @@
   </head>
   <body>
     <p class="intro">RabbitMQ is an implementation of <a
-      href="faq.html#what-is-amqp">AMQP</a>, the emerging standard for high performance enterprise messaging.
+      href="specification.html">AMQP</a>, the emerging standard for high performance messaging.
     </p>
 
     <div class="col columnLeft">
       <h3>Features</h3>
       <ul>
 
-	<li>A complete, <a href="compatibility.html">conformant</a>
-	and <a href="interoperability.html">interoperable</a>
+	<li>A complete, <a href="specification.html">conformant</a> 
+ and <a href="interoperability.html">interoperable</a>
 	implementation of the published AMQP specification
         </li>
 	
@@ -42,11 +42,9 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-            The RabbitMQ and AMQP team gave a presentation at QCon London last week and slides are now available.
+Canonical adds RabbitMQ AMQP to Ubuntu 9.04
 
-      	  <p>
-            Read <a href="news.html">more about this event</a>.
-          </p>
+<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for AMQP through RabbitMQ. <a href="/news.html">Read more</a>.</p>
         </li>
       </ul>
       
@@ -69,15 +67,15 @@
 	<li>Platform-neutral distribution, plus platform-specific
 	packages and bundles for easy installation</li>
 
-        <li>Several user-contributed packages that extend the core
-        RabbitMQ functionality</li>
+  <li>Several user-contributed packages that extend the core RabbitMQ functionality</li>
 
 	<li>Extensive <a href="documentation.html">documentation</a>,
 	several <a href="examples.html">demos and examples</a>, and a
 	functional/performance test suite</li>
+	
+	<li><a class="downloadNow" href="how.html"><b>How easy is it?</b></a></li>
 
-        <li><a class="downloadNow" href="download.html"><b>Download
-        Now!</b></a></li>
+  <li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
 
       </ul>
     </div>

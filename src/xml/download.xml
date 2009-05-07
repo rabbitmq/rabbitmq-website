@@ -94,7 +94,7 @@
       RabbitMQ.
     </p>
 
-    <h3 class="clear">Compatibility</h3>
+    <h3 class="clear">Specification</h3>
     <p>
       The current RabbitMQ server and Java client library releases
       implement <a

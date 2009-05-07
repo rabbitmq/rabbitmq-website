@@ -48,7 +48,7 @@
 	  <p>
 	    Certain parts of the AMQP specification are not currently
 	    implemented (see the <a
-	    href="compatibility.html">compatibility page</a> for
+	    href="specification.html">specification page</a> for
 	    details). We plan on implementing missing features such as
 	  </p>
 	  <p>
