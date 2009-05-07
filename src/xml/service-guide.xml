@@ -35,15 +35,6 @@
           a command shell (<code>cmd.exe</code>) with the current working 
           directory set to <code>sbin</code>.
         </p>
-        <p>
-          By default the service will run in the authentication context of the
-          local system account. It is therefore necessary to synchronise Erlang
-          cookies between the local system account (typically
-          <code>C:\WINDOWS\.erlang.cookie</code>) and the account that will be used to
-          run <code>rabbitmqctl</code> (on Windows XP typically located in
-          <code>C:\Documents and Settings\User\.erlang.cookie</code>).
-        </p>
-
         <doc:subsection name="install">
           <doc:heading>Installing the RabbitMQ service</doc:heading>
           <pre class="sourcecode">rabbitmq-service install</pre>

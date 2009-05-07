@@ -178,6 +178,10 @@ Technologies Ltd.</div>
     </ul>
   </xsl:template>
 
+  <xsl:template match="doc:link">
+    <a href="{@linkend}"><xsl:apply-templates/></a>
+  </xsl:template>
+
   <xsl:template match="doc:item">
     <li>
       <xsl:choose>
