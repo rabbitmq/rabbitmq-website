@@ -1,0 +1,92 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Extensions and Experimental Features</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+        The RabbitMQ Server implements a number of extensions of the
+        <a href="specification.html">AMQP specification</a>, which we
+        are documenting here.  There are also some experimental
+        features, not directly related to the specification, which we
+        consider to be useful but require further testing.
+      </p>
+
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="experimental">
+        <doc:heading>Experimental Features</doc:heading>
+
+	<p>
+	  This section describes additions to the server that are
+	  considered experimental.
+	</p>
+
+        <doc:subsection name="memsup">
+          <doc:heading>Memory-based flow control</doc:heading>
+
+	  <p>
+	    In versions of the RabbitMQ server prior to version 1.5.x,
+	    it was possible for clients to attempt to store so many
+	    messages within the server that it outgrew the available
+	    memory. With the release of version 1.5.x, an experimental
+	    memory-pressure-detection feature has been added to the
+	    codebase, so that when the server notices available memory
+	    drop below 5% of the total memory available to the system,
+	    it throttles publishers with the <code>channel.flow</code>
+	    AMQP command.
+	  </p>
+
+	  <p>
+	    The feature has been tested and found to work on various
+	    Linux distributions, and is therefore enabled on those
+            platforms by default.
+          </p>
+
+	  <p>
+            To enable the feature when running the RabbitMQ on other
+            platforms, add
+	  </p>
+
+	  <pre class="sourcecode">-rabbit memory_alarms true</pre>
+
+	  <p>
+	    to your <code>RABBITMQ_SERVER_START_ARGS</code>
+	    environment variable or to the
+	    <code>SERVER_START_ARGS</code> definition in
+	    <code>/etc/rabbitmq/rabbitmq.conf</code>, as appropriate for
+	    your platform.
+	  </p>
+
+          <p>
+            Similarly, to disable the feature add
+          </p>
+
+	  <pre class="sourcecode">-rabbit memory_alarms false</pre>
+
+          <p>
+            The memory threshold at which the flow control is
+            triggered can be adjusted by modifying
+            the
+            <pre class="sourcecode">-os_mon system_memory_high_watermark 0.95</pre>
+            line in the <code>rabbitmq-server</code>
+            / <code>rabbitmq-server.bat</code> script.
+          </p>
+
+	  <p>
+            Please report back to the <a
+            href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
+            mailing list</a> your experiences using the feature on
+            your platform!
+	  </p>
+	</doc:subsection>
+      </doc:section>
+
+    </doc:div>
+  </body>
+</html>

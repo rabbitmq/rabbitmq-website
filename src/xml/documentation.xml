@@ -30,6 +30,9 @@
 	  <li>
 	    <a href="clustering.html">Clustering Guide</a>
 	  </li>
+          <li>
+            <a href="extensions.html">Extensions and Experimental Features</a>
+          </li>
 	</ul>
       </doc:section>
 
