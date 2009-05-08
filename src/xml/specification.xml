@@ -31,12 +31,14 @@
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
 	</p>
-  <p>
-  The 0-8 and 0-9-1 specifications are linked to below for your
-  convenience.  We recommend reading them if you want to learn more
-  about AMQP.  Please see our <a href="documentation.html">documentation</a>,
-   <a href="how.html">overview</a> and <a href="gettingstarted.html">getting
-  started</a> pages for more information.  Or, you can visit <a href="http://www.amqp.org/">amqp.org</a>.
+        <p>
+          The 0-8 and 0-9-1 specifications are linked to below for
+          your convenience.  We recommend reading them if you want to
+          learn more about AMQP.  Please see our <a
+          href="documentation.html">documentation</a> and <a
+          href="how.html">overview</a> pages for more information.
+          Or, you can visit <a
+          href="http://www.amqp.org/">amqp.org</a>.
 	</p>
       </doc:section>
       
