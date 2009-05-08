@@ -22,7 +22,7 @@
 	<doc:heading>Server documentation</doc:heading>
 	<ul>
 	  <li>
-            <a href="gettingstarted.html">Getting Started Guide</a>
+            <a href="install.html">Installation Guide</a>
 	  </li>
 	  <li>
 	    <a href="admin-guide.html">Administration Guide</a>
