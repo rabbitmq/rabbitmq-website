@@ -22,12 +22,10 @@
 	<doc:heading>Server documentation</doc:heading>
 	<ul>
 	  <li>
-	    RabbitMQ Server <a href="gettingstarted.html">Getting
-	    Started Guide</a>
+            <a href="gettingstarted.html">Getting Started Guide</a>
 	  </li>
 	  <li>
-	    <a href="admin-guide.html">Server Administrator's
-	    Guide</a>
+	    <a href="admin-guide.html">Administration Guide</a>
 	  </li>
 	  <li>
 	    <a href="clustering.html">Clustering Guide</a>
@@ -86,14 +84,6 @@
 	    Information on <a href="erlang.html">Erlang's suitability
 	    for AMQP implementations</a>
 	  </li>
-          <li>
-            Read the <a href="specification.html">specification</a>
-          </li>
-<!--
-      <li>
-	RabbitMQ Developer's Guide
-      </li>
--->
 	</ul>
       </doc:section>
 
