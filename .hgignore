@@ -1,1 +1,5 @@
-^target$
+syntax: glob
+*~
+
+syntax: regexp
+^target/

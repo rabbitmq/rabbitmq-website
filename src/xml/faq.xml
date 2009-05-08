@@ -10,9 +10,9 @@
       <h2>Frequently Asked Questions</h2>
 
       <p class="intro">
-	Please see also the <a href="documentation.html">documentation
-	index</a> page. If you have a question not answered here,
-	why not <a href="http://lists.rabbitmq.com">join our mailing list</a> or
+If you don't find the information you're looking for below, try also this <a href="/how.html">overview of information resources</a>, and the general <a href="documentation.html">documentation</a> available on this site.  
+	If you have a question not answered here,
+	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
 	alternatively, contact us directly at <a
 	href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
    
@@ -22,12 +22,11 @@
 
       <doc:section name="background">
 	<doc:heading>Background</doc:heading>
-
 	<doc:faq name="what-is-amqp">
 	  <doc:heading>What is AMQP?</doc:heading>
 	  <doc:a>
 	    <p>
-	      <a href="http://www.amqp.org/">AMQP</a> is a standard
+	      <a href="specification.html">AMQP</a> is a standard
 	      wire-level protocol and semantic framework for high
 	      performance enterprise messaging.
 	    </p>
@@ -123,13 +122,13 @@
 	      business reasons supporting the use of Erlang and OTP,
 	      we recommend the following:
 	      <ul>
-                <li>
-                  An <a
-                  href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
-                  of Erlang and OTP</a> by Ericsson, the original
-                  developer of the technology and one of its major
-                  commercial users.
-                </li>
+      <li>
+        An <a
+        href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
+        of Erlang and OTP</a> by Ericsson, the original
+        developer of the technology and one of its major
+        commercial users.
+      </li>
     <li>
 		  An <a
 		  href="http://www.ddj.com/architect/201001928"> 
@@ -318,9 +317,7 @@
 	    <p>
 	      Yes. RabbitMQ uses Erlang's built-in logging and database
 	      support tools to provide high-speed, high-reliability
-	      durable message storage. For storage in your own RDBMS,
-	      please see <a href="#archival-to-rdbms">this FAQ
-	      entry</a>.
+	      durable message storage.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -351,24 +348,7 @@
 	      residing at another node is seamless. For details see
 	      the <a href="clustering.html">clustering guide</a>. We
 	      are currently developing further support for live
-	      failover of AMQP resources within a cluster. Please see
-	      <a href="roadmap.html">our roadmap</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="advanced-transport-support">
-	  <doc:heading>
-	    Will RabbitMQ support advanced transports such as <a
-	    href="http://en.wikipedia.org/wiki/Remote_Direct_Memory_Access">RDMA</a>
-	    and <a
-	    href="http://www.ietf.org/rfc/rfc2960.txt">SCTP</a>?
-	  </doc:heading>
-	  <doc:a>
-	    <p>
-	      Yes. Erlang allows bindings to any C library; Erlang's
-	      foreign-function interface will be used to interface to
-	      existing implementations of non-TCP/IP AMQP transports.
+	      failover of AMQP resources within a cluster.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -394,9 +374,21 @@
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="web-frameworks">
-	  <doc:heading>
-	    Can I create RabbitMQ applications using web frameworks (eg
+	<doc:faq name="SMSstore-forward">
+	  <doc:heading>Do you think RabbitMQ, as a core module, could handle real time traffic of
+something like an SMSC (SMS foreward&amp;store)?</doc:heading>
+	  <doc:a>
+	    <p>
+Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
+    in their SMSC infrastructure. At present these systems are not based on
+    AMQP/RabbitMQ, but there is no reason why they couldn't be.
+
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="support-store-and-forward">
+	   <doc:heading>Can I create RabbitMQ applications using web frameworks (eg
 	    Spring, or Ruby-On-Rails)?
 	  </doc:heading>
 	  <doc:a>
@@ -435,9 +427,7 @@
 	      href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">Wikipedia
 	      on SASL</a>) for authentication of AMQP clients. Our
 	      current support for SASL is limited to the PLAIN
-	      authentication mechanism; see our <a
-	      href="roadmap.html">roadmap</a> for our future SASL
-	      plans.
+	      authentication mechanism.
 	    </p>
 	    <p>
 	      Authorization is implemented in RabbitMQ using a
@@ -595,150 +585,37 @@
 	    </p>
 	  </doc:a>
 	</doc:faq>
+	
+		<doc:faq name="scale-balance">
+	  <doc:heading>How is RabbitMQ scaled and the load balance handled?</doc:heading>
+	  <doc:a>
+	    <p>
+	     At the core we are relying on Erlang/OTP to distribute one logical AMQP
+    broker across several physical nodes, with the necessary broker state
+    being maintained in an instance of OTP's distributed database Mnesia.
+    There are certain aspects of the AMQP spec that are currently undergoing
+    revision that impact this area, so watch out for associated new features
+    and documentation in future releases of RabbitMQ.
+
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
       </doc:section>
 
       <doc:section name="integration">
 	<doc:heading>Integration</doc:heading>
 
 	<doc:faq name="rabbit-client-support">
-	  <doc:heading>What clients will RabbitMQ support?</doc:heading>
+	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
 	  <doc:a>
 	    <p>
-	      At present, the RabbitMQ suite offers a client library
-	      for Java applications. Support for in-browser Javascript
-	      (via AJAX mechanisms, including JSON and JSON-RPC) and
-	      native Erlang client access is planned for the near
-	      future. We will develop client interfaces to RabbitMQ's
-	      features in response to demand.
+	      We maintain <a href="/how.html#clients">a list of clients</a>, which is fairly complete.  If you don't
+see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">email our mailing list.</a>
 	    </p>
 	  </doc:a>
 	</doc:faq>
-
-	<doc:faq name="java-client">
-	  <doc:heading>How do I use RabbitMQ from Java?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Please see our <a href="api-guide.html">Java client API guide</a>.
-	    </p>
-	    <p>
-	      The RabbitMQ client library is supplied as a JAR file,
-	      rabbitmq-client.jar, with a minimal number of external
-	      dependencies (currently
-	      backport-util-concurrent-2.2.jar, commons-io-1.2.jar,
-	      and commons-lang-2.0.jar).
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="dotnet-client">
-	  <doc:heading>I use .NET - what do I need to know to use RabbitMQ?</doc:heading>
-	  <doc:a>
-	    <p>
-	      One strong possibility is to use <a
-	      href="http://www.ikvm.net/">IKVM</a> to access the Java
-	      client from .NET. Other alternatives include using an
-	      ESB such as Mule to connect to .NET applications, or
-	      using AMQP-over-HTTP or over JSON-RPC to access AMQP
-	      functionality through web-service-style interfaces.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="rabbit-jms">
-	  <doc:heading>Does RabbitMQ implement a JMS Interface?</doc:heading>
-	  <doc:a>
-	    <p>
-	      We're tracking the development of the core AMQP
-	      standard, which is at present working on defining a good
-	      mapping from AMQP to the concepts used in JMS. If you
-	      want to use JMS with AMQP today, please <a
-	      href="mailto:info@rabbitmq.com">email us</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="rabbitmq-integration-generally">
-	  <doc:heading>How do I integrate RabbitMQ with other systems?</doc:heading>
-	  <doc:a>
-	    <p>
-	      We plan on exposing RabbitMQ to the world of services
-	      accessible via Mule - please see <a
-	      href="#mule">below</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="mule">
-	  <doc:heading>Does RabbitMQ interface with Mule?</doc:heading>
-	  <doc:a>
-	    <p>
-	      <a href="http://mulesource.org/">Mule</a> is an
-	      Enterprise Service Bus (ESB), which is an essential part
-	      of our <a href="roadmap.html">roadmap</a> for
-	      integration with other protocols and legacy networks.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="rabbit-hermesjms">
-	  <doc:heading>Does RabbitMQ interface to HermesJMS?</doc:heading>
-	  <doc:a>
-	    <p>
-	      We plan on implementing an interface to allow <a
-	      href="http://www.hermesjms.com/">HermesJMS</a> to browse
-	      and manage queues on RabbitMQ brokers.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="existing-market-data">
-	  <doc:heading>
-	    Can RabbitMQ be used with existing market data systems? What
-	    about other asynchronous models like RSS, XMPP, ...?
-	  </doc:heading>
-	  <doc:a>
-	    <p>
-	      Absolutely. Options for integration range from using
-	      AMQP clients natively to pass messages between your AMQP
-	      network and your existing market data system, through
-	      configuring routing between your various networks at a
-	      very high level using, for instance, an ESB such as <a
-	      href="#mule">Mule</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="java-transactions">
-	  <doc:heading>How do I integrate with JavaEE transactions?</doc:heading>
-	  <doc:a>
-	    <p>
-	      A bundled bridge between AMQP's transaction model and
-	      JavaEE's transaction model is on <a
-	      href="roadmap.html">our roadmap</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="ldap-integration">
-	  <doc:heading>
-	    How do I integrate with <a
-	    href="http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">LDAP</a>
-	    and other directories?
-	  </doc:heading>
-	  <doc:a>
-	    <p>
-	      Our current <a href="roadmap.html">roadmap</a> calls for
-	      integration with user and configuration databases
-	      besides the <a
-	      href="admin-guide.html#user-management">internal
-	      one</a>. We are investigating options ranging from
-	      direct integration at the broker implementation level,
-	      through using AMQP itself to access other networked
-	      systems.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
+ 
       </doc:section>
 
       <doc:section name="howto">
@@ -776,10 +653,6 @@
 	      Erlang's distribution and high-availability properties,
 	      or it could be implemented outside the broker, as a
 	      regular AMQP client.
-	    </p>
-	    <p>
-	      Our <a href="roadmap.html">roadmap</a> includes just
-	      such an integrated service.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -819,24 +692,6 @@
 	      well, but using a layer of encryption in the clients is
 	      very easy. Adding support for this to RabbitMQ's client
 	      library would be a simple matter.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="management-monitoring-control">
-	  <doc:heading>How do I do management, monitoring and control?</doc:heading>
-	  <doc:a>
-	    <p>
-	      AMQP includes some management capability through the
-	      current protocol design, and further features are
-	      currently under development by the Working
-	      Group. RabbitMQ is tracking these, and in addition,
-	      RabbitMQ will make use of both HermesJMS and
-	      Erlang/OTP's existing proven management libraries to
-	      provide a complete management suite (or "HQ"). When used
-	      in a <a href="http://www.cohesiveft.com/">virtual
-	      appliance</a>, additional management features will be
-	      bundled.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -905,42 +760,6 @@
 	      server</a>, or <a href="download.html">download</a> and
 	      <a href="install.html">run</a> a server of your own to
 	      experiment with.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="java-client-retry">
-	  <doc:heading>How do I do Java client retry?</doc:heading>
-	  <doc:a>
-	    <p>
-	      The AMQP "TX" message class, supporting transactional
-	      behaviour, is supported in the <a
-	      href="api-guide.html">Java API</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="archival-to-rdbms">
-	  <doc:heading>How do I archive to RDBMS?</doc:heading>
-	  <doc:a>
-	    <p>
-	      There are two ways of achieving this:
-	      <ul>
-		<li>
-		  create a consumer which retrieves messages
-		  transactionally from a queue, writing them
-		  transactionally to an RDBMS, or
-		</li>
-		<li>
-		  integrate with RabbitMQ's internal transaction and
-		  persistence mechanism to provide a write-behind log
-		  of AMQP activity in your RDBMS.
-		</li>
-	      </ul>
-	    </p>
-	    <p>
-	      Full support for this is on our <a
-	      href="roadmap.html">roadmap</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1074,24 +893,13 @@
 	  <doc:heading>How is RabbitMQ licenced (for redistribution, etc.)?</doc:heading>
 	  <doc:a>
 	    <p>
-	      RabbitMQ will be distributed under the open-source <a
+	      RabbitMQ is distributed under the open-source <a
 	      href="mpl.html">Mozilla Public License</a>.
 	    </p>
 	    <p>
 	      If you would like to explore other licensing options,
 	      please get in touch with us by emailing <a
 	      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="roadmap">
-	  <doc:heading>What is the RabbitMQ roadmap?</doc:heading>
-	  <doc:a>
-	    <p>
-	      A list of planned features for future releases of
-	      RabbitMQ can be found at our <a
-	      href="roadmap.html">roadmap page</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1105,7 +913,6 @@
 	    </p>
 	    <p>
 	      <ul class="compact">
-		<li>any of the items from this FAQ and our <a href="roadmap.html">roadmap</a></li>
 		<li>packaging for other operating systems</li>
 		<li>integration with other messaging systems</li>
 		<li>integration with other management systems</li>
@@ -1119,30 +926,6 @@
 	      We're happy to hear from anyone who wants to get
 	      involved or is curious about how we intend to manage the
 	      project.
-	    </p>
-	    <p>
-	      We plan on making the RabbitMQ project's source code
-	      available via a public <a
-	      href="http://subversion.tigris.org/">Subversion</a>
-	      server shortly, although of course we welcome plain old
-	      patches, as well.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
-	<doc:faq name="distribution">
-	  <doc:heading>Will RabbitMQ be distributed with my Operating System?</doc:heading>
-	  <doc:a>
-	    <p>
-	      We hope that as RabbitMQ develops, it will be included
-	      with various operating systems and distributions. We
-	      already have packages available for <a
-	      href="debian.html">Debian GNU/Linux</a>; we are
-	      developing packages for integrating smoothly with <a
-	      href="http://www.fedoraproject.org/">Fedora Linux</a>,
-	      Microsoft Windows and Apple Mac OS X, and hope that
-	      eventually our packages will be accepted into core OS
-	      distributions.
 	    </p>
 	  </doc:a>
 	</doc:faq>
