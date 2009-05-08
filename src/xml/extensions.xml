@@ -18,45 +18,150 @@
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
+      
+      <doc:section name="unroutable-message-exchange">
+        <doc:heading>Unroutable Message Exchanges</doc:heading>
+        
+        <p>
+          It is sometimes desirable to let clients handle messages
+          that an exchange was unable to route (i.e. either because
+          there were no bound queues our no matching
+          bindings). Typical examples of this are
+          <ul>
+            <li>detecting when clients accidentally or maliciously
+            publish messages that cannot be routed</li>
+            <li>"or else" routing semantics where some messages are
+            handled specially and the rest by a generic handler</li>
+          </ul>
+        </p>
+        <p>
+          RabbitMQ's <em>Unroutable Message Exchange</em> ("UME")
+          feature addresses these use cases.
+        </p>
 
-      <doc:section name="experimental">
-        <doc:heading>Experimental Features</doc:heading>
-
-	<p>
-	  This section describes additions to the server that are
-	  considered experimental.
-	</p>
-
-        <doc:subsection name="memsup">
-          <doc:heading>Memory-based flow control</doc:heading>
-
-	  <p>
-	    In versions of the RabbitMQ server prior to version 1.5.x,
-	    it was possible for clients to attempt to store so many
-	    messages within the server that it outgrew the available
-	    memory. With the release of version 1.5.x, an experimental
-	    memory-pressure-detection feature has been added to the
-	    codebase, so that when the server notices available memory
-	    drop below 5% of the total memory available to the system,
-	    it throttles publishers with the <code>channel.flow</code>
-	    AMQP command.
-	  </p>
-
-	  <p>
-	    The feature has been tested and found to work on various
-	    Linux distributions, and is therefore enabled on those
-            platforms by default.
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+          <p>
+            When creating an exchange the name of a UME can be
+            optionally supplied in the <code>exchange.declare</code>
+            method's <code>arguments</code> table by specifying a key
+            of 'ume' and a value of type 'S' (string) containing the
+            name.
+          </p>
+          <p>
+            Whenever the created exchange cannot route a message to
+            any queue (or the message was marked as immediate and it
+            cannot be delivered to any consumer) then it publishes the
+            message to the specified ume instead. In other words, the
+            UME gets sent all messages that would be discarded,
+            i.e. not enqueued anywhere or sent immediately to a
+            consumer.
+          </p>
+          <p>
+            If no UME is specified the message is discarded, which is
+            the standard behaviour. If a UME has been specified but it
+            does not exist then a warning is logged and the message is
+            discarded. If the UME exists but the message cannot be
+            routed to any of its bound queues (because there are none
+            or the bindings do not match) then the message is
+            discarded.
+          </p>
+          <p>
+            The routing of messages to an UME does not affect the
+            semantics of the 'mandatory' and 'immediate' flags, or
+            <code>basic.return</code>.
+          </p>
+          <p>
+            The queues to which a messages is routed from an UME
+            participate in AMQP's <code>tx</code> transactions,
+            i.e. if an unroutable message was published inside a tx
+            then it will only appear in the queues when that tx is
+            committed.
+          </p>
+          <p>
+            If an unroutable message is marked as persistent then it
+            is persisted when successfully routed via the UME to some
+            queues.
           </p>
 
-	  <p>
+        </doc:subsection>
+
+        <doc:subsection>
+          <doc:heading>Example</doc:heading>
+          
+          <p>
+            In the following fragment of Java code we create a direct
+            exchange 'my-direct' that is configured with a UME called
+            'my-ume'. The latter is declared as a fanout exchange. We
+            bind one queue 'routed' to 'my-direct' with a binding key
+            of 'key1', and a queue 'unrouted' to 'my-ume'.
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("ume", "my-ume");
+channel.exchangeDeclare("my-direct", "direct", false, false, false, args);
+channel.exchangeDeclare("my-ume", "fanout");
+channel.queueDeclare("routed");
+channel.queueBind("routed", "my-direct", "key1");
+channel.queueDeclare("unrouted");
+channel.queueBind("unrouted", "my-ume", "");</pre>
+
+        </doc:subsection>
+        <p>
+          When publishing a message to 'my-direct' with a routing key
+          of 'key1' it is routed to the 'routed' queue, in accordance
+          with the standard AMQP behaviour.
+        </p>
+        <pre class="sourcecode">
+channel.basicPublish("my-direct", "key1", null, "test".getBytes());
+GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
+        <p>
+          However, when publishing a message to 'my-direct' with a
+          routing key of 'key2', rather than being discarded the
+          message is routed via our configured UME to the 'unrouted'
+          queue.
+        </p>
+        <pre class="sourcecode">
+channel.basicPublish("my-direct", "key2", null, "test".getBytes());
+GetResponse r2 = channel.basicGet("unrouted", true); //returns message</pre>
+
+      </doc:section>
+
+      <doc:section name="memsup">
+        <doc:heading>Memory-based flow control</doc:heading>
+
+        <p>
+          In versions of the RabbitMQ server prior to version 1.5.x,
+          it was possible for clients to attempt to store so many
+          messages within the server that it outgrew the available
+          memory. With the release of version 1.5.x, an experimental
+          memory-pressure-detection feature has been added to the
+          codebase, so that when the server notices available memory
+          drop below 5% of the total memory available to the system,
+          it throttles publishers with the <code>channel.flow</code>
+          AMQP command.
+        </p>
+
+        <p>
+          The feature has been tested and found to work on various
+          Linux distributions, and is therefore enabled on those
+          platforms by default. Please report back to the <a
+          href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
+          mailing list</a> your experiences using the feature on your
+          platform!
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+          <p>
             To enable the feature when running the RabbitMQ on other
             platforms, add
 	  </p>
 
 	  <pre class="sourcecode">-rabbit memory_alarms true</pre>
 
-	  <p>
-	    to your <code>RABBITMQ_SERVER_START_ARGS</code>
+          <p>
+            to your <code>RABBITMQ_SERVER_START_ARGS</code>
 	    environment variable or to the
 	    <code>SERVER_START_ARGS</code> definition in
 	    <code>/etc/rabbitmq/rabbitmq.conf</code>, as appropriate for
@@ -78,12 +183,6 @@
             / <code>rabbitmq-server.bat</code> script.
           </p>
 
-	  <p>
-            Please report back to the <a
-            href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
-            mailing list</a> your experiences using the feature on
-            your platform!
-	  </p>
 	</doc:subsection>
       </doc:section>
 
