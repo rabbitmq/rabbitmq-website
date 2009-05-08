@@ -60,10 +60,6 @@
 	    <a href="how.html">How easy is it</a> to set up RabbitMQ.
 	  </li>
 	  <li>
-	    <a href="install.html">Installation instructions</a> for
-	    RabbitMQ packages
-	  </li>
-	  <li>
 	    Instructions for <a href="build.html">building</a> the
 	    RabbitMQ server and client libraries from source
 	  </li>
