@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!ENTITY version-java-client "1.5.4">
-<!ENTITY version-dotnet-client "1.5.3">
-<!ENTITY version-server "1.5.4">
+<!ENTITY version-java-client "1.5.5">
+<!ENTITY version-dotnet-client "1.5.5">
+<!ENTITY version-server "1.5.5">
 
 <!ENTITY status-java-client "final">
 <!ENTITY status-dotnet-client "final">
