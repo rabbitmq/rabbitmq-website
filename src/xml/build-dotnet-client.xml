@@ -26,7 +26,7 @@
 	    the <a href="dotnet.html">download page</a>, or
 	  </li>
 
-	  <li>Check the code out directly from our mercurial repositories:
+	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
 	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-dotnet-client
 $ cd rabbitmq-dotnet-client
 $ cp local.build.example local.build

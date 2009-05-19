@@ -27,7 +27,7 @@
 	    the <a href="server.html">download page</a>, or
 	  </li>
 
-	  <li>Check the code out directly from our mercurial repositories:
+	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
 
 	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
 $ hg clone http://hg.rabbitmq.com/rabbitmq-server

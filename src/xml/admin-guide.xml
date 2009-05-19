@@ -44,11 +44,16 @@
           </li>
           <li>
             a user named <code>guest</code> with a default password of
-            <code>guest</code>, granted full access to the <code>/</code> virtual host. See <a
-            href="#change_password">here</a> for password-changing
-            instructions.
+            <code>guest</code>, granted full access to the
+            <code>/</code> virtual host.
           </li>
         </ul>
+
+        <p>
+          It is advisable to <a href="#change_password">change the
+          password</a> of the <code>guest</code> user to something
+          private, particularly if your broker is accessible publicly.
+        </p>
       </doc:section>
 
       <doc:section name="management-overview">

@@ -41,8 +41,7 @@
 
     <p>
       Please see the <a href="install.html">Installation
-      instructions</a> and our <a href="gettingstarted.html">Getting
-      Started</a> page. Additional documentation can be found linked
+      instructions</a>. Additional documentation can be found linked
       from our <a href="documentation.html">documentation page</a>.
     </p>
 
@@ -123,6 +122,14 @@
       details on how to verify the signatures on our packages.
     </p>
 
+    <h4>Other versions</h4>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
+      you want to download a version of the RabbitMQ Server other than
+      the above.
+    </p>
+
     <h4>Source Code</h4>
 
     <p>
@@ -132,20 +139,33 @@
     </p>
 
     <h4>Debian GNU/Linux and Ubuntu Linux</h4>
-    
+
     <p>
-      The .deb file from the table above has been tested against
+      We recommend that you use your distribution's package manager to
+      install the server on your system. Check the <a
+      href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
+      package</a> and <a
+      href="https://launchpad.net/ubuntu/jaunty/+package/rabbitmq-server">Ubuntu
+      package</a> details for which version of the server is available
+      for which versions of the distribution.
     </p>
 
+    <p>
+      In case the current version of the server is not available for
+      the chosen distribution version, you can download and install
+      the .deb file from the table above. It has been tested against
+    </p>
     <ul class="compact">
-      <li><a href="http://www.debian.org/">Debian</a> 4.0 (Etch) and testing (Lenny)</li>
-      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 7.10 (Gutsy Gibbon),
-        8.04 (Hardy Heron) and 8.10 (Intrepid Ibex)</li>
+      <li><a href="http://www.debian.org/">Debian</a> 4.0 (Etch), 5.0
+      (Lenny), and testing (Squeeze)</li>
+      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 7.10 (Gutsy
+      Gibbon), 8.04 (Hardy Heron) and 8.10 (Intrepid Ibex) and 9.04
+      (Jaunty Jackalope)</li>
     </ul>
 
     <p>
-      As an alternative to downloading the .deb file from the table
-      above, you can use our <a href="debian.html#apt">APT
+      As an alternative to downloading the .deb file you can obtain
+      the package from our <a href="debian.html#apt">APT
       repository</a>.
     </p>
 

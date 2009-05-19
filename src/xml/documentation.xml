@@ -22,12 +22,10 @@
 	<doc:heading>Server documentation</doc:heading>
 	<ul>
 	  <li>
-	    RabbitMQ Server <a href="gettingstarted.html">Getting
-	    Started Guide</a>
+            <a href="install.html">Installation Guide</a>
 	  </li>
 	  <li>
-	    <a href="admin-guide.html">Server Administrator's
-	    Guide</a>
+	    <a href="admin-guide.html">Administration Guide</a>
 	  </li>
 	  <li>
 	    <a href="clustering.html">Clustering Guide</a>
@@ -49,6 +47,9 @@
 	  <li>
 	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
+	  <li>
+	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
+	  </li>
 	</ul>
       </doc:section>
 
@@ -59,16 +60,11 @@
 	    <a href="how.html">How easy is it</a> to set up RabbitMQ.
 	  </li>
 	  <li>
-	    <a href="install.html">Installation instructions</a> for
-	    RabbitMQ packages
-	  </li>
-	  <li>
 	    Instructions for <a href="build.html">building</a> the
 	    RabbitMQ server and client libraries from source
 	  </li>
 	  <li>
-	    Information on <a href="compatibility.html">compatibility and
-	    conformance</a> with the AMQP specification and other AMQP
+	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> and other AMQP
 	    implementations
 	  </li>
 	  <li>
@@ -78,18 +74,12 @@
 	    running some of Qpid's tests against the RabbitMQ broker)
 	  </li>
 	  <li>
-	    The RabbitMQ development <a href="roadmap.html">Roadmap</a>
-	    and <a href="faq.html">FAQ</a>
+	    The RabbitMQ <a href="faq.html">FAQ</a>
 	  </li>
 	  <li>
 	    Information on <a href="erlang.html">Erlang's suitability
 	    for AMQP implementations</a>
 	  </li>
-<!--
-      <li>
-	RabbitMQ Developer's Guide
-      </li>
--->
 	</ul>
       </doc:section>
 
