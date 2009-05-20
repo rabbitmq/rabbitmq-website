@@ -81,10 +81,8 @@ channel.queueBind("unrouted", "my-ume", "");</pre>
             Whenever an exchange with a configured UME cannot route a
             message to any queue (or the message was marked as
             immediate and it cannot be delivered to any consumer) then
-            it publishes the message to the specified UME instead. In
-            other words, the UME gets sent all messages that would be
-            discarded, i.e. not enqueued anywhere or sent immediately
-            to a consumer.
+            it publishes the message to the specified UME instead. If
+            that UME does not exist then a warning is logged.
           </p>
           <p>
             For example:
@@ -104,19 +102,24 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             UME to the 'unrouted' queue.
           </p>
           <p>
-            When an exchane cannot route a message and no UME is
-            specified, the message is discarded, which is the standard
-            behaviour. If a UME has been specified but it does not
-            exist then a warning is logged and the message is
-            discarded. If the UME exists but the message cannot be
-            routed to any of its bound queues (because there are none
-            or the bindings do not match) then the message is
-            discarded.
+            If a UME cannot route a message, it in turn publishes the
+            message to its UME, if it has one configured, etc. It is
+            the responsibility of the users declaring the exchanges to
+            ensure that the UME chains are free of cycles.
           </p>
           <p>
-            The routing of messages to an UME does not affect the
-            semantics of the 'mandatory' and 'immediate' flags, or
-            <code>basic.return</code>.
+            The semantics of the 'mandatory' and 'immediate' flags
+            carries through to UMEs. So, for example, if a sender
+            specified the 'mandatory' flag on publication of a
+            message, and that message could not be routed by the
+            original exchange, but was then routed to a queue via a
+            UME, then no <code>basic.return</code> is issued.
+          </p>
+          <p>
+            Message properties are carried through when messages are
+            routed via UMEs. For example, when a message that was
+            marked as persistent is routed to some queue via a UME
+            then it does get persisted.
           </p>
           <p>
             The queues to which a messages is routed from an UME
@@ -124,11 +127,6 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             i.e. if an unroutable message was published inside a tx
             then it will only appear in the queues when that tx is
             committed.
-          </p>
-          <p>
-            If an unroutable message is marked as persistent then it
-            is persisted when successfully routed via the UME to some
-            queues.
           </p>
 
         </doc:subsection>
