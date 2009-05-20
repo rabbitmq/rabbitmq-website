@@ -40,7 +40,7 @@
         </p>
 
         <doc:subsection>
-          <doc:heading>Usage</doc:heading>
+          <doc:heading>Configuration</doc:heading>
           <p>
             When creating an exchange the name of a UME can be
             optionally supplied in the <code>exchange.declare</code>
@@ -49,18 +49,65 @@
             name.
           </p>
           <p>
-            Whenever the created exchange cannot route a message to
-            any queue (or the message was marked as immediate and it
-            cannot be delivered to any consumer) then it publishes the
-            message to the specified ume instead. In other words, the
-            UME gets sent all messages that would be discarded,
-            i.e. not enqueued anywhere or sent immediately to a
-            consumer.
+            When a UME has been specified, in addition to the usual
+            <em>configure</em> permissions on the declared exchange,
+            the user needs to have <em>read</em> permissions on that
+            exchange and <em>write</em> permissions on the UME.
           </p>
           <p>
-            If no UME is specified the message is discarded, which is
-            the standard behaviour. If a UME has been specified but it
-            does not exist then a warning is logged and the message is
+            For example:
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("ume", "my-ume");
+channel.exchangeDeclare("my-direct", "direct", false, false, false, args);
+channel.exchangeDeclare("my-ume", "fanout");
+channel.queueDeclare("routed");
+channel.queueBind("routed", "my-direct", "key1");
+channel.queueDeclare("unrouted");
+channel.queueBind("unrouted", "my-ume", "");</pre>
+          <p>
+            In the above fragment of Java code we create a direct
+            exchange 'my-direct' that is configured with a UME called
+            'my-ume'. The latter is declared as a fanout exchange. We
+            bind one queue 'routed' to 'my-direct' with a binding key
+            of 'key1', and a queue 'unrouted' to 'my-ume'.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection>
+          <doc:heading>Operation</doc:heading>
+          <p>
+            Whenever an exchange with a configured UME cannot route a
+            message to any queue (or the message was marked as
+            immediate and it cannot be delivered to any consumer) then
+            it publishes the message to the specified UME instead. In
+            other words, the UME gets sent all messages that would be
+            discarded, i.e. not enqueued anywhere or sent immediately
+            to a consumer.
+          </p>
+          <p>
+            For example:
+          </p>
+          <pre class="sourcecode">
+channel.basicPublish("my-direct", "key2", null, "test".getBytes());
+GetResponse r2 = channel.basicGet("unrouted", true); //returns message
+channel.basicPublish("my-direct", "key1", null, "test".getBytes());
+GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
+          <p>
+            Here we first publish a message to 'my-direct' with a
+            routing key of 'key1'. That message is routed to the
+            'routed' queue, in accordance with the standard AMQP
+            behaviour.  However, when publishing a message to
+            'my-direct' with a routing key of 'key2', rather than
+            being discarded the message is routed via our configured
+            UME to the 'unrouted' queue.
+          </p>
+          <p>
+            When an exchane cannot route a message and no UME is
+            specified, the message is discarded, which is the standard
+            behaviour. If a UME has been specified but it does not
+            exist then a warning is logged and the message is
             discarded. If the UME exists but the message cannot be
             routed to any of its bound queues (because there are none
             or the bindings do not match) then the message is
@@ -85,45 +132,6 @@
           </p>
 
         </doc:subsection>
-
-        <doc:subsection>
-          <doc:heading>Example</doc:heading>
-          
-          <p>
-            In the following fragment of Java code we create a direct
-            exchange 'my-direct' that is configured with a UME called
-            'my-ume'. The latter is declared as a fanout exchange. We
-            bind one queue 'routed' to 'my-direct' with a binding key
-            of 'key1', and a queue 'unrouted' to 'my-ume'.
-          </p>
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("ume", "my-ume");
-channel.exchangeDeclare("my-direct", "direct", false, false, false, args);
-channel.exchangeDeclare("my-ume", "fanout");
-channel.queueDeclare("routed");
-channel.queueBind("routed", "my-direct", "key1");
-channel.queueDeclare("unrouted");
-channel.queueBind("unrouted", "my-ume", "");</pre>
-
-        </doc:subsection>
-        <p>
-          When publishing a message to 'my-direct' with a routing key
-          of 'key1' it is routed to the 'routed' queue, in accordance
-          with the standard AMQP behaviour.
-        </p>
-        <pre class="sourcecode">
-channel.basicPublish("my-direct", "key1", null, "test".getBytes());
-GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
-        <p>
-          However, when publishing a message to 'my-direct' with a
-          routing key of 'key2', rather than being discarded the
-          message is routed via our configured UME to the 'unrouted'
-          queue.
-        </p>
-        <pre class="sourcecode">
-channel.basicPublish("my-direct", "key2", null, "test".getBytes());
-GetResponse r2 = channel.basicGet("unrouted", true); //returns message</pre>
 
       </doc:section>
 
