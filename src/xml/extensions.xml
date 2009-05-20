@@ -102,10 +102,12 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             UME to the 'unrouted' queue.
           </p>
           <p>
-            If a UME cannot route a message, it in turn publishes the
-            message to its UME, if it has one configured, etc. It is
-            the responsibility of the users declaring the exchanges to
-            ensure that the UME chains are free of cycles.
+            When a UME cannot route a message, it in turn publishes
+            the message to its UME, if it has one configured. This
+            process continues until either the message is successfully
+            routed, the end of the chain of UMEs is reached, or a UME
+            is encountered which has already attempted to route the
+            message.
           </p>
           <p>
             The semantics of the 'mandatory' and 'immediate' flags
