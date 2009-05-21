@@ -325,8 +325,8 @@
 	    <li>
               Install the rabbitmq-server package from your chosen
               distribution - at the time of writing, RabbitMQ is
-              included in Debian unstable (Sid) and Ubuntu 9.04
-              (Jaunty Jackalope). 
+              included in Debian unstable (sid), Debian testing
+              (squeeze), and Ubuntu 9.04 (Jaunty Jackalope).
             </li>
             <li>
               Alternatively, install
