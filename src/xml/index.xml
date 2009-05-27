@@ -42,9 +42,11 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-Canonical adds RabbitMQ AMQP to Ubuntu 9.04
+RabbitMQ 1.5.5 release
+<p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.5.</p>
 
-<p>Yes, Ubuntu 9.04 Server Edition, aka "Jaunty Jackalope", now includes support for AMQP through RabbitMQ. <a href="/news.html">Read more</a>.</p>
+<p>This release has 'final' status and fixes a number of bugs related to clustering and in the RPM packaging.</p>
+<p><a href="/news.html">Read more</a>.</p>
         </li>
       </ul>
       
