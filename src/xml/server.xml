@@ -145,7 +145,7 @@
       install the server on your system. Check the <a
       href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
       package</a> and <a
-      href="https://launchpad.net/ubuntu/jaunty/+package/rabbitmq-server">Ubuntu
+      href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
       package</a> details for which version of the server is available
       for which versions of the distribution.
     </p>
