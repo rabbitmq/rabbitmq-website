@@ -14,12 +14,30 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->     
+      <doc:item>
+	<doc:date iso="2009-06-03:00:00Z">03 June 2009</doc:date>
+	<doc:title>
+   RabbitMQ is now included in the Fedora Linux distribution
+	</doc:title>
+
+	<doc:link>https://admin.fedoraproject.org/updates/rabbitmq-server</doc:link>
+
+	<doc:text>
+<p>RabbitMQ is now included in the Fedora Linux distribution. See <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">
+fedoraproject.org</a> for the package
+details.</p>
+
+<p>So, for all Fedora users RabbitMQ is now just a
+<code>yum install rabbitmq-server</code> away.</p>
+
+<p>Thanks go to the Fedora community, in particular Peter Lemenkov and
+Ruben Kerkhof, for their guidance in getting our RPM packages into shape
+for inclusion.</p>
+
+
+	</doc:text>
+      </doc:item>
     
-    
-   
-      
-            
-      
       <doc:item>
 	<doc:date iso="2009-05-20:00:00Z">20 May 2009</doc:date>
 	<doc:title>

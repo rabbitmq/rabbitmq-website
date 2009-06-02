@@ -42,11 +42,12 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-RabbitMQ 1.5.5 release
-<p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.5.</p>
+RabbitMQ is now included in the Fedora Linux distribution
 
-<p>This release has 'final' status and fixes a number of bugs related to clustering and in the RPM packaging.</p>
-<p><a href="/news.html">Read more</a>.</p>
+<p>Thanks to the help of the Fedora community (particularly  Peter Lemenkov and
+Ruben Kerkhof) RabbitMQ is now included in the Fedora Linux distribution.</p>
+
+<p><a href="/news.html">Read more</a></p>
         </li>
       </ul>
       
