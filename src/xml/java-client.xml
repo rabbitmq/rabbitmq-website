@@ -126,11 +126,11 @@
       Java Client library or documentation other than the above.
     </p>
 
-    <!--
     <h3>Maven Artifact</h3>
     <p>
-      The RabbitMQ Java AMQP library is now available as a Maven artifact on the 
-      central Maven repository (http://repo1.maven.org/maven2/) and mirrors thereof.
+      The RabbitMQ Java AMQP library is available as a Maven artifact
+      on the <a href="http://repo1.maven.org/maven2/">central Maven
+      repository</a> and mirrors thereof.
     </p>
     <p>
       To include it in your project, add this dependency to your pom:
@@ -138,10 +138,14 @@
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
-  &lt;version&gt;1.3.0&lt;/version&gt;
+  &lt;version&version-java-client;&lt;/version&gt;
 &lt;/dependency&gt;</pre>
     </p>
-    -->
+    <p>
+      There usually is a few weeks lag between a new release and its
+      appearance in the central Maven repository. Be patient.
+    </p>
+
     <h3>Mercurial repositories</h3>
     <p>
       The Java AMQP client library and example programs. Depends on
