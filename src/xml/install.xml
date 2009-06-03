@@ -409,15 +409,22 @@
 	<doc:subsection name="install-rpm">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <ul>
+            <li>
+              The RabbitMQ server is included in Fedora, so for Fedora
+              users we recommend to install the <i>rabbitmq-server</i>
+              package via the distribution's package manager.
+            </li>
 	    <li>
-	      Install rabbitmq-server-<i>version</i>-<i>architecture</i>.rpm
-	      (which you can download by hand at our <a 
-	      href="server.html">download page</a>).
-	      Note that the package depends on erlang package(s).
-	      We strongly recommend using your distribution's packaged
-	      version of Erlang to run the server. See
-	      <a href="http://fedoraproject.org/wiki/EPEL/">EPEL</a>
-	      if there is no official erlang package for your distribution.
+              Alternatively, install
+              rabbitmq-server-<i>version</i>-<i>architecture</i>.rpm
+              (which you can download by hand at our <a
+              href="server.html">download page</a>).  Note that the
+              package depends on erlang package(s).  We strongly
+              recommend using your distribution's packaged version of
+              Erlang to run the server. See <a
+              href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> if
+              there is no official erlang package for your
+              distribution.
 	    </li>
 	    <li>
 	      To adjust the settings used for starting the server,

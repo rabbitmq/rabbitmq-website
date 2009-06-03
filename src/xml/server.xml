@@ -172,6 +172,15 @@
     <h4>RPM-based Linux</h4>
 
     <p>
+      For Fedora users we recommend to you use the distribution's
+      package manager to install the server on your system. Check the
+      <a
+      href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
+      package</a> details for which version of the server is available
+      for which versions of the distribution.
+    </p>
+
+    <p>
       The RPM files from the table above has been tested against
     </p>
 
