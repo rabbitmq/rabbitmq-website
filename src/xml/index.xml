@@ -44,8 +44,9 @@
         <li>  
 RabbitMQ is now included in the Fedora Linux distribution
 
-<p>Thanks to the help of the Fedora community (particularly  Peter Lemenkov and
-Ruben Kerkhof) RabbitMQ is now included in the Fedora Linux distribution.</p>
+<p>See <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">
+fedoraproject.org</a> for the package
+details.</p>
 
 <p><a href="/news.html">Read more</a></p>
         </li>

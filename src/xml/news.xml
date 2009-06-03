@@ -30,8 +30,7 @@ details.</p>
 <p>So, for all Fedora users RabbitMQ is now just a
 <code>yum install rabbitmq-server</code> away.</p>
 
-<p>Thanks go to the Fedora community, in particular Peter Lemenkov and
-Ruben Kerkhof, for their guidance in getting our RPM packages into shape
+<p>Thanks go to the Fedora community for their guidance in getting our RPM packages into shape
 for inclusion.</p>
 
 
