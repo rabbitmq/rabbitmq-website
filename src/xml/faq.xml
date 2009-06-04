@@ -22,6 +22,20 @@ If you don't find the information you're looking for below, try also this <a hre
 
       <doc:section name="background">
 	<doc:heading>Background</doc:heading>
+	
+	<doc:faq name="what-is-amqp">
+	  <doc:heading>What messaging?</doc:heading>
+	  <doc:a>
+	    <p>
+Unlike databases which manage data at rest,
+messaging is used to manage data in motion.  Use messaging to
+communicate between and scale applications, within your enterprise,
+across the web, or in the cloud.  Find latest presentations, blog posts,
+and community links on <a href="/how">'How easy is it'</a> page.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="what-is-amqp">
 	  <doc:heading>What is AMQP?</doc:heading>
 	  <doc:a>
