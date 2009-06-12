@@ -9,6 +9,13 @@
     <p class="intro">RabbitMQ is an implementation of <a
       href="specification.html">AMQP</a>, the emerging standard for high performance messaging.
     </p>
+	    <p><strong>What is messaging?</strong><br />
+	      Unlike databases which manage data at rest,
+	      messaging is used to manage data in motion.  Use messaging to
+	      communicate between and scale applications, within your enterprise,
+	      across the web, or in the cloud.  Find latest presentations, blog posts,
+	      and community links on <a href="/how">'How easy is it'</a> page.
+	    </p>
 
     <div class="col columnLeft">
       <h3>Features</h3>
