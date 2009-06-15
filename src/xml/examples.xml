@@ -39,9 +39,9 @@
 	  <ul class="compact">
 	    <li>Host: dev.rabbitmq.com</li>
 	    <li>Port: 5672</li>
-	    <li>Username: guest</li>
-	    <li>Password: guest</li>
-	    <li>Virtual Host: localhost</li>
+	    <li>Username: "guest"</li>
+	    <li>Password: "guest"</li>
+	    <li>Virtual Host: "/"</li>
 	  </ul>
 	</p>
 
