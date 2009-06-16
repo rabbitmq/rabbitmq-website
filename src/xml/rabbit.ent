@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!ENTITY version-java-client "1.5.5">
-<!ENTITY version-dotnet-client "1.5.5">
-<!ENTITY version-server "1.5.5">
+<!ENTITY version-java-client "1.6.0">
+<!ENTITY version-dotnet-client "1.6.0">
+<!ENTITY version-server "1.6.0">
 
-<!ENTITY status-java-client "final">
-<!ENTITY status-dotnet-client "final">
-<!ENTITY status-server "final">
+<!ENTITY status-java-client "beta">
+<!ENTITY status-dotnet-client "beta">
+<!ENTITY status-server "beta">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
