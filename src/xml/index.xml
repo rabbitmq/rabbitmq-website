@@ -42,11 +42,14 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-RabbitMQ is now included in the Fedora Linux distribution
+RabbitMQ 1.6.0 release
 
-<p>See <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">
-fedoraproject.org</a> for the package
-details.</p>
+<p>This release has 'beta' status and introduces a number of new features,
+such as prefetch count limiting, headers exchanges, fine-grained access
+control, and alternate exchanges. There are also improvements to
+performance and stability under high load, improved compatibility with
+other software (such as ejabberd and PowerShell), and a number of small
+bug fixes.</p>
 
 <p><a href="/news.html">Read more</a></p>
         </li>
