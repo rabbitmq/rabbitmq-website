@@ -69,7 +69,7 @@ decentralised microblogging</li>
         <li>More information on the open standard: <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a></li>
         <li><a href="http://hg.rabbitmq.com/">Code repository</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">Writing your own AMQP client</a> or <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">management console</a></li>
-        <li><a href="http://hg.rabbitmq.com/rabbitmq">RabbitMQ's protocol code generator</a></li>
+        <li><a href="http://hg.rabbitmq.com/rabbitmq-codegen/">RabbitMQ's protocol code generator</a></li>
         <li>A <a href="http://www.intelfasterfs.com/2007/11/intel-low-latency-trading-lab-set-to-improve-financial-trading-performance/">report</a> of high performance testing done by Intel in 2007, and an <a href="http://www.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team</li>
         <li>Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (see <a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>)</li>
       </ul>
