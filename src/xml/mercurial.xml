@@ -67,6 +67,16 @@
 	  with multiple named branches in a repository</a> from the
 	  Mercurial book.</li>
 	</ul>
+
+        <p>
+          One consequence of this technique is that it is vital that
+          you <b>do not use the 'tip' of repository</b> as the basis
+          for any work. The 'tip' points to the last commit, which
+          could have happend on any, possibly highly experimental,
+          branch. Instead all development work must be based on (the
+          tips of) named branches, or tagged revisions.
+        </p>
+
       </doc:section>
 
       <doc:section name="defaultbranch">
