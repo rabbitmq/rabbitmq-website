@@ -6,8 +6,7 @@
     <title>RabbitMQ - Open Source Enterprise Messaging</title>
   </head>
   <body>
-    <p class="intro">RabbitMQ is an implementation of <a
-      href="specification.html">AMQP</a>, the emerging standard for high performance messaging.
+    <p class="intro">RabbitMQ is an implementation of <a href="specification.html">AMQP</a>, the emerging standard for high performance <a href="faq.html#what-is-messaging">messaging</a>.
     </p>
 
     <div class="col columnLeft">
@@ -80,7 +79,7 @@ bug fixes.</p>
 	several <a href="examples.html">demos and examples</a>, and a
 	functional/performance test suite</li>
 	
-	<li>Find latest presentations, blog posts, and community links on <a class="downloadNow" href="how.html"><b>'How easy is it'</b></a> page</li>
+	<li>Find latest presentations, blog posts, and community links on '<a class="downloadNow" href="how.html"><b>How easy is it</b></a>' page</li>
 
   <li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
 
