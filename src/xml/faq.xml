@@ -10,8 +10,13 @@
       <h2>Frequently Asked Questions</h2>
 
       <p class="intro">
-If you don't find the information you're looking for below, try this <a href="/how.html">overview of information resources</a> which includes links to presentations, blog posts and community links. All our <a href="/documentation.html">documentation</a> is also available on this site.  
+ See also these other sources of information:
+<ul class="plain">
+<li>an <a href="/how.html">overview of information resources</a> which includes links to presentations, blog posts and community links.</li>
+<li>our standard <a href="/documentation.html">documentation</a></li>
+</ul>
 </p>
+
 <p>
 	If you have a question not answered here,
 	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
