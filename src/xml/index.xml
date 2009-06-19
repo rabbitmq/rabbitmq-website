@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>RabbitMQ - Open Source Enterprise Messaging</title>
+    <title>RabbitMQ - Open Source Messaging</title>
   </head>
   <body>
     <p class="intro">RabbitMQ is an implementation of <a href="specification.html">AMQP</a>, the emerging standard for high performance <a href="faq.html#what-is-messaging">messaging</a>.
@@ -63,9 +63,8 @@ bug fixes.</p>
 	<li>RabbitMQ server, written on top of the widely-used <a
 	href="faq.html#what-is-otp">Open Telecom Platform</a></li>
 
-	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a></li>
-
-	<li>RabbitMQ <a href="dotnet.html">.NET/C# client</a>, with support for WCF</li>
+	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a>,  
+	 a <a href="dotnet.html">.NET/C# client</a>, with support for WCF, and many other clients available</li>
 
 	<li><a href="download.html#experimental">Experimental
 	bindings</a> supporting HTTP, STOMP, SMTP, POP3, ...</li>
@@ -121,10 +120,14 @@ bug fixes.</p>
     </p>
 
     <p>
-      RabbitMQ is being developed by Rabbit Technologies, a joint
-      venture between <a href="http://www.lshift.net/">LShift</a> and
-      <a href="http://www.cohesiveft.com/">CohesiveFT</a>.
+    
+Rabbit Technologies Ltd develop and commercially support the RabbitMQ
+product.  The company is
+based in the UK and was founded in February 2007.  It is a spin out
+from <a href="http://www.lshift.net/">LShift Ltd.</a>, the UK software
+consultancy and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, the pioneering US virtualization and
+cloud computing company.
     </p>
-    <p><a href="http://www.lshift.net/recruitment">LShift are recruiting!</a></p>
+    <p>Nb. <a href="http://www.lshift.net/recruitment">LShift is always recruiting!</a></p>
   </body>
 </html>
