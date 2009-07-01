@@ -411,8 +411,9 @@
 	  <ul>
             <li>
               The RabbitMQ server is included in Fedora, so for Fedora
-              users we recommend to install the <i>rabbitmq-server</i>
-              package via the distribution's package manager.
+              and RHEL users we recommend to install the
+              <i>rabbitmq-server</i> package via the distribution's
+              package manager.
             </li>
 	    <li>
               Alternatively, install
