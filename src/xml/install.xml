@@ -552,14 +552,15 @@
 	    To start the server, you can either use launchctl (see the
 	    instructions emitted during the <code>sudo port
 	    install</code> step) or you can start it from the command
-	    line with <code>sudo -H -u rabbitmq
-	    rabbitmq-server</code>.
+	    line with <code>sudo rabbitmq-server</code>.
 	  </p>
 	  <p>
-	    <code>rabbitmqctl</code> automatically (through sudo) runs
-	    in the context of the rabbitmq user so that the Erlang
-	    cookie can be read from
-	    <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
+            The <code>rabbitmq-server</code>,
+            <code>rabbitmqctl</code>, and other RabbitMQ-related
+            scripts on the path automatically (through sudo) run in
+            the context of the rabbitmq user so that the Erlang cookie
+            can be read from
+            <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
 	  </p>
 	</doc:subsection>
       </doc:section>
