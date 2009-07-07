@@ -30,10 +30,12 @@
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
         <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a></li>
       </ul>
+      
       <h3 id="examples">Specific examples</h3>
      <ul>
         <li>More on use of RabbitMQ at the BBC in <a href="http://www.lshift.net/blog/2009/05/08/untangling-the-bbcs-data-feeds">Mike's blog on BBC 'Feedshub'</a></li>
 	<li>Overview of how NASA use RabbitMQ in their <a href="http://nebula.nasa.gov/services"> NEBULA Cloud Computing Platform</a></li>
+	<li>Presentation given at Erlang Factory on use of <a href="http://blog.smarkets.com/2009/07/03/smarkets-tech-talk-on-erlang/">RabbitMQ at Smarkets</a></li>
 	<li>We'll add more usecases to this list of examples, in the meantime there's a list of <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">use cases stored on Del.icio.us</a></li>
       </ul>
       
