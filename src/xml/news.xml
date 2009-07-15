@@ -14,7 +14,25 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->     
-      
+  
+            
+      <doc:item>
+	<doc:date iso="2009-07-15:00:00Z">15 July 2009</doc:date>
+	<doc:title>
+   Kaazing adds support for AMQP and RabbitMQ
+	</doc:title>
+
+	<doc:link>http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=</doc:link>
+
+	<doc:text>
+	
+<p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
+
+<p>For details see <a href="http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=">the full release</a>.</p>
+
+	</doc:text>
+      </doc:item>
+  
             
       <doc:item>
 	<doc:date iso="2009-03-16:00:00Z">17 June 2009</doc:date>

@@ -41,14 +41,9 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-RabbitMQ 1.6.0 release
+Kaazing adds support for AMQP and RabbitMQ
 
-<p>This release has 'beta' status and introduces a number of new features,
-such as prefetch count limiting, headers exchanges, fine-grained access
-control, and alternate exchanges. There are also improvements to
-performance and stability under high load, improved compatibility with
-other software (such as ejabberd and PowerShell), and a number of small
-bug fixes.</p>
+<p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
 
 <p><a href="/news.html">Read more</a></p>
         </li>
@@ -115,8 +110,7 @@ bug fixes.</p>
     
     <p class="logos">
       <a href="http://www.lshift.net/"><img src="img/LShiftLogo.gif" alt="lshift" width="138" height="65" /></a
-      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a
-      >
+      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a>
     </p>
 
     <p>
