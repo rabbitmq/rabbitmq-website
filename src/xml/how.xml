@@ -84,6 +84,7 @@
 	
         <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
         <li><a href="http://code.google.com/p/php-amqplib/">PHP client</a></li> 
+	<li>Perl code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a> and <a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and <a href="http://flexonrails.net/?p=106">Flex</a></li>     
         <li>JSON/HTTP, our experimental project, <a href="http://www.rabbitmq.com/download.html#rabbitmq-http">rabbitmq-http2</a> and <a href="http://hg.rabbitmq.com/rabbitmq-http2/file/default/README">code</a></li>
         <li>Experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a> client. You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a></li>
