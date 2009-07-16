@@ -67,6 +67,7 @@
 	    <li><a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons</li>
 	    <li><a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)</li>
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
+	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	  </ul>	
 	</li>
 	
@@ -103,6 +104,9 @@ decentralised microblogging</li>
 	<li><a href="http://github.com/gmr/Cony/tree/master">Cony</a> a HTTP based service written in Python for providing insight into running RabbitMQ processes</li>
 	<li><a href="http://github.com/aaronfeng/trixx/tree/master">Trixx</a> an administration and monitoring tool  written in Clojure so available for all languages that run on JVM</li>
 	<li><a href="http://somic.org/2009/05/21/graphite-rabbitmq-integration/">Integration with Graphite</a></li>
+	<li>RESTful administration and WebUI - <a href="http://github.com/auser/alice/tree/master">Alice</a> and 
+	<a href="http://github.com/auser/wonderland/tree/master">Wonderland</a>.  Please read the 
+	<a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.</li>
       </ul>
     
       <h3 id="further">Going further</h3>
