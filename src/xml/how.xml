@@ -9,7 +9,7 @@
     <doc:div>
       <h2>How easy is it to set up RabbitMQ?</h2>
 
-      <p>You will find more detailed information elsewhere on the site, but this page provides shortcuts to some real world experiences.</p>
+      <p>You will find more detailed information elsewhere on the site, but this page provides shortcuts to some real world experiences. Please don't hesitate to <a href="mailto:info@rabbitmq.com">suggest links</a>.</p>
    
       <h3 id="quickstart">Quick start</h3>
       <ul>      
