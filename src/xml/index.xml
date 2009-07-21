@@ -3,11 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>RabbitMQ - Open Source Enterprise Messaging</title>
+    <title>RabbitMQ - Open Source Messaging</title>
   </head>
   <body>
-    <p class="intro">RabbitMQ is an implementation of <a
-      href="specification.html">AMQP</a>, the emerging standard for high performance messaging.
+    <p class="intro">RabbitMQ is an implementation of <a href="specification.html">AMQP</a>, the emerging standard for high performance <a href="faq.html#what-is-messaging">messaging</a>.
     </p>
 
     <div class="col columnLeft">
@@ -42,11 +41,9 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-RabbitMQ is now included in the Fedora Linux distribution
+Kaazing adds support for AMQP and RabbitMQ
 
-<p>See <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">
-fedoraproject.org</a> for the package
-details.</p>
+<p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
 
 <p><a href="/news.html">Read more</a></p>
         </li>
@@ -61,9 +58,8 @@ details.</p>
 	<li>RabbitMQ server, written on top of the widely-used <a
 	href="faq.html#what-is-otp">Open Telecom Platform</a></li>
 
-	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a></li>
-
-	<li>RabbitMQ <a href="dotnet.html">.NET/C# client</a>, with support for WCF</li>
+	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a>,  
+	 a <a href="dotnet.html">.NET/C# client</a>, with support for WCF, and many other clients available</li>
 
 	<li><a href="download.html#experimental">Experimental
 	bindings</a> supporting HTTP, STOMP, SMTP, POP3, ...</li>
@@ -77,9 +73,9 @@ details.</p>
 	several <a href="examples.html">demos and examples</a>, and a
 	functional/performance test suite</li>
 	
-	<li>Find latest presentations, blog posts, and community links on <a class="downloadNow" href="how.html"><b>'How easy is it'</b></a> page</li>
+	<li>Find latest presentations, blog posts and links to relevant tools on our <a class="downloadNow" href="how.html"><b>community page</b></a></li>
 
-  <li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
+	<li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
 
       </ul>
     </div>
@@ -114,15 +110,18 @@ details.</p>
     
     <p class="logos">
       <a href="http://www.lshift.net/"><img src="img/LShiftLogo.gif" alt="lshift" width="138" height="65" /></a
-      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a
-      >
+      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a>
     </p>
 
     <p>
-      RabbitMQ is being developed by Rabbit Technologies, a joint
-      venture between <a href="http://www.lshift.net/">LShift</a> and
-      <a href="http://www.cohesiveft.com/">CohesiveFT</a>.
+    
+Rabbit Technologies Ltd develop and commercially support the RabbitMQ
+product.  The company is
+based in the UK and was founded in February 2007.  It is a spin out
+from <a href="http://www.lshift.net/">LShift Ltd.</a>, the UK software
+consultancy and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, the US virtualization and
+cloud computing company.
     </p>
-    <p><a href="http://www.lshift.net/recruitment">LShift are recruiting!</a></p>
+    <p>Nb. <a href="http://www.lshift.net/recruitment">LShift is always recruiting!</a></p>
   </body>
 </html>

@@ -24,7 +24,7 @@ init:
 	mkdir -p $(TARGET_DIR)
 	cp -R src/static/* $(TARGET_DIR)
 
-$(TARGET_DIR)/%.html: $(SRC_XML)/%.xml $(SRC_XSL)/page.xsl
+$(TARGET_DIR)/%.html: $(SRC_XML)/%.xml $(SRC_XSL)/page.xsl ${SRC_XML}/rabbit.ent
 	xsltproc --novalid $(SRC_XSL)/page.xsl $< > $@
 
 $(TARGET_DIR)/%.atom: $(SRC_XML)/%.xml $(SRC_XSL)/feed.xsl

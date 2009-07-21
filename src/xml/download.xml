@@ -132,8 +132,10 @@
       We make some experimental code available for download as
       snapshots and <a href="http://www.selenic.com/mercurial/">mercurial</a> repositories. As
       with the main RabbitMQ code base, we welcome
-      feedback and contributions.
+      feedback and contributions. 
     </p>
+    
+    <p>Also don't forget to check out the constantly updated <a href="how.html">community page</a> for more links to experimental code and other contributions.</p>
 
     <h3 id="rabbitmq-http">rabbitmq-http2</h3>
     
