@@ -41,9 +41,11 @@
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       <ul>
         <li>  
-Kaazing adds support for AMQP and RabbitMQ
+Catch up online
 
-<p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
+<p>The RabbitMQ team have been busy giving presentations about the use of RabbitMQ at events
+like Google London, Oxford Geek Night, Erlang Factory etc. Many of these presentations were 
+filmed, and you can catch up online.</p>
 
 <p><a href="/news.html">Read more</a></p>
         </li>
