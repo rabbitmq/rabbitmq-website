@@ -17,7 +17,7 @@
         <li><a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP Messaging with RabbitMQ</a></li>
         <li>Films of presentations we made at the RabbitMQ Tech Talk at Google London on Tuesday 12th May 2009:
 	  <ul class="plain">
-	    <li>Alexis on <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">RabbitMQ's internal architecture</a></li>
+	    <li>Alexis' <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">introduction to RabbitMQ and AMQP</a></li>
 	    <li>Mike Bridgen on <a href="http://skillsmatter.com/podcast/erlang/mike-bridgen-application-of-rabbitmq">one application of RabbitMQ at the BBC</a></li>
 	    <li>Tony on <a href="http://skillsmatter.com/podcast/erlang/rabbitmq-internal-architecture-tony-garnock-jones">RabbitMQ's internal architecture</a></li>
 	  </ul>
