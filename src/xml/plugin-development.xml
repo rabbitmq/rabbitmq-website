@@ -71,6 +71,188 @@ $ script/activate-plugins</pre>
           Conversely, to disable a plugin, simply remove the symlink and re-run activate-plugins.
         </p>
       </doc:section>
+
+      <doc:section name="plugin-quality-tips">
+        <doc:heading>Plugin Quality Tips</doc:heading>
+        
+        <p>
+          As hilighted in the Administration Guide, badly-written plugins can pose a risk to the stability of the
+          broker. The following tips aim to provide a series of best-practices for ensuring that your plugin
+          can safely co-exist with Rabbit.
+        </p>
+        
+        <ul>
+          <li>
+            Always install a Supervisor above your application. You should never start your application directly,
+            instead opting to create a (possibly quite trivial) supervisor that will prevent the Erlang VM from
+            shutting down due to a crashed top-level application.
+          </li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="plugin-hello-world">
+        <doc:heading>RabbitMQ Plugin Hello World</doc:heading>
+
+        <p>
+          Seeing as no development guide would be complete without a Hello World example, the following tries to
+          provide the basics of how your would build your very own RabbitMQ plugin. The following example details
+          how you might build a simple plugin that fires a message onto an exchange at a regular interval.
+        </p>
+        <ul>
+          <li>
+            The first thing to do is create the basic skeleton of your project. Within your rabbitmq-public-umbrella
+            working copy, create a new directory (for the purposes of this example, we'll call it mod_timed_messages).
+          </li>
+          <li>
+            Create your basic Makefile, containing:
+            <pre class="sourcecode">PACKAGE=mod_timed_messages
+DEPS=rabbitmq-server rabbitmq-erlang-client
+
+include ../include.mk</pre>
+          </li>
+          <li>
+            Create your ebin and source directories:
+            <pre class="sourcecode">$ mkdir ebin
+$ mkdir src</pre>
+          </li>
+          <li>
+            Create a simple .app file in the ebin directory. Again, for the purposes of this example, call it
+            mod_timed_messages.app:
+            <pre class="sourcecode">{application, mod_timed_messages,
+ [{description, "mod_timed_messages"},
+  {vsn, "0.01"},
+  {modules, [
+    mod_timed_messages,
+    mod_timed_messages_sup,
+    mod_timed_messages_worker
+  ]},
+  {registered, []},
+  {mod, {mod_timed_messages, []}},
+  {env, []},
+  {applications, [kernel, stdlib, rabbit, amqp_client]}]}.</pre>
+          </li>
+          <li>
+            Now create your application entry point (src/mod_timed_messages.erl):
+            <pre class="sourcecode">-module(mod_timed_messages).
+
+-export([start/0, stop/0, start/2, stop/1]).
+
+start() -> mod_timed_messages_sup:start_link(), ok.
+stop() -> ok.
+
+start(normal, []) ->
+    mod_timed_messages_sup:start_link().
+
+stop(_State) ->
+    ok.</pre>
+          </li>
+          <li>
+            Followed by your very basic supervisor (src/mod_timed_messages_sup.erl):
+            <pre class="sourcecode">-module(mod_timed_messages_sup).
+-behaviour(supervisor).
+
+-export([start_link/0, init/1]).
+
+start_link() ->
+  supervisor:start_link({local, ?MODULE}, ?MODULE, _Arg = []).
+
+init([]) ->
+    {ok, {{one_for_one, 3, 10},
+          [{mod_timed_messages_worker,
+            {mod_timed_messages_worker, start_link, []},
+            permanent,
+            10000,
+            worker,
+            [mod_timed_messages_worker]}
+          ]}}.</pre>
+          </li>
+          <li>
+            Finally, the core of the plugin - the worker. The worker will connect internally to the broker, then create a task
+            that will be triggered every 5 seconds:
+            <pre class="sourcecode">-module(mod_timed_messages_worker).
+-behaviour(gen_server).
+
+-export([start/0, start/2, stop/0, stop/1, start_link/0]).
+-export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
+
+-include("rabbit.hrl").
+-include("rabbit_framing.hrl").
+
+-record(state, {}).
+
+start() ->
+  start_link(),
+  ok.
+
+start(normal, []) ->
+  start_link().
+
+stop() ->
+  ok.
+
+stop(_State) ->
+  stop().
+
+start_link() ->
+  gen_server:start_link({global, ?MODULE}, ?MODULE, [], []).
+
+%---------------------------
+% Gen Server Implementation
+% --------------------------
+
+init([]) ->
+  timer:apply_after(5000, gen_server, call, [{global, ?MODULE}, fire]),
+  {ok, #state{}}.
+
+handle_call(Msg,_From,State = #state{}) ->
+  case Msg of
+    fire ->
+      io:format("Firing timer!~n", []),      
+
+      Connection = lib_amqp:start_connection(),
+      Channel = lib_amqp:start_channel(Connection),
+      _OutboundEx = amqp_channel:call(Channel, #'exchange.declare'{exchange = &lt;&lt;"TimedMsgs">>}),
+      Properties = #'P_basic'{content_type = &lt;&lt;"text/plain">>, delivery_mode = 1},
+      _Res = lib_amqp:publish(Channel, &lt;&lt;"TimedMsgs">>, &lt;&lt;>>, &lt;&lt;"Hello World">>, Properties),
+      lib_amqp:close_channel(Channel),
+      lib_amqp:close_connection(Connection),
+
+      timer:apply_after(5000, gen_server, call, [{global, ?MODULE}, fire]),
+      {reply, ok, State};
+    _ ->
+      {reply, unknown_command, State}
+  end.
+
+handle_cast(_,State) -> {reply,unhandled_cast,State}.
+handle_info(_Info, State) -> {reply, unhandled_info, State}.
+terminate(_,_) -> ok.
+code_change(_OldVsn, State, _Extra) -> {ok, State}.</pre>
+          </li>
+          <li>
+            Run make to build your application:
+            <pre class="sourcecode">make</pre>
+          </li>
+          <li>
+            Next, associate your plugin (and its dependencies) with the server:
+            <pre class="sourcecode">cd ../rabbitmq-server/plugins
+ln -s ../../rabbitmq-erlang-client
+ln -s ../../mod_timed_messages
+cd ..
+scripts/activate-plugins</pre>
+          </li>
+          <li>
+            Start up your Rabbit broker:
+            <pre class="sourcecode">make run</pre>
+          </li>
+          <li>
+            To ensure that your new plugin is up and running, execute the following in the Erlang shell
+            the broker is running within:
+            <pre class="sourcecode">applcation:which_applications().</pre>
+            If your plugin has loaded successfully, you should see an entry in the returned list that looks
+            like: <pre class="sourcecode">{mod_timed_messages,"mod_timed_messages","0.01"}</pre>
+          </li>
+        </ul>
+      </doc:section>
     </doc:div>
   </body>
 </html>
