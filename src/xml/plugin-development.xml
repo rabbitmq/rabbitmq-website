@@ -121,9 +121,9 @@ $ mkdir src</pre>
           </li>
           <li>
             Create a simple .app file in the ebin directory. Again, for the purposes of this example, call it
-            mod_metronome.app:
-            <pre class="sourcecode">{application, mod_metronome
- [{description, "mod_metronome"},
+            ebin/mod_metronome.app:
+            <pre class="sourcecode">{application, mod_metronome,
+ [{description, "Embedded Rabbit Metronome"},
   {vsn, "0.01"},
   {modules, [
     mod_metronome,
@@ -172,7 +172,7 @@ init([]) ->
           </li>
           <li>
             Finally, the core of the plugin - the worker. The worker will connect internally to the broker, then create a task
-            that will be triggered every 5 seconds:
+            that will be triggered every second:
             <pre class="sourcecode">-module(mod_metronome_worker).
 -behaviour(gen_server).
 
@@ -258,9 +258,9 @@ scripts/rabbitmq-activate-plugins</pre>
           <li>
             To ensure that your new plugin is up and running, execute the following in the Erlang shell
             the broker is running within:
-            <pre class="sourcecode">applcation:which_applications().</pre>
+            <pre class="sourcecode">application:which_applications().</pre>
             If your plugin has loaded successfully, you should see an entry in the returned list that looks
-            like: <pre class="sourcecode">{mod_metronome,"mod_metronome","0.01"}</pre>
+            like: <pre class="sourcecode">{mod_metronome,"Embedded Rabbit Metronome","0.01"}</pre>
           </li>
         </ul>
       </doc:section>
