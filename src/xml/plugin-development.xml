@@ -182,7 +182,7 @@ init([]) ->
 -include("rabbit.hrl").
 -include("rabbit_framing.hrl").
 
--record(state, {}).
+-record(state, {channel}).
 
 start() ->
   start_link(),
@@ -205,17 +205,17 @@ start_link() ->
 % --------------------------
 
 init([]) ->
-  timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
-  {ok, #state{}}.
+  Connection = lib_amqp:start_connection(),
+  Channel = lib_amqp:start_channel(Connection),
+  amqp_channel:call(Channel, #'exchange.declare'{exchange = &lt;&lt;"metronome">>,
+                                                 type = &lt;&lt;"topic">>}),
 
-handle_call(Msg,_From,State = #state{}) ->
+  timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
+  {ok, #state{channel = Channel}}.
+
+handle_call(Msg,_From,State = #state{channel = Channel}) ->
   case Msg of
     fire ->
-      Connection = lib_amqp:start_connection(),
-      Channel = lib_amqp:start_channel(Connection),
-      _OutboundEx = amqp_channel:call(Channel, 
-                                      #'exchange.declare'{exchange = &lt;&lt;"metronome">>, 
-                                                          type = &lt;&lt;"topic">>}),
       Properties = #'P_basic'{content_type = &lt;&lt;"text/plain">>, delivery_mode = 1},
       {Date={Year,Month,Day},{Hour, Min,Sec}} = erlang:universaltime(),
       {DayOfWeek} = {calendar:day_of_the_week(Date)},
@@ -225,8 +225,6 @@ handle_call(Msg,_From,State = #state{}) ->
       Message = RoutingKey,
       _Res = lib_amqp:publish(Channel, &lt;&lt;"metronome">>, RoutingKey, 
                               Message, Properties),
-      lib_amqp:close_channel(Channel),
-      lib_amqp:close_connection(Connection),
 
       timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
       {reply, ok, State};
@@ -236,7 +234,9 @@ handle_call(Msg,_From,State = #state{}) ->
 
 handle_cast(_,State) -> {reply,unhandled_cast,State}.
 handle_info(_Info, State) -> {reply, unhandled_info, State}.
-terminate(_,_) -> ok.
+terminate(_,#state{channel = Channel}) -> 
+  lib_amqp:close_channel(Channel),
+  ok.
 code_change(_OldVsn, State, _Extra) -> {ok, State}.</pre>
           </li>
           <li>
