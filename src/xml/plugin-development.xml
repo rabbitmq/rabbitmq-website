@@ -65,7 +65,7 @@
           <pre class="sourcecode">$ cd rabbitmq-server/plugins
 $ ln -s ../../mod_bql mod_bql
 $ cd ..
-$ script/activate-plugins</pre>
+$ script/rabbitmq-activate-plugins</pre>
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and re-run activate-plugins.
