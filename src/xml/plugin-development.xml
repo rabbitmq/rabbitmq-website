@@ -18,6 +18,49 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
 
+      <doc:section name="why">
+        <doc:heading>Why Write A Plugin?</doc:heading>
+        
+        <p>
+          Writing a RabbitMQ plugin provides a number of appealing possibilities:
+        </p>
+        <ul>
+          <li>
+            Enable your application to access internal RabbitMQ functionality that is not exposed
+            via the AMQP interface.
+          </li>
+          <li>
+            Running in the same Erlang VM as the broker may increase performance for certain applications. 
+          </li>
+          <li>
+            Plugins provide an easy deployment model, since they allow for a single &quot;RabbitMQ Appliance&quot;
+            to be built that acts in a self-contained manner. This can be useful both for easing production
+            deployments, and for producing all-in-one infrastructure for use during development.
+          </li>
+        </ul>
+      </doc:section>
+      
+      <doc:section name="why-not">
+        <doc:heading>Why To Not Write A Plugin</doc:heading>
+
+        <p>
+          As with any plugin mechanism, consideration should be given when developing functionality as to whether
+          embedding it as a plugin is the most appropriate path to take. Some reasons that you might not want to
+          develop your functionality as a plugin:
+        </p>
+        
+        <ul>
+          <li>
+            Depending on undocumented internal Rabbit APIs can result in your application requiring changes when
+            RabbitMQ is updated. If you can do what you need to do without using RabbitMQ internals, then your 
+            application will be far more compatible in the future.
+          </li>
+          <li>
+            As mentioned in the Admin Guide, a poorly written plugin can result in the entire broker crashing!
+          </li>
+        </ul>
+      </doc:section>
+
       <doc:section name="getting-started">
         <doc:heading>Getting Started</doc:heading>
         
@@ -65,7 +108,7 @@
           <pre class="sourcecode">$ cd rabbitmq-server/plugins
 $ ln -s ../../mod_bql mod_bql
 $ cd ..
-$ script/rabbitmq-activate-plugins</pre>
+$ scripts/rabbitmq-activate-plugins</pre>
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and re-run rabbitmq-activate-plugins.
@@ -76,7 +119,7 @@ $ script/rabbitmq-activate-plugins</pre>
         <doc:heading>Plugin Quality Tips</doc:heading>
         
         <p>
-          As hilighted in the Administration Guide, badly-written plugins can pose a risk to the stability of the
+          As highlighted in the Administration Guide, badly-written plugins can pose a risk to the stability of the
           broker. The following tips aim to provide a series of best-practices for ensuring that your plugin
           can safely co-exist with Rabbit.
         </p>
@@ -113,6 +156,8 @@ $ script/rabbitmq-activate-plugins</pre>
 DEPS=rabbitmq-server rabbitmq-erlang-client
 
 include ../include.mk</pre>
+            The top-level include.mk file aims to make your application's Makefile as declarative as possible. Your
+            plugin's Makefile is still a real Makefile however, so you can still do any kind of normal Make tasks.
           </li>
           <li>
             Create your ebin and source directories:
@@ -134,6 +179,9 @@ $ mkdir src</pre>
   {mod, {mod_metronome, []}},
   {env, []},
   {applications, [kernel, stdlib, rabbit, amqp_client]}]}.</pre>
+             This .app file is declaring that, alongside the normal Erlang dependencies, the plugin requires
+             rabbit and amqp_client to be available and started before starting the plugin. This information helps
+             the Erlang infrastructure to correctly order the Rabbit startup sequence.
           </li>
           <li>
             Now create your application entry point (src/mod_metronome.erl):
@@ -183,6 +231,7 @@ init([]) ->
 -include("rabbit_framing.hrl").
 
 -record(state, {channel}).
+-define(RKFormat, "~4.10.0B.~2.10.0B.~2.10.0B.~1.10.0B.~2.10.0B.~2.10.0B.~2.10.0B").
 
 start() ->
   start_link(),
@@ -207,8 +256,7 @@ start_link() ->
 init([]) ->
   Connection = lib_amqp:start_connection(),
   Channel = lib_amqp:start_channel(Connection),
-  amqp_channel:call(Channel, #'exchange.declare'{exchange = &lt;&lt;"metronome">>,
-                                                 type = &lt;&lt;"topic">>}),
+  lib_amqp:declare_exchange(Channel, &lt;&lt;"metronome">>, &lt;&lt;"topic">>),
 
   timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
   {ok, #state{channel = Channel}}.
@@ -218,10 +266,9 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
     fire ->
       Properties = #'P_basic'{content_type = &lt;&lt;"text/plain">>, delivery_mode = 1},
       {Date={Year,Month,Day},{Hour, Min,Sec}} = erlang:universaltime(),
-      {DayOfWeek} = {calendar:day_of_the_week(Date)},
-      RoutingKey = list_to_binary(io_lib:format(
-                                   "~4.10.0B.~2.10.0B.~2.10.0B.~1.10.0B.~2.10.0B.~2.10.0B.~2.10.0B", 
-                                   [Year, Month, Day, DayOfWeek, Hour, Min, Sec])),
+      DayOfWeek = calendar:day_of_the_week(Date),
+      RoutingKey = list_to_binary(io_lib:format(?RKFormat, [Year, Month, Day, 
+                                                            DayOfWeek, Hour, Min, Sec])),
       Message = RoutingKey,
       _Res = lib_amqp:publish(Channel, &lt;&lt;"metronome">>, RoutingKey, 
                               Message, Properties),
@@ -232,8 +279,8 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       {reply, unknown_command, State}
   end.
 
-handle_cast(_,State) -> {reply,unhandled_cast,State}.
-handle_info(_Info, State) -> {reply, unhandled_info, State}.
+handle_cast(_,State) -> {noreply,State}.
+handle_info(_Info, State) -> {noreply, State}.
 terminate(_,#state{channel = Channel}) -> 
   lib_amqp:close_channel(Channel),
   ok.
@@ -242,6 +289,10 @@ code_change(_OldVsn, State, _Extra) -> {ok, State}.</pre>
           <li>
             Run make to build your application:
             <pre class="sourcecode">make</pre>
+            Note: If you receive an error similar to:
+            <pre class="sourcecode">src/mod_metronome_worker.erl:8: can't find include file "rabbit_framing.hrl"
+src/mod_metronome_worker.erl:44: record 'P_basic' undefined</pre>
+            It means that your rabbitmq-server isn't built. Change to ../rabbitmq-server, and execute make there first.
           </li>
           <li>
             Next, associate your plugin (and its dependencies) with the server:
@@ -263,6 +314,57 @@ scripts/rabbitmq-activate-plugins</pre>
             like: <pre class="sourcecode">{mod_metronome,"Embedded Rabbit Metronome","0.01"}</pre>
           </li>
         </ul>
+
+        <doc:subsection name="testing">
+          <doc:heading>Testing Your Plugin</doc:heading>
+          
+         <p>
+           One of the key challenges in developing a plugin is often finding an appropriate (and manageable)
+           way of testing it. Alongside the standard build targets, the include.mk file defines
+           targets that will allow the execution of test cases against your plugin - including starting a
+           broker instance running your plugin.
+         </p>
+         <ul>
+           <li>
+             To begin with testing your plugin, create a test/ subdirectory to contain your test code:
+             <pre class="sourcecode">mkdir test</pre>
+           </li>
+           <li>
+             Create some test cases for your plugin (for this example, create the file test/mod_metronome_tests.erl):
+             <pre class="sourcecode">-module(mod_metronome_tests).
+
+-include_lib("eunit/include/eunit.hrl").
+
+receive_tick_test() ->
+  Connection = lib_amqp:start_connection(),
+  Channel = lib_amqp:start_channel(Connection),
+  Q = lib_amqp:declare_private_queue(Channel),
+  lib_amqp:bind_queue(Channel, &lt;&lt;"metronome">>, Q, &lt;&lt;"#">>),
+  timer:sleep(2000),
+  case lib_amqp:get(Channel, Q) of
+    'basic.get_empty' -> exit(metronome_didnt_send_message);
+    {content, _ClassId, _Props, _PropertiesBin, [_Payload]} ->
+      ok
+  end,
+  ok.
+</pre>
+           </li>
+           <li>
+             Now that you've written your test, configure the Makefile to execute it by adding the
+             following before the include statement:
+             <pre class="sourcecode">TEST_APPS=mod_metronome
+TEST_COMMANDS=mod_metronome_tests:test()
+START_RABBIT_IN_TESTS=true</pre>
+             This instructs the Makefile to start Rabbit for your tests, add the mod_metronome plugin,
+             and execute the given commands to run your tests.
+             Note that further test commands should be space-separated.
+           </li>
+           <li>
+             You can now run your tests by issuing:
+             <pre class="sourcecode">make test</pre>
+           </li>
+         </ul>
+        </doc:subsection>
       </doc:section>
     </doc:div>
   </body>

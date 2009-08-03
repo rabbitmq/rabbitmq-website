@@ -934,10 +934,12 @@
             plugins to completely ignore security configuration.
           </li>
           <li>
-            Again, since the plugin runs in the same node as the broker, an action that results in the node
-            halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
-            this occuring, however Administrators should be aware of the risks of installing plugins - especially
-            those that are not known to have undergone a rigorous QA procedure.
+            <strong>
+              Again, since the plugin runs in the same node as the broker, an action that results in the node
+              halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
+              this occuring, however Administrators should be aware of the risks of installing plugins - especially
+              those that are not known to have undergone a rigorous QA procedure.
+            </strong>
           </li>
         </ul>
 
