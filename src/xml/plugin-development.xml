@@ -365,6 +365,20 @@ START_RABBIT_IN_TESTS=true</pre>
            </li>
          </ul>
         </doc:subsection>
+
+        <doc:subsection name="packaging">
+          <doc:heading>Packaging Your Plugin</doc:heading>
+
+          <p>
+            Whilst it is entirely possible to distribute your plugin by having users checkout from your
+            source repository, it is often easier to package your built application into a single archive.
+            As detailed in the Administration Guide, Rabbit supports plugins installed as .ez archives
+            in the plugins/ directory. The standard include.mk file includes a default packaging goal, which
+            can be invoked with:
+            <pre class="sourcecode">make package</pre>
+            And will produce an archive under the dist directory.
+          </p>
+        </doc:subsection>
       </doc:section>
     </doc:div>
   </body>
