@@ -37,10 +37,10 @@
      </li>
      <li>
             
-     <h3 id="usecases">Use Cases</h3> 
+     <h4 id="usecases">Use Cases</h4> 
       <p>
        Details of how RabbitMQ has been used can be found under <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">use cases</a>. 
-       Combining the 'usecase' tag, along with specific more specific requirements gives more a focussed result set. For example: 
+       Combining the 'usecase' tag, along with specific more specific requirements gives more a focused result set. For example: 
       </p> 
         <ul class="plain">      
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+queue">Queue use cases</a></li>
@@ -56,7 +56,7 @@
      </li>
      <li>
       
-     <h3 id="languages">Languages</h3> 
+     <h4 id="languages">Languages</h4> 
       <p>
        You can also filter links just by language, for example:
       </p> 
@@ -71,7 +71,7 @@
      </li>
      <li>
    
-     <h3 id="architecture">Architecture</h3>
+     <h4 id="architecture">Architecture</h4>
       <p>
         Read up on <a href="http://delicious.com/alexisrichardson/rabbitmq+architecture">Architecture</a>  
 	On this page you find useful information about
@@ -84,7 +84,7 @@
         </ul>
      </li>
      <li>
-     <h3 id="programming">Programming</h3>
+     <h4 id="programming">Programming</h4>
       <p>
        The topic <a href="http://delicious.com/alexisrichardson/rabbitmq+programming">programming</a> should 
        be very interesting for developers:
@@ -97,7 +97,7 @@
         </ul>
      </li>
      <li>
-     <h3 id="otherlinks">Some other important links</h3>
+     <h4 id="otherlinks">Some other important links</h4>
       <p>
        <ul class="plain">
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+web">Web</a></li>
