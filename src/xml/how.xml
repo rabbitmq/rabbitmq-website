@@ -7,11 +7,14 @@
   </head>
   <body>
     <doc:div>
-      <h2>How easy is it to set up RabbitMQ?</h2>
+      <h2>How easy is it?</h2>
 
-      <p>You will find more detailed information elsewhere on the site, but this page provides shortcuts to some real world experiences. Please don't hesitate to <a href="mailto:info@rabbitmq.com">suggest links</a>.</p>
+      <p>You will find more detailed information elsewhere on the site, but listed below are shortcuts to 
+      some useful case studies, tools and tutorials. <a href="delicious.html">More here</a>.       
+      
+      <p>Please feel free to <a href="mailto:info@rabbitmq.com">suggest links</a>.</p>
    
-      <h3 id="quickstart">Quick start</h3>
+      <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
         <li><a href="http://www.rabbitmq.com/documentation.html">RabbitMQ documentation and Getting Started Guide</a> </li>
         <li><a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP Messaging with RabbitMQ</a></li>
@@ -28,7 +31,7 @@
         <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a> and <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a></li>
         <li><a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queueing</a></li>
         <li><a href="http://enthusiasm.cozy.org/archives/2009/02/listening-to-the-system">Some more complex use cases for RabbitMQ</a></li>
-        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a></li>
+        <li><a href="http://del.icio.us/alexisrichardson/rabbitmq">Del.icio.us links</a> (and <a href="delicious.html">useful searches</a>)</li>
       </ul>
       
       <h3 id="examples">Specific examples</h3>
