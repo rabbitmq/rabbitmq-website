@@ -55,6 +55,16 @@
 	  </li>
 	</ul>
       </doc:section>
+      
+      <doc:section name="plugins">
+        <doc:heading>Plugins</doc:heading>
+        
+        <ul>
+          <li>
+            <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language support
+          </li>
+        </ul>
+      </doc:section>
 
       <doc:section name="general">
 	<doc:heading>General</doc:heading>
