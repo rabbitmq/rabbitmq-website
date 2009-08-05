@@ -255,6 +255,52 @@ BQL> select name,messages from queues where 'durable'=true order by name
             </p>
           </doc:subsubsection>
         </doc:subsection>
+
+        <doc:subsection name="basic-messaging">
+          <doc:heading>Basic Messaging</doc:heading>
+
+          <p>
+            BQL provides for sending and recieving simple messages from within the console. Note that only text-based
+            messages can currently be operated with within the console at this stage.
+          </p>          
+
+          <doc:subsubsection name="sending-messages">
+            <doc:heading>Sending Messages</doc:heading>
+            
+            <p>
+              Messages can be sent with commands in the form:
+              <pre>post &lt;message-body> to &lt;exchange-name> [with routing_key &lt;routing-key>]</pre>
+              If a routing-key is not specified, then an empty routing key is attached. An example of
+              sending a message would be:
+              <pre class="sourcecode">post 'hello world' to 'amq.direct' with routing_key 'rk'</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="receiving-messages">
+            <doc:heading>Receiving Messages</doc:heading>
+            
+            <p>
+              Messages can be retrieved from a queue with commands in the form:
+              <pre>get from &lt;queue-name></pre>
+              If no messages are available, then the response <pre>empty</pre> will be shown. Otherwise,
+              the body of the message will be shown. For example:
+              <pre class="sourcecode">BQL> create queue testqueue;
+ok
+BQL> create route from 'amq.direct' to testqueue when routing_key is 'something';
+ok
+BQL> post 'Hello' to 'amq.direct' with routing_key 'something';
+ok
+BQL> get from testqueue;
+&lt;&lt;&quot;Hello&quot;>>
+BQL> get from testqueue;
+empty</pre>
+             Note that get will not block waiting for a message. If no message is available at the time
+             it is called, it will respond with empty. Also, this command removes the retrieved message
+             from the queue - so if you make this call on your application's queue, then the message
+             will no longer be available for the application to consume.
+           </p>
+          </doc:subsubsection>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="bql-scripts">
