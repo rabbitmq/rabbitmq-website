@@ -128,6 +128,10 @@ Technologies Ltd.</div>
     <h3 class="docHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
+  <xsl:template match="doc:subsubsection/doc:heading">
+    <h3 class="docHeading"><xsl:apply-templates/></h3>
+  </xsl:template>
+
   <xsl:template match="doc:roadmapentry/doc:heading">
     <div class="docRoadmapentryHeading"><xsl:apply-templates/></div>
   </xsl:template>
