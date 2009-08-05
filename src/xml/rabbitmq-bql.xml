@@ -76,8 +76,8 @@ BQL> </pre>
           <li>Queue Management</li>
           <li>Route Management</li>
           <li>Basic Messaging</li>
-          <li>User Management</li>
           <li>VHost Management</li>
+          <li>User Management</li>
           <li>Permission Management</li>
         </ul>
         <p>
@@ -215,6 +215,11 @@ BQL> select name,messages from queues where 'durable'=true order by name
 
         <doc:subsection name="route-management">
           <doc:heading>Route Management</doc:heading>
+
+          <p>
+            One of the strengths of an AMQP broker is the ability to configure complex custom routing.
+            BQL provides an idea mechanism for allowing dynamic configuration of the routing table.
+          </p>
  
           <doc:subsubsection name="route-querying">
             <doc:heading>Querying</doc:heading>
@@ -299,6 +304,128 @@ empty</pre>
              from the queue - so if you make this call on your application's queue, then the message
              will no longer be available for the application to consume.
            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="vhost-management">
+          <doc:heading>VHost Management</doc:heading>
+
+          <doc:subsubsection name="vhost-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              VHosts can be queried by selecting from the &quot;vhosts&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from vhosts
+--------
+| name |
+--------
+| /    |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="vhost-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              VHost creation follows the form:
+              <pre>create vhost &lt;name></pre>
+              An example of creating a vhost would be:
+              <pre class="sourcecode">create vhost '/test'</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="vhost-deletion">
+            <doc:heading>Deletion</doc:heading>
+
+            <p>
+              VHost deletion follows the form:
+              <pre>drop vhost &lt;name></pre>
+              No additional flags are required or supported.
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="user-management">
+          <doc:heading>User Management</doc:heading>
+
+          <doc:subsubsection name="user-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Users can be queried by selecting from the &quot;users&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from users
+---------
+| name  |
+---------
+| guest |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="user-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              User creation follows the form:
+              <pre>create user &lt;name> identified by &lt;password></pre>
+              An example of creating a user would be:
+              <pre class="sourcecode">create user newuser identified by password</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="user-deletion">
+            <doc:heading>Deletion</doc:heading>
+
+            <p>
+              User deletion follows the form:
+              <pre>drop user &lt;name></pre>
+              No additional flags are required or supported.
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="permission-management">
+          <doc:heading>Permission Management</doc:heading>
+
+          <p>
+            RabbitMQ manages permission by associating a set of regular expressions indicating
+            the configurable, readable and writable objects against a user. For more explanation
+            on this topic, see the <a href="admin-guide.html#access-control">Access Control</a>
+            section of the Administration Guide.
+          </p>
+
+          <doc:subsubsection name="permission-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Permissions can be queried by selecting from the &quot;permissions&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from permissions
+------------------------------------------------------
+| username | configure_perm | write_perm | read_perm |
+------------------------------------------------------
+| guest    | .*             | .*         | .*        |
+</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="permission-granting">
+            <doc:heading>Granting</doc:heading>
+
+            <p>
+              Permission grants follow the form:
+              <pre>grant [all|configure|read|write] on &lt;regex> to &lt;username></pre>
+              An example of granting read access to a queue and write access to an exchange would be:
+              <pre class="sourcecode">grant read on myQ to newuser;
+grant write on myX to newuser;</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="permission-revoking">
+            <doc:heading>Revoking</doc:heading>
+
+            <p>
+              Permission revocation follows the form:
+              <pre>revoke [all|configure|read|write] from &lt;username></pre>
+            </p>
           </doc:subsubsection>
         </doc:subsection>
       </doc:section>
