@@ -329,17 +329,6 @@
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="feature-persistent">
-	  <doc:heading>Is RabbitMQ persistent?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Yes. RabbitMQ uses Erlang's built-in logging and database
-	      support tools to provide high-speed, high-reliability
-	      durable message storage.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
 	<doc:faq name="feature-reliable">
 	  <doc:heading>Is RabbitMQ reliable and highly-available?</doc:heading>
 	  <doc:a>
