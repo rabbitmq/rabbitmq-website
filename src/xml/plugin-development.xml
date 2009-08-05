@@ -107,9 +107,9 @@
         </p>
         <p>
           To activate a plugin in a development environment, create a symlink for the plugin development directory
-          in the rabbitmq-server/plugins directory. For example, to activate a development build of the mod_bql plugin:
+          in the rabbitmq-server/plugins directory. For example, to activate a development build of the rabbitmq-bql plugin:
           <pre class="sourcecode">$ cd rabbitmq-server/plugins
-$ ln -s ../../mod_bql mod_bql
+$ ln -s ../../rabbitmq-bql rabbitmq-bql
 $ cd ..
 $ scripts/rabbitmq-activate-plugins</pre>
         </p>
@@ -151,11 +151,11 @@ $ scripts/rabbitmq-activate-plugins</pre>
         <ul>
           <li>
             The first thing to do is create the basic skeleton of your project. Within your rabbitmq-public-umbrella
-            working copy, create a new directory (for the purposes of this example, we'll call it mod_metronome).
+            working copy, create a new directory (for the purposes of this example, we'll call it rabbit_metronome).
           </li>
           <li>
             Create your basic Makefile, containing:
-            <pre class="sourcecode">PACKAGE=mod_metronome
+            <pre class="sourcecode">PACKAGE=rabbitmq-metronome
 DEPS=rabbitmq-server rabbitmq-erlang-client
 
 include ../include.mk</pre>
@@ -169,17 +169,17 @@ $ mkdir src</pre>
           </li>
           <li>
             Create a simple .app file in the ebin directory. Again, for the purposes of this example, call it
-            ebin/mod_metronome.app:
-            <pre class="sourcecode">{application, mod_metronome,
+            ebin/rabbit_metronome.app:
+            <pre class="sourcecode">{application, rabbit_metronome,
  [{description, "Embedded Rabbit Metronome"},
   {vsn, "0.01"},
   {modules, [
-    mod_metronome,
-    mod_metronome_sup,
-    mod_metronome_worker
+    rabbit_metronome,
+    rabbit_metronome_sup,
+    rabbit_metronome_worker
   ]},
   {registered, []},
-  {mod, {mod_metronome, []}},
+  {mod, {rabbit_metronome, []}},
   {env, []},
   {applications, [kernel, stdlib, rabbit, amqp_client]}]}.</pre>
              This .app file is declaring that, alongside the normal Erlang dependencies, the plugin requires
@@ -187,23 +187,26 @@ $ mkdir src</pre>
              the Erlang infrastructure to correctly order the Rabbit startup sequence.
           </li>
           <li>
-            Now create your application entry point (src/mod_metronome.erl):
-            <pre class="sourcecode">-module(mod_metronome).
+            Now create your application entry point (src/rabbit_metronome.erl):
+            <pre class="sourcecode">-module(rabbit_metronome).
 
 -export([start/0, stop/0, start/2, stop/1]).
 
-start() -> mod_metronome_sup:start_link(), ok.
-stop() -> ok.
+start() -> 
+    rabbit_metronome_sup:start_link(), ok.
+
+stop() -> 
+    ok.
 
 start(normal, []) ->
-    mod_metronome_sup:start_link().
+    rabbit_metronome_sup:start_link().
 
 stop(_State) ->
     ok.</pre>
           </li>
           <li>
-            Followed by your very basic supervisor (src/mod_metronome_sup.erl):
-            <pre class="sourcecode">-module(mod_metronome_sup).
+            Followed by your very basic supervisor (src/rabbit_metronome_sup.erl):
+            <pre class="sourcecode">-module(rabbit_metronome_sup).
 -behaviour(supervisor).
 
 -export([start_link/0, init/1]).
@@ -213,18 +216,18 @@ start_link() ->
 
 init([]) ->
     {ok, {{one_for_one, 3, 10},
-          [{mod_metronome_worker,
-            {mod_metronome_worker, start_link, []},
+          [{rabbit_metronome_worker,
+            {rabbit_metronome_worker, start_link, []},
             permanent,
             10000,
             worker,
-            [mod_metronome_worker]}
+            [rabbit_metronome_worker]}
           ]}}.</pre>
           </li>
           <li>
             Finally, the core of the plugin - the worker. The worker will connect internally to the broker, then create a task
-            that will be triggered every second:
-            <pre class="sourcecode">-module(mod_metronome_worker).
+            that will be triggered every second (src/rabbit_metronome_worker.erl):
+            <pre class="sourcecode">-module(rabbit_metronome_worker).
 -behaviour(gen_server).
 
 -export([start/0, start/2, stop/0, stop/1, start_link/0]).
@@ -257,9 +260,10 @@ start_link() ->
 % --------------------------
 
 init([]) ->
-  Connection = lib_amqp:start_connection(),
-  Channel = lib_amqp:start_channel(Connection),
-  lib_amqp:declare_exchange(Channel, &lt;&lt;"metronome">>, &lt;&lt;"topic">>),
+  Connection = amqp_connection:start_direct("guest", "guest"),
+  Channel = amqp_connection:open_channel(Connection),
+  amqp_channel:call(Channel, #'exchange.declare'{exchange = &lt;&lt;"metronome">>,
+                                                 type = &lt;&lt;"topic">>}),
 
   timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
   {ok, #state{channel = Channel}}.
@@ -273,8 +277,13 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       RoutingKey = list_to_binary(io_lib:format(?RKFormat, [Year, Month, Day, 
                                                             DayOfWeek, Hour, Min, Sec])),
       Message = RoutingKey,
-      _Res = lib_amqp:publish(Channel, &lt;&lt;"metronome">>, RoutingKey, 
-                              Message, Properties),
+      BasicPublish = #'basic.publish'{exchange = &lt;&lt;"metronome">>,
+                                      routing_key = RoutingKey},
+      {ClassId, _MethodId} = rabbit_framing:method_id('basic.publish'),
+      Content = #content{class_id = ClassId, 
+                         properties = Properties,
+                         payload_fragments_rev = [Message]},
+      amqp_channel:call(Channel, BasicPublish, Content),
 
       timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
       {reply, ok, State};
@@ -282,26 +291,32 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       {reply, unknown_command, State}
   end.
 
-handle_cast(_,State) -> {noreply,State}.
-handle_info(_Info, State) -> {noreply, State}.
+handle_cast(_,State) -> 
+    {noreply,State}.
+
+handle_info(_Info, State) -> 
+    {noreply, State}.
+
 terminate(_,#state{channel = Channel}) -> 
-  lib_amqp:close_channel(Channel),
-  ok.
-code_change(_OldVsn, State, _Extra) -> {ok, State}.</pre>
+    amqp_channel:call(Channel, #'channel.close'{}),
+    ok.
+
+code_change(_OldVsn, State, _Extra) -> 
+    {ok, State}.</pre>
           </li>
           <li>
             Run make to build your application:
             <pre class="sourcecode">make</pre>
             Note: If you receive an error similar to:
-            <pre class="sourcecode">src/mod_metronome_worker.erl:8: can't find include file "rabbit_framing.hrl"
-src/mod_metronome_worker.erl:44: record 'P_basic' undefined</pre>
+            <pre class="sourcecode">src/rabbit_metronome_worker.erl:8: can't find include file "rabbit_framing.hrl"
+src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
             It means that your rabbitmq-server isn't built. Change to ../rabbitmq-server, and execute make there first.
           </li>
           <li>
             Next, associate your plugin (and its dependencies) with the server:
             <pre class="sourcecode">cd ../rabbitmq-server/plugins
 ln -s ../../rabbitmq-erlang-client
-ln -s ../../mod_metronome
+ln -s ../../rabbit_metronome
 cd ..
 scripts/rabbitmq-activate-plugins</pre>
           </li>
@@ -314,7 +329,7 @@ scripts/rabbitmq-activate-plugins</pre>
             the broker is running within:
             <pre class="sourcecode">application:which_applications().</pre>
             If your plugin has loaded successfully, you should see an entry in the returned list that looks
-            like: <pre class="sourcecode">{mod_metronome,"Embedded Rabbit Metronome","0.01"}</pre>
+            like: <pre class="sourcecode">{rabbit_metronome,"Embedded Rabbit Metronome","0.01"}</pre>
           </li>
         </ul>
 
@@ -333,20 +348,26 @@ scripts/rabbitmq-activate-plugins</pre>
              <pre class="sourcecode">mkdir test</pre>
            </li>
            <li>
-             Create some test cases for your plugin (for this example, create the file test/mod_metronome_tests.erl):
-             <pre class="sourcecode">-module(mod_metronome_tests).
+             Create some test cases for your plugin (for this example, create the file test/rabbit_metronome_tests.erl):
+             <pre class="sourcecode">-module(rabbit_metronome_tests).
 
 -include_lib("eunit/include/eunit.hrl").
+-include("rabbit.hrl").
+-include("rabbit_framing.hrl").
 
 receive_tick_test() ->
-  Connection = lib_amqp:start_connection(),
-  Channel = lib_amqp:start_channel(Connection),
-  Q = lib_amqp:declare_private_queue(Channel),
-  lib_amqp:bind_queue(Channel, &lt;&lt;"metronome">>, Q, &lt;&lt;"#">>),
+  Connection = amqp_connection:start_direct("guest", "guest"),
+  Channel = amqp_connection:open_channel(Connection),
+  #'queue.declare_ok'{queue = Q} 
+    = amqp_channel:call(Channel, #'queue.declare'{exclusive = true, auto_delete = true}),
+  #'queue.bind_ok'{} 
+    = amqp_channel:call(Channel, #'queue.bind'{queue = Q, 
+                                               exchange = &lt;&lt;"metronome">>,
+                                               routing_key = &lt;&lt;"#">>}),
   timer:sleep(2000),
-  case lib_amqp:get(Channel, Q) of
-    'basic.get_empty' -> exit(metronome_didnt_send_message);
-    {content, _ClassId, _Props, _PropertiesBin, [_Payload]} ->
+  case amqp_channel:call(Channel, #'basic.get'{queue = Q, no_ack = true}) of
+    {'basic.get_empty', _} -> exit(metronome_didnt_send_message);
+    {_, {content, _ClassId, _Props, _PropertiesBin, [_Payload]}} ->
       ok
   end,
   ok.
@@ -355,10 +376,10 @@ receive_tick_test() ->
            <li>
              Now that you've written your test, configure the Makefile to execute it by adding the
              following before the include statement:
-             <pre class="sourcecode">TEST_APPS=mod_metronome
-TEST_COMMANDS=mod_metronome_tests:test()
+             <pre class="sourcecode">TEST_APPS=amqp_client rabbit_metronome
+TEST_COMMANDS=rabbit_metronome_tests:test()
 START_RABBIT_IN_TESTS=true</pre>
-             This instructs the Makefile to start Rabbit for your tests, add the mod_metronome plugin,
+             This instructs the Makefile to start Rabbit for your tests, add the rabbit_metronome plugin,
              and execute the given commands to run your tests.
              Note that further test commands should be space-separated.
            </li>
