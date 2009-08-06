@@ -18,9 +18,7 @@
      </p>
    
      <h3 id="introduction">Using Del.icio.us tags</h3>
-     <p>If you're not familiar with Del</p>
-     <ul>
-     <li>
+
      <h4 id="introduction">Introduction</h4>
       <p> 
        If you're looking for an introduction to what RabbitMQ is, what it's used for and what, in fact, messaging is, then start
@@ -34,8 +32,6 @@
         <li><a href="http://delicious.com/alexisrichardson/rabbitmq+howto+video">How-to Videos</a></li>
         <li><a href="http://delicious.com/alexisrichardson/rabbitmq+howto">How-To-Pages</a></li>
        </ul> 
-     </li>
-     <li>
             
      <h4 id="usecases">Use Cases</h4> 
       <p>
@@ -53,9 +49,7 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+client">Clients use cases</a></li>
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+cloud">Cloud use cases</a></li>
        </ul> 
-     </li>
-     <li>
-      
+
      <h4 id="languages">Languages</h4> 
       <p>
        You can also filter links just by language, for example:
@@ -68,13 +62,12 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+Perl">Perl</a></li>
 	 <li><a href="http://delicious.com/alexisrichardson/rabbitmq+.net">.net</a></li>
        </ul> 
-     </li>
-     <li>
+
+
    
      <h4 id="architecture">Architecture</h4>
       <p>
-        Read up on <a href="http://delicious.com/alexisrichardson/rabbitmq+architecture">Architecture</a>  
-	On this page you find useful information about
+        Read up on <a href="http://delicious.com/alexisrichardson/rabbitmq+architecture">Architecture</a>  and explore particular aspects of it by adding keywords such as:
       </p>
         <ul class="plain">
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+concurrency">Concurrency</a></li>
@@ -82,12 +75,11 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+performance">Performance</a></li>
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+scalability"></a>Scalability</li>
         </ul>
-     </li>
-     <li>
+	
      <h4 id="programming">Programming</h4>
       <p>
-       The topic <a href="http://delicious.com/alexisrichardson/rabbitmq+programming">programming</a> should 
-       be very interesting for developers:
+       There's also practical information to be found for Developers under the  <a href="http://delicious.com/alexisrichardson/rabbitmq+programming">'programming'</a> should 
+       tag:
       </p>
         <ul class="plain">
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+github">Github</a></li>
@@ -95,8 +87,7 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+programming+usecase"></a>Use Cases</li>
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+patterns"></a>Patterns</li>
         </ul>
-     </li>
-     <li>
+	
      <h4 id="otherlinks">Some other important links</h4>
       <p>
        <ul class="plain">
@@ -105,8 +96,6 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+cloud">Cloud</a></li>
         </ul>
       </p>
-      </li>
-   </ul>
    </doc:div>
   </body>
  
