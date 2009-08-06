@@ -225,5 +225,16 @@
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
     </repositories>
 
+    <a name="rabbitmq-bql"><h3 id="rabbitmq-bql">rabbitmq-bql</h3></a>
+
+    <p>
+      An interactive Broker Query Language console for RabbitMQ administration. See the
+      <a href="rabbitmq-bql.html">RabbitMQ BQL</a> documentation for more details.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-bql"
+                  url="http://hg.rabbitmq.com/rabbitmq-bql/"/>
+    </repositories>
   </body>
 </html>

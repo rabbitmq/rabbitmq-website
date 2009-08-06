@@ -24,8 +24,8 @@
         </p>
         <ul>
           <li>
-            Download the latest version of the rabbitmq-bql plugin from TODO, and place
-            it in the plugins/ subdirectory of your installed RabbitMQ instance.
+            Download the latest version of the rabbitmq-bql plugin from <a href="download.html#rabbitmq-bql">Download</a> page, 
+            and place the downloaded archive in the plugins/ subdirectory of your installed RabbitMQ instance.
           </li>
           <li>
             Execute:
