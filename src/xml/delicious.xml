@@ -21,8 +21,8 @@
 
      <h4 id="introduction">Introduction</h4>
       <p> 
-       If you're looking for an introduction to what RabbitMQ is, what it's used for and what, in fact, messaging is, then start
-       with these <a href="http://delicious.com/alexisrichardson/rabbitmq+introduction">Introductions</a>. 
+       If you're looking for an introduction to what RabbitMQ is, what it's used for and what, in fact, messaging is, then a good place
+       to start is with the <a href="http://delicious.com/alexisrichardson/rabbitmq+introduction">'introduction'</a> tag.
        </p>
        <p>Many of these may be of interest too: </p>
        <ul class="plain">      
@@ -73,7 +73,7 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+concurrency">Concurrency</a></li>
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+integration">Integration</a></li>
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+performance">Performance</a></li>
-         <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+scalability"></a>Scalability</li>
+         <li><a href="http://delicious.com/alexisrichardson/rabbitmq+architecture+scalability">Scalability</a></li>
         </ul>
 	
      <h4 id="programming">Programming</h4>
@@ -88,7 +88,7 @@
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+patterns"></a>Patterns</li>
         </ul>
 	
-     <h4 id="otherlinks">Some other important links</h4>
+     <h4 id="otherlinks">More common themes</h4>
       <p>
        <ul class="plain">
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+web">Web</a></li>
