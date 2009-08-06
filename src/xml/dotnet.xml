@@ -62,6 +62,16 @@
     <h3>
       Download the library and documentation
     </h3>
+    
+    <h4>Library and documentation installer</h4>
+    
+    <r:downloads signature="no">
+      <r:download downloadfile="&nameVersion-dotnet-client;.msi"
+          downloadpath="&dir-dotnet-client;">
+        Binary, compiled for .NET 2.0 (Windows installer) - includes
+        documentation and example code
+      </r:download>
+    </r:downloads>
 
     <h4>The library</h4>
 
