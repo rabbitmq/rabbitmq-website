@@ -1,65 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+                xmlns:rss1="http://purl.org/rss/1.0/"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:atom="http://www.w3.org/2005/Atom"
-                xmlns:xhtml="http://www.w3.org/1999/xhtml"
-		version="1.0">
-  <xsl:output method="xml"/>
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                >
 
-  <!-- Atom spec: http://tools.ietf.org/html/rfc4287 -->
-
-  <xsl:param name="updated"/>
-
-  <xsl:template match="/">
-    <atom:feed>
-      <xsl:apply-templates select="html/head"/>
-      <atom:updated><xsl:value-of select="$updated"/></atom:updated>
-      <xsl:apply-templates select="html/body/doc:feed/doc:item">
-        <xsl:sort select="doc:date/@iso" order="descending"/>
-      </xsl:apply-templates>
-    </atom:feed>
+  <xsl:template match="feed">
+    <xsl:apply-templates select="document(@src)/*">
+      <xsl:with-param name="type">
+        <xsl:choose>
+          <xsl:when test="@type">
+            <xsl:value-of select="@type"/>
+          </xsl:when>
+          <xsl:otherwise>none</xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+      <xsl:with-param name="limit">
+        <xsl:choose>
+          <xsl:when test="boolean(@limit)">
+            <xsl:value-of select="@limit"/>
+          </xsl:when>
+          <xsl:otherwise>100</xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template match="/html/head">
-    <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
-    See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
-    <atom:id>http://www.rabbitmq.net/news.atom</atom:id>
-    <atom:link rel="self" href="http://www.rabbitmq.net/news.atom"/>
-    <atom:link rel="alternate" type="text/html" href="http://www.rabbitmq.net/news.html"/>
-    <atom:title type="text"><xsl:value-of select="title"/></atom:title>
-      <!--
-          We transgressively omit the author, since there isn't a sensible value
-      <atom:author>
-      </atom:author>
-      -->
+  <!-- RSS 2.0 is arranged /rss/channel/item -->
+  <xsl:template match="/rss">
+    <xsl:param name="limit"/>
+    <xsl:param name="type"/>
+    <xsl:apply-templates select="channel">
+      <xsl:with-param name="limit" select="$limit"/>
+      <xsl:with-param name="type" select="$type"/>
+    </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template match="doc:item">
-    <atom:entry>
-      <!-- For entry IDs, there's no good candidate.  But we use the date anyway.  -->
-      <atom:id>tag:rabbitmq.net,2007:<xsl:value-of select="doc:date/@iso"/></atom:id>
-      <atom:title type="text"><xsl:value-of select="doc:title"/></atom:title>
-      <atom:updated><xsl:value-of select="doc:date/@iso"/></atom:updated>
-      <atom:content type="xhtml">
-        <xhtml:div>
-          <xsl:apply-templates select="doc:text/*|doc:text/text()" mode="xhtml"/>
-        </xhtml:div>
-      </atom:content>
-    </atom:entry>
-  </xsl:template>
+  <!-- RSS 1.0 is arranged /rdf:RDF/rss1:item -->
+  <xsl:template match="channel|rdf:RDF|atom:feed">
+    <xsl:param name="limit" select="100"/>
+    <xsl:param name="type"/>
+    <ol class="feed">
+      <xsl:for-each select="(item|rss1:item|atom:entry)[position() &lt;= $limit]">
+        <li>          
+        <h2><a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a></h2>
 
-  <!-- The source document content is in the null namespace, but for Atom
-  we need either escaped HTML or something in the XHTML namespace -->
+          <p><xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/></p>
 
-  <xsl:template match="text()" mode="xhtml">
-    <xsl:value-of select="."/>
-  </xsl:template>
+         <xsl:choose>
+          <xsl:when test="$type = 'ourblog'">
+  						<div class="meta">
+  							<p>
+                <xsl:value-of select="dc:creator|rss1:author|atom:author"/> |
+                <xsl:variable name="pub" select="pubDate|rss1:pubDate|atom:pubDate"/>
+                <xsl:value-of select="substring($pub, 5, 12)"/> |
+                </p>
+							</div>
+          </xsl:when>
+        </xsl:choose>
 
-  <xsl:template match="*" mode="xhtml">
-    <xsl:element namespace="http://www.w3.org/1999/xhtml" name="{local-name()}">
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates select="node()|text()" mode="xhtml"/>
-    </xsl:element>
+
+        </li>
+      </xsl:for-each>
+    </ol>
   </xsl:template>
 
 </xsl:stylesheet>

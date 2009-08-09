@@ -78,13 +78,13 @@ h4 {
 .col {
 	float: left;
 	width: 49.5%;
-	background: url(img/listBg.gif) Repeat-X top right;
+	background: url(../img/listBg.gif) Repeat-X top right;
 	margin: 0.5ex 0 4ex 0;
 	padding: 0;
 	}
 
 .col div.col {
-  background: url(img/listBg.gif) Repeat-X top right;
+  background: url(../img/listBg.gif) Repeat-X top right;
   width: 100% !important;
   margin: 0.5ex 0 4ex 0;
   padding: 0;
@@ -104,7 +104,7 @@ h4 {
 .col h3 {
 	margin: 0 1em 0 0;
 	padding: 10px;
-        background: url(img/listBg.gif) Repeat-X top left;
+        background: url(../img/listBg.gif) Repeat-X top left;
 }
 
 ul {
@@ -114,7 +114,7 @@ ul {
 	
 li {
 	list-style-type: none; 
-	background: url(img/li.gif) no-repeat 1px 12px;
+	background: url(../img/li.gif) no-repeat 1px 12px;
 	margin: 0;
 	padding: 1ex 1em;
 }

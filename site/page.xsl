@@ -1,14 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-		xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-		version="1.0">
-  <xsl:output method="html"/>
+                xmlns="http://www.w3.org/1999/xhtml"
+            		xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+            		xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+            		exclude-result-prefixes="r doc" 
+            		version="1.0">
+  <xsl:include href="feed.xsl"/>
+  
+<xsl:output method="xml" 
+            media-type="text/xml"            
+            doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" 
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+            omit-xml-declaration="yes" 
+            indent="yes"
+            encoding="ISO-8859-1"  />
+
+
 
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
-      <link rel="stylesheet" rev="stylesheet" href="rabbit.css" type="text/css" />
+      <link rel="stylesheet" rev="stylesheet" href="css/rabbit.css" type="text/css" />
       <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico"/>
       <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
       <script type="text/javascript">
@@ -19,6 +33,7 @@
   </xsl:template>
 
   <xsl:template match="/html/body">
+
     <xsl:copy>
       <div id="outerContainer">
 	<xsl:call-template name="page-header"/>
