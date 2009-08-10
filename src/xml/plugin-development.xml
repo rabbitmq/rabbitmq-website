@@ -279,10 +279,7 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       Message = RoutingKey,
       BasicPublish = #'basic.publish'{exchange = &lt;&lt;"metronome">>,
                                       routing_key = RoutingKey},
-      {ClassId, _MethodId} = rabbit_framing:method_id('basic.publish'),
-      Content = #content{class_id = ClassId, 
-                         properties = Properties,
-                         payload_fragments_rev = [Message]},
+      Content = #amqp_msg{props = Properties, payload = Message},
       amqp_channel:call(Channel, BasicPublish, Content),
 
       timer:apply_after(1000, gen_server, call, [{global, ?MODULE}, fire]),
@@ -354,20 +351,21 @@ scripts/rabbitmq-activate-plugins</pre>
 -include_lib("eunit/include/eunit.hrl").
 -include("rabbit.hrl").
 -include("rabbit_framing.hrl").
+-include("amqp_client.hrl").
 
 receive_tick_test() ->
   Connection = amqp_connection:start_direct("guest", "guest"),
   Channel = amqp_connection:open_channel(Connection),
-  #'queue.declare_ok'{queue = Q} 
+  #'queue.declare_ok'{queue = Q}
     = amqp_channel:call(Channel, #'queue.declare'{exclusive = true, auto_delete = true}),
-  #'queue.bind_ok'{} 
-    = amqp_channel:call(Channel, #'queue.bind'{queue = Q, 
+  #'queue.bind_ok'{}
+    = amqp_channel:call(Channel, #'queue.bind'{queue = Q,
                                                exchange = &lt;&lt;"metronome">>,
                                                routing_key = &lt;&lt;"#">>}),
   timer:sleep(2000),
   case amqp_channel:call(Channel, #'basic.get'{queue = Q, no_ack = true}) of
     {'basic.get_empty', _} -> exit(metronome_didnt_send_message);
-    {_, {content, _ClassId, _Props, _PropertiesBin, [_Payload]}} ->
+    {_, #amqp_msg{}} ->
       ok
   end,
   ok.
