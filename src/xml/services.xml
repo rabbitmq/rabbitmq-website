@@ -3,25 +3,42 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Support Services</title>
+    <title>RabbitMQ - Commercial Services</title>
   </head>
   <body>
     <doc:div>
-    <p class="intro">Commercial support services are available from Rabbit Technologies, LShift, and CohesiveFT - helping you to evaluate the potential that AMQP offers your enterprise.</p>
-    <p>
-        <ul>
-        <li>Assess your existing messaging strategies and plan your migration
-to, or integration with RabbitMQ</li>
-        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ in the Cloud</a></li>
-        <li><a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ in a VM</a></li>
-        <li>Fast encoding of FPML over RabbitMQ for post-trade support</li>
-        <li>Trade consolidation from FIX connections onto a RabbitMQ bus</li>
-        <li>Integration of RabbitMQ to service bus implementations like <a href="http://mulesource.com/">Mule</a>
-or <a href="http://incubator.apache.org/servicemix/home.html">ServiceMix</a>
-</li>
-        <li>Realise the benefits of an architecture that offers exceptionally high reliability, availability and scalability</li>
-    </ul>
-  </p>
+    
+    <div id="promo">
+      <p class="quote">“Thanks to you and your team for all your help. We couldn't have gotten this far without you, the team, and most importantly RabbitMQ.”</p>
+      <p class="quote-credit">Architect, <a href="http://www.meez.com">meez.com</a></p>
+
+      <p class="quote">“My own experience of RabbitMQ so far has got me excited too: it’s the most flexible messaging platform I’ve ever used… RabbitMQ is ~fast~.”</p>
+      <p class="quote-credit">Sean O’Halpin, <a href="http://www.bbc.co.uk">bbc.co.uk</a></p>
+    </div>
+    
+    <p class="intro">Founded by the creators of RabbitMQ, Rabbit Technologies Ltd (RTL) delivers enterprise-class support and services to the hundreds of organisations worldwide that wish to leverage the knowledge and expertise behind RabbitMQ.</p>
+    
+    <h2>RabbitMQ Support</h2>
+    
+    <p>Offered by the original creators of RabbitMQ, RabbitMQ support is the best way to assure your system is dependable and to harness the full power of the RabbitMQ platform. With RabbitMQ support you will get to access management and technical service levels not otherwise available. </p>
+    
+    <p><a href="mailto:info@rabbitmq.com">Contact us for more details on RabbitMQ Support</a></p>
+    
+    <h2>RabbitMQ Training</h2>
+    
+    <p>To accelerate RabbitMQ deployment and product knowledge transfer, RTL offers role-based training courses. These focus on the use cases and patterns for best practice with RabbitMQ and AMQP, as well as its design, architecture and future development.
+    </p>
+    
+    <p>In addition to open-enrollment courses and fixed price packages, we provide on-site training worldwide that can be tailored to customers' specific needs.</p>
+    <p><a href="mailto:info@rabbitmq.com">Contact us for more details on training</a></p>
+    
+    <h2>RabbitMQ Consulting Services</h2>
+    <p>RTL offers a full range of consulting services to help developers go from download to deployment and beyond. Our team of RabbitMQ experts can help you take your application to the next level of architecture  and performance. With RabbitMQ consulting services, your infrastructure will remain stable and robust, supporting your operations and continuing to deliver value as your business grows.</p>
+    
+    <p>We provide client-driven engagements that focus on knowledge and skills transfer. Our custom professional services are highly flexible to address specific issues such as on-site troubleshooting, design review, deployment planning, project delivery and other value-adding services tailored to suit your needs. We also provide packaged professional services covering architectural application review, migration and solutions and proof of concept. </p>
+    
+    <p><a href="mailto:info@rabbitmq.com">Contact us for more details on consulting</a></p>
+    
   <p>For more information you can <a href="http://lists.rabbitmq.com">join our 
   mailing list</a>, or alternatively contact us directly at <a href="
   mailto:info@rabbitmq.com">info@rabbitmq.com</a>. 
