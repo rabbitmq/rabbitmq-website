@@ -9,15 +9,9 @@
             		version="1.0">
   <xsl:include href="feed.xsl"/>
   
-<xsl:output method="xml" 
-            media-type="text/xml"            
-            doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" 
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-            omit-xml-declaration="yes" 
-            indent="yes"
-            encoding="ISO-8859-1"  />
+<xsl:output method="html"  />
 
-
+       
 
   <xsl:template match="/html/head">
     <xsl:copy>
@@ -26,14 +20,13 @@
       <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico"/>
       <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
       <script type="text/javascript">
-	_uacct = "UA-1001800-1";
-	urchinTracker();
+_uacct = "UA-1001800-1";
+urchinTracker();
       </script>
     </xsl:copy>
   </xsl:template>
 
   <xsl:template match="/html/body">
-
     <xsl:copy>
       <div id="outerContainer">
 	<xsl:call-template name="page-header"/>
