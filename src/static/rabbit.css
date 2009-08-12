@@ -367,6 +367,7 @@ div#promo {
 	width: 200px;
 	padding: 10px 0px 10px 0px;
 	margin: 0 0px 10px 10px;
+	display: none;
 }
 div#promo p {
 	margin: 10px 10px 15px 10px;
