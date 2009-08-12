@@ -365,10 +365,11 @@ div#promo {
 	color: #fff;
 	float: right;
 	width: 200px;
-	padding: 10px 0 10px 0;
+	padding: 10px 0px 10px 0px;
+	margin: 0 0px 10px 10px;
 }
 div#promo p {
-	margin: 5px 10px 15px 10px;
+	margin: 10px 10px 15px 10px;
 }
 div#promo p.quote {
 	font-weight: bold;
