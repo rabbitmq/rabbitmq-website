@@ -3,20 +3,12 @@
 set -e
 cd `dirname $0`
 
-#$(TARGET_DIR)/%.atom: $(SRC_DIR)/%.xml $(SRC_DIR)/feed-old.xsl
-#	xsltproc --novalid --stringparam updated '$(shell date +"%FT%T%z")' $(SRC_DIR)/feed-old.xsl $< > $@
-
- #xsltproc -o --novalid site/news.atom site/feed-old.xsl site/news.xml
-
- #xsltproc -o --novalid  site/news.atom site/feed-old.xsl site/news.xml
+xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
 
 rm -rf /srv/www.rabbitmq.com
 mkdir -p /srv/www.rabbitmq.com
 cp -r site /srv/www.rabbitmq.com
 cp -r code /srv/www.rabbitmq.com
-
-#rm -rf /usr/share/wordpress/wp-content/themes/lshift
-#cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/lshift
 
 cp conf/www.rabbitmq.com /etc/apache2/sites-available/
 a2ensite www.rabbitmq.com

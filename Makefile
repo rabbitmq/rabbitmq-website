@@ -4,10 +4,10 @@
 # $ make deploy-stage RSH_USER=chris
 #
 
-TARGET_DIR=site
 SRC_DIR=site
+TARGET_DIR=site
 
-SOURCES=$($(SRC_DIR)/news.xml)
+SOURCES=$($(SRC_DIR)/news.xml
 
 TARGETS=$(TARGET_DIR)/news.atom
 
@@ -27,8 +27,8 @@ init:
 # $(TARGET_DIR)/%.html: $(SRC_XML)/%.xml $(SRC_XSL)/page.xsl ${SRC_XML}/rabbit.ent
 #	xsltproc --novalid $(SRC_XSL)/page.xsl $< > $@
 
-$(TARGET_DIR)/%.atom: $(SRC_DIR)/%.xml $(SRC_DIR)/feed-old.xsl
-	xsltproc --novalid --stringparam updated '$(shell date +"%FT%T%z")' $(SRC_DIR)/feed-old.xsl $< > $@
+$(TARGET_DIR)/%.atom: $(SRC_DIR)/%.xml $(SRC_DIR)/feed-atom.xsl
+	xsltproc --novalid --stringparam updated '$(shell date +"%FT%T%z")' $(SRC_DIR)/feed-atom.xsl $< > $@
 
 clean:
 	rm $(TARGET_DIR)/news.atom
