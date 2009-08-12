@@ -862,6 +862,73 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    </p>
 	  </doc:a>
 	</doc:faq>
+	
+		<doc:faq name="how-many-concurrent-connections">
+	  <doc:heading>How many concurrent connections can RabbitMQ support?</doc:heading>
+	  <doc:a>
+	    <p>You mean concurrent TCP connections? In theory as many as the operating
+system will give you. We haven't done any testing along that particular
+scalability dimension, but I am confident that if there are any niggles
+they can be sorted out quite easily.</p>
+
+<p>Also note that AMQP allows you to multiplex AMQP sessions across a
+single TCP connection.</p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="what-is-messaging">
+	  <doc:heading>Is there a way of "clusters" of RabbitMQ instances or in some other way scaling?</doc:heading>
+	  <doc:a>
+	    <p>We want to get to the point where one can dynamically add and remove
+nodes to/from a cluster that represents one logical AMQP broker, for
+both reliability and scalability (to very high numbers of nodes).</p>
+
+<p>Much of the code for this is already in place and we hope to have some
+basic clustering support working and documented for the next release.</p>
+
+<p>This is an important area for us, and one of the reasons we chose
+Erlang/OTP as the implementation platform for RabbitMQ. </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="maximum-throughput">
+	  <doc:heading>What's the maximum bytes/second throughput of an instance?  Same scaling questions as above to get more bytes/second through the system?</doc:heading>
+	  <doc:a>
+	    <p>We are discussing testing, both functional and performance, within the
+AMQP working group, with the idea of defining a shared set of AMQP
+tests, and the code to implement them.</p>
+
+<p>The problem is that there are many possible configurations of the test
+infrastructure, the RabbitMQ broker, the clients, and the tests
+themselves (e.g. AMQP supports many different forms of message
+delivery). In order to obtain meaningful performance figures one would
+have to specify exactly what the setup is, to the point where anybody
+can replicate it. Even then one would get just one data point in an
+infinite space of possible configurations, and it is generally
+impossible to extrapolate the results from one test to other scenarios.</p>
+	  </doc:a>
+	</doc:faq>
+
+
+	<doc:faq name="how-are-connections-secured">
+	  <doc:heading>How are the connections secured?  HTTPS or something else?  What about certificate management?</doc:heading>
+	  <doc:a>
+	    <p>The standard only defines basic username/password authentication. There
+are plans to extend that with SASL or some such mechanism.</p>
+
+<p>It should be possible to add SSL/TLS quite trivially. Certificate
+management would be done in a similar fashion to most other
+SSL/TLS-enable apps. Yes, I know it's a pain.</p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="is-the-wire-protocol-pure-binary">
+	  <doc:heading>Is the wire protocol pure binary or is there some XML mixed in?  Slap me and point me to the documentation if the answer is obvious.</doc:heading>
+	  <doc:a>
+	    <p>The protocol is pure binary.</p>
+	  </doc:a>
+	</doc:faq>
+
       </doc:section>
 
       <doc:section name="general">
