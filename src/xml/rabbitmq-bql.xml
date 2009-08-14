@@ -226,7 +226,7 @@ BQL> select name,messages from queues where 'durable'=true order by name
 
             <p>
               Routes can be queried by selecting from the &quot;bindings&quot; entity. For example,
-              <pre class="sourcecode">BQL> select * from queues;
+              <pre class="sourcecode">BQL> select * from bindings;
 ---------------------------------------------------
 | exchange_name | queue_name | routing_key | args |
 ---------------------------------------------------
