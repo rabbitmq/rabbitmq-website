@@ -22,7 +22,7 @@
       PythonPath "['/srv/www.rabbitmq.com/code/'] + sys.path"
     </Location>
 
-    <Location ~ "/(css|js|images|img|downloads|apps|blog|favicon.ico)">
+    <Location ~ "/(css|img|resources|static|favicon.ico|news.atom)">
         SetHandler None
     </Location>
 
