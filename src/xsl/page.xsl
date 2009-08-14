@@ -76,13 +76,13 @@ Technologies Ltd.</div>
 	      <ul class="{$tocNode/@class}">
 		<xsl:for-each select=".//doc:subsection[@name]">
 		  <li>
-                    <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-                    <ul class="{$tocNode/@class}">
-                      <xsl:for-each select=".//doc:subsubsection[@name]">
-                        <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-                      </xsl:for-each>
-                    </ul>
-                  </li>
+            <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+            <ul class="{$tocNode/@class}">
+              <xsl:for-each select=".//doc:subsubsection[@name]">
+                <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+              </xsl:for-each>
+            </ul>
+          </li>
 		</xsl:for-each>
 	      </ul>
 	    </xsl:if>
