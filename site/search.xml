@@ -1,0 +1,21 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html>
+  <head>
+    <title>Search</title>
+  </head>
+  <body>
+  
+<h2>Search this site</h2>
+<p>Use the form below to search rabbitmq.com, and dev.rabbitmq.com.</p>
+
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+   google.load('search', '1');
+   google.setOnLoadCallback(function(){
+      new google.search.CustomSearchControl('009922129631189805192:kpd1zoym_hq').draw('cse');
+   }, true);
+</script>
+
+  </body>
+</html>
