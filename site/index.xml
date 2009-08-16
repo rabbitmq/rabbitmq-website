@@ -37,18 +37,9 @@
       
       
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
-      <ul>
-        <li>  
-Catch up online
-
-<p>The RabbitMQ team have been busy giving presentations about the use of RabbitMQ at events
-like Google London, Oxford Geek Night, Erlang Factory etc. Many of these presentations were 
-filmed, and you can catch up online.</p>
-
-<p><a href="/news.html">Read more</a></p>
-        </li>
-      </ul>
       
+      <feed src="news.atom" limit="1" />    
+
       </div>
     </div>
     

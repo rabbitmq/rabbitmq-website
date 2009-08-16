@@ -44,7 +44,7 @@
     <ol class="feed">
       <xsl:for-each select="(item|rss1:item|atom:entry)[position() &lt;= $limit]">
         <li>          
-        <h2><a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a></h2>
+        <h4><a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a></h4>
 
           <p><xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/></p>
 

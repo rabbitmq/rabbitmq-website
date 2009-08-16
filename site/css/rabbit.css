@@ -79,14 +79,14 @@ h4 {
 	float: left;
 	width: 49.5%;
 	background: url(../img/listBg.gif) Repeat-X top right;
-	margin: 0.5ex 0 4ex 0;
+	margin: 0.5ex 0 2ex 0;
 	padding: 0;
 	}
 
 .col div.col {
   background: url(../img/listBg.gif) Repeat-X top right;
   width: 100% !important;
-  margin: 0.5ex 0 4ex 0;
+  margin: 0.5ex 0 2ex 0;
   padding: 0;
 }
 
@@ -97,14 +97,26 @@ h4 {
 	float: right;
 }
 
-.columnRight ul, .columnLeft ul {
+.columnRight ul, .columnLeft ul,
+.columnRight ol, .columnLeft ol {
 	padding: 0 0 0 0 ;
+}
+.col .feed li {
+      padding-bottom: 0px;
+      margin-bottom: 0px;
 }
 
 .col h3 {
 	margin: 0 1em 0 0;
 	padding: 10px;
         background: url(../img/listBg.gif) Repeat-X top left;
+}
+
+.col h4 {
+	margin: 0 1em 0 0;
+	padding: 0px 10px 0px 0px;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 ul {
@@ -318,6 +330,7 @@ td.signature, th.signature {
 .feed li {
 	margin-bottom: 2em;
 }
+
 
 .feed li hr {
 	visibility: visible;
