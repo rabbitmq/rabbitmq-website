@@ -49,10 +49,13 @@ urchinTracker();
   </xsl:template>
 
   <xsl:template name="page-header">
+     <p class="strap">Open source messaging</p>
     <h1>
       <a href="/"
 	 ><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37" /></a>
     </h1>
+
+
     <ul class="mainNav">
       <li><a href="/index.html">Home</a></li>
       <li><a href="/news.html">News</a></li>
@@ -65,6 +68,7 @@ urchinTracker();
       <li><a href="/search.html">Search</a></li>
     </ul>
     <hr/>
+
   </xsl:template>
 
   <xsl:template name="page-footer">

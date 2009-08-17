@@ -56,6 +56,12 @@ h1 {
 	float: left;
 	}
 
+p.strap {
+	float: right;
+	margin: 20px 0 0 0;
+	color: #a9b5af;
+	}
+
 h2 a {
 	color: #f60;
 	}
@@ -390,15 +396,30 @@ td.signature, th.signature {
         float: right;
 }
 <<<<<<< local
+<<<<<<< local
 =======
 <<<<<<< local
+=======
+>>>>>>> other
 
+<<<<<<< local
 >>>>>>> other
 table.gsc-search-box {
+=======
+
+table.gsc-search-box th,
+table.gsc-search-box td  {
+
+>>>>>>> other
 	border: none;
+<<<<<<< local
 <<<<<<< local
 =======
 }=======
+=======
+
+}
+>>>>>>> other
 div#promo {
 	background-color: #FA8800;
 	color: #fff;
@@ -420,4 +441,3 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
->>>>>>> other
