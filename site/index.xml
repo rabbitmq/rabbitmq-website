@@ -74,27 +74,12 @@
 
 
     <p>
-      For more information about RabbitMQ, <a href="http://lists.rabbitmq.com"> 
-      join our mailing list</a>, or contact us directly at <a
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+      Read more <a href="about.html">about RabbitMQ and the company behind it</a> and the 
+      <a href="community.html">community of users</a>.
      
     </p>
 
     
-    <p class="logos">
-      <a href="http://www.lshift.net/"><img src="img/LShiftLogo.gif" alt="lshift" width="138" height="65" /></a
-      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a>
-    </p>
 
-    <p>
-    
-Rabbit Technologies Ltd develop and commercially support the RabbitMQ
-product.  The company is
-based in the UK and was founded in February 2007.  It is a spin out
-from <a href="http://www.lshift.net/">LShift Ltd.</a>, the UK software
-consultancy and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, the US virtualization and
-cloud computing company.
-    </p>
-    <p>Nb. <a href="http://www.lshift.net/recruitment">LShift is always recruiting!</a></p>
   </body>
 </html>
