@@ -8,6 +8,8 @@
     ServerAlias spork.lshift.net
     ServerAlias ladle.lshift.net
     ServerAlias ladle
+    ServerAlias rabbitwww-stage.lshift.net
+    ServerAlias rabbitwww.lshift.net
     ServerAdmin simon@lshift.net
 
     DocumentRoot /srv/www.rabbitmq.com/site/
