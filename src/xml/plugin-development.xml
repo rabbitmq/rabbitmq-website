@@ -350,9 +350,9 @@ scripts/rabbitmq-activate-plugins</pre>
              <pre class="sourcecode">-module(rabbit_metronome_tests).
 
 -include_lib("eunit/include/eunit.hrl").
--include("rabbit.hrl").
--include("rabbit_framing.hrl").
--include("amqp_client.hrl").
+-include_lib("rabbit_common/include/rabbit.hrl").
+-include_lib("rabbit_common/include/rabbit_framing.hrl").
+-include_lib("amqp_client/include/amqp_client.hrl").
 
 receive_tick_test() ->
   Connection = amqp_connection:start_direct("guest", "guest"),
