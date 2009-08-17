@@ -337,9 +337,15 @@ td.signature, th.signature {
 	font-size: 95%;
 }
 
+.pageFooter a.about {
+	float: right;
+	font-weight: normal;
+}
+
 .feed li {
 	margin-bottom: 2em;
 }
+
 
 
 .feed li hr {
@@ -383,8 +389,25 @@ td.signature, th.signature {
 .subscribe {
         float: right;
 }
+<<<<<<< local
+=======
+<<<<<<< local
+
+>>>>>>> other
 table.gsc-search-box {
 	border: none;
+<<<<<<< local
+=======
+}=======
+div#promo {
+	background-color: #FA8800;
+	color: #fff;
+	float: right;
+	width: 200px;
+	padding: 10px 0px 10px 0px;
+	margin: 0 0px 10px 10px;
+	display: none;
+>>>>>>> other
 }
 div#promo p {
 	margin: 10px 10px 15px 10px;
@@ -397,3 +420,4 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
+>>>>>>> other
