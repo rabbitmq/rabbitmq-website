@@ -28,11 +28,11 @@
     </p>
 
     <p>
-      For more information about RabbitMQ, <a href="http://lists.rabbitmq.com"> 
-      join our mailing list</a>, or contact us directly at <a
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
-     
+      For more information about RabbitMQ, explore the <a href="documentation.html">documentation</a>,
+      <a href="examples.html">examples</a>, <a href="community.html">community forums</a>     
     </p>
+    
+    <h2>About Rabbit Technologies Ltd</h2>
     <p>	  
       Rabbit Technologies Ltd develop and commercially support the RabbitMQ
       product.  The company is

@@ -59,7 +59,7 @@
     <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
   </xsl:when>
   <xsl:otherwise>
-    <h3><a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a></h3>  
+    <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a> 
     <p><xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/></p>
 </xsl:otherwise>
 </xsl:choose>
