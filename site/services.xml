@@ -5,14 +5,7 @@
   </head>
   <body>
     <doc:div>
-    
-    <div id="promo">
-      <p class="quote">“Thanks to you and your team for all your help. We couldn't have gotten this far without you, the team, and most importantly RabbitMQ.”</p>
-      <p class="quote-credit">Architect, <a href="http://www.meez.com">meez.com</a></p>
 
-      <p class="quote">“My own experience of RabbitMQ so far has got me excited too: it’s the most flexible messaging platform I’ve ever used… RabbitMQ is ~fast~.”</p>
-      <p class="quote-credit">Sean O’Halpin, <a href="http://www.bbc.co.uk">bbc.co.uk</a></p>
-    </div>
     
     <p class="intro">Founded by the creators of RabbitMQ, Rabbit Technologies Ltd (RTL) delivers enterprise-class support and services to the hundreds of organisations worldwide that wish to leverage the knowledge and expertise behind RabbitMQ.</p>
     
