@@ -353,6 +353,7 @@ td.signature, th.signature {
 }
 
 
+
 .feed li hr {
 	visibility: visible;
 	border: none;
@@ -395,9 +396,12 @@ td.signature, th.signature {
         float: right;
 }
 
+
 table.gsc-search-box th,
 table.gsc-search-box td  {
+
 	border: none;
+
 }
 div#promo {
 	background-color: #FA8800;
