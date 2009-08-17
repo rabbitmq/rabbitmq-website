@@ -1,0 +1,175 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+  <head>
+    <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
+  </head>
+  <body>
+    <h2>
+      RabbitMQ .NET/C# AMQP client library and WCF binding
+    </h2>
+
+    <p>
+      The RabbitMQ .NET client is an implementation of an AMQP client
+      library for C# (and, implicitly, other .NET languages), and a
+      binding exposing AMQP services via Microsoft's Windows
+      Communication Foundation (WCF).
+    </p>
+
+    <p>
+      The client library implements AMQP specifications version 0-8,
+      0-8bis (0-8 as modified by QPid for their M2 release) and 0-9
+      (omitting sections of the specification marked "work in
+      progress", i.e. the <tt>Message</tt> content-class). A single
+      binary copy of the library contains support for all three
+      protocol variants, and code can select a variant to use at
+      runtime. The library has been tested against
+    </p>
+
+    <ul>
+      <li>RabbitMQ 1.2.x (AMQP 0-8)</li>
+      <li>QPid M2 (AMQP 0-8bis, 0-9 (in the M2.1 branch))</li>
+      <li>OpenAMQ 1.2c4 (AMQP 0-9)</li>
+    </ul>
+
+    <p>
+      The library is open-source, and is dual-licensed under <a
+      href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+      License v2</a> and <a href="mpl.html">the Mozilla Public License
+      v1.1</a>.
+    </p>
+
+    <p>
+      In order to compile or run the RabbitMQ .NET/C# client library,
+      you will need an appropriate .NET SDK or runtime environment
+      available, respectively.
+    </p>
+
+    <h3>
+      Status
+    </h3>
+
+    <p>
+      The current release of RabbitMQ .NET/C# AMQP library is <b>
+      &version-dotnet-client;</b>, which has <b>&status-dotnet-client;</b> status.
+    </p>
+
+    <h3>
+      Download the library and documentation
+    </h3>
+
+    <h4>The library</h4>
+
+    <p>
+      The library is available as source, or compiled in a few
+      different forms:
+    </p>
+
+    <r:downloads signature="no">
+      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;-net-2.0.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Binary, compiled for .NET 2.0 (zip) - includes example code
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;-net-3.0-wcf.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Binary, compiled for .NET 3.0 and newer (zip) - includes
+	example code, the WCF binding and WCF examples
+      </r:download>
+    </r:downloads>
+
+    <h4>The documentation</h4>
+
+    <p>
+      <a href="/releases/&dir-dotnet-client;/">This directory</a> contains all
+      the available documentation. Please see <a href="build-dotnet-client.html">
+      build page </a> for instructions on compiling from source-code. You can
+      also browse <a
+      href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-2.0-htmldoc/">
+      an online-browsable copy</a> of the generated HTML API guide documentation.
+    </p>
+
+    <r:downloads signature="no">
+      <r:download downloadfile="&nameVersion-dotnet-client;-user-guide.pdf"
+		  downloadpath="&dir-dotnet-client;">
+	The User Guide (pdf)
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;-wcf-service-model.pdf"
+		  downloadpath="&dir-dotnet-client;">
+	A description of the WCF binding and Service Model (pdf)
+      </r:download>
+    </r:downloads>
+
+    <p>
+      The .NET AMQP client library API Guide, generated from the source code using <a
+      href="http://www.lshift.net/~tonyg/ndocproc/doc/index.html">NDocProc</a>,
+      is also available:
+    </p>
+
+    <r:downloads signature="no">
+      <r:download downloadfile="&nameVersion-dotnet-client;-api-guide.pdf"
+		  downloadpath="&dir-dotnet-client;">
+	API Guide PDF
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;-net-2.0-htmldoc.zip"
+		  downloadpath="&dir-dotnet-client;">
+	A downloadable ZIP of the generated HTML documentation (also
+	available in <a
+	href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-2.0-htmldoc/">online-browsable</a>
+	form)
+      </r:download>
+    </r:downloads>
+
+    <h4>Other versions</h4>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-dotnet-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      .NET/C# Client library or documentation other than the above.
+    </p>
+
+
+    <h3>Mercurial repository</h3>
+    <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
+    
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-dotnet-client"
+        url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
+    </repositories>
+
+    <h3>Support</h3>
+
+    <p>
+      For help compiling or installing RabbitMQ, please contact <a
+      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
+      for general RabbitMQ queries. You can also 
+      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+    </p>
+
+    <h3>
+      Strong naming
+    </h3>
+
+    <p>
+      The client assembly is strong named. The public key token is 89e7d7c5feba84ce 
+      and the public part of the signing key is 
+<pre>
+00240000048000009400000006020000002400005253413100040000010001008d20ec856aeeb8
+c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
+96c77329efdee4579b3814c0789e5a39b51df6edd75b602a33ceabdfcf19a3feb832f31d825416
+8cd7ba5700dfbca301fbf8db614ba41ba18474de0a5f4c2d51c995bc3636c641c8cbe76f45717b
+fcb943b5.
+</pre>
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html>
+  <head>
+    <title>RabbitMQ - Open Source Messaging</title>
+  </head>
+  <body>
+    <p class="intro">RabbitMQ is an implementation of <a href="specification.html">AMQP</a>, the emerging standard for high performance <a href="faq.html#what-is-messaging">messaging</a>.
+    </p>
+
+    <div class="col columnLeft">
+      <h3>Features</h3>
+      <ul>
+
+	<li>A complete, <a href="specification.html">conformant</a> 
+ and <a href="interoperability.html">interoperable</a>
+	implementation of the published AMQP specification
+        </li>
+	
+	<li>Based on a <a href="faq.html#what-is-otp">proven
+	platform</a>, offering exceptionally high reliability,
+	availability and scalability</li>
+	
+	<li>Good throughput and latency performance that is predictable
+	and consistent</li>
+	
+	<li>Compact, easily maintainable code base, for rapid
+	customisation and hot deployment</li>
+	
+	<li>Extensive facilities for management, monitoring, control
+	and debugging </li>
+
+	<li>Licensed under the open source <a href="mpl.html">Mozilla
+	Public License</a></li>
+
+      </ul>
+      <div class="col">
+      
+      
+      <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
+      
+      <feed src="news.atom" limit="1" />    
+
+      </div>
+    </div>
+    
+    <div class="col columnRight">
+      <h3>Distribution</h3>
+      <ul>
+	<li>RabbitMQ server, written on top of the widely-used <a
+	href="faq.html#what-is-otp">Open Telecom Platform</a></li>
+
+	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a>,  
+	 a <a href="dotnet.html">.NET/C# client</a>, with support for WCF, and many other clients available</li>
+
+	<li><a href="download.html#experimental">Experimental
+	bindings</a> supporting HTTP, STOMP, SMTP, POP3, ...</li>
+
+	<li>Platform-neutral distribution, plus platform-specific
+	packages and bundles for easy installation</li>
+
+	<li>Several <a class="downloadNow" href="how.html#highlights"><b>user-contributed packages</b></a> that extend the
+	core RabbitMQ functionality</li>
+
+	<li>Extensive <a href="documentation.html">documentation</a>,
+	several <a href="examples.html">demos and examples</a>, and a
+	functional/performance test suite</li>
+	
+	<li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
+
+      </ul>
+    </div>
+
+    <hr/>
+
+
+    <p>
+      Read more <a href="about.html">about RabbitMQ and the company behind it</a> and the 
+      <a href="community.html">community of users</a>.
+     
+    </p>
+
+    
+
+  </body>
+</html>
