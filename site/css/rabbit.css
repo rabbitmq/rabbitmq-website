@@ -379,3 +379,23 @@ td.signature, th.signature {
 .subscribe {
         float: right;
 }
+div#promo {
+	background-color: #FA8800;
+	color: #fff;
+	float: right;
+	width: 200px;
+	padding: 10px 0px 10px 0px;
+	margin: 0 0px 10px 10px;
+	display: none;
+}
+div#promo p {
+	margin: 10px 10px 15px 10px;
+}
+div#promo p.quote {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+div#promo p.quote-credit a {
+	color: #fff;
+	font-weight: bold;
+}
