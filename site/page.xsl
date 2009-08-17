@@ -69,7 +69,7 @@ urchinTracker();
 
   <xsl:template name="page-footer">
     <hr/>
-    <div class="pageFooter">RabbitMQ&#8482; is a Trademark of Rabbit
+    <div class="pageFooter"><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</div>
   </xsl:template>
 

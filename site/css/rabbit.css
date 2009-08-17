@@ -1,6 +1,10 @@
 /* 8a948f - 150 7 58 */
 /* a9b5af - 150 7 71 */
 /* old visited color: #c40; */
+html {
+overflow-x:hidden;
+overflow-y:scroll;
+}
 
 body, table {
 	font: 12px/15px Verdana, sans-serif;
@@ -333,6 +337,11 @@ td.signature, th.signature {
 	font-size: 95%;
 }
 
+.pageFooter a.about {
+	float: right;
+	font-weight: normal;
+}
+
 .feed li {
 	margin-bottom: 2em;
 }
@@ -378,4 +387,8 @@ td.signature, th.signature {
 
 .subscribe {
         float: right;
+}
+
+table.gsc-search-box {
+	border: none;
 }
