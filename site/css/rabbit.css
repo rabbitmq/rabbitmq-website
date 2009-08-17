@@ -112,6 +112,12 @@ h4 {
         background: url(../img/listBg.gif) Repeat-X top left;
 }
 
+.col h3 a.more-links {
+	float: right;
+	font-size: 12px;
+	font-weight: normal;
+}
+
 .col h4 {
 	margin: 0 1em 0 0;
 	padding: 0px 10px 0px 0px;
@@ -169,7 +175,7 @@ p {
 }
 
 .clear {
-	clear:left;
+	clear:both;
 }
 
 .document h2, h3 {
@@ -185,11 +191,11 @@ div.docRoadmapentryHeading {
 }
 
 ul.mainNav {
-	text-align: right;
+	text-align: left;
 	margin: 87px 0 0 0;
 	padding: 0 0 0 0;
 	height: 20px;
-	float: right:
+	float: left:
 	clear: both;
 	border-bottom: #ff9933 1px solid;
 }
@@ -197,7 +203,7 @@ ul.mainNav {
 	display: inline;
 	border: none;
 	background: white;
-        padding: 0 0 0 0.5em;
+        padding: 0 2em 0 0;
 	margin: 1px;
 	text-decoration: none;
 }

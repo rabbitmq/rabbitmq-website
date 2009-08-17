@@ -58,14 +58,13 @@
 	<li>Platform-neutral distribution, plus platform-specific
 	packages and bundles for easy installation</li>
 
-  <li>Several user-contributed packages that extend the core RabbitMQ functionality</li>
+	<li>Several <a class="downloadNow" href="how.html#highlights"><b>user-contributed packages</b></a> that extend the
+	core RabbitMQ functionality</li>
 
 	<li>Extensive <a href="documentation.html">documentation</a>,
 	several <a href="examples.html">demos and examples</a>, and a
 	functional/performance test suite</li>
 	
-	<li>Find latest presentations, blog posts and links to relevant tools on our <a class="downloadNow" href="how.html"><b>community page</b></a></li>
-
 	<li><a class="downloadNow" href="download.html"><b>Download Now!</b></a></li>
 
       </ul>
@@ -73,23 +72,6 @@
 
     <hr/>
 
-    <p>
-      RabbitMQ is a complete and highly reliable Enterprise Messaging
-      system. The RabbitMQ client libraries and broker daemon can be
-      used together to create an AMQP network, or used individually to
-      bring the benefits of RabbitMQ to established networks.
-    </p>
-
-    <p>
-      Packages/installers are available for all major operating
-      systems and platforms. RabbitMQ can also be deployed as a
-      VMWare/Debian virtual appliance.
-    </p>
-
-    <p>
-      <a href="services.html">Commercial support services</a> are
-      available from Rabbit Technologies, LShift, and CohesiveFT.
-    </p>
 
     <p>
       For more information about RabbitMQ, <a href="http://lists.rabbitmq.com"> 

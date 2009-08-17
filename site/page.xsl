@@ -51,15 +51,18 @@ urchinTracker();
   <xsl:template name="page-header">
     <h1>
       <a href="/"
-	 ><img border="0" src="/img/RabbitMQLogo.png" alt="RabbitMQ" width="328" height="87" /></a>
+	 ><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37" /></a>
     </h1>
     <ul class="mainNav">
+      <li><a href="/index.html">Home</a></li>
       <li><a href="/news.html">News</a></li>
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
       <li><a href="/examples.html">Examples</a></li>
       <li><a href="/services.html">Services</a></li>
+      <li><a href="/community.html">Community</a></li>
       <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/search.html">Search</a></li>
     </ul>
     <hr/>
   </xsl:template>

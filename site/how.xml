@@ -5,14 +5,15 @@
     <title>RabbitMQ - How</title>
   </head>
   <body>
-    <doc:div>
-      <h2>How easy is it?</h2>
-
-      <p>You will find more detailed information elsewhere on the site, but listed below are shortcuts to 
-      some useful case studies, tools and tutorials. <a href="delicious.html">More here</a>.</p>  
+    <doc:div>    
+    
+      <h2 id="highlights">Highlights: presentations, blogs and code</h2> 
       
+      <p>You will find more detailed information elsewhere on the site, but listed below are some of the latest
+      shortcuts to some useful case studies, tools and tutorials. <a href="delicious.html">Explore these links in
+      more depth on Del.icio.us</a>.</p>  
       <p>Please feel free to <a href="mailto:info@rabbitmq.com">suggest links</a>.</p>
-   
+      
       <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
         <li><a href="http://www.rabbitmq.com/documentation.html">RabbitMQ documentation and Getting Started Guide</a> </li>
