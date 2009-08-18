@@ -233,8 +233,9 @@ init([]) ->
 -export([start/0, start/2, stop/0, stop/1, start_link/0]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 
--include("rabbit.hrl").
--include("rabbit_framing.hrl").
+-include_lib("rabbit_common/include/rabbit.hrl").
+-include_lib("rabbit_common/include/rabbit_framing.hrl").
+-include_lib("amqp_client/include/amqp_client.hrl").
 
 -record(state, {channel}).
 -define(RKFormat, "~4.10.0B.~2.10.0B.~2.10.0B.~1.10.0B.~2.10.0B.~2.10.0B.~2.10.0B").
@@ -349,9 +350,9 @@ scripts/rabbitmq-activate-plugins</pre>
              <pre class="sourcecode">-module(rabbit_metronome_tests).
 
 -include_lib("eunit/include/eunit.hrl").
--include("rabbit.hrl").
--include("rabbit_framing.hrl").
--include("amqp_client.hrl").
+-include_lib("rabbit_common/include/rabbit.hrl").
+-include_lib("rabbit_common/include/rabbit_framing.hrl").
+-include_lib("amqp_client/include/amqp_client.hrl").
 
 receive_tick_test() ->
   Connection = amqp_connection:start_direct("guest", "guest"),
