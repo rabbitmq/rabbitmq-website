@@ -38,7 +38,7 @@
       
       <h3><span class="subscribe"><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /></a></span>News</h3>
       
-      <feed src="news.atom" limit="1" />    
+      <feed src="news.atom" type="ournews" limit="4" />    
 
       </div>
     </div>
