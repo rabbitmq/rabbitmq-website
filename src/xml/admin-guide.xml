@@ -908,6 +908,95 @@
         </doc:subsection>
       </doc:section>
 
+      <doc:section name="plugins">
+        <doc:heading>Plugins</doc:heading>
+        
+        <p>
+          RabbitMQ provides a plugin mechanism allowing for additional OTP applications to be run 
+          within the broker node. Plugins should not be seen as a general purpose mechanism for writing
+          applications, but instead as a specialised tool when additional functionality is required
+          at the broker level.
+        </p>
+        <p>
+          The RabbitMQ plugin mechanism makes use of a custom OTP .boot file, to start additional OTP 
+          applications within the broker node, and thus comes with a number of caveats:
+        </p>
+        <ul>
+          <li>
+            Custom Boot files require that all applications (including standard OTP applications) have
+            explicit versions listed. This means that if your OTP installation is upgraded, then Rabbit
+            will most likely not start until the plugin activation script is run again.
+          </li>
+          <li>
+            Since the plugin runs in the same node as the broker, it should not be assumed that any access
+            controls configured on the broker will be observed by the plugin. Whilst plugins can interact
+            with the ACL mechanism to ensure enforcement of security mechanisms, it is also possible for
+            plugins to completely ignore security configuration.
+          </li>
+          <li>
+            <strong>
+              Again, since the plugin runs in the same node as the broker, an action that results in the node
+              halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
+              this occuring, however Administrators should be aware of the risks of installing plugins - especially
+              those that are not known to have undergone a rigorous QA procedure.
+            </strong>
+          </li>
+        </ul>
+
+        <doc:subsection name="installing-plugins">
+          <doc:heading>Plugin Installation</doc:heading>
+          <ul>
+            <li>
+              Plugins will generally be available in two forms. The expected form for a packaged plugin
+              will be a .ez erlang archive. Alternatively, more developmental plugins may be distributed
+              directly from source control, whereby they will be a directory containing (at least) an ebin
+              subdirectory.
+            </li>
+            <li>
+              In both cases, the plugin archive (or directory) should be placed into the plugins subdirectory
+              within the rabbitmq-server installation directory (ie, the directory that the ebin directory
+              resides within). If this directory does not exist, it can be safely created.
+            </li>
+            <li>
+              Once the desired plugins have been placed in the plugins directory, run the following as root:
+              <pre>rabbitmq-activate-plugins</pre> 
+              Note that on some platforms it has been observed that many spurious warnings are printed along the lines
+              of:
+              <pre>*WARNING* mnesia: Object code (mnesia) out of date</pre>
+              It is our experience that warnings of this variety can be safely ignored.
+            </li>
+            <li>
+              Upon successful completion of the script, restart Rabbit. All installed plugins will be started
+              automatically.
+            </li>
+          </ul> 
+        </doc:subsection>
+       
+        <doc:subsection name="uninstalling-plugins">
+          <doc:heading>Plugin Un-installation</doc:heading>
+          
+          <p>
+            To remove an installed plugin from the broker, delete the .ez file or directory from the plugins
+            directory, and re-run the rabbitmq-activate-plugins script. When the broker is restarted, the deleted
+            plugin will no longer be started.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="disabling-all-plugins">
+          <doc:heading>Disabling all Plugins</doc:heading>
+
+          <p>
+            In the event of broker mis-behaviour, it is recommended that all plugins be disabled as a first
+            port-of-call. Instead of manually removing all files from the plugins directory, the custom boot
+            file for Rabbit can instead be removed so as to disable all plugins until the next time that
+            activate plugins is run. Assuming that your current working directory is the Rabbit root directory,
+            execute:
+            <pre>rm ebin/rabbit.boot</pre>
+            
+            When Rabbit is restarted, no custom plugins will be loaded.
+          </p>
+        </doc:subsection> 
+      </doc:section>
     </doc:div>
   </body>
 </html>
