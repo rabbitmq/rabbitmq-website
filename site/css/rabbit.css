@@ -403,14 +403,31 @@ td.signature, th.signature {
 .subscribe {
         float: right;
 }
+<<<<<<< local
+<<<<<<< local
+=======
+<<<<<<< local
+=======
+>>>>>>> other
 
+<<<<<<< local
+>>>>>>> other
+table.gsc-search-box {
+=======
 
 table.gsc-search-box th,
 table.gsc-search-box td  {
 
+>>>>>>> other
 	border: none;
+<<<<<<< local
+<<<<<<< local
+=======
+}=======
+=======
 
 }
+>>>>>>> other
 div#promo {
 	background-color: #FA8800;
 	color: #fff;
@@ -419,6 +436,7 @@ div#promo {
 	padding: 10px 0px 10px 0px;
 	margin: 0 0px 10px 10px;
 	display: none;
+>>>>>>> other
 }
 div#promo p {
 	margin: 10px 10px 15px 10px;
