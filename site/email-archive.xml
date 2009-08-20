@@ -12,7 +12,7 @@ Are email archives are available in a number of ways:
       </p>
       <ul>
         <li>There is a read-only Mailman interface which also provides information on <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">how to subscribe</a> directly.</li>
-        <li>There is also a web forum view provided by <a href="www.nabble.com">Nabble</a>:</li> 
+        <li>There is also a web forum view provided by <a href="http://www.nabble.com">Nabble</a>:</li> 
       </ul>
     
     <p><a id="nabblelink" href="http://www.nabble.com/RabbitMQ-f25704.html">RabbitMQ Forum</a></p>
