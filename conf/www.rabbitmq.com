@@ -17,16 +17,28 @@
     CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined
     ErrorLog /var/log/apache2/error-www.rabbitmq.com.log
 
-    <Location />
+    # Never show index pages
+    Options -Indexes
+
+    # Send requests for the empty path and .html, .xml, .xsl files to
+    # the Python XSLT handler.  It will 404 on the .xml and .xsl files
+    <Location ~ "^/(|[^/]*.(html|xml|xsl))$">
       SetHandler python-program
       PythonHandler xsl
       PythonDebug On
       PythonPath "['/srv/www.rabbitmq.com/code/'] + sys.path"
     </Location>
 
-    <Location ~ "/(css|img|resources|static|favicon.ico|news.atom)">
-        SetHandler None
-    </Location>
+    # Send 404 and 500s to the appropriate pages.  403 is permission denied.
+    ErrorDocument 403 /404.html
+    ErrorDocument 404 /404.html
+    ErrorDocument 500 /500.html
+
+    # These directories are constructed by the rabbitmq-umbrella
+    Alias /examples /home/rabbitmq/stage-extras/examples
+    Alias /javadoc /home/rabbitmq/stage-extras/javadoc
+    Alias /releases /home/rabbitmq/stage-extras/releases
+    Alias /debian /home/rabbitmq/stage-extras/releases/debian
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
