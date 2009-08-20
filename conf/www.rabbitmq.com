@@ -32,10 +32,10 @@
     ErrorDocument 500 /500.html
 
     # These directories are constructed by the rabbitmq-umbrella
-    Alias /examples /home/rabbitmq/stage-extras/examples
-    Alias /javadoc /home/rabbitmq/stage-extras/javadoc
-    Alias /releases /home/rabbitmq/stage-extras/releases
-    Alias /debian /home/rabbitmq/stage-extras/releases/debian
+    Alias /examples /home/rabbitmq/extras/examples
+    Alias /javadoc /home/rabbitmq/extras/javadoc
+    Alias /releases /home/rabbitmq/extras/releases
+    Alias /debian /home/rabbitmq/extras/releases/debian
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
