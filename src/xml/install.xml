@@ -54,8 +54,10 @@
 	      <code>rabbitmq_server-<i>version</i></code>.
 
 	      You should extract this folder to somewhere appropriate
-	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. You
-	      will also need to set the environment
+	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      Once the files are successfully extracted, you should end up with a structure
+	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
 	      (e.g. <code>C:\Program Files\erl5.5.5</code>).
 	      
