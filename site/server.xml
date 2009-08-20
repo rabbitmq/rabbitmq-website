@@ -4,7 +4,8 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ - AMQP server</title>
   </head>
