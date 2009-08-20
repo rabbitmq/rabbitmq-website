@@ -17,9 +17,6 @@
     CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined
     ErrorLog /var/log/apache2/error-www.rabbitmq.com.log
 
-    # Never show index pages
-    Options -Indexes
-
     # Send requests for the empty path and .html, .xml, .xsl files to
     # the Python XSLT handler.  It will 404 on the .xml and .xsl files
     <Location ~ "^/(|[^/]*.(html|xml|xsl))$">
