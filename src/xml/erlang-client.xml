@@ -107,7 +107,7 @@
      <doc:heading>Managing Exchanges And Queues</doc:heading>
      <p>
 
-       Now that a channel has been established, the amqp_channel module can be used to manage the fundamental objects within AMQP, namely exchanges and queues. The following function creates an exchange called my_exchange, which by default, is direct exchange:
+       Now that a channel has been established, the amqp_channel module can be used to manage the fundamental objects within AMQP, namely exchanges and queues. The following function creates an exchange called my_exchange, which by default, is the direct exchange:
 
        <pre class="sourcecode">
        Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
@@ -149,32 +149,113 @@
         #'queue.unbind_ok'{} = amqp_channel:call(Channel, Binding)
         </pre>
        
+       An exchange can be deleted by the #'exchange.delete'{} command:
+       
+       <pre class="sourcecode">
+        Delete = #'exchange.delete'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+        #'exchange.delete_ok'{} = amqp_channel:call(Channel, Delete)
+       </pre>
+       
+       Similarly, a queue is deleted using the #'queue.delete'{} command:
+       
+       <pre class="sourcecode">
+         Delete = #'queue.delete'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+         #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete)
+        </pre>
      </p>
    </doc:section>
+
+<!-- ..................................................................... -->
+
+   <doc:section name="sending">
+   <doc:heading>Sending Messages</doc:heading>
+   
+    <p>
+
+      To send a message to an exchange with a particular routing key, the #'basic.publish'{} command in conjunction with the #amqp_msg{} record is used:
+
+      <pre class="sourcecode">
+        Publish = #'basic.publish'{exchange = X, routing_key = Key},
+        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
+      </pre>
+
+      By default, the properties field of the #amqp_msg{} record contains a minimal implementation of the #'P_basic'{} properties structure. If an application needs to override any of the defaults, for example, to send persistent messages, the #amqp_msg{} needs to be constructed accordingly:
+
+      <pre class="sourcecode">
+        Publish = #'basic.publish'{exchange = X, routing_key = Key},
+        Props = #'P_basic'{delivery_mode = 2}, # for persistent messaging
+        Msg = #amqp_msg{props = Props, payload = Payload},
+        amqp_channel:cast(Channel, Publish, Msg)
+      </pre>
+      
+      The full list of message headers is explained in the AMQP protocol documentation.
+      
+    </p>
+    <p>
+      Note that messages can be published either using amqp_channel:call/3 or amqp_channel:cast/3. The difference is that call/3 will put the message onto the network stack before returning to the caller. In contrast, cast/3 performs this operation asynchronously. From a responsibility transfer perspective however, this makes makes little difference. The only way a client can know that the server has taken responsibility for a message is to either enforce mandatory routing or to use a transaction.
+    </p>
+   </doc:section>
+   
+<!-- ..................................................................... -->
+
    <doc:section name="closing">
   
-  <doc:heading>Closing Channels And The Connection</doc:heading>
+   <doc:heading>Closing Channels And The Connection</doc:heading>
     <p>
 
-      When a channel is no longer required, a client should close it. This is achieved using the following code: 
+      When a channel is no longer required, a client should close it. This is achieved using amqp_channel:close/1: 
 
       <pre class="sourcecode">
-      #'channel.close_ok'{} = amqp_channel:call(Channel, #'channel.close'{})
+       amqp_channel:close(Channel)
       </pre>
 
-      To close the connection, this function is used:
+      To close the connection, amqp_connection:close/1 is used:
       
       <pre class="sourcecode">
-      #'connection.close_ok'{} = amqp_connection:close(Connection, #'connection.close'{})
+       amqp_connection:close(Connection)
       </pre>
-  
 
     </p>
     <p>
-      Both the #'channel.close'{} and #'connection.close'{} commands take the arguments reply_code (an integer) and reply_text (binary text), which can be set by the client depending on the reason why the channel or connection is being closed. In general, however, the reply_code is set to 200 to indicate a normal shutdown. The reply_text attribute is just an arbitrary string, that the server may or may not log.
+    
+    Both the #'channel.close'{} and #'connection.close'{} commands take the arguments reply_code (an integer) and reply_text (binary text), which can be set by the client depending on the reason why the channel or connection is being closed. In general, however, the reply_code is set to 200 to indicate a normal shutdown. The reply_text attribute is just an arbitrary string, that the server may or may not log. If a client wants to set to a different reply code and/or text, it can use the overloaded functions amqp_channel:close/3 and amqp_connection:close/3 respectively.
+    
     </p>
   </doc:section>
-  <doc:section name="closing">
+
+<!-- ..................................................................... -->
+
+  <doc:section name="example">
+  <doc:heading>Complete Example</doc:heading>
+   <p>
+
+     This shows a complete example: 
+
+     <pre class="sourcecode">
+      Channel = amqp_connection:open_channel(Connection),
+      amqp_channel:close(Channel),
+     </pre>
+
+   </p>
+  </doc:section>
+
+
+<!-- ..................................................................... -->
+
+  <doc:section name="flow">
+  <doc:heading>Flow Control</doc:heading>
+  </doc:section>
+
+
+<!-- ..................................................................... -->
+
+  <doc:section name="tx">
+  <doc:heading>Transactions</doc:heading>
+  </doc:section>
+  
+<!-- ..................................................................... -->
+
+  <doc:section name="multiple_channels">
   <doc:heading>Parallelism Through Multiple Channels</doc:heading>
    <p>
      The fundamental unit of parallelism in the AMQP model is the channel. Channels are designed to multiplex multiple interaction streams between the client and the broker. In general, each client process that sends or receives commands to the broker should have its own dedicated channel. As such, the client is free to create as many channels within a connection as is required by the application.
