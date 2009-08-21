@@ -33,6 +33,9 @@
           <li>
             <a href="extensions.html">Extensions and Experimental Features</a>
           </li>
+          <li>
+            <a href="plugin-development.html">Plugin Development Guide</a>
+          </li>
 	</ul>
       </doc:section>
 
@@ -54,6 +57,16 @@
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
 	</ul>
+      </doc:section>
+      
+      <doc:section name="plugins">
+        <doc:heading>Plugins</doc:heading>
+        
+        <ul>
+          <li>
+            <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language support
+          </li>
+        </ul>
       </doc:section>
 
       <doc:section name="general">
