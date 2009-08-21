@@ -47,9 +47,14 @@
 </VirtualHost>
 
 <VirtualHost *:80>
+    ServerAdmin webmaster@lshift.net
     ServerName rabbitmq.com
     ServerAlias ww.rabbitmq.com
     ServerAlias www.rabbitmq.com
+    ServerAlias www.rabbitmq.org
+    ServerAlias www.rabbitmq.net
+    ServerAlias rabbitmq.org
+    ServerAlias rabbitmq.net
 
     Redirect permanent / http://www.rabbitmq.com/
 </VirtualHost> 
