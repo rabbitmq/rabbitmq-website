@@ -41,7 +41,11 @@ def render_page(page_name):
     if not os.path.exists(fpath):
         raise Error404, page_name
 
-    xml_doc = libxml2.parseFile(fpath)
+    xml_ctxt = libxml2.createFileParserCtxt(fpath)
+    xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
+    xml_ctxt.parseDocument()
+    xml_doc = xml_ctxt.doc()
+    
     for child in xml_doc.children:
         if child.name == 'xml-stylesheet':
             match = re.compile('.*href="(.*)"').match(child.getContent())
