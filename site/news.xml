@@ -15,7 +15,7 @@
       -->     
               
       <doc:item>
-	<doc:date iso="2009-07-22:00:00Z">22 July 2009</doc:date>
+	<doc:date iso="2009-07-22T00:00:00Z">22 July 2009</doc:date>
 	<doc:title>
    Catch up online
 	</doc:title>
@@ -39,7 +39,7 @@ on <a href="/how.html">this page</a> for a summary of who is doing what, and how
       </doc:item>
             
       <doc:item>
-	<doc:date iso="2009-07-15:00:00Z">15 July 2009</doc:date>
+	<doc:date iso="2009-07-15T00:00:00Z">15 July 2009</doc:date>
 	<doc:title>
    Kaazing adds support for AMQP and RabbitMQ
 	</doc:title>
@@ -57,7 +57,7 @@ on <a href="/how.html">this page</a> for a summary of who is doing what, and how
   
             
       <doc:item>
-	<doc:date iso="2009-06-17:00:00Z">17 June 2009</doc:date>
+	<doc:date iso="2009-06-17T00:00:00Z">17 June 2009</doc:date>
 	<doc:title>
    RabbitMQ 1.6.0 release
 	</doc:title>
@@ -95,7 +95,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       
       
       <doc:item>
-	<doc:date iso="2009-06-03:00:00Z">03 June 2009</doc:date>
+	<doc:date iso="2009-06-03T00:00:00Z">03 June 2009</doc:date>
 	<doc:title>
    RabbitMQ is now included in the Fedora Linux distribution
 	</doc:title>
@@ -118,7 +118,7 @@ for inclusion.</p>
       </doc:item>
     
       <doc:item>
-	<doc:date iso="2009-05-20:00:00Z">20 May 2009</doc:date>
+	<doc:date iso="2009-05-20T00:00:00Z">20 May 2009</doc:date>
 	<doc:title>
    RabbitMQ 1.5.5 release
 	</doc:title>
@@ -151,7 +151,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 
  <doc:item>
-	<doc:date iso="2009-04-23:00:00Z">23 April 2009</doc:date>
+	<doc:date iso="2009-04-23T00:00:00Z">23 April 2009</doc:date>
 	<doc:title>
    Canonical adds RabbitMQ AMQP to Ubuntu 9.04
 	</doc:title>
@@ -177,7 +177,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
             
       
       <doc:item>
-	<doc:date iso="2009-04-06:00:00Z">6 April 2009</doc:date>
+	<doc:date iso="2009-04-06T00:00:00Z">6 April 2009</doc:date>
 	<doc:title>
    RabbitMQ 1.5.4 release
 	</doc:title>
@@ -211,7 +211,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
       
       <doc:item>
-	<doc:date iso="2009-03-16:00:00Z">16 March 2009</doc:date>
+	<doc:date iso="2009-03-16T00:00:00Z">16 March 2009</doc:date>
 	<doc:title>
    RabbitMQ and AMQP team speak at QCon
 	</doc:title>
@@ -237,7 +237,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	
 	
       <doc:item>
-	<doc:date iso="2009-03-11:00:00Z">11 March 2009</doc:date>
+	<doc:date iso="2009-03-11T00:00:00Z">11 March 2009</doc:date>
 	<doc:title>
    RabbitMQ team is at Qcon London
 	</doc:title>
@@ -251,7 +251,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       </doc:item>
       
       <doc:item>
-	<doc:date iso="2009-02-24:00:00Z">24 February 2009</doc:date>
+	<doc:date iso="2009-02-24T00:00:00Z">24 February 2009</doc:date>
 	<doc:title>
 	  The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.3.
 	</doc:title>
@@ -279,7 +279,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       </doc:item>
 
       <doc:item>
-	<doc:date iso="2009-01-21:00:00Z">21 January 2009</doc:date>
+	<doc:date iso="2009-01-21T00:00:00Z">21 January 2009</doc:date>
 	<doc:title>
 	  The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.1.
 	</doc:title>
