@@ -66,6 +66,9 @@
   <p>
     For more detailed information on the API, please refer to the reference documentation.
   </p>
+  <p>
+    Furthermore, the test suite that is part of the source distribution of the client library contains many complete examples of how to program against the API.
+  </p>
  </doc:section>
 
 <!-- ..................................................................... -->

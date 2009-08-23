@@ -31,10 +31,9 @@
 
     <table border="0" cellpadding="0" cellspacing="0">
       <tr class="downloadlabel">
-	<th width="25%"><a href="server.html">RabbitMQ Server</a></th>
-	<th width="25%"><a href="java-client.html">RabbitMQ Java Client</a></th>
-	<th width="25%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
-	<th width="25%"><a href="erlang-client.html">RabbitMQ Erlang Client</a></th>
+	<th width="33%"><a href="server.html">RabbitMQ Server</a></th>
+	<th width="33%"><a href="java-client.html">RabbitMQ Java Client</a></th>
+	<th width="33%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
       </tr>
       <tr>
 	<td>Version: <b>&version-server;</b> Status: <b>&status-server;</b></td>
@@ -65,11 +64,6 @@
 	    <li>.NET 2.0 and newer</li>
 	    <li>.NET 3.0 and 3.5 for WCF support</li>
 	    <li>.NET 1.1 available when building from source</li>
-	  </ul>
-	</td>
-	<td>
-	  <ul class="compact">
-	    <li>Runs with same version of Erlang as the server</li>
 	  </ul>
 	</td>
       </tr>
