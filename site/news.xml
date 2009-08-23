@@ -57,7 +57,7 @@ on <a href="/how.html">this page</a> for a summary of who is doing what, and how
   
             
       <doc:item>
-	<doc:date iso="2009-03-16:00:00Z">17 June 2009</doc:date>
+	<doc:date iso="2009-06-17:00:00Z">17 June 2009</doc:date>
 	<doc:title>
    RabbitMQ 1.6.0 release
 	</doc:title>
@@ -151,7 +151,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 
  <doc:item>
-	<doc:date iso="2009-03-23:00:00Z">23 April 2009</doc:date>
+	<doc:date iso="2009-04-23:00:00Z">23 April 2009</doc:date>
 	<doc:title>
    Canonical adds RabbitMQ AMQP to Ubuntu 9.04
 	</doc:title>
@@ -177,7 +177,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
             
       
       <doc:item>
-	<doc:date iso="2009-03-16:00:00Z">6 April 2009</doc:date>
+	<doc:date iso="2009-04-06:00:00Z">6 April 2009</doc:date>
 	<doc:title>
    RabbitMQ 1.5.4 release
 	</doc:title>
