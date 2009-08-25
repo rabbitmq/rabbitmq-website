@@ -1,0 +1,57 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html>
+  <head>
+    <title>RabbitMQ - About</title>
+  </head>
+  <body>
+    <h2>About RabbitMQ</h2>
+    <p class="intro">RabbitMQ is an implementation of <a href="specification.html">AMQP</a>, 
+    the emerging standard for high performance <a href="faq.html#what-is-messaging">messaging</a>.
+    </p>
+
+    <p>
+      It is a complete and highly reliable Enterprise Messaging
+      system. The RabbitMQ client libraries and broker daemon can be
+      used together to create an AMQP network, or used individually to
+      bring the benefits of RabbitMQ to established networks.
+    </p>
+
+    <p>
+      Packages/installers are available for all major operating
+      systems and platforms. RabbitMQ can also be deployed as a
+      VMWare/Debian virtual appliance.
+    </p>
+
+    <p>
+      <a href="services.html">Commercial support services</a> are
+      available from Rabbit Technologies, LShift, and CohesiveFT.
+    </p>
+
+    <p>
+      For more information about RabbitMQ, explore the <a href="documentation.html">documentation</a>,
+      <a href="examples.html">examples</a>, <a href="community.html">community forums</a>     
+    </p>
+    
+    <h2>About Rabbit Technologies Ltd</h2>
+    <p>	  
+      Rabbit Technologies Ltd develop and commercially support the RabbitMQ
+      product.  The company is
+      based in the UK and was founded in February 2007.  It is a spin out
+      from <a href="http://www.lshift.net/">LShift Ltd.</a>, the UK software
+      consultancy and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, the US virtualization and
+      cloud computing company.
+    </p>
+    
+     <p>Please note, RabbitMQ and LShift <a href="http://www.lshift.net/recruitment">are recruiting!</a>
+     </p>
+    
+     <p class="logos">
+      <a href="http://www.lshift.net/"><img src="img/LShiftLogo.gif" alt="lshift" width="138" height="65" /></a
+      ><a href="http://www.cohesiveft.com/"><img src="img/cohesiveFTLogo.gif" alt="cohesiveFT" width="165" height="65" /></a>
+    </p>
+    
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - .Net/C# AMQP Client Library Build Instructions</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+	This section describes the process for obtaining a copy of the
+	RabbitMQ .Net/C# AMQP client library source code, as well as
+	instructions for building the .Net/C# client libraries from source.
+      </p>
+
+      <doc:toc class="compact">
+	<doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="obtaining">
+	<doc:heading>Obtaining the source</doc:heading>
+
+	<ul>
+	  <li>
+	    Either download a released source code distribution from
+	    the <a href="dotnet.html">download page</a>, or
+	  </li>
+
+	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
+	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-dotnet-client
+$ cd rabbitmq-dotnet-client
+$ cp local.build.example local.build
+$ nant dist</pre>
+	  </li>
+	</ul>
+      </doc:section>
+
+      <doc:section name="prerequisites">
+	<doc:heading>Required Libraries and Tools</doc:heading>
+
+	<p>
+	  To build the .NET/C# client libraries, you will need
+	</p>
+
+	<ul class="compact">
+	  <li>
+	    a .NET runtime:
+	    <ul>
+	      <li>
+		Microsoft's .NET 1.1, 2.0, 3.0 or 3.5 (versions older
+		than 3.0 do not support WCF), or
+	      </li>
+	      <li>
+		Mono 1.2.5 or newer (does not support WCF)
+	      </li>
+	    </ul>
+	  </li>
+	  <li>
+	    <a href="http://nant.sourceforge.net/">NAnt</a> v0.85 or newer
+	  </li>
+	</ul>
+
+      </doc:section>
+
+	<doc:section name="building">
+	<doc:heading>Building the source</doc:heading>
+	    
+	  <doc:subsection name="building-dotnet-client">
+	  <doc:heading>Building the .NET/C# client libraries</doc:heading>
+
+      <p>
+        Ensure that <code>PATH</code> variable contains path to <code>NAnt</code>.
+      	Change to the <code>rabbitmq-dotnet-client</code> directory,
+      	copy <code>local.build.example</code> to <code>local.build</code>
+      	and change <code>config.name</code> property to one of the build
+      	configuration files in the <code>configs</code> directory.
+		Type <code>NAnt.exe</code> in Windows environment, or
+      	<code>nant</code> in Linux/UNIX/Cygwin one.
+	  </p>
+      
+	  <p>
+		Other interesting <code>default.build</code> targets include:
+	  </p>
+	  
+	  <p>
+		<dl>
+			
+		  <dt>build</dt>
+		  <dd>
+			The default target. Builds the main client DLL
+			into <code>build/bin</code> and generates API (if necessary)
+		  	into <code>build/gensrc</code>.
+		  </dd>
+			
+		  <dt>clean</dt>
+		  <dd>
+			Removes the entire <code>build</code> directory,
+			including compiled DLL, generated API, and any
+			files placed under <code>build</code>.
+		  </dd>
+			
+          <dt>doc</dt>
+		  <dd>
+			Generates the Javadoc-like HTML code documentation, using
+			<code>NDocProc</code>.
+		    The included binary version of <code>NDocProc</code> is
+		    compiled for .Net 1.1.
+		  </dd>
+			
+		  <dt>examples</dt>
+		  <dd>
+			Compiles the examples included in the <code>src/examples</code>
+			directory.
+		  </dd>
+						
+		  <dt>stamp</dt>
+		  <dd>
+			Removes the preprocessed generated <code>AssemblyInfo.cs</code>,
+		  	so that on a subsequent build, a fresh one will be generated from
+		  	<code>AssemblyInfo.cs.in</code> with a fresh build identifier.
+		  </dd>
+			
+		  <dt>unit</dt>
+		  <dd>
+			Runs the included unit tests.
+		  </dd>
+
+		</dl>
+	  </p>
+	
+	</doc:subsection>  
+	<doc:subsection name="building-wcf">
+	<doc:heading>Building the WCF bindings</doc:heading>
+	    
+	  <p>
+		Ensure that <code>PATH</code> variable contains path to
+		<code>NAnt</code> and to <code>msbuild.exe</code>, or
+		use Visual Studio directly.
+	  </p>
+	  <p>
+		Targets in <code>default.build</code> for building WCF bindings:
+	  </p>
+	  <p>
+		<dl>
+		
+		  <dt>clean-wcf</dt>
+		  <dd>
+		    Removes the WCF build products.
+		  </dd>
+				
+		  <dt>build-wcf</dt>
+		  <dd>
+			Builds the WCF binding DLL, by calling out to <code>msbuild</code>.
+		  </dd>
+
+		  <dt>wcf-examples</dt>
+		  <dd>
+			Generates the example WCF clients and servers.
+		  </dd>
+		</dl>
+	  </p>
+	  <p>
+	    For further information, please see the "Building the
+	    Client" section of the RabbitMQ .NET Client Library User Guide,
+	    available from the <a href="dotnet.html">.NET client
+	    download page</a>.
+	  </p>
+      </doc:subsection>
+	  </doc:section>
+    </doc:div>
+  </body>
+</html>

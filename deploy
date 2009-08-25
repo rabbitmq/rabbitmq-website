@@ -1,0 +1,16 @@
+#!/bin/sh
+ 
+set -e
+cd `dirname $0`
+
+xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+
+rm -rf /srv/www.rabbitmq.com
+mkdir -p /srv/www.rabbitmq.com
+cp -r site /srv/www.rabbitmq.com
+cp -r code /srv/www.rabbitmq.com
+
+cp conf/www.rabbitmq.com /etc/apache2/sites-available/
+a2ensite www.rabbitmq.com
+/etc/init.d/apache2 restart
+
