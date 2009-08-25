@@ -55,13 +55,22 @@
     <h4>The library</h4>
 
     <p>
-      The library is available as source, or compiled in a few
-      different forms. The precompiled archives include example source
-      code.
+      The library is available as source, or compiled as a loadable .ez binary
+archive. The AMQP client binary archive has a runtime dependency on the some
+modules common to the RabbitMQ server. These are provided as a separate
+loadable .ez archive.
     </p>
 
     <r:downloads>
-      <r:download downloadfile="rabbitmq-erlang-client-&version-erlang-client;.tar.gz"
+      <r:download downloadfile="amqp_erlang-&version-erlang-client;.ez"
+		  downloadpath="&dir-erlang-client;">
+	AMQP client library binary archive (loadable .ez archive)
+      </r:download>
+      <r:download downloadfile="rabbit_common-&version-erlang-client;.ez"
+		  downloadpath="&dir-erlang-client;">
+	RabbitMQ common library bundle (loadable .ez archive)
+      </r:download>
+      <r:download downloadfile="amqp_erlang-&version-erlang-client;-src.tar.gz"
 		  downloadpath="&dir-erlang-client;">
 	Source code and tests (tar.gz)
       </r:download>

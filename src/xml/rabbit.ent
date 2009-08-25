@@ -20,4 +20,4 @@
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
 
 <!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
-<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/rabbitmq-erlang-client-edoc-&version-erlang-client;/">
+<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">
