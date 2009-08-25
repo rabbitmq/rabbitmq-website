@@ -79,21 +79,8 @@
 
     <p>
       The edoc documentation is <a
-      href="&dir-current-edoc;">browseable on-line</a>, or you can
-      download it for off-line use:
+      href="&dir-current-edoc;">browseable on-line</a>.
     </p>
-
-    <r:downloads>
-      <r:download downloadfile="rabbitmq-erlang-client-erlangdoc-&version-erlang-client;.zip"
-		  downloadpath="&dir-erlang-client;">
-	A zip file containing generated Erlangdoc documentation
-      </r:download>
-      <r:download downloadfile="rabbitmq-erlang-client-erlangdoc-&version-erlang-client;.tar.gz"
-		  downloadpath="&dir-erlang-client;">
-	A tar.gz file containing generated Erlangdoc documentation
-      </r:download>
-    </r:downloads>
-
 
     <h3>Mercurial repositories</h3>
     <p>
