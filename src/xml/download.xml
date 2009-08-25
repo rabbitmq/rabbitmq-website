@@ -31,13 +31,15 @@
 
     <table border="0" cellpadding="0" cellspacing="0">
       <tr class="downloadlabel">
-	<th width="33%"><a href="server.html">RabbitMQ Server</a></th>
-	<th width="33%"><a href="java-client.html">RabbitMQ Java Client</a></th>
-	<th width="33%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
+	<th width="25%"><a href="server.html">RabbitMQ Server</a></th>
+	<th width="25%"><a href="java-client.html">RabbitMQ Java Client</a></th>
+	<th width="25%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
+	<th width="25%"><a href="erlang-client-download.html">RabbitMQ Erlang Client</a></th>
       </tr>
       <tr>
 	<td>Version: <b>&version-server;</b> Status: <b>&status-server;</b></td>
 	<td>Version: <b>&version-java-client;</b> Status: <b>&status-java-client;</b></td>
+	<td>Version: <b>&version-dotnet-client;</b> Status: <b>&status-dotnet-client;</b></td>
 	<td>Version: <b>&version-dotnet-client;</b> Status: <b>&status-dotnet-client;</b></td>
       </tr>
       <tr>
@@ -64,6 +66,11 @@
 	    <li>.NET 2.0 and newer</li>
 	    <li>.NET 3.0 and 3.5 for WCF support</li>
 	    <li>.NET 1.1 available when building from source</li>
+	  </ul>
+	</td>
+	<td>
+	  <ul class="compact">
+	    <li>R12B-5 and newer</li>
 	  </ul>
 	</td>
       </tr>
@@ -159,18 +166,6 @@
 		  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
     </repositories>
 
-    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
-    
-    <p>
-      An Erlang client for RabbitMQ. This client offers both a networked version 
-      that uses standard TCP-based AMQP framing and a direct client that uses
-      native Erlang message passing to a RabbitMQ broker.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
-    </repositories>
 
     <h3 id="rabbitmq-stomp">rabbitmq-stomp</h3>
 

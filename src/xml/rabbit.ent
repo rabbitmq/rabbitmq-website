@@ -2,10 +2,12 @@
 <!ENTITY version-java-client "1.6.0">
 <!ENTITY version-dotnet-client "1.6.0">
 <!ENTITY version-server "1.6.0">
+<!ENTITY version-erlang-client "1.6.0">
 
 <!ENTITY status-java-client "beta">
 <!ENTITY status-dotnet-client "beta">
 <!ENTITY status-server "beta">
+<!ENTITY status-erlang-client "beta">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -16,3 +18,6 @@
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
+
+<!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
+<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/rabbitmq-erlang-client-edoc-&version-erlang-client;/">
