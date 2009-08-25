@@ -75,7 +75,8 @@
 
     <h4>The documentation</h4>
     
-    <p>Please refer to the <a href="erlang-client.html">Erlang AMQP programmers quide</a>.</p>
+    <p>Please refer to the <a href="erlang-client-user-guide.html">Erlang AMQP
+user quide</a>.</p>
 
     <p>
       The edoc documentation is <a

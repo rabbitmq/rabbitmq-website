@@ -34,7 +34,7 @@
 	<th width="25%"><a href="server.html">RabbitMQ Server</a></th>
 	<th width="25%"><a href="java-client.html">RabbitMQ Java Client</a></th>
 	<th width="25%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
-	<th width="25%"><a href="erlang-client-download.html">RabbitMQ Erlang Client</a></th>
+	<th width="25%"><a href="erlang-client.html">RabbitMQ Erlang Client</a></th>
       </tr>
       <tr>
 	<td>Version: <b>&version-server;</b> Status: <b>&status-server;</b></td>
