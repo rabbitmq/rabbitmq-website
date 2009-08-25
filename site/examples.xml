@@ -83,7 +83,7 @@ shown what is in the queue- so this will show people how it all works)
 	  <code>rabbitmq-client-tests.jar</code>, containing several
 	  small example programs for exercising the functionality of
 	  the RabbitMQ server.  The source code for these examples is
-	  in the <code>java/test/src</code> folder in the source
+	  in the <code>test/src</code> folder in the source
 	  distribution.
         </p>
         <p>
