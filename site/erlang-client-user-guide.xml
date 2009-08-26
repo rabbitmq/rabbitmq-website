@@ -289,7 +289,7 @@ general.
       
     </p>
     <p>
-      Rememeber that the AMQP #'basic.publish' command is asynchronous. This means that the
+      Remember that the AMQP #'basic.publish' command is asynchronous. This means that the
 server will not send a response to it, unless the message is not deliverable.
 In this case, the message will be returned to the client. This operation is
 described in the <a href="#returns">handling returns</a> section.
