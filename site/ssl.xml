@@ -275,9 +275,9 @@ broker running
 	  them. Therefore, we can simply append these certificates to one
 	  another and provide the path to this new file as the <code class="">cacerts</code>
 	  argument to RabbitMQ:</p>
-	  <pre class="sourcecode">
-	  # cat testca/cacert.pem &gt;&gt; all_cacerts.pem
-	  # cat otherca/cacert.pem &gt;&gt; all_cacerts.pem</pre>
+<pre class="sourcecode">
+# cat testca/cacert.pem &gt;&gt; all_cacerts.pem
+# cat otherca/cacert.pem &gt;&gt; all_cacerts.pem</pre>
 
 	  <p>and so forth.</p>
         </doc:subsection>
@@ -397,8 +397,8 @@ broker running
 	    <p>First, we set-up our Key Store. We'll assume that we have the
 	    certificate for the server we want to connect to, so we now need to
 	    add it to our Key Store which we will use for the Trust Manager.</p>
-	    <pre class="sourcecode">
-	    # keytool -import -alias server1 -file /path/to/server/cert.pem -keystore /path/to/rabbitstore</pre>
+<pre class="sourcecode">
+# keytool -import -alias server1 -file /path/to/server/cert.pem -keystore /path/to/rabbitstore</pre>
 
 	    <p>The above command will import <code class="">cert.pem</code> into the <code class="">rabbitstore</code> and will internally refer to it as <code class="">server1</code>. The
 	    alias argument is used when you have many certificates or keys, as
@@ -482,7 +482,7 @@ broker running
 	  certificate from <i>PEM</i> to <i>DER</i> format using:</p>
 
 <pre class="sourcecode">
-openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -outform DER
+# openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -outform DER
 </pre>
 	  <p>PEM is a base64 encoding of this DER format, enclosed within
 	  delimiters. This encoding is usually done to make it easier to
@@ -531,12 +531,12 @@ openssl x509 -in /path/to/testca/cacert.pem -out /path/to/testca/cacert.cer -out
 	  above):</p>
 
 <pre class="sourcecode">
-$ mono certcheck.exe /path/to/server/cert.cer 
+# mono certcheck.exe /path/to/server/cert.cer 
 Checking if certificate is SSLv3... Ok
 Checking for KeyUsageExtension (2.5.29.15)... Ok
 Checking if KeyEncipherment flag is set... Ok
 This certificate CAN be used by Mono for Server validation
-$ </pre>
+</pre>
         </doc:subsection>    
       
 	
@@ -579,13 +579,13 @@ $ </pre>
 	  <p>To add a certificate to the users Trust store we do:</p>
 
 <pre class="sourcecode">
-certmgr.exe -add -c Trust /path/to/cert.cer</pre>
+# certmgr.exe -add -c Trust /path/to/cert.cer</pre>
 	  <p>Adding to the machine wide store needs the -m switch</p>
 <pre class="sourcecode">
-certmgr.exe -add -c -m Trust /path/to/cert.cer</pre>
+# certmgr.exe -add -c -m Trust /path/to/cert.cer</pre>
 	  <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
-$ certmgr.exe -list -c Trust
+# certmgr.exe -list -c Trust
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -602,7 +602,7 @@ Self-signed X.509 v3 Certificate
 	  trust store. The Unique Hash uniquely identifies this certificate in
 	  this store. To delete this certificate, use the unique hash:</p>
 <pre class="sourcecode">
-$ certmgr.exe -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
+# certmgr.exe -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
