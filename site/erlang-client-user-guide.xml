@@ -22,6 +22,15 @@
     The AMQP client provides an Erlang interface to compliant AMQP brokers. The client follows the AMQP execution model and implements the wire level marshalling required to encode and decode AMQP commands in a protocol conformant fashion. AMQP is a connection orientated protocol and multiplexes parallel interactions via multiple channels within a connection.
   
   </p>
+   <p>
+
+    This user guide assumes that the reader is familiar with basic concepts of
+AMQP and understands exchanges, queues and bindings. This informtion is
+contained in the protocol documentation on the AMQP website. For details and
+exact definitions, please see <a href="http://www.amqp.org/">the AMQP specification
+document</a>.
+  
+  </p>
   <p>
   
   The basic usage of the client follows these broad steps:
@@ -35,7 +44,11 @@
    </p>
    
    <p>
-     This programmer's guide documents the return values of each command for completeness' sake. It is of course up to the style of the programmer as to whether the result of each invocation is matched against the respective AMQP acknowledgement command, should the return value only contain an acknowledgement that the command was executed successfully.
+     This programmer's guide documents the return values of each command for completeness' sake.
+The return value of most commands merely contains an acknowledgement that the command was executed successfully.
+Strictly speaking, it is not necessary to match the return value of each
+invocation against the expected return value. This assertion is left to the
+discretion of the programmer.
    </p>
     
  </doc:section>
@@ -58,7 +71,17 @@
        <li>A high level logical layer that follows the AMQP execution model</li>
        <li>A low level driver layer that is responsible for providing a physical transport to a broker</li>
      </ol>
-     There are two drivers in the client library. One driver establishes a TCP connection to a protocol compliant AMQP broker and encodes each command according to the specification. This driver is implemented in the amqp_network_driver module. The other driver, the amqp_direct_driver, uses native Erlang messaging instead of sending AMQP encoded commands over TCP. This approach avoids the overhead of marshalling commands onto and off the wire. However, the direct driver can only be used in conjunction with the RabbitMQ broker and the client code must be deployed into the same Erlang VM.
+     There are two drivers in the client library. One driver establishes a TCP
+connection to a protocol compliant AMQP broker and encodes each command
+according to the specification. This driver is implemented in the
+amqp_network_driver module. The other driver, the amqp_direct_driver, uses
+native Erlang messaging instead of sending AMQP encoded commands over TCP.
+This approach avoids the overhead of marshalling commands onto and off the
+wire. However, the direct driver can only be used in conjunction with the
+RabbitMQ broker and the client code must be deployed into the same Erlang VM.
+The scope of this user guide is restricted to the network driver, as the
+direct driver requires more detailed knowledge of RabbitMQ and Erlang in
+general.
   </p>
   <p>
    At runtime, the client library re-uses a subset of the functionality from the RabbitMQ broker. In order to keep the a client deployment independent of RabbitMQ, the client build process produces an archive containing all of the common modules. This archive is then put onto the load path of the client application.
@@ -266,7 +289,15 @@
       
     </p>
     <p>
+      Rememeber that the AMQP #'basic.publish' command is asynchronous. This means that the
+server will not send a response to it, unless the message is not deliverable.
+In this case, the message will be returned to the client. This operation is
+described in the <a href="#returns">handling returns</a> section.
+    </p>
+    <p>
+
       Note that messages can be published either using amqp_channel:call/3 or amqp_channel:cast/3. The difference is that call/3 will put the message onto the network stack before returning to the caller. In contrast, cast/3 performs this operation asynchronously. From a responsibility transfer perspective however, this makes makes little difference. The only way a client can know that the server has taken responsibility for a message is to either enforce mandatory routing or to use a transaction.
+
     </p>
    </doc:section>
 
@@ -396,24 +427,32 @@
      This shows a complete example: 
 
      <pre class="sourcecode">
-      Connection = amqp_connection:start_network(#amqp_params{}),
-      Channel = amqp_connection:open_channel(Connection),
-      #'queue.declare_ok'{queue = Q} 
-          = amqp_channel:call(Channel, #'queue.declare'{}),
-      Payload = &lt;&lt;"foobar">>>,
-      Publish = #'basic.publish'{exchange = &lt;&lt;>>, routing_key = Q},
-      amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
-      Get = #'basic.get'{queue = Q},
-      {#'basic.get_ok'{delivery_tag = Tag}, Content}
-          = amqp_channel:call(Channel, Get),
-      % Do something with the message payload.......and then ack it
-      amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
-      amqp_channel:close(Channel),
-      amqp_connection:close(Connection).
+      -module(amqp_example).
+
+      -include("amqp_client.hrl").
+
+      -compile([export_all]).
+
+      test() ->
+        Connection = amqp_connection:start_network(#amqp_params{}),
+        Channel = amqp_connection:open_channel(Connection),
+        #'queue.declare_ok'{queue = Q} 
+            = amqp_channel:call(Channel, #'queue.declare'{}),
+        Payload = &lt;&lt;"foobar">>>,
+        Publish = #'basic.publish'{exchange = &lt;&lt;>>, routing_key = Q},
+        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
+        Get = #'basic.get'{queue = Q},
+        {#'basic.get_ok'{delivery_tag = Tag}, Content}
+             = amqp_channel:call(Channel, Get),
+        % Do something with the message payload.......and then ack it
+        amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+        amqp_channel:close(Channel),
+        amqp_connection:close(Connection),
+        ok.
      </pre>
 
      In this example, a queue is created with a server generated name and a message is published directly to the queue. This makes use of the fact that every queue is bound to the default exchange via its own queue name. The message is then dequeued and acknowledged.
-     
+
    </p>
   </doc:section>
 
@@ -431,7 +470,20 @@
      </ol>
      
      In order to use the client at runtime, you need to put both these archives onto the load path of your application. This can be done either by setting the ERL_LIBS variable to point at the directory that contains these archives or by referencing their containing directory with the -pa argument to the Erlang interpreter.
-     
+
+For example, if you were to put both amqp_client.ez and rabbit_common.ez into
+a directory called deps, and compile your binaries to the ebin directory, to
+run your application you could set the Erlang runtime like this:
+
+    <pre class="sourcecode">
+     $ ERL_LIBS=deps erl -pa ebin
+     Erlang R13B01 (erts-5.7.2) [source] [64-bit] [smp:4:4] [rq:4] [async-threads:0] [kernel-poll:false]
+
+     Eshell V5.7.2  (abort with ^G)
+     1> amqp_example:test().
+     ok
+     2>
+     </pre>
    </p>
   
   
@@ -511,17 +563,9 @@
       end
      </pre>
    </p>
-  
-  </doc:section>
-  
-<!-- ..................................................................... -->
 
-  <doc:section name="multiple_channels">
-  <doc:heading>Parallelism Through Multiple Channels</doc:heading>
-   <p>
-     The fundamental unit of parallelism in the AMQP model is the channel. Channels are designed to multiplex multiple interaction streams between the client and the broker. In general, each client process that sends or receives commands to the broker should have its own dedicated channel. As such, the client is free to create as many channels within a connection as is required by the application.
-   </p>
   </doc:section>
+
 </doc:div>
 </body>
 </html>
