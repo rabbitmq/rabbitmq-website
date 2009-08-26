@@ -270,7 +270,7 @@ general.
       To send a message to an exchange with a particular routing key, the #'basic.publish'{} command in conjunction with the #amqp_msg{} record is used:
 
       <pre class="sourcecode">
-        Payload = &lt;&lt;"foobar">>>,
+        Payload = &lt;&lt;"foobar">>,
         Publish = #'basic.publish'{exchange = X, routing_key = Key},
         amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
       </pre>
@@ -278,7 +278,7 @@ general.
       By default, the properties field of the #amqp_msg{} record contains a minimal implementation of the #'P_basic'{} properties structure. If an application needs to override any of the defaults, for example, to send persistent messages, the #amqp_msg{} needs to be constructed accordingly:
 
       <pre class="sourcecode">
-        Payload = &lt;&lt;"foobar">>>,
+        Payload = &lt;&lt;"foobar">>,
         Publish = #'basic.publish'{exchange = X, routing_key = Key},
         Props = #'P_basic'{delivery_mode = 2}, # for persistent messaging
         Msg = #amqp_msg{props = Props, payload = Payload},
@@ -438,9 +438,9 @@ described in the <a href="#returns">handling returns</a> section.
         Channel = amqp_connection:open_channel(Connection),
         #'queue.declare_ok'{queue = Q} 
             = amqp_channel:call(Channel, #'queue.declare'{}),
-        Payload = &lt;&lt;"foobar">>>,
+        Payload = &lt;&lt;"foobar">>,
         Publish = #'basic.publish'{exchange = &lt;&lt;>>, routing_key = Q},
-        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
+        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
         Get = #'basic.get'{queue = Q},
         {#'basic.get_ok'{delivery_tag = Tag}, Content}
              = amqp_channel:call(Channel, Get),
@@ -471,9 +471,22 @@ described in the <a href="#returns">handling returns</a> section.
      
      In order to use the client at runtime, you need to put both these archives onto the load path of your application. This can be done either by setting the ERL_LIBS variable to point at the directory that contains these archives or by referencing their containing directory with the -pa argument to the Erlang interpreter.
 
-For example, if you were to put both amqp_client.ez and rabbit_common.ez into
-a directory called deps, and compile your binaries to the ebin directory, to
-run your application you could set the Erlang runtime like this:
+Say you were to put both amqp_client.ez and rabbit_common.ez into
+a directory called deps. To compile the example, you first unpack the
+archivesi in the deps directory:
+
+    <pre class="sourcecode">
+    $ unzip -d deps deps/amqp_client.ez
+    $ unzip -d deps deps/rabbit_common.ez
+    </pre>
+
+To compile your binaries to the ebin directory:
+
+    <pre class="sourcecode">
+    $ ERL_LIBS=deps erlc -o ebin amqp_example.erl
+    </pre>
+
+And then to run your application you could set the Erlang runtime like this:
 
     <pre class="sourcecode">
      $ ERL_LIBS=deps erl -pa ebin
