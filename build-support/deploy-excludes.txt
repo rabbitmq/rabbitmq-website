@@ -1,4 +1,0 @@
-_darcs
-examples
-javadoc
-releases
