@@ -37,9 +37,9 @@
 	  <ul>
 	    <li>
 	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R11B-5 on
+	      should work, but we are developing against Erlang R12B-5 on
 	      Windows, which can be downloaded from <a
-	      href="http://www.erlang.org/download/otp_win32_R11B-5.exe">http://www.erlang.org/download/otp_win32_R11B-5.exe</a>
+	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
 	    </li>
 	    <li>
 	      Download
@@ -57,7 +57,7 @@
 	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.5.5</code>).
+	      (e.g. <code>C:\Program Files\erl5.6.5</code>).
 	      
 	    </li>
 	    <li>
@@ -73,7 +73,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.5.5</code>.
+		  <code>C:\Program Files\erl5.6.5</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -205,7 +205,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
+                    <code>C:\Program Files\erl5.6.5\erts-5.6.5\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
