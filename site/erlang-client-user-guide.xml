@@ -472,15 +472,15 @@ described in the <a href="#returns">handling returns</a> section.
      In order to use the client at runtime, you need to put both these archives onto the load path of your application. This can be done either by setting the ERL_LIBS variable to point at the directory that contains these archives or by referencing their containing directory with the -pa argument to the Erlang interpreter.
 
 Say you were to put both amqp_client.ez and rabbit_common.ez into
-a directory called deps. To compile the example, you first unpack the
-archivesi in the deps directory:
+a directory called deps. To compile the example, you first need to unpack the
+archives in the deps directory:
 
     <pre class="sourcecode">
     $ unzip -d deps deps/amqp_client.ez
     $ unzip -d deps deps/rabbit_common.ez
     </pre>
 
-To compile your binaries to the ebin directory:
+Then to compile the example code into the ebin directory:
 
     <pre class="sourcecode">
     $ ERL_LIBS=deps erlc -o ebin amqp_example.erl
