@@ -282,24 +282,30 @@ broker running
 	  <p>and so forth.</p>
         </doc:subsection>
 
-        <doc:subsection name="remove">
+        <doc:subsection name="bugs-in-new_ssl">
           <doc:heading>Bugs in <code class="">new_ssl</code></doc:heading>
-          <pre class="sourcecode">rabbitmq-service remove</pre>
-	    <p>Erlang's <code class="">new_ssl</code> application has a bug in which, if it asks the
-	    peer for a certificate, and the peer totally fails to respond to this
-	    request, rather than rejecting the connection, the <code class="">new_ssl</code>
-	    application permits the connection to be established. Note that this
-	    requires the client to break the SSL specifications itself: the
-	    specifications require that if the client has no certificate to send
-	    and a certificate has been requested by the server, the client must
-	    send back a <i>null</i> certificate. If this happens, then the <code class="">new_ssl</code> application behaves correctly, and acts on the presence of
-	    the <i>null</i> certificate.</p>
+	    <p>Erlang's <code class="">new_ssl</code> application has
+	    a bug in which, if it asks the peer for a certificate, and
+	    the peer totally fails to respond to this request, rather
+	    than rejecting the connection,
+	    the <code class="">new_ssl</code> application permits the
+	    connection to be established. Note that this requires the
+	    client to break the SSL specifications itself: the
+	    specifications require that if the client has no
+	    certificate to send and a certificate has been requested
+	    by the server, the client must send back a <i>null</i>
+	    certificate. If this happens, then
+	    the <code class="">new_ssl</code> application behaves
+	    correctly, and acts on the presence of the <i>null</i>
+	    certificate.</p>
 
-	    <p><b class="">If the client fails to send any certificate at all, the <code class="">new_ssl</code> application silently ignores this failure and allows the
-	    connection to be established (i.e. it doesn't enforce that if it
-	    demands a certificate, a certificate really is sent back by the
+	    <p><b class="">If the client fails to send any certificate
+	    at all, the <code class="">new_ssl</code> application
+	    silently ignores this failure and allows the connection to
+	    be established (i.e. it doesn't enforce that if it demands
+	    a certificate, a certificate really is sent back by the
 	    client).</b></p>
-	    <p>See also the bugs in Mono, below.</p>
+	    <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
       </doc:section>
       
@@ -661,14 +667,19 @@ IModel ch = conn.CreateModel();
 	
 	<doc:subsection name="bugs-in-mono">
 	  <doc:heading>Bugs in Mono</doc:heading>
-	    <p>When the server asks the client to send a certificate, if the client
-	    has no certificates to send, it should (according to various
-	    specifications) send back a <i>null</i> certificate. Mono fails to do
-	    this. Instead, it blindly carries on, acting as if the server hadn't
-	    asked for a certificate at all. Coupled with the bug in <code class="">new_ssl</code>,
-	    mentioned above, this means that <b class="">with RabbitMQ set to <code class="">{fail_if_no_peer_cert,true}</code>, if the .Net client is running under
-	    Mono, and does not have a certificate to present, the connection will
-	    successfully be established</b>.</p>
+	    <p>When the server asks the client to send a certificate,
+	    if the client has no certificates to send, it should
+	    (according to various specifications) send back
+	    a <i>null</i> certificate. Mono fails to do this. Instead,
+	    it blindly carries on, acting as if the server hadn't
+	    asked for a certificate at all. Coupled with
+	    the <a href="#bugs-in-new_ssl">bug
+	    in <code class="">new_ssl</code>, mentioned above</a>,
+	    this means that <b class="">with RabbitMQ set
+	    to <code class="">{fail_if_no_peer_cert,true}</code>, if
+	    the .Net client is running under Mono, and does not have a
+	    certificate to present, the connection will successfully
+	    be established</b>.</p>
 	</doc:subsection>
       </doc:section>
 	      
