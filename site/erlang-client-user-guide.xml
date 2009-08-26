@@ -25,7 +25,7 @@
    <p>
 
     This user guide assumes that the reader is familiar with basic concepts of
-AMQP and understands exchanges, queues and bindings. This informtion is
+AMQP and understands exchanges, queues and bindings. This information is
 contained in the protocol documentation on the AMQP website. For details and
 exact definitions, please see <a href="http://www.amqp.org/">the AMQP specification
 document</a>.
