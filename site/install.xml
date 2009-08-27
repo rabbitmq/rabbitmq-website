@@ -51,13 +51,11 @@
 	      Contained in the zip file is a directory named
 	      <code>rabbitmq_server-<i>version</i></code>.
 
-	      You can <b>either</b> extract this folder into 
-	      
-	      <code>C:\Program Files\erl5.5.5\lib</code>
-
-	      (or if you use a different Erlang version, the
-	      corresponding <code>lib</code> directory) 
-	      <b>or</b> extract it elsewhere and set the environment
+	      You should extract this folder to somewhere appropriate
+	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      Once the files are successfully extracted, you should end up with a structure
+	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
 	      (e.g. <code>C:\Program Files\erl5.5.5</code>).
 	      
@@ -581,13 +579,9 @@
 	    </li>
 	    <li>
 	      Contained in the tarball is a directory named
-	      <code>rabbitmq_server-<i>version</i></code>. You can
-	      <b>either</b> extract the tarball into
-	      <code>/usr/lib/erlang/lib</code> directory (or wherever
-	      your Erlang installation places its application and
-	      library directory), which allows the RabbitMQ modules to
-	      be found by other Erlang applications, <b>or</b> extract
-	      it elsewhere.
+	      <code>rabbitmq_server-<i>version</i></code>. You should
+	      extract this into somewhere appropriate for application
+	      binaries on your system.
 	    </li>
 	    <li>
 	      Within the <code>sbin</code> directory is a shell script

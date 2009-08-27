@@ -272,6 +272,11 @@ hr {
 	margin-left: 0em;
 }
 
+code {
+	color: darkcyan;
+	background: #f6fcb0;
+	padding: 0 5px 0 5px;
+}
 .sourcecode {
 	padding: 1em;
 	background: #f6fcb0;
