@@ -681,16 +681,9 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    </p>
 	    <p>
 	      The first is encryption of the AMQP stream. There's no
-	      provision in the standard for that, yet, but wrapping
-	      the stream in a TLS layer is a straightforward extension
-	      (please see the <a href="api-guide.html#ssl">section on
-	      SSL/TLS in our API guide</a>). The notion of addressing
-	      for AMQP entities (ie. URLs for AMQP queues and
-	      exchanges) is under active development at the moment. It
-	      seems likely that once that settles down, it will
-	      quickly be extended to standardise a TLS layering for
-	      AMQP ("amqp:" -> "amqps:" ?).
-	    </p>
+	      provision in the standard for that, but it is possible to
+	      use <a href="ssl.html">SSL with RabbitMQ</a> 
+	      as of Release 1.7.0.</p>
 	    <p>
 	      The second kind of encryption is encryption of
 	      individual messages. AMQP is silent on this front as
