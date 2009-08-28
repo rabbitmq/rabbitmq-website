@@ -4,7 +4,15 @@ import libxslt
 import re
 import os
 
-from mod_python import apache
+try:
+    from mod_python import apache
+except ImportError:
+    class StubApache:
+        def __init__(self):
+            self.HTTP_NOT_FOUND = 404
+            self.HTTP_INTERNAL_SERVER_ERROR = 500
+            self.OK = 0
+    apache = StubApache()
 
 SITE_DIR='/srv/www.rabbitmq.com/site/'
 
