@@ -137,8 +137,40 @@
     
     <p>Also don't forget to check out the constantly updated <a href="how.html">community page</a> for more links to experimental code and other contributions.</p>
 
-    <h3 id="rabbitmq-http">rabbitmq-http2</h3>
+    <h3 id="rabbitmq-mochiweb">rabbitmq-mochiweb</h3>
     
+    <p>
+      An embeddable mochiweb server instance for running as a Rabbit plugin. Not
+      particularly interesting in itself, but is usable by any other plugins that
+      need to listen on a HTTP endpoint.
+    </p>
+    
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-mochiweb"
+                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-jsonrpc">rabbitmq-jsonrpc</h3>
+    
+    <p>
+      Provides a JSON-RPC endpoint that is usable by other Rabbit processes. No
+      actual RPC services are exposed by this plugin, but it handles integrating
+      with rabbitmq-mochiweb to provide a HTTP endpoint.
+    </p>
+    <p>
+      This plugin depends on the <code>erlang-rfc4627</code> JSON/JSON-RPC
+      support library, and the <code>rabbitmq-mochiweb</code> plugin.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="hg" shortname="rabbitmq-jsonrpc"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
+      <repository type="hg" shortname="erlang-rfc4627"
+                  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
+    </repositories>
+
+    <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
+
     <p>
       An AMQP-over-HTTP protocol binding for RabbitMQ and some
       Javascript libraries for interacting with RabbitMQ over HTTP, as
@@ -146,17 +178,14 @@
     </p>
 
     <p>
-      Besides the RabbitMQ server itself, you will need both the
-      <code>rabbitmq-http2</code> adapter and the
-      <code>erlang-rfc4627</code> JSON and JSON-RPC support library it
-      depends on.
+      This plugin depends on the <code>rabbitmq-jsonrpc</code> plugin,
+      which is responsible for providing the RPC endpoint that this
+      plugin uses.
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-http2"
-		  url="http://hg.rabbitmq.com/rabbitmq-http2/"/>
-      <repository type="hg" shortname="erlang-rfc4627"
-		  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
+      <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
     </repositories>
 
     <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
