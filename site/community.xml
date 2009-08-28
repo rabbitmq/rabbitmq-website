@@ -63,12 +63,11 @@
       
       <div class="col columnLeft">        
 	  <h3><a class="more-links" href="/delicious.html">about del.icio.us</a>On Del.icio.us</h3>
-	  <feed src="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq?count=15" type="delicious" limit="3"/>  	
+	  <feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  	
       </div>
       <div class="col columnRight">
 	  <h3><a class="more-links" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
-	  <feed src="http://search.twitter.com/search.atom?q=rabbitmq" type="twitter" limit="3"/>  	
-
+	  <feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
       </div>    
       
       <div class="clear"></div>
