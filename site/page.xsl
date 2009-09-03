@@ -67,14 +67,14 @@ urchinTracker();
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
-    <hr/>
+    <hr class="pad" />
 
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <hr/>
-    <div class="pageFooter"><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
-Technologies Ltd.</div>
+    <div class="clear"></div>
+    <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
+Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->

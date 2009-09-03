@@ -4,6 +4,7 @@
     <title>RabbitMQ - Open Source Messaging</title>
   </head>
   <body>
+    <h3>What is RabbitMQ</h3>
     <p>
 	RabbitMQ is a complete, <a href="specification.html">conformant</a> 
 	and <a href="interoperability.html">interoperable</a>
@@ -14,7 +15,7 @@
     </p>   
     <p><a class="downloadNow" href="download.html"><b>Download Now!</b></a></p>
     
-    <h2>Why choose RabbitMQ</h2>
+    <h3>Why choose RabbitMQ</h3>
     <p>
 	RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a>, 
 	offering exceptionally high reliability, availability and scalability 
@@ -22,33 +23,26 @@
 	consistent.
 	It has a compact, easily maintainable code base allowing rapid
 	customisation and hot deployment. There are extensive facilities for management, 
-	monitoring, control and debugging and it is supported with a full range of commercial 
+	monitoring, control and debugging and it is supported by a full range of commercial 
 	<a href="services.html">support services</a> and an <a href="community.html">
-	active community</a> developing packages that extend the core system.	
+	active community</a> developing <a href="how.html#clients">packages that extend the core system</a>.	
     </p>    
     <p>
       Read more <a href="about.html">about RabbitMQ and the company behind it</a>.	     
     </p>
-    <p><a class="downloadNow" href="services.html"><b>Our services</b></a></p>
+    <p><a class="downloadNow" href="services.html"><b>Our services</b></a></p>   
     
+    
+    <div class="clear"></div>      
 
     <div class="col columnLeft">
       <h3>
 	<span class="subscribe"><a href="news.atom">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
 	</a></span>Our news
-      </h3>
-      
+      </h3>     
       <feed src="news.atom" type="ournews" limit="5" />  
-
-      <div class="col">    
-	<h3>What's being said on Twitter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
-	<a href="http://twitter.com/#search?q=rabbitmq">See more on Twitter</a>
-      
-      </div>
-    </div>
-    
+    </div>   
     
     <div class="col columnRight">
       <h3>Distribution</h3>
@@ -59,25 +53,23 @@
 	<li><a href="download.html#experimental">Experimental
 	bindings</a> supporting HTTP, STOMP, SMTP, POP3, ...</li>
 
-	<li>Several <a href="how.html#highlights"><b>user-contributed packages</b></a> that extend the
-	core RabbitMQ functionality</li>
-
 	<li>Extensive <a href="documentation.html">documentation</a>,
 	several <a href="examples.html">demos and examples</a>, and a
 	functional/performance test suite</li>
       </ul>
-      
-      <div class="col">
-      
-	<h3><a class="more-links" href="/delicious.html">about del.icio.us </a>Community links</h3>
-	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
-	
-      </div>
     </div>
     <div class="clear"></div>      
      
+    <div class="col columnLeft">  
+	<h3>What's being said on Twitter</h3>
+	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
+	<a href="http://twitter.com/#search?q=rabbitmq">See more on Twitter</a>      
+    </div>
     
-    <div class="col columnRight">        	
+    
+    <div class="col columnRight">      
+	<h3><a class="more-links" href="/delicious.html">about del.icio.us </a>Community links</h3>
+	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
     </div>
 
 

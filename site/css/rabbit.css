@@ -210,12 +210,12 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-	margin: 87px 0 0 0;
+	margin: 80px 0 0 0;
 	padding: 0 0 0 0;
-	height: 20px;
+	height: 21px;
 	float: left:
 	clear: both;
-	border-bottom: #ff9933 1px solid;
+	border-bottom: #FF8C00 1px solid;
 }
 .mainNav li {
 	display: inline;
@@ -240,6 +240,10 @@ hr {
 	visibility: hidden;
 }
 
+hr.pad {
+	margin: 0px 0px 21px 0px;
+	padding: 0px;
+}
 .compact li {
 	padding-bottom: 0em;
 }
@@ -345,10 +349,10 @@ td.signature, th.signature {
 	color: #a9b5af;
 	text-align: left;
 	border-top: #e4e4e4 1px solid;
-	padding-top: 1px;
-	margin-top: 1em;
+	margin-top: 21px;
 	font-style: italic;
 	font-size: 95%;
+	height: 128px;
 }
 
 .pageFooter a.about {
