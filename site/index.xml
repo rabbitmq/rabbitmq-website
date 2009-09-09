@@ -4,6 +4,10 @@
     <title>RabbitMQ - Open Source Messaging</title>
   </head>
   <body>
+    <p class="rgt button">
+    <a class="" href="download.html"><b>Download Now!</b></a>
+    <a class="" href="services.html"><b>Our services</b></a>
+    </p>
     <h3>What is RabbitMQ</h3>
     <p>
 	RabbitMQ is a complete, <a href="specification.html">conformant</a> 
@@ -13,7 +17,6 @@
 	and has a platform-neutral distribution, plus platform-specific packages 
 	and bundles for easy installation.
     </p>   
-    <p><a class="downloadNow" href="download.html"><b>Download Now!</b></a></p>
     
     <h3>Why choose RabbitMQ</h3>
     <p>
@@ -27,10 +30,9 @@
 	<a href="services.html">support services</a> and an <a href="community.html">
 	active community</a> developing <a href="how.html#clients">packages that extend the core system</a>.	
     </p>    
-    <p>
+    <p> 
       Read more <a href="about.html">about RabbitMQ and the company behind it</a>.	     
     </p>
-    <p><a class="downloadNow" href="services.html"><b>Our services</b></a></p>   
     
     
     <div class="clear"></div>      
@@ -61,8 +63,8 @@
     <div class="clear"></div>      
      
     <div class="col columnLeft">  
-	<h3>What's being said on Twitter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
+	<h3>On Twitter</h3>
+	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
 	<a href="http://twitter.com/#search?q=rabbitmq">See more on Twitter</a>      
     </div>
     
