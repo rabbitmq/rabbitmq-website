@@ -49,7 +49,7 @@
       The current RabbitMQ release implements <a
       href="https://jira.amqp.org/confluence/display/AMQP/Download">AMQP
       protocol version 0-8</a>. Please see the <a
-      href="compatibility.html">compatibility</a> page for more
+      href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
     </p>
 
