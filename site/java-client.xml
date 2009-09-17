@@ -138,7 +138,7 @@
 &lt;dependency&gt;
   &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
   &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
-  &lt;version&version-java-client;&lt;/version&gt;
+  &lt;version&gt;&version-java-client;&lt;/version&gt;
 &lt;/dependency&gt;</pre>
     </p>
     <p>
