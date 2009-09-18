@@ -58,7 +58,6 @@ urchinTracker();
 
     <ul class="mainNav">
       <li><a href="/index.html">Home</a></li>
-      <li><a href="/news.html">News</a></li>
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
       <li><a href="/examples.html">Examples</a></li>

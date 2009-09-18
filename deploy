@@ -3,13 +3,13 @@
 set -e
 cd `dirname $0`
 
-# Which user to mirror feeds as?  Default to the rabbitmq user who
-# owns the release deliverables dir.
+# Which user to mirror feeds as?  Default to the rabbitmq user, who by
+# convention owns the release deliverables dir.
 mirror_user=rabbitmq
-if ! grep "^$mirror_user:" /etc/passwd 2>&1 >/dev/null ; then
-    # Otherwise, try theuser running sudo deploy
+if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
+    # Otherwise, try the user running sudo deploy
     mirror_user="$SUDO_USER"
-    if ! grep "^$mirror_user:" /etc/passwd 2>&1 >/dev/null ; then
+    if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
         echo "Not sure which user to mirror feeds as" 1>&2
         exit 1
     fi
