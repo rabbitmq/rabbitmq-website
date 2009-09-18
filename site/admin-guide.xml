@@ -826,8 +826,9 @@
             which connection information items to include in the results. The
             column order in the results will match the order of the parameters. If
             no <code>connectioninfoitem</code>s are specified then  user, peer
-            address and peer port are displayed. <code>connectioninfoitem</code>
-            can take any value from the list that follows:
+            address, peer port and connection state are displayed.
+            <code>connectioninfoitem</code> can take any value from the list
+            that follows:
           </p>
           <dl>
             <dt>node</dt> 
