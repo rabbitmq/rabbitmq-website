@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Mirror the external feeds that appear on the rabbit web site
+
+feeds_dir="$1"
+[ -z "$feeds_dir" ] && feeds_dir=/srv/www.rabbitmq.com/feeds
+
+mirror_feed () {
+    url="$1"
+    file="$2"
+
+    tmpfile="/tmp/feed.$$"
+    
+    wget -q -O "$tmpfile" "$url" && mv "$tmpfile" "$file"
+    rm -f "$tmpfile"
+}
+
+mirror_feed 'http://search.twitter.com/search.atom?q=rabbitmq' $feeds_dir/twitter.atom
+mirror_feed 'http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq?count=15' $feeds_dir/delicious.rss

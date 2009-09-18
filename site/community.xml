@@ -1,0 +1,76 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Community</title>
+  </head>
+  <body>
+    <doc:div>    
+    
+    <h2>Community</h2>
+    
+    <p>See <a href="/how.html#highlights">a summary of recent highlights here</a>, but use these forums 
+    to keep up to date with all developments:</p>
+  
+      <div class="col columnLeft">      
+      <h3>Mailing list</h3>
+      <ul>
+	<li>There is a mailing list dedicated to RabbitMQ. Everyone is welcome to join and ask questions 
+	    but please make sure your question hasn't been answered before by searching the archives. Two
+	    interfaces are available for this:
+	    <ul class="plain">
+	      <li>A <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
+	      interface which also provides information on how to 
+	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">subscribe directly</a></li>
+	      <li>A <a href="email-archive.html">full web-interface provided Nabble</a> </li>
+	    </ul>  
+	</li>
+      </ul>   
+      </div>            
+      <div class="col columnRight">      
+	<h3>IRC chat</h3>
+	<ul>
+	  <li>
+	  RabbitMQ developers are also sometimes available to chat rabbitmq on irc.freenode.net 
+	  (see also <a href="http://freenode.net/">http://freenode.net/</a>) in channel 
+	  <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>. 
+	  <p>The logs of these conversations are available here: 
+	  <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.</p>
+	  </li>
+	</ul>
+      </div>    
+      
+      <div class="clear"></div>
+ 
+      <div class="col columnLeft">
+	<h3>Bug reports</h3>	
+	<ul>
+	  <li>To report a bug or problem email <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+	  </li>
+	</ul>
+      </div>            
+      <div class="col columnRight">
+	<h3>Development wiki</h3>
+	<ul>
+	  <li>
+	  We are also working on a development wiki: 
+	  <a href="http://dev.rabbitmq.com/wiki/">http://dev.rabbitmq.com/wiki/</a>.
+	  </li>
+	</ul>
+      </div>
+      
+      <div class="clear"></div>      
+      
+      <div class="col columnLeft">        
+	  <h3><a class="more-links" href="/delicious.html">about del.icio.us</a>On Del.icio.us</h3>
+	  <feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  	
+      </div>
+      <div class="col columnRight">
+	  <h3><a class="more-links" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
+	  <feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
+      </div>    
+      
+      <div class="clear"></div>
+    </doc:div>
+  </body>
+</html>
