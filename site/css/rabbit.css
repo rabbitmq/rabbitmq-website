@@ -434,19 +434,18 @@ p.button {
 	width: 256px;
 	text-align: center;
 	font-size: 18px;
-	text-transform: uppercase;
 	margin:  0px 0 0px 0px;
 
 }
 p.button a {
+	background-color: #A9B5AF;
 	padding: 21px 0 21px 0px;
-	margin: 32px 0  32px 32px;
-	background-color: #A9B5AF; 
+	margin: 21px 0  21px 32px;
 	color: #fff;
 	display: block; 
 	text-decoration: none;
     
 }
 p.button a:hover {
-	background-color: #FA8800;
+	background-color: #FA8800; 
 }

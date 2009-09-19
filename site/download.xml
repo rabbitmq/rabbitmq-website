@@ -137,28 +137,6 @@
     
     <p>Also don't forget to check out the constantly updated <a href="how.html">community page</a> for more links to experimental code and other contributions.</p>
 
-    <h3 id="rabbitmq-http">rabbitmq-http2</h3>
-    
-    <p>
-      An AMQP-over-HTTP protocol binding for RabbitMQ and some
-      Javascript libraries for interacting with RabbitMQ over HTTP, as
-      well as some examples.
-    </p>
-
-    <p>
-      Besides the RabbitMQ server itself, you will need both the
-      <code>rabbitmq-http2</code> adapter and the
-      <code>erlang-rfc4627</code> JSON and JSON-RPC support library it
-      depends on.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-http2"
-		  url="http://hg.rabbitmq.com/rabbitmq-http2/"/>
-      <repository type="hg" shortname="erlang-rfc4627"
-		  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
-    </repositories>
-
     <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
     
     <p>

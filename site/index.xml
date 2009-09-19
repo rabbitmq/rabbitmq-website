@@ -5,9 +5,11 @@
   </head>
   <body>
     <p class="rgt button">
-    <a class="" href="download.html"><b>Download Now!</b></a>
-    <a class="" href="services.html"><b>Our services</b></a>
+    <a class="" href="download.html"><b>Download</b></a>
+    <a class="" href="services.html"><b>Our Services</b></a>
+    <a class="" href="community.html"><b>Get Involved</b></a>
     </p>
+    <h3>What is RabbitMQ</h3>
     <p>
 	RabbitMQ is a complete and highly reliable Enterprise Messaging system based
 	on the <a href="specification.html">emerging AMQP standard</a>.	It is licensed

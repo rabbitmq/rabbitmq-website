@@ -26,6 +26,7 @@
 	  </ul>
 	</li>	
 	<li><a href="/resources/RabbitMQ_Oxford_Geek_Night.pdf">Messaging v Databases</a>, slides from presentataion given by Alexis at Oxford Geek Night, May 2009.</li>
+	<li><a href="http://crad.tumblr.com/post/196979154/the-attention-deficit-disorder-guide-to-rabbitmq">The Attention Deficit Disorder Guide to RabbitMQ</a>, September 2009</li>
 	<li>Another great introduction: <a href="http://norbu09.org/2009/07/17/RabbitMQ-talk-at-erlounge.html">slides from a presentation to Erlounge Wellington</a>, July 2009</li>
         <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens, an introduction to messaging</a></li>
         <li>Whether you use .NET or not, <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">section 3 of this user guide</a> describes common messaging patterns</li>
