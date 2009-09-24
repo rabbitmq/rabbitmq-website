@@ -210,12 +210,12 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-	margin: 87px 0 0 0;
+	margin: 80px 0 0 0;
 	padding: 0 0 0 0;
-	height: 20px;
+	height: 21px;
 	float: left:
 	clear: both;
-	border-bottom: #ff9933 1px solid;
+	border-bottom: #FF8C00 1px solid;
 }
 .mainNav li {
 	display: inline;
@@ -240,6 +240,10 @@ hr {
 	visibility: hidden;
 }
 
+hr.pad {
+	margin: 0px 0px 21px 0px;
+	padding: 0px;
+}
 .compact li {
 	padding-bottom: 0em;
 }
@@ -350,10 +354,10 @@ td.signature, th.signature {
 	color: #a9b5af;
 	text-align: left;
 	border-top: #e4e4e4 1px solid;
-	padding-top: 1px;
-	margin-top: 1em;
+	margin-top: 21px;
 	font-style: italic;
 	font-size: 95%;
+	height: 128px;
 }
 
 .pageFooter a.about {
@@ -404,35 +408,13 @@ td.signature, th.signature {
 .downloadlabel th:hover {
 	background: #e4e4e4;
 }
-
 .subscribe {
         float: right;
 }
-<<<<<<< local
-<<<<<<< local
-=======
-<<<<<<< local
-=======
->>>>>>> other
-
-<<<<<<< local
->>>>>>> other
-table.gsc-search-box {
-=======
-
 table.gsc-search-box th,
 table.gsc-search-box td  {
-
->>>>>>> other
 	border: none;
-<<<<<<< local
-<<<<<<< local
-=======
-}=======
-=======
-
 }
->>>>>>> other
 div#promo {
 	background-color: #FA8800;
 	color: #fff;
@@ -441,7 +423,6 @@ div#promo {
 	padding: 10px 0px 10px 0px;
 	margin: 0 0px 10px 10px;
 	display: none;
->>>>>>> other
 }
 div#promo p {
 	margin: 10px 10px 15px 10px;
@@ -453,4 +434,24 @@ div#promo p.quote {
 div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
+}
+p.button {
+	width: 256px;
+	text-align: center;
+	font-size: 18px;
+	text-transform: uppercase;
+	margin:  0px 0 0px 0px;
+
+}
+p.button a {
+	padding: 21px 0 21px 0px;
+	margin: 32px 0  32px 32px;
+	background-color: #A9B5AF; 
+	color: #fff;
+	display: block; 
+	text-decoration: none;
+    
+}
+p.button a:hover {
+	background-color: #FA8800;
 }
