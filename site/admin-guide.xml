@@ -986,11 +986,10 @@
 
           <p>
             In the event of broker mis-behaviour, it is recommended that all plugins be disabled as a first
-            port-of-call. Instead of manually removing all files from the plugins directory, the custom boot
-            file for Rabbit can instead be removed so as to disable all plugins until the next time that
-            activate plugins is run. Assuming that your current working directory is the Rabbit root directory,
+            port-of-call. Instead of manually removing all files from the plugins directory, the deactivate
+            plugins script can be used to disable all plugins until rabbitmq-activate-plugins is next run. To do this,
             execute:
-            <pre>rm ebin/rabbit.boot</pre>
+            <pre>rabbitmq-deactivate-plugins</pre>
             
             When Rabbit is restarted, no custom plugins will be loaded.
           </p>
