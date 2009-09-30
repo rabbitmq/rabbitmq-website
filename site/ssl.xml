@@ -10,15 +10,17 @@
       </doc:toc>
 
       <doc:section name="intro">
-      <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
-      <p>SSL/TLS support in the RabbitMQ server requires the <code class="">new_ssl</code>
-      Erlang/OTP application. For everything to work correctly, ensure the
-      following minimum configuration: </p>
-      <ul class="plain">
-	<li> Erlang Distribution - R12B-5</li>
-	<li> Erlang SSL - 3.10</li>
-      </ul>
-      <br/>
+	<doc:heading>Introduction</doc:heading>
+        <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
+        <p>SSL/TLS support in the RabbitMQ server requires
+          the <code class="">new_ssl</code> Erlang/OTP
+          application. For everything to work correctly, ensure the
+          following minimum configuration: </p>
+        <ul class="plain">
+	  <li> Erlang Distribution - R12B-5</li>
+	  <li> Erlang SSL - 3.10</li>
+        </ul>
+      </doc:section>
 
       <doc:section name="keys-and-certs">
 	<doc:heading>Keys, Certificates and CA Certificates</doc:heading>
@@ -284,10 +286,11 @@ broker running
 
         <doc:subsection name="bugs-in-new_ssl">
           <doc:heading>Bugs in <code class="">new_ssl</code></doc:heading>
-	    <p>Erlang's <code class="">new_ssl</code> application has
-	    a bug in which, if it asks the peer for a certificate, and
-	    the peer totally fails to respond to this request, rather
-	    than rejecting the connection,
+	    <p>In Erlang before release R13B02,
+	    the <code class="">new_ssl</code> application has a bug in
+	    which, if it asks the peer for a certificate, and the peer
+	    totally fails to respond to this request rather than
+	    rejecting the connection,
 	    the <code class="">new_ssl</code> application permits the
 	    connection to be established. Note that this requires the
 	    client to break the SSL specifications itself: the
@@ -305,6 +308,19 @@ broker running
 	    be established (i.e. it doesn't enforce that if it demands
 	    a certificate, a certificate really is sent back by the
 	    client).</b></p>
+
+            <p>In Erlang release R13B02, the above behaviour has been
+            fixed: if the client is asked to present a certificate,
+            then it must do so. However, other bugs have been
+            introduced: in particular,
+            the <code>fail_if_no_peer_cert</code> is not honoured any
+            more, meaning that if you set <code>{verify,
+            verify_peer}</code>, then clients <b>must</b> present a
+            certificate. I.e. it is not possible to now permit the
+            case where either a client presents no certificate, or it
+            presents a certificate for which we can verify a chain of
+            trust.</p>
+
 	    <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
       </doc:section>
@@ -676,10 +692,10 @@ IModel ch = conn.CreateModel();
 	    the <a href="#bugs-in-new_ssl">bug
 	    in <code class="">new_ssl</code>, mentioned above</a>,
 	    this means that <b class="">with RabbitMQ set
-	    to <code class="">{fail_if_no_peer_cert,true}</code>, if
-	    the .Net client is running under Mono, and does not have a
-	    certificate to present, the connection will successfully
-	    be established</b>.</p>
+	    to <code class="">{fail_if_no_peer_cert,true}</code> on
+	    Erlang before R13B02, if the .Net client is running under
+	    Mono, and does not have a certificate to present, the
+	    connection will successfully be established</b>.</p>
 	</doc:subsection>
       </doc:section>
 	      
