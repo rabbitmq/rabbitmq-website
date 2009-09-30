@@ -15,6 +15,32 @@
       -->     
               
       <doc:item>
+	<doc:date iso="2009-09-30T00:00:00Z">30 September 2009</doc:date>
+	<doc:title>
+   RabbitMQ provides VMware users with a reliable cloud bus based on open AMQP messaging
+	</doc:title>
+
+	<doc:link>http://www.vmware.com/appliances/directory/291843</doc:link>
+
+	<doc:text>
+<p>We are delighted to be providing RabbitMQ open messaging to support the
+VMware vCloud&#153;  Initiative, their customers and the growing cloud
+ecosystem," Alexis Richardson, CEO, RabbitMQ.  "Customers want choice, and
+RabbitMQ delivers choice by lowering the cost of scale, and by removing
+lock-in.  RabbitMQ is the market leading implementation of AMQP, the
+interoperable open business messaging protocol, and is distributed on most
+major development platforms. Already businesses are using RabbitMQ to scale up
+business-critical application functionality on multiple leading public and
+private cloud infrastructures.  Our support for the VMware vCloud&#153; Initiative
+is a natural extension.  RabbitMQ has an open source license making it ideal
+for elastic deployments, and for integration in platforms such as Spring and
+Ruby on Rails.</p>
+
+	<p>The virtual appliance is available to download for free from the <a href="http://www.vmware.com/appliances/directory/291843">VMware virtual appliance marketplace</a>.</p>
+
+	</doc:text>
+      </doc:item>              
+      <doc:item>
 	<doc:date iso="2009-07-22T00:00:00Z">22 July 2009</doc:date>
 	<doc:title>
    Catch up online
