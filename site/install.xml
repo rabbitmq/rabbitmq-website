@@ -310,6 +310,16 @@
 	    log rotation selectively.
 	  </p>
 	</doc:subsection>
+	
+	<doc:subsection name="configfile-windows">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at RABBITMQ_BASE/etc/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
+	  </p>
+	</doc:subsection>
       </doc:section>
 
       <doc:section name="debian">
@@ -397,6 +407,16 @@
 	    <code>logrotate</code> configuration file. 
 	  </p>
 	</doc:subsection>
+	
+	<doc:subsection name="configfile-debian">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
+	  </p>
+	</doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
@@ -473,7 +493,15 @@
 	    as for <a href="#logging-debian">Debian GNU</a>
 	  </p>
 	</doc:subsection>
-
+	<doc:subsection name="configfile-debian">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
+	  </p>
+	</doc:subsection>
       </doc:section>
 
       <doc:section name="macports">
@@ -557,6 +585,15 @@
             the context of the rabbitmq user so that the Erlang cookie
             can be read from
             <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
+	  </p>
+	</doc:subsection>
+	<doc:subsection name="configfile-debian">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at /opt/local/etc/rabbitmq/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
 	  </p>
 	</doc:subsection>
       </doc:section>
@@ -676,6 +713,15 @@
 	    <a href="#logging-debian">Debian and RPM based distributions</a>.
 	  </p>
 	</doc:subsection>
+	<doc:subsection name="configfile-generic-unix">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
+	  </p>
+	</doc:subsection>
       </doc:section>
 
       <doc:section name="troubleshooting">
@@ -714,6 +760,34 @@
 
       </doc:section>
 
+      <doc:section name="configfile-general">
+	<doc:heading>Configuration File</doc:heading>
+	<p>
+	  The Rabbit configuration file allows for the rabbit core application,
+	  Erlang services and Rabbit plugins to be configured. This configuration
+	  file is a standard Erlang configuration file, as documented on the
+	  <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
+	</p>
+	<p>
+	  The location of this configuration file is distribution specific, and is documented
+	  in each of the above platform installation guides.
+	</p>
+	<p>
+	  An example configuration file would look like:
+	</p>
+	<p>
+<pre class="sourcecode">
+  [
+    {mnesia, [{dump_log_write_threshold, 1000}]},
+    {rabbit, []}
+  ].
+</pre>
+	</p>
+	<p>
+	  This configuration file will alter the dump_log_write_threshold (increasing from the default
+	  of 100).
+	</p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
