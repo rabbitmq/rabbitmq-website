@@ -195,9 +195,8 @@ server testca
 	  </ul>
 
 	  <p>The simplest way to set these options, is to edit the <code class="">rabbitmq.config</code> file 
-	  (in the appropriate location for your platform, as discussed in the <a href="install.html">installation guide</a>).
-	  An example of the config file is below, which will start one ssl_listener on port 5671 on all interfaces on this host (<b>note,
-	  this is all on a single line</b>):</p>
+	  (in the appropriate location for your platform, as discussed in the <a href="install.html#configfile">installation guide</a>).
+	  An example of the config file is below, which will start one ssl_listener on port 5671 on all interfaces on this hostname:</p>
 	  
 <pre class="sourcecode">
 [
@@ -212,8 +211,6 @@ server testca
 ].
 </pre>
 
-	  <p><b class="">Do not introduce any spaces whatsoever between the square brackets
-	  [ and ]</b></p>
 	  <p>When a web browser connects to an HTTPS web server, the server
 	  presents its public certificate, the web browser attempts to establish
 	  a chain of trust between the root certificates the browser is aware of
