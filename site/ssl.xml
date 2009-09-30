@@ -194,14 +194,22 @@ server testca
 	    i.e. <code class="">erl -man new_ssl</code>, but the most important are <code class="">cacertfile</code>, <code class="">certfile</code> and <code class="">keyfile</code>.</p></li>
 	  </ul>
 
-	  <p>The simplest way to set these options, is to edit the <code class="">RABBITMQ_SERVER_START_ARGS</code> environment variable in <code class="">/etc/rabbitmq/rabbitmq.conf</code>. An example is below, which will start
-	  one ssl_listener on port 5671 on all interfaces on this host (<b>note,
+	  <p>The simplest way to set these options, is to edit the <code class="">rabbitmq.config</code> file 
+	  (in the appropriate location for your platform, as discussed in the <a href="install.html">installation guide</a>).
+	  An example of the config file is below, which will start one ssl_listener on port 5671 on all interfaces on this host (<b>note,
 	  this is all on a single line</b>):</p>
 	  
 <pre class="sourcecode">
-RABBITMQ_SERVER_START_ARGS=&quot;-rabbit ssl_listeners [{\&quot;0.0.0.0\&quot;,5671}] -rabbit ssl_options
-[{cacertfile,\&quot;/path/to/testca/cacert.pem\&quot;},{certfile,\&quot;/path/to/server/cert.pem\&quot;},
-{keyfile,\&quot;/path/to/server/key.pem\&quot;},{verify,verify_peer},{fail_if_no_peer_cert,false}]&quot;
+[
+  {rabbit, [
+     {ssl_listeners, [{"0.0.0.0",5671}]},
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {verify,verify_peer},
+                    {fail_if_no_peer_cert,false}]}
+   ]}
+].
 </pre>
 
 	  <p><b class="">Do not introduce any spaces whatsoever between the square brackets
