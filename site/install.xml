@@ -26,8 +26,8 @@
 	  <p>
 	    The bundle zip file contains all the files listed in the
 	    next section, including an Erlang system installer and the
-	    RabbitMQ broker binary distribution, as well as an archive
-	    of the Java librabbitmq client library.
+	    RabbitMQ broker binary distribution, the .Net client, as
+	    well as an archive of the Java librabbitmq client library.
 	  </p>
 	</doc:subsection>
 
