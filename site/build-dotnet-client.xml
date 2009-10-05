@@ -96,9 +96,40 @@
      <doc:subsection name="building-on-linux">
       <doc:heading>On Linux</doc:heading>
       <p>
-        Building on Linux is not yet supported. It will probably be again with
-        the release of Mono 2.6.
+        Currently it is only possible to build the library with
+        development snapshot versions of Mono.  We expect that
+        building with Mono 2.6 will work, when that version is
+        released.
       </p>
+
+      <p>
+        For information about how to retrieve the development trunk of
+        Mono and build it on Linux, please see <a
+        href="http://mono-project.com/Compiling_Mono_From_SVN">the
+        instructions on the Mono site</a>.  SVN revision 143408 has
+        been confirmed to work; use the <code>-r</code> option to
+        <code>svn</code> to specify the revision to obtain when
+        checking out Mono.
+      </p>
+
+      <p>
+        Once you have built and installed a suitable version of Mono,
+        and <a href="#obtaining">obtained the RabbitMQ .Net/C# AMQP
+        client library source code</a>, to build the library you need to:
+      </p>
+
+      <ul class="compact">
+        <li>
+          Copy <code>Local.props.example</code> to <code>Local.props</code>
+          and edit the <code>&lt;PropUsingMono&gt;</code> value to be
+          <code>true</code>.
+        </li>
+        <li>
+          At a command prompt, go into the library source directory, and do
+          <pre class="sourcecode">$ xbuild RabbitMQDotNetClient.sln</pre>
+          For more information on xbuild see its man page.
+        </li>
+      </ul>
      </doc:subsection>
     </doc:section>
     </doc:div>
