@@ -26,8 +26,8 @@
 	  <p>
 	    The bundle zip file contains all the files listed in the
 	    next section, including an Erlang system installer and the
-	    RabbitMQ broker binary distribution, as well as an archive
-	    of the Java librabbitmq client library.
+	    RabbitMQ broker binary distribution, the .Net client, as
+	    well as an archive of the Java librabbitmq client library.
 	  </p>
 	</doc:subsection>
 
@@ -37,9 +37,9 @@
 	  <ul>
 	    <li>
 	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R11B-5 on
+	      should work, but we are developing against Erlang R12B-5 on
 	      Windows, which can be downloaded from <a
-	      href="http://www.erlang.org/download/otp_win32_R11B-5.exe">http://www.erlang.org/download/otp_win32_R11B-5.exe</a>
+	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
 	    </li>
 	    <li>
 	      Download
@@ -51,15 +51,13 @@
 	      Contained in the zip file is a directory named
 	      <code>rabbitmq_server-<i>version</i></code>.
 
-	      You can <b>either</b> extract this folder into 
-	      
-	      <code>C:\Program Files\erl5.5.5\lib</code>
-
-	      (or if you use a different Erlang version, the
-	      corresponding <code>lib</code> directory) 
-	      <b>or</b> extract it elsewhere and set the environment
+	      You should extract this folder to somewhere appropriate
+	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      Once the files are successfully extracted, you should end up with a structure
+	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.5.5</code>).
+	      (e.g. <code>C:\Program Files\erl5.6.5</code>).
 	      
 	    </li>
 	    <li>
@@ -75,7 +73,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.5.5</code>.
+		  <code>C:\Program Files\erl5.6.5</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -149,6 +147,15 @@
 		  href="clustering.html">clustering guide</a> for
 		  details.
 		</dd>
+		<dt>RABBITMQ_CONFIG_FILE</dt>
+		<dd>
+		  Defaults to
+		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If
+		  this file is present it is used by the server to
+		  configure RabbitMQ application components. Note that
+		  the .config extension is automatically appended by
+		  the Erlang runtime.
+		</dd>
 	      </dl>
 	    </li>
 	  </ul>
@@ -207,7 +214,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
+                    <code>C:\Program Files\erl5.6.5\erts-5.6.5\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
@@ -399,6 +406,16 @@
 	    <code>logrotate</code> configuration file. 
 	  </p>
 	</doc:subsection>
+	
+	<doc:subsection name="configfile-debian">
+	  <doc:heading>Configuration File</doc:heading>
+	  <p>
+	    The server configuration file (rabbitmq.config) should be created
+	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
+	    of this file, see the 
+	    <a href="#configfile-general">Config File Contents</a> section.
+	  </p>
+	</doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
@@ -475,7 +492,6 @@
 	    as for <a href="#logging-debian">Debian GNU</a>
 	  </p>
 	</doc:subsection>
-
       </doc:section>
 
       <doc:section name="macports">
@@ -581,13 +597,9 @@
 	    </li>
 	    <li>
 	      Contained in the tarball is a directory named
-	      <code>rabbitmq_server-<i>version</i></code>. You can
-	      <b>either</b> extract the tarball into
-	      <code>/usr/lib/erlang/lib</code> directory (or wherever
-	      your Erlang installation places its application and
-	      library directory), which allows the RabbitMQ modules to
-	      be found by other Erlang applications, <b>or</b> extract
-	      it elsewhere.
+	      <code>rabbitmq_server-<i>version</i></code>. You should
+	      extract this into somewhere appropriate for application
+	      binaries on your system.
 	    </li>
 	    <li>
 	      Within the <code>sbin</code> directory is a shell script
@@ -639,6 +651,15 @@
 		  auto-configure a RabbitMQ cluster. See the <a
 		  href="clustering.html">clustering guide</a>
 		  for details.
+		</dd>
+		<dt>RABBITMQ_CONFIG_FILE</dt>
+		<dd>
+		  Defaults to
+		  <code>/etc/rabbitmq/rabbitmq</code>. If
+		  this file is present it is used by the server to
+		  configure RabbitMQ application components. Note that
+		  the .config extension is automatically appended by
+		  the Erlang runtime.
 		</dd>
 	      </dl>
 	    </li>
@@ -720,6 +741,47 @@
 
       </doc:section>
 
+      <doc:section name="configfile">
+	      <doc:heading>Configuration File</doc:heading>
+	      <p>
+          The Rabbit configuration file allows for the rabbit core application,
+          Erlang services and Rabbit plugins to be configured. This configuration
+          file is a standard Erlang configuration file, as documented on the
+          <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
+        </p>
+        <p>
+          The location of this configuration file is distribution specific. By default, it is
+          located in the following places on each platform:
+          <ul>
+            <li><b>Windows</b> - %APPDATA%\RabbitMQ\rabbitmq.config</li>
+            <li><b>Debian</b> - /etc/rabbitmq/rabbitmq.config</li>
+            <li><b>RPM</b> - /etc/rabbitmq/rabbitmq.config</li>
+            <li><b>MacOS (Macports)</b> - /opt/local/etc/rabbitmq/rabbitmq.config</li>
+            <li><b>Generic UNIX</b> - /etc/rabbitmq/rabbitmq.config</li>
+          </ul>
+      	</p>
+	        <p>
+          Note that this file may not be created by default. If needed, it can be created manually. The
+          location can also be overidden via the <b>RABBITMQ_CONFIG_FILE</b> environment variable. Note
+          that the property value should not include the .config extension - this is automatically appended
+          by the Erlang runtime.
+        </p>
+        <p>
+          An example configuration file would look like:
+        </p>
+        <p>
+<pre class="sourcecode">
+  [
+    {mnesia, [{dump_log_write_threshold, 1000}]},
+    {rabbit, []}
+  ].
+</pre>
+	      </p>
+        <p>
+          This configuration file will alter the dump_log_write_threshold for mnesia (increasing from the default
+          of 100).
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>

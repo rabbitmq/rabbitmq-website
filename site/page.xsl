@@ -95,7 +95,14 @@ Technologies Ltd.</p></div>
 	    <xsl:if test=".//doc:subsection[@name]">
 	      <ul class="{$tocNode/@class}">
 		<xsl:for-each select=".//doc:subsection[@name]">
-		  <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+		  <li>
+            <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+            <ul class="{$tocNode/@class}">
+              <xsl:for-each select=".//doc:subsubsection[@name]">
+                <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+              </xsl:for-each>
+            </ul>
+          </li>
 		</xsl:for-each>
 	      </ul>
 	    </xsl:if>
@@ -119,6 +126,13 @@ Technologies Ltd.</p></div>
     </div>
   </xsl:template>
 
+  <xsl:template match="doc:subsubsection">
+    <div class="docSubsection">
+      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
   <xsl:template match="doc:roadmapentry">
     <div class="docRoadmapentry">
       <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
@@ -131,6 +145,10 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <xsl:template match="doc:subsection/doc:heading">
+    <h3 class="docHeading"><xsl:apply-templates/></h3>
+  </xsl:template>
+
+  <xsl:template match="doc:subsubsection/doc:heading">
     <h3 class="docHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
