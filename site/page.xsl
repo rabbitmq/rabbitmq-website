@@ -49,7 +49,7 @@ urchinTracker();
   </xsl:template>
 
   <xsl:template name="page-header">
-     <p class="strap">Open Source Enterprise Messaging</p>
+     <p class="strap">Messaging that just works</p>
     <h1>
       <a href="/"
 	 ><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37" /></a>
@@ -60,7 +60,7 @@ urchinTracker();
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/examples.html">Examples</a></li>
+      <li><a href="/how.html">Get started</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
       <li><a href="/faq.html">FAQ</a></li>
@@ -71,7 +71,7 @@ urchinTracker();
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"></div>
+    <div class="clear"></div>	
     <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</p></div>
   </xsl:template>

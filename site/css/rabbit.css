@@ -7,7 +7,7 @@ overflow-y:scroll;
 }
 
 body, table {
-	font: 12px/15px Verdana, sans-serif;
+	font: 12px/17px Verdana, sans-serif;
 	color: #333 !important;
 	background-color: #fff;
 }
@@ -190,7 +190,7 @@ p {
 .clear {
 	clear:both;
 }
-.rgt {
+.p {
 	float:right;
 }
 .lft {
@@ -359,13 +359,13 @@ td.signature, th.signature {
 	float: right;
 	font-weight: normal;
 }
-
-.feed li {
-	margin-bottom: 2em;
+ol.feed {
+	margin: 0px;
+	padding: 0px;
 }
-
-
-
+.feed li {
+	margin-bottom: 1em;
+  }
 .feed li hr {
 	visibility: visible;
 	border: none;
@@ -430,17 +430,24 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
+div.rgt-third {
+	width: 286px;
+	float: right;
+}
+div.rgt-third p, 
+div.rgt-third h3,
+div.rgt-third ol {
+    margin-left: 32px;
+}
 p.button {
-	width: 256px;
 	text-align: center;
 	font-size: 18px;
 	margin:  0px 0 0px 0px;
-
 }
 p.button a {
 	background-color: #A9B5AF;
 	padding: 21px 0 21px 0px;
-	margin: 21px 0  21px 32px;
+	margin: 21px 0  21px 0px;
 	color: #fff;
 	display: block; 
 	text-decoration: none;
