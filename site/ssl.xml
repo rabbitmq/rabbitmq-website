@@ -185,18 +185,22 @@ server testca
 	  to it. These settings are all controlled by two arguments to RabbitMQ:</p>
 
 	  <ul class="plain">
-	    <li><pre class="sourcecode"><b>rabbit ssl_listeners</b></pre><p>This is a tuple-list of <code class="">{IpAddress, Port}</code> pairs which tells
+	    <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a tuple-list of <code class="">{IpAddress, Port}</code> pairs which tells
 	    RabbitMQ to listen on these addresses and ports for SSL
 	    connections. Setting the <b>IpAddress</b> to <b>0.0.0.0</b> tells
 	    RabbitMQ to listen on all available interfaces.</p></li>
-	    <li><pre class="sourcecode"><b>rabbit ssl_options</b></pre><p>This is a tuple list of <code class="">new_ssl</code> options. The complete list
+	    <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code class="">new_ssl</code> options. The complete list
 	    of ssl_options is available via the <code class="">new_ssl</code> man page:
 	    i.e. <code class="">erl -man new_ssl</code>, but the most important are <code class="">cacertfile</code>, <code class="">certfile</code> and <code class="">keyfile</code>.</p></li>
 	  </ul>
 
-	  <p>The simplest way to set these options, is to edit the <code class="">rabbitmq.config</code> file 
-	  (in the appropriate location for your platform, as discussed in the <a href="install.html#configfile">installation guide</a>).
-	  An example of the config file is below, which will start one ssl_listener on port 5671 on all interfaces on this hostname:</p>
+	  <p>The simplest way to set these options, is to edit
+	  the <code class="">rabbitmq.config</code> file (in the
+	  appropriate location for your platform, as discussed in
+	  the <a href="install.html#configfile">installation
+	  guide</a>).  An example of the config file is below, which
+	  will start one ssl_listener on port 5671 on all interfaces
+	  on this hostname:</p>
 	  
 <pre class="sourcecode">
 [
@@ -219,15 +223,28 @@ server testca
 	  web browsers and web servers, SSL allows the server to ask the client
 	  to present a certificate. In this way the server can verify that the
 	  client is who they say they are.</p>
-	  <p>This policy of whether or not the server asks for a certificate from
-	  the client, and whether or not they demand that they are able to trust
-	  the certificate, is what the <code class="">verify</code> and <code class="">fail_if_no_peer_cert</code> arguments control. Through the <code class="">{fail_if_no_peer_cert,false}</code> option, we state that we're prepared to
-	  accept clients which don't have a certificate to send us, but through
-	  the <code class="">{verify,verify_peer}</code> option, we state that if the client
-	  does send us a certificate, we must be able to establish a chain of
-	  trust to it. Note that these values can change across versions of ssl
-	  shipped with Erlang/OTP, so check your man page <code class="">erl -man new_ssl</code>
-	  to ensure you have the proper values.</p>
+	  <p>This policy of whether or not the server asks for a
+	  certificate from the client, and whether or not they demand
+	  that they are able to trust the certificate, is what
+	  the <code class="">verify</code>
+	  and <code class="">fail_if_no_peer_cert</code> arguments
+	  control. Through
+	  the <code class="">{fail_if_no_peer_cert,false}</code>
+	  option, we state that we're prepared to accept clients which
+	  don't have a certificate to send us, but through
+	  the <code class="">{verify,verify_peer}</code> option, we
+	  state that if the client does send us a certificate, we must
+	  be able to establish a chain of trust to it. Note that these
+	  values can change across versions of ssl shipped with
+	  Erlang/OTP, so check your man page <code class="">erl -man
+	  new_ssl</code> to ensure you have the proper values. <b>In
+	  particular, note that Erlang R12B5 has a single
+	  configuration value <code>verify_code</code> which takes the
+	  value <code>0</code>, <code>1</code> or <code>2</code>. There is
+	  no <code>fail_if_no_peer_cert</code> option in Erlang
+	  R12B5. The options changed with the release of R13
+	  to <code>verify</code> and <code>fail_if_no_peer_cert</code>
+	  as documented here.</b></p>
 
 	  <p>On starting the server you should see the following in the start up log:</p>
 	  
@@ -266,10 +283,10 @@ broker running
 	  <p>Note the line that says "Starting SSL listeners". You should then see
 	  the following in the <code class="">rabbit.log</code>:</p>
 	  <pre>=INFO REPORT==== 14-May-2009::11:41:15 ===
-	  started TCP Listener on 0.0.0.0:5672
+started TCP Listener on 0.0.0.0:5672
 
-	  =INFO REPORT==== 14-May-2009::11:41:16 ===
-	  started SSL Listener on 0.0.0.0:5671</pre>
+=INFO REPORT==== 14-May-2009::11:41:16 ===
+started SSL Listener on 0.0.0.0:5671</pre>
 	  <p>Also, take note of the last line, which shows that RabbitMQ server is
 	  up and running and listening for ssl connections.</p>
 
@@ -721,9 +738,16 @@ IModel ch = conn.CreateModel();
 	      <li> The <code class="">keyfile</code> is the client's private key file in PEM format.</li>
 	    </ul>
 
-	    <p>As with RabbitMQ itself, the <code class="">verify</code> and <code class="">fail_if_no_peer_cert</code> options are use to specify what action to take
-	    if the server doesn't present a certificate or if we're unable to
-	    establish a chain of trust to the server's certificate.</p>
+	    <p>As with RabbitMQ itself,
+	    the <code class="">verify</code>
+	    and <code class="">fail_if_no_peer_cert</code> options are
+	    used in Erlang R13 and onwards to specify what action to
+	    take if the server doesn't present a certificate or if
+	    we're unable to establish a chain of trust to the server's
+	    certificate. In R12B5 and prior,
+	    the <code>verify_code</code> option serves the same
+	    purpose. Check <code>erl -man new_ssl</code> to make sure
+	    you have the right options for your version of Erlang.</p>
 	</doc:subsection>
 
 	<doc:subsection name="code">
