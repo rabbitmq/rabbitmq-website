@@ -5,6 +5,7 @@
     ServerName www.rabbitmq.com
     ServerAlias stage.rabbitmq.com
     ServerAlias rabbitmq.misshelpful.lshift.net
+    ServerAlias rabbitmq.mrbraver.lshift.net
     ServerAlias spork.lshift.net
     ServerAlias ladle.lshift.net
     ServerAlias ladle

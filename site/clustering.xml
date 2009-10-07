@@ -59,6 +59,21 @@
           <code>insist</code> flag in the <code>connection.open</code>
           method.
         </p>
+        <p>
+          A node can be a <em>RAM node</em> or a <em>disk
+          node</em>. RAM nodes keep their state only in memory (with
+          the exception of the persistent contents of durable queues
+          which are still stored safely on disc). Disk nodes keep
+          state in memory and on disk. As RAM nodes don't have to
+          write to disk as much as disk nodes, they can perform
+          better. Because state is replicated across all nodes in the
+          cluster, it is sufficient to have just one disk node within
+          a cluster, to store the state of the cluster safely. Beware,
+          however, that RabbitMQ will not stop you from creating a
+          cluster with only RAM nodes. Should you do this, and suffer
+          a power failure to the entire cluster, the entire state of
+          the cluster, including all messages, will be lost.
+        </p>
       </doc:section>
 
       <doc:section name="transcript">
@@ -465,10 +480,29 @@ done.</pre>
           <pre class="sourcecode">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl reset</i>
+rabbit2$ <i>rabbitmqctl force_reset</i>
 Resetting node rabbit@rabbit2 ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
+          <p>
+            Note that we used <em>force_reset</em> here. The reason is
+            that removing a node from a cluster updates only the
+            node-local configuration of the cluster, and that
+            calling <em>reset</em> gets the node to connect to any of
+            the other nodes that it believes are in the cluster, to
+            perform some house-keeping that is necessary when leaving
+            a cluster. However, at this point, there are no other
+            nodes in the cluster, but <code>rabbit@rabbit2</code>
+            doesn't know this. As a result, calling <em>reset</em>
+            would fail, as it can't connect
+            to <code>rabbit@rabbit1</code>
+            or <code>rabbit@rabbit3</code>, hence the use
+            of <em>force_reset</em>, in
+            which <code>rabbit@rabbit2</code> does not attempt to
+            contact any other nodes in the cluster. This situation
+            only arises when resetting the last remaining node of a
+            cluster.
+          </p>
 
         </doc:subsection>
 

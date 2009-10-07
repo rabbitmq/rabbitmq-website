@@ -1,0 +1,584 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Erlang AMQP Client library</title>
+  </head>
+<body>
+<doc:div>
+ <p class="intro">
+  This is the programmer's guide to the Erlang AMQP client.
+ </p>
+      
+ <doc:toc class="compact">
+  <doc:heading>Table of Contents</doc:heading>
+ </doc:toc>
+ 
+ <doc:section name="introduction">
+  <doc:heading>Introduction</doc:heading>
+   <p>
+    
+    The AMQP client provides an Erlang interface to compliant AMQP brokers. The client follows the AMQP execution model and implements the wire level marshalling required to encode and decode AMQP commands in a protocol conformant fashion. AMQP is a connection orientated protocol and multiplexes parallel interactions via multiple channels within a connection.
+  
+  </p>
+   <p>
+
+    This user guide assumes that the reader is familiar with basic concepts of
+AMQP and understands exchanges, queues and bindings. This information is
+contained in the protocol documentation on the AMQP website. For details and
+exact definitions, please see <a href="http://www.amqp.org/">the AMQP specification
+document</a>.
+  
+  </p>
+  <p>
+  
+  The basic usage of the client follows these broad steps:
+    
+    <ol>
+     <li>Establish a connection to a broker</li>
+     <li>Create a new channel within the open connection</li>
+     <li>Execute AMQP commands with a channel such as sending and receiving messages, creating exchanges and queue or defining routing rules between exchanges and queues</li>
+     <li>When no longer required, close the channel and the connection</li>
+    </ol>
+   </p>
+   
+   <p>
+     This programmer's guide documents the return values of each command for completeness' sake.
+The return value of most commands merely contains an acknowledgement that the command was executed successfully.
+Strictly speaking, it is not necessary to match the return value of each
+invocation against the expected return value. This assertion is left to the
+discretion of the programmer.
+   </p>
+    
+ </doc:section>
+ 
+<!-- ..................................................................... -->
+
+  <doc:section name="model">
+  <doc:heading>Programming Model</doc:heading>
+  <p>
+    The main two modules in the client library are:
+    <ol>
+      <li>amqp_connection, which is used to open connections to a broker and create channels</li>
+      <li>amqp_channel, which is used to send and receive AMQP commands</li>
+    </ol>
+    Once a connection has been established, an application will typically use the amqp_channel:call/{2,3} and amqp_channel:cast/{2,3} functions to achieve most of the things it needs to do.
+  </p>
+  <p>
+     The library is made up of two layers:
+     <ol>
+       <li>A high level logical layer that follows the AMQP execution model</li>
+       <li>A low level driver layer that is responsible for providing a physical transport to a broker</li>
+     </ol>
+     There are two drivers in the client library. One driver establishes a TCP
+connection to a protocol compliant AMQP broker and encodes each command
+according to the specification. This driver is implemented in the
+amqp_network_driver module. The other driver, the amqp_direct_driver, uses
+native Erlang messaging instead of sending AMQP encoded commands over TCP.
+This approach avoids the overhead of marshalling commands onto and off the
+wire. However, the direct driver can only be used in conjunction with the
+RabbitMQ broker and the client code must be deployed into the same Erlang VM.
+The scope of this user guide is restricted to the network driver, as the
+direct driver requires more detailed knowledge of RabbitMQ and Erlang in
+general.
+  </p>
+  <p>
+   At runtime, the client library re-uses a subset of the functionality from the RabbitMQ broker. In order to keep the a client deployment independent of RabbitMQ, the client build process produces an archive containing all of the common modules. This archive is then put onto the load path of the client application.
+  </p>
+  <p>
+    For more detailed information on the API, please refer to the reference documentation.
+  </p>
+  <p>
+    Furthermore, the test suite that is part of the source distribution of the client library contains many complete examples of how to program against the API.
+  </p>
+ </doc:section>
+
+<!-- ..................................................................... -->
+
+  <doc:section name="commands">
+  <doc:heading>AMQP Commands</doc:heading>
+   <p>
+     The general mechanism of interacting with the broker is to send and receive AMQP commands that are defined in the protocol documentation. During build process, the machine readable version of the AMQP specification is used to autogenerate Erlang records for each command. The code generation process also defines sensible default values for each command. Using default values allows the programmer to write terser code - it is only necessary to override a field if you require non-default behaviour. The definition of each command can be consulted in the rabbit_framing.hrl header file. For example, when using the #'exchange.declare'{} command, specifying the following:
+     <pre class="sourcecode">
+      #'exchange.declare'{exchange = &lt;&lt;"my_exchange">>}
+     </pre>
+     
+     is equivalent to this:
+     
+     <pre class="sourcecode">
+       #'exchange.declare'{exchange = &lt;&lt;"my_exchange">>,
+                           type = &lt;&lt;"direct">>,
+                           passive = false,
+                           durable = false,
+                           auto_delete = false,
+                           internal = false,
+                           nowait = false,
+                           arguments = []}
+      </pre>
+   </p>
+  </doc:section>
+
+<!-- ..................................................................... -->
+
+ <doc:section name="headers">
+   <doc:heading>Including Header Files</doc:heading>
+    <p>
+     
+     The Erlang client uses a number of record definitions which you will encounter in this guide. These records fall into two broad categories:
+     
+     <ol>
+      <li>Autogenerated AQMP command definitions from the machine readable version of the specification</li>
+      <li>Definitions of data structures that are commonly used throughout the client</li>
+     </ol>
+     
+     To gain access to these records, you need to include the amqp_client.hrl in every module that uses the Erlang client:
+     
+     <pre class="sourcecode">
+     -include("amqp_client.hrl").
+     </pre>
+    </p>
+  </doc:section>
+
+<!-- ..................................................................... -->
+
+ <doc:section name="connections">
+   <doc:heading>Connecting To A Broker</doc:heading>
+   <p>
+     
+     The amqp_connection module is used to start a connection to the broker:
+     
+     <pre class="sourcecode">
+     Connection = amqp_connection:start_network(#amqp_params{})
+     </pre>
+     
+     This function returns the pid of a process that maintains a permanent connection to the broker.
+     
+    </p>
+    <p> 
+     
+     An AMQP broker contains objects that organized into groups called virtual hosts. The concept of virtual hosts gives an administrator the facility to partition a broker resource into separate domains and restrict access to the objects contained within these groups. AMQP connections require client authentication and the authorization to access specific virtual hosts. 
+    </p>
+    <p>     
+     The #amqp_params{} record sets the following default values:
+    </p> 
+     <table>
+      <tr><th>Parameter</th><th>Default Value</th></tr>
+      <tr><td>username</td><td>guest</td></tr>
+      <tr><td>password</td><td>guest</td></tr>
+      <tr><td>virtual_host</td><td>/</td></tr>
+      <tr><td>host</td><td>localhost</td></tr>
+      <tr><td>port</td><td>5672</td></tr>
+     </table>
+   <p>
+     These values are only the defaults that will work with an out of the box broker running on the same host. If the broker or the environment has been configured differently, these values can be overridden to match the actual deployment scenario.
+   </p>
+   <p>
+    
+    If a client wishes to run inside the same Erlang process as the RabbitMQ broker, it can start a direct connection that optimizes away the AMQP codec. To start a direct connection, use amqp_connection:start_direct/1 instead of amqp_connection:start_network/1.
+    
+   </p>
+   <p>
+
+     Both amqp_connection:start_direct/1 and amqp_connection:start_network/1 have alternatives that link the resulting connection process to the invoking process. This is achieved using amqp_connection:start_direct_link/1 and amqp_connection:start_network_link/1 respectively.
+
+    </p>
+ </doc:section>
+ <doc:section name="channels">
+    <doc:heading>Creating Channels</doc:heading>
+    <p>
+
+      Once a connection to the broker has been established, the amqp_connection module can be used to create channels:
+
+      <pre class="sourcecode">
+      Channel = amqp_connection:open_channel(Connection)
+      </pre>
+
+      This function takes the pid of the connection process and returns a pid that encapsulates a server side channel.
+    </p>
+  </doc:section>
+
+  <doc:section name="exchanges_queues">
+     <doc:heading>Managing Exchanges And Queues</doc:heading>
+     <p>
+
+       Once a channel has been established, the amqp_channel module can be used to manage the fundamental objects within AMQP, namely exchanges and queues. The following function creates an exchange called my_exchange, which by default, is the direct exchange:
+
+       <pre class="sourcecode">
+       Declare = #'exchange.declare'{exchange = &lt;&lt;"my_exchange">>},
+       #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare)
+       </pre>
+       
+       Similarly, a queue called my_queue is created by this code:
+       
+       <pre class="sourcecode">
+       Declare = #'queue.declare'{queue = &lt;&lt;"my_queue">>},
+       #'queue.declare_ok'{} = amqp_channel:call(Channel, Declare)
+       </pre>
+       
+       In many scenarios, a client is not interested in the actual name of the queue it wishes to receive messages from. In this case, it is possible to let the broker generate a random name for a queue. To do this, send a #'queue.declare'{} command and leave the queue attribute undefined:
+       
+       <pre class="sourcecode">
+        #'queue.declare_ok'{queue = Queue} = amqp_channel:call(Channel, #'queue.declare'{})
+       </pre>
+       
+       The server will auto-generate a queue name and return this name as part of the acknowledgement.
+
+     </p>
+     <p>
+       To create a routing rule from an exchange to a queue, the #'queue.bind'{} command is used:
+       
+       <pre class="sourcecode">
+        Binding = #'queue.bind'{queue = Queue,
+                                exchange = Exchange,
+                                routing_key = RoutingKey},
+        #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding)
+        </pre>
+       
+       When this routing rule is no longer required, this route can be deleted using the #'queue.unbind'{} command:
+
+       <pre class="sourcecode">
+        Binding = #'queue.unbind'{queue = Queue,
+                                  exchange = Exchange,
+                                  routing_key = RoutingKey},
+        #'queue.unbind_ok'{} = amqp_channel:call(Channel, Binding)
+        </pre>
+       
+       An exchange can be deleted by the #'exchange.delete'{} command:
+       
+       <pre class="sourcecode">
+        Delete = #'exchange.delete'{exchange = &lt;&lt;"my_exchange"&gt;&gt;},
+        #'exchange.delete_ok'{} = amqp_channel:call(Channel, Delete)
+       </pre>
+       
+       Similarly, a queue is deleted using the #'queue.delete'{} command:
+       
+       <pre class="sourcecode">
+         Delete = #'queue.delete'{queue = &lt;&lt;"my_queue"&gt;&gt;},
+         #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete)
+        </pre>
+     </p>
+   </doc:section>
+
+<!-- ..................................................................... -->
+
+   <doc:section name="sending">
+   <doc:heading>Sending Messages</doc:heading>
+   
+    <p>
+
+      To send a message to an exchange with a particular routing key, the #'basic.publish'{} command in conjunction with the #amqp_msg{} record is used:
+
+      <pre class="sourcecode">
+        Payload = &lt;&lt;"foobar">>,
+        Publish = #'basic.publish'{exchange = X, routing_key = Key},
+        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload})
+      </pre>
+
+      By default, the properties field of the #amqp_msg{} record contains a minimal implementation of the #'P_basic'{} properties structure. If an application needs to override any of the defaults, for example, to send persistent messages, the #amqp_msg{} needs to be constructed accordingly:
+
+      <pre class="sourcecode">
+        Payload = &lt;&lt;"foobar">>,
+        Publish = #'basic.publish'{exchange = X, routing_key = Key},
+        Props = #'P_basic'{delivery_mode = 2}, # for persistent messaging
+        Msg = #amqp_msg{props = Props, payload = Payload},
+        amqp_channel:cast(Channel, Publish, Msg)
+      </pre>
+      
+      The full list of message headers is explained in the AMQP protocol documentation.
+      
+    </p>
+    <p>
+      Remember that the AMQP #'basic.publish' command is asynchronous. This means that the
+server will not send a response to it, unless the message is not deliverable.
+In this case, the message will be returned to the client. This operation is
+described in the <a href="#returns">handling returns</a> section.
+    </p>
+    <p>
+
+      Note that messages can be published either using amqp_channel:call/3 or amqp_channel:cast/3. The difference is that call/3 will put the message onto the network stack before returning to the caller. In contrast, cast/3 performs this operation asynchronously. From a responsibility transfer perspective however, this makes makes little difference. The only way a client can know that the server has taken responsibility for a message is to either enforce mandatory routing or to use a transaction.
+
+    </p>
+   </doc:section>
+
+<!-- ..................................................................... -->
+
+  <doc:section name="receiving">
+  <doc:heading>Receiving Messages</doc:heading>
+   <p>
+     The simplest way to receive a message is to poll an existing queue. This is achieved using the #'basic.get'{} command:
+     
+    <pre class="sourcecode">
+      Get = #'basic.get'{queue = Q, no_ack = true},
+      {#'basic.get_ok'{}, Content} = amqp_channel:call(Channel, Get),
+      #amqp_msg{payload = Payload} = Content
+    </pre>
+    
+    The payload that is returned is an Erlang binary, and it is up to the application to decode it, as the structure of this content is opaque to the AMQP protocol.
+    
+   <p>
+     
+   </p>
+    If the queue were empty when the #'basic.get'{} command was invoked, then the channel will return an #'basic.get_empty' message, as illustrated here:
+    
+    <pre class="sourcecode">
+     #'basic.get_empty'{} = amqp_channel:call(Channel, Get)
+    </pre>
+    
+   </p>
+   
+   <p>
+    Note that the previous example sets the no_ack flag on the #'basic.get'{} command. This tells the broker that the receiver will not send an acknowledgement of the message. In doing so, the broker can absolve itself of the responsibility for delivery - once it believes it has delivered a message, then it is free to assume that consuming application has taken responsibility for it. In general, a lot of applications will not want these semantics, rather, they will want to explicitly acknowledge the receipt of a message. This is done with the #'basic.ack'{} command, where the no_ack field is turned off by default:
+    <pre class="sourcecode">
+     Get = #'basic.get'{queue = Q},
+     {#'basic.get_ok'{delivery_tag = Tag}, Content}
+        = amqp_channel:call(Channel, Get),
+     % Do something with the message payload.......and then ack it
+     amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag})
+    </pre>
+   </p>
+   
+   <p>
+    Notice that the #'basic.ack'{} command is sent using amqp_channel:cast/2 instead of amqp_channel:call/2. This is because the broker will not send a response to an acknowledgement, i.e. it is a fire and forget command.
+   </p>
+    
+   <p>
+     Receiving messages by polling a queue is not as as efficient as subscribing a consumer to a queue, so consideration should be taken when receiving large volumes of messages.
+   </p>
+  </doc:section>
+
+
+<!-- ..................................................................... -->
+
+  <doc:section name="subscribing">
+    <doc:heading>Subscribing To Queues</doc:heading>
+    <p>
+     As indicated in the "Receiving Messages" section, subscribing to a queue can be a more efficient means of delivering messages than the polling mechanism. To subscribe to a queue, the #'basic.consume'{} command is used:
+     
+     <pre class="sourcecode">
+      Sub = #'basic.consume'{queue = Q},       
+      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
+     </pre>
+     
+     The consumer argument is the pid of a process to which the client library will deliver messages. This can be an arbitrary Erlang process, including the process that initiated the subscription. The #'basic.consume_ok'{} notification contains a tag that identifies the subscription. This is used at a later point in time to cancel the subscription. This notification is send both to the process that created the subscription (as the return value to amqp_channel:subscribe/3) and as a message to the consumer process.
+     
+    </p>
+    <p>
+     When a consumer process is subscribed to a queue, it will receive messages in its mailbox. An example receive loop looks like this:
+     
+     <pre class="sourcecode">
+      loop(Channel) ->
+        receive
+          #'basic.consume_ok'{} -> loop(Channel);
+          #'basic.cancel_ok'{} -> ok;
+          {#'basic.deliver'{delivery_tag = Tag}, Content} ->
+            % Do something with the message payload.......and then ack it
+            amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+            loop(Channel)
+        end
+     </pre>
+      
+      In this simple example, the process consumes the subscription notification and then proceeds to wait for delivery messages to arrive in its mailbox. When messages are received from the mailbox, the loop does something useful with the message and sends an receipt acknowledge back to the broker. If the subscription is cancelled, either by the consumer itself or some other process, a cancellation notification will be sent to the consumer process. In this scenario, the receive loop just exits. If the application does not wish to explicitly acknowledge message receipts, it should set the no_ack flag on the subscription request.
+      
+    </p>
+    
+     To cancel a subscription, use the tag that the broker passed back with the #'basic.consume_ok'{} acknowledgement:
+    
+     <pre class="sourcecode">
+      amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag}),
+     </pre>
+     
+  </doc:section>
+
+
+<!-- ..................................................................... -->
+
+   <doc:section name="closing">
+  
+   <doc:heading>Closing Channels And The Connection</doc:heading>
+    <p>
+
+      When a channel is no longer required, a client should close it. This is achieved using amqp_channel:close/1: 
+
+      <pre class="sourcecode">
+       amqp_channel:close(Channel)
+      </pre>
+
+      To close the connection, amqp_connection:close/1 is used:
+      
+      <pre class="sourcecode">
+       amqp_connection:close(Connection)
+      </pre>
+
+    </p>
+    <p>
+    
+    Both the #'channel.close'{} and #'connection.close'{} commands take the arguments reply_code (an integer) and reply_text (binary text), which can be set by the client depending on the reason why the channel or connection is being closed. In general, however, the reply_code is set to 200 to indicate a normal shutdown. The reply_text attribute is just an arbitrary string, that the server may or may not log. If a client wants to set to a different reply code and/or text, it can use the overloaded functions amqp_channel:close/3 and amqp_connection:close/3 respectively.
+    
+    </p>
+  </doc:section>
+
+<!-- ..................................................................... -->
+
+  <doc:section name="example">
+  <doc:heading>Complete Example</doc:heading>
+   <p>
+
+     This shows a complete example: 
+
+     <pre class="sourcecode">
+      -module(amqp_example).
+
+      -include("amqp_client.hrl").
+
+      -compile([export_all]).
+
+      test() ->
+        Connection = amqp_connection:start_network(#amqp_params{}),
+        Channel = amqp_connection:open_channel(Connection),
+        #'queue.declare_ok'{queue = Q} 
+            = amqp_channel:call(Channel, #'queue.declare'{}),
+        Payload = &lt;&lt;"foobar">>,
+        Publish = #'basic.publish'{exchange = &lt;&lt;>>, routing_key = Q},
+        amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
+        Get = #'basic.get'{queue = Q},
+        {#'basic.get_ok'{delivery_tag = Tag}, Content}
+             = amqp_channel:call(Channel, Get),
+        % Do something with the message payload.......and then ack it
+        amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+        amqp_channel:close(Channel),
+        amqp_connection:close(Connection),
+        ok.
+     </pre>
+
+     In this example, a queue is created with a server generated name and a message is published directly to the queue. This makes use of the fact that every queue is bound to the default exchange via its own queue name. The message is then dequeued and acknowledged.
+
+   </p>
+  </doc:section>
+
+<!-- ..................................................................... -->
+
+  <doc:section name="deployment">
+  <doc:heading>Client Deployment</doc:heading>
+  
+   <p>
+     The client build process produces two deployment archives:
+     
+     <ol>
+       <li>amqp_client.ez, which contains all of the AMQP client modules</li>
+       <li>rabbit_common.ez, which contains the common modules from the server that are required at runtime</li>
+     </ol>
+     
+     In order to use the client at runtime, you need to put both these archives onto the load path of your application. This can be done either by setting the ERL_LIBS variable to point at the directory that contains these archives or by referencing their containing directory with the -pa argument to the Erlang interpreter.
+
+Say you were to put both amqp_client.ez and rabbit_common.ez into
+a directory called deps. To compile the example, you first need to unpack the
+archives in the deps directory:
+
+    <pre class="sourcecode">
+    $ unzip -d deps deps/amqp_client.ez
+    $ unzip -d deps deps/rabbit_common.ez
+    </pre>
+
+Then to compile the example code into the ebin directory:
+
+    <pre class="sourcecode">
+    $ ERL_LIBS=deps erlc -o ebin amqp_example.erl
+    </pre>
+
+And then to run your application you could set the Erlang runtime like this:
+
+    <pre class="sourcecode">
+     $ ERL_LIBS=deps erl -pa ebin
+     Erlang R13B01 (erts-5.7.2) [source] [64-bit] [smp:4:4] [rq:4] [async-threads:0] [kernel-poll:false]
+
+     Eshell V5.7.2  (abort with ^G)
+     1> amqp_example:test().
+     ok
+     2>
+     </pre>
+   </p>
+  
+  
+  </doc:section>
+<!-- ..................................................................... -->
+
+  <doc:section name="flow">
+  <doc:heading>Egress Flow Control</doc:heading>
+   <p>
+     
+     By default, there is no flow control within a channel other than normal TCP backpressure. A consumer can set the size of the prefetch buffer that the broker will maintain for outstanding unacknowledged messages on a single channel. This is achieved using the #'basic.qos'{} command:
+     
+     <pre class="sourcecode">
+      amqp_channel:call(Channel, #'basic.qos'{prefetch_count = Prefetch})
+     </pre>
+     
+     Applications typically set the prefetch count to 1, which means the processing speed of the consumer exerts complete backpressure on the flow of messages in that channel.
+     
+   </p>
+  </doc:section>
+  
+
+<!-- ..................................................................... -->
+
+  <doc:section name="flow">
+  <doc:heading>Ingress Flow Control</doc:heading>
+   
+   <p>
+     
+     Should the broker run low on resources, for example by hitting a memory high watermark, it may choose to throttle producers. It does this by sending a #'channel.flow'{} command to every client. This is a reverse RPC method, i.e. the server sends a command to the client and expects a response. The client library handles this on behalf of the application and make sure that no further messages be sent until the server signals that messaging can resume. In order for the application to be aware that throttling has taken place, it is necessary for the application to register a callback process:
+     
+     <pre class="sourcecode">
+      amqp_channel:register_flow_handler(Channel, FlowHandler)
+     </pre>
+     
+     The flow handling process will receive the following message in its mailbox when the server throttles ingress:
+     
+     <pre class="sourcecode">
+      receive
+        #'channel.flow'{active = false} -> % Throttle the application
+      end
+     </pre>
+     
+     When the broker decides that messaging can resume, the flow handler will receive this message:
+     
+     <pre class="sourcecode">
+      receive
+        #'channel.flow'{active = true} -> % Resume message sending
+      end
+      </pre>
+     
+     
+   </p>
+   
+  </doc:section>
+  
+
+<!-- ..................................................................... -->
+
+  <doc:section name="returns">
+  <doc:heading>Handling Returned Messages</doc:heading>
+  
+   <p>
+     
+     The broker will return undeliverable messages back to the originating client. These are messages published either with the immediate or mandatory flags set. In order for the application to get notified of a return, it must register a callback process that can process #'basic.return'{} commands. Here is an example of unroutable message:
+     
+     <pre class="sourcecode">
+      amqp_channel:register_return_handler(Channel, self()),
+      amqp_channel:call(Channel, #'exchange.declare'{exchange = X}),
+      Publish = #'basic.publish'{exchange = X, routing_key = SomeKey, 
+                                 mandatory = true},
+      amqp_channel:call(Channel, Publish, #amqp_msg{payload = Payload}),
+      receive
+        {BasicReturn, Content} ->
+          #'basic.return'{reply_text = &lt;&lt;"unroutable">>, exchange = X} = BasicReturn
+          % Do something with the returned message
+      end
+     </pre>
+   </p>
+
+  </doc:section>
+
+</doc:div>
+</body>
+</html>
