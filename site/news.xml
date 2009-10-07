@@ -52,42 +52,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	</doc:text>
       </doc:item>
 
-  
-            
-      <doc:item>
-	<doc:date iso="2009-10-07T00:00:00Z">07 October 2009</doc:date>
-	<doc:title>
-   Rabbit Technologies and Canonical announce teaming agreement
-	</doc:title>
-
-	<doc:link>http://www.rabbitmq.com/resources/FINAL_RabbitMQ_CanonicalTeaming_PR.rtf</doc:link>
-
-	<doc:text>
-	<p>Rabbit Technologies Limited (Rabbit), the company behind RabbitMQ, today 
-	announced the signing of a formal teaming agreement with Ubuntu sponsor 
-	Canonical to promote open standards in the emerging cloud computing 
-	space.</p>
-
-	<p>“We want to be sure our users can navigate safely into the cloud”, said 
-	Simon Wardley, software services manager for Canonical, “and we see this
-	working according to three rules. Rule one is to build on their own 
-	infrastructure. Rule two is moving between their infrastructure and an external 
-	provider. Rule three is switching between providers. RabbitMQ provides an 
-	important message bus in the cloud that enables applications to interoperate 
-	without dependency upon a proprietary solution. It will play a significant 
-	role in the future of cloud switching.</p>
-
-	<p>For details see <a href="http://www.rabbitmq.com/resources/FINAL_RabbitMQ_CanonicalTeaming_PR.rtf">the 
-	full press release</a>.</p>
-
-	</doc:text>
-      </doc:item>
-
-      
-      
-              
-	      
-	      
+ 	      
       <doc:item>
 	<doc:date iso="2009-09-30T00:00:00Z">30 September 2009</doc:date>
 	<doc:title>
