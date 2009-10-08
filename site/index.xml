@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html>
   <head>
-    <title>RabbitMQ - Open Source Messaging</title>
+    <title>RabbitMQ - Messaging that just works</title>
   </head>
   <body>
   
@@ -27,7 +27,7 @@
           
     </div>    
     
-    <h3>Why choose RabbitMQ</h3>
+    <h3>What is RabbitMQ</h3>
     <p>
 	RabbitMQ is a complete and highly reliable enterprise messaging system based
 	on the <a href="specification.html">emerging AMQP standard</a>.	It is licensed
@@ -38,7 +38,7 @@
     <ul>
       <li>Learn more about enterprise messaging</li>
       <li>Read the <a href="specification.html">AMQP specification</a></li>
-      <li>See what platforms are supported</li>
+      <li>See <a href="download.html">what platforms</a> are supported</li>
     </ul>   
     
     <h3>Why choose RabbitMQ</h3>
@@ -62,8 +62,8 @@
     <h3>How do I get started</h3>                
     <ul>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
-      <li>I want to install and evaluate RabbitMQ</li>
-      <li>Just tell me more</li>
+      <li>I want to <a href="download.html">install and evaluate</a> RabbitMQ</li>
+      <li>Just <a href="how.html">tell me more</a></li>
     </ul>
     
     <div class="">      
