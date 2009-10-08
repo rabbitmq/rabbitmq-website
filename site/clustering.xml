@@ -38,7 +38,7 @@
           The composition of a cluster can be altered dynamically.
           All RabbitMQ brokers start out as running on a single
           node. These nodes can be joined into clusters, and
-          subequently turned back into individual brokers again.
+          subsequently turned back into individual brokers again.
         </p>
         <p>
           RabbitMQ brokers tolerate the failure of individual
