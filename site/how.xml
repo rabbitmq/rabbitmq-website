@@ -92,7 +92,9 @@
 	</li> 
 	
         <li>.NET <a href="http://www.rabbitmq.com/dotnet.html">overview</a> and <a href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v1.5.3/rabbitmq-dotnet-client-1.5.3-user-guide.pdf">.NET Client Library User Guide</a></li>
-        <li>PHP: <a href="http://code.google.com/p/php-amqplib/">a client based on py-amqplib</a> and a <a href="http://code.google.com/p/php-rabbit/">another client based on RabbitMQ-C</a></li> 
+        <li>PHP: <a href="http://code.google.com/p/php-amqplib/">php-amqplib, a client based on py-amqplib</a>, 
+	and <a href="http://github.com/bkw/php-amqp">php-amqp, a fork of php-amqplib</a>, 
+	and <a href="http://code.google.com/p/php-rabbit/">another client based on RabbitMQ-C</a></li> 
 	<li>Perl code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a> and <a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>
         <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and <a href="http://flexonrails.net/?p=106">Flex</a></li>     
         <li><a href="http://github.com/dansimpson/amqp-js/tree/master">Native javascript AMQP client</a></li>
