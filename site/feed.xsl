@@ -50,9 +50,8 @@
   <xsl:when test="$type = 'twitter'">				
     <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>	
     <br/>
-    <a href="{atom:author/atom:uri}"><xsl:value-of select="atom:author/atom:name"/></a> 
     <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/> 
-    <span> - <xsl:value-of select="substring($published, 0, 11)"/></span>
+    [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
   </xsl:when>
 
   <xsl:when test="$type = 'delicious'">				

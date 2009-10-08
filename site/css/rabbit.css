@@ -27,12 +27,12 @@ div#outerContainer {
 	
 :link, :visited {
 	color: #8a948f;
-	font-weight: bold;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 a:active, a:hover {
 	color: #ff9933;
+	text-decoration: underline;
 }
 
 a.downloadNow {
@@ -369,7 +369,9 @@ ol.feed {
 	padding: 0px;
 }
 .feed li {
-	margin-bottom: 1em;
+	line-height: 17px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
   }
 .feed li hr {
 	visibility: visible;

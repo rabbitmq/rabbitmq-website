@@ -21,7 +21,7 @@
       <feed src="news.atom" type="ournews" limit="5" />  
       
     <div class="">  
-	<h3>On Twitter</h3>
+	<h3>Latest community chatter</h3>
 	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
     </div>
           
@@ -29,15 +29,15 @@
     
     <h3>Why choose RabbitMQ</h3>
     <p>
-	RabbitMQ is a complete and highly reliable Enterprise Messaging system based
+	RabbitMQ is a complete and highly reliable enterprise messaging system based
 	on the <a href="specification.html">emerging AMQP standard</a>.	It is licensed
 	under the open source <a href="mpl.html">Mozilla Public License</a> 
 	and has a platform-neutral distribution, plus platform-specific packages 
 	and bundles for easy installation.
     </p>   
-    <ul class="plain">
+    <ul>
       <li>Learn more about enterprise messaging</li>
-      <li>Read the AMQP specification</li>
+      <li>Read the <a href="specification.html">AMQP specification</a></li>
       <li>See what platforms are supported</li>
     </ul>   
     
@@ -52,15 +52,22 @@
 	monitoring, control and debugging and it is supported by a full range of commercial 
 	<a href="services.html">support services</a> and an <a href="community.html">
 	active community</a> developing <a href="how.html#clients">packages that extend the core system</a>.	
-    </p>    
+    </p>  
     
-    <ul class="plain">
-      <li>Read about what is happening in the community</li>
+    <ul>
       <li>Read more <a href="about.html">about RabbitMQ and the company behind it</a></li>
+      <li>Read about what is <a href="community.html">happening in the community</a></li>
+    </ul>
+    
+    <h3>How do I get started</h3>                
+    <ul>
+      <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
+      <li>I want to install and evaluate RabbitMQ</li>
+      <li>Just tell me more</li>
     </ul>
     
     <div class="">      
-	<h3>Community links</h3>
+	<h3>Latest community highlights</h3>
 	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
 	<p><a class="more-links" href="/delicious.html">about del.icio.us </a></p>
     </div>
