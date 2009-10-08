@@ -5,7 +5,7 @@
     <link rel="alternate" type="application/atom+xml" href="news.atom"/>
   </head>
   <body>
-    <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed.</a></p>
+    <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
     <p>Also keep an eye on the <a href="/how.html">community page</a>, which is constantly updated with links to relevant community tools and documentation.</p>
     <doc:feed>
       <!-- Please give news items a doc:date/@iso.  It is used in the
@@ -28,14 +28,14 @@
 	Canonical. The goal of the partnership is to promote open standards in
 	the emerging cloud computing space.</p>
 
-	<p>“We want to be sure our users can navigate safely into the cloud”, said 
-	Simon Wardley, software services manager for Canonical, “and we see this
+	<p>"We want to be sure our users can navigate safely into the cloud", said 
+	Simon Wardley, software services manager for Canonical, "and we see this
 	working according to three rules. Rule one is to build on their own 
 	infrastructure. Rule two is moving between their infrastructure and an external 
 	provider. Rule three is switching between providers. RabbitMQ provides an 
 	important message bus in the cloud that enables applications to interoperate 
 	without dependency upon a proprietary solution. It will play a significant 
-	role in the future of cloud switching.</p>
+	role in the future of cloud switching."</p>
 
 	<p>For details see <a href="http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf">the 
 	full press release</a>.</p>
