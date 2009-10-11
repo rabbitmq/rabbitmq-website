@@ -314,7 +314,7 @@
       </doc:section>
 
       <doc:section name="managing-concepts-exchanges">
-	<doc:heading>Managing concepts: Exchnages</doc:heading>
+	<doc:heading>Managing concepts: Exchanges</doc:heading>
 	
 	<doc:faq name="fanout-exchange">
 	  <doc:heading>What is a fanout exchange</doc:heading>
@@ -457,7 +457,7 @@
 	  <doc:heading>So then it makes sense for both the publisher and consumer to both declare the exchange?</doc:heading>
 	  <doc:a>
 	    <p>
-	    Semantically yes. But don't be too dogmatic about it in every scenrio, if your application
+	    Semantically yes. But don't be too dogmatic about it in every scenario, if your application
 	    knows for sure that a particular queue or exchange definitely does exist, it can save a lookup
 	    for the existence of that object. Just an efficiency consideration. But don't optimize
 	    prematurely :-)
@@ -552,7 +552,7 @@
 	  <doc:heading>Why can durable queues only bind to durable exchanges?</doc:heading>
 	  <doc:a>
 	    <p>
-	    This is just an artefact of the two tier model in AMQP. You either want to be 100% durable in
+	    This is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
 	    all tiers, or you don't.
 	    </p>
 	  </doc:a>
@@ -1349,7 +1349,7 @@ system, or you might be creating unnecessary resources.
 	  <doc:a>
 	    <p>
 	      RabbitMQ is free software in both the gratis and libre
-	      senses, licenced under the <a href="mpl.html">Mozilla
+	      senses, licensed under the <a href="mpl.html">Mozilla
 	      Public License</a>.
 	    </p>
 	  </doc:a>
@@ -1374,7 +1374,7 @@ system, or you might be creating unnecessary resources.
 	</doc:faq>
 
 	<doc:faq name="rabbit-licensing">
-	  <doc:heading>How is RabbitMQ licenced (for redistribution, etc.)?</doc:heading>
+	  <doc:heading>How is RabbitMQ licensed (for redistribution, etc.)?</doc:heading>
 	  <doc:a>
 	    <p>
 	      RabbitMQ is distributed under the open-source <a
