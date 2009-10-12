@@ -286,7 +286,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="r:repositories">
     <p>
-      For information on how to work with the RabbtiMQ mercurial
+      For information on how to work with the RabbitMQ mercurial
       repositories, please see <a href="mercurial.html">this page</a>.
     </p>
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
