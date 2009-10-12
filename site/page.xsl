@@ -312,6 +312,12 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
+  <xsl:template match="r:plugin-download">
+    <p>
+      For more information about the installation of plugins, refer to the
+      <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+    </p>
+  </xsl:template>
   
   
   <!-- ############################################################ -->

@@ -137,7 +137,9 @@
       particularly interesting in itself, but is usable by any other plugins that
       need to listen on a HTTP endpoint.
     </p>
-    
+   
+    <plugin-download xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" /> 
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-mochiweb"
                   url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
@@ -154,6 +156,8 @@
       This plugin depends on the <code>erlang-rfc4627</code> JSON/JSON-RPC
       support library, and the <code>rabbitmq-mochiweb</code> plugin.
     </p>
+
+    <plugin-download xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" />
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-jsonrpc"
@@ -175,6 +179,8 @@
       which is responsible for providing the RPC endpoint that this
       plugin uses.
     </p>
+
+    <plugin-download xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" />
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
@@ -215,6 +221,8 @@
       and configuring it.
     </p>
 
+    <plugin-download xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" />
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-stomp"
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
@@ -253,6 +261,8 @@
       An interactive Broker Query Language console for RabbitMQ administration. See the
       <a href="rabbitmq-bql.html">RabbitMQ BQL</a> documentation for more details.
     </p>
+
+    <plugin-download xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" />
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-bql"
