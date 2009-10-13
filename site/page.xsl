@@ -289,6 +289,15 @@ Technologies Ltd.</p></div>
       For information on how to work with the RabbitMQ mercurial
       repositories, please see <a href="mercurial.html">this page</a>.
     </p>
+    <xsl:choose>
+      <xsl:when test="@type = 'plugin'">
+        <p>
+          For more information about the installation of plugins, refer to the
+          <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+        </p>
+      </xsl:when>
+    </xsl:choose>
+
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th>Snapshot</th>
