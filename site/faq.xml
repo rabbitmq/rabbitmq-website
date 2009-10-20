@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Frequently Asked Questions</title>
@@ -313,6 +318,253 @@
 
       </doc:section>
 
+      <doc:section name="managing-concepts-exchanges">
+	<doc:heading>Managing concepts: Exchanges</doc:heading>
+	
+	<doc:faq name="fanout-exchange">
+	  <doc:heading>What is a fanout exchange</doc:heading>
+	  <doc:a>
+	    <p>
+	    A fanout exchange is the simplest exchange type, representing a 1:N message delivery
+	    pattern. No routing keys are involved – you simply bind a queue to the exchange and
+	    messages sent to that exchange get delivered to <strong>all</strong> the bound queues.	
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="direct-exchange">
+	  <doc:heading>What is a direct exchange</doc:heading>
+	  <doc:a>
+	    <p>
+	    A direct exchange is a 1:1 form of communication where a routing key directs how a broker
+	    routes the message from the producer to the consumer. This is a straight match. If a queue
+	    binds to an exchange requesting messages with the routing key "lady", only messages labelled
+	    "lady" get delivered to that queue (not "lady.bird" or "lady.macbeth").	
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="topic-exchange">
+	  <doc:heading>What is a topic exchange</doc:heading>
+	  <doc:a>
+	    <p>
+	    Here, the broker matches the routing key against a pattern to determine how to deliver the
+	    message. Instead of binding a queue to an exchange with a simple string, the queue is bound
+	    with a pattern. In the pattern, the symbol # matches one or more words and the symbol *
+	    matches any single word. Typical bindings might be "uk.#" for all items in the uk, "#.weather"
+	    for all weather items, or "uk.weather" for all uk weather items.	
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+	<doc:faq name="exchange-client-or-server">
+	  <doc:heading>I am using a client library, and I am wondering, do I create the exchanges on the 
+	  server, or is it all done client-side?</doc:heading>
+	  <doc:a>
+	    <p>
+	    You would use some client to issue exchange.declare, which creates the exchange on the
+	    server when the server receives the command. You can do the exchange.declare at any time
+	    before you need to use the exchange.	
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+	<doc:faq name="exchange-why-client">
+	  <doc:heading>I'm reading the docs, but I don't understand why the exchanges are created at the
+	  client, doesn't it make sense to create them on the server?</doc:heading>
+	  <doc:a>
+	    <p>
+	    The semantics of exchange declare that if the exchange does not already exist on the server,
+	    then create a new exchange. Otherwise reuse an existing exchange.	
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="organize-exchanges">
+	  <doc:heading>How do I organize my exchanges? I want to have different parties to delivery, but
+	  they will be hierarchical.</doc:heading>
+	  <doc:a>
+	    <p>
+	    You may want to read the part in the spec about how the topic exchanges work. Like nation
+	    includes sectors which include states which include regions which include counties. You could
+	    use topic exchange with 'nz.northisland.wellington.arovalley.arostreet.54' and the bind with a
+	    pattern of nz.# or nz.southisland.#	
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="exchanges-routing-key-bind-pattern-hash">
+	  <doc:heading>Is a topic exchange with routing-key binding pattern "#" essentially a fanout?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Yes.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="fanout-direct-topic-specialisations">
+	  <doc:heading>Hey, fanout and direct look like simple specialisations of topic, am I right?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Yep.
+	    </p>
+	    <p>
+	    Direct exchanges can be simulated by using topic exchanges without wildcards, and fanout
+	    exchanges can be simulated by binding to topic exchanges with a full wildcard pattern.
+	    </p>
+	    <p>
+	    The different kinds of exchange exist mainly for clarity's sake: it's easier for an observer
+	    looking at a system to see the intent behind the way it's configured. Secondarily, it opens up
+	    opportunities for optimising the less-general kinds of exchange.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="exchange-lifespan">
+	  <doc:heading>When I create an exchange, does it stay created, or does the exchange disappear 
+	  anytime the client disconnects?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Whether they disappear in time or not depends on the options that you set when you declare
+	    an exchange. One option is durability, which means an exchange will survive a server restart.
+	    Autodelete is another option that indicates that the server should remove an exchange when
+	    all queues have stopped using it.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="which-entity-should-declare-exchanges">
+	  <doc:heading>I'm interested in creating an exchange. Which entity should declare the exchange,
+	  the publisher or subscriber?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Not wanting to be overly theoretical, but the AMQP working group is now moving to a more
+	    formal definition of declarations that mean that they have the same semantics as an assertion.
+	    </p>
+	    <p>
+	    So by saying declare queue q or declare exchange x, you are effectively saying "I assert the
+	    existence of object o, if it does not exist, make it so".
+	    </p>
+	    <p>
+	    Publishers need to write to somewhere.
+	    </p>
+	    <p>
+	    Consumers need to have queues bound to something.
+	    </p>
+	    <p>
+	    So both sides are only interested in the mere existence of the thing they need to do their job,
+	    not whether they or some other guy originally initiated that object's creation.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="publisher-and-consumer-declare-exchanges">
+	  <doc:heading>So then it makes sense for both the publisher and consumer to both declare the exchange?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Semantically yes. But don't be too dogmatic about it in every scenario, if your application
+	    knows for sure that a particular queue or exchange definitely does exist, it can save a lookup
+	    for the existence of that object. Just an efficiency consideration. But don't optimize
+	    prematurely :-)
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+      </doc:section>
+      
+
+      <doc:section name="Binding-and-Routing">
+	<doc:heading>Binding and Routing</doc:heading>
+
+	<doc:faq name="what-are-bindings">
+	  <doc:heading>What are bindings?</doc:heading>
+	  <doc:a>
+	    <p>
+	    When you publish a message, you send a "routing key" along with it, that's used by the
+	    exchange when it decides which queues to forward a copy of the message on to. The links
+	    between exchanges and queues are created through binding, with a "binding pattern" that is
+	    used by the exchange when comparing against routing keys.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="wildcards-in-topic-exchanges">
+	  <doc:heading>How do the wildcards work when binding to topic exchanges?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Routing keys (and so binding patterns) used with topic exchanges are
+	    dot.separated.strings.like.this.
+	    </p>
+	    <p>
+	    Use "*" to match a single segment in the routing key: foo.*.zot will match foo.bar.zot, and
+	    foo.quux.zot, but not foo.bar.quux.zot.
+	    </p>
+	    <p>
+	    Use "#" to match zero or more segments in the routing key: foo.#.zot will match all three of
+	    foo.bar.zot, foo.quux.zot, and foo.bar.quux.zot, as well as foo.zot.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="pattern-matching">
+	  <doc:heading>I've declared a queue and then bound it to the exchange "x" on topic
+	  "canada.politics". Other queues that bind on "canada.politics", publish messages
+	  and it works great. If they bind to lets say "canada.sports" it also works as expected
+	  in routing the messages. But if i publish to "canada.*" those clients in
+	  canada.politics and canada.sports do not receive the messages. Is that expected, or
+	  something wrong with the code?
+	  </doc:heading>
+	  <doc:a>
+	    <p>
+	    You've got the pattern matching around the wrong way. The routing key must be absolute
+	    whilst the binding key can contain a wildcard. So "canada.*" is an opaque routing key. So to
+	    fix this, use "canada.*" as the binding key instead of "canada.sports" or "canada.politics".
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="pattern-matching-with-separate-bindings">
+	  <doc:heading>But what if I'm interested in "canada.politics" and "canada.sports", but not
+	  "canada.entertainment"?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Then create a separate binding for each thing that you are interested in.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="declare-multiple-routing-keys-for-single-queue">
+	  <doc:heading>Is it possible to declare multiple routing keys for a single queue in a direct
+	  exchange?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Yes. See the previous FAQ.
+	    </p>
+	  </doc:a>
+	</doc:faq>		
+
+	<doc:faq name="direct-exchanges-sending-to-multiple-queues">
+	  <doc:heading>What happens if a message is sent to a direct exchange which has duplicate routing
+	  keys on more than one queue, is the message delivered to both queues?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Yes. In this scenario, the direct exchange becomes a little bit like a fanout exchange.
+	    </p>
+	  </doc:a>
+	</doc:faq>		
+
+	<doc:faq name="durable-queues-and-durable-exchanges">
+	  <doc:heading>Why can durable queues only bind to durable exchanges?</doc:heading>
+	  <doc:a>
+	    <p>
+	    This is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
+	    all tiers, or you don't.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+      </doc:section>
+      
       <doc:section name="features">
 	<doc:heading>RabbitMQ Features</doc:heading>
 
@@ -467,6 +719,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 		<li>Linux</li>
 		<li>OSX</li>
 		<li>TRU64</li>
+		<li>Vista/Windows 7</li>
 		<li>Windows NT/2000/2003/XP</li>
 		<li>Windows 95, 98</li>
 		<li>VxWorks</li>
@@ -606,6 +859,29 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 	
+    <doc:faq name="server-api">
+	<doc:heading>Is there an API doc of the RabbitMQ server?</doc:heading>
+	<doc:a>
+	  <p>
+	  No, the Rabbit server API is not designed for public consumption, but the contract that Rabbit
+	  obeys over time is AMQP.
+	   </p>
+	  <p>
+	  We do, however, have API guides for
+	  </p>
+	  <ul>
+	      <li>Java (<a href="api-guide.html">API guide proper</a> and 
+	      <a href="&dir-current-javadoc;">javadoc</a>), and</li>
+	      <li>.NET (<a href="releases/rabbitmq-dotnet-client/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">API guide proper (PDF)</a> and 
+	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
+	  </ul>    
+	  <p>
+	  Also, please refer to the extensive server documentation which may contain the answer to
+	  your question.
+	  </p>
+	</doc:a>
+    </doc:faq>
+	
       </doc:section>
 
       <doc:section name="integration">
@@ -627,7 +903,8 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	<doc:heading>How-To</doc:heading>
 
 	<doc:faq name="last-message-on-topic">
-	  <doc:heading>"Last" message on Topic</doc:heading>
+	  <doc:heading>How can I retrieve the last message published to a particular topic
+</doc:heading>
 	  <doc:q>
 	    <p>
 	      A classic use-case for messaging systems is the example
@@ -663,7 +940,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 
 	<doc:faq name="channel-encryption">
-	  <doc:heading>Channel Encryption</doc:heading>
+	  <doc:heading>Does RabbitMQ support channel encryption?</doc:heading>
 	  <doc:q>
 	    <p>
 	      Say I want to transfer a message across the AMQP
@@ -728,24 +1005,22 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    <p>
 	      You can test the RabbitMQ broker by:
 	    </p>
-	    <p>
-	      <ul class="compact">
-		<li>
-		  connecting to our <a
-		  href="examples.html#demo-server">demo server</a>
-		  using one of the RabbitMQ <a
-		  href="examples.html">example programs</a>
-		</li>
-		<li>
-		  connecting to our demo server using another AMQP
-		  0-8 compatible client
-		</li>
-		<li>
-		  <a href="download.html">Downloading</a> the broker
-		  and experimenting with it on your own machine
-		</li>
-	      </ul>
-	    </p>
+	    <ul class="compact">
+	      <li>
+		connecting to our <a
+		href="examples.html#demo-server">demo server</a>
+		using one of the RabbitMQ <a
+		href="examples.html">example programs</a>
+	      </li>
+	      <li>
+		connecting to our demo server using another AMQP
+		0-8 compatible client
+	      </li>
+	      <li>
+		<a href="download.html">Downloading</a> the broker
+		and experimenting with it on your own machine
+	      </li>
+	    </ul>
 	  </doc:a>
 	</doc:faq>
 
@@ -777,10 +1052,105 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="public-demonstration-broker">
+	  <doc:heading>Is there a publicly available demonstration broker that I can use to experiment with
+	  WAN AMQP connections?</doc:heading>
+	  <doc:a>
+	    <p>
+	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration AMQP server that is freely
+	  available for people to try out, perhaps for testing interoperation or experimenting with WAN
+	  AMQP connections.
+	    </p>
+	    <p>
+	  All supported RabbitMQ features are available on the server, including persistent storage.
+	  While we intend to keep the server running for long stretches, we will be tracking RabbitMQ
+	  development, so reserve the right to restart it, possibly erasing its database in the process
+	  from time to time.
+	    </p>
+	    <p>
+	  Here are the connection details:
+	    </p>
+	  <ul>	    
+	  <li>Host: dev.rabbitmq.com</li>
+	  <li>Port: 5672</li>
+	  <li>Username: "guest"</li>
+	  <li>Password: "guest"</li>
+	  <li>Virtual Host: "/"</li>
+	  </ul>	    
+	    <p>
+	  During debugging, you may wish to monitor the messages that are being sent through the
+	  amq.rabbitmq.log topic exchange. One way of doing this is to make use of the 
+	  <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP IM
+	  gateway</a> we run on dev.rabbitmq.com, by adding amq.rabbitmq.log@dev.rabbitmq.com to
+	  your XMPP roster.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="migrate-to-another-machine">
+	  <doc:heading>How do you migrate a instance of RabbitMQ to another machine?</doc:heading>
+	  <doc:a>
+	    <p>
+	  Rabbit uses mnesia to replicate information about a broker (excluding messages), so you may
+	  want to read the relevant sections about administration in the mnesia guide before doing
+	  anything. Don't just copy the data directory and hope that mnesia will just magically recover
+	  this, because it could well contain inode references. Also, taking Rabbit offline to do this may
+	  be a good idea.
+	    </p>
+	    <p>
+	  There is also the issue of persistent messages, which are not stored in mnesia. This needs to
+	  handled separately.
+	    </p>
+	    <p>
+	  And be aware that queue processes will not automatically be migrated.
+	    </p>
+	    <p>
+	  And as always, if this is production data, then taking a backup is generally a prudent idea.
+	    </p>
+	    <p>
+	  If you have done this already, then send a message to the list because I'd like to write more
+	  about this question, but don't have any time.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	
+	
+     </doc:section>
+
+      <doc:section name="configuration">
+	<doc:heading>RabbitMQ Configuration</doc:heading>
+
+	<doc:faq name="which-ports-to-open">
+	  <doc:heading>When running rabbitmq behind a firewall, which ports do I need to open?</doc:heading>
+	  <doc:a>
+	    <p>
+	 5672:tcp
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+
+	<doc:faq name="listen-specific-port">
+	  <doc:heading>How do you make Rabbit listen on a specific port or interface?</doc:heading>
+	  <doc:a>
+	    <p>
+	    In the shell you can override the defaults specified in the rabbit.app file. For example, to get
+	    Rabbit to listen at the address 10.66.23.117 on port 3876, you could start Rabbit in the
+	    following way:
+	    </p>
+	    <p>
+	    <code>
+	    erl -mnesia dir DIR -boot start_sasl -rabbit tcp_listeners
+	    '[{10.66.23.117, 3876}]' -s rabbit]
+	    </code>
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
      </doc:section>
 
       <doc:section name="performance">
-	<doc:heading>Performance and Scalability</doc:heading>
+	<doc:heading>Performance, Scalability &amp; Clustering</doc:heading>
 
 	<doc:faq name="performance-latency">
 	  <doc:heading>How low can latency be?</doc:heading>
@@ -825,6 +1195,15 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="multiple-instances">
+	  <doc:heading>How you do run multiple instances of RabbitMQ?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Have you read the <a href="clustering.html">clustering guide</a>?
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="clustering-scalability">
 	  <doc:heading>How does RabbitMQ's performance scale with clustering?</doc:heading>
 	  <doc:a>
@@ -835,6 +1214,46 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="if-RabbitMQ-instance-dies">
+	  <doc:heading>What do I do if a RabbitMQ instance dies?</doc:heading>
+	  <doc:a>
+	    <p>
+	    It depends how and why it died, of course. Please differentiate between a dead machine and a
+	    partitioned network. One quick fix for a truly dead node may be to get a backup machine,
+	    reinstall the OS and Rabbit and then just restart Rabbit with the contents of the old mnesia
+	    data directory (if the disk is still ok, then you could just try slotting it in the new machine).
+	    Make sure that the backup machine has the same name as the machine that died. If this
+	    works, you are in luck. If not, i.e. mnesia does not seem to be recovering itself (it hangs will
+	    the waiting_for_tables error message), then what you can try is to nuke the mnesia directory
+	    and bring this node as part of the cluster and let it replicate itself from the other cluster
+	    members. Note that this will not restart queue processes that were running on this node
+	    before it crashed. But you can just re-declare the queues.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="does-clustering-replicate-messages-to-both-servers">
+	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes they
+	  messages gets replicated to both servers, right?
+	  </doc:heading>
+	  <doc:a>
+	    <p>
+	  Although we could do this, we don't, because it's too expensive. This would mean replicating
+	  every message across the network in a synchronous fashion. And not too many people really
+	  need it, in the event of a Rabbit node crashing, they just replay the log for that node.
+	    </p>
+	    <p>
+	  BBHoss started a discussion about this on IRC (look for 
+	  <a href="http://dev.rabbitmq.com/irclog/index.php?date=2008-08-27">the discussion about HA and DR
+	  between BBHoss and hal</a>).
+	    </p>
+	    <p>
+	  Having said that, this may be a use case for pluggable queues, for the avail-o-nados out there
+	  :-)
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="general-scalability">
 	  <doc:heading>How many virtual hosts can I run and where?</doc:heading>
 	  <doc:a>
@@ -910,6 +1329,21 @@ SSL/TLS-enable apps.</p>
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="erlang-says-too-many-processes">
+	  <doc:heading>What does it mean when Erlang says that there are too many processes?</doc:heading>
+	  <doc:a>
+	    <p>
+The short answer is that you have too many Erlang processes (i.e. lightweight processes, not
+Unix processes). The default system limit is 32767, so if you need more, start the Erlang VM
+with the +P flag to set the maximum number of allowed processes.
+RabbitMQ uses Erlang processes for each channel, for each connection, and for each queue
+within the broker. If you are running into the system limit, you might be running a large
+system, or you might be creating unnecessary resources.
+	    
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
       </doc:section>
 
       <doc:section name="general">
@@ -920,7 +1354,7 @@ SSL/TLS-enable apps.</p>
 	  <doc:a>
 	    <p>
 	      RabbitMQ is free software in both the gratis and libre
-	      senses, licenced under the <a href="mpl.html">Mozilla
+	      senses, licensed under the <a href="mpl.html">Mozilla
 	      Public License</a>.
 	    </p>
 	  </doc:a>
@@ -945,7 +1379,7 @@ SSL/TLS-enable apps.</p>
 	</doc:faq>
 
 	<doc:faq name="rabbit-licensing">
-	  <doc:heading>How is RabbitMQ licenced (for redistribution, etc.)?</doc:heading>
+	  <doc:heading>How is RabbitMQ licensed (for redistribution, etc.)?</doc:heading>
 	  <doc:a>
 	    <p>
 	      RabbitMQ is distributed under the open-source <a
