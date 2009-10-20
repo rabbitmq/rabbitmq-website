@@ -32,7 +32,7 @@
             <ul>
               <li>
                 Setup a RabbitMQ plugin development environment by following the instructions at
-                <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a>.
+                <a href="plugin-development.html#getting-started">Plugin Development: Getting Started</a>.
               </li>
               <li>
                 Once the make operation has completed, the dist/ subdirectory of rabbitmq-bql (within the umbrella) should contain
