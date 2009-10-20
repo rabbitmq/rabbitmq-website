@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Frequently Asked Questions</title>
@@ -866,9 +871,9 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </p>
 	  <ul>
 	      <li>Java (<a href="api-guide.html">API guide proper</a> and 
-	      <a href="releases/rabbitmq-java-client/v1.4.0/rabbitmq-java-client-javadoc-1.4.0/">javadoc</a>), and</li>
-	      <li>.NET (<a href="releases/rabbitmq-dotnet-client/v1.4.0/rabbitmq-dotnet-client-1.4.0-user-guide.pdf">API guide proper (PDF)</a> and 
-	      <a href="releases/rabbitmq-dotnet-client/v1.4.0/rabbitmq-dotnet-client-1.4.0-net-2.0-htmldoc/">javadoc-like</a>)</li>
+	      <a href="&dir-current-javadoc;">javadoc</a>), and</li>
+	      <li>.NET (<a href="releases/rabbitmq-dotnet-client/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">API guide proper (PDF)</a> and 
+	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
 	  Also, please refer to the extensive server documentation which may contain the answer to
