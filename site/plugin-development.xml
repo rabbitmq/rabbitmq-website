@@ -262,7 +262,7 @@ start_link() ->
 % --------------------------
 
 init([]) ->
-  Connection = amqp_connection:start_direct(&lt;&lt;"guest">>, &lt;&lt;"guest">>),
+  Connection = amqp_connection:start_direct(),
   Channel = amqp_connection:open_channel(Connection),
   amqp_channel:call(Channel, #'exchange.declare'{exchange = &lt;&lt;"metronome">>,
                                                  type = &lt;&lt;"topic">>}),
@@ -354,7 +354,7 @@ scripts/rabbitmq-activate-plugins</pre>
 -include_lib("amqp_client/include/amqp_client.hrl").
 
 receive_tick_test() ->
-  Connection = amqp_connection:start_direct(&lt;&lt;"guest">>,&lt;&lt;"guest">>),
+  Connection = amqp_connection:start_direct(),
   Channel = amqp_connection:open_channel(Connection),
   #'queue.declare_ok'{queue = Q}
     = amqp_channel:call(Channel, #'queue.declare'{exclusive = true, auto_delete = true}),
