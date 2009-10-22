@@ -808,11 +808,11 @@
           <doc:heading>Listing bindings of a virtual host</doc:heading>
           <pre class="sourcecode">rabbitmqctl list_bindings [<i>-p vhostpath</i>]</pre>
           <p>
-            By default the bindings for the <code>/</code> virtual host are
-            returned. The "-p" flag can be used to override this default.
-            Each result row will contain an exchange name, routing key, queue
-            name and binding arguments, in that order. Non-ASCII characters will
-            be URL-encoded.
+            By default the bindings for the <code>/</code> virtual
+            host are returned. The "-p" flag can be used to override
+            this default.  Each result row will contain an exchange
+            name, queue name, routing key and binding arguments, in
+            that order. Non-ASCII characters will be URL-encoded.
           </p>
         </doc:subsection>
         <doc:subsection name="list_connections">
