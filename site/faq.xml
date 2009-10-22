@@ -1057,7 +1057,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  WAN AMQP connections?</doc:heading>
 	  <doc:a>
 	    <p>
-	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration AMQP server that is freely
+	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration RabbitMQ server that is freely
 	  available for people to try out, perhaps for testing interoperation or experimenting with WAN
 	  AMQP connections.
 	    </p>
