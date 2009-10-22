@@ -51,12 +51,12 @@
     </p>
 
     <h3>
-      Status
+      Version
     </h3>
 
     <p>
-      The current release of RabbitMQ .NET/C# AMQP library is <b>
-      &version-dotnet-client;</b>, which has <b>&status-dotnet-client;</b> status.
+      The current release of the RabbitMQ .NET/C# AMQP library is <b>
+      &version-dotnet-client;</b>.
     </p>
 
     <h3>
