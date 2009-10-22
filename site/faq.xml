@@ -1445,13 +1445,6 @@ system, or you might be creating unnecessary resources.
                 <code>patch</code> number.
               </li>
             </ul>
-            <p>
-              We also label each release with a <i>status</i>. This is
-              either <i>alpha</i>, <i>beta</i>, <i>rc</i> (for
-              "release candidate") or <i>final</i>, and indicates the
-              maturity of the release. The status is mentioned in the
-              release announcement and on the download page.
-	    </p>
 	  </doc:a>
 	</doc:faq>
 
