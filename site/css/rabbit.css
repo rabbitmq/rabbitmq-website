@@ -260,6 +260,10 @@ hr.pad {
 	margin: 0em;
 }
 
+.docToc .compact li {
+	line-height: 19px;
+}
+
 .faqHeading {
 	border-top: #e4e4e4 1px solid;
 	margin-top: 1em;
