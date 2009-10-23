@@ -29,6 +29,7 @@
 	monitoring, control and debugging and it is supported by a full range of commercial 
 	<a href="services.html">support services</a> and an <a href="community.html">
 	active community</a> developing <a href="how.html#clients">packages that extend the core system</a>.	
+	<a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">Join the mailing list</a>.
     </p>    
     <p> 
       Read more <a href="about.html">about RabbitMQ and the company behind it</a>.	     
@@ -47,8 +48,10 @@
     </div>   
     
     <div class="col columnRight">
-      <h3>Distribution</h3>
+      <h3>Resources</h3>
       <ul>      
+	<li><a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">Subscribe to the mailing list</a></li>
+	 
 	<li>RabbitMQ <a href="java-client.html">Java client</a> with <a href="api-guide.html">API guide</a>,  
 	 a <a href="dotnet.html">.NET/C# client</a>, with support for WCF, and many other clients available</li>
 

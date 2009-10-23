@@ -21,7 +21,7 @@
 	    <ul class="plain">
 	      <li>A <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
 	      interface which also provides information on how to 
-	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">subscribe directly</a></li>
+	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">subscribe directly</a></li>
 	      <li>A <a href="email-archive.html">full web-interface provided Nabble</a> </li>
 	    </ul>  
 	</li>
