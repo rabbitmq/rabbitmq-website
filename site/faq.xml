@@ -1385,16 +1385,13 @@ system, or you might be creating unnecessary resources.
 	  <doc:heading>What support options are available for RabbitMQ?</doc:heading>
 	  <doc:a>
 	    <p>
-	      RabbitMQ will be supported, both commercially and as an
-	      open-source project, by both <a
-	      href="http://www.lshift.net/">LShift</a> and by <a
-	      href="http://www.cohesiveft.com/">CohesiveFT</a> as
-	      virtual appliances. For inquiries about support, please
-	      email <a
-	      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>. For
-	      inquiries specifically about virtual appliances, contact
-	      <a
-	      href="mailto:support@cohesiveft.com">support@cohesiveft.com</a>.
+	    RabbitMQ is supported both commercially and as an open-source project. For
+	    general questions please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
+	    or <a href="mailto:info@rabbitmq.com">send us an email</a>.
+	    </p>
+	    <p>
+	    Follow the links to <a href="services.html">Services</a> for information 
+	    about commercial support.
 	    </p>
 	  </doc:a>
 	</doc:faq>
