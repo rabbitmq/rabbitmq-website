@@ -358,7 +358,7 @@
 	</doc:faq>	
 	
 	<doc:faq name="exchange-client-or-server">
-	  <doc:heading>Do I create the exchanges on the server or is it all done iwth my client-side library?</doc:heading>
+	  <doc:heading>Do I create the exchanges on the server or is it all done with my client-side library?</doc:heading>
 	  <doc:a>
 	    <p>
 	    You would use some client to issue exchange.declare, which creates the exchange on the
@@ -472,7 +472,7 @@
       
 
       <doc:section name="Binding-and-Routing">
-	<doc:heading>Binding and Routing</doc:heading>
+	<doc:heading>Messaging Concepts: Binding and Routing</doc:heading>
 
 	<doc:faq name="what-are-bindings">
 	  <doc:heading>What are bindings?</doc:heading>
@@ -858,7 +858,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	</doc:faq>
 	
     <doc:faq name="server-api">
-	<doc:heading>Is there an API doc of the <a href="/documentation.html#server">RabbitMQ server</a>?</doc:heading>
+	<doc:heading>Is there an API doc of the RabbitMQ server?</doc:heading>
 	<doc:a>
 	  <p>
 	  No, the Rabbit server API is not designed for public consumption, but the contract that Rabbit
@@ -874,7 +874,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
-	  Also, please refer to the extensive server documentation which may contain the answer to
+	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to
 	  your question.
 	  </p>
 	</doc:a>
@@ -1096,7 +1096,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 	
 	<doc:faq name="migrate-to-another-machine">
-	  <doc:heading>How do you migrate a instance of RabbitMQ to another machine?</doc:heading>
+	  <doc:heading>How do you migrate an instance of RabbitMQ to another machine?</doc:heading>
 	  <doc:a>
 	    <p>
 	  Rabbit uses mnesia to replicate information about a broker (excluding messages), so you may
