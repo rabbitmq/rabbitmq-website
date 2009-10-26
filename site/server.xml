@@ -156,11 +156,10 @@
       the .deb file from the table above. It has been tested against
     </p>
     <ul class="compact">
-      <li><a href="http://www.debian.org/">Debian</a> 4.0 (Etch), 5.0
-      (Lenny), and testing (Squeeze)</li>
-      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 7.10 (Gutsy
-      Gibbon), 8.04 (Hardy Heron) and 8.10 (Intrepid Ibex) and 9.04
-      (Jaunty Jackalope)</li>
+      <li><a href="http://www.debian.org/">Debian</a> 5.0 (Lenny), and
+      testing (Squeeze)</li>
+      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 8.04 (Hardy
+      Heron) and 8.10 (Intrepid Ibex) and 9.04 (Jaunty Jackalope)</li>
     </ul>
 
     <p>
