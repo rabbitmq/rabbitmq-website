@@ -59,12 +59,12 @@
     </p>
 
     <h3>
-      Status
+      Version
     </h3>
 
     <p>
-      The current release of RabbitMQ AMQP Server is <b>
-      &version-server;</b>, which has <b>&status-server;</b> status.
+      The current release of the RabbitMQ AMQP Server is <b>
+      &version-server;</b>.
     </p>
 
     <h3>

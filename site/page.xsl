@@ -189,7 +189,7 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <xsl:template match="doc:faq/doc:heading">
-    <h3 class="faqHeading">Q. <xsl:apply-templates/></h3>
+    <h3 class="faqHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
   <xsl:template match="doc:q">
@@ -206,7 +206,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:a/p[1]">
     <xsl:copy>
-      <b>A. </b><xsl:apply-templates/>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
 

@@ -36,9 +36,9 @@
 	<th width="33%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
       </tr>
       <tr>
-	<td>Version: <b>&version-server;</b> Status: <b>&status-server;</b></td>
-	<td>Version: <b>&version-java-client;</b> Status: <b>&status-java-client;</b></td>
-	<td>Version: <b>&version-dotnet-client;</b> Status: <b>&status-dotnet-client;</b></td>
+	<td>Version: <b>&version-server;</b></td>
+	<td>Version: <b>&version-java-client;</b></td>
+	<td>Version: <b>&version-dotnet-client;</b></td>
       </tr>
       <tr>
 	<td>
