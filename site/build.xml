@@ -6,12 +6,12 @@
   <body>
     <p class="intro">
       This section provides links to the build instructions
-      of the RabbitMQ AMQP server and available client libraries.
+      of the RabbitMQ server and available client libraries.
     </p>
 
     <h2>Building the source</h2>
 
-    <h3>RabbitMQ AMQP server</h3>
+    <h3>RabbitMQ Server</h3>
 
     <p>
       See <a href="build-server.html">server

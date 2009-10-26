@@ -1,14 +1,14 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-  	<title>RabbitMQ - AMQP Server Build Instructions</title>
+  	<title>RabbitMQ - Server Build Instructions</title>
   </head>
   <body>
     <doc:div>
       <p class="intro">
 	This section describes the process for obtaining a copy of the
-	RabbitMQ AMQP server source code, as well as instructions for building the
-	RabbitMQ server from source.
+	RabbitMQ server source code, as well as instructions for building the
+	server from source.
       </p>
 
       <doc:toc class="compact">
