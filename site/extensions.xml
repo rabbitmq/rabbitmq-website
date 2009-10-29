@@ -160,7 +160,7 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
           common implementations of 64-bit architectures only permit
           a paltry 256TB per process.
         </p>
-        
+
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
 
@@ -170,7 +170,7 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             <pre class="sourcecode">-os_mon vm_memory_high_watermark 0.4</pre>
             to your <code>RABBITMQ_SERVER_START_ARGS</code>
             environment variable, or to
-            the <code>SERVER_START_ARGS</code>
+            the <code>SERVER_START_ARGS</code> definition
             in <code>/etc/rabbitmq/rabbitmq.conf</code>, as
             appropriate for your platform.
           </p>
