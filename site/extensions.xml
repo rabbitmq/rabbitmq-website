@@ -137,56 +137,59 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
         <doc:heading>Memory-based flow control</doc:heading>
 
         <p>
-          In versions of the RabbitMQ server prior to version 1.5.x,
-          it was possible for clients to attempt to store so many
-          messages within the server that it outgrew the available
-          memory. With the release of version 1.5.x, an experimental
+          In older versions of the RabbitMQ server it was possible for clients 
+          to attempt to store so many messages within the server that it outgrew
+          the available memory. With the current release 
           memory-pressure-detection feature has been added to the
-          codebase, so that when the server notices available memory
-          drop below 5% of the total memory available to the system,
+          codebase. When the server notices that the memory footprint of the
+          RabbitMQ process grows above 70% of the total memory available,
           it throttles publishers with the <code>channel.flow</code>
           AMQP command.
         </p>
 
         <p>
-          The feature has been tested and found to work on various
-          Linux distributions, and is therefore enabled on those
-          platforms by default. Please report back to the <a
-          href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">RabbitMQ
-          mailing list</a> your experiences using the feature on your
-          platform!
+          The default memory limit is set to 70% of total system memory.
+          Due to garbage collector and non-compliant AMQP
+          clients, RabbitMQ virtual machine size can grow above this threshold.
+          Make sure that the system has swap enabled.
         </p>
-
+        
+        <p> 
+          On 32-bit architectures the memory limit can't be set to values more
+          than 2GB. Depending on operating system, it leaves 1-2GB of virtual 
+          address space free, reserved for garbage collector hiccups. 
+          RabbitMQ can still die from out-of-memory problems if clients don't
+          comply to <code>channel.flow</code> or due to fragmented virtual 
+          memory address space. If the RabbitMQ server is using more
+          than 1GB of memory, please consider migrating to 64-bit architecture,
+          no matter how much memory you have in your system.
+        </p>
+        
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
-          <p>
-            To enable the feature when running the RabbitMQ on other
-            platforms, add
-	  </p>
-
-	  <pre class="sourcecode">-rabbit memory_alarms true</pre>
-
-          <p>
-            to your <code>RABBITMQ_SERVER_START_ARGS</code>
-	    environment variable or to the
-	    <code>SERVER_START_ARGS</code> definition in
-	    <code>/etc/rabbitmq/rabbitmq.conf</code>, as appropriate for
-	    your platform.
-	  </p>
-
-          <p>
-            Similarly, to disable the feature add
-          </p>
-
-	  <pre class="sourcecode">-rabbit memory_alarms false</pre>
 
           <p>
             The memory threshold at which the flow control is
-            triggered can be adjusted by modifying
-            the
-            <pre class="sourcecode">-os_mon system_memory_high_watermark 0.95</pre>
-            line in the <code>rabbitmq-server</code>
-            / <code>rabbitmq-server.bat</code> script.
+            triggered can be adjusted by modifying the
+            <pre class="sourcecode">-os_mon vm_memory_high_watermark 0.7</pre>
+            line in the <code>rabbitmq-server</code> script. 
+          </p>
+          
+          <p>
+            The default value of 0.7 stands for 70% of memory detected in your
+            system. Value of 0 disables memory monitor and
+            <code>channel.flow</code>. You can specify values higher than 1 
+            in order to allow RabbitMQ to use swap, or in case of incorrectly
+            detected memory size.
+          </p>
+          
+          <p> 
+            You can read currently set memory limit from
+            <b>RABBITMQ_NODENAME</b>.log file. For example:
+            <pre class="sourcecode">
+=INFO REPORT==== 29-Oct-2009::15:43:27 ===
+Memory limit set to 2048MB.</pre>
+
           </p>
 
 	</doc:subsection>
