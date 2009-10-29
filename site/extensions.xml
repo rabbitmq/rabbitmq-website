@@ -137,32 +137,28 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
         <doc:heading>Memory-based flow control</doc:heading>
 
         <p>
-          In older versions of the RabbitMQ server it was possible for clients 
-          to attempt to store so many messages within the server that it outgrew
-          the available memory. With the current release 
-          memory-pressure-detection feature has been added to the
-          codebase. When the server notices that the memory footprint of the
-          RabbitMQ process grows above 70% of the total memory available,
+          In older versions of the RabbitMQ server it was possible for
+          clients to attempt to store so many messages within the
+          server that it outgrew the available memory. With the
+          current release, the RabbitMQ server detects the total
+          amount of RAM installed in the computer on startup. When the
+          RabbitMQ server uses above 40% of the total RAM installed,
           it throttles publishers with the <code>channel.flow</code>
           AMQP command.
         </p>
 
         <p>
-          The default memory limit is set to 70% of total system memory.
-          Due to garbage collector and non-compliant AMQP
-          clients, RabbitMQ virtual machine size can grow above this threshold.
-          Make sure that the system has swap enabled.
-        </p>
-        
-        <p> 
-          On 32-bit architectures the memory limit can't be set to values more
-          than 2GB. Depending on operating system, it leaves 1-2GB of virtual 
-          address space free, reserved for garbage collector hiccups. 
-          RabbitMQ can still die from out-of-memory problems if clients don't
-          comply to <code>channel.flow</code> or due to fragmented virtual 
-          memory address space. If the RabbitMQ server is using more
-          than 1GB of memory, please consider migrating to 64-bit architecture,
-          no matter how much memory you have in your system.
+          The default memory threshold is set to 40% of total system
+          memory. Note that this does not prevent the RabbitMQ server
+          from using more RAM, it is merely the point at which
+          publishers are throttled. Erlang's garbage collector can, in
+          the worst case, cause double the amount of memory to be used
+          (by default, 80% of RAM), and non-compliant AMQP clients can
+          cause the RabbitMQ server to use more still. It is strongly
+          recommended that OS swap or page files are enabled. 32-bit
+          architectures impose a per process memory limit of 4GB, and
+          common implementations of 64-bit architectures only permit
+          a paltry 256TB per process.
         </p>
         
         <doc:subsection>
@@ -170,26 +166,45 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
 
           <p>
             The memory threshold at which the flow control is
-            triggered can be adjusted by modifying the
-            <pre class="sourcecode">-os_mon vm_memory_high_watermark 0.7</pre>
-            line in the <code>rabbitmq-server</code> script. 
+            triggered can be adjusted by adding
+            <pre class="sourcecode">-os_mon vm_memory_high_watermark 0.4</pre>
+            to your <code>RABBITMQ_SERVER_START_ARGS</code>
+            environment variable, or to
+            the <code>SERVER_START_ARGS</code>
+            in <code>/etc/rabbitmq/rabbitmq.conf</code>, as
+            appropriate for your platform.
           </p>
           
           <p>
-            The default value of 0.7 stands for 70% of memory detected in your
-            system. Value of 0 disables memory monitor and
-            <code>channel.flow</code>. You can specify values higher than 1 
-            in order to allow RabbitMQ to use swap, or in case of incorrectly
-            detected memory size.
+            The default value of 0.4 stands for 40% of RAM detected in
+            your system. A value of 0 disables the memory monitor and
+            <code>channel.flow</code>.
           </p>
           
           <p> 
-            You can read currently set memory limit from
-            <b>RABBITMQ_NODENAME</b>.log file. For example:
+            The configured threshold is appended to the
+            <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
+            starts:
             <pre class="sourcecode">
 =INFO REPORT==== 29-Oct-2009::15:43:27 ===
 Memory limit set to 2048MB.</pre>
+          </p>
 
+          <p>
+            If the RabbitMQ server is unable to recognise your system,
+            it will append a warning to
+            the <b>RABBITMQ_NODENAME</b>.log file. It also then
+            assumes than 1GB of RAM is installed:
+            <pre class="sourcecode">
+=WARNING REPORT==== 29-Oct-2009::17:23:44 ===
+Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
+
+            In this case, the <code>vm_memory_high_watermark</code>
+            configuration value is used to scale the assumed 1GB
+            RAM. Thus in such a case, if you actually have 8GB RAM
+            installed and you want to invoke <code>channel.flow</code>
+            when the RabbitMQ server is using above 3GB,
+            set <code>vm_memory_high_watermark</code> to 3.
           </p>
 
 	</doc:subsection>
