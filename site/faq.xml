@@ -901,6 +901,42 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	<doc:heading>How-To</doc:heading>
 
 	<doc:faq name="last-message-on-topic">
+	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
+	  RabbitMQ node which I’m sending to crashes?</doc:heading>
+	  <doc:a>
+	    <p>
+	    At the risk of sounding pedantic, you could wait for the dead node to recover
+	    from disk.  In other words, RabbitMQ provides "eventual delivery" out of the
+	    box.  If you want to persist more reliably than with a single disk then use a 
+	    RAID or a SAN.
+	    </p>
+	    <p>
+	    The problem with using a single node is the time it takes to recover the node
+	    and the cost (if any) of the client reconnection. The time to recover is partly
+	    influenced by how much state must be recovered and partly by the size of the
+	    unavailability window that your application can tolerate.
+	    </p>
+	    <p>
+	    Many applications don't like to wait more than (say) 1ms, 10ms or 50ms before
+	    they can send their message.  In this case, you will typically want to send a
+	    message _before_ the crashed node has been able to recover. You can achieve
+	    this in two ways:
+	    </p>
+	    <ol class="plain">
+	      <li>You don't care about replicating state and can use any other queue as a
+	      'suitable queue'.  This is easy - just make sure the right consumers and routes
+	      are wired up.
+	      </li>
+	      <li>You do care about replicating state. Then you can fail over to a passive
+	      server – this is not available out of the box but you can contact us for more
+	      info (mailto:info@rabbitmq.com) (You can also do active/active failover but it
+	      is much more fiddly).
+	      </li>
+	    </ol>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="last-message-on-topic">
 	  <doc:heading>How can I retrieve the last message published to a particular topic?</doc:heading>
 	  <doc:q>
 	    <p>
@@ -1254,8 +1290,8 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 
 	<doc:faq name="does-clustering-replicate-messages-to-both-servers">
-	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes they
-	  messages gets replicated to both servers, right?
+	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes the
+	  messages get replicated to both servers, right?
 	  </doc:heading>
 	  <doc:a>
 	    <p>
