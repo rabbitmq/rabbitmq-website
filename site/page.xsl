@@ -189,7 +189,7 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <xsl:template match="doc:faq/doc:heading">
-    <h3 class="faqHeading">Q. <xsl:apply-templates/></h3>
+    <h3 class="faqHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
   <xsl:template match="doc:q">
@@ -206,7 +206,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:a/p[1]">
     <xsl:copy>
-      <b>A. </b><xsl:apply-templates/>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
 
@@ -286,9 +286,18 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="r:repositories">
     <p>
-      For information on how to work with the RabbtiMQ mercurial
+      For information on how to work with the RabbitMQ mercurial
       repositories, please see <a href="mercurial.html">this page</a>.
     </p>
+    <xsl:choose>
+      <xsl:when test="@type = 'plugin'">
+        <p>
+          For more information about the installation of plugins, refer to the
+          <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+        </p>
+      </xsl:when>
+    </xsl:choose>
+
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th>Snapshot</th>

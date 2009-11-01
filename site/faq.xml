@@ -319,10 +319,10 @@
       </doc:section>
 
       <doc:section name="managing-concepts-exchanges">
-	<doc:heading>Managing concepts: Exchanges</doc:heading>
+	<doc:heading>Messaging Concepts: Exchanges</doc:heading>
 	
 	<doc:faq name="fanout-exchange">
-	  <doc:heading>What is a fanout exchange</doc:heading>
+	  <doc:heading>What is a fanout exchange?</doc:heading>
 	  <doc:a>
 	    <p>
 	    A fanout exchange is the simplest exchange type, representing a 1:N message delivery
@@ -333,7 +333,7 @@
 	</doc:faq>
 	
 	<doc:faq name="direct-exchange">
-	  <doc:heading>What is a direct exchange</doc:heading>
+	  <doc:heading>What is a direct exchange?</doc:heading>
 	  <doc:a>
 	    <p>
 	    A direct exchange is a 1:1 form of communication where a routing key directs how a broker
@@ -345,7 +345,7 @@
 	</doc:faq>
 	
 	<doc:faq name="topic-exchange">
-	  <doc:heading>What is a topic exchange</doc:heading>
+	  <doc:heading>What is a topic exchange?</doc:heading>
 	  <doc:a>
 	    <p>
 	    Here, the broker matches the routing key against a pattern to determine how to deliver the
@@ -358,8 +358,7 @@
 	</doc:faq>	
 	
 	<doc:faq name="exchange-client-or-server">
-	  <doc:heading>I am using a client library, and I am wondering, do I create the exchanges on the 
-	  server, or is it all done client-side?</doc:heading>
+	  <doc:heading>Do I create the exchanges on the server or is it all done with my client-side library?</doc:heading>
 	  <doc:a>
 	    <p>
 	    You would use some client to issue exchange.declare, which creates the exchange on the
@@ -370,25 +369,24 @@
 	</doc:faq>	
 	
 	<doc:faq name="exchange-why-client">
-	  <doc:heading>I'm reading the docs, but I don't understand why the exchanges are created at the
-	  client, doesn't it make sense to create them on the server?</doc:heading>
+	  <doc:heading>I don't understand why the exchanges are created at the client. Doesn't it make sense to create them on the server?</doc:heading>
 	  <doc:a>
 	    <p>
-	    The semantics of exchange declare that if the exchange does not already exist on the server,
+	    The semantics of exchange.declare are that if the exchange does not already exist on the server,
 	    then create a new exchange. Otherwise reuse an existing exchange.	
 	    </p>
 	  </doc:a>
 	</doc:faq>
 	
 	<doc:faq name="organize-exchanges">
-	  <doc:heading>How do I organize my exchanges? I want to have different parties to delivery, but
-	  they will be hierarchical.</doc:heading>
+	  <doc:heading>How do I organize my exchanges in the case where the message recipients represent a hierarchy?</doc:heading>
 	  <doc:a>
 	    <p>
-	    You may want to read the part in the spec about how the topic exchanges work. Like nation
-	    includes sectors which include states which include regions which include counties. You could
-	    use topic exchange with 'nz.northisland.wellington.arovalley.arostreet.54' and the bind with a
-	    pattern of nz.# or nz.southisland.#	
+	    You may want to read the part in the spec about how the topic exchanges work. Using
+	    the example of nations which include sectors which include states which include regions
+	    which include counties, you could use topic exchange with 'nz.northisland.wellington.arovalley.arostreet.
+	    54' and the bind with a pattern of nz.# or nz.southisland.#
+
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -403,7 +401,7 @@
 	</doc:faq>
 	
 	<doc:faq name="fanout-direct-topic-specialisations">
-	  <doc:heading>Hey, fanout and direct look like simple specialisations of topic, am I right?</doc:heading>
+	  <doc:heading>Hey, fanout and direct look like simple specialisations of topic. Am I right?</doc:heading>
 	  <doc:a>
 	    <p>
 	    Yep.
@@ -421,7 +419,7 @@
 	</doc:faq>
 	
 	<doc:faq name="exchange-lifespan">
-	  <doc:heading>When I create an exchange, does it stay created, or does the exchange disappear 
+	  <doc:heading>When I create an exchange does it stay created or does the exchange disappear 
 	  anytime the client disconnects?</doc:heading>
 	  <doc:a>
 	    <p>
@@ -459,7 +457,7 @@
 	</doc:faq>
 	
 	<doc:faq name="publisher-and-consumer-declare-exchanges">
-	  <doc:heading>So then it makes sense for both the publisher and consumer to both declare the exchange?</doc:heading>
+	  <doc:heading>Does it makes sense for both the publisher and subscriber to each declare the exchange?</doc:heading>
 	  <doc:a>
 	    <p>
 	    Semantically yes. But don't be too dogmatic about it in every scenario, if your application
@@ -474,7 +472,7 @@
       
 
       <doc:section name="Binding-and-Routing">
-	<doc:heading>Binding and Routing</doc:heading>
+	<doc:heading>Messaging Concepts: Binding and Routing</doc:heading>
 
 	<doc:faq name="what-are-bindings">
 	  <doc:heading>What are bindings?</doc:heading>
@@ -544,11 +542,11 @@
 	</doc:faq>		
 
 	<doc:faq name="direct-exchanges-sending-to-multiple-queues">
-	  <doc:heading>What happens if a message is sent to a direct exchange which has duplicate routing
-	  keys on more than one queue, is the message delivered to both queues?</doc:heading>
+	  <doc:heading>What happens if a queue is bound to a direct exchange with more than one routing key?</doc:heading>
 	  <doc:a>
 	    <p>
-	    Yes. In this scenario, the direct exchange becomes a little bit like a fanout exchange.
+	  This is a pub-sub scenario. The direct exchange behaves a little bit like a fanout
+	  exchange and the message is delivered to all queues that have a matching key.
 	    </p>
 	  </doc:a>
 	</doc:faq>		
@@ -557,7 +555,7 @@
 	  <doc:heading>Why can durable queues only bind to durable exchanges?</doc:heading>
 	  <doc:a>
 	    <p>
-	    This is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
+	    This there a is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
 	    all tiers, or you don't.
 	    </p>
 	  </doc:a>
@@ -876,7 +874,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
-	  Also, please refer to the extensive server documentation which may contain the answer to
+	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to
 	  your question.
 	  </p>
 	</doc:a>
@@ -885,7 +883,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
       </doc:section>
 
       <doc:section name="integration">
-	<doc:heading>Integration</doc:heading>
+	<doc:heading>RabbitMQ Integration</doc:heading>
 
 	<doc:faq name="rabbit-client-support">
 	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
@@ -903,8 +901,43 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	<doc:heading>How-To</doc:heading>
 
 	<doc:faq name="last-message-on-topic">
-	  <doc:heading>How can I retrieve the last message published to a particular topic
-</doc:heading>
+	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
+	  RabbitMQ node which I’m sending to crashes?</doc:heading>
+	  <doc:a>
+	    <p>
+	    At the risk of sounding pedantic, you could wait for the dead node to recover
+	    from disk.  In other words, RabbitMQ provides "eventual delivery" out of the
+	    box.  If you want to persist more reliably than with a single disk then use a 
+	    RAID or a SAN.
+	    </p>
+	    <p>
+	    The problem with using a single node is the time it takes to recover the node
+	    and the cost (if any) of the client reconnection. The time to recover is partly
+	    influenced by how much state must be recovered and partly by the size of the
+	    unavailability window that your application can tolerate.
+	    </p>
+	    <p>
+	    Many applications don't like to wait more than (say) 1ms, 10ms or 50ms before
+	    they can send their message.  In this case, you will typically want to send a
+	    message _before_ the crashed node has been able to recover. You can achieve
+	    this in two ways:
+	    </p>
+	    <ol class="plain">
+	      <li>You don't care about replicating state and can use any other queue as a
+	      'suitable queue'.  This is easy - just make sure the right consumers and routes
+	      are wired up.
+	      </li>
+	      <li>You do care about replicating state. Then you can fail over to a passive
+	      server – this is not available out of the box but you can contact us for more
+	      info (mailto:info@rabbitmq.com) (You can also do active/active failover but it
+	      is much more fiddly).
+	      </li>
+	    </ol>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="last-message-on-topic">
+	  <doc:heading>How can I retrieve the last message published to a particular topic?</doc:heading>
 	  <doc:q>
 	    <p>
 	      A classic use-case for messaging systems is the example
@@ -940,7 +973,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 
 	<doc:faq name="channel-encryption">
-	  <doc:heading>Does RabbitMQ support channel encryption?</doc:heading>
+	  <doc:heading>How do I enable channel encryption with RabbitMQ?</doc:heading>
 	  <doc:q>
 	    <p>
 	      Say I want to transfer a message across the AMQP
@@ -971,31 +1004,18 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="access_control">
-	  <doc:heading>How do I configure access control?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Please see the section on <a
-	      href="admin-guide.html#access-control">access
-	      control</a> in the RabbitMQ <a
-	      href="admin-guide.html">admin guide</a>.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
 	<doc:faq name="instrumentation-logging-debugging">
-	  <doc:heading>Instrumentation, logging and debugging</doc:heading>
+	  <doc:heading>What provision is there for instrumentation, logging and debugging?</doc:heading>
 	  <doc:a>
-	    <p>
-	      RabbitMQ uses AMQP internally to the broker to notify
-	      interested parties of significant events. Administration
-	      and management exchanges are provided for tools to bind
-	      to.
-	    </p>
-	    <p>
-	      In addition, there is some discussion in the AMQP
-	      community of the need for replay as a built-in feature.
-	    </p>
+	  <p>
+	  RabbitMQ uses AMQP internally to the broker to notify interested parties of significant
+	  events. Administration and management exchanges are provided for tools to bind to.
+	  </p>
+	  <p>
+	  Various management and monitoring tools are <a href="/admin-guide.html#management-overview">available 
+	  from RabbitMQ</a> and <a href="/how.html#management">the community</a>.
+	  Information about logging output can be found in the <a href="/install.html">install guide</a>.
+	  </p>
 	  </doc:a>
 	</doc:faq>
 
@@ -1052,12 +1072,36 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="analyse-network-traffic">
+	  <doc:heading>Are there any tools are available to analyse AMQP network traffic?</doc:heading>
+	  <doc:a>
+	    <p>
+	      There's a very basic, very simple AMQP protocol analyzer in
+	      class <code>com.rabbitmq.tools.Tracer</code>. Invoke it with
+	    </p>
+	    <pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
+	    <p>
+	      <dl>
+		<dt>listenPort</dt>
+		<dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
+		<dt>connectHost</dt>
+		<dd>hostname to use when making an outbound connection in response to an incoming connection - defaults to localhost.</dd>
+		<dt>connectPort</dt>
+		<dd>port number to use when making an outbound connection - defaults to 5672.</dd>
+	      </dl>
+	    </p>
+	    <p>
+	    There is also an <a href="http://wiki.wireshark.org/AMQP">AMQP plugin</a> available for <a href="http://www.wireshark.org/">Wireshark</a> .
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="public-demonstration-broker">
 	  <doc:heading>Is there a publicly available demonstration broker that I can use to experiment with
 	  WAN AMQP connections?</doc:heading>
 	  <doc:a>
 	    <p>
-	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration AMQP server that is freely
+	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration RabbitMQ server that is freely
 	  available for people to try out, perhaps for testing interoperation or experimenting with WAN
 	  AMQP connections.
 	    </p>
@@ -1088,7 +1132,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 	
 	<doc:faq name="migrate-to-another-machine">
-	  <doc:heading>How do you migrate a instance of RabbitMQ to another machine?</doc:heading>
+	  <doc:heading>How do you migrate an instance of RabbitMQ to another machine?</doc:heading>
 	  <doc:a>
 	    <p>
 	  Rabbit uses mnesia to replicate information about a broker (excluding messages), so you may
@@ -1143,6 +1187,19 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    erl -mnesia dir DIR -boot start_sasl -rabbit tcp_listeners
 	    '[{10.66.23.117, 3876}]' -s rabbit]
 	    </code>
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+
+	<doc:faq name="access_control">
+	  <doc:heading>How do I configure access control?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Please see the section on <a
+	      href="admin-guide.html#access-control">access
+	      control</a> in the RabbitMQ <a
+	      href="admin-guide.html">admin guide</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>	
@@ -1233,8 +1290,8 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	</doc:faq>
 
 	<doc:faq name="does-clustering-replicate-messages-to-both-servers">
-	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes they
-	  messages gets replicated to both servers, right?
+	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes the
+	  messages get replicated to both servers, right?
 	  </doc:heading>
 	  <doc:a>
 	    <p>
@@ -1364,16 +1421,13 @@ system, or you might be creating unnecessary resources.
 	  <doc:heading>What support options are available for RabbitMQ?</doc:heading>
 	  <doc:a>
 	    <p>
-	      RabbitMQ will be supported, both commercially and as an
-	      open-source project, by both <a
-	      href="http://www.lshift.net/">LShift</a> and by <a
-	      href="http://www.cohesiveft.com/">CohesiveFT</a> as
-	      virtual appliances. For inquiries about support, please
-	      email <a
-	      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>. For
-	      inquiries specifically about virtual appliances, contact
-	      <a
-	      href="mailto:support@cohesiveft.com">support@cohesiveft.com</a>.
+	    RabbitMQ is supported both commercially and as an open-source project. For
+	    general questions please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
+	    or <a href="mailto:info@rabbitmq.com">send us an email</a>.
+	    </p>
+	    <p>
+	    Follow the links to <a href="services.html">Services</a> for information 
+	    about commercial support.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1445,13 +1499,6 @@ system, or you might be creating unnecessary resources.
                 <code>patch</code> number.
               </li>
             </ul>
-            <p>
-              We also label each release with a <i>status</i>. This is
-              either <i>alpha</i>, <i>beta</i>, <i>rc</i> (for
-              "release candidate") or <i>final</i>, and indicates the
-              maturity of the release. The status is mentioned in the
-              release announcement and on the download page.
-	    </p>
 	  </doc:a>
 	</doc:faq>
 

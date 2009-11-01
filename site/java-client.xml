@@ -43,12 +43,12 @@
     </p>
 
     <h3>
-      Status
+      Version
     </h3>
 
     <p>
       The current release of the RabbitMQ Java AMQP library is <b>
-      &version-java-client;</b>, which has <b>&status-java-client;</b> status.
+      &version-java-client;</b>.
     </p>
 
     <h3>

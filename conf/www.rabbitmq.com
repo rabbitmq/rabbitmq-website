@@ -38,11 +38,11 @@
     Alias /releases /home/rabbitmq/extras/releases
     Alias /debian /home/rabbitmq/extras/releases/debian
 
+    # /how appeared on some printed materials
+    Redirect permanent /how http://www.rabbitmq.com/how.html
+
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
-  #      RewriteEngine on
-#        RewriteRule ^election/?(.*)$  http://dev.lshift.net/paul/election/$1 [L,R=permanent]
- #       RewriteRule ^~([a-z]*)/?(.*)$  http://dev.lshift.net/$1/$2    [L,R=permanent]
     </Directory>
 
 </VirtualHost>

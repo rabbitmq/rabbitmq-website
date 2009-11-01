@@ -3,10 +3,6 @@
 <!ENTITY version-dotnet-client "1.7.0">
 <!ENTITY version-server "1.7.0">
 
-<!ENTITY status-java-client "beta">
-<!ENTITY status-dotnet-client "beta">
-<!ENTITY status-server "beta">
-
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
