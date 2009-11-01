@@ -60,7 +60,7 @@ urchinTracker();
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/how.html">Get started</a></li>
+      <li><a href="/how.html">Get Started</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
       <li><a href="/faq.html">FAQ</a></li>

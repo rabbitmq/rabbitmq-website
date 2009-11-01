@@ -37,8 +37,27 @@
 	  <doc:heading>What is messaging?</doc:heading>
 	  <doc:a>
 	    <p>
-	      Messaging is used to manage data in motion, unlike, say, databases, which manage data at rest. Use messaging to
-	      communicate between and scale applications, within your enterprise, across the web, or in the cloud.  
+	    Messaging describes the sending and receiving of data (in the form of messages) between systems. 
+	    Messages are exchanged between programs or applications, similar to the way people communicate 
+	    by email but with guarantees on delivery, speed, security and the absence of spam.
+	    </p>
+	    <p>
+	    A messaging infrastructure (a.k.a. message-oriented middleware, a.k.a. enterprise service bus) 
+	    makes it easier for developers to create complex applications by decoupling the individual program 
+	    components. Rather than communicating directly, the messaging infrastructure facilitates the 
+	    exchange of data between components. The components need know nothing about each other’s status,
+	    availability or implementation, which allows them to be distributed over heterogeneous platforms 
+	    and turned off and on as required.
+	    </p>
+	    <p>
+	    In adopting this architecture, the developer is insulated from the details of the various operating 
+	    systems and network interfaces involved and the interoperability, scalability and flexibility of the 
+	    application are improved.
+	    </p>
+	    <p>
+	    Please see this presentation on <a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging</a>
+	    for a general introduction or <a href="http://en.wikipedia.org/wiki/Message_Oriented_Middleware">this page on Wikipedia</a> 
+	    for more information.
 	    </p>
 	  </doc:a>
 	</doc:faq>

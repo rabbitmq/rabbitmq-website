@@ -16,12 +16,12 @@
       <h3>
 	<span class="subscribe"><a href="news.atom">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
-	</a></span>Latest news
+	</a></span>Latest News
       </h3>     
       <feed src="news.atom" type="ournews" limit="5" />  
       
     <div class="">  
-	<h3>Latest community chatter</h3>
+	<h3>Latest Community Chatter</h3>
 	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
     </div>
           
@@ -36,12 +36,12 @@
 	and bundles for easy installation.
     </p>   
     <ul>
-      <li>Learn more about enterprise messaging</li>
+      <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
       <li>Read the <a href="specification.html">AMQP specification</a></li>
       <li>See <a href="download.html">what platforms</a> are supported</li>
     </ul>   
     
-    <h3>Why choose RabbitMQ</h3>
+    <h3>Why Choose RabbitMQ</h3>
     <p>
 	RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a>, 
 	offering exceptionally high reliability, availability and scalability 
@@ -59,7 +59,7 @@
       <li>Read about what is <a href="community.html">happening in the community</a></li>
     </ul>
     
-    <h3>How do I get started</h3>                
+    <h3>How do I Get Started</h3>                
     <ul>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
       <li>I want to <a href="download.html">install and evaluate</a> RabbitMQ</li>
@@ -67,7 +67,7 @@
     </ul>
     
     <div class="">      
-	<h3>Latest community highlights</h3>
+	<h3>Latest Community Highlights</h3>
 	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
 	<p><a class="more-links" href="/delicious.html">about del.icio.us </a></p>
     </div>
