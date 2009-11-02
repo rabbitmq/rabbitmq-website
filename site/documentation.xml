@@ -11,12 +11,11 @@
   <body>
     <doc:div>
       <p class="intro">
-	This page summarises the available RabbitMQ documentation. See the '<a href="/how.html">How easy is it</a>' page for the latest presentations, blog posts and community links.
+	This page summarises the available RabbitMQ documentation. See the '<a href="/how.html">Get Started</a>' 
+	page for the latest presentations, blog posts and community links.
       </p>
 
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
+
 
       <doc:section name="server">
 	<doc:heading>Server documentation</doc:heading>
@@ -43,10 +42,6 @@
 	<doc:heading>Client documentation and examples</doc:heading>
 	<ul>
 	  <li>
-	    Some <a href="examples.html">example client programs</a>
-	    making use of RabbitMQ
-	  </li>
-	  <li>
 	    <a href="api-guide.html">RabbitMQ Java Client API
 	    Guide</a>
 	  </li>
@@ -70,7 +65,8 @@
         
         <ul>
           <li>
-            <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language support
+            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query Language plugin provides a SQL-like 
+	    interface to RabbitMQ
           </li>
         </ul>
       </doc:section>
