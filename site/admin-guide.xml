@@ -498,6 +498,14 @@
         </p>
 
         <p>
+          The regular expression <code>^$</code>, i.e. matching
+          nothing but the empty string, exactly covers resources with
+          server-generated names. That, for example, allows an
+          administrator to restrict a user to declaring private
+          resources only.
+        </p>
+
+        <p>
           RabbitMQ may cache the results of access control checks on a
           per-connection or per-channel basis. Hence changes to user
           permissions may only take effect when the user reconnects.

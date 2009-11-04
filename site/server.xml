@@ -7,11 +7,11 @@
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>RabbitMQ - AMQP server</title>
+    <title>RabbitMQ Server</title>
   </head>
   <body>
     <h2>
-      RabbitMQ AMQP server
+      RabbitMQ Server
     </h2>
 
     <p class="intro">
@@ -63,12 +63,12 @@
     </h3>
 
     <p>
-      The current release of the RabbitMQ AMQP Server is <b>
+      The current release of the RabbitMQ Server is <b>
       &version-server;</b>.
     </p>
 
     <h3>
-      Download the RabbitMQ AMQP Server
+      Download the RabbitMQ Server
     </h3>
 
     <p>
@@ -230,7 +230,7 @@
     
     <h3>Mercurial repositories</h3>
     <p>
-      The AMQP server itself, implemented in Erlang. Depends on the
+      The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>

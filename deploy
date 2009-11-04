@@ -18,7 +18,7 @@ fi
 echo "Feeds will be mirrored by the user $mirror_user" 1>&2
 
 # Find the corresponding group
-mirror_group=$(groups $mirror_user | (read group others ; echo $group))
+mirror_group=$(id -ng $mirror_user)
 
 xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
 

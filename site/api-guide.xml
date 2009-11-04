@@ -497,7 +497,7 @@ Map mapCall(Object[] keyValuePairs)</pre>
 <b>import</b> com.rabbitmq.client.ShutdownListener;
 
 connection.addShutdownListener(<b>new</b> ShutdownListener() {
-    <b>public void</b> service(new ShutdownSignalException cause)
+    <b>public void</b> shutdownCompleted(ShutdownSignalException cause)
     {
         ...
     }
@@ -521,11 +521,11 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 	      information whether it was a connection or a channel
 	      error.
 	    </p>
-            <pre class="sourcecode"><b>public void</b> service(ShutdownSignalException cause)
+            <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
 {
   <b>if</b> (cause.isHardError())
   {
-    Connection conn = cause.getConnection();
+    Connection conn = (Connection)cause.getReference();
     <b>if</b> (!cause.isInitiatedByApplication())
     {
       Object reason = cause.getReason();
@@ -533,7 +533,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     }
     ...
   } <b>else</b> {
-    Channel ch = cause.getChannel();
+    Channel ch = (Channel)cause.getReference();
     ...
   }
 }</pre>
