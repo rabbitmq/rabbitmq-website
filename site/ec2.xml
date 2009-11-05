@@ -1,0 +1,227 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Amazon EC2 Images</title>
+  </head>
+  <body>
+
+    <doc:div>
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+    </doc:div>
+    
+<doc:section name="images">
+  <doc:heading>RabbitMQ Amazon EC2 Images</doc:heading>
+    <p>
+        Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easilly deployed on 
+        Amazon cloud. Images containing Ubuntu 9.10  (Karmic Koala) 
+        with preinstalled RabbitMQ can be found below.
+        They're available in variants for 32 and 64 bit architectures.
+    </p>
+    <dl>
+        <dt><h3>32-bit RabbitMQ Images</h3></dt>
+        <dd>
+            Can be run on smallest and cheapest 
+            <a href="http://aws.amazon.com/ec2/#instance">m1.small</a>
+            cloud computer instances. It's fine for development purposes,
+            but due to small 32-bit virtual memory space it's not recommended 
+            for production.
+        </dd>
+        
+        <dt><h3>64-bit RabbitMQ Images</h3></dt>
+        <dd>
+            Runs on more demanding 64-bit instances. Recommended for production
+            usage.
+        </dd>
+    </dl>
+
+
+</doc:section>
+<doc:section name="amis">
+  <doc:heading>Amazon EC2 Published Images</doc:heading>
+    <p>
+        Following Ubuntu images with preinstalled RabbitMQ 1.7.0 have been 
+        published:
+    </p>
+    <amilist xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="">
+      <amiitem zone="eu-west-1" ami="ami-ee2a019a" arch="x86_64"/>
+      <amiitem zone="eu-west-1" ami="ami-c62a01b2" arch="i386"/>
+      <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="x86_64"/>
+      <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="i386"/>
+    </amilist>
+
+    
+</doc:section>
+<doc:section name="ebs">
+  <doc:heading>Integration with Amazon EBS</doc:heading>
+    <p>
+        RabbitMQ stores some data on disk. It may be worth to store this 
+        persistent data on Amazon EBS Volume. Decoupling data from
+        the instance using EBS brings some benefits:
+        <ol>
+            <li>Data is less likely to become corrupted.</li>
+            <li>Migration data to different instance is straightforward.</li>
+            <li>EBS has a proper backup strategy.</li>
+        </ol>
+        RabbitMQ images provide features to easify integration 
+        with Amazon EBS block storage.
+    </p>
+    
+    <p>
+        Using EBS volumes with RabbitMQ instances is straightforward. 
+        All you need to do is:
+        <ol>
+            <li><a href="#ebs_setup">Create an EBS volume</a> based on our snapshot.</li>
+            <li><a href="#ebs_attach">Attach it under <code>/dev/sdh</code></a>.</li>
+            <li>Finally, <a href="#reboot">to apply the changes reboot the instance</a>.</li>
+        </ol>
+    </p>
+    
+<doc:subsection name="ebs_setup">
+  <doc:heading>Setting up EBS volume</doc:heading>
+    <p> 
+        Public snapshots of pre-configured RabbitMQ EBS volumes are listed below.
+    </p>
+    <table>
+      <tr><th>Availability zone</th><th>Public snapshot id</th></tr>
+      <tr><td>eu-west-1</td><td>snap-e845a981</td></tr>
+      <tr><td>us-east-1</td><td>snap-xxxxxxxx</td></tr>
+    </table>
+    <p>
+        Create EBS volume based on our pre-configured shared EBS snapshot.
+        Our snapshots are created from 8GB EBS, so your volume must
+        have at least that size.
+    </p>
+    <pre class="sourcecode">ec2-create-volume --snapshot snap-e845a981 -s 8 \
+    --region eu-west-1 --availability-zone eu-west-1b</pre>
+</doc:subsection>
+<doc:subsection name="ebs_attach">
+  <doc:heading>Attach volume to instance</doc:heading>
+    <p>
+        To attach a volume to the instance, use <code>ec2-attach-volume</code>
+        command. Please remember to attach the volume under <code>/dev/sdh</code>.
+    </p>
+    <pre class="sourcecode">ec2-attach-volume --region eu-west-1 vol-xxxxxxxx -i i-xxxxxxxx -d /dev/sdh</pre>
+    <p>
+        Attaching volumes is sticky, so EBS will remain attached until you
+        kill the instance or unattach it manually. Volumes attached under 
+        <code>/dev/sdh</code> are automatically mounted as <code>/vol</code>.
+    </p>
+</doc:subsection>
+<doc:subsection name="reboot">
+  <doc:heading>Convince RabbitMQ to use EBS</doc:heading>
+    <p>
+        To persuade RabbitMQ to use disk space from <code>/vol</code>
+        proper paths in configs must be specified. A script
+        that sets RabbitMQ configs to be read from EBS volume is runned
+        on start, and named <code>rabbit-copy-config</code>.
+        It links configs prepared for RabbitMQ under <code>/vol/etc</code>
+        into standard <code>/etc</code> location. After that, 
+        the default RabbitMQ installation will be affected and will
+        store data in proper path. All this happens automatically after reboot.
+    </p>
+    <pre class="sourcecode">reboot</pre>
+    <p>
+        Alternatively, if you want to avoid reboots, you can run a scripts
+        manually:
+    </p>
+ <pre class="sourcecode">/etc/init.d/rabbit-copy-config
+/etc/init.d/rabbitmq-server restart</pre>
+    
+    <p>
+      From now on, RabbitMQ will store persistent data on EBS in 
+      <code>/vol</code>.
+    </p>
+
+</doc:subsection>
+<doc:subsection name="ebs_resize">
+  <doc:heading>Resizing EBS</doc:heading>
+    <p>
+        If your volume is bigger than 8GB, you need to expand the size 
+        the filesystem to use all the available space. 
+    </p>
+    <pre class="sourcecode">xfs_growfs /vol</pre>
+
+
+</doc:subsection>
+<doc:subsection name="ebs_migration">
+  <doc:heading>EBS migration strategy</doc:heading>
+    <p>
+        Moving RabbitMQ storage from one RabbitMQ instance to another is
+        trivial. 
+        <ol>
+            <li>Detach EBS volume from old RabbitMQ EC2 instance.</li>
+            <li>Attach it to the new RabbitMQ instance</li>
+            <li>Reboot the instance (or <a href="#reboot">follow alternative steps</a>).</li>
+        </ol>
+    </p>
+</doc:subsection>
+<doc:subsection name="ebs_backups">
+  <doc:heading>EBS backup strategy</doc:heading>
+    <p>
+        Amazon tools can create a snapshot of EBS volume as a file on S3.
+        This approach is often used to backup EBS data.
+        <pre class="sourcecode">ec2-create-snapshot --region eu-west-1 vol-xxxxxxxx -d "Backup"</pre>
+    </p>
+</doc:subsection>
+
+</doc:section>
+<doc:section name="scripts">
+  <doc:heading>Running custom scripts on startup</doc:heading>
+    <p>
+        By using<code>ec2-run-instances --user-data-file</code> option, you can specify 
+        a script to be executed during virtual machine startup. This script
+        will be runned before RabbitMQ starts.
+    </p>
+<pre class="sourcecode">
+ec2-run-instances &lt;usual_parameters&gt; --user-data-file init-script.sh</pre>
+    <p>
+        For example, a can like that:
+    </p>
+<pre class="sourcecode">#!/bin/sh
+# This scrit will be executed before RabbitMQ has started
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get -y upgrade
+apt-get -y install man screen links htop
+</pre>
+
+        
+</doc:section>
+<doc:section name="status">
+  <doc:heading>RabbitMQ status plugin</doc:heading>
+    <p>
+        RabbitMQ EC2 Images have status plugin preinstalled by default.
+        To use it you must be able to access port 55672 of the instance.
+        You can acheive that by opening Amazon firewall. Be aware, that the
+        status plugin is secured only using RabbitMQ AMQP credentials.
+        Unless you change default guest password the status page
+        will be opened to everyone that can connect to the port.
+        To <a href="admin-guide.html#change_password">change guest password</a>
+        run <code>rabbitmqctl change_password guest &lt;new_pass&gt;</code>
+        inside the instance.
+    </p>
+    <p>
+        Alternatively, you can forward tcp port to your local machine.
+    </p>
+    <pre class="sourcecode">ssh -L 55672:localhost:55672 root@ec2-xx-xx-xx-xx.eu-west-1.compute.amazonaws.com</pre>
+     <p>
+      You should be able to see RabbitMQ status page under the forwarded port
+      on your local machine, for example: 
+      <a href="http://guest:guest@localhost:55672/">http://guest:guest@localhost:55672/</a>.
+     </p>
+
+</doc:section>
+<doc:section name="performance">
+  <doc:heading>Measuring RabbitMQ performance</doc:heading>
+     xxxx
+</doc:section>
+    
+  </body>
+</html>
