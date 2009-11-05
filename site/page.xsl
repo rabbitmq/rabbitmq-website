@@ -432,7 +432,42 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:template match="r:amilist">
+    <table class="amilist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Arch</th>
+        <th>Ami</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
 
+  <xsl:template match="r:amiitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@arch"/>
+      </td>
+      <td>
+        <xsl:value-of select="@ami"/>
+      </td>
+      <td>
+        <code>ec2-run-instances <xsl:value-of select="@ami"/> --key ${EC2_KEYPAIR} --instance-type
+            <xsl:if test="@arch = 'x86_64'">m1.large</xsl:if>
+            <xsl:if test="@arch != 'x86_64'">m1.small</xsl:if>
+            <xsl:if test="@zone != 'us-east-1'">
+                --region <xsl:value-of select="@zone"/>
+            </xsl:if>
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+ 
+  <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
@@ -443,3 +478,5 @@ Technologies Ltd.</p></div>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
+
+
