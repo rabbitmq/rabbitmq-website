@@ -14,9 +14,6 @@
 	This page summarises the available RabbitMQ documentation. See the '<a href="/how.html">Get Started</a>' 
 	page for the latest presentations, blog posts and community links.
       </p>
-
-
-
       <doc:section name="server">
 	<doc:heading>Server documentation</doc:heading>
 	<ul>
@@ -72,18 +69,17 @@
       </doc:section>
 
       <doc:section name="general">
-	<doc:heading>General</doc:heading>
+	<doc:heading>General documentation</doc:heading>
 	<ul>
-	  <li>
-	    Instructions for using <a href="ssl.html">SSL with RabbitMQ</a> 
-	  </li>
 	  <li>
 	    Instructions for <a href="build.html">building</a> the
 	    RabbitMQ server and client libraries from source
 	  </li>
 	  <li>
-	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> and other AMQP
-	    implementations
+	    How to use <a href="ssl.html">SSL with RabbitMQ</a> 
+	  </li>
+	  <li>
+	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> 
 	  </li>
 	  <li>
 	    <a href="interoperability.html">Interoperability</a> with
@@ -92,7 +88,10 @@
 	    running some of Qpid's tests against the RabbitMQ broker)
 	  </li>
 	  <li>
-	    The RabbitMQ <a href="faq.html">FAQ</a>
+	    Find lots of goodites in the  <a href="faq.html">RabbitMQ FAQ</a> and on the <a href="how.html">Get Started</a> page
+	  </li>
+	  <li>
+	    Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use
 	  </li>
 	  <li>
 	    Information on <a href="erlang.html">Erlang's suitability
