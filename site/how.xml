@@ -19,12 +19,12 @@
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.<p>
 
-    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com">suggest more links</a>.</p>
+    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
     
       <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
         <li>
-	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">RabbitMQ documentation and Getting Started Guide</a> <br />
+	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
 	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
 	  AMQP messaging concepts and RabbitMQ in general.
 	</li>
@@ -208,11 +208,11 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://www.igvita.com/2009/10/08/advanced-messaging-routing-with-amqp/">Advanced Messaging &amp; Routing with AMQP</a><br />
 	  Ilya Grigorik explains how to get started with AMQP in Ruby and provides
-	  some Advanced AMQP recipes for a variety of messaging use cases.
+	  some advanced AMQP recipes for a variety of messaging use cases.
 	</li>
 	<li>
 	  <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
-	  Whether or not you use .NET of not, section 3 of this guide describes ways
+	  Whether or not you use .NET or not, section 3 of this guide describes ways
 	  of working with AMQP and a number common messaging patterns and
 	  interaction styles.
 	</li>
@@ -347,7 +347,7 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://www.igvita.com/2009/04/06/henry-ford-event-driven-architecture/">Henry Ford &amp; Event Driven Architecture</a><br />
 	  Ilya Grigorik explains how to scale your application with events and
-	  suggest that a little "AMQP kung fu" may help.
+	  suggests that a little "AMQP kung fu" may help.
 	</li>
 	<li>
 	  <a href="http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/">To AMQP or to XMPP, that is the question</a><br />
