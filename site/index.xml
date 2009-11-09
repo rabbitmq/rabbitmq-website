@@ -55,7 +55,8 @@
     </p>  
     
     <ul>
-      <li>Read more <a href="about.html">about RabbitMQ and the company behind it</a></li>
+      <li>Read more <a href="how.html">about RabbitMQ</a> and <a href="about.html">the company behind it</a></li>
+      <li>Join the <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
       <li>Read about what is <a href="community.html">happening in the community</a></li>
     </ul>
     
@@ -69,7 +70,7 @@
     <div class="">      
 	<h3>Latest Community Highlights</h3>
 	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
-	<p><a class="more-links" href="/delicious.html">about del.icio.us </a></p>
+	<p><a class="more-links" href="/delicious.html">About del.icio.us </a></p>
     </div>
     
     

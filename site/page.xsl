@@ -162,7 +162,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:faqtoc">
     <xsl:variable name="tocNode" select="."/>
-    <div class="docToc">
+    <div class="docToc faqToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
 	<xsl:for-each select="//doc:section[@name]">

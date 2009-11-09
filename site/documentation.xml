@@ -11,9 +11,12 @@
   <body>
     <doc:div>
       <p class="intro">
-	This page summarises the available RabbitMQ documentation. See the '<a href="/how.html">How easy is it</a>' page for the latest presentations, blog posts and community links.
+	This page summarises the available RabbitMQ documentation. 
       </p>
-
+      <p>
+      See the '<a href="/how.html">How easy is it</a>' page for the latest presentations, blog posts and community links.
+      </p>
+      
       <doc:toc class="compact">
 	<doc:heading>Table of Contents</doc:heading>
       </doc:toc>

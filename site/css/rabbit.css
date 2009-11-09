@@ -253,6 +253,9 @@ hr.pad {
 	padding-bottom: 1ex;
 }
 
+.compact ul.compact {
+	padding-bottom: 0ex;
+}
 .docToc {
 	border: #e4e4e4 1px solid;
 	padding: 1em;
@@ -260,10 +263,6 @@ hr.pad {
 
 .docToc h1, .docToc h2, .docToc h3 {
 	margin: 0em;
-}
-
-.docToc .compact li {
-	line-height: 19px;
 }
 
 .faqHeading {
