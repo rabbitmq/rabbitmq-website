@@ -123,9 +123,9 @@
 	</li> 
 	
         <li>.NET <a href="dotnet.html">overview</a> and <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
-        <li>PHP:  <a href="http://code.google.com/p/php-amqplib/">php-amqplib - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C. 
+        <li>PHP:  <a href="http://code.google.com/p/php-amqp/">php-amqplib - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C. 
 	There is also <a href="http://code.google.com/p/php-rabbit/">php-rabbit</a>, 
-	and <a href="http://code.google.com/p/php-amqplib/">php-amqp, a fork of py-amqplib</a></li> 
+	and <a href="http://code.google.com/p/php-amqplib/">php-amqp, a port of py-amqplib</a></li> 
 	<li>Perl code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a> and 
 	<a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>
         <li>
