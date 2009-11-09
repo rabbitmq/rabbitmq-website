@@ -162,19 +162,12 @@
 	      business reasons supporting the use of Erlang and OTP,
 	      we recommend the following:
 	      <ul>
-      <li>
-        An <a
-        href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
-        of Erlang and OTP</a> by Ericsson, the original
-        developer of the technology and one of its major
-        commercial users.
-      </li>
-    <li>
+		<li>
 		  An <a
 		  href="http://www.ddj.com/architect/201001928"> 
       interview with Joe Armstrong</a>, Erlang and OTP's Chief Software Architect.
 		</li>
-    <li>
+		<li>
 		  A discussion of <a
 		  href="http://www.algorithm.com.au/talks/concurrency-erlang/">concurrency
 		  and Erlang</a>, with examples from general Erlang
