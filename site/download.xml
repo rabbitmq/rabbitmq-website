@@ -31,9 +31,9 @@
 
     <table border="0" cellpadding="0" cellspacing="0">
       <tr class="downloadlabel">
-	<th width="33%"><a href="server.html">RabbitMQ Server</a></th>
-	<th width="33%"><a href="java-client.html">RabbitMQ Java Client</a></th>
-	<th width="33%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
+	<th width="33%"><a href="server.html"><h4>RabbitMQ Server</h4></a></th>
+	<th width="33%"><a href="java-client.html"><h4>RabbitMQ Java Client</h4></a></th>
+	<th width="33%"><a href="dotnet.html"><h4>RabbitMQ .NET/C# Client</h4></a></th>
       </tr>
       <tr>
 	<td>Version: <b>&version-server;</b></td>
