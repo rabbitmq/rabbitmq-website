@@ -224,7 +224,7 @@ Technologies Ltd.</p></div>
     <li>
       <xsl:choose>
 	<xsl:when test="doc:link">
-	  <a class="feed-item-title" href="{doc:link}">
+	  <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
 	    <xsl:value-of select="doc:title" />
 	  </a>
 	</xsl:when>
