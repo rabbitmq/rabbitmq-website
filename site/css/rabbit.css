@@ -322,11 +322,11 @@ td.desc, th.desc {
   width:350px;
 }
 
-td.signature, th.signature {
+td.signature, th.signature, td.mirror, th.mirror {
   width:80px;
 }
 
-.signature a {
+.signature a, .mirror a {
   font-weight: normal;
   font-size: 80%;
 }

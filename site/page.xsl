@@ -270,6 +270,9 @@ Technologies Ltd.</p></div>
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
+        <xsl:if test="@mirror = 'yes'">
+	   <th class="mirror">&#160;</th>
+        </xsl:if>
 	<th class="onethird">&#160;</th>
       </tr>
       <xsl:apply-templates/>
@@ -280,6 +283,9 @@ Technologies Ltd.</p></div>
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <xsl:if test="../@mirror = 'yes'">
+          <td class="mirror"><a href="http://mirror.rabbitmq.com/{@downloadfile}">(Mirror)</a></td>
+      </xsl:if>
       <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
     </tr>
   </xsl:template>
