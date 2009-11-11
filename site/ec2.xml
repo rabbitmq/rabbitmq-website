@@ -50,8 +50,8 @@
         published:
     </p>
     <amilist xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="">
-      <amiitem zone="eu-west-1" ami="ami-ee2a019a" arch="x86_64"/>
-      <amiitem zone="eu-west-1" ami="ami-c62a01b2" arch="i386"/>
+      <amiitem zone="eu-west-1" ami="ami-b52209c1" arch="x86_64"/>
+      <amiitem zone="eu-west-1" ami="ami-8b2209ff" arch="i386"/>
       <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="x86_64"/>
       <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="i386"/>
     </amilist>
@@ -90,8 +90,8 @@
     </p>
     <table>
       <tr><th>Availability zone</th><th>Public snapshot id</th></tr>
-      <tr><td>eu-west-1</td><td>snap-e845a981</td></tr>
-      <tr><td>us-east-1</td><td>snap-xxxxxxxx</td></tr>
+      <tr><td>eu-west-1</td><td>snap-8ad738e3</td></tr>
+      <tr><td>us-east-1</td><td>snap-1435be7d</td></tr>
     </table>
     <p>
         Create EBS volume based on our pre-configured shared EBS snapshot.
@@ -218,10 +218,5 @@ apt-get -y install man screen links htop
      </p>
 
 </doc:section>
-<doc:section name="performance">
-  <doc:heading>Measuring RabbitMQ performance</doc:heading>
-     xxxx
-</doc:section>
-    
   </body>
 </html>
