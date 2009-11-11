@@ -248,32 +248,17 @@ Technologies Ltd.</p></div>
 
   <!-- ############################################################ -->
 
-  <xsl:template match="r:downloads[@signature='no']">
-    <table class="downloads" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-	<th class="desc">Description</th>
-	<th>Download </th>
-      </tr>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
-  <xsl:template match="r:downloads[@signature='no']/r:download">
-    <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-    </tr>
-  </xsl:template>
-
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
-	   <th class="mirror">&#160;</th>
+            <th class="mirror">&#160;</th>
         </xsl:if>
-	<th class="onethird">&#160;</th>
+        <xsl:if test="@signature = 'yes'">
+            <th class="onethird">&#160;</th>
+        </xsl:if>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -284,9 +269,11 @@ Technologies Ltd.</p></div>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
       <xsl:if test="../@mirror = 'yes'">
-          <td class="mirror"><a href="http://mirror.rabbitmq.com/{@downloadfile}">(Mirror)</a></td>
+          <td class="mirror"><a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a></td>
       </xsl:if>
-      <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      <xsl:if test="../@signature = 'yes'">
+          <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      </xsl:if>
     </tr>
   </xsl:template>
 
