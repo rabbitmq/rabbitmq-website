@@ -976,6 +976,13 @@
               Upon successful completion of the script, restart Rabbit. All installed plugins will be started
               automatically.
             </li>
+            <li>
+              <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
+              When first activating, or deactivating, plugins, the 
+              <pre>rabbitmq-service.bat install</pre>
+              command will need to be re-run to ensure that the service configuration is updated to perform
+              an appropriate boot sequence.
+            </li>
           </ul> 
         </doc:subsection>
        
