@@ -37,8 +37,27 @@
 	  <doc:heading>What is messaging?</doc:heading>
 	  <doc:a>
 	    <p>
-	      Messaging is used to manage data in motion, unlike, say, databases, which manage data at rest. Use messaging to
-	      communicate between and scale applications, within your enterprise, across the web, or in the cloud.  
+	    Messaging describes the sending and receiving of data (in the form of messages) between systems. 
+	    Messages are exchanged between programs or applications, similar to the way people communicate 
+	    by email but with guarantees on delivery, speed, security and the absence of spam.
+	    </p>
+	    <p>
+	    A messaging infrastructure (a.k.a. message-oriented middleware, a.k.a. enterprise service bus) 
+	    makes it easier for developers to create complex applications by decoupling the individual program 
+	    components. Rather than communicating directly, the messaging infrastructure facilitates the 
+	    exchange of data between components. The components need know nothing about each other’s status,
+	    availability or implementation, which allows them to be distributed over heterogeneous platforms 
+	    and turned off and on as required.
+	    </p>
+	    <p>
+	    In adopting this architecture, the developer is insulated from the details of the various operating 
+	    systems and network interfaces involved and the interoperability, scalability and flexibility of the 
+	    application are improved.
+	    </p>
+	    <p>
+	    Please see this presentation on <a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging</a>
+	    for a general introduction or <a href="http://en.wikipedia.org/wiki/Message_Oriented_Middleware">this page on Wikipedia</a> 
+	    for more information.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -143,19 +162,12 @@
 	      business reasons supporting the use of Erlang and OTP,
 	      we recommend the following:
 	      <ul>
-      <li>
-        An <a
-        href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
-        of Erlang and OTP</a> by Ericsson, the original
-        developer of the technology and one of its major
-        commercial users.
-      </li>
-    <li>
+		<li>
 		  An <a
 		  href="http://www.ddj.com/architect/201001928"> 
       interview with Joe Armstrong</a>, Erlang and OTP's Chief Software Architect.
 		</li>
-    <li>
+		<li>
 		  A discussion of <a
 		  href="http://www.algorithm.com.au/talks/concurrency-erlang/">concurrency
 		  and Erlang</a>, with examples from general Erlang
@@ -1101,7 +1113,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  WAN AMQP connections?</doc:heading>
 	  <doc:a>
 	    <p>
-	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration AMQP server that is freely
+	  Glad you asked – yes there is! <a href="http://www.lshift.net/">LShift</a> are hosting a demonstration RabbitMQ server that is freely
 	  available for people to try out, perhaps for testing interoperation or experimenting with WAN
 	  AMQP connections.
 	    </p>
@@ -1213,10 +1225,14 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  <doc:heading>How low can latency be?</doc:heading>
 	  <doc:a>
 	    <p>
-	      We have seen latencies averaging less than a
-	      millisecond; for heavy, steady-state loads, latency
-	      hovers around the 4-millisecond mark (including two
-	      network hops).
+	      RabbitMQ operates at sub-millisecond latency in transient mode under a load of
+	      10k messages per second. In persistent mode, it should be possible to achieve a
+	      throughput of 3-5k messages per second stored to disk depending upon the exact
+	      configuration.
+	    </p>
+	    <p>
+	      Please <a href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
+	      you would like more information relevant to your setup.
 	    </p>
 	  </doc:a>
 	</doc:faq>
