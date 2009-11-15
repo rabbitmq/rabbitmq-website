@@ -56,6 +56,11 @@
 	  Blog post. Provides and excellent introduction to messaging, RabbitMQ,
 	  AMQP and using them with Python. Well worth a read for ophidians and
 	  non-ophidians alike.	
+	</li>	
+	<li>
+	  <a href="http://en.wikipedia.org/wiki/AMQP">Wikipedia on AMQP</a><br />
+	  Read all about AMQP including the origins of the protocol, the AMQP model
+	  and the other specifications that cover the same or similar space as AMQP.
 	</li>
 	<li>
 	  <a href="resources/RabbitMQ_Oxford_Geek_Night.pdf">Databases Suck for Messaging</a><br />
@@ -84,18 +89,19 @@
       BSD and Gentoo. Please contact us if you cannot find what you need.
       </p>
       <ul>
-        <li>Java development
+        <li>Java development:
 	  <ul class="plain">
 	    <li><a href="java-client.html">Java client</a></li>
 	    <li><a href="api-guide.html">Java API-guide</a></li>
+	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">OSGI</a></li>
 	    <li>Spring Framework code: <a href="http://github.com/yawn/amqp-spring/tree/master">AMQP/Spring</a> and 
 	    <a href="http://github.com/momania/spring-rabbitmq/tree/master">Spring-RabbitMQ</a></li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a></li>
 	   </ul>
-	</li>
-	
-        <li>Ruby development
+	</li>	
+        <li>Ruby development:
 	  <ul class="plain">
 	    <li>client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a></li>
 	    <li><a href="http://github.com/tmm1/amqp/tree/master">Ruby/EventMachine AMQP client</a></li>
@@ -107,9 +113,9 @@
 	    <li><a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)</li>
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	  </ul>	
-	</li>
-	
+	</li>	
         <li>Python development:
 	  <ul class="plain">
 	    <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a></li>
@@ -119,15 +125,32 @@
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
 	    <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">Carrot</a>, easy RabbitMQ messaging queue support for Django and pure Python</li>
 	    <li><a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python</li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a></li>
 	  </ul>
-	</li> 
-	
-        <li>.NET <a href="dotnet.html">overview</a> and <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
-        <li>PHP:  <a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C. 
-	There is also <a href="http://code.google.com/p/php-rabbit/">php-rabbit</a>, 
-	and <a href="http://code.google.com/p/php-amqplib/">php-amqplib, a port of py-amqplib</a></li> 
-	<li>Perl code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a> and 
-	<a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>
+	</li> 	
+        <li>.Net development:
+	  <ul class="plain">
+	    <li><a href="dotnet.html">Overview of .Net development</a></li>
+	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
+	  </ul>
+	</li>	
+	<li>PHP: 
+	  <ul class="plain">
+	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
+	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
+	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
+	  </ul>
+	</li>
+	<li>Perl development:
+	  <ul class="plain">
+	    <li>Code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a></li>
+	    <li><a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>    
+	    <li><a href="http://search.cpan.org/~jesus/Net-RabbitMQ-0.0.1/">Net::RabbitMQ</a></li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a></li>
+	  </ul>
+	</li>
         <li>
 	  <a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, 
 	  <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and 
@@ -306,6 +329,16 @@ decentralised microblogging</li>
 	   and blogs a lot about RabbitMQ.
 	</li>
 	<li>
+	  <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
+	  The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
+	  to look if you're using AMQP with Ruby.
+	</li>
+	<li>
+	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
+	  Daniel is the author of Qusion - "an AMQP made-easy" library for Ruby. He
+	  regularly blogs on a variety of subjects including AMQP, RabbitMQ and Ruby.
+	</li>
+	<li>
 	   Read what people are saying about <a href="http://search.twitter.com/search?q=rabbitmq">RabbitMQ on Twitter</a>
 	</li>
 	<li>
@@ -320,11 +353,7 @@ decentralised microblogging</li>
 	   You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have 
 	   an IRC client installed.
 	</li>
-	<li>
-	  <a href="http://en.wikipedia.org/wiki/AMQP">Wikipedia on AMQP</a><br />
-	  Read all about AMQP including the origins of the protocol, the AMQP model
-	  and the other specifications that cover the same or similar space as AMQP.
-	</li>
+
       </ul>
       <h3 id="general-posts">General Posts</h3>
       <ul>
@@ -336,8 +365,20 @@ decentralised microblogging</li>
 	  AMQP. Includes an interview with RabbitMQ’s very own Alexis Richardson.
 	</li>
 	<li>
+	  <a href="http://www.datamonitor.com/store/News/the_potential_for_amqp_in_financial_services?productid=BB29541A-C9F6-4B24-A673-578F3737EDEB">The potential for AMQP in financial services</a><br />
+	  Datamonitor talk about the five user patterns for AMQP messaging and
+	  how they might be applied in financial services.
+	</li>
+	<li>
 	  <a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">You Might Need Messaging If...</a><br />
 	  A short presentation from Bob Pasker on what messaging systems are for.
+	</li>
+	<li>
+	  <a href="/resources/Queuevol5no4_May2007.pdf">Toward a commodity enterprise middleware</a><br />
+	  Article in ACM Queue from June 2007 by John O'Hara, one of the orginal creators
+	  of AMQP. John discusses the origins of AMQP, how it came to be, and how you
+	  might go about integrating AMQP messaging with legacy middleware. The article entitled 'Toward a
+	 Commodity Enterprise Middleware' begins on the 50th page of the PDF.  
 	</li>
 	<li>
 	  <a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Asynchronous Processing with Ruby on Rails</a><br />
@@ -349,6 +390,11 @@ decentralised microblogging</li>
 	  Ilya Grigorik explains how to scale your application with events and
 	  suggests that a little "AMQP kung fu" may help.
 	</li>
+	<li>
+	  <a href="http://daveingham.typepad.com/publications/2009.11.04-ApacheCon-Stonehenge%26Qpid.pdf">AMQP and Apache Qpid</a><br />
+	  Microsoft discuss the challenges of enterprise messaging in a
+	  heterogeneous environment, and make a business case for AMQP, with
+	  Qpid as the example broker
 	<li>
 	  <a href="http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/">To AMQP or to XMPP, that is the question</a><br />
 	  Blog post by Kenneth Kalmer comparing AMQP and XMPP as messaging protocols.
