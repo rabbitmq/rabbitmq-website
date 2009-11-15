@@ -1225,10 +1225,14 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  <doc:heading>How low can latency be?</doc:heading>
 	  <doc:a>
 	    <p>
-	      We have seen latencies averaging less than a
-	      millisecond; for heavy, steady-state loads, latency
-	      hovers around the 4-millisecond mark (including two
-	      network hops).
+	      RabbitMQ operates at sub-millisecond latency in transient mode under a load of
+	      10k messages per second. In persistent mode, it should be possible to achieve a
+	      throughput of 3-5k messages per second stored to disk depending upon the exact
+	      configuration.
+	    </p>
+	    <p>
+	      Please <a href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
+	      you would like more information relevant to your setup.
 	    </p>
 	  </doc:a>
 	</doc:faq>
