@@ -42,6 +42,13 @@
 	  are provided in Ruby.
 	</li>
 	<li>
+	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: python and ruby staring at the looking glass</a><br />
+	  A slide show from Paolo Negri that offers an excellent introduction to the AMQP
+	  model and RabbitMQ with code samples in python and ruby. He explores the
+	  different routing models available and goes on to explain a number of use cases
+	  and some common messaging patterns, including pubsub.
+	</li>
+	<li>
 	  <a href="http://crad.tumblr.com/post/196979154/the-attention-deficit-disorder-guide-to-rabbitmq">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
 	  Blog post for those who want to get started with RabbitMQ quickly and
 	  easily. Assumes you know the basics about messaging and AMQP.

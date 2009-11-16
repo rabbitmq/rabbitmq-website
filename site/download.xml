@@ -83,7 +83,7 @@
       <r:download id="bundle"
 		  downloadfile="complete-rabbitmq-bundle-&version-server;.zip"
 		  downloadpath="bundles/v&version-server;">
-	Server, Java Client, Erlang distribution
+	Server, Java Client, .Net Client, Erlang distribution
       </r:download>
     </r:downloads>
 
