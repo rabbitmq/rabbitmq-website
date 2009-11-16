@@ -190,7 +190,35 @@ li#vmware {
 li#kaazing {
 	background: url(../img/kaazing.png) no-repeat 1px 22px;
 }
-
+ul.downloads li {
+	list-style-type : none;
+	float: left;
+	background: none;
+	width: 290px;
+	margin: 0 22px 0 0;
+	padding: 0px;
+}
+ul.downloads li a {
+	background-color: #FF9933;
+	padding: 4px 0 4px 5px;
+	margin: 0px 0 0px 0px;
+	color: #fff;
+	display: block; 
+	text-decoration: underline;
+	background-image: url('/img/button-light.png');
+    
+}
+ul.downloads li a:hover {
+	background-color: #FA8800; 
+	background-image: url('/img/button-bright.png');
+}
+	
+ul.downloads li ul.compact li {
+	list-style-type: none; 
+	background: url(../img/li.gif) no-repeat 1px 12px;
+	margin: 0;
+	padding: 6px 0 2px 10px;
+}
 p {
 	clear:left;
 	}
