@@ -9,8 +9,11 @@
     
     <h2>Partners and Alliances</h2>
     
-    <p>If your company operates a partner model and feel that we may benefit through working together we would 
-    love to hear from you. Please <a href="mailto:info@rabbitmq.com?subject=Partner Request">get in touch</a>.</p>
+    <p>If your company operates a partner model and feel that we may benefit through 
+    working together we would love to hear from you.</p>
+    <p>We are developing a RabbitMQ Partner Programme of our own for consultancies and 
+    system integrators wishing to act as resellers of our product.</p>
+    <p>For more information, please <a href="mailto:info@rabbitmq.com?subject=Partner Request">get in touch</a>.</p>
   
     <ul class="partners">
       <li id="canonical">
