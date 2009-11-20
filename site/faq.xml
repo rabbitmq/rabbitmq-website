@@ -1186,23 +1186,6 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>	
 
-	<doc:faq name="listen-specific-port">
-	  <doc:heading>How do you make Rabbit listen on a specific port or interface?</doc:heading>
-	  <doc:a>
-	    <p>
-	    In the shell you can override the defaults specified in the rabbit.app file. For example, to get
-	    Rabbit to listen at the address 10.66.23.117 on port 3876, you could start Rabbit in the
-	    following way:
-	    </p>
-	    <p>
-	    <code>
-	    erl -mnesia dir DIR -boot start_sasl -rabbit tcp_listeners
-	    '[{10.66.23.117, 3876}]' -s rabbit]
-	    </code>
-	    </p>
-	  </doc:a>
-	</doc:faq>	
-	
 
 	<doc:faq name="access_control">
 	  <doc:heading>How do I configure access control?</doc:heading>
