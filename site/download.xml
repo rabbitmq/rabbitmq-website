@@ -73,7 +73,7 @@
     <h3>Windows Bundle</h3>
 
     <p>
-      As a convenient alternative for Windows users, a complete bundle
+      As a convenient alternative for Windows users, a bundle
       download exists, which contains the RabbitMQ server, Java client
       libraries and .Net client, as well as a complete Erlang
       distribution, ready to install.
