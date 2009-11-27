@@ -10,12 +10,18 @@
   </head>
   <body>
 
+
+    <p>
+      Please note, these images are new and experimental. If you run into any issues please
+      <a href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
+    </p>
+    
     <doc:div>
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
     </doc:div>
-    
+    <br/>
 <doc:section name="ec2">
   <doc:heading>RabbitMQ Amazon EC2 Images</doc:heading>
     <p>
@@ -274,6 +280,11 @@ sending rate: 4989 msg/s</pre>
         <a href="http://guest:guest@localhost:55672/">http://guest:guest@localhost:55672/</a>.
     </p>
 
+    <p>
+      Don't forget, this is all quite new and its status is experimental. If you run into 
+      any difficulties please <a href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
+    </p>
+    
 </doc:section>
 </body>
 </html>
