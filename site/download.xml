@@ -92,6 +92,14 @@
       to download a version of the bundle other than the above.
     </p>
 
+    <a name="ec2"></a>
+    <h3>Amazon EC2 Bundle</h3>
+    <p>
+      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10 
+      (Karmic Koala), both 32 and 64 bit variants, are available for download 
+      with pre-installed RabbitMQ
+    </p>
+    
     <h3 class="clear">Specification</h3>
     <p>
       The current RabbitMQ server and Java client library releases

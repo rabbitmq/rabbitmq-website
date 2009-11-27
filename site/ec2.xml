@@ -16,7 +16,7 @@
       </doc:toc>
     </doc:div>
     
-<doc:section name="images">
+<doc:section name="ec2">
   <doc:heading>RabbitMQ Amazon EC2 Images</doc:heading>
     <p>
         Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easilly

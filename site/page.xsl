@@ -63,6 +63,7 @@ urchinTracker();
       <li><a href="/examples.html">Examples</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
+      <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
