@@ -2,13 +2,13 @@
 /* a9b5af - 150 7 71 */
 /* old visited color: #c40; */
 html {
-overflow-x:hidden;
+overflow-x:auto;
 overflow-y:scroll;
 }
 
 body, table {
-	font: 12px/15px Verdana, sans-serif;
-	color: #333 !important;
+	font: 12px/17px Verdana, sans-serif;
+	color: #666 !important;
 	background-color: #fff;
 }
 
@@ -21,18 +21,19 @@ div#outerContainer {
 	text-align: left;
 	clear: both;
 	margin: 0 auto;
-	width: 770px;
+	width: 960px;
 	padding: 1px;
 }
 	
 :link, :visited {
-	color: #8a948f;
+	color: #7A8777;
+	text-decoration: none;
 	font-weight: bold;
-	text-decoration: underline;
 }
 
 a:active, a:hover {
 	color: #ff9933;
+	text-decoration: underline;
 }
 
 a.downloadNow {
@@ -148,7 +149,7 @@ li {
 	list-style-type: none; 
 	background: url(../img/li.gif) no-repeat 1px 12px;
 	margin: 0;
-	padding: 1ex 1em;
+	padding: 6px 0 2px 10px;
 }
 		
 ol.plain, ul.plain {
@@ -172,6 +173,23 @@ ol.plain li {
 .col li {
 	border-bottom: #e4e4e4 1px solid;
 }
+ul.partners li {
+	list-style-type : none;
+	padding-left: 300px;
+	background: none;
+}
+li#canonical {
+	background: url(../img/canonical.png) no-repeat 1px 22px;
+}
+li#microsoft {
+	background: url(../img/microsoft.png) no-repeat 1px 22px;
+}
+li#vmware {
+	background: url(../img/vmware-small.png) no-repeat 1px 22px;
+}
+li#kaazing {
+	background: url(../img/kaazing.png) no-repeat 1px 22px;
+}
 
 p {
 	clear:left;
@@ -190,14 +208,14 @@ p {
 .clear {
 	clear:both;
 }
-.rgt {
+.p {
 	float:right;
 }
 .lft {
 	clear:left;
 }
 .document h2, h3 {
-  margin-top: 1em;
+  margin-top: 1.3em;
 }
 .document li {
   border: none;
@@ -229,6 +247,7 @@ ul.mainNav {
 	/* color: #a9b5af; */
 	color: #8a948f;
 	text-decoration: none;
+	font-weight: bold;
 }
 .mainNav :hover, .mainNav :active {
 	color: #ff9933;
@@ -251,6 +270,9 @@ hr.pad {
 	padding-bottom: 1ex;
 }
 
+.compact ul.compact {
+	padding-bottom: 0ex;
+}
 .docToc {
 	border: #e4e4e4 1px solid;
 	padding: 1em;
@@ -258,10 +280,6 @@ hr.pad {
 
 .docToc h1, .docToc h2, .docToc h3 {
 	margin: 0em;
-}
-
-.docToc .compact li {
-	line-height: 19px;
 }
 
 .faqHeading {
@@ -372,13 +390,15 @@ td.signature, th.signature {
 	float: right;
 	font-weight: normal;
 }
-
-.feed li {
-	margin-bottom: 2em;
+ol.feed {
+	margin: 0px;
+	padding: 0px;
 }
-
-
-
+.feed li {
+	line-height: 17px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+  }
 .feed li hr {
 	visibility: visible;
 	border: none;
@@ -399,22 +419,26 @@ td.signature, th.signature {
 	color: #8a948f;
 	font-weight: bold;
 }
-
-.downloadlabel th {
+.downloadlabel {
 	font-size: 120%;
 	font-weight: bold;
-	text-align: center;
-	padding: 0.5em;
-	border: #8a948f 4px solid;
 	background: #f6fcb0;
 }
-
 .downloadlabel a {
-	color: black;
+	color: #666;
+	display: block;
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
-
-.downloadlabel th:hover {
-	background: #e4e4e4;
+.downloadlabel a h4 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.downloadlabel a:hover h4 {
+	text-decoration: underline;
+	display: block;
+	margin-top: 0px;
+	padding-bottom: 0px;
 }
 .subscribe {
         float: right;
@@ -443,22 +467,31 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
+div.rgt-third {
+	width: 320px;
+	float: right;
+}
+div.rgt-third p, 
+div.rgt-third h3,
+div.rgt-third ol {
+    margin-left: 30px;
+}
 p.button {
-	width: 256px;
 	text-align: center;
 	font-size: 18px;
 	margin:  0px 0 0px 0px;
-
 }
 p.button a {
-	background-color: #A9B5AF;
+	background-color: #FF9933;
 	padding: 21px 0 21px 0px;
-	margin: 21px 0  21px 32px;
+	margin: 21px 0  21px 0px;
 	color: #fff;
 	display: block; 
 	text-decoration: none;
+	background-image: url('/img/button-light.png');
     
 }
 p.button a:hover {
 	background-color: #FA8800; 
+	background-image: url('/img/button-bright.png');
 }
