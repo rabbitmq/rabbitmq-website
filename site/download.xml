@@ -31,9 +31,9 @@
 
     <table border="0" cellpadding="0" cellspacing="0">
       <tr class="downloadlabel">
-	<th width="33%"><a href="server.html">RabbitMQ Server</a></th>
-	<th width="33%"><a href="java-client.html">RabbitMQ Java Client</a></th>
-	<th width="33%"><a href="dotnet.html">RabbitMQ .NET/C# Client</a></th>
+	<th width="33%"><a href="server.html"><h4>RabbitMQ Server</h4></a></th>
+	<th width="33%"><a href="java-client.html"><h4>RabbitMQ Java Client</h4></a></th>
+	<th width="33%"><a href="dotnet.html"><h4>RabbitMQ .NET/C# Client</h4></a></th>
       </tr>
       <tr>
 	<td>Version: <b>&version-server;</b></td>
@@ -73,7 +73,7 @@
     <h3>Windows Bundle</h3>
 
     <p>
-      As a convenient alternative for Windows users, a complete bundle
+      As a convenient alternative for Windows users, a bundle
       download exists, which contains the RabbitMQ server, Java client
       libraries and .Net client, as well as a complete Erlang
       distribution, ready to install.
@@ -83,7 +83,7 @@
       <r:download id="bundle"
 		  downloadfile="complete-rabbitmq-bundle-&version-server;.zip"
 		  downloadpath="bundles/v&version-server;">
-	Server, Java Client, Erlang distribution
+	Server, Java Client, .Net Client, Erlang distribution
       </r:download>
     </r:downloads>
 
