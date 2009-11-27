@@ -64,6 +64,7 @@ urchinTracker();
       <li><a href="/services.html">Services</a></li>
       <li><a href="/partners.html">Partners</a></li>
       <li><a href="/community.html">Community</a></li>
+      <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
@@ -433,7 +434,70 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:template match="r:amilist">
+    <table class="amilist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Arch</th>
+        <th>Ami</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
 
+  <xsl:template match="r:amiitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@arch"/>
+      </td>
+      <td>
+        <xsl:value-of select="@ami"/>
+      </td>
+      <td>
+        <code>ec2-run-instances <xsl:value-of select="@ami"/> --key ${EC2_KEYPAIR} --instance-type
+            <xsl:if test="@arch = 'x86_64'">m1.large</xsl:if>
+            <xsl:if test="@arch != 'x86_64'">m1.small</xsl:if>
+            <xsl:if test="@zone != 'us-east-1'">
+                --region <xsl:value-of select="@zone"/>
+            </xsl:if>
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:template match="r:snapshotlist">
+    <table class="snapshotlist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Public snapshot id</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="r:snapshotitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@snapid"/>
+      </td>
+      <td>
+        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8 \<br/>
+        --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
@@ -444,3 +508,5 @@ Technologies Ltd.</p></div>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
+
+
