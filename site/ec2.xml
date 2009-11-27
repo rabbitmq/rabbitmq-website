@@ -61,8 +61,11 @@
         replaced with your public ssh key name, that is going to be used to
         login into the instance. You can find more information
         about ssh keys in <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/creating-keypair.html">
-        Getting Started Guide</a>.
+        Getting Started Guide</a>. To run the instance, you should run
+        a command like that:
     </p>
+    <pre class="sourcecode">localhost:~$ ec2-run-instances ami-XXX --key XXXX --instance-type m1.large --region eu-west-1</pre>
+    
     
 </doc:section>
 <doc:section name="ebs">
@@ -108,8 +111,11 @@
         To create EBS volume run the command from third column. Please 
         tweak the <code>--availability-zone</code> parameter to match
         the availability zone of your instance. You can also specify size
-        to be more than 8GB.
+        to be more than 8GB. The command might look like:
     </p>
+    <pre class="sourcecode">localhost:~$ ec2-create-volume --snapshot snap-XXX --size 8 \
+                 --region us-east-1 --availability-zone us-east-XX</pre>
+
 </doc:subsection>
 <doc:subsection name="ebs_attach">
   <doc:heading>Attach volume to instance</doc:heading>
