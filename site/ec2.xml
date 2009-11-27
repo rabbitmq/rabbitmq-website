@@ -78,7 +78,7 @@
   <doc:heading>Integration with Amazon EBS</doc:heading>
     <p>
         RabbitMQ stores some data on disk. It may be worth storing this 
-        persistent data on an Amazon EBS (Electric Block Store) Volume. 
+        persistent data on an Amazon EBS (Elastic Block Store) Volume. 
 	Decoupling data from the instance using EBS brings some benefits:
         <ol>
             <li>Data is less likely to be lost</li>
@@ -137,7 +137,7 @@
     </p>
 </doc:subsection>
 <doc:subsection name="reboot">
-  <doc:heading>Convince the RabbitMQ instance to use EBS</doc:heading>
+  <doc:heading>Configure the RabbitMQ instance to use EBS</doc:heading>
     <p>
         First, log into the instance as root:
     </p>
@@ -146,10 +146,10 @@
         To persuade RabbitMQ to use disk space from <code>/vol</code>
         actual paths must be specified in its configuration. A script 
 	called <code>rabbit-copy-config</code> should be run on start-up. It
-	sets RabbitMQ's configuration to be read from an EBS volume .
+	sets RabbitMQ's configuration to be read from an EBS volume.
         It links the configuration options prepared for RabbitMQ under <code>/vol/etc</code>
         to the standard <code>/etc</code> location. Now the default RabbitMQ installation will be affected.
-	It will store data in the proper path automatically after a reboot.
+	It will store data in the correct path automatically after a reboot.
     </p>
     <pre class="ec2_sourcecode">rabbitmq:~$ reboot</pre>
     <p>
