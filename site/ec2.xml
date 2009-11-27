@@ -55,7 +55,14 @@
       <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="x86_64"/>
       <amiitem zone="us-east-1" ami="ami-xxxxxxxx" arch="i386"/>
     </amilist>
-
+    <p>
+        To start RabbitMQ instance just run the command from the third column.
+        Beware, that the string <code>${EC2_KEYPAIR}</code> shall be
+        replaced with your public ssh key name, that is going to be used to
+        login into the instance. You can find more information
+        about ssh keys in <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/creating-keypair.html">
+        Getting Started Guide</a>.
+    </p>
     
 </doc:section>
 <doc:section name="ebs">
@@ -65,7 +72,7 @@
         persistent data on Amazon EBS Volume. Decoupling data from
         the instance using EBS brings some benefits:
         <ol>
-            <li>Data is less likely to become corrupted.</li>
+            <li>Data is less likely to become lost.</li>
             <li>Migration data to different instance is straightforward.</li>
             <li>EBS has a proper backup strategy.</li>
         </ol>
@@ -88,18 +95,21 @@
     <p> 
         Public snapshots of pre-configured RabbitMQ EBS volumes are listed below.
     </p>
-    <table>
-      <tr><th>Availability zone</th><th>Public snapshot id</th></tr>
-      <tr><td>eu-west-1</td><td>snap-8ad738e3</td></tr>
-      <tr><td>us-east-1</td><td>snap-1435be7d</td></tr>
-    </table>
+    <snapshotlist xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="">
+        <snapshotitem zone="eu-west-1" snapid="snap-8ad738e3" />
+        <snapshotitem zone="us-east-1" snapid="snap-1435be7d" />
+    </snapshotlist>
     <p>
         Create EBS volume based on our pre-configured shared EBS snapshot.
         Our snapshots are created from 8GB EBS, so your volume must
         have at least that size.
     </p>
-    <pre class="sourcecode">ec2-create-volume --snapshot snap-e845a981 -s 8 \
-    --region eu-west-1 --availability-zone eu-west-1b</pre>
+    <p>
+        To create EBS volume run the command from third column. Please 
+        tweak the <code>--availability-zone</code> parameter to match
+        the availability zone of your instance. You can also specify size
+        to be more than 8GB.
+    </p>
 </doc:subsection>
 <doc:subsection name="ebs_attach">
   <doc:heading>Attach volume to instance</doc:heading>
@@ -107,7 +117,7 @@
         To attach a volume to the instance, use <code>ec2-attach-volume</code>
         command. Please remember to attach the volume under <code>/dev/sdh</code>.
     </p>
-    <pre class="sourcecode">ec2-attach-volume --region eu-west-1 vol-xxxxxxxx -i i-xxxxxxxx -d /dev/sdh</pre>
+    <pre class="sourcecode">localhost:~$ ec2-attach-volume --region eu-west-1 vol-xxxxxxxx -i i-xxxxxxxx -d /dev/sdh</pre>
     <p>
         Attaching volumes is sticky, so EBS will remain attached until you
         kill the instance or unattach it manually. Volumes attached under 
@@ -115,7 +125,11 @@
     </p>
 </doc:subsection>
 <doc:subsection name="reboot">
-  <doc:heading>Convince RabbitMQ to use EBS</doc:heading>
+  <doc:heading>Convince RabbitMQ instance to use EBS</doc:heading>
+    <p>
+        First, we need to login as root to the instance:
+    </p>
+    <pre class="sourcecode">localhost:~$ ssh -i KEYPAIR.pem root@ec2-XXXX.compute.amazonaws.com</pre>
     <p>
         To persuade RabbitMQ to use disk space from <code>/vol</code>
         proper paths in configs must be specified. A script
@@ -126,13 +140,14 @@
         the default RabbitMQ installation will be affected and will
         store data in proper path. All this happens automatically after reboot.
     </p>
-    <pre class="sourcecode">reboot</pre>
+    <pre class="ec2_sourcecode">rabbitmq:~$ reboot</pre>
     <p>
         Alternatively, if you want to avoid reboots, you can run a scripts
         manually:
     </p>
- <pre class="sourcecode">/etc/init.d/rabbit-copy-config
-/etc/init.d/rabbitmq-server restart</pre>
+    <pre class="ec2_sourcecode">rabbitmq:~$ mount /vol
+rabbitmq:~$ /etc/init.d/rabbit-copy-config
+rabbitmq:~$ /etc/init.d/rabbitmq-server restart</pre>
     
     <p>
       From now on, RabbitMQ will store persistent data on EBS in 
@@ -146,7 +161,7 @@
         If your volume is bigger than 8GB, you need to expand the size 
         the filesystem to use all the available space. 
     </p>
-    <pre class="sourcecode">xfs_growfs /vol</pre>
+    <pre class="ec2_sourcecode">rabbitmq:~$ xfs_growfs /vol</pre>
 
 
 </doc:subsection>
@@ -167,7 +182,7 @@
     <p>
         Amazon tools can create a snapshot of EBS volume as a file on S3.
         This approach is often used to backup EBS data.
-        <pre class="sourcecode">ec2-create-snapshot --region eu-west-1 vol-xxxxxxxx -d "Backup"</pre>
+        <pre class="sourcecode">localhost:~$ ec2-create-snapshot --region eu-west-1 vol-xxxxxxxx -d "Backup"</pre>
     </p>
 </doc:subsection>
 
@@ -179,8 +194,7 @@
         a script to be executed during virtual machine startup. This script
         will be runned before RabbitMQ starts.
     </p>
-<pre class="sourcecode">
-ec2-run-instances &lt;usual_parameters&gt; --user-data-file init-script.sh</pre>
+    <pre class="sourcecode">localhost:~$ ec2-run-instances &lt;usual_parameters&gt; --user-data-file init-script.sh</pre>
     <p>
         For example, a can like that:
     </p>
@@ -199,7 +213,7 @@ apt-get -y install man screen links htop
     <p>
         RabbitMQ EC2 Images have status plugin preinstalled by default.
         To use it you must be able to access port 55672 of the instance.
-        You can acheive that by opening Amazon firewall. Be aware, that the
+        You can achieve that by opening Amazon firewall. Be aware, that the
         status plugin is secured only using RabbitMQ AMQP credentials.
         Unless you change default guest password the status page
         will be opened to everyone that can connect to the port.
@@ -210,7 +224,7 @@ apt-get -y install man screen links htop
     <p>
         Alternatively, you can forward tcp port to your local machine.
     </p>
-    <pre class="sourcecode">ssh -L 55672:localhost:55672 root@ec2-xx-xx-xx-xx.eu-west-1.compute.amazonaws.com</pre>
+    <pre class="sourcecode">localhost:~$ ssh -L 55672:localhost:55672 root@ec2-xx-xx-xx-xx.eu-west-1.compute.amazonaws.com</pre>
      <p>
       You should be able to see RabbitMQ status page under the forwarded port
       on your local machine, for example: 
@@ -218,5 +232,42 @@ apt-get -y install man screen links htop
      </p>
 
 </doc:section>
-  </body>
+  
+<doc:section name="status">
+    <doc:heading>Testing RabbitMQ instance</doc:heading>
+    <p>
+        Once you're done starting and configuring RabbitMQ instance, it's a
+        good time to check if it actually works.
+        You can see that it really works by installing RabbitMQ java client,
+        and running test scripts that come with it. Follow the instructions
+        to install required packages.
+    </p>
+    <pre class="ec2_sourcecode">apt-get update
+apt-get install sun-java6-jre wget
+wget http://www.rabbitmq.com/releases/rabbitmq-java-client/v1.7.0/rabbitmq-java-client-bin-1.7.0.tar.gz
+tar xzf rabbitmq-java-client-bin-1.7.0.tar.gz
+cd rabbitmq-java-client-bin-1.7.0</pre>
+    <p>
+        Once you're done with the dependencies, you can run the test:
+    </p>
+    <pre class="ec2_sourcecode">rabbitmq:~/rabbitmq-java-client-1.7.0$ sh ./runjava.sh com.rabbitmq.examples.MulticastMain</pre>
+    <p>
+        On the screen you should see output similar to that:
+    </p>
+    <pre class="ec2_sourcecode">starting consumer #0
+starting producer #0
+recving rate: 2920 msg/s, min/avg/max latency: 13431/137515/349586 microseconds
+sending rate: 7182 msg/s
+recving rate: 4513 msg/s, min/avg/max latency: 352244/535973/715864 microseconds
+sending rate: 4897 msg/s
+recving rate: 4119 msg/s, min/avg/max latency: 654393/829167/1021911 microseconds
+sending rate: 4989 msg/s</pre>
+    <p>
+        If you followed the steps in the previous chapter, about rabbitmq-status,
+        you should be able to see the load on the status page:
+        <a href="http://guest:guest@localhost:55672/">http://guest:guest@localhost:55672/</a>.
+    </p>
+
+</doc:section>
+</body>
 </html>

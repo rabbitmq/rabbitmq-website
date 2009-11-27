@@ -466,7 +466,35 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
- 
+
+  <!-- ############################################################ -->
+  <xsl:template match="r:snapshotlist">
+    <table class="snapshotlist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Public snapshot id</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="r:snapshotitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@snapid"/>
+      </td>
+      <td>
+        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8\<br/>
+        --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
   <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>

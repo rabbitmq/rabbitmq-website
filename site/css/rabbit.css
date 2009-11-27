@@ -295,6 +295,10 @@ code {
 .sourcecode b {
 	color: darkcyan;
 }
+.ec2_sourcecode {
+	padding: 1em;
+	background: #66fcb0;
+}
 
 table {
 	width: 100%;
