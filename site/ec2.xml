@@ -19,19 +19,19 @@
 <doc:section name="images">
   <doc:heading>RabbitMQ Amazon EC2 Images</doc:heading>
     <p>
-        Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easilly deployed on 
-        Amazon cloud. Images containing Ubuntu 9.10  (Karmic Koala) 
-        with preinstalled RabbitMQ can be found below.
+        Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easilly
+        deployed on the Amazon cloud. Images containing Ubuntu 9.10
+        (Karmic Koala) with pre-installed RabbitMQ can be found below.
         They're available in variants for 32 and 64 bit architectures.
     </p>
     <dl>
         <dt><h3>32-bit RabbitMQ Images</h3></dt>
         <dd>
-            Can be run on smallest and cheapest 
-            <a href="http://aws.amazon.com/ec2/#instance">m1.small</a>
-            cloud computer instances. It's fine for development purposes,
-            but due to small 32-bit virtual memory space it's not recommended 
-            for production.
+            Can be run on the smallest and cheapest <a
+            href="http://aws.amazon.com/ec2/#instance">m1.small</a>
+            cloud computer instances. It's fine for development
+            purposes, but due to small 32-bit virtual memory space
+            it's not recommended for production.
         </dd>
         
         <dt><h3>64-bit RabbitMQ Images</h3></dt>
@@ -57,12 +57,12 @@
     </amilist>
     <p>
         To start RabbitMQ instance just run the command from the third column.
-        Beware, that the string <code>${EC2_KEYPAIR}</code> shall be
-        replaced with your public ssh key name, that is going to be used to
-        login into the instance. You can find more information
+        The string <code>${EC2_KEYPAIR}</code> should be
+        replaced with the public ssh key name that is going to be used to
+        log in to the instance. You can find more information
         about ssh keys in <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/creating-keypair.html">
         Getting Started Guide</a>. To run the instance, you should run
-        a command like that:
+        a command like one of the above:
     </p>
     <pre class="sourcecode">localhost:~$ ec2-run-instances ami-XXX --key XXXX --instance-type m1.large --region eu-west-1</pre>
     
@@ -71,15 +71,15 @@
 <doc:section name="ebs">
   <doc:heading>Integration with Amazon EBS</doc:heading>
     <p>
-        RabbitMQ stores some data on disk. It may be worth to store this 
-        persistent data on Amazon EBS Volume. Decoupling data from
+        RabbitMQ stores some data on disk. It may be worth storing this 
+        persistent data on an Amazon EBS Volume. Decoupling data from
         the instance using EBS brings some benefits:
         <ol>
-            <li>Data is less likely to become lost.</li>
+            <li>Data is less likely to be lost.</li>
             <li>Migration data to different instance is straightforward.</li>
             <li>EBS has a proper backup strategy.</li>
         </ol>
-        RabbitMQ images provide features to easify integration 
+        RabbitMQ images provide features to simplify integration 
         with Amazon EBS block storage.
     </p>
     
@@ -89,12 +89,12 @@
         <ol>
             <li><a href="#ebs_setup">Create an EBS volume</a> based on our snapshot.</li>
             <li><a href="#ebs_attach">Attach it under <code>/dev/sdh</code></a>.</li>
-            <li>Finally, <a href="#reboot">to apply the changes reboot the instance</a>.</li>
+            <li>Finally, to apply the changes, <a href="#reboot">reboot the instance</a>.</li>
         </ol>
     </p>
     
 <doc:subsection name="ebs_setup">
-  <doc:heading>Setting up EBS volume</doc:heading>
+  <doc:heading>Setting up an EBS volume</doc:heading>
     <p> 
         Public snapshots of pre-configured RabbitMQ EBS volumes are listed below.
     </p>
@@ -108,7 +108,7 @@
         have at least that size.
     </p>
     <p>
-        To create EBS volume run the command from third column. Please 
+        To create an EBS volume run the command from third column. Please 
         tweak the <code>--availability-zone</code> parameter to match
         the availability zone of your instance. You can also specify size
         to be more than 8GB. The command might look like:
@@ -120,7 +120,7 @@
 <doc:subsection name="ebs_attach">
   <doc:heading>Attach volume to instance</doc:heading>
     <p>
-        To attach a volume to the instance, use <code>ec2-attach-volume</code>
+        To attach a volume to the instance, use the <code>ec2-attach-volume</code>
         command. Please remember to attach the volume under <code>/dev/sdh</code>.
     </p>
     <pre class="sourcecode">localhost:~$ ec2-attach-volume --region eu-west-1 vol-xxxxxxxx -i i-xxxxxxxx -d /dev/sdh</pre>
@@ -131,7 +131,7 @@
     </p>
 </doc:subsection>
 <doc:subsection name="reboot">
-  <doc:heading>Convince RabbitMQ instance to use EBS</doc:heading>
+  <doc:heading>Convince the RabbitMQ instance to use EBS</doc:heading>
     <p>
         First, we need to login as root to the instance:
     </p>
@@ -198,11 +198,11 @@ rabbitmq:~$ /etc/init.d/rabbitmq-server restart</pre>
     <p>
         By using<code>ec2-run-instances --user-data-file</code> option, you can specify 
         a script to be executed during virtual machine startup. This script
-        will be runned before RabbitMQ starts.
+        will be run before RabbitMQ starts.
     </p>
     <pre class="sourcecode">localhost:~$ ec2-run-instances &lt;usual_parameters&gt; --user-data-file init-script.sh</pre>
     <p>
-        For example, a can like that:
+        For example:
     </p>
 <pre class="sourcecode">#!/bin/sh
 # This scrit will be executed before RabbitMQ has started
@@ -219,16 +219,16 @@ apt-get -y install man screen links htop
     <p>
         RabbitMQ EC2 Images have status plugin preinstalled by default.
         To use it you must be able to access port 55672 of the instance.
-        You can achieve that by opening Amazon firewall. Be aware, that the
+        You can achieve that by opening Amazon firewall. Be aware that the
         status plugin is secured only using RabbitMQ AMQP credentials.
         Unless you change default guest password the status page
-        will be opened to everyone that can connect to the port.
+        will be open to everyone that can connect to the port.
         To <a href="admin-guide.html#change_password">change guest password</a>
         run <code>rabbitmqctl change_password guest &lt;new_pass&gt;</code>
         inside the instance.
     </p>
     <p>
-        Alternatively, you can forward tcp port to your local machine.
+        Alternatively, you can forward a tcp port on your local machine.
     </p>
     <pre class="sourcecode">localhost:~$ ssh -L 55672:localhost:55672 root@ec2-xx-xx-xx-xx.eu-west-1.compute.amazonaws.com</pre>
      <p>
@@ -245,8 +245,8 @@ apt-get -y install man screen links htop
         Once you're done starting and configuring RabbitMQ instance, it's a
         good time to check if it actually works.
         You can see that it really works by installing RabbitMQ java client,
-        and running test scripts that come with it. Follow the instructions
-        to install required packages.
+        and running test scripts that come with it. Follow these instructions
+        to install required packages on the instance.
     </p>
     <pre class="ec2_sourcecode">apt-get update
 apt-get install sun-java6-jre wget
