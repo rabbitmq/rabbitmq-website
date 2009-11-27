@@ -139,7 +139,7 @@
     <p>
         To persuade RabbitMQ to use disk space from <code>/vol</code>
         proper paths in configs must be specified. A script
-        that sets RabbitMQ configs to be read from EBS volume is runned
+        that sets RabbitMQ configs to be read from EBS volume is run
         on start, and named <code>rabbit-copy-config</code>.
         It links configs prepared for RabbitMQ under <code>/vol/etc</code>
         into standard <code>/etc</code> location. After that, 
@@ -148,7 +148,7 @@
     </p>
     <pre class="ec2_sourcecode">rabbitmq:~$ reboot</pre>
     <p>
-        Alternatively, if you want to avoid reboots, you can run a scripts
+        Alternatively, if you want to avoid reboots, you can run the scripts
         manually:
     </p>
     <pre class="ec2_sourcecode">rabbitmq:~$ mount /vol
@@ -217,11 +217,11 @@ apt-get -y install man screen links htop
 <doc:section name="status">
   <doc:heading>RabbitMQ status plugin</doc:heading>
     <p>
-        RabbitMQ EC2 Images have status plugin preinstalled by default.
+        RabbitMQ EC2 Images have the status plugin preinstalled by default.
         To use it you must be able to access port 55672 of the instance.
-        You can achieve that by opening Amazon firewall. Be aware that the
+        You can achieve that by opening that port on Amazon firewall. Be aware that the
         status plugin is secured only using RabbitMQ AMQP credentials.
-        Unless you change default guest password the status page
+        Unless you change default guest password, the status page
         will be open to everyone that can connect to the port.
         To <a href="admin-guide.html#change_password">change guest password</a>
         run <code>rabbitmqctl change_password guest &lt;new_pass&gt;</code>
