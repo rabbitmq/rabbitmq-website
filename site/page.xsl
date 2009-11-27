@@ -488,7 +488,7 @@ Technologies Ltd.</p></div>
         <xsl:value-of select="@snapid"/>
       </td>
       <td>
-        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8\<br/>
+        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8 \<br/>
         --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
         </code>
       </td>
