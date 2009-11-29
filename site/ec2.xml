@@ -25,7 +25,7 @@
 <doc:section name="ec2">
   <doc:heading>RabbitMQ Amazon EC2 Images</doc:heading>
     <p>
-        Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easilly
+        Using RabbitMQ Amazon EC2 Images, RabbitMQ can be easily
         deployed on the Amazon cloud. Images containing Ubuntu 9.10
         (Karmic Koala) with pre-installed RabbitMQ can be found below.
         They're available in variants for 32 and 64 bit architectures.
