@@ -27,13 +27,13 @@
     <p>RTL offers a full range of consulting services to help developers go from download to deployment and beyond. Our team of RabbitMQ experts can help you take your application to the next level of architecture  and performance. With RabbitMQ consulting services, your infrastructure will remain stable and robust, supporting your operations and continuing to deliver value as your business grows.</p>
     
     <p>We provide client-driven engagements that focus on knowledge and skills transfer. Our custom professional services are highly flexible to address specific issues such as on-site troubleshooting, design review, deployment planning, project delivery and other value-adding services tailored to suit your needs. We also provide packaged professional services covering architectural application review, migration and solutions and proof of concept. </p>
+      
+    <p>If you are looking for more background information on RabbitMQ please download this <a href="/resources/RabbitMQ_Introduction.pdf">introductory brochure</a>, which contains
+    an introduction to RabbitMQ including some documented cases of how others are using RabbitMQ in the wild.</p>
     
-    <p><a href="mailto:info@rabbitmq.com?subject=RabbitMQ Consulting">Contact us for more details on RabbitMQ Consulting Services</a></p>
+    <p>For more information about our consulting services please you can <a href="mailto:info@rabbitmq.com?subject=RabbitMQ Consulting">contact us</a>
+    or for more general help <a href="http://lists.rabbitmq.com">join our mailing list</a>. </p>
     
-  <p>For more information you can <a href="http://lists.rabbitmq.com">join our 
-  mailing list</a>, or alternatively contact us directly at <a href="
-  mailto:info@rabbitmq.com">info@rabbitmq.com</a>. 
-  </p>
     </doc:div>
   </body>
 </html>
