@@ -907,7 +907,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
  
-	<doc:faq name="conections-channels">
+	<doc:faq name="connections-channels">
 	  <doc:heading>Can you recommend the best way to work with connections and channels in my application?</doc:heading>
 	  <doc:a>
 	    <p>
