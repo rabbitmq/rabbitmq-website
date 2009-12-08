@@ -24,10 +24,10 @@
       <xsl:apply-templates/>
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
       <script type="text/javascript">
-_uacct = "UA-1001800-1";
-urchinTracker();
+var pageTracker = _gat._getTracker("UA-1001800-1");
+pageTracker._trackPageview();
       </script>
     </xsl:copy>
   </xsl:template>
