@@ -22,6 +22,8 @@
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
+      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
+      <meta name="googlebot" content="NOODP" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
       <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
