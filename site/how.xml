@@ -19,7 +19,7 @@
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.<p>
 
-    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
+    <p>If you feel we have missed something please feel free to <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=Suggest Links-how');" href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
     
       <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
@@ -138,7 +138,7 @@
         <li>.Net development:
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of .Net development</a></li>
-	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
+	    <li><a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-how');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>	
@@ -241,7 +241,7 @@ decentralised microblogging</li>
 	  some advanced AMQP recipes for a variety of messaging use cases.
 	</li>
 	<li>
-	  <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
+	  <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-howsection3');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
 	  Whether or not you use .NET or not, section 3 of this guide describes ways
 	  of working with AMQP and a number common messaging patterns and
 	  interaction styles.
@@ -362,6 +362,16 @@ decentralised microblogging</li>
 	</li>
 
       </ul>
+      
+      <h3 id="in-print">Books and Print Articles</h3>
+      <ul>
+	<li>
+	  <a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
+	  An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ
+	</li>
+      </ul>
+
+    
       <h3 id="general-posts">General Posts</h3>
       <ul>
 	<li>
