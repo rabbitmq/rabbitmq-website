@@ -265,7 +265,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:downloads[@signature='no']/r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td><a onClick="javascript: pageTracker._trackPageview('/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
     </tr>
   </xsl:template>
 
@@ -283,8 +283,8 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-      <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      <td><a onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td class="signature"><a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
     </tr>
   </xsl:template>
 

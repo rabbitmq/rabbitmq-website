@@ -22,8 +22,9 @@
 
 <p>
 	If you have a question not answered here,
-	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
+	please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faq');" href="http://lists.rabbitmq.com">join our mailing list</a> or
 	alternatively, contact us directly at <a
+	onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqa');" 
 	href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
 </p>
    
@@ -881,9 +882,9 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </p>
 	  <ul>
 	      <li>Java (<a href="api-guide.html">API guide proper</a> and 
-	      <a href="&dir-current-javadoc;">javadoc</a>), and</li>
+	      <a onClick="javascript: pageTracker._trackPageview('&dir-current-javadoc;/-faq');" href="&dir-current-javadoc;">javadoc</a>), and</li>
 	      <li>.NET (<a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">API guide proper (PDF)</a> and 
-	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
+	      <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html-faq');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
 	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to
@@ -950,8 +951,10 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server – this is not available out of the box but you can contact us for more
-	      info (mailto:info@rabbitmq.com) (You can also do active/active failover but it
+	      server – this is not available out of the box but you can  <a
+	onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqb');"
+	href="mailto:info@rabbitmq.com">contact us for more
+	      info</a> (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
 	    </ol>
@@ -1224,7 +1227,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      configuration.
 	    </p>
 	    <p>
-	      Please <a href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
+	      Please <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=How low can latency be-faq');" href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
 	      you would like more information relevant to your setup.
 	    </p>
 	  </doc:a>
@@ -1431,8 +1434,8 @@ system, or you might be creating unnecessary resources.
 	  <doc:a>
 	    <p>
 	    RabbitMQ is supported both commercially and as an open-source project. For
-	    general questions please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
-	    or <a href="mailto:info@rabbitmq.com">send us an email</a>.
+	    general questions please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss-faqc');" href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
+	    or <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqc');" href="mailto:info@rabbitmq.com">send us an email</a>.
 	    </p>
 	    <p>
 	    Follow the links to <a href="services.html">Services</a> for information 
@@ -1515,8 +1518,8 @@ system, or you might be creating unnecessary resources.
 	  <doc:heading>I have a question!</doc:heading>
 	  <doc:a>
 	    <p>
-	      Please <a href="http://lists.rabbitmq.com">join our mailing list</a> or 
-        send questions to <a
+	      Please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faqd');" href="http://lists.rabbitmq.com">join our mailing list</a> or 
+        send questions to <a  onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faqe');"
 	      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>. We'd
 	      love to hear from you.
 	    </p>

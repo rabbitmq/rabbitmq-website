@@ -734,6 +734,7 @@
 	</p>
 	<p>
 	  If all of the above fails, report the problem to <a
+	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
 	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
 	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
 	  your report.
