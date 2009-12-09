@@ -62,7 +62,7 @@
       <amiitem zone="us-east-1" ami="ami-3ecc2e57" arch="i386"/>
     </amilist>
     <p>
-        To start RabbitMQ instance just run the command from the third column.
+        To start RabbitMQ instance just run the command from the fourth column.
         The string <code>${EC2_KEYPAIR}</code> should be
         replaced with the public ssh key name that is going to be used to
         log in to the instance. You can find more information
