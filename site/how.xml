@@ -121,6 +121,7 @@
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
+	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group.</li>
 	  </ul>	
 	</li>	
         <li>Python development:
@@ -219,6 +220,10 @@ decentralised microblogging</li>
 	  <a href="http://github.com/auser/wonderland/tree/master">Wonderland</a><br />
 	  Provide RESTful administration and monitoring of RabbitMQ nodes and a
 	  WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
+	</li>
+	<li>
+	  <a href="http://github.com/b/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+	  Ben Black's cookbook for managing RabbitMQ with Chef.
 	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
