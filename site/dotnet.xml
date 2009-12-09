@@ -99,12 +99,13 @@
     <h4>The documentation</h4>
 
     <p>
-      <a href="releases/&dir-dotnet-client;/">This directory</a> contains all
-      the available documentation. Please see <a href="build-dotnet-client.html">
-      build page </a> for instructions on compiling from source-code. You can
-      also browse <a
-      href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">
-      an online-browsable copy</a> of the generated HTML API guide documentation.
+      <a href="releases/&dir-dotnet-client;/">This directory</a>
+      contains all the available documentation. Please
+      see <a href="build-dotnet-client.html"> build page </a> for
+      instructions on compiling from source-code. You can also
+      browse <a href="&dir-current-dotnet-apidoc;/index.html"> an
+      online-browsable copy</a> of the generated HTML API guide
+      documentation.
     </p>
 
     <r:downloads signature="no">
@@ -130,10 +131,9 @@
 	API Guide PDF
       </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;-client-htmldoc.zip"
-		  downloadpath="&dir-dotnet-client;">
-	A downloadable ZIP of the generated HTML documentation (also
-	available in <a
-	href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">online-browsable</a>
+		  downloadpath="&dir-dotnet-client;"> A downloadable
+	ZIP of the generated HTML documentation (also available
+	in <a href="&dir-current-dotnet-apidoc;/index.html">online-browsable</a>
 	form)
       </r:download>
     </r:downloads>
