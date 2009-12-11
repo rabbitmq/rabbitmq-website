@@ -884,6 +884,11 @@
             <dd>
               Maximum frame size (bytes).
             </dd> 
+            <dt>client_properties</dt> 
+            <dd>
+              Informational properties transmitted by the client
+              during connection establishment.
+            </dd> 
             <dt>recv_oct</dt> 
             <dd>
               Octets received.
