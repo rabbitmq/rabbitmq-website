@@ -204,8 +204,8 @@ ul.downloads li a {
 	margin: 0px 0 0px 0px;
 	color: #fff;
 	display: block; 
-	text-decoration: underline;
 	background-image: url('/img/button-light.png');
+	text-align: center;
     
 }
 ul.downloads li a:hover {
