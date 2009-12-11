@@ -19,7 +19,7 @@
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.<p>
 
-    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
+    <p>If you feel we have missed something please feel free to <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=Suggest Links-how');" href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
     
       <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
@@ -40,6 +40,13 @@
 	  Article on infoq.com by Joern Barthel that provides an excellent discussion
 	  the AMQ model and its implementation in RabbitMQ. Lots of code examples
 	  are provided in Ruby.
+	</li>
+	<li>
+	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: python and ruby staring at the looking glass</a><br />
+	  A slide show from Paolo Negri that offers an excellent introduction to the AMQP
+	  model and RabbitMQ with code samples in python and ruby. He explores the
+	  different routing models available and goes on to explain a number of use cases
+	  and some common messaging patterns, including pubsub.
 	</li>
 	<li>
 	  <a href="http://crad.tumblr.com/post/196979154/the-attention-deficit-disorder-guide-to-rabbitmq">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
@@ -114,6 +121,7 @@
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
+	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group.</li>
 	  </ul>	
 	</li>	
         <li>Python development:
@@ -131,7 +139,7 @@
         <li>.Net development:
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of .Net development</a></li>
-	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
+	    <li><a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-how');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>	
@@ -214,6 +222,10 @@ decentralised microblogging</li>
 	  WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
 	</li>
 	<li>
+	  <a href="http://github.com/b/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+	  Ben Black's cookbook for managing RabbitMQ with Chef.
+	</li>
+	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
 	  More links to what others are doing to manage and monitor RabbitMQ.
@@ -234,7 +246,7 @@ decentralised microblogging</li>
 	  some advanced AMQP recipes for a variety of messaging use cases.
 	</li>
 	<li>
-	  <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
+	  <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-howsection3');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
 	  Whether or not you use .NET or not, section 3 of this guide describes ways
 	  of working with AMQP and a number common messaging patterns and
 	  interaction styles.
@@ -355,6 +367,16 @@ decentralised microblogging</li>
 	</li>
 
       </ul>
+      
+      <h3 id="in-print">Books and Print Articles</h3>
+      <ul>
+	<li>
+	  <a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
+	  An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ
+	</li>
+      </ul>
+
+    
       <h3 id="general-posts">General Posts</h3>
       <ul>
 	<li>

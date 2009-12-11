@@ -22,12 +22,14 @@
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
+      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
+      <meta name="googlebot" content="NOODP" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
       <script type="text/javascript">
-_uacct = "UA-1001800-1";
-urchinTracker();
+var pageTracker = _gat._getTracker("UA-1001800-1");
+pageTracker._trackPageview();
       </script>
     </xsl:copy>
   </xsl:template>
@@ -64,6 +66,7 @@ urchinTracker();
       <li><a href="/services.html">Services</a></li>
       <li><a href="/partners.html">Partners</a></li>
       <li><a href="/community.html">Community</a></li>
+      <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
@@ -262,7 +265,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:downloads[@signature='no']/r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td><a onClick="javascript: pageTracker._trackPageview('/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
     </tr>
   </xsl:template>
 
@@ -280,8 +283,8 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-      <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      <td><a onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td class="signature"><a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
     </tr>
   </xsl:template>
 
@@ -433,7 +436,70 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:template match="r:amilist">
+    <table class="amilist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Arch</th>
+        <th>Ami</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
 
+  <xsl:template match="r:amiitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@arch"/>
+      </td>
+      <td>
+        <xsl:value-of select="@ami"/>
+      </td>
+      <td>
+        <code>ec2-run-instances <xsl:value-of select="@ami"/> --key ${EC2_KEYPAIR} --instance-type
+            <xsl:if test="@arch = 'x86_64'">m1.large</xsl:if>
+            <xsl:if test="@arch != 'x86_64'">m1.small</xsl:if>
+            <xsl:if test="@zone != 'us-east-1'">
+                --region <xsl:value-of select="@zone"/>
+            </xsl:if>
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:template match="r:snapshotlist">
+    <table class="snapshotlist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Public snapshot id</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="r:snapshotitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@snapid"/>
+      </td>
+      <td>
+        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8 \<br/>
+        --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
@@ -444,3 +510,5 @@ Technologies Ltd.</p></div>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
+
+
