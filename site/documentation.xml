@@ -57,7 +57,7 @@
             <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
           </li>
           <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">.NET Client API documentation</a>
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
           </li>
 	  <li>
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
