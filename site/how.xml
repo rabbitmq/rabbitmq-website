@@ -271,6 +271,10 @@ decentralised microblogging</li>
       <h3 id="specific-examples">Specific Use Cases and Examples</h3>
       <ul>
 	<li>
+	  <a href="/resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
+	  Stephan Norburg's presentation on use of Rabbitmq and Kaazing and Terracotta for european scale real time betting at Unibet.
+	</li>
+	<li>
 	  <a href="http://nebula.nasa.gov/services">NASA's NEBULA Cloud Computing Platform</a><br />
 	  Overview of how NASA are using RabbitMQ in their Nebula SaaS platform.
 	</li>
