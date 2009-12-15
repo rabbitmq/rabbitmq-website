@@ -36,8 +36,34 @@ a:active, a:hover {
 	text-decoration: underline;
 }
 
-a.downloadNow {
+a.adownload:link,  a.adownload:visited{
 	color: #f60;
+	text-decoration: none;
+	padding: 0 0 0 20px;
+	border-bottom: 1px dotted #f60;
+	background: url(../img/download-hi.png) no-repeat 1px 2px;
+}
+
+a.adownload:active,  a.adownload:hover{
+	color: #f60;
+	text-decoration: none;
+	border-bottom: 1px dotted #fc0;
+	background: url(../img/download-low.png) no-repeat 1px 2px;
+}
+
+a.arepo:link,  a.arepo:visited{
+	color: #f60;
+	text-decoration: none;
+	padding: 0 0 0 20px;
+	border-bottom: 1px dotted #f60;
+	background: url(../img/hgicon.png) no-repeat 1px 2px;
+}
+
+a.arepo:active,  a.arepo:hover{
+	color: #f60;
+	text-decoration: none;
+	border-bottom: 1px dotted #fc0;
+	background: url(../img/hgicon.png) no-repeat 1px 2px;
 }
 
 :link img, :visited img {
