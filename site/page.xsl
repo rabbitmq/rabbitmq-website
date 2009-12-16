@@ -323,7 +323,7 @@ Technologies Ltd.</p></div>
 	<code>hg clone <xsl:value-of select="@url"/></code>
       </td>
       <td>
-	<a class="arepo" href="{@url}">browse repo</a>
+	<a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
