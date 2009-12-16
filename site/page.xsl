@@ -24,6 +24,7 @@
       <xsl:apply-templates/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
       <meta name="googlebot" content="NOODP" />
+      <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
       <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
@@ -265,7 +266,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:downloads[@signature='no']/r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a onClick="javascript: pageTracker._trackPageview('/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td><a class="adownload" onClick="javascript: pageTracker._trackPageview('/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
     </tr>
   </xsl:template>
 
@@ -283,7 +284,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <td><a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
       <td class="signature"><a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
     </tr>
   </xsl:template>
@@ -297,7 +298,7 @@ Technologies Ltd.</p></div>
       <xsl:when test="@type = 'plugin'">
         <p>
           For more information about the installation of plugins, refer to the
-          <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+          <a href="/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
         </p>
       </xsl:when>
     </xsl:choose>
@@ -315,13 +316,13 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'hg']">
     <tr>
       <td>
-	<a href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
+	<a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
 	<code>hg clone <xsl:value-of select="@url"/></code>
       </td>
       <td>
-	<a href="{@url}">browse repo</a>
+	<a class="arepo" href="{@url}">browse repo</a>
       </td>
     </tr>
   </xsl:template>
