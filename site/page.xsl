@@ -24,6 +24,8 @@
       <xsl:apply-templates/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
       <meta name="googlebot" content="NOODP" />
+      <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4" />
+      <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
       <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
