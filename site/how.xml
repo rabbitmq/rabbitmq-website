@@ -244,15 +244,15 @@ decentralised microblogging</li>
 	  Ben Black's cookbook for managing RabbitMQ with Chef.
 	</li>
 	<li>
-	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
-	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
-	  More links to what others are doing to manage and monitor RabbitMQ.
-	</li>
-	<li>
 	  <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status Plugin</a><br />
 	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
 	  file descriptors and Erlang PIDS usage. You can also see basic information
 	  about connections and queues.
+	</li>
+	<li>
+	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
+	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
+	  More links to what others are doing to manage and monitor RabbitMQ.
 	</li>
       </ul>
       
@@ -287,14 +287,14 @@ decentralised microblogging</li>
 	  AMQP model decouples produces and consumers of data.
 	</li>
 	<li>
-	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
-	  See more links to articles on messaging patterns at delicious.com.
-	</li>
-	<li>
 	  <a href="http://developian.blogspot.com/2009/11/drizzle-replication-using-rabbitmq-as.html">Drizzle replication using RabbitMQ</a><br />
 	  Marcus Erikkson has implemented a transaction log replicator for Drizzle using		
 	  RabbitMQ as the transport. (See also the 
 	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a>.
+	</li>
+	<li>
+	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
+	  See more links to articles on messaging patterns at delicious.com.
 	</li>
       </ul>
       
