@@ -164,7 +164,11 @@
 	  <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and 
 	  <a href="http://flexonrails.net/?p=106">Flex</a>
 	</li>     
-        <li><a href="http://github.com/dansimpson/amqp-js/tree/master">Native javascript AMQP client</a></li>
+	<li>
+	    <a href="http://github.com/dansimpson/amqp-js">amqp-js</a><br/>
+	    A native AMQP library for Javascript that provides low-latency message queuing
+	    without using HTTP.
+	</li>
         <li>Experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a> client. 
 	You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a>, 
 	and also a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a> </li>
@@ -186,6 +190,20 @@ decentralised microblogging</li>
 	  - a popular tutorial and screencast that should be of interest for users of other languages too.
 	</li>
         <li><a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a>, an interface from LispWorks to RabbitMQ</li>
+	<li>
+	  <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a><br />
+	  A memcached adapter for RabbitMQ that allows you use the memcache protocol to
+	  get or publish a message from or to RabbitMQ.	
+	</li>
+	<li>
+	  <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a><br />
+	  Command line utils for interacting with an AMQP based queue.	
+	</li>
+	<li>
+	  <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br />
+	  A simple service to relay all messages from a topic exchange to another
+	  RabbitMQ broker instance. Think of Shovel, just in Scala.	
+	</li>
 	<li>
 	  <a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a> and 
 	  <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a>
@@ -226,6 +244,12 @@ decentralised microblogging</li>
 	  Ben Black's cookbook for managing RabbitMQ with Chef.
 	</li>
 	<li>
+	  <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status Plugin</a><br />
+	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
+	  file descriptors and Erlang PIDS usage. You can also see basic information
+	  about connections and queues.
+	</li>
+	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
 	  More links to what others are doing to manage and monitor RabbitMQ.
@@ -263,6 +287,12 @@ decentralised microblogging</li>
 	  AMQP model decouples produces and consumers of data.
 	</li>
 	<li>
+	  <a href="http://developian.blogspot.com/2009/11/drizzle-replication-using-rabbitmq-as.html">Drizzle replication using RabbitMQ</a><br />
+	  Marcus Erikkson has implemented a transaction log replicator for Drizzle using		
+	  RabbitMQ as the transport. (See also the 
+	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a>.)
+	</li>
+	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
 	  See more links to articles on messaging patterns at delicious.com.
 	</li>
@@ -276,7 +306,10 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://nebula.nasa.gov/services">NASA's NEBULA Cloud Computing Platform</a><br />
-	  Overview of how NASA are using RabbitMQ in their Nebula SaaS platform.
+	  Overview of how NASA are using RabbitMQ in their Nebula SaaS platform. Please also see 
+	  <a href="http://cloudseeding.googlegroups.com/web/NASA-%20Chris%20C.%20Kemp%20-%20OMG.pdf">these slides</a>
+	  from Chris C. Kemp, the CIO of NASA Ames Research Center, and the thought-leader behind 
+	  the NEBULA project.
 	</li>
 	<li>
 	  <a href="http://skillsmatter.com/podcast/erlang/mike-bridgen-application-of-rabbitmq">Application of RabbitMQ at the BBC</a><br />
