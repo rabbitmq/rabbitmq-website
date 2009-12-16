@@ -290,7 +290,7 @@ decentralised microblogging</li>
 	  <a href="http://developian.blogspot.com/2009/11/drizzle-replication-using-rabbitmq-as.html">Drizzle replication using RabbitMQ</a><br />
 	  Marcus Erikkson has implemented a transaction log replicator for Drizzle using		
 	  RabbitMQ as the transport. (See also the 
-	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a>.
+	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a>.)
 	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
