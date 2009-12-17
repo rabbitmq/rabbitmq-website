@@ -212,6 +212,10 @@ ul.downloads li {
 	margin: 0 22px 0 0;
 	padding: 0px;
 }
+ul.downloads li h4 {
+	padding: 0px 0 0px 5px;
+	margin: 10px 0 12px 0;
+}
 ul.downloads li a {
 	background-color: #FF9933;
 	padding: 4px 0 4px 5px;

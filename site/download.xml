@@ -31,7 +31,7 @@
     
     <ul class="downloads">
     <li>
-      <a class="btn" href="server.html"><h4>RabbitMQ Server <span>Version: &version-server;</span></h4></a>
+      <a class="btn" href="server.html"><h4>RabbitMQ Server<br /><span>Version: &version-server;</span></h4></a>
 	  <ul class="compact">
 	    <li>Debian</li>
 	    <li>Ubuntu</li>
@@ -44,14 +44,14 @@
 	  </ul>
     </li>
     <li>
-      <a href="java-client.html"><h4>RabbitMQ Java Client <span>Version: &version-java-client;</span></h4></a>
+      <a href="java-client.html"><h4>RabbitMQ Java Client<br /><span>Version: &version-java-client;</span></h4></a>
 	  <ul class="compact">
 	    <li>Java 1.5 or newer</li>
 	    <li>Java 1.4</li>
 	  </ul>
     </li>
     <li>
-      <a href="dotnet.html"><h4>RabbitMQ .NET/C# Client <span>Version: &version-dotnet-client;</span></h4></a>
+      <a href="dotnet.html"><h4>RabbitMQ .NET/C# Client<br /><span>Version: &version-dotnet-client;</span></h4></a>
  	  <ul class="compact">
 	    <li>.NET 2.0 and newer</li>
 	    <li>.NET 3.0 and 3.5 for WCF support</li>
