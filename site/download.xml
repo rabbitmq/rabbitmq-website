@@ -28,20 +28,10 @@
       below, and find the package that matches your operating system
       on the page that appears.
     </p>
-
-    <table border="0" cellpadding="0" cellspacing="0">
-      <tr class="downloadlabel">
-	<th width="33%"><a href="server.html"><h4>RabbitMQ Server</h4></a></th>
-	<th width="33%"><a href="java-client.html"><h4>RabbitMQ Java Client</h4></a></th>
-	<th width="33%"><a href="dotnet.html"><h4>RabbitMQ .NET/C# Client</h4></a></th>
-      </tr>
-      <tr>
-	<td>Version: <b>&version-server;</b></td>
-	<td>Version: <b>&version-java-client;</b></td>
-	<td>Version: <b>&version-dotnet-client;</b></td>
-      </tr>
-      <tr>
-	<td>
+    
+    <ul class="downloads">
+    <li>
+      <a class="btn" href="server.html"><h4>RabbitMQ Server<br /><span>Version: &version-server;</span></h4></a>
 	  <ul class="compact">
 	    <li>Debian</li>
 	    <li>Ubuntu</li>
@@ -52,22 +42,24 @@
 	    <li>other RPM-based Linux</li>
 	    <li>Windows</li>
 	  </ul>
-	</td>
-	<td>
+    </li>
+    <li>
+      <a href="java-client.html"><h4>RabbitMQ Java Client<br /><span>Version: &version-java-client;</span></h4></a>
 	  <ul class="compact">
 	    <li>Java 1.5 or newer</li>
 	    <li>Java 1.4</li>
 	  </ul>
-	</td>
-	<td>
-	  <ul class="compact">
+    </li>
+    <li>
+      <a href="dotnet.html"><h4>RabbitMQ .NET/C# Client<br /><span>Version: &version-dotnet-client;</span></h4></a>
+ 	  <ul class="compact">
 	    <li>.NET 2.0 and newer</li>
 	    <li>.NET 3.0 and 3.5 for WCF support</li>
 	    <li>.NET 1.1 available when building from source</li>
-	  </ul>
-	</td>
-      </tr>
-    </table>
+	  </ul>   
+    </li>
+    </ul>
+    <div class="clear"></div>
 
     <a name="bundle"></a>
     <h3>Windows Bundle</h3>
