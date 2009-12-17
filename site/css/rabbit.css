@@ -36,40 +36,21 @@ a:active, a:hover {
 	text-decoration: underline;
 }
 
-a.adownload:link,  a.adownload:visited {
-	border-bottom: 1px dotted #f60;
-}
-
-a.adownload:active,  a.adownload:hover {
-	text-decoration:none;
-	border-bottom: 1px dotted #fc0;
-}
-
-a.arepo:link,  a.arepo:visited {
-	border-bottom: 1px dotted #f60;
-}
-
-a.arepo:active,  a.arepo:hover{
-	text-decoration:none;
-	border-bottom: 1px dotted #fc0;
-}
-
 :link img, :visited img {
 	border: 0;
 }
 	
-
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
 	margin: 0;
 	padding: 0 ;
-	}
+}
 
 h1 {
 	color: #f60;
 	margin: 20px 0 0 0;
 	float: left;
-	}
+}
 
 p.strap {
 	float: right;
