@@ -36,26 +36,21 @@ a:active, a:hover {
 	text-decoration: underline;
 }
 
-a.downloadNow {
-	color: #f60;
-}
-
 :link img, :visited img {
 	border: 0;
 }
 	
-
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
 	margin: 0;
 	padding: 0 ;
-	}
+}
 
 h1 {
 	color: #f60;
 	margin: 20px 0 0 0;
 	float: left;
-	}
+}
 
 p.strap {
 	float: right;
@@ -190,7 +185,39 @@ li#vmware {
 li#kaazing {
 	background: url(../img/kaazing.png) no-repeat 1px 22px;
 }
-
+ul.downloads li {
+	list-style-type : none;
+	float: left;
+	background: none;
+	width: 290px;
+	margin: 0 22px 0 0;
+	padding: 0px;
+}
+ul.downloads li h4 {
+	padding: 0px 0 0px 5px;
+	margin: 10px 0 12px 0;
+}
+ul.downloads li a {
+	background-color: #FF9933;
+	padding: 4px 0 4px 5px;
+	margin: 0px 0 0px 0px;
+	color: #fff;
+	display: block; 
+	background-image: url('/img/button-light.png');
+	text-align: center;
+    
+}
+ul.downloads li a:hover {
+	background-color: #FA8800; 
+	background-image: url('/img/button-bright.png');
+}
+	
+ul.downloads li ul.compact li {
+	list-style-type: none; 
+	background: url(../img/li.gif) no-repeat 1px 12px;
+	margin: 0;
+	padding: 6px 0 2px 10px;
+}
 p {
 	clear:left;
 	}
