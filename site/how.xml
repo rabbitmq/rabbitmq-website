@@ -7,7 +7,7 @@
 
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - How</title>
+    <title>RabbitMQ - Get Started</title>
   </head>
   <body>
     <doc:div> 
@@ -122,6 +122,11 @@
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group.</li>
+	    <li>
+	      <a href="http://37signals.com/svn/posts/1433-ta-da-list-on-rails-22-passenger-and-ec2">El Conejo Mensajero (The Rabbit Messenger)</a><br/>
+	      A presentation (in English) by Joshua Sierles of <strong>37signals</strong> giving an overview of 
+	      RabbitMQ and listing lots of uses cases, mostly in Ruby.
+	    </li>
 	  </ul>	
 	</li>	
         <li>Python development:
