@@ -25,7 +25,7 @@
       <ul>      
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
-	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
+	  Presentation by Dmitriy Samovskiy on slideshare.net. Good p rimer on
 	  AMQP messaging concepts and RabbitMQ in general.
 	</li>
 	<li>
@@ -145,6 +145,7 @@
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of .Net development</a></li>
 	    <li><a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-how');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
+	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>	
@@ -161,6 +162,7 @@
 	    <li>Code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a></li>
 	    <li><a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>    
 	    <li><a href="http://search.cpan.org/~jesus/Net-RabbitMQ-0.0.1/">Net::RabbitMQ</a></li>
+	    <li><a href="http://github.com/cooldaemon/RabbitFoot">RabbitFoot</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a></li>
 	  </ul>
 	</li>
@@ -210,7 +212,23 @@ decentralised microblogging</li>
 	  RabbitMQ broker instance. Think of Shovel, just in Scala.	
 	</li>
 	<li>
-	  <a href="http://es.cohesiveft.com/site/rabbitmq">Run RabbitMQ right now on EC2 or a VM</a> and 
+	  <a href="http://github.com/dsander/rabbitcage/tree/">RabbitCage</a><br/>
+	  An AMQP firewall which allows you to restrict user access to RabbitMQ using ACLs.
+	</li>
+	<li>
+	  <a href="http://lethargy.org/~jesus/writes/amqp-for-postgresql">pg_amqp</a><br/>
+	  An AMQP extension for PostgreSQL.
+	</li>
+	<li>
+	  <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a><br/>
+	  Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
+	</li>
+	<li>
+	  <a href="http://github.com/scallable/amqpfs">amqpfs</a><br/>
+	  AMQP file system interface
+	</li>
+	<li>
+	  <a href="ec2.html">Run RabbitMQ right now on EC2 or a VM</a> and 
 	  <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a>
 	</li>
 	<li>
