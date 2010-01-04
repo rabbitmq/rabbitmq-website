@@ -506,6 +506,12 @@ decentralised microblogging</li>
 	 Commodity Enterprise Middleware' begins on the 50th page of the PDF.  
 	</li>
 	<li>
+	  <a href="http://www.hpts.ws/session5/das.pdf">Advanced Message Queueing Protocol</a><br />
+	  Presentation from Pranta Das from Cisco giving a good background on AMQP, an
+	  overview of the the new information model in AMQP 1.0 and some general use
+	  cases for AMQP messaging.	   
+	</li>
+	<li>
 	  <a href="http://www.slideshare.net/jondahl/asynchronous-processing-with-ruby-on-rails-railsconf-2008-443159">Asynchronous Processing with Ruby on Rails</a><br />
 	  Jon Dahl's presentation at Rail Conf 2008 describes why asynchronous
 	  processing is important and explains why messaging is useful here.
