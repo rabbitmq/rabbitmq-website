@@ -12,7 +12,23 @@
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->     
+      -->    
+      <doc:item>
+	<doc:date iso="2010-01-05T00:00:00Z">05 January 2010</doc:date>
+	<doc:title>
+	  RabbitMQ included in 'Cloudies' awards
+	</doc:title>
+
+	<doc:link>http://www.johnmwillis.com/other/the-2009-cloudies-awards/</doc:link>
+
+	<doc:text>
+	<p>RabbitMQ was listed as one of the <strong>Best Cloud Application Providers</strong> in John M Willis
+	second annual 'Cloudies' awards. 
+	</p>
+
+	</doc:text>
+      </doc:item>
+      
       <doc:item>
 	<doc:date iso="2009-12-07T00:00:00Z">07 December 2009</doc:date>
 	<doc:title>
