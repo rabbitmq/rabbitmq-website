@@ -930,7 +930,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </ul>    
 	  <p>
 	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to
-	  your question.
+	  your question.       
 	  </p>
 	</doc:a>
     </doc:faq>
@@ -990,6 +990,19 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
  
+	<doc:faq name="rabbit-client-support">
+	  <doc:heading>What support does RabbitMQ provide for web messaging?</doc:heading>
+	  <doc:a>
+	    <p>
+	      There are multiple ways for interacting with RabbitMQ in web messaging scenarios. For example, 
+	      we provide broker plugins that expose a JSON/RPC endpoint from within the broker process. The 
+	      community has contributed a set client libraries that allow AMQP communication for a variety of 
+	      web platforms including actionscript and pubsubhubbub. A more complete list can be found under 
+	      <a href="how.html#web-messaging">Web Messaging on the Get Started page</a>.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="AMQP-specs">
 	  <doc:heading>Can you enlighten me about the differences between different versions of the AMQP specs?</doc:heading>
 	  <doc:a>

@@ -96,7 +96,7 @@
       BSD and Gentoo. Please contact us if you cannot find what you need.
       </p>
       <ul>
-        <li>Java development:
+        <li id="java-development">Java development:
 	  <ul class="plain">
 	    <li><a href="java-client.html">Java client</a></li>
 	    <li><a href="api-guide.html">Java API-guide</a></li>
@@ -112,7 +112,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a></li>
 	   </ul>
 	</li>	
-        <li>Ruby development:
+        <li id="ruby-development">Ruby development:
 	  <ul class="plain">
 	    <li>client <a href="http://hopper.squarespace.com/blog/2008/7/22/simple-amqp-library-for-ruby.html">overview</a></li>
 	    <li><a href="http://github.com/tmm1/amqp/tree/master">Ruby/EventMachine AMQP client</a></li>
@@ -137,7 +137,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	  </ul>	
 	</li>	
-        <li>Python development:
+        <li id="python-development">Python development:
 	  <ul class="plain">
 	    <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a></li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">client library code</a></li>
@@ -153,7 +153,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a></li>
 	  </ul>
 	</li> 	
-        <li>.Net development:
+        <li id="dotnet-development">.Net development:
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of .Net development</a></li>
 	    <li><a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-how');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
@@ -161,7 +161,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>	
-	<li>PHP: 
+	<li id="php-development">PHP: 
 	  <ul class="plain">
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
@@ -169,7 +169,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
 	</li>
-	<li>Perl development:
+	<li id="perl-development">Perl development:
 	  <ul class="plain">
 	    <li>Code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a></li>
 	    <li><a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>    
@@ -178,15 +178,26 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a></li>
 	  </ul>
 	</li>
-        <li>
-	  <a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">AS3</a>, 
-	  <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">Haxe</a> and 
-	  <a href="http://flexonrails.net/?p=106">Flex</a>
-	</li>     
-	<li>
-	    <a href="http://github.com/dansimpson/amqp-js">amqp-js</a><br/>
+	<li id="web-messaging">Web messaging:
+	  <ul class="plain">
+	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br /> 
+	    an AMQP client library in AS3 for Flex and Flash</li>
+	    <li><a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a><br/>  
+	    a port of as3-amqp to haXe</li>
+	    <li><a href="http://flexonrails.net/?p=106">Integrating Flex and RabbitMQ using STOMP</a><br /> 
+	    describes how to get Flex/Flash applications talking to RabbitMQ using STOMP</li>  
+	    <li><a href="http://github.com/dansimpson/amqp-js">amqp-js</a><br/>
 	    A native AMQP library for Javascript that provides low-latency message queuing
 	    without using HTTP.
+	    </li>
+	    <li><a href="http://github.com/tonyg/rabbithub">rabbithub</a><br />
+	    an implementation of Google Pubsubhubbub for HTTP web push
+	    </li>
+	    <li>We provide plugins that expose a <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc">JSON/RPC endpoint</a> 
+	    and <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc-channel">AMQP-over-HTTP binding</a> 
+	    for interacting with RabbitMQ over HTTP
+	    </li>
+	</ul>
 	</li>
 	<li>
 	  <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />Node.js and RabbitMQ
@@ -441,14 +452,26 @@ decentralised microblogging</li>
 	   You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have 
 	   an IRC client installed.
 	</li>
-
       </ul>
       
+      <h3 id="cloud-configurations">Cloud Configurations</h3>
+      <ul>
+	<li><a href="http://railsdog.com/blog/2009/12/generating-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>     
+	Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
+	</li>
+	<li><a href="http://notes.variogr.am/post/67710296/replacing-amazon-sqs-with-something-faster-and-cheaper">Replacing Amazon SQS with something faster and cheaper</a><br/>         
+	Illustrates the use of RabbitMQ as a alternative to SQS for message queuing on AWS.
+	</li>
+	<li><a href="http://www.equivalence.co.uk/archives/1521">Idiot's Guide to Linux on Amazon EC2</a><br/>    
+	Walk through of how to set up Ubuntu for use with RabbitMQ on AWS.
+	</li>
+      </ul>
+
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>
 	<li>
-	  <a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
-	  An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ
+	  <a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html"></a><br/>
+	  
 	</li>
 	<li>
 	  <a href="http://www.rubyonrails.de/2009/12/distributed-programming-with-ruby/">Distributed programming with Ruby</a><br/>
