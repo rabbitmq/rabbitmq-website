@@ -197,10 +197,11 @@
 	    and <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc-channel">AMQP-over-HTTP binding</a> 
 	    for interacting with RabbitMQ over HTTP
 	    </li>
+	    <li>
+	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
+	    Node.js and RabbitMQ
+	    </li>
 	</ul>
-	</li>
-	<li>
-	  <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />Node.js and RabbitMQ
 	</li>
         <li>Experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a> client. 
 	You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a>, 
@@ -340,7 +341,7 @@ decentralised microblogging</li>
 	  Marcus Erikkson has implemented a transaction log replicator for Drizzle using		
 	  RabbitMQ as the transport. (See also the 
 	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a> and the follow up
-	  <a href="http://developian.blogspot.com/2009/12/configuration-this-example-replicates.html">Better replication from Drizzle to Cassandra</a> .)
+	  <a href="http://developian.blogspot.com/2009/12/configuration-this-example-replicates.html">Better replication from Drizzle to Cassandra</a>.)
 	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
