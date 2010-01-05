@@ -124,16 +124,19 @@
 	    <li><a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)</li>
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
-	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group.</li>
+	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group</li>
 	    <li>
 	      <a href="http://37signals.com/svn/posts/1433-ta-da-list-on-rails-22-passenger-and-ec2">El Conejo Mensajero (The Rabbit Messenger)</a><br/>
 	      A presentation (in English) by Joshua Sierles of <strong>37signals</strong> giving an overview of 
-	      RabbitMQ and listing lots of uses cases, mostly in Ruby.
+	      RabbitMQ and listing lots of uses cases, mostly in Ruby
 	    </li>
 	    <li>
 	      <a href="http://www.softdevtube.com/2009/12/09/bits-bytes-and-blobs/">Bits, Bytes and Bobs</a><br />
-	      A video introduction and review of best practices for dealing with binary data in Ruby with Memcached and RabbitMQ.
+	      A video introduction and review of best practices for dealing with binary data in Ruby with Memcached and RabbitMQ
 	    </li>
+	    <li>
+	      <a href="http://rubyreflector.com/RabbitMQ">RabbitMQ on Ruby Reflector</a><br />
+	       Posts about RabbitMQ on the Ruby social news website
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	  </ul>	
 	</li>	
@@ -192,6 +195,10 @@
 	    </li>
 	    <li><a href="http://github.com/tonyg/rabbithub">rabbithub</a><br />
 	    an implementation of Google Pubsubhubbub for HTTP web push
+	    </li>
+	    <li>
+	    <a href="http://rubyreflector.com/PubSubHubbub">PubSubHubbub on Ruby Reflector</a><br/>
+	    Posts about PubSubHubbub with only a mild Ruby bias
 	    </li>
 	    <li>We provide plugins that expose a <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc">JSON/RPC endpoint</a> 
 	    and <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc-channel">AMQP-over-HTTP binding</a> 
