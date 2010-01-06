@@ -1183,6 +1183,34 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="atomic-operations">
+	  <doc:heading>How do I use transactions to implement atomic operations in RabbitMQ?</doc:heading>
+	  <doc:a>
+	  <p>
+	  RabbitMQ implements AMQP's TX message class to support atomic operations
+	  with clients that request them.
+	  </p>
+	  <p>
+	  If you need only to acknowledge receipt of a message you should get the
+	  consumer to send a basic.ack once its done with processing. There's no
+	  need to use tx in this case.
+	  </p>
+	  <p>
+	  However, if you need to both ack a message and publish some other messages
+	  as an atomic unit then you should set tx.select on the channel to start a
+	  transaction. When processing the received message, you can publish your
+	  messages and ack; only when you finally call tx.commit do the
+	  actions of the transaction take effect. In this case, if the consumer
+	  crashes, the ack and all publications get forgotten: either all of the actions
+	  happen or nothing happens.
+	  </p>
+	  <p>
+	  If, at the application level, you realise that due to some external event
+	  everything needs to be cancelled then call tx.rollback on the channel.
+	  </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="testing-rabbit">
 	  <doc:heading>How do I test RabbitMQ?</doc:heading>
 	  <doc:a>

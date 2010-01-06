@@ -23,17 +23,28 @@
     
       <h3 id="quickstart">Overviews and introductions</h3>
       <ul>      
+	<li>
+	<a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
+	Alexis' presention at Thoughtworks 'London Geek Night', May 2009, where 
+	he introduces RabbitMQ “An open source message broker that just works”.
+	</li>
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
 	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
 	  AMQP messaging concepts and RabbitMQ in general.
 	</li>
 	<li>
-	  <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ and AMQP</a><br/>
-	  Alexis' Tech Talk at Google London, May 2009, where he introduces
-	  RabbitMQ “An open source message broker that just works”. Explains what
-	  is meant by messaging, why you might need a messaging broker and the
-	  different infrastructures that can be used to achieve it.
+	  <a href="http://www.youtube.com/watch?v=ZQogoEVXBSA">The RabbitMQ Team's Introduction to RabbitMQ and AMQP</a><br/>
+	  A video of the RabbitMQ team presenting their Tech Talks at Google London, 
+	  Oct 2008. Alexis explains what is meant by messaging and why you might need 
+	  a messaging broker. Matthias provides a technical overview of the RabbitMQ 
+	  broker and why Erlang was the right choice to implement it. Tony then 
+	  discusses the future of RabbitMQ and AMQP with a focus on messaging at 
+	  internet scale.
+	</li>
+	<li>
+	<a href="resources/RabbitMQ_FITEclub_2009.pdf">A technical look at RabbitMQ and Erlang</a><br/>
+	Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
 	</li>
 	<li>
 	  <a href="http://www.infoq.com/articles/AMQP-RabbitMQ">Getting Started with AMQP and RabbitMQ</a><br />
