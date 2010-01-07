@@ -490,9 +490,9 @@ decentralised microblogging</li>
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>
 	<li>
-	  <a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html"></a><br/>
-	  
-	</li>
+	<a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
+	An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ
+      </li>
 	<li>
 	  <a href="http://www.rubyonrails.de/2009/12/distributed-programming-with-ruby/">Distributed programming with Ruby</a><br/>
 	  See the chapter on 'Implementing comprehensive enterprise messaging with RabbitMQ and AMQP'.
