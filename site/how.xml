@@ -274,12 +274,30 @@ decentralised microblogging</li>
 	  AMQP file system interface
 	</li>
 	<li>
-	  <a href="ec2.html">Run RabbitMQ right now on EC2 or a VM</a> and 
-	  <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">some use cases for the cloud</a>
-	</li>
-	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+client">RabbitMQ Clients on del.icio.us</a><br />
 	  More links to various client configurations on the social bookmarking site.
+	</li>
+      </ul>
+      
+      
+      <h3 id="cloud-configurations">Cloud Configurations</h3>
+      <ul>
+	<li><a href="http://railsdog.com/blog/2009/12/generating-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>     
+	Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
+	</li>
+	<li><a href="http://notes.variogr.am/post/67710296/replacing-amazon-sqs-with-something-faster-and-cheaper">Replacing Amazon SQS with something faster and cheaper</a><br/>         
+	Illustrates the use of RabbitMQ as a alternative to SQS for message queuing on AWS.
+	</li>
+	<li><a href="http://www.equivalence.co.uk/archives/1521">Idiot's Guide to Linux on Amazon EC2</a><br/>    
+	Walk through of how to set up Ubuntu for use with RabbitMQ on AWS.
+	</li>
+	<li>
+	<a href="http://www.rabbitmq.com/ec2.html">Run RabbitMQ on EC2</a><br/>
+	Describes how to get started with RabbitMQ on Amazon's EC2.
+	</li>
+	<li>
+	<a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
+	More links to cloud use cases at delicious.com.	
 	</li>
       </ul>
       
@@ -317,6 +335,12 @@ decentralised microblogging</li>
 	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
 	  file descriptors and Erlang PIDS usage. You can also see basic information
 	  about connections and queues.
+	</li>
+	<li>
+	  <a href="http://blog.dossot.net/2010/01/monitoring-rabbitmq-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
+	  A simple example of how to configure Zabbix (an open source monitoring and 
+	  graphing tool)  to keep track of the number of messages pending delivery and 
+	  the total number of queues.
 	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
@@ -471,19 +495,6 @@ decentralised microblogging</li>
 	   Talk to us on irc.freenode.net #rabbitmq (or see the <a href="http://dev.rabbitmq.com/irclog/">logs</a>)
 	   You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have 
 	   an IRC client installed.
-	</li>
-      </ul>
-      
-      <h3 id="cloud-configurations">Cloud Configurations</h3>
-      <ul>
-	<li><a href="http://railsdog.com/blog/2009/12/generating-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>     
-	Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
-	</li>
-	<li><a href="http://notes.variogr.am/post/67710296/replacing-amazon-sqs-with-something-faster-and-cheaper">Replacing Amazon SQS with something faster and cheaper</a><br/>         
-	Illustrates the use of RabbitMQ as a alternative to SQS for message queuing on AWS.
-	</li>
-	<li><a href="http://www.equivalence.co.uk/archives/1521">Idiot's Guide to Linux on Amazon EC2</a><br/>    
-	Walk through of how to set up Ubuntu for use with RabbitMQ on AWS.
 	</li>
       </ul>
 
