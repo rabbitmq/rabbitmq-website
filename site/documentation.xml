@@ -55,6 +55,9 @@
             <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">.NET Client API documentation</a>
           </li>
 	  <li>
+	    <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf" href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
+	  </li>
+	  <li>
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
 	</ul>
