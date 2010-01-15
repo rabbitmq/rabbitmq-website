@@ -603,6 +603,12 @@ This certificate CAN be used by Mono for Server validation
 	    into any of a number of Stores. All management of these stores is done
 	    with the 'certmgr' tool which is available on both Microsoft's
 	    .Net implementation and on Mono.</p>
+          <p>NB: On some flavours of Windows there are two versions of
+            the command - one that ships with the operating system and
+            provides a graphical interface only, and one that ships
+            with the .NET Framework Tools and provides both a
+            graphical and command line interface. Either will do the
+            job, but the examples below are based on the latter.</p>
 	    <p>For our case, because we're supplying the client certificate/key pair
 	    in a separate PKCS #12 file, all we need to do is to import the
 	    certificate of the root <i>Certificate Authority</i> into
@@ -622,12 +628,14 @@ This certificate CAN be used by Mono for Server validation
 	  machine wide. Only admin users can have write access to the machine
 	  wide stores.</p>
 	  <p>To add a certificate to the users Root (Windows) / Trust
-	  (Mono) store we do:</p>
+	  (Mono) store we run:</p>
 
 <pre class="sourcecode">
 (Windows) # certmgr -add -all \path\to\cacert.cer -s Root
 (Mono)    # certmgr -add -c Trust /path/to/cert.cer</pre>
-	  <p>Adding to the machine wide store needs the -m switch</p>
+
+	  <p>To add a certificate to the machine wide store instead we
+	  run</p>
 <pre class="sourcecode">
 (Windows) # certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 (Mono)    # certmgr -add -c -m Trust /path/to/cert.cer</pre>
