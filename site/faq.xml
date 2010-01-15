@@ -883,7 +883,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      <li>Java (<a href="api-guide.html">API guide proper</a> and 
 	      <a href="&dir-current-javadoc;">javadoc</a>), and</li>
 	      <li>.NET (<a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">API guide proper (PDF)</a> and 
-	      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">javadoc-like</a>)</li>
+	      <a href="&dir-current-dotnet-apidoc;/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
 	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to

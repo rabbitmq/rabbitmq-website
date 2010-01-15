@@ -714,9 +714,9 @@
             <dd>
               Queue arguments.
             </dd>
-            <dt>node</dt>
+            <dt>pid</dt>
             <dd>
-              Node on which the process associated with the queue resides.
+              Id of the Erlang process associated with the queue.
             </dd>
             <dt>messages_ready</dt>
             <dd>
@@ -839,9 +839,9 @@
             that follows:
           </p>
           <dl>
-            <dt>node</dt> 
+            <dt>pid</dt> 
             <dd>
-              Node on which the process associated with the connection resides.
+              Id of the Erlang process associated with the connection.
             </dd> 
             <dt>address</dt> 
             <dd>
@@ -883,6 +883,11 @@
             <dt>frame_max</dt> 
             <dd>
               Maximum frame size (bytes).
+            </dd> 
+            <dt>client_properties</dt> 
+            <dd>
+              Informational properties transmitted by the client
+              during connection establishment.
             </dd> 
             <dt>recv_oct</dt> 
             <dd>
@@ -975,6 +980,13 @@
             <li>
               Upon successful completion of the script, restart Rabbit. All installed plugins will be started
               automatically.
+            </li>
+            <li>
+              <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
+              When first activating, or deactivating, plugins, the 
+              <pre>rabbitmq-service.bat install</pre>
+              command will need to be re-run to ensure that the service configuration is updated to perform
+              an appropriate boot sequence.
             </li>
           </ul> 
         </doc:subsection>
