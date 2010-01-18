@@ -401,9 +401,9 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://nebula.nasa.gov/services">NASA's NEBULA Cloud Computing Platform</a><br />
 	  Overview of how NASA are using RabbitMQ in their Nebula SaaS platform. Please also see 
+	  <a href="http://www.theregister.co.uk/2010/01/16/nasa_nebula/">this interview with The Register</a> and 
 	  <a href="http://cloudseeding.googlegroups.com/web/NASA-%20Chris%20C.%20Kemp%20-%20OMG.pdf">these slides</a>
-	  from Chris C. Kemp, the CIO of NASA Ames Research Center, and the thought-leader behind 
-	  the NEBULA project.
+	  from Chris C. Kemp, the CIO of NASA Ames Research Center, and the thought-leader behind the NEBULA project.
 	</li>
 	<li>
 	  <a href="http://skillsmatter.com/podcast/erlang/mike-bridgen-application-of-rabbitmq">Application of RabbitMQ at the BBC</a><br />
