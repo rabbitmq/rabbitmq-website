@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>RabbitMQ - MacPorts</title>
+  <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"></link><link xmlns="http://www.w3.org/1999/xhtml" rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"></link><script xmlns="http://www.w3.org/1999/xhtml" src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+_uacct = "UA-1001800-1";
+urchinTracker();
+      </script>
+</head>
+  <body><div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer"><p class="strap">Messaging that just works</p><h1><a href="/"><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37"></img></a></h1><ul class="mainNav"><li><a href="/index.html">Home</a></li><li><a href="/download.html">Download</a></li><li><a href="/documentation.html">Documentation</a></li><li><a href="/how.html">Get Started</a></li><li><a href="/services.html">Services</a></li><li><a href="/community.html">Community</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/search.html">Search</a></li></ul><hr class="pad"></hr>
+    <div class="document">
+      <p xmlns="" class="intro">
+        This page describes how to install the RabbitMQ server under
+        Mac OS X using <a href="http://macports.org/">MacPorts</a>.
+      </p>
+
+      <p xmlns="">
+        MacPorts is an easy-to-use system for installing open-source
+        software onto Mac OS X computers.  The MacPorts community has
+        packaged thousands of projects as <em>ports</em>, including
+        the RabbitMQ server.  So once you have <a href="http://www.macports.org/install.php">installed
+        MacPorts</a>, installing the RabbitMQ server takes just a
+        single command:
+      </p>
+
+      <pre xmlns="" class="sourcecode">sudo port install rabbitmq</pre>
+
+      <p xmlns="">See the <a href="http://macports.org/">MacPorts website</a>
+      for more information about MacPorts.</p>
+    </div>
+
+    <div class="docSection"><a name="repo"></a>
+      <h2 class="docHeading">RabbitMQ latest release repository</h2>
+    
+      <p xmlns="">
+        When a new version of the RabbitMQ server is released, it can
+        take some time for the version included in the main collection
+        of MacPorts packages to be updated.  So we provide a
+        special-purpose MacPorts repository to give OS X users easy
+        access to the very latest release of the RabbitMQ server.
+      </p>
+
+      <p xmlns="">
+        Once you have installed MacPorts, to add our repository do the
+        following:
+      </p>
+
+      <ol xmlns="">
+        <li>Open <code>/opt/local/etc/macports/sources.conf</code> in
+        a text editor, and add the following <code>http:</code> URL
+        before the existing <code>rsync:</code> URL as follows:
+
+        <pre class="sourcecode">http://www.rabbitmq.com/releases/macports
+rsync://rsync.macports.org/release/ports/ [default]</pre>
+
+        <li>Use the <code>port sync</code> command to download the
+        indices from the newly-added repository:
+
+        <pre class="sourcecode">sudo port sync</pre>
+        
+        <li>If the rabbitmq repository has a newer version of the
+        RabbitMQ server than the main MacPorts one, this should now be
+        visible in the results of the <code>port search</code>
+        command, e.g.:
+
+        
+    
+
+  
+
+</li>
+</li>
+</li>
+</ol></div><div class="clear"></div><div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
+Technologies Ltd.</p></div></div></body>
+</html>
