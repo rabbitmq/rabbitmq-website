@@ -63,9 +63,17 @@
           bindings will also be built.
         </li>
         <li>
-          Open RabbitMQDotNetClient.sln in Visual Studio and build it.
-          As part of the build process, Visual Studio will also launch some
-          unit tests. To disable these, change the build configuration to
+          Open <code>RabbitMQDotNetClient.sln</code> in Visual
+          Studio. That may fail if the version of Visual Studio used
+          is different from the one that created the solution file. In
+          most such cases this can be corrected by opening the
+          solution file in a text editor and adjusting the Format
+          Version number at the beginning.
+        </li>
+        <li>
+          Build the solution. As part of the build process, Visual
+          Studio will also launch some unit tests. To disable these,
+          change the build configuration to
           <code>DebugNoTest</code>.
         </li>
       </ul>
@@ -96,26 +104,17 @@
      <doc:subsection name="building-on-linux">
       <doc:heading>On Linux</doc:heading>
       <p>
-        Currently it is only possible to build the library with
-        development snapshot versions of Mono.  We expect that
-        building with Mono 2.6 will work, when that version is
-        released.
+        The library can be built on Linux with Mono, but only with
+        Mono version 2.6 and later.  2.4.x versions, as included with
+        most current Linux distributions, are not sufficient.  You can
+        obtain the latest versions of Mono at <a
+        href="http://mono-project.com/">mono-project.com</a>
       </p>
 
       <p>
-        For information about how to retrieve the development trunk of
-        Mono and build it on Linux, please see <a
-        href="http://mono-project.com/Compiling_Mono_From_SVN">the
-        instructions on the Mono site</a>.  SVN revision 143408 has
-        been confirmed to work; use the <code>-r</code> option to
-        <code>svn</code> to specify the revision to obtain when
-        checking out Mono.
-      </p>
-
-      <p>
-        Once you have built and installed a suitable version of Mono,
-        and <a href="#obtaining">obtained the RabbitMQ .Net/C# AMQP
-        client library source code</a>, to build the library you need to:
+        Once you have installed a suitable version of Mono, and <a
+        href="#obtaining">obtained the RabbitMQ .Net/C# AMQP client
+        library source code</a>, to build the library you should:
       </p>
 
       <ul class="compact">

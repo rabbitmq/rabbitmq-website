@@ -14,7 +14,7 @@
 	This page summarises the available RabbitMQ documentation. 
       </p>
       <p>
-      See the '<a href="/how.html">How easy is it</a>' page for the latest presentations, blog posts and community links.
+      See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links.
       </p>
 
       <doc:section name="server">
@@ -46,14 +46,17 @@
 	    Guide</a>
 	  </li>
 	  <li>
-	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
+	    <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
           <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
+            <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
           </li>
           <li>
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
+            <a onClick="javascript: pageTracker._trackPageview('/&dir-current-dotnet-apidoc;/index.html');" href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
           </li>
+	  <li>
+	    <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf" href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
+	  </li>
 	  <li>
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
