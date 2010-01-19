@@ -254,6 +254,8 @@ Technologies Ltd.</p></div>
 
   <!-- ############################################################ -->
 
+<<<<<<< /home/majek/rabbitmq-website/site/page.xsl
+=======
   <xsl:template match="r:downloads[@signature='no']">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -271,12 +273,18 @@ Technologies Ltd.</p></div>
     </tr>
   </xsl:template>
 
+>>>>>>> /tmp/page.xsl~other.pnW1QC
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
-	<th class="onethird">&#160;</th>
+        <xsl:if test="@mirror = 'yes'">
+            <th class="mirror">&#160;</th>
+        </xsl:if>
+        <xsl:if test="@signature = 'yes'">
+            <th class="onethird">&#160;</th>
+        </xsl:if>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -285,8 +293,18 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
+<<<<<<< /home/majek/rabbitmq-website/site/page.xsl
+      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
+      <xsl:if test="../@mirror = 'yes'">
+          <td class="mirror"><a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a></td>
+      </xsl:if>
+      <xsl:if test="../@signature = 'yes'">
+          <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      </xsl:if>
+=======
       <td><a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
       <td class="signature"><a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+>>>>>>> /tmp/page.xsl~other.pnW1QC
     </tr>
   </xsl:template>
 

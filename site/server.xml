@@ -78,7 +78,7 @@
       variants can be found below the download table.
     </p>
 
-    <r:downloads>
+    <r:downloads mirror="yes" signature="yes">
       <r:download downloadfile="rabbitmq-server-&version-server;.zip"
                   downloadpath="&dir-server;">
 	Source code and tools (zip)
