@@ -99,6 +99,19 @@
 
       </doc:section>
 
+    <doc:section>
+      <doc:heading>Troubleshooting</doc:heading>
+
+      <p>
+        In the event that the erlang VM crashes whilst RabbitMQ is 
+        running as a service, rather than writing the crash dump to the 
+        current directory (which doesn't make sense for a service) it 
+        is written to an erl_crash.dump file in the base directory of the 
+        RabbitMQ server (set by the RABBITMQ_BASE environment variable, 
+        defaulting to %APPDATA%\RabbitMQ otherwise)
+      </p>
+    </doc:section>
+
     </doc:div>
   </body>
 </html>
