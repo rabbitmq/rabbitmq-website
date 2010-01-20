@@ -108,7 +108,7 @@
         current directory (which doesn't make sense for a service) it 
         is written to an <code>erl_crash.dump</code> file in the base directory of the 
         RabbitMQ server (set by the <b>RABBITMQ_BASE</b> environment variable, 
-        defaulting to <code>%APPDATA%\RabbitMQ</code> otherwise)
+        defaulting to <code>%APPDATA%\RabbitMQ</code> otherwise).
       </p>
     </doc:section>
 
