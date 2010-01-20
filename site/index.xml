@@ -21,7 +21,12 @@
       <feed src="news.atom" type="ournews" limit="5" />  
       
     <div class="">  
-	<h3>Latest Community Chatter</h3>
+	<h3>
+	<span class="subscribe"><a href="http://search.twitter.com/search.atom?q=rabbitmq">
+	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
+	</a>
+	</span>
+	Latest Community Chatter</h3>
 	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
     </div>
           
@@ -68,9 +73,14 @@
     </ul>
     
     <div class="">      
-	<h3>Latest Community Highlights</h3>
+	<h3>
+	<span class="subscribe"><a href="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq">
+	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to RabbitMQ news from Delicious" title="Subscribe to RabbitMQ news from Delicious" />
+	</a></span>
+	Latest Community Highlights
+	</h3>
 	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
-	<p><a class="more-links" href="/delicious.html">About del.icio.us </a></p>
+	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
     </div>
     
     

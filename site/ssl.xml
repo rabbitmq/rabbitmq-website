@@ -120,8 +120,8 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 	  <i>Certificate Authority</i> will use. Still within the <code class="">testca</code>
 	  directory:</p>
 	  <pre class="sourcecode">
-# openssl req -x509 -config openssl.cnf -newkey rsa:2048 -out \
-    cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
+# openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
+    -out cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
 # openssl x509 -in cacert.pem -out cacert.cer -outform DER</pre>
 	  <p>This is all that is needed to generate our test <i>Certificate
 	  Authority</i>. The <i>root</i> certificate is in <code class="">testca/cacert.pem</code>
@@ -610,13 +610,20 @@ This certificate CAN be used by Mono for Server validation
           <doc:heading>Trust .Net</doc:heading>
 	    <p>On the .NET platform, remote certificates are managed by putting them
 	    into any of a number of Stores. All management of these stores is done
-	    with the 'certmgr.exe' tool which is available on both Microsoft's
+	    with the 'certmgr' tool which is available on both Microsoft's
 	    .Net implementation and on Mono.</p>
+          <p>NB: On some flavours of Windows there are two versions of
+            the command - one that ships with the operating system and
+            provides a graphical interface only, and one that ships
+            with the .NET Framework Tools and provides both a
+            graphical and command line interface. Either will do the
+            job, but the examples below are based on the latter.</p>
 	    <p>For our case, because we're supplying the client certificate/key pair
 	    in a separate PKCS #12 file, all we need to do is to import the
-	    certificate of the root <i>Certificate Authority</i> into the <i>Trust</i>
+	    certificate of the root <i>Certificate Authority</i> into
+	    the <i>Root</i> (Windows) / <i>Trust</i> (Mono)
 
-	    store. All certificates signed by any certificate in the <i>Trust</i>
+	    store. All certificates signed by any certificate in that
 	    store are automatically trusted.
             </p>
             <p>
@@ -633,21 +640,27 @@ This certificate CAN be used by Mono for Server validation
         </doc:subsection>
 
         <doc:subsubsection name="certmgr">
-          <doc:heading>Certificate Management with Certmgr.exe</doc:heading>
-	  <p><code class="">certmgr.exe</code> allows us to Add, Delete, List and perform other
+          <doc:heading>Certificate Management with Certmgr</doc:heading>
+	  <p><code class="">certmgr</code> allows us to Add, Delete, List and perform other
 	  actions on a specified Store. These stores can be per-user stores, or
 	  machine wide. Only admin users can have write access to the machine
 	  wide stores.</p>
-	  <p>To add a certificate to the users Trust store we do:</p>
+	  <p>To add a certificate to the users Root (Windows) / Trust
+	  (Mono) store we run:</p>
 
 <pre class="sourcecode">
-# certmgr.exe -add -c Trust /path/to/cert.cer</pre>
-	  <p>Adding to the machine wide store needs the -m switch</p>
+(Windows) # certmgr -add -all \path\to\cacert.cer -s Root
+(Mono)    # certmgr -add -c Trust /path/to/cert.cer</pre>
+
+	  <p>To add a certificate to the machine wide store instead we
+	  run</p>
 <pre class="sourcecode">
-# certmgr.exe -add -c -m Trust /path/to/cert.cer</pre>
+(Windows) # certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
+(Mono)    # certmgr -add -c -m Trust /path/to/cert.cer</pre>
 	  <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
-# certmgr.exe -list -c Trust
+(Windows) # certmgr -all -s Root
+(Mono)    # certmgr -list -c Trust
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -664,7 +677,8 @@ Self-signed X.509 v3 Certificate
 	  trust store. The Unique Hash uniquely identifies this certificate in
 	  this store. To delete this certificate, use the unique hash:</p>
 <pre class="sourcecode">
-# certmgr.exe -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
+(Windows) # certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
+(Mono)    # certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -673,7 +687,7 @@ Copyright 2002, 2003 Motus Technologies. Copyright 2004-2008 Novell. BSD license
 Certificate removed from store.</pre>
 
 	  <p>With these simple steps we can go ahead and add/delete/list our root
-	  certificates to the client side Trust store.</p>
+	  certificates to the client side store.</p>
         </doc:subsubsection>		
 
 

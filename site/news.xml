@@ -6,15 +6,51 @@
   </head>
   <body>
     <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
-    <p>Also keep an eye on the <a href="/how.html">community page</a>, which is constantly updated with links to relevant community tools and documentation.</p>
+    <p>Also keep an eye on the <a href="/how.html">Get Started</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
     <doc:feed>
       <!-- Please give news items a doc:date/@iso.  It is used in the
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->     
+      -->    
+      <doc:item>
+	<doc:date iso="2010-01-05T00:00:00Z">05 January 2010</doc:date>
+	<doc:title>
+	  RabbitMQ Wins 2009 Cloudies Award for Best Cloud Application Provider
+	</doc:title>
+
+	<doc:link>http://www.johnmwillis.com/other/the-2009-cloudies-awards/</doc:link>
+
+	<doc:text>
+	<p>RabbitMQ was listed as one of the <strong>Best Cloud Application Providers</strong> in John M Willis
+	second annual 'Cloudies' awards. John has worked in the IT management industry for 30 years and is 
+	known internationally for his <a href="http://www.johnmwillis.com">IT Management and Cloud blog</a>.
+	</p>
+
+	</doc:text>
+      </doc:item>
       
-<doc:item>
+      <doc:item>
+	<doc:date iso="2009-12-07T00:00:00Z">07 December 2009</doc:date>
+	<doc:title>
+   RabbitMQ is now in Fedora and EPEL
+	</doc:title>
+
+	<doc:link>https://admin.fedoraproject.org/updates/rabbitmq-server</doc:link>
+
+	<doc:text>
+	<p>RabbitMQ 1.7.0 is now in Fedora 10, 11, and 12, and EPEL. So, for all Fedora users RabbitMQ is now just a
+	<code>yum install rabbitmq-server</code> away!
+	</p>
+
+	<p>For the full package details see <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">the Fedora Project website</a>.</p>
+
+	</doc:text>
+      </doc:item>
+      
+      
+      
+      <doc:item>
 	<doc:date iso="2009-10-08T00:00:00Z">08 October 2009</doc:date>
 	<doc:title>
    Rabbit Technologies and Canonical announce teaming agreement
