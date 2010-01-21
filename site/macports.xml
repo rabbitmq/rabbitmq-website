@@ -1,0 +1,85 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - MacPorts</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+        This page describes how to install the RabbitMQ server under
+        Mac OS X using <a href="http://macports.org/">MacPorts</a>.
+      </p>
+
+      <p>
+        MacPorts is an easy-to-use system for installing open-source
+        software onto Mac OS X computers.  The MacPorts community has
+        packaged thousands of projects as <em>ports</em>, including
+        the RabbitMQ server.  So once you have <a
+        href="http://www.macports.org/install.php">installed
+        MacPorts</a>, installing the RabbitMQ server takes just a
+        single command:
+      </p>
+      
+      <pre class="sourcecode">sudo port install rabbitmq-server</pre>
+      
+      <p>See the <a href="http://macports.org/">MacPorts website</a>
+      for more information about MacPorts.</p>
+    </doc:div>
+    
+    <doc:section name="repo">
+      <doc:heading>
+        Using the rabbitmq.com ports repository to install the latest
+        server release
+      </doc:heading>
+      
+      <p>
+        When a new version of the RabbitMQ server is released, it can
+        take some time for the version included in the main collection
+        of MacPorts packages to be updated.  So we provide a
+        special-purpose MacPorts repository to give OS X users easy
+        access to the very latest release of the RabbitMQ server.
+      </p>
+      
+      <p>
+        Once you have installed MacPorts, enable the rabbitmq.com
+        repository as follows:
+      </p>
+      
+      <ol>
+        <li>Open <code>/opt/local/etc/macports/sources.conf</code>
+        in a text editor, and add the following <code>http:</code> URL
+        before the existing <code>rsync:</code> URL like so:
+        
+        <pre class="sourcecode">http://www.rabbitmq.com/releases/macports
+rsync://rsync.macports.org/release/ports/ [default]</pre>
+
+        <li>Use the following command to cause MacPorts to retrieve
+        the package indices from the newly-added repository:
+
+        <pre class="sourcecode">sudo port sync</pre>
+        
+        <li>If the rabbitmq.com repository has a newer version of
+        the RabbitMQ server than the main MacPorts one, this should
+        now be visible when in the results of the <code>port
+        search</code> command:
+
+        <pre class="sourcecode">sudo port search rabbitmq-server</pre>
+
+        <p>Which, for example, might produce:</p>
+
+        <pre class="sourcecode">rabbitmq-server @1.7.0 (net)
+    The RabbitMQ AMQP Server
+
+rabbitmq-server @1.7.1 (net)
+    The RabbitMQ AMQP Server
+
+Found 2 ports.</pre>
+
+        <li>You can now install the latest release of
+        <code>rabbitmq-server</code> with the command:
+       
+        <pre class="sourcecode">sudo port install rabbitmq-server</pre>
+      </ol>
+    </doc:section>
+  </body>
+</html>
