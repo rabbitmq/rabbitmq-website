@@ -214,6 +214,13 @@
       FAQ</a>. Then just <code>yum install erlang</code>.
     </p>
 
+    <h4>Mac OS X</h4>
+
+    <p>
+      The easiest way to install the server on OS X is <a
+      href="macports.html">via MacPorts</a>.
+    </p>
+
     <h4>Generic Unix</h4>
 
     <p>
