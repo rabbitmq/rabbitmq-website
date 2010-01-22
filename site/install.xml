@@ -516,49 +516,20 @@
         </p>
 	<p>
           The officially released MacPorts packaging may not always
-          contain the lastest released version of RabbitMQ.
+          contain the lastest released version of RabbitMQ.  If you
+          wish to install the latest version via MacPorts, we maintain
+          <a href="macports.html">a dedicated MacPorts repository for
+          this purpose</a>.
         </p>
-        <p>
-          If you wish to track the packaging from our development
-          repository, you can use the portfile from the <a
-          href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
-          directory in the <code>rabbitmq-server</code> mercurial
-          repository.
-	</p>
 
 	<doc:subsection name="install-macports">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <p>
-	    If you want to use the version distributed with MacPorts,
-	    installation is as simple as (<code>sudo port sync</code>
-	    followed by)
+	    Installation of the version of the RabbitMQ server
+	    distributed with MacPorts is as simple as (<code>sudo port
+	    sync</code> followed by)
 	  </p>
 	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
-	  <p>
-	    If, instead, you want to use the portfile from our
-	    source-code repository, follow these steps:
-	  </p>
-	  <ol>
-
-	    <li><a
-	    href="http://guide.macports.org/#development.local-repositories">Set
-	    up a local MacPorts repository</a>.</li>
-
-	    <li>Retrieve and extract the <a
-	    href="http://hg.rabbitmq.com/rabbitmq-server/archive/default.zip">latest
-	    stable rabbitmq-server snapshot</a>.</li>
-
-	    <li>Move the contents of the directory
-	    <code>rabbitmq-server-default/packaging/macports/</code>
-	    into the root of your local MacPorts repository.</li>
-
-	    <li>Run <code>portindex</code> in the root of your local
-	    MacPorts repository.</li>
-
-	    <li>Finally, run <code>sudo port install
-	    rabbitmq-server</code>.</li>
-
-	  </ol>
 	</doc:subsection>
 	<doc:subsection name="running-macports">
 	  <doc:heading>Running the Server</doc:heading>
