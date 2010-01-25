@@ -254,29 +254,17 @@ Technologies Ltd.</p></div>
 
   <!-- ############################################################ -->
 
-  <xsl:template match="r:downloads[@signature='no']">
-    <table class="downloads" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-	<th class="desc">Description</th>
-	<th>Download </th>
-      </tr>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
-  <xsl:template match="r:downloads[@signature='no']/r:download">
-    <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a class="adownload" onClick="javascript: pageTracker._trackPageview('/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-    </tr>
-  </xsl:template>
-
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
-	<th class="onethird">&#160;</th>
+        <xsl:if test="@mirror = 'yes'">
+            <th class="mirror">&#160;</th>
+        </xsl:if>
+        <xsl:if test="@signature = 'yes'">
+            <th class="onethird">&#160;</th>
+        </xsl:if>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -285,8 +273,20 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-      <td class="signature"><a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      <td>
+        <a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+      </td>
+      <xsl:if test="../@mirror = 'yes'">
+          <td class="mirror">
+              <a onClick="javascript: pageTracker._trackPageview('http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}');"
+                href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
+          </td>
+      </xsl:if>
+      <xsl:if test="../@signature = 'yes'">
+         <td class="signature">
+            <a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+         </td>
+      </xsl:if>
     </tr>
   </xsl:template>
 
