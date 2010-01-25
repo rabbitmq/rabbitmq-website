@@ -337,6 +337,11 @@ decentralised microblogging</li>
 	  about connections and queues.
 	</li>
 	<li>
+	  <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">Rabbitmq SNMP Plugin</a><br />
+	  An experimental RabbitMQ plugin to provide SNMP statistics, developed
+	  by Scott Brooks.
+	</li>
+	<li>
 	  <a href="http://blog.dossot.net/2010/01/monitoring-rabbitmq-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
 	  A simple example of how to configure Zabbix (an open source monitoring and 
 	  graphing tool)  to keep track of the number of messages pending delivery and 
@@ -364,7 +369,7 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-howsection3');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
-	  Whether or not you use .NET or not, section 3 of this guide describes ways
+	  Whether or not you use .NET, section 3 of this guide describes ways
 	  of working with AMQP and a number common messaging patterns and
 	  interaction styles.
 	</li>
