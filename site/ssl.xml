@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - SSL</title>
@@ -586,7 +591,7 @@ This certificate CAN be used by Mono for Server validation
 	
         <doc:subsection name="who">
           <doc:heading>Who do you say you are?</doc:heading>
-	    <p>On the .NET platform in general, the <em class="">hostname</em> of the server
+	    <p>On the .NET platform, by default the <em class="">hostname</em> of the server
 	    you're connecting to needs to match the <em class="">CN (Common Name)</em> field on
 	    the server's certificate, otherwise the certificate will be
 	    rejected. This is why the commands at the start of this guide specify
@@ -595,6 +600,10 @@ This certificate CAN be used by Mono for Server validation
 	    hostname. If you're generating certificates on one machine, and using
 	    them on the other then be sure to swap out the <code class="">$(hostname)</code>
 	    section, and replace it with the correct hostname for your server.</p>
+            <p>To suppress the match check, an application can set
+            the <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
+            flag in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>.
+            </p>
         </doc:subsection>
 
         <doc:subsection name="trust-dotNET">
@@ -615,11 +624,20 @@ This certificate CAN be used by Mono for Server validation
 	    the <i>Root</i> (Windows) / <i>Trust</i> (Mono)
 
 	    store. All certificates signed by any certificate in that
-	    store are automatically trusted. Note that this is in
-	    contrast to the Java client which is happy to use an SSL
-	    connection without verifying the server's certificate.</p>
+	    store are automatically trusted.
+            </p>
+            <p>
+              In contrast to the Java client, which is happy to use an
+              SSL connection without verifying the server's
+              certificate, the .NET client by default requires this
+              verification to succeed. To suppress verification, an
+              application can set
+              the <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
+              and <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
+              flags
+              in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>.
+            </p>
         </doc:subsection>
-
 
         <doc:subsubsection name="certmgr">
           <doc:heading>Certificate Management with Certmgr</doc:heading>

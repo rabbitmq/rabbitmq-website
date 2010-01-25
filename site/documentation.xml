@@ -52,7 +52,7 @@
             <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
           </li>
           <li>
-            <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html/index.html">.NET Client API documentation</a>
+            <a onClick="javascript: pageTracker._trackPageview('&dir-current-dotnet-apidoc;/index.html');" href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
           </li>
 	  <li>
 	    <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf" href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
