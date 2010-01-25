@@ -14,6 +14,49 @@
 	   will give you a suitable value.
       -->    
       <doc:item>
+	<doc:date iso="2010-01-25T00:00:00Z">25 January 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 1.7.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html</doc:link>
+	
+	<doc:text>
+	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.7.1.</p>
+
+	  <p>This release fixes a number of bugs specific to Windows, several
+	  problems in the ssl support and plug-in system, some race conditions
+	  and corner cases in the AMQP protocol and connection lifecycle
+	  handling, breakages in Debian and RPM package removal, as well as some
+	  minor bugs in rabbitmqctl.</p>
+
+	  <p>There are also some noteworthy enhancements, such as the support for
+	  complete short node names in all the startup and control scripts
+	  (making it easier to install RabbitMQ on systems with changing host
+	  names), improved memory monitoring and producer throttling, an
+	  extension of the AMQP codec with array types, better support for
+	  MacPorts, and improved performance and error reporting in the Java and
+	  .Net clients.</p>
+
+	  <p>For details see 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html">the release notes</a>.</p>
+
+	  <p>Binary and source distributions of the new release can be found in the 
+	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+
+	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
+	  this latest release.</p>
+
+	  <p>As always, we welcome any questions, bug reports, and other feedback
+	  on this release, as well as general suggestions for features and
+	  enhancements in future releases. Mail us via the RabbitMQ discussion
+	  list at <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
+	  or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
+
+	</doc:text>
+      </doc:item>
+      
+      <doc:item>
 	<doc:date iso="2010-01-05T00:00:00Z">05 January 2010</doc:date>
 	<doc:title>
 	  RabbitMQ Wins 2009 Cloudies Award for Best Cloud Application Provider
