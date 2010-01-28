@@ -612,7 +612,8 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
            <doc:heading>Security Examples</doc:heading>
            <p>
              This section provides examples on various configuration scenarios that can be setup for securing broker access. All examples
-             assume that your broker starts in the initial state of having a single vhost, and admin/password as a "superuser".
+             assume that your broker starts in the initial state of having a single vhost, and admin/password as a "superuser". On a default
+             installation of Rabbit, the superuser would be guest/guest.
            </p>
            <ul>
              <li>
@@ -714,6 +715,10 @@ $</pre>
                 {amqp_error,access_refused,
                             "access to vhost '/' refused for user 'foo3'",
                             'connection.open'}}</pre>
+
+               Note that the difference between this scenario and the previous is the lack of write
+               access to 'amq.default' in the '/' vhost. Enabling this would subsequently allow the
+               user to use BQL.
              </li>
            </ul>
         </doc:subsection>
