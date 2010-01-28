@@ -550,14 +550,14 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
       <doc:section name="securing-bql">
         <doc:heading>Securing BQL Access</doc:heading>
         
-        <doc:subsection name="bql-security-principals">
-          <doc:heading>Security Principals</doc:heading>
+        <doc:subsection name="bql-security-principles">
+          <doc:heading>Security Principles</doc:heading>
           <p>
             In general, BQL follows the general Rabbit security model. This includes managing access to queues and exchanges
             via regular expressions (as discussed in the <a href="/admin-guide.html#access-control">access control</a> documentation).
             However, given the ability for BQL to administer objects outside of the normal protocol remotely, there are a number of
-            additional security concerns that need to be considered. BQL introduces a number of additional security rules, discussed in
-            the next section.
+            additional security concerns that need to be considered. BQL introduces a number of additional security rules - these are
+            discussed in detail in the following section.
           </p>
         </doc:subsection>
         <doc:subsection name="bql-security-rules">
@@ -568,17 +568,42 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
               to this exchange will prevent them from executing BQL queries.
             </li>
             <li>
-              For any query operations on normal protocol objects (queues, exchanges, bindings), the connected user must have wildcard (.*)
+              Objects managed by BQL are separated into two categories. Protocol-manageable objects and non-protocol-manageable objects.
+              As RabbitMQ already has a defined security model for objects that can be managed via the protocol, the BQL console simply
+              follows standard security policy on these. For other objects that normally require tools outside of the AMQP protocol,
+              additional rules have been defined. The categorisation of these object types is as follows:
+              <table>
+                <th>Protocol Manageable Objects</th>
+                <th>Non-Protocol Manageable Objects</th>
+                <tr>
+                  <td>Exchange</td>
+                  <td>VHost</td>
+                </tr>
+                <tr>
+                  <td>Queue</td>
+                  <td>User</td>
+                </tr>
+                <tr>
+                  <td>Binding</td>
+                  <td>Permission</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Connection</td>
+                </tr>
+              </table>
+            </li>
+            <li>
+              For any query operations on protocol manageable objects, the connected user must have wildcard (.*)
               read privileges on the owning vhost. The BQL client does not attempt to filter results, and instead provides an all-or-nothing
               restriction model.
             </li>
             <li>
-              For non-protocol objects, BQL introduces the idea of treating the default vhost (/) as an administrative vhost. Privileges
-              to access internal broker objects (users, privileges, vhosts, connections and so on) are controlled via access to the administrative
-              vhost.
+              For non protocol manageable objects, BQL introduces the idea of treating the default vhost (/) as an administrative vhost. Privileges
+              to access internal broker objects are controlled via access to the administrative vhost.
             </li>
             <li>
-              For any query operations on non-protocol broker objects, wildcard read access is required on the administrative vhost. To update
+              For any query operations on non protocol manageable objects, wildcard read access is required on the administrative vhost. To update
               any of these objects, wildcard configure access is required on the administrative vhost.
             </li>
           </ul>
@@ -586,13 +611,13 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
         <doc:subsection name="bql-security-examples">
            <doc:heading>Security Examples</doc:heading>
            <p>
-             This section aims to provide examples on various configuration scenarios that can be setup for securing broker access. All examples
-             assume that your broker starts in the initial state of having a single vhost, and guest/guest as a "superuser".
+             This section provides examples on various configuration scenarios that can be setup for securing broker access. All examples
+             assume that your broker starts in the initial state of having a single vhost, and admin/password as a "superuser".
            </p>
            <ul>
              <li>
                <b>Additional user with readonly access to the broker</b>
-               <pre class="sourcecode">$ ./bql
+               <pre class="sourcecode">$ ./bql -username admin -password password
 BQL> create user foo identified by fooword
 ok
 BQL> grant read on '.*' to foo
@@ -620,7 +645,7 @@ BQL> exit</pre>
              </li>
              <li>
                <b>Additional user with full BQL access only to a second vhost</b>
-               <pre class="sourcecode">$ ./bql
+               <pre class="sourcecode">$ ./bql -username admin -password password
 BQL> create user foo2 identified by fooword2
 ok
 BQL> grant write on 'amq.default' to foo2
@@ -629,7 +654,7 @@ BQL> create vhost '/subhost'
 ok
 BQL> exit
 
-$ ./bql -vhost /subhost
+$ ./bql  -username admin -password password -vhost /subhost
 BQL> grant all on '.*' to foo2
 ok
 BQL> exit
@@ -663,14 +688,14 @@ ok</pre>
              </li>
              <li>
                <b>Additional user with access only to second vhost and no BQL access</b>
-               <pre class="sourcecode">$ ./bql
+               <pre class="sourcecode">$ ./bql -username admin -password password
 BQL> create user foo3 identified by fooword3
 ok
 BQL> create vhost '/subhost2'
 ok
 BQL> exit
 
-$ ./bql -vhost /subhost2
+$ ./bql  -username admin -password password -vhost /subhost2
 BQL> grant all on '.*' to foo3
 ok
 BQL> exit
