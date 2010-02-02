@@ -146,25 +146,32 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
           clients to attempt to store so many messages within the
           server that it outgrew the available memory. With the
           current release, the RabbitMQ server detects the total
-          amount of RAM installed in the computer on startup. By default,
-          when the RabbitMQ server uses above 40% of the available memory,
-          it throttles publishers with the <code>channel.flow</code>
-          AMQP command.
+          amount of RAM installed in the computer on startup. By
+          default, when the RabbitMQ server uses above 40% of the
+          installed RAM, it throttles publishers with the
+          <code>channel.flow</code> AMQP command.
         </p>
 
         <p>
-          The default memory threshold is set to 40% of available
-          memory. Note that this does not prevent the RabbitMQ server
-          from using more RAM, it is merely the point at which
+          The default memory threshold is set to 40% of installed
+          RAM. Note that this does not prevent the RabbitMQ server
+          from using more than 40%, it is merely the point at which
           publishers are throttled. Erlang's garbage collector can, in
           the worst case, cause double the amount of memory to be used
           (by default, 80% of RAM), and non-compliant AMQP clients can
           cause the RabbitMQ server to use more still. It is strongly
-          recommended that OS swap or page files are enabled. 32-bit
-          architectures impose a per process memory limit of 2GB (for most
-          flavours of Windows) or 4GB (for other platforms), and
-          common implementations of 64-bit architectures permit only
-          a paltry 256TB per process.
+          recommended that OS swap or page files are enabled.
+        </p>
+
+        <p>
+          32-bit architectures impose a per process memory limit of
+          4GB, though under Windows, this is frequently further
+          reduced to 2GB. Common implementations of 64-bit
+          architectures (i.e. AMD64 and Intel EM64T) permit only a
+          paltry 256TB per process. 64-bit Windows again further
+          limits this to 8TB. However, note that even under 64-bit
+          Windows, a 32-bit process frequently only has a maximum
+          address space of 2GB.
         </p>
 
         <doc:subsection>
@@ -172,21 +179,31 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
 
           <p>
             The memory threshold at which the flow control is
-            triggered can be adjusted by editing the <code><a href="install.html#configfile">rabbitmq.config</a></code>
-            file (in the appropriate location for your platform, as discussed in
-            the <a href="install.html#configfile">installation guide</a>). The example
-            below sets the threshold to the default value of 0.4: 
+            triggered can be adjusted by editing the <code><a
+            href="install.html#configfile">rabbitmq.config</a></code>
+            file (in the appropriate location for your platform, as
+            discussed in the <a
+            href="install.html#configfile">installation
+            guide</a>). The example below sets the threshold to the
+            default value of 0.4:
             <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
           </p>
-          
+
           <p>
-            The default value of 0.4 stands for 40% of RAM detected in
-            your system or 40% of available virtual address space, whichever is
-            smaller. A value of 0 disables the memory monitor and
-            <code>channel.flow</code>.
+            The default value of 0.4 stands for 40% of installed RAM
+            or 40% of available virtual address space, whichever is
+            smaller. <!-- E.g. on a 32-bit Windows platform, if you have
+            4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
+            Windows normally limits processes to 2GB, so the threshold
+            is actually to 40% of 2GB (which is 820MB). -->
           </p>
-          
-          <p> 
+
+          <p>
+            A value of 0 disables the memory monitor and throttling of
+            producers via <code>channel.flow</code>.
+          </p>
+
+          <p>
             The memory limit is appended to the
             <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
             starts:
@@ -196,50 +213,47 @@ Memory limit set to 2048MB.</pre>
           </p>
 
           <p>
-            If the RabbitMQ server is unable to recognise your system, or if
-            you're using Windows, it will append a warning to
-            the <b>RABBITMQ_NODENAME</b>.log file. It also then
-            assumes than 1GB of RAM is installed:
+            Because of a bug in Erlang's detection of the amount of
+            memory installed on Windows platforms, RabbitMQ does not
+            attempt to automatically set a threshold when running on
+            Windows. Instead, it behaves as if it's unable to
+            recognise the platform: see below.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection>
+          <doc:heading>Unrecognised platforms and Windows</doc:heading>
+          <p>
+            If the RabbitMQ server is unable to recognise your system,
+            or if you're using Windows, it will append a warning to
+            the <b>RABBITMQ_NODENAME</b>.log file. It then assumes
+            than 1GB of RAM is installed:
             <pre class="sourcecode">
 =WARNING REPORT==== 29-Oct-2009::17:23:44 ===
 Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
+          </p>
 
+          <p>
             In this case, the <code>vm_memory_high_watermark</code>
             configuration value is used to scale the assumed 1GB
-            RAM. With the default value of <code>vm_memory_high_watermark</code>
-            set to 0.4, RabbitMQ on unknown platforms will trigger
-            the memory alarm when it's using more than 410MB RAM.
-            Thus in a case when RabbitMQ can't recognize your memory size,
-            if you actually have 8GB RAM
-            installed and you want to invoke <code>channel.flow</code>
-            when the RabbitMQ server is using above 3GB,
-            set <code>vm_memory_high_watermark</code> threshold to 3.
+            RAM. With the default value of
+            <code>vm_memory_high_watermark</code> set to 0.4,
+            RabbitMQ's memory threshold is set to 410MB, thus it will
+            throttle producers whenever RabbitMQ is using more than
+            410MB memory. Thus when RabbitMQ can't recognize your
+            platform, if you actually have 8GB RAM installed and you
+            want to invoke <code>channel.flow</code> to throttle
+            producers when the RabbitMQ server is using above 3GB, set
+            <code>vm_memory_high_watermark</code> to 3.
           </p>
+
           <p>
+            It is advised you do not set the threshold above 50% of
+            your installed RAM, and to note that under Windows, it is
+            commonly the case that a maximum of 2GB memory is
+            available to RabbitMQ.
           </p>
         </doc:subsection>
-        <doc:subsection>
-          <doc:heading>Usage on Windows</doc:heading>
-          <p>
-            RabbitMQ is not able to detect the size of system memory on 
-            Windows. That said, by default RabbitMQ will assume that you have
-            1GB of RAM, and with the default value of <code>vm_memory_high_watermark</code>
-            threshold set to 0.4, RabbitMQ will trigger the memory alarm when
-            it's using more than 410MB RAM.
-          </p>
-          <p>
-            To set the memory limit to reflect your
-            system memory tweak the <code>vm_memory_high_watermark</code>
-            threshold.
-          </p>
-          <p>
-            Remember, on 32 bit systems the virtual address space is limited to
-            2 GB on most flavours of Windows. Setting the memory limit to
-            more than half of that is very dangerous and could lead to
-            RabbitMQ crashes. Keeping that in mind, on 32 bit Windows keep the
-            memory limit below 1 GB.
-          </p>
-	</doc:subsection>
       </doc:section>
 
     </doc:div>
