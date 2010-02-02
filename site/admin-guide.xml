@@ -967,7 +967,7 @@ pid, user, transactional, consumer_count, and messages_unacknowledged
             </dd>
             <dt>messages_unacknowledged</dt>
             <dd>
-              Number of messages delivered to via this channel but not
+              Number of messages delivered via this channel but not
               yet acknowledged.
             </dd>
             <dt>prefetch_count</dt>
