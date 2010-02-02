@@ -918,6 +918,18 @@
               connection.
             </p>
         </doc:subsection>
+        <doc:subsection name="list_consumers">
+          <doc:heading>Listing consumers</doc:heading>
+          <pre class="sourcecode">rabbitmqctl list_consumers</pre>
+          <p>
+            List consumers, i.e. subscriptions to a queue's message
+            stream. Each line printed shows, separated by tab
+            characters, the id of the channel process via which the
+            subscription was created and is managed, the consumer tag
+            which uniquely identifies the subscription within a
+            channel, and the name of the queue subscribed to.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="plugins">
