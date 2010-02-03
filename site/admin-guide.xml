@@ -948,6 +948,11 @@ pid, user, transactional, consumer_count, and messages_unacknowledged
               Id of the Erlang process associated with the connection
               to which the channel belongs.
             </dd>
+            <dt>number</dt>
+            <dd>
+              The number of the channel, which uniquely identifies it within 
+              a connection.
+            </dd>
             <dt>user</dt>
             <dd>
               Username associated with the channel.
