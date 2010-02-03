@@ -233,7 +233,9 @@
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>        
 	  </ul>
 	</li>
-	
+	<li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a><br />
+	A port of RabbitMQ to the OpenVMS operating system.
+	</li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a>.  See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in
 decentralised microblogging</li>
@@ -529,6 +531,12 @@ decentralised microblogging</li>
 	  <a href="http://www.datamonitor.com/store/News/the_potential_for_amqp_in_financial_services?productid=BB29541A-C9F6-4B24-A673-578F3737EDEB">The potential for AMQP in financial services</a><br />
 	  Datamonitor talk about the five user patterns for AMQP messaging and
 	  how they might be applied in financial services.
+	</li>
+	<li>
+	  <a href="http://streambase.typepad.com/streambase_stream_process/2010/01/prediction-6-new-cep-stack.html">AMQP will play a crucial role in the future of complex event processing</a><br />
+	  Mark Palmer, CEO of StreamBase, predicts that interoperability between AMQP-enabled 
+	  systems - particularly RabbitMQ - will play a major role in the evolution of
+	  innovative event-based processing stacks.
 	</li>
 	<li>
 	  <a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">You Might Need Messaging If...</a><br />
