@@ -932,9 +932,9 @@
             indicate which channel information items to include in the
             results. The column order in the results will match the
             order of the parameters. If
-            no <code>channelinfoitem</code>s are specified then
-pid, user, transactional, consumer_count, and messages_unacknowledged
-            are assumed.
+            no <code>channelinfoitem</code>s are specified then pid,
+            user, transactional, consumer_count, and
+            messages_unacknowledged are assumed.
             <code>channelinfoitem</code> can take any value from the list
             that follows:
           </p>
