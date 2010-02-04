@@ -975,6 +975,11 @@
               Number of messages delivered via this channel but not
               yet acknowledged.
             </dd>
+            <dt>acks_uncommitted</dt>
+            <dd>
+              Number of acknowledgements received in an as yet
+              uncommitted transaction.
+            </dd>
             <dt>prefetch_count</dt>
             <dd>
               QoS prefetch count limit in force, 0 if unlimited.
