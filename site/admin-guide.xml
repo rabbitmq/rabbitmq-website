@@ -318,6 +318,39 @@
           </p>
         </doc:subsection>
 
+        <doc:subsection name="close_connection">
+          <doc:heading>Closing individual connections</doc:heading>
+          <pre class="sourcecode">rabbitmqctl close_connection <i>connectionpid</i> <i>explanation</i></pre>
+          <dl>
+            <dt>connectionpid</dt>
+            <dd>
+              Id of the Erlang process associated with the connection
+              to close.
+            </dd>
+            <dt>explanation</dt>
+            <dd>
+              Explanation string.
+            </dd>
+          </dl>
+          <p>
+            Instruct the broker to close the connection associated
+            with the Erlang process id <i>connectionpid</i> (see also the
+            <a href="#list_connections"><code>list_connections</code></a>
+            command), passing the <i>explanation</i> string to the
+            connected client as part of the AMQP connection shutdown
+            protocol.
+          </p>
+          <p>
+            Example:
+          </p>
+          <pre>rabbitmqctl close_connection "&lt;'rabbit@tanto'.4262.0&gt;" "go away"</pre>
+          <p>
+            This command instructs the RabbitMQ broker to close the
+            connection associated with the Erlang process
+            id <code>&lt;'rabbit@tanto'.4262.0&gt;</code>, passing the
+            explanation <code>go away</code> to the connected client.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="user-management">
