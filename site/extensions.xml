@@ -192,10 +192,10 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
           <p>
             The default value of 0.4 stands for 40% of installed RAM
             or 40% of available virtual address space, whichever is
-            smaller. <!-- E.g. on a 32-bit Windows platform, if you have
+            smaller. E.g. on a 32-bit Windows platform, if you have
             4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
             Windows normally limits processes to 2GB, so the threshold
-            is actually to 40% of 2GB (which is 820MB). -->
+            is actually to 40% of 2GB (which is 820MB).
           </p>
 
           <p>
