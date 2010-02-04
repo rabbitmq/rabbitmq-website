@@ -677,7 +677,8 @@
         <p>
           The server status queries interrogate the server and return a list of
           results with tab-delimited columns. Some queries (<code>list_queues</code>,
-          <code>list_exchanges</code> and <code>list_bindings</code>) accept an
+          <code>list_exchanges</code>, <code>list_bindings</code>, and
+          <code>list_consumers</code>) accept an
           optional <code>vhost</code> parameter. This parameter, if present,  must be 
           specified immediately after the query. 
         </p>
@@ -924,10 +925,12 @@
           <p>
             List consumers, i.e. subscriptions to a queue's message
             stream. Each line printed shows, separated by tab
-            characters, the id of the channel process via which the
-            subscription was created and is managed, the consumer tag
-            which uniquely identifies the subscription within a
-            channel, and the name of the queue subscribed to.
+            characters, the name of the queue subscribed to, the id of
+            the channel process via which the subscription was created
+            and is managed, the consumer tag which uniquely identifies
+            the subscription within a channel, and a boolean
+            indicating whether acknowledgements are expected for
+            messages delivered to this consumer.
           </p>
         </doc:subsection>
       </doc:section>
