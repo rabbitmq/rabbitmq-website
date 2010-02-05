@@ -37,9 +37,9 @@
 	  <ul>
 	    <li>
 	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R12B-5 on
+	      should work, but we are developing against Erlang R13B03 on
 	      Windows, which can be downloaded from <a
-	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
+	      href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>
 	    </li>
 	    <li>
 	      Download
