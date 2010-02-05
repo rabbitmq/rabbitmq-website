@@ -343,11 +343,11 @@
           <p>
             Example:
           </p>
-          <pre>rabbitmqctl close_connection "&lt;'rabbit@tanto'.4262.0&gt;" "go away"</pre>
+          <pre>rabbitmqctl close_connection "&lt;rabbit@tanto.4262.0&gt;" "go away"</pre>
           <p>
             This command instructs the RabbitMQ broker to close the
             connection associated with the Erlang process
-            id <code>&lt;'rabbit@tanto'.4262.0&gt;</code>, passing the
+            id <code>&lt;rabbit@tanto.4262.0&gt;</code>, passing the
             explanation <code>go away</code> to the connected client.
           </p>
         </doc:subsection>
