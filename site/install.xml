@@ -57,7 +57,7 @@
 	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.6.5</code>).
+	      (e.g. <code>C:\Program Files\erl5.7.4</code>).
 	      
 	    </li>
 	    <li>
@@ -73,7 +73,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.6.5</code>.
+		  <code>C:\Program Files\erl5.7.4</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -214,7 +214,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.6.5\erts-5.6.5\bin</code>. The given path
+                    <code>C:\Program Files\erl5.7.4\erts-5.7.4\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
