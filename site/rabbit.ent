@@ -13,3 +13,6 @@
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
+
+<!ENTITY dir-erlang-windows "C:\Program Files\erl5.7.4">
+<!ENTITY dir-server-windows "C:\Program Files\RabbitMQ">
