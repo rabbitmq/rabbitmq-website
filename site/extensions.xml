@@ -192,10 +192,10 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
           <p>
             The default value of 0.4 stands for 40% of installed RAM
             or 40% of available virtual address space, whichever is
-            smaller. <!-- E.g. on a 32-bit Windows platform, if you have
+            smaller. E.g. on a 32-bit Windows platform, if you have
             4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
             Windows normally limits processes to 2GB, so the threshold
-            is actually to 40% of 2GB (which is 820MB). -->
+            is actually to 40% of 2GB (which is 820MB).
           </p>
 
           <p>
@@ -213,21 +213,24 @@ Memory limit set to 2048MB.</pre>
           </p>
 
           <p>
-            Because of a bug in Erlang's detection of the amount of
-            memory installed on Windows platforms, RabbitMQ does not
-            attempt to automatically set a threshold when running on
-            Windows. Instead, it behaves as if it's unable to
-            recognise the platform: see below.
+            Versions of Erlang prior to R13B had a bug that meant they
+            do not reliably detect the amount of memory installed on
+            Windows platforms. If RabbitMQ is running under Windows on
+            a version of Erlang prior to R13B, then it does not
+            attempt to automatically set a threshold. Instead, it
+            behaves as if it's unable to recognise the platform: see
+            below.
           </p>
         </doc:subsection>
 
         <doc:subsection>
-          <doc:heading>Unrecognised platforms and Windows</doc:heading>
+          <doc:heading>Unrecognised platforms</doc:heading>
           <p>
             If the RabbitMQ server is unable to recognise your system,
-            or if you're using Windows, it will append a warning to
-            the <b>RABBITMQ_NODENAME</b>.log file. It then assumes
-            than 1GB of RAM is installed:
+            or if you're using Windows and a version of Erlang prior
+            to R13B, it will append a warning to the
+            <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
+            1GB of RAM is installed:
             <pre class="sourcecode">
 =WARNING REPORT==== 29-Oct-2009::17:23:44 ===
 Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
