@@ -1183,6 +1183,29 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="check-queue-depth">
+	  <doc:heading>How can I check the depth of a particular queue?</doc:heading>
+	  <doc:a>
+<p>
+There are several ways you can accomplish this depending on exactly
+what you want to achieve. From the command line, you can use
+"rabbitmqctl list_queues" to list the queues at a particular node and
+virtual host. The <a href="/admin-guide.html#list_queues">rabbitmqctl documentation</a> has more
+information about the various options you can use with this command.
+Using AMQP, the 'queue.declare' command, which is idempotent, returns
+in one of the ' <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">queue.declare-ok</a>' 
+
+fields the number of messages in the queue that are ready for
+delivery to consumers. The same information is also returned when
+fetching messages with 'basic.get', in a field of ' <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">basic.get-ok</a>'.
+</p>
+<p>
+As a third alternative, if you have installed the <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status
+Plugin</a> you can get queue depths (and lots more broker status information) over http.
+</p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="atomic-operations">
 	  <doc:heading>How do I use transactions to implement atomic operations in RabbitMQ?</doc:heading>
 	  <doc:a>

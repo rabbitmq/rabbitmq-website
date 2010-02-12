@@ -875,9 +875,8 @@
           </p>
         </doc:subsection>
         <doc:subsection name="list_connections">
-          <doc:heading>Listing connections of a virtual host</doc:heading>
-          <pre class="sourcecode">rabbitmqctl list_connections
-          [<i>connectioninfoitem</i> ...]</pre>
+          <doc:heading>Listing connections</doc:heading>
+          <pre class="sourcecode">rabbitmqctl list_connections [<i>connectioninfoitem</i> ...]</pre>
           <p>
             Returns TCP/IP connection statistics.
             </p> <p>

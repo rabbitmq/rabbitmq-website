@@ -523,8 +523,8 @@
           The officially released MacPorts packaging may not always
           contain the lastest released version of RabbitMQ.  If you
           wish to install the latest version via MacPorts, we maintain
-          <a href="macports.html">a dedicated MacPorts repository for
-          this purpose</a>.
+          a dedicated <a href="macports.html">MacPorts repository</a>
+          for this purpose.
         </p>
 
 	<doc:subsection name="install-macports">
