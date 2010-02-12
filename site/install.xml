@@ -703,6 +703,28 @@
 	  the <a href="examples.html#tracer">AMQP capture and analysis
 	  tool</a> may help in the analysis.
 	</p>
+	
+	<p>
+	  Failing that, its possible that we've solved the problem for 
+	  someone else on our 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
+	  a Google search for something like 
+	  <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">erl_crash.dump 
+	  site:lists.rabbitmq.com</a> should do the trick, possibly also 
+	  adding terms for your platform, RabbitMQ/Erlang versions and 
+	  anything else relevant to what you were trying to do when things 
+	  went wrong.
+	</p>
+
+	<p>
+	  If you can't find a solution to your problem on the list archive then
+	  please post a new message to rabbitmq-discuss@lists.rabbitmq.com (you may have 
+	  to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join 
+	  the mailing list first</a>). Let us know
+	  what you were trying to do, the error you received and a copy of the crash dump
+	  and one of our engineers will help you get it fixed.
+	</p>
+	
 	<p>
 	  If all of the above fails, report the problem to <a
 	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
