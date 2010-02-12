@@ -1127,6 +1127,19 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
       <doc:section name="howto">
 	<doc:heading>How-To</doc:heading>
 	
+	<doc:faq name="erlang-crash-sos">
+	  <doc:heading>Help me! I'm having problems when trying to install / run / configure
+	    RabbitMQ. The console tells me that "Crash dump was written to: erl_crash.dump"
+	    accompanied by lots of utterly incomprehensible Erlang. What should I do?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Don't panic! In the (unlikely) event that something goes wrong help is
+	    available. If you can't make sense of the error yourself then your
+	    first port of call should be our <a href="install.html#troubleshooting">troubleshooting guide</a>.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="last-message-on-topic">
 	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
 	  RabbitMQ node which I’m sending to crashes?</doc:heading>
