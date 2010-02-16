@@ -956,7 +956,72 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	</doc:a>
       </doc:faq>
 
-	
+     <doc:faq name="limitation-on-message-size">
+	<doc:heading>What limitations are there on message size? For example, If I have
+	    a box with 8GB of RAM will it be able to hold one 8GB message?</doc:heading>
+	<doc:a>
+	  <p>
+	    The main limitation is installed memory on the server (or, more accurately,
+	    the amount of per-process memory available on your platform).
+	  </p>
+	  <p>
+	    However, it's not as simple as available RAM = maximum message size. This
+	    would only be possible if there was zero copying of a message from when
+	    it arrives at the machine until when it leaves. Its very likely that
+	    it will be copied several times.
+	  </p>
+	  <p>
+	    We would be surprised if it's possible to push messages into RabbitMQ that
+	    are greater than 1/4 of the installed RAM. RabbitMQ tries to avoid using
+	    swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/extensions.html#memsup">memory
+	    threshold above which producers are throttled</a>.
+	  </p>
+	  <p>
+	    Be aware that <a href="http://msdn.microsoft.com/en-us/library/aa366778%28VS.85%29.aspx#physical_memory_limits_windows_7">Windows 
+	    imposes some "gotcha" constraints on per-process memory</a> that have 
+	    caught some people out in the past.
+	  </p>	
+	 </doc:a>
+      </doc:faq>
+      
+      <doc:faq name="new-persister-memory-limitations">
+	<doc:heading>How does the new persister affect the memory limitations?</doc:heading>
+	<doc:a>
+	  <p>
+	    The next major release of RabbitMQ will include the new persister that (amongst
+	    other things) removes the current limitation that RabbitMQ holds all messages
+	    in memory all the time.
+	  </p>
+	  <p>
+	    The persister will allow RabbitMQ to operate in a "zero RAM
+	    cost per message" mode where the volume of data that RabbitMQ can hold is
+	    limited solely by disk space.
+	  </p>
+	  <p>
+	    However, even with the new persister, the fact remains that not only
+	    will the largest message need to fit in RAM (at some point) but it must
+	    also be able to be copied a few times. The change is simply that the existance
+	    of large messages in RAM does not preclude other large messages from
+	    arriving.
+	  </p>
+	</doc:a>
+      </doc:faq>
+
+      <doc:faq name="enable-large-messages">
+	<doc:heading>I heard that AMQP supports streaming for large messages. How do we enable this?</doc:heading>
+	<doc:a>
+	  <p>
+	    AMQP 0-8 included mention of a "stream" transfer class. However, no one
+	    implements it and it's gone in AMQP 0-9-1. It is the responsibility of
+	    applications to chunk large messages if they need to.
+	  </p>
+	  <p>
+	    There are some client libs for doing 'file chunking'. 
+	    <a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a>  is the one to look at if you are a Ruby developer.
+	  </p>
+	</doc:a>
+      </doc:faq>
+      
       <doc:faq name="sticky-queues">
 	<doc:heading>Queues are sticky to the node upon which they are created. 
 	Do you plan to change this in future versions?</doc:heading>
@@ -1061,7 +1126,20 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 
       <doc:section name="howto">
 	<doc:heading>How-To</doc:heading>
-
+	
+	<doc:faq name="erlang-crash-sos">
+	  <doc:heading>Help me! I'm having problems when trying to install / run / configure
+	    RabbitMQ. The console tells me that "Crash dump was written to: erl_crash.dump"
+	    accompanied by lots of utterly incomprehensible Erlang. What should I do?</doc:heading>
+	  <doc:a>
+	    <p>
+	    Don't panic! In the (unlikely) event that something goes wrong help is
+	    available. If you can't make sense of the error yourself then your
+	    first port of call should be our <a href="install.html#troubleshooting">troubleshooting guide</a>.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="last-message-on-topic">
 	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
 	  RabbitMQ node which I’m sending to crashes?</doc:heading>
@@ -1133,6 +1211,12 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      or it could be implemented outside the broker, as a
 	      regular AMQP client.
 	    </p>
+	    <p>
+	      Mike Bridgen has created an experimental last value cache,
+	      implemented using RabbitMQ's plugin exchange type. It is 
+	      <a href="http://github.com/squaremo/rabbitmq-lvc-plugin">available
+	      to download from github</a>.
+	    </p>	    
 	  </doc:a>
 	</doc:faq>
 
@@ -1373,6 +1457,18 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	  </doc:a>
 	</doc:faq>
 	
+	<doc:faq name="broker-to-broker-connections">
+	  <doc:heading>How can I route messages directly from one RabbitMQ instance to
+	  another. Does Rabbit MQ support broker to broker connections?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Yes it does! Many people have asked about this use case and we've devloped an 
+	      implementation that we call <a href="http://hg.rabbitmq.com/rabbitmq-shovel/">Shovel</a>.
+	      You can <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">read more about Shovel</a>
+	      on the LShift blog.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
 	
 	
      </doc:section>

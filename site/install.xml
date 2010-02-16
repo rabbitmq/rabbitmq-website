@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Installation</title>
@@ -52,12 +57,12 @@
 	      <code>rabbitmq_server-<i>version</i></code>.
 
 	      You should extract this folder to somewhere appropriate
-	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      for application files, for example <code>&dir-server-windows;</code>. 
 	      Once the files are successfully extracted, you should end up with a structure
-	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      similar to <code>&dir-server-windows;\rabbitmq_server-N.N.N</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.6.5</code>).
+	      (e.g. <code>&dir-erlang-windows;</code>).
 	      
 	    </li>
 	    <li>
@@ -73,7 +78,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.6.5</code>.
+		  <code>&dir-erlang-windows;</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -214,7 +219,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.6.5\erts-5.6.5\bin</code>. The given path
+                    <code>&dir-erlang-windows;\erts-5.7.4\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
@@ -703,6 +708,28 @@
 	  the <a href="examples.html#tracer">AMQP capture and analysis
 	  tool</a> may help in the analysis.
 	</p>
+	
+	<p>
+	  Failing that, it's possible that we've solved the problem for 
+	  someone else on our 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
+	  a Google search for something like 
+	  <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">erl_crash.dump 
+	  site:lists.rabbitmq.com</a> should do the trick, possibly also 
+	  adding terms for your platform, RabbitMQ/Erlang versions and 
+	  anything else relevant to what you were trying to do when things 
+	  went wrong.
+	</p>
+
+	<p>
+	  If you can't find a solution to your problem on the list archive then
+	  please post a new message to rabbitmq-discuss@lists.rabbitmq.com (you may have 
+	  to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join 
+	  the mailing list first</a>). Let us know
+	  what you were trying to do, the error you received and a copy of the crash dump
+	  and one of our engineers will help you get it fixed.
+	</p>
+	
 	<p>
 	  If all of the above fails, report the problem to <a
 	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
