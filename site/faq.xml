@@ -1000,7 +1000,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  <p>
 	    However, even with the new persister, the fact remains that not only
 	    will the largest message need to fit in RAM (at some point) but it must
-	    also be able to be copied a few times. The change is simply that the existance
+	    also be able to be copied a few times. The change is simply that the existence
 	    of large messages in RAM does not preclude other large messages from
 	    arriving.
 	  </p>
