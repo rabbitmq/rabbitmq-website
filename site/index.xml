@@ -18,7 +18,7 @@
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
 	</a></span>Latest News
       </h3>     
-      <feed src="news.atom" type="ournews" limit="5" />  
+      <feed src="news.atom" type="ournews" limit="3" />  
       
     <div class="">  
 	<h3>
@@ -27,7 +27,7 @@
 	</a>
 	</span>
 	Latest Community Chatter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="3"/>  	
+	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
     </div>
           
     </div>    

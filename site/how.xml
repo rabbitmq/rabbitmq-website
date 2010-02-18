@@ -149,12 +149,6 @@
 	      <a href="http://rubyreflector.com/RabbitMQ">RabbitMQ on Ruby Reflector</a><br />
 	       Posts about RabbitMQ on the Ruby social news website
 	    </li>
-	    <li>
-	      <a href="http://github.com/paukul/humpty">Humpty</a><br />
-	      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a> 
-	      and AMQP.
-
-	    </li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	  </ul>	
 	</li>	
@@ -181,7 +175,7 @@
 	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
-	</li>	
+	</li> 		
 	<li id="php-development">PHP: 
 	  <ul class="plain">
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
@@ -239,6 +233,13 @@
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>        
 	  </ul>
 	</li>
+        <li id="lisp-development">Lisp development:
+	  <ul class="plain">	  
+	    <li><a href="http://github.com/lisp/de.setf.amqp/">de.setf.amqp</a> a Common Lisp client 
+	    library for AMQP <a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a> an interface from LispWorks to RabbitMQ</li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a></li>
+	  </ul>
+	</li>		
 	<li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a><br />
 	A port of RabbitMQ to the OpenVMS operating system.
 	</li>
@@ -346,14 +347,19 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">Rabbitmq SNMP Plugin</a><br />
-	  An experimental RabbitMQ plugin to provide SNMP statistics, developed
-	  by Scott Brooks.
+	  An experimental RabbitMQ plugin to provide SNMP statistics, developed by Scott Brooks. It includes the ability 
+	  to trace message delivery to queues so that you can pull the total number of messages delivered.
 	</li>
 	<li>
 	  <a href="http://blog.dossot.net/2010/01/monitoring-rabbitmq-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
 	  A simple example of how to configure Zabbix (an open source monitoring and 
 	  graphing tool)  to keep track of the number of messages pending delivery and 
 	  the total number of queues.
+	</li>
+	<li>
+	  <a href="http://github.com/paukul/humpty">Humpty</a><br />
+	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a> 
+	  and AMQP.
 	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
@@ -374,6 +380,12 @@ decentralised microblogging</li>
 	  <a href="http://www.igvita.com/2009/10/08/advanced-messaging-routing-with-amqp/">Advanced Messaging &amp; Routing with AMQP</a><br />
 	  Ilya Grigorik explains how to get started with AMQP in Ruby and provides
 	  some advanced AMQP recipes for a variety of messaging use cases.
+	</li>
+	<li>
+	  <a href="http://webcookies.org/blog/2009/09/10/rabbitmq-celery-and-django/">RabbitMQ, Celery and Django</a><br />
+	  Robert Pogorzelski gives an excellent demonstration of how RabbitMQ and Celery
+	  can be used with Python to build an asynchronous, distributed task
+	  queue for your web application.	  
 	</li>
 	<li>
 	  <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-howsection3');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
