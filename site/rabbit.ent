@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<!ENTITY version-java-client "1.7.0">
-<!ENTITY version-dotnet-client "1.7.0">
-<!ENTITY version-server "1.7.0">
+<!ENTITY version-java-client "1.7.2">
+<!ENTITY version-dotnet-client "1.7.2">
+<!ENTITY version-server "1.7.2">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -13,3 +13,6 @@
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
+
+<!ENTITY dir-erlang-windows "C:\Program Files\erl5.7.4">
+<!ENTITY dir-server-windows "C:\Program Files\RabbitMQ">

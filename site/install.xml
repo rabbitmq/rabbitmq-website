@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Installation</title>
@@ -52,12 +57,12 @@
 	      <code>rabbitmq_server-<i>version</i></code>.
 
 	      You should extract this folder to somewhere appropriate
-	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      for application files, for example <code>&dir-server-windows;</code>. 
 	      Once the files are successfully extracted, you should end up with a structure
-	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      similar to <code>&dir-server-windows;\rabbitmq_server-N.N.N</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.6.5</code>).
+	      (e.g. <code>&dir-erlang-windows;</code>).
 	      
 	    </li>
 	    <li>
@@ -73,7 +78,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.6.5</code>.
+		  <code>&dir-erlang-windows;</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -214,7 +219,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.6.5\erts-5.6.5\bin</code>. The given path
+                    <code>&dir-erlang-windows;\erts-5.7.4\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
@@ -516,49 +521,20 @@
         </p>
 	<p>
           The officially released MacPorts packaging may not always
-          contain the lastest released version of RabbitMQ.
+          contain the lastest released version of RabbitMQ.  If you
+          wish to install the latest version via MacPorts, we maintain
+          a dedicated <a href="macports.html">MacPorts repository</a>
+          for this purpose.
         </p>
-        <p>
-          If you wish to track the packaging from our development
-          repository, you can use the portfile from the <a
-          href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
-          directory in the <code>rabbitmq-server</code> mercurial
-          repository.
-	</p>
 
 	<doc:subsection name="install-macports">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <p>
-	    If you want to use the version distributed with MacPorts,
-	    installation is as simple as (<code>sudo port sync</code>
-	    followed by)
+	    Installation of the version of the RabbitMQ server
+	    distributed with MacPorts is as simple as (<code>sudo port
+	    sync</code> followed by)
 	  </p>
 	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
-	  <p>
-	    If, instead, you want to use the portfile from our
-	    source-code repository, follow these steps:
-	  </p>
-	  <ol>
-
-	    <li><a
-	    href="http://guide.macports.org/#development.local-repositories">Set
-	    up a local MacPorts repository</a>.</li>
-
-	    <li>Retrieve and extract the <a
-	    href="http://hg.rabbitmq.com/rabbitmq-server/archive/default.zip">latest
-	    stable rabbitmq-server snapshot</a>.</li>
-
-	    <li>Move the contents of the directory
-	    <code>rabbitmq-server-default/packaging/macports/</code>
-	    into the root of your local MacPorts repository.</li>
-
-	    <li>Run <code>portindex</code> in the root of your local
-	    MacPorts repository.</li>
-
-	    <li>Finally, run <code>sudo port install
-	    rabbitmq-server</code>.</li>
-
-	  </ol>
 	</doc:subsection>
 	<doc:subsection name="running-macports">
 	  <doc:heading>Running the Server</doc:heading>
@@ -734,6 +710,7 @@
 	</p>
 	<p>
 	  If all of the above fails, report the problem to <a
+	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
 	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
 	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
 	  your report.

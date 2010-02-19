@@ -11,12 +11,11 @@
   <body>
     <doc:div>
       <p class="intro">
-	This page summarises the available RabbitMQ documentation. See the '<a href="/how.html">How easy is it</a>' page for the latest presentations, blog posts and community links.
+	This page summarises the available RabbitMQ documentation. 
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
+      <p>
+      See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links.
+      </p>
 
       <doc:section name="server">
 	<doc:heading>Server documentation</doc:heading>
@@ -43,22 +42,21 @@
 	<doc:heading>Client documentation and examples</doc:heading>
 	<ul>
 	  <li>
-	    Some <a href="examples.html">example client programs</a>
-	    making use of RabbitMQ
-	  </li>
-	  <li>
 	    <a href="api-guide.html">RabbitMQ Java Client API
 	    Guide</a>
 	  </li>
 	  <li>
-	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
+	    <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
           <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
+            <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
           </li>
           <li>
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
+            <a onClick="javascript: pageTracker._trackPageview('&dir-current-dotnet-apidoc;/index.html');" href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
           </li>
+	  <li>
+	    <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf" href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
+	  </li>
 	  <li>
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
@@ -70,24 +68,24 @@
         
         <ul>
           <li>
-            <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language support
+            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query Language plugin provides a SQL-like 
+	    interface to RabbitMQ
           </li>
         </ul>
       </doc:section>
 
       <doc:section name="general">
-	<doc:heading>General</doc:heading>
+	<doc:heading>General documentation</doc:heading>
 	<ul>
-	  <li>
-	    Instructions for using <a href="ssl.html">SSL with RabbitMQ</a> 
-	  </li>
 	  <li>
 	    Instructions for <a href="build.html">building</a> the
 	    RabbitMQ server and client libraries from source
 	  </li>
 	  <li>
-	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> and other AMQP
-	    implementations
+	    How to use <a href="ssl.html">SSL with RabbitMQ</a> 
+	  </li>
+	  <li>
+	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> 
 	  </li>
 	  <li>
 	    <a href="interoperability.html">Interoperability</a> with
@@ -96,7 +94,10 @@
 	    running some of Qpid's tests against the RabbitMQ broker)
 	  </li>
 	  <li>
-	    The RabbitMQ <a href="faq.html">FAQ</a>
+	    Find lots of goodites in the  <a href="faq.html">RabbitMQ FAQ</a> and on the <a href="how.html">Get Started</a> page
+	  </li>
+	  <li>
+	    Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use
 	  </li>
 	  <li>
 	    Information on <a href="erlang.html">Erlang's suitability

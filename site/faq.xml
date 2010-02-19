@@ -10,21 +10,21 @@
   </head>
   <body>
     <doc:div>
-    
       <h2>Frequently Asked Questions</h2>
 
       <p class="intro">
  See also these other sources of information:
 <ul class="plain">
-<li>an <a href="/how.html">overview of information resources</a> which includes links to presentations, blog posts and community links.</li>
+<li>an <a href="/how.html">Get Started</a> page which includes links to presentations, blog posts and community links.</li>
 <li>our standard <a href="/documentation.html">documentation</a></li>
 </ul>
 </p>
 
 <p>
 	If you have a question not answered here,
-	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
+	please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faq');" href="http://lists.rabbitmq.com">join our mailing list</a> or
 	alternatively, contact us directly at <a
+	onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqa');" 
 	href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
 </p>
    
@@ -38,8 +38,27 @@
 	  <doc:heading>What is messaging?</doc:heading>
 	  <doc:a>
 	    <p>
-	      Messaging is used to manage data in motion, unlike, say, databases, which manage data at rest. Use messaging to
-	      communicate between and scale applications, within your enterprise, across the web, or in the cloud.  
+	    Messaging describes the sending and receiving of data (in the form of messages) between systems. 
+	    Messages are exchanged between programs or applications, similar to the way people communicate 
+	    by email but with guarantees on delivery, speed, security and the absence of spam.
+	    </p>
+	    <p>
+	    A messaging infrastructure (a.k.a. message-oriented middleware, a.k.a. enterprise service bus) 
+	    makes it easier for developers to create complex applications by decoupling the individual program 
+	    components. Rather than communicating directly, the messaging infrastructure facilitates the 
+	    exchange of data between components. The components need know nothing about each other’s status,
+	    availability or implementation, which allows them to be distributed over heterogeneous platforms 
+	    and turned off and on as required.
+	    </p>
+	    <p>
+	    In adopting this architecture, the developer is insulated from the details of the various operating 
+	    systems and network interfaces involved and the interoperability, scalability and flexibility of the 
+	    application are improved.
+	    </p>
+	    <p>
+	    Please see this presentation on <a href="http://blog.pasker.net/2008/06/16/you-might-need-messaging-if/">Why you might need messaging</a>
+	    for a general introduction or <a href="http://en.wikipedia.org/wiki/Message_Oriented_Middleware">this page on Wikipedia</a> 
+	    for more information.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -144,19 +163,12 @@
 	      business reasons supporting the use of Erlang and OTP,
 	      we recommend the following:
 	      <ul>
-      <li>
-        An <a
-        href="http://www.ericsson.com/technology/opensource/erlang/index.shtml">overview
-        of Erlang and OTP</a> by Ericsson, the original
-        developer of the technology and one of its major
-        commercial users.
-      </li>
-    <li>
+		<li>
 		  An <a
 		  href="http://www.ddj.com/architect/201001928"> 
       interview with Joe Armstrong</a>, Erlang and OTP's Chief Software Architect.
 		</li>
-    <li>
+		<li>
 		  A discussion of <a
 		  href="http://www.algorithm.com.au/talks/concurrency-erlang/">concurrency
 		  and Erlang</a>, with examples from general Erlang
@@ -668,6 +680,48 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 
+
+	<doc:faq name="message-delivered">
+	   <doc:heading>At what point is a message delivered, from the sender's perspective?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Publication is an asynchronous activity - in other words, a message
+	      is "published" as soon it has left the client's TCP stack. The client
+	      has no knowledge of to whom the message is delivered. If you want some
+	      guarantees, you can use the mandatory and immediate flags on
+	      basic.publish, and you can also use transactional mode. In
+	      transactional mode, publishes are batched on the broker, until
+	      you issue a tx.commit. When you get the tx.commit-ok message
+	      back (i.e. commit is synchronous), you know the broker really has
+	      received the messages.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+
+	<doc:faq name="message-delivered">
+	   <doc:heading>Can you explain the cases where a message might be delivered to a consumer more than once? </doc:heading>
+	  <doc:a>
+	    <p>
+	      If a message is delivered to a consumer, and that consumer then
+	      dies (or closes the channel which has the subscription to the
+	      queue, or closes the connection itself) without acking the
+	      message, then RabbitMQ will reinject the message into the queue. If
+	      that same consumer then reconnects and creates a new subscription
+	      to the same queue, it's possible it'll receive the same message
+	      again. This is 'at least once' delivery and is very deliberate
+	      design to ensure that messages are not lost in transit.
+	    </p>
+	    <p>
+	      The consumer can also call basic.recover which tells rabbit to
+	      resend all the messages sent to the consumer for which rabbit has
+	      not received an ack for. This basically amounts to the consumer
+	      saying "I know you sent me some messages, but I've forgotten what
+	      they are. Could you resend them all again?".
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	
       </doc:section>
 
       <doc:section name="architecture">
@@ -870,21 +924,61 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </p>
 	  <ul>
 	      <li>Java (<a href="api-guide.html">API guide proper</a> and 
-	      <a href="&dir-current-javadoc;">javadoc</a>), and</li>
+	      <a onClick="javascript: pageTracker._trackPageview('&dir-current-javadoc;/-faq');" href="&dir-current-javadoc;">javadoc</a>), and</li>
 	      <li>.NET (<a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">API guide proper (PDF)</a> and 
-	      <a href="&dir-current-dotnet-apidoc;/index.html">javadoc-like</a>)</li>
+	      <a onClick="javascript: pageTracker._trackPageview('&dir-current-dotnet-apidoc;/index.html');" href="&dir-current-dotnet-apidoc;/index.html">javadoc-like</a>)</li>
 	  </ul>    
 	  <p>
 	  Also, please refer to the extensive <a href="/documentation.html#server">server documentation</a> which may contain the answer to
-	  your question.
+	  your question.       
 	  </p>
 	</doc:a>
     </doc:faq>
 	
+      <doc:faq name="node-runs-out-of-memory">
+	<doc:heading>What happens when a node runs out of message memory? Does the node fall over?</doc:heading>
+	<doc:a>
+	  <p>
+	    Glad you asked. We've been working on a new persister since April (please
+	    see <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">the mailing list</a> or
+	    <a href="http://www.lshift.net/blog/2009/12/07/rabbitmq-at-the-skills-matter-functional-programming-exchange">these slides</a> for more). 
+	  </p>
+	  <p>
+	    The goal is to page messages to disk when necessary, politely
+	    block producers when absolutely necessary, and never ever
+	    crash. We should always be able to eventually accept a message.
+	  </p>
+	  <p>
+	    Note that the current stable release (v1.7.0) (and all previous
+	    releases) is not very good in this regard and can easily explode
+	    due to holding too many messages in memory.
+	  </p>
+	</doc:a>
+      </doc:faq>
+
+	
+      <doc:faq name="sticky-queues">
+	<doc:heading>Queues are sticky to the node upon which they are created. 
+	Do you plan to change this in future versions?</doc:heading>
+	<doc:a>
+	  <p>
+	    It is not scheduled for any particular future version. It's
+	    likely it'll be addressed through some sort of active/active
+	    high-availability setup, but in general this is a 
+	    <span class="underline">very</span> hard thing to try and do.
+	    Ultimately, the messages are going to have to exist on more 
+	    than one node, and maybe written to disk on more than one 
+	    node. This substantially complicates all sorts of semantics 
+	    and guarantees of AMQP. Yes, we do plan to address this
+	    but it's very much a long term goal.
+	  </p>
+	</doc:a>
+      </doc:faq>
+      
       </doc:section>
 
       <doc:section name="integration">
-	<doc:heading>RabbitMQ Integration</doc:heading>
+	<doc:heading>RabbitMQ Integration &amp; Interoperability</doc:heading>
 
 	<doc:faq name="rabbit-client-support">
 	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
@@ -896,6 +990,73 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
  
+	<doc:faq name="rabbit-client-support">
+	  <doc:heading>What support does RabbitMQ provide for web messaging?</doc:heading>
+	  <doc:a>
+	    <p>
+	      There are multiple ways for interacting with RabbitMQ in web messaging scenarios. For example, 
+	      we provide broker plugins that expose a JSON/RPC endpoint from within the broker process. The 
+	      community has contributed a set client libraries that allow AMQP communication for a variety of 
+	      web platforms including actionscript and pubsubhubbub. A more complete list can be found under 
+	      <a href="how.html#web-messaging">Web Messaging on the Get Started page</a>.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="AMQP-specs">
+	  <doc:heading>Can you enlighten me about the differences between different versions of the AMQP specs?</doc:heading>
+	  <doc:a>
+	    <p>
+	      The differences between 0-8, 0-9 and 0-91 are really small.  The 0-91
+	      version of the spec, which we support in dev (pre-release branch of
+	      our repo) has one major benefit: interoperability with OpenAMQ 0-91 and
+	      Qpid 0-91 in the main areas of behaviour (though note that OpenAMQ
+	      only partially implements AMQP). This is being tested now and you
+	      can expect more ‘noise’ about this in Q1 2010 in the community.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+  
+	<doc:faq name="AMQP-0-8-0-91">
+	  <doc:heading>So, what does AMQP 0-8 lack by comparison with 0-91?</doc:heading>
+	  <doc:a>
+	    <p>
+	      There is definitely no critical feature that 0-8 lacks but 0-91 has the
+	      merit of being shorter and tidying up lots of interoperability bugs. 0-9
+	      has stuff in it that people did not like and this was removed in 0-91.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+  
+	<doc:faq name="AMQP-1-0-migration">
+	  <doc:heading>What are your plans for migrating yourselves and your users to AMQP 1-0 when it is finalised?</doc:heading>
+	  <doc:a>
+	    <p>
+	      The <a href="https://www.amqp.org/confluence/display/AMQP/AMQP1.0+SIG">AMQP 1-0 draft spec</a>
+	      is still a work in progress and introduces some major changes from previous
+	      versions. 
+	    </p>
+	    <p>
+	      Our plan is to support 1-0 once it is finalised.  As a matter of
+	      practicality we will offer a migration path, for example it will be possible
+	      to simulate 0-8 and 0-91 in 1-0.  We do not expect 1-0 to be ready for
+	      serious implementation in the near term, and are satisfied that we are
+	      supporting the right versions with 0-8 and 0-91.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="connections-channels">
+	  <doc:heading>Can you recommend the best way to work with connections and channels in my application?</doc:heading>
+	  <doc:a>
+	    <p>
+	      In general, it is better to create a single connection and as many channels as you need
+	      (rather than many connections with a single channel each).
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
       </doc:section>
 
       <doc:section name="howto">
@@ -929,8 +1090,10 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server – this is not available out of the box but you can contact us for more
-	      info (mailto:info@rabbitmq.com) (You can also do active/active failover but it
+	      server – this is not available out of the box but you can  <a
+	onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqb');"
+	href="mailto:info@rabbitmq.com">contact us for more
+	      info</a> (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
 	    </ol>
@@ -1020,6 +1183,57 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>
 
+	<doc:faq name="check-queue-depth">
+	  <doc:heading>How can I check the depth of a particular queue?</doc:heading>
+	  <doc:a>
+<p>
+There are several ways you can accomplish this depending on exactly
+what you want to achieve. From the command line, you can use
+"rabbitmqctl list_queues" to list the queues at a particular node and
+virtual host. The <a href="/admin-guide.html#list_queues">rabbitmqctl documentation</a> has more
+information about the various options you can use with this command.
+Using AMQP, the 'queue.declare' command, which is idempotent, returns
+in one of the ' <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">queue.declare-ok</a>' 
+
+fields the number of messages in the queue that are ready for
+delivery to consumers. The same information is also returned when
+fetching messages with 'basic.get', in a field of ' <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">basic.get-ok</a>'.
+</p>
+<p>
+As a third alternative, if you have installed the <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status
+Plugin</a> you can get queue depths (and lots more broker status information) over http.
+</p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="atomic-operations">
+	  <doc:heading>How do I use transactions to implement atomic operations in RabbitMQ?</doc:heading>
+	  <doc:a>
+	  <p>
+	  RabbitMQ implements AMQP's TX message class to support atomic operations
+	  with clients that request them.
+	  </p>
+	  <p>
+	  If you need only to acknowledge receipt of a message you should get the
+	  consumer to send a basic.ack once its done with processing. There's no
+	  need to use tx in this case.
+	  </p>
+	  <p>
+	  However, if you need to both ack a message and publish some other messages
+	  as an atomic unit then you should set tx.select on the channel to start a
+	  transaction. When processing the received message, you can publish your
+	  messages and ack; only when you finally call tx.commit do the
+	  actions of the transaction take effect. In this case, if the consumer
+	  crashes, the ack and all publications get forgotten: either all of the actions
+	  happen or nothing happens.
+	  </p>
+	  <p>
+	  If, at the application level, you realise that due to some external event
+	  everything needs to be cancelled then call tx.rollback on the channel.
+	  </p>
+	  </doc:a>
+	</doc:faq>
+	
 	<doc:faq name="testing-rabbit">
 	  <doc:heading>How do I test RabbitMQ?</doc:heading>
 	  <doc:a>
@@ -1175,23 +1389,6 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </doc:a>
 	</doc:faq>	
 
-	<doc:faq name="listen-specific-port">
-	  <doc:heading>How do you make Rabbit listen on a specific port or interface?</doc:heading>
-	  <doc:a>
-	    <p>
-	    In the shell you can override the defaults specified in the rabbit.app file. For example, to get
-	    Rabbit to listen at the address 10.66.23.117 on port 3876, you could start Rabbit in the
-	    following way:
-	    </p>
-	    <p>
-	    <code>
-	    erl -mnesia dir DIR -boot start_sasl -rabbit tcp_listeners
-	    '[{10.66.23.117, 3876}]' -s rabbit]
-	    </code>
-	    </p>
-	  </doc:a>
-	</doc:faq>	
-	
 
 	<doc:faq name="access_control">
 	  <doc:heading>How do I configure access control?</doc:heading>
@@ -1214,10 +1411,14 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  <doc:heading>How low can latency be?</doc:heading>
 	  <doc:a>
 	    <p>
-	      We have seen latencies averaging less than a
-	      millisecond; for heavy, steady-state loads, latency
-	      hovers around the 4-millisecond mark (including two
-	      network hops).
+	      RabbitMQ operates at sub-millisecond latency in transient mode under a load of
+	      10k messages per second. In persistent mode, it should be possible to achieve a
+	      throughput of 3-5k messages per second stored to disk depending upon the exact
+	      configuration.
+	    </p>
+	    <p>
+	      Please <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=How low can latency be-faq');" href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
+	      you would like more information relevant to your setup.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1288,7 +1489,65 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    before it crashed. But you can just re-declare the queues.
 	    </p>
 	  </doc:a>
+	</doc:faq>	
+	 	 
+	<doc:faq name="how-long-to-come-back-up">
+	  <doc:heading>How long does it take a node take to come back up?</doc:heading>
+	  <doc:a>
+	    <p>
+	      <i>I know this is dependent on the number of messages to load, but is there any
+	      indication you can give (such as n seconds per GB, or n seconds
+	      per 1K messages...)?</i>
+	    </p>
+	    <p>
+	      It depends on the disk bandwidth as well. A million messages in a
+	      queue can take up to five minutes, although this is very much a
+	      worst case scenario and we're looking at ways of making this faster.
+	      For example, if know that RabbitMQ was shutdown safely then fewer
+	      checks are needed on recovery. At the moment, with the new persister,
+	      we're doing a very thorough fsck when we come back up. If we
+	      know that we've been shutdown safely then we don't need to do that.
+	      This is ongoing work.
+	    </p>
+	  </doc:a>
 	</doc:faq>
+	
+	 
+	<doc:faq name="corrupted-state">
+	  <doc:heading>Can a node's state get corrupted such that it cannot come back online? 
+	  Is there a recovery tool? </doc:heading>
+	  <doc:a>
+	    <p>
+	      State is only stored on disk if it must be recoverable. For
+	      durable queues / exchanges / bindings, we use mnesia. If mnesia
+	      is unable to start and read in the tables recording this
+	      information then RabbitMQ cannot start or recover those queues /
+	      exchanges / bindings.
+	    </p>
+	    <p>
+	      With the new persister, RabbitMQ manages the storage of
+	      all message content on disk itself. The recovery routines for
+	      these are robust and do their best to recover as much as
+	      possible. If corruption occurs, RabbitMQ will recover what it can,
+	      and continue to start up normally.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+	 
+	<doc:faq name="corrupted-state">
+	  <doc:heading>Is there any reasonably viable metric surrounding the MTBF of a node? </doc:heading>
+	  <doc:a>
+	    <p>
+	      Currently, the main reason that RabbitMQ might die is when it gets
+	      overwhelmed by messages and starved of RAM. The good news is that 
+	      tith the new persister this is no longer a problem! Other than that,
+	      our users almost never report crashes. The Erlang / OTP platform is
+	      very stable, exhaustively battle-tested and extremely reliable.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
 
 	<doc:faq name="does-clustering-replicate-messages-to-both-servers">
 	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes the
@@ -1329,23 +1588,23 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      mechanism for AMQP resources.
 	    </p>
 	    <p>We want to get to the point where one can dynamically add and remove
-nodes to/from a cluster that represents one logical AMQP broker, for
-both reliability and scalability (to very high numbers of nodes).</p>
+	    nodes to/from a cluster that represents one logical AMQP broker, for
+	    both reliability and scalability (to very high numbers of nodes).</p>
 
-<p>This is an important area for us, and one of the reasons we chose
-Erlang/OTP as the implementation platform for RabbitMQ. </p>
+	    <p>This is an important area for us, and one of the reasons we chose
+	    Erlang/OTP as the implementation platform for RabbitMQ. </p>
 	  </doc:a>
 	</doc:faq>
 	
-		<doc:faq name="how-many-concurrent-connections">
+	<doc:faq name="how-many-concurrent-connections">
 	  <doc:heading>How many concurrent connections can RabbitMQ support?</doc:heading>
 	  <doc:a>
 	    <p>You mean concurrent TCP connections? In theory as many as the operating
-system will give you. If there are any niggles
-they can be sorted out quite easily.</p>
+	    system will give you. If there are any niggles
+	    they can be sorted out quite easily.</p>
 
-<p>Also note that AMQP allows you to multiplex AMQP sessions across a
-single TCP connection.</p>
+	    <p>Also note that AMQP allows you to multiplex AMQP sessions across a
+	    single TCP connection.</p>
 	  </doc:a>
 	</doc:faq>
 
@@ -1353,17 +1612,17 @@ single TCP connection.</p>
 	  <doc:heading>What's the maximum bytes/second throughput of an instance?  Can scaling be used to get more bytes/second through the system?</doc:heading>
 	  <doc:a>
 	    <p>We are discussing testing, both functional and performance, within the
-AMQP working group, with the idea of defining a shared set of AMQP
-tests, and the code to implement them.</p>
+	    AMQP working group, with the idea of defining a shared set of AMQP
+	    tests, and the code to implement them.</p>
 
-<p>The problem is that there are many possible configurations of the test
-infrastructure, the RabbitMQ broker, the clients, and the tests
-themselves (e.g. AMQP supports many different forms of message
-delivery). In order to obtain meaningful performance figures one would
-have to specify exactly what the setup is, to the point where anybody
-can replicate it. Even then one would get just one data point in an
-infinite space of possible configurations, and it is generally
-impossible to extrapolate the results from one test to other scenarios.</p>
+	    <p>The problem is that there are many possible configurations of the test
+	    infrastructure, the RabbitMQ broker, the clients, and the tests
+	    themselves (e.g. AMQP supports many different forms of message
+	    delivery). In order to obtain meaningful performance figures one would
+	    have to specify exactly what the setup is, to the point where anybody
+	    can replicate it. Even then one would get just one data point in an
+	    infinite space of possible configurations, and it is generally
+	    impossible to extrapolate the results from one test to other scenarios.</p>
 	  </doc:a>
 	</doc:faq>
 
@@ -1372,11 +1631,11 @@ impossible to extrapolate the results from one test to other scenarios.</p>
 	  <doc:heading>How are the connections secured?  HTTPS or something else?  What about certificate management?</doc:heading>
 	  <doc:a>
 	    <p>The standard only defines basic username/password authentication. There
-are plans to extend that with SASL or some such mechanism.</p>
+	    are plans to extend that with SASL or some such mechanism.</p>
 
-<p>It should be possible to add SSL/TLS quite trivially. Certificate
-management would be done in a similar fashion to most other
-SSL/TLS-enable apps.</p>
+	    <p>It should be possible to add SSL/TLS quite trivially. Certificate
+	    management would be done in a similar fashion to most other
+	    SSL/TLS-enable apps.</p>
 	  </doc:a>
 	</doc:faq>
 
@@ -1391,16 +1650,168 @@ SSL/TLS-enable apps.</p>
 	  <doc:heading>What does it mean when Erlang says that there are too many processes?</doc:heading>
 	  <doc:a>
 	    <p>
-The short answer is that you have too many Erlang processes (i.e. lightweight processes, not
-Unix processes). The default system limit is 32767, so if you need more, start the Erlang VM
-with the +P flag to set the maximum number of allowed processes.
-RabbitMQ uses Erlang processes for each channel, for each connection, and for each queue
-within the broker. If you are running into the system limit, you might be running a large
-system, or you might be creating unnecessary resources.
-	    
+	      The short answer is that you have too many Erlang processes (i.e. lightweight processes, not
+	      Unix processes). The default system limit is 32767, so if you need more, start the Erlang VM
+	      with the +P flag to set the maximum number of allowed processes.
+	      RabbitMQ uses Erlang processes for each channel, for each connection, and for each queue
+	      within the broker. If you are running into the system limit, you might be running a large
+	      system, or you might be creating unnecessary resources.	    
 	    </p>
 	  </doc:a>
 	</doc:faq>
+	
+
+	<doc:faq name="node-per-CPU-core">
+	  <doc:heading>Do I need to run a RabbitMQ cluster with a node per CPU core to get optimal performance from my messaging server?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Not at all. RabbitMQ is written to take advantage of multi-core CPUs; however,
+	      there are limitations. For example, a single queue is a single thread 
+	      so if you are running with just one queue it's unlikely you'll utilise
+	      substantially more than one CPU core.
+	    </p>
+	    <p>
+	      That said, there are node-wide threads within Rabbit, such as the 
+	      persister, and every connection and every channel have their own threads.
+	      As a result, one queue with one producer sending persistent messages 
+	      may well use up to, say, 2.5 cores, but it won't be possible to push that
+	      wider. As you add further queues, you will be able to use more CPU cores.  
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="limits-to-nodes">
+	  <doc:heading>Are there any limits to how many nodes I can add to a cluster?</doc:heading>
+	  <doc:a>
+	    <p>
+	      There are some. The most likely is the bandwidth to your hard disks:
+	      if you are sending lots of persistent messages, and they are going
+	      to disk, then the persister thread will rapidly become the bottleneck
+	      as it'll max out the bandwidth of your disk drives.
+	    </p>
+	    <p>
+	      At that point, adding additional nodes, especially by scaling out
+	      to include additional machines, will be beneficial as you'll get another
+	      disk controller and more disks. If you're not doing any persistent
+	      messaging, then again, due to other per-node processes becoming
+	      bottlenecks, it will eventually (probably after tens of thousands
+	      of queues) become more beneficial to add additional machines and
+	      nodes rather than additional CPU cores to one machine.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	
+	<doc:faq name="scaling-and-different-latency-networks">
+	  <doc:heading>How is scaling affected by node distribution over different latency networks, e.g. WAN vs LAN?</doc:heading>
+	  <doc:a>
+	    <p>
+	      High latency WANs will hurt performance for operations involving
+	      mnesia transactions. This pretty much amounts to any modification
+	      of topology: queue add/delete, exchange add/delete, binding
+	      add/delete. Publishes and get/consume are unaffected.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	
+	<doc:faq name="if-node-goes-down">
+	  <doc:heading>If a node goes down or becomes unreachable what effects can this 
+	  have on the cluster? Do things 'hang' for a bit?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Topology change operations (<a href="#scaling-and-different-latency-networks">see above</a>) 
+	      could potentially pause operation for a brief time but they will complete eventually. We use
+	      the net_kernel erlang module to do monitoring between nodes. The
+	      default "tick" time there is 60 seconds but this can be
+	      reduced. Further, in the event of a failure, any communication
+	      between the nodes will likely result in an error being generated
+	      and detected immediately: i.e. the only time at which you would
+	      not know about a node failure for 60 seconds is if there was no
+	      communication between the nodes for that amount of time.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	
+	<doc:faq name="network-outage">
+	  <doc:heading>What happens to messages when a network outage removes 
+	  the route between an exchange and a bound queue? </doc:heading>
+	  <doc:a>
+	    <p>
+	      In the event of a network brownout between two nodes in a
+	      cluster, the cluster will fail. At that point, each node is
+	      unable to see the queues on the other node. Thus messages will
+	      silently be dropped. 
+	    </p>
+	    <p>
+	    You can set the mandatory flag on basic.publish which will result
+	    in the publisher receiving an error message should the message be
+	    unable to be routed to a queue.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+	<doc:faq name="meldown-scenario">
+	  <doc:heading>Does an entire cluster ever 'go bad' (meltdown scenario)?</doc:heading>
+	  <doc:a>
+	    <p>
+	     Not that we've ever seen. 
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="redundancy-at-broker-level">
+	  <doc:heading>What advantages/disadvantages are there to having redundancy at the 
+	  broker, rather than node, level? </doc:heading>
+	  <doc:a>
+	    <p>
+	      Replicated brokers allow you to do active/active HA
+	      setups. However, you have to manually ensure that the topology of
+	      the brokers is kept the same and you must manually do
+	      deduplification on the consumers. This is very much a RAID-1
+	      style solution. Clusters, on the other hand, are closer to RAID-0
+	      from the point of view of queues, but exchanges and bindings are
+	      replicated to every node in the cluster.
+	    </p>
+	  </doc:a>
+	</doc:faq>
+	
+	<doc:faq name="who-owns-what">
+	  <doc:heading>If two nodes are started as separate brokers then joined into a cluster
+	  and then split up again, who owns what? </doc:heading>
+	  <doc:a>
+	    <p>
+	      It's true that the composition of a cluster can be altered
+	      dynamically, however, a node must be "reset" before it can join
+	      a cluster. Resetting a node removes all queues / exchanges /
+	      bindings / messages from the node. When a node leaves a cluster
+	      it must also be reset before it can become a standalone node. If
+	      the node leaves a cluster due to all the other nodes dying, then
+	      it'll continue to operate with all the exchanges the cluster had,
+	      and the queues that were on the node. Bindings to those queues
+	      will be maintained.
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
+	<doc:faq name="nodes-in-cluster-balance-load">
+	  <doc:heading>In your clustering guide, it says that nodes in a cluster perform some
+	  basic load balancing. Can you explain a bit more about this works?</doc:heading>
+	  <doc:a>
+	    <p>
+	      Right. It's very basic. Nodes can respond to a client connection attempt
+	      with AMQP's connection.redirect method (unless the client supressed
+	      redirection by setting the insist flag in connection.open. Currently, we
+	      do this by looking at the load average of each node and picking the least
+	      loaded. This is not ideal and in some cases is suboptimal. For example,
+	      when the redirected client goes on to consume from a queue on a different node.
+	      We should point out that the redirect ability of AMQP disappears in 0-91
+	      as it's really not the job of AMQP to be doing this. 
+	    </p>
+	  </doc:a>
+	</doc:faq>	
+	
 	
       </doc:section>
 
@@ -1423,8 +1834,8 @@ system, or you might be creating unnecessary resources.
 	  <doc:a>
 	    <p>
 	    RabbitMQ is supported both commercially and as an open-source project. For
-	    general questions please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
-	    or <a href="mailto:info@rabbitmq.com">send us an email</a>.
+	    general questions please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss-faqc');" href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
+	    or <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-faqc');" href="mailto:info@rabbitmq.com">send us an email</a>.
 	    </p>
 	    <p>
 	    Follow the links to <a href="services.html">Services</a> for information 
@@ -1507,8 +1918,8 @@ system, or you might be creating unnecessary resources.
 	  <doc:heading>I have a question!</doc:heading>
 	  <doc:a>
 	    <p>
-	      Please <a href="http://lists.rabbitmq.com">join our mailing list</a> or 
-        send questions to <a
+	      Please <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faqd');" href="http://lists.rabbitmq.com">join our mailing list</a> or 
+        send questions to <a  onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-faqe');"
 	      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>. We'd
 	      love to hear from you.
 	    </p>

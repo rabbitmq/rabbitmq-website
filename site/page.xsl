@@ -22,12 +22,16 @@
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
+      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
+      <meta name="googlebot" content="NOODP" />
+      <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4" />
+      <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
       <script type="text/javascript">
-_uacct = "UA-1001800-1";
-urchinTracker();
+var pageTracker = _gat._getTracker("UA-1001800-1");
+pageTracker._trackPageview();
       </script>
     </xsl:copy>
   </xsl:template>
@@ -49,7 +53,7 @@ urchinTracker();
   </xsl:template>
 
   <xsl:template name="page-header">
-     <p class="strap">Open Source Enterprise Messaging</p>
+     <p class="strap">Messaging that just works</p>
     <h1>
       <a href="/"
 	 ><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37" /></a>
@@ -60,9 +64,11 @@ urchinTracker();
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/examples.html">Examples</a></li>
+      <li><a href="/how.html">Get Started</a></li>
       <li><a href="/services.html">Services</a></li>
+      <li><a href="/partners.html">Partners</a></li>
       <li><a href="/community.html">Community</a></li>
+      <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
@@ -71,7 +77,7 @@ urchinTracker();
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"></div>
+    <div class="clear"></div>	
     <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</p></div>
   </xsl:template>
@@ -162,7 +168,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:faqtoc">
     <xsl:variable name="tocNode" select="."/>
-    <div class="docToc">
+    <div class="docToc faqToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
 	<xsl:for-each select="//doc:section[@name]">
@@ -224,7 +230,7 @@ Technologies Ltd.</p></div>
     <li>
       <xsl:choose>
 	<xsl:when test="doc:link">
-	  <a class="feed-item-title" href="{doc:link}">
+	  <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
 	    <xsl:value-of select="doc:title" />
 	  </a>
 	</xsl:when>
@@ -248,29 +254,17 @@ Technologies Ltd.</p></div>
 
   <!-- ############################################################ -->
 
-  <xsl:template match="r:downloads[@signature='no']">
-    <table class="downloads" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-	<th class="desc">Description</th>
-	<th>Download </th>
-      </tr>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
-  <xsl:template match="r:downloads[@signature='no']/r:download">
-    <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-    </tr>
-  </xsl:template>
-
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
-	<th class="onethird">&#160;</th>
+        <xsl:if test="@mirror = 'yes'">
+            <th class="mirror">&#160;</th>
+        </xsl:if>
+        <xsl:if test="@signature = 'yes'">
+            <th class="onethird">&#160;</th>
+        </xsl:if>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -279,8 +273,20 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:download">
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
-      <td><a href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a></td>
-      <td class="signature"><a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a></td>
+      <td>
+        <a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+      </td>
+      <xsl:if test="../@mirror = 'yes'">
+          <td class="mirror">
+              <a onClick="javascript: pageTracker._trackPageview('http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}');"
+                href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
+          </td>
+      </xsl:if>
+      <xsl:if test="../@signature = 'yes'">
+         <td class="signature">
+            <a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+         </td>
+      </xsl:if>
     </tr>
   </xsl:template>
 
@@ -293,7 +299,7 @@ Technologies Ltd.</p></div>
       <xsl:when test="@type = 'plugin'">
         <p>
           For more information about the installation of plugins, refer to the
-          <a href="http://www.rabbitmq.com/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
+          <a href="/plugin-development.html#getting-started">Plugin Development: Getting Started</a> documentation.
         </p>
       </xsl:when>
     </xsl:choose>
@@ -311,13 +317,13 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'hg']">
     <tr>
       <td>
-	<a href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
+	<a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
 	<code>hg clone <xsl:value-of select="@url"/></code>
       </td>
       <td>
-	<a href="{@url}">browse repo</a>
+	<a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
@@ -432,7 +438,70 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:template match="r:amilist">
+    <table class="amilist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Arch</th>
+        <th>Ami</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
 
+  <xsl:template match="r:amiitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@arch"/>
+      </td>
+      <td>
+        <xsl:value-of select="@ami"/>
+      </td>
+      <td>
+        <code>ec2-run-instances <xsl:value-of select="@ami"/> --key ${EC2_KEYPAIR} --instance-type
+            <xsl:if test="@arch = 'x86_64'">m1.large</xsl:if>
+            <xsl:if test="@arch != 'x86_64'">m1.small</xsl:if>
+            <xsl:if test="@zone != 'us-east-1'">
+                --region <xsl:value-of select="@zone"/>
+            </xsl:if>
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:template match="r:snapshotlist">
+    <table class="snapshotlist" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>Availability zone</th>
+        <th>Public snapshot id</th>
+        <th>Ec2 command</th>
+      </tr>
+      <xsl:apply-templates/>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="r:snapshotitem">
+    <tr>
+      <td>
+        <xsl:value-of select="@zone"/>
+      </td>
+      <td>
+        <xsl:value-of select="@snapid"/>
+      </td>
+      <td>
+        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8 \<br/>
+        --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
+        </code>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
@@ -443,3 +512,5 @@ Technologies Ltd.</p></div>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
+
+
