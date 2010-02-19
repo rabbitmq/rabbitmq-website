@@ -235,8 +235,8 @@
 	</li>
         <li id="lisp-development">Lisp development:
 	  <ul class="plain">	  
-	    <li><a href="http://github.com/lisp/de.setf.amqp/">de.setf.amqp</a> a Common Lisp client 
-	    library for AMQP <a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a> an interface from LispWorks to RabbitMQ</li>
+	    <li><a href="http://github.com/lisp/de.setf.amqp/">de.setf.amqp</a> a Common Lisp client library for AMQP</li>
+	     <li><a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a> an interface from LispWorks to RabbitMQ</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a></li>
 	  </ul>
 	</li>		
@@ -358,7 +358,7 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://github.com/paukul/humpty">Humpty</a><br />
-	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a> 
+	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
 	  and AMQP.
 	</li>
 	<li>
