@@ -93,6 +93,12 @@
 	  achieving redundancy for high availability.	
 	</li>
 	<li>
+	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une alternative à JMS?</a><br />
+	  An excellent introduction, in French, to messaging with AMQP. (Or read the 
+	  <a href="http://translate.google.com/translate?hl=en&amp;sl=fr&amp;tl=en&amp;u=http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">English translation</a>, 
+	  which is almost as good.)
+	</li>
+	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq">RabbitMQ on del.icio.us</a><br />
 	  We present a list of useful searches on the social bookmarking site.
 	</li>
@@ -305,6 +311,11 @@ decentralised microblogging</li>
 	Describes how to get started with RabbitMQ on Amazon's EC2.
 	</li>
 	<li>
+	<a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
+	How <a href="http://www.reddit.com/">Reddit</a> scaled as its traffic doubled, using the Amazon cloud and
+	messaging.  A video presentation from Py Con 2010.
+	</li>
+	<li>
 	<a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
 	More links to cloud use cases at delicious.com.	
 	</li>
@@ -386,6 +397,11 @@ decentralised microblogging</li>
 	  Robert Pogorzelski gives an excellent demonstration of how RabbitMQ and Celery
 	  can be used with Python to build an asynchronous, distributed task
 	  queue for your web application.	  
+	</li>
+	<li>
+	  <a href="http://mathematism.com/2010/feb/16/message-queues-django-and-celery-quick-start/">Message Queues, Django and Celery QuickStart</a><br />
+	  Rich Leland's quick start guide provides a great explanation of how to set up an asynchronous task queue with
+	  RabbitMQ, Celery and Python, all on a Mac.	  
 	</li>
 	<li>
 	  <a onClick="javascript: pageTracker._trackPageview('releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf-howsection3');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
