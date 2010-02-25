@@ -568,11 +568,54 @@
 	  <doc:heading>Why can durable queues only bind to durable exchanges?</doc:heading>
 	  <doc:a>
 	    <p>
-	    This there a is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
+	    This is just an artifact of the two tier model in AMQP. You either want to be 100% durable in
 	    all tiers, or you don't.
 	    </p>
 	  </doc:a>
+	</doc:faq>		
+
+	<doc:faq name="mandatory-flat-routing">
+	  <doc:heading>Can you explain how the <strong>mandatory</strong> flag affects message routing?</doc:heading>
+	  <doc:a>
+	    <p>
+	  From the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+Specification">AMQP specification</a>:
+	  "This flag tells the server how to react if a message cannot be routed to a
+	  queue". Specifically, if mandatory is set and after running the bindings the
+	  message was placed on zero queues then the message is returned to the sender
+	  (with a basic.return). If manadatory had not been set under the same
+	  circumstances the server would silently drop the message."
+	    </p>
+	  </doc:a>
+	</doc:faq>		
+
+	<doc:faq name="immediate-flat-routing">
+	  <doc:heading>Can you explain how the <strong>immediate</strong> flag affects message routing?</doc:heading>
+	  <doc:a>
+	    <p>
+	  From the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+Specification">AMQP specification</a>:	 
+	  "This flag tells the server how to react if the message cannot be routed to
+	  a queue consumer immediately". The languange here is a little ambiguous but, to
+	  the best of our understanding (and this is what RabbitMQ implements), we take
+	  it to mean the following.
+	    </p>
+	    <p>
+	  For a message published with immediate set, if a matching queue has ready consumers 
+	  then one of them will have the message routed to it. If the lucky consumer crashes 
+	  before ack'ing receipt the message will be requeued and/or delivered to other 
+	  consumers on that queue (if there's no crash the messaged is ack'ed and it's all 
+	  done as per normal). If, however, a matching queue has zero ready consumers the message 
+	  will not be enqueued for subsequent redelivery on from that queue. Only if all of the 
+	  matching queues have no ready consumers that the message is returned to the sender 
+	  (via basic.return).
+	    </p>
+	    <p>
+	  FWIW, a consumer in this instance is a channel that has used basic.consume to
+	  subscribe to a queue (basic.get doesn't qualify a channel as a
+	  consumer for these purposes as it is 'instananeous')."
+	    </p>
+	  </doc:a>
 	</doc:faq>	
+	
 	
       </doc:section>
       
