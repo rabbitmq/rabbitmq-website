@@ -52,6 +52,10 @@ h1 {
 	float: left;
 }
 
+dd p {
+  margin: 0 0 5px 0;
+}
+
 p.strap {
 	float: right;
 	margin: 20px 0 0 0;
