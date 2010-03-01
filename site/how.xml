@@ -143,6 +143,10 @@
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group</li>
 	    <li>
+	      <a href="http://www.railzite.com/2010/02/getting-started-with-amqp-and-ruby.html">Get started with AMQP and Ruby</a><br />
+	      A simple and very clear example of using a message queue synchronously from Ruby
+	    </li>	    
+	    <li>
 	      <a href="http://37signals.com/svn/posts/1433-ta-da-list-on-rails-22-passenger-and-ec2">El Conejo Mensajero (The Rabbit Messenger)</a><br/>
 	      A presentation (in English) by Joshua Sierles of <strong>37signals</strong> giving an overview of 
 	      RabbitMQ and listing lots of uses cases, mostly in Ruby
@@ -225,6 +229,10 @@
 	    <li>
 	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
+	    </li>
+	    <li>
+	    <a href="http://kaazing.net/documentation/howto-amqp-silverlight.html">AMQP with Kaazing Enterprise Gateway and Microsoft Silverlight</a><br />
+	    Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Silverlight
 	    </li>
 	</ul>
 	</li>
@@ -311,9 +319,10 @@ decentralised microblogging</li>
 	Describes how to get started with RabbitMQ on Amazon's EC2.
 	</li>
 	<li>
-	<a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
-	How <a href="http://www.reddit.com/">Reddit</a> scaled as its traffic doubled, using the Amazon cloud and
-	messaging.  A video presentation from Py Con 2010.
+	<a href=" http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
+	"A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic 
+	doubled using the Amazon cloud and messaging. 
+	The <a href="http://us.pycon.org/2010/conference/schedule/event/148/">slides are also available</a> as a PDF.
 	</li>
 	<li>
 	<a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
@@ -516,6 +525,10 @@ decentralised microblogging</li>
 	  <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
 	  The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
 	  to look if you're using AMQP with Ruby.
+	</li>
+	<li>
+	  <a href="http://github.com/famoseagle/carrot">Carrot</a><br />
+	  A synchronous AMQP client.
 	</li>
 	<li>
 	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
