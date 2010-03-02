@@ -349,6 +349,23 @@ code {
 	background: #66fcb0;
 }
 
+.docSection div.cmdsynopsis {
+	color: darkcyan;
+	background: #f6fcb0;
+	padding: 5px 5px;
+    margin: 10px 0 5px 0;
+}
+.docSection div.cmdsynopsis p {
+	margin: 0;
+}
+.docSection div.cmdsynopsis code.command {
+	color: darkred;
+}
+.docSection pre.sourcecode {
+    background: none;
+    padding: 5px 0;
+}
+
 table {
 	width: 100%;
 	border-top: #e4e4e4 1px solid;
