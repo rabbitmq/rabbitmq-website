@@ -11,7 +11,6 @@
         suggestions or wished-for features!)</i>
       </p>
       <p>See also this <a href="/how.html#management">list of new community tools</a> have appeared for 'dashboard' access to core management functionality.</p>
-      <p>Note also that much of the information formerly on this page has been moved to the online version of the <a href="/rabbitmqctl.1.man.html">rabbitmqctl(1) manual page</a>.</p>
 
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
@@ -56,44 +55,11 @@
         </p>
       </doc:section>
 
-      <doc:section name="management-overview">
-        <doc:heading>Management overview</doc:heading>
+      <doc:section name="management">
+        <doc:heading>Management</doc:heading>
         <p>
           <code>rabbitmqctl</code> is a command line tool for managing
-          a RabbitMQ broker. It performs all actions by connecting to
-          one of the broker's node. By default that is the node named
-          "rabbit" on the local host. This can be overridden by
-          explicitly specifying the node name before the command using
-          the "-n" flag, e.g.
-        </p>
-        <pre>rabbitmqctl -n rabbit@shortstop add_user tonyg changeit</pre>
-        <p>
-          This command instructs the RabbitMQ broker at the Erlang
-          node rabbit@shortstop to create a user named tonyg with
-          (initial) password changeit.
-        </p>
-        <p>
-          On a host named "server.example.com", the node name of the
-          RabbitMQ Erlang node will usually be
-          <code>rabbit@server</code> (unless <b>RABBITMQ_NODENAME</b>
-          has been set to some non-default value at broker startup
-          time). The output of <code>hostname -s</code> is usually the
-          correct suffix to use after the "@" sign.
-        </p>
-        <p>
-          <code>rabbitmqctl</code> produces verbose output by default. 
-          Quiet mode can be selected by specifying the "-q" flag, e.g.
-        </p>
-        <pre>rabbitmqctl -q status</pre>
-        <p>
-          This option enables quiet mode and is useful when post-processing
-          the results. Informational messages are suppressed when quiet mode
-          is in effect.
-        </p>
-        <p>
-          Flags must precede all other parameters to <code>rabbitmqctl</code>. 
-        </p>
-        <p>
+          a RabbitMQ broker.
           For (much) more information on <code>rabbitmqctl</code>, please see
           <a href="rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
         </p>
