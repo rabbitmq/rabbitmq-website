@@ -49,7 +49,7 @@
         </ul>
 
         <p>
-          It is advisable to <a href="#change_password">change the
+          It is advisable to <a href="rabbitmqctl.1.man.html#change_password">change the
           password</a> of the <code>guest</code> user to something
           private, particularly if your broker is accessible publicly.
         </p>
