@@ -1,0 +1,149 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - High availability with Pacemaker and DRBD</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:toc class="compact">
+	<doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="introduction">
+	<doc:heading>Introduction</doc:heading>
+
+        <p>There are many forms of high availability, replication and
+        resilience in the face of various different types of
+        failure. RabbitMQ can currently be made to work in an
+        active/passive setup, such that persistent messages that have
+        been written to disk on the active node are able to be
+        recovered by the passive node should the active node
+        fail. Non-persistent messages will be lost, and the promotion
+        of the passive node may take a little while as it reads the
+        messages off disk.
+        </p>
+
+        <p>Whilst RabbitMQ also supports clustering, clustering is
+        intended to facilitate scalability, not availability. Thus in
+        a cluster, if a node fails, queues which were on the failed
+        node are lost. With the high availability setup described in
+        this guide, when a node fails, the durable queues and the
+        persistent messages within them can be recovered by a
+        different node.</p>
+
+        <p>Clustering can be combined with high availability to create
+        a cluster that can scale beyond a single node and
+        simultaneously preserve persistent messages and durable
+        resources in the event of node failure.</p>
+      </doc:section>
+
+      <doc:section name="requirements">
+	<doc:heading>Requirements</doc:heading>
+
+        <p>This guide assumes that you're going to use the <a
+        href="http://www.clusterlabs.org/">Pacemaker</a> HA stack to
+        do the resource management and monitoring. This guide will
+        also make use of <a href="http://www.drbd.org/">DRBD</a> to
+        provide a shared storage area in which the active node will
+        write messages. If you have a NAS or SAN or some other means
+        of providing reliable shared storage to both nodes, then you
+        can use that instead of DRBD.
+        </p>
+
+        <p>This guide does not tell you how to install Pacemaker,
+        Heartbeat, OpenAIS, CoroSync or DRBD - there are already
+        guides available for these tasks:</p>
+
+        <p><ul class="plain">
+	  <li><a
+	  href="http://www.clusterlabs.org/wiki/Documentation">Pacemaker
+	  documentation</a>: In particular, see the <i>Clusters from
+	  scratch</i> guides</li>
+          <li><a
+          href="http://www.clusterlabs.org/wiki/Install">Pacemaker
+          install guide</a></li>
+          <li><a href="http://www.drbd.org/users-guide/">DRBD
+          users guide</a></li>
+        </ul></p>
+
+        <p>Note that I used CoroSync (which is a cut-down version of
+        OpenAIS) in preference to Heartbeat. However, I also had
+        Heartbeat installed so as to be able to access Heartbeat's OCF
+        scripts. You should find that the instructions here work
+        equally well regardless of whether you use CoroSync, Heartbeat
+        or OpenAIS as the Pacemaker underlying messaging layer.
+        </p>
+
+        <p>If you're compiling Pacemaker et al from source, be aware
+        that the various autoconf configure scripts don't seem to test
+        thoroughly enough for various libraries, the result of which
+        is that compilation may eventually fail due to missing
+        libraries, even though the configure script passes. Under
+        Debian Sid, I found I had to install the following extra
+        packages. Obviously your mileage will vary with different
+        distributions: <code>autoconf libtool pkg-config
+        libglib2.0-dev libxml2 libxml2-dev uuid-dev uuid-runtime
+        libnss3-dev groff libxslt1.1 libxslt1-dev libesmtp5
+        libesmtp-dev libssl-dev ssmping xsltproc</code>. Be aware that
+        I found that if the build did fail, merely installing the
+        necessary libraries was not enough to make the build then pass
+        - I had to go back and re-run the autotools and configure
+        steps before it would find the new libraries and compile
+        correctly.</p>
+
+      </doc:section>
+
+      <doc:section name="assumption">
+	<doc:heading>Assumptions</doc:heading>
+
+        <p>By this point, I assume that you have installed Pacemaker
+        and, if you're going to use it, DRBD, on two different
+        machines, which can see each other. You should have configured
+        DRBD and thus be able to set one node the primary and the
+        other the secondary for the DRBD resource. The initial sync
+        between the two nodes has already been done. My drbd resource
+        <code>drbd1</code> configuration looks like:</p>
+
+<pre class="sourcecode">
+resource drbd1 {
+  device    /dev/drbd1;
+  disk      /dev/vdb;
+  meta-disk internal;
+  on ha-node-1 {
+    address   192.168.100.21:7789;
+  }
+  on ha-node-2 {
+    address   192.168.100.22:7789;
+  }
+}
+</pre>
+
+      <p><code>crm configure show</code> should show nothing configured:</p>
+<pre class="sourcecode">
+ha-node-2:~# crm configure show
+node ha-node-1
+node ha-node-2
+property $id="cib-bootstrap-options" \
+        dc-version="1.0.7-6fab059e5cbe82faa65f5aac2042ecc0f2f535c7" \
+        cluster-infrastructure="openais" \
+        expected-quorum-votes="2" \
+        stonith-enabled="false" \
+        no-quorum-policy="ignore" \
+        last-lrm-refresh="1268667122"
+rsc_defaults $id="rsc-options" \
+        resource-stickiness="100"
+</pre>
+      <p>Note that here I have already set stickiness to 100, disabled
+      stonith, and told Pacemaker not to worry about not having quorum
+      (see the section <i>Create an Active/Passive cluster</i> in the
+      <i>Clusters from scratch</i> guides referenced above.</p>
+      </doc:section>
+
+    </doc:div>
+  </body>
+</html>
