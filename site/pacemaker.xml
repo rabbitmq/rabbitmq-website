@@ -264,7 +264,7 @@ ha-node-2:~#
 </pre>
 
         <p>We create a resource called <i>bunny</i> which is our
-        RabbitMQ instance. We configure it to place it's database
+        RabbitMQ instance. We configure it to place its database
         files (and message store) on our DRBD-backed mount point. We
         then need to colocate the <i>bunny</i> resource with the
         <i>drbd_fs</i> resource, and we also need to make sure that
