@@ -91,21 +91,13 @@
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.i386.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for Fedora Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.x86_64.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for Fedora Linux (64-bit)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.i386.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for openSUSE Linux
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.x86_64.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for openSUSE Linux (64-bit)
       </r:download>
 
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
