@@ -21,7 +21,7 @@
 
     <p>If you feel we have missed something please feel free to <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=Suggest Links-how');" href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
     
-      <h3 id="quickstart">Overviews and introductions</h3>
+      <h3 id="quickstart">Overviews and Introductions</h3>
       <ul>      
 	<li>
 	<a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
@@ -87,6 +87,10 @@
 	  pubsub.	
 	</li>
 	<li>
+	  <a href="http://stackoverflow.com/questions/2388539/in-which-domains-are-message-oriented-middleware-like-amqp-useful/">What problem does messaging solve?</a><br />
+	  A Q&amp;A discussion that covers a variety use cases for messaging.	
+	</li>
+	<li>
 	  <a href="http://skillsmatter.com/podcast/erlang/rabbitmq-internal-architecture-tony-garnock-jones">RabbitMQ Internal Architecture</a><br />
 	  Talk by Tony Garnock-Jones at Google London, May 2009. Explains the
 	  internals of RabbitMQ and how RabbitMQ can be used in federation and
@@ -126,6 +130,8 @@
 	      <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br/>
 	      A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
 	    </li>
+	    <li><a href="http://www.infoq.com/news/2010/03/amqp_support_spring_integration">Introduction to OpenCredo's Spring Integration kit for RabbitMQ</a></li>
+	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using rabbitmq with groovy</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a></li>
 	   </ul>
 	</li>	
@@ -143,6 +149,10 @@
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
 	    <li><a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group</li>
 	    <li>
+	      <a href="http://www.railzite.com/2010/02/getting-started-with-amqp-and-ruby.html">Get started with AMQP and Ruby</a><br />
+	      A simple and very clear example of using a message queue synchronously from Ruby
+	    </li>	    
+	    <li>
 	      <a href="http://37signals.com/svn/posts/1433-ta-da-list-on-rails-22-passenger-and-ec2">El Conejo Mensajero (The Rabbit Messenger)</a><br/>
 	      A presentation (in English) by Joshua Sierles of <strong>37signals</strong> giving an overview of 
 	      RabbitMQ and listing lots of uses cases, mostly in Ruby
@@ -155,6 +165,7 @@
 	      <a href="http://rubyreflector.com/RabbitMQ">RabbitMQ on Ruby Reflector</a><br />
 	       Posts about RabbitMQ on the Ruby social news website
 	    </li>
+	    <li><a href="http://www.ioncannon.net/programming/941/using-daemon-kit-and-robustthread-to-build-ruby-daemons">Assembling an event driven daemon with RabbitMQ</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a></li>
 	  </ul>	
 	</li>	
@@ -190,12 +201,19 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
 	</li>
+	<li id="MacOXS-development">MacOSX development:
+	  <ul class="plain">
+	    <li><a href="http://exceptionz.wordpress.com/2010/03/10/install-rabbitmq-on-snow-leopard-with-macports/">Install RabbitMQ on Snow Leopard with MacPorts</a></li>
+	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a></li>
+	  </ul>
+	</li>
 	<li id="perl-development">Perl development:
 	  <ul class="plain">
 	    <li>Code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a></li>
 	    <li><a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a></li>    
 	    <li><a href="http://search.cpan.org/~jesus/Net-RabbitMQ-0.0.1/">Net::RabbitMQ</a></li>
 	    <li><a href="http://github.com/cooldaemon/RabbitFoot">RabbitFoot</a></li>
+	    <li><a href="test-net-rabbitmq">test-net-rabbitmq</a>, a very simple mock broker for Net::RabbitMQ</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a></li>
 	  </ul>
 	</li>
@@ -226,6 +244,10 @@
 	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
 	    </li>
+	    <li>
+	    <a href="http://kaazing.net/documentation/howto-amqp-silverlight.html">AMQP with Kaazing Enterprise Gateway and Microsoft Silverlight</a><br />
+	    Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Silverlight
+	    </li>
 	</ul>
 	</li>
         <li>Experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a> client. 
@@ -246,6 +268,10 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a></li>
 	  </ul>
 	</li>		
+	<li><a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a><br />
+	Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message 
+	passing through the exchange.
+	</li>	
 	<li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a><br />
 	A port of RabbitMQ to the OpenVMS operating system.
 	</li>
@@ -311,9 +337,10 @@ decentralised microblogging</li>
 	Describes how to get started with RabbitMQ on Amazon's EC2.
 	</li>
 	<li>
-	<a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
-	How <a href="http://www.reddit.com/">Reddit</a> scaled as its traffic doubled, using the Amazon cloud and
-	messaging.  A video presentation from Py Con 2010.
+	<a href=" http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
+	"A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic 
+	doubled using the Amazon cloud and messaging. 
+	The <a href="http://us.pycon.org/2010/conference/schedule/event/148/">slides are also available</a> as a PDF.
 	</li>
 	<li>
 	<a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
@@ -354,7 +381,9 @@ decentralised microblogging</li>
 	  <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status Plugin</a><br />
 	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
 	  file descriptors and Erlang PIDS usage. You can also see basic information
-	  about connections and queues.
+	  about connections and queues. See examples of how others have used the plugin 
+	  for <a href="http://blog.scoutapp.com/articles/2010/03/08/rabbitmq-monitoring-plugins">monitoring with Scout</a>
+	  and <a href="http://blog.boxedice.com/2010/03/12/rabbitmq-monitoring-alerting/">monitoring with Server Density</a>
 	</li>
 	<li>
 	  <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">Rabbitmq SNMP Plugin</a><br />
@@ -372,6 +401,13 @@ decentralised microblogging</li>
 	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
 	  and AMQP.
 	</li>
+	<li>
+	  <a href="http://github.com/paukul/humpty">Humpty</a><br />
+	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
+	  and AMQP.
+	</li>
+	<li><a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a>, a daemon for monitoring AMQP with 
+	<a href="http://community.zenoss.org/">Zenoss</a></li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
@@ -436,6 +472,10 @@ decentralised microblogging</li>
       <h3 id="specific-examples">Specific Use Cases and Examples</h3>
       <ul>
 	<li>
+	  <a href="http://qconlondon.com/london-2010/file?path=/qcon-london-2010/slides/FabrizioSchmidt_and_LarsGeorge_SocialNetworksAndTheRichnessOfDataGettingDistributedWebservicesDoneWithNosql.pdf">Social Networks and the Richness of Data</a> [PDF 9.2 MB]<br />
+	  An excellent presentation  describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
+	</li>
+	<li>
 	  <a href="/resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
 	  Stefan Norberg's presentation on use of RabbitMQ and Kaazing and Terracotta for European scale real time betting at Unibet.
 	</li>
@@ -483,6 +523,10 @@ decentralised microblogging</li>
 	  Browse the source.
 	</li>
 	<li>
+	  <a href="http://www.skaag.net/2010/03/12/rabbitmq-for-beginners/">HOWTO: Set up a RabbitMQ cluster and enable plugins</a><br />
+	  An excellent presentation  describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
+	</li>
+	<li>
 	  <a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">HOWTO: Build Your Own AMQP Client</a><br />
 	  Gives implementers an overview of the considerations that may influence
 	  design decisions in their target language.
@@ -516,6 +560,10 @@ decentralised microblogging</li>
 	  <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
 	  The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
 	  to look if you're using AMQP with Ruby.
+	</li>
+	<li>
+	  <a href="http://github.com/famoseagle/carrot">Carrot</a><br />
+	  A synchronous AMQP client.
 	</li>
 	<li>
 	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />

@@ -443,7 +443,7 @@
               package depends on erlang package(s).  We strongly
               recommend using your distribution's packaged version of
               Erlang to run the server. See <a
-              href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> if
+              href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
               there is no official erlang package for your
               distribution.
 	    </li>
