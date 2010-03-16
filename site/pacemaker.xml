@@ -443,7 +443,7 @@ non-ha:~#
         to configure Rabbit. They are:</p>
         <dl>
           <dt>multi</dt>
-          <dd>The path to the rabbitmq-multi script </dd>
+          <dd>The path to the rabbitmq-multi script</dd>
 
           <dt>ctl</dt>
           <dd>The path to the rabbitmqctl script</dd>
