@@ -614,9 +614,9 @@
 	      routing tables are shared across the entire cluster, and
 	      delivery of messages published at one node to a queue
 	      residing at another node is seamless. For details see
-	      the <a href="clustering.html">clustering guide</a>. We
-	      are currently developing further support for live
-	      failover of AMQP resources within a cluster.
+	      the <a href="clustering.html">clustering guide</a> and
+	      the <a href="pacemaker.html">high availability</a>
+	      guide.
 	    </p>
 	  </doc:a>
 	</doc:faq>
