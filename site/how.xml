@@ -141,6 +141,7 @@
 	    <li><a href="http://github.com/tmm1/amqp/tree/master">Ruby/EventMachine AMQP client</a></li>
 	    <li><a href="http://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a> </li>
 	    <li><a href="http://github.com/celldee/bunny/tree/master">Bunny</a>, a synchronous AMQP client</li>
+	    <li><a href="http://github.com/famoseagle/carrot">Carrot</a><br /> A synchronous AMQP client</li>
 	    <li><a href="http://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby</li>
 	    <li><a href="http://groups.google.com/group/ruby-amqp/">Google ruby-amqp group</a></li>
 	    <li><a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons</li>
@@ -568,10 +569,6 @@ decentralised microblogging</li>
 	  <a href="http://bunnyamqp.wordpress.com/">Of Bunny and AMQP</a><br />
 	  The blog of Chris Duncan, author the the Bunny AMQP client for Ruby. Good place
 	  to look if you're using AMQP with Ruby.
-	</li>
-	<li>
-	  <a href="http://github.com/famoseagle/carrot">Carrot</a><br />
-	  A synchronous AMQP client.
 	</li>
 	<li>
 	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
