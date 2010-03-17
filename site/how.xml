@@ -345,6 +345,10 @@ decentralised microblogging</li>
 	The <a href="http://us.pycon.org/2010/conference/schedule/event/148/">slides are also available</a> as a PDF.
 	</li>
 	<li>
+	<a href="http://blog.cloudeventprocessing.com/archives/544">TwitYourl-Map/Reduce in CEP Land</a><br/>
+	Video about how to do complex event processing to derive intelligence 
+	about twitter streams. Uses RabbitMQ on EC2.</li>
+	<li>
 	<a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
 	More links to cloud use cases at delicious.com.	
 	</li>
@@ -408,8 +412,10 @@ decentralised microblogging</li>
 	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
 	  and AMQP.
 	</li>
-	<li><a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a></li>
-	<li>A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a></li>
+	<li>
+	  <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
+	  A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
+	</li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
