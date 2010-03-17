@@ -185,6 +185,9 @@ li#vmware {
 li#kaazing {
 	background: url(../img/kaazing.png) no-repeat 1px 22px;
 }
+li#novell {
+	background: url(../img/novell.png) no-repeat 1px 22px;
+}
 ul.downloads li {
 	list-style-type : none;
 	float: left;
