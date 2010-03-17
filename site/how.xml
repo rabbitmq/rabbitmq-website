@@ -131,7 +131,7 @@
 	      A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
 	    </li>
 	    <li><a href="http://www.infoq.com/news/2010/03/amqp_support_spring_integration">Introduction to OpenCredo's Spring Integration kit for RabbitMQ</a></li>
-	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using rabbitmq with groovy</a></li>
+	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a></li>
 	   </ul>
 	</li>	
@@ -193,7 +193,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li> 		
-	<li id="php-development">PHP: 
+	<li id="php-development">PHP development: 
 	  <ul class="plain">
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
@@ -406,8 +406,8 @@ decentralised microblogging</li>
 	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
 	  and AMQP.
 	</li>
-	<li><a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a>, a daemon for monitoring AMQP with 
-	<a href="http://community.zenoss.org/">Zenoss</a></li>
+	<li><a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a></li>
+	<li>A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a></li>
 	<li>
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+management">RabbitMQ Management</a> and 
 	  <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
@@ -524,7 +524,7 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://www.skaag.net/2010/03/12/rabbitmq-for-beginners/">HOWTO: Set up a RabbitMQ cluster and enable plugins</a><br />
-	  An excellent presentation  describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
+	  A beginners guide to RabbitMQ explaining how to set up a cluster of RabbitMQ brokers and enable plugins.
 	</li>
 	<li>
 	  <a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">HOWTO: Build Your Own AMQP Client</a><br />
