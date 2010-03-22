@@ -563,7 +563,12 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
             Now we create a configuration file containing the
             line
           </p>
-          <pre class="sourcecode">[rabbit@rabbit1, rabbit@rabbit2].</pre>
+          <pre class="sourcecode">['rabbit@rabbit1', 'rabbit@rabbit2'].</pre>
+          <p>
+            (Note for Erlang programmers and the curious: this is a list 
+            containing two atoms. The atoms in this case do not need to be 
+            quoted but we've done so for ease of copy-and-paste.)
+          </p>
           <p>
             We copy this file onto all machines and install it in the
             location as defined in the start up files (see the <a
