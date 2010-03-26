@@ -56,6 +56,27 @@
           </li>
         </ul>
       </doc:section>
+      
+      <doc:section name="server-config">
+        <doc:heading>Server Configuration</doc:heading>
+        <p>
+          In most scenarios, the BQL server plugin requires no configuration. However, if you've removed the default guest/guest user, 
+          then you'll need to configure the plugin to connect with different credentials. The BQL plugin requires a valid user to connect
+          to RabbitMQ internally to subscribe to the bql.query queue.
+        </p>
+        <p>
+          To set a custom username/password combination for the plugin to connect with, you'll need to add a <b>rabbitmq_bql</b> section to
+          your rabbitmq.config file. The location of this configuration file is documented on the <a href="install.html">installation page</a>
+          under the section relevant to your platform. A rabbitmq.config with an appropriate section would look like:
+          <pre class="sourcecode">[
+  {rabbitmq_bql, [
+    {user, "bql-user"},
+    {password, "bql-password"}
+  ]}
+].</pre>
+          You'll need to restart RabbitMQ after changing this configuration.
+        </p>
+      </doc:section>
  
       <doc:section name="running">
         <doc:heading>Running the Client</doc:heading>
