@@ -12,7 +12,24 @@
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->    
+      -->   
+      
+      <doc:item>
+	<doc:date iso="2010-04-12T00:00:00Z">12 April 2010</doc:date>
+	<doc:title>
+	  Alexis will be speaking at Cloud &amp; Grid Exchange 2010
+	</doc:title>
+
+	<doc:link>http://skillsmatter.com/event/cloud-grid/cloud-grid-exchange-2010/wd-777</doc:link>
+	
+	<doc:text>
+	  <p>Alexis Richardson, Rabbit Technologies CEO, will be speaking at the Cloud &amp; Grid 
+	  Exchange in London, 23rd April. In his talk, Alexis will present use cases for cloud 
+	  messaging: what is messaging and why it is useful for cloud computing? This talk will 
+	  answer these questions by way of illustrating use cases from RabbitMQ customers.</p>
+	  <p><a href="http://skillsmatter.com/event/cloud-grid/cloud-grid-exchange-2010/wd-777">Read more</a></p>
+	</doc:text>
+      </doc:item>      
       
       <doc:item>
 	<doc:date iso="2010-02-16T00:00:00Z">16 February 2010</doc:date>

@@ -188,6 +188,9 @@ li#kaazing {
 li#novell {
 	background: url(../img/novell.png) no-repeat 1px 22px;
 }
+li#terracotta {
+	background: url(../img/terracotta.png) no-repeat 1px 22px;
+}
 ul.downloads li {
 	list-style-type : none;
 	float: left;
