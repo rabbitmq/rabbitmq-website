@@ -52,7 +52,9 @@
         provide a shared storage area in which the active node will
         write messages. If you have a NAS or SAN or some other means
         of providing reliable shared storage to both nodes, then you
-        can use that instead of DRBD.</p>
+        can use that instead of DRBD. If you are going to use DRBD,
+        note that the DRBD OCF script which I use later on only
+        appeared in DRBD version 8.3.2.</p>
 
         <p>This guide does not tell you how to install Pacemaker,
         Heartbeat, OpenAIS, CoroSync or DRBD - there are already
@@ -122,7 +124,11 @@ resource drbd1 {
 }
 </pre>
 
-        <p><code>crm configure show</code> should show nothing configured:</p>
+        <p>I assume that if you bring up the DRBD device, you have
+        already put a file-system on it and can mount and unmount
+        it. <code>crm configure show</code> should show nothing
+        configured:</p>
+
 <pre class="sourcecode">
 ha-node-2:~# crm configure show
 node ha-node-1
@@ -195,7 +201,10 @@ ha-node-2:~#
         secondary for the DRBD device. Both of these are achieved by
         creating the order directive which says to promote the
         <i>drbd_ms</i> resource before starting the <i>drbd_fs</i>
-        resource.</p>
+        resource. Note that after committing the shadow CIB into the
+        live CIB and switching back to the live CIB, we delete the old
+        shadow CIB - this is purely a housekeeping exercise and is not
+        essential.</p>
 
         <p>If you're not using DRBD, you will just want to configure a
         single primitive <code>ocf:heartbeat:Filesystem</code> which
@@ -264,13 +273,56 @@ ha-node-2:~#
 </pre>
 
         <p>We create a resource called <i>bunny</i> which is our
-        RabbitMQ instance. We configure it to place its database
-        files (and message store) on our DRBD-backed mount point. We
-        then need to colocate the <i>bunny</i> resource with the
+        RabbitMQ instance. We configure it to place its database files
+        (and message store) on our DRBD-backed mount point. We then
+        need to colocate the <i>bunny</i> resource with the
         <i>drbd_fs</i> resource, and we also need to make sure that
         the file-system is mounted before we start the <i>bunny</i>
         resource (and similarly, the <i>bunny</i> resource is stopped
-        before we un-mount the file-system).</p>
+        before we un-mount the file-system). The status of the
+        resources can be seen by running <code>crm status</code> on
+        any active node:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm status
+============
+Last updated: Mon Apr 12 17:29:50 2010
+Stack: openais
+Current DC: ha-node-2 - partition with quorum
+Version: 1.0.7-6fab059e5cbe82faa65f5aac2042ecc0f2f535c7
+2 Nodes configured, 2 expected votes
+4 Resources configured.
+============
+
+Online: [ ha-node-2 ha-node-1 ]
+
+ bunny  (ocf::rabbitmq:rabbitmq-server):        Started ha-node-1
+ Master/Slave Set: drbd_ms
+     Masters: [ ha-node-1 ]
+     Slaves: [ ha-node-2 ]
+ drbd_fs        (ocf::heartbeat:Filesystem):    Started ha-node-1
+</pre>
+
+        <p>Thus we can see that the <i>bunny</i> and <i>drbd_fs</i>
+        resources are running only on <code>ha-node-1</code> and that
+        the <i>drbd_ms</i> resource has its master as
+        <code>ha-node-1</code> and its slave as
+        <code>ha-node-2</code>. The output of <code>mount</code>
+        should show that <code>/media/drbd1</code> is mounted only on
+        <code>ha-node-1</code>, and a <code>ps ax | grep
+        [r]abbit</code> should show that RabbitMQ is running only on
+        <code>ha-node-1</code>.</p>
+
+        <p>If you stop <code>ha-node-1</code> (turn it off, or just
+        stop Heartbeat or CoroSync), you should find all the services
+        migrate to the other node. If you create some durable
+        resources (e.g. durable queues or exchanges), you should find
+        that these survive the transition to the other node. It's a
+        good idea to play with stopping and starting the nodes at this
+        point to build confidence that it really is doing the right
+        thing. <code>rabbitmqctl -n rabbit@localhost status</code> and
+        similar commands will allow you to see the status of RabbitMQ
+        server from whichever node it is currently running on.</p>
 
         <p>By default, the <code>ocf:rabbitmq:rabbitmq-server</code>
         script sets the node-name to <code>rabbit@localhost</code> on
@@ -278,16 +330,6 @@ ha-node-2:~#
         be possible to resolve <code>localhost</code>, but it does
         mean that you can't join a cluster. We'll correct that later
         on.</p>
-
-        <p>You should now find that one node has the DRBD master, the
-        file-system mounted, and rabbit running. If you stop that node
-        (turn it off, or just stop Heartbeat or CoroSync), you should
-        find all the services migrate to the other node. If you create
-        some durable resources (e.g. durable queues or exchanges), you
-        should find that these survive the transition to the other
-        node. It's a good idea to play with stopping and starting the
-        nodes at this point to build confidence that it really is
-        doing the right thing.</p>
       </doc:section>
 
       <doc:section name="with_ip">
