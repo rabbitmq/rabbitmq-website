@@ -14,6 +14,45 @@
 	   will give you a suitable value.
       -->   
       
+      
+      <doc:item>
+	<doc:date iso="2010-04-13T00:00:00Z">13 April 2010</doc:date>
+	<doc:title>
+	  Rabbit Technologies announce acquisition by SpringSource
+	</doc:title>
+
+	<doc:link>/resources/SpringSourceAcquiresRabbitTech.pdf</doc:link>
+	
+	<doc:text>
+
+	<p>Rabbit Technologies Ltd. (RTL), the company behind RabbitMQ, today announced that the company is to be acquired by SpringSource, a division of VMware, Inc.. RTL was founded in February 2007 and is a spin out from LShift Ltd., the UK software consultancy, and Cohesive FT, the US virtualization and cloud computing company. </p>
+
+	<p>The Rabbit Team are very excited about the deal. “RabbitMQ is an extremely successful technology and forms the backbone for many varied cloud messaging systems,” said Alexis Richardson, chief executive officer and co-founder, Rabbit Technologies, Ltd. “By providing a multi-protocol, completely open, portable messaging system, our technology can be a key enabler of tomorrow’s applications. By joining with enterprise leaders, SpringSource and VMware, RabbitMQ expects to continue to be at the forefront of the movement toward cloud computing. Users and customers will benefit from an organization offering deep and immediate experience with the challenges of managing highly available and stable operations.”</p>  
+
+	<p>RabbitMQ will continue to be open source and distributed in the same way as before. The RabbitMQ community can expect to see increased investment in this outstanding technology which should result in significant improvements to the open source release.</p>
+
+	<p>RabbitMQ customers will see an increase in availability of training, professional services and support offerings as the RabbitMQ business is integrated with SpringSource. </p>
+
+	<p>For more details please see <a href="/resources/SpringSourceAcquiresRabbitTech.pdf">the full press release</a>.</p>
+
+	<p>Contacts:</p>
+
+	<p><strong>SpringSource and VMware</strong><br />
+	Charlie Purdom, <a href="mailto:cpurdom@vmware.com">cpurdom@vmware.com</a> <br />
+	Ross Levanto or Christine McKeown, <a href="mailto:springsource@schwartz-pr.com">springsource@schwartz-pr.com</a></p>
+
+	<p><strong>Rabbit Technologies Ltd.</strong><br />
+	Alexis Richardson, <a href="mailto:alexis@rabbitmq.com">alexis@rabbitmq.com</a></p>
+
+	<p><strong>LShift Ltd.</strong><br />
+	Mike Rowlands, <a href="mailto:mike@lshift.net">mike@lshift.net</a></p>
+
+	<p><strong>Cohesive FT</strong><br />
+	Dwight Koop, <a href="mailto:dwight.koop@cohesiveft.com">dwight.koop@cohesiveft.com</a></p>
+    
+	</doc:text>
+      </doc:item>    
+      
       <doc:item>
 	<doc:date iso="2010-04-12T00:00:00Z">12 April 2010</doc:date>
 	<doc:title>
