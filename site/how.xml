@@ -65,6 +65,10 @@
 	  easily. Assumes you know the basics about messaging and AMQP.
 	</li>
 	<li>
+	  <a href="http://vimeo.com/10254034">Installing RabbitMQ</a><br />
+	  Video showing how to get a RabbitMQ server installed and running in 20 seconds.	
+	</li>
+	<li>
 	  <a href="http://norbu09.org/2009/07/17/RabbitMQ-talk-at-erlounge.html">RabbitMQ and Messaging in General</a><br />
 	  Slides from a presentation by Lenz Gschwendtner at erlounge in
 	  Wellington, July 2009. Another great introduction.	
@@ -427,6 +431,11 @@ decentralised microblogging</li>
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
 	<li>
+	  <a href="http://www.slideshare.net/old_sound/interoperability-with-rabbitmq">Interoperability with RabbitMQ</a><br />
+	  Alvero Videla explains how RabbitMQ is the perfect solution to the interoperability problem where 
+	  different applications need to work together to share real time data at scale.
+	</li>
+	<li>
 	  <a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queuing</a><br />
 	  Dmitriy Samovskiy blogs about how RabbitMQ can be used beyond simple
 	  queuing and pubsub. Gets you started on the path to "achieve a distributed
@@ -543,6 +552,11 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">HOWTO: Build a RabbitMQ Management Console</a><br />
 	  Walk through of how you might build a RabbitMQ management tool.
+	</li>
+	<li>
+	  <a href="/resources/ErlangFactorySFBay2010-TonyGarnock-Jones.pdf">HOWTO: Extend RabbitMQ with custom exchange types</a> [PDF 7MB]<br />
+	  Tony Garnock-Jones' slides from Erlang Factory SF 2010 that explain how you can build your own 
+	  custom exchange implementations to extend the functionality of RabbitMQ.
 	</li>
 	<li>
 	  <a href="http://hg.rabbitmq.com/rabbitmq-codegen/">RabbitMQ's Protocol Code Generator</a><br />
