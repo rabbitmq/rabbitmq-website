@@ -25,15 +25,30 @@
 	
 	<doc:text>
 
-	<p>Rabbit Technologies Ltd. (RTL), the company behind RabbitMQ, today announced that the company is to be acquired by SpringSource, a division of VMware, Inc.. RTL was founded in February 2007 and is a spin out from LShift Ltd., the UK software consultancy, and Cohesive FT, the US virtualization and cloud computing company. </p>
+	<p>Rabbit Technologies Ltd. (RTL), the company behind RabbitMQ, today announced that the company 
+	is to be acquired by SpringSource, a division of VMware, Inc.. RTL was founded in February 2007 
+	and is a spin out from LShift Ltd., the UK software consultancy, and Cohesive FT, the US 
+	virtualization and cloud computing company. </p>
 
-	<p>The Rabbit Team are very excited about the deal. “RabbitMQ is an extremely successful technology and forms the backbone for many varied cloud messaging systems,” said Alexis Richardson, chief executive officer and co-founder, Rabbit Technologies, Ltd. “By providing a multi-protocol, completely open, portable messaging system, our technology can be a key enabler of tomorrow’s applications. By joining with enterprise leaders, SpringSource and VMware, RabbitMQ expects to continue to be at the forefront of the movement toward cloud computing. Users and customers will benefit from an organization offering deep and immediate experience with the challenges of managing highly available and stable operations.”</p>  
+	<p>The Rabbit Team are very excited about the deal. “RabbitMQ is an extremely successful 
+	technology and forms the backbone for many varied cloud messaging systems,” said Alexis 
+	Richardson, chief executive officer and co-founder, Rabbit Technologies, Ltd. “By 
+	providing a multi-protocol, completely open, portable messaging system, our technology 
+	can be a key enabler of tomorrow’s applications. By joining with enterprise leaders, 
+	SpringSource and VMware, RabbitMQ expects to continue to be at the forefront of the
+	movement toward cloud computing. Users and customers will benefit from an organization 
+	offering deep and immediate experience with the challenges of managing highly available
+	and stable operations.”</p>  
 
-	<p>RabbitMQ will continue to be open source and distributed in the same way as before. The RabbitMQ community can expect to see increased investment in this outstanding technology which should result in significant improvements to the open source release.</p>
+	<p>RabbitMQ will continue to be open source and distributed in the same way as before.
+	The RabbitMQ community can expect to see increased investment in this outstanding technology
+	which should result in significant improvements to the open source release.</p>
 
-	<p>RabbitMQ customers will see an increase in availability of training, professional services and support offerings as the RabbitMQ business is integrated with SpringSource. </p>
+	<p>RabbitMQ customers will see an increase in availability of training, professional 
+	services and support offerings as the RabbitMQ business is integrated with SpringSource. </p>
 
-	<p>For more details please see <a href="/resources/SpringSourceAcquiresRabbitTech.pdf">the full press release</a>.</p>
+	<p>For more details please see <a href="/resources/SpringSourceAcquiresRabbitTech.pdf">the 
+	full press release</a>.</p>
 
 	<p>Contacts:</p>
 
@@ -50,6 +65,10 @@
 	<p><strong>Cohesive FT</strong><br />
 	Dwight Koop, <a href="mailto:dwight.koop@cohesiveft.com">dwight.koop@cohesiveft.com</a></p>
     
+	<p>Acknowledgements:</p>
+	<p>Rabbit Technologies would like to thank <strong>Orrick, Herrington &amp; Sutcliffe LLP (London)</strong> for acting 
+	as counsel throughout the acquisition process. Visit
+	<a href="http://www.orrick.com/offices/london/index.asp">their website</a>.</p>
 	</doc:text>
       </doc:item>    
       
