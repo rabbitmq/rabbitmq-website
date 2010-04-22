@@ -36,6 +36,8 @@
         persistent messages within them can be recovered by a
         different node.</p>
 
+        <img src="img/pacemaker.png"/>
+
         <p>Clustering can be combined with high availability to create
         a cluster that can scale beyond a single node and
         simultaneously preserve persistent messages and durable
