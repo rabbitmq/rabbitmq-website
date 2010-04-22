@@ -19,20 +19,20 @@
 
         <p>There are many forms of high availability, replication and
         resilience in the face of various different types of
-        failure. RabbitMQ can currently be made to work in an
-        active/passive setup, such that persistent messages that have
-        been written to disk on the active node are able to be
-        recovered by the passive node should the active node
-        fail. Non-persistent messages will be lost, and the promotion
-        of the passive node may take a little while as it reads the
-        messages off disk.
+        failure. RabbitMQ can be made to work in an active/passive
+        setup, such that persistent messages that have been written to
+        disk on the active node are able to be recovered by the
+        passive node should the active node fail. Non-persistent
+        messages will be lost, and the promotion of the passive node
+        may take a little while as it reads the messages off disk.
         </p>
 
-        <p>Whilst RabbitMQ also supports clustering, clustering is
-        intended to facilitate scalability, not availability. Thus in
-        a cluster, if a node fails, queues which were on the failed
-        node are lost. With the high availability setup described in
-        this guide, when a node fails, the durable queues and the
+        <p>Whilst RabbitMQ also supports <a
+        href="clustering.html">clustering</a>, clustering is intended
+        to facilitate scalability, not availability. Thus in a
+        cluster, if a node fails, queues which were on the failed node
+        are lost. With the high availability setup described in this
+        guide, when a node fails, the durable queues and the
         persistent messages within them can be recovered by a
         different node.</p>
 
@@ -53,8 +53,16 @@
         write messages. If you have a NAS or SAN or some other means
         of providing reliable shared storage to both nodes, then you
         can use that instead of DRBD. If you are going to use DRBD,
-        note that the DRBD OCF script which I use later on only
+        note that the DRBD OCF script which we use later on only
         appeared in DRBD version 8.3.2.</p>
+
+        <p>Note that we use CoroSync (which is a cut-down version of
+        OpenAIS) in preference to Heartbeat as the messaging layer
+        underneath Pacemaker. However, we also have Heartbeat
+        installed so as to be able to access Heartbeat's OCF
+        scripts. You should find that the instructions here work
+        equally well regardless of whether you use CoroSync, Heartbeat
+        or OpenAIS.</p>
 
         <p>This guide does not tell you how to install Pacemaker,
         Heartbeat, OpenAIS, CoroSync or DRBD - there are already
@@ -72,42 +80,34 @@
           users guide</a></li>
         </ul></p>
 
-        <p>Note that I used CoroSync (which is a cut-down version of
-        OpenAIS) in preference to Heartbeat. However, I also had
-        Heartbeat installed so as to be able to access Heartbeat's OCF
-        scripts. You should find that the instructions here work
-        equally well regardless of whether you use CoroSync, Heartbeat
-        or OpenAIS as the Pacemaker underlying messaging layer.
-        </p>
-
         <p>If you're compiling Pacemaker et al from source, be aware
         that the various autoconf configure scripts don't seem to test
         thoroughly enough for various libraries, the result of which
         is that compilation may eventually fail due to missing
         libraries, even though the configure script passes. Under
-        Debian Sid, I found I had to install the following extra
+        Debian Sid, we have had to install the following extra
         packages, though obviously your mileage will vary with
         different distributions: <code>autoconf libtool pkg-config
         libglib2.0-dev libxml2 libxml2-dev uuid-dev uuid-runtime
         libnss3-dev groff libxslt1.1 libxslt1-dev libesmtp5
         libesmtp-dev libssl-dev ssmping xsltproc</code>. Be aware that
-        I found that if the build did fail, merely installing the
-        necessary libraries was not enough to make the build then pass
-        - I had to go back and re-run the autotools and configure
-        steps before it would find the new libraries and compile
-        correctly.</p>
+        we have found that if the build does fail, merely installing
+        the necessary libraries was not enough to make the build then
+        pass - we have had to go back and re-run the autotools and
+        configure steps before it would find the new libraries and
+        compile correctly.</p>
 
       </doc:section>
 
       <doc:section name="assumption">
 	<doc:heading>Assumptions</doc:heading>
 
-        <p>By this point, I assume that you have installed Pacemaker
+        <p>By this point, we assume that you have installed Pacemaker
         and, if you're going to use it, DRBD, on two different
         machines, which can see each other. You should have configured
         DRBD and thus be able to set one node the primary and the
         other the secondary for the DRBD resource. The initial sync
-        between the two nodes has already been done. My DRBD resource
+        between the two nodes has already been done. Our DRBD resource
         <code>drbd1</code> configuration looks like:</p>
 
 <pre class="sourcecode">
@@ -124,7 +124,7 @@ resource drbd1 {
 }
 </pre>
 
-        <p>I assume that if you bring up the DRBD device, you have
+        <p>We assume that if you bring up the DRBD device, you have
         already put a file-system on it and can mount and unmount
         it. <code>crm configure show</code> should show nothing
         configured:</p>
@@ -143,7 +143,7 @@ property $id="cib-bootstrap-options" \
 rsc_defaults $id="rsc-options" \
         resource-stickiness="100"
 </pre>
-        <p>Note that here I have already set stickiness to 100,
+        <p>Note that here we have already set stickiness to 100,
         disabled STONITH, and told Pacemaker not to worry about not
         having quorum (see the section <i>Create an Active/Passive
         cluster</i> in the <i>Clusters from scratch</i> guides
@@ -158,9 +158,9 @@ rsc_defaults $id="rsc-options" \
 
         <p>If you are planning on using DRBD to provide shared
         storage, you need to get Pacemaker to manage this. The
-        instructions here are adapted for my setup but are pretty much
-        the same as from the <i>Clusters from scratch</i> guides and
-        from the <a
+        instructions here are adapted for our setup but are pretty
+        much the same as from the <i>Clusters from scratch</i> guides
+        and from the <a
         href="http://www.drbd.org/users-guide/ch-pacemaker.html">DRBD
         Pacemaker documentation</a>. DRBD only allows one node at a
         time access to the shared device, so there is never any danger
@@ -225,20 +225,18 @@ ha-node-2:~#
         server runs as the user <code>rabbitmq</code> which is a
         member of the group <code>rabbitmq</code>. You must ensure
         that this user and group have the same UIDs and GIDs on both
-        nodes. If necessary, edit <code>/etc/passwd</code> and
-        <code>/etc/group</code>. (You can probably save yourself some
-        time by explicitly creating the <code>rabbitmq</code> user and
-        group with the same UID and GID on all nodes before installing
-        the RabbitMQ server at all). Once done, reinstall the RabbitMQ
-        server which will ensure all files are owned by the correct
-        user and group (assuming you're installing from a binary
-        package. If you're installing from source, you probably know
-        what to do anyway). Also make sure the <code>rabbitmq</code>
-        user has permission to write and read to the shared storage
-        mount point (<code>/media/drbd1</code> in my example
-        above). Although not strictly necessary at this stage, next
-        ensure that all the nodes share the same Erlang cookie. The
-        <code>rabbitmq</code> home directory is normally
+        nodes. You can probably save yourself some time by explicitly
+        creating the <code>rabbitmq</code> user and group with the
+        same UID and GID on all nodes before installing the RabbitMQ
+        server at all. If necessary, edit <code>/etc/passwd</code> and
+        <code>/etc/group</code> on both nodes, and then reinstall the
+        RabbitMQ server to ensure all necessary files are owned by the
+        correct user and group. Also make sure the
+        <code>rabbitmq</code> user has permission to write and read to
+        the shared storage mount point (<code>/media/drbd1</code> in
+        our example above). Although not strictly necessary at this
+        stage, next ensure that all the nodes share the same Erlang
+        cookie. The <code>rabbitmq</code> home directory is normally
         <code>/var/lib/rabbitmq</code>, so:</p>
 
 <pre class="sourcecode">
@@ -330,6 +328,20 @@ Online: [ ha-node-2 ha-node-1 ]
         be possible to resolve <code>localhost</code>, but it does
         mean that you can't join a cluster. We'll correct that later
         on.</p>
+
+        <p>To stop the <i>bunny</i> resource you just need to run
+        <code>crm resource bunny stop</code>, and likewise to start
+        it, <code>crm resource bunny start</code>. Note that you'll
+        need to do this manually before upgrading Rabbit as if you're
+        using a binary package then you'll have likely disabled the
+        <code>rabbitmq-server</code> init script, which will mean the
+        package manager will fail to safely stop RabbitMQ prior to
+        upgrading its source. Unless the upgrade is changing the
+        database schema or the format of the persisted data, you
+        should be able to upgrade RabbitMQ on the passive node, then
+        migrate RabbitMQ to the passive node (<code>crm resource
+        migrate bunny</code>) and upgrade what was the active
+        node.</p>
       </doc:section>
 
       <doc:section name="with_ip">
@@ -338,20 +350,20 @@ Online: [ ha-node-2 ha-node-1 ]
         <p>You may wish your highly-available Rabbit to always be
         accessible on the same IP address. There are a number of ways
         to achieve this, for example, you could use a TCP load
-        balancer. Here, I demonstrate getting Pacemaker to migrate an
+        balancer. Here, we demonstrate getting Pacemaker to migrate an
         IP address with Rabbit. Note that if you're happy to build
         into your clients the various IPs on which Rabbit may be
         available, then you may not need this step at all.</p>
 
-        <p>In testing, I have found that the IP migration done by
+        <p>In testing, we have found that the IP migration done by
         Pacemaker frequently hangs if the IP address being migrated is
         on the same network as another IP interface on the same
-        node. In the example here, the two nodes have IP
-        addresses of 192.168.100.21 and 192.168.100.22 (both on a
-        /24). I shall therefore choose that the IP on which Rabbit
-        will always be available is 192.168.50.1 (i.e. a different
-        network). This seems to make the migration of the IP address
-        more reliable.</p>
+        node. In the example here, the two nodes have IP addresses of
+        192.168.100.21 and 192.168.100.22 (both on a /24). We shall
+        therefore choose that the IP on which Rabbit will always be
+        available is 192.168.50.1 (i.e. a different network). This
+        seems to make the migration of the IP address more
+        reliable.</p>
 
 <pre class="sourcecode">
 ha-node-2:~# crm
