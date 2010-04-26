@@ -200,7 +200,7 @@
     <p>
       We strongly recommend using your distribution's packaged version
       of Erlang to run the server. This is part of Fedora, and in <a
-      href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> for RHEL. To
+      href="http://fedoraproject.org/wiki/EPEL">EPEL</a> for RHEL. To
       enable EPEL on your Red Hat machine, see the <a
       href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
       FAQ</a>. Then just <code>yum install erlang</code>.
