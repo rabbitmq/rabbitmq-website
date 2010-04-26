@@ -450,7 +450,7 @@ ha-node-2:~#
         passive. Thus when adding all the additional resources, you'll
         need to make sure all the resource names are different, and
         obviously you'll need to take into account the change in host
-        name, a different mount point name, DRBD resource name, and a
+        name, a different mount point, DRBD resource name, and a
         different mobile IP address (which I shall assume to be
         192.168.50.2).</p>
 
@@ -484,9 +484,9 @@ ha-node-2:~#
         <p>The <i>bunny</i> and <i>bunny2</i> resources should
         instantly restart, reflecting the changes in node-names. As
         per the <a href="clustering.html">clustering guide</a>, we
-        have already ensured that it has the same Erlang cookie on all
-        of the HA nodes, and we issue the following commands to form
-        the cluster:</p>
+        have already ensured that we have the same Erlang cookie on
+        all of the HA nodes, and we issue the following commands to
+        form the cluster:</p>
 
 <pre class="sourcecode">
 ha-node-3:~# rabbitmqctl stop_app
