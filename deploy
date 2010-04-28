@@ -12,8 +12,6 @@ echo Deploying to $remote_host
 
 tmp_dir=$(tempfile)
 
-tmp_dir=/tmp/fileATtXpF
-
 ssh $remote_host mkdir $tmp_dir
 scp -r -q code conf feeds site $remote_host:$tmp_dir
 ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
