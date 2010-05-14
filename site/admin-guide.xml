@@ -194,11 +194,6 @@
         </p>
         <ul>
           <li>
-            Custom Boot files require that all applications (including standard OTP applications) have
-            explicit versions listed. This means that if your OTP installation is upgraded, then Rabbit
-            will most likely not start until the plugin activation script is run again.
-          </li>
-          <li>
             Since the plugin runs in the same node as the broker, it should not be assumed that any access
             controls configured on the broker will be observed by the plugin. Whilst plugins can interact
             with the ACL mechanism to ensure enforcement of security mechanisms, it is also possible for
@@ -229,48 +224,49 @@
               resides within). If this directory does not exist, it can be safely created.
             </li>
             <li>
-              Once the desired plugins have been placed in the plugins directory, run the following as root:
-              <pre>rabbitmq-activate-plugins</pre> 
-              Note that on some platforms it has been observed that many spurious warnings are printed along the lines
-              of:
-              <pre>*WARNING* mnesia: Object code (mnesia) out of date</pre>
-              It is our experience that warnings of this variety can be safely ignored.
-            </li>
-            <li>
-              Upon successful completion of the script, restart Rabbit. All installed plugins will be started
-              automatically.
+              After adding new plugins to the plugins subdirectory,
+              restart the RabbitMQ server. As it starts, it scans the
+              plugins subdirectory and activates all the plugins it
+              finds there automatically before continuing to load.
             </li>
             <li>
               <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-              When first activating, or deactivating, plugins, the 
+              Each time you add plugins to the plugins directory, you must re-run the
               <pre>rabbitmq-service.bat install</pre>
-              command will need to be re-run to ensure that the service configuration is updated to perform
+              command to ensure that the service configuration is updated to perform
               an appropriate boot sequence.
             </li>
-          </ul> 
+          </ul>
         </doc:subsection>
        
         <doc:subsection name="uninstalling-plugins">
           <doc:heading>Plugin Un-installation</doc:heading>
           
           <p>
-            To remove an installed plugin from the broker, delete the .ez file or directory from the plugins
-            directory, and re-run the rabbitmq-activate-plugins script. When the broker is restarted, the deleted
-            plugin will no longer be started.
+            To remove an installed plugin from the broker, delete the
+            .ez file or directory from the plugins directory. When the
+            broker is restarted, the deleted plugin will no longer be
+            started.
           </p>
+	  <p>
+	    <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
+	    Just as for installation, every time you remove plugins
+	    from the plugins directory, you must re-run the
+	    <pre>rabbitmq-service.bat install</pre>
+	    command to ensure that the service configuration is updated to perform
+	    an appropriate boot sequence.
+	  </p>
         </doc:subsection>
 
         <doc:subsection name="disabling-all-plugins">
           <doc:heading>Disabling all Plugins</doc:heading>
 
           <p>
-            In the event of broker mis-behaviour, it is recommended that all plugins be disabled as a first
-            port-of-call. Instead of manually removing all files from the plugins directory, the deactivate
-            plugins script can be used to disable all plugins until rabbitmq-activate-plugins is next run. To do this,
-            execute:
-            <pre>rabbitmq-deactivate-plugins</pre>
-            
-            When Rabbit is restarted, no custom plugins will be loaded.
+            In the event of broker mis-behaviour, it is recommended
+            that all plugins be disabled as a first
+            port-of-call. Either move the plugins subdirectory away,
+            or delete it.  When Rabbit is restarted, no custom plugins
+            will be loaded.
           </p>
         </doc:subsection> 
       </doc:section>

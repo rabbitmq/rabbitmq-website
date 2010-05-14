@@ -18,8 +18,6 @@
         <doc:heading>Section 1 - General Commands</doc:heading>
         <ul>
           <li><a href="rabbitmqctl.1.man.html">rabbitmqctl</a></li>
-          <li><a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a></li>
-          <li><a href="rabbitmq-deactivate-plugins.1.man.html">rabbitmq-deactivate-plugins</a></li>
           <li><a href="rabbitmq-multi.1.man.html">rabbitmq-multi</a></li>
           <li><a href="rabbitmq-server.1.man.html">rabbitmq-server</a></li>
         </ul>

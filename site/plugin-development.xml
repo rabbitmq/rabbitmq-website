@@ -74,7 +74,7 @@
           To develop a RabbitMQ plugin, a working RabbitMQ development environment
           first needs to be configured. An &quot;umbrella&quot; project is now
           provided to assist in assembling all the necessary repositories. The following
-          steps will walk through the process of checking out and activating a copy of the
+          steps will walk through the process of checking out and using a copy of the
           umbrella project in your local environment.
         </p>
         <ul>
@@ -100,24 +100,22 @@
         </ul>
       </doc:section>
 
-      <doc:section name="activating-a-plugin">
-        <doc:heading>Activating a plugin</doc:heading>
+      <doc:section name="installing-plugins-during-development">
+        <doc:heading>Installing plugins during development</doc:heading>
         
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
-          is made, plugins can be operated with in a development-style mode to make it possible to develop plugins
+          is made, plugins can be operated in a development-style mode to make it possible to develop plugins
           in place.
         </p>
         <p>
-          To activate a plugin in a development environment, create a symlink for the plugin development directory
-          in the rabbitmq-server/plugins directory. For example, to activate a development build of the rabbitmq-bql plugin:
+          To use a plugin in a development environment, create a symlink for the plugin development directory
+          in the rabbitmq-server/plugins directory. For example, to install a development build of the rabbitmq-bql plugin:
           <pre class="sourcecode">$ cd rabbitmq-server/plugins
-$ ln -s ../../rabbitmq-bql rabbitmq-bql
-$ cd ..
-$ scripts/rabbitmq-activate-plugins</pre>
+$ ln -s ../../rabbitmq-bql rabbitmq-bql</pre>
         </p>
         <p>
-          Conversely, to disable a plugin, simply remove the symlink and re-run rabbitmq-activate-plugins.
+          Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
         </p>
       </doc:section>
 
@@ -316,8 +314,7 @@ src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
             <pre class="sourcecode">cd ../rabbitmq-server/plugins
 ln -s ../../rabbitmq-erlang-client
 ln -s ../../rabbit_metronome
-cd ..
-scripts/rabbitmq-activate-plugins</pre>
+cd ..</pre>
           </li>
           <li>
             Start up your Rabbit broker:
