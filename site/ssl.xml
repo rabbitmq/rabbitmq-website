@@ -243,11 +243,11 @@ server testca
 	  values can change across versions of ssl shipped with
 	  Erlang/OTP, so check your man page <code class="">erl -man
 	  new_ssl</code> to ensure you have the proper values. <b>In
-	  particular, note that Erlang R12B5 has a single
+	  particular, note that Erlang R12B-5 has a single
 	  configuration value <code>verify_code</code> which takes the
 	  value <code>0</code>, <code>1</code> or <code>2</code>. There is
 	  no <code>fail_if_no_peer_cert</code> option in Erlang
-	  R12B5. The options changed with the release of R13
+	  R12B-5. The options changed with the release of R13
 	  to <code>verify</code> and <code>fail_if_no_peer_cert</code>
 	  as documented here.</b></p>
 
@@ -776,7 +776,7 @@ IModel ch = conn.CreateModel();
 	    used in Erlang R13 and onwards to specify what action to
 	    take if the server doesn't present a certificate or if
 	    we're unable to establish a chain of trust to the server's
-	    certificate. In R12B5 and prior,
+	    certificate. In R12B-5 and prior,
 	    the <code>verify_code</code> option serves the same
 	    purpose. Check <code>erl -man new_ssl</code> to make sure
 	    you have the right options for your version of Erlang.</p>
