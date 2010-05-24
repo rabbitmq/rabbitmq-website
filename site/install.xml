@@ -41,9 +41,9 @@
 
 	  <ul>
 	    <li>
-	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R12B-5 on
-	      Windows, which can be downloaded from <a
+	      Install a recent version of Erlang/OTP. Versions R12B-3
+	      and higher should work; we usually test against Erlang
+	      R12B-5 on Windows, which can be downloaded from <a
 	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
 	    </li>
 	    <li>
@@ -336,8 +336,8 @@
               Install the rabbitmq-server package from your chosen
               distribution - at the time of writing, RabbitMQ is
               included in Debian unstable (sid), Debian testing
-              (squeeze), Ubuntu 9.04 (Jaunty Jackalope), and the
-              upcoming Ubuntu 9.10 (Karmic Koala).
+              (squeeze), and Ubuntu 9.04 (Jaunty Jackalope) and
+              onwards.
             </li>
             <li>
               Alternatively, install
