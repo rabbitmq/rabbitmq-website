@@ -348,6 +348,12 @@ started SSL Listener on 0.0.0.0:5671</pre>
             presents a certificate for which we can verify a chain of
             trust.</p>
 
+            <p>Note there are major bugs SSL in Erlang release R13B04
+            which renders using SSL with cerificates broken. As of
+            this writing, if you're wishing to use SSL with
+            certificates with RabbitMQ, we recommend R13B03 as the
+            least buggy implementation of SSL in Erlang.</p>
+
 	    <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
       </doc:section>
