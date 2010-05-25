@@ -159,7 +159,8 @@
 		  this file is present it is used by the server to
 		  configure RabbitMQ application components. Note that
 		  the .config extension is automatically appended by
-		  the Erlang runtime.
+		  the Erlang runtime. See the section on <a
+          href="#configfile">the configuration file</a> for details.
 		</dd>
 	      </dl>
 	    </li>
@@ -411,16 +412,6 @@
 	    <code>logrotate</code> configuration file. 
 	  </p>
 	</doc:subsection>
-	
-	<doc:subsection name="configfile-debian">
-	  <doc:heading>Configuration File</doc:heading>
-	  <p>
-	    The server configuration file (rabbitmq.config) should be created
-	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
-	    of this file, see the 
-	    <a href="#configfile-general">Config File Contents</a> section.
-	  </p>
-	</doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
@@ -635,7 +626,8 @@
 		  this file is present it is used by the server to
 		  configure RabbitMQ application components. Note that
 		  the .config extension is automatically appended by
-		  the Erlang runtime.
+		  the Erlang runtime. See the section on <a
+          href="#configfile">the configuration file</a> for details.
 		</dd>
 	      </dl>
 	    </li>
@@ -759,7 +751,16 @@
             <li><b>Generic UNIX</b> - /etc/rabbitmq/rabbitmq.config</li>
           </ul>
       	</p>
-	        <p>
+        <p>
+          Note that this file is not the same as the
+          <code>rabbitmq.conf</code> mentioned elsewhere -
+          <code>rabbitmq.conf</code> can be used to set the environment
+          variables mentioned on this page, while
+          <code>rabbitmq.config</code> contains an Erlang term. A
+          future release of RabbitMQ will unify the two configuration
+          mechanisms.
+        </p>
+	    <p>
           Note that this file may not be created by default. If needed, it can be created manually. The
           location can also be overidden via the <b>RABBITMQ_CONFIG_FILE</b> environment variable. Note
           that the property value should not include the .config extension - this is automatically appended
