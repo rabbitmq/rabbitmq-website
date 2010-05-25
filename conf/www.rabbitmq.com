@@ -4,7 +4,13 @@
 <VirtualHost *:80>
     ServerName www.rabbitmq.com
     ServerAlias stage.rabbitmq.com
-    ServerAlias rabbit-web.lshift.net
+    ServerAlias rabbitmq.misshelpful.lshift.net
+    ServerAlias rabbitmq.mrbraver.lshift.net
+    ServerAlias spork.lshift.net
+    ServerAlias ladle.lshift.net
+    ServerAlias ladle
+    ServerAlias rabbitwww-stage.lshift.net
+    ServerAlias rabbitwww.lshift.net
     ServerAdmin simon@lshift.net
 
     DocumentRoot /srv/www.rabbitmq.com/site/
