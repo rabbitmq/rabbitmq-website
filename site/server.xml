@@ -34,8 +34,9 @@
 
     <p>
       In order to compile or run the server, you will need to have
-      downloaded and installed Erlang. Your operating system may come
-      with a package for working with Erlang, or you may need to <a
+      downloaded and installed Erlang/OTP, version R12B-3 or
+      higher. Your operating system may come with a package for
+      working with Erlang, or you may need to <a
       href="http://www.erlang.org/download.html">download and install
       Erlang</a> yourself.
     </p>
@@ -151,8 +152,9 @@
     <ul class="compact">
       <li><a href="http://www.debian.org/">Debian</a> 5.0 (Lenny), and
       testing (Squeeze)</li>
-      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 8.04 (Hardy
-      Heron) and 8.10 (Intrepid Ibex) and 9.04 (Jaunty Jackalope)</li>
+      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 8.10 (Intrepid
+      Ibex), 9.04 (Jaunty Jackalope), 9.10 (Karmic Koala) and 10.04
+      (Lucid Lynx)</li>
     </ul>
 
     <p>
@@ -175,25 +177,25 @@
     </p>
 
     <p>
-      The RPM files from the table above has been tested against
+      The Fedora RPM files from the table above have been tested against
     </p>
 
     <ul class="compact">
-      <li>
-	<a href="http://www.novell.com/products/server/">SLES</a> and
-	<a href="http://www.novell.com/products/realtime/">SLERT</a>
-	10 SP1 (openSUSE RPM)
-      </li>
-      <li><a href="http://www.opensuse.org/">openSUSE</a> 10.3</li>
       <li><a href="http://fedoraproject.org/">Fedora</a> 10, 11 and 12</li>
-      <li><a href="http://www.redhat.com/rhel/">RHEL</a> 5.3 (Fedora RPM)</li>
-      <li><a href="http://www.centos.org/">CentOS</a> 5.3 (Fedora RPM)</li>
+      <li><a href="http://www.redhat.com/rhel/">RHEL</a> 5.5 (Fedora RPM)</li>
+      <li><a href="http://www.centos.org/">CentOS</a> 5.5 (Fedora RPM)</li>
     </ul>
 
     <p>
-      Our server RPM should be fairly universal - if you have success
-      using it with any other RPM-based distribution, please <a
-       onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-server-a');"
+      The openSUSE RPM files are intended for Novell's openSUSE Linux
+      and derived distributions (SLES and SLERT).  We haven't tested
+      these under recent releases, but expect that they work.
+    </p>
+
+    <p>
+      If you have success using our RPMs with any other RPM-based
+      distribution, please <a onClick="javascript:
+      pageTracker._trackPageview('mailto:support@rabbitmq.com-server-a');"
       href="mailto:support@rabbitmq.com">let us know</a>.
     </p>
 
