@@ -10,11 +10,8 @@ fi
 
 echo Deploying to $remote_host
 
-# On BSDish systems this will create a file with literal Xs in its name
-# followed by random letters, but I can live with that.
-tmp_dir=$(mktemp -t tmp.XXXXXXXX)
+deploy_dir=/tmp/website-deploy-$(hg branch)
 
-ssh $remote_host mkdir $tmp_dir
-scp -r -q code conf feeds site $remote_host:$tmp_dir
-ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
-ssh $remote_host rm -rf $tmp_dir
+ssh $remote_host mkdir -p $deploy_dir
+rsync -avz --delete code conf feeds site $remote_host:$deploy_dir
+ssh -t $remote_host sudo $deploy_dir/code/deploy-remote
