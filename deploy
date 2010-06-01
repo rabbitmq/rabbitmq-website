@@ -13,5 +13,5 @@ echo Deploying to $remote_host
 deploy_dir=/tmp/website-deploy-$(hg branch)
 
 ssh $remote_host mkdir -p $deploy_dir
-rsync -avz --delete code conf feeds site $remote_host:$deploy_dir
+rsync -avz --delete code conf site $remote_host:$deploy_dir
 ssh -t $remote_host sudo $deploy_dir/code/deploy-remote
