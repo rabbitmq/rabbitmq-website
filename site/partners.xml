@@ -98,6 +98,16 @@
 	services, including file, print, messaging, scheduling, and workspace.</p>
 
 	<p><a href="http://www.novell.com/partnerguide/product/211478.html">RabbitMQ at novell.com</a></p>
+      </li>      
+      <li id="terracotta">
+	<h3><a href="http://www.terracotta.com/">Terracotta, Inc.</a></h3>
+	<p>Terracotta is infrastructure software that provides affordable and scalable 
+	high availability for Java applications. Companies use Terracotta to offload
+	work from databases and application servers and to reduce their development 
+	efforts. Founded in 2003, Terracotta, Inc. is a private firm headquartered in 
+	San Francisco. </p>
+
+	<p><a href="http://www.terracotta.com/">More information is available at http://www.terracotta.org/.</a></p>
       </li>  
     </ul>
     
