@@ -501,7 +501,7 @@ Status of node 'rabbit@rabbit-ha-2' ...
                         {sasl,"SASL  CXC 138 11","2.1.8"},
                         {stdlib,"ERTS  CXC 138 10","1.16.4"},
                         {kernel,"ERTS  CXC 138 10","2.13.4"}]},
- {nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']},
+ {nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
  {running_nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]
 ...done.
 ha-node-3:~#
