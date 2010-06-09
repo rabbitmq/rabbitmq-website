@@ -313,7 +313,7 @@ code_change(_OldVsn, State, _Extra) ->
           </li>
           <li>
             Run make to build your application:
-            <pre class="sourcecode">make</pre>
+            <pre class="sourcecode">$ make</pre>
             Note: If you receive an error similar to:
             <pre class="sourcecode">src/rabbit_metronome_worker.erl:8: can't find include file "rabbit_framing.hrl"
 src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
@@ -321,15 +321,16 @@ src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
           </li>
           <li>
             Next, associate your plugin (and its dependencies) with the server:
-            <pre class="sourcecode">cd ../rabbitmq-server/plugins
-ln -s ../../rabbitmq-erlang-client
-ln -s ../../rabbit_metronome
-cd ..
-scripts/rabbitmq-activate-plugins</pre>
+            <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
+$ cd ../rabbitmq-server/plugins
+$ ln -s ../../rabbitmq-erlang-client
+$ ln -s ../../rabbit_metronome
+$ cd ..
+$ scripts/rabbitmq-activate-plugins</pre>
           </li>
           <li>
             Start up your Rabbit broker:
-            <pre class="sourcecode">make run</pre>
+            <pre class="sourcecode">$ make run</pre>
           </li>
           <li>
             To ensure that your new plugin is up and running, execute the following in the Erlang shell
@@ -352,7 +353,7 @@ scripts/rabbitmq-activate-plugins</pre>
          <ul>
            <li>
              To begin with testing your plugin, create a test/ subdirectory to contain your test code:
-             <pre class="sourcecode">mkdir test</pre>
+             <pre class="sourcecode">$ mkdir test</pre>
            </li>
            <li>
              Create some test cases for your plugin (for this example, create the file test/rabbit_metronome_tests.erl):
@@ -391,7 +392,7 @@ START_RABBIT_IN_TESTS=true</pre>
            </li>
            <li>
              You can now run your tests by issuing:
-             <pre class="sourcecode">make test</pre>
+             <pre class="sourcecode">$ make test</pre>
            </li>
          </ul>
         </doc:subsection>
@@ -405,7 +406,7 @@ START_RABBIT_IN_TESTS=true</pre>
             As detailed in the Administration Guide, Rabbit supports plugins installed as .ez archives
             in the plugins/ directory. The standard include.mk file includes a default packaging goal, which
             can be invoked with:
-            <pre class="sourcecode">make package</pre>
+            <pre class="sourcecode">$ make package</pre>
             And will produce an archive under the dist directory.
           </p>
         </doc:subsection>
