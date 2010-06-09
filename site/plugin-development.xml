@@ -91,7 +91,8 @@
           </li>
           <li>
             Checkout the sub-projects into the Umbrella:
-            <pre class="sourcecode">$ make co</pre>
+            <pre class="sourcecode">$ cd rabbitmq-public-umbrella
+$ make co</pre>
           </li>
           <li>
             Build all the components under the Umbrella to ensure that your environment is functional:
@@ -109,10 +110,17 @@
           in place.
         </p>
         <p>
-          To activate a plugin in a development environment, create a symlink for the plugin development directory
-          in the rabbitmq-server/plugins directory. For example, to activate a development build of the rabbitmq-bql plugin:
-          <pre class="sourcecode">$ cd rabbitmq-server/plugins
-$ ln -s ../../rabbitmq-bql rabbitmq-bql
+          To activate a plugin in a development environment, create a
+          symlink for the plugin development directory in the
+          rabbitmq-server/plugins directory (you will have to create
+          that directory if it does not exist already). For example,
+          to activate a development build of
+          the <a href="rabbitmq-bql.html">rabbitmq-bql plugin</a> and
+          its dependencies:
+          <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
+$ cd rabbitmq-server/plugins
+$ ln -s ../../rabbitmq-erlang-client
+$ ln -s ../../rabbitmq-bql
 $ cd ..
 $ scripts/rabbitmq-activate-plugins</pre>
         </p>
