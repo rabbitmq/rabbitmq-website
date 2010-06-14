@@ -29,74 +29,8 @@
         <p>
           The <code>rabbitmq-service.bat</code> batch script in the
           <code>sbin</code> folder is used to manage the RabbitMQ broker 
-          when running as a service. The commands that follow assume
-          a command shell (<code>cmd.exe</code>) with the current working 
-          directory set to <code>sbin</code>.
+          when running as a service. See the <a href="/rabbitmq-service.man.html"><code>rabbit-service.bat</code> documentation</a> for more information.
         </p>
-        <doc:subsection name="install">
-          <doc:heading>Installing the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service install</pre>
-          <p>
-            Installs the broker as a Windows service. The service will
-            not be started. Subsequent invocations of the same command 
-            will update the service parameters if environment variables 
-            were modified. Please refer to the <a href="install.html">installation</a> 
-            guide for a description of the relevant environment variables.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="remove">
-          <doc:heading>Removing the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service remove</pre>
-          <p>
-            Removes the broker Windows service. The service must be stopped
-            when this command is run.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="start">
-          <doc:heading>Starting the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service start</pre>
-          <p>
-            Starts the service. The service must have been installed 
-            correctly beforehand.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="stop">
-          <doc:heading>Stopping the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service stop</pre>
-          <p>
-            Stops the service. The service must be running for this
-            command to have any effect.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="disable">
-          <doc:heading>Disabling the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service disable</pre>
-          <p>
-            Disables the service. This is the equivalent of setting 
-            the startup type to <code>Disabled</code> using the 
-            service control panel. The service will not be stopped if
-            it was running. The service will not be started
-            automatically after a reboot while in this state.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="enable">
-          <doc:heading>Enable the RabbitMQ service</doc:heading>
-          <pre class="sourcecode">rabbitmq-service enable</pre>
-          <p>
-            Enable the service. This is the equivalent of setting 
-            the startup type to <code>Automatic</code> using the 
-            service control panel. The service will not be started if
-            it was stopped. The service will be started automatically 
-            after a reboot while in this state.
-          </p>
-        </doc:subsection>
-
-
       </doc:section>
 
     <doc:section>
