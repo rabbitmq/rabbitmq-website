@@ -28,6 +28,9 @@ rm -rf $site_dir/site $site_dir/code
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
 cp -r site code $site_dir
+for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/ | grep \.man\.xml); do
+    ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/$t $site_dir/site
+done
 
 cp conf/www.rabbitmq.com /etc/apache2/sites-available/
 a2ensite www.rabbitmq.com
