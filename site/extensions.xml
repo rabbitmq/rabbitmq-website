@@ -142,14 +142,27 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
         -->
 
         <p>
-          In older versions of the RabbitMQ server it was possible for
-          clients to attempt to store so many messages within the
-          server that it outgrew the available memory. With the
-          current release, the RabbitMQ server detects the total
-          amount of RAM installed in the computer on startup. By
-          default, when the RabbitMQ server uses above 40% of the
-          installed RAM, it throttles publishers with the
-          <code>channel.flow</code> AMQP command.
+          The RabbitMQ server detects the total amount of RAM
+          installed in the computer on startup. By default, when the
+          RabbitMQ server uses above 40% of the installed RAM, it
+          throttles publishers with the <code>channel.flow</code> AMQP
+          command.
+        </p>
+
+        <p>
+          Starting with the 1.8.0 release of the RabbitMQ server,
+          clients which are sent <code>channel.flow</code> messages
+          are required to respond within 10 seconds with a
+          corresponding <code>channel.flow_ok</code> message. If they
+          do not, a channel exception is raised and the channel is
+          closed. Messages that the client publishes after receiving a
+          <code>channel.flow{active=false}</code> and before sending
+          the corresponding
+          <code>channel.flow_ok{active=false}</code>, are accepted
+          normally. If a client publishes a message after sending the
+          <code>channel.flow_ok{active=false}</code> then a
+          command-invalid exception is raised, and the connection is
+          closed.
         </p>
 
         <p>
