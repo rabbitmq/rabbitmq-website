@@ -16,8 +16,8 @@
         plugin mechanism, as described in the <a href="admin-guide.html#plugins">Plugins</a>
         section of the Administration Guide. Readers are also expected to have a basic
         understanding of Erlang OTP
-        <a href="http://erlang.org/doc/system_principles/part_frame.html">system</a> and
-        <a href="http://erlang.org/doc/design_principles/part_frame.html">design</a> principles.
+        <a href="http://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
+        <a href="http://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
       </p>
 
       <doc:toc class="compact">
