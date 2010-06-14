@@ -52,6 +52,10 @@ h1 {
 	float: left;
 }
 
+dd p {
+  margin: 0 0 5px 0;
+}
+
 p.strap {
 	float: right;
 	margin: 20px 0 0 0;
@@ -349,6 +353,23 @@ code {
 .ec2_sourcecode {
 	padding: 1em;
 	background: #66fcb0;
+}
+
+.docSection div.cmdsynopsis {
+	color: darkcyan;
+	background: #f6fcb0;
+	padding: 5px 5px;
+    margin: 10px 0 5px 0;
+}
+.docSection div.cmdsynopsis p {
+	margin: 0;
+}
+.docSection div.cmdsynopsis code.command {
+	color: darkred;
+}
+.docSection pre.sourcecode {
+    background: none;
+    padding: 5px 0;
 }
 
 table {

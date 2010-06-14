@@ -76,14 +76,19 @@
 	  </p>
 
 <pre class="sourcecode">
-ConnectionParameters params = <b>new</b> ConnectionParameters();
-params.setUsername(<b>userName</b>);
-params.setPassword(<b>password</b>);
-params.setVirtualHost(<b>virtualHost</b>);
-params.setRequestedHeartbeat(<b>0</b>);
-ConnectionFactory factory = <b>new</b> ConnectionFactory(<b>params</b>);
-Connection conn = factory.newConnection(<b>hostName</b>, <b>portNumber</b>);
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUsername(<b>userName</b>);
+factory.setPassword(<b>password</b>);
+factory.setVirtualHost(<b>virtualHost</b>);
+factory.setHostName(<b>hostName</b>);
+factory.setPortNumber(<b>portNumber</b>);
+Connection conn = factory.newConnection();
 </pre>	  
+
+    <p>
+      All of these parameters have sensible defaults for a stock RabbitMQ server running locally. 
+    </p>
+
 	  <p>
 	    The Connection interface can then be used to open a channel:
 	  </p>
