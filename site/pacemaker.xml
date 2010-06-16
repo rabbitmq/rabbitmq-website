@@ -113,10 +113,15 @@
         <code>drbd1</code> configuration looks like:</p>
 
 <pre class="sourcecode">
+global {
+  use-count no;
+}
+
 resource drbd1 {
   device    /dev/drbd1;
   disk      /dev/vdb;
   meta-disk internal;
+  protocol  C;
   on ha-node-1 {
     address   192.168.100.21:7789;
   }
