@@ -27,6 +27,9 @@
 	    <a href="admin-guide.html">Administration Guide</a>
 	  </li>
 	  <li>
+	    <a href="manpages.html">Manual Pages</a>
+	  </li>
+	  <li>
 	    <a href="clustering.html">Clustering Guide</a>
 	  </li>
           <li>
@@ -82,13 +85,13 @@
 	    RabbitMQ server and client libraries from source
 	  </li>
 	  <li>
-	    How to use <a href="ssl.html">SSL with RabbitMQ</a> 
+	    How to use <a href="ssl.html">SSL with RabbitMQ</a>
 	  </li>
 	  <li>
 	    How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
 	  </li>
 	  <li>
-	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a> 
+	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a>
 	  </li>
 	  <li>
 	    <a href="interoperability.html">Interoperability</a> with

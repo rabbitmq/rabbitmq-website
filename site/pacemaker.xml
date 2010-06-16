@@ -58,18 +58,6 @@
         note that the DRBD OCF script which we use later on only
         appeared in DRBD version 8.3.2.</p>
 
-        <p>Currently, the RabbitMQ OCF script (which is required for
-        RabbitMQ to work with Pacemaker) is not part of any release of
-        RabbitMQ. It can be obtained from our Mercurial repository at
-        <a
-        href="http://hg.rabbitmq.com/rabbitmq-server/raw-file/default/packaging/common/rabbitmq-server.ocf">http://hg.rabbitmq.com/rabbitmq-server/raw-file/default/packaging/common/rabbitmq-server.ocf</a>. This
-        file should be placed at
-        <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server</code>. Note
-        there is no <code>.ocf</code> suffix, and the file should also
-        be <code>chmod 755</code>. In future releases of RabbitMQ,
-        this file will be part of the release and will be installed
-        automatically.</p>
-
         <p>Note that we use CoroSync (which is a cut-down version of
         OpenAIS) in preference to Heartbeat as the messaging layer
         underneath Pacemaker. However, we also have Heartbeat
@@ -125,10 +113,15 @@
         <code>drbd1</code> configuration looks like:</p>
 
 <pre class="sourcecode">
+global {
+  use-count no;
+}
+
 resource drbd1 {
   device    /dev/drbd1;
   disk      /dev/vdb;
   meta-disk internal;
+  protocol  C;
   on ha-node-1 {
     address   192.168.100.21:7789;
   }

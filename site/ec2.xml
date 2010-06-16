@@ -66,7 +66,7 @@
         The string <code>${EC2_KEYPAIR}</code> should be
         replaced with the public ssh key name that is going to be used to
         log in to the instance. You can find more information
-        about ssh keys in <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/creating-keypair.html">
+        about ssh keys in <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/">
         Getting Started Guide</a>. To run the instance, you should run
         a command like one of the above:
     </p>
@@ -228,7 +228,7 @@ apt-get -y install man screen links htop
         status plugin is secured only using RabbitMQ AMQP credentials.
         Unless you change default guest password, the status page
         will be open to everyone that can connect to the port.
-        To <a href="admin-guide.html#change_password">change guest password</a>
+        To <a href="rabbitmqctl.1.man.html#change_password">change guest password</a>
         run <code>rabbitmqctl change_password guest &lt;new_pass&gt;</code>
         inside the instance.
     </p>

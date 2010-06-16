@@ -657,9 +657,9 @@
 	      routing tables are shared across the entire cluster, and
 	      delivery of messages published at one node to a queue
 	      residing at another node is seamless. For details see
-	      the <a href="clustering.html">clustering guide</a>. We
-	      are currently developing further support for live
-	      failover of AMQP resources within a cluster.
+	      the <a href="clustering.html">clustering guide</a> and
+	      the <a href="pacemaker.html">high availability</a>
+	      guide.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1303,7 +1303,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  events. Administration and management exchanges are provided for tools to bind to.
 	  </p>
 	  <p>
-	  Various management and monitoring tools are <a href="/admin-guide.html#management-overview">available 
+	  Various management and monitoring tools are <a href="/admin-guide.html#management">available 
 	  from RabbitMQ</a> and <a href="/how.html#management">the community</a>.
 	  Information about logging output can be found in the <a href="/install.html">install guide</a>.
 	  </p>
@@ -1317,7 +1317,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 There are several ways you can accomplish this depending on exactly
 what you want to achieve. From the command line, you can use
 "rabbitmqctl list_queues" to list the queues at a particular node and
-virtual host. The <a href="/admin-guide.html#list_queues">rabbitmqctl documentation</a> has more
+virtual host. The <a href="/rabbitmqctl.1.man.html#list_queues">rabbitmqctl documentation</a> has more
 information about the various options you can use with this command.
 Using AMQP, the 'queue.declare' command, which is idempotent, returns
 in one of the ' <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">queue.declare-ok</a>' 
@@ -1534,9 +1534,9 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	  <doc:a>
 	    <p>
 	      Please see the section on <a
-	      href="admin-guide.html#access-control">access
-	      control</a> in the RabbitMQ <a
-	      href="admin-guide.html">admin guide</a>.
+	      href="rabbitmqctl.1.man.html#Access%20control">access
+	      control</a> in the <a
+	      href="rabbitmqctl.1.man.html">rabbitmqctl(1) manual page</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>	
