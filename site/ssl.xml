@@ -422,7 +422,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
 	Channel channel = conn.createChannel();
 
 	<I><FONT COLOR="#B22222">//non-durable, exclusive, auto-delete queue
-</FONT></I>        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
+</FONT></I>        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
 	channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
 
 
@@ -502,7 +502,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
 	Connection conn = factory.newConnection(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>, 5671);
 	Channel channel = conn.createChannel();
 
-	channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
+	channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
 	channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
 
 
