@@ -14,8 +14,9 @@
   <p>
   The AMQP specification is an open and free to all users and
   implementers.  RabbitMQ implements the 0-8 version of the
-  specification today, and will implement the 0-9-1 version of the
-  specification in 2009.  These two versions are extremely similar.  The
+  specification today. There is experimental support for the 0-9-1 version
+  of the specification in <a href="mercurial.html">Mercurial</a>
+  on the branch <code>amqp_0_9_1</code>. These two versions are extremely similar.  The
   0-9-1 specification clarifies some of the definitions and makes it
   easier for two implementations to interoperate.
 	</p>
