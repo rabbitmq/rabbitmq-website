@@ -28,10 +28,17 @@
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
       <script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-1001800-1");
-pageTracker._trackPageview();
+try{
+ var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1001800-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}catch(err){};
       </script>
     </xsl:copy>
   </xsl:template>
