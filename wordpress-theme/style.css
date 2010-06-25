@@ -28,6 +28,11 @@ Author: Simon MacMullen
 }
 
 #content {
-  width: 500px;
+  width: 650px;
   float: left;
 }
+
+#sidebar p {
+  clear: none;
+}
+
