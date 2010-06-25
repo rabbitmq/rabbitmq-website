@@ -38,6 +38,7 @@
     <Directory /srv/www.rabbitmq.com/site>
     </Directory>
 
+    Alias /blog /usr/share/wordpress
 </VirtualHost>
 
 <VirtualHost *:80>

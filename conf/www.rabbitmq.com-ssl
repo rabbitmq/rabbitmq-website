@@ -43,5 +43,6 @@
 	SSLCertificateKeyFile           /etc/apache2/ssl/star_rabbitmq_com.key
 	SSLCertificateChainFile         /etc/apache2/ssl/star_rabbitmq_com_digicert_chain.crt
 
+    Alias /blog /usr/share/wordpress
 </VirtualHost>
 
