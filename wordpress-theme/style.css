@@ -10,7 +10,7 @@ Author: Simon MacMullen
   border-left: 1px solid #E4E4E4;
   width: 250px;
   padding-left: 10px;
-  margin-left: 720px;
+  float: right;
 }
 
 #sidebar input#s {
@@ -29,10 +29,5 @@ Author: Simon MacMullen
 
 #content {
   width: 650px;
-  float: left;
-}
-
-#sidebar p {
-  clear: none;
 }
 
