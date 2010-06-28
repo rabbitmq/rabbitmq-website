@@ -32,6 +32,9 @@ for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/ | grep \.m
     ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/$t $site_dir/site
 done
 
+rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
+cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
+
 cp conf/www.rabbitmq.com /etc/apache2/sites-available/
 a2ensite www.rabbitmq.com
 /etc/init.d/apache2 restart

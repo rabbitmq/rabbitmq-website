@@ -77,6 +77,7 @@ try{
       <li><a href="/community.html">Community</a></li>
       <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
+      <!--<li><a href="/blog/">Blog</a></li>-->
       <li><a href="/search.html">Search</a></li>
     </ul>
     <hr class="pad" />
