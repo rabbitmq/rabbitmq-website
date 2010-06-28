@@ -20,6 +20,7 @@ Author: Simon MacMullen
 
 #sidebar input#searchsubmit {
   border: 1px solid #E4E4E4;
+  background: #E4E4E4;
   float: right;
 }
 
