@@ -13,7 +13,7 @@
 
     <p>
       Please note, these images are new and experimental. If you run into any issues please
-      <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=EC2-ec2a');" href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
+      <a href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
     </p>
     
     <doc:div>
@@ -281,7 +281,7 @@ sending rate: 4989 msg/s</pre>
 
     <p>
       Please remember, this is all quite new and its status is experimental. If you run into 
-      any difficulties please <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=EC2-ec2b');"  href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
+      any difficulties please <a href="mailto:info@rabbitmq.com?subject=EC2">let us know</a>.
     </p>
     
 </doc:section>

@@ -282,17 +282,16 @@ Technologies Ltd.</p></div>
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td>
-        <a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
       <xsl:if test="../@mirror = 'yes'">
           <td class="mirror">
-              <a onClick="javascript: pageTracker._trackPageview('http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}');"
-                href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
+              <a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
           </td>
       </xsl:if>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
-            <a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+            <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
          </td>
       </xsl:if>
     </tr>
