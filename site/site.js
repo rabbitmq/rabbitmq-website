@@ -46,14 +46,6 @@ function decorate_links() {
 		var url = "/remote/" + this.href.replace("://","/");
 		_gaq.push(['_trackPageview', url]);
 
-		/* This prints message in firebug console window when the site
-		   is served from development environment. */
-		if (!document.location.host.match("rabbitmq")) {
-		    try{
-			console.log("Remote link: " + url);
-		    }catch(err){};
-		}
-
 		/* Give a tiny bit of time for GA to complete tracking. */
 		setTimeout('document.location = "' + this.href + '"', 100);
 		return false;
