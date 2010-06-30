@@ -16,6 +16,7 @@
    A bit of google tracking documentation:
      http://www.google.com/support/analytics/bin/answer.py?hl=en&answer=55529
      http://code.google.com/apis/analytics/docs/gaJS/gaJSApiBasicConfiguration.html#_gat.GA_Tracker_._trackPageview
+     http://www.google.com/support/googleanalytics/bin/answer.py?hl=en&answer=55527
 
    In order to achieve that, we iterate through all the links and set
    "onClick" method to run google tracking code.
@@ -52,7 +53,10 @@ function decorate_links() {
 			console.log("Remote link: " + url);
 		    }catch(err){};
 		}
-		return true;
+
+		/* Give a tiny bit of time for GA to complete tracking. */
+		setTimeout('document.location = "' + this.href + '"', 100);
+		return false;
 	    }
 	}
     }
