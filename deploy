@@ -10,8 +10,9 @@ fi
 
 echo Deploying to $remote_host
 
-deploy_dir=/tmp/website-deploy-$(hg branch)
+tmp_dir=$(ssh $remote_host mktemp -d)
 
-ssh $remote_host mkdir -p $deploy_dir
-rsync -avz --delete code conf site wordpress-theme $remote_host:$deploy_dir
-ssh -t $remote_host sudo $deploy_dir/code/deploy-remote
+scp -r -q code conf site wordpress-theme $remote_host:$tmp_dir
+ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
+ssh $remote_host rm -rf $tmp_dir
+
