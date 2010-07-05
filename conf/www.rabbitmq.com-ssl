@@ -45,4 +45,3 @@
 
     Alias /blog /usr/share/wordpress
 </VirtualHost>
-

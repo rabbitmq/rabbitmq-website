@@ -51,5 +51,4 @@
     ServerAlias rabbitmq.net
 
     Redirect permanent / http://www.rabbitmq.com/
-</VirtualHost> 
-
+</VirtualHost>
