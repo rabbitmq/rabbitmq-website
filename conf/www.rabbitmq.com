@@ -13,7 +13,7 @@
 
     # Send requests for the empty path and .html, .xml, .xsl files to
     # the Python XSLT handler.  It will 404 on the .xml and .xsl files
-    <Location ~ "^/(|[^/]*.(html|xml|xsl))$">
+    <Location ~ "^/(|[^/.]*.(html|xml|xsl))$">
       SetHandler python-program
       PythonHandler xsl
       PythonDebug On
@@ -33,6 +33,13 @@
 
     # /how appeared on some printed materials
     Redirect permanent /how http://www.rabbitmq.com/how.html
+
+    # man pages
+    AliasMatch ^/([^/]+.man.html)$ /home/rabbitmq/extras/releases/rabbitmq-server/current/$1
+
+    <Directory /home/rabbitmq/extras/releases/rabbitmq-server>
+        Options +FollowSymLinks
+    </Directory>
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
