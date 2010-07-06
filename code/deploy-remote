@@ -29,14 +29,19 @@ mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
 cp -r site code $site_dir
 
-if [ -e /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
+if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
     rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
     cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
 fi
 
+if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
+    for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/*.man.xml); do
+        ln -sf $t $site_dir/site
+    done
+fi
+
 if [ -d /etc/apache2/sites-available/ ]; then
-    cp conf/www.rabbitmq.com /etc/apache2/sites-available/
-    cp conf/www.rabbitmq.com-ssl /etc/apache2/sites-available/
+    cp conf/www.rabbitmq.com conf/www.rabbitmq.com-ssl conf/www.rabbitmq.com-common  /etc/apache2/sites-available/
     a2ensite www.rabbitmq.com
     /etc/init.d/apache2 restart
 fi
