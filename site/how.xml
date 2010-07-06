@@ -1,4 +1,4 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
+﻿<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
@@ -17,7 +17,7 @@
     <p>The links listed below highlight some of our favourite content on this site and the
     web that will help you get started with messaging and RabbitMQ.</p>
 
-    <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.<p>
+    <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.</p>
 
     <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
     
@@ -193,6 +193,9 @@
         <li id="dotnet-development">.Net development:
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of .Net development</a></li>
+	    <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
+        A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
+	    </li>
 	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>	    
 	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
