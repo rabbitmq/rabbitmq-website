@@ -243,6 +243,13 @@ done.</pre>
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
           </p>
+          <p>
+            <strong>Note</strong> For the <code>rabbitmqctl
+            cluster</code> command to succeed, the target nodes need
+            to be active.  It is possible to cluster with offline
+            nodes; for this purpose, use the <code>rabbitmqctl
+            force_cluster</code> command.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="change-type">
