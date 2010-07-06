@@ -1,4 +1,4 @@
-﻿<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
@@ -673,6 +673,7 @@ decentralised microblogging</li>
 	  Microsoft discuss the challenges of enterprise messaging in a
 	  heterogeneous environment, and make a business case for AMQP, with
 	  Qpid as the example broker
+  </li>
 	<li>
 	  <a href="http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/">To AMQP or to XMPP, that is the question</a><br />
 	  Blog post by Kenneth Kalmer comparing AMQP and XMPP as messaging protocols.
@@ -686,7 +687,7 @@ decentralised microblogging</li>
 	  <a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
 	  Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
 	</li>
-      </ul>
+  </ul>
 
    
     </doc:div>
