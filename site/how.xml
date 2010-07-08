@@ -276,7 +276,10 @@
 	     <li><a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a> an interface from LispWorks to RabbitMQ</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a></li>
 	  </ul>
-	</li>		
+	</li>
+	<li>
+  	  An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a>
+	</li>
 	<li><a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a><br />
 	Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message 
 	passing through the exchange.
@@ -332,6 +335,16 @@ decentralised microblogging</li>
       
       <h3 id="cloud-configurations">Cloud Configurations</h3>
       <ul>
+      	<li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
+	      Alexis' presention on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
+	      and why it is useful for cloud computing by way of illustrating use cases from RabbitMQ customers. (Download a
+	      <a href="/resources/SkillsMatterCloudAndGridExchange2010RabbitMQCloudMessagingUseCases.pdf">PDF of the slides</a>, 3.2MB).
+	</li>
+	<li>
+  	<a href="http://www.redmonk.com/jgovernor/2010/04/16/springsource-buys-rabbit-for-world-made-of-messages/">A World Made of Messages</a><br/>
+  	James Governor discusses how messaging in the cloud, specifically with RabbitMQ, is changing the way applications are architected. The slides on
+  	that page (by Matt Biddulph) are definitely worth a look. 
+	</li>
 	<li><a href="http://railsdog.com/blog/2009/12/generating-pdfs-on-ec2-with-ruby/">Generating Thousands of PDFs on EC2 with Ruby</a><br/>     
 	Describes how it is possible to leverage the cloud and RabbitMQ to scale-out a massive PDF generation task.
 	</li>
@@ -414,12 +427,7 @@ decentralised microblogging</li>
 	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
 	  and AMQP.
 	</li>
-	<li>
-	  <a href="http://github.com/paukul/humpty">Humpty</a><br />
-	  A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
-	  and AMQP.
-	</li>
-	<li>
+   <li>
 	  <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
 	  A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
 	</li>
