@@ -261,9 +261,11 @@
     <h3 id="rabbitmq-c">rabbitmq-c</h3>
     
     <p>
-      An experiemental C-language AMQP client supporting AMQP 0-8 and 0-9-1. See <a href="http://hg.rabbitmq.com/rabbitmq-c/file/default/README">the README</a>
-      for more information including build instructions.
-      </p>
+      An experimental C-language AMQP client supporting AMQP 0-8 and
+      0-9-1. See <a
+      href="http://hg.rabbitmq.com/rabbitmq-c/file/default/README">the
+      README</a> for more information including build instructions.
+    </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-c"
