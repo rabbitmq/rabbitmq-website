@@ -163,7 +163,9 @@
           nothing but the empty string, exactly covers resources with
           server-generated names. That, for example, allows an
           administrator to restrict a user to declaring private
-          resources only.
+          resources only.  The empty string, <code>""</code> is a
+          synonym for <code>^$</code> and restricts permissions in the
+          exact same way.
         </p>
 
         <p>
