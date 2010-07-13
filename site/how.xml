@@ -136,6 +136,10 @@
 	    </li>
 	    <li><a href="http://www.infoq.com/news/2010/03/amqp_support_spring_integration">Introduction to OpenCredo's Spring Integration kit for RabbitMQ</a></li>
 	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a></li>
+      <li><a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a><br/>
+      A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
+      you can interface with RabbitMQ from Mule (the post talks about user provisioning on RabbitMQ as a case study). 
+      </li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a></li>
 	   </ul>
 	</li>	
@@ -149,6 +153,7 @@
 	    <li><a href="http://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby</li>
 	    <li><a href="http://groups.google.com/group/ruby-amqp/">Google ruby-amqp group</a></li>
 	    <li><a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons</li>
+	    <li><a href="http://github.com/PlasticLizard/bunnicula">Bunnicula</a> a simple AMQP relay implemented as a ruby daemon (similar in intent to <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">shovel</a>)</li>
 	    <li><a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)</li>
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
 	    <li>RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks</li>
@@ -212,6 +217,7 @@
 	<li id="MacOXS-development">MacOSX development:
 	  <ul class="plain">
 	    <li><a href="http://exceptionz.wordpress.com/2010/03/10/install-rabbitmq-on-snow-leopard-with-macports/">Install RabbitMQ on Snow Leopard with MacPorts</a></li>
+	    <li><a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a></li>
 	  </ul>
 	</li>
