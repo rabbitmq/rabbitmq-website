@@ -121,7 +121,7 @@
     <h4>Other versions</h4>
 
     <p>
-      Consult <a onClick="javascript: pageTracker._trackPageview('/releases/rabbitmq-java-client/-javaclient');" href="/releases/rabbitmq-java-client/">the
+      Consult <a href="/releases/rabbitmq-java-client/">the
       archive</a> if you want to download a version of the RabbitMQ
       Java Client library or documentation other than the above.
     </p>
@@ -165,11 +165,10 @@
 
     <p>
       For help compiling or installing RabbitMQ, please contact <a
-      onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-java-client');" 
       href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
       Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
       for general RabbitMQ queries. You can also 
-      <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-java-client');" href="http://lists.rabbitmq.com">join our mailing list.</a>
+      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
   </body>
 </html>

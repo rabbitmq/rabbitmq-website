@@ -19,9 +19,9 @@
 	    but please make sure your question hasn't been answered before by searching the archives. Two
 	    interfaces are available for this:
 	    <ul class="plain">
-	      <li>A <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com/cgi-bin/mailman/listinfo-community');" href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
+	      <li>A <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
 	      interface which also provides information on how to 
-	      <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss-community');" href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">subscribe directly</a></li>
+	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">subscribe directly</a></li>
 	      <li>A <a href="email-archive.html">full web-interface provided Nabble</a> </li>
 	    </ul>  
 	</li>
@@ -32,11 +32,11 @@
 	<ul>
 	  <li>
 	  RabbitMQ developers are also sometimes available to chat rabbitmq on irc.freenode.net 
-	  (see also <a onClick="javascript: pageTracker._trackPageview('http://freenode.net/-community');" href="http://freenode.net/">http://freenode.net/</a>) in channel 
+	  (see also <a href="http://freenode.net/">http://freenode.net/</a>) in channel 
 	  <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>. 
 	  <p>The logs of these conversations are available here: 
-	  <a onClick="javascript: pageTracker._trackPageview('http://dev.rabbitmq.com/irclog/-community');" href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.</p>
-	  <p>You can use this <a onClick="javascript: pageTracker._trackPageview('http://webchat.freenode.net/-community');" href="http://webchat.freenode.net/">web interface to freenode</a> 
+	  <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.</p>
+	  <p>You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> 
 	  if you don't have an IRC client installed.</p>
 	  </li>
 	</ul>
@@ -47,7 +47,7 @@
       <div class="col columnLeft">
 	<h3>Bug reports</h3>	
 	<ul>
-	  <li>To report a bug or problem email <a onClick="javascript: pageTracker._trackPageview('mailto:legitimategrievance@rabbitmq.com-community');"  href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+	  <li>To report a bug or problem email <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
 	  </li>
 	</ul>
       </div>            
@@ -56,7 +56,7 @@
 	<ul>
 	  <li>
 	  We are also working on a development wiki: 
-	  <a onClick="javascript: pageTracker._trackPageview('http://dev.rabbitmq.com/wiki/-community');" href="http://dev.rabbitmq.com/wiki/">http://dev.rabbitmq.com/wiki/</a>.
+	  <a href="http://dev.rabbitmq.com/wiki/">http://dev.rabbitmq.com/wiki/</a>.
 	  </li>
 	</ul>
       </div>
@@ -68,7 +68,7 @@
 	  <feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  	
       </div>
       <div class="col columnRight">
-	  <h3><a class="more-links" onClick="javascript: pageTracker._trackPageview('http://twitter.com/#search?q=rabbitmq-community');" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
+	  <h3><a class="more-links" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
 	  <feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
       </div>    
       

@@ -14,8 +14,9 @@
   <p>
   The AMQP specification is an open and free to all users and
   implementers.  RabbitMQ implements the 0-8 version of the
-  specification today, and will implement the 0-9-1 version of the
-  specification in 2009.  These two versions are extremely similar.  The
+  specification today. There is experimental support for the 0-9-1 version
+  of the specification in <a href="mercurial.html">Mercurial</a>
+  on the branch <code>amqp_0_9_1</code>. These two versions are extremely similar.  The
   0-9-1 specification clarifies some of the definitions and makes it
   easier for two implementations to interoperate.
 	</p>
@@ -23,8 +24,8 @@
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
   future version of RabbitMQ will implement AMQP 1.0.  Please 
-  <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-specification');" href="mailto:info@rabbitmq.com">contact us</a> for details, or 
-  <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com/cgi-bin/mailman/listinfo-specification');" href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">ask on the 
+  <a href="mailto:info@rabbitmq.com">contact us</a> for details, or 
+  <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">ask on the 
   mailing list</a>.  You can also read about <a href="http://jira.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).

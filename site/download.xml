@@ -17,8 +17,7 @@
       Our goal is to streamline the broker installation process such
       that you can have RabbitMQ up and running within two minutes of
       completing your download. If this doesn't happen to you, please
-      let us know at <a onClick="javascript: pageTracker._trackPageview('mailto:legitimategrievance@rabbitmq.com-download');"
-      href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+      let us know at <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
     
     <h3>Available Components</h3>
@@ -80,7 +79,7 @@
     </r:downloads>
 
     <p>
-      Consult <a onClick="javascript: pageTracker._trackPageview('/releases/bundles/-download');"  href="/releases/bundles/">the archive</a> if you want
+      Consult <a href="/releases/bundles/">the archive</a> if you want
       to download a version of the bundle other than the above.
     </p>
 
@@ -111,13 +110,10 @@
 
     <p>
       For help compiling or installing RabbitMQ, please contact <a
-      onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-download');"
       href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com-download');"
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
+      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
       for general RabbitMQ queries. You can also 
-      <a onClick="javascript: pageTracker._trackPageview('http://lists.rabbitmq.com-download');" 
-      href="http://lists.rabbitmq.com">join our mailing list.</a>
+      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
 
     <br/>
