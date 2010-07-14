@@ -150,12 +150,26 @@
 
         <p>
           Some AMQP operations can create resources with
-          server-generated names. Every user has configure, write and
-          read permissions for such resources. However, the names are
-          strong and not discoverable as part of the protocol, only
-          through management functionality. Therefore these resources
-          are in effect private to the user unless they choose to
-          dilvuge their names to other users.
+          server-generated names. By default, every user has
+          configure, write and read permissions for such
+          resources. However, the names are strong and not
+          discoverable as part of the protocol, only through
+          management functionality. Therefore these resources are in
+          effect private to the user unless they choose to dilvuge
+          their names to other users.
+        </p>
+
+        <p>
+          Permissions have scope.  Permissions with
+          <code>client</code> scope are enforced only for
+          client-specified names.  As detailed above, operations with
+          server-generated names are allowed.  Permissions with
+          <code>all</code> scope are enforced for all resources.  In
+          this case, users must be explicitly granted permission to
+          <code>"amq.gen..*"</code> if they are to use
+          server-generated resources.  Similarly, grant no access
+          could simply be expressed as <code>""</code>.  Permissions
+          have <code>client</code> scope, by default.
         </p>
 
         <p>
