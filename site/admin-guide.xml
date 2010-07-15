@@ -152,11 +152,11 @@
           Some AMQP operations can create resources with
           server-generated names. By default, every user has
           configure, write and read permissions for such
-          resources. However, the names are strong and not
-          discoverable as part of the protocol, only through
-          management functionality. Therefore these resources are in
-          effect private to the user unless they choose to dilvuge
-          their names to other users.
+          resources. The names are strong and not discoverable as part
+          of the protocol, only through management
+          functionality. Therefore these resources are in effect
+          private to the user unless they choose to dilvuge their
+          names to other users.
         </p>
 
         <p>
