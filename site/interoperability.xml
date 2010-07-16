@@ -32,7 +32,7 @@
 	</p>
 
         <doc:subsection name="qpid-client">
-          <doc:heading>Qpid Java client -&gt; RabbitMQ broker</doc:heading>
+          <doc:heading>Qpid Java client &#187; RabbitMQ broker</doc:heading>
           <p>
             The 0.6 release of the Qpid java client was shipped with a
             bug that prevents it from correctly negotiating the
@@ -43,7 +43,7 @@
         </doc:subsection>
 
         <doc:subsection name="qpid-server">
-          <doc:heading>RabbitMQ clients -&gt; Qpid Java
+          <doc:heading>RabbitMQ clients &#187; Qpid Java
             broker</doc:heading>
             <p>
               Some of the RabbitMQ Java client tests and examples use
@@ -96,7 +96,8 @@
           </p>
           <pre class="sourcecode">% python2.5 ./qpid-python-test -m tests_0-9 -m tests_0-8</pre>
           <p>
-            The test results, and our explanations, are as follows:
+            The following table details the results of running the 0-8
+            and 0-9-1 tests against the RabbitMQ broker.
           </p>
 	  <qpid-tests xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
             <qpid-test name="tests_0-8.basic.BasicTests.test_ack">
