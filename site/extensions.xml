@@ -22,45 +22,37 @@
 
         <p>
           The <code>x-expires</code> argument to
-          <code>queue.declare</code> controls how long the queue
-          should stay when it is unused. This can be used in
-          combination with <code>durable</code> and
-          <code>auto_delete</code>, and will not change the behavior
-          of these settings.
+          <code>queue.declare</code> controls for how long a queue can
+          be unused before it is automatically
+          deleted. <em>Unused</em> means the queue has no consumers,
+          and no consumer related operations (<code>basic.get</code>,
+          <code>basic.cancel</code>, <code>basic.ack</code>,
+          <code>basic.recover(requeue=True)</code>) have occurred for
+          a duration of at least the expiration period. This can be
+          used, for example, for RPC-style reply queues, where many
+          queues can be created which may never be drained.
         </p>
 
         <p>
-          Unused means the queue is not actively being consumed from,
-          and no consumer related operations (<code>get</code>,
-          <code>reject</code>, <code>cancel</code>, <code>ack</code>,
-          <code>recover(requeue=True)</code>) has happened during the
-          expiration interval.
-        </p>
-
-        <p>
-          This is especially useful for reply queues, where a lot of
-          queues are created that may never be consumed from.
-        </p>
-
-        <p>
-          The server guarantees that the queue will be deleted at some
-          point after the expiration time, but with lower values
-          precision is not guaranteed.
+          The server guarantees that the queue will be deleted, if
+          unused for at least the expiration period. No guarantee is
+          given as to how promptly the queue will be removed after the
+          expiration period has elapsed.
         </p>
 
         <p>
           The value of the <code>x-expires</code> argument must be a
-          <code>long</code> describing the expiration time in
-          milliseconds. A positive number that is not zero.  Given
-          that the queue is unused, a value of 1000L means the queue
-          will be deleted after one second.
+          <code>long</code> integer, greater than zero, describing the
+          expiration period in milliseconds. Thus a value of 1000L means
+          a queue which is unused for 1 second will be deleted.
         </p>
 
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
 
           <p>
-            This queue declaration expires after it has been unused for 30 minutes.
+            This example in Java creates a queue which expires after
+            it has been unused for 30 minutes.
           </p>
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
