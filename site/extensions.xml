@@ -17,6 +17,59 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
       
+      <doc:section name="queue-leases">
+        <doc:heading>Queue Leases</doc:heading>
+
+        <p>
+          The <code>x-expires</code> argument to
+          <code>queue.declare</code> controls how long the queue
+          should stay when it is unused. This can be used in
+          combination with <code>durable</code> and
+          <code>auto_delete</code>, and will not change the behavior
+          of these settings.
+        </p>
+
+        <p>
+          Unused means the queue is not actively being consumed from,
+          and no consumer related operations (<code>get</code>,
+          <code>reject</code>, <code>cancel</code>, <code>ack</code>,
+          <code>recover(requeue=True)</code>) has happened during the
+          expiration interval.
+        </p>
+
+        <p>
+          This is especially useful for reply queues, where a lot of
+          queues are created that may never be consumed from.
+        </p>
+
+        <p>
+          The server guarantees that the queue will be deleted at some
+          point after the expiration time, but with lower values
+          precision is not guaranteed.
+        </p>
+
+        <p>
+          The value of the <code>x-expires</code> argument must be a
+          <code>long</code> describing the expiration time in
+          milliseconds. A positive number that is not zero.  Given
+          that the queue is unused, a value of 1000L means the queue
+          will be deleted after one second.
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+
+          <p>
+            This queue declaration expires after it has been unused for 30 minutes.
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-expires", 1800000L);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </doc:subsection>
+
+      </doc:section>
+
       <doc:section name="alternate-exchange">
         <doc:heading>Alternate Exchanges</doc:heading>
         
