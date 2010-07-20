@@ -155,7 +155,9 @@
           resources. The names are strong and not discoverable as part
           of the protocol, only through management
           functionality. Therefore, these resources are in effect
-          private to the client that created them.
+          private to the client that created them, unless their names
+          are explicitly shared with other clients via some external
+          mechanism.
         </p>
 
         <p>
