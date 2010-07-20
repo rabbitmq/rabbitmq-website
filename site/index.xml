@@ -3,9 +3,7 @@
   <head>
     <title>RabbitMQ - Messaging that just works</title>
   </head>
-  <body>
-      <a href="news.html"><img src="img/spring-announcement-A.jpg" width="960" height="170" alt="NEWS FLASH: SpringSource acquires Rabbit Technologies" /></a>
-
+  <body>      
     <div class="rgt-third">
     
     <p class="rgt button">

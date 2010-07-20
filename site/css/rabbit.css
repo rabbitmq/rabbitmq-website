@@ -57,8 +57,8 @@ dd p {
 }
 
 p.strap {
-	float: right;
-	margin: 20px 0 0 0;
+	font-size:11px;
+	letter-spacing:3px;
 	color: #a9b5af;
 	}
 
@@ -265,7 +265,7 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-	margin: 80px 0 0 0;
+	margin: 15px 0 0 0;
 	padding: 0 0 0 0;
 	height: 21px;
 	float: left:
