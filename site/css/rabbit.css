@@ -48,19 +48,18 @@ h1, h2, h3  {
 
 h1 {
 	color: #f60;
-	margin: 20px 0 0 0;
+	margin: 10px 0 0 0;
 	float: left;
+}
+
+div.s2-logo {
+  float:right;
+  margin: 10px 0 0 0;
 }
 
 dd p {
   margin: 0 0 5px 0;
 }
-
-p.strap {
-	font-size:11px;
-	letter-spacing:3px;
-	color: #a9b5af;
-	}
 
 h2 a {
 	color: #f60;
@@ -265,13 +264,13 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-	margin: 15px 0 0 0;
+  margin: 100px 0 0 0;
 	padding: 0 0 0 0;
 	height: 21px;
-	float: left:
-	clear: both;
+  clear: both;
 	border-bottom: #FF8C00 1px solid;
 }
+
 .mainNav li {
 	display: inline;
 	border: none;

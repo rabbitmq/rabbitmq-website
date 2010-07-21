@@ -47,13 +47,12 @@ try{
   </xsl:template>
 
   <xsl:template name="page-header">
-      <div style="float:right;margin: 20px 0 0 0;">
-        <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
-      </div>
     <h1>
-        <a href="/"><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37"/></a>
+      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
     </h1>
-    <p class="strap">Messaging that just works</p>
+    <div class="s2-logo">
+      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    </div>
     <ul class="mainNav">
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
