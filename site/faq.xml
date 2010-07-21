@@ -613,10 +613,28 @@
 	    </p>
 	  </doc:a>
 	</doc:faq>	
-	
-	
-      </doc:section>
-      
+</doc:section>
+
+<doc:section name="features">
+	<doc:heading>Messaging Concepts: General</doc:heading>
+
+  <doc:faq name="message-ordering">
+    <doc:heading>I have read that RabbitMQ preserves the order of messages in queues. Is this correct?</doc:heading>  
+    <doc:a>
+      <p>For the most part, yes. Say a publisher publishes messages M1, M2, M3 and M4 (in that order) on the same channel
+      and with the same routing information. If these messages are routed to a queue then they will end up in the same order that
+      they were published. Consuming on the queue will yield M1, M2, M3 and then M4.</p>
+      <p>However, the order is only guaranteed in the absence of requeuing. A message will be implicitly requeued if a consumer
+      closes the channel before ack'ing a message. For example, if a consumer receives M1, fails to ack and closes the channel then
+      the next consumer will receive messages in the order M2, M3, M4, M1. Messages can also be explicitly requeued if the consumer
+      calls <code>basic.recover{requeue=true}</code>. The FAQ on <a href="#at-least-once-delivery">at least once delivery</a> talks
+      about this in some more detail.
+      </p>
+    </doc:a>
+  </doc:faq>
+
+</doc:section>
+
       <doc:section name="features">
 	<doc:heading>RabbitMQ Features</doc:heading>
 
@@ -739,7 +757,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="message-delivered">
+	<doc:faq name="at-least-once-delivery">
 	   <doc:heading>Can you explain the cases where a message might be delivered to a consumer more than once? </doc:heading>
 	  <doc:a>
 	    <p>
