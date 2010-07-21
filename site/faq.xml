@@ -702,7 +702,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:heading>
 	  <doc:a>
 	    <p>
-	      Yes. To begin with, Spring has <a href="#rabbit-spring-support">excellent support for AMQP</a> in Java 
+	      Yes. To begin with, Spring provides <a href="#rabbit-spring-support">support for AMQP</a> in Java 
 	      through the <a href="http://www.springsource.org/spring-amqp">Spring AMQP project</a>. The RabbitMQ
 	      Java client is simply a POJO library so will work with other POJO-based systems such as <a href="http://mulesource.org">Mule</a>. If you
 	      specifically wish to use JavaEE EJBs as message  accessors, use a stateful session bean. </p>
