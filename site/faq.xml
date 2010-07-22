@@ -896,29 +896,6 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="failover-ha">
-	  <doc:heading>How does failover and HA work?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Currently, AMQP durable queues and their persistent
-	      messages are recovered from disk at each server
-	      restart. Exchange failover is handled by OTP's support
-	      for clustering (see <a
-	      href="#shared-session-clustering">above</a>).
-	    </p>
-	    <p>
-	      Future releases will support live failover using, for
-	      instance, a combination of the "known hosts" field in
-	      <code>connection.open-ok</code> and the
-	      <code>connection.redirect</code> message. Erlang's
-	      built-in fault-tolerant database will ensure that
-	      routing information is preserved, and the OTP supervisor
-	      architecture in combination with AMQP's transactional
-	      features will ensure that durable messages are not lost.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
 	<doc:faq name="addressing-in-amqp">
 	  <doc:heading>How does addressing work in AMQP?</doc:heading>
 	  <doc:a>
@@ -957,8 +934,9 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	<doc:heading>Is there an API doc of the RabbitMQ server?</doc:heading>
 	<doc:a>
 	  <p>
-	  No, the Rabbit server API is not designed for public consumption, but the contract that Rabbit
-	  obeys over time is AMQP.
+	  No, the Rabbit server API is not designed for public
+	  consumption. The AMQP specification is the public API
+	  specification for RabbitMQ server.
 	   </p>
 	  <p>
 	  We do, however, have API guides for
@@ -979,21 +957,16 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
       <doc:faq name="node-runs-out-of-memory">
 	<doc:heading>What happens when a node runs out of message memory? Does the node fall over?</doc:heading>
 	<doc:a>
-	  <p>
-	    Glad you asked. We've been working on a new persister since April (please
-	    see <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">the mailing list</a> or
-	    <a href="http://www.lshift.net/blog/2009/12/07/rabbitmq-at-the-skills-matter-functional-programming-exchange">these slides</a> for more). 
-	  </p>
-	  <p>
-	    The goal is to page messages to disk when necessary, politely
-	    block producers when absolutely necessary, and never ever
-	    crash. We should always be able to eventually accept a message.
-	  </p>
-	  <p>
-	    Note that the current stable release (v1.7.0) (and all previous
-	    releases) is not very good in this regard and can easily explode
-	    due to holding too many messages in memory.
-	  </p>
+          <p>
+            The RabbitMQ server has the ability to write messages to
+            disk and forget them from memory should memory pressure
+            occur. This allows RabbitMQ to store vastly more messages
+            than can fit in RAM. Because of the fact that hard discs
+            are slower than RAM, there are still occasions where
+            RabbitMQ will block producers when absolutely necessary to
+            allow it to write out messages to disk in order to free up
+            RAM.
+          </p>
 	</doc:a>
       </doc:faq>
 
@@ -1023,29 +996,6 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	    caught some people out in the past.
 	  </p>	
 	 </doc:a>
-      </doc:faq>
-      
-      <doc:faq name="new-persister-memory-limitations">
-	<doc:heading>How does the new persister affect the memory limitations?</doc:heading>
-	<doc:a>
-	  <p>
-	    The next major release of RabbitMQ will include the new persister that (amongst
-	    other things) removes the current limitation that RabbitMQ holds all messages
-	    in memory all the time.
-	  </p>
-	  <p>
-	    The persister will allow RabbitMQ to operate in a "zero RAM
-	    cost per message" mode where the volume of data that RabbitMQ can hold is
-	    limited solely by disk space.
-	  </p>
-	  <p>
-	    However, even with the new persister, the fact remains that not only
-	    will the largest message need to fit in RAM (at some point) but it must
-	    also be able to be copied a few times. The change is simply that the existence
-	    of large messages in RAM does not preclude other large messages from
-	    arriving.
-	  </p>
-	</doc:a>
       </doc:faq>
 
       <doc:faq name="enable-large-messages">
@@ -1629,21 +1579,24 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	<doc:faq name="how-long-to-come-back-up">
 	  <doc:heading>How long does it take a node take to come back up?</doc:heading>
 	  <doc:a>
-	    <p>
-	      <i>I know this is dependent on the number of messages to load, but is there any
-	      indication you can give (such as n seconds per GB, or n seconds
-	      per 1K messages...)?</i>
-	    </p>
-	    <p>
-	      It depends on the disk bandwidth as well. A million messages in a
-	      queue can take up to five minutes, although this is very much a
-	      worst case scenario and we're looking at ways of making this faster.
-	      For example, if know that RabbitMQ was shutdown safely then fewer
-	      checks are needed on recovery. At the moment, with the new persister,
-	      we're doing a very thorough fsck when we come back up. If we
-	      know that we've been shutdown safely then we don't need to do that.
-	      This is ongoing work.
-	    </p>
+            <p>
+              RabbitMQ records whether it was shutdown safely. Using
+              the <code>init</code> scripts or the
+              <code>rabbitmq-multi</code> or
+              <code>rabbitmq-server</code> scripts to shutdown
+              RabbitMQ counts as a safe shutdown. If RabbitMQ is
+              started up after a safe shutdown, then it will start up
+              very quickly indeed, almost regardless of the number of
+              messages on disk.
+            </p>
+            <p>
+              If RabbitMQ is not shutdown cleanly (e.g. it's killed,
+              or the machine crashes), or if during startup it detects
+              tampering of its files, it has to do many further checks
+              to reach a consistent state from the data it recovers
+              from disk. This can take several minutes when many
+              millions of messages are involved.
+            </p>
 	  </doc:a>
 	</doc:faq>
 	
@@ -1660,29 +1613,29 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	      exchanges / bindings.
 	    </p>
 	    <p>
-	      With the new persister, RabbitMQ manages the storage of
-	      all message content on disk itself. The recovery routines for
-	      these are robust and do their best to recover as much as
-	      possible. If corruption occurs, RabbitMQ will recover what it can,
-	      and continue to start up normally.
+              RabbitMQ itself manages the storage on disk of
+              messages. The recovery routines for these are robust and
+              do their best to recover as much as possible. If
+              corruption occurs, RabbitMQ will recover what it can,
+              and continue to start up normally.
 	    </p>
 	  </doc:a>
-	</doc:faq>	
-	
-	 
+	</doc:faq>
+
+
 	<doc:faq name="corrupted-state">
 	  <doc:heading>Is there any reasonably viable metric surrounding the MTBF of a node? </doc:heading>
 	  <doc:a>
 	    <p>
-	      Currently, the main reason that RabbitMQ might die is when it gets
-	      overwhelmed by messages and starved of RAM. The good news is that 
-	      tith the new persister this is no longer a problem! Other than that,
-	      our users almost never report crashes. The Erlang / OTP platform is
-	      very stable, exhaustively battle-tested and extremely reliable.
+	      Our users almost never report crashes. The Erlang / OTP
+	      platform is very stable, exhaustively battle-tested and
+	      extremely reliable. Please ask for opinions on the
+	      mailing list or generally google around if you don't
+	      believe us!
 	    </p>
 	  </doc:a>
-	</doc:faq>	
-	
+	</doc:faq>
+
 
 	<doc:faq name="does-clustering-replicate-messages-to-both-servers">
 	  <doc:heading>Just to be sure on the clustering side of things, when I cluster RabbitMQ nodes the
@@ -1801,12 +1754,12 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	  <doc:a>
 	    <p>
 	      Not at all. RabbitMQ is written to take advantage of multi-core CPUs; however,
-	      there are limitations. For example, a single queue is a single thread 
+	      there are limitations. For example, a single queue is a single thread
 	      so if you are running with just one queue it's unlikely you'll utilise
 	      substantially more than one CPU core.
 	    </p>
 	    <p>
-	      That said, there are node-wide threads within Rabbit, such as the 
+	      That said, there are node-wide threads within Rabbit, such as the
 	      persister, and every connection and every channel have their own threads.
 	      As a result, one queue with one producer sending persistent messages 
 	      may well use up to, say, 2.5 cores, but it won't be possible to push that
