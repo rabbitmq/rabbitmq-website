@@ -934,10 +934,11 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	<doc:heading>Is there an API doc of the RabbitMQ server?</doc:heading>
 	<doc:a>
 	  <p>
-	  No, the Rabbit server API is not designed for public
-	  consumption. The AMQP specification is the public API
-	  specification for RabbitMQ server.
-	   </p>
+	    No, the Rabbit server API is not designed for public
+	    consumption. The <a href="specification.html">AMQP
+	    specification</a> is the public API specification for the
+	    RabbitMQ server.
+	  </p>
 	  <p>
 	  We do, however, have API guides for
 	  </p>
@@ -962,10 +963,9 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
             disk and forget them from memory should memory pressure
             occur. This allows RabbitMQ to store vastly more messages
             than can fit in RAM. Because of the fact that hard discs
-            are slower than RAM, there are still occasions where
-            RabbitMQ will block producers when absolutely necessary to
-            allow it to write out messages to disk in order to free up
-            RAM.
+            are slower than RAM, there are occasions where RabbitMQ
+            will block producers when absolutely necessary to allow it
+            to write out messages to disk in order to free up RAM.
           </p>
 	</doc:a>
       </doc:faq>
