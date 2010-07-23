@@ -49,7 +49,7 @@
         </ul>
 
         <p>
-          It is advisable to <a href="rabbitmqctl.1.man.html#change_password">change the
+          It is advisable to <a href="man/rabbitmqctl.1.man.html#change_password">change the
           password</a> of the <code>guest</code> user to something
           private, particularly if your broker is accessible publicly.
         </p>
@@ -61,7 +61,7 @@
           <code>rabbitmqctl</code> is a command line tool for managing
           a RabbitMQ broker.
           For (much) more information on <code>rabbitmqctl</code>, please see
-          <a href="rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
+          <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
         </p>
       </doc:section>
 
@@ -173,8 +173,8 @@
         </p>
         <p>
           For details of how to set up access control, please see the
-          <a href="rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
-          of the <a href="rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
+          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
+          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
         </p>
 
       </doc:section>

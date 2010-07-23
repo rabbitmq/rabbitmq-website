@@ -185,7 +185,7 @@
 	    that the RabbitMQ broker has been started successfully. To
 	    shut down the server, close the shell
 	    window. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
 
@@ -645,7 +645,7 @@
 	    running", indicating that the RabbitMQ broker has been
 	    started successfully. To shut down the server just
 	    terminate the process. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	  <p>
 	    You can also start the server in "detached" mode with
