@@ -32,7 +32,7 @@
 	</p>
 
         <doc:subsection name="qpid-client">
-          <doc:heading>Qpid Java client &#187; RabbitMQ broker</doc:heading>
+          <doc:heading>Qpid Java client &#187; RabbitMQ broker </doc:heading>
           <p>
             The 0.6 release of the Qpid java client was shipped with a
             bug that prevents it from correctly negotiating the
@@ -122,7 +122,7 @@
           <pre class="sourcecode">% python2.5 ./qpid-python-test -m tests_0-9 -m tests_0-8</pre>
           <p>
             The following table details the results of running the 0-8
-            and 0-9-1 tests against the RabbitMQ broker.
+            and 0-9 tests against the RabbitMQ broker.
           </p>
 	  <qpid-tests xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
             <qpid-test name="tests_0-8.basic.BasicTests.test_ack">
@@ -135,10 +135,9 @@
               <status value="ok"/>
             </qpid-test>
             <qpid-test name="tests_0-8.basic.BasicTests.test_consume_no_local">
-              <status value="failing"/>
+              <status value="planned"/>
               <notes>
-                RabbitMQ does not support the no-local parameter of
-                <code>basic.consume</code>.
+                RabbitMQ does not support <code>basic.consume{no-local}</code>.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-8.basic.BasicTests.test_consume_queue_errors">
@@ -157,7 +156,7 @@
               <status value="ok"/>
             </qpid-test>
             <qpid-test name="tests_0-8.basic.BasicTests.test_qos_prefetch_size">
-              <status value="failing"/>
+              <status value="planned"/>
               <notes>
                 RabbitMQ does not fully support <code>basic.qos</code>.
               </notes>
@@ -252,40 +251,58 @@
             <qpid-test name="tests_0-8.queue.QueueTests.test_purge">
               <status value="invalid"/>
               <notes>
-                Backported 0-9-1 feature.
+                Error codes changed for 0-9-1.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-8.testlib.TestBaseTest.testAssertEmptyFailing">
               <status value="ok"/>
             </qpid-test>
+            <qpid-test name="tests_0-8.testlib.TestBaseTest.testAssertEmptyPass">
+              <status value="ok"/>
+            </qpid-test>
+            <qpid-test name="tests_0-8.testlib.TestBaseTest.testMessageProperties">
+              <status value="ok"/>
+            </qpid-test>
+            <qpid-test name="tests_0-8.tx.TxTests.test_auto_rollback">
+              <status value="failing"/>
+            </qpid-test>
+            <qpid-test name="tests_0-8.tx.TxTests.test_commit">
+              <status value="ok"/>
+            </qpid-test>
+            <qpid-test name="tests_0-8.tx.TxTests.test_commit_overlapping_acks">
+              <status value="ok"/>
+            </qpid-test>
+            <qpid-test name="tests_0-8.tx.TxTests.test_rollback">
+              <status value="failing"/>
+            </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_direct">
               <status value="invalid"/>
               <notes>
-                Internal Qpid test.
+                Qpid specific extension.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_fanout">
               <status value="invalid"/>
               <notes>
-                Internal Qpid test.
+                Qpid specific extension.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_header">
               <status value="invalid"/>
               <notes>
-                Internal Qpid test.
+                Qpid specific extension.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_topic">
               <status value="invalid"/>
               <notes>
-                Internal Qpid test.
+                Qpid specific extension.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_exchange_query">
               <status value="invalid"/>
               <notes>
-                Internal Qpid test.
+                Qpid specific extension.
               </notes>
             </qpid-test>
             <qpid-test name="tests_0-9.queue.QueueTests.test_autodelete_shared">
@@ -306,6 +323,7 @@
 	  </qpid-tests>
 	</doc:subsection>
       </doc:section>
+
       <doc:section name="openamq">
 	<doc:heading>Interoperation with OpenAMQ</doc:heading>
         <doc:subsection name="palexamples">
@@ -343,6 +361,20 @@
             exception codes should be used in what situations.</li>
           </ul>
         </doc:subsection>
+      </doc:section>
+
+      <doc:section name="versions">
+	<doc:heading>RabbitMQ versions tested</doc:heading>
+        <p>
+          The following versions of the RabbitMQ broker and clients
+          were used when performing the tests:
+        </p>
+        <ul>
+          <li>RabbitMQ broker: revision <code>d69acf94166f</code></li>
+          <li>RabbitMQ Java Client: revision <code>ed44f238961f</code></li>
+          <li>RabbitMQ Erlang Client: revision <code> ??? </code></li>
+          <li>RabbitMQ .NET Client: revision <code>be2717176fbb</code></li>
+        </ul>
       </doc:section>
     </doc:div>
   </body>
