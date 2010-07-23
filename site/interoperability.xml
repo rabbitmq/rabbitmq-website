@@ -263,17 +263,25 @@
             <qpid-test name="tests_0-8.testlib.TestBaseTest.testMessageProperties">
               <status value="ok"/>
             </qpid-test>
+            <qpid-test name="tests_0-8.tx.TxTests.test_rollback">
+              <status value="invalid"/>
+              <notes>
+                The test assumes that delivered messages are requeued
+                on rollback, which is in violation of the spec.
+              </notes>
+            </qpid-test>
             <qpid-test name="tests_0-8.tx.TxTests.test_auto_rollback">
-              <status value="failing"/>
+              <status value="invalid"/>
+              <notes>
+                The test is actually the same as test_rollback and is
+                therefore invalid for the same reason.
+              </notes>
             </qpid-test>
             <qpid-test name="tests_0-8.tx.TxTests.test_commit">
               <status value="ok"/>
             </qpid-test>
             <qpid-test name="tests_0-8.tx.TxTests.test_commit_overlapping_acks">
               <status value="ok"/>
-            </qpid-test>
-            <qpid-test name="tests_0-8.tx.TxTests.test_rollback">
-              <status value="failing"/>
             </qpid-test>
             <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_direct">
               <status value="invalid"/>
@@ -372,7 +380,7 @@
         <ul>
           <li>RabbitMQ broker: revision <code>d69acf94166f</code></li>
           <li>RabbitMQ Java Client: revision <code>ed44f238961f</code></li>
-          <li>RabbitMQ Erlang Client: revision <code> ??? </code></li>
+          <li>RabbitMQ Erlang Client: revision <code>a1a47bd01da0</code></li>
           <li>RabbitMQ .NET Client: revision <code>be2717176fbb</code></li>
         </ul>
       </doc:section>
