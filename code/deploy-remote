@@ -35,9 +35,7 @@ if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
 fi
 
 if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
-    for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/*.man.xml); do
-        ln -sf $t $site_dir/site
-    done
+    ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/man $site_dir/site/
 fi
 
 if [ -d /etc/apache2/sites-available/ ]; then
