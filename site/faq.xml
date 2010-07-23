@@ -896,29 +896,6 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="failover-ha">
-	  <doc:heading>How does failover and HA work?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Currently, AMQP durable queues and their persistent
-	      messages are recovered from disk at each server
-	      restart. Exchange failover is handled by OTP's support
-	      for clustering (see <a
-	      href="#shared-session-clustering">above</a>).
-	    </p>
-	    <p>
-	      Future releases will support live failover using, for
-	      instance, a combination of the "known hosts" field in
-	      <code>connection.open-ok</code> and the
-	      <code>connection.redirect</code> message. Erlang's
-	      built-in fault-tolerant database will ensure that
-	      routing information is preserved, and the OTP supervisor
-	      architecture in combination with AMQP's transactional
-	      features will ensure that durable messages are not lost.
-	    </p>
-	  </doc:a>
-	</doc:faq>
-
 	<doc:faq name="addressing-in-amqp">
 	  <doc:heading>How does addressing work in AMQP?</doc:heading>
 	  <doc:a>
@@ -957,8 +934,9 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	<doc:heading>Is there an API doc of the RabbitMQ server?</doc:heading>
 	<doc:a>
 	  <p>
-	  No, the Rabbit server API is not designed for public consumption, but the contract that Rabbit
-	  obeys over time is AMQP.
+	  No, the Rabbit server API is not designed for public
+	  consumption. The AMQP specification is the public API
+	  specification for RabbitMQ server.
 	   </p>
 	  <p>
 	  We do, however, have API guides for

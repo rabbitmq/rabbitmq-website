@@ -1,5 +1,5 @@
 #!/bin/sh
- 
+
 set -e
 cd `dirname $0`
 cd ..
@@ -7,10 +7,10 @@ cd ..
 # Which user to mirror feeds as?  Default to the rabbitmq user, who by
 # convention owns the release deliverables dir.
 mirror_user=rabbitmq
-if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
+if ! id -u "$mirror_user" >/dev/null 2>&1 ; then
     # Otherwise, try the user running sudo deploy
     mirror_user="$SUDO_USER"
-    if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
+    if ! id -u "$mirror_user" >/dev/null 2>&1 ; then
         echo "Not sure which user to mirror feeds as" 1>&2
         exit 1
     fi
@@ -28,14 +28,26 @@ rm -rf $site_dir/site $site_dir/code
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
 cp -r site code $site_dir
-for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/ | grep \.man\.xml); do
-    ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/$t $site_dir/site
-done
 
-rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
-cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
+if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
+    rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
+    cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
+fi
 
-cp conf/www.rabbitmq.com /etc/apache2/sites-available/
-a2ensite www.rabbitmq.com
-/etc/init.d/apache2 restart
+if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
+    for t in $(ls /home/rabbitmq/extras/releases/rabbitmq-server/current/*.man.xml); do
+        ln -sf $t $site_dir/site
+    done
+fi
+
+if [ -d /etc/apache2/sites-available/ ]; then
+    cp conf/www.rabbitmq.com conf/www.rabbitmq.com-ssl conf/www.rabbitmq.com-common  /etc/apache2/sites-available/
+    a2ensite www.rabbitmq.com
+    /etc/init.d/apache2 restart
+fi
+
+if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
+    echo "*** Note site www.rabbitmq.com-ssl is not enabled. Please enable manually if necessary. ***"
+fi
+
 sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
