@@ -722,25 +722,59 @@ Certificate removed from store.</pre>
         </doc:subsection>
 
         <doc:subsection name="code-snippet">
-          <doc:heading>Code Snippet</doc:heading>
+          <doc:heading>Example</doc:heading>
+
+          <p>
+            This is the same example as in the Java section. It
+            creates a channel, rabbitmq-dotnet-test and publishes to
+            the default direct exchange, then reads back what has been
+            published and echoes it out. Note that we use an
+            exclusive, non-durable, auto-delete queue so we don't have
+            to worry about manually cleaning up after ourselves
+          </p>
+
 <pre class="sourcecode">
-// Other initialization here
+using System;
+using System.IO;
+using System.Text;
 
-ConnectionFactory cf = new ConnectionFactory();
+using RabbitMQ.Client;
+using RabbitMQ.Util;
 
-cf.Parameters.Ssl.ServerName = System.Net.Dns.GetHostName();
-cf.Parameters.Ssl.CertPath = &quot;/path/to/client/keycert.p12&quot;;
-cf.Parameters.Ssl.CertPassphrase = &quot;MySecretPassword&quot;;
-cf.Parameters.Ssl.Enabled = true;
+namespace RabbitMQ.Client.Examples {
+    public class LogTailSSL {
+        public static int Main(string[] args) {
+            ConnectionFactory cf = new ConnectionFactory();
 
-IProtocol proto = Protocols.DefaultProtocol;
-IConnection conn = cf.CreateConnection(proto, &quot;localhost&quot;, 5671);
+            cf.Ssl.ServerName = System.Net.Dns.GetHostName();
+            cf.Ssl.CertPath = "/src/client/keycert.p12";
+            cf.Ssl.CertPassphrase = "MySecretPassword";
+            cf.Ssl.Enabled = true;
 
-IModel ch = conn.CreateModel();
+            cf.Address = "localhost";
+            cf.Port = 5671;
 
-// Continue with channel commands here</pre>
-	</doc:subsection>	
-	
+            using (IConnection conn = cf.CreateConnection()) {
+                using (IModel ch = conn.CreateModel()) {
+                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, true, false, null);
+                    ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
+                    BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", false);
+                    if (result == null) {
+                        Console.WriteLine("No message received.");
+                    } else {
+                        ch.BasicAck(result.DeliveryTag, false);
+                        Console.WriteLine("Received:");
+                        DebugUtil.DumpProperties(result, Console.Out, 0);
+                    }
+                }
+            }
+            return 0;
+        }
+    }
+}
+</pre>
+	</doc:subsection>
+
 	<doc:subsection name="bugs-in-mono">
 	  <doc:heading>Bugs in Mono</doc:heading>
 	    <p>When the server asks the client to send a certificate,
