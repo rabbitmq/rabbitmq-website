@@ -630,6 +630,8 @@
       calls <code>basic.recover{requeue=true}</code>. The FAQ on <a href="#at-least-once-delivery">at least once delivery</a> talks
       about this in some more detail.
       </p>
+      <p>Section 4.7 of <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf?version=1&amp;modificationDate=1227526523000">the AMQP 0-9-1 specification</a>
+      explains the conditions under which ordering is guaranteed.</p>
     </doc:a>
   </doc:faq>
 
