@@ -467,9 +467,13 @@ decentralised microblogging</li>
 	  More links to what others are doing to manage and monitor RabbitMQ.
 	</li>
       </ul>
-      
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
+      <li>
+      <a href="http://docs.google.com/present/view?id=dck5j8mb_0rqn4psdg">Patterns for Messaging with RabbitMQ</a><br/>
+      Scott Brooks presents an overview of the AMQ model and goes on to describe some advanced topics. He highlights a set of common
+      messaging use cases with RabbitMQ including delayed job queues, event logging, back-end decoupling and cross platform interoperability.
+      </li>
       <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
       Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
