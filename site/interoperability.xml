@@ -42,21 +42,21 @@
           </p>
           <p>
             A solution is to use git revision <code>6f5d963</code>,
-            commited shortly after the main release which fixes
+            committed shortly after the main release which fixes
             protocol negotiation.
           </p>
           <p>
             In order to run their examples, one must first configure
             the RabbitMQ broker with the necessary vhost
             (<code>/test</code>) and permissions(<code>.* .* .*</code>).
-            This is most easly done through the
+            This is most easily done through the
             management tools (<code>rabbitmqctl</code>).
           </p>
           <p>
             Due to a disagreement regarding the spec, almost none of
             the examples will work.  RabbitMQ declares the standard
             <code>amq.*</code> exchanges as durable.  Before using
-            them, Qpid always redeclares them, and does so as
+            them, Qpid always re-declares them, and does so as
             non-durable.  As a result, RabbitMQ will raise a
             precondition failed exception for most of the examples.
           </p>
@@ -283,7 +283,7 @@
             <qpid-test name="tests_0-8.tx.TxTests.test_rollback">
               <status value="invalid"/>
               <notes>
-                The test assumes that delivered messages are requeued
+                The test assumes that delivered messages are re-queued
                 on rollback, which is in violation of the spec.
               </notes>
             </qpid-test>
