@@ -1263,7 +1263,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 There are several ways you can accomplish this depending on exactly
 what you want to achieve. From the command line, you can use
 "rabbitmqctl list_queues" to list the queues at a particular node and
-virtual host. The <a href="/rabbitmqctl.1.man.html#list_queues">rabbitmqctl documentation</a> has more
+virtual host. The <a href="man/rabbitmqctl.1.man.html#list_queues">rabbitmqctl documentation</a> has more
 information about the various options you can use with this command.
 Using AMQP, the 'queue.declare' command, which is idempotent, returns
 in one of the ' <a href="&dir-current-javadoc;">queue.declare-ok</a>' 
@@ -1480,9 +1480,9 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	  <doc:a>
 	    <p>
 	      Please see the section on <a
-	      href="rabbitmqctl.1.man.html#Access%20control">access
+	      href="man/rabbitmqctl.1.man.html#Access%20control">access
 	      control</a> in the <a
-	      href="rabbitmqctl.1.man.html">rabbitmqctl(1) manual page</a>.
+	      href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) manual page</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>	
