@@ -14,8 +14,8 @@
   <p>
   The AMQP specification is open and free to all users and implementers.
   RabbitMQ implements version 0-9-1 of the specification today,
-  with legacy support for version 0-8.  RabbitMQ will perform protocol
-  negotiation with clients implementing 0-9-1, and 0-8, in accordance
+  with legacy support for version 0-8 and 0-9.  RabbitMQ will perform protocol
+  negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
   with the specification.
   </p>
   <p>
@@ -29,7 +29,7 @@
 1-0 Draft</a> (PDF).
 	</p>
         <p>
-          The 0-9-1 and 0-8 specifications are linked to below for
+          The 0-9-1, 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
           learn more about AMQP.  Please see our <a
           href="documentation.html">Documentation</a> and <a
@@ -62,6 +62,18 @@
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">class
 	      def pdf</a>, <a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">class
+	      def xml</a>)
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>(present release) (server when connected to a 0-9 client)</td>
+	    <td>
+	      0-9 (<a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">core
+	      spec</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">class
+	      def pdf</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">class
 	      def xml</a>)
 	    </td>
 	  </tr>
