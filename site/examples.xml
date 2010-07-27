@@ -17,7 +17,7 @@
       <doc:section name="demo-server">
 	<doc:heading>Publicly-accessible Demonstration Broker Service</doc:heading>
 	<p>
-	  <a href="http://www.lshift.net/">LShift</a> are hosting a
+	  We are hosting a
 	  demonstration RabbitMQ server that is freely available for
 	  people to try out, perhaps for testing interoperation or
 	  experimenting with WAN AMQP connections.

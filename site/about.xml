@@ -24,7 +24,7 @@
 
     <p>
       <a href="services.html">Commercial support services</a> are
-      available from Rabbit Technologies and LShift Ltd.
+      available through the SpringSource division of VMware.
     </p>
 
     <p>
@@ -32,25 +32,19 @@
       <a href="examples.html">examples</a>, <a href="community.html">community forums</a>     
     </p>
     
-    <h2>About Rabbit Technologies Ltd</h2>
-    <p>	  
-      Rabbit Technologies Ltd develop and commercially support the RabbitMQ
-      product.  The company is
-      based in the UK and was founded in February 2007.  It is a spin out
-      from <a href="http://www.lshift.net/">LShift Ltd.</a>, the UK software
-      consultancy and <a href="http://www.cohesiveft.com/">Cohesive FT</a>, the US virtualization and
-      cloud computing company.
-    </p>
+     <p>Please note, RabbitMQ is <a href="mailto:info@rabbitmq.com?subject=Recruitment">recruiting!</a></p>
     
-     <p>Please note, RabbitMQ and LShift are <a href="http://www.lshift.net/recruitment">recruiting!</a>
-     </p>
+    <h2>Contact Us</h2>
+    <p>You can contact us <a href="mailto:info@rabbitmq.com?subject=Contact%20Us">via email</a> or at the address below.</p>
+    <address>
+    RabbitMQ<br/>
+    c/o VMWare UK Limited<br/>
+    Bluefin Building<br/>
+    110, Southwark Street<br/>
+    London SE1 0TA<br/>
+    United Kingdom<br/>
+    </address>
+        
     
-     <p class="logos">
-      <a href="http://www.lshift.net/"><img src="img/LShiftLogo.gif" alt="lshift" width="138" height="65" /></a>
-    </p>
-    
-    
-
-    
-  </body>
+</body>
 </html>
