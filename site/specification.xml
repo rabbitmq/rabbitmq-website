@@ -12,10 +12,11 @@
       </doc:toc>
       <doc:section name="spec">
   <p>
-  The AMQP specification is an open and free to all users and
-  implementers.  RabbitMQ implements the 0-9-1 version of the specification today.  
-  The is legacy support for the 0-9 and 0-8 versions in the broker.
-  During protocol negotiation RabbitMQ will claim to be version or 0-9-1, 0-9 or 0-8 respectively if the client claims to be any of these versions. 
+  The AMQP specification is open and free to all users and implementers.
+  RabbitMQ implements version 0-9-1 of the specification today,
+  with legacy support for version 0-8.  RabbitMQ will perform protocol
+  negotiation with clients implementing 0-9-1, and 0-8, in accordance
+  with the specification.
   </p>
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
@@ -53,7 +54,7 @@
 	    <th>implement AMQP protocol version</th>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server)</td>
+	    <td>(present release) (server when connected to a 0-9-1 client)</td>
 	    <td>
 	      0-9-1 (<a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">core
@@ -65,19 +66,7 @@
 	    </td>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server when a 0-9 client connects)</td>
-	    <td>
-	      0-9 (<a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">core
-	      spec</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">class
-	      def pdf</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">class
-	      def xml</a>)
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>(present release) (server when a 0-8 client connects)</td>
+	    <td>(present release) (server when connected to a 0-8 client)</td>
 	    <td>
 	      0-8 (<a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">core
@@ -108,27 +97,13 @@
 	</p>
       </doc:section>
 
-      <doc:section name="planned-features">
-	<doc:heading>Unimplemented Features</doc:heading>
-	<p>
-	  Currently, we have implemented the core AMQP features. Some
-	  other features are yet to be implemented.
-        </p>
-        <p>
-          The "access.request" method is to be deprecated in future
-          version of the AMQP specification. Currently the RabbitMQ
-          broker implements it as NOOP for backwards compatibility
-          purposes. When a client sends an "access.request" command to
-          the RabbitMQ broker, the broker performs no checks and
-          returns a fixed ticket number. Furthermore, any ticket
-          number is considered valid in the processing of other AMQP
-          commands.
-	</p>
+      <doc:section name="deprecated-classes">
+	<doc:heading>Deprecated classes</doc:heading>
     <p>
-      The following classes were present in AMQP version 0-8 and
-      deprecated in version 0-9-1. RabbitMQ does not implement these
-      classes at all, including when the broker claims to be 0-8
-      or when the .NET client is configured to use 0-8.
+      The following classes were deprecated in version 0-9-1. 
+      RabbitMQ does not implement these classes at all, including 
+      when the broker is connected to a version 0-8 client, or 
+      when the .NET client is configured to use 0-8.
     </p>
       <table>
        <tr>
@@ -142,7 +117,9 @@
       </table>
 	<p>
 	  See also the detailed specification compatibility tables
-	  below.
+	  below. Backwards-compatible support for the access.request 
+      method as a no-op will be removed in the near future and
+      should not be relied on.
 	</p>
       </doc:section>
 
@@ -163,7 +140,7 @@
       </doc:section>
 
       <doc:section name="methods">
-	<doc:heading>Methods from the AMQP specification, version 0-8</doc:heading>
+	<doc:heading>Methods from the AMQP specification, version 0-9-1</doc:heading>
 	<p>
 	  The following table describes the current implementation status
 	  of the various AMQP protocol methods in each class.
@@ -192,7 +169,6 @@
 	  <method name="channel.open-ok"><status value="ok"/></method>
 	  <method name="channel.flow"><status value="ok"/></method>
 	  <method name="channel.flow-ok"><status value="ok"/></method>
-	  <method name="channel.alert"><status value="deprecated"/></method>
 	  <method name="channel.close"><status value="ok"/></method>
 	  <method name="channel.close-ok"><status value="ok"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
@@ -239,3832 +215,1507 @@
       </doc:section>
 
       <doc:section name="rules">
-	<doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
+	<doc:heading>Rules from the AMQP specification, version 0-9-1</doc:heading>
 	<p>
-	  The first few entries in the following table are taken from the
-	  non-XML part of the specification, and the remainder are
-	  automatically generated from the XML part.
+	  The Reference column contains the class or domain, method, field and 
+      rule name where present.
 	</p>
 	<rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      v0-8, 1.5.1
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      API names taken from specification
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      v0-8, 2.2.6
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Trust presented tickets
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Check resource accessibility when a ticket is presented
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      Treat tickets as opaque data
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      v0-8, 2.3.3
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Host multiple protocol versions on the same port
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.1
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Modify message content bodies
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.2
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Associate a single Virtual Host with each connection
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.3.1
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Implement "direct" exchanges
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Bind each queue to the default direct exchange
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Predeclare "amq.direct" and "" exchanges
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.3.2
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Implement "fanout" exchanges
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Predeclare "amq.fanout" exchange
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      v0-8, 3.1.3.3
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      Routing key matches regex ([a-zA-Z0-9.]*)
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Implement "topic" exchanges
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Predeclare "amq.topic" exchange (only if "topic" exchange implemented)
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      v0-9-1, 3.1.3.4
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Implement "headers" exchanges
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-9-1, 3.1.3.4
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Predeclare "amq.match"/"amq.headers" exchange (only if "headers" exchange implemented)
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.3.5
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Nonstandard exchange types must be named with "x-" prefix
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 3.1.10
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Respect naming conventions ("amq.", "x-")
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.2
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      Erratum
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Corrected AMQP protocol header is A,M,Q,P,1,1,8,0
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Accept protocol with class 1, instance 1 (AMQP over TCP/IP)
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Accept non-AMQP protocols
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Reject invalid header with a valid header and connection-close
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Log reception of an invalid header
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      Detect supported protocol versions by attempting connection with different protocol headers
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.3
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Immediately close connection on reception of an invalid frame type
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Check for frame-end octet before further decoding a frame
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Immediately close connection on frame-end octet check failure
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Log frame-end octet check failures
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Send frames larger than the agreed-upon size
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Signal connection exception FRAME_ERROR when oversize frames are detected
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.1
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Assume particular word alignment of multi-byte fields within a frame
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      v0-8, 4.2.5.5
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Generate field names conforming to specified pattern
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Check syntax of field names, with connection exception SYNTAX_ERROR on failure
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Ignore all but first of all identically-named fields within a table
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.6
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Raise connection exception FRAME_ERROR when incomplete content received
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.7
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Raise connection exception FRAME_ERROR when content header class does not match method class
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Produce content frames with zero channel number
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Signal connection exception CHANNEL_ERROR if receiving a content frame with zero channel number
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.8
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Support multiple-frame content bodies
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      v0-8, 4.2.5.9
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Support structured content
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Reject structured content with NOT_IMPLEMENTED, if not supporting structured content
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If supporting structured content, detect weight mismatch, raising FRAME_ERROR if mismatch detected
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.11
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Always use channel zero for "trace" frames
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Signal FRAME_ERROR on receipt of "trace" frame with nonzero channel
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Discard trace frames without fault if no appropriate trace handler is available
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      v0-8, 4.2.5.12
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Always use channel zero for "heartbeat" frames
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Signal FRAME_ERROR on receipt of "heartbeat" frame with nonzero channel
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Discard heartbeat frames without fault if heartbeating is not supported or not enabled
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      v0-8, 4.3
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Support multiple channels per connection
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Balance channel traffic fairly within a connection
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Allow a very busy channel to starve other channels within a connection
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      v0-8, 4.6.2
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Log potentially hostile connection attempts, and flag or block hostile clients
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/consumer tag
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The consumer tag is valid only within the channel from which the consumer was created. I.e. a client MUST NOT create a consumer in one channel and then use it in another. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/delivery tag
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The delivery tag is valid only within the channel from which the message was received. I.e. a client MUST NOT receive a message on one channel and then acknowledge it on another. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/delivery tag
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST NOT use a zero value for delivery tags. Zero is reserved for client use, meaning "all messages so far received". 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/known hosts
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY leave this field empty if it knows of no other hosts than itself. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/peer properties
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The properties SHOULD contain these fields: "product", giving the name of the peer product, "version", giving the name of the peer version, "platform", giving the name of the operating system, "copyright", if appropriate, and "information", giving other general information. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <notes>We plan on supplying a "redelivered" hint in more situations than we currently do. See also rule amq_basic_19.</notes>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/redelivered
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD try to signal redelivered messages when it can. When redelivering a message that was not successfully acknowledged, the server SHOULD deliver it to the original client if possible. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <notes>The client already conforms, in that it does not rely on the redelivered field, and we plan on adding duplicate tracking in a future release.</notes>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      domain/redelivered
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST NOT rely on the redelivered field but MUST take it as a hint that the message may already have been processed. A fully robust client must be able to track duplicate received messages on non-transacted, and locally-transacted channels. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/start
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client cannot handle the protocol version suggested by the server it MUST close the socket connection. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/start
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST provide a protocol version that is lower than or equal to that requested by the client in the protocol header. If the server cannot support the specified protocol it MUST NOT send this method, but MUST close the socket connection. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/locales
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      All servers MUST support at least the en_US locale. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/mechanism
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The client SHOULD authenticate using the highest-level security profile it can handle from the list provided by the server. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/mechanism
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The mechanism field MUST contain one of the security mechanisms proposed by the server in the Start method. If it doesn't, the server MUST close the socket. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/frame max
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Until the frame-max has been negotiated, both peers MUST accept frames of up to 4096 octets large. The minimum non-zero value for the frame-max field is 4096. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/channel max
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY ignore the channel-max value or MAY use it for tuning its resource allocation. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/frame max
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Until the frame-max has been negotiated, both peers must accept frames of up to 4096 octets large. The minimum non-zero value for the frame-max field is 4096. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/open
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST open the context before doing any work on the connection. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/virtual host
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the server supports multiple virtual hosts, it MUST enforce a full separation of exchanges, queues, and all associated entities per virtual host. An application, connected to a specific virtual host, MUST NOT be able to access resources of another virtual host. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/virtual host
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD verify that the client has permission to access the specified virtual host. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/virtual host
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY configure arbitrary limits per virtual host, such as the number of each type of entity that may be used, per connection and/or in total. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/connection/insist
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      When the client uses the insist option, the server SHOULD accept the client connection unless it is technically unable to do so. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/redirect
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      When getting the Connection.Redirect method, the client SHOULD reconnect to the host specified, and if that host is not present, to any of the hosts specified in the known-hosts list. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/close
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      After sending this method any received method except the Close-OK method MUST be discarded. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/close
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The peer sending this method MAY use a counter or timeout to detect failure of the other peer to respond correctly with the Close-OK method. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/close
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      When a server receives the Close method from a client it MUST delete all server-side resources associated with the client's context. A client CANNOT reconnect to a context after sending or receiving a Close method. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/connection/close-ok
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      A peer that detects a socket closure without having received a Close-Ok handshake method SHOULD log the error. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/open
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      This method MUST NOT be called when the channel is already open. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/flow
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      When a new channel is opened, it is active. Some applications assume that channels are inactive until started. To emulate this behaviour a client MAY open the channel, then pause it. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="partial"/>
-	    <notes>The clients handle Channel.Flow, but the server doesn't.</notes>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/flow
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      When sending content data in multiple frames, a peer SHOULD monitor the channel for incoming methods and respond to a Channel.Flow as rapidly as possible. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="partial"/>
-	    <notes>The server may issue a Channel.Flow under certain conditions, such as memory pressure. The clients do not automatically issue a Channel.Flow.</notes>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/flow
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      A peer MAY use the Channel.Flow method to throttle incoming content data for internal reasons, for example, when exchangeing data over a slower connection. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/flow
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The peer that requests a Channel.Flow method MAY disconnect and/or ban a peer that does not respect the request. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/close
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      After sending this method any received method except Channel.Close-OK MUST be discarded. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/close
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The peer sending this method MAY use a counter or timeout to detect failure of the other peer to respond correctly with Channel.Close-OK.
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/channel/close-ok
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      A peer that detects a socket closure without having received a Channel.Close-Ok handshake method SHOULD log the error. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/access/request
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The realm name MUST start with either "/data" (for application resources) or "/admin" (for server administration resources). If the realm starts with any other path, the server MUST raise a connection exception with reply code 403 (access refused). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/access/request
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST implement the /data realm and MAY implement the /admin realm. The mapping of resources to realms is not defined in the protocol - this is a server-side configuration issue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/access/realm
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the specified realm is not known to the server, the server must raise a channel exception with reply code 402 (invalid path). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/access/request-ok
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST NOT use access tickets except within the same channel as originally granted. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/access/request-ok
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST isolate access tickets per channel and treat an attempt by a client to mix these as a connection exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_19
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST implement the direct and fanout exchange types, and predeclare the corresponding exchanges named amq.direct and amq.fanout in each virtual host. The server MUST also predeclare a direct exchange to act as the default exchange for content Publish methods and for default queue bindings. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_exchange_20
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the topic exchange type, and predeclare the corresponding exchange named amq.topic in each virtual host. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>delivery-tag / channel-local</xref>
+            <type/>
+            <actor/>
+            <text>
+                The delivery tag is valid only within the channel from which the message was
+                received. I.e. a client MUST NOT receive a message on one channel and then
+                acknowledge it on another.
+              </text>
+          </rule>
 
-	    </xref>
-	    <context>
-	      v0-9-1
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the headers exchange type, and predeclare the corresponding exchange named amq.match/amq.headers in each virtual host. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_exchange_21
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MAY implement the system exchange type, and predeclare the corresponding exchanges named amq.system in each virtual host. If the client attempts to bind a queue to the system exchange, the server MUST raise a connection exception with reply code 507 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_exchange_22
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The default exchange MUST be defined as internal, and be inaccessible to the client except by specifying an empty exchange name in a content Publish method. That is, the server MUST NOT let clients make explicit bindings to this exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_exchange_23
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support a minimum of 16 exchanges per virtual host and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/exchange/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "active" access to the realm in which the exchange exists or will be created, or "passive" access if the if-exists flag is set. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_15
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Exchange names starting with "amq." are reserved for predeclared and standardised exchanges. If the client attempts to create an exchange starting with "amq.", the server MUST raise a channel exception with reply code 403 (access refused). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_16
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the exchange already exists with a different type, the server MUST raise a connection exception with a reply code 507 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_18
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the server does not support the requested exchange type it MUST raise a connection exception with a reply code 503 (command invalid). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_05
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If set, and the exchange does not already exist, the server MUST raise a channel exception with reply code 404 (not found). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_24
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST support both durable and transient exchanges. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/exchange/durable
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST ignore the durable field if the exchange already exists. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_exchange_02
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD allow for a reasonable delay between the point when it determines that an exchange is not being used (or no longer used), and the point when it deletes the exchange. At the least it must allow a client to create an exchange and then bind a queue to it, with a small but non-zero delay between these two actions. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_25
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST ignore the auto-delete field if the exchange already exists. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/exchange/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "active" access rights to the exchange's access realm. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_exchange_11
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The exchange MUST exist. Attempting to delete a non-existing exchange causes a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_exchange_12
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If set, the server SHOULD delete the exchange but only if it has no queue bindings. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_exchange_13
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If set, the server SHOULD raise a channel exception if the exchange is in use. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_queue_33
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      A server MUST allow any content class to be sent to any queue, in any mix, and queue and delivery these content classes independently. Note that all methods that fetch content off queues are specific to a given content class. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_34
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST create a default binding for a newly-created queue to the default exchange, which is an exchange of type 'direct'. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_queue_35
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support a minimum of 256 queues per virtual host and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_queue_10
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY, MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The queue name MAY be empty, in which case the server MUST create a new queue with a unique generated name and return this to the client in the Declare-Ok method. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_queue_32
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Queue names starting with "amq." are reserved for predeclared and standardised server queues. If the queue name starts with "amq." and the passive option is zero, the server MUST raise a connection exception with reply code 403 (access refused). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_05
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If set, and the queue does not already exist, the server MUST respond with a reply code 404 (not found) and raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_03
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST recreate the durable queue after a restart. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_36
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST support both durable and transient queues. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_37
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST ignore the durable field if the queue already exists. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_38
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST support both exclusive (private) and non-exclusive (shared) queues. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_04
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST raise a channel exception if 'exclusive' is specified and the queue already exists and is owned by a different connection. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_queue_02
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD allow for a reasonable delay between the point when it determines that a queue is not being used (or no longer used), and the point when it deletes the queue. At the least it must allow a client to create a queue and then create a consumer to read from it, with a small but non-zero delay between these two actions. The server should equally allow for clients that may be disconnected prematurely, and wish to re-consume from the same queue without losing messages. We would recommend a configurable timeout, with a suitable default value being one minute. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_31
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST ignore the auto-delete field if the queue already exists. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_25
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      A server MUST allow ignore duplicate bindings - that is, two or more bind methods for a specific queue, with identical arguments - without treating these as an error. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_39
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If a bind fails, the server MUST raise a connection exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_12
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST NOT allow a durable queue to bind to a transient exchange. If the client attempts this the server MUST raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_queue_13
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      Bindings for durable queues are automatically durable and the server SHOULD restore such bindings after a server restart. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_queue_17
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client attempts to an exchange that was declared as internal, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_queue_40
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support at least 4 bindings per queue, and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_26
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the queue does not exist the server MUST raise a channel exception with reply code 404 (not found). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_14
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the exchange does not exist the server MUST raise a channel exception with reply code 404 (not found). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_15
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      A call to purge MUST result in an empty queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_41
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      On transacted channels the server MUST not purge messages that have already been sent to a client but not yet acknowledged. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      amq_queue_42
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY implement a purge queue or log that allows system administrators to recover accidentally-purged messages. The server SHOULD NOT keep purged messages in the same storage spaces as the live messages since the volumes of purged messages may get very large. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/queue/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "read" access rights to the queue's access realm. Note that purging a queue is equivalent to reading all messages and discarding them. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_16
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The queue must exist. Attempting to purge a non-existing queue causes a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_queue_43
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD use a dead-letter queue to hold messages that were pending on a deleted queue, and MAY provide facilities for a system administrator to move these messages back to an active queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_21
-	    </xref>
-	    <context>
-	      field/queue/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The queue must exist. Attempting to delete a non-existing queue causes a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_29
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST respect the if-unused flag when deleting a queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_queue_30
-	    </xref>
-	    <context>
-	      
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST respect the if-unused flag when deleting a queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_basic_08
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD respect the persistent property of basic messages and SHOULD make a best-effort to hold persistent basic messages on a reliable storage mechanism. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_basic_09
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST NOT discard a persistent basic message in case of a queue overflow. The server MAY use the Channel.Flow method to slow or stop a basic message publisher when necessary. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      amq_basic_10
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY overflow non-persistent basic messages to persistent storage and MAY discard or dead-letter non-persistent basic messages on a priority basis if the queue size exceeds some configured limit. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_11
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST implement at least 2 priority levels for basic messages, where priorities 0-4 and 5-9 are treated as two distinct levels. The server MAY implement up to 10 priority levels. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_12
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST deliver messages of the same priority in order irrespective of their individual persistence. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_basic_13
-	    </xref>
-	    <context>
-	      class/basic/basic
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST support both automatic and explicit acknowledgements on Basic content. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="partial"/>
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>delivery-tag / non-zero</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST NOT use a zero value for delivery tags. Zero is reserved
+                for client use, meaning "all messages so far received".
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>redelivered / implementation</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server SHOULD try to signal redelivered messages when it can. When
+                redelivering a message that was not successfully acknowledged, the server
+                SHOULD deliver it to the original client if possible.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
             <notes>
-              This is implemented for prefetch counts. Prefetch size limits are not supported.
+                The client already conforms, in that it does not rely on the 
+                redelivered field, and we plan on adding duplicate tracking in a future 
+                release.
             </notes>
-	    <xref>
-	      amq_basic_17
-	    </xref>
-	    <context>
-	      field/basic/prefetch size
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST ignore this setting when the client is not processing any messages - i.e. the prefetch size does not limit the transfer of single messages to a client, only the sending in advance of more messages while the client still has one or more unacknowledged messages. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      amq_basic_18
-	    </xref>
-	    <context>
-	      field/basic/prefetch count
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MAY send less data in advance than allowed by the client's specified prefetch windows but it MUST NOT send more. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_basic_01
-	    </xref>
-	    <context>
-	      method/basic/consume
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support at least 16 consumers per queue, unless the queue was declared as private, and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/basic/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "read" access rights to the realm for the queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/basic/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      todo
-	    </xref>
-	    <context>
-	      field/basic/consumer tag
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The tag MUST NOT refer to an existing consumer. If the client attempts to create two consumers with the same non-empty tag the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_basic_02
-	    </xref>
-	    <context>
-	      field/basic/exclusive
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the server cannot grant exclusive access to the queue when asked, - because there are other consumers active - it MUST raise a channel exception with return code 403 (access refused). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      todo
-	    </xref>
-	    <context>
-	      method/basic/cancel
-	    </context>
-	    <type>
-	      
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      If the queue no longer exists when the client sends a cancel command, or the consumer has been cancelled for other reasons, this command has no effect. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/basic/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "write" access rights to the access realm for the exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_basic_06
-	    </xref>
-	    <context>
-	      field/basic/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST accept a blank exchange name to mean the default exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_14
-	    </xref>
-	    <context>
-	      field/basic/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the exchange was declared as an internal exchange, the server MUST raise a channel exception with a reply code 403 (access refused). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">doesn't</status>
-	    <xref>
-	      amq_basic_15
-	    </xref>
-	    <context>
-	      field/basic/exchange
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The exchange MAY refuse basic content in which case it MUST raise a channel exception with reply code 540 (not implemented). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_basic_07
-	    </xref>
-	    <context>
-	      field/basic/mandatory
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the mandatory flag. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok">does</status>
-	    <xref>
-	      amq_basic_16
-	    </xref>
-	    <context>
-	      field/basic/immediate
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the immediate flag. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_19
-	    </xref>
-	    <context>
-	      method/basic/deliver
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD track the number of times a message has been delivered to clients and when a message is redelivered a certain number of times - e.g. 5 times - without being acknowledged, the server SHOULD consider the message to be unprocessable (possibly causing client applications to abort), and move the message to a dead letter queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="deprecated"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/basic/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "read" access rights to the realm for the queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/basic/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      amq_basic_20
-	    </xref>
-	    <context>
-	      field/basic/multiple
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST validate that a non-zero delivery-tag refers to an delivered message, and raise a channel exception if this is not the case. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_21
-	    </xref>
-	    <context>
-	      method/basic/reject
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD be capable of accepting and process the Reject method while sending message content with a Deliver or Get-Ok method. I.e. the server should read and process incoming methods while sending output frames. To cancel a partially-send content, the server sends a content body frame of size 1 (i.e. with no data except the frame-end octet). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_22
-	    </xref>
-	    <context>
-	      method/basic/reject
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD interpret this method as meaning that the client is unable to process the message at this time. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/basic/reject
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      A client MUST NOT use this method as a means of selecting messages to process. A rejected message MAY be discarded or dead-lettered, not necessarily passed to another client. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      amq_basic_23
-	    </xref>
-	    <context>
-	      field/basic/requeue
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST NOT deliver the message to the same client within the context of the current channel. The recommended strategy is to attempt to deliver the message to an alternative consumer, and if that is not possible, to move the message to a dead-letter queue. The server MAY use more sophisticated tracking to hold the message on the queue and redeliver it to the same client at a later stage. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/basic/recover
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST set the redelivered flag on all messages that are resent. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <status value="ok"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/basic/recover
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST raise a channel exception if this is called on a transacted channel. 
-	    </text>
-	  </rule>
-<!--
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/file/file
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST make a best-effort to hold file messages on a reliable storage mechanism. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/file/file
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST NOT discard a file message in case of a queue overflow. The server MUST use the Channel.Flow method to slow or stop a file message publisher when necessary. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/file/file
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST implement at least 2 priority levels for file messages, where priorities 0-4 and 5-9 are treated as two distinct levels. The server MAY implement up to 10 priority levels. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/file/file
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST support both automatic and explicit acknowledgements on file content. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/prefetch count
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MAY send less data in advance than allowed by the client's specified prefetch windows but it MUST NOT send more. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/file/consume
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support at least 16 consumers per queue, unless the queue was declared as private, and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "read" access rights to the realm for the queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      todo
-	    </xref>
-	    <context>
-	      field/file/consumer tag
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The tag MUST NOT refer to an existing consumer. If the client attempts to create two consumers with the same non-empty tag the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_file_00
-	    </xref>
-	    <context>
-	      field/file/exclusive
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the server cannot grant exclusive access to the queue when asked, - because there are other consumers active - it MUST raise a channel exception with return code 405 (resource locked). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/content size
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The sender MUST accurately fill the content-size field. Zero-length content is permitted. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/staged size
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The sender MUST start sending data from this octet offset in the message, counting from zero. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/staged size
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The recipient MAY decide how long to hold partially-staged content and MAY implement staging by always discarding partially-staged content. However if it uses the file content type it MUST support the staging methods. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "write" access rights to the access realm for the exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST accept a blank exchange name to mean the default exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the exchange was declared as an internal exchange, the server MUST respond with a reply code 403 (access refused) and raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/exchange
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The exchange MAY refuse file content in which case it MUST respond with a reply code 540 (not implemented) and raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_file_00
-	    </xref>
-	    <context>
-	      field/file/mandatory
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the mandatory flag. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_file_00
-	    </xref>
-	    <context>
-	      field/file/immediate
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the immediate flag. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/file/deliver
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD track the number of times a message has been delivered to clients and when a message is redelivered a certain number of times - e.g. 5 times - without being acknowledged, the server SHOULD consider the message to be unprocessable (possibly causing client applications to abort), and move the message to a dead letter queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/multiple
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST validate that a non-zero delivery-tag refers to an delivered message, and raise a channel exception if this is not the case. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/file/reject
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server SHOULD interpret this method as meaning that the client is unable to process the message at this time. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/file/reject
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      A client MUST NOT use this method as a means of selecting messages to process. A rejected message MAY be discarded or dead-lettered, not necessarily passed to another client. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/file/requeue
-	    </context>
-	    <type>
-	      MUST NOT, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST NOT deliver the message to the same client within the context of the current channel. The recommended strategy is to attempt to deliver the message to an alternative consumer, and if that is not possible, to move the message to a dead-letter queue. The server MAY use more sophisticated tracking to hold the message on the queue and redeliver it to the same client at a later stage. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/stream/stream
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD discard stream messages on a priority basis if the queue size exceeds some configured limit. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/stream/stream
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST implement at least 2 priority levels for stream messages, where priorities 0-4 and 5-9 are treated as two distinct levels. The server MAY implement up to 10 priority levels. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/stream/stream
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The server MUST implement automatic acknowledgements on stream content. That is, as soon as a message is delivered to a client via a Deliver method, the server must remove it from the queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/consume rate
-	    </context>
-	    <type>
-	      MAY
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MAY ignore the prefetch values and consume rates, depending on the type of stream and the ability of the server to queue and/or reply it. The server MAY drop low-priority messages in favour of high-priority messages. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/stream/consume
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD support at least 16 consumers per queue, unless the queue was declared as private, and ideally, impose no limit except as defined by available resources. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      method/stream/consume
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      Streaming applications SHOULD use different channels to select different streaming resolutions. AMQP makes no provision for filtering and/or transforming streams except on the basis of priority-based selective delivery of individual messages. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "read" access rights to the realm for the queue. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/queue
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      If the client did not previously declare a queue, and the queue name in this method is empty, the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      todo
-	    </xref>
-	    <context>
-	      field/stream/consumer tag
-	    </context>
-	    <type>
-	      MUST NOT
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The tag MUST NOT refer to an existing consumer. If the client attempts to create two consumers with the same non-empty tag the server MUST raise a connection exception with reply code 530 (not allowed). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_file_00
-	    </xref>
-	    <context>
-	      field/stream/exclusive
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the server cannot grant exclusive access to the queue when asked, - because there are other consumers active - it MUST raise a channel exception with return code 405 (resource locked). 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/ticket
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      The client MUST provide a valid access ticket giving "write" access rights to the access realm for the exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server MUST accept a blank exchange name to mean the default exchange. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/exchange
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      If the exchange was declared as an internal exchange, the server MUST respond with a reply code 403 (access refused) and raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      field/stream/exchange
-	    </context>
-	    <type>
-	      MUST, MAY
-	    </type>
-	    <actor>
-	      
-	    </actor>
-	    <text>
-	      The exchange MAY refuse stream content in which case it MUST respond with a reply code 540 (not implemented) and raise a channel exception. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_stream_00
-	    </xref>
-	    <context>
-	      field/stream/mandatory
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the mandatory flag. 
-	    </text>
-	  </rule>
-	  <rule>
-	    <xref>
-	      amq_stream_00
-	    </xref>
-	    <context>
-	      field/stream/immediate
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      server
-	    </actor>
-	    <text>
-	      The server SHOULD implement the immediate flag. 
-	    </text>
-	  </rule>
--->
-	  <rule>
-	    <status value="planned"/>
-	    <xref>
-	      
-	    </xref>
-	    <context>
-	      class/tx/tx
-	    </context>
-	    <type>
-	      SHOULD
-	    </type>
-	    <actor>
-	      client
-	    </actor>
-	    <text>
-	      An client using standard transactions SHOULD be able to track all messages received within a reasonable period, and thus detect and reject duplicates of the same message. It SHOULD NOT pass these to the application layer. 
-	    </text>
-	  </rule>
+            <type>MUST NOT</type>
+            <xref>redelivered / hinting</xref>
+            <type/>
+            <actor/>
+            <text>
+                The client MUST NOT rely on the redelivered field but should take it as a
+                hint that the message may already have been processed. A fully robust
+                client must be able to track duplicate received messages on non-transacted,
+                and locally-transacted channels.
+              </text>
+          </rule>
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / start / protocol-name</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  If the server cannot support the protocol specified in the protocol header,
+                  it MUST respond with a valid protocol header and then close the socket
+                  connection.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / start / server-support</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  The server MUST provide a protocol version that is lower than or equal to
+                  that requested by the client in the protocol header.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / start / client-support</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  If the client cannot handle the protocol version suggested by the server
+                  it MUST close the socket connection without sending any further data.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>connection / start / server-properties / required-fields</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                    The properties SHOULD contain at least these fields: "host", specifying the
+                    server host name or address, "product", giving the name of the server product,
+                    "version", giving the name of the server version, "platform", giving the name
+                    of the operating system, "copyright", if appropriate, and "information", giving
+                    other general information.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / start / locales / required-support</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                    The server MUST support at least the en_US locale.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>connection / start-ok / client-properties / required-fields</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The properties SHOULD contain at least these fields: "product", giving the name
+                    of the client product, "version", giving the name of the client version, "platform",
+                    giving the name of the operating system, "copyright", if appropriate, and
+                    "information", giving other general information.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>SHOULD</type>
+            <xref>connection / start-ok / mechanism / security</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client SHOULD authenticate using the highest-level security profile it
+                    can handle from the list provided by the server.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / start-ok / mechanism / validity</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If the mechanism field does not contain one of the security mechanisms
+                    proposed by the server in the Start method, the server MUST close the
+                    connection without sending any further data.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / tune / frame-max / minimum</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                    Until the frame-max has been negotiated, both peers MUST accept frames of up
+                    to frame-min-size octets large, and the minimum negotiated value for frame-max
+                    is also frame-min-size.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>MUST</type>
+            <xref>connection / tune-ok / channel-max / upper-limit</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If the client specifies a channel max that is higher than the value provided
+                    by the server, the server MUST close the connection without attempting a
+                    negotiated close.  The server may report the error in some fashion to assist
+                    implementors.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>frame-min-size is 4Kb.</notes>
+            <type>MUST</type>
+            <xref>connection / tune-ok / frame-max / minimum</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    Until the frame-max has been negotiated, both peers MUST accept frames of up
+                    to frame-min-size octets large, and the minimum negotiated value for frame-max
+                    is also frame-min-size.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / tune-ok / frame-max / upper-limit</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If the client specifies a frame max that is higher than the value provided
+                    by the server, the server MUST close the connection without attempting a
+                    negotiated close. The server may report the error in some fashion to assist
+                    implementors.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / open / virtual-host / separation</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If the server supports multiple virtual hosts, it MUST enforce a full
+                    separation of exchanges, queues, and all associated entities per virtual
+                    host. An application, connected to a specific virtual host, MUST NOT be able
+                    to access resources of another virtual host.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>connection / open / virtual-host / security</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server SHOULD verify that the client has permission to access the
+                    specified virtual host.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>connection / close / stability</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  After sending this method, any received methods except Close and Close-OK MUST
+                  be discarded.  The response to receiving a Close after sending Close must be to
+                  send Close-Ok.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <notes>Only the server maintains an error log.</notes>
+            <type>SHOULD</type>
+            <xref>connection / close-ok / reporting</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  A peer that detects a socket closure without having received a Close-Ok
+                  handshake method SHOULD log the error.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>channel / open / state</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The client MUST NOT use this method on an already-opened channel.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY</type>
+            <xref>channel / flow / initial-state</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  When a new channel is opened, it is active (flow is active). Some applications
+                  assume that channels are inactive until started. To emulate this behaviour a
+                  client MAY open the channel, then pause it.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>SHOULD</type> <xref>channel / flow / bidirectional</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  When sending content frames, a peer SHOULD monitor the channel for incoming
+                  methods and respond to a Channel.Flow as rapidly as possible.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="partial"/>
+            <notes>
+                  The server may issue a Channel.Flow under certain conditions, such as 
+                  memory pressure. The clients do not automatically issue a Channel.Flow.
+            </notes>
+            <type>MAY</type>
+            <xref>channel / flow / throttling</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  A peer MAY use the Channel.Flow method to throttle incoming content data for
+                  internal reasons, for example, when exchanging data over a slower connection.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY</type>
+            <xref>channel / flow / expected-behaviour</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The peer that requests a Channel.Flow method MAY disconnect and/or ban a peer
+                  that does not respect the request.  This is to prevent badly-behaved clients
+                  from overwhelming a server.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>channel / close / stability</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  After sending this method, any received methods except Close and Close-OK MUST
+                  be discarded.  The response to receiving a Close after sending Close must be to
+                  send Close-Ok.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <notes>Only the server maintains an error log.</notes>
+            <xref>channel / close-ok / reporting</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  A peer that detects a socket closure without having received a Channel.Close-Ok
+                  handshake method SHOULD log the error.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>exchange / required-types</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST implement these standard exchange types: fanout, direct.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>exchange / recommended-types</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server SHOULD implement these standard exchange types: topic, headers.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>exchange / required-instances</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST, in each virtual host, pre-declare an exchange instance
+                for each standard exchange type that it implements, where the name of the
+                exchange instance, if defined, is "amq." followed by the exchange type name.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>exchange / default-exchange</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST pre-declare a direct exchange with no public name to act as
+                the default exchange for content Publish methods and for default queue bindings.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>exchange / default-access</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST NOT allow clients to access the default exchange except
+                by specifying an empty exchange name in the Queue.Bind and content Publish
+                methods.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY</type>
+            <xref>exchange / extensions</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MAY implement other exchange types as wanted.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>exchange / declare / minimum</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD support a minimum of 16 exchanges per virtual host and
+                  ideally, impose no limit except as defined by available resources.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <notes>
+                   The server does not prevent exchange names starting with "amq." from
+                   being declared. Clients may declare exchanges starting with "amq." 
+                   without the passive bit set.
+            </notes>
+            <type>MUST, MAY</type>
+            <xref>exchange / declare / exchange / reserved</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    Exchange names starting with "amq." are reserved for pre-declared and
+                    standardised exchanges. The client MAY declare an exchange starting with
+                    "amq." if the passive option is set, or the exchange already exists.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>
+                   The lexicon is not enforced by the server.
+            </notes>
+            <type>MUST</type>
+            <xref>exchange / declare / exchange / syntax</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The exchange name consists of a non-empty sequence of these characters:
+                    letters, digits, hyphen, underscore, period, or colon.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>exchange / declare / type / typed</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    Exchanges cannot be redeclared with different types.  The client MUST not
+                    attempt to redeclare an existing exchange with a different type than used
+                    in the original Exchange.Declare method.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>exchange / declare / type / support</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to declare an exchange with a type that the
+                    server does not support.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>(refers to the passive flag)</notes>
+            <type>MUST</type>
+            <xref>exchange / declare / passive / not-found</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If set, and the exchange does not already exist, the server MUST
+                    raise a channel exception with reply code 404 (not found).
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>(refers to the passive flag)</notes>
+            <type>MUST</type>
+            <xref>exchange / declare / passive / equivalent</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If not set and the exchange exists, the server MUST check that the
+                    existing exchange has the same values for type, durable, and arguments
+                    fields.  The server MUST respond with Declare-Ok if the requested
+                    exchange matches these fields, and MUST raise a channel exception if
+                    not.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>exchange / declare / durable / support</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST support both durable and transient exchanges.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>exchange / delete / exchange / exists</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to delete an exchange that does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>exchange / delete / if-unused / in-use</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST NOT delete an exchange that has bindings on it, if the if-unused
+                    field is true.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / declare / default-binding</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MUST create a default binding for a newly-declared queue to the
+                  default exchange, which is an exchange of type 'direct' and use the queue
+                  name as the routing key.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>queue / declare / minimum-queues</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD support a minimum of 256 queues per virtual host and ideally,
+                  impose no limit except as defined by available resources.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY, MUST</type>
+            <xref>queue / declare / queue / default-name</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The queue name MAY be empty, in which case the server MUST create a new
+                    queue with a unique generated name and return this to the client in the
+                    Declare-Ok method.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>
+                   The server does not prevent queue names starting with "amq." from
+                   being declared. Clients may declare queues starting with "amq." 
+                   without the passive bit set.
+            </notes>
+            <type>MUST</type>
+            <xref>queue / declare / queue / reserved</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    Queue names starting with "amq." are reserved for pre-declared and
+                    standardised queues. The client MAY declare a queue starting with
+                    "amq." if the passive option is set, or the queue already exists.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <notes>
+                   The lexicon is not enforced by the server.
+            </notes>
+            <type>MAY</type>
+            <xref>queue / declare / queue / syntax</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The queue name can be empty, or a sequence of these characters:
+                    letters, digits, hyphen, underscore, period, or colon.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY</type>
+            <xref>queue / declare / passive / passive</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MAY ask the server to assert that a queue exists without
+                    creating the queue if not.  If the queue does not exist, the server
+                    treats this as a failure.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>(refers to the passive flag)</notes>
+            <type>MUST</type>
+            <xref>queue / declare / passive / equivalent</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If not set and the queue exists, the server MUST check that the
+                    existing queue has the same values for durable, exclusive, auto-delete,
+                    and arguments fields.  The server MUST respond with Declare-Ok if the
+                    requested queue matches these fields, and MUST raise a channel exception
+                    if not.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / declare / durable / persistence</xref>
+            <type/>
+            <actor>server</actor>
+            <text>The server MUST recreate the durable queue after a restart.</text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / declare / durable / types</xref>
+            <type/>
+            <actor>server</actor>
+            <text>The server MUST support both durable and transient queues.</text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / declare / exclusive / types</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST support both exclusive (private) and non-exclusive (shared)
+                    queues.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY NOT</type>
+            <xref>queue / declare / exclusive / exclusive</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MAY NOT attempt to use a queue that was declared as exclusive
+                    by another still-open connection.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / declare / auto-delete / pre-existence</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST ignore the auto-delete field if the queue already exists.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / duplicates</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  A server MUST allow ignore duplicate bindings - that is, two or more bind
+                  methods for a specific queue, with identical arguments - without treating these
+                  as an error.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / bind / unique</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  A server MUST not deliver the same message more than once to a queue, even if
+                  the queue has multiple bindings that match the message.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / transient-exchange</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MUST allow a durable queue to bind to a transient exchange.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / durable-exchange</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  Bindings of durable queues to durable exchanges are automatically durable
+                  and the server MUST restore such bindings after a server restart.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>queue / bind / binding-count</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD support at least 4 bindings per queue, and ideally, impose no
+                  limit except as defined by available resources.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / queue / queue-known</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST either specify a queue name or have previously declared a
+                    queue on the same channel
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / bind / queue / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to bind a queue that does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / bind / exchange / exchange-existence</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    A client MUST NOT be allowed to bind a queue to a non-existent exchange.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / exchange / default-exchange</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST accept a blank exchange name to mean the default exchange.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / bind / routing-key / direct-exchange-key-matching</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If a message queue binds to a direct exchange using routing key K and a
+                    publisher sends the exchange a message with routing key R, then the message
+                    MUST be passed to the message queue if K = R.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / unbind / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>If a unbind fails, the server MUST raise a connection exception.</text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / unbind / queue / queue-known</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST either specify a queue name or have previously declared a
+                    queue on the same channel
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / unbind / queue / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to unbind a queue that does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / unbind / exchange / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to unbind a queue from an exchange that
+                    does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / unbind / exchange / default-exchange</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST accept a blank exchange name to mean the default exchange.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / purge / 02</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MUST NOT purge messages that have already been sent to a client
+                  but not yet acknowledged.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY</type>
+            <xref>queue / purge / 03</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MAY implement a purge queue or log that allows system administrators
+                  to recover accidentally-purged messages. The server SHOULD NOT keep purged
+                  messages in the same storage spaces as the live messages since the volumes of
+                  purged messages may get very large.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / purge / queue / queue-known</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST either specify a queue name or have previously declared a
+                    queue on the same channel
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / purge / queue / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to purge a queue that does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="planned">doesn't</status>
+            <type>SHOULD</type>
+            <xref>queue / delete / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD use a dead-letter queue to hold messages that were pending on
+                  a deleted queue, and MAY provide facilities for a system administrator to move
+                  these messages back to an active queue.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>queue / delete / queue / queue-known</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST either specify a queue name or have previously declared a
+                    queue on the same channel
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / delete / queue / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to delete a queue that does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / delete / if-unused / in-use</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST NOT delete a queue that has consumers on it, if the if-unused
+                    field is true.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>queue / delete / if-empty / not-empty</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST NOT delete a queue that has messages on it, if the
+                    if-empty field is true.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>basic /
+               01</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server SHOULD respect the persistent property of basic messages and
+                SHOULD make a best-effort to hold persistent basic messages on a reliable
+                storage mechanism.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>basic / 02</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST NOT discard a persistent basic message in case of a queue
+                overflow.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY</type>
+            <xref>basic / 03</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MAY use the Channel.Flow method to slow or stop a basic message
+                publisher when necessary.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>MAY</type>
+            <xref>basic / 04</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MAY overflow non-persistent basic messages to persistent
+                storage.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY</type>
+            <xref>basic / 05</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MAY discard or dead-letter non-persistent basic messages on a
+                priority basis if the queue size exceeds some configured limit.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>MUST</type>
+            <xref>basic / 06</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST implement at least 2 priority levels for basic messages,
+                where priorities 0-4 and 5-9 are treated as two distinct levels.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY</type>
+            <xref>basic / 07</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MAY implement up to 10 priority levels.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / 08</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST deliver messages of the same priority in order irrespective of
+                their individual persistence.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / 09</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST support un-acknowledged delivery of Basic content, i.e.
+                consumers with the no-ack field set to TRUE.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / 10</xref>
+            <type/>
+            <actor/>
+            <text>
+                The server MUST support explicitly acknowledged delivery of Basic content,
+                i.e. consumers with the no-ack field set to FALSE.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>(refers to prefetch-size)</notes>
+            <type>MUST</type>
+            <xref>basic / qos / prefetch-size / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST ignore this setting when the client is not processing any
+                    messages - i.e. the prefetch size does not limit the transfer of single
+                    messages to a client, only the sending in advance of more messages while
+                    the client still has one or more unacknowledged messages.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>basic / qos / prefetch-count / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server may send less data in advance than allowed by the client's
+                    specified prefetch windows but it MUST NOT send more.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>basic / consume / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD support at least 16 consumers per queue, and ideally, impose
+                  no limit except as defined by available resources.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>basic / consume / consumer-tag / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT specify a tag that refers to an existing consumer.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / consume / consumer-tag / 02</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The consumer tag is valid only within the channel from which the
+                    consumer was created. I.e. a client MUST NOT create a consumer in one
+                    channel and then use it in another.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY NOT</type>
+            <xref>basic / consume / exclusive / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MAY NOT gain exclusive access to a queue that already has
+                    active consumers.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / cancel / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  If the queue does not exist the server MUST ignore the cancel method, so
+                  long as the consumer tag is valid for that channel.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>basic / publish / exchange / must-exist</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The client MUST NOT attempt to publish a content to an exchange that
+                    does not exist.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / publish / exchange / default-exchange</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST accept a blank exchange name to mean the default exchange.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <notes>Deprecation of internal exchanges in 0-9-1 voids the antecedent.</notes>
+            <type>MUST</type>
+            <xref>basic / publish / exchange / 02</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    If the exchange was declared as an internal exchange, the server MUST raise
+                    a channel exception with a reply code 403 (access refused).
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">doesn't</status>
+            <type>MAY</type>
+            <xref>basic / publish / exchange / 03</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The exchange MAY refuse basic content in which case it MUST raise a channel
+                    exception with reply code 540 (not implemented).
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>basic / publish / mandatory / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server SHOULD implement the mandatory flag.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok">does</status>
+            <type>SHOULD</type>
+            <xref>basic / publish / immediate / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server SHOULD implement the immediate flag.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>SHOULD</type>
+            <xref>basic / deliver / 01</xref>
+            <type/>
+            <actor>client</actor>
+            <text>
+                  The server SHOULD track the number of times a message has been delivered to
+                  clients and when a message is redelivered a certain number of times - e.g. 5
+                  times - without being acknowledged, the server SHOULD consider the message to be
+                  unprocessable (possibly causing client applications to abort), and move the
+                  message to a dead letter queue.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / ack / multiple / exists</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST validate that a non-zero delivery-tag refers to a delivered
+                    message, and raise a channel exception if this is not the case.  On a transacted
+                    channel, this check MUST be done immediately and not delayed until a Tx.Commit.
+                    Specifically, a client MUST not acknowledge the same message more than once.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>SHOULD</type>
+            <xref>basic / reject / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD be capable of accepting and process the Reject method while
+                  sending message content with a Deliver or Get-Ok method. I.e. the server should
+                  read and process incoming methods while sending output frames. To cancel a
+                  partially-send content, the server sends a content body frame of size 1 (i.e.
+                  with no data except the frame-end octet).
+                </text>
+          </rule>
+
+          <rule>
+            <status value="planned"/>
+            <type>SHOULD</type>
+            <xref>basic / reject / 02</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server SHOULD interpret this method as meaning that the client is unable to
+                  process the message at this time.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>basic / reject / 03</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The client MUST NOT use this method as a means of selecting messages to process.
+                </text>
+          </rule>
+          <rule>
+            <status value="planned"/>
+            <type>MUST NOT</type>
+            <xref>basic / reject / requeue / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                    The server MUST NOT deliver the message to the same client within the
+                    context of the current channel. The recommended strategy is to attempt to
+                    deliver the message to an alternative consumer, and if that is not possible,
+                    to move the message to a dead-letter queue. The server MAY use more
+                    sophisticated tracking to hold the message on the queue and redeliver it to
+                    the same client at a later stage.
+                  </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / recover-async / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MUST set the redelivered flag on all messages that are resent.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST</type>
+            <xref>basic / recover / 01</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The server MUST set the redelivered flag on all messages that are resent.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>tx / not multiple queues</xref>
+            <type/>
+            <actor/>
+            <text>
+              Applications MUST NOT rely on the atomicity of transactions that
+              affect more than one queue.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>tx / not immediate</xref>
+            <type/>
+            <actor/>
+            <text>
+              Applications MUST NOT rely on the behaviour of transactions that
+              include messages published with the immediate option.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>tx / not mandatory</xref>
+            <type/>
+            <actor/>
+            <text>
+              Applications MUST NOT rely on the behaviour of transactions that
+              include messages published with the mandatory option.
+              </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>tx / commit / transacted</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The client MUST NOT use the Commit method on non-transacted channels.
+                </text>
+          </rule>
+
+          <rule>
+            <status value="ok"/>
+            <type>MUST NOT</type>
+            <xref>tx / rollback / transacted</xref>
+            <type/>
+            <actor>server</actor>
+            <text>
+                  The client MUST NOT use the Rollback method on non-transacted channels.
+                </text>
+          </rule>
+        </rules>
+      </doc:section>
+
+
+      <doc:section name="rules">
+        <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
+        <p>
+          The rules listed below relate to features supported by RabbitMQ that 
+          have been deprecated.
+        </p>
+        <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+          <rule>
+            <status value="ok">does</status>
+            <xref>
+            </xref>
+            <context>
+              method/connection/redirect
+            </context>
+            <type>
+              SHOULD
+            </type>
+            <actor>
+              client
+            </actor>
+            <text>
+              When getting the Connection.Redirect method, the client SHOULD reconnect to the host specified, and if that host is not present, to any of the hosts specified in the known-hosts list.
+            </text>
+          </rule>
+          <rule>
+            <status value="ok">does</status>
+            <xref>
+            </xref>
+            <context>
+              method/connection/redirect
+            </context>
+            <type>
+              SHOULD
+            </type>
+            <actor>
+              client
+            </actor>
+            <text>
+              When getting the Connection.Redirect method, the client SHOULD reconnect to the host specified, and if that host is not present, to any of the hosts specified in the known-hosts list.
+            </text>
+          </rule>
+          <rule>
+            <status value="ok">does</status>
+            <xref>
+            </xref>
+            <context>
+              domain/known hosts
+            </context>
+            <type>
+              MAY
+            </type>
+            <actor>
+              server
+            </actor>
+            <text>
+              The server MAY leave this field empty if it knows of no other hosts than itself.
+            </text>
+          </rule>
         </rules>
       </doc:section>
     </doc:div>
