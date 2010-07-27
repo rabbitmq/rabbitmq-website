@@ -21,8 +21,8 @@
 
 	<p>
 	  <ul class="compact">
-	    <li>Qpid's 0.6 Java client against RabbitMQ's broker</li>
-	    <li>RabbitMQ's clients against Qpid's 0.6 Java broker</li>
+	    <li>Qpid's 0.6 clients against the RabbitMQ broker</li>
+	    <li>the RabbitMQ clients against Qpid's 0.6 Java broker</li>
 	    <li>
 	      Qpid's <a
 	      href="http://cwiki.apache.org/qpid/pythonbrokertest.html">Python
@@ -32,7 +32,7 @@
 	</p>
 
         <doc:subsection name="qpid-client">
-          <doc:heading>Qpid Java client &#187; RabbitMQ broker </doc:heading>
+          <doc:heading>Qpid clients &#187; RabbitMQ broker </doc:heading>
           <p>
             The 0.6 release of the Qpid java client was shipped with a
             bug that prevents it from correctly negotiating the
@@ -59,6 +59,23 @@
             them, Qpid always redeclares them, and does so as
             non-durable.  As a result, RabbitMQ will raise a
             precondition failed exception for most of the examples.
+          </p>
+          <p>
+            As the <a href="#qpid-python-tests">tests</a> below show,
+            the Python client interoperates with the RabbitMQ broker
+            completely -- the only incompatibilities are in the
+            interpretation of AMQP.  A slight dificulty lies in that
+            the Python client has different APIs for AMQP
+            0-8/0-9/0-9-1 and 0-10.  In order to work with RabbitMQ,
+            the former should be used.
+          </p>
+          <p>
+            Both the Qpid Ruby client and the .NET client can connect
+            to the RabbitMQ broker, but since both clients use 0-9-1
+            methods for 0-8 connections and since both clients default
+            to 0-8, framing errors occur and the broker closes the
+            connection.  This problem might go away if the clients
+            were somehow forced to use 0-9-1.
           </p>
         </doc:subsection>
 
@@ -101,7 +118,7 @@
             </p>
         </doc:subsection>
 
-        <doc:subsection name="qpid-server">
+        <doc:subsection name="qpid-cpp-server">
           <doc:heading>Qpid C++ broker</doc:heading>
           <p>
             The 0.6 Qpid C++ broker supports only AMQP 0-10; none of
