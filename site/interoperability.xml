@@ -64,7 +64,7 @@
             As the <a href="#qpid-python-tests">tests</a> below show,
             the Python client interoperates with the RabbitMQ broker
             completely -- the only incompatibilities are in the
-            interpretation of AMQP.  A slight dificulty lies in that
+            interpretation of AMQP.  A slight difficulty lies in that
             the Python client has different APIs for AMQP
             0-8/0-9/0-9-1 and 0-10.  In order to work with RabbitMQ,
             the former should be used.
