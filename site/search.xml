@@ -6,16 +6,18 @@
   <body>
   
 <h2>Search this site</h2>
-<p>Use the form below to search rabbitmq.com, and dev.rabbitmq.com.</p>
+<p>Use the form below to search rabbitmq.com, dev.rabbitmq.com and the RabbitMQ mailing list archives.</p>
 
 <div id="cse" style="width: 100%;">Loading</div>
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
-   google.load('search', '1');
-   google.setOnLoadCallback(function(){
-      new google.search.CustomSearchControl('009922129631189805192:kpd1zoym_hq').draw('cse');
-   }, true);
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('015404676280738692929:q_1m_zzsrm4');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
 </script>
-
-  </body>
+<link rel="stylesheet" href="./css/search.css" type="text/css" />
+</body>
 </html>
