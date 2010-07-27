@@ -58,7 +58,7 @@
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("alternate-exchange", "my-ae");
-channel.exchangeDeclare("my-direct", "direct", false, false, false, args);
+channel.exchangeDeclare("my-direct", "direct", false, false, args);
 channel.exchangeDeclare("my-ae", "fanout");
 channel.queueDeclare("routed");
 channel.queueBind("routed", "my-direct", "key1");

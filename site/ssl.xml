@@ -413,16 +413,18 @@ started SSL Listener on 0.0.0.0:5671</pre>
     {
 
 	ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
+        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        factory.setPort(5671);
 
 	factory.useSslProtocol(); <I><FONT COLOR="#B22222">// Tells the library to setup the default Key and Trust managers for you
 
 </FONT></I>                                  <I><FONT COLOR="#B22222">// which do not do any form of remote server trust verification
 </FONT></I>
-	Connection conn = factory.newConnection(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>, 5671);
+	Connection conn = factory.newConnection();
 	Channel channel = conn.createChannel();
 
 	<I><FONT COLOR="#B22222">//non-durable, exclusive, auto-delete queue
-</FONT></I>        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
+</FONT></I>        channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
 	channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
 
 
@@ -497,12 +499,14 @@ started SSL Listener on 0.0.0.0:5671</pre>
 	c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <B><FONT COLOR="#A020F0">null</FONT></B>);
 
 	ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
+        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        factory.setPort(5671);
 	factory.useSslProtocol(c);
 
-	Connection conn = factory.newConnection(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>, 5671);
+	Connection conn = factory.newConnection();
 	Channel channel = conn.createChannel();
 
-	channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
+	channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
 	channel.basicPublish(<B><FONT COLOR="#BC8F8F">&quot;&quot;</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>, <B><FONT COLOR="#BC8F8F">&quot;Hello, World&quot;</FONT></B>.getBytes());
 
 

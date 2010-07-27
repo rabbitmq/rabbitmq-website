@@ -185,7 +185,7 @@
 	    that the RabbitMQ broker has been started successfully. To
 	    shut down the server, close the shell
 	    window. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
 
@@ -355,10 +355,11 @@
 	      To adjust the settings used for starting the server,
 	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
-	      href="#generic-unix">Generic Unix</a> section below. You
-	      can additionally set <code>NODE_COUNT</code> in 
-	      <code>/etc/default/rabbitmq</code> to define
-	      <a href="clustering.html#single-machine">the number of
+	      href="#generic-unix">Generic Unix</a> section below (but
+	      dropping the RABBITMQ_ prefix). You can additionally set
+	      <code>NODE_COUNT</code> in
+	      <code>/etc/default/rabbitmq</code> to define <a
+	      href="clustering.html#single-machine">the number of
 	      nodes to run on a single machine</a>.
 	    </li>
 	  </ul>
@@ -409,7 +410,7 @@
 	    <code>logrotate</code> will handle files located in default
 	    <code>/var/log/rabbitmq</code> directory. See
 	    <code>/etc/logrotate.d/rabbitmq-server</code> for default
-	    <code>logrotate</code> configuration file. 
+	    <code>logrotate</code> configuration file.
 	  </p>
 	</doc:subsection>
       </doc:section>
@@ -644,7 +645,7 @@
 	    running", indicating that the RabbitMQ broker has been
 	    started successfully. To shut down the server just
 	    terminate the process. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	  <p>
 	    You can also start the server in "detached" mode with
@@ -724,7 +725,6 @@
 	
 	<p>
 	  If all of the above fails, report the problem to <a
-	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
 	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
 	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
 	  your report.
