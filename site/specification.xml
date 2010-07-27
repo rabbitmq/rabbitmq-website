@@ -13,13 +13,10 @@
       <doc:section name="spec">
   <p>
   The AMQP specification is an open and free to all users and
-  implementers.  RabbitMQ implements the 0-8 version of the
-  specification today. There is experimental support for the 0-9-1 version
-  of the specification in <a href="mercurial.html">Mercurial</a>
-  on the branch <code>amqp_0_9_1</code>. These two versions are extremely similar.  The
-  0-9-1 specification clarifies some of the definitions and makes it
-  easier for two implementations to interoperate.
-	</p>
+  implementers.  RabbitMQ implements the 0-9-1 version of the specification today.  
+  The is legacy support for the 0-9 and 0-8 versions in the broker.
+  During protocol negotiation RabbitMQ will claim to be version or 0-9-1, 0-9 or 0-8 respectively if the client claims to be any of these versions. 
+  </p>
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
@@ -31,7 +28,7 @@
 1-0 Draft</a> (PDF).
 	</p>
         <p>
-          The 0-8 and 0-9-1 specifications are linked to below for
+          The 0-9-1 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
           learn more about AMQP.  Please see our <a
           href="documentation.html">Documentation</a> and <a
@@ -56,21 +53,49 @@
 	    <th>implement AMQP protocol version</th>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server and Java client)</td>
+	    <td>(present release) (server)</td>
 	    <td>
-	      0-8 (<a
-	      href="https://jira.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">core
+	      0-9-1 (<a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">core
 	      spec</a>, <a
-	      href="https://jira.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">class
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">class
 	      def pdf</a>, <a
-	      href="https://jira.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">class
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">class
 	      def xml</a>)
 	    </td>
 	  </tr>
 	  <tr>
+	    <td>(present release) (server when a 0-9 client connects)</td>
+	    <td>
+	      0-9 (<a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">core
+	      spec</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">class
+	      def pdf</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">class
+	      def xml</a>)
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>(present release) (server when a 0-8 client connects)</td>
+	    <td>
+	      0-8 (<a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">core
+	      spec</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">class
+	      def pdf</a>, <a
+	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">class
+	      def xml</a>)
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>(present release) (Java client)</td>
+	    <td>0-9-1</td>
+	  </tr>
+	  <tr>
 	    <td>(present release) (.NET/C# client ONLY)</td>
 	    <td>
-	      0-8 and 0-9, switchable at runtime
+	      0-9-1, 0-9 and 0-8 switchable at runtime
 	    </td>
 	  </tr>
 	</table>
@@ -99,6 +124,22 @@
           number is considered valid in the processing of other AMQP
           commands.
 	</p>
+    <p>
+      The following classes were present in AMQP version 0-8 and
+      deprecated in version 0-9-1. RabbitMQ does not implement these
+      classes at all, including when the broker claims to be 0-8
+      or when the .NET client is configured to use 0-8.
+    </p>
+      <table>
+       <tr>
+        <td>access</td>
+        <td>dtx</td>
+        <td>file</td>
+        <td>stream</td>
+        <td>test</td>
+        <td>tunnel</td>
+       </tr>
+      </table>
 	<p>
 	  See also the detailed specification compatibility tables
 	  below.
@@ -106,7 +147,7 @@
       </doc:section>
 
       <doc:section name="classes">
-	<doc:heading>Classes from the AMQP specification, version 0-8</doc:heading>
+	<doc:heading>Classes from the AMQP specification, version 0-9-1</doc:heading>
 	<p>
 	  The following table describes the current implementation status
 	  of the various AMQP protocol message classes.
@@ -114,16 +155,10 @@
 	<classes xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <class name="connection" handler="connection" index="10"><status value="ok"/></class>
 	  <class name="channel" handler="channel" index="20"><status value="ok"/></class>
-	  <class name="access" handler="connection" index="30"><status value="deprecated"/></class>
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="file" handler="channel" index="70"><status value="deprecated"/></class>
-	  <class name="stream" handler="channel" index="80"><status value="deprecated"/></class>
 	  <class name="tx" handler="channel" index="90"><status value="ok"/></class>
-	  <class name="dtx" handler="channel" index="100"><status value="deprecated"/></class>
-	  <class name="tunnel" handler="tunnel" index="110"><status value="deprecated"/></class>
-	  <class name="test" handler="channel" index="120"><status value="deprecated"/></class>
 	</classes>
       </doc:section>
 
@@ -145,18 +180,21 @@
 	  <method name="connection.tune-ok"><status value="ok"/></method>
 	  <method name="connection.open"><status value="ok"/></method>
 	  <method name="connection.open-ok"><status value="ok"/></method>
-	  <method name="connection.redirect"><status value="ok"/></method>
+	  <method name="connection.redirect">
+            <status value="deprecated"/>
+            <notes>This method has been deprecated, but is still supported.
+            Support will be withdrawn in a future release.
+            </notes>
+      </method>
 	  <method name="connection.close"><status value="ok"/></method>
 	  <method name="connection.close-ok"><status value="ok"/></method>
 	  <method name="channel.open"><status value="ok"/></method>
 	  <method name="channel.open-ok"><status value="ok"/></method>
-	  <method name="channel.flow"><status value="partial"/></method>
-	  <method name="channel.flow-ok"><status value="partial"/></method>
+	  <method name="channel.flow"><status value="ok"/></method>
+	  <method name="channel.flow-ok"><status value="ok"/></method>
 	  <method name="channel.alert"><status value="deprecated"/></method>
 	  <method name="channel.close"><status value="ok"/></method>
 	  <method name="channel.close-ok"><status value="ok"/></method>
-	  <method name="access.request"><status value="deprecated"/></method>
-	  <method name="access.request-ok"><status value="deprecated"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
 	  <method name="exchange.delete"><status value="ok"/></method>
@@ -165,6 +203,8 @@
 	  <method name="queue.declare-ok"><status value="ok"/></method>
 	  <method name="queue.bind"><status value="ok"/></method>
 	  <method name="queue.bind-ok"><status value="ok"/></method>
+	  <method name="queue.unbind"><status value="ok"/></method>
+	  <method name="queue.unbind-ok"><status value="ok"/></method>
 	  <method name="queue.purge"><status value="ok"/></method>
 	  <method name="queue.purge-ok"><status value="ok"/></method>
 	  <method name="queue.delete"><status value="ok"/></method>
@@ -4025,7 +4065,7 @@
 	      An client using standard transactions SHOULD be able to track all messages received within a reasonable period, and thus detect and reject duplicates of the same message. It SHOULD NOT pass these to the application layer. 
 	    </text>
 	  </rule>
-	</rules>
+        </rules>
       </doc:section>
     </doc:div>
   </body>
