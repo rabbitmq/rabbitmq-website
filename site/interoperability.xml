@@ -46,7 +46,7 @@
               <pre class="sourcecode">VHost access refused: no mapping for User &lt;&lt;"guest"&gt;&gt;, VHost &lt;&lt;"/test"&gt;&gt;</pre>
               <p>
                 Use RabbitMQ's <a
-                href="rabbitmqctl.1.man.html#Access%20control">administration
+                href="man/rabbitmqctl.1.man.html#Access%20control">administration
                 tool</a> to provision user access, based on the
                 information provided in the error messages.
               </p>
