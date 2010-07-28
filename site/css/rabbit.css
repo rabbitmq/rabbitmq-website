@@ -264,8 +264,8 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-  margin: 100px 0 0 0;
-	padding: 0 0 0 0;
+  /*margin: 100px 0 0 0;  IE6/7 doesn't respect margin + float -> using padding instead */
+	padding: 20px 0 0 0;
 	height: 21px;
   clear: both;
 	border-bottom: #FF8C00 1px solid;
