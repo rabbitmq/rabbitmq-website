@@ -89,7 +89,7 @@
             </p>
             <p>
               Some of the RabbitMQ Java client tests and examples use
-              features that are not implemented in Qpid.
+              features that are not implemented (correctly) in Qpid.
             </p>
             <ul>
               <li>Qpid does not support the if-unused parameter of
