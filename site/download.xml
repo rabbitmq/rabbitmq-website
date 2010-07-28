@@ -161,8 +161,8 @@
                   url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
     </repositories>
 
-    <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
-
+    <r:title name="rabbitmq-jsonrpc-channel" id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</r:title>
+    
     <p>
       An AMQP-over-HTTP protocol binding for RabbitMQ and some
       Javascript libraries for interacting with RabbitMQ over HTTP, as
@@ -193,7 +193,7 @@
 		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
     </repositories>
 
-    <h3 id="rabbitmq-stomp">rabbitmq-stomp</h3>
+    <r:title name="rabbitmq-stomp" id="rabbitmq-stomp">rabbitmq-stomp</r:title>
 
     <p>
       A gateway for exposing AMQP functionality via the <a
@@ -219,7 +219,7 @@
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
     </repositories>
 
-    <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
+    <r:title name="rabbitmq-xmpp" id="rabbitmq-xmpp">rabbitmq-xmpp</r:title>
 
     <p>
       A gateway for exposing RabbitMQ's AMQP services to the global
