@@ -16,7 +16,9 @@
   RabbitMQ implements version 0-9-1 of the specification today,
   with legacy support for version 0-8 and 0-9.  RabbitMQ will perform protocol
   negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
-  with the specification.
+  with the specification. These three versions are extremely similar.  The
+  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9 
+  and makes it easier for multiple implementations to interoperate.
   </p>
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
@@ -50,11 +52,13 @@
 
 	<table>
 	  <tr>
-	    <th>RabbitMQ versions through</th>
+        <th>Component</th>
+	    <th>Version</th>
 	    <th>implement AMQP protocol version</th>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server when connected to a 0-9-1 client)</td>
+        <td>Broker</td>
+	    <td>since version 1.9.0, when connected to a 0-9-1 client</td>
 	    <td>
 	      0-9-1 (<a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">core
@@ -66,7 +70,8 @@
 	    </td>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server when connected to a 0-9 client)</td>
+        <td>Broker</td>
+	    <td>since version 1.9.0, when connected to a 0-9 client</td>
 	    <td>
 	      0-9 (<a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">core
@@ -78,7 +83,8 @@
 	    </td>
 	  </tr>
 	  <tr>
-	    <td>(present release) (server when connected to a 0-8 client)</td>
+        <td>Broker</td>
+	    <td>when connected to a 0-8 client</td>
 	    <td>
 	      0-8 (<a
 	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">core
@@ -90,13 +96,27 @@
 	    </td>
 	  </tr>
 	  <tr>
-	    <td>(present release) (Java client)</td>
+        <td>Java client</td>
+	    <td>since version 1.9.0</td>
 	    <td>0-9-1</td>
 	  </tr>
 	  <tr>
-	    <td>(present release) (.NET/C# client ONLY)</td>
+        <td>Java client</td>
+	    <td>version 1.8.1 and earlier</td>
+	    <td>0-8</td>
+	  </tr>
+	  <tr>
+        <td>.NET/C# client</td>
+	    <td>since version 1.9.0</td>
 	    <td>
 	      0-9-1, 0-9 and 0-8 switchable at runtime
+	    </td>
+	  </tr>
+	  <tr>
+        <td>.NET/C# client</td>
+	    <td>version 1.8.1 and earlier</td>
+	    <td>
+	      0-9 and 0-8 switchable at runtime
 	    </td>
 	  </tr>
 	</table>
@@ -116,17 +136,15 @@
       RabbitMQ does not implement these classes at all, including 
       when the broker is connected to a version 0-8 client, or 
       when the .NET client is configured to use 0-8.
-    </p>
-      <table>
-       <tr>
-        <td>access</td>
-        <td>dtx</td>
-        <td>file</td>
-        <td>stream</td>
-        <td>test</td>
-        <td>tunnel</td>
-       </tr>
-      </table>
+       <ul>
+        <li>access</li>
+        <li>dtx</li>
+        <li>file</li>
+        <li>stream</li>
+        <li>test</li>
+        <li>tunnel</li>
+       </ul>
+      </p>
 	<p>
 	  See also the detailed specification compatibility tables
 	  below. Backwards-compatible support for the access.request 
@@ -534,7 +552,7 @@
           </rule>
 
           <rule>
-            <status value="partial"/>
+            <status value="ok"/>
             <notes>
                   The server may issue a Channel.Flow under certain conditions, such as 
                   memory pressure. The clients do not automatically issue a Channel.Flow.
@@ -705,7 +723,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST</type>
             <xref>exchange / declare / type / typed</xref>
             <type/>
@@ -718,7 +736,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>exchange / declare / type / support</xref>
             <type/>
@@ -831,7 +849,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <notes>
                    The server does not prevent queue names starting with "amq." from
                    being declared. Clients may declare queues starting with "amq." 
@@ -1018,7 +1036,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>queue / bind / queue / must-exist</xref>
             <type/>
@@ -1085,7 +1103,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>queue / unbind / queue / must-exist</xref>
             <type/>
@@ -1096,7 +1114,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>queue / unbind / exchange / must-exist</xref>
             <type/>
@@ -1157,7 +1175,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>queue / purge / queue / must-exist</xref>
             <type/>
@@ -1193,7 +1211,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>queue / delete / queue / must-exist</xref>
             <type/>
@@ -1436,7 +1454,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>basic / publish / exchange / must-exist</xref>
             <type/>
@@ -1646,7 +1664,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>tx / commit / transacted</xref>
             <type/>
@@ -1657,7 +1675,7 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="ok">external responsibility</status>
             <type>MUST NOT</type>
             <xref>tx / rollback / transacted</xref>
             <type/>
@@ -2342,22 +2360,6 @@
 	  </rule>
 
 	  <rule>
-	    <status value="planned"></status>
-	    <xref> 4.2.7 </xref>
-	    <context>
-	    </context>
-	    <type>
-	      MUST
-	    </type>
-	    <actor>
-	    </actor>
-	    <text>
-         A peer that receives an invalid heartbeat frame MUST raise a
-         connection exception with reply code 501 (frame error).
-	    </text>
-	  </rule>
-
-	  <rule>
 	    <status value="ok"></status>
         <notes>
         The broker and supported clients do support heartbeat frames.
@@ -2473,7 +2475,7 @@
         </p>
         <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
           <rule>
-            <status value="ok">does</status>
+            <status value="ok">doesn't</status>
             <xref>
             </xref>
             <context>
@@ -2490,7 +2492,7 @@
             </text>
           </rule>
           <rule>
-            <status value="ok">does</status>
+            <status value="ok">doesn't</status>
             <xref>
             </xref>
             <context>
