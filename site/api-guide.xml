@@ -128,29 +128,48 @@ conn.close();</pre>
 	   then binds them together.
 	  </p>
 
-	  <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>);
-channel.queueDeclare(<b>queueName</b>);
+	  <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
+String <b>queueName</b> = channel.queueDeclare().getQueue();
 channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
 
 	  <p>
-	    This will actively declare the following objects:
+	    This will actively declare the following objects,
+	    both of which can be customised by using additional parameters.
+	    Here neither of them have any special arguments.
 	  </p>
 
 	  <ol>
-	    <li>a non-durable, non-autodelete exchange of "direct" type</li>
-	    <li>a non-durable, non-exclusive, non-autodelete queue</li>
+	    <li>a durable, non-autodelete exchange of "direct" type</li>
+	    <li>a non-durable, exclusive, autodelete queue with a generated name</li>
 	  </ol>
 
 	  <p>
-	    both of which can be customised by using additional parameters. 
-	    Here neither of them have any special arguments.
+	    The above function calls then bind the queue to the exchange with the
+        given routing key.
 	  </p>
 	  <p>
-	    The above function calls then bind the queue to the exchange with the given routing key.
+        Note that this would be a typical way to declare a queue when only one
+        client wants to work with it: it doesn't need a well-known name, no
+        other client can use it (exclusive) and will be cleaned up
+        automatically (autodelete). If several clients want to share a queue
+        with a well-known name, this code would be appropriate:
 	  </p>
 
+	  <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
+channel.queueDeclare(<b>queueName</b>, <b>true</b>, <b>false</b>, <b>false</b>, <b>null</b>);
+channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
 	  <p>
-	    Note that all three of these <code>Channel</code> API methods are overloaded.
+	    This will actively declare:
+	  </p>
+
+	  <ol>
+	    <li>a durable, non-autodelete exchange of "direct" type</li>
+	    <li>a durable, non-exclusive, non-autodelete queue with a well-known name</li>
+	  </ol>
+
+	  <p>
+	    Note that all of these <code>Channel</code> API methods are overloaded.
 	    These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code> 
 	    use sensible defaults. There are also longer forms with more parameters, to let you override these defaults
 	    as necessary, giving full control where needed. 
@@ -213,37 +232,6 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         <code>IllegalStateException</code>s with the message "cannot execute more than one synchronous AMQP command at a time", and <code>UnexpectedFrameError</code>s.</p>
 	</doc:subsection>
 
-	<doc:subsection name="getting">
-	  <doc:heading>Retrieving individual messages</doc:heading>
-
-	  <p>
-	    To retrieve individual messages, use <code>Channel.basicGet</code>. 
-	    The returned value is an instance of <code>GetResponse</code>, from which
-	    the header information (properties) and message body can be extracted : 
-	  </p>
-
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
-<b>if</b> (response == <b>null</b>) {
-    <i>// No message retrieved.
-</i>} <b>else</b> {
-    AMQP.BasicProperties props = response.getProps();
-    <b>byte</b>[] body = response.getBody();
-    long deliveryTag = response.getEnvelope().getDeliveryTag();
-    ...</pre>
-    
-	  <p>
-	    Since the <code>noAck</code> = <code>false</code> above, you must also call
-	    <code>Channel.basicAck</code> to acknowledge that you
-	    have successfully received and processed the message :
-	  </p>
-
-	  <pre class="sourcecode">    ...
-    channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
-}</pre>
-
-	</doc:subsection>
-
 	<doc:subsection name="consuming">
 	  <doc:heading>Retrieving messages by subscription</doc:heading>
 
@@ -251,13 +239,16 @@ GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
 <b>import</b> com.rabbitmq.client.QueueingConsumer;</pre>
 
 	  <p>
-	    Another way to receive messages is to set up a subscription using the <code>Consumer</code>
-	    interface. The messages will then be delivered automatically as they arrive, rather than
-	    having to be requested proactively.
+	    The most efficient way to receive messages is to set up a
+	    subscription using the <code>Consumer</code>
+	    interface. The messages will then be delivered
+	    automatically as they arrive, rather than having to be
+	    requested proactively.
 	  </p>
 	  <p>
-	    The easiest and safest supplied implementation of <code>Consumer</code> is the
-	    <code>QueueingConsumer</code> convenience class:
+	    The easiest and safest supplied implementation of
+	    <code>Consumer</code> is the <code>QueueingConsumer</code>
+	    convenience class:
 	  </p>
 
 	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
@@ -275,11 +266,14 @@ channel.basicConsume(queueName, noAck, consumer);
 }</pre>
 
 	  <p>
-	    If, instead, you decide to implement the <code>Consumer</code> interface yourself, be
-	    warned that its methods will be called from within the connection's thread, and so they
-	    must not in turn invoke any blocking AMQP operation (such as <code>queueDeclare</code>,
-	    <code>txCommit</code>, or <code>basicCancel</code>). If they do, the channel will
-	    deadlock. Only asynchronous AMQP operations are safe for use within callbacks, such as:
+	    If, instead, you decide to implement the
+	    <code>Consumer</code> interface yourself, be warned that
+	    its methods will be called from within the connection's
+	    thread, and so they must not in turn invoke any blocking
+	    AMQP operation (such as <code>queueDeclare</code>,
+	    <code>txCommit</code>, or <code>basicCancel</code>). If
+	    they do, the channel will deadlock. Only asynchronous AMQP
+	    operations are safe for use within callbacks, such as:
 	  </p>
 
 	  <ul>
@@ -288,15 +282,18 @@ channel.basicConsume(queueName, noAck, consumer);
 	  </ul>
 
 	  <p>
-	    It's partly because of this complication that using <code>QueueingConsumer</code> is the
-	    safest way of receiving messages by subscription.
+	    It's partly because of this complication that using
+	    <code>QueueingConsumer</code> is the safest way of
+	    receiving messages by subscription.
 	  </p>
 
 	  <p>
-	    If, with the above caveats in mind, you do decide to implement the <code>Consumer</code>
-	    interface yourself, one good option is to subclass the convenience class
-	    <code>DefaultConsumer</code>, overriding methods as necessary. You will generally want
-	    to override the core interface method <code>handleDelivery</code>:
+	    If, with the above caveats in mind, you do decide to
+	    implement the <code>Consumer</code> interface yourself,
+	    one good option is to subclass the convenience class
+	    <code>DefaultConsumer</code>, overriding methods as
+	    necessary. You will generally want to override the core
+	    interface method <code>handleDelivery</code>:
 	  </p>
 
 	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
@@ -318,29 +315,69 @@ channel.basicConsume(ticket, queueName, noAck,
      });</pre>
 
 	  <p>
-	    More sophisticated consumers will need to override further methods. 
-	    In particular, <code>handleShutdownSignal</code> traps channel / connection
-	    closure, and <code>handleConsumeOk</code> is passed a server-generated consumer
-	    tag when none is supplied to the initial <code>basicConsume</code> call.
+	    More sophisticated consumers will need to override further
+	    methods.  In particular, <code>handleShutdownSignal</code>
+	    traps channel / connection closure, and
+	    <code>handleConsumeOk</code> is passed a server-generated
+	    consumer tag when none is supplied to the initial
+	    <code>basicConsume</code> call.
 	  </p>
 
 	  <p>
-	    Consumers can also implement the <code>handleCancelOk</code> method to be notified of
+	    Consumers can also implement the
+	    <code>handleCancelOk</code> method to be notified of
 	    cancellations.
 	  </p>
 
 	  <p>
-	    You can cancel an active consumer with <code>Channel.basicCancel</code>:
+	    You can cancel an active consumer with
+	    <code>Channel.basicCancel</code>:
 	  </p>
 
 	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
 
 	  <p>
-	    When calling the API methods relating to <code>Consumer</code>s, individual
-	    subscriptions are always referred to by their consumer tags, which can be either client-
-	    or server-generated as explained in <a href="http://www.amqp.org/">the AMQP
-	    specification document</a>.
+	    When calling the API methods relating to
+	    <code>Consumer</code>s, individual subscriptions are
+	    always referred to by their consumer tags, which can be
+	    either client- or server-generated as explained in <a
+	    href="http://www.amqp.org/">the AMQP specification
+	    document</a>.
 	  </p>
+	</doc:subsection>
+
+	<doc:subsection name="getting">
+	  <doc:heading>Retrieving individual messages</doc:heading>
+
+	  <p>
+	    To retrieve individual messages, use
+	    <code>Channel.basicGet</code>.  The returned value is an
+	    instance of <code>GetResponse</code>, from which the
+	    header information (properties) and message body can be
+	    extracted :
+	  </p>
+
+	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
+GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
+<b>if</b> (response == <b>null</b>) {
+    <i>// No message retrieved.
+</i>} <b>else</b> {
+    AMQP.BasicProperties props = response.getProps();
+    <b>byte</b>[] body = response.getBody();
+    long deliveryTag = response.getEnvelope().getDeliveryTag();
+    ...</pre>
+
+	  <p>
+	    Since the <code>noAck</code> = <code>false</code> above,
+	    you must also call <code>Channel.basicAck</code> to
+	    acknowledge that you have successfully received and
+	    processed the message :
+	  </p>
+
+	  <pre class="sourcecode">    ...
+    channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
+}</pre>
+
 	</doc:subsection>
 
 	<doc:subsection name="returning">

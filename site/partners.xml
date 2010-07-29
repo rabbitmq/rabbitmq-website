@@ -13,7 +13,7 @@
     working together we would love to hear from you.</p>
     <p>We are developing a RabbitMQ Partner Programme of our own for consultancies and 
     system integrators wishing to act as resellers of our product.</p>
-    <p>For more information, please <a onClick="javascript: pageTracker._trackPageview('mailto:info@rabbitmq.com?subject=Partner Request-partners');" href="mailto:info@rabbitmq.com?subject=Partner Request">get in touch</a>.</p>
+    <p>For more information, please <a href="mailto:info@rabbitmq.com?subject=Partner Request">get in touch</a>.</p>
   
     <ul class="partners">
       <li id="canonical">

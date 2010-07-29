@@ -244,6 +244,13 @@ Status of node rabbit@rabbit3 ...
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
           </p>
+          <p>
+            <strong>Note</strong> For the <code>rabbitmqctl
+            cluster</code> command to succeed, the target nodes need
+            to be active.  It is possible to cluster with offline
+            nodes; for this purpose, use the <code>rabbitmqctl
+            force_cluster</code> command.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="change-type">
@@ -624,6 +631,12 @@ Status of node rabbit@rabbit3 ...
  {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
+        <p>
+          Note that, in order to remove a node from an auto-configured
+          cluster, it must first be removed from the rabbitmq.config
+          files of the other nodes in the cluster.  Only then, can it
+          be reset safely.
+        </p>
         </doc:subsection>
       </doc:section>
       <doc:section name="single-machine">
