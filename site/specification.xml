@@ -1669,6 +1669,801 @@
         </rules>
       </doc:section>
 
+      <doc:section name="rules">
+        <doc:heading>Rules from the AMQP specification, version 0-9-1 (PDF)</doc:heading>
+        <p>
+          The rules listed below are from the PDF version of the 0-9-1 specification,
+          wherever MUST, SHOULD or MAY appear in the text.
+        </p>
+        <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+	  <rule>
+	    <status value="ok">does, doesn't</status>
+        <notes>
+        Property names, method arguments, and frame fields legitimately appear as
+        camel-case in some contexts.
+        </notes>
+	    <xref> 1.4.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, SHOULD
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          Protocol constants are shown as upper-case names. AMQP implementations SHOULD
+          use these names when defining and using constants in source code and documentation.
+	      Property names, method arguments, and frame fields are shown as lower-case names.
+          AMQP implementations SHOULD use these names consistently in source code and
+          documentation.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 2.2.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          There is no hand-shaking for errors on connections that are not fully
+          open. Following successful protocol header negotiation, [...] and prior to
+          sending or receiving Open or Open-Ok, a peer that detects an error MUST
+          close the socket without sending any further data.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+        <notes>The server supports 0-8, 0-9 and 0-9-1 on the same port.</notes>
+	    <xref> 2.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server MAY host multiple protocols on the same port.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+	    <xref> 2.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+	      Agreed limits MAY enable both parties to pre-allocate key buffers, avoiding deadlocks.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 2.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          Every incoming frame either obeys the agreed limits, and so is "safe",
+          or exceeds them, in which case the other party IS faulty and MUST be disconnected.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 2.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+	      The server MUST tell the client what limits it proposes.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+	    <xref> 2.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+	     The client responds and MAY reduce those limits for its connection.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+	    <xref> 2.3.5.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          The data [for content frames] can be any size, and MAY be broken into
+          several (or many) chunks, each forming a "content body frame".
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 2.3.7 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         A connection or channel is considered “open” for the client when it has sent Open,
+         and for the server when it has sent Open-Ok. From this point onwards a peer that
+         wishes to close the channel or connection MUST do so using a hand-shake protocol [...].
+         When a peer decides to close a channel or connection, it sends a Close method.
+         The receiving peer MUST respond to a Close with a Close-Ok, and then both parties
+         can close their channel or connection.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 2.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST NOT, MUST NOT
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server MUST NOT modify message content bodies that it receives and passes to consumer
+         applications.  [...] [The server] MUST NOT remove or modify existing information.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+	    <xref> 2.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server MAY add information to content headers [...]
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 3.1.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         Each connection MUST BE associated with a single virtual host.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+	    <xref> 3.1.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         [The] authorization scheme used MAY be unique to each virtual host.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 3.1.3.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server MUST implement the direct exchange type and MUST pre-declare within
+         each virtual host at least two direct exchanges: one named amq.direct, and one
+         with no public name that serves as the default exchange for Publish methods.
+         [...] [All] message queues MUST BE automatically bound to the nameless exchange
+         using the message queue's name as routing key.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 3.1.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The routing key used for a topic exchange MUST consist of zero or more words delimited
+         by dots.
+	    </text>
+	  </rule>
+
+
+	  <rule>
+	    <status value="ok">does, ok</status>
+	    <xref> 3.1.3.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server SHOULD implement the topic exchange type and in that case, the server
+        MUST pre-declare within each virtual host at least one topic exchange, named amq.topic.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does, ok</status>
+	    <xref> 3.1.3.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server SHOULD implement the headers exchange type and in that case, the server
+        MUST pre-declare within each virtual host at least one headers exchange, named amq.match.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 3.1.3.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        All non-normative exchange types MUST be named starting with "x-".
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+        <notes>
+         FIFO characteristics are guaranteed under the conditions specified
+         in section 4.7.
+        </notes>
+	    <xref> 3.1.4 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY NOT
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        Note that in the presence of multiple readers from a queue, or client transactions,
+        or use of priority fields, or use of message selectors, or implementation-specific
+        delivery optimisations the queue MAY NOT exhibit true FIFO characteristics.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 3.1.10 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server and client MUST respect [the specified naming] conventions
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+	    <xref> 3.2.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The AMQP methods may define specific minimal values (such as numbers
+        of consumers per message queue) for interoperability reasons. These
+        minima are defined in the description of each class.  Conforming AMQP
+        implementations SHOULD implement reasonably generous values for such
+        fields, the minima is only intended for use on the least capable platforms.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does, doesn't</status>
+	    <xref> 3.2.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          The sending peer SHOULD wait for the specific reply method
+          [after sending a synchronous request], but MAY implement this asynchronously
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+          The client MUST start a new connection by sending a protocol header.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+        <notes>
+        The core broker accepts only AMQP. Plugins exist for other protocols.
+        </notes>
+	    <xref> 4.2.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server MAY accept non-AMQP protocols such as HTTP.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        If the server does not recognise the first 5 octets of data on the socket,
+        or does not support the specific protocol version that the client requests,
+        it MUST write a valid protocol header to the socket, then flush the socket
+        (to ensure the client application will receive the data) and then close the
+        socket connection.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+        <notes>
+         Relevan't information will be written to the server log.
+        </notes>
+	    <xref> 4.2.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server MAY print a diagnostic message [during failed protocol negotiation]
+         to assist debugging.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't</status>
+	    <xref> 4.2.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The client MAY detect the server protocol version by attempting to connect with
+        its highest supported version and reconnecting with a lower version if it receives
+        such information back from the server.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The frame-end octet MUST always be the hexadecimal value %xCE.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST, MUST, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        If a peer receives a frame with a type that is not one of these defined types,
+        it MUST treat this as a fatal protocol error and close the connection without
+        sending any further data on it.
+        When a peer reads a frame it MUST check that the frame-end is valid before
+        attempting to decode the frame. If the frame-end is not valid it MUST treat
+        this as a fatal protocol error and close the connection without sending any
+        further data on it.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+	    <xref> 4.2.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         It SHOULD log information about the [frame decoding] problem, since this
+         indicates an error in either the server or client framing code implementation.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST NOT, MUST, MUST, MUST, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        A peer MUST NOT send frames larger than the agreed-upon size.
+        A peer that receives an oversized frame MUST signal a connection
+        exception with reply code 501 (frame error).  The channel number
+        MUST be zero for all heartbeat frames, and for method, header
+        and body frames that refer to the Connection class. A peer that
+        receives a non-zero channel number for one of these frames MUST
+        signal a connection exception with reply code 503 (command invalid).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.5.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST NOT
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         Implementers MUST NOT assume that integers encoded in a frame are
+         aligned on memory word boundaries.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.5.5 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         Field names MUST start with a letter, '$' or '#' [...]
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">doesn't, doesn't</status>
+	    <xref> 4.2.5.5 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, SHOULD
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The server SHOULD validate field names and upon receiving an
+         invalid field name, it SHOULD signal a connection exception
+         with reply code 503 (syntax error).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="planned"></status>
+        <notes>
+         The given reply code is not returned for all possible in ways in
+         which content can be badly-formatted.
+        </notes>
+	    <xref> 4.2.6 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         A peer that receives an incomplete or badly-formatted content
+         MUST raise a connection exception with reply code 505 (unexpected frame).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.6.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         The class-id [of the content header] MUST match the method frame class id.
+         The peer MUST respond to an invalid class-id by raising a connection
+         exception with reply code 501 (frame error).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.6.1 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST NOT, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The channel number in content frames MUST NOT be zero.
+        A peer that receives a zero channel number in a content
+        frame MUST signal a connection exception with reply code 504 (channel error).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.6.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        A peer MUST handle a content body that is split into multiple frames by
+        storing these frames as a single set, and either retransmitting them as-is,
+        broken into smaller frames, or concatenated into a single block for delivery
+        to an application.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.2.6.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        Heartbeat frames MUST have a channel number of zero.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="planned"></status>
+	    <xref> 4.2.7 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         A peer that receives an invalid heartbeat frame MUST raise a
+         connection exception with reply code 501 (frame error).
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+        <notes>
+        The broker and supported clients do support heartbeat frames.
+        </notes>
+	    <xref> 4.2.7 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         If the peer does not support heartbeating it MUST discard
+         the heartbeat frame without signalling any error or fault.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does, doesn't</status>
+	    <xref> 4.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MAY, MAY
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+         An AMQP peer MAY support multiple channels.
+         The maximum number of channels is defined at connection negotiation,
+         and a peer MAY negotiate this down to 1.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does, doesn't</status>
+	    <xref> 4.3 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD, SHOULD NOT
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        Each peer SHOULD balance the traffic on all open channels
+        in a fair fashion. This balancing can be done on a per-frame
+        basis, or on the basis of amount of traffic per channel.
+        A peer SHOULD NOT allow one very busy channel to starve
+        the progress of a less busy channel.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.6 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST NOT, MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The effects of the request-response MUST NOT be visible on the
+        channel before the response method, and MUST be visible thereafter.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok"></status>
+	    <xref> 4.7 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      MUST
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server MUST preserve the order of contents flowing through a
+        single content processing path, unless the redelivered field is
+        set on the Basic.Deliver or Basic.Get-Ok methods, and according to the
+        rules governing the conditions under which that field can be set.
+	    </text>
+	  </rule>
+
+	  <rule>
+	    <status value="ok">does</status>
+	    <xref> 4.10.2 </xref>
+	    <context>
+	    </context>
+	    <type>
+	      SHOULD
+	    </type>
+	    <actor>
+	    </actor>
+	    <text>
+        The server SHOULD log all [exceptions during connection negotiation stage] and flag or block
+        clients provoking multiple failures.
+	    </text>
+	  </rule>
+
+        </rules>
+      </doc:section>
 
       <doc:section name="rules">
         <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
