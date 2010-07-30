@@ -40,7 +40,7 @@
         <tr>
           <th>Macports</th>
           <td>
-            FIXME
+            <code>/opt/local/lib/rabbitmq-server/plugins</code>
           </td>
         </tr>
         <tr>
