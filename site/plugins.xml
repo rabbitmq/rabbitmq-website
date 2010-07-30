@@ -12,9 +12,10 @@
     <h2 id="plugins">Plugins</h2>
 
     <p>
-      RabbitMQ supports a variety of plugins. The simplest way to
-      install plugins is to download all the required packages from
-      this page, drop them in your plugins directory, and run the
+      RabbitMQ supports a variety of plugins. This page contains links
+      to some of our plugins, packaged as .ez files. The simplest way
+      to install plugins is to download all the required .ez files
+      from this page, drop them in your plugins directory, and run the
       script <a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a>.
 
       The plugins directory varies in location depending on how you
@@ -33,7 +34,7 @@
           <td>
             Typically <code>C:\Program
             Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
-            (depending on where you installed it)
+            (depending on where it was installed)
           </td>
         </tr>
         <tr>
@@ -45,15 +46,12 @@
         <tr>
           <th>Generic Unix</th>
           <td>
-            FIXME
+            <code>rabbitmq_server-<i>version</i>/plugins</code>
+            (depending on where it was installed)
           </td>
         </tr>
       </table>
     </p>
-
-    <p>Also don't forget to check out the constantly
-    updated <a href="how.html">community page</a> for more links to
-    experimental code and other contributions.</p>
 
     <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
 
@@ -63,7 +61,7 @@
       well as some examples.
     </p>
 
-    <p>To use this plugin you will require the following files:</p>
+    <p>To use this plugin the following files are required:</p>
     <ul>
       <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
@@ -80,7 +78,7 @@
       RabbitMQ broker.
     </p>
 
-    <p>To use this plugin you will require the following files:</p>
+    <p>To use this plugin the following files are required:</p>
     <ul>
       <li><a href="/releases/plugins/v&version-server;/rabbit_common-&version-server;.ez">rabbit_common</a> (if using outside the server)</li>
       <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
@@ -94,7 +92,7 @@
       the <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/default/README">readme</a> for more information.
     </p>
 
-    <p>To use this plugin you will require the following files:</p>
+    <p>To use this plugin the following files are required:</p>
     <ul>
       <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-shovel-&version-server;.ez">rabbitmq-shovel</a></li>
@@ -121,7 +119,7 @@
       and configuring it.
     </p>
 
-    <p>To use this plugin you will require the following files:</p>
+    <p>To use this plugin the following files are required:</p>
     <ul>
       <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
@@ -136,7 +134,7 @@
       for more information.
     </p>
 
-    <p>To use this plugin you will require the following files:</p>
+    <p>To use this plugin the following files are required:</p>
     <ul>
       <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
@@ -164,23 +162,6 @@
       see <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
       documentation</a> for more information on building and
       configuring the gateway.
-    </p>
-
-    <h3 id="rabbitmq-mochiweb">rabbitmq-mochiweb</h3>
-
-    <p>
-      An embeddable mochiweb server instance for running as a Rabbit
-      plugin. Not particularly interesting in itself, but is usable by
-      any other plugins that need to listen on a HTTP endpoint.
-    </p>
-
-    <h3 id="rabbitmq-jsonrpc">rabbitmq-jsonrpc</h3>
-
-    <p>
-      Provides a JSON-RPC endpoint that is usable by other Rabbit
-      processes. No actual RPC services are exposed by this plugin,
-      but it handles integrating with rabbitmq-mochiweb to provide a
-      HTTP endpoint.
     </p>
 
     <h2>Plugin source repositories</h2>
