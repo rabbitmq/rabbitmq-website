@@ -42,82 +42,79 @@
       </doc:section>
       
       <doc:section name="release-version-mapping">
+
+
+    <table>
+	  <tr>
+        <th>Version</th>
+	    <th>Core specification</th>
+	    <th>PDF</th>
+	    <th>XML</th>
+	  </tr>
+      <tr>
+        <td>0-9-1</td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
+      </tr>
+      <tr>
+        <td>0-9</td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">amqp0-9.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">amqp0-9.xml</a></td>
+      </tr>
+      <tr>
+        <td>0-8</td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">amqp0-8.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
+	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">amqp0-8.xml</a></td>
+      </tr>
+    </table>
+
 	<doc:heading>Specification versions supported</doc:heading>
 	<p>
-	  The following table describes the version of the <a
-	  href="http://jira.amqp.org/confluence/display/AMQP/Download">AMQP
-	  protocol specification</a> implemented by each RabbitMQ
-	  release:
+	  The following table describes the version of the AMQP
+	  protocol specification implemented by RabbitMQ release 2.0.0 and later:
 	</p>
 
 	<table>
 	  <tr>
         <th>Component</th>
-	    <th>Version</th>
-	    <th>implement AMQP protocol version</th>
+	    <th>Implement AMQP protocol version</th>
 	  </tr>
 	  <tr>
-        <td>Broker</td>
-	    <td>since version 1.9.0, when connected to a 0-9-1 client</td>
-	    <td>
-	      0-9-1 (<a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">core
-	      spec</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">class
-	      def pdf</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">class
-	      def xml</a>)
-	    </td>
-	  </tr>
-	  <tr>
-        <td>Broker</td>
-	    <td>since version 1.9.0, when connected to a 0-9 client</td>
-	    <td>
-	      0-9 (<a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">core
-	      spec</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">class
-	      def pdf</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">class
-	      def xml</a>)
-	    </td>
-	  </tr>
-	  <tr>
-        <td>Broker</td>
-	    <td>when connected to a 0-8 client</td>
-	    <td>
-	      0-8 (<a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">core
-	      spec</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">class
-	      def pdf</a>, <a
-	      href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">class
-	      def xml</a>)
-	    </td>
+        <td>Server</td>
+	    <td> 0-9-1, 0-9, 0-8 </td>
 	  </tr>
 	  <tr>
         <td>Java client</td>
-	    <td>since version 1.9.0</td>
-	    <td>0-9-1</td>
+	    <td> 0-8 </td>
+	  </tr>
+	  <tr>
+        <td>.NET/C# client</td>
+	    <td> 0-9 and 0-8 switchable at runtime </td>
+	  </tr>
+	</table>
+	<p>
+	  The following table describes the version of the AMQP
+	  protocol specification implemented by RabbitMQ release prior to 2.0.0:
+	</p>
+	<table>
+	  <tr>
+        <th>Component</th>
+	    <th>Implement AMQP protocol version</th>
+	  </tr>
+	  <tr>
+        <td>Server</td>
+	    <td> 0-8 </td>
 	  </tr>
 	  <tr>
         <td>Java client</td>
-	    <td>version 1.8.1 and earlier</td>
-	    <td>0-8</td>
+	    <td> 0-8 </td>
 	  </tr>
 	  <tr>
         <td>.NET/C# client</td>
-	    <td>since version 1.9.0</td>
-	    <td>
-	      0-9-1, 0-9 and 0-8 switchable at runtime
-	    </td>
-	  </tr>
-	  <tr>
-        <td>.NET/C# client</td>
-	    <td>version 1.8.1 and earlier</td>
-	    <td>
-	      0-9 and 0-8 switchable at runtime
-	    </td>
+	    <td> 0-9 and 0-8 switchable at runtime </td>
 	  </tr>
 	</table>
       </doc:section>
@@ -187,12 +184,6 @@
 	  <method name="connection.tune-ok"><status value="ok"/></method>
 	  <method name="connection.open"><status value="ok"/></method>
 	  <method name="connection.open-ok"><status value="ok"/></method>
-	  <method name="connection.redirect">
-            <status value="deprecated"/>
-            <notes>This method has been deprecated, but is still supported.
-            Support will be withdrawn in a future release.
-            </notes>
-      </method>
 	  <method name="connection.close"><status value="ok"/></method>
 	  <method name="connection.close-ok"><status value="ok"/></method>
 	  <method name="channel.open"><status value="ok"/></method>
@@ -249,7 +240,7 @@
 	<p>
 	  The Reference column contains the class or domain, method, field and 
       rule name where present.
-	</p>
+    </p>
 	<rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
           <rule>
             <status value="ok"/>
@@ -690,7 +681,7 @@
           </rule>
 
           <rule>
-            <status value="planned"/>
+            <status value="ok"/>
             <notes>
                    The server does not prevent exchange names starting with "amq." from
                    being declared. Clients may declare exchanges starting with "amq." 
@@ -723,7 +714,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST</type>
             <xref>exchange / declare / type / typed</xref>
             <type/>
@@ -736,7 +727,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>exchange / declare / type / support</xref>
             <type/>
@@ -849,7 +840,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <notes>
                    The server does not prevent queue names starting with "amq." from
                    being declared. Clients may declare queues starting with "amq." 
@@ -1036,7 +1027,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>queue / bind / queue / must-exist</xref>
             <type/>
@@ -1103,7 +1094,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>queue / unbind / queue / must-exist</xref>
             <type/>
@@ -1114,7 +1105,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>queue / unbind / exchange / must-exist</xref>
             <type/>
@@ -1175,7 +1166,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>queue / purge / queue / must-exist</xref>
             <type/>
@@ -1211,7 +1202,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>queue / delete / queue / must-exist</xref>
             <type/>
@@ -1454,7 +1445,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>basic / publish / exchange / must-exist</xref>
             <type/>
@@ -1664,7 +1655,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>tx / commit / transacted</xref>
             <type/>
@@ -1675,7 +1666,7 @@
           </rule>
 
           <rule>
-            <status value="ok">external responsibility</status>
+            <status value="ok">ok</status>
             <type>MUST NOT</type>
             <xref>tx / rollback / transacted</xref>
             <type/>
@@ -2116,7 +2107,7 @@
 	  </rule>
 
 	  <rule>
-	    <status value="ok">doesn't</status>
+	    <status value="ok">does</status>
         <notes>
          Relevan't information will be written to the server log.
         </notes>
@@ -2275,7 +2266,7 @@
 	  <rule>
 	    <status value="planned"></status>
         <notes>
-         The given reply code is not returned for all possible in ways in
+         The given reply code is not returned for all possible ways in
          which content can be badly-formatted.
         </notes>
 	    <xref> 4.2.6 </xref>
