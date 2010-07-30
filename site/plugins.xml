@@ -1,0 +1,206 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+  <head>
+    <title>RabbitMQ - Plugins</title>
+  </head>
+  <body>
+    <h2 id="plugins">Plugins</h2>
+
+    <p>
+      RabbitMQ supports a variety of plugins. The simplest way to
+      install plugins is to download all the required packages from
+      this page, drop them in your plugins directory, and run the
+      script <a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a>.
+
+      The plugins directory varies in location depending on how you
+      installed RabbitMQ. Some common options are:
+
+      <table>
+        <tr><th>Installation method</th><th>Plugins directory</th></tr>
+        <tr>
+          <th>Deb / RPM packages</th>
+          <td>
+            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Windows</th>
+          <td>
+            Typically <code>C:\Program
+            Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
+            (depending on where you installed it)
+          </td>
+        </tr>
+        <tr>
+          <th>Macports</th>
+          <td>
+            FIXME
+          </td>
+        </tr>
+        <tr>
+          <th>Generic Unix</th>
+          <td>
+            FIXME
+          </td>
+        </tr>
+      </table>
+    </p>
+
+    <p>Also don't forget to check out the constantly
+    updated <a href="how.html">community page</a> for more links to
+    experimental code and other contributions.</p>
+
+    <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
+
+    <p>
+      An AMQP-over-HTTP protocol binding for RabbitMQ and some
+      Javascript libraries for interacting with RabbitMQ over HTTP, as
+      well as some examples.
+    </p>
+
+    <p>To use this plugin you will require the following files:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
+
+    <p>
+      An Erlang client for RabbitMQ. This client offers both a
+      networked version that uses standard TCP-based AMQP framing and
+      a direct client that uses native Erlang message passing to a
+      RabbitMQ broker.
+    </p>
+
+    <p>To use this plugin you will require the following files:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbit_common-&version-server;.ez">rabbit_common</a> (if using outside the server)</li>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-xmpp">rabbitmq-shovel</h3>
+
+    <p>
+      A plug-in for RabbitMQ that shovels messages from a queue on one
+      broker to an exchange on another broker. Please see
+      the <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/default/README">readme</a> for more information.
+    </p>
+
+    <p>To use this plugin you will require the following files:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-shovel-&version-server;.ez">rabbitmq-shovel</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-stomp">rabbitmq-stomp</h3>
+
+    <p>
+      A gateway for exposing AMQP functionality via the <a
+      href="http://stomp.codehaus.org/Protocol">STOMP protocol</a>, as
+      implemented by many <a
+      href="http://stomp.codehaus.org/Clients">clients</a> for various
+      programming languages, and a few other <a
+      href="http://stomp.codehaus.org/Brokers">servers</a> besides
+      RabbitMQ.
+    </p>
+
+    <p>
+      Please see
+      the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/default/README">readme</a>
+      file and our
+      various <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
+      articles</a> about the adapter for more information on compiling
+      and configuring it.
+    </p>
+
+    <p>To use this plugin you will require the following files:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-status">rabbitmq-status</h3>
+
+    <p>
+      A plugin which provides a simple webpage indicating the status
+      of a RabbitMQ server. See
+      the <a href="http://hg.rabbitmq.com/rabbitmq-status/file/default/README">README</a>
+      for more information.
+    </p>
+
+    <p>To use this plugin you will require the following files:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbit_status-&version-server;.ez">rabbit_status</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
+
+    <p>
+      A gateway for exposing RabbitMQ's AMQP services to the global
+      XMPP network, by integrating RabbitMQ with <a
+      href="http://www.process-one.net/en/ejabberd/">ejabberd</a>.
+    </p>
+
+    <p>
+      By bridging between the two systems, we benefit from the
+      combination of XMPP's internet-scale addressing and federation,
+      XMPP's presence model, AMQP's store-and-forward capability and
+      AMQP's routing and filtering.
+    </p>
+
+    <p>
+      Note that we do not supply this plugin in binary form, as it is
+      a plugin for ejabberd rather than rabbitmq-server. Please
+      see <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
+      documentation</a> for more information on building and
+      configuring the gateway.
+    </p>
+
+    <h3 id="rabbitmq-mochiweb">rabbitmq-mochiweb</h3>
+
+    <p>
+      An embeddable mochiweb server instance for running as a Rabbit
+      plugin. Not particularly interesting in itself, but is usable by
+      any other plugins that need to listen on a HTTP endpoint.
+    </p>
+
+    <h3 id="rabbitmq-jsonrpc">rabbitmq-jsonrpc</h3>
+
+    <p>
+      Provides a JSON-RPC endpoint that is usable by other Rabbit
+      processes. No actual RPC services are exposed by this plugin,
+      but it handles integrating with rabbitmq-mochiweb to provide a
+      HTTP endpoint.
+    </p>
+
+    <h2>Plugin source repositories</h2>
+    <p>You can also build plugins from source.</p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
+      <repository type="hg" shortname="rabbitmq-mochiweb"
+                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
+      <repository type="hg" shortname="rabbitmq-jsonrpc"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
+      <repository type="github" shortname="erlang-rfc4627"
+                  url="http://github.com/tonyg/erlang-rfc4627"/>
+      <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
+      <repository type="hg" shortname="rabbitmq-erlang-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+      <repository type="hg" shortname="rabbitmq-stomp"
+		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
+      <repository type="hg" shortname="rabbitmq-xmpp"
+		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
+    </repositories>
+  </body>
+</html>
