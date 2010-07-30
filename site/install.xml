@@ -143,24 +143,19 @@
 		  Defaults to <code>5672</code>.
 		</dd>
 
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq_cluster.config</code>. If
-		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
-		  href="clustering.html">clustering guide</a> for
-		  details.
-		</dd>
 		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
 		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If
-		  this file is present it is used by the server to
-		  configure RabbitMQ application components. Note that
-		  the .config extension is automatically appended by
-		  the Erlang runtime. See the section on <a
-          href="#configfile">the configuration file</a> for details.
+		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If this file
+		  is present it is used by the server to configure
+		  RabbitMQ application components. Note that the
+		  .config extension is automatically appended by the
+		  Erlang runtime. See the section on <a
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
+		  href="clustering.html">clustering guide</a> for
+		  details.
 		</dd>
 	      </dl>
 	    </li>
@@ -611,24 +606,19 @@
 		<dd>
 		  Defaults to <code>5672</code>.
 		</dd>
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to
-		  <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. If
-		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
-		  href="clustering.html">clustering guide</a>
-		  for details.
-		</dd>
+
 		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
-		  Defaults to
-		  <code>/etc/rabbitmq/rabbitmq</code>. If
+		  Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
 		  this file is present it is used by the server to
 		  configure RabbitMQ application components. Note that
 		  the .config extension is automatically appended by
 		  the Erlang runtime. See the section on <a
-          href="#configfile">the configuration file</a> for details.
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
+		  href="clustering.html">clustering guide</a> for
+		  details.
 		</dd>
 	      </dl>
 	    </li>
