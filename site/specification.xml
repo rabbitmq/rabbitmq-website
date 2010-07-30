@@ -80,7 +80,7 @@
 	<table>
 	  <tr>
         <th>Component</th>
-	    <th>Implement AMQP protocol version</th>
+	    <th>Implements AMQP protocol version</th>
 	  </tr>
 	  <tr>
         <td>Server</td>
@@ -102,7 +102,7 @@
 	<table>
 	  <tr>
         <th>Component</th>
-	    <th>Implement AMQP protocol version</th>
+	    <th>Implements AMQP protocol version</th>
 	  </tr>
 	  <tr>
         <td>Server</td>
