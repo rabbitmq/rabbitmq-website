@@ -15,8 +15,9 @@
       RabbitMQ supports a variety of plugins. This page contains links
       to some of our plugins, packaged as .ez files. The simplest way
       to install plugins is to download all the required .ez files
-      from this page, drop them in your plugins directory, and run the
-      script <a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a>.
+      from this page, drop them in your plugins directory, run the
+      script <a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a>,
+      and restart RabbitMQ.
 
       The plugins directory varies in location depending on how you
       installed RabbitMQ. Some common options are:
