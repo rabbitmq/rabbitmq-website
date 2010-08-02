@@ -189,24 +189,25 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
           The RabbitMQ server detects the total amount of RAM
           installed in the computer on startup. By default, when the
           RabbitMQ server uses above 40% of the installed RAM, it
-          throttles publishers with the <code>channel.flow</code> AMQP
-          command.
+          raises a memory alarm. In response the server pauses reading
+          from the sockets of connected clients which send
+          content-bearing methods (such as <code>basic.publish</code>)
+          after the alarm was raised. Connection heartbeat monitoring
+          gets disabled too. Once the memory alarm has cleared
+          (e.g. due to the server paging messages to disk or
+          delivering them to clients) normal service resumes.
         </p>
-
         <p>
-          Starting with the 1.8.0 release of the RabbitMQ server,
-          clients which are sent <code>channel.flow</code> messages
-          are required to respond within 10 seconds with a
-          corresponding <code>channel.flow_ok</code> message. If they
-          do not, a channel exception is raised and the channel is
-          closed. Messages that the client publishes after receiving a
-          <code>channel.flow{active=false}</code> and before sending
-          the corresponding
-          <code>channel.flow_ok{active=false}</code>, are accepted
-          normally. If a client publishes a message after sending the
-          <code>channel.flow_ok{active=false}</code> then a
-          command-invalid exception is raised, and the connection is
-          closed.
+          The intent here is to introduce a flow control mechanism
+          that throttles producers but lets consumers continue
+          unaffected. However, since AMQP permits producers and
+          consumers to operate on the same channel, and on different
+          channels of a single connection, this logic is necessarily
+          imperfect. In practice that does not pose any problems for
+          most applications since the throttling is observable merely
+          as a delay. Nevertheless, other design considerations
+          permitting, it is advisable to only use individual AMQP
+          connections for either producing or consuming.
         </p>
 
         <p>

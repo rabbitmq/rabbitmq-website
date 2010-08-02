@@ -552,8 +552,7 @@
           <rule>
             <status value="ok"/>
             <notes>
-                  The server may issue a Channel.Flow under certain conditions, such as 
-                  memory pressure. The clients do not automatically issue a Channel.Flow.
+              Neither the server or the clients automatically issue a Channel.Flow.
             </notes>
             <type>MAY</type>
             <xref>channel / flow / throttling</xref>
@@ -566,7 +565,7 @@
           </rule>
 
           <rule>
-            <status value="ok">does</status>
+            <status value="ok">doesn't</status>
             <type>MAY</type>
             <xref>channel / flow / expected-behaviour</xref>
             <type/>
@@ -1270,7 +1269,7 @@
           </rule>
 
           <rule>
-            <status value="ok">does</status>
+            <status value="ok">doesn't</status>
             <type>MAY</type>
             <xref>basic / 03</xref>
             <type/>
