@@ -400,6 +400,7 @@ Technologies Ltd.</p></div>
 	<th>Current Status</th>
 	<th>Type</th>
 	<th>Actor</th>
+	<th>Reference</th>
 	<th>Text</th>
       </tr>
       <xsl:apply-templates/>
@@ -413,11 +414,9 @@ Technologies Ltd.</p></div>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
+      <td><xsl:value-of select="r:xref"/></td>
       <td>
 	<div>
-	  <xsl:if test="normalize-space(r:xref)">
-	    <xsl:value-of select="normalize-space(r:xref)"/>:
-	  </xsl:if>
 	  <xsl:if test="normalize-space(r:context)">
 	    <xsl:value-of select="normalize-space(r:context)"/>:
 	  </xsl:if>
