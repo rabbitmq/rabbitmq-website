@@ -50,11 +50,13 @@ h1 {
 	color: #f60;
 	margin: 10px 0 0 0;
 	float: left;
+	height: 42px;  
 }
 
 div.s2-logo {
   float:right;
   margin: 10px 0 0 0;
+  height: 70px;
 }
 
 dd p {
