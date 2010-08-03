@@ -218,6 +218,7 @@
 	</li> 		
 	<li id="php-development">PHP development: 
 	  <ul class="plain">
+      <li><a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a></li>
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
