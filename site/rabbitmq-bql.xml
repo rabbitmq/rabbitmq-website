@@ -471,7 +471,7 @@ empty</pre>
           <p>
             RabbitMQ manages permission by associating a set of regular expressions indicating
             the configurable, readable and writable objects against a user. For more explanation
-            on this topic, see the <a href="rabbitmqctl.1.man.html#Access%20control">Access Control</a>
+            on this topic, see the <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control</a>
             section of the rabbitmqctl(1) manual page.
           </p>
 
@@ -579,7 +579,7 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
           <doc:heading>Security Principles</doc:heading>
           <p>
             In general, BQL follows the general Rabbit security model. This includes managing access to queues and exchanges
-            via regular expressions (as discussed in the <a href="rabbitmqctl.1.man.html#Access%20control">access control</a> documentation).
+            via regular expressions (as discussed in the <a href="man/rabbitmqctl.1.man.html#Access%20control">access control</a> documentation).
             However, given the ability for BQL to administer objects outside of the normal protocol remotely, there are a number of
             additional security concerns that need to be considered. BQL introduces a number of additional security rules - these are
             discussed in detail in the following section.
