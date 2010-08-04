@@ -70,21 +70,6 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
     </ul>
 
-    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
-
-    <p>
-      An Erlang client for RabbitMQ. This client offers both a
-      networked version that uses standard TCP-based AMQP framing and
-      a direct client that uses native Erlang message passing to a
-      RabbitMQ broker.
-    </p>
-
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <li><a href="/releases/plugins/v&version-server;/rabbit_common-&version-server;.ez">rabbit_common</a> (if using outside the server)</li>
-      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-    </ul>
-
     <h3 id="rabbitmq-xmpp">rabbitmq-shovel</h3>
 
     <p>
@@ -165,8 +150,22 @@
       configuring the gateway.
     </p>
 
+    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
+
+    <p>
+      An Erlang client for RabbitMQ. This client offers both a
+      networked version that uses standard TCP-based AMQP framing and
+      a direct client that uses native Erlang message passing to a
+      RabbitMQ broker.
+    </p>
+
+    <p>This plugin is a dependency of some others, but can also be
+    used standalone (not embedded in the server). Such use is outside
+    the scope of this page.</p>
+
     <h2>Plugin source repositories</h2>
-    <p>You can also build plugins from source.</p>
+    <p>You can also build plugins from source. The following table
+    lists the repositories of our plugins and their dependencies.</p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
       <repository type="hg" shortname="rabbitmq-mochiweb"
