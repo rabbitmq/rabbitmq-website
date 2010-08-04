@@ -273,8 +273,8 @@ channel.basicConsume(queueName, noAck, consumer);
         AMQP operation (such as <code>queueDeclare</code>,
         <code>txCommit</code>, <code>basicCancel</code> or
         <code>basicPublish</code>). If they do, the channel will
-        deadlock. Only asynchronous AMQP operations are safe for
-        use within callbacks, such as <code>basicAck</code>.
+        deadlock. Only asynchronous AMQP operations without content
+        are safe for use within callbacks, such as <code>basicAck</code>.
 	  </p>
 
 	  <p>
