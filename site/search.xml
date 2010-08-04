@@ -2,20 +2,48 @@
 <html>
   <head>
     <title>Search</title>
+    <link rel="stylesheet" href="./css/search.css" type="text/css" />
   </head>
   <body>
-  
+
 <h2>Search this site</h2>
-<p>Use the form below to search rabbitmq.com, and dev.rabbitmq.com.</p>
+<p>Use the form below to search using our RabbitMQ customised search engine.</p>
 
 <div id="cse" style="width: 100%;">Loading</div>
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
-   google.load('search', '1');
-   google.setOnLoadCallback(function(){
-      new google.search.CustomSearchControl('009922129631189805192:kpd1zoym_hq').draw('cse');
-   }, true);
-</script>
+  google.load('search', '1', {language: 'en'});  /* use 'nocss: true' property to use custom css */
+  google.setOnLoadCallback(function() {
+    // create a search control
+    var searchControl = new google.search.SearchControl();
+    searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
 
-  </body>
+    // create site searchers
+    var webSearch_RMQ = new google.search.WebSearch();
+    webSearch_RMQ.setSiteRestriction('015404676280738692929:q_1m_zzsrm4', 'rabbitmq.com');
+    webSearch_RMQ.setUserDefinedLabel('rabbitmq.com');
+
+    var webSearch_LIST = new google.search.WebSearch();
+    webSearch_LIST.setSiteRestriction('015404676280738692929:rbjjd9ottry', 'mailing-list');
+    webSearch_LIST.setUserDefinedLabel('mailing list');
+
+    var blogSearch = new google.search.BlogSearch();
+    blogSearch.setUserDefinedLabel('blogosphere');
+
+    // add searchers
+    searchControl.addSearcher(webSearch_RMQ);
+    searchControl.addSearcher(webSearch_LIST);
+    searchControl.addSearcher(blogSearch);
+
+    // set tabbed layout
+    var drawOptions = new google.search.DrawOptions();
+    drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_TABBED);
+    drawOptions.setAutoComplete(true);
+
+    // draw the search control
+    searchControl.draw(document.getElementById("cse"), drawOptions);
+
+  }, true);
+</script>
+</body>
 </html>

@@ -1,0 +1,9 @@
+/* CSS for Search page */
+
+ .gsc-control {
+    width: 100% !important;  /* override value in default.css */
+}
+
+.gsc-tabsAreaInvisible {
+  display : inherit !important;  /* override value in default.css */
+}
