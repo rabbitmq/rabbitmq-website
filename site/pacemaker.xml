@@ -542,9 +542,6 @@ ha-node-3:~#
           <dt>port</dt>
           <dd>The IP Port for rabbitmq-server to listen on</dd>
 
-          <dt>cluster_config_file</dt>
-          <dd>Location of the cluster config file</dd>
-
           <dt>config_file</dt>
           <dd>Location of the config file</dd>
 

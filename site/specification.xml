@@ -92,7 +92,7 @@
 	  </tr>
 	  <tr>
         <td>.NET/C# client</td>
-	    <td> 0-9 and 0-8 switchable at runtime </td>
+	    <td> 0-9-1, 0-9 and 0-8 switchable at runtime </td>
 	  </tr>
 	</table>
 	<p>
@@ -224,7 +224,14 @@
 	  <method name="basic.get-ok"><status value="ok"/></method>
 	  <method name="basic.get-empty"><status value="ok"/></method>
 	  <method name="basic.ack"><status value="ok"/></method>
-	  <method name="basic.reject"><status value="planned"/></method>
+	  <method name="basic.reject"><status value="partial"/>
+            <notes>The server discards the message when requeue=false,
+            and requeues it when requeue=true. No attempt is made to
+            prevent redelivery to the same client. The server does not
+            interrupt the sending of message content of a rejected
+            message, i.e. the message is always delivered in full to
+            the client.</notes>
+          </method>
 	  <method name="basic.recover"><status value="ok"/></method>
 	  <method name="tx.select"><status value="ok"/></method>
 	  <method name="tx.select-ok"><status value="ok"/></method>
@@ -1559,7 +1566,7 @@
           </rule>
 
           <rule>
-            <status value="planned"/>
+            <status value="ok"/>
             <type>SHOULD</type>
             <xref>basic / reject / 02</xref>
             <type/>
