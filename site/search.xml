@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./css/search.css" type="text/css" />
   </head>
   <body>
-  
+
 <h2>Search this site</h2>
 <p>Use the form below to search using our RabbitMQ customised search engine.</p>
 
@@ -14,35 +14,35 @@
 <script type="text/javascript">
   google.load('search', '1', {language: 'en'});  /* use 'nocss: true' property to use custom css */
   google.setOnLoadCallback(function() {
-    // create a search control 
+    // create a search control
     var searchControl = new google.search.SearchControl();
     searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
-    
+
     // create site searchers
     var webSearch_RMQ = new google.search.WebSearch();
     webSearch_RMQ.setSiteRestriction('015404676280738692929:q_1m_zzsrm4', 'rabbitmq.com');
     webSearch_RMQ.setUserDefinedLabel('rabbitmq.com');
-    
+
     var webSearch_LIST = new google.search.WebSearch();
     webSearch_LIST.setSiteRestriction('015404676280738692929:rbjjd9ottry', 'mailing-list');
     webSearch_LIST.setUserDefinedLabel('mailing list');
 
     var blogSearch = new google.search.BlogSearch();
     blogSearch.setUserDefinedLabel('blogosphere');
-    
+
     // add searchers
     searchControl.addSearcher(webSearch_RMQ);
     searchControl.addSearcher(webSearch_LIST);
     searchControl.addSearcher(blogSearch);
-    
+
     // set tabbed layout
     var drawOptions = new google.search.DrawOptions();
     drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_TABBED);
     drawOptions.setAutoComplete(true);
-    
+
     // draw the search control
     searchControl.draw(document.getElementById("cse"), drawOptions);
-    
+
   }, true);
 </script>
 </body>
