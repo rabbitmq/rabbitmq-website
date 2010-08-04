@@ -94,12 +94,9 @@
     <h3 id="plugins">Plugins</h3>
 
     <p>
-      We make plugins available for download as binary packages, snapshots
-      and <a href="http://www.selenic.com/mercurial/">mercurial</a>
-      repositories. See the <a href="plugins.html">plugins</a> page for more
-      information on using our plugins, and
-      the <a href="plugin-development.html">plugin development</a> page for
-      information on writing your own plugins.
+      We make plugins available for download as binary packages, snapshots and
+      mercurial repositories. See the <a href="plugins.html">plugins page</a>
+      for more information on using our plugins.
     </p>
 
     <h3 class="clear">Specification</h3>
