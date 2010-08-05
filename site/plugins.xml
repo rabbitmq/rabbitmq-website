@@ -159,6 +159,19 @@
       configuring the gateway.
     </p>
 
+    <h3 id="rabbitmq-bql">rabbitmq-bql</h3>
+
+    <p>
+      The Broker Query Language plugin provides a textual, SQL-like
+      query language for interrogating and configuring the broker.
+    </p>
+
+    <p>
+      The BQL plugin needs to be built from source. See
+      <a href="rabbitmq-bql.html#installation">the installation
+      instructions.</a>
+    </p>
+
     <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
 
     <p>
