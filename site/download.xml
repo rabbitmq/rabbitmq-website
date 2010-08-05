@@ -90,7 +90,15 @@
       (Karmic Koala), both 32 and 64 bit variants, are available for download 
       with pre-installed RabbitMQ
     </p>
-    
+
+    <h3 id="plugins">Plugins</h3>
+
+    <p>
+      We make plugins available for download as binary packages, snapshots and
+      mercurial repositories. See the <a href="plugins.html">plugins page</a>
+      for more information on using our plugins.
+    </p>
+
     <h3 class="clear">Specification</h3>
     <p>
       The current RabbitMQ server and Java client library releases
@@ -120,146 +128,19 @@
 
     <h2 id="experimental">Experimental Downloads</h2>
 
-    <p>
+     <p>
       We make some experimental code available for download as
       snapshots and <a href="http://www.selenic.com/mercurial/">mercurial</a> repositories. As
       with the main RabbitMQ code base, we welcome
-      feedback and contributions. 
-    </p>
-    
-    <p>Also don't forget to check out the constantly updated <a href="how.html">community page</a> for more links to experimental code and other contributions.</p>
-
-    <h3 id="rabbitmq-mochiweb">rabbitmq-mochiweb</h3>
-    
-    <p>
-      An embeddable mochiweb server instance for running as a Rabbit plugin. Not
-      particularly interesting in itself, but is usable by any other plugins that
-      need to listen on a HTTP endpoint.
-    </p>
-   
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-mochiweb"
-                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-jsonrpc">rabbitmq-jsonrpc</h3>
-    
-    <p>
-      Provides a JSON-RPC endpoint that is usable by other Rabbit processes. No
-      actual RPC services are exposed by this plugin, but it handles integrating
-      with rabbitmq-mochiweb to provide a HTTP endpoint.
-    </p>
-    <p>
-      This plugin depends on the <code>erlang-rfc4627</code> JSON/JSON-RPC
-      support library, and the <code>rabbitmq-mochiweb</code> plugin.
+      feedback and contributions.
     </p>
 
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-jsonrpc"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
-      <repository type="hg" shortname="erlang-rfc4627"
-                  url="http://hg.opensource.lshift.net/erlang-rfc4627/"/>
-    </repositories>
+    <p>Also don't forget to check out the constantly
+    updated <a href="how.html">community page</a> for more links to
+    experimental code and other contributions.</p>
 
-    <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
-
-    <p>
-      An AMQP-over-HTTP protocol binding for RabbitMQ and some
-      Javascript libraries for interacting with RabbitMQ over HTTP, as
-      well as some examples.
-    </p>
-
-    <p>
-      This plugin depends on the <code>rabbitmq-jsonrpc</code> plugin,
-      which is responsible for providing the RPC endpoint that this
-      plugin uses.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
-    
-    <p>
-      An Erlang client for RabbitMQ. This client offers both a networked version 
-      that uses standard TCP-based AMQP framing and a direct client that uses
-      native Erlang message passing to a RabbitMQ broker.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-stomp">rabbitmq-stomp</h3>
-
-    <p>
-      A gateway for exposing AMQP functionality via the <a
-      href="http://stomp.codehaus.org/Protocol">STOMP protocol</a>, as
-      implemented by many <a
-      href="http://stomp.codehaus.org/Clients">clients</a> for various
-      programming languages, and a few other <a
-      href="http://stomp.codehaus.org/Brokers">servers</a> besides
-      RabbitMQ.
-    </p>
-
-    <p>
-      Please see the <a
-      href="http://hg.rabbitmq.com/rabbitmq-stomp/file/default/README">readme</a>
-      file and our various <a
-      href="http://www.lshift.net/blog/index.php?s=stomp">blog
-      articles</a> about the adapter for more information on compiling
-      and configuring it.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-stomp"
-		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
-    </repositories>
-
-    <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
-
-    <p>
-      A gateway for exposing RabbitMQ's AMQP services to the global
-      XMPP network, by integrating RabbitMQ with <a
-      href="http://www.process-one.net/en/ejabberd/">ejabberd</a>.
-    </p>
-
-    <p>
-      By bridging between the two systems, we benefit from the
-      combination of XMPP's internet-scale addressing and federation,
-      XMPP's presence model, AMQP's store-and-forward capability and
-      AMQP's routing and filtering.
-    </p>
-
-    <p>
-      Please see <a
-      href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
-      documentation</a> for more information on building and
-      configuring the gateway.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-xmpp"
-		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
-    </repositories>
-
-    <a name="rabbitmq-bql"><h3 id="rabbitmq-bql">rabbitmq-bql</h3></a>
-
-    <p>
-      An interactive Broker Query Language console for RabbitMQ administration. See the
-      <a href="rabbitmq-bql.html">RabbitMQ BQL</a> documentation for more details.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-bql"
-                  url="http://hg.rabbitmq.com/rabbitmq-bql/"/>
-    </repositories>
-    
     <h3 id="rabbitmq-c">rabbitmq-c</h3>
-    
+
     <p>
       An experimental C-language AMQP client supporting AMQP 0-8 and
       0-9-1. See <a
@@ -270,7 +151,6 @@
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-c"
 		  url="http://hg.rabbitmq.com/rabbitmq-c/"/>
-    </repositories>    
-    
+    </repositories>
   </body>
 </html>

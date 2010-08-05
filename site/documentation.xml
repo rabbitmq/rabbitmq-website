@@ -65,14 +65,13 @@
 	  </li>
 	</ul>
       </doc:section>
-      
+
       <doc:section name="plugins">
         <doc:heading>Plugins</doc:heading>
-        
         <ul>
           <li>
-            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query Language plugin provides a SQL-like 
-	    interface to RabbitMQ
+            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query
+	    Language plugin provides a SQL-like interface to RabbitMQ
           </li>
         </ul>
       </doc:section>

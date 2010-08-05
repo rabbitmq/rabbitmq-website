@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
-
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
@@ -335,8 +333,21 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-  
-  
+
+  <xsl:template match="r:repository[@type = 'github']">
+    <tr>
+      <td>
+	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+      </td>
+      <td>
+	<code>git clone <xsl:value-of select="@url"/>.git</code>
+      </td>
+      <td>
+	<a class="arepo" href="{@url}">Browse source</a>
+      </td>
+    </tr>
+  </xsl:template>
+
   <!-- ############################################################ -->
   
   <xsl:template match="r:classes">
