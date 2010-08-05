@@ -751,14 +751,11 @@ namespace RabbitMQ.Client.Examples {
             cf.Ssl.CertPassphrase = "MySecretPassword";
             cf.Ssl.Enabled = true;
 
-            cf.Address = "localhost";
-            cf.Port = 5671;
-
             using (IConnection conn = cf.CreateConnection()) {
                 using (IModel ch = conn.CreateModel()) {
                     ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, true, false, null);
                     ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
-                    BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", false);
+                    BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
                     if (result == null) {
                         Console.WriteLine("No message received.");
                     } else {
