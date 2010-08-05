@@ -12,6 +12,15 @@
     <h2 id="plugins">Plugins</h2>
 
     <p>
+      Currently, all plugins below are <em>experimental</em>. This
+      means we make no claims about their fitness for purpose or
+      stability, though they are in general under active
+      development. In particular, the version numbers of the packages
+      do not guarantee compatibility with versions of the RabbitMQ
+      server<sup><a href="#compatibility">[1]</a></sup>.
+    </p>
+
+    <p>
       RabbitMQ supports a variety of plugins. This page contains links
       to some of our plugins, packaged as .ez files. The simplest way
       to install plugins is to download all the required .ez files
@@ -183,5 +192,16 @@
       <repository type="hg" shortname="rabbitmq-xmpp"
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
     </repositories>
+
+    <p/>
+    <h2>Compatibility</h2>
+    <p><a name="compatibility"/>
+      We compile the plugins when we make a release of the server, so
+      in general, each plugin has been compiled against the latest
+      release of the server code (and the plugin's dependencies). We
+      may also from time to time post "known good" binaries; these
+      will be marked with a particular server version with which they
+      are known to work.
+    </p>
   </body>
 </html>
