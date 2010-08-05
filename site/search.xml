@@ -29,6 +29,7 @@
 
     var blogSearch = new google.search.BlogSearch();
     blogSearch.setUserDefinedLabel('blogosphere');
+    blogSearch.setQueryAddition('rabbitmq');
 
     // add searchers
     searchControl.addSearcher(webSearch_RMQ);
