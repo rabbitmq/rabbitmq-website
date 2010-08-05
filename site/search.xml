@@ -17,7 +17,6 @@
     // create a search control
     var searchControl = new google.search.SearchControl();
     searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
-    /* searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF); // this makes a click on a search result open in the same window BUT the search is not stored in history so it breaks the expected behaviour of 'BACK' */
 
     // create site searchers
     var webSearch_RMQ = new google.search.WebSearch();
