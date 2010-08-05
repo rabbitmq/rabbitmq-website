@@ -49,30 +49,29 @@
 	    Guide</a>
 	  </li>
 	  <li>
-	    <a onClick="javascript: pageTracker._trackPageview('/javadoc/-documentation');" href="&dir-current-javadoc;">Javadoc documentation</a>
+	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
           <li>
-            <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf');" href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
+            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
           </li>
           <li>
-            <a onClick="javascript: pageTracker._trackPageview('&dir-current-dotnet-apidoc;/index.html');" href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
           </li>
 	  <li>
-	    <a onClick="javascript: pageTracker._trackPageview('/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf" href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
+	    <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
 	  </li>
 	  <li>
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
 	</ul>
       </doc:section>
-      
+
       <doc:section name="plugins">
         <doc:heading>Plugins</doc:heading>
-        
         <ul>
           <li>
-            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query Language plugin provides a SQL-like 
-	    interface to RabbitMQ
+            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query
+	    Language plugin provides a SQL-like interface to RabbitMQ
           </li>
         </ul>
       </doc:section>

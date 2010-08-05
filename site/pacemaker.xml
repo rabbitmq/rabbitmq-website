@@ -113,10 +113,15 @@
         <code>drbd1</code> configuration looks like:</p>
 
 <pre class="sourcecode">
+global {
+  use-count no;
+}
+
 resource drbd1 {
   device    /dev/drbd1;
   disk      /dev/vdb;
   meta-disk internal;
+  protocol  C;
   on ha-node-1 {
     address   192.168.100.21:7789;
   }
@@ -501,7 +506,7 @@ Status of node 'rabbit@rabbit-ha-2' ...
                         {sasl,"SASL  CXC 138 11","2.1.8"},
                         {stdlib,"ERTS  CXC 138 10","1.16.4"},
                         {kernel,"ERTS  CXC 138 10","2.13.4"}]},
- {nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']},
+ {nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
  {running_nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]
 ...done.
 ha-node-3:~#
@@ -536,9 +541,6 @@ ha-node-3:~#
 
           <dt>port</dt>
           <dd>The IP Port for rabbitmq-server to listen on</dd>
-
-          <dt>cluster_config_file</dt>
-          <dd>Location of the cluster config file</dd>
 
           <dt>config_file</dt>
           <dd>Location of the config file</dd>

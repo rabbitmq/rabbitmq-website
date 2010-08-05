@@ -12,12 +12,12 @@
     <doc:div>
       <p class="intro">
         This is the RabbitMQ Server Plugin Development Guide. It is expected that
-        before reading this guide, the reader has a basic understanding of the RabbitMQ 
+        before reading this guide, the reader has a basic understanding of the RabbitMQ
         plugin mechanism, as described in the <a href="admin-guide.html#plugins">Plugins</a>
-        section of the Administration Guide. Readers are also expected to have a basic 
+        section of the Administration Guide. Readers are also expected to have a basic
         understanding of Erlang OTP
-        <a href="http://erlang.org/doc/system_principles/part_frame.html">system</a> and
-        <a href="http://erlang.org/doc/design_principles/part_frame.html">design</a> principles.
+        <a href="http://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
+        <a href="http://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
       </p>
 
       <doc:toc class="compact">
@@ -26,7 +26,7 @@
 
       <doc:section name="why">
         <doc:heading>Why Write A Plugin?</doc:heading>
-        
+
         <p>
           Writing a RabbitMQ plugin provides a number of appealing possibilities:
         </p>
@@ -36,7 +36,7 @@
             via the AMQP interface.
           </li>
           <li>
-            Running in the same Erlang VM as the broker may increase performance for certain applications. 
+            Running in the same Erlang VM as the broker may increase performance for certain applications.
           </li>
           <li>
             Plugins provide an easy deployment model, since they allow for a single &quot;RabbitMQ Appliance&quot;
@@ -45,7 +45,7 @@
           </li>
         </ul>
       </doc:section>
-      
+
       <doc:section name="why-not">
         <doc:heading>Why To Not Write A Plugin</doc:heading>
 
@@ -54,11 +54,11 @@
           embedding it as a plugin is the most appropriate path to take. Some reasons that you might not want to
           develop your functionality as a plugin:
         </p>
-        
+
         <ul>
           <li>
             Depending on undocumented internal Rabbit APIs can result in your application requiring changes when
-            RabbitMQ is updated. If you can do what you need to do without using RabbitMQ internals, then your 
+            RabbitMQ is updated. If you can do what you need to do without using RabbitMQ internals, then your
             application will be far more compatible in the future.
           </li>
           <li>
@@ -69,7 +69,7 @@
 
       <doc:section name="getting-started">
         <doc:heading>Getting Started</doc:heading>
-        
+
         <p>
           To develop a RabbitMQ plugin, a working RabbitMQ development environment
           first needs to be configured. An &quot;umbrella&quot; project is now
@@ -91,7 +91,8 @@
           </li>
           <li>
             Checkout the sub-projects into the Umbrella:
-            <pre class="sourcecode">$ make co</pre>
+            <pre class="sourcecode">$ cd rabbitmq-public-umbrella
+$ make co</pre>
           </li>
           <li>
             Build all the components under the Umbrella to ensure that your environment is functional:
@@ -102,17 +103,24 @@
 
       <doc:section name="installing-plugins-during-development">
         <doc:heading>Installing plugins during development</doc:heading>
-        
+
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
           is made, plugins can be operated in a development-style mode to make it possible to develop plugins
           in place.
         </p>
         <p>
-          To use a plugin in a development environment, create a symlink for the plugin development directory
-          in the rabbitmq-server/plugins directory. For example, to install a development build of the rabbitmq-bql plugin:
-          <pre class="sourcecode">$ cd rabbitmq-server/plugins
-$ ln -s ../../rabbitmq-bql rabbitmq-bql</pre>
+          To activate a plugin in a development environment, create a
+          symlink for the plugin development directory in the
+          rabbitmq-server/plugins directory (you will have to create
+          that directory if it does not exist already). For example,
+          to activate a development build of
+          the rabbitmq-shovel plugin and
+          its dependencies:
+          <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
+$ cd rabbitmq-server/plugins
+$ ln -s ../../rabbitmq-erlang-client
+$ ln -s ../../rabbitmq-shovel
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
@@ -121,13 +129,13 @@ $ ln -s ../../rabbitmq-bql rabbitmq-bql</pre>
 
       <doc:section name="plugin-quality-tips">
         <doc:heading>Plugin Quality Tips</doc:heading>
-        
+
         <p>
           As highlighted in the Administration Guide, badly-written plugins can pose a risk to the stability of the
           broker. The following tips aim to provide a series of best-practices for ensuring that your plugin
           can safely co-exist with Rabbit.
         </p>
-        
+
         <ul>
           <li>
             Always install a Supervisor above your application. You should never start your application directly,
@@ -193,10 +201,10 @@ $ mkdir src</pre>
 
 -export([start/0, stop/0, start/2, stop/1]).
 
-start() -> 
+start() ->
     rabbit_metronome_sup:start_link(), ok.
 
-stop() -> 
+stop() ->
     ok.
 
 start(normal, []) ->
@@ -274,7 +282,7 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       Properties = #'P_basic'{content_type = &lt;&lt;"text/plain">>, delivery_mode = 1},
       {Date={Year,Month,Day},{Hour, Min,Sec}} = erlang:universaltime(),
       DayOfWeek = calendar:day_of_the_week(Date),
-      RoutingKey = list_to_binary(io_lib:format(?RKFormat, [Year, Month, Day, 
+      RoutingKey = list_to_binary(io_lib:format(?RKFormat, [Year, Month, Day,
                                                             DayOfWeek, Hour, Min, Sec])),
       Message = RoutingKey,
       BasicPublish = #'basic.publish'{exchange = &lt;&lt;"metronome">>,
@@ -288,22 +296,22 @@ handle_call(Msg,_From,State = #state{channel = Channel}) ->
       {reply, unknown_command, State}
   end.
 
-handle_cast(_,State) -> 
+handle_cast(_,State) ->
     {noreply,State}.
 
-handle_info(_Info, State) -> 
+handle_info(_Info, State) ->
     {noreply, State}.
 
-terminate(_,#state{channel = Channel}) -> 
+terminate(_,#state{channel = Channel}) ->
     amqp_channel:call(Channel, #'channel.close'{}),
     ok.
 
-code_change(_OldVsn, State, _Extra) -> 
+code_change(_OldVsn, State, _Extra) ->
     {ok, State}.</pre>
           </li>
           <li>
             Run make to build your application:
-            <pre class="sourcecode">make</pre>
+            <pre class="sourcecode">$ make</pre>
             Note: If you receive an error similar to:
             <pre class="sourcecode">src/rabbit_metronome_worker.erl:8: can't find include file "rabbit_framing.hrl"
 src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
@@ -311,14 +319,15 @@ src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
           </li>
           <li>
             Next, associate your plugin (and its dependencies) with the server:
-            <pre class="sourcecode">cd ../rabbitmq-server/plugins
-ln -s ../../rabbitmq-erlang-client
-ln -s ../../rabbit_metronome
-cd ..</pre>
+            <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
+$ cd ../rabbitmq-server/plugins
+$ ln -s ../../rabbitmq-erlang-client
+$ ln -s ../../rabbit_metronome
+$ cd ..
           </li>
           <li>
             Start up your Rabbit broker:
-            <pre class="sourcecode">make run</pre>
+            <pre class="sourcecode">$ make run</pre>
           </li>
           <li>
             To ensure that your new plugin is up and running, execute the following in the Erlang shell
@@ -331,7 +340,7 @@ cd ..</pre>
 
         <doc:subsection name="testing">
           <doc:heading>Testing Your Plugin</doc:heading>
-          
+
          <p>
            One of the key challenges in developing a plugin is often finding an appropriate (and manageable)
            way of testing it. Alongside the standard build targets, the include.mk file defines
@@ -341,7 +350,7 @@ cd ..</pre>
          <ul>
            <li>
              To begin with testing your plugin, create a test/ subdirectory to contain your test code:
-             <pre class="sourcecode">mkdir test</pre>
+             <pre class="sourcecode">$ mkdir test</pre>
            </li>
            <li>
              Create some test cases for your plugin (for this example, create the file test/rabbit_metronome_tests.erl):
@@ -380,7 +389,7 @@ START_RABBIT_IN_TESTS=true</pre>
            </li>
            <li>
              You can now run your tests by issuing:
-             <pre class="sourcecode">make test</pre>
+             <pre class="sourcecode">$ make test</pre>
            </li>
          </ul>
         </doc:subsection>
@@ -394,7 +403,7 @@ START_RABBIT_IN_TESTS=true</pre>
             As detailed in the Administration Guide, Rabbit supports plugins installed as .ez archives
             in the plugins/ directory. The standard include.mk file includes a default packaging goal, which
             can be invoked with:
-            <pre class="sourcecode">make package</pre>
+            <pre class="sourcecode">$ make package</pre>
             And will produce an archive under the dist directory.
           </p>
         </doc:subsection>

@@ -29,7 +29,7 @@
         <p>
           The <code>rabbitmq-service.bat</code> batch script in the
           <code>sbin</code> folder is used to manage the RabbitMQ broker 
-          when running as a service. See the <a href="/rabbitmq-service.man.html"><code>rabbit-service.bat</code> documentation</a> for more information.
+          when running as a service. See the <a href="man/rabbitmq-service.man.html"><code>rabbit-service.bat</code> documentation</a> for more information.
         </p>
       </doc:section>
 

@@ -13,7 +13,80 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->   
+
+      <doc:item>
+	<doc:date iso="2010-07-15T00:00:00Z">15 July 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 1.8.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html</doc:link>
+	
+	<doc:text>
+	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.8.1.</p>
+
+          <p>This release of RabbitMQ can now be compiled with Erlang
+          R14A. This is expected to bring relief for MacPorts users and
+          Debian (unstable) users who build from source. Administration
+          tools are now easier to use on MacPorts. Further enhancements
+          include the ability to observe channel.flow events from the
+          Java API and clustering usability improvements.</p>
+
+	  <p>For details see 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html">the release notes</a>.</p>
+
+	  <p>Binary and source distributions of the new release can be found in the 
+	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+
+	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
+	  this latest release.</p>
+
+	  <p>As always, we welcome any questions, bug reports, and other feedback
+	  on this release, as well as general suggestions for features and
+	  enhancements in future releases. Mail us via the RabbitMQ discussion
+	  list at <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
+	  or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
+
+	</doc:text>
+      </doc:item>
       
+      <doc:item>
+	<doc:date iso="2010-06-16T00:00:00Z">16 June 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 1.8.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html</doc:link>
+	
+	<doc:text>
+	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.8.0.</p>
+
+          <p>This release introduces several APIs to extend Rabbit in
+          a pluggable way, first with pluggable exchange types, and
+          then with pluggable backing queues. Other improvements
+          include optimisations for cross-node routing within a
+          cluster, and more rigorous enforcement of channel.flow to
+          ensure that Rabbit can stop producers who are failing to
+          obey the instruction to stop sending messages to Rabbit when
+          Rabbit comes under memory pressure.</p>
+
+	  <p>For details see 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html">the release notes</a>.</p>
+
+	  <p>Binary and source distributions of the new release can be found in the 
+	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
+
+	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
+	  this latest release.</p>
+
+	  <p>As always, we welcome any questions, bug reports, and other feedback
+	  on this release, as well as general suggestions for features and
+	  enhancements in future releases. Mail us via the RabbitMQ discussion
+	  list at <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
+	  or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
+
+	</doc:text>
+      </doc:item>
       
       <doc:item>
 	<doc:date iso="2010-04-13T00:00:00Z">13 April 2010</doc:date>
@@ -283,7 +356,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
    RabbitMQ provides VMware users with a reliable cloud bus based on open AMQP messaging
 	</doc:title>
 
-	<doc:link>http://www.vmware.com/appliances/directory/291843</doc:link>
+	<doc:link>http://www.vmware.com/appliances/</doc:link>
 
 	<doc:text>
 <p>We are delighted to be providing RabbitMQ open messaging to support the
@@ -299,7 +372,7 @@ is a natural extension.  RabbitMQ has an open source license making it ideal
 for elastic deployments, and for integration in platforms such as Spring and
 Ruby on Rails.</p>
 
-	<p>The virtual appliance is available to download for free from the <a href="http://www.vmware.com/appliances/directory/291843">VMware virtual appliance marketplace</a>.</p>
+	<p>The virtual appliance is available to download for free from the <a href="http://www.vmware.com/appliances/">VMware virtual appliance marketplace</a>.</p>
 
 	</doc:text>
       </doc:item>              
@@ -544,14 +617,14 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:title>
 	  The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.3.
 	</doc:title>
-	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003479.html</doc:link>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003089.html</doc:link>
 	<doc:text>
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.3.</p>
 
 	  <p>This release has 'final' status and fixes a number of bugs in the
 	  server, the Java client, the .net client, and the Debian/RPM packaging.</p>
 
-	  <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003479.html">release notes</a>.</p>
+	  <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-February/003089.html">release notes</a>.</p>
 
 	  <p>Binary and source distributions of the new release can be found in the
 	  usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
@@ -572,7 +645,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:title>
 	  The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.1.
 	</doc:title>
-	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-January/003056.html</doc:link>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-January/002668.html</doc:link>
 	<doc:text>
 
 
@@ -581,7 +654,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	  <p>This release has 'final' status and fixes a number of bugs in the
 	  server, the .net client, and the Debian/RPM packaging.</p>
 
-	  <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-January/003056.html">release notes</a>.</p>
+	  <p>For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2009-January/002668.html">release notes</a>.</p>
 
 	  <p>Binary and source distributions of the new release can be found in the
 	  usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
@@ -604,7 +677,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:title>
 	  The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.0.
 	</doc:title>
-	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-December/002682.html</doc:link>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-December/002295.html</doc:link>
 	<doc:text>
 
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.0.</p>
@@ -645,7 +718,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:title>
 	  RabbitMQ talk this Thursday 16th in London
 	</doc:title>
-	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-October/002103.html</doc:link>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-October/001722.html</doc:link>
 	<doc:text>
 
 	  There is a talk on RabbitMQ this Thursday October 16th. The agenda will be:
@@ -669,7 +742,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:title>
 	  RabbitMQ Tech Talk at Google London 
 	</doc:title>
-	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-September/002040.html</doc:link>
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-September/001659.html</doc:link>
 	<doc:text>
 	  <p>
 	    Matthias Radestock (LShift TD), Tony Garnock-Jones (LShift Senior Developer) and Alexis Richardson (CohesiveFT CEO) spoke at the Google London meeting.

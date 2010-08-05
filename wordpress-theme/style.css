@@ -1,0 +1,34 @@
+/*
+Theme Name: RabbitMQ.
+Theme URI: http://wordpress.org/
+Description: RabbitMQ.
+Version: 1.6
+Author: Simon MacMullen
+*/
+
+#sidebar {
+  border-left: 1px solid #E4E4E4;
+  width: 250px;
+  padding-left: 10px;
+  float: right;
+}
+
+#sidebar input#s {
+  width: 150px;
+  border: 1px solid #E4E4E4;
+}
+
+#sidebar input#searchsubmit {
+  border: 1px solid #E4E4E4;
+  background: #E4E4E4;
+  float: right;
+}
+
+#sidebar ul li {
+  background: none;
+}
+
+#content {
+  width: 650px;
+}
+

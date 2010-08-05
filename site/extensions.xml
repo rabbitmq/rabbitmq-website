@@ -17,6 +17,50 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
       
+      <doc:section name="queue-leases">
+        <doc:heading>Queue Leases</doc:heading>
+
+        <p>
+          The <code>x-expires</code> argument to
+          <code>queue.declare</code> controls for how long a queue can
+          be unused before it is automatically
+          deleted. <em>Unused</em> means the queue has no consumers,
+          and no consumer related operations (<code>basic.get</code> or
+          <code>basic.cancel</code>) have occurred for
+          a duration of at least the expiration period. This can be
+          used, for example, for RPC-style reply queues, where many
+          queues can be created which may never be drained.
+        </p>
+
+        <p>
+          The server guarantees that the queue will be deleted, if
+          unused for at least the expiration period. No guarantee is
+          given as to how promptly the queue will be removed after the
+          expiration period has elapsed.
+        </p>
+
+        <p>
+          The value of the <code>x-expires</code> argument must be a
+          <code>long</code> integer, greater than zero, describing the
+          expiration period in milliseconds. Thus a value of 1000L means
+          a queue which is unused for 1 second will be deleted.
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+
+          <p>
+            This example in Java creates a queue which expires after
+            it has been unused for 30 minutes.
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-expires", 1800000L);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </doc:subsection>
+
+      </doc:section>
+
       <doc:section name="alternate-exchange">
         <doc:heading>Alternate Exchanges</doc:heading>
         
@@ -58,7 +102,7 @@
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("alternate-exchange", "my-ae");
-channel.exchangeDeclare("my-direct", "direct", false, false, false, args);
+channel.exchangeDeclare("my-direct", "direct", false, false, args);
 channel.exchangeDeclare("my-ae", "fanout");
 channel.queueDeclare("routed");
 channel.queueBind("routed", "my-direct", "key1");
@@ -142,14 +186,27 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
         -->
 
         <p>
-          In older versions of the RabbitMQ server it was possible for
-          clients to attempt to store so many messages within the
-          server that it outgrew the available memory. With the
-          current release, the RabbitMQ server detects the total
-          amount of RAM installed in the computer on startup. By
-          default, when the RabbitMQ server uses above 40% of the
-          installed RAM, it throttles publishers with the
-          <code>channel.flow</code> AMQP command.
+          The RabbitMQ server detects the total amount of RAM
+          installed in the computer on startup. By default, when the
+          RabbitMQ server uses above 40% of the installed RAM, it
+          throttles publishers with the <code>channel.flow</code> AMQP
+          command.
+        </p>
+
+        <p>
+          Starting with the 1.8.0 release of the RabbitMQ server,
+          clients which are sent <code>channel.flow</code> messages
+          are required to respond within 10 seconds with a
+          corresponding <code>channel.flow_ok</code> message. If they
+          do not, a channel exception is raised and the channel is
+          closed. Messages that the client publishes after receiving a
+          <code>channel.flow{active=false}</code> and before sending
+          the corresponding
+          <code>channel.flow_ok{active=false}</code>, are accepted
+          normally. If a client publishes a message after sending the
+          <code>channel.flow_ok{active=false}</code> then a
+          command-invalid exception is raised, and the connection is
+          closed.
         </p>
 
         <p>

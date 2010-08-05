@@ -41,9 +41,9 @@
 
 	  <ul>
 	    <li>
-	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R12B-5 on
-	      Windows, which can be downloaded from <a
+	      Install a recent version of Erlang/OTP. Versions R12B-3
+	      and higher should work; we usually test against Erlang
+	      R12B-5 on Windows, which can be downloaded from <a
 	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
 	    </li>
 	    <li>
@@ -143,23 +143,19 @@
 		  Defaults to <code>5672</code>.
 		</dd>
 
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq_cluster.config</code>. If
-		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
-		  href="clustering.html">clustering guide</a> for
-		  details.
-		</dd>
 		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
 		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If
-		  this file is present it is used by the server to
-		  configure RabbitMQ application components. Note that
-		  the .config extension is automatically appended by
-		  the Erlang runtime.
+		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If this file
+		  is present it is used by the server to configure
+		  RabbitMQ application components. Note that the
+		  .config extension is automatically appended by the
+		  Erlang runtime. See the section on <a
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
+		  href="clustering.html">clustering guide</a> for
+		  details.
 		</dd>
 	      </dl>
 	    </li>
@@ -184,7 +180,7 @@
 	    that the RabbitMQ broker has been started successfully. To
 	    shut down the server, close the shell
 	    window. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
 
@@ -336,8 +332,8 @@
               Install the rabbitmq-server package from your chosen
               distribution - at the time of writing, RabbitMQ is
               included in Debian unstable (sid), Debian testing
-              (squeeze), Ubuntu 9.04 (Jaunty Jackalope), and the
-              upcoming Ubuntu 9.10 (Karmic Koala).
+              (squeeze), and Ubuntu 9.04 (Jaunty Jackalope) and
+              onwards.
             </li>
             <li>
               Alternatively, install
@@ -354,10 +350,11 @@
 	      To adjust the settings used for starting the server,
 	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
-	      href="#generic-unix">Generic Unix</a> section below. You
-	      can additionally set <code>NODE_COUNT</code> in 
-	      <code>/etc/default/rabbitmq</code> to define
-	      <a href="clustering.html#single-machine">the number of
+	      href="#generic-unix">Generic Unix</a> section below (but
+	      dropping the RABBITMQ_ prefix). You can additionally set
+	      <code>NODE_COUNT</code> in
+	      <code>/etc/default/rabbitmq</code> to define <a
+	      href="clustering.html#single-machine">the number of
 	      nodes to run on a single machine</a>.
 	    </li>
 	  </ul>
@@ -408,17 +405,7 @@
 	    <code>logrotate</code> will handle files located in default
 	    <code>/var/log/rabbitmq</code> directory. See
 	    <code>/etc/logrotate.d/rabbitmq-server</code> for default
-	    <code>logrotate</code> configuration file. 
-	  </p>
-	</doc:subsection>
-	
-	<doc:subsection name="configfile-debian">
-	  <doc:heading>Configuration File</doc:heading>
-	  <p>
-	    The server configuration file (rabbitmq.config) should be created
-	    at /etc/rabbitmq/rabbitmq.config. For details of the contents
-	    of this file, see the 
-	    <a href="#configfile-general">Config File Contents</a> section.
+	    <code>logrotate</code> configuration file.
 	  </p>
 	</doc:subsection>
       </doc:section>
@@ -619,23 +606,19 @@
 		<dd>
 		  Defaults to <code>5672</code>.
 		</dd>
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to
-		  <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. If
-		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
-		  href="clustering.html">clustering guide</a>
-		  for details.
-		</dd>
+
 		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
-		  Defaults to
-		  <code>/etc/rabbitmq/rabbitmq</code>. If
+		  Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
 		  this file is present it is used by the server to
 		  configure RabbitMQ application components. Note that
 		  the .config extension is automatically appended by
-		  the Erlang runtime.
+		  the Erlang runtime. See the section on <a
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
+		  href="clustering.html">clustering guide</a> for
+		  details.
 		</dd>
 	      </dl>
 	    </li>
@@ -652,7 +635,7 @@
 	    running", indicating that the RabbitMQ broker has been
 	    started successfully. To shut down the server just
 	    terminate the process. Alternatively, use the <a
-	    href="rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	  <p>
 	    You can also start the server in "detached" mode with
@@ -732,7 +715,6 @@
 	
 	<p>
 	  If all of the above fails, report the problem to <a
-	  onClick="javascript: pageTracker._trackPageview('mailto:support@rabbitmq.com-install');" 
 	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
 	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
 	  your report.
@@ -759,7 +741,16 @@
             <li><b>Generic UNIX</b> - /etc/rabbitmq/rabbitmq.config</li>
           </ul>
       	</p>
-	        <p>
+        <p>
+          Note that this file is not the same as the
+          <code>rabbitmq.conf</code> mentioned elsewhere -
+          <code>rabbitmq.conf</code> can be used to set the environment
+          variables mentioned on this page, while
+          <code>rabbitmq.config</code> contains an Erlang term. A
+          future release of RabbitMQ will unify the two configuration
+          mechanisms.
+        </p>
+	    <p>
           Note that this file may not be created by default. If needed, it can be created manually. The
           location can also be overidden via the <b>RABBITMQ_CONFIG_FILE</b> environment variable. Note
           that the property value should not include the .config extension - this is automatically appended

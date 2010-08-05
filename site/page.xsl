@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
-
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
@@ -28,10 +26,17 @@
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0" />
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
       <script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-1001800-1");
-pageTracker._trackPageview();
+try{
+ var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1001800-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}catch(err){};
       </script>
     </xsl:copy>
   </xsl:template>
@@ -44,6 +49,7 @@ pageTracker._trackPageview();
 	<xsl:call-template name="page-footer"/>
       </div>
     </xsl:copy>
+    <script type="text/javascript" src="/site.js" />
   </xsl:template>
 
   <xsl:template match="table">
@@ -70,6 +76,7 @@ pageTracker._trackPageview();
       <li><a href="/community.html">Community</a></li>
       <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
+      <!--<li><a href="/blog/">Blog</a></li>-->
       <li><a href="/search.html">Search</a></li>
     </ul>
     <hr class="pad" />
@@ -274,17 +281,16 @@ Technologies Ltd.</p></div>
     <tr>
       <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
       <td>
-        <a class="adownload" onClick="javascript: pageTracker._trackPageview('releases/{@downloadpath}/{@downloadfile}');" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
       <xsl:if test="../@mirror = 'yes'">
           <td class="mirror">
-              <a onClick="javascript: pageTracker._trackPageview('http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}');"
-                href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
+              <a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
           </td>
       </xsl:if>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
-            <a onClick="javascript: pageTracker._trackPageview('{@downloadpath}/{@downloadfile}.asc');" href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+            <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
          </td>
       </xsl:if>
     </tr>
@@ -327,8 +333,21 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-  
-  
+
+  <xsl:template match="r:repository[@type = 'github']">
+    <tr>
+      <td>
+	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+      </td>
+      <td>
+	<code>git clone <xsl:value-of select="@url"/>.git</code>
+      </td>
+      <td>
+	<a class="arepo" href="{@url}">Browse source</a>
+      </td>
+    </tr>
+  </xsl:template>
+
   <!-- ############################################################ -->
   
   <xsl:template match="r:classes">
@@ -392,6 +411,7 @@ Technologies Ltd.</p></div>
 	<th>Current Status</th>
 	<th>Type</th>
 	<th>Actor</th>
+	<th>Reference</th>
 	<th>Text</th>
       </tr>
       <xsl:apply-templates/>
@@ -405,11 +425,9 @@ Technologies Ltd.</p></div>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
+      <td><xsl:value-of select="r:xref"/></td>
       <td>
 	<div>
-	  <xsl:if test="normalize-space(r:xref)">
-	    <xsl:value-of select="normalize-space(r:xref)"/>:
-	  </xsl:if>
 	  <xsl:if test="normalize-space(r:context)">
 	    <xsl:value-of select="normalize-space(r:context)"/>:
 	  </xsl:if>

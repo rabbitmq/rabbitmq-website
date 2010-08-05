@@ -1,35 +1,18 @@
 #!/bin/sh
- 
-set -e
-cd `dirname $0`
 
-# Which user to mirror feeds as?  Default to the rabbitmq user, who by
-# convention owns the release deliverables dir.
-mirror_user=rabbitmq
-if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
-    # Otherwise, try the user running sudo deploy
-    mirror_user="$SUDO_USER"
-    if ! id -u "$mirror_user" 2>&1 >/dev/null ; then
-        echo "Not sure which user to mirror feeds as" 1>&2
-        exit 1
-    fi
+set -e
+
+remote_host=$1
+
+if [ x"$remote_host" = x ] ; then
+    echo 'Usage: deploy <host to deploy to>'
 fi
 
-echo "Feeds will be mirrored by the user $mirror_user" 1>&2
+echo Deploying to $remote_host
 
-# Find the corresponding group
-mirror_group=$(id -ng $mirror_user)
+tmp_dir=$(ssh $remote_host mktemp -d)
 
-xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+scp -r -q code conf site wordpress-theme $remote_host:$tmp_dir
+ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
+ssh $remote_host rm -rf $tmp_dir
 
-site_dir=/srv/www.rabbitmq.com
-rm -rf $site_dir/site $site_dir/code
-mkdir -p $site_dir $site_dir/feeds
-chown -R $mirror_user.$mirror_group $site_dir/feeds
-cp -r site code $site_dir
-ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/rabbitmq*.man.xml $site_dir/site
-
-cp conf/www.rabbitmq.com /etc/apache2/sites-available/
-a2ensite www.rabbitmq.com
-/etc/init.d/apache2 restart
-sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
