@@ -61,7 +61,7 @@ loadable .ez archive.
     </p>
 
     <r:downloads>
-      <r:download downloadfile="amqp_erlang-&version-erlang-client;.ez"
+      <r:download downloadfile="amqp_client-&version-erlang-client;.ez"
 		  downloadpath="&dir-erlang-client;">
 	AMQP client library binary archive (loadable .ez archive)
       </r:download>
@@ -69,7 +69,7 @@ loadable .ez archive.
 		  downloadpath="&dir-erlang-client;">
 	RabbitMQ common library bundle (loadable .ez archive)
       </r:download>
-      <r:download downloadfile="amqp_erlang-&version-erlang-client;-src.tar.gz"
+      <r:download downloadfile="amqp_client-&version-erlang-client;-src.tar.gz"
 		  downloadpath="&dir-erlang-client;">
 	Source code and tests (tar.gz)
       </r:download>
