@@ -138,7 +138,7 @@
 	<doc:heading>Point to Point</doc:heading>
 	<p>
 	  <a
-	  href="http://www.tibco.com/software/messaging/rendezvous/default.jsp">Tibco
+	  href="http://www.tibco.com/products/soa/messaging/rendezvous/default.jsp">Tibco
 	  Rendezvous</a> is a commonly used messaging product because
 	  its multicast based implementation leads to high through-put
 	  publish-subscribe solutions, e.g. for sending prices to

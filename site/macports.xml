@@ -1,0 +1,60 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - MacPorts</title>
+  </head>
+  <body>
+    <p class="intro">
+      This page describes how to use the rabbitmq.com MacPorts
+      repository to install the latest server release.
+    </p>
+      
+    <p>
+      When a new version of the RabbitMQ server is released, it can
+      take some time for the version included in the main collection
+      of MacPorts packages to be updated.  So we provide a
+      special-purpose MacPorts repository to give OS X users easy
+      access to the very latest release of the RabbitMQ server.
+    </p>
+    
+    <p>
+      Once you have installed MacPorts, enable the rabbitmq.com
+      repository as follows:
+    </p>
+    
+    <ol>
+      <li>Open <code>/opt/local/etc/macports/sources.conf</code>
+      in a text editor, and add the following <code>http:</code> URL
+      before the existing <code>rsync:</code> URL like so:
+      
+      <pre class="sourcecode">http://www.rabbitmq.com/releases/macports
+rsync://rsync.macports.org/release/ports/ [default]</pre></li>
+      
+      <li>Use the following command to cause MacPorts to retrieve
+      the package indices from the newly-added repository:
+      
+      <pre class="sourcecode">sudo port sync</pre></li>
+        
+      <li>If the rabbitmq.com repository has a newer version of
+      the RabbitMQ server than the main MacPorts one, this should
+      now be visible when in the results of the <code>port
+      search</code> command:
+      
+      <pre class="sourcecode">sudo port search rabbitmq-server</pre>
+      
+      <p>Which, for example, might produce:</p>
+
+      <pre class="sourcecode">rabbitmq-server @1.7.0 (net)
+    The RabbitMQ AMQP Server
+
+rabbitmq-server @1.7.1 (net)
+    The RabbitMQ AMQP Server
+
+Found 2 ports.</pre></li>
+
+      <li>Following the <a href="install.html#install-macports">usual
+      installation process</a> will now install the latest release of
+      the RabbitMQ server.</li>
+    </ol>
+  </body>
+</html>

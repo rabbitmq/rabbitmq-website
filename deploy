@@ -1,16 +1,18 @@
 #!/bin/sh
- 
+
 set -e
-cd `dirname $0`
 
-xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+remote_host=$1
 
-rm -rf /srv/www.rabbitmq.com
-mkdir -p /srv/www.rabbitmq.com
-cp -r site /srv/www.rabbitmq.com
-cp -r code /srv/www.rabbitmq.com
+if [ x"$remote_host" = x ] ; then
+    echo 'Usage: deploy <host to deploy to>'
+fi
 
-cp conf/www.rabbitmq.com /etc/apache2/sites-available/
-a2ensite www.rabbitmq.com
-/etc/init.d/apache2 restart
+echo Deploying to $remote_host
+
+tmp_dir=$(ssh $remote_host mktemp -d)
+
+scp -r -q code conf site wordpress-theme $remote_host:$tmp_dir
+ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
+ssh $remote_host rm -rf $tmp_dir
 

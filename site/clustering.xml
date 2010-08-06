@@ -38,7 +38,7 @@
           The composition of a cluster can be altered dynamically.
           All RabbitMQ brokers start out as running on a single
           node. These nodes can be joined into clusters, and
-          subequently turned back into individual brokers again.
+          subsequently turned back into individual brokers again.
         </p>
         <p>
           RabbitMQ brokers tolerate the failure of individual
@@ -135,21 +135,21 @@ rabbit3$ <i>rabbitmq-server -detached</i></pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1]}]},
  {running_nodes,[rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2]},
+ {nodes,[{disc,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3]}]
-done.</pre>
+...done.</pre>
 
         </doc:subsection>
 
@@ -186,15 +186,16 @@ Starting node rabbit@rabbit2 ...done.</pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-done.</pre>
+...done.
+</pre>
           <p>
             Now we join <code>rabbit@rabbit3</code> as a disk node to
             the same cluster. The steps are identical to the ones
@@ -224,24 +225,31 @@ Starting node rabbit@rabbit3 ...done.</pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-done.</pre>
+...done.</pre>
           <p>
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
+          </p>
+          <p>
+            <strong>Note</strong> For the <code>rabbitmqctl
+            cluster</code> command to succeed, the target nodes need
+            to be active.  It is possible to cluster with offline
+            nodes; for this purpose, use the <code>rabbitmqctl
+            force_cluster</code> command.
           </p>
         </doc:subsection>
 
@@ -304,23 +312,23 @@ Stopping and halting node rabbit@rabbit1 ...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2]}]
-done.</pre>
+...done.</pre>
           <p>
             Now we start the nodes again, checking on the cluster
             status as we go along:
@@ -330,34 +338,34 @@ rabbit1$ <i>rabbitmq-server -detached</i>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmq-server -detached</i>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
-done.
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-done.</pre>
+...done.</pre>
           <p>
             There are some important caveats:
           </p>
@@ -420,21 +428,22 @@ Starting node rabbit@rabbit3 ...done.</pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3]}]
-done.</pre>
+...done.
+</pre>
           <p>
             Now we remove <code>rabbit@rabbit1</code> from the
             cluster. The steps are identical to the ones above.
@@ -454,21 +463,21 @@ Starting node rabbit@rabbit1 ...done.</pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit1]},
+ {nodes,[{disc,[rabbit@rabbit1]}]},
  {running_nodes,[rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit2]},
+ {nodes,[{disc,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3]}]
-done.</pre>
+...done.</pre>
           <p>
             Note that <code>rabbit@rabbit2</code> retains the residual
             state of the cluster, whereas <code>rabbit@rabbit1</code>
@@ -511,25 +520,26 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up
-            via a default cluster configuration file, the location of
-            which is determined by the startup scripts; see the <a
+            via the RabbitMQ config file, the location of which is
+            determined by the startup scripts; see the <a
             href="install.html">installation guide</a> for
-            details. The file should contain a list of cluster nodes.
+            details. The file should set the cluster_nodes field in
+            the rabbit application to a list of cluster nodes.
           </p>
           <p>
-            Listing cluster nodes in that file has the same effect as
-            using the <code>cluster</code> command. However, the latter
-            takes precedence over the former, i.e. the default cluster
-            configuration file is ignored subsequent to any successful
-            invocation of the <code>cluster</code> command, until the
-            node is <code>reset</code>.
+            Listing cluster nodes this way has the same effect as
+            using the <code>cluster</code> command. However, the
+            latter takes precedence over the former, i.e. the default
+            cluster configuration is ignored subsequent to any
+            successful invocation of the <code>cluster</code> command,
+            until the node is <code>reset</code>.
           </p>
           <p>
-            A common use of the default cluster configuration file is
-            to automatically configure nodes to join a common
-            cluster. For this purpose the same configuration file can
-            be installed on all nodes, containing a list of potential
-            disk nodes for the cluster.
+            A common use of cluster configuration via the RabbitMQ
+            config file is to automatically configure nodes to join a
+            common cluster. For this purpose the same configuration
+            can be set on all nodes, thus specifing the potential disk
+            nodes for the cluster.
           </p>
           <p>
             Say we want to join our three separate nodes of our
@@ -560,17 +570,39 @@ Resetting node rabbit@rabbit3 ...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <p>
-            Now we create a configuration file containing the
-            line
+            Now we set the relevant field in the config file:
           </p>
-          <pre class="sourcecode">[rabbit@rabbit1, rabbit@rabbit2].</pre>
+          <pre class="sourcecode">[
+  ...
+  {rabbit, [
+        ...
+  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+        ...
+  ]},
+  ...
+].</pre>
           <p>
-            We copy this file onto all machines and install it in the
-            location as defined in the start up files (see the <a
-            href="install.html">installation guide</a>). For example,
-            on a Unix system the file would typically have the path
-            <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. Now we
-            simply start the nodes.
+            For instance, if this were the only field we needed to set, we would simply create the RabbitMQ config file with the contents:
+          </p>
+          <pre class="sourcecode">[
+  {rabbit, [
+  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+  ]},
+].</pre>
+          <p>
+            (Note for Erlang programmers and the curious: this is a
+            standard Erlang configuration file.  For more details, see
+            the <a
+            href="http://www.rabbitmq.com/install.html#configfile">Configuration
+            File</a> section of the installation instructions and the
+            <a href="http://www.erlang.org/doc/man/config.html">Erlang
+            Config Man Page</a>.)
+          </p>
+          <p>
+            We set this field in the config file on all machines.  For
+            example, on a Unix system the file would typically have
+            the path <code>/etc/rabbitmq/rabbitmq.config</code>. Now
+            we simply start the nodes.
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmq-server -detached</i>
@@ -584,21 +616,27 @@ rabbit3$ <i>rabbitmq-server -detached</i></pre>
 rabbit1$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit1 ...
 [...,
- {nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
-done.
+...done.
 rabbit2$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit2 ...
 [...,
- {nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
-done.
+...done.
 rabbit3$ <i>rabbitmqctl status</i>
 Status of node rabbit@rabbit3 ...
 [...,
- {nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]},
+ {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
-done.</pre>
+...done.</pre>
+        <p>
+          Note that, in order to remove a node from an auto-configured
+          cluster, it must first be removed from the rabbitmq.config
+          files of the other nodes in the cluster.  Only then, can it
+          be reset safely.
+        </p>
         </doc:subsection>
       </doc:section>
       <doc:section name="single-machine">

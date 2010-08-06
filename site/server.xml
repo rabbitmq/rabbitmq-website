@@ -7,11 +7,11 @@
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>RabbitMQ - AMQP server</title>
+    <title>RabbitMQ Server</title>
   </head>
   <body>
     <h2>
-      RabbitMQ AMQP server
+      RabbitMQ Server
     </h2>
 
     <p class="intro">
@@ -33,8 +33,9 @@
 
     <p>
       In order to compile or run the server, you will need to have
-      downloaded and installed Erlang. Your operating system may come
-      with a package for working with Erlang, or you may need to <a
+      downloaded and installed Erlang/OTP, version R12B-3 or
+      higher. Your operating system may come with a package for
+      working with Erlang, or you may need to <a
       href="http://www.erlang.org/download.html">download and install
       Erlang</a> yourself.
     </p>
@@ -49,7 +50,7 @@
       The current RabbitMQ release implements <a
       href="https://jira.amqp.org/confluence/display/AMQP/Download">AMQP
       protocol version 0-8</a>. Please see the <a
-      href="compatibility.html">compatibility</a> page for more
+      href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
     </p>
 
@@ -59,16 +60,16 @@
     </p>
 
     <h3>
-      Status
+      Version
     </h3>
 
     <p>
-      The current release of RabbitMQ AMQP Server is <b>
-      &version-server;</b>, which has <b>&status-server;</b> status.
+      The current release of the RabbitMQ Server is <b>
+      &version-server;</b>.
     </p>
 
     <h3>
-      Download the RabbitMQ AMQP Server
+      Download the RabbitMQ Server
     </h3>
 
     <p>
@@ -77,7 +78,7 @@
       variants can be found below the download table.
     </p>
 
-    <r:downloads>
+    <r:downloads mirror="yes" signature="yes">
       <r:download downloadfile="rabbitmq-server-&version-server;.zip"
                   downloadpath="&dir-server;">
 	Source code and tools (zip)
@@ -90,21 +91,13 @@
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.i386.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for Fedora Linux
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.x86_64.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for Fedora Linux (64-bit)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.i386.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
 		  downloadpath="&dir-server;">
 	Packaged as RPM for openSUSE Linux
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.x86_64.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for openSUSE Linux (64-bit)
       </r:download>
 
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
@@ -156,11 +149,11 @@
       the .deb file from the table above. It has been tested against
     </p>
     <ul class="compact">
-      <li><a href="http://www.debian.org/">Debian</a> 4.0 (Etch), 5.0
-      (Lenny), and testing (Squeeze)</li>
-      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 7.10 (Gutsy
-      Gibbon), 8.04 (Hardy Heron) and 8.10 (Intrepid Ibex) and 9.04
-      (Jaunty Jackalope)</li>
+      <li><a href="http://www.debian.org/">Debian</a> 5.0 (Lenny), and
+      testing (Squeeze)</li>
+      <li><a href="http://www.ubuntu.com/">Ubuntu</a> 8.10 (Intrepid
+      Ibex), 9.04 (Jaunty Jackalope), 9.10 (Karmic Koala) and 10.04
+      (Lucid Lynx)</li>
     </ul>
 
     <p>
@@ -183,34 +176,40 @@
     </p>
 
     <p>
-      The RPM files from the table above has been tested against
+      The Fedora RPM files from the table above have been tested against
     </p>
 
     <ul class="compact">
-      <li>
-	<a href="http://www.novell.com/products/server/">SLES</a> and
-	<a href="http://www.novell.com/products/realtime/">SLERT</a>
-	10 SP1 (openSUSE RPM)
-      </li>
-      <li><a href="http://www.opensuse.org/">openSUSE</a> 10.3</li>
-      <li><a href="http://fedoraproject.org/">Fedora</a> 9, 10 and 11</li>
-      <li><a href="http://www.redhat.com/rhel/">RHEL</a> 5.1 (Fedora RPM)</li>
-      <li><a href="http://www.centos.org/">CentOS</a> 5 (Fedora RPM)</li>
+      <li><a href="http://fedoraproject.org/">Fedora</a> 10, 11 and 12</li>
+      <li><a href="http://www.redhat.com/rhel/">RHEL</a> 5.5 (Fedora RPM)</li>
+      <li><a href="http://www.centos.org/">CentOS</a> 5.5 (Fedora RPM)</li>
     </ul>
 
     <p>
-      Our server RPM should be fairly universal - if you have success
-      using it with any other RPM-based distribution, please <a
-      href="mailto:support@rabbitmq.com">let us know</a>.
+      The openSUSE RPM files are intended for Novell's openSUSE Linux
+      and derived distributions (SLES and SLERT).  We haven't tested
+      these under recent releases, but expect that they work.
+    </p>
+
+    <p>
+      If you have success using our RPMs with any other RPM-based
+      distribution, please <a href="mailto:support@rabbitmq.com">let us know</a>.
     </p>
 
     <p>
       We strongly recommend using your distribution's packaged version
       of Erlang to run the server. This is part of Fedora, and in <a
-      href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> for RHEL. To
+      href="http://fedoraproject.org/wiki/EPEL">EPEL</a> for RHEL. To
       enable EPEL on your Red Hat machine, see the <a
       href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
       FAQ</a>. Then just <code>yum install erlang</code>.
+    </p>
+
+    <h4>Mac OS X</h4>
+
+    <p>
+      The easiest way to install the server on OS X is <a
+      href="macports.html">via MacPorts</a>.
     </p>
 
     <h4>Generic Unix</h4>
@@ -231,7 +230,7 @@
     
     <h3>Mercurial repositories</h3>
     <p>
-      The AMQP server itself, implemented in Erlang. Depends on the
+      The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>

@@ -27,8 +27,23 @@
         </p>
         <ul>
           <li>
-            Download the latest version of the rabbitmq-bql plugin from <a href="download.html#rabbitmq-bql">Download</a> page, 
-            and place the downloaded archive in the plugins/ subdirectory of your installed RabbitMQ instance.
+            Note that at this stage, the RabbitMQ BQL plugin has not been formally released, and must be built from source
+            before installation. To do this, complete the following steps:
+            <ul>
+              <li>
+                Setup a RabbitMQ plugin development environment by following the instructions at
+                <a href="plugin-development.html#getting-started">Plugin Development: Getting Started</a>.
+              </li>
+              <li>
+                Once the make operation has completed, the dist/
+                subdirectory of rabbitmq-bql (within the umbrella)
+                should contain a number of .ez files. Copy
+                amqp_client.ez and rabbitmq-bql.ez into the plugins/
+                subdirectory of your installed RabbitMQ instance (you
+                will have to create that directory if it does not
+                exist already).
+              </li>
+            </ul>
           </li>
           <li>
             Execute:
@@ -36,18 +51,44 @@
             to complete the installation of the plugin. Restart RabbitMQ once this has
             completed.
           </li>
+          <li>
+            As part of the BQL build process, rabbitmq-bql-client.zip will be produced. This contains the client used for
+            connecting to the BQL plugin. It is self-contained, and can be used on any machine with a functional Erlang runtime.
+            This client should be copied and unzipped on a suitable machine before proceeding. Note that it is perfectly valid to
+            run the client on the same machine as the Rabbit server; however in production scenarios it is recommended that the client
+            be run as a different user to the Rabbit server, simply to prevent mis-use of the Rabbit server account.
+          </li>
         </ul>
+      </doc:section>
+      
+      <doc:section name="server-config">
+        <doc:heading>Server Configuration</doc:heading>
+        <p>
+          In most scenarios, the BQL server plugin requires no configuration. However, if you've removed the default guest/guest user, 
+          then you'll need to configure the plugin to connect with different credentials. The BQL plugin requires a valid user to connect
+          to RabbitMQ internally to subscribe to the bql.query queue.
+        </p>
+        <p>
+          To set a custom username/password combination for the plugin to connect with, you'll need to add a <b>rabbitmq_bql</b> section to
+          your rabbitmq.config file. The location of this configuration file is documented on the <a href="install.html">installation page</a>
+          under the section relevant to your platform. A rabbitmq.config with an appropriate section would look like:
+          <pre class="sourcecode">[
+  {rabbitmq_bql, [
+    {user, "bql-user"},
+    {password, "bql-password"}
+  ]}
+].</pre>
+          You'll need to restart RabbitMQ after changing this configuration.
+        </p>
       </doc:section>
  
       <doc:section name="running">
-        <doc:heading>Running the Console</doc:heading>
+        <doc:heading>Running the Client</doc:heading>
         <p>
-          Once the plugin has been successfully activated, the bql launch script will be made
-          available in priv/plugins/rabbitmq-bql/scripts. This script should be executed as
-          the RabbitMQ user. (On Linux/UNIX platforms, this will generally be &quot;rabbitmq&quot;.).
-          For example, to run this on a Linux platform running rabbitmq-server 1.6.0, you would execute:
-          <pre class="sourcecode">$ cd /usr/lib/rabbitmq/lib/rabbitmq_server-1.6.0
-$ su - rabbitmq -s /bin/sh -c priv/plugins/rabbitmq-bql/scripts/bql
+          Within the client zip, the bql (or bql.bat) script can be executed. All configuration parameters have defaults that will
+          connect the client to a running Rabbit instance on the same host with default credentials.
+          For example, to run this on a Linux platform running rabbitmq-server, you would execute:
+          <pre class="sourcecode">$ ./bql
 BQL> </pre>
         </p>
         <p>
@@ -66,6 +107,44 @@ BQL> </pre>
 |                  | direct  | true    | false       |           |
 | bql.query        | direct  | true    | false       |           |</pre>
         </p>
+      </doc:section>
+
+      <doc:section name="configuring-client">
+        <doc:heading>Configuring the Client</doc:heading>
+        <p>
+          The client supports a number of configuration options to control the AMQP host and credentials used for the connection. This
+          section will discuss the various options, along with examples for their use.
+
+        </p>
+        <doc:subsection name="client-options">
+          <doc:heading>Client Options</doc:heading>
+          <p>
+            The supported options are:
+          </p>
+          <ul>
+            <li><b>-host</b> - configures the AMQP host to connect to. For example, -host myserver. Defaults to localhost</li>
+            <li><b>-port</b> - configures the AMQP port to connect to. For example, -port 1234. Defaults to 5672</li>
+            <li><b>-username</b> - configures the username to authenticate with. For example, -username foo. Defaults to guest</li>
+            <li><b>-password</b> - configures the password to authenticate with. For example, -password foo. Defaults to guest</li>
+            <li><b>-vhost</b> - configures the vhost to connect to an administer. For example, -vhost /myvhost. Defaults to /</li>
+            <li><b>-execute</b> - instructs the client to execute the BQL commands in the provided script and exit. For example, -execute mycommands.bql</li>
+          </ul>
+        </doc:subsection>
+        <doc:subsection name="client-option-usage">
+          <doc:heading>Option Examples</doc:heading>
+
+          <p>
+            The following illustrate examples of various connection scenarios for the BQL client and the options that can be
+            used to achieve them.
+          </p>
+          <ul>
+            <li><b>Connecting to a default-configured Rabbit on the same machine</b> <pre class="sourcecode">bql</pre></li>
+            <li><b>Connecting to a default-configured Rabbit on host myhost</b> <pre class="sourcecode">bql -host myhost</pre></li>
+            <li><b>Connecting to a Rabbit on host myhost using vhost /myvhost</b> <pre class="sourcecode">bql -host myhost -vhost /myvhost</pre></li>
+            <li><b>Connecting to a Rabbit on the same machine with alternate credentials</b> <pre class="sourcecode">bql -username foo -password fooword</pre></li>
+          </ul>
+        </doc:subsection>
+ 
       </doc:section>
 
       <doc:section name="commands">
@@ -392,8 +471,8 @@ empty</pre>
           <p>
             RabbitMQ manages permission by associating a set of regular expressions indicating
             the configurable, readable and writable objects against a user. For more explanation
-            on this topic, see the <a href="admin-guide.html#access-control">Access Control</a>
-            section of the Administration Guide.
+            on this topic, see the <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control</a>
+            section of the rabbitmqctl(1) manual page.
           </p>
 
           <doc:subsubsection name="permission-querying">
@@ -464,8 +543,8 @@ BQL></pre>
         </p>
         <p>
           A sample invocation of this script might be along the lines of:
-          <pre class="sourcecode">cd /usr/lib/rabbitmq/lib/rabbitmq_server-1.6.0
-su - rabbitmq -s /bin/sh -c priv/plugins/rabbitmq-bql/scripts/bql_dump</pre>
+          <pre class="sourcecode">cd rabbitmq-bql-client
+./bql_dump -host myrabbitserver</pre>
           And would produce output like:
           <pre class="sourcecode">create durable exchange 'testexchange';
 create durable queue 'testqueue';
@@ -491,6 +570,183 @@ create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre
           distributed and version controlled. Test environments can be used to test the application of these scripts,
           and "reverse patch" scripts can be maintained allowing a failed application installation to be reverted.
         </p>
+      </doc:section>
+
+      <doc:section name="securing-bql">
+        <doc:heading>Securing BQL Access</doc:heading>
+        
+        <doc:subsection name="bql-security-principles">
+          <doc:heading>Security Principles</doc:heading>
+          <p>
+            In general, BQL follows the general Rabbit security model. This includes managing access to queues and exchanges
+            via regular expressions (as discussed in the <a href="man/rabbitmqctl.1.man.html#Access%20control">access control</a> documentation).
+            However, given the ability for BQL to administer objects outside of the normal protocol remotely, there are a number of
+            additional security concerns that need to be considered. BQL introduces a number of additional security rules - these are
+            discussed in detail in the following section.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="bql-security-rules">
+          <doc:heading>Rules</doc:heading>
+          <ul>
+            <li>
+              To execute a BQL query, write access is required to the default exchange in the default vhost. Preventing a user from writing
+              to this exchange will prevent them from executing BQL queries.
+            </li>
+            <li>
+              Objects managed by BQL are separated into two categories. Protocol-manageable objects and non-protocol-manageable objects.
+              As RabbitMQ already has a defined security model for objects that can be managed via the protocol, the BQL console simply
+              follows standard security policy on these. For other objects that normally require tools outside of the AMQP protocol,
+              additional rules have been defined. The categorisation of these object types is as follows:
+              <table>
+                <th>Protocol Manageable Objects</th>
+                <th>Non-Protocol Manageable Objects</th>
+                <tr>
+                  <td>Exchange</td>
+                  <td>VHost</td>
+                </tr>
+                <tr>
+                  <td>Queue</td>
+                  <td>User</td>
+                </tr>
+                <tr>
+                  <td>Binding</td>
+                  <td>Permission</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Connection</td>
+                </tr>
+              </table>
+            </li>
+            <li>
+              For any query operations on protocol manageable objects, the connected user must have wildcard (.*)
+              read privileges on the owning vhost. The BQL client does not attempt to filter results, and instead provides an all-or-nothing
+              restriction model.
+            </li>
+            <li>
+              For non protocol manageable objects, BQL introduces the idea of treating the default vhost (/) as an administrative vhost. Privileges
+              to access internal broker objects are controlled via access to the administrative vhost.
+            </li>
+            <li>
+              For any query operations on non protocol manageable objects, wildcard read access is required on the administrative vhost. To update
+              any of these objects, wildcard configure access is required on the administrative vhost.
+            </li>
+          </ul>
+        </doc:subsection>
+        <doc:subsection name="bql-security-examples">
+           <doc:heading>Security Examples</doc:heading>
+           <p>
+             This section provides examples on various configuration scenarios that can be setup for securing broker access. All examples
+             assume that your broker starts in the initial state of having a single vhost, and admin/password as a "superuser". On a default
+             installation of Rabbit, the superuser would be guest/guest.
+           </p>
+           <ul>
+             <li>
+               <b>Additional user with readonly access to the broker</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo identified by fooword
+ok
+BQL> grant read on '.*' to foo
+ok
+BQL> exit
+
+$ ./bql -username foo -password fooword
+BQL> select * from exchanges
+-------------------------------------------------------------------
+| name              | type    | durable | auto_delete | arguments |
+-------------------------------------------------------------------
+| amq.direct        | direct  | true    | false       |           |
+| amq.topic         | topic   | true    | false       |           |
+| amq.rabbitmq.log  | topic   | true    | false       |           |
+| amq.fanout        | fanout  | true    | false       |           |
+| amq.headers       | headers | true    | false       |           |
+|                   | direct  | true    | false       |           |
+| amq.match         | headers | true    | false       |           |
+
+BQL> create user foo2 identified by foo2
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to configure on vhost / refused for user 'foo'",
+                    none}}
+BQL> exit</pre>
+             </li>
+             <li>
+               <b>Additional user with full BQL access only to a second vhost</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo2 identified by fooword2
+ok
+BQL> grant write on 'amq.default' to foo2
+ok
+BQL> create vhost '/subhost'
+ok
+BQL> exit
+
+$ ./bql  -username admin -password password -vhost /subhost
+BQL> grant all on '.*' to foo2
+ok
+BQL> exit
+
+$ ./bql -username foo2 -password fooword2
+BQL> select * from exchanges
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to read on vhost / refused for user 'foo2'",
+                    none}}
+BQL> exit
+
+$ ./bql -username foo2 -password fooword2 -vhost /subhost
+BQL> select * from exchanges
+-------------------------------------------------------------
+| name        | type    | durable | auto_delete | arguments |
+-------------------------------------------------------------
+| amq.topic   | topic   | true    | false       |           |
+| amq.fanout  | fanout  | true    | false       |           |
+| amq.direct  | direct  | true    | false       |           |
+| amq.headers | headers | true    | false       |           |
+|             | direct  | true    | false       |           |
+| amq.match   | headers | true    | false       |           |
+
+BQL> select * from users
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to read on vhost / refused for user 'foo2'",
+                    none}}
+
+BQL> create queue X
+ok</pre>
+             </li>
+             <li>
+               <b>Additional user with access only to second vhost and no BQL access</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo3 identified by fooword3
+ok
+BQL> create vhost '/subhost2'
+ok
+BQL> exit
+
+$ ./bql  -username admin -password password -vhost /subhost2
+BQL> grant all on '.*' to foo3
+ok
+BQL> exit
+
+$ ./bql -username foo3 -password fooword3 -vhost /subhost2
+{"init terminating in do_boot",{{badmatch,{error,{main_reader_died,socket_closed}}},
+  [{amqp_connection,start_network_internal,2},{bql_client,connect,5},
+   {bql_shell,start,0},{init,start_it,1},{init,start_em,1}]}}
+
+$</pre>
+               Note that this final error is as a result of the BQL client being unable to connect
+               to the administrative vhost. A more clear error is provided in the Rabbit server
+               logs, along the lines of:
+               <pre class="sourcecode">exception on TCP connection &lt;0.758.0> from 127.0.0.1:49454
+{channel0_error,opening,
+                {amqp_error,access_refused,
+                            "access to vhost '/' refused for user 'foo3'",
+                            'connection.open'}}</pre>
+
+               Note that the difference between this scenario and the previous is the lack of write
+               access to 'amq.default' in the '/' vhost. Enabling this would subsequently allow the
+               user to use BQL.
+             </li>
+           </ul>
+        </doc:subsection>
       </doc:section>
     </doc:div>
   </body>

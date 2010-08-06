@@ -51,12 +51,12 @@
     </p>
 
     <h3>
-      Status
+      Version
     </h3>
 
     <p>
-      The current release of RabbitMQ .NET/C# AMQP library is <b>
-      &version-dotnet-client;</b>, which has <b>&status-dotnet-client;</b> status.
+      The current release of the RabbitMQ .NET/C# AMQP library is <b>
+      &version-dotnet-client;</b>.
     </p>
 
     <h3>
@@ -65,7 +65,7 @@
     
     <h4>Library and documentation installer</h4>
     
-    <r:downloads signature="no">
+    <r:downloads signature="no" mirror="yes">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
         Binary, compiled for .NET 2.0 (Windows installer) - includes
@@ -80,16 +80,16 @@
       different forms:
     </p>
 
-    <r:downloads signature="no">
+    <r:downloads signature="no" mirror="yes">
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Source code and tools (zip)
       </r:download>
-      <r:download downloadfile="&nameVersion-dotnet-client;-net-2.0.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-2.0.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 2.0 (zip) - includes example code
       </r:download>
-      <r:download downloadfile="&nameVersion-dotnet-client;-net-3.0-wcf.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.0.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 3.0 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
@@ -99,15 +99,15 @@
     <h4>The documentation</h4>
 
     <p>
-      <a href="/releases/&dir-dotnet-client;/">This directory</a> contains all
-      the available documentation. Please see <a href="build-dotnet-client.html">
-      build page </a> for instructions on compiling from source-code. You can
-      also browse <a
-      href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-2.0-htmldoc/">
-      an online-browsable copy</a> of the generated HTML API guide documentation.
+      <a href="releases/&dir-dotnet-client;/">This directory</a>
+      contains all the available documentation. Please
+      see the <a href="build-dotnet-client.html">build page</a> for
+      instructions on compiling from source-code. You can
+      also browse <a href="&dir-current-dotnet-apidoc;/index.html">an online-browsable copy</a>
+      of the generated HTML API guide documentation.
     </p>
 
-    <r:downloads signature="no">
+    <r:downloads signature="no" mirror="yes">
       <r:download downloadfile="&nameVersion-dotnet-client;-user-guide.pdf"
 		  downloadpath="&dir-dotnet-client;">
 	The User Guide (pdf)
@@ -124,16 +124,15 @@
       is also available:
     </p>
 
-    <r:downloads signature="no">
+    <r:downloads signature="no" mirror="yes">
       <r:download downloadfile="&nameVersion-dotnet-client;-api-guide.pdf"
 		  downloadpath="&dir-dotnet-client;">
 	API Guide PDF
       </r:download>
-      <r:download downloadfile="&nameVersion-dotnet-client;-net-2.0-htmldoc.zip"
-		  downloadpath="&dir-dotnet-client;">
-	A downloadable ZIP of the generated HTML documentation (also
-	available in <a
-	href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-net-2.0-htmldoc/">online-browsable</a>
+      <r:download downloadfile="&nameVersion-dotnet-client;-client-htmldoc.zip"
+		  downloadpath="&dir-dotnet-client;"> A downloadable
+	ZIP of the generated HTML documentation (also available
+	in <a href="&dir-current-dotnet-apidoc;/index.html">online-browsable</a>
 	form)
       </r:download>
     </r:downloads>

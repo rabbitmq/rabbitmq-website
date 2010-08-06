@@ -7,7 +7,12 @@
     <doc:div>
     <h2>Services</h2>
     
-    <p class="intro">Founded by the creators of RabbitMQ, Rabbit Technologies Ltd (RTL) delivers enterprise-class support and services to the hundreds of organisations worldwide that wish to leverage the knowledge and expertise behind RabbitMQ.</p>
+    <p class="intro">Founded by the creators of RabbitMQ, Rabbit Technologies Ltd (RTL) delivers enterprise-class support
+    and services to the hundreds of organisations worldwide that wish to leverage the knowledge and expertise behind RabbitMQ.</p>
+    
+    <p>If you are looking for more background information on RabbitMQ please download this 
+    <a href="/resources/RabbitMQ_Introduction.pdf">introductory brochure</a>, which contains
+    an introduction to RabbitMQ including some documented cases of how others are using RabbitMQ in the wild.</p>
     
     <h2>RabbitMQ Support</h2>
     
@@ -28,12 +33,9 @@
     
     <p>We provide client-driven engagements that focus on knowledge and skills transfer. Our custom professional services are highly flexible to address specific issues such as on-site troubleshooting, design review, deployment planning, project delivery and other value-adding services tailored to suit your needs. We also provide packaged professional services covering architectural application review, migration and solutions and proof of concept. </p>
     
-    <p><a href="mailto:info@rabbitmq.com?subject=RabbitMQ Consulting">Contact us for more details on RabbitMQ Consulting Services</a></p>
+    <p>For more information about our consulting services please you can <a href="mailto:info@rabbitmq.com?subject=RabbitMQ Consulting">contact us</a>
+    or for more general help <a href="http://lists.rabbitmq.com">join our mailing list</a>. </p>
     
-  <p>For more information you can <a href="http://lists.rabbitmq.com">join our 
-  mailing list</a>, or alternatively contact us directly at <a href="
-  mailto:info@rabbitmq.com">info@rabbitmq.com</a>. 
-  </p>
     </doc:div>
   </body>
 </html>

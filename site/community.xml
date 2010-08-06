@@ -9,7 +9,7 @@
     
     <h2>Community</h2>
     
-    <p>See <a href="/how.html#highlights">a summary of recent highlights here</a>, but use these forums 
+    <p>See <a href="/how.html">a summary of recent highlights here</a>, but use these forums 
     to keep up to date with all developments:</p>
   
       <div class="col columnLeft">      
@@ -21,7 +21,7 @@
 	    <ul class="plain">
 	      <li>A <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
 	      interface which also provides information on how to 
-	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">subscribe directly</a></li>
+	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">subscribe directly</a></li>
 	      <li>A <a href="email-archive.html">full web-interface provided Nabble</a> </li>
 	    </ul>  
 	</li>
@@ -36,6 +36,8 @@
 	  <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>. 
 	  <p>The logs of these conversations are available here: 
 	  <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.</p>
+	  <p>You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> 
+	  if you don't have an IRC client installed.</p>
 	  </li>
 	</ul>
       </div>    
@@ -63,12 +65,11 @@
       
       <div class="col columnLeft">        
 	  <h3><a class="more-links" href="/delicious.html">about del.icio.us</a>On Del.icio.us</h3>
-	  <feed src="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq?count=15" type="delicious" limit="3"/>  	
+	  <feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  	
       </div>
       <div class="col columnRight">
 	  <h3><a class="more-links" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
-	  <feed src="http://search.twitter.com/search.atom?q=rabbitmq" type="twitter" limit="3"/>  	
-
+	  <feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
       </div>    
       
       <div class="clear"></div>

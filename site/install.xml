@@ -1,4 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Installation</title>
@@ -26,8 +31,8 @@
 	  <p>
 	    The bundle zip file contains all the files listed in the
 	    next section, including an Erlang system installer and the
-	    RabbitMQ broker binary distribution, as well as an archive
-	    of the Java librabbitmq client library.
+	    RabbitMQ broker binary distribution, the .Net client, as
+	    well as an archive of the Java librabbitmq client library.
 	  </p>
 	</doc:subsection>
 
@@ -36,10 +41,10 @@
 
 	  <ul>
 	    <li>
-	      Install a recent version of Erlang. Any recent version
-	      should work, but we are developing against Erlang R11B-5 on
-	      Windows, which can be downloaded from <a
-	      href="http://www.erlang.org/download/otp_win32_R11B-5.exe">http://www.erlang.org/download/otp_win32_R11B-5.exe</a>
+	      Install a recent version of Erlang/OTP. Versions R12B-3
+	      and higher should work; we usually test against Erlang
+	      R12B-5 on Windows, which can be downloaded from <a
+	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
 	    </li>
 	    <li>
 	      Download
@@ -52,12 +57,12 @@
 	      <code>rabbitmq_server-<i>version</i></code>.
 
 	      You should extract this folder to somewhere appropriate
-	      for application files, for example <code>C:\Program Files\RabbitMQ</code>. 
+	      for application files, for example <code>&dir-server-windows;</code>. 
 	      Once the files are successfully extracted, you should end up with a structure
-	      similar to <code>C:\Program Files\RabbitMQ\rabbitmq_server-N.N.N</code>.
+	      similar to <code>&dir-server-windows;\rabbitmq_server-N.N.N</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>C:\Program Files\erl5.5.5</code>).
+	      (e.g. <code>&dir-erlang-windows;</code>).
 	      
 	    </li>
 	    <li>
@@ -73,7 +78,7 @@
 		  Set this to the base directory of your Erlang
 		  installation, e.g.
 
-		  <code>C:\Program Files\erl5.5.5</code>.
+		  <code>&dir-erlang-windows;</code>.
 
 		  The RabbitMQ batch file expects the file
 		  <code>bin\erl.exe</code> to be present at this
@@ -138,12 +143,17 @@
 		  Defaults to <code>5672</code>.
 		</dd>
 
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
+		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
 		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq_cluster.config</code>. If
-		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
+		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If this file
+		  is present it is used by the server to configure
+		  RabbitMQ application components. Note that the
+		  .config extension is automatically appended by the
+		  Erlang runtime. See the section on <a
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
 		  href="clustering.html">clustering guide</a> for
 		  details.
 		</dd>
@@ -170,7 +180,7 @@
 	    that the RabbitMQ broker has been started successfully. To
 	    shut down the server, close the shell
 	    window. Alternatively, use the <a
-	    href="admin-guide.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	</doc:subsection>
 
@@ -205,7 +215,7 @@
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>C:\Program Files\erl5.5.5\erts-5.5.5\bin</code>. The given path
+                    <code>&dir-erlang-windows;\erts-5.7.4\bin</code>. The given path
                     must contain the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
@@ -322,8 +332,8 @@
               Install the rabbitmq-server package from your chosen
               distribution - at the time of writing, RabbitMQ is
               included in Debian unstable (sid), Debian testing
-              (squeeze), Ubuntu 9.04 (Jaunty Jackalope), and the
-              upcoming Ubuntu 9.10 (Karmic Koala).
+              (squeeze), and Ubuntu 9.04 (Jaunty Jackalope) and
+              onwards.
             </li>
             <li>
               Alternatively, install
@@ -340,10 +350,11 @@
 	      To adjust the settings used for starting the server,
 	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
-	      href="#generic-unix">Generic Unix</a> section below. You
-	      can additionally set <code>NODE_COUNT</code> in 
-	      <code>/etc/default/rabbitmq</code> to define
-	      <a href="clustering.html#single-machine">the number of
+	      href="#generic-unix">Generic Unix</a> section below (but
+	      dropping the RABBITMQ_ prefix). You can additionally set
+	      <code>NODE_COUNT</code> in
+	      <code>/etc/default/rabbitmq</code> to define <a
+	      href="clustering.html#single-machine">the number of
 	      nodes to run on a single machine</a>.
 	    </li>
 	  </ul>
@@ -394,7 +405,7 @@
 	    <code>logrotate</code> will handle files located in default
 	    <code>/var/log/rabbitmq</code> directory. See
 	    <code>/etc/logrotate.d/rabbitmq-server</code> for default
-	    <code>logrotate</code> configuration file. 
+	    <code>logrotate</code> configuration file.
 	  </p>
 	</doc:subsection>
       </doc:section>
@@ -419,7 +430,7 @@
               package depends on erlang package(s).  We strongly
               recommend using your distribution's packaged version of
               Erlang to run the server. See <a
-              href="http://fedoraproject.org/wiki/EPEL/">EPEL</a> if
+              href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
               there is no official erlang package for your
               distribution.
 	    </li>
@@ -473,7 +484,6 @@
 	    as for <a href="#logging-debian">Debian GNU</a>
 	  </p>
 	</doc:subsection>
-
       </doc:section>
 
       <doc:section name="macports">
@@ -498,49 +508,20 @@
         </p>
 	<p>
           The officially released MacPorts packaging may not always
-          contain the lastest released version of RabbitMQ.
+          contain the lastest released version of RabbitMQ.  If you
+          wish to install the latest version via MacPorts, we maintain
+          a dedicated <a href="macports.html">MacPorts repository</a>
+          for this purpose.
         </p>
-        <p>
-          If you wish to track the packaging from our development
-          repository, you can use the portfile from the <a
-          href="http://hg.rabbitmq.com/rabbitmq-server/file/default/packaging/macports/"><code>packaging/macports/</code></a>
-          directory in the <code>rabbitmq-server</code> mercurial
-          repository.
-	</p>
 
 	<doc:subsection name="install-macports">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <p>
-	    If you want to use the version distributed with MacPorts,
-	    installation is as simple as (<code>sudo port sync</code>
-	    followed by)
+	    Installation of the version of the RabbitMQ server
+	    distributed with MacPorts is as simple as (<code>sudo port
+	    sync</code> followed by)
 	  </p>
 	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
-	  <p>
-	    If, instead, you want to use the portfile from our
-	    source-code repository, follow these steps:
-	  </p>
-	  <ol>
-
-	    <li><a
-	    href="http://guide.macports.org/#development.local-repositories">Set
-	    up a local MacPorts repository</a>.</li>
-
-	    <li>Retrieve and extract the <a
-	    href="http://hg.rabbitmq.com/rabbitmq-server/archive/default.zip">latest
-	    stable rabbitmq-server snapshot</a>.</li>
-
-	    <li>Move the contents of the directory
-	    <code>rabbitmq-server-default/packaging/macports/</code>
-	    into the root of your local MacPorts repository.</li>
-
-	    <li>Run <code>portindex</code> in the root of your local
-	    MacPorts repository.</li>
-
-	    <li>Finally, run <code>sudo port install
-	    rabbitmq-server</code>.</li>
-
-	  </ol>
 	</doc:subsection>
 	<doc:subsection name="running-macports">
 	  <doc:heading>Running the Server</doc:heading>
@@ -625,14 +606,19 @@
 		<dd>
 		  Defaults to <code>5672</code>.
 		</dd>
-		<dt>RABBITMQ_CLUSTER_CONFIG_FILE</dt>
+
+		<dt>RABBITMQ_CONFIG_FILE</dt>
 		<dd>
-		  Defaults to
-		  <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. If
+		  Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
 		  this file is present it is used by the server to
-		  auto-configure a RabbitMQ cluster. See the <a
-		  href="clustering.html">clustering guide</a>
-		  for details.
+		  configure RabbitMQ application components. Note that
+		  the .config extension is automatically appended by
+		  the Erlang runtime. See the section on <a
+		  href="#configfile">the configuration file</a> for
+		  details.  Note that this file is also used to
+		  auto-configure RabbitMQ clusters.  See the <a
+		  href="clustering.html">clustering guide</a> for
+		  details.
 		</dd>
 	      </dl>
 	    </li>
@@ -649,7 +635,7 @@
 	    running", indicating that the RabbitMQ broker has been
 	    started successfully. To shut down the server just
 	    terminate the process. Alternatively, use the <a
-	    href="admin-guide.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
 	  </p>
 	  <p>
 	    You can also start the server in "detached" mode with
@@ -705,6 +691,28 @@
 	  the <a href="examples.html#tracer">AMQP capture and analysis
 	  tool</a> may help in the analysis.
 	</p>
+	
+	<p>
+	  Failing that, it's possible that we've solved the problem for 
+	  someone else on our 
+	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
+	  a Google search for something like 
+	  <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">erl_crash.dump 
+	  site:lists.rabbitmq.com</a> should do the trick, possibly also 
+	  adding terms for your platform, RabbitMQ/Erlang versions and 
+	  anything else relevant to what you were trying to do when things 
+	  went wrong.
+	</p>
+
+	<p>
+	  If you can't find a solution to your problem on the list archive then
+	  please post a new message to rabbitmq-discuss@lists.rabbitmq.com (you may have 
+	  to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join 
+	  the mailing list first</a>). Let us know
+	  what you were trying to do, the error you received and a copy of the crash dump
+	  and one of our engineers will help you get it fixed.
+	</p>
+	
 	<p>
 	  If all of the above fails, report the problem to <a
 	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
@@ -714,6 +722,56 @@
 
       </doc:section>
 
+      <doc:section name="configfile">
+	      <doc:heading>Configuration File</doc:heading>
+	      <p>
+          The Rabbit configuration file allows for the rabbit core application,
+          Erlang services and Rabbit plugins to be configured. This configuration
+          file is a standard Erlang configuration file, as documented on the
+          <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
+        </p>
+        <p>
+          The location of this configuration file is distribution specific. By default, it is
+          located in the following places on each platform:
+          <ul>
+            <li><b>Windows</b> - %APPDATA%\RabbitMQ\rabbitmq.config</li>
+            <li><b>Debian</b> - /etc/rabbitmq/rabbitmq.config</li>
+            <li><b>RPM</b> - /etc/rabbitmq/rabbitmq.config</li>
+            <li><b>MacOS (Macports)</b> - /opt/local/etc/rabbitmq/rabbitmq.config</li>
+            <li><b>Generic UNIX</b> - /etc/rabbitmq/rabbitmq.config</li>
+          </ul>
+      	</p>
+        <p>
+          Note that this file is not the same as the
+          <code>rabbitmq.conf</code> mentioned elsewhere -
+          <code>rabbitmq.conf</code> can be used to set the environment
+          variables mentioned on this page, while
+          <code>rabbitmq.config</code> contains an Erlang term. A
+          future release of RabbitMQ will unify the two configuration
+          mechanisms.
+        </p>
+	    <p>
+          Note that this file may not be created by default. If needed, it can be created manually. The
+          location can also be overidden via the <b>RABBITMQ_CONFIG_FILE</b> environment variable. Note
+          that the property value should not include the .config extension - this is automatically appended
+          by the Erlang runtime.
+        </p>
+        <p>
+          An example configuration file would look like:
+        </p>
+        <p>
+<pre class="sourcecode">
+  [
+    {mnesia, [{dump_log_write_threshold, 1000}]},
+    {rabbit, []}
+  ].
+</pre>
+	      </p>
+        <p>
+          This configuration file will alter the dump_log_write_threshold for mnesia (increasing from the default
+          of 100).
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
