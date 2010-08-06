@@ -67,10 +67,10 @@
         or OpenAIS.</p>
 
         <p>Note that CoroSync relies on multicast in order to do
-        resource discovery. Note that in some environments (e.g. EC2),
-        multicast is not available. Heartbeat, which can do resource
-        discovery using unicast, is the recommended solution if
-        multicast is not available.</p>
+        resource discovery. In some environments (e.g. EC2), multicast
+        is not available. Heartbeat, which can do resource discovery
+        using unicast, is the recommended solution if multicast is not
+        available.</p>
 
         <p>This guide does not tell you how to install Pacemaker,
         Heartbeat, OpenAIS, CoroSync or DRBD - there are already
