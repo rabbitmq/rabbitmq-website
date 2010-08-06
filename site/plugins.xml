@@ -49,7 +49,7 @@
         <tr>
           <th>Macports</th>
           <td>
-            <code>/opt/local/lib/rabbitmq/plugins</code>
+            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
           </td>
         </tr>
         <tr>
