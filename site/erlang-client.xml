@@ -19,9 +19,8 @@
       to AMQP servers.</p>
 
     <p>
-      The current release implements <a
-      href="https://jira.amqp.org/confluence/display/AMQP/Download">AMQP
-      protocol version 0-8</a>. Please see the <a
+      The current release implements AMQP
+      protocol version 0-9-1. Please see the <a
       href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
     </p>
@@ -45,7 +44,7 @@
 
     <p>
       The current release of the RabbitMQ Erlang AMQP library is <b>
-      &version-erlang-client;</b>, which has <b>&status-erlang-client;</b> status.
+      &version-erlang-client;</b>.
     </p>
 
     <h3>
@@ -75,12 +74,6 @@ loadable .ez archive.
 	Source code and tests (tar.gz)
       </r:download>
     </r:downloads>
-
-    <p>
-      Please see <a href="signatures.html">checking signatures</a> for
-      details on how to verify the signatures on our packages, and the README
-      for instructions on compiling from source-code.
-    </p>
 
     <h4>The documentation</h4>
     
