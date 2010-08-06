@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!ENTITY version-java-client "1.8.1">
 <!ENTITY version-dotnet-client "1.8.1">
+<!ENTITY version-erlang-client "1.8.1">
 <!ENTITY version-server "1.8.1">
 <!ENTITY version-server-hg "rabbitmq_v1_8_1">
 
@@ -17,3 +18,6 @@
 
 <!ENTITY dir-erlang-windows "C:\Program Files\erl5.7.4">
 <!ENTITY dir-server-windows "C:\Program Files\RabbitMQ">
+
+<!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
+<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">

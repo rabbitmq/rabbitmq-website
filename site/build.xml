@@ -31,5 +31,13 @@
       See <a href="build-dotnet-client.html">.Net/C# AMQP client
       library and WCF bindings build instructions</a>.
     </p>
+    
+    <h3>RabbitMQ Erlang client library</h3>
+    
+    <p>
+      See <a href="build-erlang-client.html">Erlang client
+      library build instructions</a>.
+    </p>
   </body>
 </html>
+
