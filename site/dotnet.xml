@@ -23,17 +23,17 @@
 
     <p>
       The client library implements AMQP specifications version 0-8,
-      0-8bis (0-8 as modified by QPid for their M2 release) and 0-9
+      0-8bis (0-8 as modified by QPid for their M2 release), 0-9
       (omitting sections of the specification marked "work in
-      progress", i.e. the <tt>Message</tt> content-class). A single
-      binary copy of the library contains support for all three
+      progress", i.e. the <tt>Message</tt> content-class) and 0-9-1.
+      A single binary copy of the library contains support for all four
       protocol variants, and code can select a variant to use at
       runtime. The library has been tested against
     </p>
 
     <ul>
-      <li>RabbitMQ 1.2.x (AMQP 0-8)</li>
-      <li>QPid M2 (AMQP 0-8bis, 0-9 (in the M2.1 branch))</li>
+      <li>RabbitMQ 2.0.x (AMQP 0-8, 0-9, 0-9-1)</li>
+      <li>QPid 0.6 Java (AMQP 0-8bis, 0-9)</li>
       <li>OpenAMQ 1.2c4 (AMQP 0-9)</li>
     </ul>
 
