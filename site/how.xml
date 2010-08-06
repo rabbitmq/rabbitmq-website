@@ -263,6 +263,8 @@
 	and also a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a> </li>
 	<li>Erlang development:
 	  <ul class="plain">
+	    <li><a href="erlang-client.html">Erlang client</a></li>
+	    <li><a href="erlang-client-user-guide.html">Erlang client library user guide</a></li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Introducing the Erlang AMQP client</a></li>  
 	    <li><a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a></li>
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>        
