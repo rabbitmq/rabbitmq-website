@@ -57,6 +57,12 @@
 	    <li>.NET 1.1 available when building from source</li>
 	  </ul>   
     </li>
+    <li>
+      <a href="erlang-client.html"><h4>RabbitMQ Erlang Client<br /><span>Version: &version-erlang-client;</span></h4></a>
+      <ul class="compact">
+        <li>Erlang/OTP R13B04 or newer</li>
+      </ul>
+    </li>
     </ul>
     <div class="clear"></div>
 
