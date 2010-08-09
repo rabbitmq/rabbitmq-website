@@ -378,11 +378,10 @@
             broker</a>.
           </p>
           <p>
-            Unfortunately, the increase in version number was not
-            accompanied by better support for AMQP.  The 1.4c0 broker
-            still does not implement (correctly) a large part of the
-            AMQP specification.  As a result, it fails a large number
-            of our tests.
+            Unfortunately, we found that the 1.4c0 broker does not
+            implement (correctly) a large part of the AMQP
+            specification.  As a result, it fails a large number of
+            our tests.
           </p>
           <p>
             Some of our examples, most notably MulticastMain, do work,
