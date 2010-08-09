@@ -487,7 +487,7 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://www.magoosoft.com/resources/blueprints/RabbitMQ/">User Interaction with RabbitMQ using MagooClient</a><br />
-    MagooClient - a SOA/MOM client aimed primarily at XML-based applications - now comes with a RabbitMQ transport -. This allows MagooClient
+    MagooClient - a SOA/MOM client aimed primarily at XML-based applications - now comes with a RabbitMQ transport. This allows MagooClient
     to be plugged into a RabbitMQ architecture providing an instant user client for prototyping, testing or scenarios where direct user interaction with
     exchanges is required. No coding necessary and topic/direct exchange models are fully supported.
  </li>
