@@ -352,40 +352,32 @@
       <doc:section name="openamq">
 	<doc:heading>Interoperation with OpenAMQ</doc:heading>
         <doc:subsection name="openamq-server">
-          <doc:heading>OpenAMQ/1.3d0 broker</doc:heading>
+          <doc:heading>OpenAMQ brokers</doc:heading>
           <p>
             We have performed basic interoperability testing against
             the <a
             href="http://www.openamq.org/main:release-notes">OpenAMQ/1.3d0
-            broker</a>. We have run our Java client tests and examples
-            against it.
+            and OpenAMQ/1.4c0 brokers</a>. We have run our Java client
+            tests and examples against them.
           </p>
           <p>
-            Unfortunately, we found that OpenAMQ does not implement
-            (correctly) a large part of the AMQP specification.  As a
-            result, it fails a large number of our tests.
-          </p>
-          <p>
-            Some of our examples, most notably MulticastMain, do work,
-            so it is possible to do basic publish/consume.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="openamq-server2">
-          <doc:heading>OpenAMQ/1.4c0 broker</doc:heading>
-          <p>
-            We have performed the same functional tests on the <a
-            href="http://www.openamq.org/main:release-notes">OpenAMQ/1.4c0
-            broker</a>.
-          </p>
-          <p>
-            Unfortunately, we found that the 1.4c0 broker does not
+            Unfortunately, we found that the OpenAMQ brokers do not
             implement (correctly) a large part of the AMQP
-            specification.  As a result, it fails a large number of
-            our tests.
+            specification.  As a result, they fail a large number of
+            our tests.  More precisely, we found that OpenAMQ:
           </p>
+          <ul>
+            <li>does not support durable queues,</li>
+            <li>does not support multiple channels per connection,</li>
+            <li>does not encode <code>queue.unbind</code> methods correctly,</li>
+            <li>misinterprets the type field for exchange methods, and</li>
+            <li>does not appear to support transactions</li>
+          </ul>
           <p>
             Some of our examples, most notably MulticastMain, do work,
-            so it is possible to do basic publish/consume.
+            so it is possible to do basic publish/consume.  Note that
+            the OpenAMQ brokers occasionally reset the connection
+            without warning.
           </p>
         </doc:subsection>
         <doc:subsection name="palexamples">
