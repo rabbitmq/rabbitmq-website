@@ -251,74 +251,8 @@ server testca
 	  to <code>verify</code> and <code>fail_if_no_peer_cert</code>
 	  as documented here.</b></p>
 
-	  <p>On starting the server you should see the following:</p>
-
-<pre class="sourcecode">
-RABBITMQ_NODE_IP_ADDRESS="" RABBITMQ_NODE_PORT="" RABBITMQ_LOG_BASE="/tmp" RABBITMQ_MNESIA_DIR="/tmp/rabbitmq-rabbit-mnesia" \
-                RABBITMQ_ALLOW_INPUT=true \
-                RABBITMQ_SERVER_START_ARGS="" \
-                ./scripts/rabbitmq-server
-kernel-poll not supported; "K" parameter ignored
-Erlang R14A (erts-5.8) [source] [rq:1] [async-threads:30] [hipe]
-
-Eshell V5.8  (abort with ^G)
-(rabbit@dakota)1>
-+---+   +---+
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   +---+   +-------+
-|                   |
-| RabbitMQ  +---+   |
-|           |   |   |
-| v%%VSN%%  +---+   |
-|                   |
-+-------------------+
-AMQP 0-9-1 / 0-9 / 0-8
-Copyright (C) 2007-2010 LShift Ltd., Cohesive Financial Technologies LLC., and Rabbit Technologies Ltd.
-Licensed under the MPL.  See http://www.rabbitmq.com/
-
-node           : rabbit@dakota
-app descriptor : /src/rabbitmq-server/scripts/../ebin/rabbit.app
-home dir       : /home/scvalex
-cookie hash    : baqRHQDjS5VLTBROrJQBzQ==
-log            : /tmp/rabbit@dakota.log
-sasl log       : /tmp/rabbit@dakota-sasl.log
-database dir   : /tmp/rabbitmq-rabbit-mnesia
-erlang version : 5.8
-
-starting file handle cache server                                     ...done
-starting worker pool                                                  ...done
-starting database                                                     ...done
-starting codec correctness check                                      ...done
--- external infrastructure ready
-starting exchange type registry                                       ...done
-starting exchange type topic                                          ...done
-starting exchange type headers                                        ...done
-starting exchange type fanout                                         ...done
-starting exchange type direct                                         ...done
-starting statistics event manager                                     ...done
-starting internal event notification system                           ...done
-starting logging server                                               ...done
--- kernel ready
-starting node monitor                                                 ...done
-starting cluster delegate                                             ...done
-starting guid generator                                               ...done
-starting alarm handler                                                ...done
-starting memory monitor                                               ...done
--- core initialized
-starting empty DB check                                               ...done
-starting exchange recovery                                            ...done
-starting queue supervisor and queue recovery                          ...done
--- message delivery logic ready
-starting error log relay                                              ...done
-starting networking                                                   ...done
--- network listeners available
-
-broker running
-</pre>
-	  <p>You should then see the following in the <code
-	  class="">rabbit.log</code>:</p>
+	  <p>After starting the broker, you should then see the
+	  following in the <code class="">rabbit.log</code>:</p>
 	  <pre>=INFO REPORT==== 9-Aug-2010::15:10:55 ===
 started TCP Listener on 0.0.0.0:5672
 
