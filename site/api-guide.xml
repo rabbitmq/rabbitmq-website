@@ -266,20 +266,16 @@ channel.basicConsume(queueName, noAck, consumer);
 }</pre>
 
 	  <p>
-	    If, instead, you decide to implement the
-	    <code>Consumer</code> interface yourself, be warned that
-	    its methods will be called from within the connection's
-	    thread, and so they must not in turn invoke any blocking
-	    AMQP operation (such as <code>queueDeclare</code>,
-	    <code>txCommit</code>, or <code>basicCancel</code>). If
-	    they do, the channel will deadlock. Only asynchronous AMQP
-	    operations are safe for use within callbacks, such as:
+        If, instead, you decide to implement the
+        <code>Consumer</code> interface yourself, be warned that
+        its methods will be called from within the connection's
+        thread, and so they must not in turn invoke any blocking
+        AMQP operation (such as <code>queueDeclare</code>,
+        <code>txCommit</code>, <code>basicCancel</code> or
+        <code>basicPublish</code>). If they do, the channel will
+        deadlock. Only asynchronous AMQP operations without content
+        are safe for use within callbacks, such as <code>basicAck</code>.
 	  </p>
-
-	  <ul>
-	    <li><code>basicAck</code></li>
-	    <li><code>basicPublish</code></li>
-	  </ul>
 
 	  <p>
 	    It's partly because of this complication that using

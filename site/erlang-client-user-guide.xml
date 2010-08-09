@@ -526,7 +526,16 @@ And then to run your application you could set the Erlang runtime like this:
    
    <p>
      
-     Should the broker run low on resources, for example by hitting a memory high watermark, it may choose to throttle producers. It does this by sending a #'channel.flow'{} command to every client. This is a reverse RPC method, i.e. the server sends a command to the client and expects a response. The client library handles this on behalf of the application and make sure that no further messages be sent until the server signals that messaging can resume. In order for the application to be aware that throttling has taken place, it is necessary for the application to register a callback process:
+     When an AMQP broker is running low on resources, for example by
+     hitting a memory high watermark, it may choose to throttle
+     producers by sending a #'channel.flow'{} command to connected
+     clients. This is a reverse RPC method, i.e. the server sends a
+     command to the client and expects a response. The client library
+     handles this on behalf of the application and make sure that no
+     further messages be sent until the server signals that messaging
+     can resume. In order for the application to be aware that
+     throttling has taken place, it is necessary for the application
+     to register a callback process:
      
      <pre class="sourcecode">
       amqp_channel:register_flow_handler(Channel, FlowHandler)
