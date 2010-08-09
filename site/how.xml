@@ -486,6 +486,12 @@ decentralised microblogging</li>
 	  different applications need to work together to share real time data at scale.
 	</li>
 	<li>
+	  <a href="http://www.magoosoft.com/resources/blueprints/RabbitMQ/">User Interaction with RabbitMQ using MagooClient</a><br />
+    MagooClient - a SOA/MOM client aimed primarily at XML-based applications - now comes with a RabbitMQ transport -. This allows MagooClient
+    to be plugged into a RabbitMQ architecture providing an instant user client for prototyping, testing or scenarios where direct user interaction with
+    exchanges is required. No coding necessary and topic/direct exchange models are fully supported.
+ </li>
+	<li>
 	  <a href="http://somic.org/2008/11/11/using-rabbitmq-beyond-queueing/">Using RabbitMQ Beyond Queuing</a><br />
 	  Dmitriy Samovskiy blogs about how RabbitMQ can be used beyond simple
 	  queuing and pubsub. Gets you started on the path to "achieve a distributed
