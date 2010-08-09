@@ -27,6 +27,8 @@
     Alias /releases /home/rabbitmq/extras/releases
     Alias /debian /home/rabbitmq/extras/releases/debian
 
+    Alias /wp-uploads /srv/www/wp-uploads/rabbit-web.eng.vmware.com
+
     # /how appeared on some printed materials
     Redirect permanent /how http://www.rabbitmq.com/how.html
 
