@@ -268,10 +268,10 @@ Technologies Ltd.</p></div>
 	<th class="desc">Description</th>
 	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
-            <th class="mirror">�</th>
+            <th class="mirror">&#160;</th>
         </xsl:if>
         <xsl:if test="@signature = 'yes'">
-            <th class="onethird">�</th>
+            <th class="onethird">&#160;</th>
         </xsl:if>
       </tr>
       <xsl:apply-templates/>
