@@ -15,10 +15,10 @@
       -->   
       <doc:item>
         <doc:date iso="2010-07-21T00:00:00Z">21 July 2010</doc:date>
-        <doc:title>Spring AMQP 1.0 release</doc:title>
+        <doc:title>Spring AMQP Project 1.0 M1 release</doc:title>
         <doc:link>http://www.springsource.org/node/2715</doc:link>
         <doc:text>
-          <p>The RabbitMQ team and SpringSource are pleased to announce the first milesone release of the Spring AMQP 1.0 project.</p>
+          <p>The RabbitMQ team and SpringSource are pleased to announce the first milesone release of the Spring AMQP Project 1.0 M1.</p>
           <p><a href="http://www.springsource.org/spring-amqp">Spring AMQP</a> makes common Spring idoms
           available to developers who are building AMQP-based messaging solutions. For example, building a messaging
           application that uses RabbitMQ as broker will feel quite similar to building an application based on Spring's
