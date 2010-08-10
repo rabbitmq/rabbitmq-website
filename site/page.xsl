@@ -47,12 +47,12 @@ try{
   </xsl:template>
 
   <xsl:template name="page-header">
-     <p class="strap">Messaging that just works</p>
     <h1>
-      <a href="/"><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37"/></a>
+      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
     </h1>
-
-
+    <div class="s2-logo">
+      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    </div>
     <ul class="mainNav">
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
@@ -63,7 +63,7 @@ try{
       <li><a href="/community.html">Community</a></li>
       <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
-      <!--<li><a href="/blog/">Blog</a></li>-->
+      <li><a href="/blog/">Blog</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
     <hr class="pad"/>
@@ -266,10 +266,10 @@ Technologies Ltd.</p></div>
 	<th class="desc">Description</th>
 	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
-            <th class="mirror"> </th>
+            <th class="mirror">ï¿½</th>
         </xsl:if>
         <xsl:if test="@signature = 'yes'">
-            <th class="onethird"> </th>
+            <th class="onethird">ï¿½</th>
         </xsl:if>
       </tr>
       <xsl:apply-templates/>
