@@ -696,19 +696,15 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 
-	<doc:faq name="support-store-and-forward">
-	   <doc:heading>Can I create RabbitMQ applications using web frameworks (eg
-	    Spring, or Ruby-On-Rails)?
+	<doc:faq name="webframework-support">
+	   <doc:heading>Can I create RabbitMQ applications using web frameworks (e.g. Spring, or Ruby-On-Rails)?
 	  </doc:heading>
 	  <doc:a>
 	    <p>
-	      Yes. To begin with, Spring has good support for message
-	      access in Java: the RabbitMQ Java client is simply a
-	      POJO library. The same is true for other POJO-based
-	      systems, such as <a
-	      href="http://mulesource.org">Mule</a>. If you
-	      specifically wish to use JavaEE EJBs as message
-	      accessors, use a stateful session bean.
+	      Yes. To begin with, Spring has <a href="#rabbit-spring-support">support for AMQP</a> in Java
+	      through the <a href="http://www.springsource.org/spring-amqp">Spring AMQP project</a>. The
+	      RabbitMQ Java client is simply a POJO library so will work with other POJO-based systems, such as <a href="http://mulesource.org">Mule</a>. If you
+	      specifically wish to use JavaEE EJBs as message  accessors, use a stateful session bean.
 	    </p>
 	    <p>
 	      For frameworks in other languages, such as Ruby or
@@ -1095,8 +1091,18 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    </p>
 	  </doc:a>
 	</doc:faq>
- 
-	<doc:faq name="rabbit-client-support">
+  <doc:faq name="rabbit-spring-support">
+    <doc:heading>What options are provided for integrating RabbitMQ with the Spring framework?</doc:heading>
+    <doc:a>
+      <p>The <a href="http://www.springsource.org/spring-amqp">Spring AMQP project</a> applies core Spring
+      concepts to the development of AMQP-based messaging solutions. The project provides a set of "templates" as high-level
+      abstractions for sending and receiving messages. Message-driven POJOs are also supported. The libraries facilitate
+      management of AMQP resources while promoting the use of dependency injection and declarative configuration. In
+      all of these cases, you will see similarities to the JMS support in the Spring Framework.
+      The project consists of both Java and .NET versions.</p>
+      </doc:a>
+    </doc:faq>
+	<doc:faq name="rabbit-webmessaging-support">
 	  <doc:heading>What support does RabbitMQ provide for web messaging?</doc:heading>
 	  <doc:a>
 	    <p>
