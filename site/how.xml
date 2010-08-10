@@ -191,7 +191,7 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a></li>
 	  </ul>
 	</li> 	
-        <li id="dotnet-development">.Net development:
+        <li id="dotnet-development">.NET development:
 	  <ul class="plain">
 	    <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
 	    <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
