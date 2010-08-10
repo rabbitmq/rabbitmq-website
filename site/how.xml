@@ -126,10 +126,11 @@
 	    <li><a href="java-client.html">Java client</a></li>
 	    <li><a href="api-guide.html">Java API-guide</a></li>
 	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
+	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a></li>
 	    <li><a href="http://hoho.dyndns.org/hg/rabbitmq-java-client/">OSGi patches to rabbitmq-java-client</a> plus some <a href="http://old.nabble.com/New-patches-for-rabbitmq-java-client-OSGi-compatibility-td29086181.html">things to know</a></li>
-	    <li>Spring Framework code: <a href="http://github.com/yawn/amqp-spring/tree/master">AMQP/Spring</a> and
+	    <li>Community contributed Spring Framework code: <a href="http://github.com/yawn/amqp-spring/tree/master">AMQP/Spring</a> and
 	    <a href="http://github.com/momania/spring-rabbitmq/tree/master">Spring-RabbitMQ</a></li>
 	    <li>
 	      <a href="http://www.slideshare.net/ewolff/07-messaging-inthecloud">Using RabbitMQ with Spring</a><br/>
@@ -205,13 +206,14 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a></li>
 	  </ul>
 	</li>
-        <li id="dotnet-development">.Net development:
+        <li id="dotnet-development">.NET development:
 	  <ul class="plain">
-	    <li><a href="dotnet.html">Overview of .Net development</a></li>
+	    <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
 	    <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
         A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
 	    </li>
 	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
+	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a></li>
 	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
