@@ -120,7 +120,7 @@ $ make co</pre>
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel
+$ ln -s ../../rabbitmq-shovel</pre>
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
@@ -323,7 +323,7 @@ src/rabbit_metronome_worker.erl:44: record 'P_basic' undefined</pre>
 $ cd ../rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbit_metronome
-$ cd ..
+$ cd ..</pre>
           </li>
           <li>
             Start up your Rabbit broker:
