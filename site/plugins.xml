@@ -189,20 +189,24 @@
     lists the repositories of our plugins and their dependencies.</p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-mochiweb"
-                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
-      <repository type="hg" shortname="rabbitmq-jsonrpc"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
-      <repository type="github" shortname="erlang-rfc4627"
-                  url="http://github.com/tonyg/erlang-rfc4627"/>
       <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
                   url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+      <repository type="hg" shortname="rabbitmq-shovel"
+		  url="http://hg.rabbitmq.com/rabbitmq-shovel/"/>
       <repository type="hg" shortname="rabbitmq-stomp"
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
+      <repository type="hg" shortname="rabbitmq-status"
+		  url="http://hg.rabbitmq.com/rabbitmq-status/"/>
       <repository type="hg" shortname="rabbitmq-xmpp"
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
+      <repository type="hg" shortname="rabbitmq-erlang-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+      <repository type="github" shortname="erlang-rfc4627"
+                  url="http://github.com/tonyg/erlang-rfc4627"/>
+      <repository type="hg" shortname="rabbitmq-jsonrpc"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
+      <repository type="hg" shortname="rabbitmq-mochiweb"
+                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
     </repositories>
 
     <p/>
