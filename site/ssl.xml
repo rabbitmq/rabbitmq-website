@@ -251,46 +251,12 @@ server testca
 	  to <code>verify</code> and <code>fail_if_no_peer_cert</code>
 	  as documented here.</b></p>
 
-	  <p>On starting the server you should see the following in the start up log:</p>
-	  
-<pre class="sourcecode">
-+---+   +---+                                                                                          
-|   |   |   |                                                                                          
-|   |   |   |                                                                                          
-|   |   |   |                                                                                          
-|   +---+   +-------+                                                                                  
-|                   |                                                                                  
-| RabbitMQ  +---+   |                                                                                  
-|           |   |   |                                                                                  
-| v%%VSN%%  +---+   |                                                                                  
-|                   |                                                                                  
-+-------------------+                                                                                  
-AMQP 8-0                                                                                               
-Copyright (C) 2007-2009 LShift Ltd., Cohesive Financial Technologies LLC., and Rabbit Technologies Ltd.
-Licensed under the MPL.  See http://www.rabbitmq.com/                                                  
-
-node        : rabbit@koba                                                                              
-log         : /tmp/rabbit.log                                                                          
-sasl log    : /tmp/rabbit-sasl.log                                                                     
-database dir: /tmp/rabbitmq-rabbit-mnesia                                                              
-
-starting database             ...done                                                                  
-starting core processes       ...done                                                                  
-starting recovery             ...done                                                                  
-starting persister            ...done                                                                  
-starting guid generator       ...done                                                                  
-starting builtin applications ...done                                                                  
-starting TCP listeners        ...done                                                                  
-starting SSL listeners        ...done                                                                  
-
-broker running                                                                                         
-</pre>
-	  <p>Note the line that says "Starting SSL listeners". You should then see
-	  the following in the <code class="">rabbit.log</code>:</p>
-	  <pre>=INFO REPORT==== 14-May-2009::11:41:15 ===
+	  <p>After starting the broker, you should then see the
+	  following in the <code class="">rabbit.log</code>:</p>
+	  <pre>=INFO REPORT==== 9-Aug-2010::15:10:55 ===
 started TCP Listener on 0.0.0.0:5672
 
-=INFO REPORT==== 14-May-2009::11:41:16 ===
+=INFO REPORT==== 9-Aug-2010::15:10:55 ===
 started SSL Listener on 0.0.0.0:5671</pre>
 	  <p>Also, take note of the last line, which shows that RabbitMQ server is
 	  up and running and listening for ssl connections.</p>
@@ -413,12 +379,14 @@ started SSL Listener on 0.0.0.0:5671</pre>
     {
 
 	ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
+        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        factory.setPort(5671);
 
 	factory.useSslProtocol(); <I><FONT COLOR="#B22222">// Tells the library to setup the default Key and Trust managers for you
 
 </FONT></I>                                  <I><FONT COLOR="#B22222">// which do not do any form of remote server trust verification
 </FONT></I>
-	Connection conn = factory.newConnection(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>, 5671);
+	Connection conn = factory.newConnection();
 	Channel channel = conn.createChannel();
 
 	<I><FONT COLOR="#B22222">//non-durable, exclusive, auto-delete queue
@@ -497,9 +465,11 @@ started SSL Listener on 0.0.0.0:5671</pre>
 	c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <B><FONT COLOR="#A020F0">null</FONT></B>);
 
 	ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
+        factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+        factory.setPort(5671);
 	factory.useSslProtocol(c);
 
-	Connection conn = factory.newConnection(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>, 5671);
+	Connection conn = factory.newConnection();
 	Channel channel = conn.createChannel();
 
 	channel.queueDeclare(<B><FONT COLOR="#BC8F8F">&quot;rabbitmq-java-test&quot;</FONT></B>, <B><FONT COLOR="#A020F0">false</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">true</FONT></B>, <B><FONT COLOR="#A020F0">null</FONT></B>);
@@ -722,25 +692,56 @@ Certificate removed from store.</pre>
         </doc:subsection>
 
         <doc:subsection name="code-snippet">
-          <doc:heading>Code Snippet</doc:heading>
+          <doc:heading>Example</doc:heading>
+
+          <p>
+            This is the same example as in the Java section. It
+            creates a channel, rabbitmq-dotnet-test and publishes to
+            the default direct exchange, then reads back what has been
+            published and echoes it out. Note that we use an
+            exclusive, non-durable, auto-delete queue so we don't have
+            to worry about manually cleaning up after ourselves
+          </p>
+
 <pre class="sourcecode">
-// Other initialization here
+using System;
+using System.IO;
+using System.Text;
 
-ConnectionFactory cf = new ConnectionFactory();
+using RabbitMQ.Client;
+using RabbitMQ.Util;
 
-cf.Parameters.Ssl.ServerName = System.Net.Dns.GetHostName();
-cf.Parameters.Ssl.CertPath = &quot;/path/to/client/keycert.p12&quot;;
-cf.Parameters.Ssl.CertPassphrase = &quot;MySecretPassword&quot;;
-cf.Parameters.Ssl.Enabled = true;
+namespace RabbitMQ.Client.Examples {
+    public class LogTailSSL {
+        public static int Main(string[] args) {
+            ConnectionFactory cf = new ConnectionFactory();
 
-IProtocol proto = Protocols.DefaultProtocol;
-IConnection conn = cf.CreateConnection(proto, &quot;localhost&quot;, 5671);
+            cf.Ssl.ServerName = System.Net.Dns.GetHostName();
+            cf.Ssl.CertPath = "/src/client/keycert.p12";
+            cf.Ssl.CertPassphrase = "MySecretPassword";
+            cf.Ssl.Enabled = true;
 
-IModel ch = conn.CreateModel();
+            using (IConnection conn = cf.CreateConnection()) {
+                using (IModel ch = conn.CreateModel()) {
+                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, true, false, null);
+                    ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
+                    BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
+                    if (result == null) {
+                        Console.WriteLine("No message received.");
+                    } else {
+                        ch.BasicAck(result.DeliveryTag, false);
+                        Console.WriteLine("Received:");
+                        DebugUtil.DumpProperties(result, Console.Out, 0);
+                    }
+                }
+            }
+            return 0;
+        }
+    }
+}
+</pre>
+	</doc:subsection>
 
-// Continue with channel commands here</pre>
-	</doc:subsection>	
-	
 	<doc:subsection name="bugs-in-mono">
 	  <doc:heading>Bugs in Mono</doc:heading>
 	    <p>When the server asks the client to send a certificate,

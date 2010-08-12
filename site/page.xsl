@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns="http://www.w3.org/1999/xhtml"
@@ -10,6 +9,7 @@
 
 <xsl:include href="feed.xsl"/>
          
+<xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="ISO-8859-1"/>
 <xsl:output method="html" 
       media-type="text/xml"            
       doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" 
@@ -22,11 +22,11 @@
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
-      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard" />
-      <meta name="googlebot" content="NOODP" />
-      <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4" />
-      <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0" />
-      <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css" />
+      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
+      <meta name="googlebot" content="NOODP"/>
+      <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
+      <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
+      <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"/>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
       <script type="text/javascript">
 try{
@@ -51,7 +51,7 @@ try{
 	<xsl:call-template name="page-footer"/>
       </div>
     </xsl:copy>
-    <script type="text/javascript" src="/site.js" />
+    <script type="text/javascript" src="/site.js"/>
   </xsl:template>
 
   <xsl:template match="table">
@@ -61,13 +61,12 @@ try{
   </xsl:template>
 
   <xsl:template name="page-header">
-     <p class="strap">Messaging that just works</p>
     <h1>
-      <a href="/"
-	 ><img border="0" src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="207" height="37" /></a>
+      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
     </h1>
-
-
+    <div class="s2-logo">
+      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    </div>
     <ul class="mainNav">
       <li><a href="/index.html">Home</a></li>
       <li><a href="/download.html">Download</a></li>
@@ -78,15 +77,15 @@ try{
       <li><a href="/community.html">Community</a></li>
       <li><a href="/ec2.html">Cloud</a></li>
       <li><a href="/faq.html">FAQ</a></li>
-      <!--<li><a href="/blog/">Blog</a></li>-->
+      <li><a href="/blog/">Blog</a></li>
       <li><a href="/search.html">Search</a></li>
     </ul>
-    <hr class="pad" />
+    <hr class="pad"/>
 
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"></div>	
+    <div class="clear"/>	
     <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</p></div>
   </xsl:template>
@@ -129,28 +128,28 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:section">
     <div class="docSection">
-      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="doc:subsection">
     <div class="docSubsection">
-      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="doc:subsubsection">
     <div class="docSubsection">
-      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="doc:roadmapentry">
     <div class="docRoadmapentry">
-      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -198,7 +197,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="doc:faq">
     <div class="faq">
-      <xsl:if test="@name"><a name="{@name}"></a></xsl:if>
+      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -240,17 +239,17 @@ Technologies Ltd.</p></div>
       <xsl:choose>
 	<xsl:when test="doc:link">
 	  <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
-	    <xsl:value-of select="doc:title" />
+	    <xsl:value-of select="doc:title"/>
 	  </a>
 	</xsl:when>
 	<xsl:otherwise>
 	  <span class="feed-item-title">
-	    <xsl:value-of select="doc:title" />
+	    <xsl:value-of select="doc:title"/>
 	  </span>
 	</xsl:otherwise>
       </xsl:choose>
       <span class="feed-item-date">
-	<xsl:value-of select="doc:date" />
+	<xsl:value-of select="doc:date"/>
       </span>
       <hr/>
       <xsl:apply-templates select="doc:text"/>
@@ -258,7 +257,7 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <xsl:template match="doc:text">
-    <xsl:copy-of select="node()" />
+    <xsl:copy-of select="node()"/>
   </xsl:template>
 
   <!-- ############################################################ -->
@@ -269,10 +268,10 @@ Technologies Ltd.</p></div>
 	<th class="desc">Description</th>
 	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
-            <th class="mirror">&#160;</th>
+            <th class="mirror">�</th>
         </xsl:if>
         <xsl:if test="@signature = 'yes'">
-            <th class="onethird">&#160;</th>
+            <th class="onethird">�</th>
         </xsl:if>
       </tr>
       <xsl:apply-templates/>
@@ -335,8 +334,21 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-  
-  
+
+  <xsl:template match="r:repository[@type = 'github']">
+    <tr>
+      <td>
+	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+      </td>
+      <td>
+	<code>git clone <xsl:value-of select="@url"/>.git</code>
+      </td>
+      <td>
+	<a class="arepo" href="{@url}">Browse source</a>
+      </td>
+    </tr>
+  </xsl:template>
+
   <!-- ############################################################ -->
   
   <xsl:template match="r:classes">
@@ -400,6 +412,7 @@ Technologies Ltd.</p></div>
 	<th>Current Status</th>
 	<th>Type</th>
 	<th>Actor</th>
+	<th>Reference</th>
 	<th>Text</th>
       </tr>
       <xsl:apply-templates/>
@@ -413,11 +426,9 @@ Technologies Ltd.</p></div>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
+      <td><xsl:value-of select="r:xref"/></td>
       <td>
 	<div>
-	  <xsl:if test="normalize-space(r:xref)">
-	    <xsl:value-of select="normalize-space(r:xref)"/>:
-	  </xsl:if>
 	  <xsl:if test="normalize-space(r:context)">
 	    <xsl:value-of select="normalize-space(r:context)"/>:
 	  </xsl:if>
@@ -520,5 +531,3 @@ Technologies Ltd.</p></div>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
-
-

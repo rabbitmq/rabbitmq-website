@@ -58,13 +58,19 @@
         note that the DRBD OCF script which we use later on only
         appeared in DRBD version 8.3.2.</p>
 
-        <p>Note that we use CoroSync (which is a cut-down version of
+        <p>This guide uses CoroSync (which is a cut-down version of
         OpenAIS) in preference to Heartbeat as the messaging layer
         underneath Pacemaker. However, we also have Heartbeat
         installed so as to be able to access Heartbeat's OCF
         scripts. You should find that the instructions here work
         equally well regardless of whether you use CoroSync, Heartbeat
         or OpenAIS.</p>
+
+        <p>Note that CoroSync relies on multicast in order to do
+        resource discovery. In some environments (e.g. EC2), multicast
+        is not available. Heartbeat, which can do resource discovery
+        using unicast, is the recommended solution if multicast is not
+        available.</p>
 
         <p>This guide does not tell you how to install Pacemaker,
         Heartbeat, OpenAIS, CoroSync or DRBD - there are already
@@ -81,6 +87,11 @@
           <li><a href="http://www.drbd.org/users-guide/">DRBD
           users guide</a></li>
         </ul></p>
+
+        <p>As of August 2010, Debian <i>testing</i> and Ubuntu
+        <i>lucid</i> both contain sufficiently up-to-date versions of
+        Heartbeat, CoroSync and Pacemaker that it should not be
+        necessary to compile from source.</p>
 
         <p>If you're compiling Pacemaker et al from source, be aware
         that the various autoconf configure scripts don't seem to test
@@ -114,7 +125,7 @@
 
 <pre class="sourcecode">
 global {
-  use-count no;
+  usage-count no;
 }
 
 resource drbd1 {
@@ -541,9 +552,6 @@ ha-node-3:~#
 
           <dt>port</dt>
           <dd>The IP Port for rabbitmq-server to listen on</dd>
-
-          <dt>cluster_config_file</dt>
-          <dd>Location of the cluster config file</dd>
 
           <dt>config_file</dt>
           <dd>Location of the config file</dd>

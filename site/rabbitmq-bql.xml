@@ -46,10 +46,7 @@
             </ul>
           </li>
           <li>
-            Execute:
-            <pre class="sourcecode">rabbitmq-activate-plugins</pre>
-            to complete the installation of the plugin. Restart RabbitMQ once this has
-            completed.
+            At this point, restart RabbitMQ to pick up the new plugins.
           </li>
           <li>
             As part of the BQL build process, rabbitmq-bql-client.zip will be produced. This contains the client used for
