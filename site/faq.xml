@@ -44,7 +44,7 @@
 	    A messaging infrastructure (a.k.a. message-oriented middleware, a.k.a. enterprise service bus) 
 	    makes it easier for developers to create complex applications by decoupling the individual program 
 	    components. Rather than communicating directly, the messaging infrastructure facilitates the 
-	    exchange of data between components. The components need know nothing about each other's status,
+	    exchange of data between components. The components need know nothing about each other’s status,
 	    availability or implementation, which allows them to be distributed over heterogeneous platforms 
 	    and turned off and on as required.
 	    </p>
@@ -337,7 +337,7 @@
 	  <doc:a>
 	    <p>
 	    A fanout exchange is the simplest exchange type, representing a 1:N message delivery
-	    pattern. No routing keys are involved &#8211; you simply bind a queue to the exchange and
+	    pattern. No routing keys are involved – you simply bind a queue to the exchange and
 	    messages sent to that exchange get delivered to <strong>all</strong> the bound queues.	
 	    </p>
 	  </doc:a>
@@ -1122,7 +1122,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      our repo) has one major benefit: interoperability with OpenAMQ 0-91 and
 	      Qpid 0-91 in the main areas of behaviour (though note that OpenAMQ
 	      only partially implements AMQP). This is being tested now and you
-	      can expect more 'noise' about this in Q1 2010 in the community.
+	      can expect more ‘noise’ about this in Q1 2010 in the community.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1187,7 +1187,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	
 	<doc:faq name="last-message-on-topic">
 	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
-	  RabbitMQ node which I'm sending to crashes?</doc:heading>
+	  RabbitMQ node which I’m sending to crashes?</doc:heading>
 	  <doc:a>
 	    <p>
 	    At the risk of sounding pedantic, you could wait for the dead node to recover
@@ -1213,7 +1213,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server &#8211; this is not available out of the box but you can  <a href="mailto:info@rabbitmq.com">
+	      server – this is not available out of the box but you can  <a href="mailto:info@rabbitmq.com">
 	      contact us for more info</a> (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
@@ -1443,7 +1443,7 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	  WAN AMQP connections?</doc:heading>
 	  <doc:a>
 	    <p>
-	  Glad you asked &#8211; yes there is! We are hosting a demonstration RabbitMQ server that is freely
+	  Glad you asked – yes there is! We are hosting a demonstration RabbitMQ server that is freely
 	  available for people to try out, perhaps for testing interoperation or experimenting with WAN
 	  AMQP connections.
 	    </p>

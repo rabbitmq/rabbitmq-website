@@ -26,7 +26,7 @@
 	<li>
 	<a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
 	Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
-	he introduces RabbitMQ &#8220;An open source message broker that just works&#8221;.
+	he introduces RabbitMQ “An open source message broker that just works”.
 	</li>
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
@@ -101,7 +101,7 @@
 	  achieving redundancy for high availability.
 	</li>
 	<li>
-	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une alternative &agrave; JMS?</a><br />
+	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une alternative à JMS?</a><br />
 	  An excellent introduction, in French, to messaging with AMQP. (Or read the
 	  <a href="http://translate.google.com/translate?hl=en&amp;sl=fr&amp;tl=en&amp;u=http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">English translation</a>,
 	  which is almost as good.)
@@ -684,7 +684,7 @@ decentralised microblogging</li>
 	  <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>,
 	  <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a><br />
 	  Three part series from Open Enterprise on messaging middleware and
-	  AMQP. Includes an interview with RabbitMQ's very own Alexis Richardson.
+	  AMQP. Includes an interview with RabbitMQ’s very own Alexis Richardson.
 	</li>
 	<li>
 	  <a href="http://www.datamonitor.com/store/News/the_potential_for_amqp_in_financial_services?productid=BB29541A-C9F6-4B24-A673-578F3737EDEB">The potential for AMQP in financial services</a><br />
@@ -740,7 +740,7 @@ decentralised microblogging</li>
 	  <a href="http://www.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team.
 	</li>
 	<li>
-	  <a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User's Charter and Scope</a><br />
+	  <a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
 	  Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
 	</li>
   </ul>
