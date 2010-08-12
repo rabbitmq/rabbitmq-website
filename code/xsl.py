@@ -68,7 +68,7 @@ def render_page(page_name):
 
 
 def handler(req):
-    req.content_type = "text/html"
+    req.content_type = "text/html; charset=utf-8"
     try:
         req.write(render_page(req.uri))
     except Error404:
