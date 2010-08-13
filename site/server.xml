@@ -48,8 +48,7 @@
 
     <p>
       The current RabbitMQ release implements <a
-      href="https://www.amqp.org/confluence/display/AMQP/AMQP+Specification">AMQP
-      protocol version 0-9-1</a>. Please see the <a
+      href="https://www.amqp.org/">AMQP protocol</a>. Please see the <a
       href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
     </p>
