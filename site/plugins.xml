@@ -24,8 +24,7 @@
       RabbitMQ supports a variety of plugins. This page contains links
       to some of our plugins, packaged as .ez files. The simplest way
       to install plugins is to download all the required .ez files
-      from this page, drop them in your plugins directory, run the
-      script <a href="rabbitmq-activate-plugins.1.man.html">rabbitmq-activate-plugins</a>,
+      from this page, drop them in your plugins directory
       and restart RabbitMQ.
 
       The plugins directory varies in location depending on how you
@@ -50,7 +49,7 @@
         <tr>
           <th>Macports</th>
           <td>
-            <code>/opt/local/lib/rabbitmq/plugins</code>
+            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
           </td>
         </tr>
         <tr>
@@ -190,20 +189,24 @@
     lists the repositories of our plugins and their dependencies.</p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-mochiweb"
-                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
-      <repository type="hg" shortname="rabbitmq-jsonrpc"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
-      <repository type="github" shortname="erlang-rfc4627"
-                  url="http://github.com/tonyg/erlang-rfc4627"/>
       <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
                   url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+      <repository type="hg" shortname="rabbitmq-shovel"
+		  url="http://hg.rabbitmq.com/rabbitmq-shovel/"/>
       <repository type="hg" shortname="rabbitmq-stomp"
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
+      <repository type="hg" shortname="rabbitmq-status"
+		  url="http://hg.rabbitmq.com/rabbitmq-status/"/>
       <repository type="hg" shortname="rabbitmq-xmpp"
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
+      <repository type="hg" shortname="rabbitmq-erlang-client"
+		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
+      <repository type="github" shortname="erlang-rfc4627"
+                  url="http://github.com/tonyg/erlang-rfc4627"/>
+      <repository type="hg" shortname="rabbitmq-jsonrpc"
+                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
+      <repository type="hg" shortname="rabbitmq-mochiweb"
+                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
     </repositories>
 
     <p/>
