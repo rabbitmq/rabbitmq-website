@@ -1348,7 +1348,7 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	      </li>
 	      <li>
 		connecting to our demo server using another AMQP
-		0-8 compatible client
+		0-8/0-9/0-9-1 compatible client
 	      </li>
 	      <li>
 		<a href="download.html">Downloading</a> the broker
