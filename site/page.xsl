@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" exclude-result-prefixes="r doc" version="1.0">
 
 <xsl:include href="feed.xsl"/>
          
-<xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="ISO-8859-1"/>
+<xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
   <xsl:template match="/html/head">
     <xsl:copy>
       <xsl:apply-templates/>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
       <meta name="googlebot" content="NOODP"/>
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
@@ -254,10 +255,10 @@ Technologies Ltd.</p></div>
 	<th class="desc">Description</th>
 	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
-            <th class="mirror"> </th>
+            <th class="mirror">&#160;</th>
         </xsl:if>
         <xsl:if test="@signature = 'yes'">
-            <th class="onethird"> </th>
+            <th class="onethird">&#160;</th>
         </xsl:if>
       </tr>
       <xsl:apply-templates/>
