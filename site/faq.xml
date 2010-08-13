@@ -1907,26 +1907,8 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	      will be maintained.
 	    </p>
 	  </doc:a>
-	</doc:faq>	
-	
-	<doc:faq name="nodes-in-cluster-balance-load">
-	  <doc:heading>In your clustering guide, it says that nodes in a cluster perform some
-	  basic load balancing. Can you explain a bit more about this works?</doc:heading>
-	  <doc:a>
-	    <p>
-	      Right. It's very basic. Nodes can respond to a client connection attempt
-	      with AMQP's connection.redirect method (unless the client supressed
-	      redirection by setting the insist flag in connection.open. Currently, we
-	      do this by looking at the load average of each node and picking the least
-	      loaded. This is not ideal and in some cases is suboptimal. For example,
-	      when the redirected client goes on to consume from a queue on a different node.
-	      We should point out that the redirect ability of AMQP disappears in 0-9-1
-	      as it's really not the job of AMQP to be doing this. 
-	    </p>
-	  </doc:a>
-	</doc:faq>	
-	
-	
+	</doc:faq>
+
       </doc:section>
 
       <doc:section name="general">

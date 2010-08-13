@@ -52,14 +52,6 @@
           name, optionally followed by a colon and a port number.
         </p>
         <p>
-          Nodes in a cluster perform some basic load balancing by
-          responding to client connection attempts with AMQP's
-          <code>connection.redirect</code> method as appropriate,
-          unless the client suppressed redirects by setting the
-          <code>insist</code> flag in the <code>connection.open</code>
-          method.
-        </p>
-        <p>
           A node can be a <em>RAM node</em> or a <em>disk
           node</em>. RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
