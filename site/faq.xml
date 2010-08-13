@@ -1089,23 +1089,22 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  <doc:heading>Can you enlighten me about the differences between different versions of the AMQP specs?</doc:heading>
 	  <doc:a>
 	    <p>
-	      The differences between 0-8, 0-9 and 0-91 are really small.  The 0-91
-	      version of the spec, which we support in dev (pre-release branch of
-	      our repo) has one major benefit: interoperability with OpenAMQ 0-91 and
-	      Qpid 0-91 in the main areas of behaviour (though note that OpenAMQ
-	      only partially implements AMQP). This is being tested now and you
-	      can expect more ‘noise’ about this in Q1 2010 in the community.
+	      The differences between 0-8, 0-9 and 0-9-1 are really
+	      small.  The 0-9-1 version of the spec has one major
+	      benefit: interoperability with OpenAMQ 0-9-1 and Qpid
+	      0-9-1 in the main areas of behaviour (though note that
+	      OpenAMQ only partially implements AMQP).
 	    </p>
 	  </doc:a>
 	</doc:faq>
   
-	<doc:faq name="AMQP-0-8-0-91">
-	  <doc:heading>So, what does AMQP 0-8 lack by comparison with 0-91?</doc:heading>
+	<doc:faq name="AMQP-0-8-0-9-1">
+	  <doc:heading>So, what does AMQP 0-8 lack by comparison with 0-9-1?</doc:heading>
 	  <doc:a>
 	    <p>
-	      There is definitely no critical feature that 0-8 lacks but 0-91 has the
+	      There is definitely no critical feature that 0-8 lacks but 0-9-1 has the
 	      merit of being shorter and tidying up lots of interoperability bugs. 0-9
-	      has stuff in it that people did not like and this was removed in 0-91.
+	      has stuff in it that people did not like and this was removed in 0-9-1.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1117,14 +1116,14 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    <p>
 	      The <a href="https://www.amqp.org/confluence/display/AMQP/AMQP1.0+SIG">AMQP 1-0 draft spec</a>
 	      is still a work in progress and introduces some major changes from previous
-	      versions. 
+	      versions.
 	    </p>
 	    <p>
 	      Our plan is to support 1-0 once it is finalised.  As a matter of
 	      practicality we will offer a migration path, for example it will be possible
-	      to simulate 0-8 and 0-91 in 1-0.  We do not expect 1-0 to be ready for
+	      to simulate 0-8 and 0-9-1 in 1-0.  We do not expect 1-0 to be ready for
 	      serious implementation in the near term, and are satisfied that we are
-	      supporting the right versions with 0-8 and 0-91.
+	      supporting the right versions with 0-8 and 0-9-1.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1348,7 +1347,7 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	      </li>
 	      <li>
 		connecting to our demo server using another AMQP
-		0-8 compatible client
+		0-8/0-9/0-9-1 compatible client
 	      </li>
 	      <li>
 		<a href="download.html">Downloading</a> the broker
@@ -1920,7 +1919,7 @@ Plugin</a> you can get queue depths (and lots more broker status information) ov
 	      do this by looking at the load average of each node and picking the least
 	      loaded. This is not ideal and in some cases is suboptimal. For example,
 	      when the redirected client goes on to consume from a queue on a different node.
-	      We should point out that the redirect ability of AMQP disappears in 0-91
+	      We should point out that the redirect ability of AMQP disappears in 0-9-1
 	      as it's really not the job of AMQP to be doing this. 
 	    </p>
 	  </doc:a>
