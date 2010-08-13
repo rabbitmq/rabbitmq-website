@@ -1089,12 +1089,11 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  <doc:heading>Can you enlighten me about the differences between different versions of the AMQP specs?</doc:heading>
 	  <doc:a>
 	    <p>
-	      The differences between 0-8, 0-9 and 0-9-1 are really small.  The 0-9-1
-	      version of the spec, which we support in dev (pre-release branch of
-	      our repo) has one major benefit: interoperability with OpenAMQ 0-9-1 and
-	      Qpid 0-9-1 in the main areas of behaviour (though note that OpenAMQ
-	      only partially implements AMQP). This is being tested now and you
-	      can expect more ‘noise’ about this in Q1 2010 in the community.
+	      The differences between 0-8, 0-9 and 0-9-1 are really
+	      small.  The 0-9-1 version of the spec has one major
+	      benefit: interoperability with OpenAMQ 0-9-1 and Qpid
+	      0-9-1 in the main areas of behaviour (though note that
+	      OpenAMQ only partially implements AMQP).
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1117,7 +1116,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	    <p>
 	      The <a href="https://www.amqp.org/confluence/display/AMQP/AMQP1.0+SIG">AMQP 1-0 draft spec</a>
 	      is still a work in progress and introduces some major changes from previous
-	      versions. 
+	      versions.
 	    </p>
 	    <p>
 	      Our plan is to support 1-0 once it is finalised.  As a matter of
