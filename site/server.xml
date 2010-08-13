@@ -23,8 +23,13 @@
     </p>
     
     <p>
-      The RabbitMQ server is an implementation of an AMQP broker. It
-      is written on top of the widely-used <a
+      The RabbitMQ server is an implementation of an AMQP broker.
+      Please see the <a href="specification.html">specification</a> page
+      for more information on AMQP interoperation and standards-conformance.
+    </p>
+
+    <p>
+      RabbitMQ is written on top of the widely-used <a
       href="faq.html#what-is-otp">Open Telecom Platform</a>, and is
       platform neutral; the binary distributions listed below differ
       only in how they are packaged to conform to various operating
@@ -44,13 +49,6 @@
       Please see the <a href="install.html">Installation
       instructions</a>. Additional documentation can be found linked
       from our <a href="documentation.html">documentation page</a>.
-    </p>
-
-    <p>
-      The current RabbitMQ release implements <a
-      href="https://www.amqp.org/">AMQP protocol</a>. Please see the <a
-      href="specification.html">specification</a> page for more
-      information on interoperation and standards-conformance.
     </p>
 
     <p>

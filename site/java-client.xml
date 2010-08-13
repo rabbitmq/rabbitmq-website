@@ -18,14 +18,9 @@
       The RabbitMQ Java client library allows Java code to interface
       to AMQP servers. The library is platform neutral; the binary
       distributions listed below differ only in the version of Java
-      they are intended for use with.
-    </p>
-
-    <p>
-      The current release implements <a
-      href="https://www.amqp.org/">AMQP protocol</a>. Please see the <a
+      they are intended for use with. Please see the <a
       href="specification.html">specification</a> page for more
-      information on interoperation and standards-conformance.
+      information on AMQP interoperation and standards-conformance.
     </p>
 
     <p>

@@ -18,14 +18,9 @@
       The RabbitMQ .NET client is an implementation of an AMQP client
       library for C# (and, implicitly, other .NET languages), and a
       binding exposing AMQP services via Microsoft's Windows
-      Communication Foundation (WCF).
-    </p>
-
-    <p>
-      The current release implements <a
-      href="https://www.amqp.org/">AMQP protocol</a>. Please see the <a
+      Communication Foundation (WCF).  Please see the <a
       href="specification.html">specification</a> page for more
-      information on interoperation and standards-conformance.
+      information on AMQP interoperation and standards-conformance.
     </p>
 
     <p>
