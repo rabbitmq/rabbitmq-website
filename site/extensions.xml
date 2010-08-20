@@ -16,7 +16,7 @@
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
-      
+
       <doc:section name="queue-leases">
         <doc:heading>Queue Leases</doc:heading>
 
@@ -36,7 +36,8 @@
           The server guarantees that the queue will be deleted, if
           unused for at least the expiration period. No guarantee is
           given as to how promptly the queue will be removed after the
-          expiration period has elapsed.
+          expiration period has elapsed. Leases of durable queues
+          restart when the server restarts.
         </p>
 
         <p>
@@ -63,7 +64,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
       <doc:section name="alternate-exchange">
         <doc:heading>Alternate Exchanges</doc:heading>
-        
+
         <p>
           It is sometimes desirable to let clients handle messages
           that an exchange was unable to route (i.e. either because
