@@ -41,16 +41,15 @@
 
 	  <ul>
 	    <li>
-	      Install a recent version of Erlang/OTP. Versions R12B-3
-	      and higher should work; we usually test against Erlang
-	      R12B-5 on Windows, which can be downloaded from <a
-	      href="http://www.erlang.org/download/otp_win32_R12B-5.exe">http://www.erlang.org/download/otp_win32_R12B-5.exe</a>
+          Install a recent version of Erlang/OTP. Versions R13B03
+          and higher should work; we usually test against Erlang
+          R13B03 on Windows, which can be downloaded from <a
+          href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>
 	    </li>
 	    <li>
-	      Download
-	      <code>rabbitmq-server-<i>version</i>.zip</code>, where
-	      <i>version</i> is the version of RabbitMQ Server you
-	      want to install.
+          Download <code>rabbitmq-server-windows-<i>version</i>.zip</code>,
+          where <i>version</i> is the version of RabbitMQ Server you want to
+          install.
 	    </li>
 	    <li>
 	      Contained in the zip file is a directory named
