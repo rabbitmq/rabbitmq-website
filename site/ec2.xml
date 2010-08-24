@@ -228,7 +228,7 @@ apt-get -y install man screen links htop
         status plugin is secured only using RabbitMQ AMQP credentials.
         Unless you change default guest password, the status page
         will be open to everyone that can connect to the port.
-        To <a href="rabbitmqctl.1.man.html#change_password">change guest password</a>
+        To <a href="man/rabbitmqctl.1.man.html#change_password">change guest password</a>
         run <code>rabbitmqctl change_password guest &lt;new_pass&gt;</code>
         inside the instance.
     </p>

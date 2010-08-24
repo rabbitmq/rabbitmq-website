@@ -2,7 +2,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" exclude-result-prefixes="r doc" version="1.0">
 
 <xsl:include href="feed.xsl"/>
-         
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
   <xsl:template match="/html/head">
@@ -321,8 +320,21 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-  
-  
+
+  <xsl:template match="r:repository[@type = 'github']">
+    <tr>
+      <td>
+	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+      </td>
+      <td>
+	<code>git clone <xsl:value-of select="@url"/>.git</code>
+      </td>
+      <td>
+	<a class="arepo" href="{@url}">Browse source</a>
+      </td>
+    </tr>
+  </xsl:template>
+
   <!-- ############################################################ -->
   
   <xsl:template match="r:classes">
@@ -386,6 +398,7 @@ Technologies Ltd.</p></div>
 	<th>Current Status</th>
 	<th>Type</th>
 	<th>Actor</th>
+	<th>Reference</th>
 	<th>Text</th>
       </tr>
       <xsl:apply-templates/>
@@ -399,11 +412,9 @@ Technologies Ltd.</p></div>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
+      <td><xsl:value-of select="r:xref"/></td>
       <td>
 	<div>
-	  <xsl:if test="normalize-space(r:xref)">
-	    <xsl:value-of select="normalize-space(r:xref)"/>:
-	  </xsl:if>
 	  <xsl:if test="normalize-space(r:context)">
 	    <xsl:value-of select="normalize-space(r:context)"/>:
 	  </xsl:if>
@@ -499,7 +510,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
-    
+
   <xsl:template match="*">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>

@@ -52,14 +52,6 @@
           name, optionally followed by a colon and a port number.
         </p>
         <p>
-          Nodes in a cluster perform some basic load balancing by
-          responding to client connection attempts with AMQP's
-          <code>connection.redirect</code> method as appropriate,
-          unless the client suppressed redirects by setting the
-          <code>insist</code> flag in the <code>connection.open</code>
-          method.
-        </p>
-        <p>
           A node can be a <em>RAM node</em> or a <em>disk
           node</em>. RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
@@ -520,25 +512,26 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up
-            via a default cluster configuration file, the location of
-            which is determined by the startup scripts; see the <a
+            via the RabbitMQ config file, the location of which is
+            determined by the startup scripts; see the <a
             href="install.html">installation guide</a> for
-            details. The file should contain a list of cluster nodes.
+            details. The file should set the cluster_nodes field in
+            the rabbit application to a list of cluster nodes.
           </p>
           <p>
-            Listing cluster nodes in that file has the same effect as
-            using the <code>cluster</code> command. However, the latter
-            takes precedence over the former, i.e. the default cluster
-            configuration file is ignored subsequent to any successful
-            invocation of the <code>cluster</code> command, until the
-            node is <code>reset</code>.
+            Listing cluster nodes this way has the same effect as
+            using the <code>cluster</code> command. However, the
+            latter takes precedence over the former, i.e. the default
+            cluster configuration is ignored subsequent to any
+            successful invocation of the <code>cluster</code> command,
+            until the node is <code>reset</code>.
           </p>
           <p>
-            A common use of the default cluster configuration file is
-            to automatically configure nodes to join a common
-            cluster. For this purpose the same configuration file can
-            be installed on all nodes, containing a list of potential
-            disk nodes for the cluster.
+            A common use of cluster configuration via the RabbitMQ
+            config file is to automatically configure nodes to join a
+            common cluster. For this purpose the same configuration
+            can be set on all nodes, thus specifing the potential disk
+            nodes for the cluster.
           </p>
           <p>
             Say we want to join our three separate nodes of our
@@ -569,22 +562,39 @@ Resetting node rabbit@rabbit3 ...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <p>
-            Now we create a configuration file containing the
-            line
+            Now we set the relevant field in the config file:
           </p>
-          <pre class="sourcecode">['rabbit@rabbit1', 'rabbit@rabbit2'].</pre>
+          <pre class="sourcecode">[
+  ...
+  {rabbit, [
+        ...
+  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+        ...
+  ]},
+  ...
+].</pre>
           <p>
-            (Note for Erlang programmers and the curious: this is a list 
-            containing two atoms. The atoms in this case do not need to be 
-            quoted but we've done so for ease of copy-and-paste.)
+            For instance, if this were the only field we needed to set, we would simply create the RabbitMQ config file with the contents:
+          </p>
+          <pre class="sourcecode">[
+  {rabbit, [
+  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+  ]},
+].</pre>
+          <p>
+            (Note for Erlang programmers and the curious: this is a
+            standard Erlang configuration file.  For more details, see
+            the <a
+            href="http://www.rabbitmq.com/install.html#configfile">Configuration
+            File</a> section of the installation instructions and the
+            <a href="http://www.erlang.org/doc/man/config.html">Erlang
+            Config Man Page</a>.)
           </p>
           <p>
-            We copy this file onto all machines and install it in the
-            location as defined in the start up files (see the <a
-            href="install.html">installation guide</a>). For example,
-            on a Unix system the file would typically have the path
-            <code>/etc/rabbitmq/rabbitmq_cluster.config</code>. Now we
-            simply start the nodes.
+            We set this field in the config file on all machines.  For
+            example, on a Unix system the file would typically have
+            the path <code>/etc/rabbitmq/rabbitmq.config</code>. Now
+            we simply start the nodes.
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmq-server -detached</i>
