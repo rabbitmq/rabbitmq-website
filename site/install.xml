@@ -48,8 +48,7 @@
 	    </li>
 	    <li>
           Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-          (which you can download by hand at our
-          <a href="server.html">download page</a>).
+          from the <a href="server.html">download page</a>.
 	    </li>
 	    <li>
 	      Contained in the zip file is a directory named
@@ -342,7 +341,8 @@
             <li>
               Alternatively, install
               rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb,
-              which you can download by hand, or by using our <a
+              which you can download from the
+              <a href="server.html">download page</a>, or by using our <a
               href="debian.html#apt">APT repository</a>. The server
               should start with appropriate defaults. Note that the
               package depends on erlang-base packages, so if you use
@@ -429,11 +429,10 @@
 	    <li>
               Alternatively, install
               rabbitmq-server-&version-server;-<i>architecture</i>.rpm
-              (which you can download by hand at our <a
-              href="server.html">download page</a>).  Note that the
-              package depends on erlang package(s).  We strongly
-              recommend using your distribution's packaged version of
-              Erlang to run the server. See <a
+              (which you can download from the <a href="server.html">download
+              page</a>).  Note that the package depends on erlang package(s).
+              We strongly recommend using your distribution's packaged
+              version of Erlang to run the server. See <a
               href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
               there is no official erlang package for your
               distribution.
