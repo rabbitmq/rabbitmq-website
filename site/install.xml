@@ -47,18 +47,18 @@
           href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>
 	    </li>
 	    <li>
-          Download <code>rabbitmq-server-windows-<i>version</i>.zip</code>,
-          where <i>version</i> is the version of RabbitMQ Server you want to
-          install.
+          Download <code>rabbitmq-server-windows-&version-server;.zip</code>
+          (which you can download by hand at our
+          <a href="server.html">download page</a>).
 	    </li>
 	    <li>
 	      Contained in the zip file is a directory named
-	      <code>rabbitmq_server-<i>version</i></code>.
+	      <code>rabbitmq_server-&version-server;</code>.
 
 	      You should extract this folder to somewhere appropriate
 	      for application files, for example <code>&dir-server-windows;</code>. 
 	      Once the files are successfully extracted, you should end up with a structure
-	      similar to <code>&dir-server-windows;\rabbitmq_server-N.N.N</code>.
+	      similar to <code>&dir-server-windows;\rabbitmq_server-&version-server;</code>.
 	      You will also need to set the environment
 	      variable ERLANG_HOME to point to your Erlang directory
 	      (e.g. <code>&dir-erlang-windows;</code>).
@@ -172,7 +172,7 @@
 	  <p>
 	    Currently, it's sufficient to change directory to
 
-	    <code>rabbitmq_server-<i>version</i>\sbin</code>
+	    <code>rabbitmq_server-&version-server;\sbin</code>
 
 	    and double-click the <code>rabbitmq-server.bat</code>
 	    file.
@@ -341,8 +341,8 @@
             </li>
             <li>
               Alternatively, install
-              rabbitmq-server_<i>version</i>_all.deb, which you can
-              download by hand, or by using our <a
+              rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb,
+              which you can download by hand, or by using our <a
               href="debian.html#apt">APT repository</a>. The server
               should start with appropriate defaults. Note that the
               package depends on erlang-base packages, so if you use
@@ -428,7 +428,7 @@
             </li>
 	    <li>
               Alternatively, install
-              rabbitmq-server-<i>version</i>-<i>architecture</i>.rpm
+              rabbitmq-server-&version-server;-<i>architecture</i>.rpm
               (which you can download by hand at our <a
               href="server.html">download page</a>).  Note that the
               package depends on erlang package(s).  We strongly
@@ -558,13 +558,12 @@
 	    </li>
 	    <li>
 	      Download
-	      <code>rabbitmq-server-generic-unix-<i>version</i>.tar.gz</code>,
-	      where <i>version</i> is the version of RabbitMQ Server
-	      you want to install.
+	      <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
+	      from the <a href="download.html">download page</a>.
 	    </li>
 	    <li>
 	      Contained in the tarball is a directory named
-	      <code>rabbitmq_server-<i>version</i></code>. You should
+	      <code>rabbitmq_server-&version-server;</code>. You should
 	      extract this into somewhere appropriate for application
 	      binaries on your system.
 	    </li>
