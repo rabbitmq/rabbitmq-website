@@ -424,10 +424,10 @@
           were used when performing the tests:
         </p>
         <table>
-          <tr><td>RabbitMQ broker</td><td><code>v2.0.0</code></td></tr>
-          <tr><td>RabbitMQ Java Client</td><td><code>v2.0.0</code></td></tr>
-          <tr><td>RabbitMQ Erlang Client</td><td><code>v2.0.0</code></td></tr>
-          <tr><td>RabbitMQ .NET Client</td><td><code>v2.0.0</code></td></tr>
+          <tr><td>RabbitMQ broker</td><td><code>2.0.0</code></td></tr>
+          <tr><td>RabbitMQ Java Client</td><td><code>2.0.0</code></td></tr>
+          <tr><td>RabbitMQ Erlang Client</td><td><code>2.0.0</code></td></tr>
+          <tr><td>RabbitMQ .NET Client</td><td><code>2.0.0</code></td></tr>
         </table>
       </doc:section>
     </doc:div>
