@@ -27,8 +27,10 @@
       from this page, drop them in your plugins directory
       and restart RabbitMQ.
 
-      The plugins directory varies in location depending on how you
-      installed RabbitMQ. Some common options are:
+      The plugins directory location is determined by the
+      <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
+      value depends on how you installed RabbitMQ. Some common options
+      are:
 
       <table>
         <tr><th>Installation method</th><th>Plugins directory</th></tr>
@@ -218,6 +220,15 @@
       may also from time to time post "known good" binaries; these
       will be marked with a particular server version with which they
       are known to work.
+    </p>
+    <p>
+      Since the default location of the plugins directory is
+      version-specific, installing / upgrading to a new version of the
+      server disables all plugins. That is the safest option since
+      often plugins depend on specific versions of the
+      server. Alternatively, plugins can be retained across upgrades
+      by setting <b>RABBITMQ_PLUGINS_DIR</b> to a location shared by
+      all installed rabbitmq server versions.
     </p>
   </body>
 </html>
