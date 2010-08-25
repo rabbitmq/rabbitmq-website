@@ -423,12 +423,12 @@
           The following versions of the RabbitMQ broker and clients
           were used when performing the tests:
         </p>
-        <ul>
-          <li>RabbitMQ broker: revision <code>d69acf94166f</code></li>
-          <li>RabbitMQ Java Client: revision <code>ed44f238961f</code></li>
-          <li>RabbitMQ Erlang Client: revision <code>a1a47bd01da0</code></li>
-          <li>RabbitMQ .NET Client: revision <code>be2717176fbb</code></li>
-        </ul>
+        <table>
+          <tr><td>RabbitMQ broker</td><td><code>v2.0.0</code></td></tr>
+          <tr><td>RabbitMQ Java Client</td><td><code>v2.0.0</code></td></tr>
+          <tr><td>RabbitMQ Erlang Client</td><td><code>v2.0.0</code></td></tr>
+          <tr><td>RabbitMQ .NET Client</td><td><code>v2.0.0</code></td></tr>
+        </table>
       </doc:section>
     </doc:div>
   </body>
