@@ -167,7 +167,7 @@
           server-generated names are allowed.  Permissions with
           <code>all</code> scope are enforced for all resources.  In
           this case, users must be explicitly granted permission to
-          <code>"amq.gen..*"</code> if they are to use
+          <code>"amq.gen.*"</code> if they are to use
           server-generated resources.  Similarly, grant no access
           could simply be expressed as <code>""</code>.  Permissions
           have <code>client</code> scope, by default.
