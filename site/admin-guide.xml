@@ -167,19 +167,28 @@
           server-generated names are allowed.  Permissions with
           <code>all</code> scope are enforced for all resources.  In
           this case, users must be explicitly granted permission to
-          <code>"amq.gen.*"</code> if they are to use
+          <code>'amq\.gen.*'</code> if they are to use
           server-generated resources.  Similarly, grant no access
-          could simply be expressed as <code>""</code>.  Permissions
+          could simply be expressed as <code>''</code>.  Permissions
           have <code>client</code> scope, by default.
         </p>
 
         <p>
-          The regular expression <code>^$</code>, i.e. matching
+          NB. Due to a bug in RabbitMQ 2.0.0, all permissions are
+          treated as having scope "all".  This means that, in order
+          for a client to use server generated names, it must
+          explicitly be granted permission to 'amq\.gen.*'.
+          Similarly, if a client intends to use the default exchange,
+          it must be granted permission to 'amq\.default'.
+        </p>
+
+        <p>
+          The regular expression <code>'^$'</code>, i.e. matching
           nothing but the empty string, exactly covers resources with
           server-generated names. That, for example, allows an
           administrator to restrict a user to declaring private
-          resources only.  The empty string, <code>""</code> is a
-          synonym for <code>^$</code> and restricts permissions in the
+          resources only.  The empty string, <code>''</code> is a
+          synonym for <code>'^$'</code> and restricts permissions in the
           exact same way.
         </p>
 
