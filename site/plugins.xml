@@ -74,6 +74,7 @@
 
     <p>To use this plugin the following files are required:</p>
     <ul>
+      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
