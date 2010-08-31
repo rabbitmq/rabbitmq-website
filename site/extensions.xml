@@ -41,10 +41,13 @@
         </p>
 
         <p>
-          The value of the <code>x-expires</code> argument must be a
-          <code>long</code> integer, greater than zero, describing the
-          expiration period in milliseconds. Thus a value of 1000L means
-          a queue which is unused for 1 second will be deleted.
+          The value of the <code>x-expires</code> argument must be an
+          integer, greater than zero, describing the expiration period
+          in milliseconds. Thus a value of 1000 means a queue which is
+          unused for 1 second will be deleted. The argument can be of
+          AMQP type short-short-int, short-int, long-int, or
+          long-long-int. (Signed types are used for compatibility with
+          AMQP 0-8.)
         </p>
 
         <doc:subsection>
@@ -56,7 +59,7 @@
           </p>
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-expires", 1800000L);
+args.put("x-expires", 1800000);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </doc:subsection>
 
