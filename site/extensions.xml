@@ -46,8 +46,7 @@
           in milliseconds. Thus a value of 1000 means a queue which is
           unused for 1 second will be deleted. The argument can be of
           AMQP type short-short-int, short-int, long-int, or
-          long-long-int. (Signed types are used for compatibility with
-          AMQP 0-8.)
+          long-long-int.
         </p>
 
         <doc:subsection>
