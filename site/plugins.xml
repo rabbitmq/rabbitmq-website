@@ -80,7 +80,7 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
     </ul>
 
-    <h3 id="rabbitmq-xmpp">rabbitmq-shovel</h3>
+    <h3 id="rabbitmq-shovel">rabbitmq-shovel</h3>
 
     <p>
       A plug-in for RabbitMQ that shovels messages from a queue on one
