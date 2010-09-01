@@ -30,43 +30,35 @@
     </div>
           
     </div>    
-    <h3>What is RabbitMQ</h3>
-    <p>
-	RabbitMQ is a complete and highly reliable enterprise messaging system based
-	on the <a href="specification.html">emerging AMQP standard</a>.	It is licensed
-	under the open source <a href="mpl.html">Mozilla Public License</a> 
-	and has a platform-neutral distribution, plus platform-specific packages 
-	and bundles for easy installation.
-    </p>   
+    <h3>What Is RabbitMQ?</h3>
+    <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
+    cloud scale and supported on all <a href="download.html">major operating systems</a> and 
+    <a href="how.html#clients">developer platforms</a>. RabbitMQ is open sourced under the
+    <a href="mpl.html">Mozilla Public License</a>.</p>   
     <ul>
       <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
-      <li>Read the <a href="specification.html">AMQP specification</a></li>
-      <li>See <a href="download.html">what platforms</a> are supported</li>
+      <li>Read more about <a href="how.html">RabbitMQ</a></li>
+      <li>See <a href="faq.html#rabbit-platforms">what platforms</a> are supported</li>
     </ul>   
     
-    <h3>Why Choose RabbitMQ</h3>
-    <p>
-	RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a>, 
-	offering exceptionally high reliability, availability and scalability 
-	along with good throughput and latency performance that is predictable and 
-	consistent.
-	It has a compact, easily maintainable code base allowing rapid
-	customisation and hot deployment. There are extensive facilities for management, 
-	monitoring, control and debugging and it is supported by a full range of commercial 
-	<a href="services.html">support services</a> and an <a href="community.html">
-	active community</a> developing <a href="how.html#clients">packages that extend the core system</a>.	
-    </p>  
+    <h3>Why Choose RabbitMQ?</h3>
+    <p>RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a> and offers a 
+	reliable, <a href="faq.html#feature-reliable">highly available</a>, scalable and portable messaging system with predictable and consistent
+	throughput and latency.</p>
+	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
+	dependency on proprietary vendor-supplied libraries.</p>
+	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
+	with other messaging systems: it is the leading <a href="faq#what-is-amqp">implementation of AMQP</a>,
+	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
+	XMPP, SMTP, STOMP and HTTP for lightweight web messaging.</p>
+	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
+	contributors. A full range of <a href="services.html">commercial support services</a>
+	are available through the SpringSource division of VMware.</p>  
     
-    <ul>
-      <li>Read more <a href="how.html">about RabbitMQ</a> and <a href="about.html">the company behind it</a></li>
-      <li>Join the <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
-      <li>Read about what is <a href="community.html">happening in the community</a></li>
-    </ul>
-    
-    <h3>How do I Get Started</h3>                
+    <h3>How Do I Get Started?</h3>                
     <ul>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
-      <li>I want to <a href="download.html">install and evaluate</a> RabbitMQ</li>
+      <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
       <li>Just <a href="how.html">tell me more</a></li>
     </ul>
     

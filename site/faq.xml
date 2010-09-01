@@ -826,13 +826,15 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      <ul class="compact">
 		<li>Solaris (including 64 bit)</li>
 		<li>BSD</li>
-		<li>Linux</li>
-		<li>OSX</li>
+		<li>Linux (all flavours - and part of the standard distribution in Ubuntu, Debian and Fedora)</li>
+		<li>MacOSX</li>
 		<li>TRU64</li>
 		<li>Vista/Windows 7</li>
 		<li>Windows NT/2000/2003/XP</li>
 		<li>Windows 95, 98</li>
 		<li>VxWorks</li>
+		<li>VMS</li>
+		<li>AIX</li>
 	      </ul>
 	    </p>
 	  </doc:a>
