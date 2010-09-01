@@ -247,6 +247,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
+	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
 	    an AMQP client library in AS3 for Flex and Flash</li>
 	    <li><a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a><br/>
