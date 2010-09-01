@@ -248,6 +248,18 @@ Technologies Ltd.</p></div>
 
   <!-- ############################################################ -->
 
+  <!-- supports adding a named anchor to a heading to allow linking --> 
+  <xsl:template match="r:title">
+    <xsl:if test="@name">
+      <a name="{@name}" />
+      <h3>
+        <xsl:copy-of select="@*[not(name()='name')]"/>
+        <xsl:apply-templates/>
+      </h3>
+    </xsl:if>  
+  </xsl:template>
+
+
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
