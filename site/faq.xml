@@ -833,9 +833,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 		<li>Windows NT/2000/2003/XP</li>
 		<li>Windows 95, 98</li>
 		<li>VxWorks</li>
-		<li>VMS</li>
-		<li>AIX</li>
-	      </ul>
+	    </ul>
 	    </p>
 	  </doc:a>
 	</doc:faq>
