@@ -193,6 +193,7 @@
         <li id="python-development">Python development:
 	  <ul class="plain">
 	    <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a></li>
+	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
