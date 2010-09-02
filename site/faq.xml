@@ -615,7 +615,7 @@
 	</doc:faq>	
 </doc:section>
 
-<doc:section name="features">
+<doc:section name="messaging-concepts-general">
 	<doc:heading>Messaging Concepts: General</doc:heading>
 
   <doc:faq name="message-ordering">

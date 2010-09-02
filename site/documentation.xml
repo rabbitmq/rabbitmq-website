@@ -12,10 +12,25 @@
     <doc:div>
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
-      <p>
-      See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links. For general questions
-      please read the <a href="faq.html">RabbitMQ FAQ</a>. 
-      </p>
+      <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links.</p>
+      
+      <doc:section name="faq">
+	    <doc:heading>Frequently Asked Questions</doc:heading>
+	    <ul>
+	    	<li><a href="faq.html">The Complete RabbitMQ FAQ</a></li>
+	    	<ul class="plain">
+	    		<li><a href="faq.html#background">Background</a></li>
+				<li><a href="faq.html#managing-concepts-exchanges">Messaging Concepts</a></li>
+				<li><a href="faq.html#features">RabbitMQ Features</a></li>
+				<li><a href="faq.html#architecture">RabbitMQ Architecture</a></li>
+				<li><a href="faq.html#integration">Integration &amp; Interoperability</a></li>
+				<li><a href="faq.html#howto">How To</a></li>
+				<li><a href="faq.html#configuration">Configuration</a></li>
+				<li><a href="faq.html#performance">Performance, Scalability and Clustering</a></li>
+				<li><a href="faq.html#general">General</a></li>
+			</ul>
+	    </ul>
+	  </doc:section>
 
       <doc:section name="server">
 	<doc:heading>Server documentation</doc:heading>
