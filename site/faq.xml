@@ -819,7 +819,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      the server component is written in Erlang, and the
 	      client component in Java, it is platform-neutral. Erlang
 	      runs on the following platforms (taken from <a
-	      href="http://www.erlang.org/faq/faq.html#AEN903">Erlang's
+	      href="http://www.erlang.org/faq/implementations.html#id56177">Erlang's
 	      FAQ</a>):
 	    </p>
 	    <p>
