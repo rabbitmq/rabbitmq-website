@@ -13,7 +13,7 @@
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
       <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links.</p>
-      
+
       <doc:section name="faq">
 	    <doc:heading>Frequently Asked Questions</doc:heading>
 	    <ul>
@@ -81,7 +81,7 @@
       <doc:section name="plugins">
         <doc:heading>Plugins</doc:heading>
         <ul>
-          <li><a href="admin-guide.html#plugins">Plugin Installation Guide</a></li>          
+          <li><a href="admin-guide.html#plugins">Plugin Installation Guide</a></li>
           <li><a href="plugin-development.html">Plugin Development Guide</a></li>
           <li>Specific Plugin Pages:</li>
           <ul class="plain">
@@ -92,7 +92,7 @@
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-status/file/&version-server-hg;/README">rabbitmq-status</a> - Provides a simple monitoring webpage</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">rabbitmq-xmpp</a> - Exposes AMQP functionality via an XMPP gateway</li>
-          </ul>          
+          </ul>
         </ul>
       </doc:section>
 
@@ -102,7 +102,7 @@
 	    	<li><a href="ec2.html">Amazon EC2</a> - Deploy RabbitMQ on Amazon's Cloud</li>
 	    </ul>
 	  </doc:section>
-	
+
       <doc:section name="general">
 	<doc:heading>General documentation</doc:heading>
 	<ul>
