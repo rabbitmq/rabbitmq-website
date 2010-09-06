@@ -193,6 +193,7 @@
         <li id="python-development">Python development:
 	  <ul class="plain">
 	    <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a></li>
+	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
@@ -474,6 +475,12 @@ decentralised microblogging</li>
       </ul>
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
+      <li>
+      	<a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
+      	Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
+      	with proven enterprise integration patterns results in code that is easier to maintain, easier to test
+      	and is faster than the legacy system it replaces.
+      </li>
       <li>
       <a href="http://docs.google.com/present/view?id=dck5j8mb_0rqn4psdg">Patterns for Messaging with RabbitMQ</a><br/>
       Scott Brooks presents an overview of the AMQ model and goes on to describe some advanced topics. He highlights a set of common

@@ -17,9 +17,8 @@
     </p>
 
     <p>
-      Packages/installers are available for all major operating
-      systems and platforms. RabbitMQ can also be deployed as a
-      VMWare/Debian virtual appliance.
+      Packages/installers are available for all <a href="download.html">major operating
+      systems and platforms</a>.
     </p>
 
     <p>
@@ -29,7 +28,8 @@
 
     <p>
       For more information about RabbitMQ, explore the <a href="documentation.html">documentation</a>,
-      <a href="examples.html">examples</a>, <a href="community.html">community forums</a>     
+      <a href="examples.html">examples</a>, <a href="community.html">community forums</a> and
+      <a href="partners.html">partner</a> pages.
     </p>
     
      <p>Please note, RabbitMQ is <a href="mailto:info@rabbitmq.com?subject=Recruitment">recruiting!</a></p>
