@@ -78,6 +78,25 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
     </ul>
 
+    <h3 id="rabbitmq-management">rabbitmq-management</h3>
+
+    <p>
+      A management / monitoring API over HTTP, along with a browser-based
+      UI. For more information, see <a href="management.html">the
+      page on the management plugin</a>. Note that there are
+      currently <a href="management.html#caveats">important caveats</a> for
+      this plugin.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/webmachine-&version-server;.ez">webmachine</a></li>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
+    </ul>
+
     <h3 id="rabbitmq-xmpp">rabbitmq-shovel</h3>
 
     <p>

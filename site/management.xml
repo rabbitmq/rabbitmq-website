@@ -1,0 +1,104 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Management Plugin</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+        This is the documentation for the rabbitmq-management
+        plugin. The plugin provides an HTTP-based API for management
+        and monitoring of your RabbitMQ server, along with a
+        browser-based UI.
+      </p>
+
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="installation">
+        <doc:heading>Installation</doc:heading>
+        <p>
+          The simplest way to obtain the management plugin is to
+          download the binary packages from
+          the <a href="plugins.html">plugins page</a> and copy them to
+          your plugins directory. See
+          the <a href="plugins.html">plugins page</a> for more
+          details.
+        </p>
+        <p>
+          If you wish to build the plugin from source, it can be built
+          like any other. See
+          the <a href="plugin-development.html">plugin development</a>
+          page or
+          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
+          file for more information.
+        </p>
+      </doc:section>
+
+      <doc:section name="caveats">
+        <doc:heading>Caveats and warnings</doc:heading>
+        <p>
+          The management plugin is still at an early stage of
+          development. Some day this section will be removed, but
+          until then you should be aware of the following limitations:
+        </p>
+        <ul>
+          <li>
+            <b>Permissions are only enforced sporadically.</b> If a
+            user can authenticate with the HTTP API, they can do
+            anything.
+          </li>
+          <li>
+            Installing the management plugin will turn on
+            fine-grained statistics in the server. <b>This can slow a
+            CPU-bound server by 5-10%</b>.
+          </li>
+          <li>
+            All sorts of other features may be missing or buggy. See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/TODO">TODO</a>
+            file for more information.
+          </li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="management-ui">
+        <doc:heading>Management UI</doc:heading>
+        <p>
+          After installation, point your browser at
+          http://<i>server-name</i>:55672/mgmt/. You will need to
+          authenticate as a RabbitMQ user (on a fresh installation the
+          user "guest" is created with password "guest"). From here
+          you can manage exchanges, queues, bindings, virtual hosts,
+          users and permissions. Hopefully the UI is fairly
+          self-explanatory.
+        </p>
+        <p>
+          The management UI is implemented as a single static HTML
+          page which makes background queries to the HTTP API. As such
+          it makes heavy use of Javascript. It has been tested with
+          recent versions of Firefox, Chromium and Safari, and with
+          versions of Microsoft Internet Explorer back to 6.0. Lynx
+          users should use the HTTP API directly.
+        </p>
+      </doc:section>
+
+      <doc:section name="http-api">
+        <doc:heading>HTTP API</doc:heading>
+        <p>
+          The management plugin will create an HTTP-based API at
+          http://<i>server-name</i>:55672/api/. Browse to that
+          location for more information on the API. For convenience
+          the documentation can also be obtained
+          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
+          Mercurial server</a>.
+        </p>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>
