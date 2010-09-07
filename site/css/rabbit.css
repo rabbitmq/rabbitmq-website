@@ -77,6 +77,10 @@ input#search-query {
 	font-size: 12px;
 }
 
+input#search-query.focus {
+	color: #000;
+}
+
 input#search-button {
 	cursor: pointer;
 	height: 17px;
@@ -85,8 +89,10 @@ input#search-button {
 	border: none;
 }
 
-input#search-query.focus {
-	color: #000;
+* html input#search-button {
+	/* IE6 and lower only */
+	margin-top: -23px;
+	margin-left: 175px;
 }
 
 dd p {
