@@ -54,6 +54,30 @@ function decorate_links() {
     }
 };
 
+/*
+ * Handler for the onblur event of the search input text box
+ */
+function handle_SearchBoxBlur() {
+	var ele = document.getElementById('search-query');
+	if (ele) {
+		ele.className = '';
+		ele.value = ele.value || 'Search RabbitMQ';
+	}
+}
+
+/*
+ * Handler for the onfocus event of the search input text box
+ */
+function handle_SearchBoxFocus() {
+	var ele = document.getElementById('search-query');
+	if (ele) {
+		ele.className = 'focus';
+		if (ele.value == 'Search RabbitMQ') {
+			ele.value = '';
+		}
+	}
+}
+
 window.onload = function() {
     try{
         decorate_links();
