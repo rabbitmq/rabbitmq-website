@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -85,7 +85,7 @@
           <li><a href="plugin-development.html">Plugin Development Guide</a></li>
           <li>Specific Plugin Pages:</li>
           <ul class="plain">
-		    <li><a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
+		    <li><a href="erlang-client-user-guide.html">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
           	<li><a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language provides a SQL-like interface to RabbitMQ</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
