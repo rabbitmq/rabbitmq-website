@@ -12,7 +12,8 @@
     <doc:div>
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
-      <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links.</p>
+      <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links. We maintain
+      an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.</p>
 
       <doc:section name="faq">
 	    <doc:heading>Frequently Asked Questions</doc:heading>
@@ -81,6 +82,7 @@
       <doc:section name="plugins">
         <doc:heading>Plugins</doc:heading>
         <ul>
+          <li><a href="plugins.html">Plugins Page</a></li>
           <li><a href="admin-guide.html#plugins">Plugin Installation Guide</a></li>
           <li><a href="plugin-development.html">Plugin Development Guide</a></li>
           <li>Specific Plugin Pages:</li>
@@ -106,9 +108,6 @@
       <doc:section name="general">
 	<doc:heading>General documentation</doc:heading>
 	<ul>
-	  <li>
-	    Common questions are answered in the <a href="faq.html">RabbitMQ FAQ</a>
-	  </li>
 	  <li>
 	    Instructions for <a href="build.html">building</a> the
 	    RabbitMQ server and client libraries from source
