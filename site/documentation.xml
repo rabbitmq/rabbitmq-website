@@ -34,7 +34,7 @@
 	  </doc:section>
 
       <doc:section name="server">
-	<doc:heading>Server documentation</doc:heading>
+	<doc:heading>Server Documentation</doc:heading>
 	<ul>
 	  <li>
             <a href="install.html">Installation Guide</a>
@@ -55,7 +55,7 @@
       </doc:section>
 
       <doc:section name="client">
-	<doc:heading>Client documentation and examples</doc:heading>
+	<doc:heading>Client Documentation</doc:heading>
 	<ul>
 	  <li>
 	    <a href="api-guide.html">RabbitMQ Java Client API
@@ -99,14 +99,14 @@
       </doc:section>
 
       <doc:section name="cloud">
-	    <doc:heading>Cloud configurations</doc:heading>
+	    <doc:heading>Cloud Configurations</doc:heading>
 	    <ul>
 	    	<li><a href="ec2.html">Amazon EC2</a> - Deploy RabbitMQ on Amazon's Cloud</li>
 	    </ul>
 	  </doc:section>
 
       <doc:section name="general">
-	<doc:heading>General documentation</doc:heading>
+	<doc:heading>General Documentation</doc:heading>
 	<ul>
 	  <li>
 	    Instructions for <a href="build.html">building</a> the
