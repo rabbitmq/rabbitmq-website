@@ -11,8 +11,12 @@ import xsl ## from the ./code/ subdirectory
 xsl.SITE_DIR = './site/'
 
 class StubReq:
-    def __init__(self, uri):
+    def __init__(self, uri, queryPos):
         self.uri = uri
+        if queryPos == -1:
+            self.path = uri
+        else:
+            self.path = uri[:queryPos]
         self.wfile = StringIO.StringIO()
         self.content_type = None
         self.status = 200
@@ -25,6 +29,9 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         self.do_GET()
     def do_GET(self):
         lowerpath = self.path.lower()
+        queryPos = self.path.find("?")
+        if queryPos != -1:
+            lowerpath = lowerpath[:queryPos]
         if lowerpath.endswith('/') or \
                 lowerpath.endswith('.xml') or \
                 lowerpath.endswith('.html') or \
@@ -32,7 +39,7 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             p = self.path
             if p[-1] == '/':
                 p = p + 'index.html'
-            r = StubReq(p)
+            r = StubReq(p, queryPos)
             xsl.handler(r)
             self.send_response(r.status)
             self.send_header("Content-type", r.content_type)
