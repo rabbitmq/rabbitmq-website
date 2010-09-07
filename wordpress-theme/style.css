@@ -45,3 +45,7 @@ Author: Simon MacMullen
     float: right;
     padding: 0 0 10px 10px;
 }
+
+#content .entry img.aligncenter {
+    display: block; margin: 10px auto;
+}
