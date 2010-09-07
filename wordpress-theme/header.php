@@ -43,7 +43,7 @@ try{
 	</div>
   <ul class="mainNav"><li><a href="/download.html">Download</a></li><li><a href="/documentation.html">Documentation</a></li><li><a href="/how.html">Get Started</a></li><li><a href="/services.html">Services</a></li><li><a href="/community.html">Community</a></li><li><a href="/blog/">Blog</a></li></ul>
 
-  <hr class="pad"></hr>
+  <div class="nav-separator"/>
 
     <div class="document">
 
