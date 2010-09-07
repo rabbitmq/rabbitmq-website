@@ -70,8 +70,13 @@
         <doc:heading>Plugins</doc:heading>
         <ul>
           <li>
-            <a href="rabbitmq-bql.html">rabbit-bql</a> - Broker Query
-	    Language plugin provides a SQL-like interface to RabbitMQ
+            <a href="management.html">rabbitmq-management</a> -
+	    Management plugin provides a web interface and HTTP API
+	    to RabbitMQ.
+          </li>
+          <li>
+            <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query
+	    Language plugin provides a SQL-like interface to RabbitMQ.
           </li>
         </ul>
       </doc:section>
