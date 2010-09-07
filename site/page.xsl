@@ -67,7 +67,7 @@ try{
       <li><a href="/community.html">Community</a></li>
       <li><a href="/blog/">Blog</a></li>
     </ul>
-    <hr class="pad"/>
+    <div class="nav-separator"/>
   </xsl:template>
 
   <xsl:template name="page-footer">
