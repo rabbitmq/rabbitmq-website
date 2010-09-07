@@ -415,7 +415,7 @@ decentralised microblogging</li>
 	<li>
 	  <a href="management.html">RabbitMQ Management Plugin</a><br />
 	  The management plugin provides a web interface and HTTP API
-	  to RabbitMQ.
+	  for managing and monitoring RabbitMQ.
 	</li>
 	<li>
 	  <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />

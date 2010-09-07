@@ -72,7 +72,7 @@
           <li>
             <a href="management.html">rabbitmq-management</a> -
 	    Management plugin provides a web interface and HTTP API
-	    to RabbitMQ.
+	    for managing and monitoring RabbitMQ.
           </li>
           <li>
             <a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query
