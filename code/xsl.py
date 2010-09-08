@@ -69,8 +69,11 @@ def render_page(page_name):
 
 def handler(req):
     req.content_type = "text/html; charset=utf-8"
+    
+    uri = getattr(req, "path", req.uri)
+    
     try:
-        req.write(render_page(req.path))
+        req.write(render_page(uri))
 
     except Error404:
         req.status = apache.HTTP_NOT_FOUND
