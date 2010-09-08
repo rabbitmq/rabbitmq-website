@@ -32,9 +32,9 @@ try{
   <xsl:template match="/html/body">
     <xsl:copy>
       <div id="outerContainer">
-    <xsl:call-template name="page-header"/>
-    <xsl:apply-templates/>
-    <xsl:call-template name="page-footer"/>
+	<xsl:call-template name="page-header"/>
+	<xsl:apply-templates/>
+	<xsl:call-template name="page-footer"/>
       </div>
     </xsl:copy>
     <script type="text/javascript" src="/site.js"/>
@@ -71,7 +71,7 @@ try{
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"/>
+    <div class="clear"/>	
     <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</p></div>
   </xsl:template>
@@ -89,13 +89,13 @@ Technologies Ltd.</p></div>
     <div class="docToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
-    <xsl:for-each select="//doc:section[@name]">
-      <li>
-        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-        <xsl:if test=".//doc:subsection[@name]">
-          <ul class="{$tocNode/@class}">
-        <xsl:for-each select=".//doc:subsection[@name]">
-          <li>
+	<xsl:for-each select="//doc:section[@name]">
+	  <li>
+	    <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+	    <xsl:if test=".//doc:subsection[@name]">
+	      <ul class="{$tocNode/@class}">
+		<xsl:for-each select=".//doc:subsection[@name]">
+		  <li>
             <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
             <ul class="{$tocNode/@class}">
               <xsl:for-each select=".//doc:subsubsection[@name]">
@@ -103,11 +103,11 @@ Technologies Ltd.</p></div>
               </xsl:for-each>
             </ul>
           </li>
-        </xsl:for-each>
-          </ul>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
+		</xsl:for-each>
+	      </ul>
+	    </xsl:if>
+	  </li>
+	</xsl:for-each>
       </ul>
     </div>
   </xsl:template>
@@ -165,18 +165,18 @@ Technologies Ltd.</p></div>
     <div class="docToc faqToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
-    <xsl:for-each select="//doc:section[@name]">
-      <li>
-        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-        <xsl:if test=".//doc:faq[@name]">
-          <ul class="{$tocNode/@class}">
-        <xsl:for-each select=".//doc:faq[@name]">
-          <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-        </xsl:for-each>
-          </ul>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
+	<xsl:for-each select="//doc:section[@name]">
+	  <li>
+	    <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+	    <xsl:if test=".//doc:faq[@name]">
+	      <ul class="{$tocNode/@class}">
+		<xsl:for-each select=".//doc:faq[@name]">
+		  <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+		</xsl:for-each>
+	      </ul>
+	    </xsl:if>
+	  </li>
+	</xsl:for-each>
       </ul>
     </div>
   </xsl:template>
@@ -223,19 +223,19 @@ Technologies Ltd.</p></div>
   <xsl:template match="doc:item">
     <li>
       <xsl:choose>
-    <xsl:when test="doc:link">
-      <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
-        <xsl:value-of select="doc:title"/>
-      </a>
-    </xsl:when>
-    <xsl:otherwise>
-      <span class="feed-item-title">
-        <xsl:value-of select="doc:title"/>
-      </span>
-    </xsl:otherwise>
+	<xsl:when test="doc:link">
+	  <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
+	    <xsl:value-of select="doc:title"/>
+	  </a>
+	</xsl:when>
+	<xsl:otherwise>
+	  <span class="feed-item-title">
+	    <xsl:value-of select="doc:title"/>
+	  </span>
+	</xsl:otherwise>
       </xsl:choose>
       <span class="feed-item-date">
-    <xsl:value-of select="doc:date"/>
+	<xsl:value-of select="doc:date"/>
       </span>
       <hr/>
       <xsl:apply-templates select="doc:text"/>
@@ -251,8 +251,8 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th class="desc">Description</th>
-    <th>Download </th>
+	<th class="desc">Description</th>
+	<th>Download </th>
         <xsl:if test="@mirror = 'yes'">
             <th class="mirror">&#160;</th>
         </xsl:if>
@@ -299,9 +299,9 @@ Technologies Ltd.</p></div>
 
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th>Snapshot</th>
-    <th>Repository checkout command</th>
-    <th>Repository overview</th>
+	<th>Snapshot</th>
+	<th>Repository checkout command</th>
+	<th>Repository overview</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -310,13 +310,13 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'hg']">
     <tr>
       <td>
-    <a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
+	<a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
-    <code>hg clone <xsl:value-of select="@url"/></code>
+	<code>hg clone <xsl:value-of select="@url"/></code>
       </td>
       <td>
-    <a class="arepo" href="{@url}">Browse source</a>
+	<a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
@@ -324,25 +324,25 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'github']">
     <tr>
       <td>
-    <a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
-    <code>git clone <xsl:value-of select="@url"/>.git</code>
+	<code>git clone <xsl:value-of select="@url"/>.git</code>
       </td>
       <td>
-    <a class="arepo" href="{@url}">Browse source</a>
+	<a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
 
   <!-- ############################################################ -->
-
+  
   <xsl:template match="r:classes">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th>Current Status</th>
-    <th>Class</th>
-    <th>Notes</th>
+	<th>Current Status</th>
+	<th>Class</th>
+	<th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -351,9 +351,9 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:methods">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th>Current Status</th>
-    <th>Method</th>
-    <th>Notes</th>
+	<th>Current Status</th>
+	<th>Method</th>
+	<th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -362,10 +362,10 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:qpid-tests">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th>Current Status</th>
-    <th>Test Name</th>
-    <!-- <th>Test Class</th> -->
-    <th>Notes</th>
+	<th>Current Status</th>
+	<th>Test Name</th>
+	<!-- <th>Test Class</th> -->
+	<th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -374,7 +374,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:class|r:method">
     <tr>
       <td class="statusCell status_{r:status/@value}">
-    <xsl:apply-templates select="r:status"/>
+	<xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="@name"/></td>
       <td><xsl:apply-templates select="r:notes"/></td>
@@ -384,7 +384,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:qpid-test">
     <tr>
       <td class="statusCell status_{r:status/@value}">
-    <xsl:apply-templates select="r:status"/>
+	<xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="@name"/></td>
       <!-- <td><xsl:value-of select="@class"/></td> -->
@@ -395,11 +395,11 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:rules">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-    <th>Current Status</th>
-    <th>Type</th>
-    <th>Actor</th>
-    <th>Reference</th>
-    <th>Text</th>
+	<th>Current Status</th>
+	<th>Type</th>
+	<th>Actor</th>
+	<th>Reference</th>
+	<th>Text</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -408,24 +408,24 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:rule">
     <tr>
       <td class="statusCell status_{r:status/@value}">
-    <xsl:apply-templates select="r:status"/>
+	<xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
       <td><xsl:value-of select="r:xref"/></td>
       <td>
-    <div>
-      <xsl:if test="normalize-space(r:context)">
-        <xsl:value-of select="normalize-space(r:context)"/>:
-      </xsl:if>
-      <xsl:value-of select="r:text"/>
-    </div>
-    <xsl:if test="r:notes">
-      <div class="notes">
-        <span class="leader">Notes: </span>
-        <xsl:apply-templates select="r:notes"/>
-      </div>
-    </xsl:if>
+	<div>
+	  <xsl:if test="normalize-space(r:context)">
+	    <xsl:value-of select="normalize-space(r:context)"/>:
+	  </xsl:if>
+	  <xsl:value-of select="r:text"/>
+	</div>
+	<xsl:if test="r:notes">
+	  <div class="notes">
+	    <span class="leader">Notes: </span>
+	    <xsl:apply-templates select="r:notes"/>
+	  </div>
+	</xsl:if>
       </td>
     </tr>
   </xsl:template>
