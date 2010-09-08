@@ -36,8 +36,8 @@ try{
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
     <div id="search-box">
-	  <form action="search.html">
-		<input type="text" name="q" size="25" id="search-query" autocomplete="off" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+	  <form action="search.html" method="get">
+		<input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
 	    <input type="submit" id="search-button" alt="Search" value="" />
 	  </form>
 	</div>
