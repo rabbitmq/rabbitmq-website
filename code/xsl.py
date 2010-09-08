@@ -69,9 +69,9 @@ def render_page(page_name):
 
 def handler(req):
     req.content_type = "text/html; charset=utf-8"
-    
+
     uri = getattr(req, "path", req.uri)
-    
+
     try:
         req.write(render_page(uri))
 
