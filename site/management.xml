@@ -32,6 +32,15 @@
           details.
         </p>
         <p>
+          <b>Note to Windows users:</b> Versions of Erlang as recent
+          as R13B03 do not include the OpenSSL library needed by the
+          crypto application (in turn needed by the management
+          plugin). You should install
+          it. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
+          post</a> explains how. Version R14A appears to include it
+          already.
+        </p>
+        <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
