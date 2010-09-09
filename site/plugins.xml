@@ -180,7 +180,9 @@
       An Erlang client for RabbitMQ. This client offers both a
       networked version that uses standard TCP-based AMQP framing and
       a direct client that uses native Erlang message passing to a
-      RabbitMQ broker.
+      RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
+      guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
+      for more information.
     </p>
 
     <p>This plugin is a dependency of some others, but can also be

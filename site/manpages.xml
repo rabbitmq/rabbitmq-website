@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -11,7 +11,7 @@
   <body>
     <doc:div>
       <p class="intro">
-    	This page lists the available manual pages taken from the latest server release. 
+    	This page lists the available manual pages taken from the latest server release.
       </p>
 
       <doc:section name="section1">
@@ -20,6 +20,7 @@
           <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a></li>
           <li><a href="man/rabbitmq-multi.1.man.html">rabbitmq-multi</a></li>
           <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
+          <li><a href="man/rabbitmq-service.1.man.html">rabbitmq-service</a></li>
         </ul>
       </doc:section>
 
