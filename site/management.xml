@@ -86,39 +86,23 @@
       <doc:section name="fine-stats">
         <doc:heading>Message rates and fine-grained statistics</doc:heading>
         <p>
-          The management plugin is capable of showing message rates
-          (publish, ack, deliver, etc); both globally for the entire
-          server, and for each channel. This feature is dependent on
-          fine-grained statistics being enabled in the server. This
+          The message rates shown by the management plugin require
+          fine-grained statistics to be enabled in the server. This
           will have a performance impact on a CPU-bound server;
-          typically message throughput can be reduced by 5-10%.
+          typically message throughput can be reduced by 5-10%. For
+          ease of use, the management plugin will automatically enable
+          fine-grained statistics when it is installed.
         </p>
         <p>
-          To switch fine-grained statistics on, set the value of
-          the <code>collect_statistics</code> variable
-          to <code>fine</code> in your configuration file and restart
-          RabbitMQ. The file can be found at:
+          However, if you'd rather get the throughput than the
+          statistics, you can prevent this from happening. Set the
+          value of the <code>force_fine_statistics</code> variable
+          to <code>false</code> in your configuration file for
+          the <code>rabbit_management</code> application and restart
+          RabbitMQ.
         </p>
-        <table>
-          <tr>
-            <th>Packaged / Generic Unix</th>
-            <td><code>/etc/rabbitmq/rabbitmq.config</code></td>
-          </tr>
-          <tr>
-            <th>Windows</th>
-            <td><code>%APPDATA%\RabbitMQ\rabbitmq.config</code></td>
-          </tr>
-          <tr>
-            <th>Macports</th>
-            <td><code>/opt/local/etc/rabbitmq/rabbitmq.config</code></td>
-          </tr>
-        </table>
         <p>
-          A complete (minimal) example configuration file would look like:
-        </p>
-        <pre>[{rabbit, [{collect_statistics, fine}]}].</pre>
-        <p>
-          Further information on the configuration file can be
+          Information on the configuration file can be
           found <a href="install.html#configfile">here</a>.
         </p>
       </doc:section>
