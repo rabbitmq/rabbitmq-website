@@ -59,6 +59,42 @@ div.s2-logo {
   height: 70px;
 }
 
+div#search-box {
+	float: right;
+	clear: right;
+	background: url('../img/search-box.png') no-repeat;
+	height: 26px;
+	width: 191px;
+	padding: 4px 10px 0px 10px;
+}
+
+input#search-query {
+	float: left;
+	height: 17px;
+	width: 172px;
+	border: none;
+	color: #8a948f;
+	font-size: 12px;
+}
+
+input#search-query.focus {
+	color: #000;
+}
+
+input#search-button {
+	cursor: pointer;
+	height: 17px;
+	width: 17px;
+	background: url('../img/button-search.png') no-repeat;
+	border: none;
+}
+
+* html input#search-button {
+	/* IE6 and lower only */
+	margin-top: -23px;
+	margin-left: 175px;
+}
+
 dd p {
   margin: 0 0 5px 0;
 }
@@ -266,11 +302,9 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-  /*margin: 100px 0 0 0;  IE6/7 doesn't respect margin + float -> using padding instead */
-	padding: 20px 0 0 0;
+	padding-top: 45px;
 	height: 21px;
-  clear: both;
-	border-bottom: #FF8C00 1px solid;
+	clear: left;
 }
 
 .mainNav li {
@@ -298,6 +332,15 @@ hr {
 }
 
 hr.pad {
+	margin: 0px 0px 21px 0px;
+	padding: 0px;
+}
+div.nav-separator {
+	clear: both;
+	border-top: #FF8C00 1px solid;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
 	margin: 0px 0px 21px 0px;
 	padding: 0px;
 }

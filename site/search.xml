@@ -12,11 +12,14 @@
 <div id="cse" style="width: 100%;">Loading</div>
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
+  <![CDATA[
   google.load('search', '1', {language: 'en'});  /* use 'nocss: true' property to use custom css */
   google.setOnLoadCallback(function() {
     // create a search control
     var searchControl = new google.search.SearchControl();
     searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+    searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+
 
     // create site searchers
     var webSearch_RMQ = new google.search.WebSearch();
@@ -44,7 +47,30 @@
     // draw the search control
     searchControl.draw(document.getElementById("cse"), drawOptions);
 
+    // extract and run the query
+    var q = getQuery();
+    if (q && q.length > 0) {
+     searchControl.execute(q);
+    }
+
   }, true);
+
+  // return the querystring portion of the url
+  function getQuery() {
+    var url = '' + window.location;
+    var queryStart = url.indexOf('?') + 1;
+    if (queryStart > 0) {
+        var parts = url.substr(queryStart).split('&');
+        for(var i =0; i < parts.length; i++) {
+            if (parts[i].length > 2 && parts[i].substr(0,2) == 'q=') {
+                return decodeURIComponent(parts[i].split('=')[1].replace(/\+/g,' '));
+            }
+        }
+    }
+    return '';
+  }
+
+  ]]>
 </script>
 </body>
 </html>

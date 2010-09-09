@@ -53,6 +53,12 @@ try{
     <div class="s2-logo">
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
+    <div id="search-box">
+      <form action="search.html" method="get">
+        <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+        <input type="submit" id="search-button" alt="Search" value="" />
+      </form>
+    </div>
     <ul class="mainNav">
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
@@ -60,10 +66,8 @@ try{
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
       <li><a href="/blog/">Blog</a></li>
-      <li><a href="/search.html">Search</a></li>
     </ul>
-    <hr class="pad"/>
-
+    <div class="nav-separator"/>
   </xsl:template>
 
   <xsl:template name="page-footer">
