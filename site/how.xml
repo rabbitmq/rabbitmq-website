@@ -267,9 +267,8 @@
 	    <a href="http://rubyreflector.com/PubSubHubbub">PubSubHubbub on Ruby Reflector</a><br/>
 	    Posts about PubSubHubbub with only a mild Ruby bias
 	    </li>
-	    <li>We provide plugins that expose a <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc">JSON/RPC endpoint</a>
-	    and <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc-channel">AMQP-over-HTTP binding</a>
-	    for interacting with RabbitMQ over HTTP
+	    <li>We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
+	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
 	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
