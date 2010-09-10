@@ -143,7 +143,7 @@
 	      A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
 	    </li>
 	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a></li>
-	    <li><a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a></li>
+	    <li><a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a></li>
       <li><a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a><br/>
       A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
       you can interface with RabbitMQ from Mule (the post talks about user provisioning on RabbitMQ as a case study).
@@ -197,6 +197,7 @@
 	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
+	    <li><a href="http://blog.springsource.com/2010/08/19/building-rabbitmq-apps-using-python">Building RabbitMQ apps using Python</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
 	    <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">Carrot</a>, easy RabbitMQ messaging queue support for Django and pure Python</li>
@@ -480,6 +481,11 @@ decentralised microblogging</li>
       	Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
       	with proven enterprise integration patterns results in code that is easier to maintain, easier to test
       	and is faster than the legacy system it replaces.
+      </li>
+      <li>
+        <a href="http://xing.github.com/beetle/">High Availability AMQP Messaging With Redundant Queues</a><br />
+        Introducing Beetle - a high availability messaging solution that uses a redundant configuration combined
+        with message deduplication to boost reliability.
       </li>
       <li>
       <a href="http://docs.google.com/present/view?id=dck5j8mb_0rqn4psdg">Patterns for Messaging with RabbitMQ</a><br/>
