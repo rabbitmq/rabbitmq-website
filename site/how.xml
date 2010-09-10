@@ -127,6 +127,7 @@
 	    <li><a href="api-guide.html">Java API-guide</a></li>
 	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
 	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a></li>
+	    <li><a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a></li>
 	    <li><a href="http://hoho.dyndns.org/hg/rabbitmq-java-client/">OSGi patches to rabbitmq-java-client</a> plus some <a href="http://old.nabble.com/New-patches-for-rabbitmq-java-client-OSGi-compatibility-td29086181.html">things to know</a></li>
@@ -555,9 +556,14 @@ decentralised microblogging</li>
 
       <h3 id="specific-examples">Specific Use Cases and Examples</h3>
       <ul>
+    <li>
+      <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />
+      James Carr creates a sample application demonstrating how RabbitMQ and <a href="http://www.springsource.org/spring-amqp">Spring-AMQP</a>
+      can be used to connect a website written in node.js to established JEE infrastructure using an asynchronous, event-driven architecture.
+    </li>
 	<li>
 	  <a href="http://qconlondon.com/london-2010/file?path=/qcon-london-2010/slides/FabrizioSchmidt_and_LarsGeorge_SocialNetworksAndTheRichnessOfDataGettingDistributedWebservicesDoneWithNosql.pdf">Social Networks and the Richness of Data</a> [PDF 9.2 MB]<br />
-	  An excellent presentation  describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
+	  An excellent presentation describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
 	</li>
 	<li>
 	  <a href="/resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
