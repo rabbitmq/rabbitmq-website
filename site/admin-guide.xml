@@ -63,6 +63,12 @@
           For (much) more information on <code>rabbitmqctl</code>, please see
           <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
         </p>
+        <p>
+          rabbitmq-management is a web UI and an HTTP API for managing
+          a RabbitMQ broker. For more information on
+          rabbitmq-management, please see
+          <a href="management.html">its documentation</a>.
+        </p>
       </doc:section>
 
       <doc:section name="access-control">
