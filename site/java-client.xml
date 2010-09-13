@@ -57,7 +57,7 @@
       code.
     </p>
 
-    <r:downloads mirror="yes" signature="yes">
+    <r:downloads signature="yes">
       <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
 	Source code and tools (zip)
@@ -101,7 +101,7 @@
       download it for off-line use:
     </p>
 
-    <r:downloads mirror="yes" signature="yes">
+    <r:downloads signature="yes">
       <r:download downloadfile="rabbitmq-java-client-javadoc-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
 	A zip file containing generated Javadoc documentation

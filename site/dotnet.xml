@@ -51,7 +51,7 @@
     
     <h4>Library and documentation installer</h4>
     
-    <r:downloads signature="no" mirror="yes">
+    <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
         Binary, compiled for .NET 2.0 (Windows installer) - includes
@@ -66,7 +66,7 @@
       different forms:
     </p>
 
-    <r:downloads signature="no" mirror="yes">
+    <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Source code and tools (zip)
@@ -93,7 +93,7 @@
       of the generated HTML API guide documentation.
     </p>
 
-    <r:downloads signature="no" mirror="yes">
+    <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;-user-guide.pdf"
 		  downloadpath="&dir-dotnet-client;">
 	The User Guide (pdf)
@@ -110,7 +110,7 @@
       is also available:
     </p>
 
-    <r:downloads signature="no" mirror="yes">
+    <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;-api-guide.pdf"
 		  downloadpath="&dir-dotnet-client;">
 	API Guide PDF
