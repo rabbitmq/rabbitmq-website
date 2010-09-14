@@ -63,6 +63,12 @@
           For (much) more information on <code>rabbitmqctl</code>, please see
           <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
         </p>
+        <p>
+          rabbitmq-management is a web UI and an HTTP API for managing
+          a RabbitMQ broker. For more information on
+          rabbitmq-management, please see
+          <a href="management.html">its documentation</a>.
+        </p>
       </doc:section>
 
       <doc:section name="access-control">
@@ -164,22 +170,14 @@
           Permissions have scope.  Permissions with
           <code>client</code> scope are enforced only for
           client-specified names.  As detailed above, operations with
-          server-generated names are allowed.  Permissions with
+          server-generated names or standard names (such as the
+          standard AMQP exchanges) are allowed.  Permissions with
           <code>all</code> scope are enforced for all resources.  In
           this case, users must be explicitly granted permission to
           <code>'amq\.gen.*'</code> if they are to use
           server-generated resources.  Similarly, grant no access
           could simply be expressed as <code>''</code>.  Permissions
           have <code>client</code> scope, by default.
-        </p>
-
-        <p>
-          NB. Due to a bug in RabbitMQ 2.0.0, all permissions are
-          treated as having scope "all".  This means that, in order
-          for a client to use server generated names, it must
-          explicitly be granted permission to 'amq\.gen.*'.
-          Similarly, if a client intends to use the default exchange,
-          it must be granted permission to 'amq\.default'.
         </p>
 
         <p>
