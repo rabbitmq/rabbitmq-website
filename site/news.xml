@@ -13,6 +13,55 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->   
+
+      <doc:item>
+	<doc:date iso="2010-08-25T00:00:00Z">25 August 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 2.0.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-August/000028.html</doc:link>
+
+	<doc:text>
+          <p>
+            We the RabbitMQ team are delighted to announce the release
+            of RabbitMQ 2.0.0.
+          </p>
+          <p>
+            This release includes a rewritten message store that pages
+            messages to disk to relieve memory pressure, and support
+            for AMQP 0-9-1.  There are many other more modest
+            additions, such as an implementation of basic.reject, and
+            queue leases.  For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/attachments/20100825/2c672695/attachment.txt">release
+            notes</a>.
+          </p>
+          <p>
+            Binary and source distributions of the new release can be
+            found in <a
+            href="http://www.rabbitmq.com/download.html">the usual
+            place</a>.
+          </p>
+          <p>
+            This now includes <a
+            href="http://www.rabbitmq.com/plugins.html">binary
+            packages of plugins</a>.  Please note the caveats there.
+          </p>
+          <p>
+            We recommend that all users of earlier versions of
+            RabbitMQ upgrade to this latest release.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="mailto:rabbitmq-discuss@lists.rabbitmq.com">discussion
+            list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
       <doc:item>
         <doc:date iso="2010-07-21T00:00:00Z">21 July 2010</doc:date>
         <doc:title>Spring AMQP Project 1.0 M1 release</doc:title>

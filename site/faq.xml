@@ -615,7 +615,7 @@
 	</doc:faq>	
 </doc:section>
 
-<doc:section name="features">
+<doc:section name="messaging-concepts-general">
 	<doc:heading>Messaging Concepts: General</doc:heading>
 
   <doc:faq name="message-ordering">
@@ -819,7 +819,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      the server component is written in Erlang, and the
 	      client component in Java, it is platform-neutral. Erlang
 	      runs on the following platforms (taken from <a
-	      href="http://www.erlang.org/faq/faq.html#AEN903">Erlang's
+	      href="http://www.erlang.org/faq/implementations.html#id56177">Erlang's
 	      FAQ</a>):
 	    </p>
 	    <p>
@@ -827,13 +827,13 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 		<li>Solaris (including 64 bit)</li>
 		<li>BSD</li>
 		<li>Linux</li>
-		<li>OSX</li>
+		<li>MacOSX</li>
 		<li>TRU64</li>
 		<li>Vista/Windows 7</li>
 		<li>Windows NT/2000/2003/XP</li>
 		<li>Windows 95, 98</li>
 		<li>VxWorks</li>
-	      </ul>
+	    </ul>
 	    </p>
 	  </doc:a>
 	</doc:faq>

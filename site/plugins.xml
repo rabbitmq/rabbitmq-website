@@ -27,8 +27,10 @@
       from this page, drop them in your plugins directory
       and restart RabbitMQ.
 
-      The plugins directory varies in location depending on how you
-      installed RabbitMQ. Some common options are:
+      The plugins directory location is determined by the
+      <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
+      value depends on how you installed RabbitMQ. Some common values
+      are:
 
       <table>
         <tr><th>Installation method</th><th>Plugins directory</th></tr>
@@ -72,13 +74,33 @@
 
     <p>To use this plugin the following files are required:</p>
     <ul>
+      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
     </ul>
 
-    <h3 id="rabbitmq-xmpp">rabbitmq-shovel</h3>
+    <h3 id="rabbitmq-management">rabbitmq-management</h3>
+
+    <p>
+      A management / monitoring API over HTTP, along with a browser-based
+      UI. For more information, see <a href="management.html">the
+      page on the management plugin</a>. Note that there are
+      currently <a href="management.html#caveats">important caveats</a> for
+      this plugin.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/webmachine-&version-server;.ez">webmachine</a></li>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-shovel">rabbitmq-shovel</h3>
 
     <p>
       A plug-in for RabbitMQ that shovels messages from a queue on one
@@ -177,7 +199,9 @@
       An Erlang client for RabbitMQ. This client offers both a
       networked version that uses standard TCP-based AMQP framing and
       a direct client that uses native Erlang message passing to a
-      RabbitMQ broker.
+      RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
+      guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
+      for more information.
     </p>
 
     <p>This plugin is a dependency of some others, but can also be
@@ -218,6 +242,15 @@
       may also from time to time post "known good" binaries; these
       will be marked with a particular server version with which they
       are known to work.
+    </p>
+    <p>
+      Since the default location of the plugins directory is
+      version-specific, installing / upgrading to a new version of the
+      server disables all plugins. That is the safest option since
+      often plugins depend on specific versions of the
+      server. Alternatively, plugins can be retained across upgrades
+      by setting <b>RABBITMQ_PLUGINS_DIR</b> to a location shared by
+      all installed rabbitmq server versions.
     </p>
   </body>
 </html>

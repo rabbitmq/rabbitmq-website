@@ -127,6 +127,7 @@
 	    <li><a href="api-guide.html">Java API-guide</a></li>
 	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
 	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a></li>
+	    <li><a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a></li>
 	    <li><a href="http://hoho.dyndns.org/hg/rabbitmq-java-client/">OSGi patches to rabbitmq-java-client</a> plus some <a href="http://old.nabble.com/New-patches-for-rabbitmq-java-client-OSGi-compatibility-td29086181.html">things to know</a></li>
@@ -142,7 +143,7 @@
 	      A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
 	    </li>
 	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a></li>
-	    <li><a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a></li>
+	    <li><a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a></li>
       <li><a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a><br/>
       A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
       you can interface with RabbitMQ from Mule (the post talks about user provisioning on RabbitMQ as a case study).
@@ -193,10 +194,13 @@
         <li id="python-development">Python development:
 	  <ul class="plain">
 	    <li><a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a></li>
+	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
+	    <li><a href="http://blog.springsource.com/2010/08/19/building-rabbitmq-apps-using-python">Building RabbitMQ apps using Python</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
+	    <li><a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python</li>
 	    <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">Carrot</a>, easy RabbitMQ messaging queue support for Django and pure Python</li>
 	    <li><a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python</li>
 	    <li>
@@ -247,6 +251,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
+	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
 	    an AMQP client library in AS3 for Flex and Flash</li>
 	    <li><a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a><br/>
@@ -264,9 +270,8 @@
 	    <a href="http://rubyreflector.com/PubSubHubbub">PubSubHubbub on Ruby Reflector</a><br/>
 	    Posts about PubSubHubbub with only a mild Ruby bias
 	    </li>
-	    <li>We provide plugins that expose a <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc">JSON/RPC endpoint</a>
-	    and <a href="http://www.rabbitmq.com/download.html#rabbitmq-jsonrpc-channel">AMQP-over-HTTP binding</a>
-	    for interacting with RabbitMQ over HTTP
+	    <li>We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
+	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
 	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
@@ -301,6 +306,12 @@
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a></li>
 	  </ul>
 	</li>
+	<li id="haskell-development">Haskell development:
+	  <ul class="plain">
+        <li>An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a></li>
+        <li><a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide</li>
+	  </ul>
+	</li>
 	<li id="rabbitmq-on-vms">RabbitMQ on OpenVMS
 	  <ul class="plain">
       <li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
@@ -308,14 +319,10 @@
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
 	  </ul>
 	</li>
-	<li>
-  	  An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a>
-	</li>
 	<li><a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a><br />
 	Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
 	passing through the exchange.
 	</li>
-
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
         <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a>.  See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in
 decentralised microblogging</li>
@@ -413,6 +420,11 @@ decentralised microblogging</li>
 
       <ul>
 	<li>
+	  <a href="management.html">RabbitMQ Management Plugin</a><br />
+	  The management plugin provides a web interface and HTTP API
+	  for managing and monitoring RabbitMQ.
+	</li>
+	<li>
 	  <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
 	  RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
 	</li>
@@ -472,6 +484,17 @@ decentralised microblogging</li>
       </ul>
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
+      <li>
+      	<a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
+      	Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
+      	with proven enterprise integration patterns results in code that is easier to maintain, easier to test
+      	and is faster than the legacy system it replaces.
+      </li>
+      <li>
+        <a href="http://xing.github.com/beetle/">High Availability AMQP Messaging With Redundant Queues</a><br />
+        Introducing Beetle - a high availability messaging solution that uses a redundant configuration combined
+        with message deduplication to boost reliability.
+      </li>
       <li>
       <a href="http://docs.google.com/present/view?id=dck5j8mb_0rqn4psdg">Patterns for Messaging with RabbitMQ</a><br/>
       Scott Brooks presents an overview of the AMQ model and goes on to describe some advanced topics. He highlights a set of common
@@ -534,7 +557,7 @@ decentralised microblogging</li>
 	</li>
 	<li>
 	  <a href="http://developian.blogspot.com/2009/11/drizzle-replication-using-rabbitmq-as.html">Drizzle replication using RabbitMQ</a><br />
-	  Marcus Erikkson has implemented a transaction log replicator for Drizzle using
+	  Marcus Eriksson has implemented a transaction log replicator for Drizzle using
 	  RabbitMQ as the transport. (See also the
 	  <a href="http://developian.blogspot.com/2009/11/update-of-rabbitmq-replicator.html">updated post</a> and the follow up
 	  <a href="http://developian.blogspot.com/2009/12/configuration-this-example-replicates.html">Better replication from Drizzle to Cassandra</a>.)
@@ -547,9 +570,14 @@ decentralised microblogging</li>
 
       <h3 id="specific-examples">Specific Use Cases and Examples</h3>
       <ul>
+    <li>
+      <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />
+      James Carr creates a sample application demonstrating how RabbitMQ and <a href="http://www.springsource.org/spring-amqp">Spring-AMQP</a>
+      can be used to connect a website written in node.js to established JEE infrastructure using an asynchronous, event-driven architecture.
+    </li>
 	<li>
 	  <a href="http://qconlondon.com/london-2010/file?path=/qcon-london-2010/slides/FabrizioSchmidt_and_LarsGeorge_SocialNetworksAndTheRichnessOfDataGettingDistributedWebservicesDoneWithNosql.pdf">Social Networks and the Richness of Data</a> [PDF 9.2 MB]<br />
-	  An excellent presentation  describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
+	  An excellent presentation describing how scale social network activity streams with RabbitMQ, Redis and NoSQL in general.
 	</li>
 	<li>
 	  <a href="/resources/RabbitMQ_usecase_StefanNorberg_Unibet_10xScalabilityAtHalfTheCost.pdf">Unibet</a> [PDF 10.3 MB]<br />
@@ -601,6 +629,11 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://www.skaag.net/2010/03/12/rabbitmq-for-beginners/">HOWTO: Set up a RabbitMQ cluster and enable plugins</a><br />
 	  A beginners guide to RabbitMQ explaining how to set up a cluster of RabbitMQ brokers and enable plugins.
+	</li>
+	<li>
+	  <a href="http://blog.agoragames.com/2010/07/28/grabbing-the-rabbit-by-the-horns/">HOWTO: Take control of cluster management</a><br />
+      Describes how to configure <em>rabbitmq.conf</em> to pass environment variables to the Erlang runtime with the goal of
+      simplifying the management of RabbitMQ clusters.
 	</li>
 	<li>
 	  <a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">HOWTO: Build Your Own AMQP Client</a><br />

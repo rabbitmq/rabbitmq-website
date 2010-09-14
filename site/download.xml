@@ -70,7 +70,7 @@
       distribution, ready to install.
     </p>
 
-    <r:downloads signature="no" mirror="yes">
+    <r:downloads signature="no">
       <r:download id="bundle"
 		  downloadfile="complete-rabbitmq-bundle-&version-server;.zip"
 		  downloadpath="bundles/v&version-server;">
