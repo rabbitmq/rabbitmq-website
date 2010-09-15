@@ -618,6 +618,8 @@
 		  details.
 		</dd>
 	      </dl>
+	      <p><em>Note:</em> It is important that the directories <strong>RABBITMQ_MNESIA_BASE</strong> and
+	      <strong>RABBITMQ_LOG_BASE</strong> are writeable by the RabbitMQ server.</p>
 	    </li>
 	  </ul>
 	</doc:subsection>
