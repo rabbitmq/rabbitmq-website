@@ -587,7 +587,7 @@
 		<dd>
 		  Defaults to <code>rabbit</code>. This can be useful
 		  if you want to run more than one node per machine -
-		  <b>RABBITMQ_NODENAME</b> should be unique per
+		  <strong>RABBITMQ_NODENAME</strong> should be unique per
 		  erlang-node-and-machine combination. See 
 		  <a href="clustering.html#single-machine">
 		    clustering on a single machine</a> for more.
