@@ -1,0 +1,142 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Management Plugin</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+        This is the documentation for the rabbitmq-management
+        plugin. The plugin provides an HTTP-based API for management
+        and monitoring of your RabbitMQ server, along with a
+        browser-based UI.
+      </p>
+
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="installation">
+        <doc:heading>Installation</doc:heading>
+        <p>
+          The simplest way to obtain the management plugin is to
+          download the binary packages from
+          the <a href="plugins.html">plugins page</a> and copy them to
+          your plugins directory. See
+          the <a href="plugins.html">plugins page</a> for more
+          details.
+        </p>
+        <p>
+          <b>Note to Windows users:</b> Versions of Erlang as recent
+          as R13B03 do not include the OpenSSL library needed by the
+          crypto application (in turn needed by the management
+          plugin). You should install
+          it. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
+          post</a> explains how. Version R14A appears to include it
+          already.
+        </p>
+        <p>
+          If you wish to build the plugin from source, it can be built
+          like any other. See
+          the <a href="plugin-development.html">plugin development</a>
+          page or
+          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
+          file for more information, but be aware that it seems to be
+          problematic to build rabbitmq-mochiweb on Windows.
+        </p>
+        <p>
+          <b>Warning:</b> The management plugin is still at an early stage of
+          development. All sorts of features may be missing or
+          buggy. See
+          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/TODO">TODO</a>
+          file for more information.
+        </p>
+      </doc:section>
+
+      <doc:section name="management-ui">
+        <doc:heading>Management UI</doc:heading>
+        <p>
+          After installation, point your browser at
+          http://<i>server-name</i>:55672/mgmt/. You will need to
+          authenticate as a RabbitMQ user (on a fresh installation the
+          user "guest" is created with password "guest"). From here
+          you can manage exchanges, queues, bindings, virtual hosts,
+          users and permissions. Hopefully the UI is fairly
+          self-explanatory.
+        </p>
+        <p>
+          The management UI is implemented as a single static HTML
+          page which makes background queries to the HTTP API. As such
+          it makes heavy use of Javascript. It has been tested with
+          recent versions of Firefox, Chromium and Safari, and with
+          versions of Microsoft Internet Explorer back to 6.0. Lynx
+          users should use the HTTP API directly.
+        </p>
+      </doc:section>
+
+      <doc:section name="permissions">
+        <doc:heading>Permissions</doc:heading>
+        <p>
+          The management plugin extends the
+          existing <a href="admin-guide.html#access-control">permissions
+          model</a> somewhat. Users can be marked as
+          "administrators". Only administrators can view or edit
+          users, virtual hosts or permissions at all. Furthermore,
+          only administrators can see details of other users'
+          connections and channels (and close such connections).
+        </p>
+        <p>
+          Note that normal RabbitMQ permissions still apply to
+          administrators; just because a user is an administrator does
+          not automatically mean they can do everything.
+        </p>
+        <p>
+          Also note that all users, administrators or otherwise, can
+          only list objects within a particular virtual host if they
+          have any permissions for that virtual host.
+        </p>
+      </doc:section>
+
+      <doc:section name="fine-stats">
+        <doc:heading>Message rates and fine-grained statistics</doc:heading>
+        <p>
+          The message rates shown by the management plugin require
+          fine-grained statistics to be enabled in the server. This
+          will have a performance impact on a CPU-bound server;
+          typically message throughput can be reduced by 5-10%. For
+          ease of use, the management plugin will automatically enable
+          fine-grained statistics when it is installed.
+        </p>
+        <p>
+          However, if you'd rather get the throughput than the
+          statistics, you can prevent this from happening. Set the
+          value of the <code>force_fine_statistics</code> variable
+          to <code>false</code> in your configuration file for
+          the <code>rabbit_management</code> application and restart
+          RabbitMQ.
+        </p>
+        <p>
+          Information on the configuration file can be
+          found <a href="install.html#configfile">here</a>.
+        </p>
+      </doc:section>
+
+      <doc:section name="http-api">
+        <doc:heading>HTTP API</doc:heading>
+        <p>
+          The management plugin will create an HTTP-based API at
+          http://<i>server-name</i>:55672/api/. Browse to that
+          location for more information on the API. For convenience
+          the documentation can also be obtained
+          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
+          Mercurial server</a>.
+        </p>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

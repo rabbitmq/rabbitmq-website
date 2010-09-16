@@ -425,6 +425,11 @@ decentralised microblogging</li>
 
       <ul>
 	<li>
+	  <a href="management.html">RabbitMQ Management Plugin</a><br />
+	  The management plugin provides a web interface and HTTP API
+	  for managing and monitoring RabbitMQ.
+	</li>
+	<li>
 	  <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
 	  RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
 	</li>
