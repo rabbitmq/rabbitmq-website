@@ -86,9 +86,7 @@
     <p>
       A management / monitoring API over HTTP, along with a browser-based
       UI. For more information, see <a href="management.html">the
-      page on the management plugin</a>. Note that there are
-      currently <a href="management.html#caveats">important caveats</a> for
-      this plugin.
+      page on the management plugin</a>.
     </p>
 
     <p>To use this plugin the following files are required:</p>
