@@ -6,12 +6,8 @@
   <body>
     <doc:div>
       <p class="intro">
-        This is the RabbitMQ Server Administrator's Guide. <i>(Note: it
-        is still under development. Please contact us if you have any
-        suggestions or wished-for features!)</i>
+        This is the RabbitMQ Server Administrator's Guide.
       </p>
-      <p>See also this <a href="/how.html#management">list of new community tools</a> have appeared for 'dashboard' access to core management functionality.</p>
-
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
@@ -56,12 +52,17 @@
       </doc:section>
 
       <doc:section name="management">
-        <doc:heading>Management</doc:heading>
+        <doc:heading>Management and monitoring</doc:heading>
         <p>
           <code>rabbitmqctl</code> is a command line tool for managing
           a RabbitMQ broker.
           For (much) more information on <code>rabbitmqctl</code>, please see
           <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
+        </p>
+        <p>
+          There is also a <a href="management.html">management
+          plugin</a> and several <a href="how.html#management">
+          community-maintained management tools</a>.
         </p>
         <p>
           rabbitmq-management is a web UI and an HTTP API for managing
