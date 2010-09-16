@@ -33,7 +33,7 @@
 	<p>
 	  or alternatively you can download the key from our website directly:
 	</p>
-	<pre class="sourcecode">wget http://rabbit-web-stage.eng.vmware.com/rabbitmq-signing-key-public.asc
+	<pre class="sourcecode">wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 gpg --import rabbitmq-signing-key-public.asc</pre>
 	<p>
 	  If you really trust our key, you may sign it using your own key (to
