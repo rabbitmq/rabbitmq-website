@@ -61,14 +61,10 @@
         </p>
         <p>
           There is also a <a href="management.html">management
-          plugin</a> and several <a href="how.html#management">
-          community-maintained management tools</a>.
-        </p>
-        <p>
-          rabbitmq-management is a web UI and an HTTP API for managing
-          a RabbitMQ broker. For more information on
-          rabbitmq-management, please see
-          <a href="management.html">its documentation</a>.
+          plugin</a> which provides a web UI and HTTP API for managing
+          and monitoring a RabbitMQ broker. And there are
+          several <a href="how.html#management"> community-maintained
+          management tools</a>.
         </p>
       </doc:section>
 
