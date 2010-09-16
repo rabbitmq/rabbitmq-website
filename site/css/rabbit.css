@@ -441,11 +441,11 @@ td.desc, th.desc {
   width:350px;
 }
 
-td.signature, th.signature, td.mirror, th.mirror {
+td.signature, th.signature {
   width:80px;
 }
 
-.signature a, .mirror a {
+.signature a {
   font-weight: normal;
   font-size: 80%;
 }
