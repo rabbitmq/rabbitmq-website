@@ -444,14 +444,6 @@ decentralised microblogging</li>
 	  Ben Black's cookbook for managing RabbitMQ with Chef.
 	</li>
 	<li>
-	  <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status Plugin</a><br />
-	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
-	  file descriptors and Erlang PIDS usage. You can also see basic information
-	  about connections and queues. See examples of how others have used the plugin
-	  for <a href="http://blog.scoutapp.com/articles/2010/03/08/rabbitmq-monitoring-plugins">monitoring with Scout</a>
-	  and <a href="http://blog.boxedice.com/2010/03/12/rabbitmq-monitoring-alerting/">monitoring with Server Density</a>
-	</li>
-	<li>
 	  <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
 	  An experimental RabbitMQ plugin to provide SNMP statistics, developed by Scott Brooks. It includes the ability
 	  to trace message delivery to queues so that you can pull the total number of messages delivered.

@@ -141,22 +141,6 @@
       <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
     </ul>
 
-    <h3 id="rabbitmq-status">rabbitmq-status</h3>
-
-    <p>
-      A plugin which provides a simple webpage indicating the status
-      of a RabbitMQ server. See
-      the <a href="http://hg.rabbitmq.com/rabbitmq-status/file/&version-server-hg;/README">README</a>
-      for more information.
-    </p>
-
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
-      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
-      <li><a href="/releases/plugins/v&version-server;/rabbit_status-&version-server;.ez">rabbit_status</a></li>
-    </ul>
-
     <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
 
     <p>
@@ -219,8 +203,6 @@
 		  url="http://hg.rabbitmq.com/rabbitmq-shovel/"/>
       <repository type="hg" shortname="rabbitmq-stomp"
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
-      <repository type="hg" shortname="rabbitmq-status"
-		  url="http://hg.rabbitmq.com/rabbitmq-status/"/>
       <repository type="hg" shortname="rabbitmq-xmpp"
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
       <repository type="hg" shortname="rabbitmq-erlang-client"
