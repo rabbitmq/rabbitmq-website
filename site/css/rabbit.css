@@ -249,16 +249,17 @@ ul.downloads li a {
 	padding: 4px 0 4px 5px;
 	margin: 0px 0 0px 0px;
 	color: #fff;
-	display: block; 
-	background-image: url('/img/button-light.png');
+	display: block;
 	text-align: center;
-    
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-khtml-border-radius:10px;
 }
 ul.downloads li a:hover {
-	background-color: #FA8800; 
-	background-image: url('/img/button-bright.png');
+	background-color: #FA8800;
 }
-	
+
 ul.downloads li ul.compact li {
 	list-style-type: none; 
 	background: url(../img/li.gif) no-repeat 1px 12px;
@@ -579,17 +580,20 @@ p.button {
 	font-size: 18px;
 	margin:  0px 0 0px 0px;
 }
+
 p.button a {
 	background-color: #FF9933;
 	padding: 21px 0 21px 0px;
 	margin: 21px 0  21px 0px;
 	color: #fff;
-	display: block; 
+	display: block;
 	text-decoration: none;
-	background-image: url('/img/button-light.png');
-    
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-khtml-border-radius:10px;
 }
+
 p.button a:hover {
-	background-color: #FA8800; 
-	background-image: url('/img/button-bright.png');
+	background-color: #FA8800;
 }
