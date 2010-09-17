@@ -253,7 +253,6 @@ ul.downloads li a {
 	text-align: center;
 	border-radius:10px;
 	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
 }
 ul.downloads li a:hover {
 	background-color: #FA8800;
@@ -589,7 +588,6 @@ p.button a {
 	text-decoration: none;
 	border-radius:10px;
 	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
 }
 
 p.button a:hover {
