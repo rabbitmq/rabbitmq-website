@@ -4,7 +4,6 @@
 <VirtualHost *:80>
 
     Include sites-available/www.rabbitmq.com-common
-    ServerAlias *.eng.vmware.com
 
 </VirtualHost>
 

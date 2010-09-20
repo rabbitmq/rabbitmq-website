@@ -1,5 +1,5 @@
     ServerName www.rabbitmq.com
-    ServerAlias rabbit-web.eng.vmware.com
+    ServerAlias *.eng.vmware.com
     ServerAdmin postmaster@rabbitmq.com
 
     DocumentRoot /srv/www.rabbitmq.com/site/
