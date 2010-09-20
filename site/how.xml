@@ -412,10 +412,15 @@ decentralised microblogging</li>
 
       <h3 id="management">Management and Monitoring</h3>
       <p>
-      Management and monitoring tools are provided by <a href="admin-guide.html">RabbitMQ</a>
-      and several new community tools have appeared for 'dashboard' access to core
-      management functionality. Please treat these as experimental and send
-      feedback to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">the list</a>.
+        Management and monitoring capabilities are provided
+        by <a href="admin-guide.html#management">rabbitmqctl</a>
+        and <a href="management.html">the management plugin</a>.
+      </p>
+      <p>
+        In addition there are several community-maintained
+        tools. Please treat these as experimental and send feedback
+        to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">the
+        list</a>.
       </p>
 
       <ul>
