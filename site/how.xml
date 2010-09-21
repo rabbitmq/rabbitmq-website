@@ -228,6 +228,7 @@
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
+	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
@@ -292,7 +293,7 @@
   </li>
 	<li>Erlang development:
 	  <ul class="plain">
-	    <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Introducing the Erlang AMQP client</a></li>
+	    <li><a href="erlang-client-user-guide.html">Erlang client guide</a></li>
 	    <li><a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a></li>
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>
 	    <li><a href="http://bitbucket.org/dreid/gen_bunny/">gen_bunny</a>, an easy to use AMQP Erlang client
