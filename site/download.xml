@@ -20,86 +20,49 @@
       let us know at <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
     
-    <h3>Available Components</h3>
-
+    <h3>RabbitMQ Server</h3>
+    <p>The latest release is &version-server;. Get it from the <a href="server.html">server download page</a>.</p>
     <p>
-      To download each component, click on the name of the component
-      below, and find the package that matches your operating system
-      on the page that appears.
+      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
+      you want to download a version of the server other than
+      the above.
     </p>
     
-    <ul class="downloads">
-    <li>
-      <a class="btn" href="server.html"><h4>RabbitMQ Server<br /><span>Version: &version-server;</span></h4></a>
-	  <ul class="compact">
-	    <li>Debian</li>
-	    <li>Ubuntu</li>
-	    <li>SLES and SLERT</li>
-	    <li>Fedora</li>
-	    <li>Generic Unix</li>
-	    <li>other .deb-based Linux</li>
-	    <li>other RPM-based Linux</li>
-	    <li>Windows</li>
-	  </ul>
-    </li>
-    <li>
-      <a href="java-client.html"><h4>RabbitMQ Java Client<br /><span>Version: &version-java-client;</span></h4></a>
-	  <ul class="compact">
-	    <li>Java 1.5 or newer</li>
-	    <li>Java 1.4</li>
-	  </ul>
-    </li>
-    <li>
-      <a href="dotnet.html"><h4>RabbitMQ .NET/C# Client<br /><span>Version: &version-dotnet-client;</span></h4></a>
- 	  <ul class="compact">
-	    <li>.NET 2.0 and newer</li>
-	    <li>.NET 3.0 and 3.5 for WCF support</li>
-	    <li>.NET 1.1 available when building from source</li>
-	  </ul>   
-    </li>
-    </ul>
-    <div class="clear"></div>
-
-    <a name="bundle"></a>
-    <h3>Windows Bundle</h3>
-
+    <h3>RabbitMQ Java Client</h3>
+    <p>The latest release is &version-java-client;. Get it from the <a href="java-client.html">Java download page</a>.</p>
     <p>
-      As a convenient alternative for Windows users, a bundle
-      download exists, which contains the RabbitMQ server, Java client
-      libraries and .Net client, as well as a complete Erlang
-      distribution, ready to install.
+      Consult <a href="/releases/rabbitmq-java-client/">the
+      archive</a> if you want to download a version of the 
+      Java client library other than the above.
     </p>
 
-    <r:downloads signature="no">
-      <r:download id="bundle"
-		  downloadfile="complete-rabbitmq-bundle-&version-server;.zip"
-		  downloadpath="bundles/v&version-server;">
-	Server, Java Client, .Net Client, Erlang distribution
-      </r:download>
-    </r:downloads>
-
+    <h3>RabbitMQ .NET/C# Client and WCF Binding</h3>
+    <p>The latest release is &version-dotnet-client;. Get it from the <a href="dotnet.html">.NET/C# download page</a>.</p>
     <p>
-      Consult <a href="/releases/bundles/">the archive</a> if you want
-      to download a version of the bundle other than the above.
+      Consult <a href="/releases/rabbitmq-dotnet-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      .NET/C# client library other than the above.
     </p>
 
-    <a name="ec2"></a>
-    <h3>Amazon EC2 Bundle</h3>
-    <p>
-      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10 
-      (Karmic Koala), both 32 and 64 bit variants, are available for download 
-      with pre-installed RabbitMQ
-    </p>
-
-    <h3 id="plugins">Plugins</h3>
+    <hr class="pad" />
+    <h2>Additional Components</h2>
+    
+    <h3 id="plugins">RabbitMQ Plugins</h3>
 
     <p>
       We make plugins available for download as binary packages, snapshots and
-      mercurial repositories. See the <a href="plugins.html">plugins page</a>
+      <a href="mercurial.html">mercurial</a> repositories. See the <a href="plugins.html">plugins page</a>
       for more information on using our plugins.
     </p>
 
-    <h3 class="clear">Contacts</h3>
+    <h3 id="experimental">Experimental Downloads</h3>
+
+    <p>
+      Some <a href="download-ex.html">experimental downloads</a> are available.
+    </p>
+    
+    <hr class="pad" />
+    <h2>Contacts</h2>
 
     <p>
       For help compiling or installing RabbitMQ, please contact <a
@@ -108,33 +71,6 @@
       for general RabbitMQ queries. You can also 
       <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
-
-    <br/>
-
-    <h2 id="experimental">Experimental Downloads</h2>
-
-     <p>
-      We make some experimental code available for download as
-      snapshots and <a href="http://www.selenic.com/mercurial/">mercurial</a> repositories. As
-      with the main RabbitMQ code base, we welcome
-      feedback and contributions.
-    </p>
-
-    <p>Also don't forget to check out the constantly
-    updated <a href="how.html">community page</a> for more links to
-    experimental code and other contributions.</p>
-
-    <h3 id="rabbitmq-c">rabbitmq-c</h3>
-
-    <p>
-      An experimental C-language AMQP client. See <a
-      href="http://hg.rabbitmq.com/rabbitmq-c/file/default/README">the
-      README</a> for more information including build instructions.
-    </p>
-
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-c"
-		  url="http://hg.rabbitmq.com/rabbitmq-c/"/>
-    </repositories>
+    
   </body>
 </html>

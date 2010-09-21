@@ -41,7 +41,11 @@ try{
   </xsl:template>
 
   <xsl:template match="table">
-    <table border="0" cellpadding="0" cellspacing="0">
+    <table>
+      <xsl:copy-of select="@*"/>
+      <xsl:attribute name="border">0</xsl:attribute>
+      <xsl:attribute name="cellpadding">0</xsl:attribute>
+      <xsl:attribute name="cellspacing">0</xsl:attribute>
       <xsl:apply-templates/>
     </table>
   </xsl:template>
@@ -505,7 +509,13 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-
+  
+  <!-- ############################################################ -->
+  <xsl:template match="r:include[@src]">
+    <!-- replace the element with the contents of another file -->
+    <xsl:apply-templates select="document(@src)/r:include/*" />
+  </xsl:template> 
+  
   <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>

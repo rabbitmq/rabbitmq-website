@@ -216,13 +216,14 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h4>Windows</h4>
-
+    <h4>Windows Bundle</h4>
+    <r:include src="windows-bundle.xml.inc" />
+   
+    <h4>Amazon EC2 Bundle</h4>
     <p>
-      As an alternative to the binary package listed in the table
-      above, we also offer a <a href="download.html#bundle">complete
-      Windows bundle</a>, containing server and client packages as
-      well as the Erlang/OTP system installer.
+      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10 
+      (Karmic Koala), both 32 and 64 bit variants, are available for download 
+      with pre-installed RabbitMQ.
     </p>
     
     <h3>Mercurial repositories</h3>

@@ -130,7 +130,9 @@
       archive</a> if you want to download a version of the RabbitMQ
       .NET/C# Client library or documentation other than the above.
     </p>
-
+    
+    <h3>Windows Bundle</h3>
+    <r:include src="windows-bundle.xml.inc" />
 
     <h3>Mercurial repository</h3>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>

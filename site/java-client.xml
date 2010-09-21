@@ -140,6 +140,9 @@
       appearance in the central Maven repository. Be patient.
     </p>
 
+    <h3>Windows Bundle</h3>
+    <r:include src="windows-bundle.xml.inc" />
+
     <h3>Mercurial repositories</h3>
     <p>
       The Java AMQP client library and example programs. Depends on
