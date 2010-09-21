@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" exclude-result-prefixes="r doc" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:html="http://www.w3.org/1999/xhtml" 
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" 
+                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" 
+                exclude-result-prefixes="r doc html" 
+                version="1.0">
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
-  <xsl:template match="/html/head">
+  <xsl:template match="html:head">
     <xsl:copy>
       <xsl:apply-templates/>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -29,7 +35,7 @@ try{
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="/html/body">
+  <xsl:template match="html:body">
     <xsl:copy>
       <div id="outerContainer">
 	<xsl:call-template name="page-header"/>
@@ -40,7 +46,7 @@ try{
     <script type="text/javascript" src="/site.js"/>
   </xsl:template>
 
-  <xsl:template match="table">
+  <xsl:template match="html:table">
     <table border="0" cellpadding="0" cellspacing="0">
       <xsl:apply-templates/>
     </table>
