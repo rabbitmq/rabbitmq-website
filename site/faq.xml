@@ -1298,8 +1298,10 @@ delivery to consumers. The same information is also returned when
 fetching messages with 'basic.get', in a field of ' <a href="&dir-current-javadoc;">basic.get-ok</a>'.
 </p>
 <p>
-As a third alternative, if you have installed the <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status
-Plugin</a> you can get queue depths (and lots more broker status information) over http.
+As a third alternative, if you have installed
+the <a href="management.html">management plugin</a> you can get queue
+depths (and lots more broker status information) over an HTTP API and
+web UI.
 </p>
 	  </doc:a>
 	</doc:faq>

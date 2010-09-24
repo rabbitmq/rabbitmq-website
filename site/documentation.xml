@@ -92,7 +92,6 @@
           	<li><a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language provides a SQL-like interface to RabbitMQ</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
-          	<li><a href="http://hg.rabbitmq.com/rabbitmq-status/file/&version-server-hg;/README">rabbitmq-status</a> - Provides a simple monitoring webpage</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">rabbitmq-xmpp</a> - Exposes AMQP functionality via an XMPP gateway</li>
           </ul>
