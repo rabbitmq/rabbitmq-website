@@ -379,7 +379,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-code {
+span.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
