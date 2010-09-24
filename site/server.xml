@@ -205,8 +205,15 @@
     <h4>Mac OS X</h4>
 
     <p>
-      The easiest way to install the server on OS X is <a
-      href="macports.html">via MacPorts</a>.
+      On OS X the server can be installed <a href="macports.html">via
+      MacPorts</a>.
+    </p>
+    <p>
+      Alternatively, for users of
+      the <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+      package manager there is a community-contributed
+      <a href="http://github.com/mxcl/homebrew/blob/master/Library/Formula/rabbitmq.rb">'rabbitmq'
+      formula</a>.
     </p>
 
     <h4>Generic Unix</h4>
