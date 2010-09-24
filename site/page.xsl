@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns="http://www.w3.org/1999/xhtml" 
-                xmlns:html="http://www.w3.org/1999/xhtml" 
-                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" 
-                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" 
-                exclude-result-prefixes="r doc html" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:html="http://www.w3.org/1999/xhtml"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                exclude-result-prefixes="r doc html"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
@@ -77,7 +77,7 @@ try{
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"/>	
+    <div class="clear"/>
     <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
 Technologies Ltd.</p></div>
   </xsl:template>
@@ -342,7 +342,7 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
-  
+
   <xsl:template match="r:classes">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -513,10 +513,10 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
-  <xsl:template match="*[local-name(.) = 'code']">  	
+  <xsl:template match="*[local-name(.) = 'code']">
   	<span class="code {./@class}"><xsl:value-of select="." /></span>
   </xsl:template>
-  
+
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
