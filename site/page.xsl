@@ -513,8 +513,8 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
-  <xsl:template match="*[local-name(.) = 'code']">
-  	<span class="code"><xsl:value-of select="." /></span>
+  <xsl:template match="*[local-name(.) = 'code']">  	
+  	<span class="code {./@class}"><xsl:value-of select="." /></span>
   </xsl:template>
   
   <xsl:template match="@*">

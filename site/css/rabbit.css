@@ -408,7 +408,7 @@ span.code {
 .docSection div.cmdsynopsis p {
 	margin: 0;
 }
-.docSection div.cmdsynopsis code.command {
+.docSection div.cmdsynopsis span.command {
 	color: darkred;
 }
 .docSection pre.sourcecode {
