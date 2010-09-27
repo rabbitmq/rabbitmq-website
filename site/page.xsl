@@ -509,13 +509,13 @@ Technologies Ltd.</p></div>
       </td>
     </tr>
   </xsl:template>
-  
+
   <!-- ############################################################ -->
   <xsl:template match="r:include[@src]">
     <!-- replace the element with the contents of another file -->
     <xsl:apply-templates select="document(@src)/r:include/*" />
-  </xsl:template> 
-  
+  </xsl:template>
+
   <!-- ############################################################ -->
   <xsl:template match="@*">
     <xsl:copy/>

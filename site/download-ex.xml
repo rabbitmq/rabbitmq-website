@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -10,13 +10,13 @@
   </head>
   <body>
     <h2>Experimental Code</h2>
-      
+
     <p class="intro">
       We make some experimental code available to download as snapshots and <a href="mercurial.html">mercurial</a> repositories. This
       code is unsupported but as with the main RabbitMQ code base we welcome <a href="mailto:info@rabbitmq?subject=Feedback">feedback</a>
-      and <a href="mailto:contribute@rabbitmq.com">contributions</a>. 
+      and <a href="mailto:contribute@rabbitmq.com">contributions</a>.
     </p>
-    
+
     <p>Also please check out the <a href="how.html">Get Started page</a> for more links to
     experimental code and other contributions.</p>
 

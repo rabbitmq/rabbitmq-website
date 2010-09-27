@@ -205,8 +205,15 @@
     <h4>Mac OS X</h4>
 
     <p>
-      The easiest way to install the server on OS X is <a
-      href="macports.html">via MacPorts</a>.
+      On OS X the server can be installed <a href="macports.html">via
+      MacPorts</a>.
+    </p>
+    <p>
+      Alternatively, for users of
+      the <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+      package manager there is a community-contributed
+      <a href="http://github.com/mxcl/homebrew/blob/master/Library/Formula/rabbitmq.rb">'rabbitmq'
+      formula</a>.
     </p>
 
     <h4>Generic Unix</h4>
@@ -218,11 +225,11 @@
 
     <h4>Windows Bundle</h4>
     <r:include src="windows-bundle.xml.inc" />
-   
+
     <h4>Amazon EC2 Bundle</h4>
     <p>
-      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10 
-      (Karmic Koala), both 32 and 64 bit variants, are available for download 
+      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10
+      (Karmic Koala), both 32 and 64 bit variants, are available for download
       with pre-installed RabbitMQ.
     </p>
     

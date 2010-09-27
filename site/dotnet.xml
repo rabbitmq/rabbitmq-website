@@ -130,7 +130,7 @@
       archive</a> if you want to download a version of the RabbitMQ
       .NET/C# Client library or documentation other than the above.
     </p>
-    
+
     <h3>Windows Bundle</h3>
     <r:include src="windows-bundle.xml.inc" />
 

@@ -32,7 +32,7 @@
     <p>The latest release is &version-java-client;. Get it from the <a href="java-client.html">Java download page</a>.</p>
     <p>
       Consult <a href="/releases/rabbitmq-java-client/">the
-      archive</a> if you want to download a version of the 
+      archive</a> if you want to download a version of the
       Java client library other than the above.
     </p>
 
@@ -46,7 +46,7 @@
 
     <hr class="pad" />
     <h2>Additional Components</h2>
-    
+
     <h3 id="plugins">RabbitMQ Plugins</h3>
 
     <p>
@@ -60,7 +60,7 @@
     <p>
       Some <a href="download-ex.html">experimental downloads</a> are available.
     </p>
-    
+
     <hr class="pad" />
     <h2>Contacts</h2>
 
@@ -71,6 +71,6 @@
       for general RabbitMQ queries. You can also 
       <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
-    
+
   </body>
 </html>
