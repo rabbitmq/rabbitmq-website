@@ -5,7 +5,8 @@
 %entities;
 ]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ Server</title>
   </head>
@@ -224,7 +225,9 @@
     </p>
 
     <h4>Windows Bundle</h4>
-    <r:include src="windows-bundle.xml.inc" />
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
 
     <h4>Amazon EC2 Bundle</h4>
     <p>

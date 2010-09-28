@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" exclude-result-prefixes="r doc" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                xmlns:xi="http://www.w3.org/2003/XInclude"
+                exclude-result-prefixes="r doc xi"
+                version="1.0">
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
@@ -508,12 +514,6 @@ Technologies Ltd.</p></div>
         </code>
       </td>
     </tr>
-  </xsl:template>
-
-  <!-- ############################################################ -->
-  <xsl:template match="r:include[@src]">
-    <!-- replace the element with the contents of another file -->
-    <xsl:apply-templates select="document(@src)/r:include/*" />
   </xsl:template>
 
   <!-- ############################################################ -->
