@@ -93,6 +93,40 @@ ch.setAckListener(new AckListener() {
 ch.confirmSelect(true);</pre>
         </doc:subsection>
 
+        <doc:subsection>
+          <doc:heading>Notes</doc:heading>
+
+          <p>
+            The broker loses persistent messages if it crashes before
+            said messages are written to disk.  Under certain
+            conditions, this causes the broker to behave in surprising
+            ways.
+          </p>
+
+          <p>
+            For instance, consider this scenario:
+            <ol>
+              <li>a client publishes a persistent message to a durable
+              queue on a non-transactional channel,</li>
+              <li>a client consumes the message from the queue (noting
+              that the message is persistent and the queue
+              durable), but doesn't yet ack it,</li>
+              <li>the broker dies and is restarted, and</li>
+              <li>the client reconnects and starts consuming messages.</li>
+            </ol>
+            At this point, the client could reasonably assume that the
+            message will be delivered again.  This is not the case:
+            the restart has caused the broker to lose the message.  In
+            order to guarantee persistence, a client should use
+            transactions or publisher acknowledgements.  If the
+            publisher's channel had been in confirm mode, the
+            publisher would <em>not</em> have received an ack for the
+            lost message (since the consumer hadn't ack'd it and it
+            hadn't been written to disk).
+          </p>
+
+        </doc:subsection>
+
       </doc:section>
 
       <doc:section name="queue-leases">
