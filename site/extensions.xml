@@ -63,7 +63,7 @@
           broker.  Persistent messages are ack'd when they are written
           to disk or when they are successfully delivered to a
           consumer, whichever happens first.  Unroutable persistent
-          immediate/mandatory messages are ack'd right before the
+          immediate/mandatory messages are ack'd right after the
           <code>basic.return</code>.
         </p>
 
