@@ -306,7 +306,7 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
             throttle producers whenever RabbitMQ is using more than
             410MB memory. Thus when RabbitMQ can't recognize your
             platform, if you actually have 8GB RAM installed and you
-            want RabbitMQ to throttle producers when server is using
+            want RabbitMQ to throttle producers when the server is using
             above 3GB, set <code>vm_memory_high_watermark</code> to 3.
           </p>
 
