@@ -138,7 +138,7 @@
         </p>
       </doc:section>
 
-      <doc:section name="http-api">
+      <doc:section name="http-logging">
         <doc:heading>HTTP request logging</doc:heading>
         <p>
           To create simple access logs of requests to the HTTP API,
