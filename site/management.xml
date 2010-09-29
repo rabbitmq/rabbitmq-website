@@ -50,11 +50,8 @@
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <p>
-          <b>Warning:</b> The management plugin is still at an early stage of
-          development. All sorts of features may be missing or
-          buggy. See
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/TODO">TODO</a>
-          file for more information.
+          The management plugin is still at a comparatively early stage of
+          development. It has not been tested to the same extent RabbitMQ has.
         </p>
       </doc:section>
 
