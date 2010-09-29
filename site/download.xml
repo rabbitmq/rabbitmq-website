@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -12,14 +12,14 @@
     <h2>
       Downloading and Installing RabbitMQ
     </h2>
-      
+
     <p class="intro">
       Our goal is to streamline the broker installation process such
       that you can have RabbitMQ up and running within two minutes of
       completing your download. If this doesn't happen to you, please
       let us know at <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
-    
+
     <h3>RabbitMQ Server</h3>
     <p>The latest release is &version-server;. Get it from the <a href="server.html">server download page</a>.</p>
     <p>
@@ -27,9 +27,11 @@
       you want to download a version of the server other than
       the above.
     </p>
-    
+
     <h3>RabbitMQ Java Client</h3>
-    <p>The latest release is &version-java-client;. Get it from the <a href="java-client.html">Java download page</a>.</p>
+    <p>The latest release is &version-java-client;. Get it from
+      the <a href="java-client.html">Java client download
+      page</a>.</p>
     <p>
       Consult <a href="/releases/rabbitmq-java-client/">the
       archive</a> if you want to download a version of the
@@ -37,7 +39,8 @@
     </p>
 
     <h3>RabbitMQ .NET/C# Client and WCF Binding</h3>
-    <p>The latest release is &version-dotnet-client;. Get it from the <a href="dotnet.html">.NET/C# download page</a>.</p>
+    <p>The latest release is &version-dotnet-client;. Get it from
+      the <a href="dotnet.html">.NET/C# client download page</a>.</p>
     <p>
       Consult <a href="/releases/rabbitmq-dotnet-client/">the
       archive</a> if you want to download a version of the RabbitMQ
@@ -65,10 +68,10 @@
     <h2>Contacts</h2>
 
     <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      For help compiling or installing RabbitMQ, please
+      contact <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
       Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
+      for general RabbitMQ queries. You can also
       <a href="http://lists.rabbitmq.com">join our mailing list.</a>
     </p>
 
