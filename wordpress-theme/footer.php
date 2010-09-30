@@ -8,5 +8,6 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="/site.js"/>
 </body>
 </html>

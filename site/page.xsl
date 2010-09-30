@@ -42,8 +42,8 @@ try{
 	<xsl:apply-templates/>
 	<xsl:call-template name="page-footer"/>
       </div>
+      <script type="text/javascript" src="/site.js"/>
     </xsl:copy>
-    <script type="text/javascript" src="/site.js"/>
   </xsl:template>
 
   <xsl:template match="table">
