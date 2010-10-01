@@ -251,6 +251,11 @@ server testca
 	  to <code>verify</code> and <code>fail_if_no_peer_cert</code>
 	  as documented here.</b></p>
 
+          <p>Note that if <code>{verify, verify_none}</code> is used,
+          no certificate exchange takes place from the client to the
+          server and <code>rabbitmqctl list_connections</code> will
+          output empty strings for the peer certificate formats.</p>
+
 	  <p>After starting the broker, you should then see the
 	  following in the <code class="">rabbit.log</code>:</p>
 	  <pre>=INFO REPORT==== 9-Aug-2010::15:10:55 ===
