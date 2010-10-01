@@ -7,7 +7,6 @@
         RabbitMQ&trade; is a Trademark of Rabbit Technologies Ltd.</p>
       </div>
     </div>
-  </div>
-  <script type="text/javascript" src="/site.js"/>
+  </div>  
 </body>
 </html>
