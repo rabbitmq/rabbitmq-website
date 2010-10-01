@@ -42,7 +42,7 @@ try{
 	<xsl:call-template name="page-header"/>
 	<xsl:apply-templates/>
 	<xsl:call-template name="page-footer"/>
-      </div>      
+      </div>
     </xsl:copy>
   </xsl:template>
 
