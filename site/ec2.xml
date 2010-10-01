@@ -59,8 +59,7 @@
       get the list of Ubuntu AMI images here:
 
       <pre>
-      <a href="http://uec-images.ubuntu.com/releases/">http://uec-images.ubuntu.com/releases/</a>
-      </pre>
+      <a href="http://uec-images.ubuntu.com/releases/">http://uec-images.ubuntu.com/releases/</a></pre>
 
       You may find more information
       in <a href="https://help.ubuntu.com/community/EC2StartersGuide">Ubuntu
@@ -72,7 +71,7 @@
   <doc:subsection name="install">
     <doc:heading>Install RabbitMQ</doc:heading>
     <p>
-      Once your Amazon EC2 is instance up and running, you can follow
+      Once your Amazon EC2 instance is up and running, you can follow
       the <a href="server.html">usual RabbitMQ installation steps</a>.
     </p>
     <p>
