@@ -245,51 +245,27 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	    automatically as they arrive, rather than having to be
 	    requested proactively.
 	  </p>
+      
 	  <p>
-	    The easiest and safest supplied implementation of
-	    <code>Consumer</code> is the <code>QueueingConsumer</code>
-	    convenience class:
+        Callbacks to <code>Consumers</code> are dispatched on a thread
+        separate from the thread managed by the
+        <code>Connection</code>. This means that
+        <code>Consumers</code> can safely call blocking methods on the
+        <code>Connection</code> or <code>Channel</code>, such as
+        <code>queueDeclare</code>, <code>txCommit</code>,
+        <code>basicCancel</code> or <code>basicPublish</code>).
 	  </p>
 
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-QueueingConsumer consumer = <b>new</b> QueueingConsumer(channel);
-channel.basicConsume(queueName, noAck, consumer);
-<b>while</b> (<i>/* decide whether to continue reading */</i>) {
-    QueueingConsumer.Delivery delivery;
-    <b>try</b> {
-        delivery = consumer.nextDelivery();
-    } <b>catch</b> (InterruptedException ie) {
-        <b>continue</b>;
-    }
-    <i>// (process the message components ...)
-</i>    channel.basicAck(delivery.getEnvelope().getDeliveryTag(), <b>false</b>);
-}</pre>
-
-	  <p>
-        If, instead, you decide to implement the
-        <code>Consumer</code> interface yourself, be warned that
-        its methods will be called from within the connection's
-        thread, and so they must not in turn invoke any blocking
-        AMQP operation (such as <code>queueDeclare</code>,
-        <code>txCommit</code>, <code>basicCancel</code> or
-        <code>basicPublish</code>). If they do, the channel will
-        deadlock. Only asynchronous AMQP operations without content
-        are safe for use within callbacks, such as <code>basicAck</code>.
+      <p>
+        The dispatch thread is shared by multiple
+        <code>Consumers</code>. <code>Consumers</code> should avoid
+        calling long-running methods so as not to hold up the dispatch
+        of callbacks to other <code>Consumers</code>.
 	  </p>
 
-	  <p>
-	    It's partly because of this complication that using
-	    <code>QueueingConsumer</code> is the safest way of
-	    receiving messages by subscription.
-	  </p>
-
-	  <p>
-	    If, with the above caveats in mind, you do decide to
-	    implement the <code>Consumer</code> interface yourself,
-	    one good option is to subclass the convenience class
-	    <code>DefaultConsumer</code>, overriding methods as
-	    necessary. You will generally want to override the core
-	    interface method <code>handleDelivery</code>:
+      <p>
+	    The easiest way to implement <code>Consumer</code> is to
+	    subclass the convenience class <code>DefaultConsumer</code>:
 	  </p>
 
 	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
