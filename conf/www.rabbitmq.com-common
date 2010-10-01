@@ -41,3 +41,7 @@
     </Directory>
 
     Alias /blog /usr/share/wordpress
+
+    # Redirect manpages from release folder
+    RewriteEngine On
+    RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /man/$1.man.html [R]
