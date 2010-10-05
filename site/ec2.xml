@@ -184,5 +184,9 @@ recving rate: 4119 msg/s, min/avg/max latency: 654393/829167/1021911 microsecond
 sending rate: 4989 msg/s</pre>
 </doc:section>
 
+  <p>
+    If you have any comments please <a href="info@rabbitmq.com">let us know</a>.
+  </p>
+
 </body>
 </html>
