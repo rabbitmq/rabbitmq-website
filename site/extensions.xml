@@ -27,12 +27,13 @@
           <em>destination</em>). We have introduced an
           <code>exchange.bind</code> AMQP method which binds one
           exchange to another exchange. The binding is semantically
-          identical exchange-queue bindings: unidirectional, binding
-          keys and exchange types operate as normal, but both the
-          source and destination of the binding are exchanges. This
-          allows far richer routing topologies to be created. Note the
-          <code>source</code> and <code>destination</code> fields in
-          the <code>exchange.bind</code> method reflect the flow of
+          identical to exchange-to-queue bindings: unidirectional,
+          binding keys and exchange types operate as normal, but both
+          endpoints (the source and destination) of the binding are
+          exchanges. This allows far richer routing topologies to be
+          created. Note the <code>source</code> and
+          <code>destination</code> fields in the
+          <code>exchange.bind</code> method reflect the flow of
           messages: from the exchange at the source, and to the
           exchange at the destination.
         </p>
@@ -40,18 +41,19 @@
         <p>
           Just like with <code>queue.bind</code>, multiple distinct
           bindings can be created between the same
-          binding-endpoints. We detect and eliminate cycles, and
-          ensure that transitively, over any routing topology, for
-          every queue to which an given message is routed, each queue
-          will receive exactly one copy of that message. Exchanges
-          which are declared as <code>auto-delete</code> will still be
-          removed when all their bindings are removed, regardless of
-          whether those bindings are to queues or exchanges. Note that
-          an auto-delete exchange will only be deleted when bindings
-          for which the exchange is the <em>source</em> are removed:
-          if you add and remove exchange-to-exchange bindings for
-          which the given exchange is the <em>destination</em> then
-          that exchange will not be auto-deleted.
+          binding-endpoints. We detect and eliminate cycles during
+          message delivery, and ensure that transitively, over any
+          routing topology, for every queue to which a given message
+          is routed, each queue will receive exactly one copy of that
+          message. Exchanges which are declared as
+          <code>auto-delete</code> will still be removed when all
+          their bindings are removed, regardless of whether those
+          bindings are to queues or exchanges. Note that an
+          auto-delete exchange will only be deleted when bindings for
+          which the exchange is the <em>source</em> are removed: if
+          you add exchange-to-exchange bindings for which the given
+          exchange is the <em>destination</em> then that exchange will
+          not be auto-deleted on removal of those bindings.
         </p>
 
       </doc:section>
