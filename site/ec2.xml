@@ -100,7 +100,14 @@ apt-get -qy install rabbitmq-server</pre>
       using the <code>user-data-file</code> command line option for
       the <code>ec2-run-instances</code> command. For example:
 
-      <pre class="ec2_sourcecode">$ ec2-run-instances ami-XXX --key XXXX --instance-type m1.large --region eu-west-1 --user-data-file rabbitmq-user-data.sh</pre>
+      <pre class="ec2_sourcecode">$ ec2-run-instances ami-XXX --key ${EC2_KEYPAIR} --instance-type m1.large --region eu-west-1 --user-data-file rabbitmq-user-data.sh</pre>
+
+      Put your chosen AMI id in the place of <code>ami-XXX</code>. The
+      string <code>${EC2_KEYPAIR}</code> should be replaced with the
+      public ssh keypair name that is going to be used to log in to
+      the instance. You can find more information
+      about <code>ec2-run-instances</code> command in
+      <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/">EC2 Getting Started Guide</a>.
     </p>
   </doc:subsection>
 
