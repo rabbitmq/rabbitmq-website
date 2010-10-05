@@ -25,11 +25,12 @@
           <code>queue.declare</code> controls for how long a queue can
           be unused before it is automatically
           deleted. <em>Unused</em> means the queue has no consumers,
-          and no consumer related operations (<code>basic.get</code> or
-          <code>basic.cancel</code>) have occurred for
-          a duration of at least the expiration period. This can be
-          used, for example, for RPC-style reply queues, where many
-          queues can be created which may never be drained.
+          the queue has not been redeclared, and no consumer related
+          operations (<code>basic.get</code> or
+          <code>basic.cancel</code>) have occurred for a duration of
+          at least the expiration period. This can be used, for
+          example, for RPC-style reply queues, where many queues can
+          be created which may never be drained.
         </p>
 
         <p>
