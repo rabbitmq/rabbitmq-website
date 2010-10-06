@@ -11,8 +11,7 @@
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
   <xsl:template match="/html/head">
-    <xsl:copy>
-      <xsl:apply-templates/>
+    <xsl:copy>      
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
       <meta name="googlebot" content="NOODP"/>
@@ -33,6 +32,7 @@ try{
   })();
 }catch(err){};
       </script>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
 

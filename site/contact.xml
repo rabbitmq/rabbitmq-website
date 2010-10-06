@@ -2,24 +2,71 @@
 <html>
   <head>
     <title>RabbitMQ - Contact</title>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+       registerOnLoadHandler(function() { setTimeout(initialise, 100); });
+
+       function initialise() {
+         var latlng = new google.maps.LatLng(51.506312, -0.099871);
+         var myOptions = {
+           zoom: 15,
+           center: latlng,
+           mapTypeId: google.maps.MapTypeId.ROADMAP,
+           mapTypeControl: false
+         };
+         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+         var marker = new google.maps.Marker({
+           position: latlng,
+           map: map,
+           title: "RabbitMQ",
+           icon: "img/rabbitmq_logo_30x30.png"
+         });
+       }
+    </script>
   </head>
   <body>
-    <h2>Contact Us</h2>    
+    <h2>Contact Us</h2>
     <h3>Mailing List</h3>
     <p>
-      For technical questions please join our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a>.
+      We host the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a> list for
+      discussions about RabbitMQ. Once you join you can get help with technical issues, ask questions and share your experiences with RabbitMQ.
     </p>
+    <ul>
+      <li>Sign up to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a></li>
+      <li>Read the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">list archive</a></li>
+      <li>You can also access the list through
+        <a href="http://dir.gmane.org/gmane.comp.networking.rabbitmq.general">gmane</a>,
+        <a href="http://groups.google.com/group/rabbitmq-discuss">google-groups</a>, and
+        <a href="http://old.nabble.com/RabbitMQ-f25704.html">nabble</a></li>
+    </ul>
+    <p>
+      If you want to be notified of new releases and other important RabbitMQ announcements please sign up to the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">rabbitmq-announce</a> list.
     <h3>Email</h3>
-    <p>You can contact us <a href="mailto:info@rabbitmq.com?subject=Contact%20Us">via email</a> or at the address below.</p>
+    <p>
+      You can contact us by email using one of the following addresses:
+    </p>
+    <table>
+      <tr>
+        <td>For general and sales enquiries</td><td><a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a></td>
+      </tr>
+      <tr>
+        <td>For help installing or using RabbitMQ</td><td><a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a></td>
+      </tr>
+      <tr>
+        <td>If you have a genuine complaint or need to rant</td><td><a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a></td>
+      </tr>
+    </table>
     <h3>Location</h3>
-    <address>
+    <p />
+    <address style="float: left; padding-right: 50px;">
       RabbitMQ<br/>
       c/o VMware UK<br/>
       Bluefin Building<br/>
       110, Southwark Street<br/>
       London SE1 0TA<br/>
       United Kingdom<br/>
-    </address>    
+    </address>
+    <div id="map_canvas" style="width:400px; height:250px; float: left;"></div>
   </body>
 </html>
 
