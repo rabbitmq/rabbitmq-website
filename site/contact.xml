@@ -56,6 +56,20 @@
         <td>If you have a genuine complaint or need to rant</td><td><a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a></td>
       </tr>
     </table>
+    <h3>IRC</h3>
+    <p>
+      RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
+      <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
+      The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
+	  You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
+	</p>
+	<h3>Twitter</h3>
+	<p>
+	  RabbitMQ is on twitter. <a href="http://twitter.com/#!/rabbitmq">Follow us</a> or <a href="http://twitter.com/search?q=rabbitmq">search realtime</a> results.
+	</p>
+	<p>
+	  If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
+	</p>
     <h3>Location</h3>
     <p />
     <address style="float: left; padding-right: 50px;">
