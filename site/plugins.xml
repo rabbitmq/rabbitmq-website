@@ -22,10 +22,18 @@
 
     <p>
       RabbitMQ supports a variety of plugins. This page contains links
-      to some of our plugins, packaged as .ez files. The simplest way
-      to install plugins is to download all the required .ez files
-      from this page, drop them in your plugins directory
-      and restart RabbitMQ.
+      to some of our plugins, packaged as .ez files. The links on this
+      page reference plugins built for the latest version of the
+      server, &version-server;. To find plugins for earlier versions
+      of the server, consult <a href="/releases/plugins/">the
+      archive</a>. Note that we did not make binary plugins available
+      prior to release 2.0.0.
+    </p>
+
+    <p>
+      The simplest way to install plugins is to download all the
+      required .ez files from this page, drop them in your plugins
+      directory and restart RabbitMQ.
 
       The plugins directory location is determined by the
       <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
