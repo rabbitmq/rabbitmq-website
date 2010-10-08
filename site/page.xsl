@@ -82,8 +82,13 @@ try{
 
   <xsl:template name="page-footer">
     <div class="clear"/>	
-    <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
-Technologies Ltd.</p></div>
+    <div class="pageFooter">
+      <p class="righter">
+        <a href="contact.html">Contact</a> |
+        <a href="about.html">About</a>
+      </p>
+      <p>RabbitMQ&#8482; is a Trademark of Rabbit Technologies Ltd.</p>
+    </div>
   </xsl:template>
 
   <!-- ############################################################ -->
