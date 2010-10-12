@@ -260,8 +260,8 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
       <p>
         Each <code>Channel</code> has its own dispatch thread. For the
         most common use case of one <code>Consumer</code> per
-        <code>Channel</code>, the <code>Consumer</code> cannot hold up
-        other <code>Consumers</code>.If you have multiple
+        <code>Channel</code>, this means <code>Consumers</code> do
+        not hold up other <code>Consumers</code>. If you have multiple
         <code>Consumers</code> per <code>Channel</code> be aware that
         a long-running <code>Consumer</code> may hold up dispatch of
         callbacks to other <code>Consumers</code> on that
