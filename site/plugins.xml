@@ -64,6 +64,17 @@
       </table>
     </p>
 
+    <p>
+      <b>Note to Windows users:</b> Versions of Erlang as recent as
+      R13B03 do not include the OpenSSL library needed by the crypto
+      application (in turn needed by mochiweb). If you're going to
+      install any plugin that depends on mochiweb (rabbitmq-management
+      or rabbitmq-jsonrpc-channel), you should install
+      it. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
+      post</a> explains how. Version R14A appears to include it
+      already.
+    </p>
+
     <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
 
     <p>
@@ -86,9 +97,7 @@
     <p>
       A management / monitoring API over HTTP, along with a browser-based
       UI. For more information, see <a href="management.html">the
-      page on the management plugin</a>. Note that there are
-      currently <a href="management.html#caveats">important caveats</a> for
-      this plugin.
+      page on the management plugin</a>.
     </p>
 
     <p>To use this plugin the following files are required:</p>
@@ -141,22 +150,6 @@
       <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
     </ul>
 
-    <h3 id="rabbitmq-status">rabbitmq-status</h3>
-
-    <p>
-      A plugin which provides a simple webpage indicating the status
-      of a RabbitMQ server. See
-      the <a href="http://hg.rabbitmq.com/rabbitmq-status/file/&version-server-hg;/README">README</a>
-      for more information.
-    </p>
-
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
-      <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
-      <li><a href="/releases/plugins/v&version-server;/rabbit_status-&version-server;.ez">rabbit_status</a></li>
-    </ul>
-
     <h3 id="rabbitmq-xmpp">rabbitmq-xmpp</h3>
 
     <p>
@@ -192,7 +185,7 @@
       <a href="rabbitmq-bql.html#installation">the installation
       instructions.</a>
     </p>
-
+    <a name="rabbitmq-erlang-client" />
     <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
 
     <p>
@@ -219,8 +212,6 @@
 		  url="http://hg.rabbitmq.com/rabbitmq-shovel/"/>
       <repository type="hg" shortname="rabbitmq-stomp"
 		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
-      <repository type="hg" shortname="rabbitmq-status"
-		  url="http://hg.rabbitmq.com/rabbitmq-status/"/>
       <repository type="hg" shortname="rabbitmq-xmpp"
 		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
       <repository type="hg" shortname="rabbitmq-erlang-client"

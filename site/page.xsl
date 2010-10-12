@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" exclude-result-prefixes="r doc" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                xmlns:xi="http://www.w3.org/2003/XInclude"
+                exclude-result-prefixes="r doc xi"
+                version="1.0">
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
@@ -14,6 +20,7 @@
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"/>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
+      <script type="text/javascript" src="/site.js"/>
       <script type="text/javascript">
 try{
  var _gaq = _gaq || [];
@@ -37,11 +44,14 @@ try{
 	<xsl:call-template name="page-footer"/>
       </div>
     </xsl:copy>
-    <script type="text/javascript" src="/site.js"/>
   </xsl:template>
 
   <xsl:template match="table">
-    <table border="0" cellpadding="0" cellspacing="0">
+    <table>
+      <xsl:copy-of select="@*"/>
+      <xsl:attribute name="border">0</xsl:attribute>
+      <xsl:attribute name="cellpadding">0</xsl:attribute>
+      <xsl:attribute name="cellspacing">0</xsl:attribute>
       <xsl:apply-templates/>
     </table>
   </xsl:template>
@@ -54,7 +64,7 @@ try{
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
     <div id="search-box">
-      <form action="search.html" method="get">
+      <form action="/search.html" method="get">
         <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
         <input type="submit" id="search-button" alt="Search" value="" />
       </form>
@@ -72,8 +82,13 @@ try{
 
   <xsl:template name="page-footer">
     <div class="clear"/>	
-    <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
-Technologies Ltd.</p></div>
+    <div class="pageFooter">
+      <p class="righter">
+        <a href="/contact.html">Contact</a> |
+        <a href="/about.html">About</a>
+      </p>
+      <p>RabbitMQ&#8482; is a Trademark of Rabbit Technologies Ltd.</p>
+    </div>
   </xsl:template>
 
   <!-- ############################################################ -->
@@ -253,9 +268,6 @@ Technologies Ltd.</p></div>
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
-        <xsl:if test="@mirror = 'yes'">
-            <th class="mirror">&#160;</th>
-        </xsl:if>
         <xsl:if test="@signature = 'yes'">
             <th class="onethird">&#160;</th>
         </xsl:if>
@@ -270,11 +282,6 @@ Technologies Ltd.</p></div>
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
-      <xsl:if test="../@mirror = 'yes'">
-          <td class="mirror">
-              <a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
-          </td>
-      </xsl:if>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
             <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
