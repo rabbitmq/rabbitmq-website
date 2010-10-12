@@ -296,8 +296,8 @@
 	    <li><a href="erlang-client-user-guide.html">Erlang client guide</a></li>
 	    <li><a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a></li>
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>
-	    <li><a href="http://bitbucket.org/dreid/gen_bunny/">gen_bunny</a>, an easy to use AMQP Erlang client
-	    based on the <a href="http://www.rabbitmq.com/download.html#rabbitmq-erlang-client">rabbit-erlang-client</a></li>
+	    <li><a href="http://github.com/dreid/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
+	    based on the <a href="http://www.rabbitmq.com/plugins.html#rabbitmq-erlang-client">rabbit-erlang-client</a></li>
 	  </ul>
 	</li>
         <li id="lisp-development">Lisp development:

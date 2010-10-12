@@ -185,7 +185,7 @@
       <a href="rabbitmq-bql.html#installation">the installation
       instructions.</a>
     </p>
-
+    <a name="rabbitmq-erlang-client" />
     <h3 id="rabbitmq-erlang-client">rabbitmq-erlang-client</h3>
 
     <p>
