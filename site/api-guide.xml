@@ -223,20 +223,21 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	<doc:subsection name="channel-threads">
 	  <doc:heading>Channel thread-safety</doc:heading>
 
-        <p>In general, Channel instances should not be used by more than one thread simultaneously: application
-        code should maintain a clear notion of thread ownership for Channel instances.
-        If more than one thread needs to access a particular Channel instance, the application should enforce
-        mutual exclusion itself, for example by synchronising on the Channel.</p>
-
-        <p>Symptoms of incorrect serialisation of Channel operations include, but are not limited to,
-        <code>IllegalStateException</code>s with the message "cannot execute more than one synchronous AMQP command at a time", and <code>UnexpectedFrameError</code>s.</p>
+        <p>
+          <code>Channel</code> instances are safe for use by multiple
+          threads. <code>Channels</code> do not interleave either
+          synchronous or asynchronous requests to the server. As such,
+          applications should prefer using a <code>Channel</code> per
+          thread instead of sharing the same <code>Channel</code>
+          across multiple threads.
+        </p>
 	</doc:subsection>
 
 	<doc:subsection name="consuming">
 	  <doc:heading>Retrieving messages by subscription</doc:heading>
 
 	  <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
-<b>import</b> com.rabbitmq.client.QueueingConsumer;</pre>
+<b>import</b> com.rabbitmq.client.DefaultConsumer;</pre>
 
 	  <p>
 	    The most efficient way to receive messages is to set up a
@@ -257,10 +258,14 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	  </p>
 
       <p>
-        The dispatch thread is shared by multiple
-        <code>Consumers</code>. <code>Consumers</code> should avoid
-        calling long-running methods so as not to hold up the dispatch
-        of callbacks to other <code>Consumers</code>.
+        Each <code>Channel</code> has its own dispatch thread. For the
+        most common use case of one <code>Consumer</code> per
+        <code>Channel</code>, the <code>Consumer</code> cannot hold up
+        other <code>Consumers</code>.If you have multiple
+        <code>Consumers</code> per <code>Channel</code> be aware that
+        a long-running <code>Consumer</code> may hold up dispatch of
+        callbacks to other <code>Consumers</code> on that
+        <code>Channel</code>.
 	  </p>
 
       <p>
