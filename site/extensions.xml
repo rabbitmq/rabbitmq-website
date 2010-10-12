@@ -262,7 +262,7 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
 
           <p>
             A value of 0 disables the memory monitor and throttling of
-            producers via <code>channel.flow</code>.
+            producers.
           </p>
 
           <p>
@@ -307,9 +307,8 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
             throttle producers whenever RabbitMQ is using more than
             410MB memory. Thus when RabbitMQ can't recognize your
             platform, if you actually have 8GB RAM installed and you
-            want to invoke <code>channel.flow</code> to throttle
-            producers when the RabbitMQ server is using above 3GB, set
-            <code>vm_memory_high_watermark</code> to 3.
+            want RabbitMQ to throttle producers when the server is using
+            above 3GB, set <code>vm_memory_high_watermark</code> to 3.
           </p>
 
           <p>

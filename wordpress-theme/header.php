@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-
+<script type="text/javascript" src="/site.js"/>
 <script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
 try{
  var _gaq = _gaq || [];
@@ -36,7 +36,7 @@ try{
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
     <div id="search-box">
-      <form action="search.html" method="get">
+      <form action="/search.html" method="get">
         <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
         <input type="submit" id="search-button" alt="Search" value="" />
       </form>

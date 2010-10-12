@@ -5,7 +5,8 @@
 %entities;
 ]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - Java AMQP client library</title>
   </head>
@@ -139,6 +140,11 @@
       There usually is a few weeks lag between a new release and its
       appearance in the central Maven repository. Be patient.
     </p>
+
+    <h3>Windows Bundle</h3>
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
 
     <h3>Mercurial repositories</h3>
     <p>
