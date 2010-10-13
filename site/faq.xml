@@ -21,9 +21,7 @@
 </p>
 
 <p>
-	If you have a question not answered here,
-	please <a href="http://lists.rabbitmq.com">join our mailing list</a> or
-	alternatively, contact us directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+  If you have a question not answered here please <a href="contact.html">contact us</a>.
 </p>
    
 
@@ -1184,8 +1182,8 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server – this is not available out of the box but you can  <a href="mailto:info@rabbitmq.com">
-	      contact us for more info</a> (You can also do active/active failover but it
+	      server – this is not available out of the box but you can <a href="contact.html">
+	      contact us</a> for more information. (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
 	    </ol>
@@ -1529,8 +1527,7 @@ web UI.
 	      configuration.
 	    </p>
 	    <p>
-	      Please <a href="mailto:info@rabbitmq.com?subject=How low can latency be">contact us</a> if
-	      you would like more information relevant to your setup.
+	      Please <a href="contact.html">contact us</a> if you would like more information relevant to your setup.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1930,11 +1927,10 @@ web UI.
 	  <doc:heading>What support options are available for RabbitMQ?</doc:heading>
 	  <doc:a>
 	    <p>
-	    RabbitMQ is supported both commercially and as an open-source project. For
-	    general questions please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join our mailing list</a>
-	    or <a href="mailto:info@rabbitmq.com">send us an email</a>.
+	    RabbitMQ is supported both commercially and as an open-source project. Please
+	    <a href="contact.html">contact us</a> for more information.
 	    </p>
-	    <p>
+        <p>
 	    Follow the links to <a href="services.html">Services</a> for information 
 	    about commercial support.
 	    </p>
@@ -1950,8 +1946,7 @@ web UI.
 	    </p>
 	    <p>
 	      If you would like to explore other licensing options,
-	      please get in touch with us by emailing <a
-	      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+	      please <a href="contact.html">contact us</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -2015,9 +2010,8 @@ web UI.
 	  <doc:heading>I have a question!</doc:heading>
 	  <doc:a>
 	    <p>
-	      Please <a href="http://lists.rabbitmq.com">join our mailing list
-	      </a> or send questions to <a href="mailto:info@rabbitmq.com">
-		info@rabbitmq.com</a>. We'd love to hear from you.
+	      We'd love to hear from you. Please <a href="contact.html">contact us</a>
+	      with your question and any other feedback you may have.
 	    </p>
 	  </doc:a>
 	</doc:faq>

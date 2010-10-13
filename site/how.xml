@@ -19,7 +19,7 @@
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.</p>
 
-    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
+    <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
       <h3 id="quickstart">Overviews and Introductions</h3>
       <ul>
@@ -677,23 +677,11 @@ decentralised microblogging</li>
 	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
 	  Daniel is the author of Qusion - "an AMQP made-easy" library for Ruby. He
 	  regularly blogs on a variety of subjects including AMQP, RabbitMQ and Ruby.
-	</li>
-	<li>
-	   Read what people are saying about <a href="http://search.twitter.com/search?q=rabbitmq">RabbitMQ on Twitter</a>
-	</li>
+	</li>	
 	<li>
 	   Get the latest buzz about <a href="http://addictomatic.com/topic/rabbitmq">RabbitMQ on Addict-o-matic</a>
 	</li>
-	<li>
-	   <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">Join our mailing list</a>
-	   (or see the <a href="email-archive.html">archived messages</a>)
-	</li>
-	<li>
-	   Talk to us on irc.freenode.net #rabbitmq (or see the <a href="http://dev.rabbitmq.com/irclog/">logs</a>)
-	   You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have
-	   an IRC client installed.
-	</li>
-      </ul>
+   </ul>
 
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>

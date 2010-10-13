@@ -5,7 +5,7 @@
   </head>
   <body>
 
-  <p>Sorry, there has been an error. Please try again later, or <a class="mailto" href="mailto:info@rabbitmq.com">email</a>.</p>
+  <p>Sorry, there has been an error. Please try again later or <a href="mailto:info@rabbitmq.com">email us</a>.</p>
   
   <p>Thanks</p>
 
