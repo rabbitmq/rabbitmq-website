@@ -223,14 +223,15 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	<doc:subsection name="channel-threads">
 	  <doc:heading>Channel thread-safety</doc:heading>
 
-        <p>
-          <code>Channel</code> instances are safe for use by multiple
-          threads. <code>Channels</code> do not interleave either
-          synchronous or asynchronous requests to the server. As such,
-          applications should prefer using a <code>Channel</code> per
-          thread instead of sharing the same <code>Channel</code>
-          across multiple threads.
-        </p>
+      <p>
+        <code>Channel</code> instances are safe for use by multiple
+        threads. Requests into a <code>Channel</code> are
+        serialized, with only one thread being able to run a command
+        on the <code>Channel</code> at a time. As such, applications
+        should prefer using a <code>Channel</code> per thread
+        instead of sharing the same <code>Channel</code> across
+        multiple threads.
+      </p>
 	</doc:subsection>
 
 	<doc:subsection name="consuming">
