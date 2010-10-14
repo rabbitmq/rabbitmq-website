@@ -53,6 +53,7 @@ def render_page(page_name):
     xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
     xml_ctxt.parseDocument()
     xml_doc = xml_ctxt.doc()
+    xml_doc.xincludeProcess()
     
     for child in xml_doc.children:
         if child.name == 'xml-stylesheet':

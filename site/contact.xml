@@ -1,0 +1,25 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html>
+  <head>
+    <title>RabbitMQ - Contact</title>
+  </head>
+  <body>
+    <h2>Contact Us</h2>    
+    <h3>Mailing List</h3>
+    <p>
+      For technical questions please join our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a>.
+    </p>
+    <h3>Email</h3>
+    <p>You can contact us <a href="mailto:info@rabbitmq.com?subject=Contact%20Us">via email</a> or at the address below.</p>
+    <h3>Location</h3>
+    <address>
+      RabbitMQ<br/>
+      c/o VMware UK<br/>
+      Bluefin Building<br/>
+      110, Southwark Street<br/>
+      London SE1 0TA<br/>
+      United Kingdom<br/>
+    </address>    
+  </body>
+</html>
+

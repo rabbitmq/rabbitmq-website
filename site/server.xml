@@ -5,7 +5,8 @@
 %entities;
 ]>
 <html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ Server</title>
   </head>
@@ -205,8 +206,15 @@
     <h4>Mac OS X</h4>
 
     <p>
-      The easiest way to install the server on OS X is <a
-      href="macports.html">via MacPorts</a>.
+      On OS X the server can be installed <a href="macports.html">via
+      MacPorts</a>.
+    </p>
+    <p>
+      Alternatively, for users of
+      the <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+      package manager there is a community-contributed
+      <a href="http://github.com/mxcl/homebrew/blob/master/Library/Formula/rabbitmq.rb">'rabbitmq'
+      formula</a>.
     </p>
 
     <h4>Generic Unix</h4>
@@ -216,13 +224,16 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h4>Windows</h4>
+    <h4>Windows Bundle</h4>
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
 
+    <h4>Amazon EC2 Bundle</h4>
     <p>
-      As an alternative to the binary package listed in the table
-      above, we also offer a <a href="download.html#bundle">complete
-      Windows bundle</a>, containing server and client packages as
-      well as the Erlang/OTP system installer.
+      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10
+      (Karmic Koala), both 32 and 64 bit variants, are available for download
+      with pre-installed RabbitMQ.
     </p>
     
     <h3>Mercurial repositories</h3>

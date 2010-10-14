@@ -25,6 +25,9 @@
           <li> Erlang Distribution - R12B-5</li>
           <li> Erlang SSL - 3.10</li>
         </ul>
+        <p>The recommended distribution is R14B (SSL 4.0.1). This should be
+        considered the minimum configuration for Java and Erlang clients
+        due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
       </doc:section>
 
       <doc:section name="keys-and-certs">
@@ -323,7 +326,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             <p>Note there are major bugs SSL in Erlang release R13B04
             which renders using SSL with cerificates broken. As of
             this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R13B03 as the
+            certificates with RabbitMQ, we recommend R14B as the
             least buggy implementation of SSL in Erlang.</p>
 
             <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
