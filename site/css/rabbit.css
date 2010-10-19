@@ -623,6 +623,18 @@ p.button a:hover {
     margin-top: 1.3em;
 }
 
+#tutorial div.diagram {
+    width: 100%;
+}
+#tutorial div.diagram img{
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+#tutorial div.diagram_source {
+    display: none;
+}
+
 
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
