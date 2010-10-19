@@ -7,8 +7,8 @@ overflow-y:scroll;
 }
 
 body, table {
-	font: 12px/17px Verdana, sans-serif;
-	color: #666;
+	font: 13px/18px Verdana, sans-serif;
+	color: #555;
 	background-color: #fff;
 }
 
@@ -26,7 +26,7 @@ div#outerContainer {
 }
 	
 :link, :visited {
-	color: #7A8777;
+	color: #444;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -50,7 +50,7 @@ h1 {
 	color: #f60;
 	margin: 10px 0 0 0;
 	float: left;
-	height: 42px;  
+	height: 42px;
 }
 
 div.s2-logo {
@@ -105,20 +105,17 @@ h2 a {
 
 h2 {
 	color: #f60;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 1.7em;
 	}
 
 h3 {
-	color: #f60;  
-	font-size: 14px;
-	line-height: 14px;
+	color: #f60;
+	font-size: 1.5em;
 	}
 
 h4 {
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 1.2em;
 	}
 	
 	
@@ -492,7 +489,7 @@ ol.feed {
 	background: #f6fcb0;
 }
 .downloadlabel a {
-	color: #666;
+	color: #444;
 	display: block;
 	padding-top: 1em;
 	padding-bottom: 1em;
