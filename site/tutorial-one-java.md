@@ -4,6 +4,7 @@
     <title>RabbitMQ - Tutorial in Java</title>
   </head>
   <body>
+   <div id="tutorial">
 
 # Introduction
 
@@ -181,5 +182,6 @@ the sender from another terminal.
 
 Hello World!
 
+</div>
 </body>
 </html>
