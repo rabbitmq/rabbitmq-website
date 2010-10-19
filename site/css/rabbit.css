@@ -473,13 +473,13 @@ ol.feed {
 	background-color: #e4e4e4;
 }
 
-.feed li .feed-item-title { 
+.feed li .feed-item-title {
 	float: left;
 	font-weight: bold;
 	color: #8a948f;
 }
 
-.feed li .feed-item-date { 
+.feed li .feed-item-date {
 	float: right;
 	color: #8a948f;
 	font-weight: bold;
@@ -563,9 +563,16 @@ p.button a:hover {
 }
 
 #tutorial pre {
-    background-color: #AAFFAA;
+    background-color: #eee;
     padding: 5px 15px;
-    margin: 0px;
+    margin: 12px;
+    border-radius:5px;
+    -moz-border-radius: 5px;
+}
+
+#tutorial code {
+   background: none;
+   padding: 0;
 }
 
 #tutorial .linenodiv pre {
@@ -578,8 +585,10 @@ p.button a:hover {
 }
 
 #tutorial blockquote {
-    background-color: #FFFFAA;
-    padding: 1px 5px;
+    padding: 2px 12px;
+    border: 1px solid #a84;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
 }
 
 #tutorial pre .p {

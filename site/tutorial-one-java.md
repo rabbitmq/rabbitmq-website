@@ -42,8 +42,9 @@ on behalf of the consumer.
 > signature as described. Unzip it into your working directory and grab
 > the JAR files from the unzipped directory:
 >
->    $ unzip rabbitmq-java-client-bin-*.zip
->    $ cp rabbitmq-java-client-bin-*/*.jar ./
+>     :::bash
+>     $ unzip rabbitmq-java-client-bin-*.zip
+>     $ cp rabbitmq-java-client-bin-*/*.jar ./
 >
 > (The RabbitMQ Java client is also in the central Maven repository,
 > with the groupId `com.rabbitmq` and the artifactId `amqp-client`.)
@@ -165,15 +166,18 @@ The rest is just closing the `try...catch` -- [here's the whole class](http://gi
 You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
+    :::bash
     $ javac -cp rabbitmq-client.jar send.java recv.java
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the sender:
 
+    :::bash
     $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar send
 
 then, run the receiver:
 
+    :::bash
     $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar recv
 
 The receiver will print the message it gets from the sender via
