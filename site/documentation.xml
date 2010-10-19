@@ -89,7 +89,6 @@
           <ul class="plain">
 		    <li><a href="erlang-client-user-guide.html">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
           	<li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface and HTTP API for managing and monitoring RabbitMQ.</li>
-          	<li><a href="rabbitmq-bql.html">rabbitmq-bql</a> - Broker Query Language provides a SQL-like interface to RabbitMQ</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
