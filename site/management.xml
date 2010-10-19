@@ -50,11 +50,8 @@
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <p>
-          <b>Warning:</b> The management plugin is still at an early stage of
-          development. All sorts of features may be missing or
-          buggy. See
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/TODO">TODO</a>
-          file for more information.
+          The management plugin is still at a comparatively early stage of
+          development. It has not been tested to the same extent RabbitMQ has.
         </p>
       </doc:section>
 
@@ -137,6 +134,24 @@
           Mercurial server</a>.
         </p>
       </doc:section>
+
+      <doc:section name="http-logging">
+        <doc:heading>HTTP request logging</doc:heading>
+        <p>
+          To create simple access logs of requests to the HTTP API,
+          set the value of the <code>http_log_dir</code> variable in
+          the <code>rabbit_management</code> application to the name
+          of a directory in which logs can be created and restart
+          RabbitMQ. Note that only requests to the API
+          at <code>/api</code> are logged, not requests to the static
+          files which make up the browser-based GUI.
+        </p>
+        <p>
+          Information on the configuration file can be
+          found <a href="install.html#configfile">here</a>.
+        </p>
+      </doc:section>
+
     </doc:div>
   </body>
 </html>
