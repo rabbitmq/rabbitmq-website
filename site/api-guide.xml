@@ -251,9 +251,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	    convenience class:
 	  </p>
 
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
+	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
 QueueingConsumer consumer = <b>new</b> QueueingConsumer(channel);
-channel.basicConsume(queueName, noAck, consumer);
+channel.basicConsume(queueName, autoAck, consumer);
 <b>while</b> (<i>/* decide whether to continue reading */</i>) {
     QueueingConsumer.Delivery delivery;
     <b>try</b> {
@@ -292,8 +292,8 @@ channel.basicConsume(queueName, noAck, consumer);
 	    interface method <code>handleDelivery</code>:
 	  </p>
 
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-channel.basicConsume(ticket, queueName, noAck,
+	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+channel.basicConsume(ticket, queueName, autoAck,
      <b>new</b> DefaultConsumer(channel) {
          @Override <b>public</b> <b>void</b> handleDelivery(String consumerTag,
                                               Envelope envelope,
@@ -353,8 +353,8 @@ channel.basicConsume(ticket, queueName, noAck,
 	    extracted :
 	  </p>
 
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
+	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 <b>if</b> (response == <b>null</b>) {
     <i>// No message retrieved.
 </i>} <b>else</b> {
@@ -364,7 +364,7 @@ GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
     ...</pre>
 
 	  <p>
-	    Since the <code>noAck</code> = <code>false</code> above,
+	    Since the <code>autoAck</code> = <code>false</code> above,
 	    you must also call <code>Channel.basicAck</code> to
 	    acknowledge that you have successfully received and
 	    processed the message :
