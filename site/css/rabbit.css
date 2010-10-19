@@ -607,7 +607,11 @@ p.button a:hover {
 }
 
 #tutorial table.highlighttable {
-    background-color: #AAFFAA;
+    background-color: #eee;
+    padding: 5px 15px;
+    margin: 12px;
+    border-radius:5px;
+    -moz-border-radius: 5px;
 }
 
 #tutorial ul p {
