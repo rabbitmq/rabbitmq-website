@@ -563,6 +563,7 @@ p.button a:hover {
 }
 
 #tutorial pre {
+    font-size: large;
     background-color: #eee;
     padding: 5px 15px;
     margin: 12px;
@@ -586,7 +587,7 @@ p.button a:hover {
 
 #tutorial blockquote {
     padding: 2px 12px;
-    border: 1px solid #a84;
+    border: 1px solid #aaa;
     border-radius: 8px;
     -moz-border-radius: 8px;
 }
@@ -627,6 +628,7 @@ p.button a:hover {
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
 .highlight .o { font-weight: bold } /* Operator */
+.highlight .n { color: #008080 } /* Name (Only in Python markdown) */
 .highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
 .highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
@@ -643,6 +645,7 @@ p.button a:hover {
 .highlight .gs { font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #aaaaaa } /* Generic.Subheading */
 .highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kn { font-weight: bold } /* Keyword.Namespace (only in Python markdown) */
 .highlight .kc { font-weight: bold } /* Keyword.Constant */
 .highlight .kd { font-weight: bold } /* Keyword.Declaration */
 .highlight .kp { font-weight: bold } /* Keyword.Pseudo */
