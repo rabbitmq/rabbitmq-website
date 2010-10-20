@@ -35,7 +35,7 @@ Learning RabbitMQ, part 3 (Broadcast)
   </div>
 </div>
 
-In [previous part]({{ python_two_url}}) of this tutorial we created a
+In [previous part](tutorial-two-python.html) of this tutorial we created a
 task queue. The core assumption behind a task queue is that a task is
 delivered to exactly one worker. In this part we'll do something
 completely different - we'll try to deliver a message to multiple
@@ -287,7 +287,7 @@ is ignored for `fanout` exchanges. Here goes the code for
                           body=message)
     print " [x] Sent %r" % (message,)
 
-[(emit_log.py source)]({{ examples_url }}/python/emit_log.py)
+[(emit_log.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
 
 As you see, after establishing the connection we declared the
 exchange. This step is neccesary as publishing to a non-existing
@@ -327,7 +327,7 @@ The code for `receive_logs.py`:
 
     pika.asyncore_loop()
 
-[(receive_logs.py source)]({{ examples_url }}/python/receive_logs.py)
+[(receive_logs.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
 
 
 We're done. If you want to save logs to a file, just open a console and type:

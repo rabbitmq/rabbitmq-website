@@ -31,7 +31,7 @@ Learning RabbitMQ, part 2 (Task Queue)
 </div>
 
 
-In the [first part of this tutorial]({{ python_one_url }}) we've
+In the [first part of this tutorial](tutorial-one-python.html) we've
 learned how to send and receive messages from a named queue. In this
 part we'll create a _Task Queue_ that will be used to distribute
 time-consuming work across multiple workers.
@@ -325,7 +325,7 @@ Final code of our `new_task.py` script:
                           ))
     print " [x] Sent %r" % (message,)
 
-[(new_task.py source)]({{ examples_url }}/python/new_task.py)
+[(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
 
 
 And our worker:
@@ -354,14 +354,14 @@ And our worker:
 
     pika.asyncore_loop()
 
-[(worker.py source)]({{ examples_url }}/python/worker.py)
+[(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 
 Using message acknowledgments and `prefetch_count` you may set up
 quite a decent work queue. The durability options let the tasks to
 survive even if Rabbit is restarted.
 
-Now we can move on to [part 3]({{ python_three_url }}) and learn how
+Now we can move on to [part 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
 
 

@@ -40,8 +40,8 @@ for other languages.
 This tutorial consists of three parts:
 
  * First we're going to write the simplest possible "Hello World" example.
- * Next we'll try to use Rabbit as [a simple "Work queue" server]({{ python_two_url }}).
- * Finally, we'll discuss how to [broadcast a message]({{ python_three_url }}).
+ * Next we'll try to use Rabbit as [a simple "Work queue" server](tutorial-two-python.html).
+ * Finally, we'll discuss how to [broadcast a message](tutorial-three-python.html).
 
 You need to have RabbitMQ server installed to go through this tutorial.
 If you haven't installed it yet you can follow the
@@ -258,7 +258,7 @@ _test_ queue.
 In RabbitMQ a message can never be send directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged by the
 details - you can read more about _exchanges_ in [the third part of this
-tutorial]({{ python_three_url }}). All we need to know now is how to use a default exchange
+tutorial](tutorial-three-python.html). All we need to know now is how to use a default exchange
 identified by an empty string. This exchange is special - it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
@@ -349,7 +349,7 @@ For that command to succeed we must be sure that a queue which we want
 to subscribe to exists. Fortunately we're confident about that - we've
 created a queue above - using `queue_declare`.
 
-The `no_ack` parameter will be described [later on]({{ python_two_url }}).
+The `no_ack` parameter will be described [later on](tutorial-two-python.html).
 
 And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary.
@@ -380,7 +380,7 @@ Full code for `send.py`:
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
 
-[(send.py source)]({{ examples_url }}/python/send.py)
+[(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
 
 Full `receive.py` code:
@@ -407,7 +407,7 @@ Full `receive.py` code:
 
     pika.asyncore_loop()
 
-[(receive.py source)]({{ examples_url }}/python/receive.py)
+[(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 
 Now we can try out our programs. First, let's send a message using our
@@ -427,7 +427,7 @@ have noticed, the `receive.py` program doesn't exit. It will stay ready to
 receive further messages. Try to run `send.py` again in a new terminal!
 
 We've learned how to send and receive a message from a named
-queue. It's time to move on to [part 2]({{ python_two_url }})
+queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _task queue_.
 
 
