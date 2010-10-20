@@ -23,10 +23,13 @@ This script catches blocks like that:
       node [style="filled"];
       //
       P1 [label="P", fillcolor="#00ffff"];
+      X [label="X", fillcolor="#3333CC"];
       Q1 [label="{||||}", fillcolor="red", shape="record"];
       C1 [label="C", fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       // (empty lines forbidden due to broken md parser)
-      P1 -&gt; Q1 -&gt; C1;
+      P1 -&gt; X -&gt; Q1 -&gt; C1;
+      Q1 -&gt; C2;
     }
   </div>
 </div>
