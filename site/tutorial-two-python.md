@@ -82,7 +82,7 @@ messages from the queue and do the task, so let's call it `worker.py`:
 
     def callback(ch, method, header, body):
         print " [x] Received %r" % (body,)
-	time.sleep( body.count('.') )
+        time.sleep( body.count('.') )
         print " [x] Done"
 
 
@@ -169,7 +169,7 @@ from the worker, once we're done with a task.
     :::python
     def callback(ch, method, header, body):
         print " [x] Received %r" % (body,)
-	time.sleep( body.count('.') )
+        time.sleep( body.count('.') )
         print " [x] Done"
         ch.basic_ack(delivery_tag = method.delivery_tag)
 
