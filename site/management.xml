@@ -62,10 +62,6 @@
           file for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
-        <p>
-          The management plugin is still at a comparatively early stage of
-          development. It has not been tested to the same extent RabbitMQ has.
-        </p>
         <doc:subsection name="erlang">
           <doc:heading>Requirements</doc:heading>
           <p>
@@ -92,6 +88,27 @@
             finds OpenSSL and builds the crypto application.
           </p>
         </doc:subsection>
+      </doc:section>
+      <doc:section name="caveats">
+        <doc:heading>Caveats</doc:heading>
+        <p>
+          The management plugin is still at a comparatively early
+          stage of development. It has not been tested to the same
+          extent RabbitMQ has. There are also some known
+          limitations:
+        </p>
+        <ul>
+          <li>
+            The monitoring parts of the management plugin are not
+            clustering-aware. When using the management plugin in a
+            cluster you will be able to manage items from all nodes in
+            the cluster, but only see queue length and message rates
+            for the node you are connected to.
+          </li>
+        </ul>
+        <p>
+          This should be fixed in a later release.
+        </p>
       </doc:section>
 
       <doc:section name="getting-started">
