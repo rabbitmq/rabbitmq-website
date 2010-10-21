@@ -25,9 +25,9 @@ In the diagram below, "P" is our producer and "C" is our consumer. The
 box in the middle is a queue -- a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
-<center><div class="dot_bitmap">
-<img src="http://github.com/rabbitmq/rabbitmq-tutorials/raw/master/_img/3314f4be42ba3db9b161e564def3daca.png" alt="Dot graph" width="392" height="59" />
-</div></center>
+<div class="diagram">
+  <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
+</div>
 
 > #### The Java client library
 >
@@ -54,9 +54,9 @@ code.
 
 ### Sending
 
-<center><div class="dot_bitmap">
-<img src="http://github.com/rabbitmq/rabbitmq-tutorials/raw/master/_img/28a5099cc807b687e36772091edcf740.png" alt="Dot graph" width="223" height="48" />
-</div></center>
+<div class="diagram">
+  <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
+</div>
 
 We'll call our message sender `send` and our message receiver
 `recv`.  The sender will connect to RabbitMQ, send a single message,
@@ -111,9 +111,9 @@ That's it for our sender.  Our receiver is pushed messages from
 RabbitMQ, so unlike the sender which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
-<center><div class="dot_bitmap">
-<img src="http://github.com/rabbitmq/rabbitmq-tutorials/raw/master/_img/39d6d05c8bd0aaf7d7993ada5a785ae2.png" alt="Dot graph" width="223" height="48" />
-</div></center>
+<div class="diagram">
+  <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
+</div>
 
 The code (in [`recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/recv.java)) has almost the same imports as `send`:
 
