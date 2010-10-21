@@ -72,7 +72,7 @@ try{
     <ul class="mainNav">
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/gettingstarted.html">Get Started</a></li>
+      <li><a href="/getstarted.html">Get Started</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
       <li><a href="/blog/">Blog</a></li>
