@@ -22,10 +22,14 @@
 
         <p>
           The <code>x-message-ttl</code> argument to
-          <code>queue.declare</code> controls for how long each
-          message published to a queue can live before it is
-          discarded. A message that has been in the queue for longer
-          than the configured TTL is said to be <em>dead</em>.
+          <code>queue.declare</code> controls for how long a message
+          published to a queue can live before it is discarded. A
+          message that has been in the queue for longer than the
+          configured TTL is said to be <em>dead</em>. Note that a
+          message routed to multiple queues can die at different
+          times, or not at all, in each queue in which it resides. The
+          death of a message in one queue has no impact on the life of
+          the same message in other queues.
         </p>
 
         <p>
