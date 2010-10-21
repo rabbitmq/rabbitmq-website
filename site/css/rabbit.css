@@ -562,8 +562,63 @@ p.button a:hover {
 	background-color: #FA8800;
 }
 
+/* Tutorials */
+
+#tutorial {
+   width: 54em;
+   float: left;
+}
+
+#sidebar {
+   width: 22em;
+   float: left;
+   margin-right: 1.2em;
+}
+
+ul#tutorials > li {
+   height: 16em;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   -moz-border-radius: 8px;
+   margin-right: 2.4em;
+}
+
+#sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #f60; }
+#sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #f60; }
+#sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #f60; }
+
+ul#tutorials {
+   list-style-type: none;
+}
+
+ul#tutorials > li .tute-num {
+   padding: 0.2em 0.5em 0.2em 0.5em;
+   background: #f60;
+   color: white;
+   font-weight: bold;
+   border-radius: 0.5em;
+   -moz-border-radius: 0.5em;
+}
+
+ul#tutorials > li h2 {
+   margin-bottom: 1.2em;
+   margin-top: 0.9em;
+}
+
+ul#tutorials > li {
+   background: none;
+   float: left;
+   width: 19.5em;
+   border: 1px solid white;
+   margin-bottom: 2.0em;
+}
+
+ul#tutorials > li {
+   border: 1px solid #ccc;
+   padding: 0.6em 0.4em 1.0em 1.0em;
+}
+
 #tutorial pre {
-    font-size: large;
     background-color: #eee;
     padding: 5px 15px;
     margin: 12px;
@@ -588,8 +643,19 @@ p.button a:hover {
 #tutorial blockquote {
     padding: 2px 12px;
     border: 1px solid #aaa;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.aside {
+   float: right;
+   width: 320px;
+    border: 1px solid #aaa;
+    background: #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+   padding: 0.4em 0.4em 0.6em 1.0em;
 }
 
 #tutorial pre .p {
@@ -622,7 +688,7 @@ p.button a:hover {
     text-align: center;
 }
 
-#tutorial h1, #tutorial h2, #tutorial h3{
+#tutorial h1, #tutorial h2, #tutorial h3 {
     float: none;
     margin-top: 1.3em;
 }

@@ -1,77 +1,18 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Learning RabbitMQ, part 1 ("Hello world!")</title>
   </head>
   <body>
+
+  <div id="sidebar" class="tutorial-one">
+     <xi:include href="tutorials-menu.xml.inc"/>
+  </div>
+
+
   <div id="tutorial">
 
-
-Learning RabbitMQ, part 1 ("Hello world!")
-==========================================
-
-
-<div class="diagram">
-  <img src="/img/tutorials/python-one.png" height="60" />
-  <div class="diagram_source">
-    digraph G {
-      bgcolor=transparent;
-      truecolor=true;
-      rankdir=LR;
-      node [style="filled"];
-      //
-      P1 [label="P", fillcolor="#00ffff"];
-      Q1 [label="{||||}", fillcolor="red", shape="record"];
-      C1 [label="C", fillcolor="#33ccff"];
-      //
-      P1 -&gt; Q1 -&gt; C1;
-    }
-  </div>
-</div>
-
-
-Throughout this tutorial, we'll teach you the basic concepts required for
-creating RabbitMQ applications. The tutorial will be illustrated with
-code snippets written in [Python](http://www.python.org/) and executed on Linux.
-But don't worry if you don't know this language - the core ideas are the same
-for other languages.
-
-
-This tutorial consists of three parts:
-
- * First we're going to write the simplest possible "Hello World" example.
- * Next we'll try to use Rabbit as [a simple "Work queue" server](tutorial-two-python.html).
- * Finally, we'll discuss how to [broadcast a message](tutorial-three-python.html).
-
-You need to have RabbitMQ server installed to go through this tutorial.
-If you haven't installed it yet you can follow the
-[installation instructions](http://www.rabbitmq.com/install.html).
-You can tell RabbitMQ is installed by running:
-
-    $ sudo rabbitmqctl status
-
-If you have installed RabbitMQ you should see something like:
-
-    Status of node rabbit@example ...
-    [{running_applications,[{os_mon,"CPO  CXC 138 46","2.2.5"},
-                            {sasl,"SASL  CXC 138 11","2.1.9"},
-                            {mnesia,"MNESIA  CXC 138 12","4.4.13"},
-                            {stdlib,"ERTS  CXC 138 10","1.16.5"},
-                            {kernel,"ERTS  CXC 138 10","2.13.5"}]},
-     {nodes,[{disc,[rabbit@example]}]},
-     {running_nodes,[rabbit@example]}]
-    ...done.
-
-
-> #### Where to get help
->
-> If you're having trouble going through this tutorial you can post a message to
-> [rabbitmq-discuss mailing list](https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
-> or join the [#rabbitmq](irc://irc.freenode.net/rabbitmq) irc channel.
-
-
-Introduction
-------------
+# Introduction
 
 RabbitMQ is a message broker. The principle idea is pretty simple: it accepts
 and forwards messages. You can think about it as a post office: when you send
@@ -430,7 +371,7 @@ We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _task queue_.
 
-
 </div>
+
 </body>
 </html>
