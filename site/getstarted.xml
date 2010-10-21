@@ -6,18 +6,8 @@
   </head>
   <body>
     <doc:div>
-      <blockquote class="aside">
-        <h3>Where to get help</h3>
-        <p>
-          If you're having trouble going through this tutorial you can post
-          a message to the <a
-          href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss
-          mailing list</a> or join the <a
-          href="irc://irc.freenode.net/rabbitmq">#rabbitmq irc channel</a>.
-        </p>
-      </blockquote>
-
-      <h1>Getting started with RabbitMQ</h1>
+      <div id="tutorial">
+      <h2>Getting started with RabbitMQ</h2>
       <p>
         These tutorials cover the basics of creating messaging
         applications using RabbitMQ.
@@ -35,7 +25,18 @@
       </p>
 
       <div id="tutorial-index">
+      <div class="aside">
+        <h2>Where to get help</h2>
+        <p>
+          If you're having trouble going through this tutorial you can post
+          a message to the <a
+          href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss
+          mailing list</a> or join the <a
+          href="irc://irc.freenode.net/rabbitmq">#rabbitmq irc channel</a>.
+        </p>
+      </div>
         <xi:include href="tutorials-menu.xml.inc"/>
+      </div>
       </div>
     </doc:div>
   </body>

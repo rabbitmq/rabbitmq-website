@@ -577,14 +577,6 @@ p.button a:hover {
    margin-right: 1.2em;
 }
 
-ul#tutorials > li {
-   height: 16em;
-   border: 1px solid #ccc;
-   border-radius: 8px;
-   -moz-border-radius: 8px;
-   margin-right: 2.4em;
-}
-
 #sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #f60; }
 #sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #f60; }
 #sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #f60; }
@@ -602,22 +594,25 @@ ul#tutorials > li .tute-num {
    -moz-border-radius: 0.5em;
 }
 
-ul#tutorials > li h2 {
+ul#tutorials > li h2, #tutorial-index .aside > h2 {
    margin-bottom: 1.2em;
    margin-top: 0.9em;
 }
 
-ul#tutorials > li {
-   background: none;
+ul#tutorials > li, #tutorial-index .aside {
    float: left;
    width: 19.5em;
-   border: 1px solid white;
+   height: 16em;
+   border-radius: 8px;
+   -moz-border-radius: 8px;
    margin-bottom: 2.0em;
+   padding: 0.6em 0.4em 1.0em 1.0em;
+   margin-right: 2.4em;
 }
 
 ul#tutorials > li {
+   background: none;
    border: 1px solid #ccc;
-   padding: 0.6em 0.4em 1.0em 1.0em;
 }
 
 #tutorial pre {
@@ -651,13 +646,17 @@ ul#tutorials > li {
 }
 
 .aside {
-   float: right;
-   width: 320px;
     border: 1px solid #aaa;
     background: #ddd;
     border-radius: 5px;
     -moz-border-radius: 5px;
-   padding: 0.4em 0.4em 0.6em 1.0em;
+}
+.aside h2 {
+   color: #444;
+}
+
+#tutorial-index {
+   clear: both;
 }
 
 #tutorial pre .p {
