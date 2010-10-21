@@ -548,12 +548,13 @@ p.button {
 }
 
 p.button a {
-	background-color: #FF9933;
+   background: #eee;
 	padding: 21px 0 21px 0px;
 	margin: 21px 0  21px 0px;
-	color: #fff;
+	color: #f60;
 	display: block;
 	text-decoration: none;
+   border: 2px solid #f60;
 	border-radius:10px;
 	-moz-border-radius:10px;
 }
