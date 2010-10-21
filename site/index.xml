@@ -3,32 +3,32 @@
   <head>
     <title>RabbitMQ - Messaging that just works</title>
   </head>
-  <body>      
+  <body>
     <div class="rgt-third">
-    
+
     <p class="rgt button">
     <a class="" href="download.html"><b>Download</b></a>
     <a class="" href="services.html"><b>Our Services</b></a>
     <a class="" href="community.html"><b>Get Involved</b></a>
     </p>
-    
+
       <h3>
 	<span class="subscribe"><a href="news.atom">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
 	</a></span>Latest News
-      </h3>     
-      <feed src="news.atom" type="ournews" limit="3" />  
-      
-    <div class="">  
+      </h3>
+      <feed src="news.atom" type="ournews" limit="3" />
+
+    <div class="">
 	<h3>
 	<span class="subscribe"><a href="http://search.twitter.com/search.atom?q=rabbitmq">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
 	</a>
 	</span>
 	Latest Community Chatter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
+	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>
     </div>
-          
+
     </div>
     <h3>What Is RabbitMQ?</h3>
     <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
@@ -40,7 +40,7 @@
       <li>Read more about <a href="how.html">RabbitMQ</a></li>
       <li>Get involved on our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
     </ul>
-    
+
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a> and offers a
 	reliable, <a href="faq.html#feature-reliable">highly available</a>, scalable and portable messaging system with predictable and consistent
@@ -61,18 +61,17 @@
       <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
       <li>Just <a href="how.html">tell me more</a></li>
     </ul>
-    
-    <div class="">      
+
+    <div class="">
 	<h3>
 	<span class="subscribe"><a href="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to RabbitMQ news from Delicious" title="Subscribe to RabbitMQ news from Delicious" />
 	</a></span>
 	Latest Community Highlights
 	</h3>
-	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
+	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>
 	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
     </div>
-    
-    
+
   </body>
 </html>
