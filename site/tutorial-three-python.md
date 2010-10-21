@@ -1,9 +1,14 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - Tutorial in Java</title>
   </head>
   <body>
+
+  <div id="sidebar" class="tutorial-three">
+     <xi:include href="tutorials-menu.xml.inc"/>
+  </div>
+
   <div id="tutorial">
 
 

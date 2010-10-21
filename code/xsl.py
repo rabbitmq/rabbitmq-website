@@ -21,7 +21,7 @@ def preprocess_markdown(fpath):
     contents = open(fpath).read()
     ## Markdown will treat the whole file as markdown, whereas
     ## we want to only transform the body text.
-    bits = re.match("(.*<html[^>]*>.*<body[^>]*>)(.*)(</body>\s*</html>)", contents, re.DOTALL)
+    bits = re.match("(.*<html[^>]*>.*<div id=\"tutorial\"[^>]*>)(.*)(</div>\s*</body>\s*</html>)", contents, re.DOTALL)
     (pre, body, post) = bits.groups()
     processed = markdown.markdown(body, ["codehilite(css_class=highlight)"])
     whole = pre + processed + post
@@ -78,14 +78,15 @@ def create_xml_context(page_name):
         file_name = page_name + ext
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):
-            return ctxt_maker(fpath)
+            return (fpath, ctxt_maker(fpath))
     raise Error404, page_name
 
 def find_parse_file(page_name):
-    xml_ctxt = create_xml_context(page_name)
+    (path, xml_ctxt) = create_xml_context(page_name)
     xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
     xml_ctxt.parseDocument()
     xml_doc = xml_ctxt.doc()
+    xml_doc.setBase(path)
     xml_doc.xincludeProcess()
     return xml_doc
 
