@@ -106,6 +106,49 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
       </doc:section>
 
+      <doc:section name="queue-ttl">
+        <doc:heading>Per-Queue Message TTL</doc:heading>
+
+        <p>
+          The <code>x-message-ttl</code> argument to
+          <code>queue.declare</code> controls for how long each
+          message published to a queue can live before it is
+          discarded. A message that has been in the queue for longer
+          than the configured TTL is said to be <em>dead</em>.
+        </p>
+
+        <p>
+          The server guarantees that dead messages will not be
+          included in any <code>basic.get-ok</code> or
+          <code>basic.deliver</code> methods. Further, the server
+          guarantees to reap dead messages at an interval
+          corresponding to the configured TTL.
+        </p>
+
+        <p>
+          The value of the <code>x-message-ttl</code> argument must be
+          an integer, greater than zero, describing the TTL period in
+          milliseconds. Thus a value of 1000 means that a message
+          added to the queue will live in the queue for 1 second or
+          until it is delivered to a consumer. The argument can be of
+          AMQP type short-short-int, short-int, long-int, or
+          long-long-int.
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+
+          <p>
+            This example in Java creates a queue in which messages may reside for at most 60 seconds:
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-message-ttl", 60000);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </doc:subsection>
+
+      </doc:section>
+
       <doc:section name="alternate-exchange">
         <doc:heading>Alternate Exchanges</doc:heading>
 
