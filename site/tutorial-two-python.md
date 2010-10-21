@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html>
   <head>
-    <title>RabbitMQ - Tutorial in Java</title>
+    <title>Learning RabbitMQ, part 2 (Task Queue)</title>
   </head>
   <body>
   <div id="tutorial">
