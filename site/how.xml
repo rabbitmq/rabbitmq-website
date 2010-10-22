@@ -275,7 +275,7 @@
 	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
-	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
+	    <a href="http://github.com/ry/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
 	    </li>
 	    <li>
