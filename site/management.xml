@@ -157,7 +157,8 @@
         <p>
           Note that normal RabbitMQ permissions still apply to
           administrators; just because a user is an administrator does
-          not automatically mean they can do everything.
+          not give them full access to exchanges, queues and bindings
+          through either AMQP or the management plugin.
         </p>
         <p>
           Also note that all users, administrators or otherwise, can
@@ -206,6 +207,21 @@
             at <code>/api</code> are logged, not requests to the static
             files which make up the browser-based GUI.
           </p>
+        </doc:subsection>
+        <doc:subsection name="example-config">
+          <doc:heading>Example</doc:heading>
+          <p>
+            An example configuration file for RabbitMQ that switches
+            on request logging, and explicitly sets some other
+            relevant parameters to their default values, would look
+            like this:
+          </p>
+          <pre>[
+  {rabbit,            [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
+  {rabbit_mochiweb,   [ {port,                  55672} ] },
+  {rabbit_management, [ {http_log_dir,          "/tmp/rabbit-mgmt"},
+                        {force_fine_statistics, true} ] }
+].</pre>
         </doc:subsection>
       </doc:section>
 
