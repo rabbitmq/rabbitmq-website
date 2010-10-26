@@ -252,6 +252,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+	    <li><a href="http://github.com/akalend/amqp-rest">amqp-rest</a><br />
+	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP.</li>
 	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
 	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
@@ -275,7 +277,7 @@
 	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
-	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
+	    <a href="http://github.com/ry/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
 	    </li>
 	    <li>
