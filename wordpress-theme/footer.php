@@ -7,7 +7,7 @@
           <a href="/contact.html">Contact</a> |
           <a href="/about.html">About</a>
         </p>
-        <p>RabbitMQ&#8482; is a trademark of VMware, Inc. Copyright &#169; 2010 VMware, Inc. All rights reserved.</p>
+        <p>Copyright &#169; 2010 VMware, Inc. All rights reserved.</p>
       </div>
     </div>
   </div>
