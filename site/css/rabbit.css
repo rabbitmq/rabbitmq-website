@@ -447,10 +447,13 @@ td.signature, th.signature {
 	height: 128px;
 }
 
-.pageFooter a.about {
-	float: right;
-	font-weight: normal;
+.pageFooter p.righter {
+   float: right;
 }
+.pageFooter a {
+   font-weight: normal;
+}
+
 ol.feed {
 	margin: 0px;
 	padding: 0px;
