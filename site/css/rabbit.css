@@ -7,8 +7,8 @@ overflow-y:scroll;
 }
 
 body, table {
-	font: 12px/17px Verdana, sans-serif;
-	color: #666 !important;
+	font: 13px/18px Verdana, sans-serif;
+	color: #555;
 	background-color: #fff;
 }
 
@@ -26,7 +26,7 @@ div#outerContainer {
 }
 	
 :link, :visited {
-	color: #7A8777;
+	color: #444;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -50,7 +50,7 @@ h1 {
 	color: #f60;
 	margin: 10px 0 0 0;
 	float: left;
-	height: 42px;  
+	height: 42px;
 }
 
 div.s2-logo {
@@ -105,20 +105,17 @@ h2 a {
 
 h2 {
 	color: #f60;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 1.7em;
 	}
 
 h3 {
-	color: #f60;  
-	font-size: 14px;
-	line-height: 14px;
+	color: #f60;
+	font-size: 1.5em;
 	}
 
 h4 {
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 1.2em;
 	}
 	
 	
@@ -231,39 +228,6 @@ li#novell {
 }
 li#terracotta {
 	background: url(../img/terracotta.png) no-repeat 1px 22px;
-}
-ul.downloads li {
-	list-style-type : none;
-	float: left;
-	background: none;
-	width: 290px;
-	margin: 0 22px 0 0;
-	padding: 0px;
-}
-ul.downloads li h4 {
-	padding: 0px 0 0px 5px;
-	margin: 10px 0 12px 0;
-}
-ul.downloads li a {
-	background-color: #FF9933;
-	padding: 4px 0 4px 5px;
-	margin: 0px 0 0px 0px;
-	color: #fff;
-	display: block; 
-	background-image: url('/img/button-light.png');
-	text-align: center;
-    
-}
-ul.downloads li a:hover {
-	background-color: #FA8800; 
-	background-image: url('/img/button-bright.png');
-}
-	
-ul.downloads li ul.compact li {
-	list-style-type: none; 
-	background: url(../img/li.gif) no-repeat 1px 12px;
-	margin: 0;
-	padding: 6px 0 2px 10px;
 }
 p {
 	clear:left;
@@ -441,11 +405,11 @@ td.desc, th.desc {
   width:350px;
 }
 
-td.signature, th.signature, td.mirror, th.mirror {
+td.signature, th.signature {
   width:80px;
 }
 
-.signature a, .mirror a {
+.signature a {
   font-weight: normal;
   font-size: 80%;
 }
@@ -484,9 +448,11 @@ td.signature, th.signature, td.mirror, th.mirror {
 	height: 128px;
 }
 
-.pageFooter a.about {
-	float: right;
-	font-weight: normal;
+.pageFooter p.righter {
+    float: right;
+}
+.pageFooter a {
+    font-weight: normal;
 }
 ol.feed {
 	margin: 0px;
@@ -523,7 +489,7 @@ ol.feed {
 	background: #f6fcb0;
 }
 .downloadlabel a {
-	color: #666;
+	color: #444;
 	display: block;
 	padding-top: 1em;
 	padding-bottom: 1em;
@@ -579,17 +545,20 @@ p.button {
 	font-size: 18px;
 	margin:  0px 0 0px 0px;
 }
+
 p.button a {
 	background-color: #FF9933;
 	padding: 21px 0 21px 0px;
 	margin: 21px 0  21px 0px;
 	color: #fff;
-	display: block; 
+	display: block;
 	text-decoration: none;
-	background-image: url('/img/button-light.png');
-    
+	border-radius:10px;
+	-moz-border-radius:10px;
 }
+
 p.button a:hover {
-	background-color: #FA8800; 
-	background-image: url('/img/button-bright.png');
+	background-color: #FA8800;
 }
+
+p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight: bold; margin: 20px; padding: 15px; border-radius: 10px; -moz-border-radius: 10px; text-align: center; }

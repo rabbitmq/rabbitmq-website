@@ -45,9 +45,12 @@
         </ul>
 
         <p>
-          It is advisable to <a href="man/rabbitmqctl.1.man.html#change_password">change the
-          password</a> of the <code>guest</code> user to something
-          private, particularly if your broker is accessible publicly.
+          It is advisable
+          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
+          the <code>guest</code> user
+          or <a href="man/rabbitmqctl.1.man.html#change_password">change
+          the password</a> to something private, particularly if your
+          broker is accessible publicly.
         </p>
       </doc:section>
 

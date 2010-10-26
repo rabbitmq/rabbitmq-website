@@ -228,6 +228,7 @@
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
+	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
@@ -251,6 +252,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+	    <li><a href="http://github.com/akalend/amqp-rest">amqp-rest</a><br />
+	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP.</li>
 	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
 	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
@@ -274,7 +277,7 @@
 	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
-	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
+	    <a href="http://github.com/ry/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
 	    </li>
 	    <li>
@@ -285,18 +288,18 @@
 	</li>
 	<li id="c-development">C development:
     <ul class="plain">
-      <li>Experimental <a href="http://hg.rabbitmq.com/rabbitmq-c/">RabbitMQ-C</a> client</li>
+      <li>Experimental <a href="download-ex.html#rabbitmq-c">RabbitMQ-C</a> client</li>
       <li>You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a></li>
       <li>An <a href="http://github.com/dg1sbg/RabbitMQ_C_VS_Unix">ANSI C compliant library</a> providing a C language interface to RabbitMQ</li>
     </ul>
   </li>
 	<li>Erlang development:
 	  <ul class="plain">
-	    <li><a href="http://hopper.squarespace.com/blog/2008/1/12/introducing-the-erlang-amqp-client.html">Introducing the Erlang AMQP client</a></li>
+	    <li><a href="erlang-client-user-guide.html">Erlang client guide</a></li>
 	    <li><a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a></li>
 	    <li>See also <a href="http://dev.rabbitmq.com/wiki/RabbitCouchRelay">RabbitMQ Couch Relay</a></li>
-	    <li><a href="http://bitbucket.org/dreid/gen_bunny/">gen_bunny</a>, an easy to use AMQP Erlang client
-	    based on the <a href="http://www.rabbitmq.com/download.html#rabbitmq-erlang-client">rabbit-erlang-client</a></li>
+	    <li><a href="http://github.com/dreid/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
+	    based on the <a href="http://www.rabbitmq.com/plugins.html#rabbitmq-erlang-client">rabbit-erlang-client</a></li>
 	  </ul>
 	</li>
         <li id="lisp-development">Lisp development:
@@ -442,14 +445,6 @@ decentralised microblogging</li>
 	<li>
 	  <a href="http://github.com/b/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
 	  Ben Black's cookbook for managing RabbitMQ with Chef.
-	</li>
-	<li>
-	  <a href="http://www.lshift.net/blog/2009/11/30/introducing-rabbitmq-status-plugin">RabbitMQ Status Plugin</a><br />
-	  A plugin for RabbitMQ that provides a status page over HTTP showing memory,
-	  file descriptors and Erlang PIDS usage. You can also see basic information
-	  about connections and queues. See examples of how others have used the plugin
-	  for <a href="http://blog.scoutapp.com/articles/2010/03/08/rabbitmq-monitoring-plugins">monitoring with Scout</a>
-	  and <a href="http://blog.boxedice.com/2010/03/12/rabbitmq-monitoring-alerting/">monitoring with Server Density</a>
 	</li>
 	<li>
 	  <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
