@@ -35,11 +35,6 @@
 	</p>
 	<pre class="sourcecode">wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 gpg --import rabbitmq-signing-key-public.asc</pre>
-	<p>
-	  If you really trust our key, you can sign it using your own key (to
-	  create your private key run <code>gpg --gen-key</code>):
-	</p>
-	<pre>gpg --sign-key 0x056E8E56</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">
@@ -59,11 +54,22 @@ $ gpg --verify rabbitmq-server_2.1.0-1_all.deb.asc rabbitmq-server_2.1.0-1_all.d
 gpg: Signature made Tue 14 Sep 2010 02:28:03 PM BST using DSA key ID 056E8E56
 gpg: Good signature from "RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;"
 </pre>
-	<p>
-	  If the signature is valid, you will expect a "Good
-	  signature" message; if it is invalid, you will see a "BAD
-	  signature" message.
+        <p>
+	  If the signature is invalid, you will see a "BAD signature"
+	  message, and you should not use the package.
 	</p>
+	<p>
+	  If the signature is valid, you should expect a "Good
+	  signature" message; if you've not signed our key, you will
+	  see a "Good signature" message along with a warning about
+	  our key being untrusted.
+        </p>
+	<p>
+	  If you trust our key, you can avoid the warning output by
+	  GnuPG by signing it using your own key (to
+	  create your private key run <code>gpg --gen-key</code>):
+	</p>
+	<pre>gpg --sign-key 0x056E8E56</pre>
       </doc:section>
     </doc:div>
   </body>
