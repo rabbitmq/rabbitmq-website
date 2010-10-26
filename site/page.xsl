@@ -84,8 +84,8 @@ try{
     <div class="clear"/>	
     <div class="pageFooter">
       <p class="righter">
-        <a href="contact.html">Contact</a> |
-        <a href="about.html">About</a>
+        <a href="/contact.html">Contact</a> |
+        <a href="/about.html">About</a>
       </p>
       <p>RabbitMQ&#8482; is a Trademark of Rabbit Technologies Ltd.</p>
     </div>
@@ -268,9 +268,6 @@ try{
       <tr>
 	<th class="desc">Description</th>
 	<th>Download </th>
-        <xsl:if test="@mirror = 'yes'">
-            <th class="mirror">&#160;</th>
-        </xsl:if>
         <xsl:if test="@signature = 'yes'">
             <th class="onethird">&#160;</th>
         </xsl:if>
@@ -285,11 +282,6 @@ try{
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
-      <xsl:if test="../@mirror = 'yes'">
-          <td class="mirror">
-              <a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
-          </td>
-      </xsl:if>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
             <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>

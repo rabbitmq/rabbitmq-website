@@ -10,16 +10,38 @@
   </head>
   <body>
     <doc:div>
-      <p class="intro">
-        This is the documentation for the rabbitmq-management
-        plugin. The plugin provides an HTTP-based API for management
-        and monitoring of your RabbitMQ server, along with a
-        browser-based UI.
-      </p>
-
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
+
+      <doc:section name="features">
+        <doc:heading>Features</doc:heading>
+        <p>
+          The rabbitmq-management plugin provides an HTTP-based API
+          for management and monitoring of your RabbitMQ server, along
+          with a browser-based UI and an experimental command line
+          tool, <code>rabbitmqadmin</code>. Features include:
+        </p>
+        <ul>
+          <li>
+            Declare, list and delete exchanges, queues, bindings,
+            users, virtual hosts and permissions.
+          </li>
+          <li>
+            Monitor queue length, message rates globally and per
+            channel, data rates per connection, etc.
+          </li>
+          <li>
+            Monitor Erlang processes, file descriptors, memory use.
+          </li>
+          <li>
+            Export / import broker config to JSON.
+          </li>
+          <li>
+            Force close connections, purge queues.
+          </li>
+        </ul>
+      </doc:section>
 
       <doc:section name="installation">
         <doc:heading>Installation</doc:heading>
@@ -32,15 +54,6 @@
           details.
         </p>
         <p>
-          <b>Note to Windows users:</b> Versions of Erlang as recent
-          as R13B03 do not include the OpenSSL library needed by the
-          crypto application (in turn needed by the management
-          plugin). You should install
-          it. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
-          post</a> explains how. Version R14A appears to include it
-          already.
-        </p>
-        <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
@@ -49,33 +62,84 @@
           file for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
+        <doc:subsection name="erlang">
+          <doc:heading>Requirements</doc:heading>
+          <p>
+            rabbitmq-management uses
+            the <a href="http://github.com/mochi/mochiweb">Mochiweb</a>
+            web server. As such it has a stricter set of requirements
+            than vanilla RabbitMQ:
+          </p>
+          <ul>
+            <li>A newer Erlang version. At least R13B01 is recommended.</li>
+            <li>The Erlang crypto application must be installed and
+              working. This may be an issue of Windows users and
+              people who compile Erlang from source.</li>
+          </ul>
+          <p>
+            For Windows users: Versions of Erlang as recent as R13B03 do
+            not include the OpenSSL library needed by the crypto
+            application. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
+              post</a> explains how to install it. Version R14A appears to
+            include it already.
+          </p>
+          <p>
+            For people compiling Erlang: Ensure <code>configure</code>
+            finds OpenSSL and builds the crypto application.
+          </p>
+        </doc:subsection>
+      </doc:section>
+      <doc:section name="caveats">
+        <doc:heading>Caveats</doc:heading>
         <p>
-          <b>Warning:</b> The management plugin is still at an early stage of
-          development. All sorts of features may be missing or
-          buggy. See
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/TODO">TODO</a>
-          file for more information.
+          The management plugin is still at a comparatively early
+          stage of development. It has not been tested to the same
+          extent RabbitMQ has. There are also some known
+          limitations:
+        </p>
+        <ul>
+          <li>
+            The monitoring parts of the management plugin are not
+            clustering-aware. When using the management plugin in a
+            cluster you will be able to manage items from all nodes in
+            the cluster, but only see queue length and message rates
+            for the node you are connected to.
+          </li>
+        </ul>
+        <p>
+          This should be fixed in a later release.
         </p>
       </doc:section>
 
-      <doc:section name="management-ui">
-        <doc:heading>Management UI</doc:heading>
+      <doc:section name="getting-started">
+        <doc:heading>Getting started</doc:heading>
+        <ul>
+          <li>
+            The web UI is located at:
+            http://<i>server-name</i>:55672/mgmt/
+          </li>
+          <li>
+            The HTTP API and its documentation are located at:
+            http://<i>server-name</i>:55672/api/
+          </li>
+          <li>
+            Download of <code>rabbitmqadmin</code> and its documentation are at:
+            http://<i>server-name</i>:55672/cli/
+          </li>
+        </ul>
         <p>
-          After installation, point your browser at
-          http://<i>server-name</i>:55672/mgmt/. You will need to
-          authenticate as a RabbitMQ user (on a fresh installation the
-          user "guest" is created with password "guest"). From here
-          you can manage exchanges, queues, bindings, virtual hosts,
-          users and permissions. Hopefully the UI is fairly
-          self-explanatory.
+          To use the web UI you will need to authenticate as a
+          RabbitMQ user (on a fresh installation the user "guest" is
+          created with password "guest"). From here you can manage
+          exchanges, queues, bindings, virtual hosts, users and
+          permissions. Hopefully the UI is fairly self-explanatory.
         </p>
         <p>
           The management UI is implemented as a single static HTML
           page which makes background queries to the HTTP API. As such
           it makes heavy use of Javascript. It has been tested with
           recent versions of Firefox, Chromium and Safari, and with
-          versions of Microsoft Internet Explorer back to 6.0. Lynx
-          users should use the HTTP API directly.
+          versions of Microsoft Internet Explorer back to 6.0.
         </p>
       </doc:section>
 
@@ -93,7 +157,8 @@
         <p>
           Note that normal RabbitMQ permissions still apply to
           administrators; just because a user is an administrator does
-          not automatically mean they can do everything.
+          not give them full access to exchanges, queues and bindings
+          through either AMQP or the management plugin.
         </p>
         <p>
           Also note that all users, administrators or otherwise, can
@@ -102,28 +167,62 @@
         </p>
       </doc:section>
 
-      <doc:section name="fine-stats">
-        <doc:heading>Message rates and fine-grained statistics</doc:heading>
+      <doc:section name="configuration">
+        <doc:heading>Configuration</doc:heading>
         <p>
-          The message rates shown by the management plugin require
-          fine-grained statistics to be enabled in the server. This
-          will have a performance impact on a CPU-bound server;
-          typically message throughput can be reduced by 5-10%. For
-          ease of use, the management plugin will automatically enable
-          fine-grained statistics when it is installed.
+          The management plugin has a couple of configuration
+          options. These are managed through the main RabbitMQ
+          configuration file. Information on the configuration file
+          can be found <a href="install.html#configfile">here</a>.
         </p>
-        <p>
-          However, if you'd rather get the throughput than the
-          statistics, you can prevent this from happening. Set the
-          value of the <code>force_fine_statistics</code> variable
-          to <code>false</code> in your configuration file for
-          the <code>rabbit_management</code> application and restart
-          RabbitMQ.
-        </p>
-        <p>
-          Information on the configuration file can be
-          found <a href="install.html#configfile">here</a>.
-        </p>
+        <doc:subsection name="fine-stats">
+          <doc:heading>
+            Fine-grained statistics
+          </doc:heading>
+          <p>
+            The message rates shown by the management plugin require
+            fine-grained statistics to be enabled in the server. This
+            will have a performance impact on a CPU-bound server;
+            typically message throughput can be reduced by 5-10%. For
+            ease of use, the management plugin will automatically enable
+            fine-grained statistics when it is installed.
+          </p>
+          <p>
+            However, if you'd rather get the throughput than the
+            statistics, you can prevent this from happening. Set the
+            value of the <code>force_fine_statistics</code> variable
+            to <code>false</code> in your configuration file for
+            the <code>rabbit_management</code> application and restart
+            RabbitMQ.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="http-logging">
+          <doc:heading>HTTP request logging</doc:heading>
+          <p>
+            To create simple access logs of requests to the HTTP API,
+            set the value of the <code>http_log_dir</code> variable in
+            the <code>rabbit_management</code> application to the name
+            of a directory in which logs can be created and restart
+            RabbitMQ. Note that only requests to the API
+            at <code>/api</code> are logged, not requests to the static
+            files which make up the browser-based GUI.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="example-config">
+          <doc:heading>Example</doc:heading>
+          <p>
+            An example configuration file for RabbitMQ that switches
+            on request logging, and explicitly sets some other
+            relevant parameters to their default values, would look
+            like this:
+          </p>
+          <pre>[
+  {rabbit,            [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
+  {rabbit_mochiweb,   [ {port,                  55672} ] },
+  {rabbit_management, [ {http_log_dir,          "/tmp/rabbit-mgmt"},
+                        {force_fine_statistics, true} ] }
+].</pre>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="http-api">
