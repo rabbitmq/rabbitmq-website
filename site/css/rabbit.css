@@ -15,7 +15,7 @@ body, table {
 body {
 	margin: 0px;
 	text-align: center;
-} 
+}
 
 div#outerContainer {
 	text-align: left;
@@ -24,7 +24,7 @@ div#outerContainer {
 	width: 960px;
 	padding: 1px;
 }
-	
+
 :link, :visited {
 	color: #444;
 	text-decoration: none;
@@ -39,7 +39,7 @@ a:active, a:hover {
 :link img, :visited img {
 	border: 0;
 }
-	
+
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
 	margin: 0;
@@ -532,7 +532,7 @@ div.rgt-third {
 	width: 320px;
 	float: right;
 }
-div.rgt-third p, 
+div.rgt-third p,
 div.rgt-third h3,
 div.rgt-third ol {
     margin-left: 30px;
@@ -544,13 +544,12 @@ p.button {
 }
 
 p.button a {
-   background: #eee;
+        background-color: #f93;
 	padding: 21px 0 21px 0px;
-	margin: 21px 0  21px 0px;
-	color: #f60;
+	margin: 21px 0 21px 0px;
+	color: #fff;
 	display: block;
 	text-decoration: none;
-   border: 1px solid #f60;
 	border-radius:10px;
 	-moz-border-radius:10px;
 }
@@ -565,7 +564,7 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
 /* Tutorials */
 
 #tutorial {
-   width: 54em;
+   width: 50em;
    float: left;
 }
 
@@ -575,17 +574,29 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
    margin-right: 1.2em;
 }
 
-#sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #f60; }
-#sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #f60; }
-#sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #f60; }
+#sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #444; }
+#sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #444; }
+#sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #444; }
 
 ul#tutorials {
    list-style-type: none;
 }
 
+#tutorial .aside {
+   padding: 0.6em;
+   float: right;
+   width: 20em;
+   margin: 0.1em 0.1em 0.2em 0.3em;
+}
+
+#tutorial .aside h3 {
+   margin-top: 0.4em;
+   color: #444;
+}
+
 ul#tutorials > li .tute-num {
    padding: 0.2em 0.5em 0.2em 0.5em;
-   background: #f60;
+   background: #444;
    color: white;
    font-weight: bold;
    border-radius: 0.5em;
@@ -597,7 +608,7 @@ ul#tutorials > li h2, #tutorial-index .aside > h2 {
    margin-top: 0.9em;
 }
 
-ul#tutorials > li, #tutorial-index .aside {
+ul#tutorials > li {
    float: left;
    width: 19.5em;
    height: 16em;

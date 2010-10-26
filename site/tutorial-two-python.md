@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Learning RabbitMQ, part 2 (Task Queue)</title>
+    <title>RabbitMQ tutorial - Work Queues</title>
   </head>
   <body>
 
@@ -11,9 +11,9 @@
 
   <div id="tutorial">
 
+# Work Queues
 
-Learning RabbitMQ, part 2 (Task Queue)
-======================================
+   <xi:include href="tutorials-help.xml.inc"/>
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -36,34 +36,33 @@ Learning RabbitMQ, part 2 (Task Queue)
 </div>
 
 
-In the [first part of this tutorial](tutorial-one-python.html) we've
-learned how to send and receive messages from a named queue. In this
-part we'll create a _Task Queue_ that will be used to distribute
-time-consuming work across multiple workers.
+In the [first tutorial](tutorial-one-python.html) we
+wrote programs to send and receive messages from a named queue. In this
+one we'll create a _Work Queue_ that will be used to distribute
+time-consuming tasks among multiple workers.
 
-The main idea behind Task Queues (aka: _Work Queues_) is to avoid
-doing resource intensive tasks immediately. Instead we schedule a task
-to be done later on. We encapsulate a _task_ as a message and save it
-to the queue. A worker process running in a background will pop the
-tasks and eventually execute the job. When you run many workers the
-work will be shared between them.
+The main idea behind Work Queues (aka: _Task Queues_) is to avoid
+doing resource-intensive tasks immediately and having to wait for
+it. Instead we schedule a task to be done later on. We encapsulate a
+_task_ as a message and send it to the queue. A worker process running
+in a background will pop the tasks and eventually execute the
+job. When you run many workers the tasks will be shared between them.
 
 This concept is especially useful in web applications where it's
-impossible to handle a complex task during a short http request
+impossible to handle a complex task during a short HTTP request
 window.
-
 
 Preparations
 ------------
 
-In previous part of this tutorial we were sending a message containing
-"Hello World!" string. Now we'll be sending strings that stand for
-complex tasks. We don't have any real hard tasks, like images to be
-resized or pdf files to be rendered, so let's fake it by just
-pretending we're busy - by using `time.sleep()` function. We'll take
-the number of dots in the string as a complexity, every dot will
-account for one second of "work".  For example, a fake task described
-by `Hello...` string will take three seconds.
+In previous part of this tutorial we sent a message containing the
+"Hello World!". Now we'll be sending strings that stand for complex
+tasks. We don't have any real hard tasks, like images to be resized or
+pdf files to be rendered, so let's fake it by just pretending we're
+busy - by using `time.sleep()` function. We'll take the number of dots
+in the string as a complexity; every dot will account for one second
+of "work".  For example, a fake task described by `Hello...` string
+will take three seconds.
 
 We need to slightly modify the _send.py_ code from previous example,
 to allow sending arbitrary messages from the command line. This
@@ -95,24 +94,27 @@ Round-robin dispatching
 -----------------------
 
 One of the advantages of using Task Queue is the ability to easily
-parallelize work. If we have too much work for us to handle, we can
-just add more workers and scale easily.
+parallelise work. If we are building up a backlog of work, we can just
+add more workers and that way, scale easily.
 
 First, let's try to run two `worker.py` scripts at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. First two to run `worker.py`
+You need three consoles open. First two to run the `worker.py`
 script. These consoles will be our two consumers - C1 and C2.
 
+    :::bash
     shell1$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
 
+    :::bash
     shell2$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
 
 On the third one we'll be publishing new tasks. Once you've started
-the consumers you can produce few messages:
+the consumers you can publish a few messages:
 
+    :::bash
     shell3$ python new_task.py First message.
     shell3$ python new_task.py Second message..
     shell3$ python new_task.py Third message...
@@ -121,12 +123,14 @@ the consumers you can produce few messages:
 
 Let's see what is delivered to our workers:
 
+    :::bash
     shell1$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'First message.'
      [x] Received 'Third message...'
      [x] Received 'Fifth message.....'
 
+    :::bash
     shell2$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
@@ -138,11 +142,11 @@ messages. This way of distributing messages is called round-robin. Try
 this out with three or more workers.
 
 
-Message acknowledgments
------------------------
+Message acknowledgment
+----------------------
 
 Doing our tasks can take a few seconds. You may wonder what happens if
-one of the consumers got hard job and has died while doing it. With
+one of the consumers got a hard job and died while doing it. With
 our current code once RabbitMQ delivers message to the customer it
 immediately removes it from memory. In our case if you kill a worker
 we will lose the message it was just processing. We'll also lose all
@@ -153,12 +157,12 @@ But we don't want to lose any task. If a workers dies, we'd like the
 task to be delivered to another worker.
 
 In order to make sure a message is never lost, RabbitMQ supports
-message _acknowledgments_. It's a bit of data, sent back from the
-consumer which tells Rabbit that particular message had been received,
-fully processed and that Rabbit is free to delete it.
+message _acknowledgments_. An ack(nowledgement) is sent back from the
+consumer to tell Rabbit that a particular message had been received,
+processed and that Rabbit is free to delete it.
 
-If consumer dies without sending ack, Rabbit will understand that a
-message wasn't processed fully and will redelivered it to another
+If consumer dies without sending an ack, Rabbit will understand that a
+message wasn't processed fully and will redeliver it to another
 consumer. That way you can be sure that no message is lost, even if
 the workers occasionally die.
 
@@ -196,6 +200,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
+>     :::bash
 >     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 >     Listing queues ...
 >     test    0       0
@@ -207,7 +212,7 @@ Message durability
 
 We learned what to do to make sure that even if the consumer dies, the
 task isn't lost. But our tasks will still be lost if RabbitMQ server
-dies.
+stops.
 
 When RabbitMQ quits or crashes it will forget the queues and messages
 unless you tell it not to. Two things are required to make sure that
@@ -223,7 +228,7 @@ queue. In order to do so, we need to declare it as _durable_:
 Although that command is correct by itself it won't work in our
 setup. That's because we've already defined a queue called `test`
 which is not durable. RabbitMQ doesn't allow you to redefine a queue
-with different parameters and will return hard error to any program
+with different parameters and will return a hard error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
@@ -234,7 +239,7 @@ This `queue_declare` change needs to be applied to both the producer
 and consumer code.
 
 At that point we're sure that the `task_queue` queue won't be lost
-even if RabbitMQ dies. Now we need to mark our messages as persistent
+even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `delivery_mode` header with a value `2`.
 
     :::python
@@ -246,11 +251,11 @@ even if RabbitMQ dies. Now we need to mark our messages as persistent
 
 > #### Note on message persistence
 >
-> Marking messages as persistent doesn't really guarantee that a message
+> Marking messages as persistent doesn't fully guarantee that a message
 > won't be lost. Although it tells Rabbit to save message to the disk,
-> there is still a short time window when Rabbit accepted a message and
-> haven't saved it yet. Also, Rabbit doesn't do `fsync(2)` for every
-> message - it may be just saved to caches and not really written to the
+> there is still a short time window when Rabbit has accepted a message and
+> hasn't saved it yet. Also, Rabbit doesn't do `fsync(2)` for every
+> message -- it may be just saved to caches and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
 > for our simple task queue. If you need stronger guarantees you can wrap the
 > publishing code in a _transaction_.
@@ -269,7 +274,7 @@ messages evenly.
 That happens because Rabbit dispatches message just when a message
 enters the queue. It doesn't look at the number of unacknowledged
 messages for a consumer. It just blindly dispatches every n-th message
-to a the n-th consumer.
+to the n-th consumer.
 
 <div class="diagram">
   <img src="/img/tutorials/prefetch-count.png" height="110" />
@@ -297,10 +302,10 @@ to a the n-th consumer.
 </div>
 
 In order to defeat that we may use `basic.qos` method with the
-`prefetch_count=1` settings. That allows us to tell Rabbit not to give
-more than one message to a worker at a time. Or, in other words, don't
-dispatch a new message to a worker until it has processed and
-acknowledged the previous one.
+`prefetch_count=1` setting. That tells Rabbit not to give more than
+one message to a worker at a time. Or, in other words, don't dispatch
+a new message to a worker until it has processed and acknowledged the
+previous one.
 
     :::python
     channel.basic_qos(prefetch_count=1)
@@ -362,13 +367,12 @@ And our worker:
 [(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 
-Using message acknowledgments and `prefetch_count` you may set up
-quite a decent work queue. The durability options let the tasks to
+Using message acknowledgments and `prefetch_count` you can set up
+a work queue. The durability options let the tasks to
 survive even if Rabbit is restarted.
 
 Now we can move on to [part 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
-
 
 </div>
 </body>

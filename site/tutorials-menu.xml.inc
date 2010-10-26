@@ -16,7 +16,7 @@
           </ul>
         </li>
         <li class="tutorial-two">
-          <h2><span class="tute-num">2</span> <a href="tutorial-two-python.html">A work queue</a></h2>
+          <h2><span class="tute-num">2</span> <a href="tutorial-two-python.html">Work queues</a></h2>
           <p>
             Distributing tasks among workers
           </p>
@@ -31,9 +31,9 @@
           </ul>
         </li>
         <li class="tutorial-three">
-          <h2><span class="tute-num">3</span> <a href="tutorial-three-python.html">Publish and subscribe</a></h2>
+          <h2><span class="tute-num">3</span> <a href="tutorial-three-python.html">Broadcast</a></h2>
           <p>
-            Broadcasting events to subscribers
+            Sending messages to many consumers at once
           </p>
           <p><img src="img/tutorials/python-three.png" width="180"/></p>
           <ul>

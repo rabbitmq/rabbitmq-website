@@ -12,9 +12,12 @@
 
   <div id="tutorial">
 
-# Introduction
 
-RabbitMQ is a message broker. The principle idea is pretty simple: it accepts
+## Introduction
+
+   <xi:include href="tutorials-help.xml.inc"/>
+
+RabbitMQ is a message broker. The principal idea is pretty simple: it accepts
 and forwards messages. You can think about it as a post office: when you send
 mail to the post box you're pretty sure that Mr. Postman will eventually
 deliver the mail to your recipient. Using this metaphor RabbitMQ is a post box,
@@ -24,7 +27,7 @@ The major difference between RabbitMQ and the post office is the fact that it
 doesn't deal with the paper, instead it accepts, stores and forwards binary
 blobs of data - _messages_.
 
-RabbitMQ uses a specific jargon. For example:
+RabbitMQ, and messaging in general, uses some jargon.
 
  * _Producing_ means nothing more than sending. A program that sends messages
    is a _producer_. We'll draw it like that, with "P":
@@ -369,7 +372,7 @@ receive further messages. Try to run `send.py` again in a new terminal!
 
 We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)
-and build a simple _task queue_.
+and build a simple _work queue_.
 
 </div>
 

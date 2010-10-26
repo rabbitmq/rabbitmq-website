@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Learning RabbitMQ, part 3 (Broadcast)</title>
+    <title>RabbitMQ tutorial - Broadcast</title>
   </head>
   <body>
 
@@ -10,38 +10,12 @@
   </div>
 
   <div id="tutorial">
+## Broadcast
 
+   <xi:include href="tutorials-help.xml.inc"/>
 
-Learning RabbitMQ, part 3 (Broadcast)
-=====================================
-
-<div class="diagram">
-  <img src="/img/tutorials/python-three.png" height="110" />
-  <div class="diagram_source">
-    digraph {
-      bgcolor=transparent;
-      truecolor=true;
-      rankdir=LR;
-      node [style="filled"];
-      //
-      P1 [label="P", fillcolor="#00ffff"];
-      X [label="X", fillcolor="#3333CC"];
-      Q1 [label="{||||}", fillcolor="red", shape="record"];
-      Q2 [label="{||||}", fillcolor="red", shape="record"];
-      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
-      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
-      //
-      P1 -&gt; X;
-      X -&gt; Q1;
-      X -&gt; Q2;
-      Q1 -&gt; C1;
-      Q2 -&gt; C2;
-    }
-  </div>
-</div>
-
-In [previous part](tutorial-two-python.html) of this tutorial we created a
-task queue. The core assumption behind a task queue is that a task is
+In the [previous tutorial](tutorial-two-python.html) we created a work
+queue. The core assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
 completely different - we'll try to deliver a message to multiple
 consumers. This pattern is known as "publish-subscribe".
@@ -55,9 +29,8 @@ get the same messages. That way we'll be able to run one receiver and
 direct the logs to disk; and at the same time we'll be able to run
 another receiver and see the same logs on the screen.
 
-Essentially, emitted log messages are going to be broadcasted to all
+Essentially, emitted log messages are going to be broadcast to all
 the receivers.
-
 
 Exchanges
 ---------
@@ -76,7 +49,7 @@ Let's quickly cover what we've learned:
 The core idea in the messaging model in Rabbit is that the producer
 never sends any messages directly to the queue. Actually, quite often
 the producer doesn't even know if a message will be delivered to any
-queue at all!
+queue at all.
 
 Instead, the producer can only send messages to an _exchange_. An
 exchange is a very simple thing. On one side it receives messages from
@@ -106,7 +79,6 @@ the _exchange type_.
     }
   </div>
 </div>
-
 
 There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one - the fanout. Let's create
