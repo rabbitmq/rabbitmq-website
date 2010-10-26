@@ -70,9 +70,10 @@
 	<p>
 	  If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
 	</p>
-    <h3>Location</h3>
-    <p />
-    <address style="float: left; padding-right: 50px;">
+	<div id="getting_here">
+    <h3>Getting here</h3>
+    <h4>Location</h4>
+    <address>
       RabbitMQ<br/>
       c/o VMware UK<br/>
       Bluefin Building<br/>
@@ -80,7 +81,23 @@
       London SE1 0TA<br/>
       United Kingdom<br/>
     </address>
-    <div id="map_canvas" style="width:400px; height:250px; float: left;"></div>
+    <div id="map_canvas"></div>
+    <h4 class="clear">Journey Planner</h4>
+    <p>For the quickest route to RabbitHQ use Tranport for London's 
+    <a href="http://journeyplanner.tfl.gov.uk/user/XSLT_TRIP_REQUEST2?language=en&amp;execInst=&amp;sessionID=0&amp;ptOptionsActive=-1&amp;place_destination=London&amp;name_destination=SE1 0TA&amp;type_destination=locator" target="_blank">journey planner</a>.</p>
+    <h4>By underground</h4>
+    <ul>The nearest underground stations to RabbitHQ are:
+      <li>Southwark (Jubilee line; 600 metres)</li>
+      <li>Mansion House (District and Circle line; 1,100 metres)</li>
+      <li>St Pauls (Central line; 1,100 metres)</li>
+    </ul>
+    <h4>By train</h4>
+    <ul>The nearest mainline train stations to RabbitMQ are:
+      <li>Blackfriars (800 metres)</li>
+      <li>London Bridge (1,100 metres)</li>
+      <li>London Waterloo (1,400 metres)</li>
+    </ul>
+    </div>
   </body>
 </html>
 
