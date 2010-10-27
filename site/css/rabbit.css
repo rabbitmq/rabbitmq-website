@@ -563,3 +563,19 @@ p.button a:hover {
 }
 
 p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight: bold; margin: 20px; padding: 15px; border-radius: 10px; -moz-border-radius: 10px; text-align: center; }
+
+#getting_here address {
+  float: left;
+  padding-right: 50px;
+}
+
+#map_canvas {
+  width:400px;
+  height:250px;
+  float: left;
+}
+
+#getting_here h4 {
+  font-size: 1em;
+}
+

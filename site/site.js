@@ -75,8 +75,17 @@ function handle_SearchBoxFocus() {
     }
 }
 
-window.onload = function() {
+/*
+ * Registers a function to handle the window.onload event 
+ * without replacing any existing handler
+ */
+function registerOnLoadHandler(handler) {
+	var fun = window.onload ? window.onload : function() {};
+	window.onload = function() { fun(); handler(); };
+}
+
+registerOnLoadHandler(function() {
     try{
         decorate_links();
     }catch(err){};
-};
+});
