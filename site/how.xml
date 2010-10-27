@@ -501,13 +501,17 @@ decentralised microblogging</li>
       messaging use cases with RabbitMQ including delayed job queues, event logging, back-end decoupling and cross platform interoperability.
       </li>
       <li>
+        <a href="http://videlalvaro.github.com/2010/10/rpc-over-rabbitmq.html">RPC over RabbitMQ</a><br />
+        Alvaro Videla discusses how to implement a request-response pattern using RabbitMQ and AMQP.
+      </li>
+      <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
       Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
       presentation contains an excellent introduction to AMQP and examples of why you might need messaging in your application.
       </li>
 	<li>
 	  <a href="http://www.slideshare.net/old_sound/interoperability-with-rabbitmq">Interoperability with RabbitMQ</a><br />
-	  Alvero Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
+	  Alvaro Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
 	  different applications need to work together to share real time data at scale.
 	</li>
 	<li>
