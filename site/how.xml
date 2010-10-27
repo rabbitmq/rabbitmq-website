@@ -201,7 +201,7 @@
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
 	    <li><a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python</li>
-	    <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">Carrot</a>, easy RabbitMQ messaging queue support for Django and pure Python</li>
+	    <li><a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)</li>
 	    <li><a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python</li>
 	    <li>
 	      <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a><br />
@@ -501,13 +501,17 @@ decentralised microblogging</li>
       messaging use cases with RabbitMQ including delayed job queues, event logging, back-end decoupling and cross platform interoperability.
       </li>
       <li>
+        <a href="http://videlalvaro.github.com/2010/10/rpc-over-rabbitmq.html">RPC over RabbitMQ</a><br />
+        Alvaro Videla discusses how to implement a request-response pattern using RabbitMQ and AMQP.
+      </li>
+      <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
       Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
       presentation contains an excellent introduction to AMQP and examples of why you might need messaging in your application.
       </li>
 	<li>
 	  <a href="http://www.slideshare.net/old_sound/interoperability-with-rabbitmq">Interoperability with RabbitMQ</a><br />
-	  Alvero Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
+	  Alvaro Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
 	  different applications need to work together to share real time data at scale.
 	</li>
 	<li>
