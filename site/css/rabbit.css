@@ -240,8 +240,10 @@ p {
 
 .logos img {
 	padding: 0 20px;}
-.intro {
-     font-weight: bold;
+
+b, strong, .intro {
+    color: black;
+    font-weight: normal;
 }
 .clear {
 	clear:both;
