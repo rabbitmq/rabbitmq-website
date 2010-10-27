@@ -511,7 +511,7 @@ decentralised microblogging</li>
       </li>
 	<li>
 	  <a href="http://www.slideshare.net/old_sound/interoperability-with-rabbitmq">Interoperability with RabbitMQ</a><br />
-	  Alvero Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
+	  Alvaro Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
 	  different applications need to work together to share real time data at scale.
 	</li>
 	<li>
