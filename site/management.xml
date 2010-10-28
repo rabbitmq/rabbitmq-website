@@ -89,27 +89,6 @@
           </p>
         </doc:subsection>
       </doc:section>
-      <doc:section name="caveats">
-        <doc:heading>Caveats</doc:heading>
-        <p>
-          The management plugin is still at a comparatively early
-          stage of development. It has not been tested to the same
-          extent RabbitMQ has. There are also some known
-          limitations:
-        </p>
-        <ul>
-          <li>
-            The monitoring parts of the management plugin are not
-            clustering-aware. When using the management plugin in a
-            cluster you will be able to manage items from all nodes in
-            the cluster, but only see queue length and message rates
-            for the node you are connected to.
-          </li>
-        </ul>
-        <p>
-          This should be fixed in a later release.
-        </p>
-      </doc:section>
 
       <doc:section name="getting-started">
         <doc:heading>Getting started</doc:heading>
@@ -223,6 +202,27 @@
                         {force_fine_statistics, true} ] }
 ].</pre>
         </doc:subsection>
+      </doc:section>
+
+      <doc:section name="clustering">
+        <doc:heading>Note on clustering</doc:heading>
+        <p>
+          The management plugin is now aware of clusters. You can
+          install it on one or more nodes in a cluster, and see
+          information pertaining to the entire cluster no matter which
+          node you connect to.
+        </p>
+        <p>
+          The managment plugin installs a statistics database into
+          RabbitMQ to keep track of queue length, message rates,
+          etc. In a RabbitMQ cluster there will only be one copy of
+          the statistics database, located in the first node to come
+          up that has the management plugin installed. If that node
+          subsequently goes down and there are other nodes running the
+          management plugin, the database will be recreated
+          automatically on one such alternate node. If this happens then
+          statistics information will be reset.
+        </p>
       </doc:section>
 
       <doc:section name="http-api">
