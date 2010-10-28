@@ -207,10 +207,10 @@
       <doc:section name="clustering">
         <doc:heading>Note on clustering</doc:heading>
         <p>
-          The management plugin is now aware of clusters. You can
-          install it on one or more nodes in a cluster, and see
-          information pertaining to the entire cluster no matter which
-          node you connect to.
+          The management plugin is aware of clusters. You can install
+          it on one or more nodes in a cluster, and see information
+          pertaining to the entire cluster no matter which node you
+          connect to.
         </p>
         <p>
           The managment plugin installs a statistics database into
