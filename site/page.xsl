@@ -11,7 +11,7 @@
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
   <xsl:template match="html:head">
-    <xsl:copy>
+    <head>
       <xsl:apply-templates/>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
@@ -32,17 +32,17 @@ try{
   })();
 }catch(err){};
       </script>
-    </xsl:copy>
+    </head>
   </xsl:template>
 
   <xsl:template match="html:body">
-    <xsl:copy>
+    <body>
       <div id="outerContainer">
 	<xsl:call-template name="page-header"/>
 	<xsl:apply-templates/>
 	<xsl:call-template name="page-footer"/>
       </div>
-    </xsl:copy>
+    </body>
     <script type="text/javascript" src="/site.js"/>
   </xsl:template>
 
@@ -272,7 +272,7 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
+      <td class="desc" id="{@id}"><xsl:copy-of select="text()"/></td>
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
@@ -519,6 +519,12 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="@*">
     <xsl:copy/>
+  </xsl:template>
+  
+  <xsl:template match="html:*">
+    <xsl:element name="{name()}" namespace="{namespace-uri()}">
+      <xsl:apply-templates select="@*|node()" />
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="*">
