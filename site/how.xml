@@ -19,7 +19,7 @@
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.</p>
 
-    <p>If you feel we have missed something please feel free to <a href="mailto:info@rabbitmq.com?subject=Suggest Links">suggest more links</a>.</p>
+    <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
       <h3 id="quickstart">Overviews and Introductions</h3>
       <ul>
@@ -201,7 +201,7 @@
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
 	    <li><a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python</li>
-	    <li><a href="http://pypi.python.org/pypi/carrot/0.2.1">Carrot</a>, easy RabbitMQ messaging queue support for Django and pure Python</li>
+	    <li><a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)</li>
 	    <li><a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python</li>
 	    <li>
 	      <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a><br />
@@ -252,6 +252,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+	    <li><a href="http://github.com/akalend/amqp-rest">amqp-rest</a><br />
+	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP.</li>
 	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
 	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
@@ -275,7 +277,7 @@
 	    and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
 	    </li>
 	    <li>
-	    <a href="http://github.com/xaviershay/node-amqp">node-amqp</a><br />
+	    <a href="http://github.com/ry/node-amqp">node-amqp</a><br />
 	    Node.js and RabbitMQ
 	    </li>
 	    <li>
@@ -499,13 +501,17 @@ decentralised microblogging</li>
       messaging use cases with RabbitMQ including delayed job queues, event logging, back-end decoupling and cross platform interoperability.
       </li>
       <li>
+        <a href="http://videlalvaro.github.com/2010/10/rpc-over-rabbitmq.html">RPC over RabbitMQ</a><br />
+        Alvaro Videla discusses how to implement a request-response pattern using RabbitMQ and AMQP.
+      </li>
+      <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
       Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
       presentation contains an excellent introduction to AMQP and examples of why you might need messaging in your application.
       </li>
 	<li>
 	  <a href="http://www.slideshare.net/old_sound/interoperability-with-rabbitmq">Interoperability with RabbitMQ</a><br />
-	  Alvero Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
+	  Alvaro Videla explains how RabbitMQ is the perfect solution to the interoperability problem where
 	  different applications need to work together to share real time data at scale.
 	</li>
 	<li>
@@ -677,23 +683,11 @@ decentralised microblogging</li>
 	  <a href="http://kallistec.com/">Daniel DeLeo's Blog: Kallistec</a><br />
 	  Daniel is the author of Qusion - "an AMQP made-easy" library for Ruby. He
 	  regularly blogs on a variety of subjects including AMQP, RabbitMQ and Ruby.
-	</li>
-	<li>
-	   Read what people are saying about <a href="http://search.twitter.com/search?q=rabbitmq">RabbitMQ on Twitter</a>
-	</li>
+	</li>	
 	<li>
 	   Get the latest buzz about <a href="http://addictomatic.com/topic/rabbitmq">RabbitMQ on Addict-o-matic</a>
 	</li>
-	<li>
-	   <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">Join our mailing list</a>
-	   (or see the <a href="email-archive.html">archived messages</a>)
-	</li>
-	<li>
-	   Talk to us on irc.freenode.net #rabbitmq (or see the <a href="http://dev.rabbitmq.com/irclog/">logs</a>)
-	   You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have
-	   an IRC client installed.
-	</li>
-      </ul>
+   </ul>
 
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>

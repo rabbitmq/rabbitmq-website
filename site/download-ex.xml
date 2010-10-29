@@ -13,8 +13,7 @@
 
     <p class="intro">
       We make some experimental code available to download as snapshots and <a href="mercurial.html">mercurial</a> repositories. This
-      code is unsupported but as with the main RabbitMQ code base we welcome <a href="mailto:info@rabbitmq?subject=Feedback">feedback</a>
-      and <a href="mailto:contribute@rabbitmq.com">contributions</a>.
+      code is not officially supported but if you have comments or feedback please do <a href="contact.html">contact us</a>.
     </p>
 
     <p>Also please check out the <a href="how.html">Get Started page</a> for more links to

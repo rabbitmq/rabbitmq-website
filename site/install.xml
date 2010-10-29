@@ -714,10 +714,8 @@
 	</p>
 	
 	<p>
-	  If all of the above fails, report the problem to <a
-	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
-	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
-	  your report.
+	  If all of the above fails, please <a href="contact.html">tell us about the problem</a>
+	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
 	</p>
 
       </doc:section>

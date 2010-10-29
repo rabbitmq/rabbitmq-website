@@ -191,7 +191,7 @@
 
     <p>
       If you have success using our RPMs with any other RPM-based
-      distribution, please <a href="mailto:support@rabbitmq.com">let us know</a>.
+      distribution, please <a href="contact.html">let us know</a>.
     </p>
 
     <p>
@@ -249,16 +249,10 @@
       <repository type="hg" shortname="rabbitmq-codegen"
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
-    
 
     <h3>Support</h3>
-
     <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
-      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
   </body>
 </html>
