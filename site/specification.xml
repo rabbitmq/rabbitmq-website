@@ -1682,7 +1682,7 @@
         </rules>
       </doc:section>
 
-      <doc:section name="rules">
+      <doc:section name="rules-pdf">
         <doc:heading>Rules from the AMQP specification, version 0-9-1 (PDF)</doc:heading>
         <p>
           The rules listed below are from the PDF version of the 0-9-1 specification,
@@ -2462,7 +2462,7 @@
         </rules>
       </doc:section>
 
-      <doc:section name="rules">
+      <doc:section name="rules-08">
         <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
         <p>
           The rules listed below relate to features supported by RabbitMQ that 
