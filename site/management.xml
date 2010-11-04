@@ -213,26 +213,22 @@
           connect to.
         </p>
         <p>
-          To provide monitoring information, the management plugin
-          requires statistics to be enabled in each RabbitMQ node. It
-          will automatically do this for any nodes on which it is
-          installed; however you will need to enable statistics on any
-          other nodes by hand. Set the
-          parameter <code>collect_statistics</code>
-          to <code>fine</code> in the <code>rabbit</code> section of
-          your <a href="install.html#configfile">configuration
-          file</a>.
+          If you want to deploy cluster nodes which do not have the
+          management plugin installed, they will instead require
+          the <code>rabbitmq-management-cluster-remote</code>
+          plugin. This can be obtained from
+          the <a href="plugins.html">plugins page</a>.
         </p>
         <p>
           The managment plugin installs a statistics database into
           RabbitMQ to keep track of queue length, message rates,
           etc. In a RabbitMQ cluster there will only be one copy of
           the statistics database, located in the first node to come
-          up that has the management plugin installed. If that node
-          subsequently goes down and there are other nodes running the
-          management plugin, the database will be recreated
-          automatically on one such alternate node. If this happens then
-          statistics information will be reset.
+          up that has the full management plugin installed. If that
+          node subsequently goes down and there are other nodes
+          running the full management plugin, the database will be
+          recreated automatically on one such alternate node. If this
+          happens then statistics information will be reset.
         </p>
       </doc:section>
 
