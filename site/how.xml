@@ -224,6 +224,8 @@
 	</li>
 	<li id="php-development">PHP development:
 	  <ul class="plain">
+        <li><a href="http://www.slideshare.net/old_sound/integrating-php-withrabbitmqzendcon">Integrating PHP with RabbitMQ</a><br />
+        An introductory presentation covering common RabbitMQ use cases with code examples in PHP</li>
       <li><a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a></li>
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
@@ -320,8 +322,18 @@
       <li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
 	    <li>Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a></li>
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
-	  </ul>
+	  </ul>	
 	</li>
+    <li id="rabbitmq-cli">RabbitMQ CLI
+      <ul class="plain">
+        <li>
+	      <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
+        </li>
+        <li>
+	      <a href="http://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
+        </li>
+      </ul>
+    </li>
 	<li><a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a><br />
 	Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
 	passing through the exchange.
@@ -339,10 +351,6 @@ decentralised microblogging</li>
 	  <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a><br />
 	  A memcached adapter for RabbitMQ that allows you use the memcache protocol to
 	  get or publish a message from or to RabbitMQ.
-	</li>
-	<li>
-	  <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a><br />
-	  Command line utils for interacting with an AMQP based queue.
 	</li>
 	<li>
 	  <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br />
