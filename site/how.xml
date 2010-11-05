@@ -43,7 +43,7 @@
 	  internet scale.
 	</li>
 	<li>
-	<a href="resources/RabbitMQ_FITEclub_2009.pdf">A technical look at RabbitMQ and Erlang</a><br/>
+	<a href="resources/RabbitMQ_FITEclub_2009.pdf">A Technical Look at RabbitMQ and Erlang</a><br/>
 	Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
 	</li>
 	<li>
@@ -53,7 +53,7 @@
 	  are provided in Ruby.
 	</li>
 	<li>
-	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: python and ruby staring at the looking glass</a><br />
+	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: Python and Ruby Staring at the Looking Glass</a><br />
 	  A slide show from Paolo Negri that offers an excellent introduction to the AMQP
 	  model and RabbitMQ with code samples in python and ruby. He explores the
 	  different routing models available and goes on to explain a number of use cases
@@ -91,7 +91,7 @@
 	  pubsub.
 	</li>
 	<li>
-	  <a href="http://stackoverflow.com/questions/2388539/in-which-domains-are-message-oriented-middleware-like-amqp-useful/">What problem does messaging solve?</a><br />
+	  <a href="http://stackoverflow.com/questions/2388539/in-which-domains-are-message-oriented-middleware-like-amqp-useful/">What Problem Does Messaging Solve?</a><br />
 	  A Q&amp;A discussion that covers a variety of use cases for messaging.
 	</li>
 	<li>
@@ -101,7 +101,7 @@
 	  achieving redundancy for high availability.
 	</li>
 	<li>
-	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une alternative à JMS?</a><br />
+	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une Alternative à JMS?</a><br />
 	  An excellent introduction, in French, to messaging with AMQP. (Or read the
 	  <a href="http://translate.google.com/translate?hl=en&amp;sl=fr&amp;tl=en&amp;u=http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">English translation</a>,
 	  which is almost as good.)
