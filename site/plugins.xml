@@ -114,20 +114,21 @@
       <li><a href="/releases/plugins/v&version-server;/webmachine-&version-server;.ez">webmachine</a></li>
       <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
     </ul>
 
-    <h3 id="rabbitmq-management-cluster-remote">rabbitmq-management-cluster-remote</h3>
+    <h3 id="rabbitmq-management-cluster-remote">rabbitmq-management-agent</h3>
 
     <p>
       When installing the management plugin on some nodes in a
       cluster, this must be installed on all the nodes which
-      do <b>not</b> have the full management plugin.
+      do <b>not</b> have the full management plugin installed.
     </p>
 
     <p>To use this plugin the following files are required:</p>
     <ul>
-      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-cluster-remote-&version-server;.ez">rabbitmq-management-cluster-remote</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
     </ul>
 
     <h3 id="rabbitmq-shovel">rabbitmq-shovel</h3>

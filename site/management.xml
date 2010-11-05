@@ -171,8 +171,8 @@
             statistics, you can prevent this from happening. Set the
             value of the <code>force_fine_statistics</code> variable
             to <code>false</code> in your configuration file for
-            the <code>rabbit_management</code> application and restart
-            RabbitMQ.
+            the <code>rabbit_management_agent</code> application and
+            restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="http-logging">
@@ -196,10 +196,10 @@
             like this:
           </p>
           <pre>[
-  {rabbit,            [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
-  {rabbit_mochiweb,   [ {port,                  55672} ] },
-  {rabbit_management, [ {http_log_dir,          "/tmp/rabbit-mgmt"},
-                        {force_fine_statistics, true} ] }
+  {rabbit,                  [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
+  {rabbit_mochiweb,         [ {port,                  55672} ] },
+  {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
+  {rabbit_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
         </doc:subsection>
       </doc:section>
@@ -214,10 +214,10 @@
         </p>
         <p>
           If you want to deploy cluster nodes which do not have the
-          management plugin installed, they will instead require
-          the <code>rabbitmq-management-cluster-remote</code>
-          plugin. This can be obtained from
-          the <a href="plugins.html">plugins page</a>.
+          full management plugin installed, they will still require
+          the <code>rabbitmq-management-agent</code> plugin. This can
+          be obtained from the <a href="plugins.html">plugins
+          page</a>.
         </p>
         <p>
           The managment plugin installs a statistics database into
