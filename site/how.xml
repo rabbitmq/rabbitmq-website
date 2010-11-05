@@ -43,7 +43,7 @@
 	  internet scale.
 	</li>
 	<li>
-	<a href="resources/RabbitMQ_FITEclub_2009.pdf">A technical look at RabbitMQ and Erlang</a><br/>
+	<a href="resources/RabbitMQ_FITEclub_2009.pdf">A Technical Look at RabbitMQ and Erlang</a><br/>
 	Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
 	</li>
 	<li>
@@ -53,7 +53,7 @@
 	  are provided in Ruby.
 	</li>
 	<li>
-	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: python and ruby staring at the looking glass</a><br />
+	  <a href="http://www.slideshare.net/hungryblank/rabbitmq-with-python-and-ruby-rupy-2009">RabbitMQ: Python and Ruby Staring at the Looking Glass</a><br />
 	  A slide show from Paolo Negri that offers an excellent introduction to the AMQP
 	  model and RabbitMQ with code samples in python and ruby. He explores the
 	  different routing models available and goes on to explain a number of use cases
@@ -91,7 +91,7 @@
 	  pubsub.
 	</li>
 	<li>
-	  <a href="http://stackoverflow.com/questions/2388539/in-which-domains-are-message-oriented-middleware-like-amqp-useful/">What problem does messaging solve?</a><br />
+	  <a href="http://stackoverflow.com/questions/2388539/in-which-domains-are-message-oriented-middleware-like-amqp-useful/">What Problem Does Messaging Solve?</a><br />
 	  A Q&amp;A discussion that covers a variety of use cases for messaging.
 	</li>
 	<li>
@@ -101,7 +101,7 @@
 	  achieving redundancy for high availability.
 	</li>
 	<li>
-	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une alternative à JMS?</a><br />
+	  <a href="http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">Une Alternative à JMS?</a><br />
 	  An excellent introduction, in French, to messaging with AMQP. (Or read the
 	  <a href="http://translate.google.com/translate?hl=en&amp;sl=fr&amp;tl=en&amp;u=http://blog.xebia.fr/2010/02/23/amqp-une-alternative-a-jms/">English translation</a>,
 	  which is almost as good.)
@@ -224,6 +224,8 @@
 	</li>
 	<li id="php-development">PHP development:
 	  <ul class="plain">
+        <li><a href="http://www.slideshare.net/old_sound/integrating-php-withrabbitmqzendcon">Integrating PHP with RabbitMQ</a><br />
+        An introductory presentation covering common RabbitMQ use cases with code examples in PHP</li>
       <li><a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a></li>
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
 	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
@@ -322,6 +324,16 @@
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
 	  </ul>
 	</li>
+    <li id="rabbitmq-cli">RabbitMQ CLI
+      <ul class="plain">
+        <li>
+	      <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
+        </li>
+        <li>
+	      <a href="http://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
+        </li>
+      </ul>
+    </li>
 	<li><a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a><br />
 	Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
 	passing through the exchange.
@@ -339,10 +351,6 @@ decentralised microblogging</li>
 	  <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a><br />
 	  A memcached adapter for RabbitMQ that allows you use the memcache protocol to
 	  get or publish a message from or to RabbitMQ.
-	</li>
-	<li>
-	  <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a><br />
-	  Command line utils for interacting with an AMQP based queue.
 	</li>
 	<li>
 	  <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br />
