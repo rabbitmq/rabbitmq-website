@@ -11,62 +11,58 @@
   <body>
     <doc:div>
       <p class="intro">
-	This section contains server installation instructions for
-	various platforms. You can download example programs,
-	utilities, Java client libraries and bindings to various
-	third-party management, monitoring and routing tools from <a
-	href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>.
+	This section contains server installation instructions for various platforms.<br/>
+	Check the relevant section following to get the <a href="server.html"> Server Download</a> installed for your platform.
+      </p>
+      <p class="intro">
+        Each installation requires Erlang, which also provides Mnesia (DBMS) and logging support for the Brokers.<br/>
+        Management scripts start and stop the Brokers, and set up a default Environment.
       </p>
 
       <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
+	<doc:heading>RabbitMQ Installation</doc:heading>
       </doc:toc>
 
       <doc:section name="windows">
 	<doc:heading>Windows</doc:heading>
-
+	
 	<doc:subsection name="install-windows-bundle">
 	  <doc:heading>Installation from a complete bundle</doc:heading>
 
 	  <p>
-	    The bundle zip file contains all the files listed in the
-	    next section, including an Erlang system installer and the
-	    RabbitMQ broker binary distribution, the .Net client, as
-	    well as an archive of the Java librabbitmq client library.
+	    The Windows Bundle zip file contains an Erlang system installer and the
+	    RabbitMQ broker binary distribution, needed for the next section.<br/>It also includes a .Net client, and archive of the Java librabbitmq client library.
+	  </p>
+	  <p>
+	    Just extract the files from the downloaded bundle, then go through the following instructions for each component.
 	  </p>
 	</doc:subsection>
 
 	<doc:subsection name="install-windows-separately">
-	  <doc:heading>Installation from separate components</doc:heading>
+	  <doc:heading>Installation of separate components</doc:heading>
 
 	  <ul>
-	    <li>
-          Install a recent version of Erlang/OTP. Versions R13B03
-          and higher should work; we usually test against Erlang
-          R13B03 on Windows, which can be downloaded from <a
-          href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>
+	    <li><em>Install Erlang</em><br/>
+          Install a recent version of Erlang/OTP. Versions R13B03 and higher should work on Windows.<br/>
+          e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
+          Using default options, Erlang should appear in the Start Menu, and the Erlang directory (e.g. <code>&dir-erlang-windows;</code>) should exist, containing <code>bin\erl.exe</code><br/>
+          Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and set the Environment Variable ERLANG_HOME to your Erlang directory.	      
 	    </li>
-	    <li>
+	    <li><em>Install RabbitMQ Server</em><br/>
           Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-          from the <a href="server.html">download page</a>.
-	    </li>
-	    <li>
+          from the <a href="server.html">download page</a>.<br/>
+	    
 	      Contained in the zip file is a directory named
 	      <code>rabbitmq_server-&version-server;</code>.
 
 	      You should extract this folder to somewhere appropriate
 	      for application files, for example <code>&dir-server-windows;</code>. 
-	      Once the files are successfully extracted, you should end up with a structure
+	      Once extracted, the RabbitMQ Server files should end up in a structure
 	      similar to <code>&dir-server-windows;\rabbitmq_server-&version-server;</code>.
-	      You will also need to set the environment
-	      variable ERLANG_HOME to point to your Erlang directory
-	      (e.g. <code>&dir-erlang-windows;</code>).
-	      
 	    </li>
-	    <li>
-	      Within the <code>sbin</code> directory is a file
-	      <code>rabbitmq-server.bat</code> which may need
-	      customisation for your installation, especially if you
+	    
+	      <li><em>Customise RabbitMQ Server</em><br/>
+	      You may need to customise <code>sbin\rabbitmq-server.bat</code> for your installation, especially if you
 	      use a different version of Erlang. Environment variables
 	      set within the batch file are
 
@@ -157,11 +153,19 @@
 		</dd>
 	      </dl>
 	    </li>
+	    <li><em>Commands for RabbitMQ Server</em><br/>
+	      Within the <code>sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
+	      As an administrator you can run these using a command shell in the sbin directory.
+	      It may be useful to add the <code>sbin</code> directory to your PATH.
+	      </li>
 	  </ul>
 	</doc:subsection>
 
 	<doc:subsection name="running-windows">
 	  <doc:heading>Running the Server as an Application</doc:heading>
+	  <p>
+	  Brokers can run as either an Application or Service.<br/>
+          </p>
 
 	  <p>
 	    Currently, it's sufficient to change directory to
@@ -178,7 +182,7 @@
 	    that the RabbitMQ broker has been started successfully. To
 	    shut down the server, close the shell
 	    window. Alternatively, use the <a
-	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command from <code>sbin</code> in a separate cmd shell.
 	  </p>
 	</doc:subsection>
 
@@ -225,18 +229,14 @@
                   <dt>RABBITMQ_CONSOLE_LOG</dt>
                   <dd>
                     Set this variable to <code>new</code> or
-                    <code>reuse</code> to have the console output from
-                    the server redirected to a file named
-                    <code>RABBITMQ_SERVICENAME</code>.debug in the
-                    default <code>RABBITMQ_BASE</code> directory. If
-                    <code>RABBITMQ_CONSOLE_LOG</code> is set to
-                    <code>new</code> then a new file will be created
-                    each time the service starts. If
-                    <code>RABBITMQ_CONSOLE_LOG</code> is set to
-                    <code>reuse</code> then the file will be
-                    overwritten each time the service starts.  If
-                    <code>RABBITMQ_CONSOLE_LOG</code> is unset then
-                    console output from the server will be discarded.
+                    <code>reuse</code> to redirect console output from
+                    the server to a file named <code>RABBITMQ_SERVICENAME</code>.debug in the
+                    default <code>RABBITMQ_BASE</code> directory.<br/>
+                    If not set, console output from the server will be discarded.<br/>
+                    <code>new</code> A new file will be created
+                    each time the service starts.<br/> 
+                    <code>reuse</code> The file will be
+                    overwritten each time the service starts.  
                  </dd>
                 </dl>
               </li>
@@ -285,7 +285,8 @@
               <li>
                 Ensure that the Erlang cookie file created by the service
                 contains the same string as the one used by the account that
-                will subsequently execute the <code>rabbitmqctl.bat</code> script. 
+                will subsequently execute the <code>rabbitmqctl.bat</code> script.<br/>
+                If they are different, copy the <code>.erlang.cookie</code>file from the windows directory into the directory containing the user's cookie
               </li>
             </ul>
           </p>
@@ -311,11 +312,8 @@
 	    <code>.1</code> files prior to starting the broker.
 	  </p>
 	  <p>
-	    You can easily write your own log rotation script using the 
-	    <code>rotate_logs_all</code> command in
-	    <code>rabbitmq-multi.bat</code> or the <code>rotate_logs</code>
-	    command in <code>rabbitmqctl.bat</code> if you want to perform
-	    log rotation selectively.
+	    You can rotate logs using <code>rabbitmq-multi rotate_logs</code> or <code>rabbitmqctl rotate_logs</code>.<br/>
+	    You can write a script to use these commands.
 	  </p>
 	</doc:subsection>
       </doc:section>
