@@ -345,7 +345,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-code {
+span.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
@@ -374,7 +374,7 @@ code {
 .docSection div.cmdsynopsis p {
 	margin: 0;
 }
-.docSection div.cmdsynopsis code.command {
+.docSection div.cmdsynopsis span.command {
 	color: darkred;
 }
 .docSection pre.sourcecode {
