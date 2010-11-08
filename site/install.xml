@@ -61,11 +61,44 @@
 	      similar to <code>&dir-server-windows;\rabbitmq_server-&version-server;</code>.
 	    </li>
 	    
-	      <li><em>Customise RabbitMQ Server</em><br/>
+
+	    <li><em>Commands for RabbitMQ Server</em><br/>
+	      Within the <code>sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
+	      As an administrator you can run these using a command shell in the sbin directory.
+	      It may be useful to add the <code>sbin</code> directory to your PATH.
+	      </li>
+	  </ul>
+	</doc:subsection>
+
+	<doc:subsection name="running-windows">
+	  <doc:heading>Running the Server as an Application</doc:heading>
+	  <p>
+	  Brokers can run as either an Application or Service.<br/>
+          </p>
+
+	  <p>
+	    Currently, it's sufficient to change directory to
+
+	    <code>rabbitmq_server-&version-server;\sbin</code>
+
+	    and double-click the <code>rabbitmq-server.bat</code>
+	    file.
+	  </p>
+	  <p>
+	    The shell window that results displays a banner message,
+	    and reports on progress in the startup sequence,
+	    concluding with the message "broker running", indicating
+	    that the RabbitMQ broker has been started successfully. To
+	    shut down the server, close the shell
+	    window. Alternatively, use the <a
+	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command from <code>sbin</code> in a separate cmd shell.
+	  </p>
+	  
+	  <li><em>Customise RabbitMQ Server Environment Variables</em><br/>
 	      You may need to customise <code>sbin\rabbitmq-server.bat</code> for your installation, especially if you
 	      use a different version of Erlang. Environment variables
 	      set within the batch file are
-
+            <div class="environment-variables">
 	      <dl>
 		<dt>ERLANG_HOME</dt>
 		<dd>
@@ -151,39 +184,10 @@
 		  href="clustering.html">clustering guide</a> for
 		  details.
 		</dd>
-	      </dl>
+	      </dl> 
+	     </div>
 	    </li>
-	    <li><em>Commands for RabbitMQ Server</em><br/>
-	      Within the <code>sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
-	      As an administrator you can run these using a command shell in the sbin directory.
-	      It may be useful to add the <code>sbin</code> directory to your PATH.
-	      </li>
-	  </ul>
-	</doc:subsection>
-
-	<doc:subsection name="running-windows">
-	  <doc:heading>Running the Server as an Application</doc:heading>
-	  <p>
-	  Brokers can run as either an Application or Service.<br/>
-          </p>
-
-	  <p>
-	    Currently, it's sufficient to change directory to
-
-	    <code>rabbitmq_server-&version-server;\sbin</code>
-
-	    and double-click the <code>rabbitmq-server.bat</code>
-	    file.
-	  </p>
-	  <p>
-	    The shell window that results displays a banner message,
-	    and reports on progress in the startup sequence,
-	    concluding with the message "broker running", indicating
-	    that the RabbitMQ broker has been started successfully. To
-	    shut down the server, close the shell
-	    window. Alternatively, use the <a
-	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command from <code>sbin</code> in a separate cmd shell.
-	  </p>
+	    
 	</doc:subsection>
 
         <doc:subsection name="running-windows-service">
@@ -194,17 +198,19 @@
             for a user to be logged in on a console. The server should not be run as a 
             service and application simultaneously.
           </p>
-          <p>
-            <ul>
-              <li>
+          <p>                         
                 The <code>rabbitmq-service.bat</code> script in the
                 <code>sbin</code> directory is used to manage the
-                service.  The <code>rabbitmq-service.bat</code> script
+                service. 
+                <ul>
+                 <li><em>Customise RabbitMQ Service Environment Variables</em><br/>
+                 The <code>rabbitmq-service.bat</code> script
                 recognises many of the same environment variables as
                 <code>rabbitmq-server.bat</code> (see <doc:link
-                linkend="#install-windows-separately">the previous
+                linkend="#running-windows">the previous
                 section</doc:link>), as well as a few additional
                 ones. Of particular importance are:
+                <div class="environment-variables">
                 <dl>
                   <dt>RABBITMQ_BASE</dt>
                   <dd>
@@ -238,6 +244,7 @@
                     overwritten each time the service starts.  
                  </dd>
                 </dl>
+               </div>
               </li>
               <li>
                 Log in as an administrator and open a command shell (<code>cmd.exe</code>) 
@@ -245,27 +252,26 @@
                 Install the service by executing <pre class="sourcecode">rabbitmq-service.bat install</pre>
               </li>
               <li>
-                Ensure that a service with the name <b>RABBITMQ_SERVICENAME</b>
-                now appears in the services control panel (<code>services.msc</code>). 
+                A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
+                should now appear in the services control panel (<code>services.msc</code>). 
                 Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
                 <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
                 directories. 
               </li>
               <li>
                 Erlang Security Cookies must be synchronised before
-                running <code>rabbitmqctl.bat</code>. Local service 
-                account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code> 
+                running <code>rabbitmqctl.bat</code>.<br/>
+                Local service account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code> 
                 while user account cookies are typically stored in the home or <code>%APPDATA%</code> directory of the account e.g.
-                <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.
-                Ensure the content of these cookies is identical by copying the <code>.erlang.cookie</code> file from the windows directory to replace the user account cookie. 
+                <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.<br/>
+                You can copy the <code>.erlang.cookie</code> file from the windows directory to replace the user account cookie. 
               </li>
               <li>
-                Execute <pre
-                class="sourcecode">rabbitmq-service.bat start</pre> to
-                start the server.  If the output from this command is
+                To start the server, execute <pre
+                class="sourcecode">rabbitmq-service.bat start</pre>   If the output from this command is
                 "<code>Service <i>RABBITMQ_SERVICENAME</i>
                 started</code>", then the service was started
-                correctly. If the output reads "<code>The process
+                correctly.<br/> If the output reads "<code>The process
                 terminated unexpectedly</code>" instead, then the
                 service did not start correctly. Check that the
                 environment variables are set correctly. The logfiles in
@@ -273,9 +279,8 @@
                 information.
               </li>
               <li>
-                Confirm that the service list in the operating system
-                service list (<code>services.msc</code>) reports a
-                "Started" status for the service named <b>RABBITMQ_SERVICENAME</b>.
+                Confirm the service named <b>RABBITMQ_SERVICENAME</b> reports a
+                "Started" status in the system service list (<code>services.msc</code>) .
               </li>
               <li>
                 Ensure that the Erlang cookie file created by the service
@@ -559,7 +564,7 @@
 	      <code>rabbitmq-server</code> which may need
 	      customisation for your installation. Environment
 	      variables available for configuration are
-
+             <div class="environment-variables">
 	      <dl>
 		<dt>RABBITMQ_MNESIA_BASE</dt>
 		<dd>
@@ -611,6 +616,7 @@
 		  details.
 		</dd>
 	      </dl>
+	      </div>
 	      <p><em>Note:</em> If the directories <strong>RABBITMQ_MNESIA_BASE</strong> and
 	      <strong>RABBITMQ_LOG_BASE</strong> do not exist the server will attempt to create
 	      them. It is important that the server has write permissions at these locations.</p>
