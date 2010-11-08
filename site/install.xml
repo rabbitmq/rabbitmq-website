@@ -208,22 +208,21 @@
                 <dl>
                   <dt>RABBITMQ_BASE</dt>
                   <dd>
-                    This is the base directory containing sub-directories for database and 
-                    log files. The account that the service will run as must have read and 
-                    write access to this location. The default location will not normally 
+                    This is the location of database and 
+                    log directories. The account that the service will run as must have read and 
+                    write access to this location.<br/>The default location (application data directory of the current user) will not normally 
                     meet this requirement, so this variable must be set explicitly and the 
                     permissions must be verified.
                   </dd>
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
                   <dd>
                     The default value of this path is
-                    <code>&dir-erlang-windows;\erts-5.7.4\bin</code>. The given path
-                    must contain the <code>erlsrv.exe</code> Erlang service wrapper
+                    <code>&dir-erlang-windows;\erts-5.7.4\bin</code>. This is the location of the <code>erlsrv.exe</code> Erlang service wrapper
                     script.
                   </dd>
                   <dt>RABBITMQ_SERVICENAME</dt>
                   <dd>
-                    This name will appear in the list of services reported by
+                    Defaults to RabbitMQ. This name will appear in the list of services reported by
                     the operating system.
                   </dd>
                   <dt>RABBITMQ_CONSOLE_LOG</dt>
@@ -232,7 +231,7 @@
                     <code>reuse</code> to redirect console output from
                     the server to a file named <code>RABBITMQ_SERVICENAME</code>.debug in the
                     default <code>RABBITMQ_BASE</code> directory.<br/>
-                    If not set, console output from the server will be discarded.<br/>
+                    If not set, console output from the server will be discarded (default).<br/>
                     <code>new</code> A new file will be created
                     each time the service starts.<br/> 
                     <code>reuse</code> The file will be
@@ -253,16 +252,12 @@
                 directories. 
               </li>
               <li>
-                If the service account is different from the account that will 
-                run the <code>rabbitmqctl.bat</code> script then the Erlang 
-                security cookies for those accounts must be synchronised before
-                running <code>rabbitmqctl.bat</code>. The cookie is stored in a 
-                file named <code>.erlang.cookie</code> and stored in the home 
-                or <code>%APPDATA%</code> directory of the account. Local service 
+                Erlang Security Cookies must be synchronised before
+                running <code>rabbitmqctl.bat</code>. Local service 
                 account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code> 
-                while user account cookies are typically stored in 
+                while user account cookies are typically stored in the home or <code>%APPDATA%</code> directory of the account e.g.
                 <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.
-                The contents of the two cookie files must be identical.
+                Ensure the content of these cookies is identical by copying the <code>.erlang.cookie</code> file from the windows directory to replace the user account cookie. 
               </li>
               <li>
                 Execute <pre
@@ -286,7 +281,7 @@
                 Ensure that the Erlang cookie file created by the service
                 contains the same string as the one used by the account that
                 will subsequently execute the <code>rabbitmqctl.bat</code> script.<br/>
-                If they are different, copy the <code>.erlang.cookie</code>file from the windows directory into the directory containing the user's cookie
+                If they are different, copy the <code>.erlang.cookie</code>file from the windows directory into the directory containing the user's cookie.
               </li>
             </ul>
           </p>
