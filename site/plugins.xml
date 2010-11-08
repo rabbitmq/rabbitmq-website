@@ -118,7 +118,7 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
     </ul>
 
-    <h3 id="rabbitmq-management-cluster-remote">rabbitmq-management-agent</h3>
+    <h3 id="rabbitmq-management-agent">rabbitmq-management-agent</h3>
 
     <p>
       When installing the management plugin on some nodes in a
