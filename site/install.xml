@@ -11,12 +11,22 @@
   <body>
     <doc:div>
       <p class="intro">
-	This section contains server installation instructions for various platforms.<br/>
+	This section contains Server installation instructions for various platforms.<br/>
 	Check the relevant section following to get the <a href="server.html"> Server Download</a> installed for your platform.
       </p>
       <p class="intro">
         Each installation requires Erlang, which also provides Mnesia (DBMS) and logging support for the Brokers.<br/>
         Management scripts start and stop the Brokers, and set up a default Environment.
+      </p>
+      <p class="intro">
+        Note that scripts and commands will need to be run as an administrator on Windows,<br/>
+        or with root permission (eg sudo) on Unix like systems.<br/>
+        Mnesia and Log Directories will need read/write permissions for the rabbit account.
+       </p>
+      <p class="intro">
+        Typical installations follow.<br/>
+        If you use non-default file locations, account or service names or ports, these Environment Variables should be edited as described.<br/>
+        Other configuration may be defined in a .config file using the Configuration example
       </p>
 
       <doc:toc class="compact">
@@ -365,8 +375,8 @@
 	  <p>
 	    The server is started as a daemon by default when the
 	    RabbitMQ Server package is installed. Start and stop the
-	    server as usual for Debian using <code>invoke-rc.d
-	    rabbitmq-server <i>stop/start/etc</i></code>. You may need to use sudo to execute these.
+	    server as usual for Debian using (sudo) <code>invoke-rc.d
+	    rabbitmq-server <i>stop/start/etc</i></code>. 
 	  </p>
 	  <p>
 	    The server is set up to run as system user <code>rabbitmq</code>. 
@@ -452,9 +462,9 @@
 	  <p>
 	    The server is not started as a daemon by default when the
 	    RabbitMQ Server package is installed. Start and stop the
-	    server as usual using <code>/sbin/service rabbitmq-server
+	    server as usual using (sudo) <code>/sbin/service rabbitmq-server
 	    <i>stop/start/etc</i></code>. To start the daemon by default
-	    when the system boots, run <code>chkconfig rabbitmq-server on</code>.
+	    when the system boots, run (sudo)<code>chkconfig rabbitmq-server on</code>.
 	  </p>
 	  <p>
 	    The server is set up to run as system user <code>rabbitmq</code>. 
