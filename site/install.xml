@@ -21,12 +21,12 @@
       <p class="intro">
         Note that scripts and commands will need to be run as an administrator on Windows,<br/>
         or with root permission (eg sudo) on Unix like systems.<br/>
-        Mnesia and Log Directories will need read/write permissions for the rabbit account.
+        Mnesia and Log Directories will need read/write permissions for the rabbitmq account.
        </p>
       <p class="intro">
         Typical installations follow.<br/>
         If you use non-default file locations, account or service names or ports, these Environment Variables should be edited as described.<br/>
-        Other configuration may be defined in a .config file using the Configuration example
+        Other configuration may be defined in a .config file using the Configuration example.
       </p>
 
       <doc:toc class="compact">
@@ -500,6 +500,11 @@
 	<doc:heading>Mac OS X with MacPorts</doc:heading>
 
 	<p>
+          Users of Mac OS X who do not use MacPorts can use the <a
+          href="#generic-unix">Generic Unix</a> installation
+          instructions instead.
+        </p>
+        <p>
 	  A portfile for the RabbitMQ server is included in <a
 	  href="http://www.macports.org/">MacPorts</a>. From the
 	  MacPorts home page:
@@ -511,17 +516,12 @@
 	  based open-source software on the Mac OS X operating
 	  system.
 	</blockquote>
-        <p>
-          Users of Mac OS X who do not use MacPorts can use the <a
-          href="#generic-unix">Generic Unix</a> installation
-          instructions below.
-        </p>
+        
 	<p>
-          The officially released MacPorts packaging may not always
-          contain the lastest released version of RabbitMQ.  If you
-          wish to install the latest version via MacPorts, we maintain
-          a dedicated <a href="macports.html">MacPorts repository</a>
-          for this purpose.
+          RabbitMQ maintains a dedicated <a href="macports.html">MacPorts repository</a>,<br/>
+          which you should use to install the latest RabbitMQ Server version via MacPorts, <br/>
+          as officially released MacPorts packaging may not always contain the lastest released version of RabbitMQ.<br/>
+          (NB It can take a very long time to install other macport updates - see <code>man port</code> for options).
         </p>
 
 	<doc:subsection name="install-macports">
@@ -539,15 +539,19 @@
 	    To start the server, you can either use launchctl (see the
 	    instructions emitted during the <code>sudo port
 	    install</code> step) or you can start it from the command
-	    line with <code>sudo rabbitmq-server</code>.
+	    line with <code>sudo rabbitmq-server -detached</code>.
 	  </p>
 	  <p>
             The <code>rabbitmq-server</code>,
             <code>rabbitmqctl</code>, and other RabbitMQ-related
             scripts on the path automatically (through sudo) run in
-            the context of the rabbitmq user so that the Erlang cookie
-            can be read from
+            the context of the rabbitmq user, so that the Erlang cookie
+            can be read from (sudo) 
             <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
+	  </p>
+	  
+	  <p>
+	  See the General Linux installation section for further information.
 	  </p>
 	</doc:subsection>
       </doc:section>
