@@ -51,16 +51,18 @@
 	<doc:subsection name="install-windows-separately">
 	  <doc:heading>Installation of separate components</doc:heading>
 
-	  <ul>
-	    <li><em>Install Erlang</em><br/>
-          Install a recent version of Erlang/OTP. Versions R13B03 and higher should work on Windows.<br/>
-          e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
-          Using default options, Erlang should appear in the Start Menu, and the Erlang directory (e.g. <code>&dir-erlang-windows;</code>) should exist, containing <code>bin\erl.exe</code><br/>
-          Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and set the Environment Variable ERLANG_HOME to your Erlang directory.	      
-	    </li>
-	    <li><em>Install RabbitMQ Server</em><br/>
-          Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-          from the <a href="server.html">download page</a>.<br/>
+	  <dl class="instructions">
+	    <dt>Install Erlang</dt>
+	    <dd>
+               Install a recent version of Erlang/OTP. Versions R13B03 and higher should work on Windows.<br/>
+               e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
+               Using default options, Erlang should appear in the Start Menu, and the Erlang directory (e.g. <code>&dir-erlang-windows;</code>) should exist, containing <code>bin\erl.exe</code><br/>
+               Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and set the Environment Variable ERLANG_HOME to your Erlang directory.	      
+	    </dd>
+	    <dt>Install RabbitMQ Server</dt>
+	    <dd>
+              Download <code>rabbitmq-server-windows-&version-server;.zip</code>
+              from the <a href="server.html">download page</a>.<br/>
 	    
 	      Contained in the zip file is a directory named
 	      <code>rabbitmq_server-&version-server;</code>.
@@ -69,15 +71,14 @@
 	      for application files, for example <code>&dir-server-windows;</code>. 
 	      Once extracted, the RabbitMQ Server files should end up in a structure
 	      similar to <code>&dir-server-windows;\rabbitmq_server-&version-server;</code>.
-	    </li>
-	    
-
-	    <li><em>Commands for RabbitMQ Server</em><br/>
+	    </dd>
+	    <dt>Commands for RabbitMQ Server</dt>
+	    <dd>
 	      Within the <code>sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
 	      As an administrator you can run these using a command shell in the sbin directory.
 	      It may be useful to add the <code>sbin</code> directory to your PATH.
-	      </li>
-	  </ul>
+	      </dd>
+	  </dl>
 	</doc:subsection>
 
 	<doc:subsection name="running-windows">
@@ -103,11 +104,15 @@
 	    window. Alternatively, use the <a
 	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command from <code>sbin</code> in a separate cmd shell.
 	  </p>
-	  
-	  <li><em>Customise RabbitMQ Server Environment Variables</em><br/>
+	  <dl class="instructions">
+	   <dt>Customise RabbitMQ Server Environment Variables</dt>
+	   <dd>
 	      You may need to customise <code>sbin\rabbitmq-server.bat</code> for your installation, especially if you
 	      use a different version of Erlang. Environment variables
 	      set within the batch file are
+	    </dd>
+	   </dl> 
+	      
             <div class="environment-variables">
 	      <dl>
 		<dt>ERLANG_HOME</dt>
@@ -196,7 +201,7 @@
 		</dd>
 	      </dl> 
 	     </div>
-	    </li>
+	   
 	    
 	</doc:subsection>
 
@@ -212,14 +217,17 @@
                 The <code>rabbitmq-service.bat</code> script in the
                 <code>sbin</code> directory is used to manage the
                 service. 
-                <ul>
-                 <li><em>Customise RabbitMQ Service Environment Variables</em><br/>
-                 The <code>rabbitmq-service.bat</code> script
-                recognises many of the same environment variables as
-                <code>rabbitmq-server.bat</code> (see <doc:link
-                linkend="#running-windows">the previous
-                section</doc:link>), as well as a few additional
-                ones. Of particular importance are:
+                <dl class="instructions">
+                 <dt>Customise RabbitMQ Service Environment Variables</dt>
+                 <dd>
+                   The <code>rabbitmq-service.bat</code> script
+                   recognises many of the same environment variables as
+                   <code>rabbitmq-server.bat</code> (see <doc:link
+                   linkend="#running-windows">the previous
+                   section</doc:link>), as well as a few additional
+                   ones. Of particular importance are:
+                </dd>
+                </dl>
                 <div class="environment-variables">
                 <dl>
                   <dt>RABBITMQ_BASE</dt>
@@ -255,7 +263,7 @@
                  </dd>
                 </dl>
                </div>
-              </li>
+              <ul>
               <li>
                 Log in as an administrator and open a command shell (<code>cmd.exe</code>) 
                 in the <code>sbin</code> directory where the broker was installed. 
@@ -582,6 +590,8 @@
 	      <code>rabbitmq-server</code> which may need
 	      customisation for your installation. Environment
 	      variables available for configuration are
+	    </li>
+	   </ul>
              <div class="environment-variables">
 	      <dl>
 		<dt>RABBITMQ_MNESIA_BASE</dt>
@@ -638,8 +648,6 @@
 	      <p><em>Note:</em> If the directories <strong>RABBITMQ_MNESIA_BASE</strong> and
 	      <strong>RABBITMQ_LOG_BASE</strong> do not exist the server will attempt to create
 	      them. It is important that the server has write permissions at these locations.</p>
-	    </li>
-	  </ul>
 	</doc:subsection>
 
 	<doc:subsection name="running-generic-unix">
