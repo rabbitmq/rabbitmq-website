@@ -578,6 +578,13 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
 #getting_here h4 {
   font-size: 1em;
 }
-div.environment-variables{
-	background:#efe;
+
+dl.instructions dt {
+	color:grey;
 }
+
+div.environment-variables {
+	background:#efe;
+	margin:1em;
+}
+
