@@ -11,7 +11,7 @@
 
   <div id="tutorial">
 
-# Work Queues
+## Work Queues
 
    <xi:include href="tutorials-help.xml.inc"/>
 
@@ -367,11 +367,11 @@ And our worker:
 [(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
 
-Using message acknowledgments and `prefetch_count` you can set up
-a work queue. The durability options let the tasks to
-survive even if Rabbit is restarted.
+Using message acknowledgments and `prefetch_count` you can set up a
+work queue. The durability options let the tasks survive even if
+Rabbit is restarted.
 
-Now we can move on to [part 3](tutorial-three-python.html) and learn how
+Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
 
 </div>

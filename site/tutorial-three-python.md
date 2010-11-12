@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ tutorial - Broadcast</title>
+    <title>RabbitMQ tutorial - Publish/Subscribe</title>
   </head>
   <body>
 
@@ -10,54 +10,53 @@
   </div>
 
   <div id="tutorial">
-## Broadcast
+## Publish/Subscribe
 
    <xi:include href="tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-two-python.html) we created a work
-queue. The core assumption behind a work queue is that each task is
+queue. The assumption behind a work queue is that each task is
 delivered to exactly one worker. In this part we'll do something
-completely different - we'll try to deliver a message to multiple
-consumers. This pattern is known as "publish-subscribe".
+completely different -- we'll deliver a message to multiple
+consumers. This pattern is known as "publish/subscribe".
 
-To illustrate this, we're going to build a simple logging system. It
-will consist of two programs - the first will emit log messages and
-the second will receive and print them.
+To illustrate the pattern, we're going to build a simple logging
+system. It will consist of two programs -- the first will emit log
+messages and the second will receive and print them.
 
 In our logging system every running copy of the receiver program will
-get the same messages. That way we'll be able to run one receiver and
+get the messages. That way we'll be able to run one receiver and
 direct the logs to disk; and at the same time we'll be able to run
-another receiver and see the same logs on the screen.
+another receiver and see the logs on the screen.
 
-Essentially, emitted log messages are going to be broadcast to all
+Essentially, published log messages are going to be broadcast to all
 the receivers.
 
 Exchanges
 ---------
 
-In previous parts of the tutorial we've understood how to send and
-receive messages to and from a queue. Now it's time to introduce the
-full messaging model in Rabbit.
+In previous parts of the tutorial we sent and received messages to and
+from a queue. Now it's time to introduce the full messaging model in
+Rabbit.
 
-Let's quickly cover what we've learned:
+Let's quickly go over what we covered in the previous tutorials:
 
- * A _producer_ is user application that sends messages.
+ * A _producer_ is a user application that sends messages.
  * A _queue_ is a buffer that stores messages.
- * A _consumer_ is user application that receives messages.
+ * A _consumer_ is a user application that receives messages.
 
-
-The core idea in the messaging model in Rabbit is that the producer
-never sends any messages directly to the queue. Actually, quite often
+The core idea in the messaging model in RabbitMQ is that the producer
+never sends any messages directly to a queue. Actually, quite often
 the producer doesn't even know if a message will be delivered to any
 queue at all.
 
 Instead, the producer can only send messages to an _exchange_. An
 exchange is a very simple thing. On one side it receives messages from
 producers and the other side it pushes them to queues. The exchange
-must know exactly what to do with a received message. Should it be
+must know exactly what to do with a message it receives. Should it be
 appended to a particular queue? Should it be appended to many queues?
-Or should it get discarded. The exact rules for that are defined by
-the _exchange type_.
+Or should it get discarded. The rules for that are defined by the
+_exchange type_.
 
 <div class="diagram">
   <img src="/img/tutorials/exchanges.png" height="110" />
@@ -81,7 +80,7 @@ the _exchange type_.
 </div>
 
 There are a few exchange types available: `direct`, `topic`, `headers`
-and `fanout`. We'll focus on the last one - the fanout. Let's create
+and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of that type, and call it `logs`:
 
     :::python
@@ -110,7 +109,6 @@ queues it knows. And that's exactly what we need for our logger.
 > You can see a few `amq.` exchanges. They're created by default, but
 > chances are you'll never need to use them.
 
-<div></div>
 
 > #### Nameless exchange
 >
@@ -125,8 +123,7 @@ queues it knows. And that's exactly what we need for our logger.
 >                           body=message)
 >
 > The _empty string_ exchange is special: messages are
-> routed to the queue with name specified by `routing_key`.
-
+> routed to the queue with the name specified by `routing_key`, if it exists.
 
 
 Temporary queues
@@ -134,14 +131,14 @@ Temporary queues
 
 As you may remember previously we were using queues which had a
 specified name (remember `test` and `task_queue`?). Being able to name
-a queue was crucial for us - we needed to point the workers to the
-same queue.  Essentially, giving a queue a name is important when you
-want to share the queue between multiple consumers.
+a queue was crucial for us -- we needed to point the workers to the
+same queue.  Giving a queue a name is important when you
+want to share the queue between producers and consumers.
 
-But that's not true for our logger. We do want to hear about all
-currently flowing log messages, we do not want to receive only a
-subset of messages. We're also interested only in currently flowing
-messages not in the old ones. To solve that we need two things.
+But that's not the case for our logger. We want to hear about all
+currently flowing log messages, not just a subset of messages. We're
+also interested only in currently flowing messages not in the old
+ones. To solve that we need two things.
 
 First, whenever we connect to Rabbit we need a fresh, empty queue. To
 do it we could create a queue with a random name, or, even better -
@@ -194,8 +191,7 @@ between exchange and a queue is called a _binding_.
     channel.queue_bind(exchange='logs',
                        queue=result.queue)
 
-From now on the `logs` exchange will broadcast all the messages also
-to our queue.
+From now on the `logs` exchange will append messages to our queue.
 
 > #### Listing bindings
 >
@@ -240,10 +236,10 @@ Putting it all together
 </div>
 
 The producer program, which emits log messages, doesn't look much
-different than in previous tutorial. The most important change is
-that, we now need to publish messages to the `logs` exchange instead
-of the nameless one. We need to supply a `routing_key`, but its value
-is ignored for `fanout` exchanges. Here goes the code for
+different to the previous tutorial. The most important change is that
+we now want to publish messages to our `logs` exchange instead of the
+nameless one. We need to supply a `routing_key` when sending, but its
+value is ignored for `fanout` exchanges. Here goes the code for
 `emit_log.py` script:
 
     #!/usr/bin/env python
@@ -271,7 +267,7 @@ exchange. This step is neccesary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
-but that's okay for us; if no consumer is listening yet (ie: the
+but that's okay for us; if no consumer is listening yet (i.e., the
 exchange hasn't been created) we can safely discard the message.
 
 The code for `receive_logs.py`:
@@ -334,7 +330,6 @@ programs running you should see something like:
 The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
-
 
 </div>
 </body>
