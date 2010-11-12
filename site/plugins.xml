@@ -87,8 +87,7 @@
 
     <p>
       An AMQP-over-HTTP protocol binding for RabbitMQ and some
-      Javascript libraries for interacting with RabbitMQ over HTTP, as
-      well as some examples.
+      Javascript libraries for interacting with RabbitMQ over HTTP.
     </p>
 
     <p>To use this plugin the following files are required:</p>
@@ -98,6 +97,19 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-jsonrpc-channel-examples">rabbitmq-jsonrpc-channel-examples</h3>
+
+    <p>
+      Example web applications written with rabbitmq-jsonrpc-channel:
+      A shared whiteboard, a chat application, and some tests.
+    </p>
+
+    <p>To use this plugin the following files are required <b>in
+    addition to those for rabbitmq-jsonrpc-channel</b>:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-examples-&version-server;.ez">rabbitmq-jsonrpc-channel-examples</a></li>
     </ul>
 
     <h3 id="rabbitmq-management">rabbitmq-management</h3>
