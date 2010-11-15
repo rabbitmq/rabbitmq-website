@@ -579,7 +579,7 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
   font-size: 1em;
 }
 
-dl.instructions dt {
+.instructions dt, h4 {
 	color:grey;
 }
 
