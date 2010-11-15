@@ -215,15 +215,15 @@
 	</li>
         <li id="dotnet-development">.NET development:
 	  <ul class="plain">
-	    <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
+        <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
         <li><a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a></li>
-	    <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
+        <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
         A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
-	    </li>
-	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
-	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a></li>
-	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
-	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
+        </li>
+        <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
+        <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a></li>
+        <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
+        <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>
 	<li id="php-development">PHP development:
