@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
 "otherwise css isn't included" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
@@ -12,8 +12,8 @@
     <doc:div>
       <div class="intro">
       <p>
-	This section contains Server installation instructions for various platforms.<br/>
-	Check the relevant section following to get the <a href="server.html"> Server Download</a> installed for your platform.
+        This section contains Server installation instructions for various platforms.<br/>
+        Check the relevant section following to get the <a href="server.html"> Server Download</a> installed for your platform.
       </p>
       <p>
         Each installation requires Erlang, which also provides Mnesia (DBMS) and logging support for the Brokers.<br/>
@@ -32,204 +32,204 @@
       </div>
 
       <doc:toc class="compact">
-	<doc:heading>RabbitMQ Installation</doc:heading>
+        <doc:heading>RabbitMQ Installation</doc:heading>
       </doc:toc>
 
       <doc:section name="windows">
-	<doc:heading>Windows</doc:heading>
-	
-	<doc:subsection name="install-windows-bundle">
-	  <doc:heading>Installation from a complete bundle</doc:heading>
+        <doc:heading>Windows</doc:heading>
 
-	  <p>
-	    The Windows Bundle zip file contains an Erlang system installer and the
-	    RabbitMQ broker server binary distribution, needed for the next section.<br/>It also includes .Net RabbitMQ and Java clients.
-	  </p>
-	  <p>
-	    Just extract the files from the downloaded bundle, then go through the following instructions for each component.
-	  </p>
-	</doc:subsection>
+        <doc:subsection name="install-windows-bundle">
+          <doc:heading>Installation from a complete bundle</doc:heading>
 
-	<doc:subsection name="install-windows-separately">
-	  <doc:heading>Installation of separate components</doc:heading>
+          <p>
+            The Windows Bundle zip file contains an Erlang system installer and the
+            RabbitMQ broker server binary distribution, needed for the next section.<br/>It also includes .Net RabbitMQ and Java clients.
+          </p>
+          <p>
+            Just extract the files from the downloaded bundle, then go through the following instructions for each component.
+          </p>
+        </doc:subsection>
 
-	  <dl class="instructions">
-	    <dt>Install Erlang</dt>
-	    <dd>
+        <doc:subsection name="install-windows-separately">
+          <doc:heading>Installation of separate components</doc:heading>
+          <div class="instructions">
+          <dl>
+            <dt>Install Erlang</dt>
+            <dd>
                Install a recent version of Erlang/OTP. Versions R13B03 and higher should work on Windows.<br/>
                e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
                Using default options, Erlang should appear in the Start Menu, and the Erlang directory (e.g. <code>&dir-erlang-windows;</code>) should exist, containing <code>bin\erl.exe</code><br/>
-               Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and set the Environment Variable ERLANG_HOME to your Erlang directory.	      
-	    </dd>
-	    <dt>Install RabbitMQ Server</dt>
-	    <dd>
+               Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and set the Environment Variable ERLANG_HOME to your Erlang directory.
+            </dd>
+            <dt>Install RabbitMQ Server</dt>
+            <dd>
               Download <code>rabbitmq-server-windows-&version-server;.zip</code>
               from the <a href="server.html">download page</a>.<br/>
-	    
-	      From the zip file, extract the folder named
-	      <code>rabbitmq_server-&version-server;</code> into <code>&dir-server-windows;</code> (or somewhere suitable for application files). 
-	      The RabbitMQ Server files should end up as <code>&dir-server-windows;\rabbitmq_server-&version-server;</code> (or similar).
-	    </dd>
-	    <dt>Commands for RabbitMQ Server</dt>
-	    <dd>
-	      Within the <code>rabbitmq_server-&version-server;\sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
-	      As an administrator you can run these using a command shell in the sbin directory.
-	      It may be useful to add the <code>sbin</code> directory to your PATH.
-	      </dd>
-	  </dl>
-	</doc:subsection>
 
-	<doc:subsection name="running-windows">
-	  <doc:heading>Running the Server as an Application</doc:heading>
-	  <p>
-	  Brokers can run as either an Application or Service.<br/>
-	  The Application uses <code>rabbitmq-server.bat</code> script in <code>sbin</code>.
+              From the zip file, extract the folder named
+              <code>rabbitmq_server-&version-server;</code> into <code>&dir-server-windows;</code> (or somewhere suitable for application files).
+              The RabbitMQ Server files should end up as <code>&dir-server-windows;\rabbitmq_server-&version-server;</code> (or similar).
+            </dd>
+            <dt>Commands for RabbitMQ Server</dt>
+            <dd>
+            <p>
+              Within the <code>rabbitmq_server-&version-server;\sbin</code> directory are some scripts which run commands to control the RabbitMQ Server.<br/>
+              Log in as an administrator to run these using a command shell in the sbin directory. 
+              It may be useful to add the <code>sbin</code> directory to your PATH.
+              </p>
+              <p>
+              Message Brokers can run as either an Application or Service (not both).
+              <ul>
+              <li>rabbitmq-server.bat starts the broker as an Application.</li>
+              <li>rabbitmq-service.bat manages the Service and starts the broker.</li>
+              <li>rabbitmqctl.bat manages a running broker.</li>
+              </ul>
+              </p>              
+              </dd>
+          </dl>
+          </div>
+        </doc:subsection>
+
+        <doc:subsection name="running-windows">
+          <doc:heading>Running the Server as an Application</doc:heading>
+          <p>
+          The Application is started by <code>rabbitmq-server.bat</code> script in <code>sbin</code>. 
           </p>
 
-	  <dl class="instructions">
-	   <dt>Customise RabbitMQ Server Environment Variables</dt>
-	   <dd>
-	      You may need to customise <code>sbin\rabbitmq-server.bat</code> for your installation, especially if you
-	      use a different version of Erlang. Environment variables
-	      set within the batch file are
-	    </dd>
-	   </dl> 
-	      
+          <dl class="instructions">
+           <dt>Customise RabbitMQ Server Environment Variables</dt>
+           <dd>
+              You may need to customise <code>sbin\rabbitmq-server.bat</code> for your installation, especially if you
+              use a different version of Erlang. Environment variables
+              set within the batch file are
+            </dd>
+           </dl>
+
             <div class="environment-variables">
-	      <dl>
-		<dt>ERLANG_HOME</dt>
-		<dd>
-		  Set this to the base directory of your Erlang
-		  installation, e.g.
+              <dl>
+                <dt>ERLANG_HOME</dt>
+                <dd>
+                  Set this to the base directory of your Erlang
+                  installation, e.g.
 
-		  <code>&dir-erlang-windows;</code>.
+                  <code>&dir-erlang-windows;</code>.
 
-		  The RabbitMQ batch file expects the file
-		  <code>bin\erl.exe</code> to be present at this
-		  location. The default setting determines the base
-		  directory from the script location, which will work
-		  in most cases.
-		</dd>
+                  The RabbitMQ batch file expects the file
+                  <code>bin\erl.exe</code> to be present at this
+                  location. The default setting determines the base
+                  directory from the script location, which will work
+                  in most cases.
+                </dd>
 
-		<dt>RABBITMQ_BASE</dt>
-		<dd>
-		  Defaults to the directory <code>RabbitMQ</code> in %APPDATA%, 
-		  the user's application data  directory, e.g.<br/>
-		  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>, or<br/>
-		  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code> (Windows Vista).<br/>
+                <dt>RABBITMQ_BASE</dt>
+                <dd>
+                  Defaults to the directory <code>RabbitMQ</code> in %APPDATA%,
+                  the user's application data  directory, e.g.<br/>
+                  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>, or<br/>
+                  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code> (Windows Vista).<br/>
 
-		  This base directory contains sub-directories for the RabbitMQ Server's database
-		  and log files.  Alternatively, set
-		  <b>RABBITMQ_MNESIA_BASE</b> and
-		  <b>RABBITMQ_LOG_BASE</b> individually.
-		</dd>
+                  This base directory contains sub-directories for the RabbitMQ Server's database
+                  and log files.  Alternatively, set
+                  <b>RABBITMQ_MNESIA_BASE</b> and
+                  <b>RABBITMQ_LOG_BASE</b> individually.
+                </dd>
 
-		<dt>RABBITMQ_MNESIA_BASE</dt>
-		<dd>
-		  Defaults to <code>%RABBITMQ_BASE%\db</code>. Set this to the
-		  directory where Mnesia database files should be
-		  placed.
-		</dd>
+                <dt>RABBITMQ_MNESIA_BASE</dt>
+                <dd>
+                  Defaults to <code>%RABBITMQ_BASE%\db</code>. Set this to the
+                  directory where Mnesia database files should be
+                  placed.
+                </dd>
 
-		<dt>RABBITMQ_LOG_BASE</dt>
-		<dd>
-		  Defaults to <code>%RABBITMQ_BASE%\log</code>. Log files
-		  generated by the server will be placed in this
-		  directory.
-		</dd>
+                <dt>RABBITMQ_LOG_BASE</dt>
+                <dd>
+                  Defaults to <code>%RABBITMQ_BASE%\log</code>. Log files
+                  generated by the server will be placed in this
+                  directory.
+                </dd>
 
-		<dt>RABBITMQ_NODENAME</dt>
-		<dd>
-		  Defaults to <code>rabbit</code>. This can be useful
-		  if you want to run more than one node per machine -
-		  <b>RABBITMQ_NODENAME</b> should be unique per
-		  erlang-node-and-machine combination. See
-		  <a href="clustering.html#single-machine">
-		    clustering on a single machine</a> for more.
-		</dd>
-		
-		<dt>RABBITMQ_NODE_IP_ADDRESS</dt>
-		<dd>
-		  Defaults to <code>0.0.0.0</code>. This can be changed 
-		  if you only want to bind to one network interface.
-		  Please note that Windows 2000 (and maybe earlier
-		  versions) do not understand "<code>0.0.0.0</code>" 
-		  and will need to have this set explicitly.
-		</dd>
-		
-		<dt>RABBITMQ_NODE_PORT</dt>
-		<dd>
-		  Defaults to <code>5672</code>.
-		</dd>
+                <dt>RABBITMQ_NODENAME</dt>
+                <dd>
+                  Defaults to <code>rabbit</code>. This can be useful
+                  if you want to run more than one node per machine -
+                  <b>RABBITMQ_NODENAME</b> should be unique per
+                  erlang-node-and-machine combination. See
+                  <a href="clustering.html#single-machine">
+                    clustering on a single machine</a> for more.
+                </dd>
 
-		<dt>RABBITMQ_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to
-		  <code>%RABBITMQ_BASE%\rabbitmq</code>. If this file
-		  is present it is used by the server to configure
-		  RabbitMQ application components. Note that the
-		  .config extension is automatically appended by the
-		  Erlang runtime. See the section on <a
-		  href="#configfile">the configuration file</a> for
-		  details.  Note that this file is also used to
-		  auto-configure RabbitMQ clusters.  See the <a
-		  href="clustering.html">clustering guide</a> for
-		  details.
-		</dd>
-	      </dl> 
-	     </div>
-	     
-	     <dl class="instructions">
-	      <dt>Starting the server application</dt>
-	      <dd>
-	       <p>
-	       Use the <code>rabbitmq-server -detached</code> command from <code>rabbitmq_server-&version-server;\sbin</code>.
-	       Alternatively, you can go to <code>sbin</code> and double-click the <code>rabbitmq-server.bat</code> file.</p>
-	       <p>
-	       The shell window displays a banner message,
-	       and reports on progress in the startup sequence,
-	       concluding with "broker running", indicating
-	       that the RabbitMQ broker has been started successfully.
-	      </p>
-	      <p>
-	      This script starts the application only. All other options are ignored. 
-	      If you try to start another broker application, you will get a crashdump response.
-	      If you started without the -detached option e.g. by double clicking, you will need a second cmd shell to control the application cleanly.
-	      </p>
-	     </dd>
-	     <dt>Stopping the server application</dt>
-	     <dd>
-	     <p>
-	      Use the <code>rabbitmqctl stop</code> command from <code>sbin</code>.
+                <dt>RABBITMQ_NODE_IP_ADDRESS</dt>
+                <dd>
+                  Defaults to <code>0.0.0.0</code>. This can be changed
+                  if you only want to bind to one network interface.
+                  Please note that Windows 2000 (and maybe earlier
+                  versions) do not understand "<code>0.0.0.0</code>"
+                  and will need to have this set explicitly.
+                </dd>
+
+                <dt>RABBITMQ_NODE_PORT</dt>
+                <dd>
+                  Defaults to <code>5672</code>.
+                </dd>
+
+                <dt>RABBITMQ_CONFIG_FILE</dt>
+                <dd>
+                  Defaults to
+                  <code>%RABBITMQ_BASE%\rabbitmq</code>. If this file
+                  is present it is used by the server to configure
+                  RabbitMQ application components. Note that the
+                  .config extension is automatically appended by the
+                  Erlang runtime. See the section on <a
+                  href="#configfile">the configuration file</a> for
+                  details.  Note that this file is also used to
+                  auto-configure RabbitMQ clusters.  See the <a
+                  href="clustering.html">clustering guide</a> for
+                  details.
+                </dd>
+              </dl>
+             </div>
+
+             <dl class="instructions">
+              <dt>Starting the server application</dt>
+              <dd>
+               <p>
+               Use the <code>rabbitmq-server -detached</code> command from <code>rabbitmq_server-&version-server;\sbin</code>.
+               Alternatively, you can go to sbin windows folder and double-click the rabbitmq-server.bat file.
+               </p>               
+              <p>
+              This script starts the application only. All other options are ignored.
+              If you try to start another broker application, you will get a crashdump response.
+              </p>
+              <p>
+               If you started by double clicking, the shell window displays a banner message,
+               and reports on progress in the startup sequence,
+               concluding with "broker running", indicating
+               that the RabbitMQ broker has been started successfully.
+              </p>
+              <p>
+              If you started without the -detached option e.g. by double clicking, you will need a second cmd shell to control the application cleanly.
               Note that closing the original shell console window will also shut down the server, when running without the -detached option
-	     </p>
-	    </dd>
-	    <dt>Checking the server application status</dt>
-	     <dd>
-	     <p>
-	      Use the <code>rabbitmqctl status</code> command from <code>sbin</code>.
-	      All rabbitmqctl commands will report the node absence if a broker is not running (ie nodedown).
-             </p>
-	    </dd>
-	   </dl>
-	    
-	</doc:subsection>
+              </p>
+             </dd>
+             <dt>Stopping and managing the broker</dt>
+             <dd>Use the <a href="#managing-windows">rabbitmqctl</a> commands
+             </dd>
+           </dl>
+        </doc:subsection>
 
         <doc:subsection name="running-windows-service">
           <doc:heading>Running the Server as a Service</doc:heading>
           <p>
-            The server can be run as a service instead of an application. The server 
-            will run in the security context of the system account, without the need
-            for a user to be logged in on a console. The server should not be run as a 
+            The service will run in the security context of the system account, without the need
+            for a user to be logged in on a console. The server should not be run as a
             service and application simultaneously.
           </p>
-          <p>                         
-                The Server runs using<code>rabbitmq-service.bat</code> script in the
-                <code>sbin</code>. The script <code>rabbitmqctl.bat</code> is also used to manage the
-                service.
+          <p>
+                The Service runs using<code>rabbitmq-service.bat</code> script in the
+                <code>sbin</code>. 
            </p>
-           <p>
-                <dl class="instructions">
+
+               <dl class="instructions">
                  <dt>Customise RabbitMQ Service Environment Variables</dt>
                  <dd>
                    The <code>rabbitmq-service.bat</code> script
@@ -238,16 +238,17 @@
                    linkend="#running-windows">the previous
                    section</doc:link>), as well as a few additional
                    ones. Of particular importance are:
-                </dd>
+                 </dd>
                 </dl>
+
                 <div class="environment-variables">
                 <dl>
                   <dt>RABBITMQ_BASE</dt>
                   <dd>
-                    This is the location of database and 
-                    log directories. The account that the service will run as must have read and 
-                    write access to this location.<br/>The default location (application data directory of the current user) will not normally 
-                    meet this requirement, so this variable must be set explicitly and the 
+                    This is the location of database and
+                    log directories. The account that the service will run as must have read and
+                    write access to this location.<br/>The default location (application data directory of the current user) will not normally
+                    meet this requirement, so this variable must be set explicitly and the
                     permissions must be verified.
                   </dd>
                   <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
@@ -269,27 +270,37 @@
                     default <code>RABBITMQ_BASE</code> directory.<br/>
                     If not set, console output from the server will be discarded (default).<br/>
                     <code>new</code> A new file will be created
-                    each time the service starts.<br/> 
+                    each time the service starts.<br/>
                     <code>reuse</code> The file will be
-                    overwritten each time the service starts.  
+                    overwritten each time the service starts.
                  </dd>
-                </dl>
+               </dl>
                </div>
-              <ul>
-              <li>
-                Log in as an administrator and open a command shell (<code>cmd.exe</code>) 
-                in the <code>sbin</code> directory where the broker was installed. 
-                </li>
-                <li>
-                Install the service by executing <pre class="sourcecode">rabbitmq-service.bat install</pre>                            
+
+               <div class="instructions">
+              <dl>
+               <dt>Service commands</dt>
+               <dd>
+                Log in as an administrator and open a command shell (<code>cmd.exe</code>)
+                in the <code>sbin</code> directory.
+               </dd>
+               <dt>Install the service</dt>
+               <dd>
+               <p>
+                Install the service by executing <pre class="sourcecode">rabbitmq-service install</pre>
+               
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
-                should now appear in the services control panel (<code>services.msc</code>). 
+                should now appear in the services control panel (<code>services.msc</code>).
                 Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
                 <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
-                directories. 
-              </li>
-              <li>
-                To start the server, execute <pre class="sourcecode">rabbitmq-service.bat start</pre>
+                directories.
+                </p>
+               </dd>
+               <dt>Starting the service</dt>
+               <dd>
+               <p>
+                To start the server, execute <pre class="sourcecode">rabbitmq-service start</pre>
+                
                 If the output from this command is
                 "<code>Service <i>RABBITMQ_SERVICENAME</i>
                 started</code>", then the service was started
@@ -299,57 +310,93 @@
                 environment variables are set correctly. The logfiles in
                 <code>RABBITMQ_BASE</code> may also contain useful diagnostic
                 information.
-              </li>
-              <li>
+                </p>
+                <p>
                 Confirm the service named <b>RABBITMQ_SERVICENAME</b> reports a
                 "Started" status in the system service list (<code>services.msc</code>) .
-              </li>
-              <li>
-                Erlang Security Cookies must be synchronised before
-                running <code>rabbitmqctl.bat</code>.<br/>
-               
-                Local service account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code> 
-                while user account cookies are typically stored in the home or <code>%APPDATA%</code> directory of the account e.g.
-                <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.<br/>
-                 To ensure that these Erlang cookie files contain the same string, copy the <code>.erlang.cookie</code>file from the windows directory to replace the user account cookie.
-              </li>
-            </ul>
-          </p>
-          <p>
-            Refer to the <a href="service-guide.html">service</a> guide
-            for a complete description of <code>rabbitmq-service.bat</code> 
-            arguments. 
-          </p>
+                </p>
+                </dd>
+                <dt>Managing the service</dt>
+                <dd>
+                <p>
+                To manage the service (install, remove, enable, start etc), use <code>rabbitmq-service.bat</code> commands. Refer to the <a href="service-guide.html">service</a> guide for more info, and for troubleshooting guidance.
+                You can also use the Windows services panel (services.msc).
+                </p>
+                </dd>
+                <dt>Stopping and managing the broker</dt>
+                <dd>Use the <a href="#managing-windows">rabbitmqctl</a> commands
+                </dd>
+               </dl>
+               </div>
         </doc:subsection>
 
-	<doc:subsection name="logging-windows">
-	  <doc:heading>Logging</doc:heading>
-	  <p>
-	    Output from the server is sent to a
-	    <b>RABBITMQ_NODENAME</b>.log file in the
-	    <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
-	    written to <b>RABBITMQ_NODENAME</b>-sasl.log.
-	  </p>
-	  <p>
-	    The log files are created afresh every time the broker
-	    starts. In order to retain a complete log history the
-	    startup scripts append the contents to the corresponding
-	    <code>.1</code> files prior to starting the broker.
-	  </p>
-	  <p>
-	    You can rotate logs using <code>rabbitmq-multi rotate_logs</code> or <code>rabbitmqctl rotate_logs</code>.<br/>
-	    You can write a script to use these commands.
-	  </p>
-	</doc:subsection>
+        <doc:subsection name="managing-windows">
+          <doc:heading>Managing the Broker</doc:heading>
+               <p>
+               To stop the broker or check its status, use <code>rabbitmqctl.bat</code>.
+               Log in as an administrator and open a command shell (<code>cmd.exe</code>)
+                in the <code>sbin</code> directory.
+               </p>
+
+             <dl class="instructions">
+              <dt>Synchronise Erlang Cookies</dt>
+              <dd>
+              <p>
+                Erlang Security Cookies must be synchronised before
+                running <code>rabbitmqctl.bat</code>.
+               </p>
+               <p>
+                Local service account cookies are normally stored in <code>C:\WINDOWS\.erlang.cookie</code>
+                while user account cookies are typically stored in the home or <code>%APPDATA%</code> directory of the account e.g.
+                <code><nobr>C:\Documents and Settings\User\.erlang.cookie</nobr></code>.
+                 To ensure that these Erlang cookie files contain the same string, copy the <code>.erlang.cookie</code>file from the windows directory to replace the user account cookie.
+               </p>
+               </dd>
+               <dt>Stopping the broker</dt>
+             <dd>
+             <p>
+              Use the <code>rabbitmqctl stop</code> command from <code>sbin</code>.
+              </p>
+            </dd>
+            <dt>Checking the broker status</dt>
+             <dd>
+             <p>
+              Use the <code>rabbitmqctl status</code> command from <code>sbin</code>.
+              All rabbitmqctl commands will report the node absence if no broker is running (ie nodedown).
+             </p>
+             </dd>
+             </dl>
+             <p>More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl commands</a></p>
+        </doc:subsection>
+
+        <doc:subsection name="logging-windows">
+          <doc:heading>Logging</doc:heading>
+          <p>
+            Output from the server is sent to a
+            <b>RABBITMQ_NODENAME</b>.log file in the
+            <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
+            written to <b>RABBITMQ_NODENAME</b>-sasl.log.
+          </p>
+          <p>
+            The log files are created afresh every time the broker
+            starts. In order to retain a complete log history the
+            startup scripts append the contents to the corresponding
+            <code>.1</code> files prior to starting the broker.
+          </p>
+          <p>
+            You can rotate logs using <code>rabbitmqctl rotate_logs</code> or <code>rabbitmq-multi rotate_logs</code> .<br/>
+            You can write a script to use these commands.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="debian">
-	<doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
+        <doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
 
-	<doc:subsection name="install-debian">
-	  <doc:heading>Installation Instructions</doc:heading>
-	  <ul>
-	    <li>
+        <doc:subsection name="install-debian">
+          <doc:heading>Installation Instructions</doc:heading>
+          <ul>
+            <li>
               Install the rabbitmq-server package from your chosen
               distribution - at the time of writing, RabbitMQ is
               included in Debian unstable (sid), Debian testing
@@ -367,87 +414,87 @@
               apt on a Debian distribution that has erlang-base
               packages available, all dependencies should be properly
               met.
-	    </li>
-	    <li>
-	      To adjust the settings used for starting the server,
-	      create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
-	      environment variables as listed in the <a
-	      href="#generic-unix">Generic Unix</a> installation section below (but
-	      drop the RABBITMQ_ prefix) e.g.
-	      <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
-	      You can additionally set
-	      <code>NODE_COUNT</code> in
-	      <code>/etc/default/rabbitmq</code> to define <a
-	      href="clustering.html#single-machine">the number of
-	      nodes to run on a single machine</a>.
-	      
-	    </li>
-	  </ul>
-	</doc:subsection>
+            </li>
+            <li>
+              To adjust the settings used for starting the server,
+              create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
+              environment variables as listed in the <a
+              href="#generic-unix">Generic Unix</a> installation section below (but
+              drop the RABBITMQ_ prefix) e.g.
+              <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
+              You can additionally set
+              <code>NODE_COUNT</code> in
+              <code>/etc/default/rabbitmq</code> to define <a
+              href="clustering.html#single-machine">the number of
+              nodes to run on a single machine</a>.
 
-	<doc:subsection name="running-debian">
-	  <doc:heading>Running the Server</doc:heading>
-	  <p>
-	    The server is started as a daemon by default when the
-	    RabbitMQ Server package is installed. Start and stop the
-	    server as usual for Debian using (sudo) <code>invoke-rc.d
-	    rabbitmq-server <i>stop/start/etc</i></code>. 
-	  </p>
-	  <p>
-	    The server is set up to run as system user <code>rabbitmq</code>. 
-	    This means that if you change the location 
-	    of the Mnesia database or logs as described below, you must
-	    ensure the files are owned by this user.
-	  </p>
-	  <p>
-	    The startup script waits for a limited amount of time, 30
-	    seconds by default, for the broker nodes to start. When
-	    that time is exceeded a <code>TIMEOUT</code> is
-	    reported. The cause of this could be a misconfiguration or
-	    other error. However, it is also possible that the node
-	    simply is taking a long time to start up, perhaps because
-	    the machine it is running on is heavily loaded, or there
-	    are many persisted messages or durable queues and
-	    exchanges that need to be recovered. For that reason the
-	    timeout can be adjusted by setting
-	    <code>MULTI_START_ARGS</code> to
-	    "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	    in <code>/etc/rabbitmq/rabbitmq.conf</code>.
-	  </p>
-	</doc:subsection>
-	<doc:subsection name="logging-debian">
-	  <doc:heading>Logging</doc:heading>
-	  <p>
-	    Output from the server is sent to a
-	    <b>RABBITMQ_NODENAME</b>.log file in the
-	    <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
-	    written to <b>RABBITMQ_NODENAME</b>-sasl.log.
-	  </p>
-	  <p>
-	    The log files use <code>logrotate</code> program to do all
-	    the necessary rotation and compression (when needed). The
-	    script runs weekly, but you can easily change that. By default
-	    <code>logrotate</code> will handle files located in default
-	    <code>/var/log/rabbitmq</code> directory. See
-	    <code>/etc/logrotate.d/rabbitmq-server</code> for default
-	    <code>logrotate</code> configuration file.
-	  </p>
-	</doc:subsection>
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="running-debian">
+          <doc:heading>Running the Server</doc:heading>
+          <p>
+            The server is started as a daemon by default when the
+            RabbitMQ Server package is installed. Start and stop the
+            server as usual for Debian using (sudo) <code>invoke-rc.d
+            rabbitmq-server <i>stop/start/etc</i></code>.
+          </p>
+          <p>
+            The server is set up to run as system user <code>rabbitmq</code>.
+            This means that if you change the location
+            of the Mnesia database or logs as described below, you must
+            ensure the files are owned by this user.
+          </p>
+          <p>
+            The startup script waits for a limited amount of time, 30
+            seconds by default, for the broker nodes to start. When
+            that time is exceeded a <code>TIMEOUT</code> is
+            reported. The cause of this could be a misconfiguration or
+            other error. However, it is also possible that the node
+            simply is taking a long time to start up, perhaps because
+            the machine it is running on is heavily loaded, or there
+            are many persisted messages or durable queues and
+            exchanges that need to be recovered. For that reason the
+            timeout can be adjusted by setting
+            <code>MULTI_START_ARGS</code> to
+            "<code>-maxwait <i>timeout_in_seconds</i></code>"
+            in <code>/etc/rabbitmq/rabbitmq.conf</code>.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="logging-debian">
+          <doc:heading>Logging</doc:heading>
+          <p>
+            Output from the server is sent to a
+            <b>RABBITMQ_NODENAME</b>.log file in the
+            <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
+            written to <b>RABBITMQ_NODENAME</b>-sasl.log.
+          </p>
+          <p>
+            The log files use <code>logrotate</code> program to do all
+            the necessary rotation and compression (when needed). The
+            script runs weekly, but you can easily change that. By default
+            <code>logrotate</code> will handle files located in default
+            <code>/var/log/rabbitmq</code> directory. See
+            <code>/etc/logrotate.d/rabbitmq-server</code> for default
+            <code>logrotate</code> configuration file.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
-	<doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat, etc.)</doc:heading>
-	
-	<doc:subsection name="install-rpm">
-	  <doc:heading>Installation Instructions</doc:heading>
-	  <ul>
+        <doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat, etc.)</doc:heading>
+
+        <doc:subsection name="install-rpm">
+          <doc:heading>Installation Instructions</doc:heading>
+          <ul>
             <li>
               The RabbitMQ server is included in Fedora, so for Fedora
               and RHEL users we recommend to install the
               <i>rabbitmq-server</i> package via the distribution's
               package manager.
             </li>
-	    <li>
+            <li>
               Alternatively, install
               rabbitmq-server-&version-server;-<i>architecture</i>.rpm
               (which you can download from the <a href="server.html">download
@@ -457,305 +504,305 @@
               href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
               there is no official erlang package for your
               distribution.
-	    </li>
-	    <li>
-	      To adjust the settings used for starting the server,
-	      create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
-	      environment variables as listed in the <a
-	      href="#generic-unix">Generic Unix</a> installation section below (but
-	      drop the RABBITMQ_ prefix) e.g.<br/>
-	      <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
-	      You can additionally set <code>NODE_COUNT</code> in
-	      <code>/etc/sysconfig/rabbitmq</code> to define
-	      <a href="clustering.html#single-machine">the number of
-	      nodes to run on a single machine</a>.
-	    </li>
-	  </ul>
-	</doc:subsection>
-	
-	<doc:subsection name="running-rpm">
-	  <doc:heading>Running the Server</doc:heading>
-	  <p>
-	    The server is not started as a daemon by default when the
-	    RabbitMQ Server package is installed. Start and stop the
-	    server as usual using (sudo) <code>/sbin/service rabbitmq-server
-	    <i>stop/start/etc</i></code>. To start the daemon by default
-	    when the system boots, run (sudo)<code>chkconfig rabbitmq-server on</code>.
-	  </p>
-	  <p>
-	    The server is set up to run as system user <code>rabbitmq</code>. 
-	    This means that if you change the location 
-	    of the Mnesia database or logs as described below, you must
-	    ensure the files are owned by this user.
-	  </p>
-	  <p>
-	    The startup script waits for a limited amount of time, 30
-	    seconds by default, for the broker nodes to start. When that
-	    time is exceeded a <code>TIMEOUT</code> is reported. The
-	    cause of this could be a misconfiguration or other
-	    error. However, it is also possible that the node simply is
-	    taking a long time to start up, perhaps because the machine
-	    it is running on is heavily loaded, or there are many
-	    persisted messages or durable queues and exchanges that need
-	    to be recovered. For that reason the timeout can be adjusted
-	    by setting <code>MULTI_START_ARGS</code> to
-	    "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	    in <code>/etc/rabbitmq/rabbitmq.conf</code>.
-	  </p>
-	</doc:subsection>
-	<doc:subsection name="logging-rpm">
-	  <doc:heading>Logging</doc:heading>
-	  <p>
-	    Logging uses <code>logrotate</code> script in the same way
-	    as for <a href="#logging-debian">Debian GNU</a>
-	  </p>
-	</doc:subsection>
+            </li>
+            <li>
+              To adjust the settings used for starting the server,
+              create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
+              environment variables as listed in the <a
+              href="#generic-unix">Generic Unix</a> installation section below (but
+              drop the RABBITMQ_ prefix) e.g.<br/>
+              <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
+              You can additionally set <code>NODE_COUNT</code> in
+              <code>/etc/sysconfig/rabbitmq</code> to define
+              <a href="clustering.html#single-machine">the number of
+              nodes to run on a single machine</a>.
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="running-rpm">
+          <doc:heading>Running the Server</doc:heading>
+          <p>
+            The server is not started as a daemon by default when the
+            RabbitMQ Server package is installed. Start and stop the
+            server as usual using (sudo) <code>/sbin/service rabbitmq-server
+            <i>stop/start/etc</i></code>. To start the daemon by default
+            when the system boots, run (sudo)<code>chkconfig rabbitmq-server on</code>.
+          </p>
+          <p>
+            The server is set up to run as system user <code>rabbitmq</code>.
+            This means that if you change the location
+            of the Mnesia database or logs as described below, you must
+            ensure the files are owned by this user.
+          </p>
+          <p>
+            The startup script waits for a limited amount of time, 30
+            seconds by default, for the broker nodes to start. When that
+            time is exceeded a <code>TIMEOUT</code> is reported. The
+            cause of this could be a misconfiguration or other
+            error. However, it is also possible that the node simply is
+            taking a long time to start up, perhaps because the machine
+            it is running on is heavily loaded, or there are many
+            persisted messages or durable queues and exchanges that need
+            to be recovered. For that reason the timeout can be adjusted
+            by setting <code>MULTI_START_ARGS</code> to
+            "<code>-maxwait <i>timeout_in_seconds</i></code>"
+            in <code>/etc/rabbitmq/rabbitmq.conf</code>.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="logging-rpm">
+          <doc:heading>Logging</doc:heading>
+          <p>
+            Logging uses <code>logrotate</code> script in the same way
+            as for <a href="#logging-debian">Debian GNU</a>
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="macports">
-	<doc:heading>Mac OS X with MacPorts</doc:heading>
+        <doc:heading>Mac OS X with MacPorts</doc:heading>
 
-	<p>
+        <p>
           Users of Mac OS X who do not use MacPorts can use the <a
           href="#generic-unix">Generic Unix</a> installation
           instructions instead.
         </p>
         <p>
-	  A portfile for the RabbitMQ server is included in <a
-	  href="http://www.macports.org/">MacPorts</a>. From the
-	  MacPorts home page:
-	</p>
-	<blockquote>
-	  The MacPorts Project is an open-source community
-	  initiative to design an easy-to-use system for compiling,
-	  installing, and upgrading either command-line, X11 or Aqua
-	  based open-source software on the Mac OS X operating
-	  system.
-	</blockquote>
-        
-	<p>
+          A portfile for the RabbitMQ server is included in <a
+          href="http://www.macports.org/">MacPorts</a>. From the
+          MacPorts home page:
+        </p>
+        <blockquote>
+          The MacPorts Project is an open-source community
+          initiative to design an easy-to-use system for compiling,
+          installing, and upgrading either command-line, X11 or Aqua
+          based open-source software on the Mac OS X operating
+          system.
+        </blockquote>
+
+        <p>
           RabbitMQ maintains a dedicated <a href="macports.html">MacPorts repository</a>,<br/>
           which you should use to install the latest RabbitMQ Server version via MacPorts, <br/>
           as officially released MacPorts packaging may not always contain the lastest released version of RabbitMQ.<br/>
           (NB It can take a very long time to install other macport updates - see <code>man port</code> for options).
         </p>
 
-	<doc:subsection name="install-macports">
-	  <doc:heading>Installation Instructions</doc:heading>
-	  <p>
-	    Installation of the version of the RabbitMQ server
-	    distributed with MacPorts is as simple as (<code>sudo port
-	    sync</code> followed by)
-	  </p>
-	  <pre class="sourcecode">sudo port install rabbitmq-server</pre>
-	</doc:subsection>
-	<doc:subsection name="running-macports">
-	  <doc:heading>Running the Server</doc:heading>
-	  <p>
-	    To start the server, you can either use launchctl (see the
-	    instructions emitted during the <code>sudo port
-	    install</code> step) or you can start it from the command
-	    line with <code>sudo rabbitmq-server -detached</code>.
-	  </p>
-	  <p>
+        <doc:subsection name="install-macports">
+          <doc:heading>Installation Instructions</doc:heading>
+          <p>
+            Installation of the version of the RabbitMQ server
+            distributed with MacPorts is as simple as (<code>sudo port
+            sync</code> followed by)
+          </p>
+          <pre class="sourcecode">sudo port install rabbitmq-server</pre>
+        </doc:subsection>
+        <doc:subsection name="running-macports">
+          <doc:heading>Running the Server</doc:heading>
+          <p>
+            To start the server, you can either use launchctl (see the
+            instructions emitted during the <code>sudo port
+            install</code> step) or you can start it from the command
+            line with <code>sudo rabbitmq-server -detached</code>.
+          </p>
+          <p>
             The <code>rabbitmq-server</code>,
             <code>rabbitmqctl</code>, and other RabbitMQ-related
             scripts on the path automatically (through sudo) run in
             the context of the rabbitmq user, so that the Erlang cookie
-            can be read from (sudo) 
+            can be read from (sudo)
             <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
-	  </p>
-	  
-	  <p>
-	  See the General Linux installation section for further information.
-	  </p>
-	</doc:subsection>
+          </p>
+
+          <p>
+          See the General Linux installation section for further information.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="generic-unix">
-	<doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
+        <doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
 
-	<doc:subsection name="install-generic-unix">
-	  <doc:heading>Installation Instructions</doc:heading>
+        <doc:subsection name="install-generic-unix">
+          <doc:heading>Installation Instructions</doc:heading>
 
-	  <ul>
-	    <li>
-	      Install a recent version of Erlang.
-	    </li>
-	    <li>
-	      Download
-	      <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
-	      from the <a href="download.html">download page</a>.
-	    </li>
-	    <li>
-	      Contained in the tarball is a directory named
-	      <code>rabbitmq_server-&version-server;</code>. You should
-	      extract this into somewhere appropriate for application
-	      binaries on your system.
-	    </li>
-	    <li>
-	      Within the <code>sbin</code> directory is a shell script
-	      <code>rabbitmq-server</code> which may need
-	      customisation for your installation. Environment
-	      variables available for configuration are
-	    </li>
-	   </ul>
+          <ul>
+            <li>
+              Install a recent version of Erlang.
+            </li>
+            <li>
+              Download
+              <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
+              from the <a href="download.html">download page</a>.
+            </li>
+            <li>
+              Contained in the tarball is a directory named
+              <code>rabbitmq_server-&version-server;</code>. You should
+              extract this into somewhere appropriate for application
+              binaries on your system.
+            </li>
+            <li>
+              Within the <code>sbin</code> directory is a shell script
+              <code>rabbitmq-server</code> which may need
+              customisation for your installation. Environment
+              variables available for configuration are
+            </li>
+           </ul>
              <div class="environment-variables">
-	      <dl>
-		<dt>RABBITMQ_MNESIA_BASE</dt>
-		<dd>
-		  Defaults to
-		  <code>/var/lib/rabbitmq/mnesia</code>. Set this to
-		  the directory where Mnesia database files should be
-		  placed.
-		</dd>
+              <dl>
+                <dt>RABBITMQ_MNESIA_BASE</dt>
+                <dd>
+                  Defaults to
+                  <code>/var/lib/rabbitmq/mnesia</code>. Set this to
+                  the directory where Mnesia database files should be
+                  placed.
+                </dd>
 
-		<dt>RABBITMQ_LOG_BASE</dt>
-		<dd>
-		  Defaults to <code>/var/log/rabbitmq</code>. Log
-		  files generated by the server will be placed in this
-		  directory.
-		</dd>
+                <dt>RABBITMQ_LOG_BASE</dt>
+                <dd>
+                  Defaults to <code>/var/log/rabbitmq</code>. Log
+                  files generated by the server will be placed in this
+                  directory.
+                </dd>
 
-		<dt>RABBITMQ_NODENAME</dt>
-		<dd>
-		  Defaults to <code>rabbit</code>. This can be useful
-		  if you want to run more than one node per machine -
-		  <strong>RABBITMQ_NODENAME</strong> should be unique per
-		  erlang-node-and-machine combination. See 
-		  <a href="clustering.html#single-machine">
-		    clustering on a single machine</a> for more.
-		</dd>
-		
-		<dt>RABBITMQ_NODE_IP_ADDRESS</dt>
-		<dd>
-		  Defaults to <code>0.0.0.0</code>. This can be changed 
-		  if you only want to bind to one network interface.
-		</dd>
-		
-		<dt>RABBITMQ_NODE_PORT</dt>
-		<dd>
-		  Defaults to <code>5672</code>.
-		</dd>
+                <dt>RABBITMQ_NODENAME</dt>
+                <dd>
+                  Defaults to <code>rabbit</code>. This can be useful
+                  if you want to run more than one node per machine -
+                  <strong>RABBITMQ_NODENAME</strong> should be unique per
+                  erlang-node-and-machine combination. See
+                  <a href="clustering.html#single-machine">
+                    clustering on a single machine</a> for more.
+                </dd>
 
-		<dt>RABBITMQ_CONFIG_FILE</dt>
-		<dd>
-		  Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
-		  this file is present it is used by the server to
-		  configure RabbitMQ application components. Note that
-		  the .config extension is automatically appended by
-		  the Erlang runtime. See the section on <a
-		  href="#configfile">the configuration file</a> for
-		  details.  Note that this file is also used to
-		  auto-configure RabbitMQ clusters.  See the <a
-		  href="clustering.html">clustering guide</a> for
-		  details.
-		</dd>
-	      </dl>
-	      </div>
-	      <p><em>Note:</em> If the directories <strong>RABBITMQ_MNESIA_BASE</strong> and
-	      <strong>RABBITMQ_LOG_BASE</strong> do not exist the server will attempt to create
-	      them. It is important that the server has write permissions at these locations.</p>
-	</doc:subsection>
+                <dt>RABBITMQ_NODE_IP_ADDRESS</dt>
+                <dd>
+                  Defaults to <code>0.0.0.0</code>. This can be changed
+                  if you only want to bind to one network interface.
+                </dd>
 
-	<doc:subsection name="running-generic-unix">
-	  <doc:heading>Running the Server</doc:heading>
+                <dt>RABBITMQ_NODE_PORT</dt>
+                <dd>
+                  Defaults to <code>5672</code>.
+                </dd>
 
-	  <p>
-	    Invoke the <code>rabbitmq-server</code> shell script.
-	    This displays a banner message, and reports on progress in
-	    the startup sequence, concluding with the message "broker
-	    running", indicating that the RabbitMQ broker has been
-	    started successfully. To shut down the server just
-	    terminate the process. Alternatively, use the <a
-	    href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
-	  </p>
-	  <p>
-	    You can also start the server in "detached" mode with
-	    <code>rabbitmq-server -detached</code>, in which case the
-	    server process is backgrounded immediately and nothing is
-	    written to the console.
-	  </p>
-	</doc:subsection>
-	
-	<doc:subsection name="logging-generic-unix">
-	  <doc:heading>Logging</doc:heading>
-	  <p>
-	    Output from the server is sent to a
-	    <b>RABBITMQ_NODENAME</b>.log file in the
-	    <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
-	    written to <b>RABBITMQ_NODENAME</b>-sasl.log.
-	  </p>
-	  <p>
-	    In order to retain a complete log history the startup scripts,
-	    by default, append the contents to the corresponding <code>.1</code>
-	    files prior to starting the broker.
-	    You can easily set up log rotation process by creating 
-	    <code>logrotate</code> script as it is done for
-	    <a href="#logging-debian">Debian and RPM based distributions</a>.
-	  </p>
-	</doc:subsection>
+                <dt>RABBITMQ_CONFIG_FILE</dt>
+                <dd>
+                  Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
+                  this file is present it is used by the server to
+                  configure RabbitMQ application components. Note that
+                  the .config extension is automatically appended by
+                  the Erlang runtime. See the section on <a
+                  href="#configfile">the configuration file</a> for
+                  details.  Note that this file is also used to
+                  auto-configure RabbitMQ clusters.  See the <a
+                  href="clustering.html">clustering guide</a> for
+                  details.
+                </dd>
+              </dl>
+              </div>
+              <p><em>Note:</em> If the directories <strong>RABBITMQ_MNESIA_BASE</strong> and
+              <strong>RABBITMQ_LOG_BASE</strong> do not exist the server will attempt to create
+              them. It is important that the server has write permissions at these locations.</p>
+        </doc:subsection>
+
+        <doc:subsection name="running-generic-unix">
+          <doc:heading>Running the Server</doc:heading>
+
+          <p>
+            Invoke the <code>rabbitmq-server</code> shell script.
+            This displays a banner message, and reports on progress in
+            the startup sequence, concluding with the message "broker
+            running", indicating that the RabbitMQ broker has been
+            started successfully. To shut down the server just
+            terminate the process. Alternatively, use the <a
+            href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+          </p>
+          <p>
+            You can also start the server in "detached" mode with
+            <code>rabbitmq-server -detached</code>, in which case the
+            server process is backgrounded immediately and nothing is
+            written to the console.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="logging-generic-unix">
+          <doc:heading>Logging</doc:heading>
+          <p>
+            Output from the server is sent to a
+            <b>RABBITMQ_NODENAME</b>.log file in the
+            <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
+            written to <b>RABBITMQ_NODENAME</b>-sasl.log.
+          </p>
+          <p>
+            In order to retain a complete log history the startup scripts,
+            by default, append the contents to the corresponding <code>.1</code>
+            files prior to starting the broker.
+            You can easily set up log rotation process by creating
+            <code>logrotate</code> script as it is done for
+            <a href="#logging-debian">Debian and RPM based distributions</a>.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="troubleshooting">
-	<doc:heading>Troubleshooting</doc:heading>
-	<p>
-	  If the server fails to start, examine the console output and
-	  the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
-	  clues.  Chances are there is a configuration error, e.g. the
-	  mnesia directory cannot be created or the TCP port on which
-	  RabbitMQ tries to listen is already taken.
-	</p>
-	<p>
-	  When the server fails to start, usually a crash dump file
-	  <code>erl_crash.dump</code> is created in the directory
-	  where the server was started. This can provide very detailed
-	  information on the causes of a start up failure, but its
-	  analysis requires Erlang expertise.
-	</p>
-	<p>
-	  If the server is not behaving as expected during operation,
-	  examine the log files for clues and use the rabbitmqctl
-	  commands from the <a href="admin-guide.html">admin guide</a>
-	  to obtain further information on the server status.
-	</p>
-	<p>
-	  For problems encountered in the handling of AMQP traffic,
-	  the <a href="examples.html#tracer">AMQP capture and analysis
-	  tool</a> may help in the analysis.
-	</p>
-	
-	<p>
-	  Failing that, it's possible that we've solved the problem for 
-	  someone else on our 
-	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
-	  a Google search for something like 
-	  <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">erl_crash.dump 
-	  site:lists.rabbitmq.com</a> should do the trick, possibly also 
-	  adding terms for your platform, RabbitMQ/Erlang versions and 
-	  anything else relevant to what you were trying to do when things 
-	  went wrong.
-	</p>
+        <doc:heading>Troubleshooting</doc:heading>
+        <p>
+          If the server fails to start, examine the console output and
+          the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
+          clues.  Chances are there is a configuration error, e.g. the
+          mnesia directory cannot be created or the TCP port on which
+          RabbitMQ tries to listen is already taken.
+        </p>
+        <p>
+          When the server fails to start, usually a crash dump file
+          <code>erl_crash.dump</code> is created in the directory
+          where the server was started. This can provide very detailed
+          information on the causes of a start up failure, but its
+          analysis requires Erlang expertise.
+        </p>
+        <p>
+          If the server is not behaving as expected during operation,
+          examine the log files for clues and use the rabbitmqctl
+          commands from the <a href="admin-guide.html">admin guide</a>
+          to obtain further information on the server status.
+        </p>
+        <p>
+          For problems encountered in the handling of AMQP traffic,
+          the <a href="examples.html#tracer">AMQP capture and analysis
+          tool</a> may help in the analysis.
+        </p>
 
-	<p>
-	  If you can't find a solution to your problem on the list archive then
-	  please post a new message to rabbitmq-discuss@lists.rabbitmq.com (you may have 
-	  to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join 
-	  the mailing list first</a>). Let us know
-	  what you were trying to do, the error you received and a copy of the crash dump
-	  and one of our engineers will help you get it fixed.
-	</p>
-	
-	<p>
-	  If all of the above fails, please <a href="contact.html">tell us about the problem</a>
-	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
-	</p>
+        <p>
+          Failing that, it's possible that we've solved the problem for
+          someone else on our
+          <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
+          a Google search for something like
+          <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">erl_crash.dump
+          site:lists.rabbitmq.com</a> should do the trick, possibly also
+          adding terms for your platform, RabbitMQ/Erlang versions and
+          anything else relevant to what you were trying to do when things
+          went wrong.
+        </p>
+
+        <p>
+          If you can't find a solution to your problem on the list archive then
+          please post a new message to rabbitmq-discuss@lists.rabbitmq.com (you may have
+          to <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">join
+          the mailing list first</a>). Let us know
+          what you were trying to do, the error you received and a copy of the crash dump
+          and one of our engineers will help you get it fixed.
+        </p>
+
+        <p>
+          If all of the above fails, please <a href="contact.html">tell us about the problem</a>
+          and include the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
+        </p>
 
       </doc:section>
 
       <doc:section name="configfile">
-	      <doc:heading>Configuration File</doc:heading>
-	      <p>
+              <doc:heading>Configuration File</doc:heading>
+              <p>
           The Rabbit configuration file allows for the rabbit core application,
           Erlang services and Rabbit plugins to be configured. This configuration
           file is a standard Erlang configuration file, as documented on the
@@ -771,7 +818,7 @@
             <li><b>MacOS (Macports)</b> - /opt/local/etc/rabbitmq/rabbitmq.config</li>
             <li><b>Generic UNIX</b> - /etc/rabbitmq/rabbitmq.config</li>
           </ul>
-      	</p>
+        </p>
         <p>
           Note that this file is not the same as the
           <code>rabbitmq.conf</code> mentioned elsewhere -
@@ -781,7 +828,7 @@
           future release of RabbitMQ will unify the two configuration
           mechanisms.
         </p>
-	    <p>
+            <p>
           Note that this file may not be created by default. If needed, it can be created manually. The
           location can also be overidden via the <b>RABBITMQ_CONFIG_FILE</b> environment variable. Note
           that the property value should not include the .config extension - this is automatically appended
@@ -797,7 +844,7 @@
     {rabbit, []}
   ].
 </pre>
-	      </p>
+              </p>
         <p>
           This configuration file will alter the dump_log_write_threshold for mnesia (increasing from the default
           of 100).
