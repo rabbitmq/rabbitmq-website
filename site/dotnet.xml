@@ -49,9 +49,9 @@
     <h3>
       Download the library and documentation
     </h3>
-    
+
     <h4>Library and documentation installer</h4>
-    
+
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
@@ -63,15 +63,11 @@
     <h4>The library</h4>
 
     <p>
-      The library is available as source, or compiled in a few
-      different forms:
+      The library is available in several compiled forms, and as
+      source:
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
-		  downloadpath="&dir-dotnet-client;">
-	Source code and tools (zip)
-      </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-2.0.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 2.0 (zip) - includes example code
@@ -80,6 +76,10 @@
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 3.0 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Source code and tools (zip)
       </r:download>
     </r:downloads>
 
@@ -139,7 +139,7 @@
 
     <h3>Mercurial repository</h3>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-dotnet-client"
         url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>

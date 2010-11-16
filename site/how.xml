@@ -143,6 +143,8 @@
 	      A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
 	    </li>
 	    <li><a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a></li>
+	    <li><a href="resources/grails-amqp.pdf">Grails + messaging with AMQP/RabbitMQ</a><br />
+	      An introduction to AMQP messaging with Grails</li>
 	    <li><a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a></li>
       <li><a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a><br/>
       A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
@@ -161,6 +163,7 @@
 	    <li><a href="http://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby</li>
 	    <li><a href="http://groups.google.com/group/ruby-amqp/">Google ruby-amqp group</a></li>
 	    <li><a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons</li>
+	    <li><a href="http://github.com/orionz/minion">Minion</a> a super-simple job queue over AMQP</li>
 	    <li><a href="http://github.com/PlasticLizard/bunnicula">Bunnicula</a> a simple AMQP relay implemented as a ruby daemon (similar in intent to <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">shovel</a>)</li>
 	    <li><a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)</li>
 	    <li><a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ</li>
@@ -212,14 +215,15 @@
 	</li>
         <li id="dotnet-development">.NET development:
 	  <ul class="plain">
-	    <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
-	    <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
+        <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
+        <li><a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a></li>
+        <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
         A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
-	    </li>
-	    <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
-	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a></li>
-	    <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
-	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
+        </li>
+        <li><a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a></li>
+        <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a></li>
+        <li><a href="http://github.com/machine/machine.mta">.NET NServiceBus client</a></li>
+        <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a></li>
 	  </ul>
 	</li>
 	<li id="php-development">PHP development:
