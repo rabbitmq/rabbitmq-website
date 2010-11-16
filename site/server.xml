@@ -22,7 +22,7 @@
       let us know at <a
       href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
-    
+
     <p>
       The RabbitMQ server is an implementation of an AMQP broker.
       Please see the <a href="specification.html">specification</a> page
@@ -71,20 +71,12 @@
     </h3>
 
     <p>
-      The server is available as source, or compiled in a few
-      different forms. Notes on particular operating systems and
-      variants can be found below the download table.
+      The server is available in several compiled forms, or as
+      source. Notes on particular operating systems and variants can
+      be found below the download table.
     </p>
 
     <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-server-&version-server;.zip"
-                  downloadpath="&dir-server;">
-	Source code and tools (zip)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;.tar.gz"
-                  downloadpath="&dir-server;">
-        Source code and tools (tar.gz)
-      </r:download>
       <r:download downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
@@ -106,6 +98,14 @@
 		  downloadpath="&dir-server;">
 	Packaged for Windows systems
       </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;.zip"
+                  downloadpath="&dir-server;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;.tar.gz"
+                  downloadpath="&dir-server;">
+        Source code and tools (tar.gz)
+      </r:download>
     </r:downloads>
 
     <p>
@@ -119,14 +119,6 @@
       Consult <a href="/releases/rabbitmq-server/">the archive</a> if
       you want to download a version of the RabbitMQ Server other than
       the above.
-    </p>
-
-    <h4>Source Code</h4>
-
-    <p>
-      For instructions on building the server from the source-code
-      bundle in the table above, please see the <a
-      href="build-server.html">build page</a>.
     </p>
 
     <h4>Debian GNU/Linux and Ubuntu Linux</h4>
@@ -235,14 +227,22 @@
       (Karmic Koala), both 32 and 64 bit variants, are available for download
       with pre-installed RabbitMQ.
     </p>
-    
+
+    <h4>Source Code</h4>
+
+    <p>
+      For instructions on building the server from the source-code
+      bundle in the table above, please see the <a
+      href="build-server.html">build page</a>.
+    </p>
+
     <h3>Mercurial repositories</h3>
     <p>
       The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-server"
         url="http://hg.rabbitmq.com/rabbitmq-server/"/>
