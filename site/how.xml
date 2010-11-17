@@ -258,6 +258,8 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+        <li><a href="http://github.com/rabbitmq/rabbit-socks">rabbit-socks</a><br />
+        Websocket and Socket.IO support for RabbitMQ</li>
 	    <li><a href="http://github.com/akalend/amqp-rest">amqp-rest</a><br />
 	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP.</li>
 	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
