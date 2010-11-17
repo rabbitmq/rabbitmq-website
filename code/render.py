@@ -106,4 +106,3 @@ def handler(req):
         req.write(render_page('/500'))
 
     return apache.OK
-
