@@ -1,19 +1,14 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
-    <title>RabbitMQ tutorial - Work Queues</title>
-  </head>
-  <body>
+# RabbitMQ tutorial - Work Queues
 
-  <div id="sidebar" class="tutorial-two">
-     <xi:include href="tutorials-menu.xml.inc"/>
-  </div>
+<div id="sidebar" class="tutorial-two">
+   <xi:include href="tutorials-menu.xml.inc"/>
+</div>
 
-  <div id="tutorial">
+<div id="tutorial">
 
 ## Work Queues
 
-   <xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="tutorials-help.xml.inc"/>
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -375,5 +370,3 @@ Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
 
 </div>
-</body>
-</html>

@@ -1,21 +1,14 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
-    <title>Learning RabbitMQ, part 1 ("Hello world!")</title>
-  </head>
-  <body>
+# RabbitMQ tutorial - "Hello world!"
 
-  <div id="sidebar" class="tutorial-one">
-     <xi:include href="tutorials-menu.xml.inc"/>
-  </div>
+<div id="sidebar" class="tutorial-one">
+  <xi:include href="tutorials-menu.xml.inc"/>
+</div>
 
-
-  <div id="tutorial">
-
+<div id="tutorial">
 
 ## Introduction
 
-   <xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="tutorials-help.xml.inc"/>
 
 RabbitMQ is a message broker. The principal idea is pretty simple: it accepts
 and forwards messages. You can think about it as a post office: when you send
@@ -375,6 +368,3 @@ queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _work queue_.
 
 </div>
-
-</body>
-</html>

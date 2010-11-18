@@ -19,11 +19,25 @@ SITE_DIR='/srv/www.rabbitmq.com/site/'
 
 def preprocess_markdown(fpath):
     contents = open(fpath).read()
+
     ## Markdown will treat the whole file as markdown, whereas
     ## we want to only transform the body text.
-    bits = re.match("(.*<html[^>]*>.*<div id=\"tutorial\"[^>]*>)(.*)(</div>\s*</body>\s*</html>)", contents, re.DOTALL)
-    (pre, body, post) = bits.groups()
-    processed = markdown.markdown(body, ["codehilite(css_class=highlight)"])
+
+    title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
+    contents = contents[0:title.start()] + contents[title.end():]
+
+    pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>%s</title>
+  </head>
+  <body>
+""" % (title.group(1),)
+
+    post = """</body>
+</html>
+"""
+    processed = markdown.markdown(contents, ["codehilite(css_class=highlight)"])
     whole = pre + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 

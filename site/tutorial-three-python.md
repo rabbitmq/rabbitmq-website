@@ -1,18 +1,14 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
-    <title>RabbitMQ tutorial - Publish/Subscribe</title>
-  </head>
-  <body>
+# RabbitMQ tutorial - Publish/Subscribe
 
-  <div id="sidebar" class="tutorial-three">
-     <xi:include href="tutorials-menu.xml.inc"/>
-  </div>
+<div id="sidebar" class="tutorial-three">
+   <xi:include href="tutorials-menu.xml.inc"/>
+</div>
 
-  <div id="tutorial">
+<div id="tutorial">
+
 ## Publish/Subscribe
 
-   <xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-two-python.html) we created a work
 queue. The assumption behind a work queue is that each task is
@@ -332,5 +328,3 @@ exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
 </div>
-</body>
-</html>

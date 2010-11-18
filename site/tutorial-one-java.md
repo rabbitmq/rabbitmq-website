@@ -1,18 +1,14 @@
-<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
-    <title>RabbitMQ tutorial - "Hello World!"</title>
-  </head>
-  <body>
+# RabbitMQ tutorial - "Hello World!"
 
-  <div id="sidebar" class="tutorial-one">
-     <xi:include href="tutorials-menu.xml.inc"/>
-  </div>
+<div id="sidebar" class="tutorial-one">
+  <xi:include href="tutorials-menu.xml.inc"/>
+</div>
 
-   <div id="tutorial">
+<div id="tutorial">
+
 ## Introduction
 
-   <xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="tutorials-help.xml.inc"/>
 
 RabbitMQ is a message broker. In essence, it accepts messages from
 _producers_, and delivers them to _consumers_. In-between, it can
@@ -253,6 +249,3 @@ the sender from another terminal.
 Hello World!
 
 </div>
-
-</body>
-</html>
