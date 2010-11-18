@@ -48,7 +48,7 @@
 	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
 	dependency on proprietary vendor-supplied libraries.</p>
 	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
-	with other messaging systems: it is the leading <a href="faq#what-is-amqp">implementation of AMQP</a>,
+	with other messaging systems: it is the leading <a href="faq.html#what-is-amqp">implementation of AMQP</a>,
 	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
 	XMPP, SMTP, STOMP and HTTP for lightweight web messaging.</p>
 	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
