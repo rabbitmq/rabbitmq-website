@@ -24,7 +24,7 @@
           and set up a default Environment.
         </p>
         <p>
-          Note that scripts and commands will need to be run as an administrator on Windows,<br/>
+          Note that scripts and commands will need to be run as an administrator on Windows, 
           or as an administrator, with root permission (eg sudo) on Unix-like systems.<br/>
           Mnesia and Log Directories will need read/write permissions for the rabbitmq account.
         </p>
@@ -32,7 +32,7 @@
           Typical installations follow.<br/>
           If you use non-default file locations, account or service names or ports, 
           these Environment Variables should be edited as described.<br/>
-          Other configuration may be defined in a .config file using the Configuration example.
+          Other configuration may be defined in a .config file using the <a href="#configfile">Configuration</a> example.
         </p>
       </div>
 
@@ -464,8 +464,8 @@
               <a href="server.html">download page</a>, or by using our <a
               href="debian.html#apt">APT repository</a>. The server
               should start with appropriate defaults. Note that the
-              package depends on erlang-base packages, so if you use
-              apt on a Debian distribution that has erlang-base
+              package depends on Erlang-base packages, so if you use
+              apt on a Debian distribution that has Erlang-base
               packages available, all dependencies should be properly
               met.
             </li>
@@ -554,12 +554,11 @@
               rabbitmq-server-&version-server;-<i>architecture</i>.rpm
               (which you can download from the 
               <a href="server.html">download page</a>).  
-              Note that the package depends on erlang package(s).
+              Note that the package depends on Erlang package(s).
               We strongly recommend using your distribution's packaged
               version of Erlang to run the server. See <a
               href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
-              there is no official erlang package for your
-              distribution.
+              there is no official Erlang package for your distribution.
             </li>
             <li>
               To adjust the settings used for starting the server,
