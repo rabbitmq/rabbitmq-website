@@ -219,8 +219,10 @@
                double-click the rabbitmq-server.bat file.
               </p>               
               <p>
-               This script only starts the broker. If you enter other options, they are ignored, but may attempt to start a second broker.
-                If you try to start another broker application, you may get a <a href="#troubleshooting">crash dump</a> response.
+               This script only starts the broker. If you enter other options, 
+               they are ignored, but may attempt to start a second broker.
+                If you try to start another broker application, you may get a 
+                <a href="#troubleshooting">crash dump</a> response.
               </p>
               <p>
                If you started by double clicking, the shell window displays a banner message,
