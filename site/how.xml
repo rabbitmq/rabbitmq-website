@@ -232,7 +232,6 @@
         An introductory presentation covering common RabbitMQ use cases with code examples in PHP</li>
       <li><a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a></li>
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
-	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
 	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
