@@ -666,6 +666,13 @@
 
       <doc:section name="troubleshooting">
 	<doc:heading>Troubleshooting</doc:heading>
+    <p>
+      Note that on Solaris it may be necessary to use
+      <code>/usr/xpg4/bin/sh</code> as the default shell and to
+      install a GNU version of <code>readlink</code>.
+      This can be obtained in the coreutils package from
+      <a href="http://www.sunfreeware.com/">Sunfreeware</a>.
+    </p>
 	<p>
 	  If the server fails to start, examine the console output and
 	  the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
