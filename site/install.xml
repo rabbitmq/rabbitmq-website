@@ -219,8 +219,8 @@
                double-click the rabbitmq-server.bat file.
               </p>               
               <p>
-               This script starts the application only. All other options are ignored.
-                If you try to start another broker application, you will get a crashdump response.
+               This script only starts the broker. If you enter other options, they are ignored, but may attempt to start a second broker.
+                If you try to start another broker application, you may get a <a href="#troubleshooting">crash dump</a> response.
               </p>
               <p>
                If you started by double clicking, the shell window displays a banner message,
@@ -807,7 +807,32 @@
       <doc:section name="troubleshooting">
         <doc:heading>Troubleshooting</doc:heading>
         <p>
-          If the server fails to start, examine the console output and
+          It is useful to use rabbitmqctl status to verify whether a broker is running.
+          This example indicates that no broker is running.
+          <pre class="sourcecode">
+            Status of node 'rabbit@xxx' ...
+            Error: unable to connect to node 'rabbit@xxx': nodedown
+            diagnostics
+            [...]</pre>
+        </p>
+        <p>
+          A running broker status looks something like this:
+          <pre class="sourcecode">Status of node 'rabbit@xxx' ...<br />[{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
+          {os_mon,"..."},
+          {sasl,"..."},
+          {mnesia,"..."},
+          {stdlib,"..."},
+          {kernel,"..."},<br />{nodes,[{disc,['rabbit@xxx']}]}<br />{running_nodes,['rabbit@xxx']}]</pre>
+        </p>
+        <p>
+          You could ignore the error report if you have simply tried to start a new server while it is already running. 
+          <pre class="sourcecode">
+          [...]
+          Crash dump was written to: erl_crash.dump
+          Kernel pid terminated (application_control,{shutdown,{kernel,start,[normal,[]]}}})</pre>
+        </p>
+        <p>
+          However, if the server fails to start, examine the console output and
           the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
           clues.  Chances are there is a configuration error, e.g. the
           mnesia directory cannot be created or the TCP port on which
@@ -819,7 +844,7 @@
           where the server was started. This can provide very detailed
           information on the causes of a start up failure, but its
           analysis requires Erlang expertise.
-        </p>
+        </p>        
         <p>
           If the server is not behaving as expected during operation,
           examine the log files for clues and use the rabbitmqctl
