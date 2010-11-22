@@ -18,7 +18,7 @@ a post office and a postman.
 
 The major difference between RabbitMQ and the post office is the fact that it
 doesn't deal with paper, instead it accepts, stores and forwards binary
-blobs of data -- _messages_.
+blobs of data &#8210; _messages_.
 
 RabbitMQ, and messaging in general, uses some jargon.
 
@@ -42,7 +42,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    RabbitMQ. Although messages flow through RabbitMQ and your
    applications, they can be stored only inside a _queue_. A _queue_
    is not bound by any limits, it can store as many messages as you
-   like -- it's essentially an infinite buffer. Many _producers_ can send
+   like &#8210; it's essentially an infinite buffer. Many _producers_ can send
    messages that go to the one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
@@ -84,7 +84,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 Hello World!
 ------------
 
-Our "Hello world" won't be too complex - let's send a message, receive
+Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
 sends a message and one that receives and prints it.
 
@@ -194,9 +194,9 @@ _test_ queue.
 
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
-details - you can read more about _exchanges_ in [the third part of this
+details &#8210; you can read more about _exchanges_ in [the third part of this
 tutorial](tutorial-three-python.html). All we need to know now is how to use a default exchange
-identified by an empty string. This exchange is special - it
+identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
 
@@ -237,14 +237,15 @@ them on the screen.
 Again, first we need to connect to RabbitMQ server. The code
 responsible for connecting to Rabbit is the same as previously.
 
-The next step, just like before, is to make sure that the
-queue exists. Creating a queue using `queue_declare` is idempotent - we can
-run the command as many times as we like, and only one will be created.
+The next step, just like before, is to make sure that the queue
+exists. Creating a queue using `queue_declare` is idempotent &#8210; we
+can run the command as many times as we like, and only one will be
+created.
 
     :::python
     channel.queue_declare(queue='test')
 
-You may ask why we declare the queue again - we have already declared it
+You may ask why we declare the queue again &#8210; we have already declared it
 in our previous code. We could avoid that if we were sure
 that the queue already exists. For example if `send.py` program was
 run before. But we're not yet sure which
@@ -283,8 +284,8 @@ receive messages from our _test_ queue:
                           no_ack=True)
 
 For that command to succeed we must be sure that a queue which we want
-to subscribe to exists. Fortunately we're confident about that -- we've
-created a queue above -- using `queue_declare`.
+to subscribe to exists. Fortunately we're confident about that &#8210; we've
+created a queue above &#8210; using `queue_declare`.
 
 The `no_ack` parameter will be described [later on](tutorial-two-python.html).
 
