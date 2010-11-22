@@ -647,7 +647,6 @@ ul#tutorials > li {
 #tutorial pre {
     background-color: #eee;
     padding: 5px 15px;
-    margin: 12px;
     border-radius:5px;
     -moz-border-radius: 5px;
 }
@@ -668,6 +667,7 @@ ul#tutorials > li {
 
 #tutorial blockquote {
     padding: 2px 12px;
+    margin: 40px 6px;
     border: 1px solid #aaa;
     background: #ddd;
     border-radius: 5px;
