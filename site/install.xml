@@ -32,7 +32,8 @@
           Typical installations follow.<br/>
           If you use non-default file locations, account or service names or ports, 
           these Environment Variables should be edited as described.<br/>
-          Other configuration may be defined in a .config file using the <a href="#configfile">Configuration</a> example.
+          Other configuration may be defined in a .config file using the 
+          <a href="#configfile">Configuration</a> example.
         </p>
       </div>
 
@@ -809,26 +810,26 @@
       <doc:section name="troubleshooting">
         <doc:heading>Troubleshooting</doc:heading>
         <p>
-          It is useful to use rabbitmqctl status to verify whether a broker is running.
-          This example indicates that no broker is running.
-          <pre class="sourcecode">
-            Status of node 'rabbit@xxx' ...
-            Error: unable to connect to node 'rabbit@xxx': nodedown
-            diagnostics
-            [...]</pre>
-        </p>
-        <p>
+          It is useful to use rabbitmqctl status to verify whether a broker is running.<br />
           A running broker status looks something like this:
-          <pre class="sourcecode">Status of node 'rabbit@xxx' ...<br />[{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
+          <pre>Status of node 'rabbit@xxx' ...<br />[{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
           {os_mon,"..."},
           {sasl,"..."},
           {mnesia,"..."},
           {stdlib,"..."},
           {kernel,"..."},<br />{nodes,[{disc,['rabbit@xxx']}]}<br />{running_nodes,['rabbit@xxx']}]</pre>
         </p>
+        <p> 
+          This example indicates that no broker is running.
+          <pre>
+            Status of node 'rabbit@xxx' ...
+            Error: unable to connect to node 'rabbit@xxx': nodedown
+            diagnostics
+            [...]</pre>
+        </p>
         <p>
           You could ignore the error report if you have simply tried to start a new server while it is already running. 
-          <pre class="sourcecode">
+          <pre>
           [...]
           Crash dump was written to: erl_crash.dump
           Kernel pid terminated (application_control,{shutdown,{kernel,start,[normal,[]]}}})</pre>
