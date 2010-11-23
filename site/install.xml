@@ -211,7 +211,7 @@
           </div>
 
           <dl class="instructions">
-            <dt>Starting the server application</dt>
+            <dt>Starting the Server Application</dt>
             <dd>
               <p>
                Use the <code>rabbitmq-server -detached</code> command from 
@@ -239,7 +239,7 @@
               </p>
             </dd>
              
-            <dt>Stopping and managing the broker</dt>
+            <dt>Stopping and Managing the Broker</dt>
             <dd>
              Use the <a href="#managing-windows">rabbitmqctl</a> commands
             </dd>
@@ -313,13 +313,13 @@
 
           <div class="instructions">
             <dl>
-              <dt>Service commands</dt>
+              <dt>Service Commands</dt>
               <dd>
                 Log in as an administrator and open a command shell (<code>cmd.exe</code>)
                 in the <code>sbin</code> directory.
               </dd>
                
-              <dt>Install the service</dt>
+              <dt>Install the Service</dt>
               <dd>
                 <p>
                 Install the service by executing <pre class="sourcecode">rabbitmq-service install</pre>
@@ -332,7 +332,7 @@
                 </p>
               </dd>
                
-              <dt>Starting the service</dt>
+              <dt>Starting the Service</dt>
               <dd>
                 <p>
                 To start the server, execute 
@@ -355,7 +355,7 @@
                 </p>
               </dd>
                 
-              <dt>Managing the service</dt>
+              <dt>Managing the Service</dt>
               <dd>
                 <p>
                 To manage the service (install, remove, enable, start etc), use 
@@ -366,7 +366,7 @@
                 </p>
               </dd>
                 
-              <dt>Stopping and managing the broker</dt>
+              <dt>Stopping and Managing the Broker</dt>
               <dd>
                 Use the <a href="#managing-windows">rabbitmqctl</a> commands
               </dd>
@@ -404,14 +404,14 @@
               </p>
             </dd>
                
-            <dt>Stopping the broker</dt>
+            <dt>Stopping the Broker</dt>
             <dd>
               <p>
                  Use the <code>rabbitmqctl stop</code> command from <code>sbin</code>.
               </p>
             </dd>
                
-            <dt>Checking the broker status</dt>
+            <dt>Checking the Broker Status</dt>
             <dd>
               <p>
                  Use the <code>rabbitmqctl status</code> command from <code>sbin</code>.
@@ -809,45 +809,64 @@
 
       <doc:section name="troubleshooting">
         <doc:heading>Troubleshooting</doc:heading>
-        <p>
-          It is useful to use rabbitmqctl status to verify whether a broker is running.<br />
-          A running broker status looks something like this:
-          <pre>Status of node 'rabbit@xxx' ...<br />[{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
+        <dl class="instructions">
+          <dt>Checking Broker Status</dt>
+          <dd>
+            <p>
+              It is useful to use rabbitmqctl status to verify whether a broker is running.<br />
+              A running broker status looks something like this:
+              <pre>
+  Status of node 'rabbit@xxx' ...
+  [{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
           {os_mon,"..."},
           {sasl,"..."},
           {mnesia,"..."},
           {stdlib,"..."},
-          {kernel,"..."},<br />{nodes,[{disc,['rabbit@xxx']}]}<br />{running_nodes,['rabbit@xxx']}]</pre>
-        </p>
-        <p> 
-          This example indicates that no broker is running.
-          <pre>
-            Status of node 'rabbit@xxx' ...
-            Error: unable to connect to node 'rabbit@xxx': nodedown
-            diagnostics
-            [...]</pre>
-        </p>
-        <p>
-          You could ignore the error report if you have simply tried to start a new server while it is already running. 
-          <pre>
+          {kernel,"..."},
+  {nodes,[{disc,['rabbit@xxx']}]}
+  {running_nodes,['rabbit@xxx']}]</pre>
+            </p>
+            <p> 
+              This example indicates that no broker is running.
+              <pre>
+  Status of node 'rabbit@xxx' ...  
+  Error: unable to connect to node 'rabbit@xxx': nodedown
+  diagnostics:
+  - nodes and their ports on xxx: [{rabbitmqctl,...}]
+  - current node: 'rabbitmqctl@xxx'
+  - current node home dir: [...]
+  - current node cookie hash: [...]</pre>
+              If there is no diagnostic line for current node cookie hash, you
+              should check your cookies are the same.
+            </p>
+          </dd>
+          <dt>Server Fails to Start</dt>
+          <dd>
+            <p>
+              When the server fails to start, usually a crash dump file
+              <code>erl_crash.dump</code> is created in the directory
+              where the server was started. This can provide very detailed
+              information on the causes of a start up failure, but its
+              analysis requires Erlang expertise.
+            </p> 
+            <p>
+              <pre>
           [...]
-          Crash dump was written to: erl_crash.dump
-          Kernel pid terminated (application_control,{shutdown,{kernel,start,[normal,[]]}}})</pre>
-        </p>
-        <p>
-          However, if the server fails to start, examine the console output and
-          the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
-          clues.  Chances are there is a configuration error, e.g. the
-          mnesia directory cannot be created or the TCP port on which
-          RabbitMQ tries to listen is already taken.
-        </p>
-        <p>
-          When the server fails to start, usually a crash dump file
-          <code>erl_crash.dump</code> is created in the directory
-          where the server was started. This can provide very detailed
-          information on the causes of a start up failure, but its
-          analysis requires Erlang expertise.
-        </p>        
+  Crash dump was written to: erl_crash.dump
+  Kernel pid terminated (application_control,{shutdown,{kernel,start,[normal,[]]}}})</pre>
+	      If you have simply tried to start another server while a broker is already running, 
+	      then you could ignore this error report.
+	      You can confirm whether the broker is running by checking the status.
+            </p>
+            <p>
+              However, if the server fails to start, examine the console output and
+              the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
+              clues.  Chances are there is a configuration error, e.g. the
+              mnesia directory cannot be created or the TCP port on which
+              RabbitMQ tries to listen is already taken.
+            </p>
+          </dd>
+        </dl>        
         <p>
           If the server is not behaving as expected during operation,
           examine the log files for clues and use the rabbitmqctl
