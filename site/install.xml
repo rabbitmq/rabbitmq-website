@@ -827,7 +827,7 @@
   {running_nodes,['rabbit@xxx']}]</pre>
             </p>
             <p> 
-              This example indicates that no broker is running.
+              This example indicates that no broker is running:
               <pre>
   Status of node 'rabbit@xxx' ...  
   Error: unable to connect to node 'rabbit@xxx': nodedown
@@ -836,8 +836,10 @@
   - current node: 'rabbitmqctl@xxx'
   - current node home dir: [...]
   - current node cookie hash: [...]</pre>
-              If there is no diagnostic line for current node cookie hash, you
-              should check your cookies are the same.
+              If the diagnostic line looks like this:
+              <pre>
+  - nodes and their ports on xxx: [{rabbit,...},{rabbitmqctl,...}]</pre>
+              then you should make sure the erlang cookies are the same.
             </p>
           </dd>
           <dt>Server Fails to Start</dt>
