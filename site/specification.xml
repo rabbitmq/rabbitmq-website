@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Specification</title>
   </head>
@@ -24,9 +24,7 @@
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
   future version of RabbitMQ will implement AMQP 1.0.  Please 
-  <a href="mailto:info@rabbitmq.com">contact us</a> for details, or 
-  <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">ask on the 
-  mailing list</a>.  You can also read about <a href="http://jira.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
+  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://jira.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
 	</p>
@@ -1684,7 +1682,7 @@
         </rules>
       </doc:section>
 
-      <doc:section name="rules">
+      <doc:section name="rules-pdf">
         <doc:heading>Rules from the AMQP specification, version 0-9-1 (PDF)</doc:heading>
         <p>
           The rules listed below are from the PDF version of the 0-9-1 specification,
@@ -2464,7 +2462,7 @@
         </rules>
       </doc:section>
 
-      <doc:section name="rules">
+      <doc:section name="rules-08">
         <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
         <p>
           The rules listed below relate to features supported by RabbitMQ that 

@@ -1,0 +1,31 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>RabbitMQ - Getting started</title>
+  </head>
+  <body>
+    <doc:div>
+      <h2>Getting started with RabbitMQ</h2>
+      <p>
+        These tutorials cover the basics of creating messaging
+        applications using RabbitMQ.
+
+        You need to have the RabbitMQ server installed to go through
+        the tutorials &#8210; please see the <a
+        href="install.html">installation guide.</a>
+      </p>
+
+      <p>
+         A final note before we start: the tutorials here are in
+         Python or Java, but there are very good tutorials <a
+         href="how.html#quickstart">elsewhere</a> using other
+         programming languages.
+      </p>
+
+      <div id="tutorial-index">
+        <xi:include href="tutorials-menu.xml.inc"/>
+      </div>
+    </doc:div>
+  </body>
+</html>

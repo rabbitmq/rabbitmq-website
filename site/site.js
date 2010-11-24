@@ -30,18 +30,15 @@ function decorate_links() {
         var link = links[i];
 
         /* When we count a pageview:
-           - When domain/procotol doesn't match current website
-           (probably a remote link).
            - When link relates to "/releases", "/debian", "/javadoc"
            or "/examples" as this directories don't have a tracking
            code and should be treated as remote content.
         */
-        if (!link.href.match("^" + location) ||
-            link.href.match("^" + location + "/(releases|debian|javadoc|examples)/") ) {
+        if (link.href.match("^" + location + "/(releases|debian|javadoc|examples)/") ) {
             link.onclick = function () {
                 /* Google analytics don't know how to present remote links,
                    so we need to pretend they are local. For example:
-                   /remote/http//mirror.rabbitmq.com/releases/rabbitmq-server/v1.8.0/rabbitmq-server-1.8.0.zip
+                   /remote/http//www.rabbitmq.com/releases/rabbitmq-server/v1.8.0/rabbitmq-server-1.8.0.zip
                 */
                 var url = "/remote/" + this.href.replace("://","/");
                 _gaq.push(['_trackPageview', url]);
@@ -78,8 +75,17 @@ function handle_SearchBoxFocus() {
     }
 }
 
-window.onload = function() {
+/*
+ * Registers a function to handle the window.onload event 
+ * without replacing any existing handler
+ */
+function registerOnLoadHandler(handler) {
+	var fun = window.onload ? window.onload : function() {};
+	window.onload = function() { fun(); handler(); };
+}
+
+registerOnLoadHandler(function() {
     try{
         decorate_links();
     }catch(err){};
-};
+});

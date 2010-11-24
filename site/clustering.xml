@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Clustering Guide</title>
   </head>
@@ -143,6 +143,16 @@ Status of node rabbit@rabbit3 ...
  {running_nodes,[rabbit@rabbit3]}]
 ...done.</pre>
 
+          <p>
+            The node name of a RabbitMQ broker started from the
+            <code>rabbitmq-server</code> shell script is
+            <code>rabbit@<i>shorthostname</i></code>, where the short
+            node name is lower-case (as in <code>rabbit@rabbit1</code>,
+            above). If you use the <code>rabbitmq-server.bat</code>
+            batch file on Windows, the short node name is upper-case (as
+            in <code>rabbit@RABBIT1</code>). When you type node names,
+            case matters, and these strings must match exactly.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="creating">
@@ -155,7 +165,7 @@ Status of node rabbit@rabbit3 ...
           </p>
           <p>
             We first join <code>rabbit@rabbit2</code> as a ram node in
-            a cluster withh <code>rabbit@rabbit1</code> in a
+            a cluster with <code>rabbit@rabbit1</code> in a
             cluster. To do that, on <code>rabbit@rabbit2</code> we
             stop the RabbitMQ application, reset the node, join the
             <code>rabbit@rabbit1</code> cluster, and restart the
@@ -578,7 +588,7 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           </p>
           <pre class="sourcecode">[
   {rabbit, [
-  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}
   ]},
 ].</pre>
           <p>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:html="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc xi"
+                exclude-result-prefixes="r doc html xi"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
-  <xsl:template match="/html/head">
-    <xsl:copy>
-      <xsl:apply-templates/>
+  <xsl:template match="html:head">
+    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
       <meta name="googlebot" content="NOODP"/>
@@ -33,20 +33,21 @@ try{
   })();
 }catch(err){};
       </script>
-    </xsl:copy>
+      <xsl:apply-templates/>
+    </head>
   </xsl:template>
 
-  <xsl:template match="/html/body">
-    <xsl:copy>
+  <xsl:template match="html:body">
+    <body>
       <div id="outerContainer">
 	<xsl:call-template name="page-header"/>
 	<xsl:apply-templates/>
 	<xsl:call-template name="page-footer"/>
       </div>
-    </xsl:copy>
+    </body>
   </xsl:template>
 
-  <xsl:template match="table">
+  <xsl:template match="html:table">
     <table>
       <xsl:copy-of select="@*"/>
       <xsl:attribute name="border">0</xsl:attribute>
@@ -72,7 +73,7 @@ try{
     <ul class="mainNav">
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/how.html">Get Started</a></li>
+      <li><a href="/getstarted.html">Get Started</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/community.html">Community</a></li>
       <li><a href="/blog/">Blog</a></li>
@@ -81,13 +82,13 @@ try{
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"/>	
+    <div class="clear"/>
     <div class="pageFooter">
       <p class="righter">
         <a href="/contact.html">Contact</a> |
         <a href="/about.html">About</a>
       </p>
-      <p>RabbitMQ&#8482; is a Trademark of Rabbit Technologies Ltd.</p>
+      <p>Copyright &#169; 2010 VMware, Inc. All rights reserved.</p>
     </div>
   </xsl:template>
 
@@ -278,7 +279,7 @@ try{
 
   <xsl:template match="r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
+      <td class="desc" id="{@id}"><xsl:copy-of select="text()"/></td>
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
@@ -343,7 +344,7 @@ try{
   </xsl:template>
 
   <!-- ############################################################ -->
-  
+
   <xsl:template match="r:classes">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -514,8 +515,18 @@ try{
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:template match="*[local-name(.) = 'code']">
+  	<span class="code {./@class}"><xsl:value-of select="." /></span>
+  </xsl:template>
+
   <xsl:template match="@*">
     <xsl:copy/>
+  </xsl:template>
+  
+  <xsl:template match="html:*">
+    <xsl:element name="{name()}" namespace="{namespace-uri()}">
+      <xsl:apply-templates select="@*|node()" />
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="*">

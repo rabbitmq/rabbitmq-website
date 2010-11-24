@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Installation</title>
   </head>
@@ -714,10 +714,8 @@
 	</p>
 	
 	<p>
-	  If all of the above fails, report the problem to <a
-	  href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>
-	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in
-	  your report.
+	  If all of the above fails, please <a href="contact.html">tell us about the problem</a>
+	  and include the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
 	</p>
 
       </doc:section>

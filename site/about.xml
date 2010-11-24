@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>RabbitMQ - About</title>
   </head>
@@ -31,7 +31,7 @@
       <a href="examples.html">examples</a>, <a href="community.html">community forums</a> and
       <a href="partners.html">partner</a> pages.
     </p>
-    
-     <p>Please note, RabbitMQ is <a href="mailto:info@rabbitmq.com?subject=Recruitment">recruiting!</a></p>
+
+     <p>Please note, RabbitMQ is <a href="contact.html">recruiting!</a></p>
 </body>
 </html>

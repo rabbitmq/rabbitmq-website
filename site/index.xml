@@ -1,34 +1,34 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>RabbitMQ - Messaging that just works</title>
   </head>
-  <body>      
+  <body>
     <div class="rgt-third">
-    
+
     <p class="rgt button">
-    <a class="" href="download.html"><b>Download</b></a>
-    <a class="" href="services.html"><b>Our Services</b></a>
-    <a class="" href="community.html"><b>Get Involved</b></a>
+    <a class="" href="download.html">Download</a>
+    <a class="" href="getstarted.html">Get Started</a>
+    <a class="" href="community.html">Get Involved</a>
     </p>
-    
+
       <h3>
 	<span class="subscribe"><a href="news.atom">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
 	</a></span>Latest News
-      </h3>     
-      <feed src="news.atom" type="ournews" limit="3" />  
-      
-    <div class="">  
+      </h3>
+      <feed src="news.atom" type="ournews" limit="3" />
+
+    <div class="">
 	<h3>
 	<span class="subscribe"><a href="http://search.twitter.com/search.atom?q=rabbitmq">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
 	</a>
 	</span>
 	Latest Community Chatter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
+	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>
     </div>
-          
+
     </div>
     <h3>What Is RabbitMQ?</h3>
     <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
@@ -40,7 +40,7 @@
       <li>Read more about <a href="how.html">RabbitMQ</a></li>
       <li>Get involved on our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
     </ul>
-    
+
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a> and offers a
 	reliable, <a href="faq.html#feature-reliable">highly available</a>, scalable and portable messaging system with predictable and consistent
@@ -48,7 +48,7 @@
 	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
 	dependency on proprietary vendor-supplied libraries.</p>
 	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
-	with other messaging systems: it is the leading <a href="faq#what-is-amqp">implementation of AMQP</a>,
+	with other messaging systems: it is the leading <a href="faq.html#what-is-amqp">implementation of AMQP</a>,
 	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
 	XMPP, SMTP, STOMP and HTTP for lightweight web messaging.</p>
 	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
@@ -61,18 +61,17 @@
       <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
       <li>Just <a href="how.html">tell me more</a></li>
     </ul>
-    
-    <div class="">      
+
+    <div class="">
 	<h3>
 	<span class="subscribe"><a href="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq">
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to RabbitMQ news from Delicious" title="Subscribe to RabbitMQ news from Delicious" />
 	</a></span>
 	Latest Community Highlights
 	</h3>
-	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  
+	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>
 	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
     </div>
-    
-    
+
   </body>
 </html>
