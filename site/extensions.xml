@@ -22,11 +22,11 @@
 
         <p>
           Using standard AMQP, the only way to guarantee that a
-          message isn't lost is using transactions -- make the channel
-          transactional, publish the message, commit.  In this case,
-          transactions are unnecessarily heavyweight and decrease
-          throughput by a factor of 250x.  To remedy this, lightweight
-          publisher acknowledgements were introduced.
+          message isn't lost is by using transactions -- make the
+          channel transactional, publish the message, commit.  In this
+          case, transactions are unnecessarily heavyweight and
+          decrease throughput by a factor of 250.  To remedy this,
+          lightweight publisher acknowledgements were introduced.
         </p>
 
         <p>
@@ -42,37 +42,35 @@
 
         <p>
           Once a channel is in confirm mode, both the broker and the
-          client count messages (counting starts at 0 when the
-          <code>confirm.select</code> is sent/received).  The broker
-          then confirms messages as it handles them.  The broker
-          confirms messages by sending a <code>basic.ack</code> on the
-          same channel; the <code>delivery-tag</code> field contains
-          the sequence number for the acknowledged message.  If
-          <code>multiple</code> was set in the
-          <code>confirm.select</code>, the broker may also set the
-          <code>multiple</code> field in the <code>basic.ack</code>
-          methods; in this case, all messages up to and including the
-          one with the sequence number are acknowledged.
+          client count messages (counting starts at 0 on
+          <code>confirm.select</code>).  The broker then confirms
+          messages as it handles them.  The broker confirms messages
+          by sending a <code>basic.ack</code> on the same channel; the
+          <code>delivery-tag</code> field contains the sequence number
+          of the acknowledged message.  If <code>multiple</code> was
+          set in the <code>confirm.select</code>, the broker may also
+          set the <code>multiple</code> field in the
+          <code>basic.ack</code> methods; in this case, all messages
+          up to and including the one with the sequence number are
+          acknowledged.
         </p>
 
         <p>
-          The broker confirming a message should be taken to mean that
-          the broker assumes responsibility for the message and that
-          it has done something it deems reasonable with it.
-          Unroutable mandatory or immediate messages are acknowledged
-          right after the <code>basic.return</code>.  Transient
-          messages are acknowledged as soon as they land on a queue.
-          Persistent messages are acknowledged when they are written
-          to disk or when they have been consumed on <em>every</em>
-          queue.
+          Confirming a message means that the broker assumes
+          responsibility for the message and that it has done
+          something it deems reasonable with it.  Unroutable mandatory
+          or immediate messages are acknowledged right after the
+          <code>basic.return</code>.  Transient messages are
+          acknowledged as soon as they arrive on all the queues they
+          were routed to.  Persistent messages are acknowledged when
+          they have been delivered from all queues or successfully
+          persisted.
         </p>
 
         <p>
           After a channel is put into confirm mode, all subsequently
-          published messages will be ack'd once (i.e. every message
-          will be ack'd and no message will be ack'd more than once).
-          No guarantees are made as to how long before a message is
-          ack'd.
+          published messages will be ack'd once.  No guarantees are
+          made as to how soon a message is ack'd.
         </p>
 
         <doc:subsection>
@@ -80,12 +78,12 @@
 
           <p>
             This example in Java publishes a large number of messages
-            to a confirm channel and waits for the acknowledgements.
-            The full code is available <a
+            to a channel in confirm mode and waits for the
+            acknowledgements.  The full code is available <a
             href="https://gist.github.com/613165">here</a>.
           </p>
           <pre class="sourcecode">
-volatile SortedSet&lt;Long&gt; ackSet = Collections.synchronizedSortedSet(new TreeSett&lt;Long&gt;());
+volatile SortedSet&lt;Long&gt; ackSet = Collections.synchronizedSortedSet(new TreeSet&lt;Long&gt;());
 ...
 ch.confirmSelect(true);
 final Publisher This = this;
