@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ - Plugins</title>
   </head>
@@ -87,8 +87,7 @@
 
     <p>
       An AMQP-over-HTTP protocol binding for RabbitMQ and some
-      Javascript libraries for interacting with RabbitMQ over HTTP, as
-      well as some examples.
+      Javascript libraries for interacting with RabbitMQ over HTTP.
     </p>
 
     <p>To use this plugin the following files are required:</p>
@@ -98,6 +97,19 @@
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-jsonrpc-channel-examples">rabbitmq-jsonrpc-channel-examples</h3>
+
+    <p>
+      Example web applications written with rabbitmq-jsonrpc-channel:
+      A shared whiteboard, a chat application, and some tests.
+    </p>
+
+    <p>To use this plugin the following files are required <b>in
+    addition to those for rabbitmq-jsonrpc-channel</b>:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-examples-&version-server;.ez">rabbitmq-jsonrpc-channel-examples</a></li>
     </ul>
 
     <h3 id="rabbitmq-management">rabbitmq-management</h3>
@@ -114,7 +126,21 @@
       <li><a href="/releases/plugins/v&version-server;/webmachine-&version-server;.ez">webmachine</a></li>
       <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
+    </ul>
+
+    <h3 id="rabbitmq-management-agent">rabbitmq-management-agent</h3>
+
+    <p>
+      When installing the management plugin on some nodes in a
+      cluster, this must be installed on all the nodes which
+      do <b>not</b> have the full management plugin installed.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
     </ul>
 
     <h3 id="rabbitmq-shovel">rabbitmq-shovel</h3>
@@ -145,7 +171,7 @@
 
     <p>
       Please see
-      the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README">readme</a>
+      the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README.md">readme</a>
       file and our
       various <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
       articles</a> about the adapter for more information on compiling

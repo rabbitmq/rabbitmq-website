@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Extensions and Experimental Features</title>
   </head>
@@ -16,6 +16,53 @@
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
+
+      <doc:section name="queue-ttl">
+        <doc:heading>Per-Queue Message TTL</doc:heading>
+
+        <p>
+          The <code>x-message-ttl</code> argument to
+          <code>queue.declare</code> controls for how long a message
+          published to a queue can live before it is discarded. A
+          message that has been in the queue for longer than the
+          configured TTL is said to be <em>dead</em>. Note that a
+          message routed to multiple queues can die at different
+          times, or not at all, in each queue in which it resides. The
+          death of a message in one queue has no impact on the life of
+          the same message in other queues.
+        </p>
+
+        <p>
+          The server guarantees that dead messages will not be
+          included in any <code>basic.get-ok</code> or
+          <code>basic.deliver</code> methods. Further, the server
+          guarantees to reap dead messages at an interval
+          corresponding to the configured TTL.
+        </p>
+
+        <p>
+          The value of the <code>x-message-ttl</code> argument must be
+          an integer, greater than zero, describing the TTL period in
+          milliseconds. Thus a value of 1000 means that a message
+          added to the queue will live in the queue for 1 second or
+          until it is delivered to a consumer. The argument can be of
+          AMQP type short-short-int, short-int, long-int, or
+          long-long-int.
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+
+          <p>
+            This example in Java creates a queue in which messages may reside for at most 60 seconds:
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-message-ttl", 60000);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </doc:subsection>
+
+      </doc:section>
 
       <doc:section name="exchange-bindings">
         <doc:heading>Exchange to Exchange Bindings</doc:heading>
