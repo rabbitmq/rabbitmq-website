@@ -272,7 +272,7 @@ the message.
 
     :::python
     def callback(ch, method, header, body):
-        print " [x] Received %.20r" % (body,)
+        print " [x] Received %r" % (body,)
 
 
 Next, we need to tell RabbitMQ that this particular callback function should
@@ -337,7 +337,7 @@ Full `receive.py` code:
     print ' [*] Waiting for messages. To exit press CTRL+C'
 
     def callback(ch, method, header, body):
-        print " [x] Received %.20r" % (body,)
+        print " [x] Received %r" % (body,)
 
     channel.basic_consume(callback,
                           queue='test',
