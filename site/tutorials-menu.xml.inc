@@ -45,4 +45,20 @@
                  </li> -->
           </ul>
         </li>
+
+        <li class="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="tutorial-four-python.html">Simple routing</a></h2>
+          <p>
+	    Receiving messages selectively using direct exchange
+          </p>
+          <p><img src="img/tutorials/python-four.png" height="60"/></p>
+          <ul>
+            <li>
+              <a href="tutorial-four-python.html">In Python</a>
+            </li>
+            <!-- <li>
+                 <a href="tutorial-four-java.html">In Java</a>
+                 </li> -->
+          </ul>
+        </li>
       </ul>

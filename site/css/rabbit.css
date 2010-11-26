@@ -597,6 +597,7 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
 #sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #444; }
 #sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #444; }
 #sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #444; }
+#sidebar.tutorial-four #tutorials > li.tutorial-four { border-color: #444; }
 
 ul#tutorials {
    list-style-type: none;

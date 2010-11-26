@@ -1,0 +1,340 @@
+# RabbitMQ tutorial - Routing
+
+<div id="sidebar" class="tutorial-four">
+   <xi:include href="tutorials-menu.xml.inc"/>
+</div>
+
+<div id="tutorial">
+
+## Simple routing
+
+<xi:include href="tutorials-help.xml.inc"/>
+
+In the [previous tutorial](tutorial-three-python.html) we build a
+simple logging system. We were able to broadcast log messages to many
+receivers.
+
+In this tutorial we're going to add more fetures to it. First, we're
+going to make it possible to subscribe only to a subset of the
+messages. For example, we will be able to save only critical errors to
+the disk (to spare disk space), while still being able to print all
+the log messages on the console.
+
+Later, we're going to improve the system even more, by adding a
+possibility to subscribe to log messages of particular severity
+produced by a particular agent. We might be interested in all the
+messages from our cron jobs, and only in critical logs from our web
+server.
+
+Bindings
+--------
+
+In previous examples we were already creating bindings. You may recall
+code like:
+
+    :::python
+    channel.queue_bind(exchange='x',
+                       queue=queue_name)
+
+
+A binding is a relationship between an exchange and a queue. This can
+be simply read as: the queue is interested in messages from this
+exchange.
+
+Bindings can take an extra `routing_key` parameter. To avoid the
+confusion with a `basic_publish` parameter we're going to call it a
+`binding key`. This is how we could create a binding with a key:
+
+    :::python
+    channel.queue_bind(exchange='x',
+                       queue=queue_name,
+                       routing_key='black')
+
+The meaning of a binding key depends on the exchange type. The
+`fanout` exchanges, which we used previously, simply ignore its
+value.
+
+Direct exchange
+---------------
+
+Our logging system from previous part of the tutorial is broadcasting
+all the messages to all the consumers. But that's not enough, for
+example we may want the script which is logging logs to the disk
+should only receive critical logs, and not waste disk space on
+warnings.
+
+We were using a `fanout` exchange, which doesn't give us too much
+flexibility. Well, it's only capable of mindless broadcasting the
+messages.
+
+We shall use a `direct` exchange instead. Routing algorithm in
+`direct` exchanges is simple - a message is appended to the queues
+that are bound to the exchange with binding key exactly matching
+`routing key` on the message.
+
+To illustrate that, consider the following setup:
+
+<div class="diagram">
+  <img src="/img/tutorials/direct-exchange.png" height="170" />
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P [label="P", fillcolor="#00ffff"];
+      subgraph cluster_X1 {
+        label="type=direct";
+	color=transparent;
+        X [label="X", fillcolor="#3333CC"];
+      };
+      subgraph cluster_Q1 {
+        label="Q1";
+	color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q2 {
+        label="Q2";
+	color=transparent;
+        Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      //
+      P -&gt; X;
+      X -&gt; Q1 [label="red"];
+      X -&gt; Q2 [label="black"];
+      X -&gt; Q2 [label="green"];
+      Q1 -&gt; C1;
+      Q2 -&gt; C2;
+    }
+  </div>
+</div>
+
+In this setup, we can see a `direct` exchange `X` wit two queues bound
+to it. The first queue is bound with binding key `red`, and a second
+one has two bindings one with binding key `black` and the other one
+with `green`.
+
+In such a setup a message published to the exchange with a routing key
+`red` will be routed to queue `Q1`. Messages with routing keys `black`
+or `green` will go to `Q2`. All other messages will be discarded.
+
+
+Multiple bindings
+-----------------
+<div class="diagram">
+  <img src="/img/tutorials/direct-exchange-multiple.png" height="170" />
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P [label="P", fillcolor="#00ffff"];
+      subgraph cluster_X1 {
+        label="type=direct";
+	color=transparent;
+        X [label="X", fillcolor="#3333CC"];
+      };
+      subgraph cluster_Q1 {
+        label="Q1";
+	color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q2 {
+        label="Q2";
+	color=transparent;
+        Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      //
+      P -&gt; X;
+      X -&gt; Q1 [label="black"];
+      X -&gt; Q2 [label="black"];
+      Q1 -&gt; C1;
+      Q2 -&gt; C2;
+    }
+  </div>
+</div>
+
+It is perfectly legal to bind multiple queues with the same binding
+key. In our example we could add a binding between `X` and `Q1` with
+binding key `black`. In that case, the `direct` exchange will behave
+like `fanout` and will broadcast the message to all the matching
+queues. A message with routing key `black` will be delivered to both
+`Q1` and `Q2`.
+
+
+Emiting logs
+------------
+
+We'll use this model for out logging system. Instead of `fanout` we'll
+send messages to `direct` exchange. We will supply the log severity as
+a `routing_key`. That way the receiving script will be able to select
+the severity it wants to receive. But let's focus on emiting logs
+first.
+
+Like always we need to create an exchange first:
+
+    :::python
+    channel.exchange_declare(exchange='direct_logs',
+                             type='direct')
+
+And we're ready to send a message:
+
+    :::python
+    channel.basic_publish(exchange='direct_logs',
+                          routing_key=severity,
+                          body=message)
+
+To simplify things we will assume that 'severity' can be one of
+'info', 'warning', 'error'.
+
+
+Subscribing
+-----------
+
+Receiving messages will work just like in previous tutorial part, with
+one exception - we're going to create a new binding for every severity
+we're interested in.
+
+
+    :::python
+    result = channel.queue_declare(auto_delete=True)
+    queue_name = result.queue
+
+    for severity in severities:
+        channel.queue_bind(exchange='direct_logs',
+                           queue=queue_name,
+                           routing_key=severity)
+
+
+Putting it all together
+-----------------------
+
+
+
+<div class="diagram">
+  <img src="/img/tutorials/python-four.png" height="170" />
+  <div class="diagram_source">
+    digraph {
+      bgcolor=transparent;
+      truecolor=true;
+      rankdir=LR;
+      node [style="filled"];
+      //
+      P [label="P", fillcolor="#00ffff"];
+      subgraph cluster_X1 {
+        label="type=direct";
+	color=transparent;
+        X [label="X", fillcolor="#3333CC"];
+      };
+      subgraph cluster_Q1 {
+        label="amqp.gen-Ag1...";
+	color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q2 {
+        label="amqp.gen-S9b...";
+	color=transparent;
+        Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
+      //
+      P -&gt; X;
+      X -&gt; Q1 [label="info"];
+      X -&gt; Q1 [label="warning"];
+      X -&gt; Q1 [label="error"];
+      X -&gt; Q2 [label="error"];
+      Q1 -&gt; C1;
+      Q2 -&gt; C2;
+    }
+  </div>
+</div>
+
+The code for `emit_logs_direct.py`:
+
+    #!/usr/bin/env python
+    import pika
+    import sys
+
+    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+            host='127.0.0.1',
+            credentials=pika.PlainCredentials('guest', 'guest')))
+    channel = connection.channel()
+
+    channel.exchange_declare(exchange='direct_logs',
+                             type='direct')
+
+    severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
+    assert severity in ('info', 'warning', 'error')
+    message = ' '.join(sys.argv[2:]) or 'Hello World!'
+    channel.basic_publish(exchange='direct_logs',
+                          routing_key=severity,
+                          body=message)
+    print " [x] Sent %r:%r" % (severity, message)
+
+
+The code for `receive_logs_direct.py`:
+
+    #!/usr/bin/env python
+    import pika
+    import sys
+
+    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+            host='127.0.0.1',
+            credentials=pika.PlainCredentials('guest', 'guest')))
+    channel = connection.channel()
+
+    channel.exchange_declare(exchange='direct_logs',
+                             type='direct')
+
+    result = channel.queue_declare(auto_delete=True)
+    queue_name = result.queue
+
+    severities = sys.argv[1:]
+    if not severities:
+        print >> sys.stderr, "Usage: %s [info] [warning] [error]" % \
+                             (sys.argv[0],)
+        sys.exit(1)
+
+    for severity in severities:
+        assert severity in ('info', 'warning', 'error')
+        channel.queue_bind(exchange='direct_logs',
+                           queue=queue_name,
+                           routing_key=severity)
+
+    print ' [*] Waiting for logs. To exit press CTRL+C'
+
+    def callback(ch, method, header, body):
+        print " [x] %r:%r" % (method.routing_key, body,)
+
+    channel.basic_consume(callback,
+                          queue=queue_name,
+                          no_ack=True)
+
+    pika.asyncore_loop()
+
+
+If you want to save only 'warning' and 'error' (and not 'info') logs
+to a file, just open a console and type:
+
+    $ python receive_logs_direct.py warning error > logs_from_rabbit.log
+
+If you'd like to see all the logs on your screen, open a new terminal and do:
+
+    $ python receive_logs_direct.py info warning error
+
+And, for example, to emit `error` log just type:
+
+    $ python emit_log_direct.py error "Run! Run! Or it will explode!"
+
+
+(Full source code for [emit_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+
+</div>
