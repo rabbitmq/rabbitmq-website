@@ -14,7 +14,7 @@ In the [previous tutorial](tutorial-three-python.html) we build a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
-In this tutorial we're going to add more fetures to it. First, we're
+In this tutorial we're going to add more features to it. First, we're
 going to make it possible to subscribe only to a subset of the
 messages. For example, we will be able to save only critical errors to
 the disk (to spare disk space), while still being able to print all
@@ -169,13 +169,13 @@ queues. A message with routing key `black` will be delivered to both
 `Q1` and `Q2`.
 
 
-Emiting logs
-------------
+Emitting logs
+-------------
 
 We'll use this model for out logging system. Instead of `fanout` we'll
 send messages to `direct` exchange. We will supply the log severity as
 a `routing_key`. That way the receiving script will be able to select
-the severity it wants to receive. But let's focus on emiting logs
+the severity it wants to receive. But let's focus on emitting logs
 first.
 
 Like always we need to create an exchange first:
