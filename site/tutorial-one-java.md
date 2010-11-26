@@ -125,7 +125,7 @@ We'll call our message sender `send` and our message receiver
 then exit.
 
 In
-[`send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java),
+[`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
 we need some classes imported:
 
     :::java
@@ -165,7 +165,7 @@ Lastly, we close the channel and the connection;
           conn.close();
 
 Since many of these method calls can throw an `IOException`, we wrap
-the whole thing in a `try...catch`.  [Here's the whole of the class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java).
+the whole thing in a `try...catch`.  [Here's the whole of the class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
 
 ### Receiving
 
@@ -177,7 +177,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/recv.java)) has almost the same imports as `send`:
+The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `send`:
 
     :::java
     import com.rabbitmq.client.ConnectionFactory;
@@ -221,7 +221,7 @@ we're ready to use them. That is what `QueueingConsumer` does.
 `QueueingConsumer.nextDelivery()` blocks until another message has
 been delivered from the server.
 
-The rest is just closing the `try...catch` -- [here's the whole class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/recv.java).
+The rest is just closing the `try...catch` -- [here's the whole class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
 
 ### Putting it all together
 
@@ -229,7 +229,7 @@ You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
     :::bash
-    $ javac -cp rabbitmq-client.jar send.java recv.java
+    $ javac -cp rabbitmq-client.jar Send.java Recv.java
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the sender:
