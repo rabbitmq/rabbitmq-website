@@ -132,7 +132,7 @@ we need some classes imported:
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
-    import java.io.IOException;</code></pre></div>
+    import java.io.IOException;
 
 then we can create a connection to the server:
 
