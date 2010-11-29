@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Routing
+# RabbitMQ tutorial - Simple routing
 
 <div id="sidebar" class="tutorial-four">
    <xi:include href="tutorials-menu.xml.inc"/>
