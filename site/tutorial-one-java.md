@@ -120,12 +120,12 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send` and our message receiver
-`recv`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message sender `Send` and our message receiver
+`Recv`.  The sender will connect to RabbitMQ, send a single message,
 then exit.
 
 In
-[`send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java),
+[`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java),
 we need some classes imported:
 
     :::java
@@ -137,11 +137,13 @@ we need some classes imported:
 then we can create a connection to the server:
 
     :::java
-    public class send {
+    public class Send {
       public static void main(String[] argv) {
         try {
-          Connection conn = new ConnectionFactory().newConnection();
-          Channel chan = conn.createChannel();
+          Connection conn = null;
+          try {
+            conn = new ConnectionFactory().newConnection();
+            Channel chan = conn.createChannel();
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us.
@@ -152,20 +154,24 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
     :::java
-          chan.queueDeclare("hello", false, false, false, null);
-          chan.basicPublish("", "hello", null, "Hello World!".getBytes());
+            chan.queueDeclare("hello", false, false, false, null);
+            chan.basicPublish("", "hello", null, "Hello World!".getBytes());
 
-Declaring a queue is idempotent; it will be created if it's doesn't
+Declaring a queue is idempotent; it will be created if it doesn't
 exist already. The message contents is a byte array, so you can encode
 whatever you like there.
 
 Lastly, we close the channel and the connection;
 
     :::java
-          conn.close();
+            chan.close();
+          }
+          finally {
+            if (conn != null) conn.close();
+          }
 
 Since many of these method calls can throw an `IOException`, we wrap
-the whole thing in a `try...catch`.  [Here's the whole of the class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java).
+the whole thing in a `try...catch`.  [Here's the whole of the class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
 
 ### Receiving
 
@@ -177,7 +183,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/recv.java)) has almost the same imports as `send`:
+The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
 
     :::java
     import com.rabbitmq.client.ConnectionFactory;
@@ -194,12 +200,14 @@ channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue `send` publishes to.
 
     :::java
-    public class recv {
+    public class Recv {
       public static void main(String[] argv) {
         try {
-          Connection conn = new ConnectionFactory().newConnection();
-          Channel chan = conn.createChannel();
-          chan.queueDeclare("hello", false, false, false, null);
+          Connection conn = null;
+          try {
+            conn = new ConnectionFactory().newConnection();
+            Channel chan = conn.createChannel();
+            chan.queueDeclare("test", false, false, false, null);
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -211,17 +219,17 @@ callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what `QueueingConsumer` does.
 
     :::java
-          QueueingConsumer consumer = new QueueingConsumer(chan);
-          chan.basicConsume("hello", true, consumer);
-          while (true) {
-            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            System.out.println(new String(delivery.getBody()));
-          }
+            QueueingConsumer consumer = new QueueingConsumer(chan);
+            chan.basicConsume("hello", true, consumer);
+            while (true) {
+              QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+              System.out.println(new String(delivery.getBody()));
+            }
 
 `QueueingConsumer.nextDelivery()` blocks until another message has
 been delivered from the server.
 
-The rest is just closing the `try...catch` -- [here's the whole class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/recv.java).
+The rest is just closing the `try...catch` -- [here's the whole class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
 
 ### Putting it all together
 
@@ -229,18 +237,20 @@ You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
     :::bash
-    $ javac -cp rabbitmq-client.jar send.java recv.java
+    $ javac -cp rabbitmq-client.jar Send.java Recv.java
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the sender:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar send
+    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Send
 
 then, run the receiver:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar recv
+    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
+
+(remember that in Windows, ';' is used to separate items in the classpath)
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages; try running
