@@ -14,17 +14,12 @@ In the [previous tutorial](tutorial-three-python.html) we build a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
-In this tutorial we're going to add more features to it. First, we're
-going to make it possible to subscribe only to a subset of the
-messages. For example, we will be able to save only critical errors to
-the disk (to spare disk space), while still being able to print all
-the log messages on the console.
+In this tutorial we're going to add more features to it - we're going
+to make it possible to subscribe only to a subset of the messages. For
+example, we will be able to save only critical errors to the disk (to
+spare disk space), while still being able to print all of the log
+messages on the console.
 
-Later, we're going to improve the system even more, by adding a
-possibility to subscribe to log messages of particular severity
-produced by a particular agent. We might be interested in all the
-messages from our cron jobs, and only in critical logs from our web
-server.
 
 Bindings
 --------
@@ -51,23 +46,23 @@ confusion with a `basic_publish` parameter we're going to call it a
                        routing_key='black')
 
 The meaning of a binding key depends on the exchange type. The
-`fanout` exchanges, which we used previously, simply ignore its
+`fanout` exchanges, which we used previously, simply ignored its
 value.
 
 Direct exchange
 ---------------
 
 Our logging system from previous part of the tutorial is broadcasting
-all the messages to all the consumers. But that's not enough, for
-example we may want the script which is logging logs to the disk
-should only receive critical logs, and not waste disk space on
-warnings.
+all the messages to all the consumers. We want to extend that, by
+adding a possibility to receive only a subset of logs based on their
+severity. For example we may want the script which is logging logs to
+the disk should only receive critical errors, and not waste disk space
+on warning or info logs.
 
 We were using a `fanout` exchange, which doesn't give us too much
-flexibility. Well, it's only capable of mindless broadcasting the
-messages.
+flexibility. Well, it's only capable of mindless broadcasting.
 
-We shall use a `direct` exchange instead. Routing algorithm in
+We shall use a `direct` exchange instead. Routing algorithm behind the
 `direct` exchanges is simple - a message is appended to the queues
 that are bound to the exchange with binding key exactly matching
 `routing key` on the message.
