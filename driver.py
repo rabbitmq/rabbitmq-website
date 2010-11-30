@@ -7,8 +7,8 @@ import os
 
 import sys
 sys.path.insert(0, 'code')
-import xsl ## from the ./code/ subdirectory
-xsl.SITE_DIR = './site/'
+import render ## from the ./code/ subdirectory
+render.SITE_DIR = './site/'
 
 class StubReq:
     def __init__(self, uri, queryPos):
@@ -40,7 +40,7 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             if p[-1] == '/':
                 p = p + 'index.html'
             r = StubReq(p, queryPos)
-            xsl.handler(r)
+            render.handler(r)
             self.send_response(r.status)
             self.send_header("Content-type", r.content_type)
             self.end_headers()
@@ -51,7 +51,7 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def translate_path(self, path):
         if path[0] == '/':
             path = path[1:]
-        result = os.path.join(xsl.SITE_DIR, path)
+        result = os.path.join(render.SITE_DIR, path)
         return result
 
 if __name__ == '__main__':

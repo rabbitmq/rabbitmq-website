@@ -1,8 +1,8 @@
-
 import libxml2
 import libxslt
 import re
 import os
+import markdown
 
 try:
     from mod_python import apache
@@ -15,6 +15,36 @@ except ImportError:
     apache = StubApache()
 
 SITE_DIR='/srv/www.rabbitmq.com/site/'
+
+def preprocess_markdown(fpath):
+    contents = open(fpath).read()
+
+    ## Markdown will treat the whole file as markdown, whereas
+    ## we want to only transform the body text.
+
+    title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
+    contents = contents[0:title.start()] + contents[title.end():]
+
+    pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>%s</title>
+  </head>
+  <body>
+""" % (title.group(1),)
+
+    post = """</body>
+</html>
+"""
+    processed = markdown.markdown(contents, ["codehilite(css_class=highlight)"])
+    whole = pre + processed + post
+    return libxml2.createMemoryParserCtxt(whole, len(whole))
+
+MARKUPS=[
+    ('.xml', libxml2.createFileParserCtxt),
+    ('.md', preprocess_markdown)
+]
 
 class Error404(Exception):
     pass
@@ -43,18 +73,8 @@ def render_page(page_name):
     if page_name == '':
         page_name = 'index'
 
-    xml_file_name = page_name + '.xml'
-    fpath = os.path.join(SITE_DIR, xml_file_name)
+    xml_doc = find_parse_file(page_name)
 
-    if not os.path.exists(fpath):
-        raise Error404, page_name
-
-    xml_ctxt = libxml2.createFileParserCtxt(fpath)
-    xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
-    xml_ctxt.parseDocument()
-    xml_doc = xml_ctxt.doc()
-    xml_doc.xincludeProcess()
-    
     for child in xml_doc.children:
         if child.name == 'xml-stylesheet':
             match = re.compile('.*href="(.*)"').match(child.getContent())
@@ -62,11 +82,27 @@ def render_page(page_name):
                 xslt_file_name = match.group(1)
                 xslt_doc = libxml2.parseFile(os.path.join(SITE_DIR, xslt_file_name))
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})               
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})
                 result = html_doc.serialize(None,  1)
                 return result
     raise Error500
 
+def create_xml_context(page_name):
+    for (ext, ctxt_maker) in MARKUPS:
+        file_name = page_name + ext
+        fpath = os.path.join(SITE_DIR, file_name)
+        if os.path.exists(fpath):
+            return (fpath, ctxt_maker(fpath))
+    raise Error404, page_name
+
+def find_parse_file(page_name):
+    (path, xml_ctxt) = create_xml_context(page_name)
+    xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
+    xml_ctxt.parseDocument()
+    xml_doc = xml_ctxt.doc()
+    xml_doc.setBase(path)
+    xml_doc.xincludeProcess()
+    return xml_doc
 
 def handler(req):
     req.content_type = "text/html; charset=utf-8"
@@ -84,4 +120,3 @@ def handler(req):
         req.write(render_page('/500'))
 
     return apache.OK
-

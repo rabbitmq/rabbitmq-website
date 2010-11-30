@@ -54,20 +54,11 @@
     <h4>The library</h4>
 
     <p>
-      The library is available as source, or compiled in a few
-      different forms. The precompiled archives include example source
-      code.
+      The library is available in several compiled forms, and as
+      source. The precompiled archives include example source code.
     </p>
 
     <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
-		  downloadpath="&dir-java-client;">
-	Source code and tools (zip)
-      </r:download>
-      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.tar.gz"
-		  downloadpath="&dir-java-client;">
-	Source code and tools (tar.gz)
-      </r:download>
       <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
 	Binary, compiled for Java 1.5 or newer (zip)
@@ -84,6 +75,14 @@
 		  downloadpath="&dir-java-client;">
 	Binary, compiled for Java 1.4 (tar.gz)
       </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.tar.gz"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (tar.gz)
+      </r:download>
     </r:downloads>
 
     <p>
@@ -94,7 +93,7 @@
     </p>
 
     <h4>The documentation</h4>
-    
+
     <p>Please refer to the <a href="api-guide.html">API guide</a>.</p>
 
     <p>
@@ -153,14 +152,14 @@
       the code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-java-client"
         url="http://hg.rabbitmq.com/rabbitmq-java-client/"/>
       <repository type="hg" shortname="rabbitmq-codegen"
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
-    
+
     <h3>Support</h3>
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
