@@ -14,13 +14,13 @@
     <atom:feed>
       <xsl:apply-templates select="html/head"/>
       <atom:updated><xsl:value-of select="$updated"/></atom:updated>
-      <xsl:apply-templates select="html/body/doc:feed/doc:item">
+      <xsl:apply-templates select="xhtml:html/xhtml:body/doc:feed/doc:item">
         <xsl:sort select="doc:date/@iso" order="descending"/>
       </xsl:apply-templates>
     </atom:feed>
   </xsl:template>
 
-  <xsl:template match="/html/head">
+  <xsl:template match="/xhtml:html/xhtml:head">
     <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
     See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
     <atom:id>http://www.rabbitmq.net/news.atom</atom:id>
