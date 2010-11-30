@@ -15,6 +15,38 @@
       -->   
 
       <doc:item>
+	<doc:date iso="2010-11-20T00:00:00Z">30 November 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 2.2.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-November/010172.html</doc:link>
+
+	<doc:text>
+          <p>
+	    The RabbitMQ team is pleased to announce the release of RabbitMQ
+	    2.2.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some enhancements,
+            including automatic upgrades of non-clustered brokers, per-queue
+            message TTLs and significantly reduced memory usage for pending
+            acknowledgements. For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-November/010172.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+
+      <doc:item>
 	<doc:date iso="2010-10-19T00:00:00Z">19 October 2010</doc:date>
 	<doc:title>
 	  RabbitMQ 2.1.1 release
