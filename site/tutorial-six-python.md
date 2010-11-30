@@ -341,5 +341,6 @@ complex problems, like:
  * When the server malfunctions and raises an exception, should it be
    forwarded to the client?
 
+(Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 </div>
