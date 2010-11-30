@@ -31,7 +31,7 @@
 
         <p>
           To enable publisher acknowledgements, a client sends the
-          <code>confirm.select</code> message.  Depending on whether
+          <code>confirm.select</code> method.  Depending on whether
           <code>no-wait</code> was set or not, the broker may respond
           with a <code>confirm.select-ok</code>.  Once the
           <code>confirm.select</code> method is used on a channel, it
@@ -44,8 +44,8 @@
           Once a channel is in confirm mode, both the broker and the
           client count messages (counting starts at 0 on
           <code>confirm.select</code>).  The broker then confirms
-          messages as it handles them.  The broker confirms messages
-          by sending a <code>basic.ack</code> on the same channel; the
+          messages as it handles them by sending
+          a <code>basic.ack</code> on the same channel. The
           <code>delivery-tag</code> field contains the sequence number
           of the acknowledged message.  If <code>multiple</code> was
           set in the <code>confirm.select</code>, the broker may also
@@ -56,15 +56,15 @@
         </p>
 
         <p>
-          Confirming a message means that the broker assumes
-          responsibility for the message and that it has done
-          something it deems reasonable with it.  Unroutable mandatory
-          or immediate messages are acknowledged right after the
+          By confirming a message the broker assumes responsibility
+          for it and indicates that it has done something it deems
+          reasonable with it.  Unroutable mandatory or immediate
+          messages are acknowledged right after the
           <code>basic.return</code>.  Transient messages are
           acknowledged as soon as they arrive on all the queues they
           were routed to.  Persistent messages are acknowledged when
-          they have been delivered from all queues or successfully
-          persisted.
+          all queues have either delivered the message and received an
+          acknowledgement (if required), or persisted the message.
         </p>
 
         <p>
