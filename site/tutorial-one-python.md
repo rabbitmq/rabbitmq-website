@@ -102,7 +102,7 @@ digraph G {
       //
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
 	color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -113,7 +113,7 @@ digraph G {
 </div>
 </div>
 
-Producer sends messages to the "test" queue. The consumer receives
+Producer sends messages to the "hello" queue. The consumer receives
 messages from that queue.
 
 > #### RabbitMQ libraries
@@ -157,7 +157,7 @@ messages from that queue.
       //
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
         color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -183,14 +183,14 @@ RabbitMQ server.
 We're connected now. Next, before sending we need to make sure the
 recipient queue exists. If we send a message to non-existing location,
 RabbitMQ will just trash the message. Let's create a queue to which
-the message will be delivered, let's name it _test_:
+the message will be delivered, let's name it _hello_:
 
     :::python
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
 At that point we're ready to send a message. Our first message will
 just contain a string _Hello World!_ and we want to send it to our
-_test_ queue.
+_hello_ queue.
 
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
@@ -202,7 +202,7 @@ The queue name needs to be specified in the `routing_key` parameter:
 
     :::python
     channel.basic_publish(exchange='',
-                          routing_key='test',
+                          routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
 
@@ -219,7 +219,7 @@ The queue name needs to be specified in the `routing_key` parameter:
       node [style="filled"];
       //
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
 	color=transparent;
 	Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -243,7 +243,7 @@ can run the command as many times as we like, and only one will be
 created.
 
     :::python
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
 You may ask why we declare the queue again &#8210; we have already declared it
 in our previous code. We could avoid that if we were sure
@@ -259,7 +259,7 @@ declaring the queue in both programs.
 >
 >     $ sudo rabbitmqctl list_queues
 >     Listing queues ...
->     test    0
+>     hello    0
 >     ...done.
 
 
@@ -276,11 +276,11 @@ the message.
 
 
 Next, we need to tell RabbitMQ that this particular callback function should
-receive messages from our _test_ queue:
+receive messages from our _hello_ queue:
 
     :::python
     channel.basic_consume(callback,
-                          queue='test',
+                          queue='hello',
                           no_ack=True)
 
 For that command to succeed we must be sure that a queue which we want
@@ -311,10 +311,10 @@ Full code for `send.py`:
     channel = connection.channel()
 
 
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
     channel.basic_publish(exchange='',
-                          routing_key='test',
+                          routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
 
@@ -332,7 +332,7 @@ Full `receive.py` code:
     channel = connection.channel()
 
 
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
     print ' [*] Waiting for messages. To exit press CTRL+C'
 
@@ -340,7 +340,7 @@ Full `receive.py` code:
         print " [x] Received %r" % (body,)
 
     channel.basic_consume(callback,
-                          queue='test',
+                          queue='hello',
                           no_ack=True)
 
     pika.asyncore_loop()

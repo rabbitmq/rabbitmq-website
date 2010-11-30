@@ -67,7 +67,7 @@ program will schedule tasks to our work queue, so let's name it
     :::python
     import sys
     message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='', routing_key='test',
+    channel.basic_publish(exchange='', routing_key='hello',
                           body=message)
     print " [x] Sent %r" % (message,)
 
@@ -182,7 +182,7 @@ from the worker, once we're done with a task.
         ch.basic_ack(delivery_tag = method.delivery_tag)
 
     channel.basic_consume(callback,
-                          queue='test')
+                          queue='hello')
 
 Using that code we may be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -202,7 +202,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 >     :::bash
 >     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
 >     Listing queues ...
->     test    0       0
+>     hello    0       0
 >     ...done.
 
 
@@ -218,14 +218,14 @@ unless you tell it not to. Two things are required to make sure that
 messages aren't lost: we need to mark both a queue and messages as
 durable.
 
-First, we need to make sure that Rabbit will never lose our `test`
+First, we need to make sure that Rabbit will never lose our `hello`
 queue. In order to do so, we need to declare it as _durable_:
 
     :::python
-    channel.queue_declare(queue='test', durable=True)
+    channel.queue_declare(queue='hello', durable=True)
 
 Although that command is correct by itself it won't work in our
-setup. That's because we've already defined a queue called `test`
+setup. That's because we've already defined a queue called `hello`
 which is not durable. RabbitMQ doesn't allow you to redefine a queue
 with different parameters and will return a hard error to any program
 that tries to do that. But there is a quick workaround - let's declare
@@ -286,7 +286,7 @@ to the n-th consumer.
       //
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
-        label="queue_name=test";
+        label="queue_name=hello";
 	color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
