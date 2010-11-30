@@ -47,9 +47,9 @@
         </li>
 
         <li class="tutorial-four">
-          <h2><span class="tute-num">4</span> <a href="tutorial-four-python.html">Simple routing</a></h2>
+          <h2><span class="tute-num">4</span> <a href="tutorial-four-python.html">Routing</a></h2>
           <p>
-	    Receiving messages selectively using direct exchange
+	    Receiving messages selectively
           </p>
           <p><img src="img/tutorials/python-four.png" height="60"/></p>
           <ul>

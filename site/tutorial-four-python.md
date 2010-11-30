@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Simple routing
+# RabbitMQ tutorial - Routing
 
 <div id="sidebar" class="tutorial-four">
    <xi:include href="tutorials-menu.xml.inc"/>
@@ -6,15 +6,15 @@
 
 <div id="tutorial">
 
-## Simple routing
+## Routing
 
 <xi:include href="tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-python.html) we build a
+In the [previous tutorial](tutorial-three-python.html) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
-In this tutorial we're going to add more features to it - we're going
+In this tutorial we're going to add a feature to it - we're going
 to make it possible to subscribe only to a subset of the messages. For
 example, we will be able to save only critical errors to the disk (to
 spare disk space), while still being able to print all of the log
@@ -54,17 +54,17 @@ Direct exchange
 
 Our logging system from previous part of the tutorial is broadcasting
 all the messages to all the consumers. We want to extend that, by
-adding a possibility to receive only a subset of logs based on their
-severity. For example we may want the script which is logging logs to
-the disk should only receive critical errors, and not waste disk space
-on warning or info logs.
+adding the possibility of receiving only a subset of log messages based on their
+severity. For example we may want the script which is writing log messages to
+the disk shoulto only receive critical errors, and not waste disk space
+on warning or info log messages.
 
 We were using a `fanout` exchange, which doesn't give us too much
 flexibility. Well, it's only capable of mindless broadcasting.
 
-We shall use a `direct` exchange instead. Routing algorithm behind the
-`direct` exchanges is simple - a message is appended to the queues
-that are bound to the exchange with binding key exactly matching
+We will use a `direct` exchange instead. The routing algorithm behind a
+`direct` exchange is simple - a message is appended to the queues
+that are bound to the exchange with a `binding key` exactly matching
 `routing key` on the message.
 
 To illustrate that, consider the following setup:
@@ -107,13 +107,13 @@ To illustrate that, consider the following setup:
   </div>
 </div>
 
-In this setup, we can see a `direct` exchange `X` wit two queues bound
-to it. The first queue is bound with binding key `red`, and a second
-one has two bindings one with binding key `black` and the other one
+In this setup, we can see a `direct` exchange `X` with two queues bound
+to it. The first queue is bound with binding key `red`, and the second
+one has two bindings, one with binding key `black` and the other one
 with `green`.
 
 In such a setup a message published to the exchange with a routing key
-`red` will be routed to queue `Q1`. Messages with routing keys `black`
+`red` will be routed to queue `Q1`. Messages with a routing key of `black`
 or `green` will go to `Q2`. All other messages will be discarded.
 
 
@@ -167,9 +167,9 @@ queues. A message with routing key `black` will be delivered to both
 Emitting logs
 -------------
 
-We'll use this model for out logging system. Instead of `fanout` we'll
-send messages to `direct` exchange. We will supply the log severity as
-a `routing_key`. That way the receiving script will be able to select
+We'll use this model for our logging system. Instead of `fanout` we'll
+send messages to a `direct` exchange. We will supply the log severity as
+a `routing key`. That way the receiving script will be able to select
 the severity it wants to receive. But let's focus on emitting logs
 first.
 
@@ -193,8 +193,8 @@ To simplify things we will assume that 'severity' can be one of
 Subscribing
 -----------
 
-Receiving messages will work just like in previous tutorial part, with
-one exception - we're going to create a new binding for every severity
+Receiving messages will work just like in the previous tutorial, with
+one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
@@ -316,16 +316,17 @@ The code for `receive_logs_direct.py`:
     pika.asyncore_loop()
 
 
-If you want to save only 'warning' and 'error' (and not 'info') logs
-to a file, just open a console and type:
+If you want to save only 'warning' and 'error' (and not 'info') log
+messages to a file, just open a console and type:
 
     $ python receive_logs_direct.py warning error > logs_from_rabbit.log
 
-If you'd like to see all the logs on your screen, open a new terminal and do:
+If you'd like to see all the log messages on your screen, open a new
+terminal and do:
 
     $ python receive_logs_direct.py info warning error
 
-And, for example, to emit `error` log just type:
+And, for example, to emit an `error` log message just type:
 
     $ python emit_log_direct.py error "Run! Run! Or it will explode!"
 
