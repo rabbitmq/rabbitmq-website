@@ -64,18 +64,38 @@
             <dl>
               <dt>Install Erlang</dt>
               <dd>
-               Install a recent version of Erlang/OTP. 
-               Versions R13B03 and higher should work on Windows.<br/>
-               e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
-               http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
-               Using default options, Erlang should appear in the Start Menu, 
-               and the Erlang directory 
-               (e.g. <code>&dir-erlang-windows;</code>) should exist, containing 
-               <code>bin\erl.exe</code><br/>
-               Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables and 
-               set the Environment Variable ERLANG_HOME to your Erlang directory.
+                Install a recent version of Erlang/OTP. 
+                Versions R13B03 and higher should work on Windows.<br/>
+                e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
+                http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
+                Using default options, Erlang should appear in the Start Menu, 
+                and the Erlang directory 
+                (e.g. <code>&dir-erlang-windows;</code>) should exist, containing 
+                <code>bin\erl.exe</code>
               </dd>
-            
+            </dl>
+          </div>
+          <div class="environment-variables">
+            <dl>
+              <dt>ERLANG_HOME</dt>
+              <dd>
+                <p>
+                  The Environment Variable ERLANG_HOME must be 
+                  set to the base directory of your Erlang installation, e.g.
+                  <code>&dir-erlang-windows;</code>.
+                  The RabbitMQ batch files expect the file
+                  <code>bin\erl.exe</code> to be present at this location.
+                </p>
+                <p>
+                  Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables. 
+                  Create the Environment Variable ERLANG_HOME and set it to the 
+                  Erlang directory containing <code>bin\erl.exe</code>.
+                </p>
+              </dd>
+            </dl>
+          </div>
+          <div class="instructions">
+            <dl>
               <dt>Install RabbitMQ Server</dt>
               <dd>
                 <p>
@@ -97,7 +117,7 @@
                  Within the <code>rabbitmq_server-&version-server;\sbin</code> directory 
                  are some scripts which run commands to control the RabbitMQ Server.<br/>
                  Log in as an administrator to run these using a command shell in the sbin directory. 
-                 It may be useful to add the <code>sbin</code> directory to your PATH.
+                 It may be useful to add the <code>sbin</code> directory to your %PATH%.
                 </p>
                 <p>
                   Message Brokers can run as either an Application or Service (not both).
@@ -122,27 +142,15 @@
           <dl class="instructions">
             <dt>Customise RabbitMQ Server Environment Variables</dt>
             <dd>
-              You may need to customise <code>sbin\rabbitmq-server.bat</code> 
-              for your installation, 
-              especially if you use a different version of Erlang. 
-              Environment variables set within the batch file are
+                You may need to customise <code>sbin\rabbitmq-server.bat</code> 
+                for your installation, 
+                especially if you use a different version of Erlang. 
+                Environment variables set within the batch file are:
             </dd>
           </dl>
 
           <div class="environment-variables">
             <dl>
-              <dt>ERLANG_HOME</dt>
-              <dd>
-                  Set this to the base directory of your Erlang
-                  installation, e.g.
-                  <code>&dir-erlang-windows;</code>.
-                  The RabbitMQ batch file expects the file
-                  <code>bin\erl.exe</code> to be present at this
-                  location. The default setting determines the base
-                  directory from the script location, which will work
-                  in most cases.
-              </dd>
-
               <dt>RABBITMQ_BASE</dt>
               <dd>
                   Defaults to the directory <code>RabbitMQ</code> in %APPDATA%,
@@ -169,9 +177,15 @@
                   directory.
               </dd>
 
+              <dt>COMPUTERNAME</dt>
+              <dd>
+                  Defaults to localhost.
+              </dd>
+              
               <dt>RABBITMQ_NODENAME</dt>
               <dd>
-                  Defaults to <code>rabbit</code>. This can be useful
+                  Defaults to <code>rabbit@%COMPUTERNAME%</code>.
+                  This can be useful
                   if you want to run more than one node per machine -
                   <b>RABBITMQ_NODENAME</b> should be unique per
                   erlang-node-and-machine combination. See
