@@ -125,7 +125,7 @@ We'll call our message sender `Send` and our message receiver
 then exit.
 
 In
-[`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/send.java),
+[`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
 we need some classes imported:
 
     :::java
@@ -207,7 +207,7 @@ Note this matches up with the queue `send` publishes to.
           try {
             conn = new ConnectionFactory().newConnection();
             Channel chan = conn.createChannel();
-            chan.queueDeclare("test", false, false, false, null);
+            chan.queueDeclare("hello", false, false, false, null);
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
