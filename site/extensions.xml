@@ -77,42 +77,11 @@
           <doc:heading>Usage</doc:heading>
 
           <p>
-            This example in Java publishes a large number of messages
+            The following example in Java publishes a large number of messages
             to a channel in confirm mode and waits for the
             acknowledgements.  The full code is available <a
-            href="https://gist.github.com/613165">here</a>.
+            href="http://hg.rabbitmq.com/rabbitmq-java-client/file/5fd674a96fbd/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
           </p>
-          <pre class="sourcecode">
-volatile SortedSet&lt;Long&gt; ackSet = Collections.synchronizedSortedSet(new TreeSet&lt;Long&gt;());
-...
-ch.confirmSelect(true);
-final Publisher This = this;
-ch.setAckListener(new AckListener() {
-        public void handleAck(long seqNo,
-                              boolean multiple) {
-                synchronized(This) {
-                        if (multiple) {
-                                for (long i = ackSet.first(); i t&lt;= seqNo; ++i)
-                                        ackSet.remove(i);
-                        } else {
-                                    ackSet.remove(seqNo);
-                        }
-                }
-        }
-});
-
-for (long i = 0; i t&lt; MSG_COUNT; ++i) {
-        synchronized(this) {
-                ch.basicPublish("", QUEUE_NAME,
-                                MessageProperties.PERSISTENT_BASIC,
-                                "nop".getBytes());
-                ackSet.add(i);
-        }
-}
-
-while (ackSet.size() &gt; 0)
-        Thread.sleep(10);
-</pre>
         </doc:subsection>
 
       </doc:section>
