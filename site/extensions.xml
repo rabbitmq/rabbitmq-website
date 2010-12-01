@@ -80,7 +80,7 @@
             The following example in Java publishes a large number of messages
             to a channel in confirm mode and waits for the
             acknowledgements.  The full code is available <a
-            href="http://hg.rabbitmq.com/rabbitmq-java-client/file/5fd674a96fbd/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+            href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
           </p>
         </doc:subsection>
 
