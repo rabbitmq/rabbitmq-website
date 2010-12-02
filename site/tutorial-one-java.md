@@ -253,8 +253,10 @@ then, run the receiver:
 (remember that in Windows, ';' is used to separate items in the classpath)
 
 The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages; try running
+RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
 the sender from another terminal.
+
+If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
 
