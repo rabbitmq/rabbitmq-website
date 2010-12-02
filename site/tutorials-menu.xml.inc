@@ -77,4 +77,20 @@
                  </li> -->
           </ul>
         </li>
+
+        <li class="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="tutorial-six-python.html">RPC</a></h2>
+          <p>
+	    Remote procedure call implementation
+          </p>
+          <p><img src="img/tutorials/python-six.png" height="60"/></p>
+          <ul>
+            <li>
+              <a href="tutorial-six-python.html">In Python</a>
+            </li>
+            <!-- <li>
+                 <a href="tutorial-six-java.html">In Java</a>
+                 </li> -->
+          </ul>
+        </li>
       </ul>
