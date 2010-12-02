@@ -250,7 +250,7 @@ then, run the receiver:
     :::bash
     $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 
-(remember that in Windows, ';' is used to separate items in the classpath)
+Use a semicolon instead of a colon to separate items in the classpath on Windows.
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
