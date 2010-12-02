@@ -4,8 +4,10 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - Java AMQP client library</title>
   </head>
@@ -52,20 +54,11 @@
     <h4>The library</h4>
 
     <p>
-      The library is available as source, or compiled in a few
-      different forms. The precompiled archives include example source
-      code.
+      The library is available in several compiled forms, and as
+      source. The precompiled archives include example source code.
     </p>
 
     <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
-		  downloadpath="&dir-java-client;">
-	Source code and tools (zip)
-      </r:download>
-      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.tar.gz"
-		  downloadpath="&dir-java-client;">
-	Source code and tools (tar.gz)
-      </r:download>
       <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
 	Binary, compiled for Java 1.5 or newer (zip)
@@ -82,6 +75,14 @@
 		  downloadpath="&dir-java-client;">
 	Binary, compiled for Java 1.4 (tar.gz)
       </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.tar.gz"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (tar.gz)
+      </r:download>
     </r:downloads>
 
     <p>
@@ -92,7 +93,7 @@
     </p>
 
     <h4>The documentation</h4>
-    
+
     <p>Please refer to the <a href="api-guide.html">API guide</a>.</p>
 
     <p>
@@ -140,29 +141,28 @@
       appearance in the central Maven repository. Be patient.
     </p>
 
+    <h3>Windows Bundle</h3>
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
+
     <h3>Mercurial repositories</h3>
     <p>
       The Java AMQP client library and example programs. Depends on
       the code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-java-client"
         url="http://hg.rabbitmq.com/rabbitmq-java-client/"/>
       <repository type="hg" shortname="rabbitmq-codegen"
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
-    
 
     <h3>Support</h3>
-
     <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
-      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
   </body>
 </html>

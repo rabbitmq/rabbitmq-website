@@ -1,5 +1,5 @@
     ServerName www.rabbitmq.com
-    ServerAlias rabbit-web.eng.vmware.com
+    ServerAlias *.eng.vmware.com
     ServerAdmin postmaster@rabbitmq.com
 
     DocumentRoot /srv/www.rabbitmq.com/site/
@@ -11,7 +11,7 @@
     # the Python XSLT handler.  It will 404 on the .xml and .xsl files
     <Location ~ "^/(|(man/.*|[^/]*)\.(html|xml|xsl))$">
       SetHandler python-program
-      PythonHandler xsl
+      PythonHandler render
       PythonDebug On
       PythonPath "['/srv/www.rabbitmq.com/code/'] + sys.path"
     </Location>
@@ -41,3 +41,7 @@
     </Directory>
 
     Alias /blog /usr/share/wordpress
+
+    # Redirect manpages from release folder
+    RewriteEngine On
+    RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /man/$1.man.html [R]

@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Extensions and Experimental Features</title>
   </head>
@@ -17,21 +17,21 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
 
-      <doc:section name="publisher-acknowledgements">
+     <doc:section name="publisher-acknowledgements">
         <doc:heading>Publisher Acknowledgements</doc:heading>
 
         <p>
           Using standard AMQP, the only way to guarantee that a
-          message isn't lost is using transactions -- make the channel
-          transactional, publish the message, commit.  In this case,
-          transactions are unnecessarily heavyweight and decrease
-          throughput by a factor of 250x.  To remedy this, lightweight
-          publisher acknowledgements were introduced.
+          message isn't lost is by using transactions -- make the
+          channel transactional, publish the message, commit.  In this
+          case, transactions are unnecessarily heavyweight and
+          decrease throughput by a factor of 250.  To remedy this,
+          lightweight publisher acknowledgements were introduced.
         </p>
 
         <p>
           To enable publisher acknowledgements, a client sends the
-          <code>confirm.select</code> message.  Depending on whether
+          <code>confirm.select</code> method.  Depending on whether
           <code>no-wait</code> was set or not, the broker may respond
           with a <code>confirm.select-ok</code>.  Once the
           <code>confirm.select</code> method is used on a channel, it
@@ -42,55 +42,77 @@
 
         <p>
           Once a channel is in confirm mode, both the broker and the
-          client count messages (counting starts at 0 when the
-          <code>confirm.select</code> is sent/received).  The broker
-          then confirms messages as it handles them.  The broker
-          confirms messages by sending a <code>basic.ack</code> on the
-          same channel; the <code>delivery-tag</code> field contains
-          the sequence number for the acknowledged message.  If
-          <code>multiple</code> was set in the
-          <code>confirm.select</code>, the broker may also set the
-          <code>multiple</code> field in the <code>basic.ack</code>
-          methods; in this case, all messages up to and including the
-          one with the sequence number are acknowledged.
+          client count messages (counting starts at 0 on
+          <code>confirm.select</code>).  The broker then confirms
+          messages as it handles them by sending
+          a <code>basic.ack</code> on the same channel. The
+          <code>delivery-tag</code> field contains the sequence number
+          of the acknowledged message.  If <code>multiple</code> was
+          set in the <code>confirm.select</code>, the broker may also
+          set the <code>multiple</code> field in the
+          <code>basic.ack</code> methods; in this case, all messages
+          up to and including the one with the sequence number are
+          acknowledged.
         </p>
 
         <p>
-          The broker confirming a message should be taken to mean that
-          the broker assumes responsibility for the messages and that
-          it has done something it deems reasonable with it.
-          Transient messages are ack'd as soon as they reach the
-          broker.  Persistent messages are ack'd when they are written
-          to disk or when they are successfully delivered to a
-          consumer, whichever happens first.  Unroutable persistent
-          immediate/mandatory messages are ack'd right after the
-          <code>basic.return</code>.
+          By confirming a message the broker assumes responsibility
+          for it and indicates that it has done something it deems
+          reasonable with it.  Unroutable mandatory or immediate
+          messages are acknowledged right after the
+          <code>basic.return</code>.  Transient messages are
+          acknowledged as soon as they arrive on all the queues they
+          were routed to.  Persistent messages are acknowledged when
+          all queues have either delivered the message and received an
+          acknowledgement (if required), or persisted the message.
         </p>
 
         <p>
           After a channel is put into confirm mode, all subsequently
-          published messages will be ack'd once (i.e. every message
-          will be ack'd and no message will be ack'd more than once).
-          No guarantees are made as to how long before a message is
-          ack'd.
+          published messages will be ack'd once.  No guarantees are
+          made as to how soon a message is ack'd.
         </p>
 
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
 
           <p>
-            This example in Java opens a channel, attaches an
-            <code>AckListener</code> to it and puts it in confirm
-            mode with multiple acknowledgements enabled.
+            This example in Java publishes a large number of messages
+            to a channel in confirm mode and waits for the
+            acknowledgements.  The full code is available <a
+            href="https://gist.github.com/613165">here</a>.
           </p>
           <pre class="sourcecode">
-Channel ch = connection.createChannel();
+volatile SortedSet&lt;Long&gt; ackSet = Collections.synchronizedSortedSet(new TreeSet&lt;Long&gt;());
+...
+ch.confirmSelect(true);
+final Publisher This = this;
 ch.setAckListener(new AckListener() {
-         public void handleAck(long seqNo, boolean multiple) {
-             // Message seqNo acknowledged!
-         }
+        public void handleAck(long seqNo,
+                              boolean multiple) {
+                synchronized(This) {
+                        if (multiple) {
+                                for (long i = ackSet.first(); i t&lt;= seqNo; ++i)
+                                        ackSet.remove(i);
+                        } else {
+                                    ackSet.remove(seqNo);
+                        }
+                }
+        }
 });
-ch.confirmSelect(true);</pre>
+
+for (long i = 0; i t&lt; MSG_COUNT; ++i) {
+        synchronized(this) {
+                ch.basicPublish("", QUEUE_NAME,
+                                MessageProperties.PERSISTENT_BASIC,
+                                "nop".getBytes());
+                ackSet.add(i);
+        }
+}
+
+while (ackSet.size() &gt; 0)
+        Thread.sleep(10);
+</pre>
         </doc:subsection>
 
         <doc:subsection>
@@ -129,6 +151,94 @@ ch.confirmSelect(true);</pre>
 
       </doc:section>
 
+      <doc:section name="queue-ttl">
+        <doc:heading>Per-Queue Message TTL</doc:heading>
+
+        <p>
+          The <code>x-message-ttl</code> argument to
+          <code>queue.declare</code> controls for how long a message
+          published to a queue can live before it is discarded. A
+          message that has been in the queue for longer than the
+          configured TTL is said to be <em>dead</em>. Note that a
+          message routed to multiple queues can die at different
+          times, or not at all, in each queue in which it resides. The
+          death of a message in one queue has no impact on the life of
+          the same message in other queues.
+        </p>
+
+        <p>
+          The server guarantees that dead messages will not be
+          included in any <code>basic.get-ok</code> or
+          <code>basic.deliver</code> methods. Further, the server
+          guarantees to reap dead messages at an interval
+          corresponding to the configured TTL.
+        </p>
+
+        <p>
+          The value of the <code>x-message-ttl</code> argument must be
+          an integer, greater than zero, describing the TTL period in
+          milliseconds. Thus a value of 1000 means that a message
+          added to the queue will live in the queue for 1 second or
+          until it is delivered to a consumer. The argument can be of
+          AMQP type short-short-int, short-int, long-int, or
+          long-long-int.
+        </p>
+
+        <doc:subsection>
+          <doc:heading>Usage</doc:heading>
+
+          <p>
+            This example in Java creates a queue in which messages may reside for at most 60 seconds:
+          </p>
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-message-ttl", 60000);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </doc:subsection>
+
+      </doc:section>
+
+      <doc:section name="exchange-bindings">
+        <doc:heading>Exchange to Exchange Bindings</doc:heading>
+
+        <p>
+          The <code>queue.bind</code> AMQP method binds a queue to an
+          exchange so that messages flow (subject to various criteria)
+          from the exchange (the <em>source</em>) to the queue (the
+          <em>destination</em>). We have introduced an
+          <code>exchange.bind</code> AMQP method which binds one
+          exchange to another exchange. The binding is semantically
+          identical to exchange-to-queue bindings: unidirectional,
+          binding keys and exchange types operate as normal, but both
+          endpoints (the source and destination) of the binding are
+          exchanges. This allows far richer routing topologies to be
+          created. Note the <code>source</code> and
+          <code>destination</code> fields in the
+          <code>exchange.bind</code> method reflect the flow of
+          messages: from the exchange at the source, and to the
+          exchange at the destination.
+        </p>
+
+        <p>
+          Just like with <code>queue.bind</code>, multiple distinct
+          bindings can be created between the same
+          binding-endpoints. We detect and eliminate cycles during
+          message delivery, and ensure that transitively, over any
+          routing topology, for every queue to which a given message
+          is routed, each queue will receive exactly one copy of that
+          message. Exchanges which are declared as
+          <code>auto-delete</code> will still be removed when all
+          their bindings are removed, regardless of whether those
+          bindings are to queues or exchanges. Note that an
+          auto-delete exchange will only be deleted when bindings for
+          which the exchange is the <em>source</em> are removed: if
+          you add exchange-to-exchange bindings for which the given
+          exchange is the <em>destination</em> then that exchange will
+          not be auto-deleted on removal of those bindings.
+        </p>
+
+      </doc:section>
+
       <doc:section name="queue-leases">
         <doc:heading>Queue Leases</doc:heading>
 
@@ -137,11 +247,12 @@ ch.confirmSelect(true);</pre>
           <code>queue.declare</code> controls for how long a queue can
           be unused before it is automatically
           deleted. <em>Unused</em> means the queue has no consumers,
-          and no consumer related operations (<code>basic.get</code> or
-          <code>basic.cancel</code>) have occurred for
-          a duration of at least the expiration period. This can be
-          used, for example, for RPC-style reply queues, where many
-          queues can be created which may never be drained.
+          the queue has not been redeclared, and no consumer related
+          operations (<code>basic.get</code> or
+          <code>basic.cancel</code>) have occurred for a duration of
+          at least the expiration period. This can be used, for
+          example, for RPC-style reply queues, where many queues can
+          be created which may never be drained.
         </p>
 
         <p>
@@ -373,7 +484,7 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
 
           <p>
             A value of 0 disables the memory monitor and throttling of
-            producers via <code>channel.flow</code>.
+            producers.
           </p>
 
           <p>
@@ -418,9 +529,8 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
             throttle producers whenever RabbitMQ is using more than
             410MB memory. Thus when RabbitMQ can't recognize your
             platform, if you actually have 8GB RAM installed and you
-            want to invoke <code>channel.flow</code> to throttle
-            producers when the RabbitMQ server is using above 3GB, set
-            <code>vm_memory_high_watermark</code> to 3.
+            want RabbitMQ to throttle producers when the server is using
+            above 3GB, set <code>vm_memory_high_watermark</code> to 3.
           </p>
 
           <p>

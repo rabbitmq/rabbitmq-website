@@ -4,12 +4,17 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Broker Query Language Plugin</title>
   </head>
   <body>
     <doc:div>
+      <p class="warning">
+        WARNING: the BQL plugin is deprecated and as of RabbitMQ 2.1.1
+        will likely not work correctly. This page is retained for
+        those using BQL against older versions of RabbitMQ.
+      </p>
       <p class="intro">
         This is the documentation for the rabbitmq-bql plugin. The Broker Query Language plugin provides
         a textual, SQL-like query language for interrogating and configuring the broker.

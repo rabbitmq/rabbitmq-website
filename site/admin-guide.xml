@@ -1,17 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Administration Guide</title>
   </head>
   <body>
     <doc:div>
       <p class="intro">
-        This is the RabbitMQ Server Administrator's Guide. <i>(Note: it
-        is still under development. Please contact us if you have any
-        suggestions or wished-for features!)</i>
+        This is the RabbitMQ Server Administrator's Guide.
       </p>
-      <p>See also this <a href="/how.html#management">list of new community tools</a> have appeared for 'dashboard' access to core management functionality.</p>
-
       <doc:toc class="compact">
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
@@ -49,14 +45,17 @@
         </ul>
 
         <p>
-          It is advisable to <a href="man/rabbitmqctl.1.man.html#change_password">change the
-          password</a> of the <code>guest</code> user to something
-          private, particularly if your broker is accessible publicly.
+          It is advisable
+          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
+          the <code>guest</code> user
+          or <a href="man/rabbitmqctl.1.man.html#change_password">change
+          the password</a> to something private, particularly if your
+          broker is accessible publicly.
         </p>
       </doc:section>
 
       <doc:section name="management">
-        <doc:heading>Management</doc:heading>
+        <doc:heading>Management and monitoring</doc:heading>
         <p>
           <code>rabbitmqctl</code> is a command line tool for managing
           a RabbitMQ broker.
@@ -64,10 +63,11 @@
           <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
         </p>
         <p>
-          rabbitmq-management is a web UI and an HTTP API for managing
-          a RabbitMQ broker. For more information on
-          rabbitmq-management, please see
-          <a href="management.html">its documentation</a>.
+          There is also a <a href="management.html">management
+          plugin</a> which provides a web UI and HTTP API for managing
+          and monitoring a RabbitMQ broker. And there are
+          several <a href="how.html#management"> community-maintained
+          management tools</a>.
         </p>
       </doc:section>
 
@@ -155,39 +155,16 @@
         </p>
 
         <p>
-          Some AMQP operations can create resources with
-          server-generated names. By default, every user has
-          configure, write and read permissions for such
-          resources. The names are strong and not discoverable as part
-          of the protocol, only through management
-          functionality. Therefore, these resources are in effect
-          private to the client that created them, unless their names
-          are explicitly shared with other clients via some external
-          mechanism.
-        </p>
-
-        <p>
-          Permissions have scope.  Permissions with
-          <code>client</code> scope are enforced only for
-          client-specified names.  As detailed above, operations with
-          server-generated names or standard names (such as the
-          standard AMQP exchanges) are allowed.  Permissions with
-          <code>all</code> scope are enforced for all resources.  In
-          this case, users must be explicitly granted permission to
-          <code>'amq\.gen.*'</code> if they are to use
-          server-generated resources.  Similarly, grant no access
-          could simply be expressed as <code>''</code>.  Permissions
-          have <code>client</code> scope, by default.
-        </p>
-
-        <p>
           The regular expression <code>'^$'</code>, i.e. matching
-          nothing but the empty string, exactly covers resources with
-          server-generated names. That, for example, allows an
-          administrator to restrict a user to declaring private
-          resources only.  The empty string, <code>''</code> is a
-          synonym for <code>'^$'</code> and restricts permissions in the
-          exact same way.
+          nothing but the empty string, covers all resources and
+          effectively stops the user from performing any operation.
+          Standard AMQP resource names are prefixed with
+          <code>amq.</code> and server generated names are prefixed
+          with <code>amq.gen</code>.  For example,
+          <code>'^amq\.gen.*|amq\.default$'</code> gives a user access to
+          server-generated names and the default exchange.  The empty
+          string, <code>''</code> is a synonym for <code>'^$'</code>
+          and restricts permissions in the exact same way.
         </p>
 
         <p>

@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Manual pages</title>
   </head>
@@ -20,7 +20,7 @@
           <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a></li>
           <li><a href="man/rabbitmq-multi.1.man.html">rabbitmq-multi</a></li>
           <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
-          <li><a href="man/rabbitmq-service.1.man.html">rabbitmq-service</a></li>
+          <li><a href="man/rabbitmq-service.man.html">rabbitmq-service</a></li>
         </ul>
       </doc:section>
 

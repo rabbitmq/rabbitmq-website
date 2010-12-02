@@ -1,0 +1,108 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>RabbitMQ - Contact</title>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+       registerOnLoadHandler(function() { setTimeout(initialise, 100); });
+
+       function initialise() {
+         var latlng = new google.maps.LatLng(51.506312, -0.099871);
+         var myOptions = {
+           zoom: 15,
+           center: latlng,
+           mapTypeId: google.maps.MapTypeId.ROADMAP,
+           mapTypeControl: false
+         };
+         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+         var marker = new google.maps.Marker({
+           position: latlng,
+           map: map,
+           title: "RabbitMQ",
+           icon: "img/rabbitmq_logo_30x30.png"
+         });
+       }
+    </script>
+  </head>
+  <body>
+    <h2>Contact Us</h2>
+    <h3 id="mailing-list">Mailing List</h3>
+    <p>
+      We host the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a> list for
+      discussions about RabbitMQ. Once you join you can get help with technical issues, ask questions and share your experiences with RabbitMQ.
+    </p>
+    <ul>
+      <li>Sign up to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a></li>
+      <li>Read the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">list archive</a></li>
+      <li>You can also access the list through
+        <a href="http://dir.gmane.org/gmane.comp.networking.rabbitmq.general">gmane</a>,
+        <a href="http://groups.google.com/group/rabbitmq-discuss">google-groups</a>,
+        <a href="http://old.nabble.com/RabbitMQ-f25704.html">nabble</a>, and
+        <a href="http://rabbitmq.markmail.org/">MarkMail</a></li>
+    </ul>
+    <p>
+      If you want to be notified of new releases and other important RabbitMQ announcements please sign up to the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">rabbitmq-announce</a> list.
+    <h3 id="email">Email</h3>
+    <p>
+      You can contact us by email using one of the following addresses:
+    </p>
+    <table>
+      <tr>
+        <td>For general and sales enquiries</td><td><a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a></td>
+      </tr>
+      <tr>
+        <td>For help installing or using RabbitMQ</td><td><a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a></td>
+      </tr>
+      <tr>
+        <td>If you have a genuine complaint or need to rant</td><td><a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a></td>
+      </tr>
+    </table>
+    <h3 id="irc">IRC</h3>
+    <p>
+      RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
+      <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
+      The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
+	  You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
+	</p>
+	<h3 id="microblog">Twitter</h3>
+	<p>
+	  RabbitMQ is on twitter. <a href="http://twitter.com/#!/rabbitmq">Follow us</a> or <a href="http://twitter.com/search?q=rabbitmq">search realtime</a> results.
+	</p>
+	<p>
+	  If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
+	</p>
+	<div id="getting_here">
+    <h3>Getting here</h3>
+    <h4 id="location">Location</h4>
+    <address>
+      RabbitMQ<br/>
+      c/o VMware UK<br/>
+      Bluefin Building<br/>
+      110, Southwark Street<br/>
+      London SE1 0TA<br/>
+      United Kingdom<br/>
+      T: +44 (0) 20 7654 8816<br />
+      F: +44 (0) 20 7654 8801<br />
+    </address>
+    <div id="map_canvas"></div>
+    <h4 class="clear">Journey Planner</h4>
+    <p>For the quickest route to RabbitHQ use Transport for London's
+    <a href="http://journeyplanner.tfl.gov.uk/user/XSLT_TRIP_REQUEST2?language=en&amp;execInst=&amp;sessionID=0&amp;ptOptionsActive=-1&amp;place_destination=London&amp;name_destination=SE1 0TA&amp;type_destination=locator" target="_blank">journey planner</a>.</p>
+    <h4 id="underground">By underground</h4>
+    <ul>The nearest underground stations to RabbitHQ are:
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Southwark+tube+station&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;geocode=FePiEQMdfGX-_ykD1jJQpQR2SDFUwHo1h8V-Zw%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;hl=en&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.504769,-0.1026&amp;sspn=0.006177,0.007703&amp;ie=UTF8&amp;z=17">Southwark</a> (550 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=London+Bridge+Station,+Railway+Approach,+City+of+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;geocode=FSLmEQMdCrD-_yk9mgGdUAN2SDECLUCWLCjxDA%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;hl=en&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.504602,-0.103405&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.50523,-0.093727&amp;spn=0.013076,0.015407&amp;z=16">London Bridge</a> (1,000 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Mansion+House+tube+station&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FdUCEgMdFZD-_ym7_Mp-qgR2SDG78zsv_0wz3A%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50477,-0.1026&amp;sspn=0.006177,0.007703&amp;ie=UTF8&amp;z=16">Mansion House</a> (1,200 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Waterloo,+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FT7eEQMdpUD-_ykxANxMuAR2SDGy9Nq8xoURJg%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50464,-0.10739&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.504602,-0.103405&amp;spn=0.013076,0.015407&amp;z=16">London Waterloo</a> (1,300 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=St.+Paul's+Tube+Station,+Cheapside,+City+of+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FaYOEgMdo4T-_yGoxNAf3nQPEA%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50845,-0.09656&amp;sspn=0.012354,0.015407&amp;ie=UTF8&amp;ll=51.510398,-0.099521&amp;spn=0.012353,0.015407&amp;z=16">St Paul's</a> (1,800 metres)</li>
+    </ul>
+    <h4 id="train">By train</h4>
+    <ul>The nearest mainline train stations to RabbitHQ are:
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Blackfriars,+City+of+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;geocode=Ffv-EQMdrmv-_ylxQga4rQR2SDGh7bs5Lq4OJg%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;hl=en&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50523,-0.093727&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;z=17">Blackfriars</a> (800 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=London+Bridge+Station,+Railway+Approach,+City+of+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;geocode=FSLmEQMdCrD-_yk9mgGdUAN2SDECLUCWLCjxDA%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;hl=en&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.504602,-0.103405&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.50523,-0.093727&amp;spn=0.013076,0.015407&amp;z=16">London Bridge</a> (1,000 metres)</li>
+      <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Waterloo,+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FT7eEQMdpUD-_ykxANxMuAR2SDGy9Nq8xoURJg%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50464,-0.10739&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.504602,-0.103405&amp;spn=0.013076,0.015407&amp;z=16">London Waterloo</a> (1,300 metres)</li>
+    </ul>
+    </div>
+  </body>
+</html>
+

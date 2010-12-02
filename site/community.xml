@@ -1,6 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Community</title>
   </head>
@@ -15,15 +14,9 @@
       <div class="col columnLeft">      
       <h3>Mailing list</h3>
       <ul>
-	<li>There is a mailing list dedicated to RabbitMQ. Everyone is welcome to join and ask questions 
-	    but please make sure your question hasn't been answered before by searching the archives. Two
-	    interfaces are available for this:
-	    <ul class="plain">
-	      <li>A <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">read-only</a> Mailman 
-	      interface which also provides information on how to 
-	      <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">subscribe directly</a></li>
-	      <li>A <a href="email-archive.html">full web-interface provided Nabble</a> </li>
-	    </ul>  
+	<li>There is a <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a> dedicated to
+        RabbitMQ. Everyone is welcome to join and ask questions but please make sure your question hasn't been answered before
+        by searching the archives.
 	</li>
       </ul>   
       </div>            

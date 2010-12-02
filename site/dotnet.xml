@@ -4,8 +4,10 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
   </head>
@@ -48,9 +50,9 @@
     <h3>
       Download the library and documentation
     </h3>
-    
+
     <h4>Library and documentation installer</h4>
-    
+
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
@@ -62,15 +64,11 @@
     <h4>The library</h4>
 
     <p>
-      The library is available as source, or compiled in a few
-      different forms:
+      The library is available in several compiled forms, and as
+      source:
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
-		  downloadpath="&dir-dotnet-client;">
-	Source code and tools (zip)
-      </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-2.0.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 2.0 (zip) - includes example code
@@ -79,6 +77,10 @@
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 3.0 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Source code and tools (zip)
       </r:download>
     </r:downloads>
 
@@ -131,24 +133,18 @@
       .NET/C# Client library or documentation other than the above.
     </p>
 
+    <h3>Windows Bundle</h3>
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
 
     <h3>Mercurial repository</h3>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-dotnet-client"
         url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
     </repositories>
-
-    <h3>Support</h3>
-
-    <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
-      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
-    </p>
 
     <h3>
       Strong naming
@@ -165,6 +161,9 @@ c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
 fcb943b5.
 </pre>
     </p>
-
+    <h3>Support</h3>
+    <p>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
+    </p>
   </body>
 </html>

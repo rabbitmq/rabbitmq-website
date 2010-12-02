@@ -4,8 +4,10 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ Server</title>
   </head>
@@ -21,7 +23,7 @@
       let us know at <a
       href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
-    
+
     <p>
       The RabbitMQ server is an implementation of an AMQP broker.
       Please see the <a href="specification.html">specification</a> page
@@ -70,20 +72,12 @@
     </h3>
 
     <p>
-      The server is available as source, or compiled in a few
-      different forms. Notes on particular operating systems and
-      variants can be found below the download table.
+      The server is available in several compiled forms, or as
+      source. Notes on particular operating systems and variants can
+      be found below the download table.
     </p>
 
     <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-server-&version-server;.zip"
-                  downloadpath="&dir-server;">
-	Source code and tools (zip)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;.tar.gz"
-                  downloadpath="&dir-server;">
-        Source code and tools (tar.gz)
-      </r:download>
       <r:download downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
 		  downloadpath="&dir-server;">
 	Packaged as .deb for Debian-based Linux
@@ -105,6 +99,14 @@
 		  downloadpath="&dir-server;">
 	Packaged for Windows systems
       </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;.zip"
+                  downloadpath="&dir-server;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;.tar.gz"
+                  downloadpath="&dir-server;">
+        Source code and tools (tar.gz)
+      </r:download>
     </r:downloads>
 
     <p>
@@ -118,14 +120,6 @@
       Consult <a href="/releases/rabbitmq-server/">the archive</a> if
       you want to download a version of the RabbitMQ Server other than
       the above.
-    </p>
-
-    <h4>Source Code</h4>
-
-    <p>
-      For instructions on building the server from the source-code
-      bundle in the table above, please see the <a
-      href="build-server.html">build page</a>.
     </p>
 
     <h4>Debian GNU/Linux and Ubuntu Linux</h4>
@@ -190,7 +184,7 @@
 
     <p>
       If you have success using our RPMs with any other RPM-based
-      distribution, please <a href="mailto:support@rabbitmq.com">let us know</a>.
+      distribution, please <a href="contact.html">let us know</a>.
     </p>
 
     <p>
@@ -205,8 +199,15 @@
     <h4>Mac OS X</h4>
 
     <p>
-      The easiest way to install the server on OS X is <a
-      href="macports.html">via MacPorts</a>.
+      On OS X the server can be installed <a href="macports.html">via
+      MacPorts</a>.
+    </p>
+    <p>
+      Alternatively, for users of
+      the <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+      package manager there is a community-contributed
+      <a href="http://github.com/mxcl/homebrew/blob/master/Library/Formula/rabbitmq.rb">'rabbitmq'
+      formula</a>.
     </p>
 
     <h4>Generic Unix</h4>
@@ -216,38 +217,43 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h4>Windows</h4>
+    <h4>Windows Bundle</h4>
+    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
+      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
+    </xi:include>
+
+    <h4>Amazon EC2 Bundle</h4>
+    <p>
+      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10
+      (Karmic Koala), both 32 and 64 bit variants, are available for download
+      with pre-installed RabbitMQ.
+    </p>
+
+    <h4>Source Code</h4>
 
     <p>
-      As an alternative to the binary package listed in the table
-      above, we also offer a <a href="download.html#bundle">complete
-      Windows bundle</a>, containing server and client packages as
-      well as the Erlang/OTP system installer.
+      For instructions on building the server from the source-code
+      bundle in the table above, please see the <a
+      href="build-server.html">build page</a>.
     </p>
-    
+
     <h3>Mercurial repositories</h3>
     <p>
       The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
       href="build.html">build instructions</a>.
     </p>
-    
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-server"
         url="http://hg.rabbitmq.com/rabbitmq-server/"/>
       <repository type="hg" shortname="rabbitmq-codegen"
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
-    
 
     <h3>Support</h3>
-
     <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
-      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
   </body>
 </html>
