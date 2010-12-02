@@ -238,6 +238,8 @@ Some teasers:
    with a single property?
  * How different is `a.*.#` from `a.#`?
 
+(Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py) and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
+
 
 > #### Exchange types
 >
