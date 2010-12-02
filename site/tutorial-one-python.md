@@ -143,6 +143,12 @@ messages from that queue.
 >
 >         $ sudo apt-get install python-setuptools git-core
 >         $ sudo easy_install pip
+>
+> * On Windows:
+>To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
+>
+>         > easy_install pika
+>
 
 ### Sending
 
@@ -255,13 +261,14 @@ declaring the queue in both programs.
 > #### Listing queues
 >
 > You may wish to see what queues RabbitMQ has and how many
-> messages are in them. You can do it using the `rabbitmqctl` tool:
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
 >     $ sudo rabbitmqctl list_queues
 >     Listing queues ...
 >     hello    0
 >     ...done.
-
+>
+>(omit sudo on Windows)
 
 
 Receiving messages from the queue is more complex. It works by subscribing
