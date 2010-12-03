@@ -52,22 +52,22 @@
             </tr>
             <tr>
               <td>
-                <a href="/img/management/overview.png" target="screenshot">
+                <a href="/img/management/overview.png">
                   <img src="/img/management/thumbs/overview.png"/>
                 </a>
               </td>
               <td>
-                <a href="/img/management/import-export.png" target="screenshot">
+                <a href="/img/management/import-export.png">
                   <img src="/img/management/thumbs/import-export.png"/>
                 </a>
               </td>
               <td>
-                <a href="/img/management/channels.png" target="screenshot">
+                <a href="/img/management/channels.png">
                   <img src="/img/management/thumbs/channels.png"/>
                 </a>
               </td>
               <td>
-                <a href="/img/management/queue.png" target="screenshot">
+                <a href="/img/management/queue.png">
                   <img src="/img/management/thumbs/queue.png"/>
                 </a>
               </td>
