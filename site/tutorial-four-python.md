@@ -52,20 +52,19 @@ value.
 Direct exchange
 ---------------
 
-Our logging system from previous part of the tutorial is broadcasting
+Our logging system from previous tutorial is broadcasting
 all the messages to all the consumers. We want to extend that, by
 adding the possibility of receiving only a subset of log messages based on their
 severity. For example we may want the script which is writing log messages to
-the disk shoulto only receive critical errors, and not waste disk space
+the disk should only receive critical errors, and not waste disk space
 on warning or info log messages.
 
 We were using a `fanout` exchange, which doesn't give us too much
-flexibility. Well, it's only capable of mindless broadcasting.
+flexibility - it's only capable of mindless broadcasting.
 
-We will use a `direct` exchange instead. The routing algorithm behind a
-`direct` exchange is simple - a message is appended to the queues
-that are bound to the exchange with a `binding key` exactly matching
-`routing key` on the message.
+We will use a `direct` exchange instead. The routing algorithm behind
+a `direct` exchange is simple - a message goes to the queues which
+`binding key` exactly matches the `routng key` of the message.
 
 To illustrate that, consider the following setup:
 
@@ -107,9 +106,9 @@ To illustrate that, consider the following setup:
   </div>
 </div>
 
-In this setup, we can see a `direct` exchange `X` with two queues bound
+In this setup, we can see the `direct` exchange `X` with two queues bound
 to it. The first queue is bound with binding key `red`, and the second
-one has two bindings, one with binding key `black` and the other one
+has two bindings, one with binding key `black` and the other one
 with `green`.
 
 In such a setup a message published to the exchange with a routing key
@@ -170,7 +169,7 @@ Emitting logs
 We'll use this model for our logging system. Instead of `fanout` we'll
 send messages to a `direct` exchange. We will supply the log severity as
 a `routing key`. That way the receiving script will be able to select
-the severity it wants to receive. But let's focus on emitting logs
+the severity it wants to receive. Let's focus on emitting logs
 first.
 
 Like always we need to create an exchange first:
@@ -267,7 +266,6 @@ The code for `emit_logs_direct.py`:
                              type='direct')
 
     severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
-    assert severity in ('info', 'warning', 'error')
     message = ' '.join(sys.argv[2:]) or 'Hello World!'
     channel.basic_publish(exchange='direct_logs',
                           routing_key=severity,
@@ -299,7 +297,6 @@ The code for `receive_logs_direct.py`:
         sys.exit(1)
 
     for severity in severities:
-        assert severity in ('info', 'warning', 'error')
         channel.queue_bind(exchange='direct_logs',
                            queue=queue_name,
                            routing_key=severity)
