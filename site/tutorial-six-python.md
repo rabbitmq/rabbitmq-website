@@ -1,6 +1,6 @@
 # RabbitMQ tutorial - Remote procedure call (RPC)
 
-<div id="sidebar" class="tutorial-four">
+<div id="sidebar" class="tutorial-six">
    <xi:include href="tutorials-menu.xml.inc"/>
 </div>
 
