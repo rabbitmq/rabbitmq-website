@@ -15,7 +15,7 @@ In the [second tutorial](/tutorial-two-python.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
-But what if we need to hear the response from the worker?  Well,
+But what if we need to hear the response back from the worker?  Well,
 that's a completely different story. This pattern is commonly known as
 _Remote Procedure Call_ or _RPC_.
 
@@ -31,6 +31,7 @@ create a simple client class. It's going to expose a method `call`
 which sends a RPC request and blocks until the answer is received:
 
     :::python
+    fibonacci_rpc = FibonacciRpcClient()
     result = fibonacci_rpc.call(4)
     print "fib(4) is %i" % (result,)
 
@@ -38,9 +39,9 @@ which sends a RPC request and blocks until the answer is received:
 >
 > Although RPC is a pretty common pattern in computing, it's often criticised.
 > The problems arise when a programmer is not aware
-> if a function call is local or if it's a slow RPC call. Confusion
-> like that can result in unpredictable system and adds unnecessary
-> complexity to debugging. Instead of simplifying software misused RPC
+> if a function call is local or if it's a slow RPC call. Confusions
+> like that result in unpredictable system and adds unnecessary
+> complexity to debugging. Instead of simplifying software, misused RPC
 > can effect in unmaintainable spaghetti code.
 >
 > Bearing that in mind consider the following advices:
@@ -49,18 +50,17 @@ which sends a RPC request and blocks until the answer is received:
 >  * Document your system. Make the dependencies between components clear.
 >  * Handle error cases. How the client should react when RPC server is down?
 >
-> When in doubt avoid RPC. If you can, you should use an asynchronous pipeline - 
-> where instead of RPC-like blocking, the results are asynchronously pushed to a next
-> computation stage.
+> When in doubt avoid RPC. If you can, you should use an asynchronous
+> pipeline - instead of RPC-like blocking, the results are asynchronously
+> pushed to a next computation stage.
 
 
 ### Callback queue
 
 In general doing RPC over RabbitMQ is easy. A client sends a request
-message and a server replies with a response message.
-
-In order to receive a response we need to send a 'callback' queue
-address with the request, let's try it:
+message and a server replies with a response message.In order to
+receive a response we need to send a 'callback' queue address with the
+request, let's try it:
 
     :::python
     result = channel.queue_declare(auto_delete=True)
@@ -89,9 +89,9 @@ on the `callback_queue`.
 > * `reply_to`: Commonly used to name a callback queue.
 > * `correlation_id`: Useful to correlate RPC responses with requests.
 >
-> The other useful property is `headers`. As a value of that property
-> you can put any dictionary, which makes it very useful to handle
-> any custom headers.
+> The other useful property is `headers`. As a value
+> you can put any dictionary - it's very useful to handle
+> custom headers.
 
 
 ### Correlation id
@@ -101,11 +101,11 @@ every RPC call. That's pretty inefficient, but fortunately it's easy
 to improve - let's create a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
-not clear to which request this response belongs. That's when the
+not clear to which request the response belongs. That's when the
 `correlation_id` property is used. We're going to set it to a random
 value for every request. Later, when we receive a message in the
 callback queue we'll look at this property, and based on that we'll be
-able to math a response with a request. If we see an unknown
+able to match a response with a request. If we see an unknown
 `correlation_id` value, we may safely discard the message - it
 doesn't belong to any of our requests.
 
@@ -298,11 +298,13 @@ The client code is slightly more involved:
 
   * (7) We start with connection establishment and a declaration of an
     autodelete 'callback' queue.
-  * (15) Straight on we subscribe to the 'callback' queue.
-  * (19) The callback executed on every response is doing very simple
+  * (15) Straight on we subscribe to the 'callback' queue, so that
+    we can receive RPC responses.
+  * (19) The callback executed on every response is a doing very simple
     job, for every response message if the `correlation_id` is known,
     it saves the response in 'requests' dictionary.
-  * (24) Next, we define our main `call` method.
+  * (24) Next, we define our main `call` method - it does the actual
+    RPC request.
   * (25) In this method, first we generate an unique `correlation_id`
     number and save it in the 'requests' dictionary.
   * (27) Next, we publish the request message, with two properties:
@@ -313,14 +315,14 @@ The client code is slightly more involved:
     up the 'requests' dictionary and return the response to the user.
 
 
-Our RPC service is now ready. We should start the server first:
+Our RPC service is now ready. We can start the server:
 
     $ python rpc_server.py
      [x] Awaiting RPC requests
 
 To request a fibonacci number run the client:
 
-    $ python rpc_client.py 
+    $ python rpc_client.py
      [x] Requesting fib(30)
 
 The presented design is not the only possible implementation of a RPC
@@ -333,7 +335,7 @@ service, but it has some important advantages:
    are required. This leads to a significant performance boost against
    naive implementations.
 
-But our code is still pretty simplistic and doesn't try to solve more
+Our code is still pretty simplistic and doesn't try to solve more
 complex problems, like:
 
  * How should the client react if there are no servers running?
