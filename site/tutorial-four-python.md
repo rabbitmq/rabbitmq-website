@@ -52,18 +52,17 @@ value.
 Direct exchange
 ---------------
 
-Our logging system from previous tutorial is broadcasting
-all the messages to all the consumers. We want to extend that, by
-adding the possibility of receiving only a subset of log messages based on their
-severity. For example we may want the script which is writing log messages to
-the disk should only receive critical errors, and not waste disk space
-on warning or info log messages.
+Our logging system from the previous tutorial broadcasts all messages
+to all consumers. We want to extend that to allow filtering messages
+based on their severity. For example we may want the script which is
+writing log messages to the disk to only receive critical errors, and
+not waste disk space on warning or info log messages.
 
 We were using a `fanout` exchange, which doesn't give us too much
 flexibility - it's only capable of mindless broadcasting.
 
 We will use a `direct` exchange instead. The routing algorithm behind
-a `direct` exchange is simple - a message goes to the queues which
+a `direct` exchange is simple - a message goes to the queues whose
 `binding key` exactly matches the `routng key` of the message.
 
 To illustrate that, consider the following setup:
