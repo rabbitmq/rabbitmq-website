@@ -10,7 +10,7 @@
   </head>
   <body>
     <doc:div>
-      <div class="intro">
+      <div id="install_intro" class="intro">
         <p>
           This section contains Server installation instructions for various platforms.<br/>
           Check the relevant section following to get the 
@@ -37,10 +37,13 @@
         </p>
       </div>
 
+      <div id="install_toc" class="col" >
       <doc:toc class="compact">
         <doc:heading>RabbitMQ Installation</doc:heading>
       </doc:toc>
-
+      </div>
+      
+      <div id="install_windows">
       <doc:section name="windows">
         <doc:heading>Windows</doc:heading>
 
@@ -460,7 +463,9 @@
           </p>
         </doc:subsection>
       </doc:section>
-
+      </div>
+      
+      <div id="install_linux">
       <doc:section name="debian">
         <doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
 
@@ -820,7 +825,9 @@
           </p>
         </doc:subsection>
       </doc:section>
-
+      </div>
+      
+      <div id="install_info">
       <doc:section name="troubleshooting">
         <doc:heading>Troubleshooting</doc:heading>
         <dl class="instructions">
@@ -971,6 +978,7 @@
           (increasing from the default of 100).
         </p>
       </doc:section>
+      </div>
     </doc:div>
   </body>
 </html>

@@ -320,6 +320,7 @@ div.nav-separator {
 .compact ul.compact {
 	padding-bottom: 0ex;
 }
+
 .docToc {
 	border: #e4e4e4 1px solid;
 	padding: 1em;
@@ -577,6 +578,31 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
 
 #getting_here h4 {
   font-size: 1em;
+}
+
+#install_intro {
+	width: 55%;
+	float: right;
+	padding: 1em;	
+}
+
+#install_toc {
+	width: 40%;
+}
+
+#install_windows {
+	clear: both;
+	padding:1em;
+}
+
+#install_linux {
+	clear: both;
+	padding: 1em;
+}
+
+#install_info {
+	clear: both;
+	padding: 1em;
 }
 
 .instructions dt, h4 {
