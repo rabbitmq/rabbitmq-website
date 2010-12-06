@@ -20,31 +20,31 @@ Although using the `direct` exchange improved our system, it still has
 limitations - it can't do routing based on multiple criteria.
 
 In our logging system we might want to subscribe to not only logs
-based on severity, but also based on the facility which emitted the
-log.  You might know this concept from
-[`syslog`](http://en.wikipedia.org/wiki/Syslog) unix tool.  It's not
-only routing logs based on severity (info/warn/crit...) but also on a
-facility (auth/cron/kern...).
+based on severity, but also based on the source which emitted the log.
+You might know this concept from the
+[`syslog`](http://en.wikipedia.org/wiki/Syslog) unix tool, which
+routes logs based on both severity (info/warn/crit...) and facility
+(auth/cron/kern...).
 
 That would give us a lot of flexibility - we may want to listen to
-only critical errors coming from 'cron' and all logs from 'kern'.
+just critical errors coming from 'cron' and all logs from 'kern'.
 
-To implement that in our logging system we need to learn a more
+To implement that in our logging system we need to learn about a more
 complex `topic` exchange.
 
 
 Topic exchange
 --------------
 
-Messages send to a `topic` exchange can't have an arbitrary
+Messages sent to a `topic` exchange can't have an arbitrary
 `routing_key` - it must be a list of properties, delimited by
-dots. Properties are nothing more than simple words. Few valid routing
+dots. Properties are nothing more than simple words. A few valid routing
 key examples: `stock.usd.nyse`, `nyse.vmw`, `orange.fat.rabbit`. There
 can be as many properties as you like, up to the routing key limit of
 255 bytes.
 
 Binding key must also be in the same form. The logic behind the
-`topic` exchange is similar to `direct` one - a message send with a
+`topic` exchange is similar to a `direct` one - a message sent with a
 particular routing key will be appended to all the queues that are
 bound with a matching binding key. However there are two important
 special cases for binding keys:
@@ -52,7 +52,7 @@ special cases for binding keys:
   * `*` (star) can substitute for exactly one property.
   * `#` (hash) can substitute for zero or more properties.
 
-It's easiest to explain that on the example:
+It's easiest to explain that in the example:
 
 <div class="diagram">
   <img src="/img/tutorials/python-five.png" height="170" />
@@ -97,8 +97,8 @@ It's easiest to explain that on the example:
   </div>
 </div>
 
-In this example, we're going to send messages that describe
-animals. The messages will be send with routing key that consists of
+In this example, we're going to send messages that all describe
+animals. The messages will be sent with a routing key that consists of
 three properties (two dots). The first property in routing key
 will describe a colour, second a size and third a species:
 `<colour>.<size>.<species>`.
@@ -132,10 +132,10 @@ hash `#` binding key, it will just receive all the messages.
 >
 > Topic exchange is powerful and can behave like other exchanges.
 >
-> When queues are bound with `#` (hash) binding key - they will receive
-> all the messages, no matter of the routing key - like in `fanout` exchange.
+> When a queue is bound with `#` (hash) binding key - it will receive
+> all the messages, regardless of the routing key - like in `fanout` exchange.
 >
-> When special characters `*` (star) and `#` (hash) aren't used in bindings, 
+> When special characters `*` (star) and `#` (hash) aren't used in bindings,
 > the topic exchange will behave just like a `direct` one.
 
 Putting it all together
@@ -230,12 +230,12 @@ And to emit a log with a routing key `kern.critical` type:
 
 
 Have fun playing with these programs. Note that the code doesn't make
-any assumption about the routing or binding keys, you may want play
+any assumption about the routing or binding keys, you may want toplay
 with more than two routing key parameters.
 
 Some teasers:
 
- * Will `*` binding catch a message send with an empty routing key?
+ * Will `*` binding catch a message sent with an empty routing key?
  * Will `#.*` catch a message with a string `..` as a key? Will
    it catch a message with a single property key?
  * How different is `a.*.#` from `a.#`?
