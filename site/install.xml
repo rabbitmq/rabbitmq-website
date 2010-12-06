@@ -12,25 +12,27 @@
     <doc:div>
       <div id="install_intro" class="intro">
         <p>
-          This section contains Server installation instructions for various platforms.<br/>
-          Check the relevant section following to get the 
+          Here you can find instructions to get your 
           <a href="server.html"> Server Download</a> 
-          installed for your platform.
+          installed and running for your chosen platform.
         </p>
+        <h2>Summary</h2>
         <p>
           Each installation requires Erlang, which also provides 
-          Mnesia (DBMS) and logging support for the Brokers.<br/>
-          Management scripts start and stop the Brokers, 
+          Mnesia (DBMS) and logging support for the Brokers.
+          Mnesia and Log Directories may need read/write 
+          permissions for the rabbitmq account.
+        </p>
+        <p>
+          Management scripts start and stop the Broker, 
           and set up a default Environment.
+          Scripts and commands need to run as a privileged user e.g. 
+          an administrator on Windows, or with root permission 
+          (eg sudo) on Unix-like systems.         
         </p>
         <p>
-          Note that scripts and commands will need to be run as an administrator on Windows, 
-          or as an administrator, with root permission (eg sudo) on Unix-like systems.<br/>
-          Mnesia and Log Directories will need read/write permissions for the rabbitmq account.
-        </p>
-        <p>
-          Typical installations follow.<br/>
-          If you use non-default file locations, account or service names or ports, 
+          If you use non-default file locations, account 
+          or service names or ports, 
           these Environment Variables should be edited as described.<br/>
           Other configuration may be defined in a .config file using the 
           <a href="#configfile">Configuration</a> example.
@@ -39,7 +41,7 @@
 
       <div id="install_toc" class="col" >
       <doc:toc class="compact">
-        <doc:heading>RabbitMQ Installation</doc:heading>
+        <doc:heading>RabbitMQ Server Installation</doc:heading>
       </doc:toc>
       </div>
       
@@ -48,21 +50,20 @@
         <doc:heading>Windows</doc:heading>
 
         <doc:subsection name="install-windows-bundle">
-          <doc:heading>Installation from a complete bundle</doc:heading>
+          <doc:heading>Installation from the Windows Bundle</doc:heading>
           <p>
             The Windows Bundle zip file contains an Erlang system installer and the
             RabbitMQ broker server binary distribution, needed for the next section. 
-            It also includes .Net RabbitMQ and Java clients.
+            It also includes .Net and Java client libraries for RabbitMQ.
           </p>
           <p>
-            Just extract the files from the downloaded bundle, 
-            then go through the following instructions 
-            for each component.
+            Just extract the files from the downloaded bundle then go through 
+            the following instructions for each component.
           </p>
         </doc:subsection>
 
         <doc:subsection name="install-windows-separately">
-          <doc:heading>Installation of separate components</doc:heading>
+          <doc:heading>Installation of Server Components</doc:heading>
           <div class="instructions">
             <dl>
               <dt>Install Erlang</dt>
@@ -73,8 +74,8 @@
                 http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
                 Using default options, Erlang should appear in the Start Menu, 
                 and the Erlang directory 
-                (e.g. <code>&dir-erlang-windows;</code>) should exist, containing 
-                <code>bin\erl.exe</code>
+                (e.g. <code>&dir-erlang-windows;</code>) should exist and contain 
+                <code>bin\erl.exe</code>. 
               </dd>
             </dl>
           </div>
@@ -87,16 +88,19 @@
                   set to the base directory of your Erlang installation, e.g.
                   <code>&dir-erlang-windows;</code>.
                   The RabbitMQ batch files expect the file
-                  <code>bin\erl.exe</code> to be present at this location.
+                  <code>erl.exe</code> to be present in the <code>bin</code> 
+                  directory at this location.
                 </p>
                 <p>
                   Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables. 
-                  Create the Environment Variable ERLANG_HOME and set it to the 
-                  Erlang directory containing <code>bin\erl.exe</code>.
+                  Create the System Environment Variable ERLANG_HOME 
+                  and set it to the Erlang directory containing 
+                  <code>bin\erl.exe</code>.
                 </p>
               </dd>
             </dl>
           </div>
+          
           <div class="instructions">
             <dl>
               <dt>Install RabbitMQ Server</dt>
@@ -113,17 +117,27 @@
                  <code>&dir-server-windows;\rabbitmq_server-&version-server;</code> (or similar).
                 </p>
               </dd>
-            
+            </dl>
+            </div>
+         </doc:subsection>
+
+        <doc:subsection name="find-rabbitmq-on-windows">
+          <doc:heading>Finding Command Scripts and System Data</doc:heading>
+          <div class="instructions">
+            <dl> 
               <dt>Commands for RabbitMQ Server</dt>
               <dd>
                 <p>
-                 Within the <code>rabbitmq_server-&version-server;\sbin</code> directory 
-                 are some scripts which run commands to control the RabbitMQ Server.<br/>
-                 Log in as an administrator to run these using a command shell in the sbin directory. 
-                 It may be useful to add the <code>sbin</code> directory to your %PATH%.
+                 Within the <code>rabbitmq_server-&version-server;\sbin</code> 
+                 directory are some scripts which run commands 
+                 to control the RabbitMQ Server.<br/>
+                 Log in as an administrator to run these using a 
+                 Command Prompt in the sbin directory. 
+                 It may be useful to add the <code>sbin</code> 
+                 directory to your %PATH%.
                 </p>
                 <p>
-                  Message Brokers can run as either an Application or Service (not both).
+                  The RabbitMQ Server can be run as either an Application or Service (not both).
                   <ul>
                     <li>rabbitmq-server.bat starts the broker as an Application.</li>
                     <li>rabbitmq-service.bat manages the Service and starts the broker.</li>
@@ -131,11 +145,17 @@
                   </ul>
                 </p>              
               </dd>
-              <dt>Finding %APPDATA%</dt>
-              <dd>            
-                  In a cmd window, type <code>echo %APPDATA%</code> to find the current user's Application Data directory e.g.<br/>
-                  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>, or<br/>
-                  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code> (Windows Vista).<br/>
+              <dt>Finding Application Data</dt>
+              <dd>
+              <p>
+                By default, the RabbitMQ Mnesia database and Logs 
+                are within the current user's Application Data directory.
+                To find this directory, type <code>echo %APPDATA%</code> 
+                in a Command Prompt e.g. 
+                <code>C:\Documents and Settings\User\Application Data</code> or 
+                <code>C:\Documents and Settings\User\AppData\Roaming</code> 
+                (Windows Vista).
+                </p>
               </dd>
             </dl>
           </div>
@@ -163,17 +183,18 @@
               <dt>RABBITMQ_BASE</dt>
               <dd>
                   Defaults to the directory <code>RabbitMQ</code> in %APPDATA%.
-                  This base directory contains sub-directories for the RabbitMQ Server's database
-                  and log files.  Alternatively, set
+                  This base directory contains sub-directories for the 
+                  RabbitMQ Server's database
+                  and log files. Alternatively, set
                   <b>RABBITMQ_MNESIA_BASE</b> and
                   <b>RABBITMQ_LOG_BASE</b> individually.
               </dd>
 
               <dt>RABBITMQ_MNESIA_BASE</dt>
               <dd>
-                  Defaults to <code>%RABBITMQ_BASE%\db</code>. Set this to the
-                  directory where Mnesia database files should be
-                  placed.
+                  Defaults to <code>%RABBITMQ_BASE%\db</code>. 
+                  Set this to the directory where Mnesia database files 
+                  should be placed.
               </dd>
 
               <dt>RABBITMQ_LOG_BASE</dt>
@@ -246,7 +267,8 @@
                 <a href="#troubleshooting">crash dump</a> response.
               </p>
               <p>
-               If you started by double clicking, the shell window displays a banner message,
+               If you started by double clicking, the shell window 
+               displays a banner message,
                and reports on progress in the startup sequence,
                concluding with "broker running", indicating
                that the RabbitMQ broker has been started successfully.
@@ -298,10 +320,9 @@
                     This is the location of database and
                     log directories. The account that the service will run as must have read and
                     write access to this location. 
-                    The default location %APPDATA%  
-                    will not normally meet this requirement, 
-                    so this variable must be set explicitly and the
-                    permissions must be verified.
+                    If the default location %APPDATA%  
+                    does not meet this requirement, 
+                    this variable must be set explicitly and the permissions must be verified.
               </dd>
                   
               <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
