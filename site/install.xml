@@ -131,6 +131,12 @@
                   </ul>
                 </p>              
               </dd>
+              <dt>Finding %APPDATA%</dt>
+              <dd>            
+                  In a cmd window, type <code>echo %APPDATA%</code> to find the current user's Application Data directory e.g.<br/>
+                  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>, or<br/>
+                  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code> (Windows Vista).<br/>
+              </dd>
             </dl>
           </div>
         </doc:subsection>
@@ -156,10 +162,7 @@
             <dl>
               <dt>RABBITMQ_BASE</dt>
               <dd>
-                  Defaults to the directory <code>RabbitMQ</code> in %APPDATA%,
-                  the user's application data  directory, e.g.<br/>
-                  <code>C:\Documents and Settings\User\Application Data\RabbitMQ</code>, or<br/>
-                  <code>C:\Documents and Settings\User\AppData\Roaming\RabbitMQ</code> (Windows Vista).<br/>
+                  Defaults to the directory <code>RabbitMQ</code> in %APPDATA%.
                   This base directory contains sub-directories for the RabbitMQ Server's database
                   and log files.  Alternatively, set
                   <b>RABBITMQ_MNESIA_BASE</b> and
@@ -294,8 +297,8 @@
               <dd>
                     This is the location of database and
                     log directories. The account that the service will run as must have read and
-                    write access to this location.<br/>
-                    The default location (application data directory of the current user) 
+                    write access to this location. 
+                    The default location %APPDATA%  
                     will not normally meet this requirement, 
                     so this variable must be set explicitly and the
                     permissions must be verified.
@@ -353,7 +356,7 @@
               <dd>
                 <p>
                 To start the server, execute 
-                <pre class="sourcecode">rabbitmq-service start</pre>. 
+                <pre class="sourcecode">rabbitmq-service start</pre>
                 If the output from this command is
                 "<code>Service <i>RABBITMQ_SERVICENAME</i>
                 started</code>", then the service was started
