@@ -39,28 +39,29 @@ which sends a RPC request and blocks until the answer is received:
 >
 > Although RPC is a pretty common pattern in computing, it's often criticised.
 > The problems arise when a programmer is not aware
-> if a function call is local or if it's a slow RPC call. Confusions
-> like that result in unpredictable system and adds unnecessary
+> whether a function call is local or if it's a slow RPC call. Confusions
+> like that result in an unpredictable system and adds unnecessary
 > complexity to debugging. Instead of simplifying software, misused RPC
-> can effect in unmaintainable spaghetti code.
+> can result in unmaintainable spaghetti code.
 >
-> Bearing that in mind consider the following advices:
+> Bearing that in mind, consider the following advice:
 >
 >  * Make sure it's obvious which function call is local and which is remote.
 >  * Document your system. Make the dependencies between components clear.
->  * Handle error cases. How the client should react when RPC server is down?
+>  * Handle error cases. How should the client react when the RPC server is
+>    down?
 >
 > When in doubt avoid RPC. If you can, you should use an asynchronous
-> pipeline - instead of RPC-like blocking, the results are asynchronously
+> pipeline - instead of RPC-like blocking, results are asynchronously
 > pushed to a next computation stage.
 
 
 ### Callback queue
 
 In general doing RPC over RabbitMQ is easy. A client sends a request
-message and a server replies with a response message.In order to
+message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
-request, let's try it:
+request. Let's try it:
 
     :::python
     result = channel.queue_declare(auto_delete=True)
@@ -73,7 +74,7 @@ request, let's try it:
                                 ),
                           body=request)
 
-At that point our RPC client could just wait for the response message
+At this point our RPC client could just wait for the response message
 on the `callback_queue`.
 
 > #### Message properties and headers
@@ -83,7 +84,7 @@ on the `callback_queue`.
 > the following:
 >
 > * `content_type`: Used to describe the mime-type of the encoding.
->    For example for the often used JSON encoding it is a good practise
+>    For example for the often used JSON encoding it is a good practice
 >    to set this header to: `application/json`.
 > * `delivery_mode`: When the value is 2, a message is marked as persistent.
 > * `reply_to`: Commonly used to name a callback queue.
@@ -178,18 +179,18 @@ Our RPC will work like that:
     which is set to a random value for every request.
   * The request is send to an `rpc_queue` queue.
   * RPC worker (aka: server) is waiting for requests on that queue.
-    When request appears, it does the job and sends a message with the
-    result back to the Client, using the queue from `reply_to` field.
+    When a request appears, it does the job and sends a message with the
+    result back to the Client, using the queue from the `reply_to` field.
   * The client waits for data on the callback queue. When a message
     appears, it checks the `correlation_id` property. If it matches
-    the the value from the request it returns the response to the
+    the value from the request it returns the response to the
     application.
 
 Putting it all together
 -----------------------
 
 
-The code for our RPC server looks like that: 
+The code for our RPC server looks like this:
 
     #!/usr/bin/env python
     import pika
@@ -233,15 +234,16 @@ The code for our RPC server looks like that:
 
 The server code is rather straightforward:
 
-  * (4) As usual we start with connection establishment and queue declaration.
-  * (11) Next, we declare our recursive fibonacci-counting
-    function. Don't expect it to work for big numbers, it's probably
-    the slowest implementation possible.
+  * (4) As usual we start by establishing the connection and declaring
+    the queue.
+  * (11) Next, we declare our fibonacci function. (Don't expect this one to
+     work for big numbers, it's probably the slowest recursive implementation
+     possible).
   * (19) At this point we're ready to declare the `basic_consume`
     callback, the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
   * (32) We might want to run more than one server process. In order
-    to spread the load equally over multiple servers we need to set
+    to spread the load equally over multiple servers we need to set the
     `prefetch_count` setting.
 
 
@@ -298,9 +300,9 @@ The client code is slightly more involved:
 
   * (7) We start with connection establishment and a declaration of an
     autodelete 'callback' queue.
-  * (15) Straight on we subscribe to the 'callback' queue, so that
+  * (15) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * (19) The callback executed on every response is a doing very simple
+  * (19) The callback executed on every response is doing very simple
     job, for every response message if the `correlation_id` is known,
     it saves the response in 'requests' dictionary.
   * (24) Next, we define our main `call` method - it does the actual
@@ -309,9 +311,8 @@ The client code is slightly more involved:
     number and save it in the 'requests' dictionary.
   * (27) Next, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (34) At this point we should just wait until the proper response
-    message appears.
-  * (36) And finally when we received the response, we need to clean
+  * (34) At this point we just wait until the proper response message appears.
+  * (36) And finally when we have received the response, we need to clean
     up the 'requests' dictionary and return the response to the user.
 
 
