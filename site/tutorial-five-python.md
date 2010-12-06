@@ -39,7 +39,7 @@ Topic exchange
 Messages sent to a `topic` exchange can't have an arbitrary
 `routing_key` - it must be a list of properties, delimited by
 dots. Properties are nothing more than simple words. A few valid routing
-key examples: `stock.usd.nyse`, `nyse.vmw`, `orange.fat.rabbit`. There
+key examples: `stock.usd.nyse`, `nyse.vmw`, `quick.orange.rabbit`. There
 can be as many properties as you like, up to the routing key limit of
 255 bytes.
 
@@ -88,9 +88,9 @@ It's easiest to explain that in the example:
       C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       //
       P -&gt; X;
-      X -&gt; Q1 [label="orange.*.*"];
+      X -&gt; Q1 [label="*.orange.*"];
       X -&gt; Q2 [label="*.*.rabbit"];
-      X -&gt; Q2 [label="*.fat.*"];
+      X -&gt; Q2 [label="lazy.*.*"];
       Q1 -&gt; C1;
       Q2 -&gt; C2;
     }
@@ -100,27 +100,27 @@ It's easiest to explain that in the example:
 In this example, we're going to send messages that all describe
 animals. The messages will be sent with a routing key that consists of
 three properties (two dots). The first property in routing key
-will describe a colour, second a size and third a species:
-`<colour>.<size>.<species>`.
+will describe a celerity, second a colour and third a species:
+`<celerity>.<colour>.<species>`.
 
-We created three bindings: Q1 is bound with binding key `orange.*.*`
-and Q2 with `*.*.rabbit` and `*.fat.*`.
+We created three bindings: Q1 is bound with binding key `*.orange.*`
+and Q2 with `*.*.rabbit` and `lazy.*.*`.
 
 This bindings can be summarised as:
 
   * Q1 is interested in all the orange animals.
-  * Q2 wants to hear everything about rabbits, and everything about fat
+  * Q2 wants to hear everything about rabbits, and everything about lazy
     animals.
 
-Imagine a message with `orange.fat.rabbit` as a routing key.  This
-message will be delivered to both queues. Message
-`orange.fat.elephant` also will go to both of them. On the other hand
-`orange.unknown.whatever` will only go to the first queue, and
-`purple.fat.whatever` only to the second. `yellow.slim.mouse` will be
+A message with a string `lazy.orange.rabbit` as a routing key
+will be delivered to both queues. Message
+`lazy.orange.elephant` also will go to both of them. On the other hand
+`quick.orange.fox` will only go to the first queue, and
+`lazy.brown.fox` only to the second. `quick.brown.fox` will be
 discarded.
 
 What happens if we break our contract and send a message with one or
-four properties, like `orange` or `orange.fat.rabbit.male`? Well,
+four properties, like `orange` or `quick.orange.male.rabbit`? Well,
 such messages won't match any bindings and will be lost.
 
 
