@@ -98,12 +98,6 @@
           the <a href="install.html#configfile">configuration file</a>
           documentation.
         </p>
-        <p>
-          Even if you enable a mechanism in the configuration file,
-          it can prevent itself from being offered to clients - for
-          example, <code>EXTERNAL</code> will not offer itself to
-          non-SSL clients.
-        </p>
       </doc:section>
 
       <doc:section name="client-config">
