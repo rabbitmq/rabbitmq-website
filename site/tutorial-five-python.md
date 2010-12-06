@@ -79,11 +79,6 @@ It's easiest to explain that in the example:
 	color=transparent;
         Q2 [label="{||||}", fillcolor="red", shape="record"];
       };
-      subgraph cluster_Q3 {
-        label="Q3";
-	color=transparent;
-        Q3 [label="{||||}", fillcolor="red", shape="record"];
-      };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       //
