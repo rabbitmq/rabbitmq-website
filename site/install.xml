@@ -50,7 +50,7 @@
         <doc:heading>Windows</doc:heading>
 
         <doc:subsection name="install-windows-bundle">
-          <doc:heading>Installation from the Windows Bundle</doc:heading>
+          <doc:heading>Install from the Windows Bundle</doc:heading>
           <p>
             The Windows Bundle zip file contains an Erlang system installer and the
             RabbitMQ broker server binary distribution, needed for the next section. 
@@ -63,7 +63,7 @@
         </doc:subsection>
 
         <doc:subsection name="install-windows-separately">
-          <doc:heading>Installation of Server Components</doc:heading>
+          <doc:heading>Install Server Components</doc:heading>
           <div class="instructions">
             <dl>
               <dt>Install Erlang</dt>
@@ -122,7 +122,7 @@
          </doc:subsection>
 
         <doc:subsection name="find-rabbitmq-on-windows">
-          <doc:heading>Finding Command Scripts and System Data</doc:heading>
+          <doc:heading>Find Command Scripts and App Data</doc:heading>
           <div class="instructions">
             <dl> 
               <dt>Commands for RabbitMQ Server</dt>
@@ -162,7 +162,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-windows">
-          <doc:heading>Running the Server as an Application</doc:heading>
+          <doc:heading>Run RabbitMQ Server as an Application</doc:heading>
           <p>
             The Application is started by <code>rabbitmq-server.bat</code> 
             script in <code>sbin</code>. 
@@ -206,7 +206,7 @@
 
               <dt>COMPUTERNAME</dt>
               <dd>
-                  Defaults to localhost.
+                  Defaults to <code>localhost</code>.
               </dd>
               
               <dt>RABBITMQ_NODENAME</dt>
@@ -222,8 +222,9 @@
 
               <dt>RABBITMQ_NODE_IP_ADDRESS</dt>
               <dd>
-                  Defaults to <code>0.0.0.0</code>. This can be changed
-                  if you only want to bind to one network interface.<br/>
+                  Defaults to <code>0.0.0.0</code>. 
+                  Setting this to a specific interface address will cause 
+                  the Server to bind to that interface only.<br/>
                   Please note that Windows 2000 (and maybe earlier
                   versions) do not understand "<code>0.0.0.0</code>"
                   and will need to have this set explicitly.
@@ -257,27 +258,28 @@
               <p>
                Use the <code>rabbitmq-server -detached</code> command from 
                <code>rabbitmq_server-&version-server;\sbin</code>.
-               Alternatively, you can go to sbin windows folder and 
-               double-click the rabbitmq-server.bat file.
+               Alternatively, you can double-click the 
+               <code>rabbitmq-server.bat</code> file in Explorer.
               </p>               
               <p>
-               This script only starts the broker. If you enter other options, 
-               they are ignored, but may attempt to start a second broker.
-                If you try to start another broker application, you may get a 
+                This script only starts the broker. 
+                If you enter other options they are ignored, 
+                but the command may attempt to start a second broker.
+                If you try to start another broker application you may get a 
                 <a href="#troubleshooting">crash dump</a> response.
               </p>
               <p>
-               If you started by double clicking, the shell window 
-               displays a banner message,
-               and reports on progress in the startup sequence,
-               concluding with "broker running", indicating
-               that the RabbitMQ broker has been started successfully.
+               If you start by double-clicking a Command Prompt window opens, 
+               displays a banner message, reports on progress in the startup sequence, 
+               and concludes with "broker running". 
+               This shows that the RabbitMQ broker has been started successfully.
               </p>
               <p>
-              If you started without the -detached option e.g. by double clicking, 
-              you will need a second cmd shell to control the application cleanly.
-              Note that closing the original shell console window will also shut down the server, 
-              when running without the -detached option.
+              If you started without the <code>-detached</code> option, 
+              e.g. by double clicking, you will need a second Command Prompt 
+              window to control the application cleanly.
+              <em>Note:</em> closing the original Command Prompt window 
+              will also shut down a server started this way.
               </p>
             </dd>
              
@@ -289,16 +291,17 @@
         </doc:subsection>
 
         <doc:subsection name="running-windows-service">
-          <doc:heading>Running the Server as a Service</doc:heading>
+          <doc:heading>Run RabbitMQ Server as a Service</doc:heading>
           <p>
-            The service will run in the security context of the system account, 
+            The service will run in the security context of the system account 
             without the need for a user to be logged in on a console. 
+            This is normally more appropriate for production use. 
             The server should not be run as a
             service and application simultaneously.
           </p>
           <p>
-                The Service runs using<code>rabbitmq-service.bat</code> script in the
-                <code>sbin</code>. 
+              The Service runs using the <code>rabbitmq-service.bat</code> 
+              script in <code>sbin</code>. 
           </p>
 
           <dl class="instructions">
@@ -363,8 +366,10 @@
               <dt>Install the Service</dt>
               <dd>
                 <p>
-                Install the service by executing <pre class="sourcecode">rabbitmq-service install</pre>
-               
+                Install the service by executing <code>rabbitmq-service
+                install</code>. 
+               </p>
+               <p>
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
                 should now appear in the services control panel (<code>services.msc</code>).
                 Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
@@ -377,11 +382,15 @@
               <dd>
                 <p>
                 To start the server, execute 
-                <pre class="sourcecode">rabbitmq-service start</pre>
+                <code>rabbitmq-service start</code>.
+                </p>
+                <p>
                 If the output from this command is
                 "<code>Service <i>RABBITMQ_SERVICENAME</i>
                 started</code>", then the service was started
-                correctly.<br/> 
+                correctly.
+                </p>
+                <p>
                 If the output reads "<code>The process
                 terminated unexpectedly</code>" instead, then the
                 service did not start correctly. Check that the
@@ -391,8 +400,8 @@
                 </p>
                 <p>
                 Confirm the service named <b>RABBITMQ_SERVICENAME</b> 
-                reports a "Started" status in the system service list 
-                (<code>services.msc</code>) .
+                reports a "Started" status in Services: <br/>
+                Start>Run <code>services.msc</code>.
                 </p>
               </dd>
                 
@@ -403,20 +412,20 @@
                 <code>rabbitmq-service.bat</code> commands. 
                 Refer to the <a href="service-guide.html">service</a> guide for more info, 
                 and for troubleshooting guidance.
-                You can also use the Windows services panel (services.msc).
+                You can also use the Windows Services panel (<code>services.msc</code>).
                 </p>
               </dd>
                 
               <dt>Stopping and Managing the Broker</dt>
               <dd>
-                Use the <a href="#managing-windows">rabbitmqctl</a> commands
+                Use the <a href="#managing-windows">rabbitmqctl</a> commands.
               </dd>
             </dl>
           </div>
         </doc:subsection>
 
         <doc:subsection name="managing-windows">
-          <doc:heading>Managing the Broker</doc:heading>
+          <doc:heading>Manage the Broker</doc:heading>
           <p>
                To stop the broker or check its status, use 
                <code>rabbitmqctl.bat</code>.
@@ -494,7 +503,7 @@
         <doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
 
         <doc:subsection name="install-debian">
-          <doc:heading>Installation Instructions</doc:heading>
+          <doc:heading>Install the Server</doc:heading>
           <ul>
             <li>
               Install the rabbitmq-server package from your chosen
@@ -532,7 +541,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-debian">
-          <doc:heading>Running the Server</doc:heading>
+          <doc:heading>Run RabbitMQ  Server</doc:heading>
           <p>
             The server is started as a daemon by default when the
             RabbitMQ Server package is installed. 
@@ -584,10 +593,10 @@
       </doc:section>
 
       <doc:section name="rpm">
-        <doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat, etc.)</doc:heading>
+        <doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat)</doc:heading>
 
         <doc:subsection name="install-rpm">
-          <doc:heading>Installation Instructions</doc:heading>
+          <doc:heading>Install the Server</doc:heading>
           <ul>
             <li>
               The RabbitMQ server is included in Fedora, so for Fedora
@@ -622,7 +631,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-rpm">
-          <doc:heading>Running the Server</doc:heading>
+          <doc:heading>Run RabbitMQ Server</doc:heading>
           <p>
             The server is not started as a daemon by default when the
             RabbitMQ Server package is installed. As an administrator, start and stop the
@@ -692,7 +701,7 @@
         </p>
 
         <doc:subsection name="install-macports">
-          <doc:heading>Installation Instructions</doc:heading>
+          <doc:heading>Install the server</doc:heading>
           <p>
             Installation of the version of the RabbitMQ server
             distributed with MacPorts is as simple as (<code>sudo port
@@ -702,7 +711,7 @@
         </doc:subsection>
         
         <doc:subsection name="running-macports">
-          <doc:heading>Running the Server</doc:heading>
+          <doc:heading>Run RabbitMQ  Server</doc:heading>
           <p>
             To start the server, you can either use launchctl (see the
             instructions emitted during the <code>sudo port
@@ -724,10 +733,10 @@
       </doc:section>
 
       <doc:section name="generic-unix">
-        <doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
+        <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
 
         <doc:subsection name="install-generic-unix">
-          <doc:heading>Installation Instructions</doc:heading>
+          <doc:heading>Install the Server</doc:heading>
           <ul>
             <li>
               Install a recent version of Erlang.
@@ -813,7 +822,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-generic-unix">
-          <doc:heading>Running the Server</doc:heading>
+          <doc:heading>Run RabbitMQ Server</doc:heading>
           <p>
             Invoke the <code>rabbitmq-server</code> shell script.
             This displays a banner message, and reports on progress in
