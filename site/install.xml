@@ -73,9 +73,9 @@
                 e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
                 http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
                 Using default options, Erlang should appear in the Start Menu, 
-                and the Erlang directory 
-                (e.g. <code>&dir-erlang-windows;</code>) should exist and contain 
-                <code>bin\erl.exe</code>. 
+                and <code>\erl&version-erlang;\bin\erl.exe</code> should exist 
+                <nobr>in <code>&dir-win-apps;</code> or
+                <code>&dir-win64-apps;</code></nobr>.
               </dd>
             </dl>
           </div>
@@ -84,12 +84,12 @@
               <dt>ERLANG_HOME</dt>
               <dd>
                 <p>
-                  The Environment Variable ERLANG_HOME must be 
-                  set to the base directory of your Erlang installation, e.g.
+                  The System Environment Variable ERLANG_HOME must be 
+                  set to the full path to where you actually put your Erlang installation, e.g.
                   <code>&dir-erlang-windows;</code>.
-                  The RabbitMQ batch files expect the file
-                  <code>erl.exe</code> to be present in the <code>bin</code> 
-                  directory at this location.
+                  The RabbitMQ batch files expect 
+                  <code>erl.exe</code> to be present there in the <code>bin</code> 
+                  directory.
                 </p>
                 <p>
                   Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables. 
