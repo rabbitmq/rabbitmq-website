@@ -117,6 +117,11 @@
                  The RabbitMQ Server files should end up as 
                  <code>&dir-server-windows;\rabbitmq_server-&version-server;</code> (or similar).
                 </p>
+                <p>
+                 <em>Hint:</em> Save time, create an Environment Variable 
+                 RABBITMQ_SERVER for  
+                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>
+                 </p>
               </dd>
             </dl>
             </div>
@@ -132,10 +137,12 @@
                  Within the <code>rabbitmq_server-&version-server;\sbin</code> 
                  directory are some scripts which run commands 
                  to control the RabbitMQ Server.<br/>
-                 Log in as an administrator to run these using a 
-                 Command Prompt in the sbin directory. 
-                 It may be useful to add the <code>sbin</code> 
-                 directory to your %PATH%.
+                 Log in as an administrator to run them. 
+                 You can use a Command Prompt in the sbin directory, 
+                 or add <code>;%RABBITMQ_SERVER%\sbin</code>
+                  to your System Path (aka %PATH%), 
+                  so the system can find the commands directly 
+                  from Start > Run or from any Command Prompt.
                 </p>
                 <p>
                   The RabbitMQ Server can be run as either an Application or Service (not both).
@@ -151,8 +158,9 @@
               <p>
                 By default, the RabbitMQ Mnesia database and Logs 
                 are within the current user's Application Data directory.
-                To find this directory, type <code>echo %APPDATA%</code> 
-                in a Command Prompt e.g. 
+                To find this directory, either type <code>echo  %APPDATA%</code> 
+                in a Command Prompt or just Start > Run <code>%APPDATA%</code>,
+                and it will find e.g. 
                 <code>&dir-win-user;\Application Data</code> or 
                 <code>&dir-win-user;\AppData\Roaming</code> 
                 (Windows Vista).
@@ -360,8 +368,9 @@
             <dl>
               <dt>Service Commands</dt>
               <dd>
-                Log in as an administrator and open a command shell (<code>cmd.exe</code>)
-                in the <code>sbin</code> directory.
+                Log in as an administrator and open a Command Prompt 
+                (Start > Run  <code>cmd.exe</code>).
+                Go to the <code>rabbitmq_server-2.1.1\sbin</code> directory.
               </dd>
                
               <dt>Install the Service</dt>
@@ -372,10 +381,11 @@
                </p>
                <p>
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
-                should now appear in the services control panel (<code>services.msc</code>).
+                should now appear in the Windows Services control panel 
+                <nobr>(Start > Run  <code>services.msc</code>).</nobr>
                 Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
                 <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
-                directories.
+                directories (Security tab in Properties).
                 </p>
               </dd>
                
@@ -402,7 +412,7 @@
                 <p>
                 Confirm the service named <b>RABBITMQ_SERVICENAME</b> 
                 reports a "Started" status in Services: <br/>
-                Start>Run <code>services.msc</code>.
+                Start > Run <code>services.msc</code>.
                 </p>
               </dd>
                 
@@ -867,7 +877,7 @@
           <dt>Checking Broker Status</dt>
           <dd>
             <p>
-              It is useful to use rabbitmqctl status to verify whether a broker is running.<br />
+              It is useful to use <code>rabbitmqctl status</code> to verify whether a broker is running.<br />
               A running broker status looks something like this:
               <pre>
   Status of node 'rabbit@xxx' ...
