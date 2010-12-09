@@ -1021,6 +1021,21 @@
           (increasing from the default of 100).
         </p>
       </doc:section>
+       <doc:section name="uninstall">
+        <doc:heading>Uninstall/Upgrade RabbitMQ Server</doc:heading>
+        <p>
+        First, use <code>rabbitmqctl stop</code> to stop a running broker; use <code>rabbitMQ-service remove</code>  to remove any RabbitMQ service.
+        </p>
+        <p>
+        Generally, on Linux-like systems, you can use your package manager to uninstall or upgrade the RabbitMQ server. 
+        </p>
+        <p>
+        On Windows, simply delete the Rabbitmq_server folder from Program Files.  If you are upgrading, just extract the new version to the same place as before and edit  Environment Variables to ensure the new files are found.
+        </p>
+        <p>
+        If you are not upgrading, you can also remove the RabbitMQ Log and Mnesia folders. Erlang can be uninstalled via package manager, or on Windows via  Settings > Control Panel > Add and Remove Programs. Remove Environment Variables that are not needed.
+        </p>
+      </doc:section>
       </div>
     </doc:div>
   </body>
