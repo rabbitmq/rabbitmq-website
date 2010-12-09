@@ -13,7 +13,22 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->   
-
+      <doc:item>
+        <doc:date iso="2010-12-09T00:00:00Z">9 December 2010</doc:date>
+        <doc:title>RabbitMQ Webinar: Messaging that just works</doc:title>
+        <doc:link>http://www.springsource.com/newsevents/webinars</doc:link>
+        <doc:text>
+          <p>We are pleased to announce that we will be hosting our first, live (and free)
+          webinar today at 1500 GMT and repeated at 1300 EST / 1000 PST.</p>
+          <p>Emile, from the RabbitMQ engineering team, will look at the relevance
+          of Erlang/OTP as an implementation platform, the benefits of a messaging
+          system and common messaging patterns. Some important features in recent
+          releases will be discussed with examples. Join us to find out how RabbitMQ
+          can help to scale your application, whether it's on a device, the web, in
+          the data centre, or the cloud.</p>
+          <p>To register, please visit the <a href="http://www.springsource.com/newsevents/webinars">SpringSource webinars page</a>.</p>
+        </doc:text>
+      </doc:item>
       <doc:item>
 	<doc:date iso="2010-11-30T00:00:00Z">30 November 2010</doc:date>
 	<doc:title>
