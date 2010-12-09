@@ -21,7 +21,7 @@
           Each installation requires Erlang, which also provides 
           Mnesia (DBMS) and logging support for the Brokers.
           Mnesia and Log Directories may need read/write 
-          permissions for the rabbitmq account.
+          permissions for the service account.
         </p>
         <p>
           Management scripts start and stop the Broker, 
@@ -72,9 +72,9 @@
                 Versions R13B03 and higher should work on Windows.<br/>
                 e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
                 http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
-                Using default options, Erlang should appear in the Start Menu, 
-                and <code>\erl&version-erlang;\bin\erl.exe</code> should exist 
-                <nobr>in <code>&dir-win-apps;</code> or
+                Using default options, Erlang will appear in the Start Menu, 
+                and <code>\erl&version-erlang;\bin\erl.exe</code> will be in
+                <nobr><code>&dir-win-apps;</code> or
                 <code>&dir-win64-apps;</code></nobr>.
               </dd>
             </dl>
@@ -84,17 +84,16 @@
               <dt>ERLANG_HOME</dt>
               <dd>
                 <p>
-                  The System Environment Variable ERLANG_HOME must be 
-                  set to the full path to where you actually put your Erlang installation, e.g.
-                  <code>&dir-erlang-windows;</code>.
+                  Set ERLANG_HOME to where you actually put your Erlang installation, e.g.
+                  <code>&dir-erlang-windows;</code> (full path).
                   The RabbitMQ batch files expect 
-                  <code>erl.exe</code> to be present there in the <code>bin</code> 
+                  <code>\bin\erl.exe</code> to be in this
                   directory.
                 </p>
                 <p>
                   Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables. 
                   Create the System Environment Variable ERLANG_HOME 
-                  and set it to the Erlang directory containing 
+                  and set it to the directory which contains 
                   <code>bin\erl.exe</code>.
                 </p>
               </dd>
@@ -114,8 +113,6 @@
                  <code>rabbitmq_server-&version-server;</code> 
                  into <code>&dir-server-windows;</code> 
                  (or somewhere suitable for application files).
-                 The RabbitMQ Server files should end up as 
-                 <code>&dir-server-windows;\rabbitmq_server-&version-server;</code> (or similar).
                 </p>
                 <p>
                  <em>Hint:</em> Save time, create an Environment Variable 
@@ -134,33 +131,36 @@
               <dt>Commands for RabbitMQ Server</dt>
               <dd>
                 <p>
-                 Within the <code>rabbitmq_server-&version-server;\sbin</code> 
-                 directory are some scripts which run commands 
-                 to control the RabbitMQ Server.<br/>
-                 Log in as an administrator to run them. 
-                 You can use a Command Prompt in the sbin directory, 
-                 or add <code>;%RABBITMQ_SERVER%\sbin</code>
-                  to your System Path (aka %PATH%), 
-                  so the system can find the commands directly 
-                  from Start > Run or from any Command Prompt.
+                 Within the <code>rabbitmq_server-&version-server;\sbin</code>
+                 directory are some scripts which run commands to control the RabbitMQ Server.
                 </p>
                 <p>
                   The RabbitMQ Server can be run as either an Application or Service (not both).
-                  <ul>
-                    <li>rabbitmq-server.bat starts the broker as an Application.</li>
-                    <li>rabbitmq-service.bat manages the Service and starts the broker.</li>
-                    <li>rabbitmqctl.bat manages a running broker.</li>
-                  </ul>
-                </p>              
+                </p>                
+                <ul>
+                    <li><b>rabbitmq-server.bat</b> starts the broker as an Application.</li>
+                    <li><b>rabbitmq-service.bat</b> manages the Service and starts the broker.</li>
+                    <li><b>rabbitmqctl.bat</b> manages a running broker.</li>
+                </ul>
+                <p>
+                Log in as an administrator. To see the output, 
+                run these from a Command Prompt in the 
+                <code>sbin</code> directory.
+                </p>
+                <p>
+                <em>Hint:</em> Add <code>;%RABBITMQ_SERVER%\sbin</code>
+                  to your System Path (aka %PATH%), 
+                  so the system can find the commands directly from 
+                  Start > Run or from any Command Prompt.
+                </p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
               <p>
                 By default, the RabbitMQ Mnesia database and Logs 
-                are within the current user's Application Data directory.
-                To find this directory, either type <code>echo  %APPDATA%</code> 
-                in a Command Prompt or just Start > Run <code>%APPDATA%</code>,
-                and it will find e.g. 
+                are within the current user's Application Data directory. 
+                <nobr>Start > Run <code>%APPDATA%</code></nobr>,
+                will find this e.g. 
                 <code>&dir-win-user;\Application Data</code> or 
                 <code>&dir-win-user;\AppData\Roaming</code> 
                 (Windows Vista).
@@ -265,8 +265,7 @@
             <dt>Starting the Server Application</dt>
             <dd>
               <p>
-               Use the <code>rabbitmq-server -detached</code> command from 
-               <code>rabbitmq_server-&version-server;\sbin</code>.
+               Run the command <pre class="sourcecode">rabbitmq-server -detached</pre>
                Alternatively, you can double-click the 
                <code>rabbitmq-server.bat</code> file in Explorer.
               </p>               
@@ -294,7 +293,7 @@
              
             <dt>Stopping and Managing the Broker</dt>
             <dd>
-             Use the <a href="#managing-windows">rabbitmqctl</a> commands
+             Use the <a href="#managing-windows">rabbitmqctl</a> commands.
             </dd>
           </dl>
         </doc:subsection>
@@ -366,24 +365,17 @@
 
           <div class="instructions">
             <dl>
-              <dt>Service Commands</dt>
-              <dd>
-                Log in as an administrator and open a Command Prompt 
-                (Start > Run  <code>cmd.exe</code>).
-                Go to the <code>rabbitmq_server-2.1.1\sbin</code> directory.
-              </dd>
-               
               <dt>Install the Service</dt>
               <dd>
                 <p>
-                Install the service by executing <code>rabbitmq-service
-                install</code>. 
+                Install the service by running
+                <pre class="sourcecode">rabbitmq-service install</pre>
                </p>
                <p>
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
                 should now appear in the Windows Services control panel 
                 <nobr>(Start > Run  <code>services.msc</code>).</nobr>
-                Confirm that the service account has full access to the <b>RABBITMQ_BASE</b>,
+                Check the service account has full access to the <b>RABBITMQ_BASE</b>,
                 <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
                 directories (Security tab in Properties).
                 </p>
@@ -392,8 +384,8 @@
               <dt>Starting the Service</dt>
               <dd>
                 <p>
-                To start the server, execute 
-                <code>rabbitmq-service start</code>.
+                To start the server, execute
+                <pre class="sourcecode">rabbitmq-service start</pre>
                 </p>
                 <p>
                 If the output from this command is
@@ -438,11 +430,9 @@
         <doc:subsection name="managing-windows">
           <doc:heading>Manage the Broker</doc:heading>
           <p>
-               To stop the broker or check its status, use 
-               <code>rabbitmqctl.bat</code>.
-                Log in as an administrator and open a command shell 
-                (<code>cmd.exe</code>)
-                in the <code>sbin</code> directory.
+               To stop the broker or check its status, use
+               <code>rabbitmqctl.bat</code> in 
+               <code>sbin</code> (as an administrator).
           </p>
 
           <dl class="instructions">
@@ -455,7 +445,7 @@
               <p>
                  Local service account cookies are normally stored in 
                  <code>C:\WINDOWS\.erlang.cookie</code>
-                 while user account cookies are typically stored in 
+                 while user account cookies are typically stored in either 
                  <code>%APPDATA%</code> or the home directory of the account e.g.
                  <code><nobr>&dir-win-user;\.erlang.cookie</nobr></code>.
                  To ensure that these Erlang cookie files contain the same string, 
@@ -467,21 +457,24 @@
             <dt>Stopping the Broker</dt>
             <dd>
               <p>
-                 Use the <code>rabbitmqctl stop</code> command from <code>sbin</code>.
+                 Use <code>rabbitmqctl stop</code>.
               </p>
             </dd>
                
             <dt>Checking the Broker Status</dt>
             <dd>
               <p>
-                 Use the <code>rabbitmqctl status</code> command from <code>sbin</code>.
+                 Use <code>rabbitmqctl status</code>.
                  All rabbitmqctl commands will report the node absence 
-                 if no broker is running (ie nodedown).
+                 if no broker is running (i.e. nodedown).
               </p>
             </dd>
           </dl>
           <p>
              More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl commands</a>
+          </p>
+          <p>
+            More <a href="admin-guide.html">info on  administration</a>
           </p>
         </doc:subsection>
 
@@ -877,7 +870,7 @@
           <dt>Checking Broker Status</dt>
           <dd>
             <p>
-              It is useful to use <code>rabbitmqctl status</code> to verify whether a broker is running.<br />
+              You can use <code>rabbitmqctl status</code> to verify whether a broker is running.<br />
               A running broker status looks something like this:
               <pre>
   Status of node 'rabbit@xxx' ...
