@@ -17,8 +17,8 @@ deliver the mail to your recipient. Using this metaphor RabbitMQ is a post box,
 a post office and a postman.
 
 The major difference between RabbitMQ and the post office is the fact that it
-doesn't deal with the paper, instead it accepts, stores and forwards binary
-blobs of data - _messages_.
+doesn't deal with paper, instead it accepts, stores and forwards binary
+blobs of data &#8210; _messages_.
 
 RabbitMQ, and messaging in general, uses some jargon.
 
@@ -41,8 +41,8 @@ RabbitMQ, and messaging in general, uses some jargon.
  * _A queue_ is the name for a mailbox. It lives inside
    RabbitMQ. Although messages flow through RabbitMQ and your
    applications, they can be stored only inside a _queue_. A _queue_
-   is not bound by any limits, it can store how many messages you
-   like - it's essentially an infinite buffer. Many _producers_ can send
+   is not bound by any limits, it can store as many messages as you
+   like &#8210; it's essentially an infinite buffer. Many _producers_ can send
    messages that go to the one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
@@ -84,7 +84,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 Hello World!
 ------------
 
-Our "Hello world" won't be too complex - let's send a message, receive
+Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
 sends a message and one that receives and prints it.
 
@@ -120,8 +120,8 @@ messages from that queue.
 >
 > RabbitMQ speaks a protocol called AMQP. To use Rabbit you'll need a library
 > that understands the same protocol as Rabbit. There is a choice of libraries
-> for almost every programming language. For python it's not different and there
-> is a bunch of libraries to choose from:
+> for almost every programming language. For python it's no different and there
+> are a bunch of libraries to choose from:
 >
 > * [py-amqplib](http://barryp.org/software/py-amqplib/)
 > * [txAMQP](https://launchpad.net/txamqp)
@@ -177,7 +177,7 @@ RabbitMQ server.
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
                    '127.0.0.1',
-                   credentials = pika.PlainCredentials('guest', 'guest'))
+                   credentials = pika.PlainCredentials('guest', 'guest')))
     channel = connection.channel()
 
 We're connected now. Next, before sending we need to make sure the
@@ -192,11 +192,11 @@ At that point we're ready to send a message. Our first message will
 just contain a string _Hello World!_ and we want to send it to our
 _test_ queue.
 
-In RabbitMQ a message can never be send directly to the queue, it always
-needs to go through an _exchange_. But let's not get dragged by the
-details - you can read more about _exchanges_ in [the third part of this
+In RabbitMQ a message can never be sent directly to the queue, it always
+needs to go through an _exchange_. But let's not get dragged down by the
+details &#8210; you can read more about _exchanges_ in [the third part of this
 tutorial](tutorial-three-python.html). All we need to know now is how to use a default exchange
-identified by an empty string. This exchange is special - it
+identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
 
@@ -237,15 +237,16 @@ them on the screen.
 Again, first we need to connect to RabbitMQ server. The code
 responsible for connecting to Rabbit is the same as previously.
 
-The next step, just like before, is to make sure that the
-queue exists. Creating a queue using `queue_declare` is idempotent - we can
-run the command as many times you like, and only one will be created.
+The next step, just like before, is to make sure that the queue
+exists. Creating a queue using `queue_declare` is idempotent &#8210; we
+can run the command as many times as we like, and only one will be
+created.
 
     :::python
     channel.queue_declare(queue='test')
 
-You may ask why to declare the queue again - we have already declared it
-in our previous code. We could have avoided that if we were sure
+You may ask why we declare the queue again &#8210; we have already declared it
+in our previous code. We could avoid that if we were sure
 that the queue already exists. For example if `send.py` program was
 run before. But we're not yet sure which
 program to run first. In such cases it's a good practice to repeat
@@ -253,7 +254,7 @@ declaring the queue in both programs.
 
 > #### Listing queues
 >
-> You may want to see what queues does RabbitMQ store and how many
+> You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it using the `rabbitmqctl` tool:
 >
 >     $ sudo rabbitmqctl list_queues
@@ -283,8 +284,8 @@ receive messages from our _test_ queue:
                           no_ack=True)
 
 For that command to succeed we must be sure that a queue which we want
-to subscribe to exists. Fortunately we're confident about that - we've
-created a queue above - using `queue_declare`.
+to subscribe to exists. Fortunately we're confident about that &#8210; we've
+created a queue above &#8210; using `queue_declare`.
 
 The `no_ack` parameter will be described [later on](tutorial-two-python.html).
 
@@ -346,14 +347,13 @@ Full `receive.py` code:
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
-
-Now we can try out our programs. First, let's send a message using our
-`send.py` program:
+Now we can try out our programs in a terminal. First, let's send a
+message using our `send.py` program:
 
     $ python send.py
      [x] Sent 'Hello World!'
 
-Let's receive it:
+The producer program `send.py` will stop after every run. Let's receive it:
 
     $ python receive.py
      [*] Waiting for messages. To exit press CTRL+C
@@ -361,7 +361,9 @@ Let's receive it:
 
 Hurray! We were able to send our first message through RabbitMQ. As you might
 have noticed, the `receive.py` program doesn't exit. It will stay ready to
-receive further messages. Try to run `send.py` again in a new terminal!
+receive further messages, and may be interrupted with Ctrl-C.
+
+Try to run `send.py` again in a new terminal.
 
 We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)

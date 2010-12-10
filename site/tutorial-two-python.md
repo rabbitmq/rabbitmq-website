@@ -102,6 +102,8 @@ script. These consoles will be our two consumers - C1 and C2.
     shell1$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
 
+<div></div>
+
     :::bash
     shell2$ python worker.py
      [*] Waiting for messages. To exit press CTRL+C
@@ -124,6 +126,8 @@ Let's see what is delivered to our workers:
      [x] Received 'First message.'
      [x] Received 'Third message...'
      [x] Received 'Fifth message.....'
+
+<div></div>
 
     :::bash
     shell2$ python worker.py

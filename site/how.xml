@@ -5,7 +5,7 @@
 %entities;
 ]>
 
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Get Started</title>
   </head>
@@ -705,6 +705,13 @@ decentralised microblogging</li>
 
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>
+        <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
+        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
+        is available to download.)</li>
+        <li><a href="http://manning.com/fisher/">Spring Integration in Action</a><br />
+        Contains several chapters on AMQP and messaging with RabbitMQ.</li>
+        <li><a href="http://manning.com/rathore/">Scaling Clojure through messaging</a><br />
+        Chapter 11 in the book 'Clojure in Action' discusses how RabbitMQ can be used to scale Clojure applications.</li>
 	<li>
 	<a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
 	An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ
