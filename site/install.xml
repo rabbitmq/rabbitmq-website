@@ -507,31 +507,40 @@
 
         <doc:subsection name="install-debian">
           <doc:heading>Install the Server</doc:heading>
-          <ul>
-            <li>
-              Install the rabbitmq-server package from your chosen
-              distribution - at the time of writing, RabbitMQ is
+          <div class="instructions">
+            <dl>
+            <dt>
+            Install from a package
+            </dt>
+            <dd>
+            <p>
+              Install the rabbitmq-server package  - at the time of writing, RabbitMQ is
               included in Debian unstable (sid), Debian testing
               (squeeze), and Ubuntu 9.04 (Jaunty Jackalope) and
               onwards.
-            </li>
-            <li>
-              Alternatively, install
-              rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb,
-              which you can download from the
+            </p>
+            <p>
+              Alternatively, install <code>
+              rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb</code>
+              from the
               <a href="server.html">download page</a>, or by using our <a
-              href="debian.html#apt">APT repository</a>. The server
-              should start with appropriate defaults. Note that the
-              package depends on erlang-base packages, so if you use
-              apt on a Debian distribution that has erlang-base
-              packages available, all dependencies should be properly
-              met.
-            </li>
-            <li>
-              To adjust the settings used for starting the server,
-              create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, 
-              setting environment variables as listed in the 
-              <a href="#generic-unix">Generic Unix</a> installation section below 
+              href="debian.html#apt">APT repository</a>. 
+              </p>
+              <p>
+              If you use apt on a Debian distribution that has erlang-base
+              packages available, all dependencies should be automatically met.
+            </p>
+            </dd>
+            <dt>
+            </dt>
+            Configure RabbitMQ Server
+            <dd>
+            <p>
+              The server should start using defaults.
+              To adjust any settings used for starting the server, 
+              create/edit <nobr><code>/etc/rabbitmq/rabbitmq.conf</code>.</nobr>
+              See the <a href="#generic-unix">Generic Unix</a> installation
+              section below for how to set Environment Variables 
               (but drop the RABBITMQ_ prefix) e.g.
               <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
               You can additionally set
@@ -539,8 +548,10 @@
               <code>/etc/default/rabbitmq</code> to define 
               <a href="clustering.html#single-machine">the number of
               nodes to run on a single machine</a>.
-            </li>
-          </ul>
+            </p>
+            </dd>
+          </dl>
+          </div>
         </doc:subsection>
 
         <doc:subsection name="running-debian">
@@ -692,7 +703,6 @@
           based open-source software on the Mac OS X operating
           system.
         </blockquote>
-
         <p>
           RabbitMQ maintains a dedicated 
           <a href="macports.html">MacPorts repository</a>,
@@ -965,9 +975,10 @@
       <doc:section name="configfile">
         <doc:heading>Configuration File</doc:heading>
         <p>
-          The Rabbit configuration file allows for the rabbit core application,
-          Erlang services and Rabbit plugins to be configured. This configuration
-          file is a standard Erlang configuration file, as documented on the
+          The Rabbit configuration file <code>rabbitmq.config</code> 
+          allows the rabbit core application,
+          Erlang services and Rabbit plugins to be configured. 
+          It is a standard Erlang configuration file, documented on the
           <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
         </p>
         <p>
@@ -982,21 +993,10 @@
           </ul>
         </p>
         <p>
-          Note that this file is not the same as the
-          <code>rabbitmq.conf</code> mentioned elsewhere -
-          <code>rabbitmq.conf</code> can be used to set the environment
-          variables mentioned on this page, while
-          <code>rabbitmq.config</code> contains an Erlang term. A
-          future release of RabbitMQ will unify the two configuration
-          mechanisms.
-        </p>
-        <p>
-          Note that this file may not be created by default. 
-          If needed, it can be created manually. 
-          The location can also be overidden via the 
-          <b>RABBITMQ_CONFIG_FILE</b> environment variable. 
-          Note that the property value should not include the .config extension - 
-          this is automatically appended by the Erlang runtime.
+          If <code>rabbitmq.config</code> doesn't exist, it can be created manually. 
+          The location can be changed via the 
+          <b>RABBITMQ_CONFIG_FILE</b> Environment Variable. 
+          The Erlang runtime automatically appends the .config extension to the Variable's value.
         </p>
         <p>
           An example configuration file would look like:
@@ -1010,23 +1010,36 @@
 </pre>
         </p>
         <p>
-          This configuration file will alter the dump_log_write_threshold for mnesia 
+          This example will alter the dump_log_write_threshold for mnesia 
           (increasing from the default of 100).
+        </p>
+        <p>
+           This file is not the same as 
+          <code>rabbitmq.conf</code> which can be used to set Environment
+          Variables. A future release of RabbitMQ will unify the two configuration
+          mechanisms.
         </p>
       </doc:section>
        <doc:section name="uninstall">
         <doc:heading>Uninstall/Upgrade RabbitMQ Server</doc:heading>
         <p>
-        First, use <code>rabbitmqctl stop</code> to stop a running broker; use <code>rabbitMQ-service remove</code>  to remove any RabbitMQ service.
+        First, use <code>rabbitmqctl stop</code> to stop a running broker; use 
+        <code>rabbitMQ-service remove</code>  to remove any RabbitMQ service.
         </p>
         <p>
-        Generally, on Linux-like systems, you can use your package manager to uninstall or upgrade the RabbitMQ server. 
+        Generally, on Linux-like systems, you can use your package manager
+        to uninstall or upgrade the RabbitMQ server. 
         </p>
         <p>
-        On Windows, simply delete the Rabbitmq_server folder from Program Files.  If you are upgrading, just extract the new version to the same place as before and edit  Environment Variables to ensure the new files are found.
+        On Windows, simply delete the Rabbitmq_server folder from Program Files.  
+        If you are upgrading, just extract the new version to the same place as before 
+        and edit  Environment Variables to ensure the new files are found.
         </p>
         <p>
-        If you are not upgrading, you can also remove the RabbitMQ Log and Mnesia folders. Erlang can be uninstalled via package manager, or on Windows via  Settings > Control Panel > Add and Remove Programs. Remove Environment Variables that are not needed.
+        If you are not upgrading, you can also remove the RabbitMQ Log and Mnesia folders. 
+        Erlang can be uninstalled via package manager, or on Windows via  
+        Settings > Control Panel > Add and Remove Programs. 
+        Remove Environment Variables that are not needed.
         </p>
       </doc:section>
       </div>
