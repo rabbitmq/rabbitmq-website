@@ -329,7 +329,7 @@
 	</li>
 	<li id="rabbitmq-on-vms">RabbitMQ on OpenVMS
 	  <ul class="plain">
-      <li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
+        <li><a href="http://rabbitmqonopenvs.blogspot.com/2010/12/rabbitmq-v211-released-on-openvms.html">RabbitMQ 2.1.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
 	    <li>Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a></li>
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
 	  </ul>
