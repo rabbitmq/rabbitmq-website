@@ -197,7 +197,7 @@ we're interested in.
 
 
     :::python
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
     queue_name = result.queue
 
     for severity in severities:
@@ -257,8 +257,7 @@ The code for `emit_logs_direct.py`:
     import sys
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='direct_logs',
@@ -279,14 +278,13 @@ The code for `receive_logs_direct.py`:
     import sys
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='direct_logs',
                              type='direct')
 
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
     queue_name = result.queue
 
     severities = sys.argv[1:]
