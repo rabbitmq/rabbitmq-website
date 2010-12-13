@@ -243,8 +243,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     import sys
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='logs',
@@ -272,8 +271,7 @@ The code for `receive_logs.py`:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='logs',

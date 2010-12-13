@@ -142,7 +142,9 @@ then we can create a connection to the server:
         try {
           Connection conn = null;
           try {
-            conn = new ConnectionFactory().newConnection();
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            conn = factory.newConnection();
             Channel chan = conn.createChannel();
 
 The connection abstracts the socket connection, and takes care of
@@ -205,7 +207,9 @@ Note this matches up with the queue `send` publishes to.
         try {
           Connection conn = null;
           try {
-            conn = new ConnectionFactory().newConnection();
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            conn = factory.newConnection();
             Channel chan = conn.createChannel();
             chan.queueDeclare("hello", false, false, false, null);
 

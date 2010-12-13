@@ -182,8 +182,7 @@ RabbitMQ server.
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-                   '127.0.0.1',
-                   credentials = pika.PlainCredentials('guest', 'guest')))
+                   'localhost'))
     channel = connection.channel()
 
 We're connected now. Next, before sending we need to make sure the
@@ -313,8 +312,7 @@ Full code for `send.py`:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 
@@ -334,8 +332,7 @@ Full `receive.py` code:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 
