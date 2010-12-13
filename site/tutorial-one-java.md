@@ -158,6 +158,7 @@ to the queue:
     :::java
             chan.queueDeclare("hello", false, false, false, null);
             chan.basicPublish("", "hello", null, "Hello World!".getBytes());
+            System.out.println(" [x] Sent 'Hello World!'");
 
 Declaring a queue is idempotent; it will be created if it doesn't
 exist already. The message contents is a byte array, so you can encode
@@ -223,11 +224,12 @@ callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what `QueueingConsumer` does.
 
     :::java
+            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             QueueingConsumer consumer = new QueueingConsumer(chan);
             chan.basicConsume("hello", true, consumer);
             while (true) {
               QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-              System.out.println(new String(delivery.getBody()));
+              System.out.println(" [x] Received " + new String(delivery.getBody()));
             }
 
 `QueueingConsumer.nextDelivery()` blocks until another message has
