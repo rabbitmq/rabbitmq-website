@@ -64,7 +64,7 @@ receive a response we need to send a 'callback' queue address with the
 request. Let's try it:
 
     :::python
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
     callback_queue = result.queue
 
     channel.basic_publish(exchange='',
@@ -172,7 +172,7 @@ doesn't belong to any of our requests.
 
 Our RPC will work like that:
 
-  * When the Client starts up, it creates an anonymous auto-delete
+  * When the Client starts up, it creates an anonymous exclusive
     callback queue.
   * For a RPC request, the Client sends a message with two properties:
     `reply_to` which is set to the callback queue and `correlation_id`
@@ -196,8 +196,8 @@ The code for our RPC server looks like this:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
+
     channel = connection.channel()
 
     channel.queue_declare(queue='rpc_queue')
@@ -256,11 +256,11 @@ The code for our RPC client:
     class FibonacciClient(object):
         def __init__(self):
             self.connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-                    host='127.0.0.1',
-                    credentials=pika.PlainCredentials('guest', 'guest')))
+                    host='localhost'))
+
             self.channel = self.connection.channel()
 
-            result = self.channel.queue_declare(auto_delete=True)
+            result = self.channel.queue_declare(exclusive=True)
             self.callback_queue = result.queue
 
             self.requests = {}
@@ -299,7 +299,7 @@ The code for our RPC client:
 The client code is slightly more involved:
 
   * (7) We start with connection establishment and a declaration of an
-    autodelete 'callback' queue.
+    exclusive 'callback' queue.
   * (15) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * (19) The callback executed on every response is doing very simple
