@@ -148,10 +148,10 @@ At that point `result.queue` contains a random queue name. For example
 it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
 
 Secondly, once we disconnect the consumer the queue should be
-deleted. There's an `auto_delete` flag for that:
+deleted. There's an `exclusive` flag for that:
 
     :::python
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
 
 
 Bindings
@@ -277,7 +277,7 @@ The code for `receive_logs.py`:
     channel.exchange_declare(exchange='logs',
                              type='fanout')
 
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
     queue_name = result.queue
 
     channel.queue_bind(exchange='logs',
