@@ -51,7 +51,7 @@
           <dd>
             Non-standard version of PLAIN as defined by the AMQP 0-8
             specification. This is enabled by default in the RabbitMQ
-            server and clients, and is the default for QPid's Python client.
+            server, and is the default for QPid's Python client.
           </dd>
           <dt>
             <code>EXTERNAL</code>
