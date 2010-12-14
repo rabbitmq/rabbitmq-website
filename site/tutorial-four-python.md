@@ -14,11 +14,11 @@ In the [previous tutorial](tutorial-three-python.html) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
-In this tutorial we're going to add a feature to it - we're going
-to make it possible to subscribe only to a subset of the messages. For
-example, we will be able to save only critical errors to the disk (to
-spare disk space), while still being able to print all of the log
-messages on the console.
+In this tutorial we're going to add a feature to it - we're going to
+make it possible to subscribe only to a subset of the messages. For
+example, we will be able to direct only critical error messages to the
+log file (to save disk space), while still being able to print all of
+the log messages on the console.
 
 
 Bindings
@@ -28,7 +28,7 @@ In previous examples we were already creating bindings. You may recall
 code like:
 
     :::python
-    channel.queue_bind(exchange='x',
+    channel.queue_bind(exchange=exchange_name,
                        queue=queue_name)
 
 
@@ -41,7 +41,7 @@ confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
     :::python
-    channel.queue_bind(exchange='x',
+    channel.queue_bind(exchange=exchange_name,
                        queue=queue_name,
                        routing_key='black')
 
@@ -226,31 +226,31 @@ Putting it all together
 	color=transparent;
         X [label="X", fillcolor="#3333CC"];
       };
-      subgraph cluster_Q1 {
-        label="amqp.gen-Ag1...";
-	color=transparent;
-        Q1 [label="{||||}", fillcolor="red", shape="record"];
-      };
       subgraph cluster_Q2 {
         label="amqp.gen-S9b...";
 	color=transparent;
         Q2 [label="{||||}", fillcolor="red", shape="record"];
+      };
+      subgraph cluster_Q1 {
+        label="amqp.gen-Ag1...";
+	color=transparent;
+        Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       //
       P -&gt; X;
       X -&gt; Q1 [label="info"];
-      X -&gt; Q1 [label="warning"];
       X -&gt; Q1 [label="error"];
+      X -&gt; Q1 [label="warning"];
       X -&gt; Q2 [label="error"];
-      Q1 -&gt; C1;
-      Q2 -&gt; C2;
+      Q1 -&gt; C2;
+      Q2 -&gt; C1;
     }
   </div>
 </div>
 
-The code for `emit_logs_direct.py`:
+The code for `emit_log_direct.py`:
 
     #!/usr/bin/env python
     import pika
@@ -269,6 +269,7 @@ The code for `emit_logs_direct.py`:
                           routing_key=severity,
                           body=message)
     print " [x] Sent %r:%r" % (severity, message)
+    connection.close()
 
 
 The code for `receive_logs_direct.py`:
@@ -319,12 +320,14 @@ If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
     $ python receive_logs_direct.py info warning error
+     [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
-    $ python emit_log_direct.py error "Run! Run! Or it will explode!"
+    $ python emit_log_direct.py error "Run. Run. Or it will explode."
+     [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
-(Full source code for [emit_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+(Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 
 </div>
