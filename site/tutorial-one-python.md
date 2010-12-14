@@ -182,8 +182,7 @@ RabbitMQ server.
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-                   '127.0.0.1',
-                   credentials = pika.PlainCredentials('guest', 'guest')))
+                   'localhost'))
     channel = connection.channel()
 
 We're connected now. Next, before sending we need to make sure the
@@ -211,6 +210,14 @@ The queue name needs to be specified in the `routing_key` parameter:
                           routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
+
+
+Before exiting the program we need to make sure the network buffers
+were flushed and our message was actually delivered to RabbitMQ. We
+can do it by gently closing the connection.
+
+    :::python
+    connection.close()
 
 
 ### Receiving
@@ -313,8 +320,7 @@ Full code for `send.py`:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 
@@ -324,6 +330,7 @@ Full code for `send.py`:
                           routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
+    connection.close()
 
 [(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
@@ -334,8 +341,7 @@ Full `receive.py` code:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 

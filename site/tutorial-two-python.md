@@ -320,8 +320,7 @@ Final code of our `new_task.py` script:
     import sys
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.queue_declare(queue='task_queue', durable=True)
@@ -344,8 +343,7 @@ And our worker:
     import time
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.queue_declare(queue='task_queue', durable=True)
