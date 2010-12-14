@@ -212,6 +212,14 @@ The queue name needs to be specified in the `routing_key` parameter:
     print " [x] Sent 'Hello World!'"
 
 
+Before exiting the program we need to make sure the network buffers
+were flushed and our message was actually delivered to RabbitMQ. We
+can do it by gently closing the connection.
+
+    :::python
+    connection.close()
+
+
 ### Receiving
 
 <div class="diagram">
@@ -322,6 +330,7 @@ Full code for `send.py`:
                           routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
+    connection.close()
 
 [(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
