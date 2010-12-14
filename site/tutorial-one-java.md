@@ -137,7 +137,8 @@ then we can create a connection to the server:
 
     :::java
     public class Send {
-      public static void main(String[] argv) {
+      public static void main(String[] argv)
+          throws java.io.IOException {
         Connection conn = null;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -170,8 +171,8 @@ Lastly, we close the channel and the connection;
       }
     }
 
-Since many of these method calls can throw an `IOException`, we wrap
-the whole thing in a `try...catch`.  [Here's the whole of the class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
+[Here's the whole Send.java
+class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
 
 ### Receiving
 
@@ -200,7 +201,9 @@ Note this matches up with the queue `send` publishes to.
 
     :::java
     public class Recv {
-      public static void main(String[] argv) {
+      public static void main(String[] argv)
+          throws java.io.IOException,
+                 java.lang.InterruptedException {
         Connection conn = null;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -232,7 +235,8 @@ we're ready to use them. That is what `QueueingConsumer` does.
 `QueueingConsumer.nextDelivery()` blocks until another message has
 been delivered from the server.
 
-The rest is just closing the `try...catch` -- [here's the whole class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
+[Here's the whole Recv.java
+class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
 
 ### Putting it all together
 
