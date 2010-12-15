@@ -96,7 +96,7 @@ To illustrate that, consider the following setup:
       C2 [label=&lt;C&lt;font point-size="7"&gt;2&lt;/font&gt;&gt;, fillcolor="#33ccff"];
       //
       P -&gt; X;
-      X -&gt; Q1 [label="red"];
+      X -&gt; Q1 [label="orange"];
       X -&gt; Q2 [label="black"];
       X -&gt; Q2 [label="green"];
       Q1 -&gt; C1;
@@ -106,12 +106,12 @@ To illustrate that, consider the following setup:
 </div>
 
 In this setup, we can see the `direct` exchange `X` with two queues bound
-to it. The first queue is bound with binding key `red`, and the second
+to it. The first queue is bound with binding key `orange`, and the second
 has two bindings, one with binding key `black` and the other one
 with `green`.
 
 In such a setup a message published to the exchange with a routing key
-`red` will be routed to queue `Q1`. Messages with a routing key of `black`
+`orange` will be routed to queue `Q1`. Messages with a routing key of `black`
 or `green` will go to `Q2`. All other messages will be discarded.
 
 
