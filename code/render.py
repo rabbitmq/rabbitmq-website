@@ -26,7 +26,8 @@ def preprocess_markdown(fpath):
     contents = contents[0:title.start()] + contents[title.end():]
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:xi="http://www.w3.org/2003/XInclude">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>%s</title>
   </head>

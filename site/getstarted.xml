@@ -1,5 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - Getting started</title>

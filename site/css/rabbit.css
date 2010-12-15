@@ -345,7 +345,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-code {
+span.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
@@ -374,7 +374,7 @@ code {
 .docSection div.cmdsynopsis p {
 	margin: 0;
 }
-.docSection div.cmdsynopsis code.command {
+.docSection div.cmdsynopsis span.command {
 	color: darkred;
 }
 .docSection pre.sourcecode {
@@ -648,7 +648,6 @@ ul#tutorials > li {
 #tutorial pre {
     background-color: #eee;
     padding: 5px 15px;
-    margin: 12px;
     border-radius:5px;
     -moz-border-radius: 5px;
 }
@@ -669,6 +668,7 @@ ul#tutorials > li {
 
 #tutorial blockquote {
     padding: 2px 12px;
+    margin: 40px 6px;
     border: 1px solid #aaa;
     background: #ddd;
     border-radius: 5px;
@@ -736,6 +736,9 @@ ul#tutorials > li {
     display: none;
 }
 
+.screenshots { margin: 20px 0 0 0; }
+.screenshots th { font-weight: normal; }
+.screenshots th, .screenshots td { text-align: center; }
 
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */

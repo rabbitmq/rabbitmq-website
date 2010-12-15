@@ -5,7 +5,7 @@
 %entities;
 ]>
 
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Get Started</title>
   </head>
@@ -28,6 +28,10 @@
 	Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
 	he introduces RabbitMQ “An open source message broker that just works”.
 	</li>
+    <li><a href="resources/RabbitMQ_MessagingInTheCloud_VMworld_2010_MS.pdf">RabbitMQ: Messaging in the Cloud</a><br/>
+    Matthew's presentation to VMworld 2010 that covers an introduction to messaging with common use cases, an
+    AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
+    </li>
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
 	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
@@ -325,7 +329,7 @@
 	</li>
 	<li id="rabbitmq-on-vms">RabbitMQ on OpenVMS
 	  <ul class="plain">
-      <li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
+        <li><a href="http://rabbitmqonopenvs.blogspot.com/2010/12/rabbitmq-v211-released-on-openvms.html">RabbitMQ 2.1.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
 	    <li>Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a></li>
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
 	  </ul>

@@ -115,7 +115,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 >     :::python
 >     channel.basic_publish(exchange='',
->                           routing_key='test',
+>                           routing_key='hello',
 >                           body=message)
 >
 > The _empty string_ exchange is special: messages are
@@ -126,7 +126,7 @@ Temporary queues
 ----------------
 
 As you may remember previously we were using queues which had a
-specified name (remember `test` and `task_queue`?). Being able to name
+specified name (remember `hello` and `task_queue`?). Being able to name
 a queue was crucial for us -- we needed to point the workers to the
 same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
@@ -148,10 +148,10 @@ At that point `result.queue` contains a random queue name. For example
 it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
 
 Secondly, once we disconnect the consumer the queue should be
-deleted. There's an `auto_delete` flag for that:
+deleted. There's an `exclusive` flag for that:
 
     :::python
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
 
 
 Bindings
@@ -243,8 +243,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     import sys
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='logs',
@@ -272,14 +271,13 @@ The code for `receive_logs.py`:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='logs',
                              type='fanout')
 
-    result = channel.queue_declare(auto_delete=True)
+    result = channel.queue_declare(exclusive=True)
     queue_name = result.queue
 
     channel.queue_bind(exchange='logs',
