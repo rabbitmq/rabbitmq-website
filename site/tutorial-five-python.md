@@ -37,11 +37,12 @@ Topic exchange
 --------------
 
 Messages sent to a `topic` exchange can't have an arbitrary
-`routing_key` - it must be a list of properties, delimited by
-dots. Properties are nothing more than simple words. A few valid routing
-key examples: `stock.usd.nyse`, `nyse.vmw`, `quick.orange.rabbit`. There
-can be as many properties as you like, up to the routing key limit of
-255 bytes.
+`routing_key` - it must be a list of words, delimited by dots. The
+words can be anything, but usually they specify some features
+connected to the message. A few valid routing key examples:
+"`stock.usd.nyse`", "`nyse.vmw`", "`quick.orange.rabbit`". There can be as
+many words in the routing key as you like, up to the limit of 255
+bytes.
 
 Binding key must also be in the same form. The logic behind the
 `topic` exchange is similar to a `direct` one - a message sent with a
@@ -49,8 +50,8 @@ particular routing key will be appended to all the queues that are
 bound with a matching binding key. However there are two important
 special cases for binding keys:
 
-  * `*` (star) can substitute for exactly one property.
-  * `#` (hash) can substitute for zero or more properties.
+  * `*` (star) can substitute for exactly one word.
+  * `#` (hash) can substitute for zero or more words.
 
 It's easiest to explain that in the example:
 
@@ -94,12 +95,12 @@ It's easiest to explain that in the example:
 
 In this example, we're going to send messages that all describe
 animals. The messages will be sent with a routing key that consists of
-three properties (two dots). The first property in routing key
+three words (two dots). The first word in routing key
 will describe a celerity, second a colour and third a species:
-`<celerity>.<colour>.<species>`.
+"`<celerity>.<colour>.<species>`".
 
-We created three bindings: Q1 is bound with binding key `*.orange.*`
-and Q2 with `*.*.rabbit` and `lazy.*.*`.
+We created three bindings: Q1 is bound with binding key "`*.orange.*`"
+and Q2 with "`*.*.rabbit`" and "`lazy.*.*`".
 
 This bindings can be summarised as:
 
@@ -107,30 +108,27 @@ This bindings can be summarised as:
   * Q2 wants to hear everything about rabbits, and everything about lazy
     animals.
 
-A message with a string `lazy.orange.rabbit` as a routing key
+A message with a routing key set to "`lazy.pink.rabbit`"
 will be delivered to both queues. Message
-`lazy.orange.elephant` also will go to both of them. On the other hand
-`quick.orange.fox` will only go to the first queue, and
-`lazy.brown.fox` only to the second. `quick.brown.fox` will be
-discarded.
+"`lazy.orange.elephant`" also will go to both of them. On the other hand
+"`quick.orange.fox`" will only go to the first queue, and
+"`lazy.brown.fox`" only to the second. "`quick.orange.rabbit`" will
+be delivered to the second queue only once, even though it matches two bindings.
+"`quick.brown.fox`" doesn't match any binding so it will be discarded.
 
 What happens if we break our contract and send a message with one or
-four properties, like `orange` or `quick.orange.male.rabbit`? Well,
+four words, like "`orange`" or "`quick.orange.male.rabbit`"? Well,
 such messages won't match any bindings and will be lost.
-
-
-It's worth noting that if we created a third queue and bound it with a
-hash `#` binding key, it will just receive all the messages.
 
 
 > #### Topic exchange
 >
 > Topic exchange is powerful and can behave like other exchanges.
 >
-> When a queue is bound with `#` (hash) binding key - it will receive
+> When a queue is bound with "`#`" (hash) binding key - it will receive
 > all the messages, regardless of the routing key - like in `fanout` exchange.
 >
-> When special characters `*` (star) and `#` (hash) aren't used in bindings,
+> When special characters "`*`" (star) and "`#`" (hash) aren't used in bindings,
 > the topic exchange will behave just like a `direct` one.
 
 Putting it all together
@@ -138,12 +136,12 @@ Putting it all together
 
 We're going to use the `topic` exchange in our logging system. We'll
 start off with a working assumption that the routing keys of logs will
-have two properties: `<facility>.<severity>`.
+have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
 [previous tutorial](tutorial-four-python.html).
 
-The code for `emit_log_topic.py`
+The code for `emit_log_topic.py`:
 
     #!/usr/bin/env python
     import pika
@@ -217,21 +215,21 @@ You can create multiple bindings:
     python receive_logs_topic.py 'kern.*' '*.critical'
 
 
-And to emit a log with a routing key `kern.critical` type:
+And to emit a log with a routing key "`kern.critical`" type:
 
     python emit_log_topic.py 'kern.critical' 'A critical kernel error'
 
 
 Have fun playing with these programs. Note that the code doesn't make
-any assumption about the routing or binding keys, you may want toplay
+any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
 Some teasers:
 
- * Will `*` binding catch a message sent with an empty routing key?
- * Will `#.*` catch a message with a string `..` as a key? Will
-   it catch a message with a single property key?
- * How different is `a.*.#` from `a.#`?
+ * Will "`*`" binding catch a message sent with an empty routing key?
+ * Will "`#.*`" catch a message with a string "`..`" as a key? Will
+   it catch a message with a single word key?
+ * How different is "`a.*.#`" from "`a.#`"?
 
 (Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py) and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
