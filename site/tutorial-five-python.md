@@ -46,7 +46,7 @@ bytes.
 
 Binding key must also be in the same form. The logic behind the
 `topic` exchange is similar to a `direct` one - a message sent with a
-particular routing key will be appended to all the queues that are
+particular routing key will be delivered to all the queues that are
 bound with a matching binding key. However there are two important
 special cases for binding keys:
 
@@ -86,7 +86,7 @@ It's easiest to explain that in the example:
       P -&gt; X;
       X -&gt; Q1 [label="*.orange.*"];
       X -&gt; Q2 [label="*.*.rabbit"];
-      X -&gt; Q2 [label="lazy.*.*"];
+      X -&gt; Q2 [label="lazy.#"];
       Q1 -&gt; C1;
       Q2 -&gt; C2;
     }
@@ -100,7 +100,7 @@ will describe a celerity, second a colour and third a species:
 "`<celerity>.<colour>.<species>`".
 
 We created three bindings: Q1 is bound with binding key "`*.orange.*`"
-and Q2 with "`*.*.rabbit`" and "`lazy.*.*`".
+and Q2 with "`*.*.rabbit`" and "`lazy.#`".
 
 This bindings can be summarised as:
 
@@ -120,6 +120,9 @@ What happens if we break our contract and send a message with one or
 four words, like "`orange`" or "`quick.orange.male.rabbit`"? Well,
 such messages won't match any bindings and will be lost.
 
+On the other hand "`lazy.orange.male.rabbit`", even though it has four
+words, will match the last binding and will be delivered to the second
+queue.
 
 > #### Topic exchange
 >
