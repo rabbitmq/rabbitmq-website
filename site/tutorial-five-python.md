@@ -230,9 +230,31 @@ with more than two routing key parameters.
 Some teasers:
 
  * Will "`*`" binding catch a message sent with an empty routing key?
+   <div class="teaser_answer">
+       No.
+       ./receive_logs_topic.py '&#42;'
+       ./emit_log_topic.py ''
+   </div>
  * Will "`#.*`" catch a message with a string "`..`" as a key? Will
    it catch a message with a single word key?
- * How different is "`a.*.#`" from "`a.#`"?
+   <div class="teaser_answer">
+       No. (but I don't know why!)
+       ./receive_logs_topic.py '#.&#42;'
+       ./emit_log_topic.py '..'
+       Yes
+       ./receive_logs_topic.py '#.&#42;'
+       ./emit_log_topic.py 'a'
+   </div>
+ * How different is "`a.&#42;.#`" from "`a.#`"?
+   <div class="teaser_answer">
+       'a.&#42;.#' matches anything that has two words or more, and the first
+       word is 'a'. But 'a.#' matches anything that has one word or more
+       with the first word set to 'a'.
+       ./receive_logs_topic.py 'a.&#42;.#'
+       ./emit_log_topic.py 'a.b'
+       ./receive_logs_topic.py 'a.#'
+       ./emit_log_topic.py 'a.b'
+   </div>
 
 (Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py) and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
