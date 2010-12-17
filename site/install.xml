@@ -37,6 +37,12 @@
           Other configuration may be defined in a .config file using the 
           <a href="#configfile">Configuration</a> example.
         </p>
+        <ol>
+        <li>Install Erlang</li>
+        <li>Install RabbitMQ Server </li>
+        <li>Configure environment</li>
+        <li>Start Service or daemon</li>
+        </ol>
       </div>
 
       <div id="install_toc" class="col" >
@@ -93,7 +99,7 @@
                 <p>
                   Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables. 
                   Create the System Environment Variable ERLANG_HOME 
-                  and set it to the directory which contains 
+                  and set it to the full path of the directory which contains 
                   <code>bin\erl.exe</code>.
                 </p>
               </dd>
@@ -145,13 +151,18 @@
                 <p>
                 Log in as an administrator. To see the output, 
                 run these from a Command Prompt in the 
-                <code>sbin</code> directory.
+                <code>sbin</code> directory. 
+                </p>
+                <p>
+                <em>Note: </em>On Vista/Windows7 you will need to 
+                elevate privilege (right click on the icon in top left 
+                of the window to select Run as Administrator).
                 </p>
                 <p>
                 <em>Hint:</em> Add <code>;%RABBITMQ_SERVER%\sbin</code>
                   to your System Path (aka %PATH%), 
                   so the system can find the commands directly from 
-                  Start > Run or from any Command Prompt.
+                  Start > Run or from any (administrator) Command Prompt.
                 </p>
               </dd>
               <dt>Finding Application Data</dt>
@@ -830,7 +841,7 @@
                 <strong>RABBITMQ_MNESIA_BASE</strong> and
                 <strong>RABBITMQ_LOG_BASE</strong> do not exist 
                 the server will attempt to create them. 
-                It is important that the server has write permissions at these locations.
+                It is important that the server has write permission at these locations.
           </p>
         </doc:subsection>
 
@@ -865,7 +876,7 @@
             In order to retain a complete log history the startup scripts,
             by default, append the contents to the corresponding <code>.1</code>
             files prior to starting the broker.
-            You can easily set up log rotation process by creating
+            You can easily set up a log rotation process by creating a 
             <code>logrotate</code> script as it is done for
             <a href="#logging-debian">Debian and RPM based distributions</a>.
           </p>
@@ -880,7 +891,8 @@
           <dt>Checking Broker Status</dt>
           <dd>
             <p>
-              You can use <code>rabbitmqctl status</code> to verify whether a broker is running.<br />
+              You can use <code>rabbitmqctl status</code> 
+              to verify whether a broker is running.<br />
               A running broker status looks something like this:
               <pre>
   Status of node 'rabbit@xxx' ...
@@ -1014,7 +1026,7 @@
           (increasing from the default of 100).
         </p>
         <p>
-           This file is not the same as 
+           This configuration file is not the same as 
           <code>rabbitmq.conf</code> which can be used to set Environment
           Variables. A future release of RabbitMQ will unify the two configuration
           mechanisms.
@@ -1023,15 +1035,16 @@
        <doc:section name="uninstall">
         <doc:heading>Uninstall/Upgrade RabbitMQ Server</doc:heading>
         <p>
-        First, use <code>rabbitmqctl stop</code> to stop a running broker; use 
-        <code>rabbitMQ-service remove</code>  to remove any RabbitMQ service.
+        First, use <code>rabbitmqctl stop</code> to stop any running broker.
         </p>
         <p>
         Generally, on Linux-like systems, you can use your package manager
         to uninstall or upgrade the RabbitMQ server. 
         </p>
         <p>
-        On Windows, simply delete the Rabbitmq_server folder from Program Files.  
+        On Windows, use 
+        <code>rabbitMQ-service remove</code> to remove any 
+        RabbitMQ service then simply delete the Rabbitmq_server folder from Program Files.  
         If you are upgrading, just extract the new version to the same place as before 
         and edit  Environment Variables to ensure the new files are found.
         </p>
