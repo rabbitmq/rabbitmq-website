@@ -245,12 +245,12 @@ Some teasers:
        ./receive_logs_topic.py '#.&#42;'
        ./emit_log_topic.py 'a'
    </div>
- * How different is "`a.&#42;.#`" from "`a.#`"?
+ * How different is "`a.*.#`" from "`a.#`"?
    <div class="teaser_answer">
        'a.&#42;.#' matches anything that has two words or more, and the first
        word is 'a'. But 'a.#' matches anything that has one word or more
        with the first word set to 'a'.
-       ./receive_logs_topic.py 'a.&#42;.#'
+       ./receive_logs_topic.py 'a.*.#'
        ./emit_log_topic.py 'a.b'
        ./receive_logs_topic.py 'a.#'
        ./emit_log_topic.py 'a.b'
