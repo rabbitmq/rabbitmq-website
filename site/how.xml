@@ -32,6 +32,10 @@
     Matthew's presentation to VMworld 2010 that covers an introduction to messaging with common use cases, an
     AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
     </li>
+    <li><a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
+    A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
+    are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
+    </li>
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
 	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
