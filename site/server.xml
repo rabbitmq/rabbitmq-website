@@ -18,11 +18,8 @@
 
     <p class="intro">
       Our goal is to streamline the server installation process such
-      that you can have RabbitMQ up and running within two minutes of
+      that on Linux you can have RabbitMQ up and running within two minutes of
       completing your download. 
-      Your total time for getting the server running a broker 
-      with the default configuration should be less than 
-      15 minutes all in. 
       If this doesn't happen to you, please
       let us know at <a
       href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
