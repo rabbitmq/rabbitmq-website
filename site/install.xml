@@ -37,12 +37,15 @@
           Other configuration may be defined in a .config file using the 
           <a href="#configfile">Configuration</a> example.
         </p>
+        <p>
+        These are the steps, done manually or via a packager:
         <ol>
         <li>Install Erlang</li>
         <li>Install RabbitMQ Server </li>
         <li>Configure environment</li>
         <li>Start Service or daemon</li>
         </ol>
+        </p>
       </div>
 
       <div id="install_toc" class="col" >
@@ -63,8 +66,9 @@
             It also includes .Net and Java client libraries for RabbitMQ.
           </p>
           <p>
-            Just extract the files from the downloaded bundle then go through 
-            the following instructions for each component.
+            Just extract the files from the 
+            <a href="server.html#windows_bundle">downloaded bundle</a> 
+            then go through the following instructions for each component.
           </p>
         </doc:subsection>
 
@@ -543,8 +547,8 @@
             </p>
             </dd>
             <dt>
-            </dt>
             Configure RabbitMQ Server
+            </dt>
             <dd>
             <p>
               The server should start using defaults.
@@ -1039,7 +1043,7 @@
         </p>
         <p>
         Generally, on Linux-like systems, you can use your package manager
-        to uninstall or upgrade the RabbitMQ server. 
+        to uninstall or upgrade the RabbitMQ server.
         </p>
         <p>
         On Windows, use 

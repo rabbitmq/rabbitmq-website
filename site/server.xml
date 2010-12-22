@@ -224,7 +224,7 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h4>Windows Bundle</h4>
+    <h4 id="windows_bundle">Windows Bundle</h4>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
