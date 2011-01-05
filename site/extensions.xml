@@ -372,6 +372,36 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
 
       </doc:section>
 
+      <doc:section name="validated-user-id">
+        <doc:heading>Validated User-ID</doc:heading>
+        <p>
+          In some scenarios it is valuable for the broker to be able
+          to verify the identity of the user who published a
+          message. We have therefore made sure that
+          the <code>user-id</code> message property is validated. If
+          this property is set by a publisher, its value must be equal
+          to the name of the user used to open the connection. If
+          the <code>user-id</code> property is not set, the
+          publisher's identity remains private.
+        </p>
+        <p>
+          For example (in Java):
+        </p>
+        <pre class="sourcecode">
+AMQP.BasicProperties properties = new AMQP.BasicProperties();
+properties.setUserId("guest");
+channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
+        <p>
+          This message will only be published successfully if the user
+          is "guest".
+        </p>
+        <p>
+          If security is a serious concern, you should probably
+          combine the use of this feature
+          with <a href="ssl.html">SSL</a> based connections.
+        </p>
+      </doc:section>
+
       <doc:section name="memsup">
         <doc:heading>Memory-based flow control</doc:heading>
         <!--
