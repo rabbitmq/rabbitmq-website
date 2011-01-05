@@ -375,8 +375,8 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
       <doc:section name="validated-user-id">
         <doc:heading>Validated User-ID</doc:heading>
         <p>
-          In some scenarios it is valuable for the broker to be able
-          to verify the identity of the user who published a
+          In some scenarios it is useful for consumers to be able
+          to know the identity of the user who published a
           message. We have therefore made sure that
           the <code>user-id</code> message property is validated. If
           this property is set by a publisher, its value must be equal
