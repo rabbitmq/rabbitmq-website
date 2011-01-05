@@ -616,19 +616,24 @@ p.warning {
 }
 
 #install_windows h3, #install_linux h3, #install_info h3 {
-	color: #555;
+	color: #355;
 	font-weight: normal;
 }
 
 .instructions dt, h4 {
-	color:grey;
+	color: #755;
 }
 
 div.environment-variables {
 	background:#efe;
-	margin:1em;
+	border: 1px solid #ded;
+	padding: 1em;
 }
+
 /*
+#install_toc .docToc li :link {
+	color: orange;
+}
 #install_toc .docToc li :hover {
 	color: cornflowerblue;
 }
@@ -641,4 +646,4 @@ ul.boxed {
 	background: #eee;
 	margin: 1em;
 }
-*/
+/**/
