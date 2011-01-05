@@ -600,25 +600,6 @@
             in <code>/etc/rabbitmq/rabbitmq.conf</code>.
           </p>
         </doc:subsection>
-        
-        <doc:subsection name="logging-debian">
-          <doc:heading>Logging</doc:heading>
-          <p>
-            Output from the server is sent to a
-            <b>RABBITMQ_NODENAME</b>.log file in the
-            <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
-            written to <b>RABBITMQ_NODENAME</b>-sasl.log.
-          </p>
-          <p>
-            The log files use <code>logrotate</code> program to do all
-            the necessary rotation and compression (when needed). The
-            script runs weekly, but you can easily change that. By default
-            <code>logrotate</code> will handle files located in default
-            <code>/var/log/rabbitmq</code> directory. See
-            <code>/etc/logrotate.d/rabbitmq-server</code> for default
-            <code>logrotate</code> configuration file.
-          </p>
-        </doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
@@ -687,14 +668,6 @@
             by setting <code>MULTI_START_ARGS</code> to
             "<code>-maxwait <i>timeout_in_seconds</i></code>"
             in <code>/etc/rabbitmq/rabbitmq.conf</code>.
-          </p>
-        </doc:subsection>
-        
-        <doc:subsection name="logging-rpm">
-          <doc:heading>Logging</doc:heading>
-          <p>
-            Logging uses <code>logrotate</code> script in the same way
-            as for <a href="#logging-debian">Debian GNU</a>
           </p>
         </doc:subsection>
       </doc:section>
@@ -867,7 +840,7 @@
             written to the console.
           </p>
         </doc:subsection>
-
+      
         <doc:subsection name="logging-generic-unix">
           <doc:heading>Logging</doc:heading>
           <p>
@@ -877,14 +850,22 @@
             written to <b>RABBITMQ_NODENAME</b>-sasl.log.
           </p>
           <p>
-            In order to retain a complete log history the startup scripts,
-            by default, append the contents to the corresponding <code>.1</code>
+            These log files are created afresh every time the broker starts. 
+            In order to retain a complete log history the startup scripts 
+            append the contents to the corresponding <code>.1</code>
             files prior to starting the broker.
-            You can easily set up a log rotation process by creating a 
-            <code>logrotate</code> script as it is done for
-            <a href="#logging-debian">Debian and RPM based distributions</a>.
           </p>
-        </doc:subsection>
+          <p>
+            You can use the <code>logrotate</code> program 
+            to do all necessary rotation and compression, 
+            and you can change it. By default, 
+            this script runs weekly on files located in default
+            <code>/var/log/rabbitmq</code> directory. See
+            <code>/etc/logrotate.d/rabbitmq-server</code> 
+            to configure 
+            <code>logrotate</code>.
+          </p>
+        </doc:subsection>        
       </doc:section>
       </div>
       
