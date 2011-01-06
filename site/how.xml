@@ -5,7 +5,7 @@
 %entities;
 ]>
 
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Get Started</title>
   </head>
@@ -208,7 +208,7 @@
 	    <li><a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python</li>
 	    <li>
 	      <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a><br />
-	      A great series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP.
+	      A great series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
 	    </li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a></li>
 	  </ul>
@@ -217,6 +217,7 @@
 	  <ul class="plain">
         <li><a href="dotnet.html">Overview of RabbitMQ developement with .NET</a></li>
         <li><a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a></li>
+        <li><a href="http://www.beefycode.com/post/consuming-rabbitmq-messages-in-powershell.aspx">poshrabbit</a>, a PowerShell module to publish and consume RabbitMQ messages</li>
         <li><a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a><br/>
         A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
         </li>
@@ -232,7 +233,6 @@
         An introductory presentation covering common RabbitMQ use cases with code examples in PHP</li>
       <li><a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a></li>
 	    <li><a href="http://code.google.com/p/php-amqp/">php-amqp - a client developed and used by StudiVZ</a>, originally based on RabbitMQ-C</li>
-	    <li><a href="http://code.google.com/p/php-rabbit/">php-rabbit</a></li>
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
 	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
@@ -258,8 +258,10 @@
 	</li>
 	<li id="web-messaging">Web messaging:
 	  <ul class="plain">
+        <li><a href="http://github.com/rabbitmq/rabbit-socks">rabbit-socks</a><br />
+        Websocket and Socket.IO support for RabbitMQ</li>
 	    <li><a href="http://github.com/akalend/amqp-rest">amqp-rest</a><br />
-	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP.</li>
+	    A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP</li>
 	    <li><a href="http://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a><br />
 	    A plugin for RabbitMQ that allows you to forward messages to configurable URLs</li>
 	    <li><a href="http://hopper.squarespace.com/blog/2008/3/24/as3-amqp-client-first-cut.html">as3-amqp</a><br />
@@ -703,6 +705,13 @@ decentralised microblogging</li>
 
       <h3 id="in-print">Books and Print Articles</h3>
       <ul>
+        <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
+        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
+        is available to download.)</li>
+        <li><a href="http://manning.com/fisher/">Spring Integration in Action</a><br />
+        Contains several chapters on AMQP and messaging with RabbitMQ.</li>
+        <li><a href="http://manning.com/rathore/">Scaling Clojure through messaging</a><br />
+        Chapter 11 in the book 'Clojure in Action' discusses how RabbitMQ can be used to scale Clojure applications.</li>
 	<li>
 	<a href="http://it-republik.de/railsway/magazin-ausgaben/Enterprise-Rails-000335.html">AMQP with RabbitMQ</a><br/>
 	An article in the Railsway Magazine, Issue 1, 2010: Messaging in Ruby with the AMQP broker RabbitMQ

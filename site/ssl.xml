@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - SSL</title>
   </head>
@@ -28,6 +28,17 @@
         <p>The recommended distribution is R14B (SSL 4.0.1). This should be
         considered the minimum configuration for Java and Erlang clients
         due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
+
+        <p>The Erlang crypto application must be installed and working. This may
+        be an issue for Windows users and those who compile Erlang from source.</p>
+
+        <p>For Windows users: Versions of Erlang as recent as R13B03 do not include
+        the OpenSSL library needed by the crypto application.
+        <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This post</a>
+        explains how to install it. Version R14A appears to include it already.</p>
+
+        <p>For those compiling Erlang from source: Ensure <code>configure</code>
+        finds OpenSSL and builds the crypto application.</p>
       </doc:section>
 
       <doc:section name="keys-and-certs">

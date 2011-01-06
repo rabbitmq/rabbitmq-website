@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Specification</title>
   </head>
@@ -173,10 +173,7 @@
 	<methods xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <method name="connection.start"><status value="ok"/></method>
 	  <method name="connection.start-ok"><status value="ok"/></method>
-	  <method name="connection.secure">
-	    <status value="ok"/>
-	    <notes>We also plan to implement further authentication methods.</notes>
-	  </method>
+	  <method name="connection.secure"><status value="ok"/></method>
 	  <method name="connection.secure-ok"><status value="ok"/></method>
 	  <method name="connection.tune"><status value="ok"/></method>
 	  <method name="connection.tune-ok"><status value="ok"/></method>
@@ -381,7 +378,7 @@
           </rule>
 
           <rule>
-            <status value="planned"/>
+            <status value="ok"/>
             <type>SHOULD</type>
             <xref>connection / start-ok / mechanism / security</xref>
             <type/>
