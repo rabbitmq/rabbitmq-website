@@ -524,9 +524,7 @@
           <doc:heading>Install the Server</doc:heading>
           <div class="instructions">
             <dl>
-            <dt>
-            Install from a package
-            </dt>
+            <dt>Install from a package</dt>
             <dd>
             <p>
               Install the rabbitmq-server package  - at the time of writing, RabbitMQ is
@@ -545,19 +543,33 @@
               If you use apt on a Debian distribution that has erlang-base
               packages available, all dependencies should be automatically met.
             </p>
-            </dd>
-            <dt>
-            Configure RabbitMQ Server
-            </dt>
+            </dd>            
+            </dl>
+          </div>
+        </doc:subsection>
+
+        <doc:subsection name="running-debian">
+          <doc:heading>Run RabbitMQ  Server</doc:heading>
+          <div class="instructions">
+            <dl>
+            <dt>Customise RabbitMQ Environment Variables</dt>
             <dd>
             <p>
-              The server should start using defaults.
-              To adjust any settings used for starting the server, 
-              create/edit <nobr><code>/etc/rabbitmq/rabbitmq.conf</code>.</nobr>
+              The server should start using defaults. 
               See the <a href="#generic-unix">Generic Unix</a> installation
-              section below for how to set Environment Variables 
-              (but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
+              section below for how to set Environment Variables.
+              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
+              (Use the same names but drop the RABBITMQ_ prefix) e.g.
+              <pre class="sourcecode">
+#example conf file entries
+#Rename the node
+NODENAME=bunny
+#Timeout in seconds
+MULTI_START_ARGS="-maxwait 40"</pre>
+              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
+5.man.html">info on using rabbitmq.conf</a>
+            </p>
+            <p>              
               You can additionally set
               <code>NODE_COUNT</code> in
               <code>/etc/default/rabbitmq</code> to define 
@@ -565,56 +577,46 @@
               nodes to run on a single machine</a>.
             </p>
             </dd>
-          </dl>
-          </div>
-        </doc:subsection>
-
-        <doc:subsection name="running-debian">
-          <doc:heading>Run RabbitMQ  Server</doc:heading>
-          <p>
-            The server is started as a daemon by default when the
-            RabbitMQ Server package is installed. 
-            As an administrator, start and stop the 
-            server as usual for Debian using 
+            <dt>Starting the Server</dt>
+            <dd>
+            <p>
+              The server is started as a daemon by default when the
+              RabbitMQ Server package is installed.
+            </p>
+            <p>
+              As an administrator, start and stop the 
+              server as usual for Debian using 
             <code>invoke-rc.d rabbitmq-server <i>stop/start/etc</i></code>.
-          </p>
-          <p>
-            The server is set up to run as system user <code>rabbitmq</code>.
-            This means that if you change the location
-            of the Mnesia database or logs as described below, you must
-            ensure the files are owned by this user.
-          </p>
-          <p>
-            The startup script waits for a limited amount of time, 30
-            seconds by default, for the broker nodes to start. When
-            that time is exceeded a <code>TIMEOUT</code> is
-            reported. The cause of this could be a misconfiguration or
-            other error. However, it is also possible that the node
-            simply is taking a long time to start up, perhaps because
-            the machine it is running on is heavily loaded, or there
-            are many persisted messages or durable queues and
-            exchanges that need to be recovered. For that reason the
-            timeout can be adjusted by setting
-            <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait <i>timeout_in_seconds</i></code>"
-            in <code>/etc/rabbitmq/rabbitmq.conf</code>.
-          </p>
+            </p>
+            <p>
+              <em>Note: </em>The server is set up to run as system user
+              <code>rabbitmq</code>.
+              If you change the location of the Mnesia database or the logs,
+              you must ensure the files are owned by this user
+              (and also update the Environment Variables).
+            </p>
+            </dd>
+            </dl>
+          </div>
         </doc:subsection>
       </doc:section>
 
       <doc:section name="rpm">
         <doc:heading>RPM based Linux (CentOS, Fedora, OpenSuse, RedHat)</doc:heading>
-
+          
         <doc:subsection name="install-rpm">
           <doc:heading>Install the Server</doc:heading>
-          <ul>
-            <li>
+          <div class="instructions">
+            <dl>
+            <dt>Install from a package</dt>
+            <dd>
+            <p>
               The RabbitMQ server is included in Fedora, so for Fedora
               and RHEL users we recommend to install the
               <i>rabbitmq-server</i> package via the distribution's
               package manager.
-            </li>
-            <li>
+            </p>
+            <p>
               Alternatively, install
               rabbitmq-server-&version-server;-<i>architecture</i>.rpm
               (which you can download from the 
@@ -624,51 +626,63 @@
               version of Erlang to run the server. See <a
               href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
               there is no official Erlang package for your distribution.
-            </li>
-            <li>
-              To adjust the settings used for starting the server,
-              create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>, 
-              setting environment variables as listed in the 
-              <a href="#generic-unix">Generic Unix</a> installation section below 
-              (but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">#example file entry<br/>NODENAME=rabbit</pre>
-              You can additionally set <code>NODE_COUNT</code> in
-              <code>/etc/sysconfig/rabbitmq</code> to define
-              <a href="clustering.html#single-machine">the number of
-              nodes to run on a single machine</a>.
-            </li>
-          </ul>
+            </p>
+            </dd>
+            </dl>
+          </div>
         </doc:subsection>
 
         <doc:subsection name="running-rpm">
           <doc:heading>Run RabbitMQ Server</doc:heading>
-          <p>
-            The server is not started as a daemon by default when the
-            RabbitMQ Server package is installed. As an administrator, start and stop the
-            server as usual using <code>/sbin/service rabbitmq-server
-            <i>stop/start/etc</i></code>. To start the daemon by default
-            when the system boots, run <code>chkconfig rabbitmq-server on</code>.
-          </p>
-          <p>
-            The server is set up to run as system user <code>rabbitmq</code>.
-            This means that if you change the location
-            of the Mnesia database or logs as described below, you must
-            ensure the files are owned by this user.
-          </p>
-          <p>
-            The startup script waits for a limited amount of time, 30
-            seconds by default, for the broker nodes to start. When that
-            time is exceeded a <code>TIMEOUT</code> is reported. The
-            cause of this could be a misconfiguration or other
-            error. However, it is also possible that the node simply is
-            taking a long time to start up, perhaps because the machine
-            it is running on is heavily loaded, or there are many
-            persisted messages or durable queues and exchanges that need
-            to be recovered. For that reason the timeout can be adjusted
-            by setting <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait <i>timeout_in_seconds</i></code>"
-            in <code>/etc/rabbitmq/rabbitmq.conf</code>.
-          </p>
+          <div class="instructions">
+            <dl>
+            <dt>Customise RabbitMQ Environment Variables</dt>
+            <dd>
+            <p>
+              The server should start using defaults.
+              See the <a href="#generic-unix">Generic Unix</a> installation
+              section below for how to set Environment Variables.
+              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
+              (Use the same names but drop the RABBITMQ_ prefix) e.g.
+              <pre class="sourcecode">
+#example conf file entries
+#Rename the node
+NODENAME=bunny
+#Timeout in seconds
+MULTI_START_ARGS="-maxwait 40"</pre>
+              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
+5.man.html">info on using rabbitmq.conf</a>
+            </p>
+            <p>
+              You can additionally set <code>NODE_COUNT</code> in
+              <code>/etc/sysconfig/rabbitmq</code> to define
+              <a href="clustering.html#single-machine">the number of
+              nodes to run on a single machine</a>.
+            </p>
+            </dd>
+            <dt>Starting the Server</dt>
+            <dd>
+            <p>
+              The server is not started as a daemon by default when the
+              RabbitMQ Server package is installed. To start the daemon by default
+              when the system boots, as an administrator run 
+              <code>chkconfig rabbitmq-server on</code>.
+            </p>
+            <p>
+              As an administrator, start and stop the
+              server as usual using <code>/sbin/service rabbitmq-server
+              <i>stop/start/etc</i></code>.
+            </p>
+            <p>
+              <em>Note: </em>The server is set up to run as system user
+              <code>rabbitmq</code>.
+              If you change the location of the Mnesia database or the logs,
+              you must ensure the files are owned by this user
+              (and also update the Environment Variables).
+            </p>
+            </dd>
+            </dl>
+          </div>
         </doc:subsection>
       </doc:section>
 
@@ -931,6 +945,24 @@
               mnesia directory cannot be created or the TCP port on which
               RabbitMQ tries to listen is already taken.
             </p>
+          </dd>
+          <dt>Server Timeout on Start</dt>
+          <dd>
+          <p>
+            By default, the startup script waits 30
+            seconds for the broker nodes to start. 
+            When that time is exceeded a <code>TIMEOUT</code> is reported.
+            The cause of this could be a misconfiguration or other error.
+          <p>
+          </p>
+            But maybe the node is just taking a long time to start up
+            (perhaps because the machine it is running on is heavily loaded, or
+            because many persisted messages or durable queues and
+            exchanges need to be recovered). In this case, the
+            timeout can be adjusted by setting the Environment Variable 
+            <code>MULTI_START_ARGS</code> to
+            "<code>-maxwait <i>timeout_in_seconds</i></code>" (eg using rabbitmq.conf).
+          </p>
           </dd>
         </dl>        
         <p>
