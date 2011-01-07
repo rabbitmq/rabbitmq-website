@@ -641,6 +641,33 @@ Status of node rabbit@rabbit3 ...
         </p>
         </doc:subsection>
       </doc:section>
+      <doc:section name="upgrading">
+          <doc:heading>Upgrading clusters</doc:heading>
+          <p>
+            When you upgrade from one version of RabbitMQ to another,
+            RabbitMQ will automatically upgrade its persistent data
+            structures if necessary. In a cluster, this task is
+            performed by the last disc node to be shut down (since
+            changes could have occurred after other nodes were shut
+            down). Therefore when upgrading a RabbitMQ cluster, you
+            must start the last disc node to shut down before any
+            others. If you do not, the node you start will emit a
+            message like:
+          </p>
+          <p>
+            <tt>Cluster upgrade needed. The first node you start
+            should be the last disc node to be shut down.</tt>
+          </p>
+          <p>
+            and will not start up.
+          </p>
+          <p>
+            All nodes in a cluster must be running the same versions of
+            Erlang and RabbitMQ, although they may have different
+            plugins installed.
+          </p>
+      </doc:section>
+
       <doc:section name="single-machine">
           <doc:heading>A cluster on a single machine</doc:heading>
           <p>
