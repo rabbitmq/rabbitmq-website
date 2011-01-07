@@ -44,15 +44,13 @@
           Once a channel is in confirm mode, both the broker and the
           client count messages (counting starts at 0 on
           <code>confirm.select</code>).  The broker then confirms
-          messages as it handles them by sending
-          a <code>basic.ack</code> on the same channel. The
+          messages as it handles them by sending a
+          <code>basic.ack</code> on the same channel. The
           <code>delivery-tag</code> field contains the sequence number
-          of the acknowledged message.  If <code>multiple</code> was
-          set in the <code>confirm.select</code>, the broker may also
-          set the <code>multiple</code> field in the
-          <code>basic.ack</code> methods; in this case, all messages
-          up to and including the one with the sequence number are
-          acknowledged.
+          of the acknowledged message.  The broker may also set the
+          <code>multiple</code> field in <code>basic.ack</code> to
+          indicate that all messages up to and including the one with
+          the sequence number have been handled.
         </p>
 
         <p>
@@ -69,8 +67,8 @@
 
         <p>
           After a channel is put into confirm mode, all subsequently
-          published messages will be ack'd once.  No guarantees are
-          made as to how soon a message is ack'd.
+          published messages will be acknowledged once.  No guarantees are
+          made as to how soon a message is acknowledged.
         </p>
 
         <doc:subsection>
