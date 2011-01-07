@@ -644,14 +644,14 @@ Status of node rabbit@rabbit3 ...
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
           <p>
-            When you upgrade from one version of RabbitMQ to another,
-            RabbitMQ will automatically upgrade its persistent data
+            When upgrading from one version of RabbitMQ to another,
+            RabbitMQ will automatically update its persistent data
             structures if necessary. In a cluster, this task is
             performed by the last disc node to be shut down (since
             changes could have occurred after other nodes were shut
             down). Therefore when upgrading a RabbitMQ cluster, you
-            must start the last disc node to shut down before any
-            others. If you do not, the node you start will emit a
+            must start the last disc node to shut down before starting
+            any others. If you do not, the node you start will emit a
             message like:
           </p>
           <p>
