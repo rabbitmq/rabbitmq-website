@@ -26,14 +26,14 @@ service that returns Fibonacci numbers.
 
 ### Client interface
 
-To illustrate how RPC could be exposed on the clients we're going to
+To illustrate how RPC service could be used we're going to
 create a simple client class. It's going to expose a method `call`
 which sends a RPC request and blocks until the answer is received:
 
     :::python
     fibonacci_rpc = FibonacciRpcClient()
     result = fibonacci_rpc.call(4)
-    print "fib(4) is %i" % (result,)
+    print "fib(4) is %r" % (result,)
 
 > #### A note on RPC
 >
@@ -49,7 +49,7 @@ which sends a RPC request and blocks until the answer is received:
 >  * Make sure it's obvious which function call is local and which is remote.
 >  * Document your system. Make the dependencies between components clear.
 >  * Handle error cases. How should the client react when the RPC server is
->    down?
+>    down for a long time?
 >
 > When in doubt avoid RPC. If you can, you should use an asynchronous
 > pipeline - instead of RPC-like blocking, results are asynchronously
@@ -74,8 +74,9 @@ request. Let's try it:
                                 ),
                           body=request)
 
-At this point our RPC client could just wait for the response message
-on the `callback_queue`.
+    # ... here goes the code to read a response message from the callback_queue ...
+    response = message_from_the_callback_queue
+
 
 > #### Message properties and headers
 >
@@ -98,17 +99,17 @@ on the `callback_queue`.
 ### Correlation id
 
 In the method presented above we suggest creating a callback queue for
-every RPC call. That's pretty inefficient, but fortunately it's easy
-to improve - let's create a single callback queue per client.
+every RPC call. That's pretty inefficient, but fortunately there is
+a better way - let's create a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
-`correlation_id` property is used. We're going to set it to a random
+`correlation_id` property is used. We're going to set it to a unique
 value for every request. Later, when we receive a message in the
 callback queue we'll look at this property, and based on that we'll be
 able to match a response with a request. If we see an unknown
 `correlation_id` value, we may safely discard the message - it
-doesn't belong to any of our requests.
+doesn't belong to our requests.
 
 ### Summary
 
@@ -263,30 +264,27 @@ The code for our RPC client:
             result = self.channel.queue_declare(exclusive=True)
             self.callback_queue = result.queue
 
-            self.requests = {}
+            self.corr_id = None
             self.channel.basic_consume(self.on_response, no_ack=True,
                                        queue=self.callback_queue)
 
         def on_response(self, ch, method, props, body):
-            corr_id = props.correlation_id
-            if corr_id in self.requests:
-                self.requests[corr_id] = body
+            if props.correlation_id == self.corr_id:
+                self.response = body
 
         def call(self, n):
-            corr_id = str(uuid.uuid4())
-            self.requests[corr_id] = None
+            self.corr_id = str(uuid.uuid4())
+            self.response = None
             self.channel.basic_publish(exchange='',
                                        routing_key='rpc_queue',
                                        properties=pika.BasicProperties(
                                              reply_to = self.callback_queue,
-                                             correlation_id = corr_id,
+                                             correlation_id = self.corr_id,
                                              ),
                                        body=str(n))
-            while self.requests[corr_id] is None:
+            while self.response is None:
                 pika.asyncore_loop(count=1)
-            response = self.requests[corr_id]
-            del self.requests[corr_id]
-            return int(response)
+            return self.response
 
 
     fibonacci_rpc = FibonacciClient()
@@ -303,18 +301,18 @@ The client code is slightly more involved:
   * (15) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * (19) The callback executed on every response is doing very simple
-    job, for every response message if the `correlation_id` is known,
-    it saves the response in 'requests' dictionary.
-  * (24) Next, we define our main `call` method - it does the actual
+    job, for every response message if the `correlation_id` is the one
+    we're looking for. If so, it saves the response in `self.response`.
+  * (23) Next, we define our main `call` method - it does the actual
     RPC request.
-  * (25) In this method, first we generate an unique `correlation_id`
-    number and save it in the 'requests' dictionary.
-  * (27) Next, we publish the request message, with two properties:
+  * (24) In this method, first we generate an unique `correlation_id`
+    number and save it - the 'on_response' callback function will
+    use this value to catch the appropriate response.
+  * (26) Next, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (34) At this point we just wait until the proper response message appears.
-  * (36) And finally when we have received the response, we need to clean
-    up the 'requests' dictionary and return the response to the user.
-
+  * (33) At this point we can sit back and wait until the proper
+    response arrives.
+  * (35) And finally we return the response back to the user.
 
 Our RPC service is now ready. We can start the server:
 
@@ -331,10 +329,10 @@ service, but it has some important advantages:
 
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running second `rpc_server.py` in a new console.
- * On the client side, the RPC call requires sending one message and
-   receiving one message. No synchronous calls like `queue_declare`
-   are required. This leads to a significant performance boost against
-   naive implementations.
+ * On the client side, the RPC call requires sending and
+   receiving only one message. No synchronous calls like `queue_declare`
+   are required. As a result the RPC client needs only one network
+   roundtrip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
 complex problems, like:
