@@ -135,6 +135,7 @@
 	    <li><a href="api-guide.html">Java API-guide</a></li>
 	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
 	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a></li>
+	    <li><a href="http://www.infoq.com/presentations/Spring-AMQP">Spring AMQP</a> video and slides from a presentation at SpringOne 2010</li>
 	    <li><a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a></li>
@@ -208,6 +209,7 @@
 	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
+        <li><a href="http://www.laurentluce.com/?p=191">Distributed messaging using RabbitMQ and Python</a> demonstrates a common use case (using py-amqp)</li>
 	    <li><a href="http://blog.springsource.com/2010/08/19/building-rabbitmq-apps-using-python">Building RabbitMQ apps using Python</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
@@ -244,6 +246,7 @@
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
 	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
+        <li><a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for AMQP messaging</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
 	</li>
@@ -353,8 +356,9 @@
 	passing through the exchange.
 	</li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
-        <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a>.  See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in
-decentralised microblogging</li>
+        <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
+        See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
+        </li>
         <li><a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">Scala/Lift</a></li>
 	<li>
 	  <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
@@ -366,6 +370,9 @@ decentralised microblogging</li>
 	  A memcached adapter for RabbitMQ that allows you use the memcache protocol to
 	  get or publish a message from or to RabbitMQ.
 	</li>
+    <li><a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a><br/>
+    A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
+    </li>
 	<li>
 	  <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br />
 	  A simple service to relay all messages from a topic exchange to another
