@@ -204,7 +204,7 @@ server testca
           to it. These settings are all controlled by two arguments to RabbitMQ:</p>
 
           <ul class="plain">
-            <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a tuple-list of <code class="">{IpAddress, Port}</code> pairs which tells
+            <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a list of ports and <code class="">{IpAddress, Port}</code> pairs which tells
             RabbitMQ to listen on these addresses and ports for SSL
             connections. Setting the <b>IpAddress</b> to <b>0.0.0.0</b> tells
             RabbitMQ to listen on all available interfaces.</p></li>
@@ -224,7 +224,7 @@ server testca
 <pre class="sourcecode">
 [
   {rabbit, [
-     {ssl_listeners, [{"0.0.0.0",5671}]},
+     {ssl_listeners, [5671]},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
                     {certfile,"/path/to/server/cert.pem"},
                     {keyfile,"/path/to/server/key.pem"},

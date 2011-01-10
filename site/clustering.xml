@@ -681,10 +681,8 @@ $ rabbitmq-multi stop_all</pre>
 	    <code>rabbitmq-server</code> (
 	    <code>rabbitmq-server.bat</code> on Windows). You must
 	    ensure that for each invocation you set the environment
-	    variables <code>RABBITMQ_NODENAME</code>,
-	    <code>RABBITMQ_NODE_IP_ADDRESS</code> and
-	    <code>RABBITMQ_NODE_PORT</code> to suitable values
-	    ("0.0.0.0" means "all IP addresses").
+	    variables <code>RABBITMQ_NODENAME</code> and
+	    <code>RABBITMQ_NODE_PORT</code> to suitable values.
           </p>
       </doc:section>
     </doc:div>

@@ -129,11 +129,9 @@
 		
 		<dt>RABBITMQ_NODE_IP_ADDRESS</dt>
 		<dd>
-		  Defaults to <code>0.0.0.0</code>. This can be changed 
-		  if you only want to bind to one network interface.
-		  Please note that Windows 2000 (and maybe earlier
-		  versions) do not understand "<code>0.0.0.0</code>" 
-		  and will need to have this set explicitly.
+		  Defaults to "<code></code>" - meaning bind to all
+		  network interfaces. This can be changed if you only
+		  want to bind to one network interface.
 		</dd>
 		
 		<dt>RABBITMQ_NODE_PORT</dt>

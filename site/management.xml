@@ -184,7 +184,7 @@
             like this:
           </p>
           <pre>[
-  {rabbit,                  [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
+  {rabbit,                  [ {tcp_listeners,         [5672]} ] },
   {rabbit_mochiweb,         [ {port,                  55672} ] },
   {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbit_management_agent, [ {force_fine_statistics, true} ] }
