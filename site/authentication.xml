@@ -18,10 +18,11 @@
       <doc:section name="intro">
         <doc:heading>Introduction</doc:heading>
         <p>
-          RabbitMQ has pluggable support for various SASL
-          authentication mechanisms. There are four such mechanisms
-          built into the server: <code>PLAIN</code>, <code>AMQPLAIN</code>,
-          <code>EXTERNAL</code> and <code>RABBIT-CR-DEMO</code>.
+          RabbitMQ has pluggable support for various SASL authentication
+          mechanisms. There are three such mechanisms built into the
+          server: <code>PLAIN</code>, <code>AMQPLAIN</code>,
+          and <code>RABBIT-CR-DEMO</code>, and one - <code>EXTERNAL</code> -
+          available as a <a href="plugins.html">plugin</a>.
 
           You can also implement your own authentication mechanism by
           implementing the <code>rabbit_auth_mechanism</code>
@@ -35,7 +36,7 @@
       <doc:section name="built-in">
         <doc:heading>Built-in mechanisms</doc:heading>
         <p>
-          The four built-in mechanisms are:
+          The three built-in mechanisms are:
         </p>
         <dl>
           <dt>
@@ -53,26 +54,6 @@
             Non-standard version of PLAIN as defined by the AMQP 0-8
             specification. This is enabled by default in the RabbitMQ
             server, and is the default for QPid's Python client.
-          </dd>
-          <dt>
-            <code>EXTERNAL</code>
-          </dt>
-          <dd>
-            <p>
-              Authenticates the user taking the Common Name of the
-              client's SSL certificate as the username. The user's
-              password is not checked. In order to use this mechanism
-              the client must connect over SSL, and present a client
-              certificate. For safety the server must be configured
-              with the SSL options <code>fail_if_no_peer_cert</code>
-              set to <code>true</code> and <code>verify</code> set
-              to <code>verify_peer</code>, to force all SSL clients to
-              have a verifiable client certificate.
-            </p>
-            <p>
-              This mechanism is <b>not</b> enabled by default in the
-              RabbitMQ server.
-            </p>
           </dd>
           <dt>
             <code>RABBIT-CR-DEMO</code>
