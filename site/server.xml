@@ -223,13 +223,6 @@
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
 
-    <h4>Amazon EC2 Bundle</h4>
-    <p>
-      <a href="ec2.html">Amazon EC2 Images</a> containing Ubuntu 9.10
-      (Karmic Koala), both 32 and 64 bit variants, are available for download
-      with pre-installed RabbitMQ.
-    </p>
-
     <h4>Source Code</h4>
 
     <p>
