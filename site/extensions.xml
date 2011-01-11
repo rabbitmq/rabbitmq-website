@@ -42,7 +42,7 @@
 
         <p>
           Once a channel is in confirm mode, both the broker and the
-          client count messages (counting starts at 0 on
+          client count messages (counting starts at 1 on the first
           <code>confirm.select</code>).  The broker then confirms
           messages as it handles them by sending a
           <code>basic.ack</code> on the same channel. The
