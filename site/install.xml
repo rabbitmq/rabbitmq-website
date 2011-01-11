@@ -74,10 +74,11 @@
 
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
-          <div class="instructions">
-            <dl>
+
+            <dl class="instructions">
               <dt>Install Erlang</dt>
               <dd>
+              <p>
                 Install a recent version of Erlang/OTP. 
                 Versions R13B03 and higher should work on Windows.<br/>
                 e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
@@ -86,9 +87,10 @@
                 and <code>\erl&version-erlang;\bin\erl.exe</code> will be in
                 <nobr><code>&dir-win-apps;</code> or
                 <code>&dir-win64-apps;</code></nobr>.
-              </dd>
-            </dl>
-          </div>
+                </p>
+                </dd>
+              </dl>
+
           <div class="environment-variables">
             <dl>
               <dt>ERLANG_HOME</dt>
@@ -110,8 +112,7 @@
             </dl>
           </div>
           
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
               <dt>Install RabbitMQ Server</dt>
               <dd>
                 <p>
@@ -131,13 +132,11 @@
                  </p>
               </dd>
             </dl>
-            </div>
          </doc:subsection>
 
         <doc:subsection name="find-rabbitmq-on-windows">
           <doc:heading>Find Command Scripts and App Data</doc:heading>
-          <div class="instructions">
-            <dl> 
+            <dl class="instructions"> 
               <dt>Commands for RabbitMQ Server</dt>
               <dd>
                 <p>
@@ -182,7 +181,6 @@
                 </p>
               </dd>
             </dl>
-          </div>
         </doc:subsection>
 
         <doc:subsection name="running-windows">
@@ -378,8 +376,7 @@
             </dl>
           </div>
 
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
               <dt>Install the Service</dt>
               <dd>
                 <p>
@@ -439,7 +436,6 @@
                 Use the <a href="#managing-windows">rabbitmqctl</a> commands.
               </dd>
             </dl>
-          </div>
         </doc:subsection>
 
         <doc:subsection name="managing-windows">
@@ -522,8 +518,7 @@
 
         <doc:subsection name="install-debian">
           <doc:heading>Install the Server</doc:heading>
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
             <dt>Install from a package</dt>
             <dd>
             <p>
@@ -545,29 +540,17 @@
             </p>
             </dd>            
             </dl>
-          </div>
         </doc:subsection>
 
         <doc:subsection name="running-debian">
           <doc:heading>Run RabbitMQ  Server</doc:heading>
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
             <dt>Customise RabbitMQ Environment Variables</dt>
             <dd>
             <p>
               The server should start using defaults. 
               See the <a href="#generic-unix">Generic Unix</a> installation
               section below for how to set Environment Variables.
-              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
-              (Use the same names but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">
-#example conf file entries
-#Rename the node
-NODENAME=bunny
-#Timeout in seconds
-MULTI_START_ARGS="-maxwait 40"</pre>
-              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
-5.man.html">info on using rabbitmq.conf</a>
             </p>
             <p>              
               You can additionally set
@@ -597,7 +580,6 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             </p>
             </dd>
             </dl>
-          </div>
         </doc:subsection>
       </doc:section>
 
@@ -606,8 +588,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
           
         <doc:subsection name="install-rpm">
           <doc:heading>Install the Server</doc:heading>
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
             <dt>Install from a package</dt>
             <dd>
             <p>
@@ -629,29 +610,17 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             </p>
             </dd>
             </dl>
-          </div>
         </doc:subsection>
 
         <doc:subsection name="running-rpm">
           <doc:heading>Run RabbitMQ Server</doc:heading>
-          <div class="instructions">
-            <dl>
+            <dl class="instructions">
             <dt>Customise RabbitMQ Environment Variables</dt>
             <dd>
             <p>
               The server should start using defaults.
               See the <a href="#generic-unix">Generic Unix</a> installation
               section below for how to set Environment Variables.
-              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
-              (Use the same names but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">
-#example conf file entries
-#Rename the node
-NODENAME=bunny
-#Timeout in seconds
-MULTI_START_ARGS="-maxwait 40"</pre>
-              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
-5.man.html">info on using rabbitmq.conf</a>
             </p>
             <p>
               You can additionally set <code>NODE_COUNT</code> in
@@ -682,7 +651,6 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             </p>
             </dd>
             </dl>
-          </div>
         </doc:subsection>
       </doc:section>
 
@@ -765,17 +733,28 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               Contained in the tarball is a directory named
               <code>rabbitmq_server-&version-server;</code>. You should
               extract this into somewhere appropriate for application
-              binaries on your system.
+              binaries on your system. The <code>sbin</code> directory will be found in
+              this directory.
             </li>
-            <li>
+
+          </ul>          
+        </doc:subsection>
+
+        <doc:subsection name="running-generic-unix">
+          <doc:heading>Run RabbitMQ Server</doc:heading>
+            <dl class="instructions">
+            <dt>Customise RabbitMQ Environment Variables</dt>
+            <dd>
+            <p>
               Within the <code>sbin</code> directory is a shell script
               <code>rabbitmq-server</code> which may need
               customisation for your installation. Environment
-              variables available for configuration are
-            </li>
-          </ul>
-           
-          <div class="environment-variables">
+              variables available for configuration are:
+            </p>
+            </dd>
+            </dl>
+            
+            <div class="environment-variables">
             <dl>
               <dt>RABBITMQ_MNESIA_BASE</dt>
               <dd>
@@ -818,7 +797,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
                   Defaults to <code>/etc/rabbitmq/rabbitmq</code>. If
                   this file is present it is used by the server to
                   configure RabbitMQ application components. Note that
-                  the .config extension is automatically appended by
+                  the <code>.config</code> extension is automatically appended by
                   the Erlang runtime. See the section on <a
                   href="#configfile">the configuration file</a> for
                   details.  Note that this file is also used to
@@ -828,17 +807,38 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               </dd>
             </dl>
           </div>
+          
           <p><em>Note:</em> If the directories 
                 <strong>RABBITMQ_MNESIA_BASE</strong> and
                 <strong>RABBITMQ_LOG_BASE</strong> do not exist 
                 the server will attempt to create them. 
                 It is important that the server has write permission at these locations.
           </p>
-        </doc:subsection>
-
-        <doc:subsection name="running-generic-unix">
-          <doc:heading>Run RabbitMQ Server</doc:heading>
+          
+          <dl class="instructions">
+          <dt>Customising RabbitMQ Environment using the rabbitmq.conf file</dt>
+          <dd>
           <p>
+              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>.
+              Unlike rabbitmq.config, its location is not configurable.
+              </p>
+              <p>
+              Use the same Environment Variable names as above 
+              (but drop the RABBITMQ_ prefix) e.g.
+              <pre class="sourcecode">
+#example conf file entries
+#Rename the node
+NODENAME=bunny
+#Timeout in seconds
+MULTI_START_ARGS="-maxwait 40"</pre>
+              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
+5.man.html">info on using rabbitmq.conf</a>
+
+          </p>
+            </dd>
+            <dt>Starting the Server</dt>
+            <dd>
+            <p>
             Invoke the <code>rabbitmq-server</code> shell script.
             This displays a banner message, and reports on progress in
             the startup sequence, concluding with the message "broker
@@ -846,13 +846,15 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             started successfully. To shut down the server just
             terminate the process. Alternatively, use the <a
             href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
-          </p>
-          <p>
+            </p>
+            <p>
             You can also start the server in "detached" mode with
             <code>rabbitmq-server -detached</code>, in which case the
             server process is backgrounded immediately and nothing is
             written to the console.
-          </p>
+            </p>
+            </dd>
+            </dl>
         </doc:subsection>
       
         <doc:subsection name="logging-generic-unix">
