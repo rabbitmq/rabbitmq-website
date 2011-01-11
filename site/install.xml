@@ -539,7 +539,7 @@
 	  </p>
 	</doc:subsection>
       </doc:section>
-      
+
       <doc:section name="machomebrew">
 	<doc:heading>Mac OS X with Homebrew</doc:heading>
 	<p>
@@ -559,17 +559,18 @@
 	<doc:subsection name="running-machomebrew">
 	  <doc:heading>Running the Server</doc:heading>
 	  <p>
-	    The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>. 
+	    The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
 	    This is not automatically added to your path, so you may wish to add<br />
-	    <code>PATH=$PATH:/usr/local/sbin</code> to your .bash_profile. 
+	    <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
+        or <code>.profile</code>.
 	    The server can then be started with <code>rabbitmq-server</code>.
 	  </p>
-	  <p> 
+	  <p>
 	    All scripts run under your own user account. Sudo is not required.
           </p>
-	</doc:subsection>	
+	</doc:subsection>
       </doc:section>
-      
+
       <doc:section name="generic-unix">
 	<doc:heading>Generic Unix or Linux (BSD, Mac OS X, etc.)</doc:heading>
 
