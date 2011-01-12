@@ -647,24 +647,26 @@ Status of node rabbit@rabbit3 ...
             When upgrading from one version of RabbitMQ to another,
             RabbitMQ will automatically update its persistent data
             structures if necessary. In a cluster, this task is
-            performed by the last disc node to be shut down (since
-            changes could have occurred after other nodes were shut
-            down). Therefore when upgrading a RabbitMQ cluster, you
-            must start the last disc node to shut down before starting
-            any others. If you do not, the node you start will emit a
-            message like:
+            performed by the first disc node to be started (the
+            "upgrader" node). Therefore when upgrading a RabbitMQ
+            cluster, you should not attempt to start any RAM nodes
+            first; any RAM nodes started will emit an error message
+            and fail to start up.
           </p>
           <p>
-            <tt>Cluster upgrade needed. The first node you start
-            should be the last disc node to be shut down.</tt>
+            All nodes in a cluster must be running the same versions
+            of Erlang and RabbitMQ, although they may have different
+            plugins installed. Therefore it is necessary to stop all
+            nodes in the cluster simultaneously when performing an
+            upgrade.
           </p>
           <p>
-            and will not start up.
-          </p>
-          <p>
-            All nodes in a cluster must be running the same versions of
-            Erlang and RabbitMQ, although they may have different
-            plugins installed.
+            While not strictly necessary, it is a good idea to decide
+            ahead of time which disc node will be the upgrader, stop
+            that node last, and start it first. Otherwise changes to
+            the cluster configuration that were made between the
+            upgrader node stopping and the last node stopping will be
+            lost.
           </p>
       </doc:section>
 
