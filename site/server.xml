@@ -12,9 +12,8 @@
     <title>RabbitMQ Server</title>
   </head>
   <body>
-    <h2>
-      RabbitMQ Server
-    </h2>
+    <doc:div>
+    <h2>RabbitMQ Server</h2>
 
     <p class="intro">
       Our goal is to streamline the server installation process such
@@ -59,18 +58,14 @@
       href="mpl.html">the Mozilla Public License v1.1</a>.
     </p>
 
-    <h3>
-      Version
-    </h3>
+    <h3>Version</h3>
 
     <p>
       The current release of the RabbitMQ Server is <b>
       &version-server;</b>.
     </p>
 
-    <h3>
-      Download the RabbitMQ Server
-    </h3>
+    <h2>Download the RabbitMQ Server</h2>
 
     <p>
       The server is available in several compiled forms, or as
@@ -115,7 +110,7 @@
       details on how to verify the signatures on our packages.
     </p>
 
-    <h4>Other versions</h4>
+    <h3>Other versions</h3>
 
     <p>
       Consult <a href="/releases/rabbitmq-server/">the archive</a> if
@@ -123,7 +118,7 @@
       the above.
     </p>
 
-    <h4>Debian GNU/Linux and Ubuntu Linux</h4>
+    <h3>Debian GNU/Linux and Ubuntu Linux</h3>
 
     <p>
       We recommend that you use your distribution's package manager to
@@ -154,7 +149,7 @@
       repository</a>.
     </p>
 
-    <h4>RPM-based Linux</h4>
+    <h3>RPM-based Linux</h3>
 
     <p>
       For Fedora and RHEL users we recommend to you use the distribution's
@@ -197,7 +192,7 @@
       FAQ</a>. Then just <code>yum install erlang</code>.
     </p>
 
-    <h4>Mac OS X</h4>
+    <h3>Mac OS X</h3>
 
     <p>
       On OS X the server can be installed <a href="macports.html">via
@@ -211,19 +206,19 @@
       formula</a>.
     </p>
 
-    <h4>Generic Unix</h4>
+    <h3>Generic Unix</h3>
 
     <p>
       The architecture-neutral binary package from the table above can
       be used on any Unix or Linux variant.
     </p>
 
-    <h4>Windows Bundle</h4>
+    <h3>Windows Bundle</h3>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
 
-    <h4>Source Code</h4>
+    <h3>Source Code</h3>
 
     <p>
       For instructions on building the server from the source-code
@@ -231,7 +226,7 @@
       href="build-server.html">build page</a>.
     </p>
 
-    <h3>Mercurial repositories</h3>
+    <h2>Mercurial repositories</h2>
     <p>
       The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
@@ -245,9 +240,10 @@
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
 
-    <h3>Support</h3>
+    <h2>Support</h2>
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
+    </doc:div>
   </body>
 </html>

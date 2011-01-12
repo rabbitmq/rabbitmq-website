@@ -12,9 +12,8 @@
     <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
   </head>
   <body>
-    <h2>
-      RabbitMQ .NET/C# AMQP client library and WCF binding
-    </h2>
+    <doc:div>
+    <h2>RabbitMQ .NET/C# AMQP client library and WCF binding</h2>
 
     <p>
       The RabbitMQ .NET client is an implementation of an AMQP client
@@ -38,20 +37,18 @@
       available, respectively.
     </p>
 
-    <h3>
-      Version
-    </h3>
+    <h3>Version</h3>
 
     <p>
       The current release of the RabbitMQ .NET/C# AMQP library is <b>
       &version-dotnet-client;</b>.
     </p>
 
-    <h3>
+    <h2>
       Download the library and documentation
-    </h3>
+    </h2>
 
-    <h4>Library and documentation installer</h4>
+    <h3>Library and documentation installer</h3>
 
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
@@ -61,7 +58,7 @@
       </r:download>
     </r:downloads>
 
-    <h4>The library</h4>
+    <h3>The library</h3>
 
     <p>
       The library is available in several compiled forms, and as
@@ -84,7 +81,7 @@
       </r:download>
     </r:downloads>
 
-    <h4>The documentation</h4>
+    <h3>The documentation</h3>
 
     <p>
       <a href="releases/&dir-dotnet-client;/">This directory</a>
@@ -125,7 +122,7 @@
       </r:download>
     </r:downloads>
 
-    <h4>Other versions</h4>
+    <h3>Other versions</h3>
 
     <p>
       Consult <a href="/releases/rabbitmq-dotnet-client/">the
@@ -133,12 +130,12 @@
       .NET/C# Client library or documentation other than the above.
     </p>
 
-    <h3>Windows Bundle</h3>
+    <h2>Windows Bundle</h2>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
 
-    <h3>Mercurial repository</h3>
+    <h2>Mercurial repository</h2>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs.</p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
@@ -146,9 +143,9 @@
         url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
     </repositories>
 
-    <h3>
+    <h2>
       Strong naming
-    </h3>
+    </h2>
 
     <p>
       The client assembly is strong named. The public key token is 89e7d7c5feba84ce 
@@ -161,9 +158,10 @@ c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
 fcb943b5.
 </pre>
     </p>
-    <h3>Support</h3>
+    <h2>Support</h2>
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
+    </doc:div>
   </body>
 </html>
