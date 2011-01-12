@@ -657,8 +657,8 @@ Status of node rabbit@rabbit3 ...
             All nodes in a cluster must be running the same versions
             of Erlang and RabbitMQ, although they may have different
             plugins installed. Therefore it is necessary to stop all
-            nodes in the cluster simultaneously when performing an
-            upgrade.
+            nodes in the cluster, then start all nodes when performing
+            an upgrade.
           </p>
           <p>
             While not strictly necessary, it is a good idea to decide
