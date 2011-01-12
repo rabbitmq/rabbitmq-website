@@ -668,6 +668,11 @@ Status of node rabbit@rabbit3 ...
             upgrader node stopping and the last node stopping will be
             lost.
           </p>
+          <p>
+            Automatic upgrades are only possible from RabbitMQ
+            versions 2.1.1 and later. If you have an earlier cluster,
+            you will need to rebuild it to upgrade.
+          </p>
       </doc:section>
 
       <doc:section name="single-machine">
