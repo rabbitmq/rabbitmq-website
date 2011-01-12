@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ - Download</title>
   </head>
@@ -15,13 +15,16 @@
 
     <p class="intro">
       Our goal is to streamline the broker installation process such
-      that you can have RabbitMQ up and running within two minutes of
-      completing your download. If this doesn't happen to you, please
-      let us know at <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+      that on Linux you can have RabbitMQ up and running within two minutes of
+      completing your download. 
+      If this doesn't happen to you, please
+      let us know at 
+      <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
 
     <h3>RabbitMQ Server</h3>
-    <p>The latest release is &version-server;. Get it from the <a href="server.html">server download page</a>.</p>
+    <p>The latest release is &version-server;. 
+    Get it from the <a href="server.html">server download page</a>.</p>
     <p>
       Consult <a href="/releases/rabbitmq-server/">the archive</a> if
       you want to download a version of the server other than

@@ -4,7 +4,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ on Amazon EC2</title>
   </head>
@@ -100,7 +100,11 @@ apt-get -qy install rabbitmq-server</pre>
       using the <code>user-data-file</code> command line option for
       the <code>ec2-run-instances</code> command. For example:
 
-      <pre class="ec2_sourcecode">$ ec2-run-instances ami-XXX --key ${EC2_KEYPAIR} --instance-type m1.large --region eu-west-1 --user-data-file rabbitmq-user-data.sh</pre>
+      <pre class="ec2_sourcecode">$ ec2-run-instances ami-XXX \
+    --key ${EC2_KEYPAIR} \
+    --instance-type m1.large \
+    --region eu-west-1 \
+    --user-data-file rabbitmq-user-data.sh</pre>
 
       Put your chosen AMI id in the place of <code>ami-XXX</code>. The
       string <code>${EC2_KEYPAIR}</code> should be replaced with the
@@ -144,7 +148,8 @@ apt-get -qy install rabbitmq-server</pre>
       changes, a new empty database is created. To avoid data loss it's
       crucial to set up a fixed and resolvable hostname. For example:
 
-      <pre class="ec2_sourcecode">echo "rabbit" > /etc/hostname
+      <pre class="ec2_sourcecode">sudo -s # become root
+echo "rabbit" > /etc/hostname
 echo "127.0.0.1 rabbit" >> /etc/hosts
 hostname -F /etc/hostname</pre>
       Whenever the hostname changes you should restart RabbitMQ:
