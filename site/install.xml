@@ -579,6 +579,14 @@
               (and also update the Environment Variables).
             </p>
             </dd>
+            <dt>Managing the Server</dt>
+            <dd>
+            	See the <a href="#generic-unix">generic Unix</a> section
+            	for info on <a href="#managing-server-unix">rabbitmqctl</a>
+            	commands and 
+            	<a href="#logging-generic-unix">logging</a>, and
+            	to <a href="#configfile">configure components</a>.
+            </dd>
             </dl>
         </doc:subsection>
       </doc:section>
@@ -650,6 +658,14 @@
               (and also update the Environment Variables).
             </p>
             </dd>
+            <dt>Managing the Server</dt>
+            <dd>
+            	See the <a href="#generic-unix">generic Unix</a> section
+            	for info on <a href="#managing-server-unix">rabbitmqctl</a>
+            	commands and 
+            	<a href="#logging-generic-unix">logging</a>, and
+            	to <a href="#configfile">configure components</a>.
+            </dd>
             </dl>
         </doc:subsection>
       </doc:section>
@@ -720,24 +736,21 @@
 
         <doc:subsection name="install-generic-unix">
           <doc:heading>Install the Server</doc:heading>
-          <ul>
-            <li>
+            <p>
               Install a recent version of Erlang.
-            </li>
-            <li>
+            </p>
+            <p>
               Download
               <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
               from the <a href="download.html">download page</a>.
-            </li>
-            <li>
+            </p>
+            <p>
               Contained in the tarball is a directory named
               <code>rabbitmq_server-&version-server;</code>. You should
               extract this into somewhere appropriate for application
               binaries on your system. The <code>sbin</code> directory will be found in
               this directory.
-            </li>
-
-          </ul>          
+            </p>         
         </doc:subsection>
 
         <doc:subsection name="running-generic-unix">
@@ -819,14 +832,16 @@
           <dt>Customising RabbitMQ Environment using the rabbitmq.conf file</dt>
           <dd>
           <p>
-              You can also create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>.
-              Unlike rabbitmq.config, its location is not configurable.
-              </p>
-              <p>
+              Alternatively, you can create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
+              to edit Environment Variables.
+              Its location is not configurable
+              (unlike rabbitmq.config, which is by default in the same directory).
+            </p>
+            <p>
               Use the same Environment Variable names as above 
               (but drop the RABBITMQ_ prefix) e.g.
               <pre class="sourcecode">
-#example conf file entries
+#example rabbitmq.conf file entries
 #Rename the node
 NODENAME=bunny
 #Timeout in seconds
@@ -834,7 +849,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
 5.man.html">info on using rabbitmq.conf</a>
 
-          </p>
+            </p>
             </dd>
             <dt>Starting the Server</dt>
             <dd>
@@ -843,9 +858,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             This displays a banner message, and reports on progress in
             the startup sequence, concluding with the message "broker
             running", indicating that the RabbitMQ broker has been
-            started successfully. To shut down the server just
-            terminate the process. Alternatively, use the <a
-            href="man/rabbitmqctl.1.man.html#stop">rabbitmqctl stop</a> command.
+            started successfully. 
             </p>
             <p>
             You can also start the server in "detached" mode with
@@ -855,6 +868,28 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             </p>
             </dd>
             </dl>
+        </doc:subsection>
+        
+        <doc:subsection name="managing-server-unix">
+          <doc:heading>Stopping and Managing the Server</doc:heading>
+            <p>
+              To stop the server or check its status, etc, you can use
+              <code>rabbitmqctl</code> (as an administrator). It should be
+              available on the path. All rabbitmqctl commands will report the node absence
+              if no broker is running (i.e. nodedown).              
+            </p>
+            <ul>
+                 <li>Use <code>rabbitmqctl stop</code> to stop the server.
+                 Alternatively, just terminate the process.</li>
+                 <li>Use <code>rabbitmqctl status</code> to check whether it is
+                 running.</li>                
+            </ul>
+            <p>
+              More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl commands</a>
+            </p>
+            <p>
+              More <a href="admin-guide.html">info on  administration</a>
+            </p>
         </doc:subsection>
       
         <doc:subsection name="logging-generic-unix">
