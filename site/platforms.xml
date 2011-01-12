@@ -8,8 +8,9 @@
 
     <p class="intro">
       Our goal is for RabbitMQ to run on as wide a range of platforms as
-      possible. RabbitMQ can run on any platform that Erlang supports,
-      from embedded systems to multi-core clusters and cloud-based servers.
+      possible. RabbitMQ can potentially run on any platform that Erlang
+      supports, from embedded systems to multi-core clusters and cloud-based
+      servers.
     </p>
 
     <p id="erlang-supported">
@@ -29,7 +30,7 @@
     </p>
 
     <p id="rabbit-supported">
-      RabbitMQ is officially supported on a smaller number of platforms:
+      RabbitMQ is officially supported on a limited number of platforms:
       <ul class="compact">
         <li>Ubuntu and Debian-based Linux distributions</li>
         <li>Fedora and RPM-based Linux distributions</li>
@@ -78,7 +79,7 @@
       </ul>
 
       If your platform is on this list or you need assistance then
-      please <a href="contact.html">contact us</a> for assistance.
+      please <a href="contact.html">contact us</a>.
     </p>
 
   </body>
