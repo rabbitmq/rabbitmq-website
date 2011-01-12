@@ -660,6 +660,11 @@ ul#tutorials {
    margin: 0.1em 0.1em 0.2em 0.3em;
 }
 
+#tutorial .aside h3 {
+   margin-top: 0.4em;
+   color: #444;
+}
+
 ul#tutorials > li .tute-num {
    padding: 0.2em 0.5em 0.2em 0.5em;
    background: #444;
