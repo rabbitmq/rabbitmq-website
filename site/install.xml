@@ -83,9 +83,9 @@
                 e.g <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">
                 http://www.erlang.org/download/otp_win32_R13B03.exe</a>.<br/>
                 Using default options, Erlang will appear in the Start Menu,
-                and <code>\erl&version-erlang;\bin\erl.exe</code> will be in
-                <nobr><code>&dir-win-apps;</code> or
-                <code>&dir-win64-apps;</code></nobr>.
+                and <code>\erl&windows-version-erlang;\bin\erl.exe</code> will be in
+                <nobr><code>&dir-win-apps;</code></nobr> or
+                <nobr><code>&dir-win64-apps;</code></nobr>.
                 </p>
                 </dd>
               </dl>
@@ -351,7 +351,7 @@
               <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
               <dd>
                     The default value of this path is
-                    <code>&dir-erlang-windows;\&dir-erlang-erts;\bin</code>.
+                    <code>&dir-erlang-windows;\erts-&windows-version-erlang;\bin</code>.
                     This is the location of <code>erlsrv.exe</code> the Erlang service wrapper script.
               </dd>
 

@@ -8,11 +8,6 @@
 <!ENTITY serverRPMMinorVersion "1">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
 
-<!ENTITY version-erlang "5.7.4">
-
-<!ENTITY dir-erlang-windows "&dir-win-apps;\erl&version-erlang;">
-<!ENTITY dir-erlang-erts "erts-&version-erlang;">
-
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
 <!ENTITY nameVersion-dotnet-client "rabbitmq-dotnet-client-&version-dotnet-client;">
 <!ENTITY dir-current-dotnet-apidoc "releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html">
@@ -23,6 +18,7 @@
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win64-apps "C:\Program Files (x86)">
 <!ENTITY dir-win-user "C:\Documents and Settings\User">
+<!ENTITY windows-version-erlang "5.7.4">
 
+<!ENTITY dir-erlang-windows "&dir-win-apps;\erl&windows-version-erlang;">
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">
-
