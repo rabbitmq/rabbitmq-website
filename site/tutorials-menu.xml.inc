@@ -25,9 +25,9 @@
             <li>
               <a href="tutorial-two-python.html">In Python</a>
             </li>
-            <!-- <li>
-                 <a href="tutorial-two-java.html">In Java</a>
-                 </li> -->
+            <li>
+              <a href="tutorial-two-java.html">In Java</a>
+             </li> 
           </ul>
         </li>
         <li class="tutorial-three">
