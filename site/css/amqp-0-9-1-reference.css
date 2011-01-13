@@ -1,0 +1,112 @@
+/* stylesheet for rendering AMQP 0-9-1 reference guide */
+
+#content-pane: {
+  width: 100%;
+  margin: 0 auto;
+}
+#content-pane h3 {
+  font-size: 1.5em;
+}
+#content-pane h4 {
+  font-size: 1.2em;
+}
+#content-pane h5 {
+  font-size: 1.1em;
+  margin: 1.0em 0 0.5em 0;
+}
+table {
+  width: 100%;
+  margin: 1em auto;
+  table-layout: fixed;
+  border-width: thin;
+  border-style: outset;
+  border-collapse: collapse;
+}
+table thead {
+  background-color: #e4e4e4;
+}
+table th, table td {
+  border-width: thin;
+  padding: 0.5em;
+  border-style: inset;
+  border-color: gray;
+  vertical-align: top;
+}
+table#domains-table th.col-1, table#domains-table th.col-2 {
+  width: 15%;
+}
+table#constants-table th.col-1 {
+  width: 15%;
+}
+table#constants-table th.col-2 {
+  width: 8%;
+}
+table#constants-table th.col-3 {
+  width: 12%;
+}
+table#classes-table th.col-1, table#classes-table th.col-4 {
+  width: 15%;
+}
+table#classes-table th.col-2, table#classes-table th.col-5 {
+  width: 5%;
+}
+table.fields-table th.col-1 {
+  width: 8%;
+}
+table.fields-table th.col-2, table.fields-table th.col-4 {
+  width: 15%;
+}
+table.fields-table th.col-3 {
+  width: 12%;
+}
+ul.rules {
+  margin: 0;
+  padding-left: 0;
+}
+ul.rules li {
+  margin: 0;
+  padding: 6px 0 0 10px;
+}
+span.scenario-label {
+  font-weight: bold;
+}
+pre.code {
+  width=100%;
+  border: 1px solid #e4e4e4;
+  padding-top: 5px;
+}
+dl {
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+dl, dt, dd {
+  margin: 0;
+  padding: 0;
+}
+dt {
+  font-weight: bold;
+  float: left;
+  clear: left;
+}
+dd {
+  margin-left: 0.3em;
+  float: left;
+}
+a.back {
+  font-size: 0.8em;
+  display: inline-block;
+  margin-left: 0.8em;
+  margin-bottom: 1em;
+}
+.inline-block {
+  display: inline-block;
+}
+p.asserts-label, p.rules-label, .rules em, .rules p {
+  margin: 0.4em 0;
+}
+dt.assert {
+  font-weight: normal;
+  margin-left: 1em;
+}
+
