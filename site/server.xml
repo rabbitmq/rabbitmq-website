@@ -38,7 +38,10 @@
       only in how they are packaged to conform to various operating
       systems' packaging conventions.
     </p>
-
+    <p>
+      Please refer to the <a href="platforms.html">platforms</a> page to
+      see if RabbitMQ is supported on your operating system.
+    </p>
     <p>
       In order to compile or run the server, you will need to have
       downloaded and installed Erlang/OTP, version R12B-3 or
@@ -49,7 +52,7 @@
     </p>
 
     <p>
-      Please see the <a href="install.html">Installation
+      Please see the <a href="install.html">installation
       instructions</a>. Additional documentation can be found linked
       from our <a href="documentation.html">documentation page</a>.
     </p>
@@ -144,8 +147,8 @@
       <li><a href="http://www.debian.org/">Debian</a> 5.0 (Lenny), and
       testing (Squeeze)</li>
       <li><a href="http://www.ubuntu.com/">Ubuntu</a> 8.10 (Intrepid
-      Ibex), 9.04 (Jaunty Jackalope), 9.10 (Karmic Koala) and 10.04
-      (Lucid Lynx)</li>
+      Ibex), 9.04 (Jaunty Jackalope), 9.10 (Karmic Koala), 10.04
+      (Lucid Lynx) and 10.10 (Maverick Meerkat)</li>
     </ul>
 
     <p>
