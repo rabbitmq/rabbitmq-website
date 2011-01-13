@@ -3,13 +3,16 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:x="http://www.rabbitmq.com/2011/extensions"
-                exclude-result-prefixes="x">
+                xmlns:c="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                exclude-result-prefixes="x c">
 
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
   
   <xsl:variable name="spec-doc" select="document('http://hg.rabbitmq.com/rabbitmq-dotnet-client/raw-file/default/docs/specs/amqp0-9-1.xml')"/>
-
+  <xsl:variable name="specification" select="document('specification.xml')" />
+  <xsl:key name="method-key" match="c:method" use="@name" />
+  
   <xsl:template match="x:insert-spec-here">
     <div id="content-pane">
       <h2>AMQP 0-9-1 Reference Guide</h2>
@@ -223,8 +226,9 @@
   </xsl:template>
 
   <xsl:template match="method">
+	<xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
     <h5 id="{generate-id()}" class="inline-block">
-      <xsl:value-of select="concat(../@name, '.', @name)"/>
+      <xsl:value-of select="$method-name"/>
     </h5>
     <xsl:call-template name="render-link-to-classes-summary"/>
     <dl>
@@ -267,6 +271,21 @@
           </xsl:otherwise>
         </xsl:choose>
       </dd>
+	  <xsl:for-each select="$specification">
+	    <xsl:for-each select="key('method-key', $method-name)">   
+          <dt>RabbitMQ implementation:</dt>
+	      <dd>
+	        <xsl:variable name="status" select="current()/c:status/@value"/>
+	        <xsl:choose>
+	          <xsl:when test="$status = 'ok'">full</xsl:when>
+	          <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
+	        </xsl:choose>
+	        <xsl:if test="current()/c:notes">
+	          <xsl:value-of select="concat('; ', current()/c:notes)"/>
+	        </xsl:if>
+	      </dd>
+        </xsl:for-each>
+      </xsl:for-each>
     </dl>
     <xsl:apply-templates select="doc" />
     <xsl:call-template name="render-parameters" />
