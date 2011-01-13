@@ -245,11 +245,9 @@
             <xsl:text>yes</xsl:text>
             <xsl:if test="response">
               <xsl:text>; the expected response is </xsl:text>
-              <span class="sync-response-method">
-                <a href="{concat('#', generate-id(../method[@name = current()/response/@name]))}">
-                  <xsl:value-of select="concat(../@name, '.', response/@name)" />
-                </a>
-              </span>
+			  <a class="sync-response-method" href="{concat('#', generate-id(../method[@name = current()/response/@name]))}">
+			    <xsl:value-of select="concat(../@name, '.', response/@name)" />
+ 			  </a>
             </xsl:if>
           </xsl:when>
           <xsl:otherwise>no</xsl:otherwise>

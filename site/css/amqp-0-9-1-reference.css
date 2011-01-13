@@ -88,10 +88,21 @@ dl, dt, dd {
 dt {
   font-weight: bold;
   float: left;
+  clear: both;
 }
 dd {
   margin-left: 0.3em;
   float: left;
+}
+* html dd, * html dt {
+  /* IE6 and lower */
+  float: none;
+  margin-left: 1em;
+}
+*:first-child+html dd, *:first-child+html dt {
+  /* IE7 and IE8 quirks */
+  float: none;
+  margin-left: 1em;
 }
 a.back {
   font-size: 0.8em;
