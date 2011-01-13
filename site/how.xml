@@ -462,6 +462,11 @@
 	  The management plugin provides a web interface and HTTP API
 	  for managing and monitoring RabbitMQ.
 	</li>
+    <li>
+      <a href="https://github.com/jamesc/nagios-plugins-rabbitmq">Nagios Plugins for RabbitMQ</a><br />
+      A set of Nagios checks useful for monitoring a RabbitMQ server. They interface with the RabbitMQ Management plugin
+      over HTTP and therefore have a very light profile on the Nagios server.
+    </li>
 	<li>
 	  <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
 	  RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
