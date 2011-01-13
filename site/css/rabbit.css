@@ -600,36 +600,6 @@ p.warning {
   font-size: 1em;
 }
 
-#install_intro {
-	width: 55%;
-	float: right;
-	padding: 1em;	
-}
-
-#install_toc {
-	width: 40%;
-}
-
-#install_windows, #install_linux, #install_info  {
-	clear: both;
-	padding:1em;
-}
-
-#install_windows h3, #install_linux h3, #install_info h3 {
-	color: #355;
-	font-weight: normal;
-}
-
-.instructions dt, h4 {
-	color: #755;
-}
-
-div.environment-variables {
-	background:#efe;
-	border: 1px solid #ded;
-	padding: 1em;
-}	
-	
 /* Tutorials */
 
 #tutorial {
