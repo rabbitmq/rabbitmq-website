@@ -19,8 +19,7 @@
     <p>Also please check out the <a href="how.html">Get Started page</a> for more links to
     experimental code and other contributions.</p>
 
-    <a name="rabbit-c" />
-    <h3>rabbitmq-c</h3>
+    <h3 id="rabbit-c">rabbitmq-c</h3>
 
     <p>
       An experimental C-language AMQP client. See <a
