@@ -12,11 +12,12 @@
     <doc:div>
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
-      <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links. We maintain
-      an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.</p>
+      <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
+         messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.
+      </p>
      
       <doc:section name="server">
-	<doc:heading>Server Documentation</doc:heading>
+	<doc:heading>Server</doc:heading>
 	<ul>
 	  <li>
             <a href="install.html">Installation Guide</a>
@@ -37,17 +38,16 @@
       </doc:section>
 
       <doc:section name="client">
-	<doc:heading>Client Documentation</doc:heading>
+	<doc:heading>Clients</doc:heading>
 	<ul>
 	  <li>
-	    <a href="api-guide.html">RabbitMQ Java Client API
-	    Guide</a>
+	    <a href="api-guide.html">Java Client API Guide</a>
 	  </li>
 	  <li>
 	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
           <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
+            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
           </li>
           <li>
             <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
