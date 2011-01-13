@@ -22,15 +22,16 @@ table {
   border-style: outset;
   border-collapse: collapse;
 }
+table p {
+  margin: 0;
+}
 table thead {
-  background-color: #e4e4e4;
+  background-color: #ccc;
 }
 table th, table td {
-  border-width: thin;
   padding: 0.5em;
-  border-style: inset;
-  border-color: gray;
   vertical-align: top;
+  border: 1px solid #e4e4e4;
 }
 table#domains-table th.col-1, table#domains-table th.col-2 {
   width: 15%;

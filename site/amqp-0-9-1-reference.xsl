@@ -19,6 +19,10 @@
 		  <xsl:call-template name="render-summary" />
 		  <xsl:apply-templates select="class" />
 	  </xsl:for-each>
+	  <xsl:if test="not($spec-doc/amqp)">
+	    <p/>
+	    <em>Oops! Failed to load amqp-0-9-1.xml source file</em>
+	  </xsl:if>
     </div>
   </xsl:template>
 
