@@ -22,8 +22,8 @@
         <li>Linux</li>
         <li>MacOSX</li>
         <li>TRU64</li>
-        <li>Vista/Windows 7</li>
-        <li>Windows NT/2000/2003/XP</li>
+        <li>Windows NT/2000/XP/Vista/Windows 7</li>
+        <li>Windows Server 2003/2008</li>
         <li>Windows 95, 98</li>
         <li>VxWorks</li>
       </ul>
@@ -36,7 +36,7 @@
         <li>Fedora and RPM-based Linux distributions</li>
         <li>openSUSE and derived distributions (including SLES and SLERT)</li>
         <li>Mac OS X</li>
-        <li>Windows XP or later</li>
+        <li>Windows XP and later</li>
       </ul>
     </p>
 
@@ -44,12 +44,12 @@
     <p>
       RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7,
       Server 2008). It should be possible to run on Windows NT and Windows 2000
-      as well, but this has not been tested.
+      as well although this has not been tested.
     </p>
     <p>
       The Windows Erlang VM is 32bit. RabbitMQ will run on 64bit systems as a
-      32bit process, but some 32bit limitations (such as maximum addressable
-      memory) will be apparant.
+      32bit process but <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-April/006794.html">some
+      32bit limitations</a> (such as maximum addressable memory) will be apparant. 
     </p>
 
     <h3 id="unix">Generic UNIX</h3>
