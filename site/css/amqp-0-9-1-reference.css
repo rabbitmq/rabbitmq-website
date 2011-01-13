@@ -88,7 +88,6 @@ dl, dt, dd {
 dt {
   font-weight: bold;
   float: left;
-  clear: left;
 }
 dd {
   margin-left: 0.3em;
