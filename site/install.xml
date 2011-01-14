@@ -366,11 +366,14 @@
                     Set this variable to <code>new</code> or <code>reuse</code>
                     to redirect console output from the server to a file named
                     <code>RABBITMQ_SERVICENAME</code>.debug in the
-                    default <code>RABBITMQ_BASE</code> directory.<br/>
-                    If not set, console output from the server will be discarded (default).<br/>
-                    <code>new</code> A new file will be created
-                    each time the service starts.<br/>
-                    <code>reuse</code> The file will be overwritten each time the service starts.
+                    default <code>RABBITMQ_BASE</code> directory.
+                    <ul>
+                    <li>If not set, console output from the server will be discarded (default).</li>
+                    <li><code>new</code> A new file will be created
+                    each time the service starts.</li>
+                    <li><code>reuse</code> The file will be overwritten each time
+                    the service starts.</li>
+                    </ul>
               </dd>
             </dl>
           </div>
