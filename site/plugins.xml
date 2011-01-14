@@ -86,6 +86,21 @@
     </ul>
 
 
+    <h3 id="rabbitmq-auth-mechanism-ssl">rabbitmq-auth-mechanism-ssl</h3>
+
+    <p>
+      Authentication mechanism plugin using SASL EXTERNAL to
+      authenticate using SSL client certificates.  See
+      the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+      for more information.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-mechanism-ssl-&version-server;.ez">rabbitmq-auth-mechanism-ssl</a></li>
+    </ul>
+
+
     <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
 
     <p>
