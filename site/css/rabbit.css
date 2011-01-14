@@ -113,12 +113,6 @@ h3 {
 	font-size: 1.2em;
 	}
 
-h4 {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 1.1em;
-	}
-	
-	
 .col {
 	float: left;
 	width: 49.5%;
@@ -164,13 +158,6 @@ h4 {
 	float: right;
 	font-size: 12px;
 	font-weight: normal;
-}
-
-.col h4 {
-	margin: 0 1em 0 0;
-	padding: 0px 10px 0px 0px;
-	font-size: 12px;
-	line-height: 12px;
 }
 
 ul {
@@ -345,7 +332,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-span.code {
+span.code, pre.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
@@ -496,16 +483,7 @@ ol.feed {
 	padding-top: 1em;
 	padding-bottom: 1em;
 }
-.downloadlabel a h4 {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-.downloadlabel a:hover h4 {
-	text-decoration: underline;
-	display: block;
-	margin-top: 0px;
-	padding-bottom: 0px;
-}
+
 .subscribe {
         float: right;
 }
@@ -575,10 +553,6 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
   width:400px;
   height:250px;
   float: left;
-}
-
-#getting_here h4 {
-  font-size: 1em;
 }
 
 /* Tutorials */

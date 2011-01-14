@@ -16,8 +16,7 @@
       code is not officially supported but if you have comments or feedback please do <a href="contact.html">contact us</a>.
     </p>
 
-    <a name="rabbit-c" />
-    <h3>rabbitmq-c</h3>
+    <h3 id="rabbit-c">rabbitmq-c</h3>
 
     <p>
       An experimental C-language AMQP client. See <a
