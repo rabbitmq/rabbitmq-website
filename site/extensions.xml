@@ -42,7 +42,9 @@
           method to <code>true</code>. The broker will then reject all
           unacknowledged, delivered messages up to and including the
           message specified in the <code>delivery_tag</code> field of
-          the <code>basic.nack</code> method.
+          the <code>basic.nack</code> method. In this respect,
+          <code>basic.nack</code> complements the bulk acknowledgement
+          semnatics of <code>basic.ack</code>.
         </p>
 
         <doc:subsection name="usage">
