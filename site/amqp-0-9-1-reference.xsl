@@ -8,24 +8,24 @@
 
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
-  
+
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
-  
+
   <xsl:template match="x:insert-spec-here">
     <div id="content-pane">
       <h2>AMQP 0-9-1 Reference Guide</h2>
       <!-- switch context from source file to spec doc -->
       <xsl:for-each select="$spec-doc/amqp">
-		  <xsl:call-template name="render-toc" />
-		  <xsl:call-template name="render-summary" />
-		  <xsl:apply-templates select="class" />
-	  </xsl:for-each>
-	  <xsl:if test="not($spec-doc/amqp)">
-	    <p/>
-	    <em>Oops! Failed to load amqp-0-9-1.xml source file</em>
-	  </xsl:if>
+          <xsl:call-template name="render-toc" />
+          <xsl:call-template name="render-summary" />
+          <xsl:apply-templates select="class" />
+      </xsl:for-each>
+      <xsl:if test="not($spec-doc/amqp)">
+        <p/>
+        <em>Oops! Failed to load amqp-0-9-1.xml source file</em>
+      </xsl:if>
     </div>
   </xsl:template>
 
@@ -64,7 +64,7 @@
     </div>
     <dl>
       <dt>Major-minor version:</dt>
-      <dd><xsl:value-of select="concat(@major, '-', @minor)" /></dd>      
+      <dd><xsl:value-of select="concat(@major, '-', @minor)" /></dd>
       <dt>Revision:</dt>
       <dd><xsl:value-of select="@revision" /></dd>
       <dt>Port:</dt>
@@ -240,7 +240,7 @@
   </xsl:template>
 
   <xsl:template match="method">
-	<xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
+    <xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
     <h5 id="{generate-id()}" class="inline-block">
       <xsl:value-of select="$method-name"/>
     </h5>
@@ -263,9 +263,9 @@
             <xsl:text>yes</xsl:text>
             <xsl:if test="response">
               <xsl:text>; the expected response is </xsl:text>
-			  <a class="sync-response-method" href="{concat('#', generate-id(../method[@name = current()/response/@name]))}">
-			    <xsl:value-of select="concat(../@name, '.', response/@name)" />
- 			  </a>
+              <a class="sync-response-method" href="{concat('#', generate-id(../method[@name = current()/response/@name]))}">
+                <xsl:value-of select="concat(../@name, '.', response/@name)" />
+              </a>
             </xsl:if>
           </xsl:when>
           <xsl:otherwise>no</xsl:otherwise>
@@ -285,19 +285,19 @@
           </xsl:otherwise>
         </xsl:choose>
       </dd>
-	  <xsl:for-each select="$specification">
-	    <xsl:for-each select="key('method-key', $method-name)">   
+      <xsl:for-each select="$specification">
+        <xsl:for-each select="key('method-key', $method-name)">
           <dt>RabbitMQ implementation:</dt>
-	      <dd>
-	        <xsl:variable name="status" select="current()/c:status/@value"/>
-	        <xsl:choose>
-	          <xsl:when test="$status = 'ok'">full</xsl:when>
-	          <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
-	        </xsl:choose>
-	        <xsl:if test="current()/c:notes">
-	          <xsl:value-of select="concat('; ', current()/c:notes)"/>
-	        </xsl:if>
-	      </dd>
+          <dd>
+            <xsl:variable name="status" select="current()/c:status/@value"/>
+            <xsl:choose>
+              <xsl:when test="$status = 'ok'">full</xsl:when>
+              <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="current()/c:notes">
+              <xsl:value-of select="concat('; ', current()/c:notes)"/>
+            </xsl:if>
+          </dd>
         </xsl:for-each>
       </xsl:for-each>
     </dl>
@@ -361,7 +361,7 @@
       <td>
         <a href="{concat('#',generate-id(//domain[@name = current()/@domain]))}"><xsl:value-of select="@domain"/></a>
       </td>
-      <td><xsl:value-of select="@label"/></td>      
+      <td><xsl:value-of select="@label"/></td>
       <td>
         <xsl:apply-templates select="doc"/>
         <xsl:call-template name="render-rules" />
