@@ -33,13 +33,13 @@
     <h3 id="toc">Table of Contents</h3>
     <ul>
       <li>
+        <a href="#classes-summary">Classes and Methods</a>
+      </li>
+      <li>
         <a href="#domains-summary">Domains</a>
       </li>
       <li>
         <a href="#constants-summary">Constants</a>
-      </li>
-      <li>
-        <a href="#classes-summary">Classes and Methods</a>
       </li>
     </ul>
   </xsl:template>
@@ -59,7 +59,27 @@
       that are not documented here.
     </p>
     <div>
-      <h3 id="domains-summary" class="inline-block">Domains</h3>
+      <h3 id="classes-summary" class="inline-block">Class and Method Summary</h3>
+      <xsl:call-template name="render-link-to-toc"/>
+    </div>
+    <p>The following classes, with their associated methods, are defined in the specification:</p>
+    <table id="classes-table">
+      <thead>
+        <tr>
+          <th class="col-1">Class</th>
+          <th class="col-2">ID</th>
+          <th class="col-3">Label</th>
+          <th class="col-4">Method</th>
+          <th class="col-5">ID</th>
+          <th class="col-6">Method Label</th>
+        </tr>
+      </thead>
+      <tbody>
+        <xsl:apply-templates mode="summary" select="class"/>
+      </tbody>
+    </table>
+    <div>
+      <h3 id="domains-summary" class="inline-block">Domain Summary</h3>
       <xsl:call-template name="render-link-to-toc"/>
     </div>
     <p>The following domains are defined in the specification:</p>
@@ -78,7 +98,7 @@
       </tbody>
     </table>
     <div>
-      <h3 id="constants-summary" class="inline-block">Constants</h3>
+      <h3 id="constants-summary" class="inline-block">Constant Summary</h3>
       <xsl:call-template name="render-link-to-toc"/>
     </div>
     <p>Many constants are error codes. Where this is so, they fall into one of two categories:</p>
@@ -104,26 +124,6 @@
       </thead>
       <tbody>
         <xsl:apply-templates mode="summary" select="constant"/>
-      </tbody>
-    </table>
-    <div>
-      <h3 id="classes-summary" class="inline-block">Class and Method Summary</h3>
-      <xsl:call-template name="render-link-to-toc"/>
-    </div>
-    <p>The following classes, with their associated methods, are defined in the specification:</p>
-    <table id="classes-table">
-      <thead>
-        <tr>
-          <th class="col-1">Class</th>
-          <th class="col-2">ID</th>
-          <th class="col-3">Label</th>
-          <th class="col-4">Method</th>
-          <th class="col-5">ID</th>
-          <th class="col-6">Method Label</th>
-        </tr>
-      </thead>
-      <tbody>
-        <xsl:apply-templates mode="summary" select="class"/>
       </tbody>
     </table>
   </xsl:template>
