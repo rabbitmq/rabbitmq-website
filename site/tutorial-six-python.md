@@ -75,7 +75,6 @@ request. Let's try it:
                           body=request)
 
     # ... here goes the code to read a response message from the callback_queue ...
-    response = message_from_the_callback_queue
 
 
 > #### Message properties and headers
@@ -90,10 +89,6 @@ request. Let's try it:
 > * `delivery_mode`: When the value is 2, a message is marked as persistent.
 > * `reply_to`: Commonly used to name a callback queue.
 > * `correlation_id`: Useful to correlate RPC responses with requests.
->
-> The other useful property is `headers`. As a value
-> you can put any dictionary - it's very useful to handle
-> custom headers.
 
 
 ### Correlation id
@@ -110,6 +105,15 @@ callback queue we'll look at this property, and based on that we'll be
 able to match a response with a request. If we see an unknown
 `correlation_id` value, we may safely discard the message - it
 doesn't belong to our requests.
+
+You may ask, why should we ignore unknown messages in the callback
+queue, rather than failing with an error? It's due to a possibility of
+a race condition on the server side. Although unlikely, it is possible
+that the RPC server will die just after sending us the answer, but
+before sending acknowledgment message for the request. If that
+happens, the restarted RPC server will process the request again.
+That's why on the client we must handle the duplicate responses
+gracefully, and the RPC calls should ideally be idempotent.
 
 ### Summary
 
@@ -177,7 +181,7 @@ Our RPC will work like that:
     callback queue.
   * For a RPC request, the Client sends a message with two properties:
     `reply_to` which is set to the callback queue and `correlation_id`
-    which is set to a random value for every request.
+    which is set to a unique value for every request.
   * The request is send to an `rpc_queue` queue.
   * RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
