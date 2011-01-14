@@ -20,7 +20,6 @@
       <xsl:for-each select="$spec-doc/amqp">
           <xsl:call-template name="render-toc" />
           <xsl:call-template name="render-summary" />
-          <xsl:apply-templates select="class" />
       </xsl:for-each>
       <xsl:if test="not($spec-doc/amqp)">
         <p/>
@@ -92,6 +91,8 @@
         <xsl:apply-templates mode="summary" select="class"/>
       </tbody>
     </table>
+    <xsl:apply-templates select="class" />
+    <hr />
     <div>
       <h3 id="domains-summary" class="inline-block">Domain Summary</h3>
       <xsl:call-template name="render-link-to-toc"/>
@@ -111,6 +112,7 @@
         </xsl:apply-templates>
       </tbody>
     </table>
+    <hr />
     <div>
       <h3 id="constants-summary" class="inline-block">Constant Summary</h3>
       <xsl:call-template name="render-link-to-toc"/>

@@ -120,4 +120,7 @@ dt.assert {
   font-weight: normal;
   margin-left: 1em;
 }
-
+hr {
+  visibility: visible;
+  margin-top: 1.5em;
+}
