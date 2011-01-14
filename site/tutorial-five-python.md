@@ -108,11 +108,11 @@ This bindings can be summarised as:
   * Q2 wants to hear everything about rabbits, and everything about lazy
     animals.
 
-A message with a routing key set to "`lazy.pink.rabbit`"
+A message with a routing key set to "`quick.orange.rabbit`"
 will be delivered to both queues. Message
 "`lazy.orange.elephant`" also will go to both of them. On the other hand
 "`quick.orange.fox`" will only go to the first queue, and
-"`lazy.brown.fox`" only to the second. "`quick.orange.rabbit`" will
+"`lazy.brown.fox`" only to the second. "`lazy.pink.rabbit`" will
 be delivered to the second queue only once, even though it matches two bindings.
 "`quick.brown.fox`" doesn't match any binding so it will be discarded.
 
