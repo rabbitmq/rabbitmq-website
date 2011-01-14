@@ -9,7 +9,7 @@
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
   
-  <xsl:variable name="spec-doc" select="document('http://hg.rabbitmq.com/rabbitmq-dotnet-client/raw-file/default/docs/specs/amqp0-9-1.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
   
