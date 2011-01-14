@@ -51,15 +51,12 @@
     <p>
       This page contains a complete reference to version 0-9-1 of the AMQP specification
       as published by the <a href="http://www.amqp.org">AMQP WG</a> in 2008. The <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">
-        original specification
-      </a> is released under the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
+      original specification</a> is released under the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
     </p>
     <p>
-      Elsewhere on this site you can read details of <a href="specification.html">
-        RabbitMQ's conformance to the specification
-      </a>. Please also be aware that RabbitMQ
-      implements <a href="extensions.html">several extensions</a> to the core specification
-      that are not documented here.
+      Elsewhere on this site you can read details of <a href="specification.html">RabbitMQ's conformance
+      to the specification</a>. Please also be aware that RabbitMQ implements <a href="extensions.html">several extensions</a>
+      to the core specification that are not documented here.
     </p>
     <div>
       <h3 id="protocol-info" class="inline-block">Protocol Information</h3>
@@ -364,8 +361,7 @@
       <td>
         <a href="{concat('#',generate-id(//domain[@name = current()/@domain]))}"><xsl:value-of select="@domain"/></a>
       </td>
-      <td><xsl:value-of select="@label"/></td>
-      <!-- note: may be worthwhile highlighting rules docs vs plain docs-->
+      <td><xsl:value-of select="@label"/></td>      
       <td>
         <xsl:apply-templates select="doc"/>
         <xsl:call-template name="render-rules" />
