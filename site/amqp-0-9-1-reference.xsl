@@ -33,6 +33,9 @@
     <h3 id="toc">Table of Contents</h3>
     <ul>
       <li>
+        <a href="#protocol-info">Protocol Information</a>
+      </li>
+      <li>
         <a href="#classes-summary">Classes and Methods</a>
       </li>
       <li>
@@ -58,6 +61,20 @@
       implements <a href="extensions.html">several extensions</a> to the core specification
       that are not documented here.
     </p>
+    <div>
+      <h3 id="protocol-info" class="inline-block">Protocol Information</h3>
+      <xsl:call-template name="render-link-to-toc"/>
+    </div>
+    <dl>
+      <dt>Major-minor version:</dt>
+      <dd><xsl:value-of select="concat(@major, '-', @minor)" /></dd>      
+      <dt>Revision:</dt>
+      <dd><xsl:value-of select="@revision" /></dd>
+      <dt>Port:</dt>
+      <dd><xsl:value-of select="@port" /></dd>
+      <dt>Description:</dt>
+      <dd><xsl:value-of select="@comment" /></dd>
+    </dl>
     <div>
       <h3 id="classes-summary" class="inline-block">Class and Method Summary</h3>
       <xsl:call-template name="render-link-to-toc"/>
