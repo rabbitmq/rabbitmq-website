@@ -28,8 +28,6 @@ h4.method {
   font-family: "Courier New", Courier, monospace;
   margin-top: 0.5em;
 }
-h4.method .class-name {
-}
 h4.method .method-name {
   font-weight: bold;
 }
