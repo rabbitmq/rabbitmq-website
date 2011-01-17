@@ -66,7 +66,7 @@
       <a href="{$first-method-anchor}">
         <xsl:value-of select="@name"/>
       </a>
-      <ul>
+      <ul class="plain">
         <xsl:apply-templates select="method | $class-decorations[@name = current()/@name]/method" mode="toc">
           <xsl:sort select="@name" data-type="text" order="ascending"/>
         </xsl:apply-templates>
