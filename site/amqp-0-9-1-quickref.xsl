@@ -2,7 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                               xmlns="http://www.w3.org/1999/xhtml"
                               xmlns:x="http://www.rabbitmq.com/2011/extensions"
-                              exclude-result-prefixes="x">
+                              xmlns:c="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+                              exclude-result-prefixes="x c">
 
   <xsl:import href="page.xsl" />
 
@@ -10,6 +11,7 @@
 
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
+  <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="class-decorations" select="$decorations/x:decorate[@target='class']"/>
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
@@ -106,6 +108,19 @@
       <xsl:if test="parent::x:decorate">
         <h5 class="extension-method">THIS METHOD IS A RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>
       </xsl:if>
+      <xsl:for-each select="$specification">
+        <xsl:for-each select="key('method-key', $qname)">
+          <p style="float: right; margin: 0"><em>RabbitMQ implementation: </em>
+            <xsl:variable name="status" select="current()/c:status/@value"/>
+            <a href="{concat('specification.html#method-status-', $qname)}">
+              <xsl:choose>
+                <xsl:when test="$status = 'ok'">full</xsl:when>
+                <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
+              </xsl:choose>
+            </a>
+          </p>
+        </xsl:for-each>
+      </xsl:for-each>
       <p>
         <xsl:call-template name="capitalise">
           <xsl:with-param name="s" select="@label"/>
