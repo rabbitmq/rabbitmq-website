@@ -1,10 +1,10 @@
 /* stylesheet for rendering AMQP 0-9-1 quick reference */
 
 div#toc {
-  float: left;  
+  float: left;
   width: 20%;
 }
-div#content-pane {   
+div#content-pane {
   margin-left: 20%;
 }
 div#content-pane p {
@@ -38,7 +38,7 @@ h5.extension-method {
   color: #F60;
 }
 div.doc h5 {
-  font-size: 100%;  
+  font-size: 100%;
   margin: 0;
   padding: 0;
 }
