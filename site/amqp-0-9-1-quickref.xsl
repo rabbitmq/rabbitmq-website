@@ -91,9 +91,9 @@
   </xsl:template>
 
   <xsl:template match="method">
-    <div class="method-box">
-      <xsl:variable name="qname" select="concat(../@name, '.', @name)" />
-      <h4 class="method" id="{$qname}">
+    <xsl:variable name="qname" select="concat(../@name, '.', @name)" />
+    <div class="method-box" id="{$qname}">
+      <h4 class="method">
         <span title="{@label}">
           <span class="class-name">
             <xsl:value-of select="concat(../@name, '.')"/>

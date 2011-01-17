@@ -49,10 +49,12 @@ div#container ul li {
   font-size: 12px;
   padding-bottom: 0;
 }
+div#container a {
+  color: #555;
+}
 a.back {
   font-size: 0.8em;
   float: right;
-  color: #555;
 }
 a.doc {
   display: block;
