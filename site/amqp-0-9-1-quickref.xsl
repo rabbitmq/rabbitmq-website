@@ -35,11 +35,6 @@
 		  <xsl:apply-templates select="class">
 		    <xsl:sort select="@name" data-type="text" order="ascending" />
 	      </xsl:apply-templates>
-		  <hr/>
-		  <ul>
-		    <!-- tmp: for testing links only -->
-		    <xsl:apply-templates select="domain" />
-		  </ul>
 		</div>
       </xsl:for-each>
       <xsl:if test="not($spec-doc/amqp)">
@@ -134,7 +129,7 @@
   <xsl:template match="field" mode="render-method-sig">
     <span class="parameter">
       <xsl:if test="@domain">
-        <a href="{concat('#domain.', @domain)}">
+        <a href="{concat('amqp-0-9-1-reference.html#domain.', @domain)}">
           <span class="data-type" title="{key('domain-key', @domain)/@type}">
             <xsl:value-of select="@domain"/>
           </span>
@@ -148,22 +143,6 @@
     <xsl:if test="position() != last()">
       <xsl:text>, </xsl:text>
     </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="domain">
-    <!-- tmp: can link into formatted spec for definitions -->
-    <li id="{concat('domain.', @name)}">
-      <xsl:value-of select="concat(@name, ' [', @type, ']')"/>
-      <br/>
-      <xsl:choose>
-        <xsl:when test="doc">
-          <xsl:value-of select="doc"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="@label"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </li>
   </xsl:template>
 
   <xsl:template name="render-back-to-top">

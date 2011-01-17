@@ -148,7 +148,7 @@
   <xsl:template match="class" mode="summary">
     <tr>
       <td rowspan="{count(method)}">
-        <a href="{concat('#', generate-id())}"><xsl:value-of select="@name"/></a>
+        <a href="{concat('#class.', @name)}"><xsl:value-of select="@name"/></a>
       </td>
       <td rowspan="{count(method)}"><xsl:value-of select="@index"/></td>
       <td rowspan="{count(method)}">
@@ -162,10 +162,11 @@
             <xsl:with-param name="s" select="@label" />
           </xsl:call-template>
         </xsl:variable>
+        <xsl:variable name="method-id" select="concat('#', ../@name, '.', @name)" />
         <xsl:choose>
           <xsl:when test="position() = 1">
             <td>
-              <a href="{concat('#', generate-id())}">
+              <a href="{$method-id}">
                 <xsl:value-of select="@name" />
               </a>
             </td>
@@ -175,7 +176,7 @@
           <xsl:otherwise>
             <tr>
               <td>
-                <a href="{concat('#', generate-id())}">
+                <a href="{$method-id}">
                   <xsl:value-of select="@name" />
                 </a>
               </td>
@@ -203,7 +204,7 @@
   </xsl:template>
 
   <xsl:template match="domain" mode="summary">
-    <tr id="{generate-id()}">
+    <tr id="{concat('domain.', @name)}">
       <td><xsl:value-of select="@name"/></td>
       <td><xsl:value-of select="@type"/></td>
       <td>
@@ -222,7 +223,7 @@
   </xsl:template>
 
   <xsl:template match="class">
-    <h3 id="{generate-id()}" class="inline-block">
+    <h3 id="{concat('class.', @name)}" class="inline-block">
       <xsl:value-of select="@name"/>
     </h3>
     <xsl:call-template name="render-link-to-classes-summary"/>
@@ -244,7 +245,7 @@
 
   <xsl:template match="method">
     <xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
-    <h5 id="{generate-id()}" class="inline-block">
+    <h5 id="{$method-name}" class="inline-block">
       <xsl:value-of select="$method-name"/>
     </h5>
     <xsl:call-template name="render-link-to-classes-summary"/>
@@ -266,7 +267,7 @@
             <xsl:text>yes</xsl:text>
             <xsl:if test="response">
               <xsl:text>; the expected response is </xsl:text>
-              <a class="sync-response-method" href="{concat('#', generate-id(../method[@name = current()/response/@name]))}">
+              <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
                 <xsl:value-of select="concat(../@name, '.', response/@name)" />
               </a>
             </xsl:if>
@@ -362,7 +363,7 @@
       <td><xsl:value-of select="position()"/></td>
       <td><xsl:value-of select="@name"/></td>
       <td>
-        <a href="{concat('#',generate-id(//domain[@name = current()/@domain]))}"><xsl:value-of select="@domain"/></a>
+        <a href="{concat('#domain.', @domain)}"><xsl:value-of select="@domain"/></a>
       </td>
       <td><xsl:value-of select="@label"/></td>
       <td>
