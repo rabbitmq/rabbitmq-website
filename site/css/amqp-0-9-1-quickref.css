@@ -16,7 +16,7 @@ div.method-box {
   background-color: #eee;
   margin-bottom: 0.5em;
 }
-h3 {
+div#container h3 {
   margin-top: 1.3em;
 }
 h3.class {
@@ -42,7 +42,7 @@ div.doc h5 {
   margin: 0;
   padding: 0;
 }
-ul li {
+div#container ul li {
   font-size: 12px;
   padding-bottom: 0;
 }
