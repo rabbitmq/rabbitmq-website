@@ -189,7 +189,7 @@
         <field name="no-wait" domain="no-wait"/>
         <field name="arguments" domain="table" label="arguments for binding"/>
         <x:url href="http://www.rabbitmq.com/extensions.html#exchange-bindings" label="Documentation"/>
-        <x:url href="http://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="Blog post"/>
+        <x:url href="http://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
         <x:javadoc href="AMQImpl.Exchange.Bind.html"/>
         <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
       </method>
@@ -205,7 +205,6 @@
         <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeUnbind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
       </method>
     </x:decorate>
-
     <x:decorate target="method" name="basic.ack">
       <x:javadoc href="AMQImpl.Basic.Ack.html"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicAck(System.UInt64,System.Boolean)"/>
@@ -222,8 +221,51 @@
       <x:javadoc href="AMQImpl.Basic.Deliver.html"/>
       <!-- x:dotnetdoc ***not impl*** -->
     </x:decorate>
-
-
+    <x:decorate target="method" name="basic.get">
+      <x:javadoc href="AMQImpl.Basic.Get.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicGet(System.String,System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.get-empty">
+      <x:javadoc href="AMQImpl.Basic.GetEmpty.html"/>
+      <!-- x:dotnetdoc ***not impl*** -->
+    </x:decorate>
+    <x:decorate target="method" name="basic.publish">
+      <x:javadoc href="AMQImpl.Basic.Publish.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicPublish(System.String,System.String,System.Boolean,System.Boolean,RabbitMQ.Client.IBasicProperties,System.Byte%5B%5D)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.qos">
+      <x:javadoc href="AMQImpl.Basic.Qos.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicQos(System.UInt32,System.UInt16,System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.recover">
+      <x:javadoc href="AMQImpl.Basic.Recover.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicRecover(System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.recover-async">
+      <x:javadoc href="AMQImpl.Basic.RecoverAsync.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicRecoverAsync(System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.reject">
+      <x:url href="http://www.rabbitmq.com/blog/2010/08/03/well-ill-let-you-go-basicreject-in-rabbitmq/" label="RabbitMQ blog post"/>
+      <x:javadoc href="AMQImpl.Basic.Reject.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicReject(System.UInt64,System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="basic.return">
+      <x:javadoc href="AMQImpl.Basic.Return.html"/>
+      <!-- x:dotnetdoc ***not impl*** -->
+    </x:decorate>
+    <x:decorate target="method" name="channel.close">
+      <x:javadoc href="AMQImpl.Channel.Close.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.Close(System.UInt16,System.String)"/>
+    </x:decorate>
+    <x:decorate target="method" name="channel.flow">
+      <x:javadoc href="AMQImpl.Channel.Flow.html"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ChannelFlow(System.Boolean)"/>
+    </x:decorate>
+    <x:decorate target="method" name="channel.open">
+      <x:javadoc href="AMQImpl.Channel.Open.html"/>
+      <!-- x:dotnetdoc ***not impl*** -->
+    </x:decorate>
     <x:decorate target="method" name="exchange.declare">
       <x:doc>
         <p>
@@ -235,9 +277,16 @@
       </x:doc>
       <x:url href="http://www.rabbitmq.com/extensions.html#alternate-exchange" label="AE documention" />
       <x:javadoc href="AMQImpl.Exchange.Declare.html" />
-      <x:dotnetdoc href="http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v2.2.0/rabbitmq-dotnet-client-2.2.0-client-htmldoc/html/type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
     </x:decorate>
-
+    <x:decorate target="method" name="exchange.delete">
+      <x:javadoc href="AMQImpl.Exchange.Delete.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDelete(System.String,System.Boolean,System.Boolean)" />
+    </x:decorate>
+    <x:decorate target="method" name="queue.bind">
+      <x:javadoc href="AMQImpl.Queue.Bind.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)" />
+    </x:decorate>
     <x:decorate target="method" name="queue.declare">
       <x:doc>
         <p>
@@ -262,7 +311,30 @@
       <x:javadoc href="AMQImpl.Queue.Declare.html" />
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueDeclare(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
     </x:decorate>
-
+    <x:decorate target="method" name="queue.delete">
+      <x:javadoc href="AMQImpl.Queue.Delete.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueDelete(System.String,System.Boolean,System.Boolean,System.Boolean)" />
+    </x:decorate>
+    <x:decorate target="method" name="queue.purge">
+      <x:javadoc href="AMQImpl.Queue.Purge.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueuePurge(System.String,System.Boolean)" />
+    </x:decorate>
+    <x:decorate target="method" name="queue.unbind">
+      <x:javadoc href="AMQImpl.Queue.Unbind.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueUnbind(System.String,System.String,System.String,System.Collections.IDictionary)" />
+    </x:decorate>
+    <x:decorate target="method" name="tx.commit">
+      <x:javadoc href="AMQImpl.Tx.Commit.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxCommit" />
+    </x:decorate>
+    <x:decorate target="method" name="tx.rollback">
+      <x:javadoc href="AMQImpl.Tx.Rollback.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxRollback" />
+    </x:decorate>
+    <x:decorate target="method" name="tx.select">
+      <x:javadoc href="AMQImpl.Tx.Select.html" />
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.TxSelect" />
+    </x:decorate>
   </x:decorations>
 
 </xsl:stylesheet>
