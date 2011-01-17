@@ -17,13 +17,16 @@ div.method-box {
   margin-bottom: 0.5em;
 }
 div#container h3 {
-  margin-top: 1.3em;
+  font-size: 1.4em;
+  margin-top: 1.5em;
 }
 h3.class {
   margin-bottom: 0.5em;
 }
 h4.method {
   font-weight: normal;
+  font-family: "Courier New", Courier, monospace;
+  margin-top: 0.5em;
 }
 h4.method .class-name {
 }
@@ -49,7 +52,7 @@ div#container ul li {
 a.back {
   font-size: 0.8em;
   float: right;
-  color: black;
+  color: #555;
 }
 a.doc {
   display: block;

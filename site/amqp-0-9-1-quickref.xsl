@@ -81,7 +81,9 @@
     <!-- note: class fields (i.e. basic) omitted -->
     <!-- note: -ok methods (e.g. basic.get-ok) omitted for clarity -->
     <h3 id="{concat('class.', @name)}" class="class">
-      <xsl:value-of select="concat('Class ', @name)" />
+      <xsl:call-template name="capitalise">
+        <xsl:with-param name="s" select="@name"/>
+      </xsl:call-template>
     </h3>
     <xsl:apply-templates select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method">
       <xsl:sort select="@name" data-type="text" order="ascending" />
@@ -90,7 +92,6 @@
 
   <xsl:template match="method">
     <div class="method-box">
-      <xsl:call-template name="render-back-to-top"/>
       <xsl:variable name="qname" select="concat(../@name, '.', @name)" />
       <h4 class="method" id="{$qname}">
         <span title="{@label}">
@@ -110,7 +111,7 @@
       </xsl:if>
       <xsl:for-each select="$specification">
         <xsl:for-each select="key('method-key', $qname)">
-          <p style="float: right; margin: 0"><em>RabbitMQ implementation: </em>
+          <p style="float: right; margin: 0"><em>Support: </em>
             <xsl:variable name="status" select="current()/c:status/@value"/>
             <a href="{concat('specification.html#method-status-', $qname)}">
               <xsl:choose>
@@ -134,6 +135,7 @@
       <xsl:if test="parent::class">
         <a href="{concat('amqp-0-9-1-reference.html#', $qname)}" class="amqp-doc">[amqpdoc]</a>
       </xsl:if>
+      <xsl:call-template name="render-back-to-top"/>
     </div>
   </xsl:template>
 
