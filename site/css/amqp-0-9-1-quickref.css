@@ -4,8 +4,7 @@ div#toc {
   float: left;  
   width: 20%;
 }
-div#content-pane { 
-  margin-top: 2em;
+div#content-pane {   
   margin-left: 20%;
 }
 div#content-pane p {
@@ -18,7 +17,10 @@ div.method-box {
   margin-bottom: 0.5em;
 }
 h3 {
-  margin-top: 1em;
+  margin-top: 1.3em;
+}
+h3.class {
+  margin-bottom: 0.5em;
 }
 h4.method {
   font-weight: normal;

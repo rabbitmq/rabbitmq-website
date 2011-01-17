@@ -32,7 +32,7 @@
 		  <xsl:call-template name="render-toc" />
 		</div>
 		<div id="content-pane">
-		  <xsl:apply-templates select="class">
+		  <xsl:apply-templates select="class[not(@name = 'connection')]">
 		    <xsl:sort select="@name" data-type="text" order="ascending" />
 	      </xsl:apply-templates>
 		</div>
@@ -46,7 +46,7 @@
 
   <xsl:template name="render-toc">
     <ul>
-      <xsl:apply-templates select="class" mode="toc">
+      <xsl:apply-templates select="class[not(@name = 'connection')]" mode="toc">
         <xsl:sort select="@name" data-type="text" order="ascending"/>
       </xsl:apply-templates>
     </ul>
@@ -56,18 +56,18 @@
     <li>
       <xsl:variable name="first-method-anchor">
         <!-- find first method (in alphabetic order) to link to -->
-        <xsl:for-each select="method | $class-decorations[@name = current()/@name]/method">
+        <xsl:for-each select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method">
           <xsl:sort select="@name" data-type="text" order="ascending"/>
           <xsl:if test="position() = 1">
             <xsl:value-of select="concat('#', ../@name, '.', @name)"/>
           </xsl:if>
         </xsl:for-each>
       </xsl:variable>
-      <a href="{$first-method-anchor}">
+      <a href="{concat('#class.', @name)}">
         <xsl:value-of select="@name"/>
       </a>
       <ul class="plain">
-        <xsl:apply-templates select="method | $class-decorations[@name = current()/@name]/method" mode="toc">
+        <xsl:apply-templates select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method" mode="toc">
           <xsl:sort select="@name" data-type="text" order="ascending"/>
         </xsl:apply-templates>
       </ul>
@@ -85,7 +85,10 @@
 
   <xsl:template match="class">
     <!-- note: class fields (i.e. basic) omitted -->
-    <xsl:apply-templates select="method | $class-decorations[@name = current()/@name]/method">
+    <h3 id="{concat('class.', @name)}" class="class">
+      <xsl:value-of select="concat('Class ', @name)" />
+    </h3>
+    <xsl:apply-templates select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method">
       <xsl:sort select="@name" data-type="text" order="ascending" />
     </xsl:apply-templates>
   </xsl:template>
