@@ -15,9 +15,9 @@ In the [second tutorial](/tutorial-two-python.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
-But what if we need to hear the response back from the worker?  Well,
-that's a completely different story. This pattern is commonly known as
-_Remote Procedure Call_ or _RPC_.
+But what if we need to run a function on remote computer and wait for
+the result?  Well, that's a different story. This pattern is commonly
+known as _Remote Procedure Call_ or _RPC_.
 
 In this tutorial we're going to use RabbitMQ to build a RPC system: a
 client and a scalable RPC server. As we don't have any time-consuming
@@ -83,10 +83,12 @@ request. Let's try it:
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
+> * `delivery_mode`: Marks a message is as persistent (value of `2`)
+>    or transient (any other value). You may remember this property
+>    from [the second tutorial](/tutorial-two-python.html).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this header to: `application/json`.
-> * `delivery_mode`: When the value is 2, a message is marked as persistent.
 > * `reply_to`: Commonly used to name a callback queue.
 > * `correlation_id`: Useful to correlate RPC responses with requests.
 
