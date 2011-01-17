@@ -54,15 +54,6 @@
 
   <xsl:template match="class" mode="toc">
     <li>
-      <xsl:variable name="first-method-anchor">
-        <!-- find first method (in alphabetic order) to link to -->
-        <xsl:for-each select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method">
-          <xsl:sort select="@name" data-type="text" order="ascending"/>
-          <xsl:if test="position() = 1">
-            <xsl:value-of select="concat('#', ../@name, '.', @name)"/>
-          </xsl:if>
-        </xsl:for-each>
-      </xsl:variable>
       <a href="{concat('#class.', @name)}">
         <xsl:value-of select="@name"/>
       </a>
@@ -84,7 +75,9 @@
   </xsl:template>
 
   <xsl:template match="class">
+    <!-- note: connection class is omitted completely -->
     <!-- note: class fields (i.e. basic) omitted -->
+    <!-- note: -ok methods (e.g. basic.get-ok) omitted for clarity -->
     <h3 id="{concat('class.', @name)}" class="class">
       <xsl:value-of select="concat('Class ', @name)" />
     </h3>
