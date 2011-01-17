@@ -1,0 +1,48 @@
+/* stylesheet for rendering AMQP 0-9-1 quick reference */
+
+div#toc {
+  float: left;
+  width: 18%;
+}
+div#content-pane {
+  margin-left: 18%;
+}
+div.method-box {
+  border: 1px solid #333;
+  padding: 1em;
+  background-color: #eee;
+  margin-bottom: 0.5em;
+}
+h4.method {
+  font-weight: normal;
+}
+h4.method .class-name {
+}
+h4.method .method-name {
+  font-weight: bold;
+}
+h4.method .parameter {
+  font-style: italic;
+}
+h5.extension-method {
+  font-style: italic;
+  color: orange;
+}
+div.doc h5 {
+  font-size: 100%;
+  color: orange;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  padding-left: 1em;
+}
+a.back {
+  font-size: 0.8em;
+  float: right;
+  color: black;
+}
+a.doc {
+  display: block;
+  padding-bottom: 0.5em;
+}
