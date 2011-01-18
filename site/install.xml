@@ -312,10 +312,9 @@
 	  </p>
 	  <p>
 	    You can easily write your own log rotation script using the 
-	    <code>rotate_logs_all</code> command in
-	    <code>rabbitmq-multi.bat</code> or the <code>rotate_logs</code>
-	    command in <code>rabbitmqctl.bat</code> if you want to perform
-	    log rotation selectively.
+            <code>rotate_logs</code> command
+	    in <code>rabbitmqctl.bat</code> if you want to perform log
+	    rotation selectively.
 	  </p>
 	</doc:subsection>
       </doc:section>
@@ -350,11 +349,7 @@
 	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
 	      href="#generic-unix">Generic Unix</a> section below (but
-	      dropping the RABBITMQ_ prefix). You can additionally set
-	      <code>NODE_COUNT</code> in
-	      <code>/etc/default/rabbitmq</code> to define <a
-	      href="clustering.html#single-machine">the number of
-	      nodes to run on a single machine</a>.
+	      dropping the RABBITMQ_ prefix).
 	    </li>
 	  </ul>
 	</doc:subsection>
@@ -372,21 +367,6 @@
 	    This means that if you change the location 
 	    of the Mnesia database or logs as described below, you must
 	    ensure the files are owned by this user.
-	  </p>
-	  <p>
-	    The startup script waits for a limited amount of time, 30
-	    seconds by default, for the broker nodes to start. When
-	    that time is exceeded a <code>TIMEOUT</code> is
-	    reported. The cause of this could be a misconfiguration or
-	    other error. However, it is also possible that the node
-	    simply is taking a long time to start up, perhaps because
-	    the machine it is running on is heavily loaded, or there
-	    are many persisted messages or durable queues and
-	    exchanges that need to be recovered. For that reason the
-	    timeout can be adjusted by setting
-	    <code>MULTI_START_ARGS</code> to
-	    "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	    in <code>/etc/rabbitmq/rabbitmq.conf</code>.
 	  </p>
 	</doc:subsection>
 	<doc:subsection name="logging-debian">
@@ -436,11 +416,7 @@
 	      To adjust the settings used for starting the server,
 	      edit <code>/etc/rabbitmq/rabbitmq.conf</code>, setting
 	      environment variables as described in the <a
-	      href="#generic-unix">Generic Unix</a> section below. You
-	      can additionally set <code>NODE_COUNT</code> in
-	      <code>/etc/sysconfig/rabbitmq</code> to define
-	      <a href="clustering.html#single-machine">the number of
-	      nodes to run on a single machine</a>.
+	      href="#generic-unix">Generic Unix</a> section below.
 	    </li>
 	  </ul>
 	</doc:subsection>
@@ -459,20 +435,6 @@
 	    This means that if you change the location 
 	    of the Mnesia database or logs as described below, you must
 	    ensure the files are owned by this user.
-	  </p>
-	  <p>
-	    The startup script waits for a limited amount of time, 30
-	    seconds by default, for the broker nodes to start. When that
-	    time is exceeded a <code>TIMEOUT</code> is reported. The
-	    cause of this could be a misconfiguration or other
-	    error. However, it is also possible that the node simply is
-	    taking a long time to start up, perhaps because the machine
-	    it is running on is heavily loaded, or there are many
-	    persisted messages or durable queues and exchanges that need
-	    to be recovered. For that reason the timeout can be adjusted
-	    by setting <code>MULTI_START_ARGS</code> to
-	    "<code>-maxwait <i>timeout_in_seconds</i></code>"
-	    in <code>/etc/rabbitmq/rabbitmq.conf</code>.
 	  </p>
 	</doc:subsection>
 	<doc:subsection name="logging-rpm">
