@@ -171,7 +171,7 @@
                  <li>add <code>;%RABBITMQ_SERVER%\sbin</code>
                   to your System Path (aka %PATH%)</li>
                   Now you can run rabbitmq commands from any (administrator) Command Prompt.
-                  <p>If you do not set the path to find sbin, you will need to navigate to sbin to run them.</p>
+                  <p>If you do not set the Path to find <code>sbin</code>, you will need to navigate to<code>sbin</code> to run commands.</p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
@@ -220,7 +220,7 @@
             <dl>
               <dt>RABBITMQ_BASE</dt>
               <dd>
-                  Defaults to the directory <code>RabbitMQ</code> in %APPDATA%.
+                  Defaults to the directory <code>RabbitMQ</code> in <b>%APPDATA%</b>.
                   This base directory contains sub-directories for the
                   RabbitMQ Server's database
                   and log files. Alternatively, set
@@ -366,7 +366,7 @@
                     This is the location of database and
                     log directories. The account that the service will run as must have read and
                     write access to this location.
-                    If the default location %APPDATA%
+                    If the default location <b>%APPDATA%</b>
                     does not meet this requirement,
                     this variable must be set explicitly and the permissions must be verified.
               </dd>
@@ -388,8 +388,8 @@
               <dd>
                     Set this variable to <code>new</code> or <code>reuse</code>
                     to redirect console output from the server to a file named
-                    <code>RABBITMQ_SERVICENAME</code>.debug in the
-                    default <code>RABBITMQ_BASE</code> directory.
+                    <b>RABBITMQ_SERVICENAME</b>.debug in the
+                    default <b>RABBITMQ_BASE</b> directory.
                     <ul>
                     <li>If not set, console output from the server will be discarded (default).</li>
                     <li><code>new</code> A new file will be created
@@ -482,7 +482,7 @@
                  Local service account cookies are normally stored in
                  <code>C:\WINDOWS\.erlang.cookie</code>
                  while user account cookies are typically stored in either
-                 <code>%APPDATA%</code> or the home directory of the account e.g.
+                 <b>%APPDATA%</b> or the home directory of the account e.g.
                  <code><nobr>&dir-win-user;\.erlang.cookie</nobr></code>.
                  To ensure that these Erlang cookie files contain the same string,
                  copy the <code>.erlang.cookie</code>file from the windows directory
@@ -577,7 +577,7 @@
             </p>
             <p>
               You can additionally set
-              <code>NODE_COUNT</code> in
+              <b>NODE_COUNT</b> in
               <code>/etc/default/rabbitmq</code> to define
               <a href="clustering.html#single-machine">the number of
               nodes to run on a single machine</a>.
@@ -654,7 +654,7 @@
               section below for how to set environment variables.
             </p>
             <p>
-              You can additionally set <code>NODE_COUNT</code> in
+              You can additionally set <b>NODE_COUNT</b> in
               <code>/etc/sysconfig/rabbitmq</code> to define
               <a href="clustering.html#single-machine">the number of
               nodes to run on a single machine</a>.
@@ -759,7 +759,7 @@
 	    <p>
           A brew for the RabbitMQ server is available from
           <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
-          Note: You may not be able to install the RabbitMQ brew from inside a firewall.
+          <em>Note:</em> You may not be able to install the RabbitMQ brew from inside a firewall.
         </p>
 	    <doc:subsection name="install-machomebrew">
 	      <doc:heading>Install the Server</doc:heading>
@@ -1050,7 +1050,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             exchanges need to be recovered). In this case, the
             timeout can be adjusted by setting the environment variable
             <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait <i>timeout_in_seconds</i></code>" (eg using rabbitmq.conf).
+            "<code>-maxwait</code> timeout_in_seconds" (eg using rabbitmq.conf).
           </p>
           </dd>
         </dl>
