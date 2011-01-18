@@ -128,11 +128,6 @@
                  into <code>&dir-server-windows;</code>
                  (or somewhere suitable for application files).
                 </p>
-                <p>
-                 <em>Hint:</em> Save time, create an environment variable
-                 RABBITMQ_SERVER for
-                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>
-                 </p>
               </dd>
             </dl>
          </doc:subsection>
@@ -150,9 +145,9 @@
                   The RabbitMQ Server can be run as either an Application or Service (not both).
                 </p>
                 <ul>
-                    <li><b>rabbitmq-server.bat</b> starts the broker as an Application.</li>
-                    <li><b>rabbitmq-service.bat</b> manages the Service and starts the broker.</li>
-                    <li><b>rabbitmqctl.bat</b> manages a running broker.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-server.1.man.html">rabbitmq-server.bat</a> starts the broker as an Application.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-service.man.html">rabbitmq-service.bat</a> manages the Service and starts the broker.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmqctl.1.man.html">rabbitmqctl.bat</a> manages a running broker.</li>
                 </ul>
                 <p>
                 Log in as an administrator. To see the output,
@@ -166,12 +161,17 @@
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
                 (e.g. right click on the icon to select Run as Administrator).
                 </p>
-                <p>
-                <em>Hint:</em> Add <code>;%RABBITMQ_SERVER%\sbin</code>
-                  to your System Path (aka %PATH%),
-                  so the system can find the commands directly from
-                  <nobr>Start > Run</nobr> or from any (administrator) Command Prompt.
-                </p>
+              </dd>
+              <dt>Find Commands Easily</dt>
+              <dd>
+                 Set up the path so you can find the server and sbin directory easily from
+                 Start > Run %RABBITMQ_SERVER%. 
+                  <li>Create a system environment variable RABBITMQ_SERVER for
+                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>(Update this if you upgrade versions)</li>
+                 <li>add <code>;%RABBITMQ_SERVER%\sbin</code>
+                  to your System Path (aka %PATH%)</li>
+                  Now you can run rabbitmq commands from any (administrator) Command Prompt.
+                  <p>If you do not set the path to find sbin, you will need to navigate to sbin to run them.</p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
@@ -188,10 +188,11 @@
               <dt>Setting Environment Variables on Windows</dt>
               <dd>
               <p>
-               It is easiest to configure environment variables in the
+               If you need to customise names, ports, locations, 
+               it is easiest to configure environment variables in the
                Windows dialog: <nobr>Start>Settings>Control
                Panel>System>Advanced>Environmment Variables</nobr>.
-               Create or edit the environment variable name and value.
+               Create or edit the System Variable name and Value.
               </p>
                After changes you should restart the broker.
               </dd>
@@ -345,7 +346,7 @@
             <dd>
               <p>
                    <em>Note:</em> After setting environment variables,
-                   you may need to reinstall the service.
+                   you may need to install the service again.
               </p>
               <p>
                    The <code>rabbitmq-service.bat</code> script
@@ -770,7 +771,7 @@
           </p>
 	    </doc:subsection>
 	    <doc:subsection name="running-machomebrew">
-	      <doc:heading>Run the Server</doc:heading>
+	      <doc:heading>Run RabbitMQ Server</doc:heading>
 	      <p>
 	        The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
 	        This is not automatically added to your path, so you may wish to add<br />
