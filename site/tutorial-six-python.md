@@ -39,7 +39,7 @@ which sends an RPC request and blocks until the answer is received:
 >
 > Although RPC is a pretty common pattern in computing, it's often criticised.
 > The problems arise when a programmer is not aware
-> whether a function call is local or if it's a slow RPC call. Confusions
+> whether a function call is local or if it's a slow RPC. Confusions
 > like that result in an unpredictable system and adds unnecessary
 > complexity to debugging. Instead of simplifying software, misused RPC
 > can result in unmaintainable spaghetti code.
@@ -77,7 +77,7 @@ request. Let's try it:
     # ... here goes the code to read a response message from the callback_queue ...
 
 
-> #### Message properties and headers
+> #### Message properties
 >
 > The AMQP protocol predefine a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
@@ -88,7 +88,7 @@ request. Let's try it:
 >    from [the second tutorial](/tutorial-two-python.html).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
->    to set this header to: `application/json`.
+>    to set this property to: `application/json`.
 > * `reply_to`: Commonly used to name a callback queue.
 > * `correlation_id`: Useful to correlate RPC responses with requests.
 
@@ -96,7 +96,7 @@ request. Let's try it:
 ### Correlation id
 
 In the method presented above we suggest creating a callback queue for
-every RPC call. That's pretty inefficient, but fortunately there is
+every RPC request. That's pretty inefficient, but fortunately there is
 a better way - let's create a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
@@ -115,7 +115,7 @@ that the RPC server will die just after sending us the answer, but
 before sending acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
 That's why on the client we must handle the duplicate responses
-gracefully, and the RPC calls should ideally be idempotent.
+gracefully, and the RPC should ideally be idempotent.
 
 ### Summary
 
@@ -335,7 +335,7 @@ service, but it has some important advantages:
 
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `rpc_server.py` in a new console.
- * On the client side, the RPC call requires sending and
+ * On the client side, the RPC requires sending and
    receiving only one message. No synchronous calls like `queue_declare`
    are required. As a result the RPC client needs only one network
    round trip for a single RPC request.
@@ -344,7 +344,7 @@ Our code is still pretty simplistic and doesn't try to solve more
 complex problems, like:
 
  * How should the client react if there are no servers running?
- * Should a client have some kind of timeout for the RPC call?
+ * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
 
