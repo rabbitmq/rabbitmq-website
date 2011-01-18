@@ -1841,8 +1841,11 @@
 	  </rule>
 
 	  <rule>
-	    <status value="ok"></status>
-	    <xref> 2.4 </xref>
+	    <status value="failing">does</status>
+        <notes>
+         "BCC" headers are removed from properties after routing.
+        </notes>
+	    <xref> 3.1.1 </xref>
 	    <context>
 	    </context>
 	    <type>
@@ -1858,7 +1861,7 @@
 
 	  <rule>
 	    <status value="ok">doesn't</status>
-	    <xref> 2.4 </xref>
+	    <xref> 3.1.1 </xref>
 	    <context>
 	    </context>
 	    <type>
