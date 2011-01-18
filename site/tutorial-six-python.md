@@ -15,20 +15,20 @@ In the [second tutorial](/tutorial-two-python.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
-But what if we need to run a function on remote computer and wait for
+But what if we need to run a function on a remote computer and wait for
 the result?  Well, that's a different story. This pattern is commonly
 known as _Remote Procedure Call_ or _RPC_.
 
-In this tutorial we're going to use RabbitMQ to build a RPC system: a
+In this tutorial we're going to use RabbitMQ to build an RPC system: a
 client and a scalable RPC server. As we don't have any time-consuming
 tasks that are worth distributing, we're going to create a dummy RPC
 service that returns Fibonacci numbers.
 
 ### Client interface
 
-To illustrate how RPC service could be used we're going to
-create a simple client class. It's going to expose a method `call`
-which sends a RPC request and blocks until the answer is received:
+To illustrate how an RPC service could be used we're going to
+create a simple client class. It's going to expose a method named `call`
+which sends an RPC request and blocks until the answer is received:
 
     :::python
     fibonacci_rpc = FibonacciRpcClient()
@@ -83,7 +83,7 @@ request. Let's try it:
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
-> * `delivery_mode`: Marks a message is as persistent (value of `2`)
+> * `delivery_mode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
 >    from [the second tutorial](/tutorial-two-python.html).
 > * `content_type`: Used to describe the mime-type of the encoding.
@@ -177,15 +177,15 @@ gracefully, and the RPC calls should ideally be idempotent.
   </div>
 </div>
 
-Our RPC will work like that:
+Our RPC will work like this:
 
   * When the Client starts up, it creates an anonymous exclusive
     callback queue.
-  * For a RPC request, the Client sends a message with two properties:
-    `reply_to` which is set to the callback queue and `correlation_id`
+  * For an RPC request, the Client sends a message with two properties:
+    `reply_to`, which is set to the callback queue and `correlation_id`,
     which is set to a unique value for every request.
   * The request is send to an `rpc_queue` queue.
-  * RPC worker (aka: server) is waiting for requests on that queue.
+  * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `reply_to` field.
   * The client waits for data on the callback queue. When a message
@@ -306,12 +306,12 @@ The client code is slightly more involved:
     exclusive 'callback' queue.
   * (15) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * (19) The callback executed on every response is doing very simple
-    job, for every response message if the `correlation_id` is the one
+  * (19) The callback executed on every response is doing a very simple
+    job, for every response message it checks if the `correlation_id` is the one
     we're looking for. If so, it saves the response in `self.response`.
   * (23) Next, we define our main `call` method - it does the actual
     RPC request.
-  * (24) In this method, first we generate an unique `correlation_id`
+  * (24) In this method, first we generate a unique `correlation_id`
     number and save it - the 'on_response' callback function will
     use this value to catch the appropriate response.
   * (26) Next, we publish the request message, with two properties:
@@ -334,18 +334,18 @@ The presented design is not the only possible implementation of a RPC
 service, but it has some important advantages:
 
  * If the RPC server is too slow, you can scale up by just running
-   another one. Try running second `rpc_server.py` in a new console.
+   another one. Try running a second `rpc_server.py` in a new console.
  * On the client side, the RPC call requires sending and
    receiving only one message. No synchronous calls like `queue_declare`
    are required. As a result the RPC client needs only one network
-   roundtrip for a single RPC request.
+   round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
 complex problems, like:
 
  * How should the client react if there are no servers running?
  * Should a client have some kind of timeout for the RPC call?
- * When the server malfunctions and raises an exception, should it be
+ * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
