@@ -34,7 +34,7 @@
           and set up a default environment.
           Scripts and commands need to run as a privileged user e.g.
           an administrator on Windows, or with root permission
-          (eg sudo) on Unix-like systems.
+          (e.g. sudo) on Unix-like systems.
         </p>
         <p>
           If you use non-default file locations, account
@@ -69,14 +69,14 @@
             It also includes .Net and Java client libraries for RabbitMQ.
           </p>
           <p>
-            Just extract the files from it
-            then go through the instructions to install each server component.
+            Just extract the files from the bundle and
+            then follow the instructions to install each server component.
           </p>
         </doc:subsection>
 
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
-          
+
             <dl class="instructions">
               <dt>Install Erlang</dt>
               <dd>
@@ -84,7 +84,7 @@
                 Install a recent version of Erlang/OTP.
                 <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">Versions R13B03</a>
                 and higher should work on Windows. Extract it from
-                the Windows bundle or choose a version from 
+                the Windows bundle or choose a version from
                 <a href="http://www.erlang.org/download.html">
                 http://www.erlang.org/download.html</a>
                 </p>
@@ -110,7 +110,7 @@
                   directory.
                 </p>
                 <p>
-                  Go to Start>Settings>Control Panel>System>Advanced>Environmment Variables.
+                  Go to Start>Settings>Control Panel>System>Advanced>Environment Variables.
                   Create the system environment variable ERLANG_HOME
                   and set it to the full path of the directory which contains
                   <code>bin\erl.exe</code>.
@@ -159,7 +159,7 @@
                 </ul>
                 <p>
                 Log in as an administrator. To see the output,
-                run these from a 
+                run these from a
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">Command Prompt</a>
                 in the <code>sbin</code> directory.
                 </p>
@@ -171,17 +171,17 @@
               </dd>
               <dt>Find Commands Easily</dt>
               <dd>
-                 Set up the system path so you can find the server and 
+                 Set up the system path so you can find the server and
                  <code>sbin</code> directory easily from
-                 Start > Run <code>%RABBITMQ_SERVER%</code>. 
+                 Start > Run <code>%RABBITMQ_SERVER%</code>.
                   <li>Create a system environment variable e.g. RABBITMQ_SERVER for
                  <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
                  Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
                  or if you upgrade versions.</li>
-                 <li>add <code>;%RABBITMQ_SERVER%\sbin</code>
-                  to your System Path (aka %PATH%)</li>
+                 <li>append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
+                  to your system path (aka %PATH%)</li>
                   Now you can run rabbitmq commands from any (administrator) Command Prompt.
-                  <p>If you do not set the Path to find <code>sbin</code>,
+                  <p>If you do not set the path to find <code>sbin</code>,
                   you will need to navigate to<code>rabbitmq_server-&version-server;\sbin</code>
                   to run commands.</p>
               </dd>
@@ -200,11 +200,11 @@
               <dt>Setting Environment Variables on Windows</dt>
               <dd>
               <p>
-               If you need to customise names, ports, locations, 
+               If you need to customise names, ports, locations,
                it is easiest to configure environment variables in the
-               Windows dialog: <nobr>Start>Settings>Control
+               Windows dialogue: <nobr>Start>Settings>Control
                Panel>System>Advanced>Environmment Variables</nobr>.
-               Create or edit the System Variable name and Value.
+               Create or edit the system or user variable name and value.
               </p>
                After changes you should restart the broker.
               </dd>
@@ -277,7 +277,7 @@
                   Setting this to a specific interface address will cause
                   the server to bind to that interface only.<br/>
                   Please note that Windows 2000 (and maybe earlier
-                  versions) do not understand "<code>0.0.0.0</code>"
+                  versions) does not understand "<code>0.0.0.0</code>"
                   and will need to have this set explicitly.
               </dd>
 
@@ -335,7 +335,7 @@
             <dt>Stop or Manage the Broker</dt>
             <dd>
                 To <a href="#managing-windows">manage the broker</a> use
-              <code>rabbitmqctl</code> commands. 
+              <code>rabbitmqctl</code> commands.
             </dd>
           </dl>
         </doc:subsection>
@@ -391,7 +391,7 @@
               <dd>
                     Set this variable to <code>new</code> or <code>reuse</code>
                     to redirect console output from the server to a file named
-                    <b>RABBITMQ_SERVICENAME</b>.debug in the
+                    <b>%RABBITMQ_SERVICENAME%</b>.debug in the
                     default <b>RABBITMQ_BASE</b> directory.
                     <ul>
                     <li>If not set, console output from the server will be discarded (default).</li>
@@ -426,9 +426,10 @@
                 <p>
                 To manage the service (install, remove, enable, start etc), use
                 <code>rabbitmq-service.bat</code> commands.
-                Refer to the <a href="service-guide.html">service guide</a> for more info,
-                and for troubleshooting guidance.
-                You can also use the Windows Services panel (<code>services.msc</code>).
+                Refer to the <a href="service-guide.html">service guide</a> for more information
+                and troubleshooting guidance.
+                You can also use the Windows Services panel (<code>services.msc</code>)
+                to perform some of the same functions as the service script.
                 </p>
               </dd>
 
@@ -462,7 +463,7 @@
                 <dd>
                 To <a href="#managing-windows">manage the broker</a> use
                 <code>rabbitmqctl</code> commands.
-              </dd>             
+              </dd>
             </dl>
         </doc:subsection>
 
@@ -475,11 +476,12 @@
           </p>
 
           <dl class="instructions">
-            <dt>Synchronise Erlang Cookies</dt>
+            <dt>Synchronise Erlang Cookies (when running a Windows Service)</dt>
             <dd>
               <p>
-                 Erlang Security Cookies must be synchronised before
-                 first running <code>rabbitmqctl.bat</code>.
+                 Erlang Security Cookies used by the Service account and the user
+                 running <code>rabbitmqctl.bat</code> must be synchronised for
+                 <code>rabbitmqctl.bat</code> to function.
               </p>
               <p>
                  To ensure Erlang cookie files contain the same string,
@@ -533,7 +535,6 @@
           <p>
             You can rotate logs using <code>rabbitmqctl rotate_logs</code> or
             <code>rabbitmq-multi rotate_logs</code>.
-            You can write a script to use these commands.
           </p>
         </doc:subsection>
       </doc:section>
@@ -561,7 +562,7 @@
               </p>
               <p>
               If you use apt on a Debian distribution that has erlang-base
-              packages available, all dependencies should be automatically met.
+              packages available, all dependencies should be met automatically.
             </p>
             </dd>
             </dl>
@@ -983,7 +984,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             <p>
               You can use <code>rabbitmqctl status</code>
               to verify whether a broker is running.<br />
-              A running broker status looks something like this:
+              A running broker status looks like this:
               <pre>
   Status of node 'rabbit@xxx' ...
   [{running_applications,[{rabbit,"RabbitMQ","2.1.1"},
@@ -1021,19 +1022,15 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               analysis requires Erlang expertise.
             </p>
             <p>
-              <pre>
-          [...]
-  Crash dump was written to: erl_crash.dump
-  Kernel pid terminated (application_control,{shutdown,{kernel,start,[normal,[]]}}})</pre>
-	      If you have simply tried to start another server while a broker is already running,
-	      then you could ignore this error report.
-	      You can confirm whether the broker is running by checking the status.
+	      If you attempt to start another server while a broker is already running,
+	      then you will receive an error report.
+	      You can confirm whether the broker is already running by checking the status.
             </p>
             <p>
-              However, if the server fails to start, examine the console output and
-              the log files in the <b>RABBITMQ_LOG_BASE</b> directory for
-              clues.  Chances are there is a configuration error, e.g. the
-              mnesia directory cannot be created or the TCP port on which
+              If the server fails to start, examine the console output and
+              the log files in the <b>RABBITMQ_LOG_BASE</b> directory.
+              Chances are there is a configuration error, e.g. the
+              Mnesia directory cannot be created or the TCP port on which
               RabbitMQ tries to listen is already taken.
             </p>
           </dd>
@@ -1046,19 +1043,19 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             The cause of this could be a misconfiguration or other error.
           <p>
           </p>
-            But maybe the node is just taking a long time to start up
+            It is possible that the node is legitimately taking a long time to start up
             (perhaps because the machine it is running on is heavily loaded, or
-            because many persisted messages or durable queues and
+            because many persisted messages, durable queues or
             exchanges need to be recovered). In this case, the
             timeout can be adjusted by setting the environment variable
             <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait</code> timeout_in_seconds" (eg using rabbitmq.conf).
+            "<code>-maxwait</code> timeout_in_seconds" (e.g. using rabbitmq.conf).
           </p>
           </dd>
         </dl>
         <p>
           If the server is not behaving as expected during operation,
-          examine the log files for clues and use the rabbitmqctl
+          examine the log files and use the rabbitmqctl
           commands from the <a href="admin-guide.html">admin guide</a>
           to obtain further information on the server status.
         </p>
@@ -1079,30 +1076,31 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         </p>
         <p>
           If you can't find a solution to your problem on the list archive then
-          please post a new message to rabbitmq-discuss@lists.rabbitmq.com
+          please post a new message to
+          <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>
           (you may have to
           <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
           join the mailing list first</a>).
-          Let us know what you were trying to do, the error you received and a
-          copy of the crash dump and one of our engineers will help you get it fixed.
+          Let us know what you were trying to do, the error you received and
+          relevant entries from the logfile and one of our engineers will help you get it fixed.
         </p>
         <p>
-          If all of the above fails, please <a href="contact.html">tell us about the problem</a>
-          and include the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
+          If all of the above fails, please <a href="contact.html">tell us about the problem</a>,
+          including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
         </p>
       </doc:section>
 
       <doc:section name="configfile">
         <doc:heading>Configuration File</doc:heading>
         <p>
-          The Rabbit configuration file <code>rabbitmq.config</code>
-          allows the rabbit core application,
-          Erlang services and Rabbit plugins to be configured.
+          The configuration file <code>rabbitmq.config</code>
+          allows the RabbitMQ core application,
+          Erlang services and RabbitMQ plugins to be configured.
           It is a standard Erlang configuration file, documented on the
           <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
         </p>
         <p>
-          The location of this configuration file is distribution specific. By default, it is
+          The location of this configuration file is distribution-specific. By default, it is
           located in the following places on each platform:
           <ul>
             <li><b>Windows</b> - %APPDATA%\RabbitMQ\rabbitmq.config</li>
@@ -1115,13 +1113,14 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         <p>
           If <code>rabbitmq.config</code> doesn't exist, it can be created manually.
           The location can be changed via the
-          <b>RABBITMQ_CONFIG_FILE</b> environment variable. 
-          The Erlang runtime automatically appends the .config extension to this
-          variable's value.
-          Restart the server (on Windows, reinstall the service first) after the change.
+          <b>RABBITMQ_CONFIG_FILE</b> environment variable.
+          The Erlang runtime automatically appends the .config extension to the
+          value of this variable.
+          Restart the server after the change, or remove and install the RabbitMQ service
+          when running as a Windows Service.
         </p>
         <p>
-          An example configuration file would look like:
+          An example configuration file follows:
         </p>
         <p>
 <pre class="sourcecode">
@@ -1153,9 +1152,9 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         </p>
         <p>
         On Windows, use
-        <code>rabbitMQ-service remove</code> to remove any
+        <code>rabbitmq-service.bat remove</code> to remove any
         RabbitMQ service then simply delete the unwanted
-        rabbitmq_server folder from Program Files.
+        rabbitmq_server folder from <code>&dir-win-apps;</code>.
         If you are upgrading, just extract the new version to the same place as before
         and edit environment variables to ensure the new files are found.
         </p>
