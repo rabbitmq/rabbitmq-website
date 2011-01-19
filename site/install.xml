@@ -13,7 +13,7 @@
 
     <p class="intro">
       Here you can find instructions to get your
-      <a href="server.html"> Server Download</a>
+      <a href="server.html"> server download</a>
       installed and running for your chosen platform.
     </p>
 
@@ -26,7 +26,7 @@
         <p>
           Each installation requires Erlang, which also provides
           Mnesia (DBMS) and logging support for the brokers.
-          Mnesia and Log Directories may need read/write
+          Mnesia and log directories may need read/write
           permissions for the service account.
         </p>
         <p>
@@ -47,16 +47,19 @@
         These are the steps, done manually or via a packager:
         <ol>
         <li>Install Erlang</li>
-        <li>Install RabbitMQ Server </li>
+        <li>Install RabbitMQ server </li>
         <li>Configure environment</li>
-        <li>Start Service or daemon</li>
+        <li>Start service or daemon</li>
         </ol>
         </p>
       </doc:section>
 
       <doc:section name="windows">
         <doc:heading>Windows</doc:heading>
-
+        <p>
+          You can either use files from the Windows bundle,
+          or download Erlang and the RabbitMQ server as indicated below.
+          </p>
         <doc:subsection name="install-windows-bundle">
           <doc:heading>Install from the Windows Bundle</doc:heading>
           <p>
@@ -67,13 +70,13 @@
           </p>
           <p>
             Just extract the files from it
-            then go through the instructions to install each Server component.
+            then go through the instructions to install each server component.
           </p>
         </doc:subsection>
 
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
-
+          
             <dl class="instructions">
               <dt>Install Erlang</dt>
               <dd>
@@ -86,7 +89,8 @@
                 http://www.erlang.org/download.html</a>
                 </p>
                 <p>
-                Using default installation options, Erlang will appear in the Start Menu,
+                Run the .exe fie. Using default installation options,
+                Erlang will appear in the Start Menu,
                 and <code>\erl&windows-version-erlang;\bin\erl.exe</code> will be in
                 <nobr><code>&dir-win-apps;</code></nobr> or
                 <nobr><code>&dir-win64-apps;</code></nobr>.
@@ -120,7 +124,8 @@
               <dd>
                 <p>
                  Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-                 from the <a href="server.html">download page</a>.
+                 from the <a href="server.html">download page</a> or extract it
+                 from the Windows bundle.
                 </p>
                 <p>
                  From the zip file, extract the folder named
@@ -139,22 +144,24 @@
               <dd>
                 <p>
                  Within the <code>rabbitmq_server-&version-server;\sbin</code>
-                 directory are some scripts which run commands to control the RabbitMQ Server.
+                 directory are some scripts which run commands to control the RabbitMQ server.
                 </p>
                 <p>
-                  The RabbitMQ Server can be run as either an Application or Service (not both).
+                  The RabbitMQ server can be run as either an Application or Service (not both).
                 </p>
                 <ul>
-                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-server.1.man.html">rabbitmq-server.bat</a> starts the broker as an Application.</li>
-                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-service.man.html">rabbitmq-service.bat</a> manages the Service and starts the broker.</li>
-                    <li><a href="http://www.rabbitmq.com/man/rabbitmqctl.1.man.html">rabbitmqctl.bat</a> manages a running broker.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-server.1.man.html">rabbitmq-server.bat</a>
+                    starts the broker as an Application.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmq-service.man.html">rabbitmq-service.bat</a>
+                    manages the Service and starts the broker.</li>
+                    <li><a href="http://www.rabbitmq.com/man/rabbitmqctl.1.man.html">rabbitmqctl.bat</a>
+                    manages a running broker.</li>
                 </ul>
                 <p>
                 Log in as an administrator. To see the output,
                 run these from a 
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">Command Prompt</a>
-                in the
-                <code>sbin</code> directory.
+                in the <code>sbin</code> directory.
                 </p>
                 <p>
                 <em>Note: </em>On Vista/Windows7 you will need to
@@ -164,19 +171,24 @@
               </dd>
               <dt>Find Commands Easily</dt>
               <dd>
-                 Set up the path so you can find the server and sbin directory easily from
-                 Start > Run %RABBITMQ_SERVER%. 
+                 Set up the system path so you can find the server and 
+                 <code>sbin</code> directory easily from
+                 Start > Run <code>%RABBITMQ_SERVER%</code>. 
                   <li>Create a system environment variable RABBITMQ_SERVER for
-                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>(Update this if you upgrade versions)</li>
+                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
+                 Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
+                 or if you upgrade versions.</li>
                  <li>add <code>;%RABBITMQ_SERVER%\sbin</code>
                   to your System Path (aka %PATH%)</li>
                   Now you can run rabbitmq commands from any (administrator) Command Prompt.
-                  <p>If you do not set the Path to find <code>sbin</code>, you will need to navigate to<code>sbin</code> to run commands.</p>
+                  <p>If you do not set the Path to find <code>sbin</code>,
+                  you will need to navigate to<code>rabbitmq_server-&version-server;\sbin</code>
+                  to run commands.</p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
               <p>
-                By default, the RabbitMQ Mnesia database and Logs
+                By default, the RabbitMQ logs and Mnesia database
                 are within the current user's Application Data directory.
                 <nobr>Start > Run <code>%APPDATA%</code></nobr>
                 will find this e.g.
@@ -202,7 +214,7 @@
         <doc:subsection name="running-windows">
           <doc:heading>Run RabbitMQ Server as an Application</doc:heading>
           <p>
-            The Application is started by <code>rabbitmq-server.bat</code>
+            The Application is started by the <code>rabbitmq-server.bat</code>
             script in <code>sbin</code>.
           </p>
 
@@ -212,7 +224,8 @@
                 You may need to customise some environment variables
                 for your installation,
                 especially if you use a different version of Erlang.
-                Environment variables set within the <code>rabbitmq-server.bat</code> file are:
+                Environment variable defaults set within the
+                <code>rabbitmq-server.bat</code> file are:
             </dd>
           </dl>
 
@@ -222,7 +235,7 @@
               <dd>
                   Defaults to the directory <code>RabbitMQ</code> in <b>%APPDATA%</b>.
                   This base directory contains sub-directories for the
-                  RabbitMQ Server's database
+                  RabbitMQ server's database
                   and log files. Alternatively, set
                   <b>RABBITMQ_MNESIA_BASE</b> and
                   <b>RABBITMQ_LOG_BASE</b> individually.
@@ -262,7 +275,7 @@
               <dd>
                   Defaults to <code>0.0.0.0</code>.
                   Setting this to a specific interface address will cause
-                  the Server to bind to that interface only.<br/>
+                  the server to bind to that interface only.<br/>
                   Please note that Windows 2000 (and maybe earlier
                   versions) do not understand "<code>0.0.0.0</code>"
                   and will need to have this set explicitly.
@@ -361,16 +374,6 @@
 
           <div class="environment-variables">
             <dl>
-              <dt>RABBITMQ_BASE</dt>
-              <dd>
-                    This is the location of database and
-                    log directories. The account that the service will run as must have read and
-                    write access to this location.
-                    If the default location <b>%APPDATA%</b>
-                    does not meet this requirement,
-                    this variable must be set explicitly and the permissions must be verified.
-              </dd>
-
               <dt>ERLANG_SERVICE_MANAGER_PATH</dt>
               <dd>
                     The default value of this path is
@@ -587,7 +590,7 @@
             <dd>
             <p>
               The server is started as a daemon by default when the
-              RabbitMQ Server package is installed.
+              RabbitMQ server package is installed.
             </p>
             <p>
               As an administrator, start and stop the
@@ -664,7 +667,7 @@
             <dd>
             <p>
               The server is not started as a daemon by default when the
-              RabbitMQ Server package is installed. To start the daemon by default
+              RabbitMQ server package is installed. To start the daemon by default
               when the system boots, as an administrator run
               <code>chkconfig rabbitmq-server on</code>.
             </p>
@@ -715,7 +718,7 @@
         <p>
           RabbitMQ maintains a dedicated
           <a href="macports.html">MacPorts repository</a>,
-          which you should use to install the latest RabbitMQ Server version via MacPorts,
+          which you should use to install the latest RabbitMQ server version via MacPorts,
           as officially released MacPorts packaging may not always
           contain the lastest released version of RabbitMQ.<br/>
           (NB It can take a very long time to install other macport updates -
@@ -723,7 +726,7 @@
         </p>
 
         <doc:subsection name="install-macports">
-          <doc:heading>Install the server</doc:heading>
+          <doc:heading>Install the Server</doc:heading>
           <p>
             Installation of the version of the RabbitMQ server
             distributed with MacPorts is as simple as (<code>sudo port
@@ -733,7 +736,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-macports">
-          <doc:heading>Run RabbitMQ  Server</doc:heading>
+          <doc:heading>Run RabbitMQ Server</doc:heading>
           <p>
             To start the server, you can either use launchctl (see the
             instructions emitted during the <code>sudo port
@@ -757,18 +760,18 @@
       <doc:section name="machomebrew">
 	    <doc:heading>Mac OS X with Homebrew</doc:heading>
 	    <p>
-          A brew for the RabbitMQ server is available from
-          <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
-          <em>Note:</em> You may not be able to install the RabbitMQ brew from inside a firewall.
-        </p>
+            A brew for the RabbitMQ server is available from
+            <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
+           <em>Note:</em> You may not be able to install the RabbitMQ brew from inside a firewall.
+           </p>
 	    <doc:subsection name="install-machomebrew">
 	      <doc:heading>Install the Server</doc:heading>
 	      <p>
 	        Before installing make sure you have the latest brews:
 	        <pre>brew update</pre>
-            Then, install RabbitMQ server with:
-            <pre>brew install rabbitmq</pre>
-          </p>
+                Then, install RabbitMQ server with:
+                <pre>brew install rabbitmq</pre>
+              </p>
 	    </doc:subsection>
 	    <doc:subsection name="running-machomebrew">
 	      <doc:heading>Run RabbitMQ Server</doc:heading>
@@ -776,7 +779,7 @@
 	        The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
 	        This is not automatically added to your path, so you may wish to add<br />
 	        <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
-            or <code>.profile</code>.
+	        or <code>.profile</code>.
 	        The server can then be started with <code>rabbitmq-server</code>.
 	      </p>
 	      <p>
@@ -1113,8 +1116,10 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         <p>
           If <code>rabbitmq.config</code> doesn't exist, it can be created manually.
           The location can be changed via the
-          <b>RABBITMQ_CONFIG_FILE</b> environment variable.
-          The Erlang runtime automatically appends the .config extension to this variable's value.
+          <b>RABBITMQ_CONFIG_FILE</b> environment variable. 
+          The Erlang runtime automatically appends the .config extension to this
+          variable's value.
+          Restart the server (on Windows, reinstall the service first) after the change.
         </p>
         <p>
           An example configuration file would look like:
@@ -1150,12 +1155,13 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         <p>
         On Windows, use
         <code>rabbitMQ-service remove</code> to remove any
-        RabbitMQ service then simply delete the Rabbitmq_server folder from Program Files.
+        RabbitMQ service then simply delete the unwanted
+        rabbitmq_server folder from Program Files.
         If you are upgrading, just extract the new version to the same place as before
         and edit environment variables to ensure the new files are found.
         </p>
         <p>
-        If you are not upgrading, you can also remove the RabbitMQ Log and Mnesia folders.
+        If you are not upgrading, you can also remove the RabbitMQ log and Mnesia folders.
         Erlang can be uninstalled via package manager, or on Windows via
         Settings > Control Panel > Add and Remove Programs.
         Remove environment variables that are not needed.
