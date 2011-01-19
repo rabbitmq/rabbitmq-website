@@ -174,7 +174,7 @@
                  Set up the system path so you can find the server and 
                  <code>sbin</code> directory easily from
                  Start > Run <code>%RABBITMQ_SERVER%</code>. 
-                  <li>Create a system environment variable RABBITMQ_SERVER for
+                  <li>Create a system environment variable e.g. RABBITMQ_SERVER for
                  <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
                  Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
                  or if you upgrade versions.</li>
@@ -482,14 +482,13 @@
                  first running <code>rabbitmqctl.bat</code>.
               </p>
               <p>
-                 Local service account cookies are normally stored in
-                 <code>C:\WINDOWS\.erlang.cookie</code>
-                 while user account cookies are typically stored in either
-                 <b>%APPDATA%</b> or the home directory of the account e.g.
+                 To ensure Erlang cookie files contain the same string,
+                 copy the <code>.erlang.cookie</code> file from the windows
+                 directory (<code>C:\WINDOWS\.erlang.cookie</code>)
+                 to replace the user <code>.erlang.cookie</code>.
+                 The user cookie will be either in
+                 <b>%APPDATA%</b> or the user's home directory e.g.
                  <code><nobr>&dir-win-user;\.erlang.cookie</nobr></code>.
-                 To ensure that these Erlang cookie files contain the same string,
-                 copy the <code>.erlang.cookie</code>file from the windows directory
-                 to replace the user account cookie.
               </p>
             </dd>
 
