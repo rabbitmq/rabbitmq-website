@@ -82,8 +82,8 @@ def render_page(page_name):
                 xslt_file_name = match.group(1)
                 xslt_doc = libxml2.parseFile(os.path.join(SITE_DIR, xslt_file_name))
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})
-                result = html_doc.serialize(None,  1)
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})                
+                result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500
 

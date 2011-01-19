@@ -41,6 +41,39 @@
             Force close connections, purge queues.
           </li>
         </ul>
+        <doc:subsection name="screenshots">
+          <doc:heading>Screenshots</doc:heading>
+          <table class="screenshots">
+            <tr>
+              <th>Overview</th>
+              <th>Import / Export</th>
+              <th>Channel List</th>
+              <th>Queue Details</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="/img/management/overview.png">
+                  <img src="/img/management/thumbs/overview.png"/>
+                </a>
+              </td>
+              <td>
+                <a href="/img/management/import-export.png">
+                  <img src="/img/management/thumbs/import-export.png"/>
+                </a>
+              </td>
+              <td>
+                <a href="/img/management/channels.png">
+                  <img src="/img/management/thumbs/channels.png"/>
+                </a>
+              </td>
+              <td>
+                <a href="/img/management/queue.png">
+                  <img src="/img/management/thumbs/queue.png"/>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="installation">

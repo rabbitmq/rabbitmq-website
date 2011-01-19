@@ -540,6 +540,37 @@
 	</doc:subsection>
       </doc:section>
 
+      <doc:section name="machomebrew">
+	<doc:heading>Mac OS X with Homebrew</doc:heading>
+	<p>
+          A brew for the RabbitMQ server is available from
+         <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
+         Note: You may not be able to install the RabbitMQ brew from inside a firewall.
+        </p>
+	<doc:subsection name="install-machomebrew">
+	  <doc:heading>Installation Instructions</doc:heading>
+	  <p>
+	    Before installing make sure you have the latest brews:
+	    <pre>brew update</pre>
+            Then, install RabbitMQ server with:
+            <pre>brew install rabbitmq</pre>
+          </p>
+	</doc:subsection>
+	<doc:subsection name="running-machomebrew">
+	  <doc:heading>Running the Server</doc:heading>
+	  <p>
+	    The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
+	    This is not automatically added to your path, so you may wish to add<br />
+	    <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
+        or <code>.profile</code>.
+	    The server can then be started with <code>rabbitmq-server</code>.
+	  </p>
+	  <p>
+	    All scripts run under your own user account. Sudo is not required.
+          </p>
+	</doc:subsection>
+      </doc:section>
+
       <doc:section name="solaris">
 	<doc:heading>Solaris</doc:heading>
 	  <doc:heading>Installation Instructions</doc:heading>

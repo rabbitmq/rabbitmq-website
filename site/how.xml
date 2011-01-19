@@ -7,18 +7,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Get Started</title>
+    <title>RabbitMQ - How To</title>
   </head>
   <body>
     <doc:div>
 
-    <h2>Get Started with RabbitMQ</h2>
+    <h2>How To with RabbitMQ</h2>
 
     <p>The links listed below highlight some of our favourite content on this site and the
     web that will help you get started with messaging and RabbitMQ.</p>
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.</p>
-
+    <p>Just starting out with messaging and RabbitMQ? Then please take a look at our <a href="getstarted.html">Get Started tutorials</a>.</p>
     <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
       <h3 id="quickstart">Overviews and Introductions</h3>
@@ -28,6 +28,14 @@
 	Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
 	he introduces RabbitMQ “An open source message broker that just works”.
 	</li>
+    <li><a href="resources/RabbitMQ_MessagingInTheCloud_VMworld_2010_MS.pdf">RabbitMQ: Messaging in the Cloud</a><br/>
+    Matthew's presentation to VMworld 2010 that covers an introduction to messaging with common use cases, an
+    AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
+    </li>
+    <li><a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
+    A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
+    are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
+    </li>
         <li>
 	  <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
 	  Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
@@ -127,6 +135,7 @@
 	    <li><a href="api-guide.html">Java API-guide</a></li>
 	    <li><a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a></li>
 	    <li><a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a></li>
+	    <li><a href="http://www.infoq.com/presentations/Spring-AMQP">Spring AMQP</a> video and slides from a presentation at SpringOne 2010</li>
 	    <li><a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a></li>
 	    <li><a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS</a></li>
 	    <li><a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a></li>
@@ -200,6 +209,7 @@
 	    <li><a href="http://github.com/tonyg/pika">pika</a>, a pure-Python AMQP 0-8 and 0-9-1 client</li>
 	    <li><a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code</li>
 	    <li><a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a></li>
+        <li><a href="http://www.laurentluce.com/?p=191">Distributed messaging using RabbitMQ and Python</a> demonstrates a common use case (using py-amqp)</li>
 	    <li><a href="http://blog.springsource.com/2010/08/19/building-rabbitmq-apps-using-python">Building RabbitMQ apps using Python</a></li>
 	    <li><a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial</li>
 	    <li><a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser</li>
@@ -236,6 +246,8 @@
 	    <li><a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib</li>
 	    <li><a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3</li>
       <li><a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a></li>
+        <li><a href="https://github.com/BraveSirRobin/amqphp">amqphp</a> a pure PHP implementation of AMQP 0-9-1 for RabbitMQ 2+ and PHP 5.3</li>
+        <li><a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for AMQP messaging</li>
 	    <li><a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a></li>
 	  </ul>
 	</li>
@@ -325,7 +337,7 @@
 	</li>
 	<li id="rabbitmq-on-vms">RabbitMQ on OpenVMS
 	  <ul class="plain">
-      <li><a href="http://www.johndapps.com-a.googlepages.com/rabbitmqonopenvms">RabbitMQ on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
+        <li><a href="http://rabbitmqonopenvs.blogspot.com/2010/12/rabbitmq-v211-released-on-openvms.html">RabbitMQ 2.1.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system</li>
 	    <li>Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a></li>
 	    <li>The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a></li>
 	  </ul>
@@ -345,8 +357,9 @@
 	passing through the exchange.
 	</li>
         <li><a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a></li>
-        <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a>.  See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in
-decentralised microblogging</li>
+        <li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
+        See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
+        </li>
         <li><a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">Scala/Lift</a></li>
 	<li>
 	  <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
@@ -358,6 +371,9 @@ decentralised microblogging</li>
 	  A memcached adapter for RabbitMQ that allows you use the memcache protocol to
 	  get or publish a message from or to RabbitMQ.
 	</li>
+    <li><a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a><br/>
+    A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
+    </li>
 	<li>
 	  <a href="http://github.com/slider/amqp-relay">amqp-relay</a><br />
 	  A simple service to relay all messages from a topic exchange to another
@@ -446,6 +462,11 @@ decentralised microblogging</li>
 	  The management plugin provides a web interface and HTTP API
 	  for managing and monitoring RabbitMQ.
 	</li>
+    <li>
+      <a href="https://github.com/jamesc/nagios-plugins-rabbitmq">Nagios Plugins for RabbitMQ</a><br />
+      A set of Nagios checks useful for monitoring a RabbitMQ server. They interface with the RabbitMQ Management plugin
+      over HTTP and therefore have a very light profile on the Nagios server.
+    </li>
 	<li>
 	  <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
 	  RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
