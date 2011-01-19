@@ -52,12 +52,9 @@ table#classes-table th.col-2, table#classes-table th.col-5 {
   width: 5%;
 }
 table.fields-table th.col-1 {
-  width: 8%;
-}
-table.fields-table th.col-2, table.fields-table th.col-4 {
   width: 15%;
 }
-table.fields-table th.col-3 {
+table.fields-table th.col-2 {
   width: 12%;
 }
 ul.rules {
