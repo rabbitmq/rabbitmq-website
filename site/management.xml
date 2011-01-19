@@ -100,25 +100,8 @@
           <p>
             rabbitmq-management uses
             the <a href="http://github.com/mochi/mochiweb">Mochiweb</a>
-            web server. As such it has a stricter set of requirements
-            than vanilla RabbitMQ:
-          </p>
-          <ul>
-            <li>A newer Erlang version. At least R13B01 is recommended.</li>
-            <li>The Erlang crypto application must be installed and
-              working. This may be an issue of Windows users and
-              people who compile Erlang from source.</li>
-          </ul>
-          <p>
-            For Windows users: Versions of Erlang as recent as R13B03 do
-            not include the OpenSSL library needed by the crypto
-            application. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
-              post</a> explains how to install it. Version R14A appears to
-            include it already.
-          </p>
-          <p>
-            For people compiling Erlang: Ensure <code>configure</code>
-            finds OpenSSL and builds the crypto application.
+            web server which requires a newer Erlang version. At least
+            R13B01 is required, but later versions are recommended.
           </p>
         </doc:subsection>
       </doc:section>
@@ -164,18 +147,23 @@
           "administrators". Only administrators can view or edit
           users, virtual hosts or permissions at all. Furthermore,
           only administrators can see details of other users'
-          connections and channels (and close such connections).
+          connections and channels (and close such connections), as
+          well as node-level data such as memory use and clustering.
         </p>
         <p>
-          Note that normal RabbitMQ permissions still apply to
-          administrators; just because a user is an administrator does
-          not give them full access to exchanges, queues and bindings
-          through either AMQP or the management plugin.
+          Normal RabbitMQ permissions still apply to administrators;
+          just because a user is an administrator does not give them
+          full access to exchanges, queues and bindings through either
+          AMQP or the management plugin.
         </p>
         <p>
-          Also note that all users, administrators or otherwise, can
-          only list objects within a particular virtual host if they
-          have any permissions for that virtual host.
+          All users, administrators or otherwise, can only list
+          objects within a particular virtual host if they have any
+          permissions for that virtual host. Non-administrators
+          however cannot even see the existence of virtual hosts they
+          do not have permissions for, and will not see messages in
+          those virtual hosts counting towards their "global" message
+          rates.
         </p>
       </doc:section>
 

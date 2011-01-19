@@ -72,16 +72,34 @@
       </table>
     </p>
 
+    <h3 id="rabbitmq-auth-backend-ldap">rabbitmq-auth-backend-ldap</h3>
+
     <p>
-      <b>Note to Windows users:</b> Versions of Erlang as recent as
-      R13B03 do not include the OpenSSL library needed by the crypto
-      application (in turn needed by mochiweb). If you're going to
-      install any plugin that depends on mochiweb (rabbitmq-management
-      or rabbitmq-jsonrpc-channel), you should install
-      it. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
-      post</a> explains how. Version R14A appears to include it
-      already.
+      Authentication / authorisation plugin using an external LDAP
+      server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
+      for more information.
     </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-backend-ldap-&version-server;.ez">rabbitmq-auth-backend-ldap</a></li>
+    </ul>
+
+
+    <h3 id="rabbitmq-auth-mechanism-ssl">rabbitmq-auth-mechanism-ssl</h3>
+
+    <p>
+      Authentication mechanism plugin using SASL EXTERNAL to
+      authenticate using SSL client certificates.  See
+      the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+      for more information.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-mechanism-ssl-&version-server;.ez">rabbitmq-auth-mechanism-ssl</a></li>
+    </ul>
+
 
     <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
 
