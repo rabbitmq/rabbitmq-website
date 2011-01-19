@@ -285,7 +285,7 @@ In our case this function will print on the screen the contents of
 the message.
 
     :::python
-    def callback(ch, method, header, body):
+    def callback(ch, method, properties, body):
         print " [x] Received %r" % (body,)
 
 
@@ -349,7 +349,7 @@ Full `receive.py` code:
 
     print ' [*] Waiting for messages. To exit press CTRL+C'
 
-    def callback(ch, method, header, body):
+    def callback(ch, method, properties, body):
         print " [x] Received %r" % (body,)
 
     channel.basic_consume(callback,

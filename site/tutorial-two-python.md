@@ -79,7 +79,7 @@ messages from the queue and do the task, so let's call it `worker.py`:
     :::python
     import time
 
-    def callback(ch, method, header, body):
+    def callback(ch, method, properties, body):
         print " [x] Received %r" % (body,)
         time.sleep( body.count('.') )
         print " [x] Done"
@@ -175,7 +175,7 @@ flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::python
-    def callback(ch, method, header, body):
+    def callback(ch, method, properties, body):
         print " [x] Received %r" % (body,)
         time.sleep( body.count('.') )
         print " [x] Done"
@@ -239,7 +239,7 @@ and consumer code.
 
 At that point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by supplying a `delivery_mode` header with a value `2`.
+- by supplying a `delivery_mode` property with a value `2`.
 
     :::python
     channel.basic_publish(exchange='', routing_key="task_queue",
@@ -349,7 +349,7 @@ And our worker:
     channel.queue_declare(queue='task_queue', durable=True)
     print ' [*] Waiting for messages. To exit press CTRL+C'
 
-    def callback(ch, method, header, body):
+    def callback(ch, method, properties, body):
         print " [x] Received %r" % (body,)
         time.sleep( body.count('.') )
         print " [x] Done"

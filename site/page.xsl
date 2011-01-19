@@ -380,7 +380,7 @@ try{
   </xsl:template>
 
   <xsl:template match="r:class|r:method">
-    <tr>
+    <tr id="{concat(local-name(), '-status-', @name)}">
       <td class="statusCell status_{r:status/@value}">
 	<xsl:apply-templates select="r:status"/>
       </td>

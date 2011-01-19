@@ -5,7 +5,8 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
     <!-- re-usable content for windows bundle -->
     <p>
-      As a convenient alternative for Windows users, a bundle
+      As a convenient alternative for users of
+      <a href="platforms.html#windows">supported Windows versions</a>, a bundle
       download exists, which contains the RabbitMQ server, Java client
       libraries and .Net client, as well as a complete Erlang
       distribution, ready to install.

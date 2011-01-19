@@ -6,7 +6,7 @@
   </head>
   <body>
     <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
-    <p>Also keep an eye on the <a href="/how.html">Get Started</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
+    <p>Also keep an eye on the <a href="how.html">How To</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
     <doc:feed>
       <!-- Please give news items a doc:date/@iso.  It is used in the
 	   Atom feed, for the updated time and as a guid.
@@ -571,7 +571,7 @@ filmed, and you can catch up online.</p>
 <a href="http://delicious.com/alexisrichardson/rabbitmq+video">these bookmarks on Delicious</a>.</p>
 
 <p>There have also been many exciting developments in the RabbitMQ community recently. Keep an eye 
-on <a href="/how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
+on <a href="how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
 
 	</doc:text>
       </doc:item>

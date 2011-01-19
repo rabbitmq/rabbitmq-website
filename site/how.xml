@@ -7,18 +7,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Get Started</title>
+    <title>RabbitMQ - How To</title>
   </head>
   <body>
     <doc:div>
 
-    <h2>Get Started with RabbitMQ</h2>
+    <h2>How To with RabbitMQ</h2>
 
     <p>The links listed below highlight some of our favourite content on this site and the
     web that will help you get started with messaging and RabbitMQ.</p>
 
     <p>For even more you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.</p>
-
+    <p>Just starting out with messaging and RabbitMQ? Then please take a look at our <a href="getstarted.html">Get Started tutorials</a>.</p>
     <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
       <h3 id="quickstart">Overviews and Introductions</h3>

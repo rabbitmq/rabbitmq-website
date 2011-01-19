@@ -12,29 +12,12 @@
     <doc:div>
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
-      <p>See the '<a href="/how.html">Get Started</a>' page for the latest presentations, blog posts and community links. We maintain
-      an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.</p>
-
-      <doc:section name="faq">
-	    <doc:heading>Frequently Asked Questions</doc:heading>
-	    <ul>
-	    	<li><a href="faq.html">The Complete RabbitMQ FAQ</a></li>
-	    	<ul class="plain">
-	    		<li><a href="faq.html#background">Background</a></li>
-				<li><a href="faq.html#managing-concepts-exchanges">Messaging Concepts</a></li>
-				<li><a href="faq.html#features">RabbitMQ Features</a></li>
-				<li><a href="faq.html#architecture">RabbitMQ Architecture</a></li>
-				<li><a href="faq.html#integration">Integration &amp; Interoperability</a></li>
-				<li><a href="faq.html#howto">How To</a></li>
-				<li><a href="faq.html#configuration">Configuration</a></li>
-				<li><a href="faq.html#performance">Performance, Scalability and Clustering</a></li>
-				<li><a href="faq.html#general">General</a></li>
-			</ul>
-	    </ul>
-	  </doc:section>
-
+      <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
+         messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.
+      </p>
+     
       <doc:section name="server">
-	<doc:heading>Server Documentation</doc:heading>
+	<doc:heading>Server</doc:heading>
 	<ul>
 	  <li>
             <a href="install.html">Installation Guide</a>
@@ -55,17 +38,16 @@
       </doc:section>
 
       <doc:section name="client">
-	<doc:heading>Client Documentation</doc:heading>
+	<doc:heading>Clients</doc:heading>
 	<ul>
 	  <li>
-	    <a href="api-guide.html">RabbitMQ Java Client API
-	    Guide</a>
+	    <a href="api-guide.html">Java Client API Guide</a>
 	  </li>
 	  <li>
 	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
 	  </li>
           <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">RabbitMQ .NET Client Library User Guide</a>
+            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
           </li>
           <li>
             <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
@@ -77,6 +59,15 @@
 	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
 	  </li>
 	</ul>
+      </doc:section>
+      
+      <doc:section name="amqp">
+        <doc:heading>AMQP</doc:heading>
+        <ul>
+          <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
+          <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
+          <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
+  	    </ul>
       </doc:section>
 
       <doc:section name="plugins">
@@ -104,6 +95,24 @@
 	    </ul>
 	  </doc:section>
 
+      <doc:section name="faq">
+       <doc:heading>Frequently Asked Questions</doc:heading>
+        <ul>
+	    	<li><a href="faq.html">The Complete RabbitMQ FAQ</a></li>
+	    	<ul class="plain">
+	    		<li><a href="faq.html#background">Background</a></li>
+				<li><a href="faq.html#managing-concepts-exchanges">Messaging Concepts</a></li>
+				<li><a href="faq.html#features">RabbitMQ Features</a></li>
+				<li><a href="faq.html#architecture">RabbitMQ Architecture</a></li>
+				<li><a href="faq.html#integration">Integration &amp; Interoperability</a></li>
+				<li><a href="faq.html#howto">How To</a></li>
+				<li><a href="faq.html#configuration">Configuration</a></li>
+				<li><a href="faq.html#performance">Performance, Scalability and Clustering</a></li>
+				<li><a href="faq.html#general">General</a></li>
+			</ul>
+	    </ul>
+	  </doc:section>
+	  
       <doc:section name="general">
 	<doc:heading>General Documentation</doc:heading>
 	<ul>
@@ -116,10 +125,7 @@
 	  </li>
 	  <li>
 	    How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
-	  </li>
-	  <li>
-	    Information on compatibility and conformance with the <a href="specification.html">AMQP specification</a>
-	  </li>
+	  </li>	  
 	  <li>
 	    <a href="interoperability.html">Interoperability</a> with
 	    other implementations of AMQP (including the <a
