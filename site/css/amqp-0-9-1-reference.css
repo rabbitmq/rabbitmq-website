@@ -26,9 +26,6 @@ table {
   border-style: outset;
   border-collapse: collapse;
 }
-table p {
-  margin: 0;
-}
 table thead {
   background-color: #ccc;
 }
@@ -147,9 +144,6 @@ p.param-desc {
 .field-name, .param-name {
   font-style: italic;
   font-weight: normal;
-}
-.rules p {
-  margin: 0.4em 0;
 }
 hr {
   visibility: visible;

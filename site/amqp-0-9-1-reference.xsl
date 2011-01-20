@@ -2,16 +2,13 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:x="http://www.rabbitmq.com/2011/extensions"
-                xmlns:c="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-                exclude-result-prefixes="x c">
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"                
+                exclude-result-prefixes="x">
 
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
 
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.unmodified.xml')"/>
-  <xsl:variable name="specification" select="document('specification.xml')" />
-  <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
   <xsl:template match="x:insert-spec-here">
@@ -247,7 +244,7 @@
   <xsl:template match="method">
     <xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
     <h5 id="{$method-name}" class="method-sig">
-      <div class="method-name">
+      <div class="method-name" title="{concat(@name, ' - id:', @index)}">
         <xsl:value-of select="@name"/>
         <xsl:text>(</xsl:text>
       </div>
@@ -264,36 +261,6 @@
         </xsl:if>
       </div>
     </h5>
-    <dl>
-      <dt>ID:</dt>
-      <dd>
-        <xsl:value-of select="@index"/>
-      </dd>
-      <dt>Synchronous:</dt>
-      <dd>
-        <xsl:choose>
-          <xsl:when test="@synchronous = '1'">
-            <xsl:text>yes</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>no</xsl:otherwise>
-        </xsl:choose>
-      </dd>
-      <xsl:for-each select="$specification">
-        <xsl:for-each select="key('method-key', $method-name)">
-          <dt>RabbitMQ support:</dt>
-          <dd>
-            <xsl:variable name="status" select="current()/c:status/@value"/>
-            <xsl:choose>
-              <xsl:when test="$status = 'ok'">full</xsl:when>
-              <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="current()/c:notes">
-              <xsl:value-of select="concat('; ', current()/c:notes)"/>
-            </xsl:if>
-          </dd>
-        </xsl:for-each>
-      </xsl:for-each>
-    </dl>
     <p>
       <xsl:apply-templates select="doc" />
     </p>
