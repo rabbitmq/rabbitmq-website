@@ -223,8 +223,8 @@
   </xsl:template>
 
   <xsl:template match="class">
-    <div class="class">
-    <h3 id="{concat('class.', @name)}" class="inline-block">
+    <div id="{concat('class.', @name)}" class="class">
+    <h3 class="inline-block">
       <xsl:value-of select="@name"/>
     </h3>
     <p><xsl:apply-templates select="doc"/></p>

@@ -5,8 +5,7 @@
   margin: 0 auto;
 }
 #content-pane h3 {
-  font-size: 1.5em;
-  margin-top: 0;
+  font-size: 1.5em; 
 }
 #content-pane h4 {
   font-size: 1.2em;
@@ -120,6 +119,9 @@ a.tosummary {
   padding: 1em;
   background-color: #eee;
 }
+.class h3 {
+ margin-top: 0;
+}
 .method-sig {
   font-family: "Courier New", Courier, monospace;
   font-size: 1.1em !important;
@@ -133,7 +135,7 @@ a.tosummary {
   float: left;
   width: 85%;
 }
-.method-retval {
+.method-retval, .parameter {
   white-space: nowrap;
 }
 .inline-block {
