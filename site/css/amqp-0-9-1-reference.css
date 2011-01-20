@@ -6,7 +6,7 @@
 }
 #content-pane h3 {
   font-size: 1.5em;
-  margin-top: 0.5em;
+  margin-top: 0;
 }
 #content-pane h4 {
   font-size: 1.2em;
@@ -64,19 +64,24 @@ ul.rules li {
   margin: 0;
   padding: 6px 0 0 10px;
 }
+p.grammar-label {
+  font-style: italic;
+  margin: 0 !important;
+}
 pre.code {
   font-size: 0.9em; 
   border: 1px solid #e4e4e4;
   padding: 5px 0 0 0;
   width: auto;
+  margin: 0;
 }
 dl {
   float: left;
+  width: 100%;
   font-size: 0.9em;
   margin: 0 0 0.5em 0;
 }
-dl, dt, dd {
-  
+dl, dt, dd { 
   padding: 0;
 }
 dt {
@@ -126,7 +131,7 @@ a.tosummary {
 }
 .method-params {
   float: left;
-  width: 90%;
+  width: 85%;
 }
 .method-retval {
   white-space: nowrap;
@@ -134,7 +139,7 @@ a.tosummary {
 .inline-block {
   display: inline-block;
 }
-p.param-desc {  
+p.param-desc {
   padding-left: 10px;
 }
 .field-name, .param-name {
