@@ -223,14 +223,15 @@
   </xsl:template>
 
   <xsl:template match="class">
+    <div class="class">
     <h3 id="{concat('class.', @name)}" class="inline-block">
       <xsl:value-of select="@name"/>
     </h3>
-    <xsl:call-template name="render-link-to-classes-summary"/>
     <p><xsl:apply-templates select="doc"/></p>
     <xsl:call-template name="render-rules" />
     <xsl:call-template name="render-fields" />
     <xsl:call-template name="render-methods" />
+    </div>
   </xsl:template>
 
   <xsl:template name="render-methods">
@@ -245,19 +246,24 @@
 
   <xsl:template match="method">
     <xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
-    <h5 id="{$method-name}" class="inline-block">
-      <xsl:value-of select="@name"/>
-      <xsl:text>(</xsl:text>
-      <xsl:apply-templates select="field" mode="render-method-sig"/>
-      <xsl:text>)</xsl:text>
-      <xsl:if test="response">
-        <xsl:text> &#x2794; </xsl:text>
-        <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
-          <xsl:value-of select="response/@name" />
-        </a>
-      </xsl:if>
+    <h5 id="{$method-name}" class="method-sig">
+      <div class="method-name">
+        <xsl:value-of select="@name"/>
+        <xsl:text>(</xsl:text>
+      </div>
+      <div class="method-params">
+        <xsl:apply-templates select="field" mode="render-method-sig"/>
+        <xsl:text>)</xsl:text>
+        <xsl:if test="response">
+          <span class="method-retval">
+          <xsl:text> &#x2794; </xsl:text>
+          <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
+            <xsl:value-of select="response/@name" />
+          </a>
+          </span>
+        </xsl:if>
+      </div>
     </h5>
-    <xsl:call-template name="render-link-to-classes-summary"/>
     <dl>
       <dt>ID:</dt>
       <dd>
@@ -293,6 +299,10 @@
     </p>
     <xsl:call-template name="render-rules" />
     <xsl:call-template name="render-parameters" />
+    <xsl:call-template name="render-link-to-classes-summary"/>
+    <xsl:if test="position() != last()">
+      <hr/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="field" mode="render-method-sig">
@@ -302,7 +312,7 @@
 	      <span class="data-type" title="{key('domain-key', @domain)/@type}">
 		    <xsl:value-of select="@domain"/>
 	      </span>
-          <xsl:text> </xsl:text>
+          <xsl:text>&#xA0;</xsl:text>
         </xsl:if>
         <span class="param-name" title="{@label}">
           <xsl:value-of select="@name"/>
@@ -349,34 +359,36 @@
 
   <xsl:template name="render-field-list">
       <xsl:for-each select="field">
-        <p id="{concat(../../@name, '.', ../@name, '.', @name)}">
+        <p id="{concat(../../@name, '.', ../@name, '.', @name)}" class="field">
           <xsl:if test="@domain">
             <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
               <xsl:value-of select="@domain"/>
             </a>
             <xsl:text> </xsl:text>
           </xsl:if>
-  		  <span title="{@label}"><xsl:value-of select="@name"/></span>
+  		  <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
         </p>
-        <p>
-          <xsl:choose>
-            <xsl:when test="doc">
-              <xsl:apply-templates select="doc"/>
-            </xsl:when>
-            <xsl:when test="@label">
-              <xsl:call-template name="capitalise">
-                <xsl:with-param name="s" select="@label"/>
-              </xsl:call-template>
-              <xsl:text>.</xsl:text>
-            </xsl:when>
-          </xsl:choose>
-        </p>
+        <xsl:if test="doc | @label">
+          <p class="param-desc">
+            <xsl:choose>
+              <xsl:when test="doc">
+                <xsl:apply-templates select="doc"/>
+              </xsl:when>
+              <xsl:when test="@label">
+                <xsl:call-template name="capitalise">
+                  <xsl:with-param name="s" select="@label"/>
+                </xsl:call-template>
+                <xsl:text>.</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </p>
+        </xsl:if>
         <xsl:call-template name="render-rules" />
       </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="doc[not(@type)]">
-    <span><xsl:value-of select="." /></span>
+    <xsl:value-of select="." />
   </xsl:template>
 
   <xsl:template match="doc[@type='grammar']">
@@ -391,11 +403,11 @@
   </xsl:template>
 
   <xsl:template name="render-link-to-toc">
-    <a class="back" href="#toc">(back to toc)</a>
+    <a class="back totoc" href="#toc">(back to toc)</a>
   </xsl:template>
 
   <xsl:template name="render-link-to-classes-summary">
-    <a class="back" href="#classes-summary">(back to summary)</a>
+    <a class="back tosummary" href="#classes-summary">(back to summary)</a>
   </xsl:template>
 
   <xsl:template name="capitalise">
