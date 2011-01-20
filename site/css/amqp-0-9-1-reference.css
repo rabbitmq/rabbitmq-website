@@ -46,10 +46,10 @@ table#constants-table th.col-2 {
 table#constants-table th.col-3 {
   width: 12%;
 }
-table#classes-table th.col-1, table#classes-table th.col-4 {
+table#classes-table th.col-1, table#classes-table th.col-3 {
   width: 15%;
 }
-table#classes-table th.col-2, table#classes-table th.col-5 {
+table#classes-table th.col-2, table#classes-table th.col-4 {
   width: 5%;
 }
 ul.rules {

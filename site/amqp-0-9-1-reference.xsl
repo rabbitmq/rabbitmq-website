@@ -80,10 +80,8 @@
         <tr>
           <th class="col-1">Class</th>
           <th class="col-2">ID</th>
-          <th class="col-3">Label</th>
-          <th class="col-4">Method</th>
-          <th class="col-5">ID</th>
-          <th class="col-6">Method Label</th>
+          <th class="col-3">Method</th>
+          <th class="col-4">ID</th>
         </tr>
       </thead>
       <tbody>
@@ -144,22 +142,13 @@
   </xsl:template>
 
   <xsl:template match="class" mode="summary">
+    <xsl:variable name="count-of-method" select="count(method)"/>
     <tr>
-      <td rowspan="{count(method)}">
+      <td rowspan="{$count-of-method}">
         <a href="{concat('#class.', @name)}"><xsl:value-of select="@name"/></a>
       </td>
-      <td rowspan="{count(method)}"><xsl:value-of select="@index"/></td>
-      <td rowspan="{count(method)}">
-        <xsl:call-template name="capitalise">
-          <xsl:with-param name="s" select="@label" />
-        </xsl:call-template>
-      </td>
+      <td rowspan="{$count-of-method}"><xsl:value-of select="@index"/></td>
       <xsl:for-each select="method">
-        <xsl:variable name="label">
-          <xsl:call-template name="capitalise">
-            <xsl:with-param name="s" select="@label" />
-          </xsl:call-template>
-        </xsl:variable>
         <xsl:variable name="method-id" select="concat('#', ../@name, '.', @name)" />
         <xsl:choose>
           <xsl:when test="position() = 1">
@@ -169,7 +158,6 @@
               </a>
             </td>
             <td><xsl:value-of select="@index"/></td>
-            <td><xsl:value-of select="$label" /></td>
           </xsl:when>
           <xsl:otherwise>
             <tr>
@@ -179,7 +167,6 @@
                 </a>
               </td>
               <td><xsl:value-of select="@index"/></td>
-              <td><xsl:value-of select="$label" /></td>
             </tr>
           </xsl:otherwise>
         </xsl:choose>
@@ -224,6 +211,12 @@
     <h3 class="inline-block">
       <xsl:value-of select="@name"/>
     </h3>
+    <p>
+      <xsl:call-template name="capitalise">
+        <xsl:with-param name="s" select="@label"/>
+      </xsl:call-template>
+      <xsl:text>.</xsl:text>
+    </p>
     <p><xsl:apply-templates select="doc"/></p>
     <xsl:call-template name="render-rules" />
     <xsl:call-template name="render-fields" />
@@ -258,6 +251,12 @@
         </xsl:if>
       </div>
     </h5>
+    <p>
+       <xsl:call-template name="capitalise">
+         <xsl:with-param name="s" select="@label"/>
+       </xsl:call-template>
+       <xsl:text>.</xsl:text>
+    </p>
     <p>
       <xsl:apply-templates select="doc" />
     </p>
