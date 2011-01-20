@@ -233,10 +233,7 @@
 
   <xsl:template name="render-methods">
     <xsl:if test="method">
-      <h4>Methods</h4>
-      <p>
-        The <em><xsl:value-of select="@name" /></em> class defines the following methods:
-      </p>
+      <h4>Methods</h4>      
       <xsl:apply-templates select="method" />
     </xsl:if>
   </xsl:template>
@@ -311,8 +308,7 @@
 
   <xsl:template name="render-fields">
     <xsl:if test="field">
-      <h4>Fields</h4>
-      <p>The <em><xsl:value-of select="@name" /></em> class defines the following fields:</p>
+      <h4>Fields</h4>      
       <xsl:call-template name="render-field-list"/>
     </xsl:if>
   </xsl:template>
