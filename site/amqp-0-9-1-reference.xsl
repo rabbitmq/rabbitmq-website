@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:x="http://www.rabbitmq.com/2011/extensions"                
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
                 exclude-result-prefixes="x">
 
   <xsl:import href="page.xsl" />
@@ -233,7 +233,7 @@
 
   <xsl:template name="render-methods">
     <xsl:if test="method">
-      <h4>Methods</h4>      
+      <h4>Methods</h4>
       <xsl:apply-templates select="method" />
     </xsl:if>
   </xsl:template>
@@ -270,12 +270,12 @@
   </xsl:template>
 
   <xsl:template match="field" mode="render-method-sig">
-	<a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
+    <a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
       <span class="parameter">
         <xsl:if test="@domain">
-	      <span class="data-type" title="{key('domain-key', @domain)/@type}">
-		    <xsl:value-of select="@domain"/>
-	      </span>
+          <span class="data-type" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </span>
           <xsl:text>&#xA0;</xsl:text>
         </xsl:if>
         <span class="param-name" title="{@label}">
@@ -308,7 +308,7 @@
 
   <xsl:template name="render-fields">
     <xsl:if test="field">
-      <h4>Fields</h4>      
+      <h4>Fields</h4>
       <xsl:call-template name="render-field-list"/>
     </xsl:if>
   </xsl:template>
@@ -329,7 +329,7 @@
             </a>
             <xsl:text> </xsl:text>
           </xsl:if>
-  		  <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
+          <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
         </p>
         <xsl:if test="doc | @label">
           <p class="param-desc">
@@ -360,7 +360,7 @@
       <xsl:value-of select="." />
     </pre>
   </xsl:template>
-  
+
   <xsl:template match="doc[@type='scenario']">
     <!-- noop -->
   </xsl:template>
