@@ -46,11 +46,18 @@ table#constants-table th.col-2 {
 table#constants-table th.col-3 {
   width: 12%;
 }
-table#classes-table th.col-1, table#classes-table th.col-3 {
-  width: 15%;
+table.fields-table {
+  margin: 0 auto 0 0 ;
+  width: auto;
+  table-layout: auto;
+  background-color: #eee;
+  border: 1px solid #555;
 }
-table#classes-table th.col-2, table#classes-table th.col-4 {
-  width: 5%;
+table.fields-table thead {
+  display: none;
+}
+table.fields-table th, table.fields-table td {
+  padding: 0.3em 0.5em;
 }
 ul.rules {
   margin: 0;
@@ -103,11 +110,9 @@ a.back {
   font-size: 0.8em;
   line-height: normal;
   display: inline-block;
-}
-a.totoc {
   margin-left: 0.8em;
 }
-a.tosummary {
+.class a.back {
   float: right;
 }
 .class {
