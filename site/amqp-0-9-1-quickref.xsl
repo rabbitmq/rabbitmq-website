@@ -11,7 +11,7 @@
 
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
-  <xsl:key name="method-key" match="c:method" use="@name" />
+  <xsl:key name="method-key" match="c:method" use="@name" />  
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="class-decorations" select="$decorations/x:decorate[@target='class']"/>
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
@@ -107,8 +107,12 @@
         <xsl:text>)</xsl:text>
       </h4>
       <xsl:if test="parent::x:decorate">
-        <h5 class="extension-method">THIS METHOD IS A RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>
+        <h5 class="amqp-extension">THIS METHOD IS A RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>
       </xsl:if>
+      <xsl:if test="$method-decorations[@name=$qname]/x:field[@override]">
+        <h5 class="amqp-extension"><span class="override">*</span> RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>
+      </xsl:if>
+      <!-- grap the implementation status from the specification page -->
       <xsl:for-each select="$specification">
         <xsl:for-each select="key('method-key', $qname)">
           <p style="float: right; margin: 0"><em>Support: </em>
@@ -126,6 +130,7 @@
         <xsl:call-template name="capitalise">
           <xsl:with-param name="s" select="@label"/>
         </xsl:call-template>
+        <xsl:text>.</xsl:text>
       </p>
       <p>
         <xsl:value-of select="doc[1][not(@type)]"/>
@@ -140,18 +145,27 @@
   </xsl:template>
 
   <xsl:template match="field" mode="render-method-sig">
-    <span class="parameter">
-      <xsl:if test="@domain">
-        <a href="{concat('amqp-0-9-1-reference.html#domain.', @domain)}">
-          <span class="data-type" title="{key('domain-key', @domain)/@type}">
-            <xsl:value-of select="@domain"/>
+    <xsl:variable name="method-qname" select="concat(../../@name, '.', ../@name)"/>
+    <xsl:variable name="override" select="$method-decorations[@name = $method-qname]/x:field[@override = current()/@name]"/>
+    <xsl:variable name="domain" select="$override/@domain | @domain"/>
+    <xsl:variable name="name" select="$override/@name | @name"/>
+    <xsl:variable name="label" select="$override/@label | @label"/>
+    
+    <span class="parameter">      
+      <xsl:if test="$domain">
+        <a href="{concat('amqp-0-9-1-reference.html#domain.', $domain)}">
+          <span class="data-type" title="{key('domain-key', $domain)/@type}">
+            <xsl:value-of select="$domain"/>
           </span>
         </a>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xA0;</xsl:text>
       </xsl:if>
-      <span class="param-name" title="{@label}">
-        <xsl:value-of select="@name"/>
+      <span class="param-name" title="{$label}">
+        <xsl:value-of select="$name"/>
       </span>
+      <xsl:if test="$override">
+        <span class="override">*</span>
+      </xsl:if>
     </span>
     <xsl:if test="position() != last()">
       <xsl:text>, </xsl:text>
@@ -197,6 +211,11 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="x:*">
+    <!-- override default behaviour -->
+  	<xsl:apply-templates/>
+  </xsl:template>
+  
   <x:decorations>
     <x:decorate target="class" name="exchange">
       <method xmlns="" name="bind" label="bind an exchange to an exchange">
@@ -284,6 +303,8 @@
       <!-- x:dotnetdoc ***not impl*** -->
     </x:decorate>
     <x:decorate target="method" name="exchange.declare">
+      <x:field override="reserved-2" name="auto-delete" domain="bit"/>
+      <x:field override="reserved-3" name="internal" domain="bit"/>
       <x:doc>
         <p>
           RabbitMQ implements an extension to the AMQP specification that allows for unroutable messages

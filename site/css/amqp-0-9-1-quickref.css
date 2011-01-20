@@ -34,7 +34,7 @@ h4.method .method-name {
 h4.method .parameter {
   font-style: italic;
 }
-h5.extension-method {
+h5.amqp-extension {
   font-style: italic;
   color: #F60;
 }
@@ -57,4 +57,8 @@ a.back {
 a.doc {
   display: block;
   margin-bottom: 0.5em;
+}
+span.override {
+  font-size: 90%;
+  vertical-align: super;
 }
