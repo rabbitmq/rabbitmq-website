@@ -15,5 +15,10 @@
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
 
-<!ENTITY dir-erlang-windows "C:\Program Files\erl5.7.4">
-<!ENTITY dir-server-windows "C:\Program Files\RabbitMQ">
+<!ENTITY dir-win-apps "C:\Program Files">
+<!ENTITY dir-win64-apps "C:\Program Files (x86)">
+<!ENTITY dir-win-user "C:\Documents and Settings\User">
+<!ENTITY windows-version-erlang "5.7.4">
+
+<!ENTITY dir-erlang-windows "&dir-win-apps;\erl&windows-version-erlang;">
+<!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">

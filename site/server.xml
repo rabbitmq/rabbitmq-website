@@ -216,7 +216,7 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h3>Windows Bundle</h3>
+    <h3 id="windows_bundle">Windows Bundle</h3>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
