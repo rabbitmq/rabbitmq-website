@@ -418,10 +418,6 @@
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
                 should now appear in the Windows Services control panel
                 <nobr>(Start > Run  <code>services.msc</code>).</nobr>
-                Check the service account has full access permission for <b>RABBITMQ_BASE</b>,
-                <b>RABBITMQ_MNESIA_BASE</b> and <b>RABBITMQ_LOG_BASE</b>
-                directories [<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
-                <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
                 </p>
               </dd>
 
@@ -448,14 +444,6 @@
                 "<code>Service <i>RABBITMQ_SERVICENAME</i>
                 started</code>", then the service was started
                 correctly.
-                </p>
-                <p>
-                If the output reads "<code>The process
-                terminated unexpectedly</code>" instead, then the
-                service did not start correctly. Check that the
-                environment variables are set correctly. The logfiles in
-                <code>RABBITMQ_BASE</code> may also contain useful diagnostic
-                information.
                 </p>
                 <p>
                 Confirm the service named <b>RABBITMQ_SERVICENAME</b>
@@ -1055,6 +1043,29 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             <code>MULTI_START_ARGS</code> to
             "<code>-maxwait</code> timeout_in_seconds" (e.g. using rabbitmq.conf).
           </p>
+          </dd>
+          <dt>Windows Service fails to Install</dt>
+          <dd>
+          	If the service fails to install, check the service account has full access permission for
+          	<b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
+          	<b>RABBITMQ_LOG_BASE</b> directories
+          	[<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
+                <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
+          </dd>
+          <dt>Windows Service fails to Start</dt>
+          <dd>
+            <p>
+          	If the service fails to start, make sure the service has been
+          	installed.
+            </p>
+            <p>
+                On starting the service, if the service output reads "<code>The process
+                terminated unexpectedly</code>" instead, then the
+                service did not start correctly. Check that the
+                environment variables are set correctly. The logfiles in
+                <code>RABBITMQ_BASE</code> may also contain useful diagnostic
+                information.
+            </p>
           </dd>
         </dl>
         <p>
