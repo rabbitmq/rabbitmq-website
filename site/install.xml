@@ -227,8 +227,7 @@
             <dt>Customise RabbitMQ Server Environment Variables</dt>
             <dd>
                 You may need to customise some environment variables
-                for your installation,
-                especially if you use a different version of Erlang.
+                for your installation.
                 Environment variable defaults set within the
                 <code>rabbitmq-server.bat</code> file are:
             </dd>
@@ -315,16 +314,9 @@
                Run the command <pre class="sourcecode">rabbitmq-server -detached</pre>
                Alternatively, you can double-click the
                <code>rabbitmq-server.bat</code> file in Windows Explorer.
-              </p>
+              </p>              
               <p>
-                This script only starts the broker.
-                If you enter other options they are ignored,
-                but the command may attempt to start a second broker.
-                If you try to start another broker you may get a
-                <a href="#troubleshooting">crash dump</a> response.
-              </p>
-              <p>
-               If you start by double-clicking a Command Prompt window opens,
+               If you start by double-clicking, a Command Prompt window opens,
                displays a banner message, reports on progress in the startup sequence,
                and concludes with "broker running".
                This shows that the RabbitMQ broker has been started successfully.
@@ -339,6 +331,7 @@
             </dd>
             <dt>Stop or Manage the Broker</dt>
             <dd>
+                <code>rabbitmq-server</code> only starts the broker.
                 To <a href="#managing-windows">manage the broker</a> use
               <code>rabbitmqctl</code> commands.
             </dd>
@@ -914,8 +907,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             <p>
             You can also start the server in "detached" mode with
             <code>rabbitmq-server -detached</code>, in which case the
-            server process is backgrounded immediately and nothing is
-            written to the console.
+            server process runs in the background.
             </p>
             </dd>
             </dl>
@@ -1084,17 +1076,16 @@ MULTI_START_ARGS="-maxwait 40"</pre>
           tool</a> may help in the analysis.
         </p>
         <p>
-          Failing that, it's possible that we've solved the problem for
-          someone else on our
+          Failing that, it's possible that we've solved the problem for someone else.
+          Try using the search box at the top of our web pages to find site,
+          mailing list and blog information.
+           You might also check our
           <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
-          a Google search for something like
-          <a href="http://www.google.co.uk/search?q=erl_crash.dump+site%3Alists.rabbitmq.com">
-          erl_crash.dump site:lists.rabbitmq.com</a> should do the trick,
-          possibly also adding terms for your platform, RabbitMQ/Erlang versions and
+          Try adding terms for your platform, RabbitMQ/Erlang versions and
           anything else relevant to what you were trying to do when things went wrong.
         </p>
         <p>
-          If you can't find a solution to your problem on the list archive then
+          If you still can't find a solution to your problem then
           please post a new message to
           <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>
           (you may have to
