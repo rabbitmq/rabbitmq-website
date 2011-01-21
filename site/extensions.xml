@@ -44,7 +44,7 @@
           message specified in the <code>delivery_tag</code> field of
           the <code>basic.nack</code> method. In this respect,
           <code>basic.nack</code> complements the bulk acknowledgement
-          semnatics of <code>basic.ack</code>.
+          semantics of <code>basic.ack</code>.
         </p>
 
         <doc:subsection name="usage">
@@ -59,7 +59,7 @@ channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);
           </pre>
           <p>
             This example rejects two messages with a single call to
-            the broker (the second <code>boolean</code> argument on
+            the broker (the second argument on
             <code>basicNack</code> is the <code>multiple</code> flag):
           </p>
           <pre class="sourcecode">
