@@ -11,7 +11,7 @@
 
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
-  <xsl:key name="method-key" match="c:method" use="@name" />  
+  <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="class-decorations" select="$decorations/x:decorate[@target='class']"/>
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
@@ -112,7 +112,7 @@
       <xsl:if test="$method-decorations[@name=$qname]/x:field[@override]">
         <h5 class="amqp-extension"><span class="override">*</span> RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>
       </xsl:if>
-      <!-- grap the implementation status from the specification page -->
+      <!-- get the implementation status from the specification page -->
       <xsl:for-each select="$specification">
         <xsl:for-each select="key('method-key', $qname)">
           <p style="float: right; margin: 0"><em>Support: </em>
@@ -150,8 +150,8 @@
     <xsl:variable name="domain" select="$override/@domain | @domain"/>
     <xsl:variable name="name" select="$override/@name | @name"/>
     <xsl:variable name="label" select="$override/@label | @label"/>
-    
-    <span class="parameter">      
+
+    <span class="parameter">
       <xsl:if test="$domain">
         <a href="{concat('amqp-0-9-1-reference.html#domain.', $domain)}">
           <span class="data-type" title="{key('domain-key', $domain)/@type}">
@@ -215,7 +215,7 @@
     <!-- override default behaviour -->
   	<xsl:apply-templates/>
   </xsl:template>
-  
+
   <x:decorations>
     <x:decorate target="class" name="exchange">
       <method xmlns="" name="bind" label="bind an exchange to an exchange">
