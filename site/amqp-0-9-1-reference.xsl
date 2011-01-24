@@ -3,15 +3,13 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:x="http://www.rabbitmq.com/2011/extensions"
-                xmlns:c="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-                exclude-result-prefixes="x c">
+                exclude-result-prefixes="x">
 
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
-  <xsl:variable name="specification" select="document('specification.xml')" />
-  <xsl:key name="method-key" match="c:method" use="@name" />
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.unmodified.xml')"/>
+  <xsl:key name="domain-key" match="domain" use="@name"/>
 
   <xsl:template match="x:insert-spec-here">
     <div id="content-pane">
@@ -20,7 +18,7 @@
       <!-- switch context from source file to spec doc -->
       <xsl:for-each select="$spec-doc/amqp">
           <xsl:call-template name="render-toc" />
-          <xsl:call-template name="render-summary" />
+          <xsl:call-template name="render-content" />
       </xsl:for-each>
       <xsl:if test="not($spec-doc/amqp)">
         <p/>
@@ -36,18 +34,21 @@
         <a href="#protocol-info">Protocol Information</a>
       </li>
       <li>
-        <a href="#classes-summary">Classes and Methods</a>
+        <a href="#classes">Classes</a>
+        <ul class="plain">
+          <xsl:apply-templates select="class" mode="summary"/>
+        </ul>
       </li>
       <li>
-        <a href="#domains-summary">Domains</a>
+        <a href="#domains">Domains</a>
       </li>
       <li>
-        <a href="#constants-summary">Constants</a>
+        <a href="#constants">Constants</a>
       </li>
     </ul>
   </xsl:template>
 
-  <xsl:template name="render-summary">
+  <xsl:template name="render-content">
     <p>
       This page contains a complete reference to version 0-9-1 of the AMQP specification
       as published by the <a href="http://www.amqp.org">AMQP WG</a> in 2008. The <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">
@@ -58,9 +59,12 @@
       to the specification</a>. Please also be aware that RabbitMQ implements <a href="extensions.html">several extensions</a>
       to the core specification that are not documented here.
     </p>
+    <p>
+      You may also be interested in our <a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a>.
+    </p>
     <div>
       <h3 id="protocol-info" class="inline-block">Protocol Information</h3>
-      <xsl:call-template name="render-link-to-toc"/>
+      <xsl:call-template name="render-link-to-top"/>
     </div>
     <dl>
       <dt>Major-minor version:</dt>
@@ -73,30 +77,15 @@
       <dd><xsl:value-of select="@comment" /></dd>
     </dl>
     <div>
-      <h3 id="classes-summary" class="inline-block">Class and Method Summary</h3>
-      <xsl:call-template name="render-link-to-toc"/>
+      <h3 id="classes" class="inline-block">Classes</h3>
+      <xsl:call-template name="render-link-to-top"/>
     </div>
     <p>The following classes, with their associated methods, are defined in the specification:</p>
-    <table id="classes-table">
-      <thead>
-        <tr>
-          <th class="col-1">Class</th>
-          <th class="col-2">ID</th>
-          <th class="col-3">Label</th>
-          <th class="col-4">Method</th>
-          <th class="col-5">ID</th>
-          <th class="col-6">Method Label</th>
-        </tr>
-      </thead>
-      <tbody>
-        <xsl:apply-templates mode="summary" select="class"/>
-      </tbody>
-    </table>
     <xsl:apply-templates select="class" />
     <hr />
     <div>
-      <h3 id="domains-summary" class="inline-block">Domain Summary</h3>
-      <xsl:call-template name="render-link-to-toc"/>
+      <h3 id="domains" class="inline-block">Domains</h3>
+      <xsl:call-template name="render-link-to-top"/>
     </div>
     <p>The following domains are defined in the specification:</p>
     <table id="domains-table">
@@ -108,15 +97,15 @@
         </tr>
       </thead>
       <tbody>
-        <xsl:apply-templates mode="summary" select="domain">
+        <xsl:apply-templates select="domain">
           <xsl:sort select="@name" data-type="text" order="ascending"/>
         </xsl:apply-templates>
       </tbody>
     </table>
     <hr />
     <div>
-      <h3 id="constants-summary" class="inline-block">Constant Summary</h3>
-      <xsl:call-template name="render-link-to-toc"/>
+      <h3 id="constants" class="inline-block">Constants</h3>
+      <xsl:call-template name="render-link-to-top"/>
     </div>
     <p>Many constants are error codes. Where this is so, they fall into one of two categories:</p>
     <ul>
@@ -140,57 +129,17 @@
         </tr>
       </thead>
       <tbody>
-        <xsl:apply-templates mode="summary" select="constant"/>
+        <xsl:apply-templates select="constant"/>
       </tbody>
     </table>
   </xsl:template>
 
   <xsl:template match="class" mode="summary">
-    <tr>
-      <td rowspan="{count(method)}">
-        <a href="{concat('#class.', @name)}"><xsl:value-of select="@name"/></a>
-      </td>
-      <td rowspan="{count(method)}"><xsl:value-of select="@index"/></td>
-      <td rowspan="{count(method)}">
-        <xsl:call-template name="capitalise">
-          <xsl:with-param name="s" select="@label" />
-        </xsl:call-template>
-      </td>
-      <xsl:for-each select="method">
-        <xsl:variable name="label">
-          <xsl:call-template name="capitalise">
-            <xsl:with-param name="s" select="@label" />
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="method-id" select="concat('#', ../@name, '.', @name)" />
-        <xsl:choose>
-          <xsl:when test="position() = 1">
-            <td>
-              <a href="{$method-id}">
-                <xsl:value-of select="@name" />
-              </a>
-            </td>
-            <td><xsl:value-of select="@index"/></td>
-            <td><xsl:value-of select="$label" /></td>
-          </xsl:when>
-          <xsl:otherwise>
-            <tr>
-              <td>
-                <a href="{$method-id}">
-                  <xsl:value-of select="@name" />
-                </a>
-              </td>
-              <td><xsl:value-of select="@index"/></td>
-              <td><xsl:value-of select="$label" /></td>
-            </tr>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:for-each>
-    </tr>
+    <li><a href="{concat('#class.', @name)}"><xsl:value-of select="@name"/></a></li>
   </xsl:template>
 
-  <xsl:template match="constant" mode="summary">
-    <tr>
+  <xsl:template match="constant">
+    <tr id="{concat('constant.', @name)}">
       <td><xsl:value-of select="@name"/></td>
       <td><xsl:value-of select="@value"/></td>
       <td>
@@ -203,7 +152,7 @@
     </tr>
   </xsl:template>
 
-  <xsl:template match="domain" mode="summary">
+  <xsl:template match="domain">
     <tr id="{concat('domain.', @name)}">
       <td><xsl:value-of select="@name"/></td>
       <td><xsl:value-of select="@type"/></td>
@@ -217,109 +166,119 @@
           </xsl:when>
         </xsl:choose>
         <xsl:call-template name="render-rules" />
-        <xsl:call-template name="render-asserts" />
       </td>
     </tr>
   </xsl:template>
 
   <xsl:template match="class">
-    <h3 id="{concat('class.', @name)}" class="inline-block">
+    <div id="{concat('class.', @name)}" class="class">
+    <h3 class="inline-block">
       <xsl:value-of select="@name"/>
     </h3>
-    <xsl:call-template name="render-link-to-classes-summary"/>
-    <xsl:apply-templates select="doc"/>
+    <p>
+      <xsl:call-template name="capitalise">
+        <xsl:with-param name="s" select="@label"/>
+      </xsl:call-template>
+      <xsl:text>.</xsl:text>
+    </p>
+    <p><xsl:apply-templates select="doc"/></p>
     <xsl:call-template name="render-rules" />
     <xsl:call-template name="render-fields" />
     <xsl:call-template name="render-methods" />
+    </div>
   </xsl:template>
 
   <xsl:template name="render-methods">
     <xsl:if test="method">
       <h4>Methods</h4>
-      <p>
-        The <em><xsl:value-of select="@name" /></em> class defines the following methods:
-      </p>
       <xsl:apply-templates select="method" />
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="method">
     <xsl:variable name="method-name" select="concat(../@name, '.', @name)" />
-    <h5 id="{$method-name}" class="inline-block">
-      <xsl:value-of select="$method-name"/>
+    <h5 id="{$method-name}" class="method-sig">
+      <div class="method-name" title="{concat(@name, ' - id:', @index)}">
+        <xsl:value-of select="@name"/>
+        <xsl:text>(</xsl:text>
+      </div>
+      <div class="method-params">
+        <xsl:apply-templates select="field" mode="render-method-sig"/>
+        <xsl:text>)</xsl:text>
+        <xsl:if test="response">
+          <span class="method-retval">
+          <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
+          <xsl:apply-templates select="response" mode="render-method-sig"/>
+          </span>
+        </xsl:if>
+      </div>
     </h5>
-    <xsl:call-template name="render-link-to-classes-summary"/>
-    <dl>
-      <dt>ID:</dt>
-      <dd>
-        <xsl:value-of select="@index"/>
-      </dd>
-      <dt>Purpose:</dt>
-      <dd>
-        <xsl:call-template name="capitalise">
-          <xsl:with-param name="s" select="@label"/>
-        </xsl:call-template>
-      </dd>
-      <dt>Synchronous:</dt>
-      <dd>
-        <xsl:choose>
-          <xsl:when test="@synchronous = '1'">
-            <xsl:text>yes</xsl:text>
-            <xsl:if test="response">
-              <xsl:text>; the expected response is </xsl:text>
-              <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
-                <xsl:value-of select="concat(../@name, '.', response/@name)" />
-              </a>
-            </xsl:if>
-          </xsl:when>
-          <xsl:otherwise>no</xsl:otherwise>
-        </xsl:choose>
-      </dd>
-      <dt>Accepted by:</dt>
-      <dd>
-        <xsl:value-of select="chassis/@name"/>
-      </dd>
-      <dt>Parameters:</dt>
-      <dd>
-        <xsl:variable name="num-fields" select="count(field)" />
-        <xsl:choose>
-          <xsl:when test="$num-fields = 0">none</xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$num-fields" />
-          </xsl:otherwise>
-        </xsl:choose>
-      </dd>
-      <xsl:for-each select="$specification">
-        <xsl:for-each select="key('method-key', $method-name)">
-          <dt>RabbitMQ implementation:</dt>
-          <dd>
-            <xsl:variable name="status" select="current()/c:status/@value"/>
-            <xsl:choose>
-              <xsl:when test="$status = 'ok'">full</xsl:when>
-              <xsl:otherwise><xsl:value-of select="$status" /></xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="current()/c:notes">
-              <xsl:value-of select="concat('; ', current()/c:notes)"/>
-            </xsl:if>
-          </dd>
-        </xsl:for-each>
-      </xsl:for-each>
-    </dl>
-    <xsl:apply-templates select="doc" />
-    <xsl:call-template name="render-parameters" />
+    <p>
+       <xsl:call-template name="capitalise">
+         <xsl:with-param name="s" select="@label"/>
+       </xsl:call-template>
+       <xsl:text>.</xsl:text>
+    </p>
+    <p>
+      <xsl:apply-templates select="doc" />
+    </p>
     <xsl:call-template name="render-rules" />
+    <xsl:call-template name="render-parameters" />
+    <xsl:call-template name="render-link-to-top"/>
+    <xsl:if test="position() != last()">
+      <hr/>
+    </xsl:if>
   </xsl:template>
 
+  <xsl:template match="field" mode="render-method-sig">
+    <a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
+      <span class="parameter">
+        <xsl:choose>
+          <xsl:when test="@domain">
+            <span class="data-type" title="{key('domain-key', @domain)/@type}">
+              <xsl:value-of select="@domain"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+          <xsl:when test="@type">
+            <!-- 'reserved' parameters use @type rather than @domain -->
+            <span class="data-type" title="{@type}">
+              <xsl:value-of select="@type"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+        </xsl:choose>
+        <span class="param-name" title="{@label}">
+          <xsl:value-of select="@name"/>
+        </span>
+      </span>
+    </a>
+    <xsl:if test="position() != last()">
+      <xsl:text>, </xsl:text>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="response" mode="render-method-sig">
+    <a href="{concat('#', ../../@name, '.', @name)}">
+      <xsl:value-of select="@name" />
+    </a>
+    <xsl:if test="position() != last()">
+      <xsl:text> | </xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template name="render-rules">
     <xsl:if test="rule">
-      <p class="rules-label">Rules:</p>
       <ul class="rules">
         <xsl:for-each select="rule">
           <li>
-            <xsl:if test="@name">
-              <em><xsl:value-of select="@name"/></em>
-            </xsl:if>
             <xsl:apply-templates />
+            <xsl:if test="@on-failure">
+              <span>Error code: </span>
+              <a href="{concat('#constant.', @on-failure)}">
+                <xsl:value-of select="@on-failure"/>
+              </a>
+            </xsl:if>
           </li>
         </xsl:for-each>
       </ul>
@@ -329,53 +288,97 @@
   <xsl:template name="render-fields">
     <xsl:if test="field">
       <h4>Fields</h4>
-      <p>The <em><xsl:value-of select="@name" /></em> class defines the following fields:</p>
-      <xsl:call-template name="render-field-table"/>
+      <table class="fields-table">
+        <thead>
+          <tr>
+            <th>Definition</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <xsl:for-each select="field">
+            <xsl:call-template name="render-field"/>
+          </xsl:for-each>
+        </tbody>
+      </table>
     </xsl:if>
   </xsl:template>
 
-  <xsl:template name="render-parameters">
-    <xsl:if test="field">
-      <p>Parameter summary:</p>
-      <xsl:call-template name="render-field-table"/>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template name="render-field-table">
-    <table class="fields-table">
-      <thead>
-        <tr>
-          <th class="col-1">Ordinal</th>
-          <th class="col-2">Name</th>
-          <th class="col-3">Domain</th>
-          <th class="col-4">Purpose</th>
-          <th class="col-5">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <xsl:apply-templates select="field" />
-      </tbody>
-    </table>
-  </xsl:template>
-
-  <xsl:template match="field">
+  <xsl:template name="render-field">
     <tr>
-      <td><xsl:value-of select="position()"/></td>
-      <td><xsl:value-of select="@name"/></td>
       <td>
-        <a href="{concat('#domain.', @domain)}"><xsl:value-of select="@domain"/></a>
+        <xsl:if test="@domain">
+          <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:if>
+        <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
       </td>
-      <td><xsl:value-of select="@label"/></td>
       <td>
-        <xsl:apply-templates select="doc"/>
-        <xsl:call-template name="render-rules" />
-        <xsl:call-template name="render-asserts" />
+        <xsl:choose>
+          <xsl:when test="doc">
+            <xsl:apply-templates select="doc"/>
+          </xsl:when>
+          <xsl:when test="@label">
+            <xsl:call-template name="capitalise">
+              <xsl:with-param name="s" select="@label"/>
+            </xsl:call-template>
+            <xsl:text>.</xsl:text>
+          </xsl:when>
+        </xsl:choose>
       </td>
     </tr>
   </xsl:template>
 
-  <xsl:template match="doc">
-    <p><xsl:value-of select="." /></p>
+  <xsl:template name="render-parameters">
+    <xsl:if test="field">
+      <h5>Parameters:</h5>
+      <xsl:for-each select="field">
+        <xsl:call-template name="render-parameter"/>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="render-parameter">
+    <p id="{concat(../../@name, '.', ../@name, '.', @name)}" class="field">
+      <xsl:choose>
+        <xsl:when test="@domain">
+          <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+        <xsl:when test="@type">
+          <!-- 'reserved' parameters use @type rather than @domain -->
+          <a href="{concat('#domain.', @type)}" title="{@type}">
+            <xsl:value-of select="@type"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+      </xsl:choose>
+      <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
+    </p>
+    <xsl:if test="doc | @label">
+      <p class="param-desc">
+        <xsl:choose>
+          <xsl:when test="doc">
+            <xsl:apply-templates select="doc"/>
+          </xsl:when>
+          <xsl:when test="@label">
+            <xsl:call-template name="capitalise">
+              <xsl:with-param name="s" select="@label"/>
+            </xsl:call-template>
+            <xsl:text>.</xsl:text>
+          </xsl:when>
+        </xsl:choose>
+      </p>
+    </xsl:if>
+    <xsl:call-template name="render-rules" />
+  </xsl:template>
+
+  <xsl:template match="doc[not(@type)]">
+    <xsl:value-of select="." />
   </xsl:template>
 
   <xsl:template match="doc[@type='grammar']">
@@ -386,51 +389,15 @@
   </xsl:template>
 
   <xsl:template match="doc[@type='scenario']">
-    <p>
-      <span class="scenario-label">Test scenario:</span>
-      <span class="scenario-text">
-        <xsl:value-of select="." />
-      </span>
-    </p>
-  </xsl:template>
-
-  <xsl:template name="render-asserts">
-    <xsl:if test="assert">
-      <p class="asserts-label">Value Contraints:</p>
-      <dl class="asserts">
-        <xsl:apply-templates select="assert" />
-      </dl>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="assert">
-    <dt class="assert">
-      <xsl:value-of select="@check" />
-      <xsl:if test="@value | @method | @field">
-        <xsl:text>:</xsl:text>
-      </xsl:if>
-    </dt>
-    <dd class="assert">
-      <xsl:value-of select="concat(@value, ' ')" />
-      <xsl:if test="@method">
-        <xsl:value-of select="concat('method=', @method, ' ')" />
-      </xsl:if>
-      <xsl:if test="@field">
-        <xsl:value-of select="concat('field=', @field)" />
-      </xsl:if>
-    </dd>
+    <!-- noop -->
   </xsl:template>
 
   <xsl:template name="render-disclaimer">
     <xsl:comment> Note: the element IDs in the content section of this document are autogenerated and therefore subject to change </xsl:comment>
   </xsl:template>
 
-  <xsl:template name="render-link-to-toc">
-    <a class="back" href="#toc">(back to toc)</a>
-  </xsl:template>
-
-  <xsl:template name="render-link-to-classes-summary">
-    <a class="back" href="#classes-summary">(back to summary)</a>
+  <xsl:template name="render-link-to-top">
+    <a class="back" href="#">(back to top)</a>
   </xsl:template>
 
   <xsl:template name="capitalise">

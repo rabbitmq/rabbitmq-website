@@ -9,10 +9,14 @@
 }
 #content-pane h4 {
   font-size: 1.2em;
+  margin: 1.0em 0 0.5em 0;
 }
 #content-pane h5 {
-  font-size: 1.1em;
-  margin: 1.0em 0 0.5em 0;
+  font-size: 1.0em;
+  margin: 0.5em 0;
+}
+#content-pane p {
+  margin: 0.5em 0;
 }
 table {
   width: 100%;
@@ -21,9 +25,6 @@ table {
   border-width: thin;
   border-style: outset;
   border-collapse: collapse;
-}
-table p {
-  margin: 0;
 }
 table thead {
   background-color: #ccc;
@@ -45,20 +46,18 @@ table#constants-table th.col-2 {
 table#constants-table th.col-3 {
   width: 12%;
 }
-table#classes-table th.col-1, table#classes-table th.col-4 {
-  width: 15%;
+table.fields-table {
+  margin: 0 auto 0 0 ;
+  width: auto;
+  table-layout: auto;
+  background-color: #eee;
+  border: 1px solid #555;
 }
-table#classes-table th.col-2, table#classes-table th.col-5 {
-  width: 5%;
+table.fields-table thead {
+  display: none;
 }
-table.fields-table th.col-1 {
-  width: 8%;
-}
-table.fields-table th.col-2, table.fields-table th.col-4 {
-  width: 15%;
-}
-table.fields-table th.col-3 {
-  width: 12%;
+table.fields-table th, table.fields-table td {
+  padding: 0.3em 0.5em;
 }
 ul.rules {
   margin: 0;
@@ -68,21 +67,24 @@ ul.rules li {
   margin: 0;
   padding: 6px 0 0 10px;
 }
-span.scenario-label {
-  font-weight: bold;
+p.grammar-label {
+  font-style: italic;
+  margin: 0 !important;
 }
 pre.code {
-  width=100%;
+  font-size: 0.9em;
   border: 1px solid #e4e4e4;
-  padding-top: 5px;
+  padding: 5px 0 0 0;
+  width: auto;
+  margin: 0;
 }
 dl {
+  float: left;
   width: 100%;
-  overflow: hidden;
   font-size: 0.9em;
+  margin: 0 0 0.5em 0;
 }
 dl, dt, dd {
-  margin: 0;
   padding: 0;
 }
 dt {
@@ -106,19 +108,47 @@ dd {
 }
 a.back {
   font-size: 0.8em;
+  line-height: normal;
   display: inline-block;
   margin-left: 0.8em;
-  margin-bottom: 0.5em;
+}
+.class a.back {
+  float: right;
+}
+.class {
+  margin: 1.5em 0;
+  border: 1px solid #555;
+  padding: 1em;
+  background-color: #eee;
+}
+.class h3 {
+ margin-top: 0;
+}
+.method-sig {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.1em !important;
+  float: left;
+  width: 100%;
+}
+.method-name {
+  float: left;
+}
+.method-params {
+  float: left;
+  width: 85%;
+}
+.method-retval, .parameter {
+  white-space: nowrap;
 }
 .inline-block {
   display: inline-block;
 }
-p.asserts-label, p.rules-label, .rules em, .rules p {
-  margin: 0.4em 0;
+p.param-desc {
+  padding-left: 10px;
 }
-dt.assert {
+.field-name, .param-name {
+  font-style: italic;
   font-weight: normal;
-  margin-left: 1em;
 }
 hr {
   visibility: visible;
