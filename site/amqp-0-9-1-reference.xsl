@@ -235,12 +235,21 @@
   <xsl:template match="field" mode="render-method-sig">
     <a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
       <span class="parameter">
-        <xsl:if test="@domain">
-          <span class="data-type" title="{key('domain-key', @domain)/@type}">
-            <xsl:value-of select="@domain"/>
-          </span>
-          <xsl:text>&#xA0;</xsl:text>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="@domain">
+            <span class="data-type" title="{key('domain-key', @domain)/@type}">
+              <xsl:value-of select="@domain"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+          <xsl:when test="@type">
+            <!-- 'reserved' parameters use @type rather than @domain -->
+            <span class="data-type" title="{@type}">
+              <xsl:value-of select="@type"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+        </xsl:choose>
         <span class="param-name" title="{@label}">
           <xsl:value-of select="@name"/>
         </span>
@@ -326,12 +335,21 @@
 
   <xsl:template name="render-parameter">
     <p id="{concat(../../@name, '.', ../@name, '.', @name)}" class="field">
-      <xsl:if test="@domain">
-        <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
-          <xsl:value-of select="@domain"/>
-        </a>
-        <xsl:text> </xsl:text>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@domain">
+          <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+        <xsl:when test="@type">
+          <!-- 'reserved' parameters use @type rather than @domain -->
+          <a href="{concat('#domain.', @type)}" title="{@type}">
+            <xsl:value-of select="@type"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+      </xsl:choose>
       <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
     </p>
     <xsl:if test="doc | @label">
