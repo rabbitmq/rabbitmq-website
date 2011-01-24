@@ -165,7 +165,7 @@
                 <p>
                 <em>Note: </em>On Vista/Windows7 you will need to
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
-                (e.g. right click on the icon to select Run as Administrator).
+                (e.g. right-click on the icon to select Run as Administrator).
                 </p>
               </dd>
               <dt>Find Commands Easily</dt>
@@ -314,7 +314,7 @@
                Run the command <pre class="sourcecode">rabbitmq-server -detached</pre>
                Alternatively, you can double-click the
                <code>rabbitmq-server.bat</code> file in Windows Explorer.
-              </p>              
+              </p>
               <p>
                If you start by double-clicking, a Command Prompt window opens,
                displays a banner message, reports on progress in the startup sequence,
@@ -323,7 +323,7 @@
               </p>
               <p>
               If you started without the <code>-detached</code> option,
-              e.g. by double clicking, you will need a second Command Prompt
+              e.g. by double-clicking, you will need a second Command Prompt
               window to control the application cleanly.
               <em>Note: </em> Closing the original Command Prompt window
               will forcefully shut down a server started this way.
@@ -448,7 +448,7 @@
                 </dd>
                 <dt>Manage the Broker</dt>
                 <dd>
-  
+
                 To <a href="#managing-windows">manage the broker</a> use
                 <code>rabbitmqctl</code> commands.
               </dd>
@@ -970,7 +970,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             <p>
               You can use <code>rabbitmqctl status</code>
               to verify whether a broker is running.<br />
-              Normal output from a running broker without plugins follow this pattern:
+              Normal output from a running broker without plugins follows this pattern:
               <pre>
   Status of node 'rabbit@xxx' ...
   [{running_applications,[{rabbit,"RabbitMQ","&version-server;"},
@@ -1080,9 +1080,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
           Try using the search box at the top of our web pages to find site,
           mailing list and blog information.
            You might also check our
-          <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>
-          Try adding terms for your platform, RabbitMQ/Erlang versions and
-          anything else relevant to what you were trying to do when things went wrong.
+          <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>.
         </p>
         <p>
           If you still can't find a solution to your problem then
@@ -1146,33 +1144,9 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         </p>
         <p>
            This configuration file is not the same as
-          <code>rabbitmq.conf</code> which can be used to set environment
+          <code>rabbitmq.conf</code>, which can be used to set environment
           variables. A future release of RabbitMQ will unify the two configuration
           mechanisms.
-        </p>
-      </doc:section>
-       <doc:section name="uninstall">
-        <doc:heading>Uninstall/Upgrade RabbitMQ Server</doc:heading>
-        <p>
-        First, use <code>rabbitmqctl stop</code> to stop any running broker.
-        </p>
-        <p>
-        Generally, on Linux-like systems, you can use your package manager
-        to uninstall or upgrade the RabbitMQ server.
-        </p>
-        <p>
-        On Windows, use
-        <code>rabbitmq-service.bat remove</code> to remove any
-        RabbitMQ service then simply delete the unwanted
-        rabbitmq_server folder from <code>&dir-win-apps;</code>.
-        If you are upgrading, just extract the new version to the same place as before
-        and edit environment variables to ensure the new files are found.
-        </p>
-        <p>
-        If you are not upgrading, you can also remove the RabbitMQ log and Mnesia folders.
-        Erlang can be uninstalled via package manager, or on Windows via
-        Settings > Control Panel > Add and Remove Programs.
-        Remove environment variables that are not needed.
         </p>
       </doc:section>
     </doc:div>
