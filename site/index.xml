@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Messaging that just works</title>
   </head>
@@ -17,7 +17,7 @@
 	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
 	</a></span>Latest News
       </h3>
-      <feed src="news.atom" type="ournews" limit="3" />
+      <doc:homefeed src="news.atom" type="ournews" limit="3" />
 
     <div class="">
 	<h3>
@@ -26,7 +26,7 @@
 	</a>
 	</span>
 	Latest Community Chatter</h3>
-	<feed src="../feeds/twitter.atom" type="twitter" limit="4"/>
+	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="4"/>
     </div>
 
     </div>
@@ -57,9 +57,9 @@
 
     <h3>How Do I Get Started?</h3>
     <ul>
-      <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
+      <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
       <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
-      <li>Just <a href="how.html">tell me more</a></li>
+      <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 
     <div class="">
@@ -69,7 +69,7 @@
 	</a></span>
 	Latest Community Highlights
 	</h3>
-	<feed src="../feeds/delicious.rss" type="delicious" limit="3"/>
+	<doc:homefeed src="../feeds/delicious.rss" type="delicious" limit="3"/>
 	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
     </div>
 

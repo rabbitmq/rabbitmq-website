@@ -45,4 +45,52 @@
                  </li> -->
           </ul>
         </li>
+
+        <li class="tutorial-four">
+          <h2><span class="tute-num">4</span> <a href="tutorial-four-python.html">Routing</a></h2>
+          <p>
+	    Receiving messages selectively
+          </p>
+          <p><img src="img/tutorials/python-four.png" height="60"/></p>
+          <ul>
+            <li>
+              <a href="tutorial-four-python.html">In Python</a>
+            </li>
+            <!-- <li>
+                 <a href="tutorial-four-java.html">In Java</a>
+                 </li> -->
+          </ul>
+        </li>
+
+        <li class="tutorial-five">
+          <h2><span class="tute-num">5</span> <a href="tutorial-five-python.html">Topics</a></h2>
+          <p>
+	    Receiving messages based on a pattern
+          </p>
+          <p><img src="img/tutorials/python-five.png" height="60"/></p>
+          <ul>
+            <li>
+              <a href="tutorial-five-python.html">In Python</a>
+            </li>
+            <!-- <li>
+                 <a href="tutorial-five-java.html">In Java</a>
+                 </li> -->
+          </ul>
+        </li>
+
+        <li class="tutorial-six">
+          <h2><span class="tute-num">6</span> <a href="tutorial-six-python.html">RPC</a></h2>
+          <p>
+	    Remote procedure call implementation
+          </p>
+          <p><img src="img/tutorials/python-six.png" height="60"/></p>
+          <ul>
+            <li>
+              <a href="tutorial-six-python.html">In Python</a>
+            </li>
+            <!-- <li>
+                 <a href="tutorial-six-java.html">In Java</a>
+                 </li> -->
+          </ul>
+        </li>
       </ul>

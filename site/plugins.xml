@@ -86,6 +86,21 @@
     </ul>
 
 
+    <h3 id="rabbitmq-auth-mechanism-ssl">rabbitmq-auth-mechanism-ssl</h3>
+
+    <p>
+      Authentication mechanism plugin using SASL EXTERNAL to
+      authenticate using SSL client certificates.  See
+      the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+      for more information.
+    </p>
+
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-mechanism-ssl-&version-server;.ez">rabbitmq-auth-mechanism-ssl</a></li>
+    </ul>
+
+
     <h3 id="rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</h3>
 
     <p>
@@ -97,6 +112,7 @@
     <ul>
       <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
+      <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
       <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
@@ -227,29 +243,21 @@
     the scope of this page.</p>
 
     <h2>Plugin source repositories</h2>
-    <p>You can also build plugins from source. The following table
-    lists the repositories of our plugins and their dependencies.</p>
+    <p>
+      You can also build plugins from source. We do not explicitly
+      release source tarballs for plugins, but the repositories can
+      all be found on our <a href="http://hg.rabbitmq.com/">Mercurial
+      server</a>. See the <a href="plugin-development.html">plugin
+      development</a> guide for more information on building plugins
+      from source.
+    </p>
+    <p>
+      Note that plugins tend to be strongly bound to the a certain
+      version of rabbitmq-server. For example, if you are running
+      RabbitMQ &version-server;, you should check out all plugins with
+      the tag <code>&version-server-hg;</code>.
+    </p>
 
-    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" type="plugin">
-      <repository type="hg" shortname="rabbitmq-jsonrpc-channel"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/"/>
-      <repository type="hg" shortname="rabbitmq-shovel"
-		  url="http://hg.rabbitmq.com/rabbitmq-shovel/"/>
-      <repository type="hg" shortname="rabbitmq-stomp"
-		  url="http://hg.rabbitmq.com/rabbitmq-stomp/"/>
-      <repository type="hg" shortname="rabbitmq-xmpp"
-		  url="http://hg.rabbitmq.com/rabbitmq-xmpp/"/>
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-		  url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
-      <repository type="github" shortname="erlang-rfc4627"
-                  url="http://github.com/tonyg/erlang-rfc4627"/>
-      <repository type="hg" shortname="rabbitmq-jsonrpc"
-                  url="http://hg.rabbitmq.com/rabbitmq-jsonrpc/"/>
-      <repository type="hg" shortname="rabbitmq-mochiweb"
-                  url="http://hg.rabbitmq.com/rabbitmq-mochiweb/"/>
-    </repositories>
-
-    <p/>
     <h2>Compatibility</h2>
     <p><a name="compatibility"/>
       We compile the plugins when we make a release of the server, so

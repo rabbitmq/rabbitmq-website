@@ -82,6 +82,11 @@ $ make</pre>
 	  <li>
 	    a recent version of <a href="http://www.gnu.org/software/make/">GNU make</a>
 	  </li>
+
+          <li>
+            a recent version of <i>xsltproc</i>, which is part of
+            <a href="http://xmlsoft.org/XSLT/">libxslt</a>
+          </li>
 	</ul>
 
       </doc:section>

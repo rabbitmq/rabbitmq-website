@@ -110,15 +110,9 @@ h2 {
 
 h3 {
 	color: #f60;
-	font-size: 1.5em;
-	}
-
-h4 {
-	font-family: Helvetica, Arial, sans-serif;
 	font-size: 1.2em;
 	}
-	
-	
+
 .col {
 	float: left;
 	width: 49.5%;
@@ -164,13 +158,6 @@ h4 {
 	float: right;
 	font-size: 12px;
 	font-weight: normal;
-}
-
-.col h4 {
-	margin: 0 1em 0 0;
-	padding: 0px 10px 0px 0px;
-	font-size: 12px;
-	line-height: 12px;
 }
 
 ul {
@@ -345,7 +332,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-span.code {
+span.code, pre.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
@@ -496,16 +483,7 @@ ol.feed {
 	padding-top: 1em;
 	padding-bottom: 1em;
 }
-.downloadlabel a h4 {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-.downloadlabel a:hover h4 {
-	text-decoration: underline;
-	display: block;
-	margin-top: 0px;
-	padding-bottom: 0px;
-}
+
 .subscribe {
         float: right;
 }
@@ -577,10 +555,6 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
   float: left;
 }
 
-#getting_here h4 {
-  font-size: 1em;
-}
-
 /* Tutorials */
 
 #tutorial {
@@ -597,6 +571,9 @@ p.warning { color: black; background: #ff8; border: 2px solid #880; font-weight:
 #sidebar.tutorial-one #tutorials > li.tutorial-one { border-color: #444; }
 #sidebar.tutorial-two #tutorials > li.tutorial-two { border-color: #444; }
 #sidebar.tutorial-three #tutorials > li.tutorial-three { border-color: #444; }
+#sidebar.tutorial-four #tutorials > li.tutorial-four { border-color: #444; }
+#sidebar.tutorial-five #tutorials > li.tutorial-five { border-color: #444; }
+#sidebar.tutorial-six #tutorials > li.tutorial-six { border-color: #444; }
 
 ul#tutorials {
    list-style-type: none;
@@ -647,7 +624,6 @@ ul#tutorials > li {
 #tutorial pre {
     background-color: #eee;
     padding: 5px 15px;
-    margin: 12px;
     border-radius:5px;
     -moz-border-radius: 5px;
 }
@@ -668,6 +644,7 @@ ul#tutorials > li {
 
 #tutorial blockquote {
     padding: 2px 12px;
+    margin: 40px 6px;
     border: 1px solid #aaa;
     background: #ddd;
     border-radius: 5px;
@@ -735,6 +712,13 @@ ul#tutorials > li {
     display: none;
 }
 
+#tutorial .teaser_answer {
+    display: none;
+}
+
+.screenshots { margin: 20px 0 0 0; }
+.screenshots th { font-weight: normal; }
+.screenshots th, .screenshots td { text-align: center; }
 
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
