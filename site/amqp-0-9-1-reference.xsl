@@ -207,10 +207,8 @@
         <xsl:text>)</xsl:text>
         <xsl:if test="response">
           <span class="method-retval">
-          <xsl:text> &#x2794; </xsl:text>
-          <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
-            <xsl:value-of select="response/@name" />
-          </a>
+          <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
+          <xsl:apply-templates select="response" mode="render-method-sig"/>
           </span>
         </xsl:if>
       </div>
@@ -260,6 +258,15 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="response" mode="render-method-sig">
+    <a href="{concat('#', ../../@name, '.', @name)}">
+      <xsl:value-of select="@name" />
+    </a>
+    <xsl:if test="position() != last()">
+      <xsl:text> | </xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template name="render-rules">
     <xsl:if test="rule">
       <ul class="rules">
