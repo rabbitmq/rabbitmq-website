@@ -129,7 +129,7 @@
 		
 		<dt>RABBITMQ_NODE_IP_ADDRESS</dt>
 		<dd>
-		  Defaults to "<code></code>" - meaning bind to all
+		  Defaults to the empty string - meaning bind to all
 		  network interfaces. This can be changed if you only
 		  want to bind to one network interface.
 		</dd>
@@ -616,7 +616,7 @@
 		
 		<dt>RABBITMQ_NODE_IP_ADDRESS</dt>
 		<dd>
-		  Defaults to "<code></code>" - meaning bind to all
+		  Defaults to the empty string - meaning bind to all
 		  network interfaces. This can be changed if you only
 		  want to bind to one network interface.
 		</dd>
