@@ -204,10 +204,15 @@ server testca
           to it. These settings are all controlled by two arguments to RabbitMQ:</p>
 
           <ul class="plain">
-            <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a list of ports and <code class="">{IpAddress, Port}</code> pairs which tells
-            RabbitMQ to listen on these addresses and ports for SSL
-            connections. Setting the <b>IpAddress</b> to <b>0.0.0.0</b> tells
-            RabbitMQ to listen on all available interfaces.</p></li>
+            <li>
+              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
+              <p>
+                This is a list of ports to listen on for SSL
+                connections. To listen on a single network interface,
+                add something like <code class="">{"127.0.0.1",
+                5671}</code> to the list.
+              </p>
+            </li>
             <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code class="">new_ssl</code> options. The complete list
             of ssl_options is available via the <code class="">new_ssl</code> man page:
             i.e. <code class="">erl -man new_ssl</code>, but the most important are <code class="">cacertfile</code>, <code class="">certfile</code> and <code class="">keyfile</code>.</p></li>
