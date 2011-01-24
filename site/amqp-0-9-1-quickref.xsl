@@ -105,6 +105,12 @@
         <xsl:text>(</xsl:text>
         <xsl:apply-templates select="field" mode="render-method-sig"/>
         <xsl:text>)</xsl:text>
+        <xsl:if test="response">
+          <span class="method-retval">
+            <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
+            <xsl:value-of select="response/@name" />            
+          </span>
+        </xsl:if>
       </h4>
       <xsl:if test="parent::x:decorate">
         <h5 class="amqp-extension">THIS METHOD IS A RABBITMQ-SPECIFIC EXTENSION OF AMQP</h5>

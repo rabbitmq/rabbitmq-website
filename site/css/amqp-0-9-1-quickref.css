@@ -28,10 +28,13 @@ h4.method {
   font-family: "Courier New", Courier, monospace;
   margin-top: 0.5em;
 }
-h4.method .method-name {
+h4.method .method-name, h4.method .method-retval {
   font-weight: bold;
 }
 h4.method .parameter {
+  white-space: nowrap;
+}
+h4.method .param-name {
   font-style: italic;
 }
 h5.amqp-extension {
