@@ -9,7 +9,7 @@
 
   <xsl:output method="html" indent="yes"/>
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.unmodified.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
@@ -60,7 +60,7 @@
         <xsl:value-of select="@name"/>
       </a>
       <ul class="plain">
-        <xsl:apply-templates select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method" mode="toc">
+        <xsl:apply-templates select="method[not(contains(@name, '-ok'))][not(@name = 'get-empty')] | $class-decorations[@name = current()/@name]/method" mode="toc">
           <xsl:sort select="@name" data-type="text" order="ascending"/>
         </xsl:apply-templates>
       </ul>
@@ -85,7 +85,7 @@
         <xsl:with-param name="s" select="@name"/>
       </xsl:call-template>
     </h3>
-    <xsl:apply-templates select="method[not(contains(@name, '-ok'))] | $class-decorations[@name = current()/@name]/method">
+    <xsl:apply-templates select="method[not(contains(@name, '-ok'))][not(@name = 'get-empty')] | $class-decorations[@name = current()/@name]/method">
       <xsl:sort select="@name" data-type="text" order="ascending" />
     </xsl:apply-templates>
   </xsl:template>
@@ -108,7 +108,7 @@
         <xsl:if test="response">
           <span class="method-retval">
             <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
-            <xsl:value-of select="response/@name" />            
+            <xsl:apply-templates select="response" mode="render-method-sig"/>            
           </span>
         </xsl:if>
       </h4>
@@ -178,6 +178,13 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="response" mode="render-method-sig">   
+    <xsl:value-of select="@name" />
+    <xsl:if test="position() != last()">
+      <xsl:text> | </xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template name="render-back-to-top">
     <a href="#top" class="back">(back to top)</a>
   </xsl:template>
