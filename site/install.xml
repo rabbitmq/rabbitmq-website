@@ -795,6 +795,7 @@
         </li>
         </ul>
       </p>
+      </doc:section>
       <doc:section name="generic-unix">
         <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
 
