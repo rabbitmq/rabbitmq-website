@@ -207,10 +207,8 @@
         <xsl:text>)</xsl:text>
         <xsl:if test="response">
           <span class="method-retval">
-          <xsl:text> &#x2794; </xsl:text>
-          <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
-            <xsl:value-of select="response/@name" />
-          </a>
+          <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
+          <xsl:apply-templates select="response" mode="render-method-sig"/>
           </span>
         </xsl:if>
       </div>
@@ -235,12 +233,21 @@
   <xsl:template match="field" mode="render-method-sig">
     <a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
       <span class="parameter">
-        <xsl:if test="@domain">
-          <span class="data-type" title="{key('domain-key', @domain)/@type}">
-            <xsl:value-of select="@domain"/>
-          </span>
-          <xsl:text>&#xA0;</xsl:text>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="@domain">
+            <span class="data-type" title="{key('domain-key', @domain)/@type}">
+              <xsl:value-of select="@domain"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+          <xsl:when test="@type">
+            <!-- 'reserved' parameters use @type rather than @domain -->
+            <span class="data-type" title="{@type}">
+              <xsl:value-of select="@type"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+        </xsl:choose>
         <span class="param-name" title="{@label}">
           <xsl:value-of select="@name"/>
         </span>
@@ -251,6 +258,15 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="response" mode="render-method-sig">
+    <a href="{concat('#', ../../@name, '.', @name)}">
+      <xsl:value-of select="@name" />
+    </a>
+    <xsl:if test="position() != last()">
+      <xsl:text> | </xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template name="render-rules">
     <xsl:if test="rule">
       <ul class="rules">
@@ -326,12 +342,21 @@
 
   <xsl:template name="render-parameter">
     <p id="{concat(../../@name, '.', ../@name, '.', @name)}" class="field">
-      <xsl:if test="@domain">
-        <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
-          <xsl:value-of select="@domain"/>
-        </a>
-        <xsl:text> </xsl:text>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@domain">
+          <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+        <xsl:when test="@type">
+          <!-- 'reserved' parameters use @type rather than @domain -->
+          <a href="{concat('#domain.', @type)}" title="{@type}">
+            <xsl:value-of select="@type"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+      </xsl:choose>
       <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
     </p>
     <xsl:if test="doc | @label">
