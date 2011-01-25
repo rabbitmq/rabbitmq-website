@@ -774,6 +774,7 @@
 
       <doc:section name="solaris">
 	<doc:heading>Solaris</doc:heading>
+	    <doc:subsection name="installing-solaris">
 	  <doc:heading>Installation Instructions</doc:heading>
 	  <p>
         The  <a href="#generic-unix">Generic Unix Installation Instructions</a>
@@ -795,6 +796,7 @@
         </li>
         </ul>
       </p>
+	    </doc:subsection>
       </doc:section>
       <doc:section name="generic-unix">
         <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
