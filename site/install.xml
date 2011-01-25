@@ -890,9 +890,7 @@
 NODENAME=bunny
 #Timeout in seconds
 MULTI_START_ARGS="-maxwait 40"</pre>
-              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.
-5.man.html">info on using rabbitmq.conf</a>
-
+              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.5.man.html">info on using rabbitmq.conf</a>
             </p>
             </dd>
             <dt>Start the Server</dt>
