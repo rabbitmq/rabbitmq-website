@@ -586,11 +586,7 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <p>
             For instance, if this were the only field we needed to set, we would simply create the RabbitMQ config file with the contents:
           </p>
-          <pre class="sourcecode">[
-  {rabbit, [
-  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}
-  ]},
-].</pre>
+          <pre class="sourcecode">[{rabbit, [{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}]}].</pre>
           <p>
             (Note for Erlang programmers and the curious: this is a
             standard Erlang configuration file.  For more details, see
@@ -660,9 +656,7 @@ Status of node rabbit@rabbit3 ...
 	    <code>rabbitmq-server.bat</code> on Windows). You must
 	    ensure that for each invocation you set the environment
 	    variables <code>RABBITMQ_NODENAME</code> and
-	    <code>RABBITMQ_NODE_PORT</code> (and /
-	    or <code>RABBITMQ_NODE_IP_ADDRESS</code>) to suitable
-	    values.
+	    <code>RABBITMQ_NODE_PORT</code> to suitable values.
           </p>
           <p>For example:</p>
           <pre class="sourcecode">

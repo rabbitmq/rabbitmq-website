@@ -9,7 +9,7 @@
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
-<xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
+<xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
   <xsl:template match="html:head">
     <head>
@@ -88,7 +88,7 @@ try{
         <a href="/contact.html">Contact</a> |
         <a href="/about.html">About</a>
       </p>
-      <p>Copyright &#169; 2010 VMware, Inc. All rights reserved.</p>
+      <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
     </div>
   </xsl:template>
 
@@ -380,7 +380,7 @@ try{
   </xsl:template>
 
   <xsl:template match="r:class|r:method">
-    <tr>
+    <tr id="{concat(local-name(), '-status-', @name)}">
       <td class="statusCell status_{r:status/@value}">
 	<xsl:apply-templates select="r:status"/>
       </td>
