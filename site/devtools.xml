@@ -1,5 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>RabbitMQ - Developer &amp; Platform Tools</title>
@@ -17,7 +20,7 @@
       div#content div.box {
         padding: 1em;
         border: 1px solid #555;
-        background-color: #E4E4E4;
+        background-color: #eee;
         margin-bottom: 1.5em;
       }
       div#toc h3 {
@@ -25,6 +28,11 @@
       }
       div#content div.box h3 {
         margin: 0 0 0.5em 0;
+      }
+      div#content a.top {
+        margin: 0.1em 0 0.5em 0;
+        font-size: 0.8em;
+        float: right;
       }
     </style>
   </head>
@@ -132,6 +140,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -211,6 +220,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -257,6 +267,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -288,6 +299,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -322,6 +334,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -336,6 +349,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -359,6 +373,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -424,6 +439,7 @@
             <a href="http://kaazing.net/documentation/howto-amqp-silverlight.html">AMQP with Kaazing Enterprise Gateway and Microsoft Silverlight</a>
             <br />
             Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Silverlight
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -438,6 +454,7 @@
           </li>
           <li>
             An <a href="http://github.com/dg1sbg/RabbitMQ_C_VS_Unix">ANSI C compliant library</a> providing a C language interface to RabbitMQ
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -456,6 +473,7 @@
           <li>
             <a href="http://github.com/dreid/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
             based on the <a href="http://www.rabbitmq.com/plugins.html#rabbitmq-erlang-client">rabbit-erlang-client</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -470,6 +488,7 @@
           </li>
           <li>
             <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -481,6 +500,7 @@
           </li>
           <li>
             <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -495,6 +515,7 @@
           </li>
           <li>
             The <a href="http://rabbitmqonopenvs.blogspot.com/2010/01/rabbitmq-on-openvms.html">RabbitMQ on OpenVMS blog</a>
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -502,10 +523,14 @@
         <h3>CLI</h3>
         <ul class="plain">
           <li>
+            <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-cli/index.html">rabbitmqadmin</a>, the RabbitMQ Management command line tool
+          </li>
+          <li>
             <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
           </li>
           <li>
             <a href="http://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
+            <a class="top" href="#top">(back to top)</a>
           </li>
         </ul>
       </div>
@@ -574,8 +599,7 @@
       </li>
       <li>
         <a href="http://del.icio.us/alexisrichardson/rabbitmq+client">RabbitMQ Clients on del.icio.us</a>
-        <br />
-        More links to various client configurations on the social bookmarking site.
+		<a class="top" href="#top">(back to top)</a>
       </li>
     </ul>
     </div>
