@@ -538,6 +538,9 @@ ha-node-3:~#
         <code>RABBITMQ_*</code> environment variables that can be used
         to configure Rabbit. They are:</p>
         <dl>
+          <dt>server</dt>
+          <dd>The path to the rabbitmq-server script</dd>
+
           <dt>ctl</dt>
           <dd>The path to the rabbitmqctl script</dd>
 
