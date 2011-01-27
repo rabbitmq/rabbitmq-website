@@ -7,38 +7,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Developer &amp; Platform Tools</title>
-    <style type="text/css">
-      div#innerContainer {
-        margin-top: 2em;
-      }
-      div#toc {
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
-      }
-      div#content {
-        display: inline-block;
-        width: 80%;
-        height: 100%;
-      }
-      div#content div.box {
-        padding: 1em;
-        border: 1px solid #555;
-        background-color: #eee;
-        margin-bottom: 1.5em;
-      }
-      div#toc h3 {
-        margin-top: 1em;
-      }
-      div#content div.box h3 {
-        margin: 0 0 0.5em 0;
-      }
-      div#content a.top {
-        margin: 0.1em 0 0.5em 0;
-        font-size: 0.8em;
-        float: right;
-      }
-    </style>
+    <link rel="stylesheet" rev="stylesheet" href="/css/devtools.css" type="text/css"/>
   </head>
   <body>
     <doc:div>
