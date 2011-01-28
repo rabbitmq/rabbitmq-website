@@ -8,7 +8,7 @@
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.unmodified.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
   <xsl:template match="x:insert-spec-here">
