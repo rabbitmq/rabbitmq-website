@@ -279,7 +279,7 @@ try{
 
   <xsl:template match="r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
+      <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
