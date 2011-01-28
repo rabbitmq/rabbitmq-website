@@ -784,10 +784,10 @@
               <li>
                 The RabbitMQ shell scripts assume a standard POSIX environment.
                 On Solaris this requires that startup scripts be executed with
-                the <nobr><code>/usr/xpg4/bin/sh</code></nobr> shell. This can
+                the <code>/usr/xpg4/bin/sh</code> shell. This can
                 be accomplished by replacing the first line of each script
-                (which normally reads <nobr><code>#!/bin/sh</code></nobr>) with
-                <nobr><code>#!/bin/xpg4/bin/sh</code></nobr>.
+                (which normally reads <code>#!/bin/sh</code>) with
+                <code>#!/bin/xpg4/bin/sh</code>.
               </li>
               <li>
                 The RabbitMQ shell scripts assume the existence of the
