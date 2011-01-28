@@ -49,7 +49,7 @@
 
   <xsl:template name="render-content">
     <p>
-      This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The 
+      This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The
       <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">original specification</a> was published by
       the <a href="http://www.amqp.org">AMQP WG</a> in 2008 and is made available under the
       <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.

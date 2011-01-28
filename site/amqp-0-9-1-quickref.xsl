@@ -12,7 +12,7 @@
   <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
-  <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" /> 
+  <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
   <xsl:variable name="javadoc-root">http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/</xsl:variable>
   <xsl:variable name="dotnetdoc-root">http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v2.2.0/rabbitmq-dotnet-client-2.2.0-client-htmldoc/html/</xsl:variable>
@@ -242,7 +242,7 @@
 
   <xsl:template match="x:*">
     <!-- override default behaviour -->
-  	<xsl:apply-templates/>
+    <xsl:apply-templates/>
   </xsl:template>
 
   <x:decorations>
@@ -311,7 +311,7 @@
       <x:amqp-extension />
     </x:decorate>
     <x:decorate target="method" name="confirm.select">
-      <x:url href="http://www.rabbitmq.com/extensions.html#confirms" label="RabbitMQ Documentation"/>     
+      <x:url href="http://www.rabbitmq.com/extensions.html#confirms" label="RabbitMQ Documentation"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
