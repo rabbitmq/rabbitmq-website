@@ -34,7 +34,7 @@ h4.method {
 h4.method .method-name, h4.method .method-retval {
   font-weight: bold;
 }
-h4.method .parameter {
+h4.method .parameter, h4.method .method-retval {
   white-space: nowrap;
 }
 h4.method .param-name {
