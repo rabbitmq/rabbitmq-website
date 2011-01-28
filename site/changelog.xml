@@ -1,0 +1,135 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Changelog</title>
+  </head>
+  <body>
+    <doc:div>
+      <h1>RabbitMQ changelog</h1>
+      <table>
+        <tr>
+          <th>Version</th>
+          <th>Release Date</th>
+          <th>Highlights</th>
+        </tr>
+        <tr>
+          <td>2.3.0</td>
+          <td>???</td>
+          <td>
+            Confirm mode<br/>
+            Pluggable authentication backends / SASL mechanisms<br/>
+            IPv6 support
+          </td>
+        </tr>
+
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-November/000031.html">2.2.0</a></td>
+          <td>30 Nov 2010</td>
+          <td>
+            Per-queue message TTL<br/>
+            Automatic upgrades
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-October/000030.html">2.1.1</a></td>
+          <td>20 Oct 2010</td>
+          <td>
+            Exchange to exchange bindings<br/>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-September/000029.html">2.1.0</a></td>
+          <td>15 Sept 2010</td>
+          <td>
+           Management plugin <br/>
+
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-August/000028.html">2.0.0</a></td>
+          <td>25 Aug 2010</td>
+          <td>
+            New persister<br/>
+            AMQP 0-9-1<br/>
+            Queue leases<br/>
+            Binary Plugin releases
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html">1.8.1</a></td>
+          <td>15 July 2010</td>
+          <td>
+            Synchronous basic.recover
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html">1.8.0</a></td>
+          <td>16 Jun 2010</td>
+          <td>
+            AMQP 0-9-1 semantics<br/>
+            Exchange type plugins<br/>
+            Backing store plugins<br/>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="3"><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-April/000024.html">RabbitMQ acquired by SpringSource</a></td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-February/000023.html">1.7.2</a></td>
+          <td>16 Feb 2010</td>
+          <td>
+            Enhanced rabbitmqctl
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-January/000021.html">1.7.1</a></td>
+          <td>25 Jan 2010</td>
+          <td>
+            Improved producer throttling
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-October/000020.html">1.7.0</a></td>
+          <td>7 Oct 2009</td>
+          <td>
+            Native SSL support<br/>
+            Plugin mechanism<br/>
+            Configuration file
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-June/000019.html">1.6.0</a></td>
+          <td>17 Jun 2009</td>
+          <td>
+            Prefetch count<br/>
+            Headers exchange<br/>
+            Permissions system<br/>
+            Alternate exchanges
+          </td>
+        </tr>
+
+<!--
+        <tr>
+          <td><a href="">2.2.0</a></td>
+          <td>30 Nov 2009</td>
+          <td>
+            <br/>
+
+          </td>
+        </tr>
+-->
+      </table>
+    </doc:div>
+  </body>
+</html>
