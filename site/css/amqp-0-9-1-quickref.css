@@ -28,6 +28,8 @@ h4.method {
   font-weight: normal;
   font-family: "Courier New", Courier, monospace;
   margin-top: 0.5em;
+  text-indent: -1em;
+  padding-left: 1em;
 }
 h4.method .method-name, h4.method .method-retval {
   font-weight: bold;
@@ -37,6 +39,7 @@ h4.method .parameter {
 }
 h4.method .param-name {
   font-style: italic;
+  font-weight: normal;
 }
 h5.amqp-extension {
   font-style: italic;
