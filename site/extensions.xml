@@ -119,9 +119,23 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
         </p>
 
         <p>
+          In exceptional cases when the broker is unable to handle
+          messages successfully, instead of a <code>basic.ack</code>,
+          the broker will send a <code>basic.nack</code>.  In this
+          context, fields of the <code>basic.nack</code> have the same
+          meaning as the corresponding ones in <code>basic.ack</code>
+          and the <code>requeue</code> field should be ignored.  By
+          nack'ing one or more messages, the broker indicates that it
+          was unable to process the messages and refuses responsibility
+          for them; at that point, the client may choose to re-publish
+          the messages.
+        </p>
+
+        <p>
           After a channel is put into confirm mode, all subsequently
-          published messages will be confirmed once.  No guarantees are
-          made as to how soon a message is confirmed.
+          published messages will be confirmed or nack'd once.  No
+          guarantees are made as to how soon a message is confirmed.
+          No message will be both confirmed and nack'd.
         </p>
 
         <doc:subsection>
