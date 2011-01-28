@@ -49,14 +49,15 @@
 
   <xsl:template name="render-content">
     <p>
-      This page contains a complete reference to version 0-9-1 of the AMQP specification
-      as published by the <a href="http://www.amqp.org">AMQP WG</a> in 2008. The <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">
-      original specification</a> is released under the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
+      This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The 
+      <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">original specification</a> was published by
+      the <a href="http://www.amqp.org">AMQP WG</a> in 2008 and is made available under the
+      <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
     </p>
     <p>
       Elsewhere on this site you can read details of <a href="specification.html">RabbitMQ's conformance
-      to the specification</a>. Please also be aware that RabbitMQ implements <a href="extensions.html">several extensions</a>
-      to the core specification that are not documented here.
+      to the specification</a>. RabbitMQ implements <a href="extensions.html">several extensions</a>
+      to the core specification that are documented in this guide.
     </p>
     <p>
       You may also be interested in our <a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a>.

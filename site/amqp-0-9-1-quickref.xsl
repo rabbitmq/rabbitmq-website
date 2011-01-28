@@ -268,6 +268,7 @@
     </x:decorate>
     <x:decorate target="method" name="basic.nack">
       <x:amqp-extension />
+      <x:url href="http://www.rabbitmq.com/extensions.html#negative-acknowledgements" label="RabbitMQ Documentation"/>
     </x:decorate>
     <x:decorate target="method" name="basic.publish">
       <x:javadoc href="Channel.html#basicPublish(java.lang.String, java.lang.String, boolean, boolean, com.rabbitmq.client.AMQP.BasicProperties, byte[])"/>
@@ -308,6 +309,9 @@
     </x:decorate>
     <x:decorate target="class" name="confirm">
       <x:amqp-extension />
+    </x:decorate>
+    <x:decorate target="method" name="confirm.select">
+      <x:url href="http://www.rabbitmq.com/extensions.html#confirms" label="RabbitMQ Documentation"/>     
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
