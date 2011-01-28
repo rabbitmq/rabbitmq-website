@@ -62,14 +62,6 @@
 		  downloadpath="&dir-java-client;">
 	Binary, compiled for Java 1.5 or newer (tar.gz)
       </r:download>
-      <r:download downloadfile="rabbitmq-java-client-java1.4bin-&version-java-client;.zip"
-		  downloadpath="&dir-java-client;">
-	Binary, compiled for Java 1.4 (zip)
-      </r:download>
-      <r:download downloadfile="rabbitmq-java-client-java1.4bin-&version-java-client;.tar.gz"
-		  downloadpath="&dir-java-client;">
-	Binary, compiled for Java 1.4 (tar.gz)
-      </r:download>
       <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
 	Source code and tools (zip)
