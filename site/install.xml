@@ -593,11 +593,11 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-            	See the <a href="#generic-unix">generic Unix</a> section
-            	for info on <a href="#managing-server-unix">rabbitmqctl</a>
-            	commands and
-            	<a href="#logging-generic-unix">logging</a>, and
-            	to <a href="#configfile">configure components</a>.
+                See the <a href="#generic-unix">generic Unix</a> section
+                for info on <a href="#managing-server-unix">rabbitmqctl</a>
+                commands and
+                <a href="#logging-generic-unix">logging</a>, and
+                to <a href="#configfile">configure components</a>.
             </dd>
             </dl>
         </doc:subsection>
@@ -671,11 +671,11 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-            	See the <a href="#generic-unix">generic Unix</a> section
-            	for info on <a href="#managing-server-unix">rabbitmqctl</a>
-            	commands and
-            	<a href="#logging-generic-unix">logging</a>, and
-            	to <a href="#configfile">configure components</a>.
+                See the <a href="#generic-unix">generic Unix</a> section
+                for info on <a href="#managing-server-unix">rabbitmqctl</a>
+                commands and
+                <a href="#logging-generic-unix">logging</a>, and
+                to <a href="#configfile">configure components</a>.
             </dd>
             </dl>
         </doc:subsection>
@@ -743,34 +743,34 @@
       </doc:section>
 
       <doc:section name="machomebrew">
-	    <doc:heading>Mac OS X with Homebrew</doc:heading>
-	    <p>
+        <doc:heading>Mac OS X with Homebrew</doc:heading>
+        <p>
             A brew for the RabbitMQ server is available from
             <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
            <em>Note: </em>You may not be able to install the RabbitMQ brew from inside a firewall.
            </p>
-	    <doc:subsection name="install-machomebrew">
-	      <doc:heading>Install the Server</doc:heading>
-	      <p>
-	        Before installing make sure you have the latest brews:
-	        <pre>brew update</pre>
+        <doc:subsection name="install-machomebrew">
+          <doc:heading>Install the Server</doc:heading>
+          <p>
+            Before installing make sure you have the latest brews:
+            <pre>brew update</pre>
                 Then, install RabbitMQ server with:
                 <pre>brew install rabbitmq</pre>
               </p>
-	    </doc:subsection>
-	    <doc:subsection name="running-machomebrew">
-	      <doc:heading>Run RabbitMQ Server</doc:heading>
-	      <p>
-	        The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
-	        This is not automatically added to your path, so you may wish to add<br />
-	        <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
-	        or <code>.profile</code>.
-	        The server can then be started with <code>rabbitmq-server</code>.
-	      </p>
-	      <p>
-	        All scripts run under your own user account. Sudo is not required.
+        </doc:subsection>
+        <doc:subsection name="running-machomebrew">
+          <doc:heading>Run RabbitMQ Server</doc:heading>
+          <p>
+            The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
+            This is not automatically added to your path, so you may wish to add<br />
+            <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
+            or <code>.profile</code>.
+            The server can then be started with <code>rabbitmq-server</code>.
           </p>
-	    </doc:subsection>
+          <p>
+            All scripts run under your own user account. Sudo is not required.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="generic-unix">
@@ -1007,9 +1007,9 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               analysis requires Erlang expertise.
             </p>
             <p>
-	      If you attempt to start another server while a broker is already running,
-	      then you will receive an error report.
-	      You can confirm whether the broker is already running by checking the status.
+          If you attempt to start another server while a broker is already running,
+          then you will receive an error report.
+          You can confirm whether the broker is already running by checking the status.
             </p>
             <p>
               If the server fails to start, examine the console output and
@@ -1038,17 +1038,17 @@ MULTI_START_ARGS="-maxwait 40"</pre>
           </dd>
           <dt>Windows Service fails to Install</dt>
           <dd>
-          	If the service fails to install, check the service account has full access permission for
-          	<b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
-          	<b>RABBITMQ_LOG_BASE</b> directories
-          	[<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
+            If the service fails to install, check the service account has full access permission for
+            <b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
+            <b>RABBITMQ_LOG_BASE</b> directories
+            [<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
                 <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
           </dd>
           <dt>Windows Service fails to Start</dt>
           <dd>
             <p>
-          	If the service fails to start, make sure the service has been
-          	installed.
+            If the service fails to start, make sure the service has been
+            installed.
             </p>
             <p>
                 On starting the service, if the service output reads "<code>The process
