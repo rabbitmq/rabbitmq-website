@@ -92,8 +92,7 @@
                 Run the .exe file. Using default installation options,
                 Erlang will appear in the Start Menu,
                 and <code>\erl&windows-version-erlang;\bin\erl.exe</code> will be in
-                <nobr><code>&dir-win-apps;</code></nobr> or
-                <nobr><code>&dir-win64-apps;</code></nobr>.
+                <code>&dir-win-apps;</code> or <code>&dir-win64-apps;</code>.
                 </p>
                 </dd>
               </dl>
@@ -191,24 +190,23 @@
               <p>
                 By default, the RabbitMQ logs and Mnesia database
                 are stored in the current user's Application Data directory
-                e.g. <nobr><code>&dir-win-user;\Application Data</code></nobr> or
+                e.g. <code>&dir-win-user;\Application Data</code> or
                 <code>&dir-win-user;\AppData\Roaming</code>
                 (Windows Vista).
                 </p>
                 <p>
-                Execute <nobr><code>echo %APPDATA%</code></nobr> at a Command Prompt
+                Execute <code>echo %APPDATA%</code> at a Command Prompt
                 to find this directory. Alternatively,
-                <nobr>Start > Run <code>%APPDATA%</code></nobr>
+                Start&#xA0;>&#xA0;Run <code>%APPDATA%</code>
                 will open this folder.
                 </p>
               </dd>
               <dt>Setting Environment Variables on Windows</dt>
               <dd>
               <p>
-               If you need to customise names, ports, locations,
-               it is easiest to configure environment variables in the
-               Windows dialogue: <nobr>Start>Settings>Control
-               Panel>System>Advanced>Environmment Variables</nobr>.
+               If you need to customise names, ports, locations, it is easiest
+               to configure environment variables in the Windows dialogue:
+               Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environmment&#xA0;Variables.
                Create or edit the system or user variable name and value.
                After changes you should restart the broker.
               </p>
@@ -412,7 +410,7 @@
                <p>
                 A service with the name defined by <b>RABBITMQ_SERVICENAME</b>
                 should now appear in the Windows Services control panel
-                <nobr>(Start > Run  <code>services.msc</code>).</nobr>
+                (Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>).
                 </p>
               </dd>
 
@@ -478,7 +476,7 @@
                  to replace the user <code>.erlang.cookie</code>.
                  The user cookie will be either in
                  <b>%APPDATA%</b> or the user's home directory e.g.
-                 <code><nobr>&dir-win-user;\.erlang.cookie</nobr></code>.
+                 <code>&dir-win-user;\.erlang.cookie</code>.
               </p>
             </dd>
 
