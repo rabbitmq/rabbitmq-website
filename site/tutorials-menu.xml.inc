@@ -40,9 +40,9 @@
             <li>
               <a href="tutorial-three-python.html">In Python</a>
             </li>
-            <li>
+            <!--<li>
                  <a href="tutorial-three-java.html">In Java</a>
-                 </li>
+                 </li>-->
           </ul>
         </li>
 
@@ -56,9 +56,9 @@
             <li>
               <a href="tutorial-four-python.html">In Python</a>
             </li>
-            <li>
+            <!--<li>
                  <a href="tutorial-four-java.html">In Java</a>
-                 </li>
+                 </li>-->
           </ul>
         </li>
 
@@ -72,9 +72,9 @@
             <li>
               <a href="tutorial-five-python.html">In Python</a>
             </li>
-            <li>
+            <!--<li>
                  <a href="tutorial-five-java.html">In Java</a>
-                 </li>
+                 </li>-->
           </ul>
         </li>
       </ul>
