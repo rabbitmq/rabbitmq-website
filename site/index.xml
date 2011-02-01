@@ -33,7 +33,7 @@
     <h3>What Is RabbitMQ?</h3>
     <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
     cloud scale and supported on all <a href="download.html">major operating systems</a> and
-    <a href="how.html#clients">developer platforms</a>. RabbitMQ is open sourced under the
+    <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
     <a href="mpl.html">Mozilla Public License</a>.</p>
     <ul>
       <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
