@@ -14,6 +14,38 @@
 	   will give you a suitable value.
       -->   
       <doc:item>
+	<doc:date iso="2011-02-02T15:43:42+0000">2 February 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.3.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-February/011019.html</doc:link>
+
+	<doc:text>
+          <p>
+            Perfectly timed one day before the start of the year of the Rabbit, the
+            RabbitMQ team is pleased to announce the release of RabbitMQ
+            2.3.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some enhancements,
+            including streaming publish confirmations, new plugin mechanisms for
+            authentication and authorisation, and a great deal more.
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-February/011019.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
         <doc:date iso="2010-12-13T00:00:00Z">13 December 2010</doc:date>
         <doc:title>RabbitMQ Webinar: Messaging that just works (update)</doc:title>
         <doc:link>http://www.springsource.com/webinar/rabbitmq-messaging-just-works</doc:link>
