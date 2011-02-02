@@ -591,7 +591,35 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
           </p>
         </doc:subsection>
       </doc:section>
-
+      <doc:section name="sender-selected-distribution">
+        <doc:heading>Sender-selected Distribution</doc:heading>
+        <p>
+         The routing logic in AMQP does not offer a way for message publishers
+         to select intended recipients. This is the equivalent of entering
+         multiple recipients in the "CC" field of an email. The RabbitMQ broker
+         treats two headers in a special way to overcome this limitation.
+        </p>
+        <p>
+         The values associated with the "CC" and "BCC" header keys will be added
+         to the routing key if they are present. The message will be routed to
+         all destinations matching the routing key supplied as a parameter to
+         the <code>basic.publish</code> method, as well as the routes supplied
+         in the "CC" and "BCC" headers. If the header does not contain "CC" or
+         "BCC" keys then this extension has no effect.
+        </p>
+        <p>
+         The "BCC" key and value will be removed from the message prior to
+         delivery, offering some confidentiality among consumers. This feature
+         is a violation of the AMQP specification which forbids any message
+         modification, including headers. This feature imposes a small
+         performance penalty.
+        </p>
+        <p>
+         This extension is independent of the client. Any AMQP client with the
+         ability to interoperate with RabbitMQ and set header values can make
+         use of this extension.
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
