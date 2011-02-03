@@ -338,6 +338,9 @@ span.code, pre.code {
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
 }
+span.code {
+  white-space: nowrap;
+}
 
 .sourcecode {
 	padding: 1em;
