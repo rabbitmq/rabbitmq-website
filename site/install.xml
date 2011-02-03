@@ -899,10 +899,10 @@
           </p>
 
           <dl class="instructions">
-          <dt>Customise RabbitMQ Environment using the rabbitmq.conf file</dt>
+          <dt>Customise RabbitMQ Environment using the rabbitmq-env.conf file</dt>
           <dd>
           <p>
-              Alternatively, you can create/edit <code>/etc/rabbitmq/rabbitmq.conf</code>
+              Alternatively, you can create/edit <code>/etc/rabbitmq/rabbitmq-env.conf</code>
               to edit environment variables.
               Its location is not configurable
               (unlike rabbitmq.config, which is by default in the same directory).
@@ -911,12 +911,12 @@
               Use the same environment variable names as above
               (but drop the RABBITMQ_ prefix) e.g.
               <pre class="sourcecode">
-#example rabbitmq.conf file entries
+#example rabbitmq-env.conf file entries
 #Rename the node
 NODENAME=bunny
 #Timeout in seconds
 MULTI_START_ARGS="-maxwait 40"</pre>
-              More <a href="http://www.rabbitmq.com/man/rabbitmq.conf.5.man.html">info on using rabbitmq.conf</a>
+              More <a href="http://www.rabbitmq.com/man/rabbitmq-env.conf.5.man.html">info on using rabbitmq-env.conf</a>
             </p>
             </dd>
             <dt>Start the Server</dt>
@@ -1061,7 +1061,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
             exchanges need to be recovered). In this case, the
             timeout can be adjusted by setting the environment variable
             <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait</code> timeout_in_seconds" (e.g. using rabbitmq.conf).
+            "<code>-maxwait</code> timeout_in_seconds" (e.g. using rabbitmq-env.conf).
           </p>
           </dd>
           <dt>Windows Service fails to Install</dt>
@@ -1168,7 +1168,7 @@ MULTI_START_ARGS="-maxwait 40"</pre>
         </p>
         <p>
            This configuration file is not the same as
-          <code>rabbitmq.conf</code>, which can be used to set environment
+          <code>rabbitmq-env.conf</code>, which can be used to set environment
           variables. A future release of RabbitMQ will unify the two configuration
           mechanisms.
         </p>

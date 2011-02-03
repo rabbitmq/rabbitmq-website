@@ -27,7 +27,7 @@
       <doc:section name="section5">
         <doc:heading>Section 5 - File formats</doc:heading>
         <ul>
-          <li><a href="man/rabbitmq.conf.5.man.html">rabbitmq.conf</a></li>
+          <li><a href="man/rabbitmq-env.conf.5.man.html">rabbitmq-env.conf</a></li>
         </ul>
       </doc:section>
     </doc:div>
