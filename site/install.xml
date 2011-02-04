@@ -468,11 +468,11 @@
               </p>
               <p>
                  To ensure Erlang cookie files contain the same string,
-                 copy the <code>.erlang.cookie</code> file from the windows
-                 directory (<code>C:\WINDOWS\.erlang.cookie</code>)
+                 copy the <code>.erlang.cookie</code> file from the Windows
+                 directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
                  to replace the user <code>.erlang.cookie</code>.
-                 The user cookie will be either in
-                 <b>%APPDATA%</b> or the user's home directory e.g.
+                 The user cookie will be in the user's home directory
+                 (<b>%HOMEDRIVE%%HOMEPATH%</b>), e.g.
                  <code>&dir-win-user;\.erlang.cookie</code>.
               </p>
             </dd>
