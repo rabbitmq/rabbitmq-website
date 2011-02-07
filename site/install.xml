@@ -472,7 +472,7 @@
                  directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
                  to replace the user <code>.erlang.cookie</code>.
                  The user cookie will be in the user's home directory
-                 (<b>%HOMEDRIVE%%HOMEPATH%</b>), e.g.
+                 (<span class="envvar">%HOMEDRIVE%%HOMEPATH%</span>), e.g.
                  <code>&dir-win-user;\.erlang.cookie</code>.
               </p>
             </dd>

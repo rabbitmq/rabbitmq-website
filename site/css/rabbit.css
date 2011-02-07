@@ -341,7 +341,10 @@ span.code, pre.code {
 span.code {
   white-space: nowrap;
 }
-
+span.envvar {
+  color: black;
+  white-space: nowrap;
+}
 .sourcecode {
 	padding: 1em;
 	background: #f6fcb0;
