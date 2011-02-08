@@ -130,7 +130,7 @@ messages from that queue.
 > In this tutorial we're going to use `pika`. To install it you can use
 > [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/tonyg/pika.git#egg=pika
+>     $ sudo pip install -e git+http://github.com/tonyg/pika.git@v0.5.2#egg=pika-v0.5.2
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them.
