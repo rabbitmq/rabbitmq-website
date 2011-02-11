@@ -6,14 +6,11 @@
             The simplest thing that does <em>something</em>
           </p>
           <p><img src="img/tutorials/python-one.png" width="180"  /></p>
-          <ul>
-            <li>
-              <a href="tutorial-one-python.html">In Python</a>
-            </li>
-            <li>
-              <a href="tutorial-one-java.html">In Java</a>
-            </li>
-          </ul>
+          <p>
+          <a href="tutorial-one-python.html">Python</a>
+          |
+          <a href="tutorial-one-java.html">Java</a>
+          </p>
         </li>
         <li id="tutorial-two">
           <h2><span class="tute-num">2</span> <a href="tutorial-two-python.html">Work queues</a></h2>
@@ -21,29 +18,24 @@
             Distributing tasks among workers
           </p>
           <p><img src="img/tutorials/python-two.png" height="50" width="180" /></p>
-          <ul>
-            <li>
-              <a href="tutorial-two-python.html">In Python</a>
-            </li>
-            <li>
-              <a href="tutorial-two-java.html">In Java</a>
-             </li> 
-          </ul>
+          <p>
+          <a href="tutorial-two-python.html">Python</a>
+          |
+          <a href="tutorial-two-java.html">Java</a>
+          </p>
         </li>
         <li id="tutorial-three">
           <h2><span class="tute-num">3</span> <a href="tutorial-three-python.html">Publish/Subscribe</a></h2>
           <p>
             Sending messages to many consumers at once
           </p>
-          <p><img src="img/tutorials/python-three.png" height="40" width="180" /></p>
-          <ul>
-            <li>
-              <a href="tutorial-three-python.html">In Python</a>
-            </li>
-            <!--<li>
-                 <a href="tutorial-three-java.html">In Java</a>
-                 </li>-->
-          </ul>
+          <p><img src="img/tutorials/python-three.png" height="50" width="180" /></p>
+          <p>
+          <a href="tutorial-three-python.html">Python</a>
+          <!--|
+          <a href="tutorial-three-java.html">In Java</a>
+          -->
+          </p>
         </li>
 
         <li id="tutorial-four">
@@ -51,15 +43,13 @@
           <p>
 	    Receiving messages selectively
           </p>
-          <p><img src="img/tutorials/python-four.png" height="60" width="180" /></p>
-          <ul>
-            <li>
-              <a href="tutorial-four-python.html">In Python</a>
-            </li>
-            <!--<li>
-                 <a href="tutorial-four-java.html">In Java</a>
-                 </li>-->
-          </ul>
+          <p><img src="img/tutorials/python-four.png" height="50" width="180" /></p>
+          <p>
+          <a href="tutorial-four-python.html">Python</a>
+          <!--|
+          <a href="tutorial-four-java.html">In Java</a>
+          -->
+          </p>
         </li>
 
         <li id="tutorial-five">
@@ -67,14 +57,12 @@
           <p>
 	    Receiving messages based on a pattern
           </p>
-          <p><img src="img/tutorials/python-five.png" height="40" width="180" /></p>
-          <ul>
-            <li>
-              <a href="tutorial-five-python.html">In Python</a>
-            </li>
-            <!--<li>
-                 <a href="tutorial-five-java.html">In Java</a>
-                 </li>-->
-          </ul>
+          <p><img src="img/tutorials/python-five.png" height="50" width="180" /></p>
+          <p>
+          <a href="tutorial-five-python.html">Python</a>
+          <!--|
+          <a href="tutorial-five-java.html">In Java</a>
+          -->
+          </p>
         </li>
       </ul>
