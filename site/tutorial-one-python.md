@@ -127,8 +127,8 @@ messages from that queue.
 > * [txAMQP](https://launchpad.net/txamqp)
 > * [pika](http://github.com/tonyg/pika)
 >
-> In this tutorial we're going to use `pika`. To install it you can use
-> [`pip`](http://pip.openplans.org/) package management tool:
+> In this tutorial we're going to use `pika` version 0.5.2. To install it
+> you can use [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     $ sudo pip install -e git+http://github.com/tonyg/pika.git@v0.5.2#egg=pika-v0.5.2
 >
@@ -147,7 +147,7 @@ messages from that queue.
 > * On Windows:
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
->         > easy_install pika
+>         > easy_install pika==0.5.2
 >
 
 ### Sending
