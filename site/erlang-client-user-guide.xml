@@ -359,7 +359,7 @@
     <pre class="sourcecode">
       Payload = &lt;&lt;"foobar"&gt;&gt;,
       Publish = #'basic.publish'{exchange = X, routing_key = Key},
-      Props = #'P_basic'{priority = 9},
+      Props = #'P_basic'{delivery_mode = 2}, %% persistent message
       Msg = #amqp_msg{props = Props, payload = Payload},
       amqp_channel:cast(Channel, Publish, Msg)
     </pre>
