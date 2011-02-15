@@ -125,6 +125,8 @@
       We present a list of useful searches on the social bookmarking site.
     </li>
       </ul>
+    <h3 id="clients">Specific Configurations</h3>
+      <p>This section has moved to the <a href="devtools.html">Client and Developer Tools</a> page.</p>
       <h3 id="cloud-configurations">Cloud Configurations</h3>
       <ul>
         <li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
