@@ -6,14 +6,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Developer &amp; Platform Tools</title>
+    <title>RabbitMQ - Clients &amp; Developer Tools</title>
     <link rel="stylesheet" rev="stylesheet" href="/css/devtools.css" type="text/css"/>
   </head>
   <body>
     <doc:div>
-      <h2 id="top">Developer &amp; Platform Tools</h2>
+      <h2 id="top">Clients &amp; Developer Tools</h2>
       <p>
-        RabbitMQ is <a href="download.html">officially supported</a> on a number of
+        RabbitMQ is <a href="platforms.html">officially supported</a> on a number of
         operating systems and several languages. In addition, the RabbitMQ community
         has created numerous clients, adaptors and tools that we list here for
         your convenience. We also maintain an extensive list of links related to
