@@ -14,7 +14,7 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
 
-      <doc:section name="features">
+      <doc:section name="overview">
         <doc:heading>Overview</doc:heading>
         <p>
           RabbitMQ supports a variety of plugins. This page contains links
@@ -69,7 +69,7 @@
         </p>
       </doc:section>
 
-      <doc:section name="supported">
+      <doc:section name="maintained">
         <doc:heading>Maintained Plugins</doc:heading>
         <doc:subsection name="rabbitmq-management">
           <doc:heading>rabbitmq-management</doc:heading>
@@ -241,41 +241,42 @@
 
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
-    <p>
-      You can also build plugins from source. We do not explicitly
-      release source tarballs for plugins, but the repositories can
-      all be found on our <a href="http://hg.rabbitmq.com/">Mercurial
-      server</a>. See the <a href="plugin-development.html">plugin
-      development</a> guide for more information on building plugins
-      from source.
-    </p>
-    <p>
-      Note that plugins tend to be strongly bound to the a certain
-      version of rabbitmq-server. For example, if you are running
-      RabbitMQ &version-server;, you should check out all plugins with
-      the tag <code>&version-server-hg;</code>.
-    </p>
+        <p>
+          You can also build plugins from source. We do not explicitly
+          release source tarballs for plugins, but the repositories
+          can all be found on
+          our <a href="http://hg.rabbitmq.com/">Mercurial
+          server</a>. See the <a href="plugin-development.html">plugin
+          development</a> guide for more information on building
+          plugins from source.
+        </p>
+        <p>
+          Note that plugins tend to be strongly bound to the a certain
+          version of rabbitmq-server. For example, if you are running
+          RabbitMQ &version-server;, you should check out all plugins
+          with the tag <code>&version-server-hg;</code>.
+        </p>
       </doc:section>
 
       <doc:section name="compatibility">
         <doc:heading>Compatibility</doc:heading>
-    <p>
-      We compile the plugins when we make a release of the server, so
-      in general, each plugin has been compiled against the latest
-      release of the server code (and the plugin's dependencies). We
-      may also from time to time post "known good" binaries; these
-      will be marked with a particular server version with which they
-      are known to work.
-    </p>
-    <p>
-      Since the default location of the plugins directory is
-      version-specific, installing / upgrading to a new version of the
-      server disables all plugins. That is the safest option since
-      often plugins depend on specific versions of the
-      server. Alternatively, plugins can be retained across upgrades
-      by setting <b>RABBITMQ_PLUGINS_DIR</b> to a location shared by
-      all installed rabbitmq server versions.
-    </p>
+        <p>
+          We compile the plugins when we make a release of the server,
+          so in general, each plugin has been compiled against the
+          latest release of the server code (and the plugin's
+          dependencies). We may also from time to time post "known
+          good" binaries; these will be marked with a particular
+          server version with which they are known to work.
+        </p>
+        <p>
+          Since the default location of the plugins directory is
+          version-specific, installing / upgrading to a new version of
+          the server disables all plugins. That is the safest option
+          since often plugins depend on specific versions of the
+          server. Alternatively, plugins can be retained across
+          upgrades by setting <b>RABBITMQ_PLUGINS_DIR</b> to a
+          location shared by all installed rabbitmq server versions.
+        </p>
       </doc:section>
     </doc:div>
   </body>
