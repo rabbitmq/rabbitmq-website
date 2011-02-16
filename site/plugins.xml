@@ -70,7 +70,7 @@
       </doc:section>
 
       <doc:section name="supported">
-        <doc:heading>Supported Plugins</doc:heading>
+        <doc:heading>Maintained Plugins</doc:heading>
         <doc:subsection name="rabbitmq-management">
           <doc:heading>rabbitmq-management</doc:heading>
           <p>
@@ -109,6 +109,49 @@
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
             <li><a href="/releases/plugins/v&version-server;/rabbitmq-shovel-&version-server;.ez">rabbitmq-shovel</a></li>
           </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-stomp">
+          <doc:heading>rabbitmq-stomp</doc:heading>
+          <p>
+            A gateway for exposing AMQP functionality via
+            the <a href="http://stomp.codehaus.org/Protocol">STOMP
+            protocol</a>, as implemented by
+            many <a href="http://stomp.codehaus.org/Clients">clients</a>
+            for various programming languages, and a few
+            other <a href="http://stomp.codehaus.org/Brokers">servers</a>
+            besides RabbitMQ.
+          </p>
+          <p>
+            Please see
+            the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README.md">readme</a>
+            file and our
+            various <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
+              articles</a> about the adapter for more information on compiling
+            and configuring it.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-erlang-client">
+          <doc:heading>rabbitmq-erlang-client</doc:heading>
+          <p>
+            An Erlang client for RabbitMQ. This client offers both a
+            networked version that uses standard TCP-based AMQP framing and
+            a direct client that uses native Erlang message passing to a
+            RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
+              guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
+            for more information.
+          </p>
+          <p>
+            This plugin is a dependency of some others, but can also be
+            used standalone (not embedded in the server). Such use is outside
+            the scope of this page.
+          </p>
         </doc:subsection>
       </doc:section>
 
@@ -173,33 +216,6 @@
             whiteboard, a chat application, and some tests.
           </p>
         </doc:subsection>
-
-        <doc:subsection name="rabbitmq-stomp">
-          <doc:heading>rabbitmq-stomp</doc:heading>
-          <p>
-            A gateway for exposing AMQP functionality via
-            the <a href="http://stomp.codehaus.org/Protocol">STOMP
-            protocol</a>, as implemented by
-            many <a href="http://stomp.codehaus.org/Clients">clients</a>
-            for various programming languages, and a few
-            other <a href="http://stomp.codehaus.org/Brokers">servers</a>
-            besides RabbitMQ.
-          </p>
-          <p>
-            Please see
-            the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README.md">readme</a>
-            file and our
-            various <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
-              articles</a> about the adapter for more information on compiling
-            and configuring it.
-          </p>
-          <p>To use this plugin the following files are required:</p>
-          <ul>
-            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
-          </ul>
-        </doc:subsection>
-
         <doc:subsection name="rabbitmq-xmpp">
           <doc:heading>rabbitmq-xmpp</doc:heading>
           <p>
@@ -219,23 +235,6 @@
             see <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
               documentation</a> for more information on building and
             configuring the gateway.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-erlang-client">
-          <doc:heading>rabbitmq-erlang-client</doc:heading>
-          <p>
-            An Erlang client for RabbitMQ. This client offers both a
-            networked version that uses standard TCP-based AMQP framing and
-            a direct client that uses native Erlang message passing to a
-            RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
-              guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
-            for more information.
-          </p>
-          <p>
-            This plugin is a dependency of some others, but can also be
-            used standalone (not embedded in the server). Such use is outside
-            the scope of this page.
           </p>
         </doc:subsection>
       </doc:section>
