@@ -83,6 +83,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 Hello World!
 ------------
+### (using the pika 0.5.2 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that

@@ -7,7 +7,7 @@
 <div id="tutorial">
 
 ## Work Queues
-### (using the pika Python client)
+### (using the pika 0.5.2 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
