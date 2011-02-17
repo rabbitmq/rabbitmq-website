@@ -76,6 +76,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    </div>
 
 ## "Hello World"
+### (using the Java Client)
 
 In this part of the tutorial we'll write two programs in Java; a
 producer that sends a single message, and a consumer that receives
