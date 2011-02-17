@@ -188,7 +188,7 @@ Message acknowledgment
 ----------------------
 
 Doing a task can take a few seconds. You may wonder what happens if
-one of the consumers started a long task and died with it only partly done.
+one of the consumers starts a long task and dies with it only partly done.
 With our current code, once RabbitMQ delivers a message to the customer it
 immediately removes it from memory. In this case, if you kill a worker
 we will lose the message it was just processing. We'll also lose all
