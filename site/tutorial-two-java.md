@@ -98,10 +98,10 @@ messages from the queue and perform the task, so let's call it `Worker.java`:
     :::java
     while (true) {
         QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-        String body = new String(delivery.getBody());
+        String message = new String(delivery.getBody());
         
-        System.out.println(" [x] Received '" + body + "'");        
-        doWork(body);
+        System.out.println(" [x] Received '" + message + "'");        
+        doWork(message);
         System.out.println(" [x] Done");
     }
 
@@ -435,10 +435,10 @@ And our `Worker.java`:
     
         while (true) {
           QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-          String body = new String(delivery.getBody());
+          String message = new String(delivery.getBody());
           
-          System.out.println(" [x] Received '" + body + "'");   
-          doWork(body); 
+          System.out.println(" [x] Received '" + message + "'");   
+          doWork(message); 
           System.out.println(" [x] Done" );
     
           channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);

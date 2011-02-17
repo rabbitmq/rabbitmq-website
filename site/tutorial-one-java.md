@@ -134,12 +134,22 @@ we need some classes imported:
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
 
-then we can create a connection to the server:
+Set up the class and name the queue:
 
     :::java
     public class Send {
+    
+      private final static String QUEUE_NAME = "hello";
+
       public static void main(String[] argv)
           throws java.io.IOException {
+          ...
+      }
+    }    
+    
+then we can create a connection to the server:
+
+    :::java
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
@@ -154,10 +164,10 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
     :::java
-        channel.queueDeclare("hello", false, false, false, null);
-
-        channel.basicPublish("", "hello", null, "Hello World!".getBytes());
-        System.out.println(" [x] Sent 'Hello World!'");
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        String message = "Hello World!";
+        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        System.out.println(" [x] Sent '" + message + "'");
 
 Declaring a queue is idempotent; it will be created if it doesn't
 exist already. The message contents is a byte array, so you can encode
@@ -168,8 +178,6 @@ Lastly, we close the channel and the connection;
     :::java
         channel.close();
         connection.close();
-      }
-    }
 
 [Here's the whole Send.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
@@ -201,15 +209,23 @@ Note this matches up with the queue `send` publishes to.
 
     :::java
     public class Recv {
+    
+      private final static String QUEUE_NAME = "hello";
+    
       public static void main(String[] argv)
           throws java.io.IOException,
                  java.lang.InterruptedException {
+                 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        ...
+        }
+    }
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -221,15 +237,15 @@ callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what `QueueingConsumer` does.
 
     :::java
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
         QueueingConsumer consumer = new QueueingConsumer(channel);
-        channel.basicConsume("hello", true, consumer);
+        channel.basicConsume(QUEUE_NAME, true, consumer);
+        
         while (true) {
           QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-          System.out.println(" [x] Received " + new String(delivery.getBody()));
+          String message = new String(delivery.getBody());
+          System.out.println(" [x] Received '" + message + "'");
         }
-      }
-    }
+
 
 `QueueingConsumer.nextDelivery()` blocks until another message has
 been delivered from the server.
