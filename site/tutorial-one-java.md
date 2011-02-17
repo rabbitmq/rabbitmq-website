@@ -140,11 +140,10 @@ then we can create a connection to the server:
     public class Send {
       public static void main(String[] argv)
           throws java.io.IOException {
-        Connection conn = null;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        conn = factory.newConnection();
-        Channel chan = conn.createChannel();
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us.
@@ -155,9 +154,9 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
     :::java
-        chan.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare("hello", false, false, false, null);
 
-        chan.basicPublish("", "hello", null, "Hello World!".getBytes());
+        channel.basicPublish("", "hello", null, "Hello World!".getBytes());
         System.out.println(" [x] Sent 'Hello World!'");
 
 Declaring a queue is idempotent; it will be created if it doesn't
@@ -167,8 +166,8 @@ whatever you like there.
 Lastly, we close the channel and the connection;
 
     :::java
-        chan.close();
-        conn.close();
+        channel.close();
+        connection.close();
       }
     }
 
@@ -205,17 +204,16 @@ Note this matches up with the queue `send` publishes to.
       public static void main(String[] argv)
           throws java.io.IOException,
                  java.lang.InterruptedException {
-        Connection conn = null;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        conn = factory.newConnection();
-        Channel chan = conn.createChannel();
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
-        chan.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare("hello", false, false, false, null);
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
-before we try to consumer messages from it.
+before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
@@ -224,8 +222,8 @@ we're ready to use them. That is what `QueueingConsumer` does.
 
     :::java
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-        QueueingConsumer consumer = new QueueingConsumer(chan);
-        chan.basicConsume("hello", true, consumer);
+        QueueingConsumer consumer = new QueueingConsumer(channel);
+        channel.basicConsume("hello", true, consumer);
         while (true) {
           QueueingConsumer.Delivery delivery = consumer.nextDelivery();
           System.out.println(" [x] Received " + new String(delivery.getBody()));
