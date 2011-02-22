@@ -640,45 +640,45 @@ Status of node rabbit@rabbit3 ...
       <doc:section name="single-machine">
           <doc:heading>A cluster on a single machine</doc:heading>
           <p>
-            Under some circumstances it can be useful to run a cluster 
-            of RabbitMQ nodes on a single machine. In particular, this 
-            is necessary in order to get the full benefit of the CPUs 
-            on a multi-core machine. The two main requirements for 
-            running more than one node on a single machine are that 
-            each node should have a unique name and bind to a unique 
-            port / IP address combination.
+            Under some circumstances it can be useful to run a cluster
+            of RabbitMQ nodes on a single machine. This would
+            typically be useful for experimenting with clustering on a
+            desktop or laptop without the overhead of starting several
+            virtual machines for the cluster. The two main
+            requirements for running more than one node on a single
+            machine are that each node should have a unique name and
+            bind to a unique port / IP address combination for each
+            protocol in use.
           </p>
           <p>
-            The easiest way to start a cluster on a single machine is 
-            to use the script <code>rabbitmq-multi</code> (<code>rabbitmq-multi.bat</code>
-            on Windows). You can invoke this as:
-          </p>
-          <pre class="sourcecode">
-$ rabbitmq-multi start_all <i>count</i></pre>
-		  <p>
-		    This will start <i>count</i> nodes with unique names, 
-		    listening on all IP addresses and on sequential ports 
-		    starting from 5672. You can then stop all nodes as follows:
-		  </p>
-          <pre class="sourcecode">
-$ rabbitmq-multi stop_all</pre>
-          <p>
-		    Please note that you still need to put the nodes into a 
-		    cluster by <a href="#auto-config">auto-configuration</a> or
-		    <a href="#creating">manually arranging your nodes into a 
-		    cluster</a>. This may be as simple as creating a cluster
-		    configuration file containing this:
-          </p>
-          <pre class="sourcecode">
-[rabbit@<i>machine</i>].</pre>
-          <p>
-	    You can also start multiple nodes on the same host
+	    You can start multiple nodes on the same host
 	    manually by repeated invocation of
 	    <code>rabbitmq-server</code> (
 	    <code>rabbitmq-server.bat</code> on Windows). You must
 	    ensure that for each invocation you set the environment
 	    variables <code>RABBITMQ_NODENAME</code> and
 	    <code>RABBITMQ_NODE_PORT</code> to suitable values.
+          </p>
+          <p>For example:</p>
+          <pre class="sourcecode">
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
+$ rabbitmqctl -n hare stop_app
+$ rabbitmqctl -n hare reset
+$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare start_app</pre>
+          <p>
+            will set up a two node cluster with one disc node and one
+            ram node. Note that if you have RabbitMQ opening any ports
+            other than AMQP, you'll need to configure those
+            not to clash as well - for example:
+          </p>
+          <pre class="sourcecode">
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55672" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55673" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+          <p>
+            will start two nodes (which can then be clustered) when
+            the management plugin is installed.
           </p>
       </doc:section>
     </doc:div>

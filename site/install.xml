@@ -516,8 +516,7 @@
             <code>.1</code> files prior to starting the broker.
           </p>
           <p>
-            You can rotate logs using <code>rabbitmqctl rotate_logs</code> or
-            <code>rabbitmq-multi rotate_logs</code>.
+            You can rotate logs using <code>rabbitmqctl rotate_logs</code>.
           </p>
         </doc:subsection>
       </doc:section>
@@ -560,13 +559,6 @@
               The server should start using defaults.
               See the <a href="#generic-unix">Generic Unix</a> installation
               section below for how to set environment variables.
-            </p>
-            <p>
-              You can additionally set
-              <b>NODE_COUNT</b> in
-              <code>/etc/default/rabbitmq</code> to define
-              <a href="clustering.html#single-machine">the number of
-              nodes to run on a single machine</a>.
             </p>
             </dd>
             <dt>Start the Server</dt>
@@ -637,12 +629,6 @@
               The server should start using defaults.
               See the <a href="#generic-unix">Generic Unix</a> installation
               section below for how to set environment variables.
-            </p>
-            <p>
-              You can additionally set <b>NODE_COUNT</b> in
-              <code>/etc/sysconfig/rabbitmq</code> to define
-              <a href="clustering.html#single-machine">the number of
-              nodes to run on a single machine</a>.
             </p>
             </dd>
             <dt>Start the Server</dt>
@@ -913,10 +899,9 @@
               <pre class="sourcecode">
 #example rabbitmq-env.conf file entries
 #Rename the node
-NODENAME=bunny
-#Timeout in seconds
-MULTI_START_ARGS="-maxwait 40"</pre>
-              More <a href="http://www.rabbitmq.com/man/rabbitmq-env.conf.5.man.html">info on using rabbitmq-env.conf</a>
+NODENAME=bunny</pre>
+              More <a href="http://www.rabbitmq.com/man/rabbitmq-env.conf.5.man.html">info on using rabbitmq.conf</a>
+
             </p>
             </dd>
             <dt>Start the Server</dt>
@@ -1045,24 +1030,6 @@ MULTI_START_ARGS="-maxwait 40"</pre>
               Configuration and permission errors are frequently the cause, e.g. the
               Mnesia directory cannot be created.
             </p>
-          </dd>
-          <dt>Server Timeout on Start</dt>
-          <dd>
-          <p>
-            By default, the startup script waits 30
-            seconds for the broker nodes to start.
-            When that time is exceeded a <code>TIMEOUT</code> is reported.
-            The cause of this could be a misconfiguration or other error.
-          <p>
-          </p>
-            It is possible that the node is legitimately taking a long time to start up
-            (perhaps because the machine it is running on is heavily loaded, or
-            because many persisted messages, durable queues or
-            exchanges need to be recovered). In this case, the
-            timeout can be adjusted by setting the environment variable
-            <code>MULTI_START_ARGS</code> to
-            "<code>-maxwait</code> timeout_in_seconds" (e.g. using rabbitmq-env.conf).
-          </p>
           </dd>
           <dt>Windows Service fails to Install</dt>
           <dd>
