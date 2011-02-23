@@ -363,6 +363,9 @@
                 <a href="http://search.cpan.org/~jesus/Net-RabbitMQ-0.0.1/">Net::RabbitMQ</a>
               </li>
               <li>
+                <a href="http://search.cpan.org/~aar/Net-RabbitMQ-Java-2.030101/lib/Net/RabbitMQ/Java.pm">Net::RabbitMQ::Java</a>, full bindings for the RabbitMQ Java client
+              </li>
+              <li>
                 <a href="http://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>
               </li>
               <li>
