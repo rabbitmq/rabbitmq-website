@@ -249,6 +249,10 @@
                 <a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a>
               </li>
               <li>
+                <a href="http://pypi.python.org/pypi/txamqp-helpers">txamqp-helpers</a>, package of utility classes for working with txAMQP
+                (the <a href="https://github.com/williamsjj/txamqp-helpers">source code</a> is on github)
+              </li>
+              <li>
                 <a href="https://github.com/paolo-losi/stormed-amqp">Stormed-Amqp</a> a fully asynchronous AMQP 0-9-1 client
               </li>
               <li>
