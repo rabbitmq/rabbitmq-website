@@ -346,13 +346,16 @@
                 <a href="https://github.com/BraveSirRobin/amqphp">amqphp</a> a pure PHP implementation of AMQP 0-9-1 for RabbitMQ 2+ and PHP 5.3
               </li>
               <li>
-                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> a bundle to incorporate RabbitMQ messaging with the Symphony2 web framework 
-              </li>
-              <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for AMQP messaging
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a>
+              </li>
+            </ul>
+            <h4>Symphony2 Framework</h4>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> a bundle to incorporate RabbitMQ messaging with the Symphony2 web framework 
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
