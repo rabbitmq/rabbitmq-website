@@ -491,6 +491,12 @@
                 Websocket and Socket.IO support for RabbitMQ
               </li>
               <li>
+                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
+                <br />
+                An experimental driver (in PHP) for <a href="plugins.html#rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</a> designed to
+                expedite single call HTTP delivery for Basic.Publish calls to RabbitMQ
+              </li>
+              <li>
                 <a href="http://github.com/akalend/amqp-rest">amqp-rest</a>
                 <br />
                 A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP
