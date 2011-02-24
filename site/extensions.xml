@@ -33,17 +33,18 @@
         <p>
           There is good reason for both the client and the server
           being able to present extensions and capabilities that they
-          support. Thus we have introduced an alternative form of
-          capabilities, in which in the <code>server-properties</code>
-          field of <code>connection.start</code>, and
+          support, thus we have introduced an alternative form of
+          capabilities. In the <code>server-properties</code> field of
+          <code>connection.start</code>, and in the
           <code>client-properties</code> field of
-          <code>connection.start-ok</code>, the peer-properties table
-          can optionally contain a key named <code>capabilities</code>
-          for which the value is a table, in which the keys name the
-          capabilities supported. The values for these capability keys
-          are typically booleans, indicating whether or not the
-          capability is supported, but may vary based on the nature of
-          the capability.
+          <code>connection.start-ok</code>, the field value (a
+          <code>peer-properties</code> table) can optionally contain a
+          key named <code>capabilities</code> for which the value is
+          another table, in which the keys name the capabilities
+          supported. The values for these capability keys are
+          typically booleans, indicating whether or not the capability
+          is supported, but may vary based on the nature of the
+          capability.
         </p>
 
         <p>
