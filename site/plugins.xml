@@ -190,8 +190,7 @@
 
     <p>
       Please see
-      the <a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README.md">readme</a>
-      file and our
+      the <a href="stomp.html">documentation</a> and our
       various <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
       articles</a> about the adapter for more information on compiling
       and configuring it.

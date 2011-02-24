@@ -15,7 +15,7 @@
       <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
          messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.
       </p>
-     
+
       <doc:section name="server">
 	<doc:heading>Server</doc:heading>
 	<ul>
@@ -60,7 +60,7 @@
 	  </li>
 	</ul>
       </doc:section>
-      
+
       <doc:section name="amqp">
         <doc:heading>AMQP</doc:heading>
         <ul>
@@ -82,7 +82,7 @@
           	<li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface and HTTP API for managing and monitoring RabbitMQ.</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
-          	<li><a href="http://hg.rabbitmq.com/rabbitmq-stomp/file/&version-server-hg;/README.md">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
+          	<li><a href="stomp.html">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
           	<li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">rabbitmq-xmpp</a> - Exposes AMQP functionality via an XMPP gateway</li>
           </ul>
         </ul>
@@ -112,7 +112,7 @@
 			</ul>
 	    </ul>
 	  </doc:section>
-	  
+
       <doc:section name="general">
 	<doc:heading>General Documentation</doc:heading>
 	<ul>
@@ -128,7 +128,7 @@
 	  </li>
 	  <li>
 	    How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
-	  </li>	  
+	  </li>
 	  <li>
 	    <a href="interoperability.html">Interoperability</a> with
 	    other implementations of AMQP (including the <a
