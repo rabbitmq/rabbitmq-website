@@ -573,6 +573,11 @@
             <h3>Miscellanous</h3>
             <ul class="plain">
               <li>
+                <a href="https://github.com/mabrek/rabbitmq-redis">RabbitMQ-Redis Bridge</a>
+                <br />
+                A RabbitMQ plug-in that moves messages between RabbitMQ and Redis Pub/Sub using erldis (experimental).
+              </li>
+              <li>
                 <a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a>
                 <br />
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
