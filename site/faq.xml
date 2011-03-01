@@ -1039,9 +1039,11 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	<doc:faq name="rabbit-client-support">
 	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
 	  <doc:a>
-	    <p>
-	      We maintain <a href="how.html#clients">a list of clients</a>, which is fairly complete.  If you don't
-see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">email our mailing list.</a>
+        <p>
+          The officially supported RabbitMQ clients are listed on the <a href="download.html">download page</a>. We also
+          maintain a list of community-contributed <a href="devtools.html">developer tools</a>.
+        </p>
+        <p>If you can't find what you are looking for please <a href="contact.html">contact us</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
