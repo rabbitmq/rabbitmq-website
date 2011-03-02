@@ -256,6 +256,16 @@
             </ul>
           </td>
         </tr>
+
+        <tr>
+          <td><a href="/resources/RabbitMQ_PressRelease_080207.pdf">1.0.0-alpha</a> [PDF]</td>
+          <td>8 February 2007</td>
+          <td>
+            <ul>
+              <li>Initial release</li>
+            </ul>
+          </td>
+        </tr>
       </table>
     </doc:div>
   </body>
