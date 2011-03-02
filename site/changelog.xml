@@ -150,17 +150,112 @@
           </td>
         </tr>
 
-<!--
         <tr>
-          <td><a href="">2.2.0</a></td>
-          <td>30 Nov 2009</td>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-May/000017.html">1.5.5</a></td>
+          <td>30 May 2009</td>
           <td>
             <ul>
-              <li></li>
+              <li>Bug fixes</li>
             </ul>
           </td>
         </tr>
--->
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-April/000016.html">1.5.4</a></td>
+          <td>6 April 2009</td>
+          <td>
+            <ul>
+              <li>Bug fixes</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-February/000015.html">1.5.3</a></td>
+          <td>24 February 2009</td>
+          <td>
+            <ul>
+              <li>Bug fixes</li>
+            </ul>
+          </td>
+        </tr>
+
+<!-- There was no 1.5.2. -->
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-January/000014.html">1.5.1</a></td>
+          <td>21 January 2009</td>
+          <td>
+            <ul>
+              <li>Bug fixes</li>
+              <li>First release with "final" status</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-December/000013.html">1.5.0</a></td>
+          <td>18 December 2008</td>
+          <td>
+            <ul>
+              <li>Informational rabbitmqctl commands</li>
+              <li>queue.unbind</li>
+              <li>Producer throttling</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-July/000012.html">1.4.0</a></td>
+          <td>30 July 2008</td>
+          <td>
+            <ul>
+              <li>Performance enhancements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2008-April/000010.html">1.3.0</a></td>
+          <td>1 April 2008</td>
+          <td>
+            <ul>
+              <li>Performance enhancements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-September/000009.html">1.2.0</a></td>
+          <td>27 September 2007</td>
+          <td>
+            <ul>
+              <li>Simplified cluster configuration</li>
+              <li>Internal flow control</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000008.html">1.1.1</a></td>
+          <td>29 August 2007</td>
+          <td>
+            <ul>
+              <li>Improved interoperability</li>
+              <li>First release with "beta" status</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000007.html">1.1.0-alpha</a></td>
+          <td>1 August 2007</td>
+          <td>
+            <ul>
+              <li>Bug fixes</li>
+            </ul>
+          </td>
+        </tr>
       </table>
     </doc:div>
   </body>
