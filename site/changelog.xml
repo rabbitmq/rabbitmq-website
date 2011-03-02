@@ -1,11 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Changelog</title>
+    <title>RabbitMQ - Server Changelog</title>
   </head>
   <body>
     <doc:div>
-      <h1>RabbitMQ changelog</h1>
+      <h1>RabbitMQ Server changelog</h1>
       <table id="changelog">
         <tr>
           <th>Version</th>
@@ -68,7 +68,7 @@
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-August/000028.html">2.0.0</a></td>
-          <td>25 Auguset 2010</td>
+          <td>25 August 2010</td>
           <td>
             <ul>
               <li>New persister</li>
