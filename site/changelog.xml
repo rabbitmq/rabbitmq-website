@@ -6,57 +6,76 @@
   <body>
     <doc:div>
       <h1>RabbitMQ changelog</h1>
-      <table>
+      <table id="changelog">
         <tr>
           <th>Version</th>
           <th>Release Date</th>
           <th>Highlights</th>
         </tr>
+
         <tr>
-          <td>2.3.0</td>
-          <td>???</td>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html">2.3.1</a></td>
+          <td>3 February 2011</td>
           <td>
-            Confirm mode<br/>
-            Pluggable authentication backends / SASL mechanisms<br/>
-            IPv6 support
+            <ul>
+              <li>Fixes a serious bug in 2.3.0</li>
+            </ul>
           </td>
         </tr>
 
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000032.html">2.3.0</a></td>
+          <td>2 February 2011</td>
+          <td>
+            <ul>
+              <li><a href="extensions.html#confirms">Confirm mode</a></li>
+              <li>Pluggable authentication backends / SASL mechanisms</li>
+              <li>IPv6 support</li>
+            </ul>
+          </td>
+        </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-November/000031.html">2.2.0</a></td>
-          <td>30 Nov 2010</td>
+          <td>30 November 2010</td>
           <td>
-            Per-queue message TTL<br/>
-            Automatic upgrades
+            <ul>
+              <li><a href="extensions.html#queue-ttl">Per-queue message TTL</a></li>
+              <li>Automatic upgrades</li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-October/000030.html">2.1.1</a></td>
-          <td>20 Oct 2010</td>
+          <td>20 October 2010</td>
           <td>
-            Exchange to exchange bindings<br/>
+            <ul>
+              <li><a href="extensions.html#exchange-bindings">Exchange to exchange bindings</a></li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-September/000029.html">2.1.0</a></td>
-          <td>15 Sept 2010</td>
+          <td>15 September 2010</td>
           <td>
-           Management plugin <br/>
-
+            <ul>
+              <li><a href="management.html">Management plugin</a></li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-August/000028.html">2.0.0</a></td>
-          <td>25 Aug 2010</td>
+          <td>25 Auguset 2010</td>
           <td>
-            New persister<br/>
-            AMQP 0-9-1<br/>
-            Queue leases<br/>
-            Binary Plugin releases
+            <ul>
+              <li>New persister</li>
+              <li>AMQP 0-9-1</li>
+              <li><a href="extensions.html#queue-leases">Queue leases</a></li>
+              <li>Binary Plugin releases</li>
+            </ul>
           </td>
         </tr>
 
@@ -64,17 +83,21 @@
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html">1.8.1</a></td>
           <td>15 July 2010</td>
           <td>
-            Synchronous basic.recover
+            <ul>
+              <li>Synchronous basic.recover</li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html">1.8.0</a></td>
-          <td>16 Jun 2010</td>
+          <td>16 June 2010</td>
           <td>
-            AMQP 0-9-1 semantics<br/>
-            Exchange type plugins<br/>
-            Backing store plugins<br/>
+            <ul>
+              <li>AMQP 0-9-1 semantics</li>
+              <li>Exchange type plugins</li>
+              <li>Backing store plugins</li>
+            </ul>
           </td>
         </tr>
 
@@ -84,38 +107,46 @@
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-February/000023.html">1.7.2</a></td>
-          <td>16 Feb 2010</td>
+          <td>16 February 2010</td>
           <td>
-            Enhanced rabbitmqctl
+            <ul>
+              <li>Enhanced rabbitmqctl</li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-January/000021.html">1.7.1</a></td>
-          <td>25 Jan 2010</td>
+          <td>25 January 2010</td>
           <td>
-            Improved producer throttling
+            <ul>
+              <li>Improved producer throttling</li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-October/000020.html">1.7.0</a></td>
-          <td>7 Oct 2009</td>
+          <td>7 October 2009</td>
           <td>
-            Native SSL support<br/>
-            Plugin mechanism<br/>
-            Configuration file
+            <ul>
+              <li>Native SSL support</li>
+              <li>Plugin mechanism</li>
+              <li>Configuration file</li>
+            </ul>
           </td>
         </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2009-June/000019.html">1.6.0</a></td>
-          <td>17 Jun 2009</td>
+          <td>17 June 2009</td>
           <td>
-            Prefetch count<br/>
-            Headers exchange<br/>
-            Permissions system<br/>
-            Alternate exchanges
+            <ul>
+              <li>Prefetch count</li>
+              <li>Headers exchange</li>
+              <li>Permissions system</li>
+              <li><a href="extensions.html#alternate-exchange">Alternate exchanges</a></li>
+            </ul>
           </td>
         </tr>
 
@@ -124,8 +155,9 @@
           <td><a href="">2.2.0</a></td>
           <td>30 Nov 2009</td>
           <td>
-            <br/>
-
+            <ul>
+              <li></li>
+            </ul>
           </td>
         </tr>
 -->
