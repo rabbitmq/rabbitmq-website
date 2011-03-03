@@ -30,6 +30,7 @@ def preprocess_markdown(fpath):
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>%s</title>
+    <link rel="stylesheet" rev="stylesheet" href="/css/tutorial.css" type="text/css"/>
   </head>
   <body>
 """ % (title.group(1),)

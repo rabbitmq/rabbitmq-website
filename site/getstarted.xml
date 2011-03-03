@@ -4,6 +4,7 @@
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>RabbitMQ - Getting started</title>
+    <link rel="stylesheet" rev="stylesheet" href="/css/tutorial.css" type="text/css"/>
   </head>
   <body>
     <doc:div>
