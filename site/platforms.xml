@@ -49,7 +49,7 @@
     <p>
       The Windows Erlang VM is 32bit. RabbitMQ will run on 64bit systems as a
       32bit process but <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-April/006794.html">some
-      32bit limitations</a> (such as maximum addressable memory) will be apparant. 
+      32bit limitations</a> (such as maximum addressable memory) will be apparent. 
     </p>
 
     <h3 id="unix">Generic UNIX</h3>
