@@ -51,12 +51,13 @@
         </p>
 
         <p>
-          Our supported clients present the asynchronous notification
-          of consumer cancellation to the consumer callback. For
-          example, in our Java client, the <code>Consumer</code>
-          interface has a <code>handleCancel</code> callback, which
-          can be overridden by sub-classing the
-          <code>QueueingConsumer</code> class:
+          Our supported clients present this capability by default to
+          the broker and thus will be sent the asynchronous
+          <code>basic.cancel</code> method by the broker, which they
+          present to the consumer callback. For example, in our Java
+          client, the <code>Consumer</code> interface has a
+          <code>handleCancel</code> callback, which can be overridden
+          by sub-classing the <code>QueueingConsumer</code> class:
           <pre class="sourcecode">
 channel.queueDeclare(queue, false, true, false, null);
 Consumer consumer = new QueueingConsumer(channel) {
