@@ -522,10 +522,9 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up
-            via the RabbitMQ config file, the location of which is
-            determined by the startup scripts; see the <a
-            href="install.html">installation guide</a> for
-            details. The file should set the cluster_nodes field in
+            via the RabbitMQ <code>.config</code> file; see the
+            <a href="configure.html#configuration-file">configuration guide</a>
+            for details. The file should set the cluster_nodes field in
             the rabbit application to a list of cluster nodes.
           </p>
           <p>
@@ -589,12 +588,10 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">[{rabbit, [{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}]}].</pre>
           <p>
             (Note for Erlang programmers and the curious: this is a
-            standard Erlang configuration file.  For more details, see
-            the <a
-            href="http://www.rabbitmq.com/install.html#configfile">Configuration
-            File</a> section of the installation instructions and the
-            <a href="http://www.erlang.org/doc/man/config.html">Erlang
-            Config Man Page</a>.)
+            standard Erlang configuration file.  For more details, see the
+            <a href="configure.html#configuration-file">configuration guide</a>
+            and the
+            <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.)
           </p>
           <p>
             We set this field in the config file on all machines.  For

@@ -17,8 +17,10 @@
         <p>
           Please see the <a href="build-server.html">build</a> and <a
           href="install.html">installation</a> guides for instructions
-          on compiling, installing, starting and shutting down the
-          server. See the <a href="service-guide.html">service</a> 
+          on compiling, installing, starting and shutting down the server.
+          To change default settings, see the
+          <a href="configure.html">configuration guide</a>. 
+          See the <a href="service-guide.html">service</a>
           guide for instructions on running the server as a Windows
           Service.
         </p>
