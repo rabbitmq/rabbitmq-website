@@ -159,14 +159,16 @@
             <h3>Ruby</h3>
             <ul class="plain">
               <li>
-                <a href="http://github.com/tmm1/amqp">Ruby/EM AMQP client</a> (and a
-                <a href="http://everburning.com/news/ridding-the-rabbit/">blog post</a> with sample code)
+                <a href="https://github.com/ruby-amqp/amqp">Ruby/EM AMQP client</a>
+              </li>
+              <li>
+                <a href="https://github.com/ruby-amqp/amq-client">AMQ Client</a>, a low-level AMQP client with support for blocking socket connection as well as for reactor implementations like EventMachine and Cool.IO
               </li>
               <li>
                 <a href="http://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
               </li>
               <li>
-                <a href="http://github.com/celldee/bunny/tree/master">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
+                <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
               </li>
               <li>
                 <a href="http://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
@@ -226,6 +228,9 @@
               </li>
               <li>
                 <a href="http://www.ioncannon.net/programming/941/using-daemon-kit-and-robustthread-to-build-ruby-daemons">Assembling an event driven daemon with RabbitMQ</a>
+              </li>
+              <li>
+                <a href="http://www.rabbitmq.com/blog/tag/ruby">Ruby-tagged RabbitMQ blog posts</a>
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a>
