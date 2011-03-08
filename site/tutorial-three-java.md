@@ -269,6 +269,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
             channel.close();
             connection.close();
         }
+        //...
     }
 
 [(EmitLog.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
@@ -278,8 +279,8 @@ exchange. This step is neccesary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
-but that's okay for us; if no consumer is listening yet (i.e., the
-exchange hasn't been created) we can safely discard the message.
+but that's okay for us; if no consumer is listening yet
+(i.e. no queue has been created) we can safely discard the message.
 
 The code for `ReceiveLog.java`:
 
@@ -345,7 +346,7 @@ And of course, to emit logs type:
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
-creates bindings and queues as we wanted. With two `ReceiveLog.java`
+creates bindings and queues as we want. With two `ReceiveLog.java`
 programs running you should see something like:
 
     $ sudo rabbitmqctl list_bindings
