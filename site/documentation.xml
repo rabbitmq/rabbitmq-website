@@ -23,6 +23,9 @@
             <a href="install.html">Installation Guide</a>
 	  </li>
 	  <li>
+            <a href="configure.html">Configuration Guide</a>
+	  </li>	  
+	  <li>
 	    <a href="admin-guide.html">Administration Guide</a>
 	  </li>
 	  <li>
@@ -56,7 +59,7 @@
 	    <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
 	  </li>
 	  <li>
-	    See also this <a href="how.html#clients">list of clients</a> for all sorts of configurations
+	    See also these <a href="devtools.html">developer tools</a> for community-contributed code.
 	  </li>
 	</ul>
       </doc:section>

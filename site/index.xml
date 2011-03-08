@@ -4,7 +4,6 @@
     <title>RabbitMQ - Messaging that just works</title>
   </head>
   <body>
-    <div style="background-image:url('/img/yotr-2011.png'); width: 950px; height:170px; margin: -10px 0 10px 5px"></div>
     <div class="rgt-third">
 
     <p class="rgt button">
@@ -34,7 +33,7 @@
     <h3>What Is RabbitMQ?</h3>
     <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
     cloud scale and supported on all <a href="download.html">major operating systems</a> and
-    <a href="how.html#clients">developer platforms</a>. RabbitMQ is open sourced under the
+    <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
     <a href="mpl.html">Mozilla Public License</a>.</p>
     <ul>
       <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
@@ -59,7 +58,7 @@
     <h3>How Do I Get Started?</h3>
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
-      <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
+      <li>I want to <a href="download.html">download</a>, <a href="install.html">install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 

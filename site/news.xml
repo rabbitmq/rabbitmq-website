@@ -14,6 +14,36 @@
 	   will give you a suitable value.
       -->   
       <doc:item>
+	<doc:date iso="2011-02-03T14:26:10+0000">3 February 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.3.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is pleased to announce the release of RabbitMQ
+            2.3.1.
+          </p>
+          <p>
+            This release fixes a small number of bugs, in particular one serious
+            bug in 2.3.0 which could lead to queue processes crashing.
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
 	<doc:date iso="2011-02-02T15:43:42+0000">2 February 2011</doc:date>
 	<doc:title>
 	  RabbitMQ 2.3.0 release
