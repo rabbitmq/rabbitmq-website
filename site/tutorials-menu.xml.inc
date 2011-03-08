@@ -32,9 +32,8 @@
           <p><img src="img/tutorials/python-three.png" height="50" width="180" /></p>
           <p>
           <a href="tutorial-three-python.html">Python</a>
-          <!--|
-          <a href="tutorial-three-java.html">In Java</a>
-          -->
+          |
+          <a href="tutorial-three-java.html">Java</a>
           </p>
         </li>
 
@@ -47,7 +46,7 @@
           <p>
           <a href="tutorial-four-python.html">Python</a>
           <!--|
-          <a href="tutorial-four-java.html">In Java</a>
+          <a href="tutorial-four-java.html">Java</a>
           -->
           </p>
         </li>
@@ -61,7 +60,7 @@
           <p>
           <a href="tutorial-five-python.html">Python</a>
           <!--|
-          <a href="tutorial-five-java.html">In Java</a>
+          <a href="tutorial-five-java.html">Java</a>
           -->
           </p>
         </li>
