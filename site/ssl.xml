@@ -221,7 +221,7 @@ server testca
           <p>The simplest way to set these options, is to edit
           the <code class="">rabbitmq.config</code> file (in the
           appropriate location for your platform, as discussed in
-          the <a href="install.html#configfile">installation
+          the <a href="configure.html#configuration-file">configuration
           guide</a>).  An example of the config file is below, which
           will start one ssl_listener on port 5671 on all interfaces
           on this hostname:</p>

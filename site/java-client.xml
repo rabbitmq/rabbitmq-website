@@ -108,6 +108,15 @@
       Java Client library or documentation other than the above.
     </p>
 
+    <h2>OSGi Ready</h2>
+    <p>
+      The RabbitMQ Java AMQP library jar comes ready with an OSGi
+      manifest (with bundle version and package dependencies correctly
+      set) so it can be deployed in an OSGi environment.
+      This means it is no longer necessary to <i>bundleise</i> or
+      <i>OSGiefy</i> the jar prior to using it in an OSGi container.
+    </p>
+
     <h2>Maven Artifact</h2>
     <p>
       The RabbitMQ Java AMQP library is available as a Maven artifact
