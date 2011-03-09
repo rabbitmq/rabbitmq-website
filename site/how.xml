@@ -197,6 +197,10 @@
       over HTTP and therefore have a very light profile on the Nagios server.
     </li>
     <li>
+      <a href="https://github.com/ask/rabbitmq-munin">Munin Plugins for RabbitMQ</a><br />
+      Plugins for monitoring a RabbitMQ server with <a href="http://munin-monitoring.org">Munin</a>.
+    </li>
+    <li>
       <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
       RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
     </li>
