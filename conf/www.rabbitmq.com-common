@@ -9,7 +9,8 @@
 
     # Send requests for the empty path and any path ending in .html, .xml or
     # .xsl to the Python XSLT handler. It will 404 on the .xml and .xsl files.
-    # NOTE: java and .net docs are passed over because they are >1 dir deep
+    # NOTE: we don't want to send the java and .net docs to render.py so they
+    #       are excluded here by virtue of being >1 dir deep
     <Location ~ "^/(|((man/.*|[^/]*)|(tutorials/.*|[^/]*))\.(html|xml|xsl))$">
       SetHandler python-program
       PythonHandler render
