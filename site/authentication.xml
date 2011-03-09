@@ -76,8 +76,8 @@
           variable should be a list of atoms corresponding to
           mechanism names, for example <code>['PLAIN',
           'AMQPLAIN']</code> by default. The server-side list is not
-          considered to be in any particular order. See
-          the <a href="install.html#configfile">configuration file</a>
+          considered to be in any particular order. See the
+          <a href="configure.html#configuration-file">configuration file</a>
           documentation.
         </p>
       </doc:section>
