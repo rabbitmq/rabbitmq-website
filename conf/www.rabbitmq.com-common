@@ -47,3 +47,4 @@
     # Redirect manpages from release folder
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /man/$1.man.html [R]
+    RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
