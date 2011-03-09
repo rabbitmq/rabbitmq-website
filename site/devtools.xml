@@ -120,6 +120,9 @@
                 <a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a>
               </li>
               <li>
+                <a href="https://github.com/mefesto/wabbitmq">wabbitmq</a> a Clojure messaging library that wraps RabbitMQ's Java Client
+              </li>
+              <li>
                 <a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a>
                 <br/>
                 A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
