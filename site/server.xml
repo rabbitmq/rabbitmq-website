@@ -199,6 +199,18 @@
       FAQ</a>. Then just <code>yum install erlang</code>.
     </p>
 
+    <p>
+      <b>Note to RHEL 5.5 users:</b> The version of Erlang in EPEL 5.5
+      is R12B-5. While compatible with rabbitmq-server, this is not
+      compatible with HTTP-based plugins or SSL, and has comparatively
+      poor garbage collection performance. Therefore you may wish to
+      install the semi-official build of R14B from
+      fedorapeople.org. Download the repository description
+      from <a href="http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo">here</a>
+      and save it to <code>/etc/yum.repos.d/</code> before invoking
+      <code>yum install erlang</code>.
+    </p>
+
     <h3>Mac OS X</h3>
 
     <p>
