@@ -34,6 +34,9 @@
           <li>
             <a href="extensions.html">Extensions and Experimental Features</a>
           </li>
+	  <li>
+            <a href="changelog.html">Changelog</a>
+	  </li>
 	</ul>
       </doc:section>
 
