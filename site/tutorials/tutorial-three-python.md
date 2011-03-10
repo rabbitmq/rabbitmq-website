@@ -122,7 +122,13 @@ queues it knows. And that's exactly what we need for our logger.
 > The _empty string_ exchange is special: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 
+Now, we can publish to our named exchange instead:
 
+    :::python
+    channel.basic_publish(exchange='logs',
+                          routing_key='',
+                          body=message)    
+    
 Temporary queues
 ----------------
 
@@ -137,9 +143,9 @@ currently flowing log messages, not just a subset of messages. We're
 also interested only in currently flowing messages not in the old
 ones. To solve that we need two things.
 
-First, whenever we connect to Rabbit we need a fresh, empty queue. To
+Firstly, whenever we connect to Rabbit we need a fresh, empty queue. To
 do it we could create a queue with a random name, or, even better -
-let server choose a random queue name for us. We can do it by not
+let the server choose a random queue name for us. We can do this by not
 supplying the `queue` parameter to `queue_declare`:
 
     :::python
@@ -233,7 +239,7 @@ Putting it all together
 </div>
 
 The producer program, which emits log messages, doesn't look much
-different to the previous tutorial. The most important change is that
+different from the previous tutorial. The most important change is that
 we now want to publish messages to our `logs` exchange instead of the
 nameless one. We need to supply a `routing_key` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
@@ -263,8 +269,8 @@ exchange. This step is neccesary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
-but that's okay for us; if no consumer is listening yet (i.e., the
-exchange hasn't been created) we can safely discard the message.
+but that's okay for us; if no consumer is listening yet
+(i.e. no queue has been created) we can safely discard the message.
 
 The code for `receive_logs.py`:
 
@@ -311,8 +317,8 @@ And of course, to emit logs type:
     $ python emit_log.py
 
 
-Using `rabbitmqctl list_bindings` you can verify if the code actually
-creates bindings and queues as we wanted. With two `receive_logs.py`
+Using `rabbitmqctl list_bindings` you can verify that the code actually
+creates bindings and queues as we want. With two `receive_logs.py`
 programs running you should see something like:
 
     $ sudo rabbitmqctl list_bindings
