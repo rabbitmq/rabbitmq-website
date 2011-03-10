@@ -581,3 +581,7 @@ p.warning {
   float: left;
 }
 
+#changelog  { width: auto; clear: both; }
+
+#changelog td { background-color: #f7f7f7; }
+
