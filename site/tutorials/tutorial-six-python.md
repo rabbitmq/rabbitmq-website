@@ -12,7 +12,7 @@
 <xi:include href="tutorials-help.xml.inc"/>
 
 
-In the [second tutorial](/tutorial-two-python.html) we learned how to
+In the [second tutorial](tutorial-two-python.html) we learned how to
 use _Work Queues_ to distribute time-consuming tasks among multiple
 workers.
 
@@ -86,7 +86,7 @@ request. Let's try it:
 >
 > * `delivery_mode`: Marks a message as persistent (with a value of `2`)
 >    or transient (any other value). You may remember this property
->    from [the second tutorial](/tutorial-two-python.html).
+>    from [the second tutorial](tutorial-two-python.html).
 > * `content_type`: Used to describe the mime-type of the encoding.
 >    For example for the often used JSON encoding it is a good practice
 >    to set this property to: `application/json`.
