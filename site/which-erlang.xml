@@ -36,8 +36,7 @@
     <dl>
     <dt>David Wragg:</dt>
     <dd>
-    <p>There's no point in referring to RHEL 5.5 as opposed to RHEL 5. The point
-releases are just rollups, so there's no difference between a freshly updated
+    <p>The point releases are just rollups, so there's no difference between a freshly updated
 RHEL 5.0 and RHEL 5.5.  There's no such thing as EPEL 5.5.
 
 - Should mention RHEL derivatives.
@@ -64,44 +63,37 @@ and then install or update erlang with
 </dd>
 <dt>Peter Holditch</dt>
 <dd>
-<p>Man investments have said: "We are having trouble locating an existing
+<p>
+<blockquote>We are having trouble locating an existing
 version of the OTP (Erlang) platform for our systems, which use RedHat
 Enterprise Linux 5.5. We believe we need version R14B of Erlang for
 the features we want, whereas RHEL 5.5 only includes R12B in its
-package repository."
+package repository.</blockquote>
 </p><p>
-I looked at the website and this seems to be contradicted by the
-advice in the FAQ (<a href="http://www.rabbitmq.com/install.html#rpm">rpm</a>): "The
-RabbitMQ server is included in Fedora, so for Fedora and RHEL users we
+contradicted by FAQ (<a href="http://www.rabbitmq.com/install.html#rpm">rpm</a>):
+<blockquote>RabbitMQ server is included in Fedora, so for Fedora and RHEL users we
 recommend to install the rabbitmq-server package via the
 distribution's package manager.
-</p><p>
 Alternatively, install rabbitmq-server-2.3.1-architecture.rpm (which
 you can download from the download page <a href="http://www.rabbitmq.com/server.html">server</a>). 
 We strongly recommend using your distribution's packaged version of Erlang to run the
 server. See <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if there is no
-official Erlang package for your distribution."
+official Erlang package for your distribution.</blockquote>
 </p><p>
-I am guessing that the wish for R14B of Erlang comes from the
-recommendation here: (<a href="http://www.rabbitmq.com/ssl.html">ssl</a>)  "The
+R14B of Erlang: (<a href="http://www.rabbitmq.com/ssl.html">ssl</a>)  
+<blockquote>The
 recommended distribution is R14B (SSL 4.0.1). This should be
 considered the minimum configuration for Java and Erlang clients due
-to an incorrect RC4 implementation in earlier versions of Erlang."
+to an incorrect RC4 implementation in earlier versions of Erlang.</blockquote>
 </p><p>
-I have found a post on the Rabbit Mail list that kind of addresses
-this (<a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html">discuss</a>)
-but it basically boils down to "do what you feel most comfortable
-with"
+<a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html">discuss</a>
 </p><p>
 From a commercial support perspective, what Erlang release should we
-specify?  Presumably, from a commercial supportability perspective
-they should run with something we are confident we can stand behind,
-and they are looking for a definitive statement.  What is that?
+specify as something we are confident we can stand behind?
 </p><p>
-As a general comment, it would be great if we could tidy up some of
+tidy up some of
 these contradictions on the website, and simply publish a definitive
-supported platforms matrix in a single place, even if that's just for
-commercial customers.
+supported platforms matrix in a single place.
 </p>
 </dd>
 <dt>Emile</dt>
@@ -117,12 +109,11 @@ This is a package management issue. If you built Erlang R14B01 from
 source instead of installing it from a package then the package manager 
 has no way of knowing that the dependency has been met. One way of 
 getting around this is to turn off dependency checking when installing 
-the RabbitMQ rpm. The RPM website has more information about dependency 
-management: http://rpm.org/
+the RabbitMQ rpm. The <a href="http://rpm.org/">RPM website</a> has more information about dependency 
+management:.
 
-Some users have also had some success installing from a modified Erlang 
-SRPM:
-http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html
+Some users have also had some success installing from a modified  
+<a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html">Erlang SRPM</a>.
 
 If you have a choice between R14B01 and R12B-3 then use R14B01.
 </p></dd>
@@ -184,31 +175,19 @@ Simon MacMullen wrote:
 <p>
  It looks like you're running Erlang R12B05. We don't support the
  management plugin on this old an Erlang.
-
- In fact rabbit_mochiweb used to blow up on startup with R12. I guess
- some of the changes that went in recently to reduce its dependencies
- now allow you to run it on R12, so it might be possible to fix the
- remaining issues and get it supported on older Erlangs.
+ rabbit_mochiweb used to blow up on startup with R12. 
+ Recent changes to reduce dependencies
+ now allow you to run it on R12.
 </p>
 <p>
- Actually I still can't get this to work. rabbit_mochiweb still blows up
- on R12B05 for me. Can you tell me more about your Erlang / OS
- installation?
-</p>
-<p>
-Hi Simon,
+ rabbit_mochiweb still blows up on R12B05 for me. 
+ CentOS 5.5 on all nodes, previously running R12B (5.6.5 was also mentioned when running the erl shell).
 
-Yup, we're CentOS 5.5 over here on all nodes, and were previously running R12B (5.6.5 was also mentioned when running the erl shell).
+I've just upgraded all our nodes to R14B (5.8.1) from the  
 
-I've just upgraded all our nodes to R14B (5.8.1) from the repository mentioned in the set of posts you pointed me at.
+<a href="http://repos.fedorapeople.org/repos/peter/erlang/">repository</a>.
 
-(http://repos.fedorapeople.org/repos/peter/erlang/ for any users experiencing the same problem).
-
-So far so good, we're back up and running with the new version of erlang, all nodes are happy and no sign of that stack trace.
-
-I'm a little reluctant to declare the problem fixed yet, as it was seemingly intermittent, but I'll post an update tomorrow if we haven't seen the stack-trace (well, and if we have too). Fingers crossed.
-
-Thanks for the rapid response, you guys are doing a brilliant job with this product :-)
+So far so good, no sign of that stack trace.
 
 Chris
 </p>
