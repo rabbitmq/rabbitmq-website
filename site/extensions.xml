@@ -123,7 +123,7 @@ channel.basicConsume(queue, consumer);
                                "consumer_cancel_notify"     = (bool) true,
                                "basic.nack"                 = (bool) true,
                                "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "2.3.2" }
+  "version"      = (longstr) "2.4.0" }
           </pre>
         </p>
 
