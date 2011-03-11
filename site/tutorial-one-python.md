@@ -83,6 +83,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 Hello World!
 ------------
+### (using the pika 0.5.2 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -127,10 +128,10 @@ messages from that queue.
 > * [txAMQP](https://launchpad.net/txamqp)
 > * [pika](http://github.com/tonyg/pika)
 >
-> In this tutorial we're going to use `pika`. To install it you can use
-> [`pip`](http://pip.openplans.org/) package management tool:
+> In this tutorial we're going to use `pika` version 0.5.2. To install it
+> you can use [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/tonyg/pika.git#egg=pika
+>     $ sudo pip install -e git+http://github.com/tonyg/pika.git@v0.5.2#egg=pika-v0.5.2
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them.
@@ -147,7 +148,7 @@ messages from that queue.
 > * On Windows:
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
->         > easy_install pika
+>         > easy_install pika==0.5.2
 >
 
 ### Sending

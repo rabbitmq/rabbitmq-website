@@ -22,7 +22,7 @@
           application. For everything to work correctly, ensure the
           following minimum configuration: </p>
         <ul class="plain">
-          <li> Erlang Distribution - R12B-5</li>
+          <li> Erlang Distribution - R13B</li>
           <li> Erlang SSL - 3.10</li>
         </ul>
         <p>The recommended distribution is R14B (SSL 4.0.1). This should be
@@ -221,7 +221,7 @@ server testca
           <p>The simplest way to set these options, is to edit
           the <code class="">rabbitmq.config</code> file (in the
           appropriate location for your platform, as discussed in
-          the <a href="install.html#configfile">installation
+          the <a href="configure.html#configuration-file">configuration
           guide</a>).  An example of the config file is below, which
           will start one ssl_listener on port 5671 on all interfaces
           on this hostname:</p>
@@ -261,14 +261,7 @@ server testca
           be able to establish a chain of trust to it. Note that these
           values can change across versions of ssl shipped with
           Erlang/OTP, so check your man page <code class="">erl -man
-          new_ssl</code> to ensure you have the proper values. <b>In
-          particular, note that Erlang R12B-5 has a single
-          configuration value <code>verify_code</code> which takes the
-          value <code>0</code>, <code>1</code> or <code>2</code>. There is
-          no <code>fail_if_no_peer_cert</code> option in Erlang
-          R12B-5. The options changed with the release of R13
-          to <code>verify</code> and <code>fail_if_no_peer_cert</code>
-          as documented here.</b></p>
+          new_ssl</code> to ensure you have the proper values.</p>
 
           <p>Note that if <code>{verify, verify_none}</code> is used,
           no certificate exchange takes place from the client to the
@@ -808,10 +801,7 @@ namespace RabbitMQ.Client.Examples {
             used in Erlang R13 and onwards to specify what action to
             take if the server doesn't present a certificate or if
             we're unable to establish a chain of trust to the server's
-            certificate. In R12B-5 and prior,
-            the <code>verify_code</code> option serves the same
-            purpose. Check <code>erl -man new_ssl</code> to make sure
-            you have the right options for your version of Erlang.</p>
+            certificate.</p>
         </doc:subsection>
 
         <doc:subsection name="code">

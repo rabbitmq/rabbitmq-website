@@ -7,6 +7,7 @@
 <div id="tutorial">
 
 ## Routing
+### (using the pika 0.5.2 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
