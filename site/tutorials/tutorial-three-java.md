@@ -282,7 +282,7 @@ The messages will be lost if no queue is bound to the exchange yet,
 but that's okay for us; if no consumer is listening yet
 (i.e. no queue has been created) we can safely discard the message.
 
-The code for `ReceiveLog.java`:
+The code for `ReceiveLogs.java`:
 
     import java.io.IOException;
     import com.rabbitmq.client.ConnectionFactory;
@@ -290,7 +290,7 @@ The code for `ReceiveLog.java`:
     import com.rabbitmq.client.Channel;
     import com.rabbitmq.client.QueueingConsumer;
       
-    public class ReceiveLog {
+    public class ReceiveLogs {
     
         private static final String EXCHANGE_NAME = "logs";
   
@@ -321,23 +321,23 @@ The code for `ReceiveLog.java`:
         }
     }
 
-[(ReceiveLog.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLog.java)
+[(ReceiveLogs.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
 
 
 Compile as before and we're done.
 
     :::bash
-    $ javac -cp rabbitmq-client.jar EmitLog.java ReceiveLog.java
+    $ javac -cp rabbitmq-client.jar EmitLog.java ReceiveLogs.java
 
 If you want to save logs to a file, just open a console and type:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLog > logs_from_rabbit.log
+    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogs > logs_from_rabbit.log
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLog
+    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogs
 
 And of course, to emit logs type:
 
@@ -346,7 +346,7 @@ And of course, to emit logs type:
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
-creates bindings and queues as we want. With two `ReceiveLog.java`
+creates bindings and queues as we want. With two `ReceiveLogs.java`
 programs running you should see something like:
 
     $ sudo rabbitmqctl list_bindings
