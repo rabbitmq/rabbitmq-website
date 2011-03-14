@@ -619,10 +619,10 @@
               <code>rabbitmq-server-&version-server;-architecture.rpm</code>
               (which you can download from the
               <a href="server.html">download page</a>).
-              We strongly recommend using your distribution's packaged
+              We recommend using your distribution's packaged
               version of Erlang to run the server. See <a
-              href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if
-              there is no official Erlang package for your distribution.
+              href="server.html">the server download page</a> for more
+              information.
             </p>
             </dd>
             </dl>

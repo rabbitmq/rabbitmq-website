@@ -249,7 +249,7 @@
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (the <a href="http://github.com/tonyg/pika">source code</a> is on github)
+                (the <a href="https://github.com/pika/pika">source code</a> is on github)
               </li>
               <li>
                 <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code
