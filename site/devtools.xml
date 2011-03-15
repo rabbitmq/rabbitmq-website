@@ -499,6 +499,11 @@
                 Websocket and Socket.IO support for RabbitMQ
               </li>
               <li>
+                <a href="http://dahernan.blogspot.com/2011/03/rabbitmq-and-nodejs-websockets.html">RabbitMQ and Node.js Websockets</a>
+                <br/>
+                Experiments with Node.js support for Websockets and RabbitMQ.
+              </li>
+              <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
                 <br />
                 An experimental driver (in PHP) for <a href="plugins.html#rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</a> designed to
