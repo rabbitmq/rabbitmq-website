@@ -694,14 +694,10 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 5567
             necessary to ensure inter-node communication. Erlang makes
             use of a Port Mapper Daemon (epmd) for resolution of node
             names in a cluster. Nodes must be able to reach each other
-            and the port mapper daemon for clustering to work. At least
-            one node should also be reachable from clients on port 5672,
-            or the default AMQP port.
+            and the port mapper daemon for clustering to work.
           </p>
           <p>
-            Each distributed Erlang node runs a port mapper daemon which
-            is responsible for mapping symbolic node names to machine
-            addresses. The default epmd port is 4369, but this can be changed
+            The default epmd port is 4369, but this can be changed
             using the <span class="envvar">ERL_EPMD_PORT</span>
             environment variable. All nodes must use the same port.
             Firewalls must permit traffic on this port to pass between
@@ -713,7 +709,8 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 5567
             Once a distributed Erlang node address has been resolved via epmd,
             other nodes will attempt to communicate directly with that address
             using the Erlang distributed node protocol. The port range for this
-            communication can be configured with two Erlang kernel parameters:
+            communication can be configured with two parameters for the Erlang
+            kernel application:
           </p>
           <ul>
             <li>inet_dist_listen_min</li>
