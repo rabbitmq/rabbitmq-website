@@ -120,6 +120,9 @@
                 <a href="http://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.com/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a>
               </li>
               <li>
+                <a href="https://github.com/mefesto/wabbitmq">wabbitmq</a> a Clojure messaging library that wraps RabbitMQ's Java Client
+              </li>
+              <li>
                 <a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a>
                 <br/>
                 A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
@@ -246,7 +249,8 @@
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (the <a href="http://github.com/tonyg/pika">source code</a> is on github)
+                (the <a href="https://github.com/pika/pika">source code</a> is on github; the 
+                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
               </li>
               <li>
                 <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code
@@ -494,6 +498,11 @@
                 <a href="http://github.com/rabbitmq/rabbit-socks">rabbit-socks</a>
                 <br />
                 Websocket and Socket.IO support for RabbitMQ
+              </li>
+              <li>
+                <a href="http://dahernan.blogspot.com/2011/03/rabbitmq-and-nodejs-websockets.html">RabbitMQ and Node.js Websockets</a>
+                <br/>
+                Experiments with Node.js support for Websockets and RabbitMQ.
               </li>
               <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>

@@ -33,7 +33,7 @@
       </p>
       
       <div id="tutorial-index">
-        <xi:include href="tutorials-menu.xml.inc"/>
+        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
       </div>
     </doc:div>
   </body>
