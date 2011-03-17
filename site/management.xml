@@ -32,6 +32,9 @@
             channel, data rates per connection, etc.
           </li>
           <li>
+            Send and receive messages.
+          </li>
+          <li>
             Monitor Erlang processes, file descriptors, memory use.
           </li>
           <li>
