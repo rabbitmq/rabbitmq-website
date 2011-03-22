@@ -421,8 +421,7 @@
               href="debian.html#apt">APT repository</a>.
               </p>
               <p>
-              If you use apt on a Debian distribution that has erlang-base
-              packages available, all dependencies should be met automatically.
+              All dependencies should be met automatically.
             </p>
             </dd>
             </dl>
