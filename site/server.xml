@@ -98,10 +98,10 @@
 		  downloadpath="&dir-server;">
 	Packaged for Windows systems
       </r:download>
-<!--      <r:download downloadfile="rabbitmq-server-&version-server;.exe"
+      <r:download downloadfile="rabbitmq-server-&version-server;.exe"
 		  downloadpath="&dir-server;">
 	<b>Experimental</b><sup><a href="#windows-installer">#</a></sup> installer for Windows systems
-      </r:download> -->
+      </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;.zip"
                   downloadpath="&dir-server;">
 	Source code and tools (zip)
@@ -241,7 +241,7 @@
       be used on any Unix or Linux variant.
     </p>
 
-<!--    <h3 id="windows-installer">Windows Installer</h3>
+    <h3 id="windows-installer">Windows Installer</h3>
     <p>
       As an alternative to <a href="install.html#windows">installing
       the server manually on Windows</a>, we have an experimental
@@ -249,7 +249,7 @@
       to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">the
       mailing list</a>. You will need to install Erlang from its
       installer first.
-    </p> -->
+    </p>
 
     <h3 id="windows_bundle">Windows Bundle</h3>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">

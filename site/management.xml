@@ -32,6 +32,9 @@
             channel, data rates per connection, etc.
           </li>
           <li>
+            Send and receive messages.
+          </li>
+          <li>
             Monitor Erlang processes, file descriptors, memory use.
           </li>
           <li>
@@ -172,8 +175,7 @@
         <p>
           The management plugin has a couple of configuration
           options. These are managed through the main RabbitMQ
-          configuration file. Information on the configuration file
-          can be found <a href="install.html#configfile">here</a>.
+          <a href="configure.html#configuration-file">configuration file</a>.
         </p>
         <doc:subsection name="fine-stats">
           <doc:heading>
