@@ -14,6 +14,18 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-March/011985.html">2.4.0</a></td>
+          <td>23 March 2011</td>
+          <td>
+            <ul>
+              <li><a href="extensions.html#sender-selected-distribution">Sender selected distribution</a></li>
+              <li><a href="extensions.html#consumer-cancel-notify">Consumer cancellation notifications</a></li>
+              <li>Fast topic routing</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html">2.3.1</a></td>
           <td>3 February 2011</td>
           <td>
