@@ -133,8 +133,10 @@
 &lt;/dependency&gt;</pre>
     </p>
     <p>
-      There usually is a few weeks lag between a new release and its
-      appearance in the central Maven repository. Be patient.
+      We attempt to upload new versions of the Java client on the day
+      of release; however the Maven servers are frequently unreliable,
+      so there may be a delay of a few days between a new release and
+      its appearance in the central Maven repository. Please be patient.
     </p>
 
     <h2>Windows Bundle</h2>
