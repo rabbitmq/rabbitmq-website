@@ -134,7 +134,7 @@
     </p>
     <p>
       We attempt to upload new versions of the Java client on the day
-      of release; however the Maven servers are frequently unreliable,
+      of release; however the Maven servers are sometimes unavailable,
       so there may be a delay of a few days between a new release and
       its appearance in the central Maven repository. Please be patient.
     </p>
