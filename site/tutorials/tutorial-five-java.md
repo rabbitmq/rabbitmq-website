@@ -147,7 +147,7 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.java`:
 
-    :::java
+    #!java
     public class EmitLogTopic {
     
         private static final String EXCHANGE_NAME = "topic_logs";
@@ -165,9 +165,7 @@ The code for `EmitLogTopic.java`:
             String routingKey = getRouting(argv);
             String message = getMessage(argv);
         
-            channel.basicPublish( EXCHANGE_NAME, routingKey, 
-                                null,
-                                message.getBytes());
+            channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
             System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
     
             channel.close();
@@ -179,7 +177,7 @@ The code for `EmitLogTopic.java`:
 
 The code for `ReceiveLogsTopic.java`:
 
-    :::java
+    #!java
     import java.io.IOException;
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
@@ -226,27 +224,28 @@ The code for `ReceiveLogsTopic.java`:
         }
     }
 
-    
-To receive all the logs run:
+Run the following examples using `java -cp` and include the jar files as in [Tutorial 1](tutorial-one-java.html).   
 
-    java -cp .;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar ReceiveLogsTopic "#"
+To receive all the logs:
+
+    ReceiveLogsTopic "#"
 
 To receive all logs from the facility "`kern`":
 
-    java -cp .;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar ReceiveLogsTopic "kern.*"
+    ReceiveLogsTopic "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
-    java -cp .;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar ReceiveLogsTopic "*.critical"
+    ReceiveLogsTopic "*.critical"
 
 You can create multiple bindings:
 
-    java -cp .;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar ReceiveLogsTopic "kern.*" "*.critical"
+    ReceiveLogsTopic "kern.*" "*.critical"
 
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    java -cp .;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar EmitLogTopic "kern.critical" "A critical kernel error"
+    EmitLogTopic "kern.critical" "A critical kernel error"
 
 
 Have fun playing with these programs. Note that the code doesn't make
