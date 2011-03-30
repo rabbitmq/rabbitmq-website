@@ -341,6 +341,12 @@
                 An introductory presentation covering common RabbitMQ use cases with code examples in PHP
               </li>
               <li>
+                <a href="http://www.youtube.com/watch?v=YO9AtlJ3JMc">Scaling web apps with RabbitMQ</a>
+                <br />
+                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing 
+                website reliability and scalability. (March 11, 2011.)
+              </li>
+              <li>
                 <a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a>
               </li>
               <li>
