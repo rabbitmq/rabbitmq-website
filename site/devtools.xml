@@ -60,6 +60,9 @@
                 <li>
                   <a href="#haskell-dev">Haskell</a>
                 </li>
+                <li>
+                  <a href="#ocaml-dev">Ocaml</a>
+                </li>
               </ul>
             </li>
             <li>
@@ -457,6 +460,15 @@
               </li>
               <li>
                 <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>
+          <div class="box" id="ocaml-dev">
+            <h3>Ocaml</h3>
+            <ul class="plain">
+              <li>
+                <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
