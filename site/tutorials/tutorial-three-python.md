@@ -91,7 +91,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 > #### Listing exchanges
 >
-> To list the exchanges on the server you can use the ever useful `rabbitmqctl`:
+> To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
