@@ -315,20 +315,27 @@ The code for `receive_logs_direct.py`:
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
+    :::bash
     $ python receive_logs_direct.py warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
+    :::bash
     $ python receive_logs_direct.py info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
+    :::bash
     $ python emit_log_direct.py error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
 (Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+
+<!--Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
+for messages based on a pattern.
+-->
 
 </div>

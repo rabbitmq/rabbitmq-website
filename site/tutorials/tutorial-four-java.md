@@ -176,9 +176,7 @@ As always, we need to create an exchange first:
 And we're ready to send a message:
 
     :::java
-    channel.basicPublish( EXCHANGE_NAME, severity, 
-            null,
-            message.getBytes());
+    channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -246,6 +244,7 @@ Putting it all together
 
 The code for `EmitLogDirect.java` class:
 
+    #!java
     import java.io.IOException;
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
@@ -268,9 +267,7 @@ The code for `EmitLogDirect.java` class:
             String severity = getSeverity(argv);
             String message = getMessage(argv);
     
-            channel.basicPublish( EXCHANGE_NAME, severity, 
-                                null,
-                                message.getBytes());
+            channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
             System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
     
             channel.close();
@@ -283,6 +280,7 @@ The code for `EmitLogDirect.java` class:
 
 The code for `ReceiveLogsDirect.java`:
 
+    #!java
     import com.rabbitmq.client.Channel;
     import com.rabbitmq.client.QueueingConsumer;
     
@@ -293,9 +291,7 @@ The code for `ReceiveLogsDirect.java`:
         public static void main(String[] argv)
                       throws java.io.IOException,
                       java.lang.InterruptedException {
-    
-
-    
+        
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
