@@ -91,8 +91,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 > #### Listing exchanges
 >
-> To list the exchanges on the server you can once again use the
-> Swiss Army Knife - `rabbitmqctl`:
+> To list the exchanges on the server you can use the ever useful `rabbitmqctl`:
 >
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
@@ -103,23 +102,25 @@ queues it knows. And that's exactly what we need for our logger.
 >     amq.headers     headers
 >     ...done.
 >
-> You can see a few `amq.` exchanges. They're created by default, but
-> chances are you'll never need to use them.
+> In this list there are some `amq.*` exchanges. These are created by default, but
+> it is unlikely you'll need to use them at the moment.
 
 
 > #### Nameless exchange
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
 > but still were able to send messages to queues. That was possible
-> because we were using a default `""` _empty string_ (nameless) exchange.
-> Remember how publishing worked:
+> because we were using a default default exchange, which we identify by the empty string (`""`).
+>
+> Recall how we published a message before:
 >
 >     :::python
 >     channel.basic_publish(exchange='',
 >                           routing_key='hello',
 >                           body=message)
 >
-> The _empty string_ exchange is special: messages are
+> The `exchange` parameter is the the name of the exchange.
+> The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 
 Now, we can publish to our named exchange instead:
@@ -139,7 +140,7 @@ same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
 
 But that's not the case for our logger. We want to hear about all
-currently flowing log messages, not just a subset of messages. We're
+log messages, not just a subset of them. We're
 also interested only in currently flowing messages not in the old
 ones. To solve that we need two things.
 
@@ -269,8 +270,7 @@ exchange. This step is neccesary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
-but that's okay for us; if no consumer is listening yet
-(i.e. no queue has been created) we can safely discard the message.
+but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
 The code for `receive_logs.py`:
 
@@ -306,14 +306,17 @@ The code for `receive_logs.py`:
 
 We're done. If you want to save logs to a file, just open a console and type:
 
+    :::bash
     $ python receive_logs.py > logs_from_rabbit.log
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
+    :::bash
     $ python receive_logs.py
 
 And of course, to emit logs type:
 
+    :::bash
     $ python emit_log.py
 
 
@@ -321,6 +324,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `receive_logs.py`
 programs running you should see something like:
 
+    :::bash
     $ sudo rabbitmqctl list_bindings
     Listing bindings ...
      ...

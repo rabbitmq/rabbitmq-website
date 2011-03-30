@@ -91,8 +91,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 > #### Listing exchanges
 >
-> To list the exchanges on the server you can once again use the
-> Swiss Army Knife - `rabbitmqctl`:
+> To list the exchanges on the server you can use the ever useful `rabbitmqctl`:
 >
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
@@ -103,21 +102,23 @@ queues it knows. And that's exactly what we need for our logger.
 >     amq.headers     headers
 >     ...done.
 >
-> You can see a few `amq.` exchanges. They're created by default, but
-> chances are you'll never need to use them.
+> In this list there are some `amq.*` exchanges. These are created by default, but
+> it is unlikely you'll need to use them at the moment.
 
 
 > #### Nameless exchange
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
 > but still were able to send messages to queues. That was possible
-> because we were using a default `""` _empty string_ (nameless) exchange.
-> Remember how publishing worked:
+> because we were using a default exchange, which we identify by the empty string (`""`).
+>
+> Recall how we published a message before:
 >
 >     :::java
 >     channel.basicPublish("", "hello", null, message.getBytes());
 >
-> The _empty string_ exchange is special: messages are
+> The first parameter is the the name of the exchange.
+> The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routingKey`, if it exists.
 
 Now, we can publish to our named exchange instead:
@@ -136,7 +137,7 @@ same queue.  Giving a queue a name is important when you
 want to share the queue between producers and consumers.
 
 But that's not the case for our logger. We want to hear about all
-currently flowing log messages, not just a subset of messages. We're
+log messages, not just a subset of them. We're
 also interested only in currently flowing messages not in the old
 ones. To solve that we need two things.
 
@@ -240,6 +241,7 @@ nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.java` script:
 
+    #!java
     import java.io.IOException;
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
@@ -261,9 +263,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     
             String message = getMessage(argv);
     
-            channel.basicPublish( EXCHANGE_NAME, "", 
-                        null,
-                        message.getBytes());
+            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
     
             channel.close();
@@ -279,11 +279,11 @@ exchange. This step is neccesary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
-but that's okay for us; if no consumer is listening yet
-(i.e. no queue has been created) we can safely discard the message.
+but that's okay for us; if no consumer is listening yet we can safely discard the message.
 
 The code for `ReceiveLogs.java`:
 
+    #!java
     import java.io.IOException;
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
@@ -349,6 +349,7 @@ Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `ReceiveLogs.java`
 programs running you should see something like:
 
+    :::bash
     $ sudo rabbitmqctl list_bindings
     Listing bindings ...
      ...
