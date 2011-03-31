@@ -192,8 +192,8 @@
     In case of an error, the above call returns {error, Error}.
   </p>
   <p>
-    An AMQP broker contains objects that organised into groups called
-    virtual hosts. The concept of virtual hosts gives an administrator
+    An AMQP broker contains objects that are organised into groups called
+    virtual hosts. The concept of virtual host gives an administrator
     the facility to partition a broker resource into separate domains
     and restrict access to the objects contained within these
     groups. AMQP connections require client authentication and the
@@ -449,78 +449,120 @@
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
     queue can be a more efficient means of delivering messages than
-    the polling mechanism. To subscribe to a queue, the
+    the polling mechanism. In order to be able to use this, you need to
+    specify a consumer implementation when opening a channel:
+    
+    <pre class="sourcecode">
+      {ok, Channel} = amqp_connection:open_channel(
+                          Connection, {example_consumer, Params}).
+    </pre>
+  </p>
+  <p>
+    example_consumer is the consumer module (that you need to implement) and
+    Params is the argument passed to example_consumer:init/1.
+  </p>
+  <p>
+    Before example_consumer can receive any messages, the channel has to be
+    subscribed to a queue. To subscribe to a queue, the
     #'basic.consume'{} command is used:
 
     <pre class="sourcecode">
-      Sub = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
+      Consume = #'basic.consume'{queue = Q},
+      #'basic.consume_ok'{consumer_tag = Tag} =
+          amqp_channel:call(Channel, Consume, Consumer)
     </pre>
   </p>
   <p>
-    The consumer argument is the pid of a process to which the client
-    library will deliver messages. This can be an arbitrary Erlang
-    process, including the process that initiated the
-    subscription. The #'basic.consume_ok'{} notification contains a
-    tag that identifies the subscription. This is used at a later
-    point in time to cancel the subscription. This notification is
-    send both to the process that created the subscription (as the
-    return value to amqp_channel:subscribe/3) and as a message to the
-    consumer process.
-  </p>
-  <p>
-    Currently, sending basic.consume messages is only possible via the
-    subscribe function. This part of the API may change in the near
-    future.
-  </p>
-  <p>
-    When a consumer process is subscribed to a queue, it will receive
-    messages in its mailbox. An example receive loop looks like this:
-
+    In order to be
+    able to consume messages, example_consumer needs to implement the
+    amqp_gen_consumer behaviour. A sample implementation of example_consumer
+    is provided below:
+    
     <pre class="sourcecode">
-      loop(Channel) ->
-          receive
-              %% This is the first message received
-              #'basic.consume_ok'{} ->
-                  loop(Channel);
-
-              %% This is received when the subscription is cancelled
-              #'basic.cancel_ok'{} ->
-                  ok;
-
-              %% A delivery
-              {#'basic.deliver'{delivery_tag = Tag}, Content} ->
-                  %% Do something with the message payload
-                  %% (some work here)
-
-                  %% Ack the message
-                  amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
-
-                  %% Loop
-                  loop(Channel)
-          end.
-     </pre>
-
-     In this simple example, the process consumes the subscription
-     notification and then proceeds to wait for delivery messages to
-     arrive in its mailbox. When messages are received from the
-     mailbox, the loop does something useful with the message and
-     sends a receipt acknowledge back to the broker. If the
-     subscription is cancelled, either by the consumer itself or some
-     other process, a cancellation notification will be sent to the
-     consumer process. In this scenario, the receive loop just
-     exits. If the application does not wish to explicitly acknowledge
-     message receipts, it should set the no_ack flag on the
-     subscription request.
-    </p>
-
-    To cancel a subscription, use the tag that the broker passed back
-    with the #'basic.consume_ok'{} acknowledgement:
-
-    <pre class="sourcecode">
-      amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
+      -module(example_consumer).
+      
+      -include("amqp_client.hrl").
+      
+      -compile([export_all]).
+      
+      -record(state, { %% some state fields
+                     }).
+      
+      init(_Params) ->
+        %% called when channel starts up
+        {ok, #state{}}.
+      
+      handle_consume_ok(#'basic.consume_ok'{},
+                        #'basic.consume'{},
+                        State) ->
+        %% This is called after sending out a #'basic.consume'{}.
+        {ok, State}.
+      
+      handle_cancel(#'basic.cancel'{} = Cancel, State) ->
+        %% received basic.cancel (notification that queue has been deleted)
+        %% do something useful
+        {ok, NewState}.
+      
+      handle_cancel_ok(#'basic.cancel_ok'{} = CancelOk,
+                       #'basic.cancel'{},
+                       State) ->
+        %% This is called after sending out a #'basic.cancel'{}.
+        %% do something useful
+        {ok, NewState}.
+      
+      handle_deliver({#'basic.deliver'{delivery_tag = Tag} = Deliver,
+                      Msg = #amqp_msg{}},
+                     State) ->
+        %% received a message from one of the subscriptions!
+        %% do something useful with it
+        %% ... and then ack it
+        amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+        {ok, NewState}.
+      
+      handle_call(_Call, State) ->
+        %% received after calling amqp_channel:call_consumer/2
+        {reply, ok, State}.
+      
+      terminate(_Reason, _State) ->
+        %% called when channel shuts down
+        ok.
     </pre>
+  </p>
+  <p>
+    Please note that all the consumer callback functions are called
+    <strong>within</strong> the channel process. For this reason,
+    using amqp_channel:call/{2,3} in the callbacks will block the channel
+    indefinitely. Use only amqp_channel:cast/2 to ack messages, unless the
+    acking takes place asynchronously, in another process. It is also a good
+    idea to do minimal work within the callbacks, to avoid blocking the channel
+    too long, allowing it to communicate freely with the server. If more work
+    is needed to be done as part of consuming, it is recommended to delegate
+    another process for it or to use one of the two provided consumer
+    implementations (see below).
+  </p>
+   <p>
+     If a consumer implementation is not specified when opening a channel,
+     the default one (amqp_selective_consumer) will be used instead. See the
+     <a href="&dir-current-edoc;">Erlang client's documentation</a>
+     for information on how it works. Additionally, another consumer
+     implementation, called amqp_direct_consumer, is provided as part of the
+     Erlang client library, which converts the callback events to messages,
+     that are sent to a user-specified pid.
+   </p>
+   <p>
+    The #'basic.consume_ok'{} notification contains a
+    tag (in the consumer_tag field) that identifies the subscription.
+    This is used at a later in time to cancel the subscription. This
+    notification is sent both to the process that created the
+    subscription (as the return value to amqp_channel:call/2) and as a callback
+    to the consumer module. To cancel a subscription, use the tag that the
+    broker passed back with the #'basic.consume_ok'{} acknowledgement:
 
+    <pre class="sourcecode">
+      #'basic.cancel_ok'{} =
+          amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
+    </pre>
+   </p>
 </doc:section>
 
 <!-- ..................................................................... -->
