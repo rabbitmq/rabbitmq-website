@@ -51,6 +51,15 @@
       .NET/C# client library other than the above.
     </p>
 
+    <h3>RabbitMQ Erlang Client</h3>
+    <p>The latest release is &version-erlang-client; Get it from the
+      <a href="erlang-client.html">Erlang client download page</a>.</p>
+    <p>
+      Consult <a href="/releases/rabbitmq-erlang-client/">the archive
+      </a> if you want to download a version of the RabbitMQ Erlang
+     client library other than the above.
+    </p>
+
     <hr class="pad" />
     <h2>Additional Components</h2>
 
