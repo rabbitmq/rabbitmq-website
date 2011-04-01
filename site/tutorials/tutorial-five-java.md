@@ -152,7 +152,7 @@ The code for `EmitLogTopic.java`:
     
         private static final String EXCHANGE_NAME = "topic_logs";
     
-        public static void main(String[] argv) 
+        public static void main(String[] argv)
                       throws java.io.IOException {
     
             ConnectionFactory factory = new ConnectionFactory();
@@ -164,7 +164,7 @@ The code for `EmitLogTopic.java`:
     
             String routingKey = getRouting(argv);
             String message = getMessage(argv);
-        
+    
             channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
             System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
     
@@ -198,11 +198,11 @@ The code for `ReceiveLogsTopic.java`:
                 System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
                 System.exit(1);
             }
-        
-            for(String bindingKey : argv){    
+    
+            for(String bindingKey : argv){
                 channel.queueBind(queueName, EXCHANGE_NAME, bindingKey);
             }
-        
+    
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
     
             QueueingConsumer consumer = new QueueingConsumer(channel);
@@ -213,7 +213,7 @@ The code for `ReceiveLogsTopic.java`:
                 String message = new String(delivery.getBody());
                 String routingKey = delivery.getEnvelope().getRoutingKey();
     
-                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");   
+                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");
             }
         }
     }
