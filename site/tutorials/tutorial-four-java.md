@@ -245,16 +245,11 @@ Putting it all together
 The code for `EmitLogDirect.java` class:
 
     #!java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    
     public class EmitLogDirect {
     
         private static final String EXCHANGE_NAME = "direct_logs";
     
-        public static void main(String[] argv) 
+        public static void main(String[] argv)
                       throws java.io.IOException {
     
             ConnectionFactory factory = new ConnectionFactory();
@@ -273,17 +268,12 @@ The code for `EmitLogDirect.java` class:
             channel.close();
             connection.close();
         }
-        //..       
+        //..
     }
-
-
 
 The code for `ReceiveLogsDirect.java`:
 
     #!java
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-    
     public class ReceiveLogsDirect {
     
         private static final String EXCHANGE_NAME = "direct_logs";
@@ -305,10 +295,10 @@ The code for `ReceiveLogsDirect.java`:
                 System.exit(1);
             }
     
-            for(String severity : argv){    
+            for(String severity : argv){
                 channel.queueBind(queueName, EXCHANGE_NAME, severity);
             }
-       
+    
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
     
             QueueingConsumer consumer = new QueueingConsumer(channel);
@@ -319,12 +309,10 @@ The code for `ReceiveLogsDirect.java`:
                 String message = new String(delivery.getBody());
                 String routingKey = delivery.getEnvelope().getRoutingKey();
     
-                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");   
+                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");
             }
         }
     }
-
-
 
 Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
 For convenience we'll now use an environment variable $CP for the classpath jar files when running examples.
