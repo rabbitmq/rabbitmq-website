@@ -284,4 +284,15 @@ Hello World!
 
 Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
 
+> ####Hint
+> You can set an environment variable for the jar files on the classpath e.g.
+>
+>      $ export CP=.:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+>      $ java -cp $CP Send
+>
+> or on Windows:
+>
+>      > set CP=.;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar
+>      > java -cp %CP% Send
+>
 </div>

@@ -326,25 +326,27 @@ The code for `ReceiveLogsDirect.java`:
 
 
 
-Compile as usual (see [tutorial one](tutorial-one-java.html)).
+Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
+For convenience we'll now use an environment variable $CP for the classpath jar files when running examples.
+
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogsDirect warning error > logs_from_rabbit.log
+    $ java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogsDirect info warning error
+    $ java -cp $CP ReceiveLogsDirect info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar EmitLogDirect error "Run. Run. Or it will explode."
+    $ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
