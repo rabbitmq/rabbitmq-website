@@ -178,12 +178,6 @@ The code for `EmitLogTopic.java`:
 The code for `ReceiveLogsTopic.java`:
 
     #!java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-    
     public class ReceiveLogsTopic {
     
         private static final String EXCHANGE_NAME = "topic_logs";
@@ -224,28 +218,33 @@ The code for `ReceiveLogsTopic.java`:
         }
     }
 
-Run the following examples using `java -cp` and include the jar files as in [Tutorial 1](tutorial-one-java.html).   
+Run the following examples, including the jar files as in [Tutorial 1](tutorial-one-java.html).   
 
 To receive all the logs:
 
-    ReceiveLogsTopic "#"
+    :::bash
+    $ java -cp $CP ReceiveLogsTopic "#"
 
 To receive all logs from the facility "`kern`":
 
-    ReceiveLogsTopic "kern.*"
+    :::bash
+    $ java -cp $CP ReceiveLogsTopic "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
-    ReceiveLogsTopic "*.critical"
+    :::bash
+    $ java -cp $CP ReceiveLogsTopic "*.critical"
 
 You can create multiple bindings:
 
-    ReceiveLogsTopic "kern.*" "*.critical"
+    :::bash
+    $ java -cp $CP ReceiveLogsTopic "kern.*" "*.critical"
 
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    EmitLogTopic "kern.critical" "A critical kernel error"
+    :::bash
+    $ java -cp $CP EmitLogTopic "kern.critical" "A critical kernel error"
 
 
 Have fun playing with these programs. Note that the code doesn't make
@@ -284,5 +283,7 @@ Some teasers:
 (Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
 and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
 
-
+<!--
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)
+-->
 </div>
