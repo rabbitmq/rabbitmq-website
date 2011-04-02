@@ -14,8 +14,8 @@
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
-  <xsl:variable name="javadoc-root">http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/</xsl:variable>
-  <xsl:variable name="dotnetdoc-root">http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v2.2.0/rabbitmq-dotnet-client-2.2.0-client-htmldoc/html/</xsl:variable>
+  <xsl:variable name="javadoc-root">/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/</xsl:variable>
+  <xsl:variable name="dotnetdoc-root">/releases/rabbitmq-dotnet-client/v2.4.0/rabbitmq-dotnet-client-2.4.0-client-htmldoc/html/</xsl:variable>
 
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
@@ -270,6 +270,8 @@
     <x:decorate target="method" name="basic.nack">
       <x:amqp-extension />
       <x:url href="http://www.rabbitmq.com/extensions.html#negative-acknowledgements" label="RabbitMQ Documentation"/>
+      <x:javadoc href="Channel.html#basicNack(long, boolean, boolean)"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicNack(System.UInt64,System.Boolean,System.Boolean)"/>
     </x:decorate>
     <x:decorate target="method" name="basic.publish">
       <x:javadoc href="Channel.html#basicPublish(java.lang.String, java.lang.String, boolean, boolean, com.rabbitmq.client.AMQP.BasicProperties, byte[])"/>
@@ -313,6 +315,8 @@
     </x:decorate>
     <x:decorate target="method" name="confirm.select">
       <x:url href="http://www.rabbitmq.com/extensions.html#confirms" label="RabbitMQ Documentation"/>
+      <x:javadoc href="Channel.html#confirmSelect()"/>
+      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ConfirmSelect"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
