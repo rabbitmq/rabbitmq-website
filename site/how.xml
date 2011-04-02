@@ -1,7 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+<!ENTITY % entities SYSTEM "rabbit.ent">
 %entities;
 ]>
 
@@ -253,6 +252,11 @@
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
       <li>
+        <a href="http://blog.springsource.com/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
+        Designing a good routing topology for a highly-scalable system can be like mapping a graph. Helena Edelson explains the things you
+        need to consider such as the problem domain, the constraints of the environment, the messaging implementation and performance strategies.
+      </li>
+      <li>
         <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
         Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
         with proven enterprise integration patterns results in code that is easier to maintain, easier to test
@@ -342,6 +346,11 @@
 
       <h3 id="specific-examples">Specific Use Cases and Examples</h3>
       <ul>
+    <li>
+      <a href="http://about.digg.com/blog/how-digg-is-built">How Digg is Built</a><br />
+      Dave Beckett describes how Digg, a social news and content sharing website, rebuilt their infrastructure. Digg use RabbitMQ
+      to bridge their on-line applications and asynchround backend systems, queuing up events that have happened and jobs to perform. 
+    </li>
     <li>
       <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />
       James Carr creates a sample application demonstrating how RabbitMQ and <a href="http://www.springsource.org/spring-amqp">Spring-AMQP</a>

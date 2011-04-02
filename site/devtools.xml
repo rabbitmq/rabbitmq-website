@@ -88,6 +88,9 @@
               <a href="#web-messaging">Web Messaging</a>
             </li>
             <li>
+              <a href="#nosql">NoSQL</a>
+            </li>
+            <li>
               <a href="#rabbitmq-cli">CLI</a>
             </li>
             <li>
@@ -316,6 +319,9 @@
               </li>
               <li>
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
+              </li>
+              <li>
+                <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
               </li>
               <li>
                 <a href="http://www.beefycode.com/post/consuming-rabbitmq-messages-in-powershell.aspx">poshrabbit</a>, a PowerShell module to publish and consume RabbitMQ messages
@@ -624,14 +630,29 @@
               </li>
             </ul>
           </div>
-          <div class="box" id="miscellaneous">
-            <h3>Miscellanous</h3>
+          <div class="box" id="nosql">
+            <h3>NoSQL</h3>
             <ul class="plain">
+              <li>
+                <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
+                <br />
+                A customer exchange type for RabbitMQ that uses Riak as a backing store. The name of the exchange becomes the
+                bucket and the routing key becomes the object key.
+              </li>
               <li>
                 <a href="https://github.com/mabrek/rabbitmq-redis">RabbitMQ-Redis Bridge</a>
                 <br />
                 A RabbitMQ plug-in that moves messages between RabbitMQ and Redis Pub/Sub using erldis (experimental).
               </li>
+              <li>
+                <a href="http://www.delicious.com/alexisrichardson/rabbitmq+nosql">RabbitMQ and NoSQL on del.icio.us</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>
+          <div class="box" id="miscellaneous">
+            <h3>Miscellanous</h3>
+            <ul class="plain">
               <li>
                 <a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a>
                 <br />
@@ -651,9 +672,6 @@
               <li>
                 <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
                 - a popular tutorial and screencast that should be of interest for users of other languages too.
-              </li>
-              <li>
-                <a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a>, an interface from LispWorks to RabbitMQ
               </li>
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
