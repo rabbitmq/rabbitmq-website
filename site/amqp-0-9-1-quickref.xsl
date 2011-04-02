@@ -1,4 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE stylesheet [
+<!ENTITY % entities SYSTEM "rabbit.ent">
+%entities;
+]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                               xmlns="http://www.w3.org/1999/xhtml"
                               xmlns:x="http://www.rabbitmq.com/2011/extensions"
@@ -14,8 +18,8 @@
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
-  <xsl:variable name="javadoc-root">/releases/rabbitmq-java-client/current-javadoc/com/rabbitmq/client/</xsl:variable>
-  <xsl:variable name="dotnetdoc-root">/releases/rabbitmq-dotnet-client/v2.4.0/rabbitmq-dotnet-client-2.4.0-client-htmldoc/html/</xsl:variable>
+  <xsl:variable name="javadoc-root">&dir-current-javadoc;</xsl:variable>
+  <xsl:variable name="dotnetdoc-root">/&dir-current-dotnet-apidoc;/html/</xsl:variable>
 
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
