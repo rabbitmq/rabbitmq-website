@@ -268,7 +268,8 @@
     <p>
       The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
+      href="build-server.html">build page</a> for instructions on
+      compiling from source code.
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">

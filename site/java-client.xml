@@ -148,7 +148,8 @@
     <p>
       The Java AMQP client library and example programs. Depends on
       the code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
+      href="build-java-client.html">build page</a> for instructions on
+      compiling from source code.
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
