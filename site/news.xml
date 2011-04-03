@@ -14,6 +14,26 @@
 	   will give you a suitable value.
       -->
       <doc:item>
+        <doc:date iso="2011-04-06T12:00:00Z">6 April 2011</doc:date>
+        <doc:title>Messaging Patterns with RabbitMQ</doc:title>
+        <doc:link>http://www.erlang-factory.com/conference/London2011/speakers/AlvaroVidela</doc:link>
+        <doc:text>
+          <p><a href="http://obvioushints.blogspot.com/">Alvaro Videla</a>, co-author of <a href="http://manning.com/videla/">RabbitMQ in Action</a>, will
+             be speaking about RabbitMQ and messaging patterns at the next <a href="http://www.erlang-factory.com/conference/London2011/">Erlang 
+             Factory meeting</a> in London, June 9-10th.</p>
+          <p>Alvaro will present how to implement several messaging patterns using RabbitMQ such as:
+            <ul class="plain">
+              <li>Competing Consumers</li>
+              <li>RPC</li>
+              <li>Parallel RPC</li>
+              <li>Smart Proxy</li>
+              <li>Publish/Subscribe</li>
+            </ul>
+          </p>
+          <p>To learn more, visit the <a href="http://www.erlang-factory.com/conference/London2011/speakers/AlvaroVidela">Erlang Factory website</a>.</p>
+        </doc:text>
+      </doc:item>
+      <doc:item>
         <doc:date iso="2011-04-01T00:00:00Z">1 April 2011</doc:date>
         <doc:title>Spring AMQP Project 1.0 RC1 release</doc:title>
         <doc:link>https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821</doc:link>
