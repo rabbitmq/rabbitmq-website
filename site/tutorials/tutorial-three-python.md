@@ -110,7 +110,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
 > but still were able to send messages to queues. That was possible
-> because we were using a default default exchange, which we identify by the empty string (`""`).
+> because we were using a default exchange, which we identify by the empty string (`""`).
 >
 > Recall how we published a message before:
 >
