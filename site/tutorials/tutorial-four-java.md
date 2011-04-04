@@ -341,8 +341,7 @@ And, for example, to emit an `error` log message just type:
 (Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
 and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
 
-<!--Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
+Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
 for messages based on a pattern.
--->
 
 </div>
