@@ -252,6 +252,11 @@
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
       <li>
+        <a href="http://developian.blogspot.com/2011/04/visualizing-data-in-real-time-using.html">Visualising data in real time using Drizzle and RabbitMQ</a><br />
+        A demonstration of delivering real time data to the browser using Drizzle (a database forked from MySQL and optimised
+        for cloud and web applications), RabbitMQ and websockets.
+      </li>
+      <li>
         <a href="http://blog.springsource.com/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
         Designing a good routing topology for a highly-scalable system can be like mapping a graph. Helena Edelson explains the things you
         need to consider such as the problem domain, the constraints of the environment, the messaging implementation and performance strategies.
