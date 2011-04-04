@@ -60,6 +60,9 @@
                 <li>
                   <a href="#haskell-dev">Haskell</a>
                 </li>
+                <li>
+                  <a href="#ocaml-dev">Ocaml</a>
+                </li>
               </ul>
             </li>
             <li>
@@ -70,6 +73,14 @@
                 </li>
                 <li>
                   <a href="#openvms">OpenVMS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Cloud Environments
+              <ul class="plain">
+                <li>
+                  <a href="#ec2-dev">Amazon EC2</a>
                 </li>
               </ul>
             </li>
@@ -338,6 +349,12 @@
                 An introductory presentation covering common RabbitMQ use cases with code examples in PHP
               </li>
               <li>
+                <a href="http://www.youtube.com/watch?v=YO9AtlJ3JMc">Scaling web apps with RabbitMQ</a>
+                <br />
+                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing 
+                website reliability and scalability. (March 11, 2011.)
+              </li>
+              <li>
                 <a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a>
               </li>
               <li>
@@ -461,6 +478,15 @@
               </li>
             </ul>
           </div>
+          <div class="box" id="ocaml-dev">
+            <h3>Ocaml</h3>
+            <ul class="plain">
+              <li>
+                <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>
           <div class="box" id="macosx-dev">
             <h3>MacOSX</h3>
             <ul class="plain">
@@ -491,6 +517,21 @@
               </li>
             </ul>
           </div>
+          <div class="box" id="ec2-dev">
+            <h3>Amazon EC2</h3>
+            <ul class="plain">
+              <li>
+                <a href="ec2.html">How to set up RabbitMQ on EC2</a>
+              </li>
+              <li>
+                <a href="http://old.nabble.com/Ubuntu-%2B-RabbitMQ-2.4.0-EC2-AMI-td31280970.html">Ubuntu 10.04 + RabbitMQ 2.4.0 EC2 AMI</a>
+              </li>
+              <li>
+                <a href="http://delicious.com/alexisrichardson/rabbitmq+ec2">RabbitMQ and EC2  on del.icio.us</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>         
           <div class="box" id="web-messaging">
             <h3>Web Messaging</h3>
             <ul class="plain">

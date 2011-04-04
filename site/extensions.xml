@@ -17,6 +17,131 @@
         <doc:heading>Table of Contents</doc:heading>
       </doc:toc>
 
+      <doc:section name="consumer-cancel-notify">
+        <doc:heading>Consumer Cancellation Notifications</doc:heading>
+
+        <p>
+          When a channel is consuming from a queue, there are various
+          reasons which could cause the consumption to stop. One of
+          these is obviously if the client issues a
+          <code>basic.cancel</code> on the same channel, which will
+          cause the consumer to be cancelled and the server replies
+          with a <code>basic.cancel-ok</code>. Other events, such as
+          the queue being deleted, or in a clustered scenario, the
+          node on which the queue is located failing, will cause the
+          consumption to be cancelled, but the client channel will not
+          be informed, which is frequently unhelpful.
+        </p>
+
+        <p>
+          To solve this, we have introduced an extension in which the
+          broker will send to the client a <code>basic.cancel</code>
+          in the case of such unexpected consumer cancellations. This
+          is not sent in the case of the broker receiving a
+          <code>basic.cancel</code> from the client. AMQP 0-9-1
+          clients don't by default expect to receive
+          <code>basic.cancel</code> methods from the broker
+          asynchronously, and so in order to enable this behaviour,
+          the client must present a <code>capabilities</code> table in
+          its <code>client-properties</code> in which there is a key
+          <code>consumer_cancel_notify</code> and a boolean value
+          <code>true</code>. See the <a
+          href="#capabilities">capabilities</a> section for further
+          details on this.
+        </p>
+
+        <p>
+          Our supported clients present this capability by default to
+          the broker and thus will be sent the asynchronous
+          <code>basic.cancel</code> method by the broker, which they
+          present to the consumer callback. For example, in our Java
+          client, the <code>Consumer</code> interface has a
+          <code>handleCancel</code> callback, which can be overridden
+          by sub-classing the <code>QueueingConsumer</code> class:
+          <pre class="sourcecode">
+channel.queueDeclare(queue, false, true, false, null);
+Consumer consumer = new QueueingConsumer(channel) {
+    @Override
+    public void handleCancel(String consumerTag) throws IOException {
+        // consumer has been cancelled unexpectedly
+    }
+};
+channel.basicConsume(queue, consumer);
+          </pre>
+          It is not an error for the client to issue a
+          <code>basic.cancel</code> for a consumer which has been
+          unexpectedly cancelled (e.g. due to queue deletion). By
+          definition, there is a race possible between a client
+          issuing a <code>basic.cancel</code>, and the broker sending
+          out the asynchronous notification. In such cases, the broker
+          does not error when it receives the
+          <code>basic.cancel</code> and replies with a
+          <code>basic.cancel-ok</code> as normal.
+        </p>
+      </doc:section>
+
+      <doc:section name="capabilities">
+        <doc:heading>Client and Server Capabilities</doc:heading>
+
+        <p>
+          The AMQP 0-8 specification defined a
+          <code>capabilities</code> field as part of the
+          <code>connection.open</code> method. This field was
+          deprecated in the AMQP 0-9-1 specification and is not
+          inspected by the RabbitMQ broker. As specified in AMQP 0-8,
+          it also suffered from being a <code>shortstr</code>: a
+          string of no more than 256 characters.
+        </p>
+
+        <p>
+          There is good reason for both the client and the server
+          being able to present extensions and capabilities that they
+          support, thus we have introduced an alternative form of
+          capabilities. In the <code>server-properties</code> field of
+          <code>connection.start</code>, and in the
+          <code>client-properties</code> field of
+          <code>connection.start-ok</code>, the field value (a
+          <code>peer-properties</code> table) can optionally contain a
+          key named <code>capabilities</code> for which the value is
+          another table, in which the keys name the capabilities
+          supported. The values for these capability keys are
+          typically booleans, indicating whether or not the capability
+          is supported, but may vary based on the nature of the
+          capability.
+        </p>
+
+        <p>
+          For example, the <code>server-properties</code> presented by
+          the RabbitMQ broker to a client may look like:
+
+          <pre class="sourcecode">
+{ "product"      = (longstr) "RabbitMQ",
+  "platform"     = (longstr) "Erlang/OTP",
+  "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
+  "copyright"    = (longstr) "Copyright (C) 2007-2011 VMware, Inc.",
+  "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
+                               "consumer_cancel_notify"     = (bool) true,
+                               "basic.nack"                 = (bool) true,
+                               "publisher_confirms"         = (bool) true },
+  "version"      = (longstr) "2.4.0" }
+          </pre>
+        </p>
+
+        <p>
+          Note that it is optional for clients to present this
+          <code>capabilities</code> table as part of the
+          <code>client-properties</code> table: failure to present
+          such a table does not preclude the client from being able to
+          use extensions such as <a href="#exchange-bindings">exchange
+          to exchange bindings</a>. However, in some cases such as <a
+          href="#consumer-cancel-notify">consumer cancellation
+          notification</a>, the client must present the associated
+          capability otherwise the broker will have no way of knowing
+          that the client is capable of receiving the additional
+          notifications.
+        </p>
+      </doc:section>
+
       <doc:section name="negative-acknowledgements">
         <doc:heading>Negative Acknowledgements</doc:heading>
 
@@ -527,12 +652,10 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
 
           <p>
             The memory threshold at which the flow control is
-            triggered can be adjusted by editing the <code><a
-            href="install.html#configfile">rabbitmq.config</a></code>
-            file (in the appropriate location for your platform, as
-            discussed in the <a
-            href="install.html#configfile">installation
-            guide</a>). The example below sets the threshold to the
+            triggered can be adjusted by editing the <code>rabbitmq.config</code>
+            file (in the appropriate location for your platform, as discussed in the
+            <a href="configure.html#configuration-file">configuration guide</a>).
+            The example below sets the threshold to the
             default value of 0.4:
             <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
           </p>
@@ -605,7 +728,35 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
           </p>
         </doc:subsection>
       </doc:section>
-
+      <doc:section name="sender-selected-distribution">
+        <doc:heading>Sender-selected Distribution</doc:heading>
+        <p>
+         The routing logic in AMQP does not offer a way for message publishers
+         to select intended recipients. This is the equivalent of entering
+         multiple recipients in the "CC" field of an email. The RabbitMQ broker
+         treats two headers in a special way to overcome this limitation.
+        </p>
+        <p>
+         The values associated with the "CC" and "BCC" header keys will be added
+         to the routing key if they are present. The message will be routed to
+         all destinations matching the routing key supplied as a parameter to
+         the <code>basic.publish</code> method, as well as the routes supplied
+         in the "CC" and "BCC" headers. If the header does not contain "CC" or
+         "BCC" keys then this extension has no effect.
+        </p>
+        <p>
+         The "BCC" key and value will be removed from the message prior to
+         delivery, offering some confidentiality among consumers. This feature
+         is a violation of the AMQP specification which forbids any message
+         modification, including headers. This feature imposes a small
+         performance penalty.
+        </p>
+        <p>
+         This extension is independent of the client. Any AMQP client with the
+         ability to interoperate with RabbitMQ and set header values can make
+         use of this extension.
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>

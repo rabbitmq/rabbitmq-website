@@ -345,6 +345,9 @@ span.envvar {
   color: black;
   white-space: nowrap;
 }
+span.path{
+	white-space: nowrap;
+}
 .sourcecode {
 	padding: 1em;
 	background: #f6fcb0;

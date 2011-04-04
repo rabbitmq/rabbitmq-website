@@ -48,3 +48,12 @@
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /man/$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
+
+    <Location /server-status>
+      SetHandler server-status
+      Order deny,allow
+      Deny from all
+      Allow from 10.20.219.170/23
+      Allow from 213.122.168.19/28
+      Allow from 127.0.0.1
+    </Location>

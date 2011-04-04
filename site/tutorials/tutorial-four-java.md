@@ -7,11 +7,11 @@
 <div id="tutorial">
 
 ## Routing
-### (using the pika 0.5.2 Python client)
+### (using the Java client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-python.html) we built a
+In the [previous tutorial](tutorial-three-java.html) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -28,23 +28,19 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::python
-    channel.queue_bind(exchange=exchange_name,
-                       queue=queue_name)
-
+    :::java
+    channel.queueBind(queueName, EXCHANGE_NAME, "");
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
 exchange.
 
-Bindings can take an extra `routing_key` parameter. To avoid the
+Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::python
-    channel.queue_bind(exchange=exchange_name,
-                       queue=queue_name,
-                       routing_key='black')
+    :::java
+    channel.queueBind(queueName, EXCHANGE_NAME, "black");
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -59,7 +55,7 @@ based on their severity. For example we may want the script which is
 writing log messages to the disk to only receive critical errors, and
 not waste disk space on warning or info log messages.
 
-We were using a `fanout` exchange, which doesn't give us too much
+We were using a `fanout` exchange, which doesn't give us much
 flexibility - it's only capable of mindless broadcasting.
 
 We will use a `direct` exchange instead. The routing algorithm behind
@@ -172,18 +168,15 @@ a `routing key`. That way the receiving script will be able to select
 the severity it wants to receive. Let's focus on emitting logs
 first.
 
-Like always we need to create an exchange first:
+As always, we need to create an exchange first:
 
-    :::python
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
+    :::java
+    channel.exchangeDeclare(EXCHANGE_NAME, "direct");
 
 And we're ready to send a message:
 
-    :::python
-    channel.basic_publish(exchange='direct_logs',
-                          routing_key=severity,
-                          body=message)
+    :::java
+    channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -197,15 +190,12 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-    :::python
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    :::java
+    String queueName = channel.queueDeclare().getQueue();
 
-    for severity in severities:
-        channel.queue_bind(exchange='direct_logs',
-                           queue=queue_name,
-                           routing_key=severity)
-
+    for(String severity : argv){    
+      channel.queueBind(queueName, EXCHANGE_NAME, severity);
+    }
 
 Putting it all together
 -----------------------
@@ -251,90 +241,107 @@ Putting it all together
   </div>
 </div>
 
-The code for `emit_log_direct.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+The code for `EmitLogDirect.java` class:
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+    #!java
+    public class EmitLogDirect {
+    
+        private static final String EXCHANGE_NAME = "direct_logs";
+    
+        public static void main(String[] argv)
+                      throws java.io.IOException {
+    
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+    
+            channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+    
+            String severity = getSeverity(argv);
+            String message = getMessage(argv);
+    
+            channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+            System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
+    
+            channel.close();
+            connection.close();
+        }
+        //..
+    }
 
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
+The code for `ReceiveLogsDirect.java`:
 
-    severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
-    message = ' '.join(sys.argv[2:]) or 'Hello World!'
-    channel.basic_publish(exchange='direct_logs',
-                          routing_key=severity,
-                          body=message)
-    print " [x] Sent %r:%r" % (severity, message)
-    connection.close()
+    #!java
+    public class ReceiveLogsDirect {
+    
+        private static final String EXCHANGE_NAME = "direct_logs";
+    
+        public static void main(String[] argv)
+                      throws java.io.IOException,
+                      java.lang.InterruptedException {
+        
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+    
+            channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+            String queueName = channel.queueDeclare().getQueue();
+    
+            if (argv.length < 1){
+                System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
+                System.exit(1);
+            }
+    
+            for(String severity : argv){
+                channel.queueBind(queueName, EXCHANGE_NAME, severity);
+            }
+    
+            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    
+            QueueingConsumer consumer = new QueueingConsumer(channel);
+            channel.basicConsume(queueName, true, consumer);
+    
+            while (true) {
+                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+                String message = new String(delivery.getBody());
+                String routingKey = delivery.getEnvelope().getRoutingKey();
+    
+                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");
+            }
+        }
+    }
 
-
-The code for `receive_logs_direct.py`:
-
-    #!/usr/bin/env python
-    import pika
-    import sys
-
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
-
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
-
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
-
-    severities = sys.argv[1:]
-    if not severities:
-        print >> sys.stderr, "Usage: %s [info] [warning] [error]" % \
-                             (sys.argv[0],)
-        sys.exit(1)
-
-    for severity in severities:
-        channel.queue_bind(exchange='direct_logs',
-                           queue=queue_name,
-                           routing_key=severity)
-
-    print ' [*] Waiting for logs. To exit press CTRL+C'
-
-    def callback(ch, method, properties, body):
-        print " [x] %r:%r" % (method.routing_key, body,)
-
-    channel.basic_consume(callback,
-                          queue=queue_name,
-                          no_ack=True)
-
-    pika.asyncore_loop()
+Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
+For convenience we'll now use an environment variable $CP for the classpath when running examples.
 
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
     :::bash
-    $ python receive_logs_direct.py warning error > logs_from_rabbit.log
+    $ java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
     :::bash
-    $ python receive_logs_direct.py info warning error
+    $ java -cp $CP ReceiveLogsDirect info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
     :::bash
-    $ python emit_log_direct.py error "Run. Run. Or it will explode."
+    $ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
-(Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+(Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
+and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
 
-<!--Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
+<!--Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
 for messages based on a pattern.
 -->
 
