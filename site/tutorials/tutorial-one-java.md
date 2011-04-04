@@ -295,4 +295,5 @@ Time to move on to [part 2](tutorial-two-java.html) and build a simple _work que
 >      > set CP=.;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar
 >      > java -cp %CP% Send
 >
+
 </div>
