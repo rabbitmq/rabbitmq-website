@@ -19,7 +19,7 @@
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
       <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"/>
-      <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
+      <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <script type="text/javascript" src="/js/site.js"/>
       <script type="text/javascript" src="/js/ga-bootstrap.js"/>
       <xsl:apply-templates/>
