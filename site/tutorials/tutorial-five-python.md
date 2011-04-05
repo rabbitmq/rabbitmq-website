@@ -119,7 +119,7 @@ be delivered to the second queue only once, even though it matches two bindings.
 
 What happens if we break our contract and send a message with one or
 four words, like "`orange`" or "`quick.orange.male.rabbit`"? Well,
-such messages won't match any bindings and will be lost.
+these messages won't match any bindings and will be lost.
 
 On the other hand "`lazy.orange.male.rabbit`", even though it has four
 words, will match the last binding and will be delivered to the second
