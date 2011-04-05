@@ -28,7 +28,7 @@ routes logs based on both severity (info/warn/crit...) and facility
 (auth/cron/kern...).
 
 That would give us a lot of flexibility - we may want to listen to
-just critical errors coming from 'cron' and all logs from 'kern'.
+just critical errors coming from 'cron' but also all logs from 'kern'.
 
 To implement that in our logging system we need to learn about a more
 complex `topic` exchange.
@@ -45,7 +45,7 @@ connected to the message. A few valid routing key examples:
 many words in the routing key as you like, up to the limit of 255
 bytes.
 
-Binding key must also be in the same form. The logic behind the
+The binding key must also be in the same form. The logic behind the
 `topic` exchange is similar to a `direct` one - a message sent with a
 particular routing key will be delivered to all the queues that are
 bound with a matching binding key. However there are two important
@@ -54,7 +54,7 @@ special cases for binding keys:
   * `*` (star) can substitute for exactly one word.
   * `#` (hash) can substitute for zero or more words.
 
-It's easiest to explain that in the example:
+It's easiest to explain this in an example:
 
 <div class="diagram">
   <img src="/img/tutorials/python-five.png" height="170" />
@@ -94,16 +94,16 @@ It's easiest to explain that in the example:
   </div>
 </div>
 
-In this example, we're going to send messages that all describe
+In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
-three words (two dots). The first word in routing key
+three words (two dots). The first word in the routing key
 will describe a celerity, second a colour and third a species:
 "`<celerity>.<colour>.<species>`".
 
 We created three bindings: Q1 is bound with binding key "`*.orange.*`"
 and Q2 with "`*.*.rabbit`" and "`lazy.#`".
 
-This bindings can be summarised as:
+These bindings can be summarised as:
 
   * Q1 is interested in all the orange animals.
   * Q2 wants to hear everything about rabbits, and everything about lazy
@@ -138,7 +138,7 @@ queue.
 Putting it all together
 -----------------------
 
-We're going to use the `topic` exchange in our logging system. We'll
+We're going to use a `topic` exchange in our logging system. We'll
 start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
