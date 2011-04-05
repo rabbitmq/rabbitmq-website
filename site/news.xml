@@ -12,7 +12,55 @@
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->   
+      -->
+      <doc:item>
+        <doc:date iso="2011-04-01T00:00:00Z">1 April 2011</doc:date>
+        <doc:title>Spring AMQP Project 1.0 RC1 release</doc:title>
+        <doc:link>https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821</doc:link>
+        <doc:text>
+          <p>The RabbitMQ team and SpringSource are pleased to announce that the Spring AMQP Project (for Java) has reached RC1 status.</p>
+          <p>For details see the <a href="https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821">release notes</a>.</p>
+          <p>You can download the <a href="http://www.springsource.com/download/community?project=Spring%20AMQP">distribution zip file</a>. The
+             JARs are available in the <a href="http://shrub.appspot.com/maven.springframework.org/milestone/org/springframework/amqp/">SpringSource
+             Milestone Maven repository</a>.</p>
+          <p>To learn more about the project and provide welcome feedback, please visit the
+          <a href="http://www.springsource.org/spring-amqp">Spring AMQP homepage</a> for links to downloads, documentation, the forum and more.</p>
+      </doc:text>
+    </doc:item>
+    <doc:item>
+	<doc:date iso="2011-03-23T11:44:52+0000">23 March 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.4.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-March/011985.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is delighted to announce the release of
+            RabbitMQ 2.4.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some
+            enhancements, including fast routing for topic exchanges,
+            sender-selected distribution and server-side consumer
+            cancellation notifications.
+
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-March/011985.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+            discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
       <doc:item>
 	<doc:date iso="2011-02-03T14:26:10+0000">3 February 2011</doc:date>
 	<doc:title>

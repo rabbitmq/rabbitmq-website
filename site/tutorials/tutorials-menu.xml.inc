@@ -32,9 +32,8 @@
           <p><img src="/img/tutorials/python-three.png" height="50" width="180" /></p>
           <p>
           <a href="/tutorials/tutorial-three-python.html">Python</a>
-          <!--|
-          <a href="/tutorials/tutorial-three-java.html">In Java</a>
-          -->
+          |
+          <a href="/tutorials/tutorial-three-java.html">Java</a>
           </p>
         </li>
 
@@ -46,9 +45,8 @@
           <p><img src="/img/tutorials/python-four.png" height="50" width="180" /></p>
           <p>
           <a href="/tutorials/tutorial-four-python.html">Python</a>
-          <!--|
-          <a href="/tutorials/tutorial-four-java.html">In Java</a>
-          -->
+          |
+          <a href="/tutorials/tutorial-four-java.html">Java</a>
           </p>
         </li>
 
@@ -60,8 +58,9 @@
           <p><img src="/img/tutorials/python-five.png" height="50" width="180" /></p>
           <p>
           <a href="/tutorials/tutorial-five-python.html">Python</a>
-          <!--|
-          <a href="/tutorials/tutorial-five-java.html">In Java</a>
+          <!--
+          |
+          <a href="/tutorials/tutorial-five-java.html">Java</a>
           -->
           </p>
         </li>
@@ -74,7 +73,8 @@
           <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
           <p>
           <a href="/tutorials/tutorial-six-python.html">Python</a>
-          <!--|
+          <!--
+          |
           <a href="/tutorials/tutorial-six-java.html">Java</a>
            -->
           </p>
