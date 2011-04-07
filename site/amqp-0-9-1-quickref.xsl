@@ -18,8 +18,8 @@
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
   <xsl:variable name="method-decorations" select="$decorations/x:decorate[@target='method']"/>
-  <xsl:variable name="javadoc-root">&dir-current-javadoc;</xsl:variable>
-  <xsl:variable name="dotnetdoc-root">/&dir-current-dotnet-apidoc;/html/</xsl:variable>
+  <xsl:variable name="javadoc-root" select="'&dir-current-javadoc;com/rabbitmq/client/'"/>
+  <xsl:variable name="dotnetdoc-root" select="'/&dir-current-dotnet-apidoc;/'"/>
 
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
