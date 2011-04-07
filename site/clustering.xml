@@ -45,13 +45,6 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          The list of currently active cluster connection points is
-          returned in the <code>known_hosts</code> field of AMQP's
-          <code>connection.open_ok</code> method, as a comma-separated list
-          of addresses where each address is an IP address or a DNS
-          name, optionally followed by a colon and a port number.
-        </p>
-        <p>
           A node can be a <em>RAM node</em> or a <em>disk
           node</em>. RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
@@ -634,6 +627,40 @@ Status of node rabbit@rabbit3 ...
         </p>
         </doc:subsection>
       </doc:section>
+      <doc:section name="upgrading">
+          <doc:heading>Upgrading clusters</doc:heading>
+          <p>
+            When upgrading from one version of RabbitMQ to another,
+            RabbitMQ will automatically update its persistent data
+            structures if necessary. In a cluster, this task is
+            performed by the first disc node to be started (the
+            "upgrader" node). Therefore when upgrading a RabbitMQ
+            cluster, you should not attempt to start any RAM nodes
+            first; any RAM nodes started will emit an error message
+            and fail to start up.
+          </p>
+          <p>
+            All nodes in a cluster must be running the same versions
+            of Erlang and RabbitMQ, although they may have different
+            plugins installed. Therefore it is necessary to stop all
+            nodes in the cluster, then start all nodes when performing
+            an upgrade.
+          </p>
+          <p>
+            While not strictly necessary, it is a good idea to decide
+            ahead of time which disc node will be the upgrader, stop
+            that node last, and start it first. Otherwise changes to
+            the cluster configuration that were made between the
+            upgrader node stopping and the last node stopping will be
+            lost.
+          </p>
+          <p>
+            Automatic upgrades are only possible from RabbitMQ
+            versions 2.1.1 and later. If you have an earlier cluster,
+            you will need to rebuild it to upgrade.
+          </p>
+      </doc:section>
+
       <doc:section name="single-machine">
           <doc:heading>A cluster on a single machine</doc:heading>
           <p>
