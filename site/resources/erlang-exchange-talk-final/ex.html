@@ -1,0 +1,1216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<!-- taken from the generated pretty-printed erlang code -->
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #cccccc;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #ff0000;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #0000ff;
+      }
+      .reference {
+        /* font-lock-reference-face */
+        color: #458b74;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #ff00ff;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .prompt {
+        color: #0000ff;
+        font-style: italic;
+      }
+
+      .input {
+        color: #ff00ff;
+      }
+
+    -->
+    </style>
+<title>RabbitMQ</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20080627" />
+<meta name="author" content="Matthias Radestock and Tony Garnock-Jones" />
+<meta name="company" content="LShift Ltd." />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<link rel="stylesheet" href="ex.css" type="text/css" />
+<!-- S5 JS -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="layout">
+
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<!-- <div id="header"></div> -->
+<div id="footer">
+<h1>RabbitMQ</h1>
+<h2>An Implementation of AMQP in Erlang/OTP</h2>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>RabbitMQ</h1>
+    <h2>Open-Standard Business Messaging<br/> in 5000 lines of Erlang</h2>
+    <h3>Matthias Radestock<br/>Tony Garnock-Jones<br/></h3>
+    <br/>
+    <h4>LShift Ltd.</h4>
+    <br/>
+    <h4><i>{matthias,tonyg}@lshift.net</i></h4>
+    
+    <div class="handout">
+      <ul>
+            <li>Welcome</li>
+            <li>introduce Tony, me - role, affiliation</li>
+            <li>We developed a product called RabbitMQ, a business
+              messaging broker written in Erlang/OTP</li>
+            <li>Contents: our experience, why Erlang/OTP</li>
+          </ul>
+    </div>
+</div>
+
+
+<div class="slide">
+<h1>Outline</h1>
+    <ul>
+      <li>Introduction to AMQP</li>
+      <li>RabbitMQ</li>
+      <li><i>Why Erlang/OTP?</i></li>
+      <li>Roadmap</li>
+    </ul>
+    <div class="handout">
+    <ul>
+      <li>Introduction to the AMQP business messaging standard</li>
+      <li>Introduction to RabbitMQ - our implementation of AMQP in Erlang</li>
+      <li>main focus is answering the question "What did make Erlang/OTP a good choice for implementing RabbitMQ?"</li>
+      <li>RabbitMQ Roadmap</li>
+    </ul>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>The <span class="initial">A</span>dvanced <span class="initial">M</span>essage <span class="initial">Q</span>ueueing <span class="initial">P</span>rotocol</h2>
+    <br/>
+    <div class="center">
+    <h3><em>The</em> Open-Standard Protocol<br/> for Business Messaging</h3>
+    </div>
+    <p>
+    <ul>
+      <li>ubiquitous substrate</li>
+      <li>integrated into a vast array of products</li>
+      <li>used by a wide range of applications</li>
+    </ul>
+    </p>
+    <p>
+    started: 2004, first version: June 2006, latest version: February 2008
+    </p>
+    <p class="center">
+    <img src="AMQPlogo.jpg" class="margin-10" />
+    <a href="http://www.amqp.org">www.amqp.org</a></p>
+        <div class="handout">
+          <p>
+            objective best illustrated by contrasting with another
+            form of messaging: email
+            </p>
+          <p>
+            Everyone uses email without thinking, so why is commercial
+            business messaging - getting applications to talk to each
+            other - so hard?
+          </p>
+          <p>
+            With email we have ...
+          </p>
+          <ul>
+            <li>ubiquitous substrate - email infrastructure is part of
+              the internet fabric; it's supported by backbone, ISPs,
+              your corp IT departments</li>
+            <li>products - email clients, networking kit, spam filters</li>
+            <li>applications - integral to many solutions (e.g. stuff
+              LShift have built in web space);  web forms, monitoring,
+              bug trackers, ordering systems</li>
+          </ul>
+          </p>
+          <p>
+            We have <em>none</em> of these in business
+            messaging. Instead one has to undertake a development and
+            integration project every time you want to make two
+            applications talk to each other, not to mention trying to
+            do that across organisational boundaries.
+          </p>
+          <p>
+            Imagine what it would be like to use email if you had to
+            do undertake a major development project every time you
+            wanted to send an email to an organisation that you hadn't
+            dealt with before.
+          </p>
+          <p>
+            Yet this is exactly the situation we are in with business
+            messaging!
+          </p>
+          <p>
+            Essentially what has been missing is an open, standard
+            protocol that caters for the bulk of business messaging
+            use cases and gets widely adopted.
+          </p>
+          <p>
+            AMQP aims to be exactly that.
+          </p>
+          <p>
+            in development for ...
+          </p>
+          <p>
+            more information at ...
+          </p>
+        </div>
+</div>
+
+<div class="slide">
+<h1>AMQP Working Group</h1>
+    <div class="center">
+    <img id="workinggroup" src="amqpworkinggroup.JPG" />
+    </div>
+        <div class="handout">
+          AMQP is governed by the working group, consisting of two
+          kinds of members...
+          <ul>
+            <li><em>vendors</em> that produce <em>products</em> which
+              implement AMQP (more about what exactly that means in a
+              second)</li>
+
+            <li>two groups of users - <em>end users</em> who develop
+              and deploy AMQP-based solutions</em> and OEMs who
+              embed/utilise AMQP in their products and solutions.</li>
+            <li>plus some feedback from wider community</li>
+          </ul>
+        </div>
+</div>
+
+<div class="slide">
+<h1>AMQP Model</h1>
+<div class="center"><img src="diagrams/the-amqp-model.png" /></div>
+        <div class="handout">
+          <p>
+            on to the technical bit...
+          </p>
+          <p>
+            Model - AMQP's take on the world of business messaging
+          </p>
+          <ul>
+            <li>the server (aka broker)</li>
+            <li>producer</li>
+            <li>exchange</li>
+            <li>binding - routing based on x type and binding</li>
+            <li>queue - where messages live until consumed, possibly
+              persisted</li>
+            <li>consumers - pull vs subscribe & push</li>
+          </ul>
+        </div>
+</div>
+
+<div class="slide">
+<h1>The 'P' in AMQP</h1>
+<div class="center"><img src="diagrams/the-p-in-amqp.png" /></div>
+        <div class="handout">
+          <p>
+            The P in AMQP
+          </p>
+          <ul>
+            <li>producers and consumers are logically part of
+              AMQP clients</li>
+            <li>which talk to AMQP server</li>
+            <li>over the P in AMQP</li>
+          </ul>
+        </div>
+</div>
+
+<div class="slide">
+<h1>Model and Protocol</h1>
+<div class="center"><img src="diagrams/the-p-in-amqp-2.png" /></div>
+<div class="handout">
+introducing two more concepts: connections and channels
+<ul>
+<li>connections - tcp connections</li>
+<li>channels - multiplexing logical streams of commands and data</li>
+<li>channels are boundary between model and protocol</li>
+<li>soup of exchanges, queues and bindings - i.e. the routing set up,
+              <em>management of which is part of protocol - unlike
+              email</em></li> 
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>RabbitMQ</h1>
+
+    <div class="center">
+    <h2>An Open-Source Implementation of AMQP in Erlang/OTP</h2>
+    
+
+
+    <img class="margin-50" src="RabbitMQLogoLarge.png">
+
+    <br/>
+    <img class="margin-10" src="LShiftLogo.gif">
+    <img class="margin-10" src="cohesiveFTLogo.gif">
+    </div>
+<div class="handout">
+          written by ourselves, i.e. LShift, in a joint venture with
+          CohesiveFT
+</div>
+</div>
+
+<div class="slide">
+<h1>RabbitMQ History and Objectives</h1>
+<ul>
+  <li>POC - a few weeks of hacking in summer 2006</li>
+  <li>first public release, under MPL, in Feb 2007</li>
+  <li>four more releases since</li>
+  <li>complete, conformant and interoperable implementation of the
+            published AMQP spec</li>
+  <li>good throughput and latency</li>
+  <li>reliable and scalable</li>
+  <li>platform-neutral distribution, plus platform-specific packages
+            and bundles</li>
+  <li>several extensions - HTTP, STOMP, XMPP, ...</li>
+</ul>
+<div class="handout">
+<ul>
+<li>first AMQP implementation to be written from scratch from the spec
+              - all others were written by folks involved in the
+              initial specification process and <em>during</em> that
+              process</li>
+<li>thus RabbitMQ validates the spec; proof that it can be implemented
+            and interop can be achieved</li>
+<li>scalable - in several different ways, multi-core, cluster (more about
+          that later) but also size of hardware - phone, slug - 16-way
+          Intel.</li>
+<li>extensions are one area where RabbitMQ really shines ...see next
+              slide</li>
+</ul>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>AMQP Scales of Deployment</h1>
+<table border="1" style="font-size: 70%">
+  <tr>
+    <th>Category</th>
+    <th>Cluster size</th>
+    <th>Active Users</th>
+    <th>Number of Queues/Topics</th>
+    <th>Messages per second</th>
+  </tr>
+  <tr>
+    <td>Developer/casual</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Production</td>
+    <td>2</td>
+    <td>10-100</td>
+    <td>10-50</td>
+    <td>10 (36K/hour)</td>
+  </tr>
+  <tr>
+    <td>Departmental mission critical application</td>
+    <td>4</td>
+    <td>100-500</td>
+    <td>50-100</td>
+    <td>100 (360K/hour)</td>
+  </tr>
+  <tr>
+    <td>Regional mission critical application</td>
+    <td style="background: #ddffdd;">16</td>
+    <td>500-2000</td>
+    <td>100-500</td>
+    <td>1000 (3.6M/hour)</td>
+  </tr>
+  <tr>
+    <td>Global mission critical application</td>
+    <td>64</td>
+    <td>2000-10000</td>
+    <td>500-1000</td>
+    <td style="background: #ddffdd;">10000 (36M/hour)</td>
+  </tr>
+  <tr>
+    <td>Market data (trading)</td>
+    <td>200</td>
+    <td>5000</td>
+    <td style="background: #ddffdd;">10000</td>
+    <td>100000 (360M/hour)</td>
+  </tr>
+</table>
+<div class="handout">
+  <p>
+    RabbitMQ uses Erlang's native clustering mechanism, which tops out
+    at around 32 nodes, practically speaking.
+  </p>
+  <p>
+    RabbitMQ gets on the order of tens of thousands of messages per
+    second, per node, on commodity desktop/laptop hardware. We're CPU
+    limited beyond that.
+  </p>
+  <p>
+    RabbitMQ can support hundreds of thousands of queues per node,
+    limited by available RAM.
+  </p>
+</div>
+</div>
+-->
+
+<div class="slide">
+<h1>RabbitMQ Universe</h1>
+<div class="center"><img src="diagrams/the-rabbitmq-universe.png" /></div>
+<div class="handout">
+<ul>
+<li>native AMQP handler</li>
+<li>transports - extensions of the RabbitMQ server that expose the
+              AMQP protocol over transports other than raw
+              TCP/IP. Sometimes accompanied by client libraries.</li>
+<li>gateways - extensions of the RabbitMQ server that bridge between
+              AMQP and various other messaging networks</li>
+
+<li>clients - These conform to the client role of the AMQP protocol
+              and generally interoperate with other AMQP
+              brokers. light blue - developed for RabbitMQ, but work
+              with other brokers,
+              pink bits - developed by community, not necessarily for
+              RabbitMQ</li>
+<li>dual role of Erlang client</li>
+<li>adapters - These adapt various messaging abstraction, most of them
+ESBs, to AMQP. They are typically implemented on top of one of the
+AMQP client libraries, but they do not expose the AMQP functionality
+directly.</li>
+</ul>
+Rest of talk is mainly going to focus on the server with the native
+          AMQP transport, so just bear in mind that there is a lot
+          more to RabbitMQ than the server.
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li class="highlight">good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>AMQP architecture (revisited)</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-1.png" /></div>
+<div class="handout">
+<ul>
+<li>concentrate on server for rest of the talk</li>
+<li>similarities between structure of client and server, in particular
+              when it comes to protocol handling</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>AMQP architecture (refined)</h1>
+<div class="center"><img
+            src="diagrams/amqp-arch-to-rabbitmq-design-2.png" /></div>
+<div class="handout">
+<ul>
+<li>refine relationship between connection and the channels it
+              carries</li>
+<li>introduction of framing - AMQP commands (create queue, delete
+              queue, publish message, etc) are chopped up into frames
+              for interleaving on transport - useful for e.g. large
+              messages</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>RabbitMQ server design</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-3.png" /></div>
+<div class="handout">
+<ul>
+<li>domain of discourse of AMQP is very simiilar to Erlang/OTP</li>
+<li>actual implementation is identical to architecture</li>
+<li>each of the nodes corresponds to a separate Erlang module, and
+                process (taking into account the multiplicities)</li>
+<li>only two minor exceptions - mux, which is handled as part of
+                gen_tcp, and mnesia, which is a collection of processes
+</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li class="highlight">concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+quick summary of previous few slides:
+<ul>
+<li>very natural mapping from the AMQP logical architecture to the
+                Erlang-based design of RabbitMQ</li>
+<li>naturalness of the mapping results in small, readable codebase
+                where there is a direct correspondence between AMQP
+                features and code fragments</li>
+<li>this makes the code easy to understand, modify and extend - keep
+                up with evolution of spec, try experimental features,
+                build extensions (recall that this is a major focus
+                for RabbitMQ)</li>
+<li>success story - Erlang novices in the community have built small
+                extensions</li>
+<li>So how small is the code base, really? Here are some stats ...</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Look, it is tiny!</h1>
+<div class="center"><img src="diagrams/amqp-arch-to-rabbitmq-design-3a-compact-code-base.png" /></div>
+<div class="handout">
+from left to right:
+<ul>
+<li>networking stack on top of gen_tcp - mostly generic, i.e. not
+                RabbitMQ-specific</li>
+<li>reader - dealing with AMQP connection management, demux, error
+                handling</li>
+<li>framing channel and writer - codec; mostly auto-generated from
+                spec</li>
+<li>channel, amqqueue, exchanges/routing (on top of mnesia) - the
+                AMQP model</li>
+</ul>
+<br/>
+also
+<ul>
+<li>clustering - more about that later</li>
+<li>persistence - messages can be stored durably on disc and surivive
+                broker restarts</li>
+<li>management - CLI for administering RabbitMQ</li>
+<li>deprecated code is realms and tickets; will disappear from spec
+                soon</li>
+</ul>
+summary - ~5000 LOC
+<br/>
+but this is not just down to the naturalness of the mapping between
+            the AMQP architecture and RabbitMQ design. Erlang language
+            features play a big part too. Some examples of that next ...
+</div>
+</div>
+
+<div class="slide">
+<h1>Binaries</h1>
+<pre>
+<span class="function-name">decode_method</span>('<span class="string">basic.publish</span>',
+              &lt;&lt;<span class="variable-name">F0</span>:16/unsigned,
+                <span class="variable-name">F1Len</span>:8/unsigned, <span class="variable-name">F1</span>:<span class="variable-name">F1Len</span>/binary,
+                <span class="variable-name">F2Len</span>:8/unsigned, <span class="variable-name">F2</span>:<span class="variable-name">F2Len</span>/binary,
+                <span class="variable-name">F3Bits</span>:8&gt;&gt;) <span class="function-name">-&gt;</span>
+    <span class="variable-name">F3</span> = (<span class="variable-name">F3Bits</span> band 1) /= 0,
+    <span class="variable-name">F4</span> = (<span class="variable-name">F3Bits</span> band 2) /= 0,
+    #'<span class="string">basic.publish</span>'{ticket      = <span class="variable-name">F0</span>,
+                     exchange    = <span class="variable-name">F1</span>,
+                     routing_key = <span class="variable-name">F2</span>,
+                     mandatory   = <span class="variable-name">F3</span>,
+                     immediate   = <span class="variable-name">F4</span>};
+</pre>
+    <p class="center">even shorter in R12</p>
+<div class="handout">
+This is some of the auto-generated code; decoding an AMQP method frame
+            into an Erlang data structure
+<ul>
+  <li>length prefixed strings</li>
+  <li>bits (which is what gets shorter in R12)</li>
+</ul>
+<p>
+It is hard to see how this could be any more concise.
+</p>
+<p>
+AMQP has 87 methods - yet the auto-generated codec - for both decoding
+          and encoding is only 1150 LOCs; that's just 13 LOCs per method.
+</p>
+<p>
+  Going the other way - packing terms into a binary blob, rather than
+  unpacking - uses exactly the same syntax, and is just as smooth.
+</p>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>Binaries</h1>
+<pre>
+<span class="function-name">encode_method</span>(#'<span class="string">basic.deliver</span>'{consumer_tag = <span class="variable-name">F0</span>,
+                               delivery_tag = <span class="variable-name">F1</span>,
+                               redelivered  = <span class="variable-name">F2</span>,
+                               exchange     = <span class="variable-name">F3</span>,
+                               routing_key  = <span class="variable-name">F4</span>}) <span class="function-name">-&gt;</span>
+    <span class="variable-name">F0Len</span> = <span class="keyword">size</span>(<span class="variable-name">F0</span>),
+    <span class="variable-name">F2Bits</span> = bitvalue(<span class="variable-name">F2</span>) bsl 0,
+    <span class="variable-name">F3Len</span> = <span class="keyword">size</span>(<span class="variable-name">F3</span>),
+    <span class="variable-name">F4Len</span> = <span class="keyword">size</span>(<span class="variable-name">F4</span>),
+    &lt;&lt;<span class="variable-name">F0Len</span>:8/unsigned, <span class="variable-name">F0</span>:<span class="variable-name">F0Len</span>/binary,
+      <span class="variable-name">F1</span>:64/unsigned,
+      <span class="variable-name">F2Bits</span>:8,
+      <span class="variable-name">F3Len</span>:8/unsigned, <span class="variable-name">F3</span>:<span class="variable-name">F3Len</span>/binary,
+      <span class="variable-name">F4Len</span>:8/unsigned, <span class="variable-name">F4</span>:<span class="variable-name">F4Len</span>/binary&gt;&gt;;
+</pre>
+<p class="center">even shorter in R12</p>
+<div class="handout">
+the other half - encoding an Erlang data structure as an AMQP method
+            frame
+<ul>
+  <li>length prefixed strings, again</li>
+  <li>bits, again (which is what gets shorter in R12)</li>
+</ul>
+</div>
+</div>
+-->
+<div class="slide">
+<h1>List Comprehension and HOF</h1>
+<br/>
+<pre>
+<span class="function-name">upmap</span>(<span class="variable-name">F</span>, <span class="variable-name">L</span>) <span class="function-name">-&gt;</span>
+    <span class="variable-name">Parent</span> = <span class="keyword">self</span>(),
+    <span class="variable-name">Ref</span> = <span class="keyword">make_ref</span>(),
+    [<span class="keyword">receive</span> {<span class="variable-name">Ref</span>, <span class="variable-name">Result</span>} <span class="function-name">-&gt;</span> <span class="variable-name">Result</span> <span class="keyword">end</span>
+     || <span class="variable-name">_</span> &lt;- [<span class="keyword">spawn</span>(<span class="keyword">fun</span>() <span class="function-name">-&gt;</span> <span class="variable-name">Parent</span> ! {<span class="variable-name">Ref</span>, <span class="variable-name">F</span>(<span class="variable-name">X</span>)} <span class="keyword">end</span>)
+              || <span class="variable-name">X</span> &lt;- <span class="variable-name">L</span>]].
+
+<!--
+<span class="function-name">safe_pmap_set_ok</span>(<span class="variable-name">F</span>, <span class="variable-name">S</span>) <span class="function-name">-&gt;</span>
+    <span class="keyword">case</span> [<span class="variable-name">R</span> || <span class="variable-name">R</span> &lt;- upmap(
+                      <span class="keyword">fun</span> (<span class="variable-name">V</span>) <span class="function-name">-&gt;</span> <span class="keyword">try</span> <span class="variable-name">F</span>(<span class="variable-name">V</span>)
+                                 <span class="keyword">catch</span> <span class="variable-name">Cl</span>:<span class="variable-name">Re</span> <span class="function-name">-&gt;</span> {<span class="variable-name">Cl</span>, <span class="variable-name">Re</span>}
+                                 <span class="keyword">end</span>
+                      <span class="keyword">end</span>, sets:to_list(<span class="variable-name">S</span>)),
+               <span class="variable-name">R</span> =/= ok] <span class="keyword">of</span>
+        []     <span class="function-name">-&gt;</span> ok;
+        <span class="variable-name">Errors</span> <span class="function-name">-&gt;</span> {error, <span class="variable-name">Errors</span>}
+    <span class="keyword">end</span>.
+-->
+    </pre>
+<div class="handout">
+<ul>
+<li>While a lot of code for a presentation, it is not a lot for what
+                it does!</li>
+<li>upmap - unordered parallel map</li>
+<li>safe_pmap_set_ok - use upmap to build a higher level tool for
+                distributed programming</li>
+</ul>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>Be Concise!</h1>
+<pre>
+<span class="function-name">handle_method</span>(#'<span class="string">basic.publish</span>'{exchange    = <span class="variable-name">XNameBin</span>,
+                               routing_key = <span class="variable-name">RoutingKey</span>,
+                               mandatory   = <span class="variable-name">Mandatory</span>,
+                               immediate   = <span class="variable-name">Immediate</span>},
+              <span class="variable-name">Content</span>,
+              <span class="variable-name">State</span> = #<span class="type">ch</span>{virtual_host = <span class="variable-name">VHostPath</span>,
+                          writer_pid = <span class="variable-name">WriterPid</span>}) <span class="function-name">-&gt;</span>
+    <span class="variable-name">XName</span> = rabbit_misc:r(<span class="variable-name">VHostPath</span>, exchange, <span class="variable-name">XNameBin</span>),
+    <span class="variable-name">Exchange</span> = rabbit_exchange:lookup_or_die(<span class="variable-name">XName</span>),
+    <span class="variable-name">QPids</span> = rabbit_exchange:route(<span class="variable-name">Exchange</span>, <span class="variable-name">RoutingKey</span>),
+    deliver(<span class="variable-name">QPids</span>, <span class="variable-name">Mandatory</span>, <span class="variable-name">Immediate</span>,
+            #<span class="type">basic_message</span>{exchange_name  = <span class="variable-name">XName</span>,
+                           routing_key    = <span class="variable-name">RoutingKey</span>,
+                           content        = <span class="variable-name">Content</span>},
+            <span class="variable-name">WriterPid</span>),
+    {noreply, <span class="variable-name">State</span>};
+</pre>
+<div class="handout">
+<ul>
+<li>Further illustration of how concise the code is, and the naturualness
+          of the mapping from AMQP model to Erlang code</li>
+<li>quick walk through of the fast path of delivering a message to a set
+                of queues.</li>
+<li>This is all part of the code in the channel.</li>
+</ul>
+<ol>
+<li>sanity check args coming out of auto-gen codec we saw</li>
+<li>make routing decisions - using mnesia, returning list of
+                qpids</li>
+<li>delivering the messages to the queues - next slide</li>
+<li>leave channel state unmodified</li>
+</ol>
+</div>
+</div>
+
+<div class="slide">
+<h1>Be Concise!</h1>
+<pre>
+<span class="function-name">deliver</span>(<span class="variable-name">QPids</span>, <span class="variable-name">M</span>, <span class="variable-name">I</span>, <span class="variable-name">Message</span>, <span class="variable-name">WriterPid</span>) <span class="function-name">-&gt;</span>
+    <span class="keyword">case</span> rabbit_router:deliver(<span class="variable-name">QPids</span>, <span class="variable-name">M</span>, <span class="variable-name">I</span>, <span class="variable-name">Message</span>) <span class="keyword">of</span>
+        {ok, <span class="variable-name">DeliveredQPids</span>}   <span class="function-name">-&gt;</span> <span class="variable-name">DeliveredQPids</span>;
+        {error, unroutable}    <span class="function-name">-&gt;</span>
+            ok = basic_return(<span class="variable-name">Message</span>, <span class="variable-name">WriterPid</span>,
+                              ?<span class="reference">NO_ROUTE</span>,
+                              &lt;&lt;"<span class="string">unroutable</span>"&gt;&gt;),
+            [];
+        {error, not_delivered} <span class="function-name">-&gt;</span>
+            ok = basic_return(<span class="variable-name">Message</span>, <span class="variable-name">WriterPid</span>,
+                              ?<span class="reference">NO_CONSUMERS</span>,
+                              &lt;&lt;"<span class="string">not_delivered</span>"&gt;&gt;),
+            []
+    <span class="keyword">end</span>.
+</pre>
+<div class="handout">
+<ol>
+<li>call out to low-level delivery - does efficient routing in a
+                cluster, deals with failures, uses upmap</li>
+<li>in case of error, return error to client - next slide</li>
+</ol>
+</div>
+</div>
+
+<div class="slide">
+<h1>Be Concise!</h1>
+<pre>
+<span class="function-name">basic_return</span>(#<span class="type">basic_message</span>{exchange_name = <span class="variable-name">XName</span>,
+                            routing_key   = <span class="variable-name">RoutingKey</span>,
+                            content       = <span class="variable-name">Content</span>},
+             <span class="variable-name">WriterPid</span>, <span class="variable-name">ReplyCode</span>, <span class="variable-name">ReplyText</span>) <span class="function-name">-&gt;</span>
+    rabbit_writer:send_command(
+      <span class="variable-name">WriterPid</span>,
+      #'<span class="string">basic.return</span>'{reply_code  = <span class="variable-name">ReplyCode</span>,
+                      reply_text  = <span class="variable-name">ReplyText</span>,
+                      exchange    = <span class="variable-name">XName</span>#<span class="type">resource</span>.name,
+                      routing_key = <span class="variable-name">RoutingKey</span>},
+      <span class="variable-name">Content</span>).
+</pre>
+<div class="handout">
+Hand off AMQP method data structure to writer process, which does
+            encoding (using the auto-generated code we saw earlier)
+            and sends the resulting octets over the socket back to the
+            client.
+          </div>
+</div>
+-->
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li class="highlight">sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+<p>
+half-way point - before moving on to the next factor that lead us to
+            choosing Erlang/OTP, a quick break for questions
+</p>
+<p>
+deals with concurrency arising naturually from AMQP really well
+</p>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>channel independence</h1>
+<div class="center"><img src="diagrams/concurrency-channel-independence.png" /></div>
+</div>
+-->
+
+<div class="slide">
+<h1>order preservation</h1>
+<div class="center"><img src="diagrams/concurrency-order-preservation.png" /></div>
+<div class="handout">
+<ul>
+<li>AMQP stipulates end-to-end preservation of order in the simple case a
+                producer sending messages to a consumer via a single
+                exchange and queue</li>
+<li>Erlang ordering guarantee: order of messages is preserved between
+                any pair of processes</li>
+<li>This gives us the AMQP ordering guarantees for free; even though all
+                messaging is asynchronous</li>
+<li>flow of messages through the system, with order-preserving
+                buffering at various stages</li>
+</ul>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>effect visibility guarantees</h1>
+<div class="center"><img src="diagrams/effect-visibility-a.png" /></div>
+<div class="handout">
+<p>
+One area that requires careful handling though is controlling the
+          visibility of effects of commands, i.e. when a client issues
+          a command and gets a reply, it subsequently shouldn't
+          receive any data that is inconsistent with that command
+          having been completed.
+</p>
+<p>That all sounds fairly complicated and theoretical, so here is a
+            concrete example</p>
+        </div>
+</div>
+
+<div class="slide">
+<h1>effect visibility guarantees</h1>
+<div class="center"><img src="diagrams/effect-visibility-b.png" /></div>
+</div>
+-->
+
+<div class="slide">
+<h1>effect visibility guarantees</h1>
+<div class="center"><img src="diagrams/effect-visibility-c.png" /></div>
+<div class="handout">
+<p><b>warning</b> - this is quite detailed and technical</p>
+<p>
+One area that requires careful handling though is controlling the
+          visibility of effects of commands, i.e. when a client issues
+          a command and gets a reply, it subsequently shouldn't
+          receive any data that is inconsistent with that command
+          having been completed.
+</p>
+<p>That all sounds fairly complicated and theoretical, so here is a
+            concrete example</p>
+<p>
+  If you were consuming from a queue, and you've decided to cancel
+  that subscription, the server better not send you any messages after
+  it's told you that you've been unsubscribed.
+</p>
+<p>
+  gen_server's calls use selective receive - the only way of
+  reordering Erlang's buffered messages!
+</p>
+<p>
+The problem here is that the channel made a synchronous call to the
+            queue. The cancel-ok reply ends up overtaking the deliver.
+</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>effect visibility guarantees</h1>
+<div class="center"><img src="diagrams/effect-visibility-d.png" /></div>
+<div class="handout">
+<p>
+  The solution is to ditch the synchronous call in favour of
+  asynchronous communication. This is a pretty common thing to do in
+  Erlang.
+</p>
+<p>This is easily done in Erlang, even though it does make the code
+              slightly more complicated</p>
+<p>Now the ordering between deliver and cancel-ok is preserved</p>
+</div>
+</div>
+
+<!--
+<div class="slide">
+<h1>globally consistent routing</h1>
+<div class="center"><img src="diagrams/globally-consistent-routing.png" /></div>
+<div class="handout">
+<ul>
+<li>for things like q and x creation and binding establishment</li>
+<li>exploiting mnesia's transactions and ACID properties in a
+                distributed setting of a clustered server</li>
+</ul>
+</div>
+</div>
+-->
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li class="highlight">reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+<p>
+quick recap of reasons so far for using Erlang/OTP in RabbitMQ
+</p>
+<ul>
+<li>good architectural fit with AMQP</li>
+<li>small code base due to fit + Erlang features</li>
+<li>nice way handling of AMQP concurrency by Erlang/OTP</li>
+</ul>
+<p>
+Another major reason for using Erlang/OTP is that it has been designed
+            for building highly reliable systems
+</p>
+<p>In part this is due to Erlang/OTP features such as process linking
+              and supervision hierarchies</p>
+</div>
+</div>
+
+<div class="slide">
+<h1>Links, exit traps, and supervisors</h1>
+<div class="center"><img src="diagrams/reliability-links-traps-supervisors.png" /></div>
+<div class="handout">
+<ul>
+<li>noticing death</li>
+<li>cleaning up</li>
+<li>if possible, restarting</li>
+<li>groups of processes that live and die together - around channel,
+                around reader</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li class="highlight">good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Exploiting Parallelism</h1>
+<div class="center"><img src="diagrams/scalability-parallelism.png" /></div>
+<div class="handout">
+three different areas of parallelism that arise naturually from AMQP
+          and that RabbitMQ is exploiting
+<ul>
+<li>8-stage pipeline end-to-end between producer and consumer</li>
+<li>parallelism across connections and channels - with
+              queues acting as synchronisation points (queues are about
+              the only stateful part of the core AMQP model)</li>
+<li>queues as active processes</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Clustering - Logical View</h1>
+<div class="center"><img src="diagrams/the-p-in-amqp.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Clustering - Realisation</h1>
+<div class="center"><img src="diagrams/scalability-clustering-realisation.png" /></div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li class="highlight">excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<div class="handout">
+<ul>
+<li>for free, almost</li>
+<li>the Erlang shell in conjunction with the myriad of OTP tools to
+        inspect, trace, profile, debug, modify a running system</li>
+<li>augmented by our own command line tools</li>
+</ul>
+...on to some examples of both...
+</div>
+</div>
+
+<div class="slide">
+<h1>Where has all the memory gone?</h1>
+<pre>
+<span class="prompt">(rabbit@t)1&gt;</span> <span class="input">[{_, Pid} | _] =
+               lists:reverse(
+                 lists:sort(
+                   [{process_info(P, memory), P}
+                    || P <- processes()])).</span>
+[{{memory,16434364},&lt;0.160.0&gt;}, ...]
+<span class="prompt">(rabbit@t)2&gt;</span> <span class="input">process_info(Pid, dictionary).</span>
+{dictionary,
+    [{'$ancestors',
+      [rabbit_amqqueue_sup,rabbit_sup,&lt;0.106.0&gt;]},
+     {'$initial_call',
+      {gen,init_it,
+       [gen_server,&lt;0.138.0&gt;,&lt;0.138.0&gt;,
+        rabbit_amqqueue_process,
+        {amqqueue,
+         {resource,&lt;&lt;"/"&gt;&gt;,queue,&lt;&lt;"test queue"&gt;&gt;},
+         false,false,[],[],none},
+        []]}}]}</span>
+</pre>
+<div class="handout">
+just tell the story
+</div>
+</div>
+
+<div class="slide">
+<h1>Setting up a RabbitMQ cluster</h1>
+<pre>
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl stop_app</span>
+Stopping node rabbit@rabbit2 ...done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl reset</span>
+Resetting node rabbit@rabbit2 ...done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl cluster rabbit@rabbit1</span>
+Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...
+done.
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl start_app</span>
+Starting node rabbit@rabbit2 ...done.
+
+<span class="prompt">rabbit2$</span> <span class="input">rabbitmqctl status</span>
+Status of node rabbit@rabbit2 ...
+[...,
+ {nodes,[rabbit@rabbit2,rabbit@rabbit1]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+done.
+</pre>
+<div class="handout">
+don't talk through it
+</div>
+</div>
+
+<!-- 
+
+<div class="slide">
+<h1>Interlude - Some Challenges</h1>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<h2>asynchronous messaging and synchronous calls</h2>
+<div class="center"><img src="diagrams/selective-receive-long-message-queues.png" /></div>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<div class="center"><img src="diagrams/selective-receive-long-message-queues-2.png" /></div>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<h2>introducing a buffering proxy</h2>
+<div class="center"><img src="diagrams/buffering-proxy-1.png" /></div>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<pre>
+<span class="function-name">start_link</span>(<span class="variable-name">M</span>, <span class="variable-name">A</span>) <span class="function-name">-&gt;</span>
+    <span class="keyword">spawn_link</span>(
+      <span class="keyword">fun</span> () <span class="function-name">-&gt;</span>
+              <span class="variable-name">ProxyPid</span> = <span class="keyword">self</span>(),
+              <span class="variable-name">Ref</span> = <span class="keyword">make_ref</span>(),
+              <span class="variable-name">Pid</span> = <span class="keyword">spawn_link</span>(
+                      <span class="keyword">fun</span> () <span class="function-name">-&gt;</span> mainloop(
+                                  <span class="variable-name">ProxyPid</span>, <span class="variable-name">Ref</span>, <span class="variable-name">M</span>,
+                                  <span class="variable-name">M</span>:init(<span class="variable-name">ProxyPid</span>, <span class="variable-name">A</span>))
+                      <span class="keyword">end</span>),
+              proxy_loop(<span class="variable-name">Ref</span>, <span class="variable-name">Pid</span>, empty)
+      <span class="keyword">end</span>).
+</pre>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<pre>
+<span class="function-name">proxy_loop</span>(<span class="variable-name">Ref</span>, <span class="variable-name">Pid</span>, <span class="variable-name">State</span>) <span class="function-name">-&gt;</span>
+    <span class="keyword">receive</span>
+        <span class="variable-name">Ref</span> <span class="function-name">-&gt;</span> ?<span class="reference">MODULE</span>:proxy_loop(<span class="variable-name">Ref</span>, <span class="variable-name">Pid</span>,
+                  <span class="keyword">case</span> <span class="variable-name">State</span> <span class="keyword">of</span>
+                      empty    <span class="function-name">-&gt;</span> waiting;
+                      waiting  <span class="function-name">-&gt;</span> <span class="keyword">exit</span>(duplicate_next);
+                      <span class="variable-name">Messages</span> <span class="function-name">-&gt;</span> <span class="variable-name">Pid</span> ! <span class="variable-name">Messages</span>, empty
+                  <span class="keyword">end</span>);
+        <span class="variable-name">Msg</span> <span class="function-name">-&gt;</span> ?<span class="reference">MODULE</span>:proxy_loop(<span class="variable-name">Ref</span>, <span class="variable-name">Pid</span>,
+                  <span class="keyword">case</span> <span class="variable-name">State</span> <span class="keyword">of</span>
+                      empty    <span class="function-name">-&gt;</span> [<span class="variable-name">Msg</span>];
+                      waiting  <span class="function-name">-&gt;</span> <span class="variable-name">Pid</span> ! [<span class="variable-name">Msg</span>], empty;
+                      <span class="variable-name">Messages</span> <span class="function-name">-&gt;</span> [<span class="variable-name">Msg</span> | <span class="variable-name">Messages</span>]
+                  <span class="keyword">end</span>)
+    <span class="keyword">end</span>.
+</pre>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<pre>
+<span class="function-name">mainloop</span>(<span class="variable-name">ProxyPid</span>, <span class="variable-name">Ref</span>, <span class="variable-name">M</span>, <span class="variable-name">State</span>) <span class="function-name">-&gt;</span>
+    <span class="variable-name">ProxyPid</span> ! <span class="variable-name">Ref</span>,
+    <span class="variable-name">NewState</span> =
+        <span class="keyword">receive</span>
+            <span class="variable-name">Messages</span> <span class="function-name">-&gt;</span>
+                lists:foldl(
+                  <span class="keyword">fun</span> (<span class="variable-name">Msg</span>, <span class="variable-name">S</span>) <span class="function-name">-&gt;</span> 
+                          <span class="variable-name">M</span>:handle_message(<span class="variable-name">Msg</span>, <span class="variable-name">S</span>)
+                  <span class="keyword">end</span>, <span class="variable-name">State</span>, lists:reverse(<span class="variable-name">Messages</span>))
+        <span class="keyword">end</span>,
+    ?<span class="reference">MODULE</span>:mainloop(<span class="variable-name">ProxyPid</span>, <span class="variable-name">Ref</span>, <span class="variable-name">M</span>, <span class="variable-name">NewState</span>).
+</pre>
+</div>
+
+<div class="slide">
+<h1>performance of selective receive</h1>
+<h2>the buffering proxy in context</h2>
+<div class="center"><img src="diagrams/buffering-proxy-2.png" /></div>
+</div>
+
+<div class="slide">
+<h1>efficient persistence</h1>
+<div class="center"><img src="diagrams/persistence.png" /></div>
+</div>
+-->
+
+<div class="slide">
+<h1>Why Erlang/OTP?</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li class="highlight">we can hide it</li>
+</ul>
+<div class="handout">
+You do not need to know anything about Erlang to use RabbitMQ
+</div>
+</div>
+
+<div class="slide">
+<h1>Making <small>Erlang</small> <small></small>disappear</small></h1>
+<ul>
+  <li>AMQP is a <em>protocol</em></li>
+  <li>AMQP client libraries exist for many languages and are
+            <em>broker neutral</em></li>
+  <li>RabbitMQ is packaged for various platforms</li>
+  <li>admin scripts, log files</li>
+</ul>
+<div class="handout">
+<ul>
+  <li>two aspects - one to do with the protocol, the other with the
+              operational side</li>
+  <li>users write client code, typically using one the available
+              broker-neutral libs; they don't need to care what the
+              server is written in</li>
+  <li>one still needs to get a server up and running, configure it and
+              look after it. Need to hide Erlang there too. Hence ...</li>
+</ul>
+</div>
+</div>
+
+<div class="slide">
+<h1>Why Erlang/OTP? - Summary</h1>
+<ul>
+  <li>good architectural fit for AMQP</li>
+  <li>concise</li>
+  <li>sane concurrency</li>
+  <li>reliable</li>
+  <li>good performance, and it scales</li>
+  <li>excellent management and troubleshooting support</li>
+  <li>we can hide it</li>
+</ul>
+<br/>
+<div class="center">
+<p class="highlight">protocol handling is an Erlang/OTP sweet
+spot</p>
+</div>
+<div class="handout">
+don't go through list! just mention sweet spot
+</div>
+</div>
+
+<div class="slide">
+<h1>What next for RabbitMQ?</h1>
+<ul>
+  <li>community - wiki, hg, dev list, AMQP</li>
+  <li>AMQP test suite and interop</li>
+  <li>modularity - packages and plugins</li>
+  <li>more clients, adapters, gateways and transports</li>
+  <li>features - distributed queues, federation, management</li>
+  <li>performance improvements and bug fixes</li>
+</ul>
+<br/>
+<h2 class="center"><a href="http://www.rabbitmq.com">www.rabbitmq.com</a></h2>
+<div class="handout">
+<p>don't go through list!</p>
+<p>
+try it - we also have a public server running; join the mailing list
+        to report any problems, suggestions
+</p>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

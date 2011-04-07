@@ -1,0 +1,35 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Manual pages</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+    	This page lists the available manual pages taken from the latest server release.
+      </p>
+
+      <doc:section name="section1">
+        <doc:heading>Section 1 - General Commands</doc:heading>
+        <ul>
+          <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a></li>
+          <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
+          <li><a href="man/rabbitmq-service.man.html">rabbitmq-service</a></li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="section5">
+        <doc:heading>Section 5 - File formats</doc:heading>
+        <ul>
+          <li><a href="man/rabbitmq-env.conf.5.man.html">rabbitmq-env.conf</a></li>
+        </ul>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>
+

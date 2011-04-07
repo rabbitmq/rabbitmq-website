@@ -1,0 +1,756 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Broker Query Language Plugin</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="warning">
+        WARNING: the BQL plugin is deprecated and as of RabbitMQ 2.1.1
+        will likely not work correctly. This page is retained for
+        those using BQL against older versions of RabbitMQ.
+      </p>
+      <p class="intro">
+        This is the documentation for the rabbitmq-bql plugin. The Broker Query Language plugin provides
+        a textual, SQL-like query language for interrogating and configuring the broker.
+      </p>
+      
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="installation">
+        <doc:heading>Installation</doc:heading>
+        <p>
+          Please see the <a href="admin-guide.html#plugins">plugin installation guide</a>
+          for more detailed instructions on plugin installation.
+        </p>
+        <ul>
+          <li>
+            Note that at this stage, the RabbitMQ BQL plugin has not been formally released, and must be built from source
+            before installation. To do this, complete the following steps:
+            <ul>
+              <li>
+                Setup a RabbitMQ plugin development environment by following the instructions at
+                <a href="plugin-development.html#getting-started">Plugin Development: Getting Started</a>.
+              </li>
+              <li>
+                Once the make operation has completed, the dist/
+                subdirectory of rabbitmq-bql (within the umbrella)
+                should contain a number of .ez files. Copy
+                amqp_client.ez and rabbitmq-bql.ez into the plugins/
+                subdirectory of your installed RabbitMQ instance (you
+                will have to create that directory if it does not
+                exist already).
+              </li>
+            </ul>
+          </li>
+          <li>
+            At this point, restart RabbitMQ to pick up the new plugins.
+          </li>
+          <li>
+            As part of the BQL build process, rabbitmq-bql-client.zip will be produced. This contains the client used for
+            connecting to the BQL plugin. It is self-contained, and can be used on any machine with a functional Erlang runtime.
+            This client should be copied and unzipped on a suitable machine before proceeding. Note that it is perfectly valid to
+            run the client on the same machine as the Rabbit server; however in production scenarios it is recommended that the client
+            be run as a different user to the Rabbit server, simply to prevent mis-use of the Rabbit server account.
+          </li>
+        </ul>
+      </doc:section>
+      
+      <doc:section name="server-config">
+        <doc:heading>Server Configuration</doc:heading>
+        <p>
+          In most scenarios, the BQL server plugin requires no configuration. However, if you've removed the default guest/guest user, 
+          then you'll need to configure the plugin to connect with different credentials. The BQL plugin requires a valid user to connect
+          to RabbitMQ internally to subscribe to the bql.query queue.
+        </p>
+        <p>
+          To set a custom username/password combination for the plugin to connect with, you'll need to add a <b>rabbitmq_bql</b> section to
+          your rabbitmq.config file. See the
+          <a href="configure.html#configuration-file">configuration guide</a>
+          for details. A rabbitmq.config with an appropriate section would look like:
+          <pre class="sourcecode">[
+  {rabbitmq_bql, [
+    {user, "bql-user"},
+    {password, "bql-password"}
+  ]}
+].</pre>
+          You'll need to restart RabbitMQ after changing this configuration.
+        </p>
+      </doc:section>
+ 
+      <doc:section name="running">
+        <doc:heading>Running the Client</doc:heading>
+        <p>
+          Within the client zip, the bql (or bql.bat) script can be executed. All configuration parameters have defaults that will
+          connect the client to a running Rabbit instance on the same host with default credentials.
+          For example, to run this on a Linux platform running rabbitmq-server, you would execute:
+          <pre class="sourcecode">$ ./bql
+BQL> </pre>
+        </p>
+        <p>
+          To ensure that your console is able to connect to Rabbit, execute a simple command such as:
+          <pre class="sourcecode">BQL> select * from exchanges</pre>
+          You should see output similar to:
+          <pre class="sourcecode">------------------------------------------------------------------
+| name             | type    | durable | auto_delete | arguments |
+------------------------------------------------------------------
+| amq.rabbitmq.log | topic   | true    | false       |           |
+| amq.match        | headers | true    | false       |           |
+| amq.headers      | headers | true    | false       |           |
+| amq.topic        | topic   | true    | false       |           |
+| amq.direct       | direct  | true    | false       |           |
+| amq.fanout       | fanout  | true    | false       |           |
+|                  | direct  | true    | false       |           |
+| bql.query        | direct  | true    | false       |           |</pre>
+        </p>
+      </doc:section>
+
+      <doc:section name="configuring-client">
+        <doc:heading>Configuring the Client</doc:heading>
+        <p>
+          The client supports a number of configuration options to control the AMQP host and credentials used for the connection. This
+          section will discuss the various options, along with examples for their use.
+
+        </p>
+        <doc:subsection name="client-options">
+          <doc:heading>Client Options</doc:heading>
+          <p>
+            The supported options are:
+          </p>
+          <ul>
+            <li><b>-host</b> - configures the AMQP host to connect to. For example, -host myserver. Defaults to localhost</li>
+            <li><b>-port</b> - configures the AMQP port to connect to. For example, -port 1234. Defaults to 5672</li>
+            <li><b>-username</b> - configures the username to authenticate with. For example, -username foo. Defaults to guest</li>
+            <li><b>-password</b> - configures the password to authenticate with. For example, -password foo. Defaults to guest</li>
+            <li><b>-vhost</b> - configures the vhost to connect to an administer. For example, -vhost /myvhost. Defaults to /</li>
+            <li><b>-execute</b> - instructs the client to execute the BQL commands in the provided script and exit. For example, -execute mycommands.bql</li>
+          </ul>
+        </doc:subsection>
+        <doc:subsection name="client-option-usage">
+          <doc:heading>Option Examples</doc:heading>
+
+          <p>
+            The following illustrate examples of various connection scenarios for the BQL client and the options that can be
+            used to achieve them.
+          </p>
+          <ul>
+            <li><b>Connecting to a default-configured Rabbit on the same machine</b> <pre class="sourcecode">bql</pre></li>
+            <li><b>Connecting to a default-configured Rabbit on host myhost</b> <pre class="sourcecode">bql -host myhost</pre></li>
+            <li><b>Connecting to a Rabbit on host myhost using vhost /myvhost</b> <pre class="sourcecode">bql -host myhost -vhost /myvhost</pre></li>
+            <li><b>Connecting to a Rabbit on the same machine with alternate credentials</b> <pre class="sourcecode">bql -username foo -password fooword</pre></li>
+          </ul>
+        </doc:subsection>
+ 
+      </doc:section>
+
+      <doc:section name="commands">
+        <doc:heading>Available Commands</doc:heading>
+
+        <p>
+          BQL supports many different commands, falling broadly into categories of:
+        </p>
+        <ul>
+          <li>Exchange Management</li>
+          <li>Queue Management</li>
+          <li>Route Management</li>
+          <li>Basic Messaging</li>
+          <li>VHost Management</li>
+          <li>User Management</li>
+          <li>Permission Management</li>
+        </ul>
+        <p>
+          The commands available in each category are described in detail below.
+        </p>
+
+        <doc:subsection name="general-command-details">
+          <doc:heading>General Structure of Commands</doc:heading>
+          
+          <p>
+            Broadly, BQL aims to provide a syntax very similar to SQL. However, it should be noted
+            that it often departs from a pure SQL-92 syntax in order to provide a more relevant experience
+            to the Broker data structure.
+          </p>
+          <p>
+            Commands are generally in the form of:
+            <pre class="sourcecode">BQL> create exchange myexchange;
+ok
+BQL> create durable queue 'myqueue'
+ok
+BQL> select name,messages from queues where 'durable'=true order by name
+----------------------
+| name    | messages |
+----------------------
+| myqueue | 0        |</pre>
+            There are a number of points to note about these commands:
+          </p>
+          <ul>
+            <li>
+              Single line commands are optionally followed by a semicolon. In BQL scripts however, multiples lines
+              must be deliniated by a semicolon
+            </li>
+            <li>
+              Names (such as myqueue) are optionally quoted with single-quotes. Similarly for where and order by clauses.
+            </li>
+            <li>
+              Where keywords are used as names (for example, durable in the where clause), they need to be quoted, otherwise
+              a syntax error will be reported.
+            </li>
+            <li>
+              Select queries support "where" and "order by" clauses. Group by and joins are not supported. Aggregation
+              predicates are not currently supported (eg, max(messages)).
+            </li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="exchange-management">
+          <doc:heading>Exchange Management</doc:heading>
+
+          <doc:subsubsection name="exchange-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Exchanges can be queried by selecting from the &quot;exchanges&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from exchanges
+------------------------------------------------------------------
+| name             | type    | durable | auto_delete | arguments |
+------------------------------------------------------------------
+| amq.rabbitmq.log | topic   | true    | false       |           |
+| amq.match        | headers | true    | false       |           |
+| amq.headers      | headers | true    | false       |           |
+| amq.topic        | topic   | true    | false       |           |
+| amq.direct       | direct  | true    | false       |           |
+| amq.fanout       | fanout  | true    | false       |           |
+|                  | direct  | true    | false       |           |
+| bql.query        | direct  | true    | false       |           |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="exchange-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              Exchange creation follows the form:
+              <pre>create [durable] [direct | topic | headers | fanout] exchange &lt;name></pre>
+              A command in the form:
+              <pre class="sourcecode">create exchange myX</pre>
+              will create a non-durable direct exchange. To override any of these defaults, appropriate keywords
+              should be added either to make the exchange durable or to change the exchange type.
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="exchange-deletion">
+            <doc:heading>Deletion</doc:heading>
+            
+            <p>
+              Exchange deletion follows the form:
+              <pre>drop exchange &lt;name></pre>
+              No additional flags are required or supported.
+            </p> 
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="queue-management">
+          <doc:heading>Queue Management</doc:heading>
+
+          <doc:subsubsection name="queue-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Queues can be queried by selecting from the &quot;queues&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from queues
+-----------------------------------------------------------------------------------------------------------
+| name      | durable | auto_delete | arguments | pid          | messages_ready | messages_unacknowledged |
+-----------------------------------------------------------------------------------------------------------
+| myqueue   | true    | false       |           | &lt;4359.299.0> | 0              | 0                       |</pre>
+              Note that in the above sample, a number of columns have been removed due to the excessive length of
+              the line. It is generally recommended that only specific fields are selected for queues in order
+              to maintain readability of the output.
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="queue-creation">
+            <doc:heading>Creation</doc:heading>
+
+            <p>
+              Queue creation follows the form:
+              <pre>create [durable] queue &lt;name></pre>
+              A command in the form:
+              <pre class="sourcecode">create queue myQ</pre>
+              will create a non-durable queue. To create a durable queue, the durable keyword should be used.
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="queue-deletion">
+            <doc:heading>Deletion</doc:heading>
+            
+            <p>
+              Queue deletion follows the form:
+              <pre>drop queue &lt;name></pre>
+              No additional flags are required or supported.
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="route-management">
+          <doc:heading>Route Management</doc:heading>
+
+          <p>
+            One of the strengths of an AMQP broker is the ability to configure complex custom routing.
+            BQL provides an idea mechanism for allowing dynamic configuration of the routing table.
+          </p>
+ 
+          <doc:subsubsection name="route-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Routes can be queried by selecting from the &quot;bindings&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from bindings;
+---------------------------------------------------
+| exchange_name | queue_name | routing_key | args |
+---------------------------------------------------
+|               | myqueue    | myqueue     |      |
+| amq.direct    | myqueue    | a           |      |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="route-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              Route creation follows the form:
+              <pre>create route from &lt;queue-name> to &lt;exchange-name> [when routing_key is &lt;routing-key>]</pre>
+              A command in the form:
+              <pre class="sourcecode">create route from myX to myQ</pre>
+              will create a binding from myX to myQ with an empty routing key. If a specific routing key is desired,
+              then a command in the form:
+              <pre class="sourcecode">create route from myX to myQ when routing_key is 'key'</pre>
+              should be issued.
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="route-deletion">
+            <doc:heading>Deletion</doc:heading>
+
+            <p>
+              Route deletion follows the form:
+              <pre>drop route from &lt;queue-name> to &lt;exchange-name> [when routing_key is &lt;routing-key>]</pre>
+              When the routing_key clause is left off, an empty routing key is assumed (similarly to the create command).
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="basic-messaging">
+          <doc:heading>Basic Messaging</doc:heading>
+
+          <p>
+            BQL provides for sending and recieving simple messages from within the console. Note that only text-based
+            messages can currently be operated with within the console at this stage.
+          </p>          
+
+          <doc:subsubsection name="sending-messages">
+            <doc:heading>Sending Messages</doc:heading>
+            
+            <p>
+              Messages can be sent with commands in the form:
+              <pre>post &lt;message-body> to &lt;exchange-name> [with routing_key &lt;routing-key>]</pre>
+              If a routing-key is not specified, then an empty routing key is attached. An example of
+              sending a message would be:
+              <pre class="sourcecode">post 'hello world' to 'amq.direct' with routing_key 'rk'</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="receiving-messages">
+            <doc:heading>Receiving Messages</doc:heading>
+            
+            <p>
+              Messages can be retrieved from a queue with commands in the form:
+              <pre>get from &lt;queue-name></pre>
+              If no messages are available, then the response <pre>empty</pre> will be shown. Otherwise,
+              the body of the message will be shown. For example:
+              <pre class="sourcecode">BQL> create queue testqueue;
+ok
+BQL> create route from 'amq.direct' to testqueue when routing_key is 'something';
+ok
+BQL> post 'Hello' to 'amq.direct' with routing_key 'something';
+ok
+BQL> get from testqueue;
+&lt;&lt;&quot;Hello&quot;>>
+BQL> get from testqueue;
+empty</pre>
+             Note that get will not block waiting for a message. If no message is available at the time
+             it is called, it will respond with empty. Also, this command removes the retrieved message
+             from the queue - so if you make this call on your application's queue, then the message
+             will no longer be available for the application to consume.
+           </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="vhost-management">
+          <doc:heading>VHost Management</doc:heading>
+
+          <doc:subsubsection name="vhost-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              VHosts can be queried by selecting from the &quot;vhosts&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from vhosts
+--------
+| name |
+--------
+| /    |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="vhost-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              VHost creation follows the form:
+              <pre>create vhost &lt;name></pre>
+              An example of creating a vhost would be:
+              <pre class="sourcecode">create vhost '/test'</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="vhost-deletion">
+            <doc:heading>Deletion</doc:heading>
+
+            <p>
+              VHost deletion follows the form:
+              <pre>drop vhost &lt;name></pre>
+              No additional flags are required or supported.
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="user-management">
+          <doc:heading>User Management</doc:heading>
+
+          <doc:subsubsection name="user-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Users can be queried by selecting from the &quot;users&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from users
+---------
+| name  |
+---------
+| guest |</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="user-creation">
+            <doc:heading>Creation</doc:heading>
+            
+            <p>
+              User creation follows the form:
+              <pre>create user &lt;name> identified by &lt;password></pre>
+              An example of creating a user would be:
+              <pre class="sourcecode">create user newuser identified by password</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="user-deletion">
+            <doc:heading>Deletion</doc:heading>
+
+            <p>
+              User deletion follows the form:
+              <pre>drop user &lt;name></pre>
+              No additional flags are required or supported.
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+
+        <doc:subsection name="permission-management">
+          <doc:heading>Permission Management</doc:heading>
+
+          <p>
+            RabbitMQ manages permission by associating a set of regular expressions indicating
+            the configurable, readable and writable objects against a user. For more explanation
+            on this topic, see the <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control</a>
+            section of the rabbitmqctl(1) manual page.
+          </p>
+
+          <doc:subsubsection name="permission-querying">
+            <doc:heading>Querying</doc:heading>
+
+            <p>
+              Permissions can be queried by selecting from the &quot;permissions&quot; entity. For example,
+              <pre class="sourcecode">BQL> select * from permissions
+------------------------------------------------------
+| username | configure_perm | write_perm | read_perm |
+------------------------------------------------------
+| guest    | .*             | .*         | .*        |
+</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="permission-granting">
+            <doc:heading>Granting</doc:heading>
+
+            <p>
+              Permission grants follow the form:
+              <pre>grant [all|configure|read|write] on &lt;regex> to &lt;username></pre>
+              An example of granting read access to a queue and write access to an exchange would be:
+              <pre class="sourcecode">grant read on myQ to newuser;
+grant write on myX to newuser;</pre>
+            </p>
+          </doc:subsubsection>
+
+          <doc:subsubsection name="permission-revoking">
+            <doc:heading>Revoking</doc:heading>
+
+            <p>
+              Permission revocation follows the form:
+              <pre>revoke [all|configure|read|write] from &lt;username></pre>
+            </p>
+          </doc:subsubsection>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="bql-scripts">
+        <doc:heading>BQL Scripts</doc:heading>
+
+        <p>
+          Along with the interactive console, the BQL command line utility also supports an optional
+          first parameter of a script to execute. For example:
+          <pre class="sourcecode">$ echo "create durable exchange durableX;" >/tmp/change.bql
+$ cd /usr/lib/rabbitmq/lib/rabbitmq_server-1.6.0
+$ su - rabbitmq -s /bin/sh -c priv/plugins/rabbitmq-bql/scripts/bql /tmp/change.bql
+ok
+$ su - rabbitmq -s /bin/sh -c priv/plugins/rabbitmq-bql/scripts/bql
+BQL> select * from exchanges where name='durableX';
+---------------------------------------------------------
+| name     | type   | durable | auto_delete | arguments |
+---------------------------------------------------------
+| durableX | direct | true    | false       |           |
+
+BQL></pre>
+        </p>
+      </doc:section>
+
+      <doc:section name="dumping">
+        <doc:heading>Dumping Broker State</doc:heading>
+        
+        <p>
+          Alongside the bql command, the plugin also provides a utility called bql_dump. This utility
+          will transform current broker state into a replayable BQL script that can be re-applied at
+          a later date.
+        </p>
+        <p>
+          A sample invocation of this script might be along the lines of:
+          <pre class="sourcecode">cd rabbitmq-bql-client
+./bql_dump -host myrabbitserver</pre>
+          And would produce output like:
+          <pre class="sourcecode">create durable exchange 'testexchange';
+create durable queue 'testqueue';
+create route from 'testexchange' to 'testqueue' where routing_key is 'key';</pre>
+        </p>
+      </doc:section>
+
+      <doc:section name="managing-broker-change">
+        <doc:heading>Managing Broker Change with BQL</doc:heading>
+        
+        <p>
+          Many typical AMQP applications will declare their own exchanges, queues and bindings upon
+          startup. In these cases, an application upgrade will result in any necessary changes occurring
+          automatically. However, in some deployments, it may be desirable for routing to be managed
+          externally to the applications. For example, you may have an environment where you want to gradually
+          increase the number of sources that an individual queue is fed by. You could either configure your
+          application to support modifying it's bindings; or you could manage this routing in an external manner,
+          similarly to the way that database layouts are maintained externally to the applications with SQL.
+        </p>
+        <p>
+          Utilising BQL, it is possible to perform the external management scenario in a controlled manner. Similarly
+          to the way that SQL patch scripts are used in many organisational settings, BQL patch scripts can be 
+          distributed and version controlled. Test environments can be used to test the application of these scripts,
+          and "reverse patch" scripts can be maintained allowing a failed application installation to be reverted.
+        </p>
+      </doc:section>
+
+      <doc:section name="securing-bql">
+        <doc:heading>Securing BQL Access</doc:heading>
+        
+        <doc:subsection name="bql-security-principles">
+          <doc:heading>Security Principles</doc:heading>
+          <p>
+            In general, BQL follows the general Rabbit security model. This includes managing access to queues and exchanges
+            via regular expressions (as discussed in the <a href="man/rabbitmqctl.1.man.html#Access%20control">access control</a> documentation).
+            However, given the ability for BQL to administer objects outside of the normal protocol remotely, there are a number of
+            additional security concerns that need to be considered. BQL introduces a number of additional security rules - these are
+            discussed in detail in the following section.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="bql-security-rules">
+          <doc:heading>Rules</doc:heading>
+          <ul>
+            <li>
+              To execute a BQL query, write access is required to the default exchange in the default vhost. Preventing a user from writing
+              to this exchange will prevent them from executing BQL queries.
+            </li>
+            <li>
+              Objects managed by BQL are separated into two categories. Protocol-manageable objects and non-protocol-manageable objects.
+              As RabbitMQ already has a defined security model for objects that can be managed via the protocol, the BQL console simply
+              follows standard security policy on these. For other objects that normally require tools outside of the AMQP protocol,
+              additional rules have been defined. The categorisation of these object types is as follows:
+              <table>
+                <th>Protocol Manageable Objects</th>
+                <th>Non-Protocol Manageable Objects</th>
+                <tr>
+                  <td>Exchange</td>
+                  <td>VHost</td>
+                </tr>
+                <tr>
+                  <td>Queue</td>
+                  <td>User</td>
+                </tr>
+                <tr>
+                  <td>Binding</td>
+                  <td>Permission</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Connection</td>
+                </tr>
+              </table>
+            </li>
+            <li>
+              For any query operations on protocol manageable objects, the connected user must have wildcard (.*)
+              read privileges on the owning vhost. The BQL client does not attempt to filter results, and instead provides an all-or-nothing
+              restriction model.
+            </li>
+            <li>
+              For non protocol manageable objects, BQL introduces the idea of treating the default vhost (/) as an administrative vhost. Privileges
+              to access internal broker objects are controlled via access to the administrative vhost.
+            </li>
+            <li>
+              For any query operations on non protocol manageable objects, wildcard read access is required on the administrative vhost. To update
+              any of these objects, wildcard configure access is required on the administrative vhost.
+            </li>
+          </ul>
+        </doc:subsection>
+        <doc:subsection name="bql-security-examples">
+           <doc:heading>Security Examples</doc:heading>
+           <p>
+             This section provides examples on various configuration scenarios that can be setup for securing broker access. All examples
+             assume that your broker starts in the initial state of having a single vhost, and admin/password as a "superuser". On a default
+             installation of Rabbit, the superuser would be guest/guest.
+           </p>
+           <ul>
+             <li>
+               <b>Additional user with readonly access to the broker</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo identified by fooword
+ok
+BQL> grant read on '.*' to foo
+ok
+BQL> exit
+
+$ ./bql -username foo -password fooword
+BQL> select * from exchanges
+-------------------------------------------------------------------
+| name              | type    | durable | auto_delete | arguments |
+-------------------------------------------------------------------
+| amq.direct        | direct  | true    | false       |           |
+| amq.topic         | topic   | true    | false       |           |
+| amq.rabbitmq.log  | topic   | true    | false       |           |
+| amq.fanout        | fanout  | true    | false       |           |
+| amq.headers       | headers | true    | false       |           |
+|                   | direct  | true    | false       |           |
+| amq.match         | headers | true    | false       |           |
+
+BQL> create user foo2 identified by foo2
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to configure on vhost / refused for user 'foo'",
+                    none}}
+BQL> exit</pre>
+             </li>
+             <li>
+               <b>Additional user with full BQL access only to a second vhost</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo2 identified by fooword2
+ok
+BQL> grant write on 'amq.default' to foo2
+ok
+BQL> create vhost '/subhost'
+ok
+BQL> exit
+
+$ ./bql  -username admin -password password -vhost /subhost
+BQL> grant all on '.*' to foo2
+ok
+BQL> exit
+
+$ ./bql -username foo2 -password fooword2
+BQL> select * from exchanges
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to read on vhost / refused for user 'foo2'",
+                    none}}
+BQL> exit
+
+$ ./bql -username foo2 -password fooword2 -vhost /subhost
+BQL> select * from exchanges
+-------------------------------------------------------------
+| name        | type    | durable | auto_delete | arguments |
+-------------------------------------------------------------
+| amq.topic   | topic   | true    | false       |           |
+| amq.fanout  | fanout  | true    | false       |           |
+| amq.direct  | direct  | true    | false       |           |
+| amq.headers | headers | true    | false       |           |
+|             | direct  | true    | false       |           |
+| amq.match   | headers | true    | false       |           |
+
+BQL> select * from users
+{'EXIT',{amqp_error,access_refused,
+                    "wildcard access to read on vhost / refused for user 'foo2'",
+                    none}}
+
+BQL> create queue X
+ok</pre>
+             </li>
+             <li>
+               <b>Additional user with access only to second vhost and no BQL access</b>
+               <pre class="sourcecode">$ ./bql -username admin -password password
+BQL> create user foo3 identified by fooword3
+ok
+BQL> create vhost '/subhost2'
+ok
+BQL> exit
+
+$ ./bql  -username admin -password password -vhost /subhost2
+BQL> grant all on '.*' to foo3
+ok
+BQL> exit
+
+$ ./bql -username foo3 -password fooword3 -vhost /subhost2
+{"init terminating in do_boot",{{badmatch,{error,{main_reader_died,socket_closed}}},
+  [{amqp_connection,start_network_internal,2},{bql_client,connect,5},
+   {bql_shell,start,0},{init,start_it,1},{init,start_em,1}]}}
+
+$</pre>
+               Note that this final error is as a result of the BQL client being unable to connect
+               to the administrative vhost. A more clear error is provided in the Rabbit server
+               logs, along the lines of:
+               <pre class="sourcecode">exception on TCP connection &lt;0.758.0> from 127.0.0.1:49454
+{channel0_error,opening,
+                {amqp_error,access_refused,
+                            "access to vhost '/' refused for user 'foo3'",
+                            'connection.open'}}</pre>
+
+               Note that the difference between this scenario and the previous is the lack of write
+               access to 'amq.default' in the '/' vhost. Enabling this would subsequently allow the
+               user to use BQL.
+             </li>
+           </ul>
+        </doc:subsection>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

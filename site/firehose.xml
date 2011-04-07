@@ -1,0 +1,104 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Firehose</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:section>
+        <doc:heading>Firehose</doc:heading>
+	<p>
+	  Sometimes, during development or debugging, it's useful to
+	  be able to see every message that is published, and every
+	  message that is delivered. RabbitMQ has a "firehose"
+	  feature, where the administrator names (on a per-node,
+	  per-vhost basis) an exchange to which publish- and
+	  delivery-notifications should be CCed.
+	</p>
+	<p>
+	  When the feature is switched off, it has no effect on
+	  performance; when it is switched on, it makes a
+	  significant difference. <b>Be cautious</b> in using this
+	  feature on production systems!
+	</p>
+        <doc:subsection>
+	  <doc:heading>Enabling the firehose</doc:heading>
+	  <p>
+	    To enable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Decide which node, and which vhost, you want to enable
+	      it for. In the examples below, we assume the default
+	      vhost, "<code>/</code>".
+	    </li>
+	    <li>
+	      Within your chosen vhost, declare the exchange you want
+	      to use to get trace messages, create associated queues
+	      and bindings, and begin consuming. In the examples
+	      below, we will use "<code>firehose</code>" as the
+	      exchange name.
+	    </li>
+	    <li>
+	      Run <code>rabbitmqctl set_env
+	      '{trace_exchange,&lt;&lt;"<i>vhost</i>"&gt;&gt;}'
+	      '&lt;&lt;"<i>exchangename</i>"&gt;&gt;'</code>.
+	    </li>
+	  </ol>
+	  <p>
+	    For example, using the assumptions above about the
+	    exchange name and vhost to use, the final
+	    <code>rabbitmqctl</code> command would be
+	  </p>
+	  <pre class="sourcecode">rabbitmqctl set_env '{trace_exchange,&lt;&lt;"/"&gt;&gt;}' '&lt;&lt;"firehose"&gt;&gt;'</pre>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Disabling the firehose</doc:heading>
+	  <p>
+	    To disable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Run <code>rabbitmqctl unset_env
+	      '{trace_exchange,&lt;&lt;"<i>vhost</i>"&gt;&gt;}'</code>.
+	    </li>
+	    <li>
+	      Clean up the queues and exchanges used by the firehose.
+	    </li>
+	  </ol>
+	  <p>
+	    For our running example, that would be
+	  </p>
+	  <pre class="sourcecode">rabbitmqctl unset_env '{trace_exchange,&lt;&lt;"/"&gt;&gt;}'</pre>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Firehose notification format</doc:heading>
+	  <p>
+	    When the firehose is enabled, you will start receiving
+	    messages to the named exchange, with
+	  </p>
+	  <ul>
+	    <li>
+	      routing key either
+	      "<code>publish.<i>exchangename</i></code>", for messages
+	      entering the broker, or
+	      "<code>deliver.<i>queuename</i></code>", for messages
+	      leaving the broker;
+	    </li>
+	    <li>
+	      headers containing metadata about the original message:
+	      all its headers, properties, and a few other things
+	    </li>
+	    <li>
+	      body correspnding to the body of the original message
+	    </li>
+	  </ul>
+	  <p>
+	    The fields in the notification message body table describe
+	    the original message that was published or delivered.
+          </p>
+        </doc:subsection>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

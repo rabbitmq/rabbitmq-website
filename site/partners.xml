@@ -1,0 +1,115 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Partners</title>
+  </head>
+  <body>
+    <doc:div>    
+    
+    <h2>Partners and Alliances</h2>
+    
+    <p>If your company operates a partner model and feel that we may benefit through 
+    working together we would love to hear from you.</p>
+    <p>We are developing a RabbitMQ Partner Programme of our own for consultancies and 
+    system integrators wishing to act as resellers of our product.</p>
+    <p>For more information, please <a href="contact.html">get in touch</a>.</p>
+  
+    <ul class="partners">
+      <li id="canonical">
+	<h3><a href="http://www.canonical.com/">Canonical Ltd</a></h3>
+	<p>
+	  Canonical, the commercial sponsor of Ubuntu, is a global
+	  organization headquartered in Europe committed to the
+	  development, distribution, and support of open source
+	  software products and communities. World class
+	  commercial support for Ubuntu is available through
+	  Canonical's Global Support Services team and partners.
+	  Since its launch in October 2004 Ubuntu has become
+	  one of the most highly regarded Linux distributions, with
+	  millions of users around the world.
+	</p>
+      </li>
+      <li id="microsoft">
+	<h3><a href="http://interopvendoralliance.org/">Interop Vendors Alliance</a></h3>
+	<p>
+	  The Interop Vendor Alliance is a community of software
+	  and hardware vendors, founded by Microsoft, working
+	  together to enhance interoperability with Microsoft
+	  systems.
+	</p>
+	<p>
+	  “Rabbit is a leader in open source and a welcome addition to
+	  the IVA family.", said Jas Sandhu, IVA manager, Microsoft. “We
+	  are excited about working with Rabbit to promote best
+	  practices for interoperability in mixed infrastructure
+	  environments and to deliver robust solutions that benefit our
+	  mutual customers.”
+	</p>
+	<p>
+	  Microsoft is a trademark or registered trademark of Microsoft
+	  Corporation in the United States and other countries.
+	</p>
+      </li>
+      <li id="vmware">
+	<h3><a href="http://www.vmware.com/">VMware</a></h3>
+	<p>
+	  VMware delivers solutions for business infrastructure
+	  virtualization that enable IT organizations to energize
+	  businesses of all sizes. With the industry leading
+	  virtualization platform -- VMware vSphere(TM) --
+	  customers rely on VMware to reduce capital and
+	  operating expenses, improve agility, ensure business
+	  continuity, strengthen security and go green. VMware is
+	  the leader in virtualization which consistently ranks as a
+	  top priority among CIOs. VMware is headquartered in
+	  Silicon Valley with offices throughout the world and can
+	  be found online at www.vmware.com. 
+	</p>
+      </li>
+      <li id="kaazing">
+	<h3><a href="http://www.kaazing.com/">Kaazing Corporation</a></h3>
+	<p>
+	  Kaazing's vision is to deliver the best real-time
+	  experience for the Internet. Kaazing provides real-time
+	  software solutions to customers who really care about
+	  their scalability and performance, and end-user
+	  experience.
+	</p>
+	<p>
+	  Kaazing's addition of AMQP to the suite of protocols
+	  supported by KEG gives developers a new option. By
+	  connecting Rich Internet Applications directly to
+	  an AMQP message feed, companies can build fast, real-
+	  time Web applications without the usual headaches or
+	  high costs.
+	</p>
+      </li>      
+      <li id="novell">
+	<h3><a href="http://www.novell.com/">Novell, Inc.</a></h3>
+	<p>Novell engages in the design, development, maintenance, implementation, 
+	and support of open source software for use in business solutions. It provides 
+	security and identity management, resource management, desktop, workgroup, 
+	and data center solutions on various operating systems, including Linux, 
+	NetWare, Windows, and Unix. The company offers identity-driven computing 
+	solutions that help customers with their identity management, resource 
+	management, and security issues; and Linux and platform services solutions 
+	that offer open cross-platform approach to networking and collaboration 
+	services, including file, print, messaging, scheduling, and workspace.</p>
+
+	<p><a href="http://www.novell.com/partnerguide/product/211478.html">RabbitMQ at novell.com</a></p>
+      </li>      
+      <li id="terracotta">
+	<h3><a href="http://www.terracotta.com/">Terracotta, Inc.</a></h3>
+	<p>Terracotta is infrastructure software that provides affordable and scalable 
+	high availability for Java applications. Companies use Terracotta to offload
+	work from databases and application servers and to reduce their development 
+	efforts. Founded in 2003, Terracotta, Inc. is a private firm headquartered in 
+	San Francisco. </p>
+
+	<p><a href="http://www.terracotta.com/">More information is available at http://www.terracotta.org/.</a></p>
+      </li>  
+    </ul>
+    
+    </doc:div>
+  </body>
+</html>

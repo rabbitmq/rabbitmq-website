@@ -1,0 +1,35 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Build Instructions</title>
+  </head>
+  <body>
+    <p class="intro">
+      This section provides links to the build instructions
+      of the RabbitMQ server and available client libraries.
+    </p>
+
+    <h2>Building the source</h2>
+
+    <h3>RabbitMQ Server</h3>
+
+    <p>
+      See <a href="build-server.html">server
+      build instructions</a>.
+    </p>
+
+    <h3>RabbitMQ Java AMQP client library</h3>
+    
+    <p>
+      See <a href="build-java-client.html">Java client
+      library build instructions</a>.
+    </p>
+
+    <h3>RabbitMQ .NET/C# AMQP client library and WCF bindings</h3>
+
+    <p>
+      See <a href="build-dotnet-client.html">.Net/C# AMQP client
+      library and WCF bindings build instructions</a>.
+    </p>
+  </body>
+</html>

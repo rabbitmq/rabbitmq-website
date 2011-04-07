@@ -1,0 +1,78 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+  <head>
+    <title>RabbitMQ - Download</title>
+  </head>
+  <body>
+    <h2>
+      Downloading and Installing RabbitMQ
+    </h2>
+
+    <p class="intro">
+      Our goal is to streamline the broker installation process such
+      that on Linux you can have RabbitMQ up and running within two minutes of
+      completing your download. 
+      If this doesn't happen to you, please
+      let us know at 
+      <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+    </p>
+
+    <h3>RabbitMQ Server</h3>
+    <p>The latest release is &version-server;. 
+    Get it from the <a href="server.html">server download page</a>.</p>
+    <p>
+      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
+      you want to download a version of the server other than
+      the above. Consult the <a href="changelog.html">changelog</a> to
+      find out what you'll be missing.
+    </p>
+
+    <h3>RabbitMQ Java Client</h3>
+    <p>The latest release is &version-java-client;. Get it from
+      the <a href="java-client.html">Java client download
+      page</a>.</p>
+    <p>
+      Consult <a href="/releases/rabbitmq-java-client/">the
+      archive</a> if you want to download a version of the
+      Java client library other than the above.
+    </p>
+
+    <h3>RabbitMQ .NET/C# Client and WCF Binding</h3>
+    <p>The latest release is &version-dotnet-client;. Get it from
+      the <a href="dotnet.html">.NET/C# client download page</a>.</p>
+    <p>
+      Consult <a href="/releases/rabbitmq-dotnet-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      .NET/C# client library other than the above.
+    </p>
+
+    <hr class="pad" />
+    <h2>Additional Components</h2>
+
+    <h3 id="plugins">RabbitMQ Plugins</h3>
+
+    <p>
+      We make plugins available for download as binary packages, snapshots and
+      <a href="mercurial.html">mercurial</a> repositories. See the <a href="plugins.html">plugins page</a>
+      for more information on using our plugins.
+    </p>
+
+    <h3 id="experimental">Experimental Downloads</h3>
+
+    <p>
+      Some <a href="download-ex.html">experimental downloads</a> are available.
+    </p>
+
+    <hr class="pad" />
+    <h2>Support</h2>
+    <p>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Page not found - 404 Error</title>
+  </head>
+  <body>
+
+  <p>The page you were looking for has not been found, please <a href="contact.html">contact us</a> if you 
+  can't find what you're looking for using the links above.</p>
+
+  <p>Thanks</p>
+
+  </body>
+</html>
+

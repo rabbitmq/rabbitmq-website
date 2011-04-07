@@ -1,0 +1,282 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Plugins</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="overview">
+        <doc:heading>Overview</doc:heading>
+        <p>
+          RabbitMQ supports a variety of plugins. This page contains links
+          to some of our plugins, packaged as .ez files. The links on this
+          page reference plugins built for the latest version of the
+          server, &version-server;. To find plugins for earlier versions
+          of the server, consult <a href="/releases/plugins/">the
+            archive</a>. Note that we did not make binary plugins available
+          prior to release 2.0.0.
+        </p>
+
+        <p>
+          The simplest way to install plugins is to download all the
+          required .ez files from this page, drop them in your plugins
+          directory and restart RabbitMQ.
+
+          The plugins directory location is determined by the
+          <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
+          value depends on how you installed RabbitMQ. Some common values
+          are:
+
+          <table>
+            <tr><th>Installation method</th><th>Plugins directory</th></tr>
+            <tr>
+              <th>Deb / RPM packages</th>
+              <td>
+                <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Windows</th>
+              <td>
+                Typically <code>C:\Program
+                  Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+            <tr>
+              <th>Macports</th>
+              <td>
+                <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Generic Unix</th>
+              <td>
+                <code>rabbitmq_server-<i>version</i>/plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+          </table>
+        </p>
+      </doc:section>
+
+      <doc:section name="maintained">
+        <doc:heading>Maintained Plugins</doc:heading>
+        <doc:subsection name="rabbitmq-management">
+          <doc:heading>rabbitmq-management</doc:heading>
+          <p>
+            A management / monitoring API over HTTP, along with a browser-based
+            UI. For more information, see <a href="management.html">the
+              page on the management plugin</a>.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/webmachine-&version-server;.ez">webmachine</a></li>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
+          </ul>
+          <p>
+            <b>Note:</b> When installing the management plugin on <b>some</b>
+            of the nodes in a cluster, you must install
+            <a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a>
+            on <b>all</b> of the nodes in the cluster. You can install the
+            full management plugin on as many of the nodes as you
+            want.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-shovel">
+          <doc:heading>rabbitmq-shovel</doc:heading>
+          <p>
+            A plug-in for RabbitMQ that shovels messages from a queue on one
+            broker to an exchange on another broker. Please see
+            the <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">README</a> for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-shovel-&version-server;.ez">rabbitmq-shovel</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-stomp">
+          <doc:heading>rabbitmq-stomp</doc:heading>
+          <p>
+            A gateway for exposing AMQP functionality via
+            the <a href="http://stomp.codehaus.org/Protocol">STOMP
+            protocol</a>, as implemented by
+            many <a href="http://stomp.codehaus.org/Clients">clients</a>
+            for various programming languages, and a few
+            other <a href="http://stomp.codehaus.org/Brokers">servers</a>
+            besides RabbitMQ.
+          </p>
+          <p>
+            Please see the <a href="stomp.html">documentation</a> and
+            our various
+            <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
+            articles</a> about the adapter for more information on
+            compiling and configuring it.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbit_stomp-&version-server;.ez">rabbit_stomp</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-erlang-client">
+          <doc:heading>rabbitmq-erlang-client</doc:heading>
+          <p>
+            An Erlang client for RabbitMQ. This client offers both a
+            networked version that uses standard TCP-based AMQP framing and
+            a direct client that uses native Erlang message passing to a
+            RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
+              guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
+            for more information.
+          </p>
+          <p>
+            This plugin is a dependency of some others, but can also be
+            used standalone (not embedded in the server). Such use is outside
+            the scope of this page.
+          </p>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="experimental">
+        <doc:heading>Experimental Plugins</doc:heading>
+        <p>
+          Currently, all plugins below are <em>experimental</em>. This
+          means we make no claims about their fitness for purpose or
+          stability, though they are in general under active
+          development. In particular, the version numbers of the packages
+          do not guarantee compatibility with versions of the RabbitMQ
+          server<sup><a href="#compatibility">[1]</a></sup>.
+        </p>
+
+
+        <doc:subsection name="rabbitmq-auth-backend-ldap">
+          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
+          <p>
+            Authentication / authorisation plugin using an external LDAP
+            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-backend-ldap-&version-server;.ez">rabbitmq-auth-backend-ldap</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
+          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
+          <p>
+            Authentication mechanism plugin using SASL EXTERNAL to
+            authenticate using SSL client certificates.  See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-mechanism-ssl-&version-server;.ez">rabbitmq-auth-mechanism-ssl</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-jsonrpc-channel">
+          <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>
+          <p>
+            An AMQP-over-HTTP protocol binding for RabbitMQ and some
+            Javascript libraries for interacting with RabbitMQ over HTTP.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/mochiweb-&version-server;.ez">mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;.ez">rfc4627_jsonrpc</a></li>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
+          </ul>
+          <p>
+            In addition, you may wish to install
+            <a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-examples-&version-server;.ez">rabbitmq-jsonrpc-channel-examples</a>.
+            This adds some example web applications: a shared
+            whiteboard, a chat application, and some tests.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="rabbitmq-xmpp">
+          <doc:heading>rabbitmq-xmpp</doc:heading>
+          <p>
+            A gateway for exposing RabbitMQ's AMQP services to the
+            global XMPP network, by integrating RabbitMQ
+            with <a href="http://www.process-one.net/en/ejabberd/">ejabberd</a>.
+          </p>
+          <p>
+            By bridging between the two systems, we benefit from the
+            combination of XMPP's internet-scale addressing and federation,
+            XMPP's presence model, AMQP's store-and-forward capability and
+            AMQP's routing and filtering.
+          </p>
+          <p>
+            Note that we do not supply this plugin in binary form, as it is
+            a plugin for ejabberd rather than rabbitmq-server. Please
+            see <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
+              documentation</a> for more information on building and
+            configuring the gateway.
+          </p>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="building">
+        <doc:heading>Building Plugins</doc:heading>
+        <p>
+          You can also build plugins from source. We do not explicitly
+          release source tarballs for plugins, but the repositories
+          can all be found on
+          our <a href="http://hg.rabbitmq.com/">Mercurial
+          server</a>. See the <a href="plugin-development.html">plugin
+          development</a> guide for more information on building
+          plugins from source.
+        </p>
+        <p>
+          Note that plugins tend to be strongly bound to the a certain
+          version of rabbitmq-server. For example, if you are running
+          RabbitMQ &version-server;, you should check out all plugins
+          with the tag <code>&version-server-hg;</code>.
+        </p>
+      </doc:section>
+
+      <doc:section name="compatibility">
+        <doc:heading>Compatibility</doc:heading>
+        <p>
+          We compile the plugins when we make a release of the server,
+          so in general, each plugin has been compiled against the
+          latest release of the server code (and the plugin's
+          dependencies). We may also from time to time post "known
+          good" binaries; these will be marked with a particular
+          server version with which they are known to work.
+        </p>
+        <p>
+          Since the default location of the plugins directory is
+          version-specific, installing / upgrading to a new version of
+          the server disables all plugins. That is the safest option
+          since often plugins depend on specific versions of the
+          server. Alternatively, plugins can be retained across
+          upgrades by setting <b>RABBITMQ_PLUGINS_DIR</b> to a
+          location shared by all installed rabbitmq server versions.
+        </p>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

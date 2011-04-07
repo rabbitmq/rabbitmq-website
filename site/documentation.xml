@@ -1,0 +1,159 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Documentation</title>
+  </head>
+  <body>
+    <doc:div>
+      <h2>Documentation</h2>
+      <p class="intro">This page summarises the available RabbitMQ documentation.</p>
+      <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
+         messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.
+      </p>
+     
+      <doc:section name="server">
+	<doc:heading>Server</doc:heading>
+	<ul>
+	  <li>
+            <a href="install.html">Installation Guide</a>
+	  </li>
+	  <li>
+            <a href="configure.html">Configuration Guide</a>
+	  </li>	  
+	  <li>
+	    <a href="admin-guide.html">Administration Guide</a>
+	  </li>
+	  <li>
+	    <a href="manpages.html">Manual Pages</a>
+	  </li>
+	  <li>
+	    <a href="clustering.html">Clustering Guide</a>
+	  </li>
+          <li>
+            <a href="extensions.html">Extensions and Experimental Features</a>
+          </li>
+	  <li>
+            <a href="changelog.html">Changelog</a>
+	  </li>
+	</ul>
+      </doc:section>
+
+      <doc:section name="client">
+	<doc:heading>Clients</doc:heading>
+	<ul>
+	  <li>
+	    <a href="api-guide.html">Java Client API Guide</a>
+	  </li>
+	  <li>
+	    <a href="&dir-current-javadoc;">Javadoc documentation</a>
+	  </li>
+          <li>
+            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
+          </li>
+          <li>
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
+          </li>
+	  <li>
+	    <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
+	  </li>
+	  <li>
+	    See also these <a href="devtools.html">developer tools</a> for community-contributed code.
+	  </li>
+	</ul>
+      </doc:section>
+      
+      <doc:section name="amqp">
+        <doc:heading>AMQP</doc:heading>
+        <ul>
+          <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
+          <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
+          <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
+  	    </ul>
+      </doc:section>
+
+      <doc:section name="plugins">
+        <doc:heading>Plugins</doc:heading>
+        <ul>
+          <li><a href="plugins.html">Plugins Page</a></li>
+          <li><a href="admin-guide.html#plugins">Plugin Installation Guide</a></li>
+          <li><a href="plugin-development.html">Plugin Development Guide</a></li>
+          <li>Specific Plugin Pages:</li>
+          <ul class="plain">
+		    <li><a href="erlang-client-user-guide.html">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
+          	<li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface and HTTP API for managing and monitoring RabbitMQ.</li>
+          	<li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
+          	<li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
+                <li><a href="stomp.html">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
+          	<li><a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">rabbitmq-xmpp</a> - Exposes AMQP functionality via an XMPP gateway</li>
+          </ul>
+        </ul>
+      </doc:section>
+
+      <doc:section name="cloud">
+	    <doc:heading>Cloud Configurations</doc:heading>
+	    <ul>
+	    	<li><a href="ec2.html">Amazon EC2</a> - Deploy RabbitMQ on Amazon's Cloud</li>
+	    </ul>
+	  </doc:section>
+
+      <doc:section name="faq">
+       <doc:heading>Frequently Asked Questions</doc:heading>
+        <ul>
+	    	<li><a href="faq.html">The Complete RabbitMQ FAQ</a></li>
+	    	<ul class="plain">
+	    		<li><a href="faq.html#background">Background</a></li>
+				<li><a href="faq.html#managing-concepts-exchanges">Messaging Concepts</a></li>
+				<li><a href="faq.html#features">RabbitMQ Features</a></li>
+				<li><a href="faq.html#architecture">RabbitMQ Architecture</a></li>
+				<li><a href="faq.html#integration">Integration &amp; Interoperability</a></li>
+				<li><a href="faq.html#howto">How To</a></li>
+				<li><a href="faq.html#configuration">Configuration</a></li>
+				<li><a href="faq.html#performance">Performance, Scalability and Clustering</a></li>
+				<li><a href="faq.html#general">General</a></li>
+			</ul>
+	    </ul>
+	  </doc:section>
+	  
+      <doc:section name="general">
+	<doc:heading>General Documentation</doc:heading>
+	<ul>
+	  <li>
+	    Instructions for <a href="build.html">building</a> the
+	    RabbitMQ server and client libraries from source
+	  </li>
+	  <li>
+	    How to use <a href="ssl.html">SSL with RabbitMQ</a>
+	  </li>
+	  <li>
+	    How to configure <a href="authentication.html">authentication with RabbitMQ</a>
+	  </li>
+	  <li>
+	    How to <a href="firehose.html">trace all published and delivered messages</a>.
+	  </li>
+	  <li>
+	    How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
+	  </li>	  
+	  <li>
+	    <a href="interoperability.html">Interoperability</a> with
+	    other implementations of AMQP (including the <a
+	    href="interoperability.html#qpid-python-tests">results</a> of
+	    running some of Qpid's tests against the RabbitMQ broker)
+	  </li>
+	  <li>
+	    Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use
+	  </li>
+	  <li>
+	    Information on <a href="erlang.html">Erlang's suitability
+	    for AMQP implementations</a>
+	  </li>
+	</ul>
+      </doc:section>
+
+    </doc:div>
+  </body>
+</html>

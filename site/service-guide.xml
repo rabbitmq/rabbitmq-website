@@ -1,0 +1,51 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Windows Service Guide</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+	This is the RabbitMQ Server Windows Service Guide.
+      </p>
+
+      <doc:toc class="compact">
+	<doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="service-overview">
+	<doc:heading>Service overview</doc:heading>
+	<p>
+	  The server can be run as a Windows service under Microsoft Windows
+          NT/2000/2003/XP/Vista&#174;. There is no need for a user to be 
+          logged in at a console when running as a service and the
+          server will start automatically after a reboot.
+	</p>
+      </doc:section>
+
+      <doc:section name="service-management">
+	<doc:heading>Service Management</doc:heading>
+
+        <p>
+          The <code>rabbitmq-service.bat</code> batch script in the
+          <code>sbin</code> folder is used to manage the RabbitMQ broker 
+          when running as a service. See the <a href="man/rabbitmq-service.man.html"><code>rabbit-service.bat</code> documentation</a> for more information.
+        </p>
+      </doc:section>
+
+    <doc:section>
+      <doc:heading>Troubleshooting</doc:heading>
+
+      <p>
+        In the event that the erlang VM crashes whilst RabbitMQ is 
+        running as a service, rather than writing the crash dump to the 
+        current directory (which doesn't make sense for a service) it 
+        is written to an <code>erl_crash.dump</code> file in the base directory of the 
+        RabbitMQ server (set by the <b>RABBITMQ_BASE</b> environment variable, 
+        defaulting to <code>%APPDATA%\RabbitMQ</code> otherwise).
+      </p>
+    </doc:section>
+
+    </doc:div>
+  </body>
+</html>

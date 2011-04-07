@@ -1,0 +1,138 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+  	<title>RabbitMQ - Server Build Instructions</title>
+  </head>
+  <body>
+    <doc:div>
+      <p class="intro">
+	This section describes the process for obtaining a copy of the
+	RabbitMQ server source code, as well as instructions for building the
+	server from source.
+      </p>
+
+      <doc:toc class="compact">
+	<doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="obtaining">
+	<doc:heading>Obtaining the source</doc:heading>
+
+	<br />
+	<ul>
+	  <li>
+	    Either download a released source code distribution from
+	    the <a href="server.html">download page</a>, or
+	  </li>
+
+	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
+
+	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
+$ hg clone http://hg.rabbitmq.com/rabbitmq-server
+$ cd rabbitmq-server
+$ make</pre>
+	  </li>
+	</ul>
+
+	<p>
+	  If you choose to check the code out using mercurial, be
+	  aware that the code-generation module is a dependency of
+	  the server library. If you're working with a released
+	  source code distribution, though, the code-generation
+	  module is included.
+	</p>
+      </doc:section>
+
+      <doc:section name="prerequisites">
+	<doc:heading>Required Libraries and Tools</doc:heading>
+
+	<p>
+	  In order to build RabbitMQ, you will need a few tools.
+	</p>
+
+	<p>
+	  The server requires a recent version of <a
+	  href="http://www.python.org/download/">Python</a> and
+	  <a href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
+	  (an implementation of a <a href="http://json.org">JSON</a>
+	  reader and writer in Python), for generating AMQP framing code.
+	  simplejson.py is included as a standard json library in the Python
+          core since 2.6 release. 
+	</p>
+
+	<p>
+	  Additionally, for building the server, you will need
+	</p>
+
+	<ul class="compact">
+	  <li>
+	    the <a href="http://www.erlang.org/download.html">Erlang</a>
+	    development and runtime tools<br/> If you are on a
+	    Debian-based system then you need the <i>erlang-nox</i> and
+            <i>erlang-dev</i> packages installed.
+	    If you are building and
+	    installing Erlang from source then you must ensure that
+	    openssl is installed on your system.
+	  </li>
+
+	  <li>
+	    a recent version of <a href="http://www.gnu.org/software/make/">GNU make</a>
+	  </li>
+
+          <li>
+            a recent version of <i>xsltproc</i>, which is part of
+            <a href="http://xmlsoft.org/XSLT/">libxslt</a>
+          </li>
+	</ul>
+
+      </doc:section>
+
+	<doc:section name="building-server">
+	  <doc:heading>Building the server</doc:heading>
+
+	  <p>
+	    Change to the <code>rabbitmq-server</code> directory, and
+	    type <code>make</code>.
+	  </p>
+
+	  <p>
+	    Other interesting <code>Makefile</code> targets include
+	  </p>
+
+	  <p>
+	    <dl>
+	      <dt>all</dt>
+	      <dd>
+		The default target. Builds the server.
+	      </dd>
+
+	      <dt>run</dt>
+	      <dd>
+		Builds the server and starts an instance with an
+		interactive Erlang shell. This will by default create
+		a Mnesia database in <code>/tmp/rabbit-mnesia</code>,
+		but this location can be overridden by setting the
+		Makefile variable <code>MNESIA_DIR</code>:
+		<p>
+		  <code>make run MNESIA_DIR=/some/other/location/for/rabbit-mnesia</code>
+		</p>
+	      </dd>
+
+	      <dt>clean</dt>
+	      <dd>
+		Removes build products and wipes the Mnesia database
+		directory used by the <code>run</code> target. See the
+		above description of <code>MNESIA_DIR</code>.
+	      </dd>
+
+	      <dt>srcdist</dt>
+	      <dd>
+		Runs the "clean" target, and constructs a source-code
+		distribution tarball in <code>./dist</code>.
+	      </dd>
+	    </dl>
+	  </p>
+	</doc:section>
+    </doc:div>
+  </body>
+</html>
