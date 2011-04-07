@@ -18,14 +18,22 @@
       </p>
 
       <p>
-         A final note before we start: the tutorials here are in
-         Python or Java, but there are very good tutorials <a
-         href="how.html#quickstart">elsewhere</a> using other
-         programming languages.
+         The tutorials here are in Python and Java, however, you
+         may wish to review our list of <a href="how.html#quickstart">tutorials
+         in other languages</a>.
+         We also maintain a list of <a href="devtools.html">clients and
+         developer tools</a> for a range of different languages and
+         platforms that you may find useful.
       </p>
-
+      
+      <p>
+        Once you have been through the tutorials (or if you want to
+        skip ahead), you may wish to browse our 
+        <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>. 
+      </p>
+      
       <div id="tutorial-index">
-        <xi:include href="tutorials-menu.xml.inc"/>
+        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
       </div>
     </doc:div>
   </body>

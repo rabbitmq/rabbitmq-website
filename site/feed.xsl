@@ -4,9 +4,12 @@
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns="http://www.w3.org/1999/xhtml"
+                exclude-result-prefixes="rss1 rdf atom dc"
                 >
 
-  <xsl:template match="feed">
+  <xsl:template match="doc:homefeed">
     <xsl:apply-templates select="document(@src)/*">
       <xsl:with-param name="type">
         <xsl:choose>

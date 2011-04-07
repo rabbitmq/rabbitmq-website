@@ -15,8 +15,9 @@
       <p class="intro">
  See also these other sources of information:
 <ul class="plain">
-<li>an <a href="/how.html">Get Started</a> page which includes links to presentations, blog posts and community links.</li>
-<li>our standard <a href="/documentation.html">documentation</a></li>
+<li>the <a href="getstarted.html">Get Started</a> page that features tutorials that introduce messaging and AMQP</li>
+<li>the <a href="how.html">How To</a> page which includes links to presentations, blog posts and community links</li>
+<li>our standard <a href="documentation.html">documentation</a></li>
 </ul>
 </p>
 
@@ -813,25 +814,10 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  <doc:heading>What platforms will RabbitMQ run on?</doc:heading>
 	  <doc:a>
 	    <p>
-	      RabbitMQ is developed on Debian Linux and Mac OS X. As
-	      the server component is written in Erlang, and the
-	      client component in Java, it is platform-neutral. Erlang
-	      runs on the following platforms (taken from <a
-	      href="http://www.erlang.org/faq/implementations.html#id56177">Erlang's
-	      FAQ</a>):
-	    </p>
-	    <p>
-	      <ul class="compact">
-		<li>Solaris (including 64 bit)</li>
-		<li>BSD</li>
-		<li>Linux</li>
-		<li>MacOSX</li>
-		<li>TRU64</li>
-		<li>Vista/Windows 7</li>
-		<li>Windows NT/2000/2003/XP</li>
-		<li>Windows 95, 98</li>
-		<li>VxWorks</li>
-	    </ul>
+	      RabbitMQ is developed on Debian Linux and Mac OS X.
+	      The broker component is written in Erlang and therefore
+	      mostly platform-neutral. See the <a href="platforms.html">
+	      supported platforms</a> for details.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1053,9 +1039,11 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	<doc:faq name="rabbit-client-support">
 	  <doc:heading>What clients does RabbitMQ support?</doc:heading>
 	  <doc:a>
-	    <p>
-	      We maintain <a href="/how.html#clients">a list of clients</a>, which is fairly complete.  If you don't
-see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">email our mailing list.</a>
+        <p>
+          The officially supported RabbitMQ clients are listed on the <a href="download.html">download page</a>. We also
+          maintain a list of community-contributed <a href="devtools.html">developer tools</a>.
+        </p>
+        <p>If you can't find what you are looking for please <a href="contact.html">contact us</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1273,7 +1261,7 @@ see one you want, please <a href="http://lists.rabbitmq.com/cgi-bin/mailman/list
 	  </p>
 	  <p>
 	  Various management and monitoring tools are <a href="/admin-guide.html#management">available 
-	  from RabbitMQ</a> and <a href="/how.html#management">the community</a>.
+	  from RabbitMQ</a> and <a href="how.html#management">the community</a>.
 	  Information about logging output can be found in the <a href="/install.html">install guide</a>.
 	  </p>
 	  </doc:a>
@@ -1606,8 +1594,7 @@ web UI.
             <p>
               RabbitMQ records whether it was shutdown safely. Using
               the <code>init</code> scripts or the
-              <code>rabbitmq-multi</code> or
-              <code>rabbitmq-server</code> scripts to shutdown
+              <code>rabbitmq-server</code> script to shutdown
               RabbitMQ counts as a safe shutdown. If RabbitMQ is
               started up after a safe shutdown, then it will start up
               very quickly indeed, almost regardless of the number of

@@ -22,10 +22,10 @@
           application. For everything to work correctly, ensure the
           following minimum configuration: </p>
         <ul class="plain">
-          <li> Erlang Distribution - R12B-5</li>
+          <li> Erlang Distribution - R13B</li>
           <li> Erlang SSL - 3.10</li>
         </ul>
-        <p>The recommended distribution is R14B (SSL 4.0.1). This should be
+        <p>The recommended distribution is R14B (SSL 4.0.1) or later. This should be
         considered the minimum configuration for Java and Erlang clients
         due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
 
@@ -35,7 +35,9 @@
         <p>For Windows users: Versions of Erlang as recent as R13B03 do not include
         the OpenSSL library needed by the crypto application.
         <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This post</a>
-        explains how to install it. Version R14A appears to include it already.</p>
+        explains how to install it. It is necessary to install the 32-bit OpenSSL
+        libraries, even on 64-bit versions of Windows.
+        </p>
 
         <p>For those compiling Erlang from source: Ensure <code>configure</code>
         finds OpenSSL and builds the crypto application.</p>
@@ -204,10 +206,15 @@ server testca
           to it. These settings are all controlled by two arguments to RabbitMQ:</p>
 
           <ul class="plain">
-            <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a tuple-list of <code class="">{IpAddress, Port}</code> pairs which tells
-            RabbitMQ to listen on these addresses and ports for SSL
-            connections. Setting the <b>IpAddress</b> to <b>0.0.0.0</b> tells
-            RabbitMQ to listen on all available interfaces.</p></li>
+            <li>
+              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
+              <p>
+                This is a list of ports to listen on for SSL
+                connections. To listen on a single network interface,
+                add something like <code class="">{"127.0.0.1",
+                5671}</code> to the list.
+              </p>
+            </li>
             <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code class="">new_ssl</code> options. The complete list
             of ssl_options is available via the <code class="">new_ssl</code> man page:
             i.e. <code class="">erl -man new_ssl</code>, but the most important are <code class="">cacertfile</code>, <code class="">certfile</code> and <code class="">keyfile</code>.</p></li>
@@ -216,7 +223,7 @@ server testca
           <p>The simplest way to set these options, is to edit
           the <code class="">rabbitmq.config</code> file (in the
           appropriate location for your platform, as discussed in
-          the <a href="install.html#configfile">installation
+          the <a href="configure.html#configuration-file">configuration
           guide</a>).  An example of the config file is below, which
           will start one ssl_listener on port 5671 on all interfaces
           on this hostname:</p>
@@ -224,7 +231,7 @@ server testca
 <pre class="sourcecode">
 [
   {rabbit, [
-     {ssl_listeners, [{"0.0.0.0",5671}]},
+     {ssl_listeners, [5671]},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
                     {certfile,"/path/to/server/cert.pem"},
                     {keyfile,"/path/to/server/key.pem"},
@@ -256,14 +263,7 @@ server testca
           be able to establish a chain of trust to it. Note that these
           values can change across versions of ssl shipped with
           Erlang/OTP, so check your man page <code class="">erl -man
-          new_ssl</code> to ensure you have the proper values. <b>In
-          particular, note that Erlang R12B-5 has a single
-          configuration value <code>verify_code</code> which takes the
-          value <code>0</code>, <code>1</code> or <code>2</code>. There is
-          no <code>fail_if_no_peer_cert</code> option in Erlang
-          R12B-5. The options changed with the release of R13
-          to <code>verify</code> and <code>fail_if_no_peer_cert</code>
-          as documented here.</b></p>
+          new_ssl</code> to ensure you have the proper values.</p>
 
           <p>Note that if <code>{verify, verify_none}</code> is used,
           no certificate exchange takes place from the client to the
@@ -337,8 +337,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             <p>Note there are major bugs SSL in Erlang release R13B04
             which renders using SSL with cerificates broken. As of
             this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R14B as the
-            least buggy implementation of SSL in Erlang.</p>
+            certificates with RabbitMQ, we recommend R14B or later.</p>
 
             <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
@@ -803,10 +802,7 @@ namespace RabbitMQ.Client.Examples {
             used in Erlang R13 and onwards to specify what action to
             take if the server doesn't present a certificate or if
             we're unable to establish a chain of trust to the server's
-            certificate. In R12B-5 and prior,
-            the <code>verify_code</code> option serves the same
-            purpose. Check <code>erl -man new_ssl</code> to make sure
-            you have the right options for your version of Erlang.</p>
+            certificate.</p>
         </doc:subsection>
 
         <doc:subsection name="code">

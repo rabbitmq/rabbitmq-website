@@ -83,6 +83,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 Hello World!
 ------------
+### (using the pika 0.5.2 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -102,7 +103,7 @@ digraph G {
       //
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
 	color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -113,7 +114,7 @@ digraph G {
 </div>
 </div>
 
-Producer sends messages to the "test" queue. The consumer receives
+Producer sends messages to the "hello" queue. The consumer receives
 messages from that queue.
 
 > #### RabbitMQ libraries
@@ -125,12 +126,14 @@ messages from that queue.
 >
 > * [py-amqplib](http://barryp.org/software/py-amqplib/)
 > * [txAMQP](https://launchpad.net/txamqp)
-> * [pika](http://github.com/tonyg/pika)
+> * [pika](http://github.com/pika/pika)
 >
-> In this tutorial we're going to use `pika`. To install it you can use
-> [`pip`](http://pip.openplans.org/) package management tool:
+> In this tutorial series we're going to use `pika`. More recent versions are 
+> undergoing major changes,
+> so for now we'll stick with version 0.5.2. To install it
+> you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/tonyg/pika.git#egg=pika
+>     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.5.2#egg=pika-v0.5.2
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them.
@@ -143,6 +146,12 @@ messages from that queue.
 >
 >         $ sudo apt-get install python-setuptools git-core
 >         $ sudo easy_install pip
+>
+> * On Windows:
+>To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
+>
+>         > easy_install pika==0.5.2
+>
 
 ### Sending
 
@@ -157,7 +166,7 @@ messages from that queue.
       //
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
         color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -176,21 +185,20 @@ RabbitMQ server.
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-                   '127.0.0.1',
-                   credentials = pika.PlainCredentials('guest', 'guest')))
+                   'localhost'))
     channel = connection.channel()
 
 We're connected now. Next, before sending we need to make sure the
 recipient queue exists. If we send a message to non-existing location,
 RabbitMQ will just trash the message. Let's create a queue to which
-the message will be delivered, let's name it _test_:
+the message will be delivered, let's name it _hello_:
 
     :::python
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
 At that point we're ready to send a message. Our first message will
 just contain a string _Hello World!_ and we want to send it to our
-_test_ queue.
+_hello_ queue.
 
 In RabbitMQ a message can never be sent directly to the queue, it always
 needs to go through an _exchange_. But let's not get dragged down by the
@@ -202,9 +210,17 @@ The queue name needs to be specified in the `routing_key` parameter:
 
     :::python
     channel.basic_publish(exchange='',
-                          routing_key='test',
+                          routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
+
+
+Before exiting the program we need to make sure the network buffers
+were flushed and our message was actually delivered to RabbitMQ. We
+can do it by gently closing the connection.
+
+    :::python
+    connection.close()
 
 
 ### Receiving
@@ -219,7 +235,7 @@ The queue name needs to be specified in the `routing_key` parameter:
       node [style="filled"];
       //
       subgraph cluster_Q1 {
-        label="test";
+        label="hello";
 	color=transparent;
 	Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
@@ -243,7 +259,7 @@ can run the command as many times as we like, and only one will be
 created.
 
     :::python
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
 You may ask why we declare the queue again &#8210; we have already declared it
 in our previous code. We could avoid that if we were sure
@@ -255,13 +271,14 @@ declaring the queue in both programs.
 > #### Listing queues
 >
 > You may wish to see what queues RabbitMQ has and how many
-> messages are in them. You can do it using the `rabbitmqctl` tool:
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
 >     $ sudo rabbitmqctl list_queues
 >     Listing queues ...
->     test    0
+>     hello    0
 >     ...done.
-
+>
+>(omit sudo on Windows)
 
 
 Receiving messages from the queue is more complex. It works by subscribing
@@ -271,16 +288,16 @@ In our case this function will print on the screen the contents of
 the message.
 
     :::python
-    def callback(ch, method, header, body):
-        print " [x] Received %.20r" % (body,)
+    def callback(ch, method, properties, body):
+        print " [x] Received %r" % (body,)
 
 
 Next, we need to tell RabbitMQ that this particular callback function should
-receive messages from our _test_ queue:
+receive messages from our _hello_ queue:
 
     :::python
     channel.basic_consume(callback,
-                          queue='test',
+                          queue='hello',
                           no_ack=True)
 
 For that command to succeed we must be sure that a queue which we want
@@ -306,17 +323,17 @@ Full code for `send.py`:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
     channel.basic_publish(exchange='',
-                          routing_key='test',
+                          routing_key='hello',
                           body='Hello World!')
     print " [x] Sent 'Hello World!'"
+    connection.close()
 
 [(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
@@ -327,20 +344,19 @@ Full `receive.py` code:
     import pika
 
     connection = pika.AsyncoreConnection(pika.ConnectionParameters(
-            host='127.0.0.1',
-            credentials=pika.PlainCredentials('guest', 'guest')))
+            host='localhost'))
     channel = connection.channel()
 
 
-    channel.queue_declare(queue='test')
+    channel.queue_declare(queue='hello')
 
     print ' [*] Waiting for messages. To exit press CTRL+C'
 
-    def callback(ch, method, header, body):
-        print " [x] Received %.20r" % (body,)
+    def callback(ch, method, properties, body):
+        print " [x] Received %r" % (body,)
 
     channel.basic_consume(callback,
-                          queue='test',
+                          queue='hello',
                           no_ack=True)
 
     pika.asyncore_loop()
