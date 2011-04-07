@@ -45,13 +45,6 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          The list of currently active cluster connection points is
-          returned in the <code>known_hosts</code> field of AMQP's
-          <code>connection.open_ok</code> method, as a comma-separated list
-          of addresses where each address is an IP address or a DNS
-          name, optionally followed by a colon and a port number.
-        </p>
-        <p>
           A node can be a <em>RAM node</em> or a <em>disk
           node</em>. RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
