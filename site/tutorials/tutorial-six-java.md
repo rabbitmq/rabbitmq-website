@@ -198,21 +198,21 @@ Putting it all together
 
 The code for our RPC server looks like this:
 
-    #!java
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-    import com.rabbitmq.client.AMQP.BasicProperties;
-    
+    #!java    
     public class RPCServer {
     
         private static final String RPC_QUEUE_NAME = "rpc_queue";
     
+        private static int fib(int n) throws Exception {
+            if (n > 1) return fib(n-1) + fib(n-2);
+            else return n;
+        }
+        
         public static void main(String[] argv) throws Exception {
     
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
+            
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
     
@@ -227,25 +227,21 @@ The code for our RPC server looks like this:
     
             while (true) {
                 QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+
+                BasicProperties props = delivery.getProperties();
+                BasicProperties replyProps = new BasicProperties();
+                replyProps.setCorrelationId(props.getCorrelationId());
+
                 String message = new String(delivery.getBody());
                 int n = Integer.parseInt(message);
     
                 System.out.println(" [.] fib(" + message + ")");
                 String response = "" + fib(n);
-    
-                BasicProperties props = delivery.getProperties();
-                BasicProperties replyProps = new BasicProperties();
-                replyProps.setCorrelationId(props.getCorrelationId());
-    
+        
                 channel.basicPublish( "", props.getReplyTo(), replyProps, response.getBytes());
     
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
-        }
-    
-        private static int fib(int n) throws Exception {
-            if (n > 1) return fib(n-1) + fib(n-2);
-            else return n;
         }
     }
 
@@ -262,19 +258,11 @@ The server code is rather straightforward:
      It does the work and sends the response back.
   * We declare our fibonacci function.
      (Don't expect this one to work for big numbers,
-     it doesn't reject negative numbers,
      and it's probably the slowest recursive implementation possible).
 
 The code for our RPC client:
 
-    #!java
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-    import com.rabbitmq.client.AMQP.BasicProperties;
-    import java.util.UUID;
-    
+    #!java    
     public class RPCClient {
     
         static class FibonacciRpcClient {
@@ -297,7 +285,8 @@ The code for our RPC client:
     
             public String call(String message) throws Exception {     
                 String response = "";
-                String corrId = UUID.randomUUID().toString();
+                boolean replied = false;
+                String corrId = java.util.UUID.randomUUID().toString();
                 
                 BasicProperties props = new BasicProperties();
                 props.setReplyTo(replyQueueName);
@@ -305,10 +294,11 @@ The code for our RPC client:
     
                 channel.basicPublish("", requestQueueName, props, message.getBytes());
         
-                while (response.length() < 1) {
+                while (replied == false) {
                     QueueingConsumer.Delivery delivery = consumer.nextDelivery();
                     if (delivery.getProperties().getCorrelationId().compareTo(corrId) == 0) {
                         response = new String(delivery.getBody());
+                        replied = true;
                     }
                 }
     
@@ -334,11 +324,10 @@ The code for our RPC client:
     }
 
 
-
 The client code is slightly more involved:
 
   * We establish a connection and channel and declare an
-    exclusive 'callback' queue.
+    exclusive 'callback' queue for replies.
   * We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * The callback executed on every response is doing a very simple
@@ -356,16 +345,18 @@ The client code is slightly more involved:
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
+    :::bash
     $ javac -cp rabbitmq-client.jar RPCClient.java RPCServer.java
-
   
 Our RPC service is now ready. We can start the server:
 
+    :::bash
     $ java -cp $CP RPCServer
      [x] Awaiting RPC requests
 
 To request a fibonacci number run the client:
 
+    :::bash
     $ java -cp $CP RPCClient
      [x] Requesting fib(30)
 
@@ -380,12 +371,16 @@ service, but it has some important advantages:
    round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
-complex problems, like:
+complex (but important) problems, like:
 
  * How should the client react if there are no servers running?
  * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
+
+>
+>If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>
 
 (Full source code for [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java))
 
