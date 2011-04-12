@@ -152,7 +152,8 @@ messages from that queue.
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
 >         :::bash
->         > easy_install pika==0.9.5
+>         > easy_install pip
+>         > pip install -e git+http://github.com/pika/pika.git@v0.9.5#egg=pika-v0.9.5
 >
 
 ### Sending
