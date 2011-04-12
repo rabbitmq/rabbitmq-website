@@ -83,7 +83,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 Hello World!
 ------------
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -128,15 +128,13 @@ messages from that queue.
 > * [txAMQP](https://launchpad.net/txamqp)
 > * [pika](http://github.com/pika/pika)
 >
-> In this tutorial series we're going to use `pika`. More recent versions are 
-> undergoing major changes,
-> so for now we'll stick with version 0.5.2. To install it
+> In this tutorial series we're going to use `pika`. To install it
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.5.2#egg=pika-v0.5.2
+>     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.9.5#egg=pika-v0.9.5
 >
 > The installation depends on `pip` and `git-core` packages, you may
-> need to install them.
+> need to install them first.
 >
 > * On Ubuntu:
 >
@@ -150,7 +148,7 @@ messages from that queue.
 > * On Windows:
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
->         > easy_install pika==0.5.2
+>         > easy_install pika==0.9.5
 >
 
 ### Sending
@@ -184,7 +182,7 @@ RabbitMQ server.
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
                    'localhost'))
     channel = connection.channel()
 
@@ -311,7 +309,7 @@ whenever necessary.
 
     :::python
     print ' [*] Waiting for messages. To exit press CTRL+C'
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 
 ### Putting it all together
@@ -322,7 +320,7 @@ Full code for `send.py`:
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -343,7 +341,7 @@ Full `receive.py` code:
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -359,7 +357,7 @@ Full `receive.py` code:
                           queue='hello',
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
