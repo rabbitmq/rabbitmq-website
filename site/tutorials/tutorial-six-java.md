@@ -183,7 +183,7 @@ Our RPC will work like this:
   * For an RPC request, the Client sends a message with two properties:
     `replyTo`, which is set to the callback queue and `correlationId`,
     which is set to a unique value for every request.
-  * The request is send to an `rpc_queue` queue.
+  * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `replyTo` field.
@@ -360,7 +360,7 @@ To request a fibonacci number run the client:
     $ java -cp $CP RPCClient
      [x] Requesting fib(30)
 
-The presented design is not the only possible implementation of a RPC
+The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
 
  * If the RPC server is too slow, you can scale up by just running
