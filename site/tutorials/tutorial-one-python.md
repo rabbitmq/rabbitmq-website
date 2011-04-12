@@ -131,6 +131,7 @@ messages from that queue.
 > In this tutorial series we're going to use `pika`. To install it
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
+>     :::bash
 >     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.9.5#egg=pika-v0.9.5
 >
 > The installation depends on `pip` and `git-core` packages, you may
@@ -138,16 +139,19 @@ messages from that queue.
 >
 > * On Ubuntu:
 >
+>         :::bash
 >         $ sudo apt-get install python-pip git-core
 >
 > * On Debian:
 >
+>         :::bash
 >         $ sudo apt-get install python-setuptools git-core
 >         $ sudo easy_install pip
 >
 > * On Windows:
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
+>         :::bash
 >         > easy_install pika==0.9.5
 >
 
@@ -271,6 +275,7 @@ declaring the queue in both programs.
 > You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
+>     :::bash
 >     $ sudo rabbitmqctl list_queues
 >     Listing queues ...
 >     hello    0
@@ -364,12 +369,14 @@ Full `receive.py` code:
 Now we can try out our programs in a terminal. First, let's send a
 message using our `send.py` program:
 
-    $ python send.py
+     :::bash
+     $ python send.py
      [x] Sent 'Hello World!'
 
 The producer program `send.py` will stop after every run. Let's receive it:
 
-    $ python receive.py
+     :::bash
+     $ python receive.py
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Hello World!'
 
