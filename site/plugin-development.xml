@@ -250,7 +250,7 @@ $ cd ..</pre>
           </li>
           <li>
             Finally, you can produce a <code>.ez</code> file, suitable for distribution with:
-            <pre class="sourcecode">$ make package</pre>
+            <pre class="sourcecode">$ make dist</pre>
           </li>
         </ul>
       </doc:section>
