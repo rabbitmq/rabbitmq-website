@@ -90,14 +90,14 @@
             <li><a href="/releases/plugins/v&version-server;/mochiweb-&mochiweb-prefix;-rmq&version-server;-&mochiweb-suffix;.ez">mochiweb</a></li>
             <li><a href="/releases/plugins/v&version-server;/webmachine-&webmachine-prefix;-rmq&version-server;-&webmachine-suffix;.ez">webmachine</a></li>
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-management-&version-server;.ez">rabbitmq-management</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_mochiweb-&version-server;.ez">rabbitmq_mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_management_agent-&version-server;.ez">rabbitmq_management_agent</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_management-&version-server;.ez">rabbitmq_management</a></li>
           </ul>
           <p>
             <b>Note:</b> When installing the management plugin on <b>some</b>
             of the nodes in a cluster, you must install
-            <a href="/releases/plugins/v&version-server;/rabbitmq-management-agent-&version-server;.ez">rabbitmq-management-agent</a>
+            <a href="/releases/plugins/v&version-server;/rabbitmq_management_agent-&version-server;.ez">rabbitmq_management_agent</a>
             on <b>all</b> of the nodes in the cluster. You can install the
             full management plugin on as many of the nodes as you
             want.
@@ -114,7 +114,7 @@
           <p>To use this plugin the following files are required:</p>
           <ul>
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-shovel-&version-server;.ez">rabbitmq-shovel</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_shovel-&version-server;.ez">rabbitmq_shovel</a></li>
           </ul>
         </doc:subsection>
 
@@ -139,7 +139,7 @@
           <p>To use this plugin the following files are required:</p>
           <ul>
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-stomp-&version-server;.ez">rabbitmq-stomp</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_stomp-&version-server;.ez">rabbitmq_stomp</a></li>
           </ul>
         </doc:subsection>
 
@@ -183,7 +183,7 @@
           <p>To use this plugin the following files are required:</p>
           <ul>
             <li><a href="/releases/plugins/v&version-server;/eldap-&version-server;-&eldap-suffix;.ez">eldap</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-backend-ldap-&version-server;.ez">rabbitmq-auth-backend-ldap</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_backend_ldap-&version-server;.ez">rabbitmq_auth_backend_ldap</a></li>
           </ul>
         </doc:subsection>
 
@@ -197,7 +197,7 @@
           </p>
           <p>To use this plugin the following files are required:</p>
           <ul>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-auth-mechanism-ssl-&version-server;.ez">rabbitmq-auth-mechanism-ssl</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_mechanism_ssl-&version-server;.ez">rabbitmq_auth_mechanism_ssl</a></li>
           </ul>
         </doc:subsection>
 
@@ -210,15 +210,15 @@
           <p>To use this plugin the following files are required:</p>
           <ul>
             <li><a href="/releases/plugins/v&version-server;/mochiweb-&mochiweb-prefix;-rmq&version-server;-&mochiweb-suffix;.ez">mochiweb</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rfc4627-jsonrpc-&version-server;-&jsonrpc-suffix;.ez">rfc4627-jsonrpc</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rfc4627_jsonrpc-&version-server;-&jsonrpc-suffix;.ez">rfc4627_jsonrpc</a></li>
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-mochiweb-&version-server;.ez">rabbitmq-mochiweb</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-&version-server;.ez">rabbitmq-jsonrpc</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-&version-server;.ez">rabbitmq-jsonrpc-channel</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_mochiweb-&version-server;.ez">rabbitmq_mochiweb</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_jsonrpc-&version-server;.ez">rabbitmq_jsonrpc</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_jsonrpc_channel-&version-server;.ez">rabbitmq_jsonrpc_channel</a></li>
           </ul>
           <p>
             In addition, you may wish to install
-            <a href="/releases/plugins/v&version-server;/rabbitmq-jsonrpc-channel-examples-&version-server;.ez">rabbitmq-jsonrpc-channel-examples</a>.
+            <a href="/releases/plugins/v&version-server;/rabbitmq_jsonrpc_channel_examples-&version-server;.ez">rabbitmq_jsonrpc_channel_examples</a>.
             This adds some example web applications: a shared
             whiteboard, a chat application, and some tests.
           </p>
