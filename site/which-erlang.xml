@@ -7,13 +7,14 @@
     <div>
     <h3>Which Version of Erlang?</h3>
     <p>
-    The default version of Erlang provided by your package manager should allow your RabbitMQ server to run.
-    It will be sufficient for many needs.
-    In all cases the minimum version required is at least R12B-3. Some erlang functionality requires more recent versions.
+    The default version of Erlang provided by your package manager should allow your RabbitMQ server to run,
+    and will normally be sufficient.
+    In all cases the minimum version required is at least R12B-3. Some functionality provided by erlang requires more recent versions.
     </p>
-<p>
-  In general use the latest version unless you have a *really* good reason.
-</p><p>
+    <p>
+      In general use the latest non-alpha version unless you have a *really* good reason.
+    </p>
+    <p>
     <table>
       <th>Requirement</th><th>Minimum version</th><th>Reason</th>
       <tr><td>to work at all</td><td>R12B-3</td><td></td></tr>
@@ -21,177 +22,18 @@
       <tr><td>use mochiweb</td><td>R13B01</td><td></td></tr>
       <tr><td>management plugin</td><td>R13B01</td><td></td></tr>
       <tr><td>work on Windows</td><td>R13B03</td><td></td></tr>
-      <tr><td>use SSL reliably</td><td>R14B</td><td></td></tr>
+      <tr><td>use SSL reliably</td><td>R14B</td><td>Earlier versions do not support SSL well</td></tr>
     </table>
-</p>
-<p>
-<a href="http://www.erlang.org/download.html">Obtain a specific version of erlang</a>
-</p>
-    <h3>Using a newer version of erlang than the distribution repository provides</h3>
+    </p>
+    <p>
+      <a href="http://www.erlang.org/download.html">Download</a> a specific version of <a href="http://www.erlang.org">Erlang</a>.
+    </p>
+    <h3>Using a newer version of Erlang than the distribution repository provides</h3>
     <p>
     
     </p>
     
-    <h3>Assorted blurb from round the website and bugzilla:</h3>
-    <dl>
-    <dt>David Wragg:</dt>
-    <dd>
-    <p>The point releases are just rollups, so there's no difference between a freshly updated
-RHEL 5.0 and RHEL 5.5.  There's no such thing as EPEL 5.5.
-
-- Should mention RHEL derivatives.
-</p>
-<p>
-<b>Note to users of RHEL 5 and derived distributions (e.g. CentOS 5):</b> Due to
-<a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">the
-EPEL package update policy</a>, EPEL 5 contains Erlang version
-R12B-5, which is relatively old.  rabbitmq-server supports R12B-5, but
-performance may be lower than for more recent Erlang
-versions, and certain non-core features are not supported (SSL
-support, HTTP-based plugins).  Therefore, we recommend that you
-install the most recent stable version of Erlang.  The easiest
-way to do this is to use a package repository provided for this
-purpose by the owner of the EPEL erlang package.  Enable
-it by doing (as root)
-<code> wget -O /etc/yum.repos.d/epel-erlang.repo</code>
-<a href="http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo">erlang repo</a>
-
-and then install or update erlang with
-
-<code>yum install erlang</code>
-</p>
-</dd>
-<dt>Peter Holditch</dt>
-<dd>
-<p>
-<blockquote>We are having trouble locating an existing
-version of the OTP (Erlang) platform for our systems, which use RedHat
-Enterprise Linux 5.5. We believe we need version R14B of Erlang for
-the features we want, whereas RHEL 5.5 only includes R12B in its
-package repository.</blockquote>
-</p><p>
-contradicted by FAQ (<a href="http://www.rabbitmq.com/install.html#rpm">rpm</a>):
-<blockquote>RabbitMQ server is included in Fedora, so for Fedora and RHEL users we
-recommend to install the rabbitmq-server package via the
-distribution's package manager.
-Alternatively, install rabbitmq-server-2.3.1-architecture.rpm (which
-you can download from the download page <a href="http://www.rabbitmq.com/server.html">server</a>). 
-We strongly recommend using your distribution's packaged version of Erlang to run the
-server. See <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> if there is no
-official Erlang package for your distribution.</blockquote>
-</p><p>
-R14B of Erlang: (<a href="http://www.rabbitmq.com/ssl.html">ssl</a>)  
-<blockquote>The
-recommended distribution is R14B (SSL 4.0.1). This should be
-considered the minimum configuration for Java and Erlang clients due
-to an incorrect RC4 implementation in earlier versions of Erlang.</blockquote>
-</p><p>
-<a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html">discuss</a>
-</p><p>
-From a commercial support perspective, what Erlang release should we
-specify as something we are confident we can stand behind?
-</p><p>
-tidy up some of
-these contradictions on the website, and simply publish a definitive
-supported platforms matrix in a single place.
-</p>
-</dd>
-<dt>Emile</dt>
-<dd>
- 
-<blockquote>
- I installed erlang R14B01 from source to default location and tested
- successfully. Then I performed a test install of the RabbitMQ rpm, but
- receive a dependency error
-</blockquote>
-<p>
-This is a package management issue. If you built Erlang R14B01 from 
-source instead of installing it from a package then the package manager 
-has no way of knowing that the dependency has been met. One way of 
-getting around this is to turn off dependency checking when installing 
-the RabbitMQ rpm. The <a href="http://rpm.org/">RPM website</a> has more information about dependency 
-management:.
-
-Some users have also had some success installing from a modified  
-<a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-January/010629.html">Erlang SRPM</a>.
-
-If you have a choice between R14B01 and R12B-3 then use R14B01.
-</p></dd>
-<dt>Simon</dt><dd>
-<blockquote> I'm looking to install rabbitmq server onto a production machine, and am
- a little confused as to the erlang dependencies. I see that version
- R12-B3 is mentioned in one place, and R13-B5 in another (admittedly
- Windows which could be different).
-</blockquote>
-<p>
-I don't see a reference to R13-B5 anywhere, but yes, we do end up 
-mentioning a lot of versions.
-
-We support back to R12-B3, but we tend to only test that on Unix since 
-the main reason to run an old Erlang is "it comes with Red Hat / Debian".
-</p>
-<blockquote>
- We will be installing version 2.2.0 from RPM on a RedHat Enterprise 5.5
- server. Following the yum/EPEL route gives me the erlang version R12-B5.
- Could anyone please clarify if this combination is suitable?
-</blockquote>
-That will work. However:
-<ul>
-* SSL support is quite unreliable
-* Performance of garbage collection is not as good
-* Many plugins will not work
-</ul>
-<p>
-Whether to go down the route of trying to get a more modern Erlang 
-depends on how you feel about these things versus how you feel about 
-using the official packages.
-
-If you decide you do need a newer Erlang, I've heard that RPM users have 
-had success with the following procedure:
-</p>
-<ul>
-* Open the SRPM
-* Replace the R12-B5 tarball with the latest version
-* Replace various references to the version in the spec file
-* Repack the SRPM
-* Build the RPM from the SRPM
-</ul>
-<p>
-This is likely to be less ugly than installing from source directly on a 
-production server.
-</p></dd>
-<dt>simon chris</dt>
-<dd>
-
-<em>7/2/11 Subject: Re: [rabbitmq-discuss] Strange Management Plugin Error</em>
-Simon MacMullen wrote:
-<code>
- {error,{exit,{{undef,[{erlang,max,[0,1297079069756]},
-</code>
-
-<code> 
-{stdlib,"ERTS CXC 138 10","1.15.5"}
-</code>
-<p>
- It looks like you're running Erlang R12B05. We don't support the
- management plugin on this old an Erlang.
- rabbit_mochiweb used to blow up on startup with R12. 
- Recent changes to reduce dependencies
- now allow you to run it on R12.
-</p>
-<p>
- rabbit_mochiweb still blows up on R12B05 for me. 
- CentOS 5.5 on all nodes, previously running R12B (5.6.5 was also mentioned when running the erl shell).
-
-I've just upgraded all our nodes to R14B (5.8.1) from the  
-
-<a href="http://repos.fedorapeople.org/repos/peter/erlang/">repository</a>.
-
-So far so good, no sign of that stack trace.
-
-Chris
-</p>
-</dd>
+<dl>
 <dt>faq</dt><dd></dd>
 <dt>news</dt><dd></dd>
 <dt>server</dt><dd></dd>
