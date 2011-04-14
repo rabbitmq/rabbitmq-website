@@ -69,7 +69,8 @@ program will schedule tasks to our work queue, so let's name it
     import sys
     
     message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='', routing_key='hello',
+    channel.basic_publish(exchange='',
+                          routing_key='hello',
                           body=message)
     print " [x] Sent %r" % (message,)
 

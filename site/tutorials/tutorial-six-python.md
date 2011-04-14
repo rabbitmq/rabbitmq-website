@@ -198,7 +198,7 @@ Putting it all together
 -----------------------
 
 
-The code for our RPC server looks like this:
+The code for `rpc_server.py`:
 
     #!/usr/bin/env python
     import pika
@@ -255,7 +255,7 @@ The server code is rather straightforward:
     `prefetch_count` setting.
 
 
-The code for our RPC client:
+The code for `rpc_client.py`:
 
     #!/usr/bin/env python
     import pika
@@ -271,18 +271,16 @@ The code for our RPC client:
             result = self.channel.queue_declare(exclusive=True)
             self.callback_queue = result.method.queue
 
-            self.corr_id = None
             self.channel.basic_consume(self.on_response, no_ack=True,
                                        queue=self.callback_queue)
 
         def on_response(self, ch, method, props, body):
-            if props.correlation_id == self.corr_id:
+            if self.corr_id == props.correlation_id:
                 self.response = body
                 self.channel.stop_consuming()
 
         def call(self, n):
             self.corr_id = str(uuid.uuid4())
-            self.response = None
             self.channel.basic_publish(exchange='',
                                        routing_key='rpc_queue',
                                        properties=pika.BasicProperties(
@@ -292,7 +290,6 @@ The code for our RPC client:
                                        body=str(n))
             self.channel.start_consuming()
             return int(self.response)
-
 
     fibonacci_rpc = FibonacciRpcClient()
 
@@ -315,11 +312,11 @@ The client code is slightly more involved:
   * (24) In this method, first we generate a unique `correlation_id`
     number and save it - the 'on_response' callback function will
     use this value to catch the appropriate response.
-  * (26) Next, we publish the request message, with two properties:
+  * (25) Next, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (33) At this point we can sit back and wait until the proper
+  * (32) At this point we can sit back and wait until the proper
     response arrives.
-  * (35) And finally we return the response back to the user.
+  * (33) And finally we return the response back to the user.
 
 Our RPC service is now ready. We can start the server:
 
