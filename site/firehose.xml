@@ -15,6 +15,11 @@
 	  per-vhost basis) an exchange to which publish- and
 	  delivery-notifications should be CCed.
 	</p>
+        <p>
+          These notifications are close to what's happening on the
+          wire - for example you will see uncommitted messages in
+          transactional mode, and unacked messages in general.
+        </p>
 	<p>
 	  When the feature is switched off, it has no effect on
 	  performance; when it is switched on, it makes a
@@ -30,7 +35,10 @@
 	    <li>
 	      Decide which node, and which vhost, you want to enable
 	      it for. In the examples below, we assume the default
-	      vhost, "<code>/</code>".
+	      vhost, "<code>/</code>", and the default node
+	      "<code>rabbit@(hostname)</code>". Use
+	      the <code>-n</code> argument to rabbitmqctl to specify
+	      another node.
 	    </li>
 	    <li>
 	      Within your chosen vhost, declare the exchange you want
