@@ -194,7 +194,7 @@
             statistics, you can prevent this from happening. Set the
             value of the <code>force_fine_statistics</code> variable
             to <code>false</code> in your configuration file for
-            the <code>rabbit_management_agent</code> application and
+            the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
           </p>
         </doc:subsection>
@@ -203,7 +203,7 @@
           <p>
             To create simple access logs of requests to the HTTP API,
             set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbit_management</code> application to the name
+            the <code>rabbitmq_management</code> application to the name
             of a directory in which logs can be created and restart
             RabbitMQ. Note that only requests to the API
             at <code>/api</code> are logged, not requests to the static
@@ -219,10 +219,10 @@
             like this:
           </p>
           <pre>[
-  {rabbit,                  [ {tcp_listeners,         [5672]} ] },
-  {rabbit_mochiweb,         [ {port,                  55672} ] },
-  {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
-  {rabbit_management_agent, [ {force_fine_statistics, true} ] }
+  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbitmq_mochiweb,         [ {port,                  55672} ] },
+  {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
+  {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
         </doc:subsection>
       </doc:section>
