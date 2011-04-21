@@ -639,8 +639,12 @@
               <li>
                 <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
                 <br />
-                A customer exchange type for RabbitMQ that uses Riak as a backing store. The name of the exchange becomes the
-                bucket and the routing key becomes the object key.
+                A custom exchange type for RabbitMQ that uses Riak as a backing store.
+              </li>
+              <li>
+                <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak RabbitMQ postcommit Hook</a>
+                <br />
+                A postcommit hook for Riak that sends any modified entries to RabbitMQ.
               </li>
               <li>
                 <a href="https://github.com/mabrek/rabbitmq-redis">RabbitMQ-Redis Bridge</a>

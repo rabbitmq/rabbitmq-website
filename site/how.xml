@@ -252,6 +252,13 @@
       <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
       <ul>
       <li>
+        <a href="http://jbrisbin.com/web2/articles/eventing-data-with-rabbitmq-and-riak/">Eventing Data with RabbitMQ and Riak</a>
+        <br />
+        John Brisbin, author of the <a href="https://github.com/jbrisbin/riak-exchange">Riak custom exchange type</a> and
+        <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak postcommit hook</a> for RabbitMQ, presents
+        some use cases for Riak and RabbitMQ.
+      </li>
+      <li>
         <a href="http://developian.blogspot.com/2011/04/visualizing-data-in-real-time-using.html">Visualising data in real time using Drizzle and RabbitMQ</a><br />
         A demonstration of delivering real time data to the browser using Drizzle (a database forked from MySQL and optimised
         for cloud and web applications), RabbitMQ and websockets.
