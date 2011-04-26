@@ -196,7 +196,7 @@ Putting it all together
 -----------------------
 
 
-The code for our RPC server looks like this:
+The code for our simple RPC server looks like this:
 
     #!java    
     public class RPCServer {
@@ -204,8 +204,9 @@ The code for our RPC server looks like this:
         private static final String RPC_QUEUE_NAME = "rpc_queue";
     
         private static int fib(int n) throws Exception {
-            if (n > 1) return fib(n-1) + fib(n-2);
-            else return n;
+            if (n ==0) return 0;
+            if (n == 1) return 1;
+            return fib(n-1) + fib(n-2);
         }
         
         public static void main(String[] argv) throws Exception {
@@ -256,64 +257,60 @@ The server code is rather straightforward:
   * We declare the `basicConsume` callback, the core of the RPC server.
      It's executed when the request is received.
      It does the work and sends the response back.
-  * We declare our fibonacci function.
+  * We declare our fibonacci function. It assumes only valid positive integer input.
      (Don't expect this one to work for big numbers,
      and it's probably the slowest recursive implementation possible).
 
-The code for our RPC client:
+The code for our simple RPC client:
 
     #!java    
     public class RPCClient {
     
-        static class FibonacciRpcClient {
-            private Connection connection;
-            private Channel channel;
-            private String requestQueueName = "rpc_queue";
-            private String replyQueueName;
-            private QueueingConsumer consumer;
+        private Connection connection;
+        private Channel channel;
+        private String requestQueueName = "rpc_queue";
+        private String replyQueueName;
+        private QueueingConsumer consumer;
     
-            public FibonacciRpcClient() throws Exception {
-                ConnectionFactory factory = new ConnectionFactory();
-                factory.setHost("localhost");
-                connection = factory.newConnection();
-                channel = connection.createChannel();
+        public RpcClient() throws Exception {
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            connection = factory.newConnection();
+            channel = connection.createChannel();
     
-                replyQueueName = channel.queueDeclare().getQueue(); 
-                consumer = new QueueingConsumer(channel);
-                channel.basicConsume(replyQueueName, true, consumer);
-            }
+            replyQueueName = channel.queueDeclare().getQueue(); 
+            consumer = new QueueingConsumer(channel);
+            channel.basicConsume(replyQueueName, true, consumer);
+        }
     
-            public String call(String message) throws Exception {     
-                String response = "";
-                boolean replied = false;
-                String corrId = java.util.UUID.randomUUID().toString();
+        public String call(String message) throws Exception {     
+            String response = null;
+            String corrId = java.util.UUID.randomUUID().toString();
                 
-                BasicProperties props = new BasicProperties();
-                props.setReplyTo(replyQueueName);
-                props.setCorrelationId(corrId);
+            BasicProperties props = new BasicProperties();
+            props.setReplyTo(replyQueueName);
+            props.setCorrelationId(corrId);
     
-                channel.basicPublish("", requestQueueName, props, message.getBytes());
+            channel.basicPublish("", requestQueueName, props, message.getBytes());
         
-                while (replied == false) {
-                    QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                    if (delivery.getProperties().getCorrelationId().compareTo(corrId) == 0) {
-                        response = new String(delivery.getBody());
-                        replied = true;
-                    }
+            while (true) {
+                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+                if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+                    response = new String(delivery.getBody());
+                    break;
                 }
-    
-                return response; 
             }
     
-            public void close() throws Exception {
-                channel.close();
-                connection.close();
-            }
+            return response; 
+        }
+    
+        public void close() throws Exception {
+            connection.close();
         }
     
         public static void main(String[] argv) throws Exception {
     
-            RPCClient.FibonacciRpcClient fibonacciRpc = new RPCClient.FibonacciRpcClient();
+            RPCClient fibonacciRpc = new RPCClient();
     
             System.out.println(" [x] Requesting fib(30)");   
             String response = fibonacciRpc.call("30");
