@@ -377,6 +377,8 @@ complex (but important) problems, like:
  * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
+ * Protecting against invalid incoming messages
+   (eg checking bounds, type) before processing.
 
 >
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
