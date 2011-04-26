@@ -244,9 +244,9 @@ The server code is rather straightforward:
 
   * (4) As usual we start by establishing the connection and declaring
     the queue.
-  * (11) Next, we declare our fibonacci function. (Don't expect this one to
-     work for big numbers, it's probably the slowest recursive implementation
-     possible).
+  * (11) Next, we declare our fibonacci function. It assumes only valid positive integer input.
+    (Don't expect this one to work for big numbers,
+    it's probably the slowest recursive implementation possible).
   * (19) At this point we're ready to declare the `basic_consume`
     callback, the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
@@ -348,7 +348,9 @@ complex problems, like:
  * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
-
+ * Protecting against invalid incoming messages
+   (eg checking bounds, type) before processing.
+   
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 </div>
