@@ -272,7 +272,7 @@ The code for our simple RPC client:
         private String replyQueueName;
         private QueueingConsumer consumer;
     
-        public RpcClient() throws Exception {
+        public RPCClient() throws Exception {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             connection = factory.newConnection();
