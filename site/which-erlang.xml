@@ -32,17 +32,29 @@
     <p>
     
     </p>
-    
-<dl>
-<dt>faq</dt><dd></dd>
-<dt>news</dt><dd></dd>
-<dt>server</dt><dd></dd>
-<dt>erlang-client</dt><dd></dd>
-<dt>extensions</dt><dd></dd>
-<dt>install</dt><dd></dd>
-<dt>management</dt><dd></dd>
-<dt>ssl</dt><dd></dd>
-</dl>
+    <p>
+    <dl>
+    <dt>RHEL 5 and derived distributions (e.g. CentOS 5):</dt>
+    <dd>
+    <p>
+    Due to
+    <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+    the EPEL package update policy</a>,
+    EPEL 5 contains Erlang version R12B-5, which rabbitmq-server still supports.
+    </p>
+    <p>For better performance, and for certain non-core features
+    (SSL support, HTTP-based plugins), use the most recent stable version of Erlang.
+    The easiest way is to
+    use a package repository provided by the owner of the EPEL erlang package.
+    Enable this using (as root)
+    <code> wget -O /etc/yum.repos.d/epel-erlang.repo 
+    http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>
+
+    and then install or update erlang with <code>yum install erlang</code>
+    </p>
+    </dd>
+    </dl>
+    </p>
 
     </div>
   </body>
