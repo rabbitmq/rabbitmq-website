@@ -26,8 +26,34 @@
         </p>
       </doc:section>
 
+      <doc:section name="management">
+        <doc:heading>Monitoring and management</doc:heading>
+        <p>
+          To monitor the broker's connections, channels,
+          queues and exchanges you can use:          
+        <dl>
+        <dt>Web UI and HTTP API</dt>
+        <dd>
+          To view, manage and monitor the current state of a RabbitMQ broker, the <a href="management.html">management
+          plugin</a> provides a web UI and HTTP API.
+        </dd>
+        <dt>Command Line Tool</dt>
+        <dd>
+          <code>rabbitmqctl</code> is a command line tool for managing
+          a RabbitMQ broker. Please see the 
+          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a> for information.
+        </dd>
+        <dt>Other tools</dt>
+        <dd>There are
+          several <a href="how.html#management"> community-maintained
+          management tools</a>.
+        </dd>
+        </dl>
+        </p>
+      </doc:section>
+
       <doc:section name="default-state">
-        <doc:heading>Default database contents</doc:heading>
+        <doc:heading>Default database access</doc:heading>
 
         <p>
           When the server first starts running, and detects that its
@@ -53,23 +79,6 @@
           or <a href="man/rabbitmqctl.1.man.html#change_password">change
           the password</a> to something private, particularly if your
           broker is accessible publicly.
-        </p>
-      </doc:section>
-
-      <doc:section name="management">
-        <doc:heading>Management and monitoring</doc:heading>
-        <p>
-          <code>rabbitmqctl</code> is a command line tool for managing
-          a RabbitMQ broker.
-          For (much) more information on <code>rabbitmqctl</code>, please see
-          <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
-        </p>
-        <p>
-          There is also a <a href="management.html">management
-          plugin</a> which provides a web UI and HTTP API for managing
-          and monitoring a RabbitMQ broker. And there are
-          several <a href="how.html#management"> community-maintained
-          management tools</a>.
         </p>
       </doc:section>
 
