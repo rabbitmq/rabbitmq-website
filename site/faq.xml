@@ -1594,8 +1594,7 @@ web UI.
             <p>
               RabbitMQ records whether it was shutdown safely. Using
               the <code>init</code> scripts or the
-              <code>rabbitmq-multi</code> or
-              <code>rabbitmq-server</code> scripts to shutdown
+              <code>rabbitmq-server</code> script to shutdown
               RabbitMQ counts as a safe shutdown. If RabbitMQ is
               started up after a safe shutdown, then it will start up
               very quickly indeed, almost regardless of the number of

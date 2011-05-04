@@ -60,6 +60,9 @@
                 <li>
                   <a href="#haskell-dev">Haskell</a>
                 </li>
+                <li>
+                  <a href="#ocaml-dev">Ocaml</a>
+                </li>
               </ul>
             </li>
             <li>
@@ -74,7 +77,18 @@
               </ul>
             </li>
             <li>
+              Cloud Environments
+              <ul class="plain">
+                <li>
+                  <a href="#ec2-dev">Amazon EC2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
               <a href="#web-messaging">Web Messaging</a>
+            </li>
+            <li>
+              <a href="#nosql">NoSQL</a>
             </li>
             <li>
               <a href="#rabbitmq-cli">CLI</a>
@@ -139,6 +153,11 @@
               </li>
               <li>
                 <a href="http://www.infoq.com/presentations/Spring-AMQP">Spring AMQP video and slides</a> from Matthias' presentation at SpringOne 2010
+              </li>
+              <li>
+                <a href="http://blog.codecentric.de/en/2011/04/amqp-messaging-with-rabbitmq/">AMQP Messaging with RabbitMQ and Spring</a>
+                <br/>
+                Getting started with the Spring AMQP templates for RabbitMQ
               </li>
               <li>
                 <a href="http://www.slideshare.net/ewolff/07-messaging-inthecloud">Using RabbitMQ with Spring</a>
@@ -249,7 +268,8 @@
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (the <a href="http://github.com/tonyg/pika">source code</a> is on github)
+                (the <a href="https://github.com/pika/pika">source code</a> is on github; the 
+                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
               </li>
               <li>
                 <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code
@@ -306,6 +326,9 @@
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
+                <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
+              </li>
+              <li>
                 <a href="http://www.beefycode.com/post/consuming-rabbitmq-messages-in-powershell.aspx">poshrabbit</a>, a PowerShell module to publish and consume RabbitMQ messages
               </li>
               <li>
@@ -335,6 +358,12 @@
                 <a href="http://www.slideshare.net/old_sound/integrating-php-withrabbitmqzendcon">Integrating PHP with RabbitMQ</a>
                 <br />
                 An introductory presentation covering common RabbitMQ use cases with code examples in PHP
+              </li>
+              <li>
+                <a href="http://www.youtube.com/watch?v=YO9AtlJ3JMc">Scaling web apps with RabbitMQ</a>
+                <br />
+                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing 
+                website reliability and scalability. (March 11, 2011.)
               </li>
               <li>
                 <a href="http://www.php.net/manual/en/book.amqp.php">PHP manual page for AMQP</a>
@@ -373,10 +402,13 @@
             <h3>Perl</h3>
             <ul class="plain">
               <li>
-                Code for <a href="http://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a>
+                <a href="https://github.com/cooldaemon/AnyEvent-RabbitMQ">AnyEvent::RabbitMQ</a>, an asynchronous and multi-channel AMQP client
               </li>
               <li>
-                <a href="http://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a>
+                <a href="https://github.com/ewaters/net-amqp/tree/master">Net::AMQP</a>, frame (de)serialisation of AMQP
+              </li>
+              <li>
+                <a href="https://github.com/ewaters/poe-component-client-amqp/tree/master">POE::Component::Client::AMQP</a>
               </li>
               <li>
                 <a href="http://search.cpan.org/~jesus/Net-RabbitMQ-0.0.1/">Net::RabbitMQ</a>
@@ -385,7 +417,7 @@
                 <a href="http://search.cpan.org/~aar/Net-RabbitMQ-Java-2.030101/lib/Net/RabbitMQ/Java.pm">Net::RabbitMQ::Java</a>, full bindings for the RabbitMQ Java client
               </li>
               <li>
-                <a href="http://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>
+                <a href="https://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>, an asynchronous and multi-channel AMQP client using Coro and AnyEvent::RabbitMQ
               </li>
               <li>
                 <a href="http://search.cpan.org/~gphat/Test-Net-RabbitMQ-0.03/">test-net-rabbitmq</a>, a very simple mock broker for Net::RabbitMQ
@@ -460,6 +492,15 @@
               </li>
             </ul>
           </div>
+          <div class="box" id="ocaml-dev">
+            <h3>Ocaml</h3>
+            <ul class="plain">
+              <li>
+                <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>
           <div class="box" id="macosx-dev">
             <h3>MacOSX</h3>
             <ul class="plain">
@@ -490,6 +531,21 @@
               </li>
             </ul>
           </div>
+          <div class="box" id="ec2-dev">
+            <h3>Amazon EC2</h3>
+            <ul class="plain">
+              <li>
+                <a href="ec2.html">How to set up RabbitMQ on EC2</a>
+              </li>
+              <li>
+                <a href="http://old.nabble.com/Ubuntu-%2B-RabbitMQ-2.4.0-EC2-AMI-td31280970.html">Ubuntu 10.04 + RabbitMQ 2.4.0 EC2 AMI</a>
+              </li>
+              <li>
+                <a href="http://delicious.com/alexisrichardson/rabbitmq+ec2">RabbitMQ and EC2  on del.icio.us</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>         
           <div class="box" id="web-messaging">
             <h3>Web Messaging</h3>
             <ul class="plain">
@@ -497,6 +553,11 @@
                 <a href="http://github.com/rabbitmq/rabbit-socks">rabbit-socks</a>
                 <br />
                 Websocket and Socket.IO support for RabbitMQ
+              </li>
+              <li>
+                <a href="http://dahernan.blogspot.com/2011/03/rabbitmq-and-nodejs-websockets.html">RabbitMQ and Node.js Websockets</a>
+                <br/>
+                Experiments with Node.js support for Websockets and RabbitMQ.
               </li>
               <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
@@ -577,14 +638,33 @@
               </li>
             </ul>
           </div>
-          <div class="box" id="miscellaneous">
-            <h3>Miscellanous</h3>
+          <div class="box" id="nosql">
+            <h3>NoSQL</h3>
             <ul class="plain">
+              <li>
+                <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
+                <br />
+                A custom exchange type for RabbitMQ that uses Riak as a backing store.
+              </li>
+              <li>
+                <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak RabbitMQ postcommit Hook</a>
+                <br />
+                A postcommit hook for Riak that sends any modified entries to RabbitMQ.
+              </li>
               <li>
                 <a href="https://github.com/mabrek/rabbitmq-redis">RabbitMQ-Redis Bridge</a>
                 <br />
                 A RabbitMQ plug-in that moves messages between RabbitMQ and Redis Pub/Sub using erldis (experimental).
               </li>
+              <li>
+                <a href="http://www.delicious.com/alexisrichardson/rabbitmq+nosql">RabbitMQ and NoSQL on del.icio.us</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>
+          <div class="box" id="miscellaneous">
+            <h3>Miscellanous</h3>
+            <ul class="plain">
               <li>
                 <a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a>
                 <br />
@@ -604,9 +684,6 @@
               <li>
                 <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
                 - a popular tutorial and screencast that should be of interest for users of other languages too.
-              </li>
-              <li>
-                <a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a>, an interface from LispWorks to RabbitMQ
               </li>
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>

@@ -108,6 +108,15 @@
       Java Client library or documentation other than the above.
     </p>
 
+    <h2>OSGi Ready</h2>
+    <p>
+      The RabbitMQ Java AMQP library jar comes ready with an OSGi
+      manifest (with bundle version and package dependencies correctly
+      set) so it can be deployed in an OSGi environment.
+      This means it is no longer necessary to <i>bundleise</i> or
+      <i>OSGiefy</i> the jar prior to using it in an OSGi container.
+    </p>
+
     <h2>Maven Artifact</h2>
     <p>
       The RabbitMQ Java AMQP library is available as a Maven artifact
@@ -124,8 +133,10 @@
 &lt;/dependency&gt;</pre>
     </p>
     <p>
-      There usually is a few weeks lag between a new release and its
-      appearance in the central Maven repository. Be patient.
+      We attempt to upload new versions of the Java client on the day
+      of release; however the Maven servers are sometimes unavailable,
+      so there may be a delay of a few days between a new release and
+      its appearance in the central Maven repository. Please be patient.
     </p>
 
     <h2>Windows Bundle</h2>
@@ -137,7 +148,8 @@
     <p>
       The Java AMQP client library and example programs. Depends on
       the code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
+      href="build-java-client.html">build page</a> for instructions on
+      compiling from source code.
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">

@@ -76,8 +76,8 @@
           variable should be a list of atoms corresponding to
           mechanism names, for example <code>['PLAIN',
           'AMQPLAIN']</code> by default. The server-side list is not
-          considered to be in any particular order. See
-          the <a href="install.html#configfile">configuration file</a>
+          considered to be in any particular order. See the
+          <a href="configure.html#configuration-file">configuration file</a>
           documentation.
         </p>
       </doc:section>
@@ -87,11 +87,16 @@
         <doc:subsection name="java-config">
           <doc:heading>Java</doc:heading>
           <p>
-            The Java client uses the <code>javax.security.sasl</code>
-            mechanism, with a RabbitMQ-specific <code>SaslConfig</code>
-            interface to define SASL configuration in one place. A
+            The Java client does not use
+            the <code>javax.security.sasl</code> package by default
+            since this can be unpredictable on non-Oracle JDKs and is
+            missing entirely on Android. There is a RabbitMQ-specific
+            SASL implementation, configured by
+            the <code>SaslConfig</code> interface. A
             class <code>DefaultSaslConfig</code> is provided to make
-            SASL configuration more convenient in the common case.
+            SASL configuration more convenient in the common case. A
+            class <code>JDKSaslConfig</code> is provided to act as a
+            bridge to <code>javax.security.sasl</code>.
           </p>
           <p>
             See <code>ConnectionFactory.getSaslConfig()</code>

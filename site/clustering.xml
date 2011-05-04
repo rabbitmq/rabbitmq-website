@@ -45,13 +45,6 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          The list of currently active cluster connection points is
-          returned in the <code>known_hosts</code> field of AMQP's
-          <code>connection.open_ok</code> method, as a comma-separated list
-          of addresses where each address is an IP address or a DNS
-          name, optionally followed by a colon and a port number.
-        </p>
-        <p>
           A node can be a <em>RAM node</em> or a <em>disk
           node</em>. RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
@@ -522,10 +515,9 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up
-            via the RabbitMQ config file, the location of which is
-            determined by the startup scripts; see the <a
-            href="install.html">installation guide</a> for
-            details. The file should set the cluster_nodes field in
+            via the RabbitMQ <code>.config</code> file; see the
+            <a href="configure.html#configuration-file">configuration guide</a>
+            for details. The file should set the cluster_nodes field in
             the rabbit application to a list of cluster nodes.
           </p>
           <p>
@@ -589,12 +581,10 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">[{rabbit, [{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}]}].</pre>
           <p>
             (Note for Erlang programmers and the curious: this is a
-            standard Erlang configuration file.  For more details, see
-            the <a
-            href="http://www.rabbitmq.com/install.html#configfile">Configuration
-            File</a> section of the installation instructions and the
-            <a href="http://www.erlang.org/doc/man/config.html">Erlang
-            Config Man Page</a>.)
+            standard Erlang configuration file.  For more details, see the
+            <a href="configure.html#configuration-file">configuration guide</a>
+            and the
+            <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.)
           </p>
           <p>
             We set this field in the config file on all machines.  For
@@ -637,48 +627,134 @@ Status of node rabbit@rabbit3 ...
         </p>
         </doc:subsection>
       </doc:section>
+      <doc:section name="upgrading">
+          <doc:heading>Upgrading clusters</doc:heading>
+          <p>
+            When upgrading from one version of RabbitMQ to another,
+            RabbitMQ will automatically update its persistent data
+            structures if necessary. In a cluster, this task is
+            performed by the first disc node to be started (the
+            "upgrader" node). Therefore when upgrading a RabbitMQ
+            cluster, you should not attempt to start any RAM nodes
+            first; any RAM nodes started will emit an error message
+            and fail to start up.
+          </p>
+          <p>
+            All nodes in a cluster must be running the same versions
+            of Erlang and RabbitMQ, although they may have different
+            plugins installed. Therefore it is necessary to stop all
+            nodes in the cluster, then start all nodes when performing
+            an upgrade.
+          </p>
+          <p>
+            While not strictly necessary, it is a good idea to decide
+            ahead of time which disc node will be the upgrader, stop
+            that node last, and start it first. Otherwise changes to
+            the cluster configuration that were made between the
+            upgrader node stopping and the last node stopping will be
+            lost.
+          </p>
+          <p>
+            Automatic upgrades are only possible from RabbitMQ
+            versions 2.1.1 and later. If you have an earlier cluster,
+            you will need to rebuild it to upgrade.
+          </p>
+      </doc:section>
+
       <doc:section name="single-machine">
           <doc:heading>A cluster on a single machine</doc:heading>
           <p>
-            Under some circumstances it can be useful to run a cluster 
-            of RabbitMQ nodes on a single machine. In particular, this 
-            is necessary in order to get the full benefit of the CPUs 
-            on a multi-core machine. The two main requirements for 
-            running more than one node on a single machine are that 
-            each node should have a unique name and bind to a unique 
-            port / IP address combination.
+            Under some circumstances it can be useful to run a cluster
+            of RabbitMQ nodes on a single machine. This would
+            typically be useful for experimenting with clustering on a
+            desktop or laptop without the overhead of starting several
+            virtual machines for the cluster. The two main
+            requirements for running more than one node on a single
+            machine are that each node should have a unique name and
+            bind to a unique port / IP address combination for each
+            protocol in use.
           </p>
           <p>
-            The easiest way to start a cluster on a single machine is 
-            to use the script <code>rabbitmq-multi</code> (<code>rabbitmq-multi.bat</code>
-            on Windows). You can invoke this as:
-          </p>
-          <pre class="sourcecode">
-$ rabbitmq-multi start_all <i>count</i></pre>
-		  <p>
-		    This will start <i>count</i> nodes with unique names, 
-		    listening on all IP addresses and on sequential ports 
-		    starting from 5672. You can then stop all nodes as follows:
-		  </p>
-          <pre class="sourcecode">
-$ rabbitmq-multi stop_all</pre>
-          <p>
-		    Please note that you still need to put the nodes into a 
-		    cluster by <a href="#auto-config">auto-configuration</a> or
-		    <a href="#creating">manually arranging your nodes into a 
-		    cluster</a>. This may be as simple as creating a cluster
-		    configuration file containing this:
-          </p>
-          <pre class="sourcecode">
-[rabbit@<i>machine</i>].</pre>
-          <p>
-	    You can also start multiple nodes on the same host
+	    You can start multiple nodes on the same host
 	    manually by repeated invocation of
 	    <code>rabbitmq-server</code> (
 	    <code>rabbitmq-server.bat</code> on Windows). You must
 	    ensure that for each invocation you set the environment
 	    variables <code>RABBITMQ_NODENAME</code> and
 	    <code>RABBITMQ_NODE_PORT</code> to suitable values.
+          </p>
+          <p>For example:</p>
+          <pre class="sourcecode">
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
+$ rabbitmqctl -n hare stop_app
+$ rabbitmqctl -n hare reset
+$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare start_app</pre>
+          <p>
+            will set up a two node cluster with one disc node and one
+            ram node. Note that if you have RabbitMQ opening any ports
+            other than AMQP, you'll need to configure those
+            not to clash as well - for example:
+          </p>
+          <pre class="sourcecode">
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55672" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55673" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+          <p>
+            will start two nodes (which can then be clustered) when
+            the management plugin is installed.
+          </p>
+      </doc:section>
+      <doc:section name="firewall">
+          <doc:heading>Firewalled nodes</doc:heading>
+          <p>
+            The case for firewalled clustered nodes exists when nodes
+            are in a data center or on a reliable network, but separated
+            by firewalls. Clustering is not recommended over a WAN or
+            when network links between nodes are unreliable.
+            The <a href="plugins.html#rabbitmq-shovel">shovel plugin</a>
+            is a better solution in that case.
+          </p>
+          <p>
+            If different nodes of a cluster are in the same data center,
+            but behind firewalls then additional configuration will be
+            necessary to ensure inter-node communication. Erlang makes
+            use of a Port Mapper Daemon (epmd) for resolution of node
+            names in a cluster. Nodes must be able to reach each other
+            and the port mapper daemon for clustering to work.
+          </p>
+          <p>
+            The default epmd port is 4369, but this can be changed
+            using the <span class="envvar">ERL_EPMD_PORT</span>
+            environment variable. All nodes must use the same port.
+            Firewalls must permit traffic on this port to pass between
+            clustered nodes. For further details see the
+            <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+            manpage</a>.
+          </p>
+          <p>
+            Once a distributed Erlang node address has been resolved via epmd,
+            other nodes will attempt to communicate directly with that address
+            using the Erlang distributed node protocol. The port range for this
+            communication can be configured with two parameters for the Erlang
+            kernel application:
+          </p>
+          <ul>
+            <li>inet_dist_listen_min</li>
+            <li>inet_dist_listen_max</li>
+          </ul>
+          <p>
+            Firewalls must permit traffic in this range to pass between
+            clustered nodes (assuming all nodes use the same port range).
+            The default port range is unrestricted.
+          </p>
+          <p>
+            The <a href="http://www.erlang.org/doc/man/kernel_app.html">
+            Erlang kernel_app manpage</a> contains more details on the
+            port range that distributed Erlang nodes listen on.
+            See the <a href="configure.html">configuration</a> page
+            for information on how to create and edit a configuration
+            file.
           </p>
       </doc:section>
     </doc:div>

@@ -126,12 +126,14 @@ messages from that queue.
 >
 > * [py-amqplib](http://barryp.org/software/py-amqplib/)
 > * [txAMQP](https://launchpad.net/txamqp)
-> * [pika](http://github.com/tonyg/pika)
+> * [pika](http://github.com/pika/pika)
 >
-> In this tutorial we're going to use `pika` version 0.5.2. To install it
-> you can use [`pip`](http://pip.openplans.org/) package management tool:
+> In this tutorial series we're going to use `pika`. More recent versions are 
+> undergoing major changes,
+> so for now we'll stick with version 0.5.2. To install it
+> you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/tonyg/pika.git@v0.5.2#egg=pika-v0.5.2
+>     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.5.2#egg=pika-v0.5.2
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them.

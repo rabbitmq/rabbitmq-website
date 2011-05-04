@@ -25,7 +25,7 @@
           <li> Erlang Distribution - R13B</li>
           <li> Erlang SSL - 3.10</li>
         </ul>
-        <p>The recommended distribution is R14B (SSL 4.0.1). This should be
+        <p>The recommended distribution is R14B (SSL 4.0.1) or later. This should be
         considered the minimum configuration for Java and Erlang clients
         due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
 
@@ -35,7 +35,16 @@
         <p>For Windows users: Versions of Erlang as recent as R13B03 do not include
         the OpenSSL library needed by the crypto application.
         <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This post</a>
-        explains how to install it. Version R14A appears to include it already.</p>
+        explains how to install it. It is necessary to install the 32-bit OpenSSL
+        libraries, even on 64-bit versions of Windows.
+        </p>
+
+        <p>For Windows XP users running RabbitMQ as a service: It is not possible to
+        use SSL with RabbitMQ running as a service on Windows XP in combination with
+        OpenSSL versions 0.9.8 or later. The bug has been confirmed on Windows XP SP3
+        with OpenSSL v0.9.8r and v1.0.0d. Suggested workarounds if you want to run RabbitMQ
+        as a service is to upgrade to Windows 7 or downgrade to an earlier version of
+        OpenSSL (v0.9.7e is known to work).</p>
 
         <p>For those compiling Erlang from source: Ensure <code>configure</code>
         finds OpenSSL and builds the crypto application.</p>
@@ -221,7 +230,7 @@ server testca
           <p>The simplest way to set these options, is to edit
           the <code class="">rabbitmq.config</code> file (in the
           appropriate location for your platform, as discussed in
-          the <a href="install.html#configfile">installation
+          the <a href="configure.html#configuration-file">configuration
           guide</a>).  An example of the config file is below, which
           will start one ssl_listener on port 5671 on all interfaces
           on this hostname:</p>
@@ -335,8 +344,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             <p>Note there are major bugs SSL in Erlang release R13B04
             which renders using SSL with cerificates broken. As of
             this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R14B as the
-            least buggy implementation of SSL in Erlang.</p>
+            certificates with RabbitMQ, we recommend R14B or later.</p>
 
             <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
