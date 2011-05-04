@@ -97,8 +97,8 @@ It's easiest to explain this in an example:
 In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
 three words (two dots). The first word in the routing key
-will describe a celerity, second a colour and third a species:
-"`<celerity>.<colour>.<species>`".
+will describe speed, second a colour and third a species:
+"`<speed>.<colour>.<species>`".
 
 We created three bindings: Q1 is bound with binding key "`*.orange.*`"
 and Q2 with "`*.*.rabbit`" and "`lazy.#`".
@@ -168,7 +168,6 @@ The code for `EmitLogTopic.java`:
             channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
             System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
     
-            channel.close();
             connection.close();
         }
         //...
