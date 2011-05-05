@@ -176,6 +176,12 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+spring">RabbitMQ Spring development on del.icio.us</a>
+              </li>
+            </ul>
+            <h4>Play! Framework</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
