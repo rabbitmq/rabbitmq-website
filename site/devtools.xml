@@ -199,28 +199,28 @@
                 <a href="https://github.com/ivanvanderbyl/cloudist">Cloudist</a>, a highly scalable job queue for Ruby
               </li>       
               <li>
-                <a href="http://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
+                <a href="https://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
               </li>
               <li>
                 <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
               </li>
               <li>
-                <a href="http://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
+                <a href="https://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
               </li>
               <li>
-                <a href="http://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby
+                <a href="https://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby
               </li>
               <li>
                 <a href="http://groups.google.com/group/ruby-amqp/">Google ruby-amqp group</a>
               </li>
               <li>
-                <a href="http://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons
+                <a href="https://github.com/ezmobius/nanite/tree/master">Nanite</a> self assembling fabric of ruby daemons
               </li>
               <li>
-                <a href="http://github.com/orionz/minion">Minion</a> a super-simple job queue over AMQP
+                <a href="https://github.com/orionz/minion">Minion</a> a super-simple job queue over AMQP
               </li>
               <li>
-                <a href="http://github.com/PlasticLizard/bunnicula">Bunnicula</a> a simple AMQP relay implemented as a ruby daemon (similar in intent to <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">shovel</a>)
+                <a href="https://github.com/PlasticLizard/bunnicula">Bunnicula</a> a simple AMQP relay implemented as a ruby daemon (similar in intent to <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">shovel</a>)
               </li>
               <li>
                 <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)
@@ -232,7 +232,7 @@
                 RabbitMQ with <a href="http://kallistec.com/2009/07/11/amqp-phusion-qusion/">Passenger</a> and other frameworks
               </li>
               <li>
-                <a href="http://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group
+                <a href="https://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group
               </li>
               <li>
                 <a href="http://www.railzite.com/2010/02/getting-started-with-amqp-and-ruby.html">Get started with AMQP and Ruby</a>
