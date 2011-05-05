@@ -196,6 +196,9 @@
                 <a href="https://github.com/ruby-amqp/amq-client">AMQ Client</a>, a low-level AMQP client with support for blocking socket connection as well as for reactor implementations like EventMachine and Cool.IO
               </li>
               <li>
+                <a href="https://github.com/ivanvanderbyl/cloudist">Cloudist</a>, a highly scalable job queue for Ruby
+              </li>       
+              <li>
                 <a href="http://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
               </li>
               <li>
