@@ -247,8 +247,8 @@ The server code is rather straightforward:
   * (11) Next, we declare our fibonacci function. It assumes only valid positive integer input.
     (Don't expect this one to work for big numbers,
     it's probably the slowest recursive implementation possible).
-  * (19) At this point we're ready to declare the `basic_consume`
-    callback, the core of the RPC server. It's executed when the request
+  * (19) At this point we're ready to declare the `basicConsume` callback,
+    the the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
   * (32) We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
@@ -305,7 +305,7 @@ The client code is slightly more involved:
 
   * (7) We start with connection establishment and a declaration of an
     exclusive 'callback' queue.
-  * (15) Next we subscribe to the 'callback' queue, so that
+  * (16) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * (19) The callback executed on every response is doing a very simple
     job, for every response message it checks if the `correlation_id` is the one
@@ -349,8 +349,12 @@ complex problems, like:
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
  * Protecting against invalid incoming messages
-   (eg checking bounds, type) before processing.
+   (eg checking bounds) before processing.
    
+>
+>If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>
+
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 </div>

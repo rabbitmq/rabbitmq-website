@@ -254,12 +254,11 @@ The server code is rather straightforward:
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
     `prefetchCount` setting in channel.basicQos.
-  * We declare the `basicConsume` callback, the core of the RPC server.
-     It's executed when the request is received.
-     It does the work and sends the response back.
+  * We use `basicConsume` to access the queue. Then we enter the while loop in which
+    we wait for request messages, do the work and send the response back.
   * We declare our fibonacci function. It assumes only valid positive integer input.
-     (Don't expect this one to work for big numbers,
-     and it's probably the slowest recursive implementation possible).
+    (Don't expect this one to work for big numbers,
+    and it's probably the slowest recursive implementation possible).
 
 The code for our simple RPC client:
 
@@ -327,17 +326,17 @@ The client code is slightly more involved:
     exclusive 'callback' queue for replies.
   * We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * The callback executed on every response is doing a very simple
-    job, for every response message it checks if the `correlationId` is the one
-    we're looking for. If so, it saves the response.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
-    number and save it - the callback function will
+    number and save it - the while loop will
     use this value to catch the appropriate response.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
   * At this point we can sit back and wait until the proper
     response arrives.
+  * The while loop is doing a very simple job,
+    for every response message it checks if the `correlationId`
+    is the one we're looking for. If so, it saves the response.    
   * Finally we return the response back to the user.
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):

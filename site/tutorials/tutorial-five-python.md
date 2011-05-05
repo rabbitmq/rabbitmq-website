@@ -260,5 +260,6 @@ Some teasers:
 (Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
 and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-python.html)
 
 </div>

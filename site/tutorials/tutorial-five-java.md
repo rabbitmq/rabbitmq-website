@@ -281,7 +281,6 @@ Some teasers:
 (Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
 and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
 
-<!--
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)
--->
+
 </div>
