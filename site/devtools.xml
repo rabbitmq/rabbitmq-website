@@ -390,13 +390,16 @@
                 <a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib
               </li>
               <li>
-                <a href="http://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
+                <a href="https://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
               </li>
               <li>
                 <a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a>
               </li>
               <li>
                 <a href="https://github.com/BraveSirRobin/amqphp">amqphp</a> a pure PHP implementation of AMQP 0-9-1 for RabbitMQ 2+ and PHP 5.3
+              </li>
+              <li>
+                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</a>
               </li>
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for AMQP messaging
