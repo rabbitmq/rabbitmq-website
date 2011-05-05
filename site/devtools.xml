@@ -118,6 +118,9 @@
                 <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a>
               </li>
               <li>
+                <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an experimental Apache Camel component for interacting with RabbitMQ
+              </li>
+              <li>
                 <a href="http://github.com/slider/amqp-relay">amqp-relay</a>
                 <br/>
                 A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
@@ -173,6 +176,12 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+spring">RabbitMQ Spring development on del.icio.us</a>
+              </li>
+            </ul>
+            <h4>Play! Framework</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
@@ -326,6 +335,9 @@
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
+                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+              </li>
+              <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
               </li>
               <li>
@@ -441,7 +453,7 @@
                 An <a href="http://github.com/dg1sbg/RabbitMQ_C_VS_Unix">ANSI C compliant library</a> providing a C language interface to RabbitMQ
               </li>
               <li>
-                <a href="https://github.com/akalend/amqpcpp">rabbitcpp</a> a C++ message library for RabbitMQ
+                <a href="https://github.com/akalend/amqpcpp">amqpcpp</a> a C++ message library for RabbitMQ
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
@@ -451,6 +463,12 @@
             <ul class="plain">
               <li>
                 <a href="erlang-client-user-guide.html">Erlang client guide</a>
+              </li>
+              <li>
+                <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client
+              </li>
+              <li>
+                <a href="https://github.com/videlalvaro/rmq_patterns">AMQP Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
               </li>
               <li>
                 <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a>
