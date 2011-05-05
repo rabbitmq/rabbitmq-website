@@ -80,7 +80,7 @@ request. Let's try it:
 
 > #### Message properties
 >
-> The AMQP protocol predefine a set of 14 properties that go with
+> The AMQP protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
@@ -113,7 +113,7 @@ You may ask, why should we ignore unknown messages in the callback
 queue, rather than failing with an error? It's due to a possibility of
 a race condition on the server side. Although unlikely, it is possible
 that the RPC server will die just after sending us the answer, but
-before sending acknowledgment message for the request. If that
+before sending an acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
 That's why on the client we must handle the duplicate responses
 gracefully, and the RPC should ideally be idempotent.
@@ -244,9 +244,9 @@ The server code is rather straightforward:
 
   * (4) As usual we start by establishing the connection and declaring
     the queue.
-  * (11) Next, we declare our fibonacci function. (Don't expect this one to
-     work for big numbers, it's probably the slowest recursive implementation
-     possible).
+  * (11) Next, we declare our fibonacci function. It assumes only valid positive integer input.
+    (Don't expect this one to work for big numbers,
+    it's probably the slowest recursive implementation possible).
   * (19) At this point we're ready to declare the `basic_consume`
     callback, the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
@@ -261,7 +261,7 @@ The code for our RPC client:
     import pika
     import uuid
 
-    class FibonacciClient(object):
+    class FibonacciRpcClient(object):
         def __init__(self):
             self.connection = pika.AsyncoreConnection(pika.ConnectionParameters(
                     host='localhost'))
@@ -294,7 +294,7 @@ The code for our RPC client:
             return self.response
 
 
-    fibonacci_rpc = FibonacciClient()
+    fibonacci_rpc = FibonacciRpcClient()
 
     print " [x] Requesting fib(30)"
     response = fibonacci_rpc.call(30)
@@ -348,7 +348,10 @@ complex problems, like:
  * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
-
+ * Protecting against invalid incoming messages
+   (eg checking bounds, type) before processing.
+   
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 </div>
+
