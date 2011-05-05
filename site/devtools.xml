@@ -326,6 +326,9 @@
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
+                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+              </li>
+              <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
               </li>
               <li>
