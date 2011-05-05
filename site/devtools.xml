@@ -118,6 +118,9 @@
                 <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a>
               </li>
               <li>
+                <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an experimental Apache Camel component for interacting with RabbitMQ
+              </li>
+              <li>
                 <a href="http://github.com/slider/amqp-relay">amqp-relay</a>
                 <br/>
                 A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
@@ -454,6 +457,9 @@
             <ul class="plain">
               <li>
                 <a href="erlang-client-user-guide.html">Erlang client guide</a>
+              </li>
+              <li>
+                <a href="https://github.com/videlalvaro/rmq_patterns">AMQP Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
               </li>
               <li>
                 <a href="http://github.com/careo/rabbitmq-erlang-client-examples/tree/master">Erlang examples</a>
