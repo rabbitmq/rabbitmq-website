@@ -690,7 +690,13 @@
             <h3>Miscellanous</h3>
             <ul class="plain">
               <li>
-                <a href="http://github.com/tonyg/script-exchange">RabbitMQ Script Exchange Plugin</a>
+                <a href="https://github.com/jbrisbin/random-exchange">RabbitMQ Random Exchange</a>
+                <br />
+                A custom exchange type that performs naive load-balancing by randomly selecting
+                which bound queue to route message to.
+              </li>
+              <li>
+                <a href="https://github.com/tonyg/script-exchange">RabbitMQ Script Exchange</a>
                 <br />
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
                 passing through the exchange.
@@ -721,13 +727,13 @@
                 A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
               </li>
               <li>
-                <a href="http://github.com/slider/amqp-relay">amqp-relay</a>
+                <a href="https://github.com/slider/amqp-relay">amqp-relay</a>
                 <br />
                 A simple service to relay all messages from a topic exchange to another
                 RabbitMQ broker instance. Think of Shovel, just in Scala.
               </li>
               <li>
-                <a href="http://github.com/dsander/rabbitcage/tree/">RabbitCage</a>
+                <a href="https://github.com/dsander/rabbitcage/tree/">RabbitCage</a>
                 <br/>
                 An AMQP firewall which allows you to restrict user access to RabbitMQ using ACLs.
               </li>
@@ -742,7 +748,7 @@
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
               </li>
               <li>
-                <a href="http://github.com/scallable/amqpfs">amqpfs</a>
+                <a href="https://github.com/yrashk/amqpfs">amqpfs</a>
                 <br/>
                 AMQP file system interface
               </li>
