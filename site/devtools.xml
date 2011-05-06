@@ -701,6 +701,12 @@
             <h3>Miscellanous</h3>
             <ul class="plain">
               <li>
+                <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">RabbitMQ Recent History Exchange</a>
+                <br />
+                A custom exchange type that keeps track of the last 20 messages that have passed through
+                such that newly bound queues receive a recent message history.
+              </li>            
+              <li>
                 <a href="https://github.com/jbrisbin/random-exchange">RabbitMQ Random Exchange</a>
                 <br />
                 A custom exchange type that performs naive load-balancing by randomly selecting
