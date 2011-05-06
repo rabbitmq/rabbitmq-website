@@ -158,6 +158,11 @@
                 <a href="http://www.infoq.com/presentations/Spring-AMQP">Spring AMQP video and slides</a> from Matthias' presentation at SpringOne 2010
               </li>
               <li>
+                <a href="http://www.slideshare.net/ewolff/the-future-of-messaging-rabbitmq-and-amqp">The Future of Messaging: RabbitMQ and AMQP</a>
+                <br />
+                Covers an introduction to AMQP and messaging with RabbitMQ and Spring
+              </li>
+              <li>
                 <a href="http://blog.codecentric.de/en/2011/04/amqp-messaging-with-rabbitmq/">AMQP Messaging with RabbitMQ and Spring</a>
                 <br/>
                 Getting started with the Spring AMQP templates for RabbitMQ
