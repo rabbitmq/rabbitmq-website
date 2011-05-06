@@ -529,10 +529,16 @@
             <h3>MacOSX</h3>
             <ul class="plain">
               <li>
+                Official installation documentation using <a href="install.html#macports">macports</a> or <a href="install.html#machomebrew">homebrew</a>
+              </li>
+              <li>
                 <a href="http://exceptionz.wordpress.com/2010/03/10/install-rabbitmq-on-snow-leopard-with-macports/">Install RabbitMQ on Snow Leopard with MacPorts</a>
               </li>
               <li>
                 <a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)
+              </li>
+              <li>
+                <a href="http://codingiscoding.wordpress.com/2011/04/17/rabbitmq-on-os-x/">Post-install tips on OSX</a>
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a>
