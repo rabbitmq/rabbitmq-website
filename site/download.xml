@@ -67,7 +67,14 @@
     <p>
       Some <a href="download-ex.html">experimental downloads</a> are available.
     </p>
+    
+    <h3 id="devtools">Community-Contributed Code</h3>
 
+    <p>
+      The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
+      a variety of platforms and languages.
+    </p>
+    
     <hr class="pad" />
     <h2>Support</h2>
     <p>
