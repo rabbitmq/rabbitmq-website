@@ -733,11 +733,17 @@
                 - a popular tutorial and screencast that should be of interest for users of other languages too.
               </li>
               <li>
+                <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>                
+              <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
                 <br />
                 A memcached adapter for RabbitMQ that allows you use the memcache protocol to
                 get or publish a message from or to RabbitMQ.
               </li>
+              <li>
+                <a href="https://github.com/camptocamp/puppet-rabbitmq">puppet-rabbitmq</a>
+                <br />
+                A Puppet module to manage RabbitMQ.
               <li>
                 <a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a>
                 <br/>
