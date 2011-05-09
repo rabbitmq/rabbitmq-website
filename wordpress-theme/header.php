@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-<script type="text/javascript" src="/site.js"/>
+<script type="text/javascript" src="/js/site.js"/>
 <script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
 try{
  var _gaq = _gaq || [];

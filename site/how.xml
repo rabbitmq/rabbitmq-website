@@ -156,7 +156,7 @@
     Describes how to get started with RabbitMQ on Amazon's EC2.
     </li>
     <li>
-    <a href=" http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
+    <a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
     "A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
     doubled using the Amazon cloud and messaging.
     The <a href="http://us.pycon.org/2010/conference/schedule/event/148/">slides are also available</a> as a PDF.
