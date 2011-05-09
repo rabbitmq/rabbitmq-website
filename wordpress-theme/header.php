@@ -8,7 +8,7 @@
 <meta xmlns="http://www.w3.org/1999/xhtml" name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"></meta>
 <meta xmlns="http://www.w3.org/1999/xhtml" name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"></meta>
 <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"></link>
-<link xmlns="http://www.w3.org/1999/xhtml" rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"></link>
+<link xmlns="http://www.w3.org/1999/xhtml" rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"></link>
 <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
