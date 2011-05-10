@@ -133,6 +133,9 @@
 	    How to configure <a href="authentication.html">authentication with RabbitMQ</a>
 	  </li>
 	  <li>
+	    How to <a href="firehose.html">trace all published and delivered messages</a>.
+	  </li>
+	  <li>
 	    How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
 	  </li>	  
 	  <li>
