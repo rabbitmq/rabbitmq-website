@@ -341,6 +341,10 @@
                 <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
               </li>
               <li>
+                <a href="http://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ">Code samples</a> including a 
+                <a href="http://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ%2FResbit">client for the management API</a>
+              </li>              
+              <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
               </li>
               <li>
