@@ -22,9 +22,9 @@
       then you probably don't need any configuration at all.
       If you have other constraints, RabbitMQ provides two general ways to customise the server:
       <ul>
-      <li><a href="define-environment-variables">environment
+      <li><a href="#define-environment-variables">environment
       variables</a> define ports, file locations, names;</li>
-      <li><a href="configuration-file">a configuration file</a> defines
+      <li><a href="#configuration-file">a configuration file</a> defines
       component settings for permissions, limits and clusters, and also for plugins.</li>
       </ul>
       <p>
