@@ -88,6 +88,9 @@
               <a href="#web-messaging">Web Messaging</a>
             </li>
             <li>
+              <a href="#stomp">STOMP</a>
+            </li>
+            <li>
               <a href="#nosql">NoSQL</a>
             </li>
             <li>
@@ -650,6 +653,24 @@
               </li>
             </ul>
           </div>
+          <div class="box" id="stomp">
+            <h3>STOMP</h3>
+            <ul class="plain">
+              <li>
+                <a href="stomp.html">RabbitMQ STOMP plug-in</a>
+              </li>
+              <li>
+                <a href="https://github.com/ruby-amqp/amqp_stomp_interoperability_example_with_ruby">STOMP plug-in sample code</a> (in Ruby)
+              </li>
+              <li>
+                More <a href="http://www.lshift.net/blog/index.php?s=stomp">STOMP plug-in examples</a>
+              </li>
+              <li>
+                <a href="http://stomp.codehaus.org/Protocol">STOMP specification</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </div>          
           <div class="box" id="rabbitmq-cli">
             <h3>CLI</h3>
             <ul class="plain">
@@ -709,9 +730,6 @@
                 <br />
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
                 passing through the exchange.
-              </li>
-              <li>
-                <a href="http://www.lshift.net/blog/2008/02/02/how-to-run-rabbitmqs-experimental-stomp-adapter">Stomp</a>
               </li>
               <li>
                 <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
