@@ -433,7 +433,8 @@
     </li>
     <li>
       <a href="http://www.slideshare.net/noahgift/rabbitmq-plugins-talk">HOWTO: Writing plugins with RabbitMQ</a><br />
-      Noah Gift and Michael Vierling present an overview of how to go about building a plugin for RabbitMQ.
+      Noah Gift and Michael Vierling present an overview of how to go about building a plugin for RabbitMQ. The 
+      <a href="http://www.erlang-factory.com/upload/presentations/355/rabbitMQ_plugins_talk.pdf">slides are available</a> as a PDF.
     </li>
     <li>
       <a href="http://www.skaag.net/2010/03/12/rabbitmq-for-beginners/">HOWTO: Set up a RabbitMQ cluster and enable plugins</a><br />
@@ -444,11 +445,6 @@
       Describes how to configure <em>rabbitmq.conf</em> to pass environment variables to the Erlang runtime with the goal of
       simplifying the management of RabbitMQ clusters. Note that the name of the environment configuration file has changed
       to <em>rabbitmq-env.conf</em> since writing.
-    </li>
-    <li>
-      <a href="http://hopper.squarespace.com/blog/2008/6/21/build-your-own-amqp-client.html">HOWTO: Build Your Own AMQP Client</a><br />
-      Gives implementers an overview of the considerations that may influence
-      design decisions in their target language.
     </li>
     <li>
       <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">HOWTO: Build a RabbitMQ Management Console</a><br />
