@@ -690,7 +690,7 @@
             </ul>
           </div>
           <div class="box" id="miscellaneous">
-            <h3>Miscellanous</h3>
+            <h3>Miscellaneous</h3>
             <ul class="plain">
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">RabbitMQ Recent History Exchange</a>
