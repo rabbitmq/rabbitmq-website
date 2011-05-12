@@ -91,7 +91,7 @@
 	    </blockquote>
 	    <p>
 	      For more information on what AMQP is, please see the <a
-	      href="https://jira.amqp.org/confluence/display/AMQP/About+AMQP">AMQP
+	      href="http://www.amqp.org/confluence/display/AMQP/About+AMQP">AMQP
 	      Working Group's overview page</a>.
 	    </p>
 	  </doc:a>
@@ -111,7 +111,7 @@
 	    </p>
 	    <p>
 	      For more details please see <a
-	      href="https://jira.amqp.org/confluence/display/AMQP/About+AMQP">this
+	      href="http://www.amqp.org/confluence/display/AMQP/About+AMQP">this
 	      page</a>.
 	    </p>
 	  </doc:a>
