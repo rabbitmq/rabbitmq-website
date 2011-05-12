@@ -195,58 +195,61 @@ Our RPC will work like this:
 Putting it all together
 -----------------------
 
+The Fibonacci task:
 
-The code for our simple RPC server looks like this:
-
-    #!java    
-    public class RPCServer {
-    
-        private static final String RPC_QUEUE_NAME = "rpc_queue";
-    
-        private static int fib(int n) throws Exception {
-            if (n ==0) return 0;
-            if (n == 1) return 1;
-            return fib(n-1) + fib(n-2);
-        }
-        
-        public static void main(String[] argv) throws Exception {
-    
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-    
-            channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-    
-            channel.basicQos(1);
-    
-            QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
-    
-            System.out.println(" [x] Awaiting RPC requests");
-    
-            while (true) {
-                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-
-                BasicProperties props = delivery.getProperties();
-                BasicProperties replyProps = new BasicProperties();
-                replyProps.setCorrelationId(props.getCorrelationId());
-
-                String message = new String(delivery.getBody());
-                int n = Integer.parseInt(message);
-    
-                System.out.println(" [.] fib(" + message + ")");
-                String response = "" + fib(n);
-        
-                channel.basicPublish( "", props.getReplyTo(), replyProps, response.getBytes());
-    
-                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-            }
-        }
+    :::java        
+    private static int fib(int n) throws Exception {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return fib(n-1) + fib(n-2);
     }
 
 
+We declare our fibonacci function. It assumes only valid positive integer input.
+(Don't expect this one to work for big numbers,
+and it's probably the slowest recursive implementation possible).
+
+  
+The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java) looks like this:
+
+
+    #!java    
+    private static final String RPC_QUEUE_NAME = "rpc_queue";
+    
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+            
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+    
+    channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+    
+    channel.basicQos(1);
+    
+    QueueingConsumer consumer = new QueueingConsumer(channel);
+    channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+    
+    System.out.println(" [x] Awaiting RPC requests");
+    
+    while (true) {
+        QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+
+        BasicProperties props = delivery.getProperties();
+        BasicProperties replyProps = new BasicProperties();
+        replyProps.setCorrelationId(props.getCorrelationId());
+
+        String message = new String(delivery.getBody());
+        int n = Integer.parseInt(message);
+    
+        System.out.println(" [.] fib(" + message + ")");
+        String response = "" + fib(n);
+        
+        channel.basicPublish( "", props.getReplyTo(), replyProps, response.getBytes());
+    
+        channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+    }
+
+    
 The server code is rather straightforward:
 
   * As usual we start by establishing the connection, channel and declaring
@@ -256,67 +259,51 @@ The server code is rather straightforward:
     `prefetchCount` setting in channel.basicQos.
   * We use `basicConsume` to access the queue. Then we enter the while loop in which
     we wait for request messages, do the work and send the response back.
-  * We declare our fibonacci function. It assumes only valid positive integer input.
-    (Don't expect this one to work for big numbers,
-    and it's probably the slowest recursive implementation possible).
 
-The code for our simple RPC client:
 
-    #!java    
-    public class RPCClient {
+The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java):
+
+    #!java  
+    private Connection connection;
+    private Channel channel;
+    private String requestQueueName = "rpc_queue";
+    private String replyQueueName;
+    private QueueingConsumer consumer;
     
-        private Connection connection;
-        private Channel channel;
-        private String requestQueueName = "rpc_queue";
-        private String replyQueueName;
-        private QueueingConsumer consumer;
+    public RPCClient() throws Exception {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        connection = factory.newConnection();
+        channel = connection.createChannel();
     
-        public RPCClient() throws Exception {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            connection = factory.newConnection();
-            channel = connection.createChannel();
+        replyQueueName = channel.queueDeclare().getQueue(); 
+        consumer = new QueueingConsumer(channel);
+        channel.basicConsume(replyQueueName, true, consumer);
+    }
     
-            replyQueueName = channel.queueDeclare().getQueue(); 
-            consumer = new QueueingConsumer(channel);
-            channel.basicConsume(replyQueueName, true, consumer);
-        }
-    
-        public String call(String message) throws Exception {     
-            String response = null;
-            String corrId = java.util.UUID.randomUUID().toString();
+    public String call(String message) throws Exception {     
+        String response = null;
+        String corrId = java.util.UUID.randomUUID().toString();
                 
-            BasicProperties props = new BasicProperties();
-            props.setReplyTo(replyQueueName);
-            props.setCorrelationId(corrId);
+        BasicProperties props = new BasicProperties();
+        props.setReplyTo(replyQueueName);
+        props.setCorrelationId(corrId);
     
-            channel.basicPublish("", requestQueueName, props, message.getBytes());
+        channel.basicPublish("", requestQueueName, props, message.getBytes());
         
-            while (true) {
-                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-                    response = new String(delivery.getBody());
-                    break;
-                }
+        while (true) {
+            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+                response = new String(delivery.getBody());
+                break;
             }
-    
-            return response; 
         }
     
-        public void close() throws Exception {
-            connection.close();
-        }
+        return response; 
+    }
     
-        public static void main(String[] argv) throws Exception {
-    
-            RPCClient fibonacciRpc = new RPCClient();
-    
-            System.out.println(" [x] Requesting fib(30)");   
-            String response = fibonacciRpc.call("30");
-            System.out.println(" [.] Got '" + response + "'");
-    
-            fibonacciRpc.close();
-        }
+    public void close() throws Exception {
+        connection.close();
     }
 
 
@@ -338,6 +325,22 @@ The client code is slightly more involved:
     for every response message it checks if the `correlationId`
     is the one we're looking for. If so, it saves the response.    
   * Finally we return the response back to the user.
+
+Making the Client request:
+
+    :::java
+    RPCClient fibonacciRpc = new RPCClient();
+    
+    System.out.println(" [x] Requesting fib(30)");   
+    String response = fibonacciRpc.call("30");
+    System.out.println(" [.] Got '" + response + "'");
+    
+    fibonacciRpc.close();
+
+
+Now is a good time to take a look at our full example source code (which includes basic exception handling) for
+[RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
+
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
@@ -379,7 +382,5 @@ complex (but important) problems, like:
 >
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
 >
-
-(Full source code for [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java))
 
 </div>
