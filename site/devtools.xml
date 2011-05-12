@@ -584,6 +584,11 @@
             <h3>Web Messaging</h3>
             <ul class="plain">
               <li>
+                <a href="https://github.com/videlalvaro/rabbitmq-chat">rabbitmq-chat</a>
+                <br />
+                A web chat room implemented with RabbitMQ and Websockets
+              </li>
+              <li>
                 <a href="http://github.com/rabbitmq/rabbit-socks">rabbit-socks</a>
                 <br />
                 Websocket and Socket.IO support for RabbitMQ
