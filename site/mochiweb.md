@@ -1,4 +1,4 @@
-# Mochiweb and Webmachine
+# HTTP server plugin
 
 The `rabbitmq-mochiweb` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
