@@ -119,10 +119,6 @@ ul#tutorials > li ul {
    clear: both;
 }
 
-#tutorial pre .p {
-    float: inherit;
-}
-
 #tutorial .highlighttable tr {
     width: auto;
     display: block;

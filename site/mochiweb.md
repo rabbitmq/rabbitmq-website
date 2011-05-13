@@ -16,17 +16,16 @@ development](plugin-development.html) for details.
 ## Configuration
 
 The configuration of `rabbitmq-mochiweb` determines what HTTP
-listeners are run, how HTTP interfaces (hereafter "contexts") are
-assigned to them, and the URL paths to each context.
-
-It is usually supplied in the main [RabbitMQ configuration
+listeners are run, and how HTTP interfaces (hereafter "contexts") are
+assigned to them. Each context is given a URL path prefix to
+distinguish it from other contexts assigned to the same listener. The
+configuration is usually supplied in the main [RabbitMQ configuration
 file](configure.html#configuration-file).
 
-For example, the default configuration specifies two listeners, one on
-port 55672 and one on port 55670, and assigns contexts used in the
-management plugin to the former, and everything else to the latter.
-
-The default configuration looks like this:
+The default configuration specifies two listeners, one on port 55670
+and one on port 55672; then, assigns contexts used in the management
+plugin to the latter, and lets everything else default to the
+former. It looks like this:
 
       [{listeners, [{'*',  [{port, 55670}]},
                     {mgmt, [{port, 55672}]}]},
@@ -44,10 +43,24 @@ listeners. The context names are used by applications when registering
 their context (or contexts); any context not mentioned here will be
 assigned to the default listener, named `'*'`.
 
-A context may also be given as a triple:
+A context may also be given as nested pair:
 
-    {my_context, '*', "alternate"}
+    {my_context, {'*', "alternate"}}
 
 In this case, the context registered as my_context will be available
 on the default listener under the URL path `/alternate/`. Otherwise
 the path prefix is decided by the application registering the context.
+
+## Example
+
+In the following `rabbit.config`, the management API and its command-line
+tool are assigned to different listeners, and the command-line tool is
+given an explicit path prefix.
+
+    [{rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},
+                                       {mgmt, [{port, 55672}]},
+                                       {cli,  [{port, 55555}]}]},
+                          {contexts,  [{rabbit_mgmt,     mgmt},
+                                       {rabbit_mgmt_api, mgmt},
+                                       {rabbit_mgmt_cli, {cli, "commandline"}}]}
+    ]}].
