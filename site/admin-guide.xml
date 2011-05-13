@@ -27,7 +27,7 @@
       </doc:section>
 
       <doc:section name="management">
-        <doc:heading>Monitoring and management</doc:heading>
+        <doc:heading>Management and monitoring</doc:heading>
         <p>
           To monitor the broker's connections, channels,
           queues and exchanges you can use:          
