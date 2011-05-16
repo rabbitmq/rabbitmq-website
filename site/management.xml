@@ -220,11 +220,37 @@
           </p>
           <pre>[
   {rabbit,                    [ {tcp_listeners,         [5672]} ] },
-  {rabbitmq_mochiweb,         [ {port,                  55672} ] },
   {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
         </doc:subsection>
+        <doc:subsection name="mochiweb-config">
+          <doc:heading>HTTP interfaces</doc:heading>
+          <p>
+            It is possible to configure rabbitmq-mochiweb to serve the
+            management plugin on a different port or TCP/IP
+            interface. To do so, you should configure a listener
+            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+          </p>
+          <pre>[
+  ...
+  {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
+                                    {mgmt, [{port, 55555}]}]}]},
+  ...
+].</pre>
+          <p>
+            See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
+            guide for more details.
+          </p>
+          <p>
+            You can also assign the contexts <code>rabbit_mgmt</code>
+            (the user interface),
+            <code>rabbit_mgmt_api</code> (the HTTP API),
+            and <code>rabbit_mgmt_cli</code> (download and
+            documentation for the command-line client) to different
+            listeners; however, assigning the UI and API to different
+            listeners will break the UI.
+          </p>
       </doc:section>
 
       <doc:section name="clustering">
@@ -256,7 +282,7 @@
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
-          The management plugin will create an HTTP-based API at
+          By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
           location for more information on the API. For convenience
           the documentation can also be obtained
