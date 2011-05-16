@@ -78,16 +78,16 @@
       <li>The network driver establishes a TCP connection to a
       protocol compliant AMQP broker and encodes each command
       according to the specification. To use this driver, start a
-      connection using amqp_connection:start/{1,2} with the first
-      parameter set to 'network'.</li>
+      connection using amqp_connection:start/1 with the
+      parameter set to an #amqp_params_network record.</li>
       <li>The direct driver uses native Erlang messaging instead of
       sending AMQP encoded commands over TCP. This approach avoids the
       overhead of marshaling commands onto and off the wire. However,
       the direct driver can only be used in conjunction with the
       RabbitMQ broker and the client code must be deployed into the
       same Erlang cluster. To use the direct driver, start a
-      connection using amqp_connection:start/{1,2} with the first
-      parameter set to 'direct'.</li>
+      connection using amqp_connection:start/1 with the
+      parameter set to an #amqp_params_direct record.</li>
     </ol>
   </p>
   <p>
@@ -180,7 +180,7 @@
      broker:
 
      <pre class="sourcecode">
-       {ok, Connection} = amqp_connection:start(network, #amqp_params{})
+       {ok, Connection} = amqp_connection:start(#amqp_params_network{})
      </pre>
   </p>
   <p>
@@ -200,7 +200,7 @@
     authorisation to access specific virtual hosts.
     </p>
     <p>
-      The #amqp_params{} record sets the following default values:
+      The #amqp_params_network record sets the following default values:
     </p>
     <table>
       <tr><th>Parameter</th><th>Default Value</th></tr>
@@ -209,8 +209,6 @@
       <tr><td>virtual_host</td><td>/</td></tr>
       <tr><td>host</td><td>localhost</td></tr>
       <tr><td>port</td><td>5672</td></tr>
-      <tr><td>node</td><td>the current node - relevant only for the
-      direct type of connection</td></tr>
       <tr><td>channel_max</td><td>0</td></tr>
       <tr><td>frame_max</td><td>0</td></tr>
       <tr><td>heartbeat</td><td>0</td></tr>
@@ -230,9 +228,19 @@
       If a client wishes to run inside the same Erlang cluster as the
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
-      amqp_connection:start/{1,2} with the first parameter set to
-      'direct', instead of 'network'.
+      amqp_connection:start/1 with the parameter set to
+      an #amqp_params_direct record.
     </p>
+    <p>
+      The #amqp_params_direct record sets the following default values:
+    </p>
+    <table>
+      <tr><th>Parameter</th><th>Default Value</th></tr>
+      <tr><td>username</td><td>guest</td></tr>
+      <tr><td>virtual_host</td><td>/</td></tr>
+      <tr><td>node</td><td>node()</td></tr>
+      <tr><td>client_properties</td><td>[ ]</td></tr>
+    </table>
 </doc:section>
 <doc:section name="channels">
   <doc:heading>Creating Channels</doc:heading>
@@ -574,7 +582,7 @@
 
       test() ->
           %% Start a network connection
-          {ok, Connection} = amqp_connection:start(network, #amqp_params{}),
+          {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
           %% Open a channel on the connection
           {ok, Channel} = amqp_connection:open_channel(Connection),
 
