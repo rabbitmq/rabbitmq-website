@@ -34,9 +34,12 @@ former. It looks like this:
                     {rabbit_mgmt_cli, mgmt}]}]
 
 The listeners are given as pairs of a name and options; the options
-are given to mochiweb, and only `port` is mandatory.  The listener
-called `'*'` is the catch-all default; a configuration must always
-have a listener named `'*'`.
+are given to mochiweb, and only `port` is mandatory. Another useful
+option is `ip` to specify an interface for mochiweb to bind to (giving
+an IP address as a string or tuple).
+
+The listener called `'*'` is the catch-all default; a configuration
+must always have a listener named `'*'`.
 
 The context entries assign contexts (`rabbit_mgmt` etc.) to the
 listeners. The context names are used by applications when registering
@@ -55,10 +58,12 @@ the path prefix is decided by the application registering the context.
 
 In the following `rabbitmq.config`, the management API and its command-line
 tool are assigned to different listeners, and the command-line tool is
-given an explicit path prefix.
+given an explicit path prefix. The management listener will only bind to the
+loopback interface.
 
     [{rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},
-                                       {mgmt, [{port, 55672}]},
+                                       {mgmt, [{port, 55672},
+                                               {ip,   "127.0.0.1"}]},
                                        {cli,  [{port, 55555}]}]},
                           {contexts,  [{rabbit_mgmt,     mgmt},
                                        {rabbit_mgmt_api, mgmt},
