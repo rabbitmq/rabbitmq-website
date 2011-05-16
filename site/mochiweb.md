@@ -2,7 +2,7 @@
 
 The `rabbitmq-mochiweb` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
-more HTTP listener.
+more HTTP listeners.
 
 ## Installation
 
@@ -23,7 +23,7 @@ configuration is usually supplied in the main [RabbitMQ configuration
 file](configure.html#configuration-file).
 
 The default configuration specifies two listeners, one on port 55670
-and one on port 55672; then, assigns contexts used in the management
+and one on port 55672; then assigns contexts used in the management
 plugin to the latter, and lets everything else default to the
 former. It looks like this:
 
