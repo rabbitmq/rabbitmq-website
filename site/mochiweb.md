@@ -53,7 +53,7 @@ the path prefix is decided by the application registering the context.
 
 ## Example
 
-In the following `rabbit.config`, the management API and its command-line
+In the following `rabbitmq.config`, the management API and its command-line
 tool are assigned to different listeners, and the command-line tool is
 given an explicit path prefix.
 
