@@ -158,6 +158,38 @@
           href="extensions.html#consumer-cancel-notify">Consumer
           Cancellation Notification</a>.
         </p>
+        <p>
+          If you are consuming from a mirrored-queue with
+          <i>noAck=true</i> (i.e. the client is not sending message
+          acknowledgements) then messages can be lost. This is no
+          different from the norm of course: the broker considers a
+          message <i>acknowledged</i> as soon as it has been sent to a
+          <i>noAck=true</i> consumer, and should the client disconnect
+          abruptly, the message may never be received. In the case of
+          a mirrored-queue, should the master die, messages that are
+          in-flight on their way to <i>noAck=true</i> consumers may
+          never be received by those clients, and will not be
+          requeued by the new master.
+        </p>
+      </doc:section>
+
+      <doc:section name="start-stop">
+        <doc:heading>Starting and stopping nodes</doc:heading>
+        <p>
+          If you stop a RabbitMQ node which contains the master of a
+          mirrored-queue, some slave on some other node will be
+          promoted to the master. If you continue to stop nodes then
+          you will reach a point where a mirrored-queue has no more
+          slaves: it exists only on one node, which is now its master.
+          If the mirrored-queue was declared <i>durable</i> then, if
+          its last remaining node is shutdown, durable messages in the
+          queue will survive the restart of the node. In general, as
+          you restart other nodes, if they were previously part of a
+          mirrored-queue then they will rejoin the mirrored queue.
+        </p>
+        <p>
+          However,
+        </p>
       </doc:section>
 
     </doc:div>
