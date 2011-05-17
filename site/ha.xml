@@ -1,0 +1,74 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Highly Available Queues</title>
+  </head>
+  <body>
+    <doc:div>
+
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+      <doc:section name="overview">
+        <doc:heading>Availability overview</doc:heading>
+        <p>
+          If your RabbitMQ broker consists of a single node, then a
+          failure of that node will cause downtime, temporary
+          unavailability of service, and potentially loss of messages
+          (especially non-persistent messages held by non-durable
+          queues). You could publish all messages persistent, to
+          durable queues, but even then, due to buffering there is an
+          amount of time between the message being sent and the
+          message being written to disk and fsync'd. Using <a
+          href="extensions.html#confirms">publisher confirms</a> is
+          one means to ensure the client understands which messages
+          have been written to disk, but even so, you may not wish to
+          suffer the downtime and inconvenience of the unavailability
+          of service caused by a node failure, or the performance
+          degradation of having to write every message to disk.
+        </p>
+        <p>
+          You could use a <a href="clustering.html">cluster</a> of
+          RabbitMQ nodes to construct your RabbitMQ broker. This will
+          be resilient to the loss of individual nodes in terms of the
+          overall availability of service, but some important caveats
+          apply: whilst exchanges and bindings survive the loss of
+          individual nodes, queues and their messages do not. This is
+          because a queue and its contents reside on exactly one node,
+          thus the loss of a node will render its queues unavailable.
+        </p>
+        <p>
+          You could use an <a href="pacemaker.html">active/passive</a>
+          pair of nodes such that should one node fail, the passive
+          node will be able to come up and take over from the failed
+          node. This can even be combined with clustering. Whilst this
+          approach ensures that failures are quickly detected and
+          recovered from, there can be reasons why the passive node
+          can take a long time to start up, or potentially even fail
+          to start. This can cause at best, temporary unavailability
+          of queues which were located on the failed node.
+        </p>
+        <p>
+          To solve these various problems, we have developed
+          active/active high availability for queues. This works by
+          allowing queues to be <i>mirrored</i> on other nodes within
+          a RabbitMQ cluster. The result is that should one node of a
+          cluster fail, the queue can automatically switch to one of
+          the mirrors and continue to operate, with no unavailability
+          of service. This solution still requires a RabbitMQ cluster,
+          which means that it will not cope seamlessly with network
+          partitions within the cluster and, for that reason, is not
+          recommended for use across a WAN (though of course, clients
+          can still connect from as near and as far as needed).
+        </p>
+      </doc:section>
+
+    </doc:div>
+  </body>
+</html>
