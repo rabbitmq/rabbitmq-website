@@ -7,7 +7,7 @@
 <div id="tutorial">
 
 ## Remote procedure call (RPC)
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -61,12 +61,12 @@ which sends an RPC request and blocks until the answer is received:
 
 In general doing RPC over RabbitMQ is easy. A client sends a request
 message and a server replies with a response message. In order to
-receive a response we need to send a 'callback' queue address with the
+receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
     :::python
     result = channel.queue_declare(exclusive=True)
-    callback_queue = result.queue
+    callback_queue = result.method.queue
 
     channel.basic_publish(exchange='',
                           routing_key='rpc_queue',
@@ -75,7 +75,7 @@ request. Let's try it:
                                 ),
                           body=request)
 
-    # ... here goes the code to read a response message from the callback_queue ...
+    # ... and some code to read a response message from the callback_queue ...
 
 
 > #### Message properties
@@ -198,12 +198,12 @@ Putting it all together
 -----------------------
 
 
-The code for our RPC server looks like this:
+The code for `rpc_server.py`:
 
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
 
     channel = connection.channel()
@@ -237,14 +237,14 @@ The code for our RPC server looks like this:
     channel.basic_consume(on_request, queue='rpc_queue')
 
     print " [x] Awaiting RPC requests"
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 
 The server code is rather straightforward:
 
   * (4) As usual we start by establishing the connection and declaring
     the queue.
-  * (11) Next, we declare our fibonacci function. (Don't expect this one to
+  * (11) We declare our fibonacci function. (Don't expect this one to
      work for big numbers, it's probably the slowest recursive implementation
      possible).
   * (19) At this point we're ready to declare the `basic_consume`
@@ -255,33 +255,32 @@ The server code is rather straightforward:
     `prefetch_count` setting.
 
 
-The code for our RPC client:
+The code for `rpc_client.py`:
 
     #!/usr/bin/env python
     import pika
     import uuid
 
-    class FibonacciClient(object):
+    class FibonacciRpcClient(object):
         def __init__(self):
-            self.connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(
                     host='localhost'))
 
             self.channel = self.connection.channel()
 
             result = self.channel.queue_declare(exclusive=True)
-            self.callback_queue = result.queue
+            self.callback_queue = result.method.queue
 
-            self.corr_id = None
             self.channel.basic_consume(self.on_response, no_ack=True,
                                        queue=self.callback_queue)
 
         def on_response(self, ch, method, props, body):
-            if props.correlation_id == self.corr_id:
+            if self.corr_id == props.correlation_id:
                 self.response = body
+                self.channel.stop_consuming()
 
         def call(self, n):
             self.corr_id = str(uuid.uuid4())
-            self.response = None
             self.channel.basic_publish(exchange='',
                                        routing_key='rpc_queue',
                                        properties=pika.BasicProperties(
@@ -289,12 +288,10 @@ The code for our RPC client:
                                              correlation_id = self.corr_id,
                                              ),
                                        body=str(n))
-            while self.response is None:
-                pika.asyncore_loop(count=1)
-            return self.response
+            self.channel.start_consuming()
+            return int(self.response)
 
-
-    fibonacci_rpc = FibonacciClient()
+    fibonacci_rpc = FibonacciRpcClient()
 
     print " [x] Requesting fib(30)"
     response = fibonacci_rpc.call(30)
@@ -315,19 +312,21 @@ The client code is slightly more involved:
   * (24) In this method, first we generate a unique `correlation_id`
     number and save it - the 'on_response' callback function will
     use this value to catch the appropriate response.
-  * (26) Next, we publish the request message, with two properties:
+  * (25) Next, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (33) At this point we can sit back and wait until the proper
+  * (32) At this point we can sit back and wait until the proper
     response arrives.
-  * (35) And finally we return the response back to the user.
+  * (33) And finally we return the response back to the user.
 
 Our RPC service is now ready. We can start the server:
 
+    :::bash
     $ python rpc_server.py
      [x] Awaiting RPC requests
 
 To request a fibonacci number run the client:
 
+    :::bash
     $ python rpc_client.py
      [x] Requesting fib(30)
 
@@ -342,7 +341,7 @@ service, but it has some important advantages:
    round trip for a single RPC request.
 
 Our code is still pretty simplistic and doesn't try to solve more
-complex problems, like:
+complex (but important) problems, like:
 
  * How should the client react if there are no servers running?
  * Should a client have some kind of timeout for the RPC?
