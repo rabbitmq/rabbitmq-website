@@ -735,6 +735,11 @@
             <h3>Miscellaneous</h3>
             <ul class="plain">
               <li>
+                <a href="https://github.com/videlalvaro/rabbitmq-global-fanout-exchange">RabbitMQ Global Fanout Exchange</a>
+                <br />
+                A custom exchange type that fans out messages to every queue in the broker no matter what the bindings or vhosts. 
+              </li>            
+              <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">RabbitMQ Recent History Exchange</a>
                 <br />
                 A custom exchange type that keeps track of the last 20 messages that have passed through
