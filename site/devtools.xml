@@ -283,7 +283,7 @@
             <h3>Python</h3>
             <ul class="plain">
               <li>
-                <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Introduction</a>
+                <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens: An Introduction</a>
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
@@ -291,7 +291,8 @@
                 <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
               </li>
               <li>
-                <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a> client library code
+                <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a>, an AMQP 0-8 client library
+                (the <a href="http://code.google.com/p/py-amqplib/">source code</a> is on Google code)
               </li>
               <li>
                 <a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a>
@@ -305,7 +306,7 @@
                 (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
               </li>
               <li>
-                <a href="https://github.com/paolo-losi/stormed-amqp">Stormed-Amqp</a> a fully asynchronous AMQP 0-9-1 client
+                <a href="https://github.com/paolo-losi/stormed-amqp">Stormed-Amqp</a>, a fully asynchronous AMQP 0-9-1 client
               </li>
               <li>
                 <a href="http://www.laurentluce.com/?p=191">Distributed messaging using RabbitMQ and Python</a> demonstrates a common use case (using py-amqp)
@@ -331,7 +332,7 @@
               <li>
                 <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a>
                 <br />
-                A great series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
+                A series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a>
