@@ -17,13 +17,37 @@
         href="install.html">installation guide.</a>
       </p>
 
+      <div id="tutorial-index">
+        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
+      </div>
+
       <p>
-         The tutorials here are in Python and Java, however, you
-         may wish to review our list of <a href="how.html#quickstart">tutorials
-         in other languages</a>.
-         We also maintain a list of <a href="devtools.html">clients and
-         developer tools</a> for a range of different languages and
-         platforms that you may find useful.
+        The tutorials here are using Python and Java, however, code
+        samples are available in a variety of languages:
+
+        <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/default">erlang client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="http://code.google.com/p/php-amqplib/">php-amqplib</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="https://github.com/ruby-amqp/amqp/">amqp gem</a>)
+          </li>
+        </ul>
+      </p>
+      <p>
+        We also maintain a list
+        of <a href="how.html#quickstart">tutorials</a> and a list
+        of <a href="devtools.html">clients and developer tools</a> for
+        a different platforms that you may find useful.
       </p>
       
       <p>
@@ -32,9 +56,6 @@
         <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>. 
       </p>
       
-      <div id="tutorial-index">
-        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
-      </div>
     </doc:div>
   </body>
 </html>
