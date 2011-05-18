@@ -118,6 +118,12 @@
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
             <li><a href="/releases/plugins/v&version-server;/rabbitmq_shovel-&version-server;.ez">rabbitmq_shovel</a></li>
           </ul>
+          <p>
+            <b>Note:</b> When using rabbitmq-shovel in conjunction with
+            rabbitmq-management, you can additionally install
+            <a href="/releases/plugins/v&version-server;/rabbitmq_shovel_management-&version-server;.ez">rabbitmq_shovel_management</a>
+            to see shovel status in the management API and UI.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="rabbitmq-stomp">
