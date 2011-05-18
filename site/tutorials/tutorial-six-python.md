@@ -245,10 +245,9 @@ The server code is rather straightforward:
   * (4) As usual we start by establishing the connection and declaring
     the queue.
   * (11) We declare our fibonacci function. (Don't expect this one to
-     work for big numbers, it's probably the slowest recursive implementation
-     possible).
-  * (19) At this point we're ready to declare the `basic_consume`
-    callback, the core of the RPC server. It's executed when the request
+     work for big numbers, it's the slowest implementation possible).
+  * (19) At this point we're ready to declare a callback for `basic_consume`,
+    the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
   * (32) We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
@@ -304,9 +303,10 @@ The client code is slightly more involved:
     exclusive 'callback' queue.
   * (15) Next we subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * (19) The callback executed on every response is doing a very simple
-    job, for every response message it checks if the `correlation_id` is the one
-    we're looking for. If so, it saves the response in `self.response`.
+  * (18) The 'on_response' callback executed on every response is
+    doing a very simple job, for every response message it checks if
+    the `correlation_id` is the one we're looking for. If so, it saves
+    the response in `self.response` and breaks the consuming loop.
   * (23) Next, we define our main `call` method - it does the actual
     RPC request.
   * (24) In this method, first we generate a unique `correlation_id`
