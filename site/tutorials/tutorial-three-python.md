@@ -7,7 +7,7 @@
 <div id="tutorial">
 
 ## Publish/Subscribe
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -93,6 +93,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
+>     :::bash
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
 >     logs      fanout
@@ -152,7 +153,7 @@ supplying the `queue` parameter to `queue_declare`:
     :::python
     result = channel.queue_declare()
 
-At that point `result.queue` contains a random queue name. For example
+At this point `result.method.queue` contains a random queue name. For example
 it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
 
 Secondly, once we disconnect the consumer the queue should be
@@ -193,7 +194,7 @@ between exchange and a queue is called a _binding_.
 
     :::python
     channel.queue_bind(exchange='logs',
-                       queue=result.queue)
+                       queue=result.method.queue)
 
 From now on the `logs` exchange will append messages to our queue.
 
@@ -250,7 +251,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -262,6 +263,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
                           routing_key='',
                           body=message)
     print " [x] Sent %r" % (message,)
+    connection.close()
 
 [(emit_log.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
 
@@ -277,7 +279,7 @@ The code for `receive_logs.py`:
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -285,7 +287,7 @@ The code for `receive_logs.py`:
                              type='fanout')
 
     result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    queue_name = result.method.queue
 
     channel.queue_bind(exchange='logs',
                        queue=queue_name)
@@ -299,7 +301,7 @@ The code for `receive_logs.py`:
                           queue=queue_name,
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 [(receive_logs.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs.py)
 
