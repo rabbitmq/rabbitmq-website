@@ -433,6 +433,11 @@
       Browse the source.
     </li>
     <li>
+      <a href="http://vimeo.com/23834429">HOWTO: Creating plugins for RabbitMQ</a><br />
+      A video by Alvaro Videla demonstrating how to create plugins for RabbitMQ using the 
+      <a href="http://hg.rabbitmq.com/rabbitmq-public-umbrella">RabbitMQ Public Umbrella</a>.
+    </li>
+    <li>
       <a href="http://www.slideshare.net/noahgift/rabbitmq-plugins-talk">HOWTO: Writing plugins with RabbitMQ</a><br />
       Noah Gift and Michael Vierling present an overview of how to go about building a plugin for RabbitMQ. The 
       <a href="http://www.erlang-factory.com/upload/presentations/355/rabbitMQ_plugins_talk.pdf">slides are available</a> as a PDF.
