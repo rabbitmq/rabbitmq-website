@@ -203,6 +203,21 @@
           </ul>
         </doc:subsection>
 
+        <doc:subsection name="rabbitmq-federation">
+          <doc:heading>rabbitmq-federation</doc:heading>
+          <p>
+            Transmit messages between brokers without requiring
+            clustering. See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq-federation-&version-server;.ez">rabbitmq-federation</a></li>
+          </ul>
+        </doc:subsection>
+
         <doc:subsection name="rabbitmq-jsonrpc-channel">
           <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>
           <p>
