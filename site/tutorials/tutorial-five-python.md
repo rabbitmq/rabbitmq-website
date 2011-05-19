@@ -265,5 +265,6 @@ Some teasers:
 
 (Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py) and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
+Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
 
 </div>
