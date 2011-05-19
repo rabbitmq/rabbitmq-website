@@ -350,6 +350,14 @@
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
+                <a href="https://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ">Get Started Tutorials</a>, a community port of the
+                <a href="getstarted.html">RabbitMQ Tutorials</a>
+              </li>
+              <li>
+                <a href="http://simonwdixon.wordpress.com/2011/05/08/getting-started-with-rabbitmq-in-dotnet/">Getting Started with RabbitMQ in .NET Part 1</a> and
+                <a href="http://simonwdixon.wordpress.com/2011/05/10/getting-started-with-rabbitmq-in-net-part-2/">Part 2</a>                
+              </li>
+              <li>
                 <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
               </li>
               <li>
