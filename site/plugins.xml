@@ -214,7 +214,7 @@
           <p>To use this plugin the following files are required:</p>
           <ul>
             <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq-federation-&version-server;.ez">rabbitmq-federation</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_federation-&version-server;.ez">rabbitmq_federation</a></li>
           </ul>
         </doc:subsection>
 
