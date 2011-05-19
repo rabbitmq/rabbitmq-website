@@ -133,6 +133,11 @@
             master. Of course, clients that were connected to the
             failed node will find their connections failed, and will
             need to reconnect to a surviving node of the cluster.</li>
+
+            <li><i>As a result of the requeuing, clients that
+            re-consume from the queue <b>must</b> be aware that they
+            are likely to subsequently receive messages that they have
+            seen previously.</i></li>
           </ol>
         </p>
         <p>
@@ -168,8 +173,39 @@
           abruptly, the message may never be received. In the case of
           a mirrored-queue, should the master die, messages that are
           in-flight on their way to <i>noAck=true</i> consumers may
-          never be received by those clients, and will not be
-          requeued by the new master.
+          never be received by those clients, and will not be requeued
+          by the new master. Because of the possibility the the
+          consuming client is connected to a node that survives, the
+          <a href="extensions.html#consumer-cancel-notify">Consumer
+          Cancellation Notification</a> is useful in identifying when
+          such events may have occurred. Of course, in practise, if
+          you care about not losing messages then you are advised to
+          consume with <i>noAck=false</i>.
+        </p>
+      </doc:section>
+
+      <doc:section name="new-slaves-behaviour">
+        <doc:heading>Behaviour of dynamically added slaves</doc:heading>
+        <p>
+          You can <a href="#adding-slaves-dynamically">dynamically add
+          slaves</a> to a mirrored-queue. Currently, there is no
+          synchronisation protocol, and thus a new slave will start
+          empty. It will receive new messages published to the queue,
+          and thus over time will accurately represent the tail of the
+          mirrored-queue. As messages are drained from the
+          mirrored-queue, the size of the head of the queue, for which
+          the new slave is missing messages will shrink until
+          eventually the slave's contents precisely match the master's
+          contents.
+        </p>
+        <p>
+          Thus a dynamically added slave provides no additional form
+          of redundancy or availability of the queue's contents until
+          the contents of the queue that existed before the slave was
+          added have been removed.  As a result of this, we recommend
+          only dynamically adding slaves when the queue is empty. When
+          this is the case, the new slave is, by definition,
+          immediately fully synchronised.
         </p>
       </doc:section>
 
@@ -178,20 +214,88 @@
         <p>
           If you stop a RabbitMQ node which contains the master of a
           mirrored-queue, some slave on some other node will be
-          promoted to the master. If you continue to stop nodes then
-          you will reach a point where a mirrored-queue has no more
-          slaves: it exists only on one node, which is now its master.
-          If the mirrored-queue was declared <i>durable</i> then, if
-          its last remaining node is shutdown, durable messages in the
-          queue will survive the restart of the node. In general, as
-          you restart other nodes, if they were previously part of a
-          mirrored-queue then they will rejoin the mirrored queue.
+          promoted to the master (assuming there is one). If you
+          continue to stop nodes then you will reach a point where a
+          mirrored-queue has no more slaves: it exists only on one
+          node, which is now its master.  If the mirrored-queue was
+          declared <i>durable</i> then, if its last remaining node is
+          shutdown, durable messages in the queue will survive the
+          restart of the node. In general, as you restart other nodes,
+          if they were previously part of a mirrored-queue then they
+          will rejoin the mirrored queue.
         </p>
         <p>
-          However,
+          However, there is currently no way for a slave to know
+          whether or not its queue contents have diverged from the
+          master to which it is rejoining. As such, when a slave
+          rejoins a mirrored-queue, it throws away any durable local
+          contents it already has and starts empty. It's behaviour is
+          at this point the same as if it were a <a
+          href="#new-slaves-behaviour">dynamically added slave</a>.
         </p>
       </doc:section>
 
+      <doc:section name="genesis">
+        <doc:heading>Creating a mirrored-queue</doc:heading>
+        <p>
+          A mirrored-queue must be created as a mirrored-queue. It is
+          not possible to convert a non-mirrored-queue to a
+          mirrored-queue at some later point. It is perfectly
+          acceptable to create a mirrored-queue with no slaves
+          initially, though be aware of the <a
+          href="#new-slaves-behaviour">behaviour of dynamically added
+          slaves</a>.
+        </p>
+        <p>
+          To create a mirrored-queue, you provide an
+          <code>x-mirror</code> entry in the argument table presented
+          to <code>queue.declare</code>. The value of this entry is an
+          array of <code>long-strings</code>, each entry being the
+          <i>node-name</i> of a RabbitMQ node within the cluster to
+          which the client has connected upon which you want a mirror
+          of the queue to be held. Note that it is the
+          <i>node-names</i> that must provided, not host-name or IP
+          address. For example:
+
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-mirror", Arrays.asList(new String[] {"node1@rabbit", "node2@rabbit", "node4@rabbit"}));
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+          This declares a queue <code>myqueue</code> which has a
+          mirror on each of the nodes <code>node1@rabbit</code>,
+          <code>node2@rabbit</code> and <code>node4@rabbit</code>. You
+          may declare a mirrored-queue with mirrors on a subset of the
+          nodes in a cluster. You may also declare a mirrored-queue
+          with mirrors on nodes which are not currently members of the
+          cluster: when such nodes join the cluster, a mirror will
+          automatically be created of the queue on that node. Note
+          however that the mirror on the joined node will <a
+          href="#new-slaves-behaviour">behave as a new slave</a>.
+        </p>
+        <p>
+          As a shorthand, if you use an empty array then that is
+          interpreted to mean that a mirror of the queue should exist
+          on every node that is in the cluster, or joins the
+          cluster. For example:
+          <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-mirror", new ArrayList&lt;String&gt;());
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+        </p>
+      </doc:section>
+
+      <doc:section name="adding-slaves-dynamically">
+        <doc:heading>Dynamically adding slaves to a mirrored-queue</doc:heading>
+        <p>
+          You can dynamically add a mirror (which will be a slave) by
+          using the command <code>rabbitmqctl add_queue_mirror $queue
+          $node</code>. The queue must have
+          been <a href="#genesis">created as a mirrored-queue</a>. The
+          new mirror will <a href="#new-slaves-behaviour">start
+          empty</a>.
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
