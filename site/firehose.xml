@@ -42,22 +42,13 @@
 	      another vhost.
 	    </li>
 	    <li>
-	      Within your chosen vhost, declare the exchange you want
-	      to use to get trace messages, create associated queues
-	      and bindings, and begin consuming. In the examples
-	      below, we will use "<code>firehose</code>" as the
-	      exchange name.
+	      Within your chosen vhost create queues, bind them to
+	      the exchange <code>amq.rabbitmq.trace</code>, and begin consuming.
 	    </li>
 	    <li>
-	      Run <code>rabbitmqctl start_tracing <i>exchangename</i></code>.
+	      Run <code>rabbitmqctl trace_on</code>.
 	    </li>
 	  </ol>
-	  <p>
-	    For example, using the assumptions above about the
-	    exchange name and vhost to use, the final
-	    <code>rabbitmqctl</code> command would be
-	  </p>
-	  <pre class="sourcecode">rabbitmqctl start_tracing firehose</pre>
         </doc:subsection>
         <doc:subsection>
 	  <doc:heading>Disabling the firehose</doc:heading>
@@ -66,10 +57,10 @@
 	  </p>
 	  <ol>
 	    <li>
-	      Run <code>rabbitmqctl stop_tracing</code>.
+	      Run <code>rabbitmqctl trace_off</code>.
 	    </li>
 	    <li>
-	      Clean up the queues and exchanges used by the firehose.
+	      Clean up the queues used by the firehose.
 	    </li>
 	  </ol>
         </doc:subsection>
@@ -77,7 +68,7 @@
 	  <doc:heading>Firehose notification format</doc:heading>
 	  <p>
 	    When the firehose is enabled, you will start receiving
-	    messages to the named exchange, with
+	    messages to the exchange <code>amq.rabbitmq.trace</code>, with
 	  </p>
 	  <ul>
 	    <li>
