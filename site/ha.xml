@@ -104,7 +104,14 @@
           If the master fails, then one of the slaves must be
           promoted. At this point, the following happens:
           <ol>
-            <li>A slave is promoted to become the new master.</li>
+            <li>A slave is promoted to become the new master. The
+            slave chosen for promotion is the eldest slave. As such,
+            it has the best chance of being synchronised with the
+            master. However, note that should there be no slave that
+            is synchronised with the master
+            (see <a href="#new-slaves-behaviour">behaviour of
+            dynamically added slaves</a> below), messages that only
+            the master held will be lost.</li>
 
             <li>The slave considers all previous consumers to have
             been abruptly disconnected. As such, it requeues (at the
