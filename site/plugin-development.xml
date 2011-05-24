@@ -251,6 +251,12 @@ $ cd ..</pre>
           </li>
         </ul>
       </doc:section>
+      <doc:section name="external-resources">
+        <doc:heading>External Resources</doc:heading>
+        <p>
+          There are a number of <a href="how.html#going-further">links on the How To page</a> that demonstrate plugin development.
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>

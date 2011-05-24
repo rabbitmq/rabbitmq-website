@@ -8,7 +8,7 @@
 
 
 ## Topics
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -151,7 +151,7 @@ The code for `emit_log_topic.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -172,7 +172,7 @@ The code for `receive_logs_topic.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -180,7 +180,7 @@ The code for `receive_logs_topic.py`:
                              type='topic')
 
     result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    queue_name = result.method.queue
 
     binding_keys = sys.argv[1:]
     if not binding_keys:
@@ -193,6 +193,7 @@ The code for `receive_logs_topic.py`:
                            routing_key=binding_key)
 
     print ' [*] Waiting for logs. To exit press CTRL+C'
+    
     def callback(ch, method, properties, body):
         print " [x] %r:%r" % (method.routing_key, body,)
 
@@ -200,27 +201,32 @@ The code for `receive_logs_topic.py`:
                           queue=queue_name,
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 To receive all the logs run:
 
+    :::bash
     python receive_logs_topic.py "#"
 
 To receive all logs from the facility "`kern`":
 
+    :::bash
     python receive_logs_topic.py "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
+    :::bash
     python receive_logs_topic.py "*.critical"
 
 You can create multiple bindings:
 
+    :::bash
     python receive_logs_topic.py "kern.*" "*.critical"
 
 
 And to emit a log with a routing key "`kern.critical`" type:
 
+    :::bash
     python emit_log_topic.py "kern.critical" "A critical kernel error"
 
 
@@ -260,6 +266,6 @@ Some teasers:
 (Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
 and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-python.html)
+Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
 
 </div>
