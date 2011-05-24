@@ -298,9 +298,24 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           You can dynamically add a mirror (which will be a slave) by
           using the command <code>rabbitmqctl add_queue_mirror $queue
           $node</code>. The queue must have
-          been <a href="#genesis">created as a mirrored-queue</a>. The
-          new mirror will <a href="#new-slaves-behaviour">start
-          empty</a>.
+          been <a href="#genesis">created as a mirrored-queue</a> and
+          there must not already be a mirror of the queue on the
+          indicated node. The new mirror
+          will <a href="#new-slaves-behaviour">start empty</a>.
+        </p>
+      </doc:section>
+
+      <doc:section name="dropping-slaves-dynamically">
+        <doc:heading>Dynamically dropping slaves from a mirrored-queue</doc:heading>
+        <p>
+          You can dynamically drop a mirror by using the
+          command <code>rabbitmqctl drop_queue_mirror $queue
+          $node</code>. The queue must have
+          been <a href="#genesis">created as a mirrored-queue</a> and
+          there must be a mirror of the queue on the indicated
+          node. If the indicated node contains the master then a slave
+          will be promoted. You cannot drop the only node of a
+          mirrored-queue.
         </p>
       </doc:section>
     </doc:div>
