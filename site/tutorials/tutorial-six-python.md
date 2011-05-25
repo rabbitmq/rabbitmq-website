@@ -80,7 +80,7 @@ request. Let's try it:
 
 > #### Message properties
 >
-> The AMQP protocol predefine a set of 14 properties that go with
+> The AMQP protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >
@@ -113,7 +113,7 @@ You may ask, why should we ignore unknown messages in the callback
 queue, rather than failing with an error? It's due to a possibility of
 a race condition on the server side. Although unlikely, it is possible
 that the RPC server will die just after sending us the answer, but
-before sending acknowledgment message for the request. If that
+before sending an acknowledgment message for the request. If that
 happens, the restarted RPC server will process the request again.
 That's why on the client we must handle the duplicate responses
 gracefully, and the RPC should ideally be idempotent.
@@ -244,9 +244,10 @@ The server code is rather straightforward:
 
   * (4) As usual we start by establishing the connection and declaring
     the queue.
-  * (11) We declare our fibonacci function. (Don't expect this one to
-     work for big numbers, it's the slowest implementation possible).
-  * (19) At this point we're ready to declare a callback for `basic_consume`,
+  * (11) We declare our fibonacci function. It assumes only valid positive integer input.
+    (Don't expect this one to work for big numbers,
+    it's probably the slowest recursive implementation possible).
+  * (19) We declare a callback for `basic_consume`,
     the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
   * (32) We might want to run more than one server process. In order
@@ -299,9 +300,9 @@ The code for `rpc_client.py`:
 
 The client code is slightly more involved:
 
-  * (7) We start with connection establishment and a declaration of an
-    exclusive 'callback' queue.
-  * (15) Next we subscribe to the 'callback' queue, so that
+  * (7) We establish a connection, channel and declare an
+    exclusive 'callback' queue for replies.
+  * (16) We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
   * (18) The 'on_response' callback executed on every response is
     doing a very simple job, for every response message it checks if
@@ -347,7 +348,14 @@ complex (but important) problems, like:
  * Should a client have some kind of timeout for the RPC?
  * If the server malfunctions and raises an exception, should it be
    forwarded to the client?
+ * Protecting against invalid incoming messages
+   (eg checking bounds) before processing.
+   
+>
+>If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
 </div>
+
