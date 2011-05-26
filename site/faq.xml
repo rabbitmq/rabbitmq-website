@@ -1170,8 +1170,8 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server – this is not available out of the box but you can <a href="contact.html">
-	      contact us</a> for more information. (You can also do active/active failover but it
+	      server – this is not available out of the box but <a href="pacemaker.html">workarounds are possible</a>
+	      and you can <a href="contact.html"> contact us</a> for more information. (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
 	    </ol>
