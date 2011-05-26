@@ -193,6 +193,16 @@
                 <a href="https://github.com/jbrisbin/rabbitmq-dsl">RabbitMQ Groovy DSL</a>
               </li>
             </ul>
+            <h4>Scala / Lift</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
+                a tutorial and screencast that might be of interest for users of other languages
+              </li>
+              <li>
+                <a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">AMQP library for Lift</a>
+              </li>
+            </ul>
             <h4>Akka</h4>
             <ul class="plain">
               <li>
@@ -781,13 +791,6 @@
               <li>
                 <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
                 See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
-              </li>
-              <li>
-                <a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">Scala/Lift</a>
-              </li>
-              <li>
-                <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
-                - a popular tutorial and screencast that should be of interest for users of other languages too.
               </li>
               <li>
                 <a href="http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
