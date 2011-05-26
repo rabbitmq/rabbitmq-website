@@ -790,6 +790,9 @@
                 - a popular tutorial and screencast that should be of interest for users of other languages too.
               </li>
               <li>
+                <a href="http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
+              </li>
+              <li>
                 <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>                
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
