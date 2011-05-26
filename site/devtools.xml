@@ -115,6 +115,12 @@
                 <a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a>
               </li>
               <li>
+                <a href="https://github.com/joshdevins/rabbitmq-ha-client">RabbitMQ HA Client</a>                
+                <br />
+                An implementation of ConnectionFactory that supports automatic connection recovery and message redelivery,
+                which are requirements for many HA topologies.
+              </li>
+              <li>
                 <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS with RabbitMQ</a>
               </li>
               <li>

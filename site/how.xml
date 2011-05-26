@@ -294,6 +294,10 @@
         need to consider such as the problem domain, the constraints of the environment, the messaging implementation and performance strategies.
       </li>
       <li>
+        <a href="http://wiki.postgresql.org/images/2/22/On_Rabbits_and_Elephants_-_pgCon_2011.pdf">On Rabbits and Elephants</a><br />
+        Or how to use RabbitMQ to stream data events across PostgreSQL databases. The <a href="https://github.com/gmr/On-Rabbits-and-Elephants">code is available on github</a>.
+      </li>
+      <li>
         <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
         Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
         with proven enterprise integration patterns results in code that is easier to maintain, easier to test
