@@ -31,7 +31,7 @@
               Languages
               <ul class="plain">
                 <li>
-                  <a href="#java-dev">Java</a>
+                  <a href="#java-dev">Java/JVM</a>
                 </li>
                 <li>
                   <a href="#ruby-dev">Ruby</a>
@@ -103,7 +103,7 @@
         </div>
         <div id="content">
           <div class="box" id="java-dev">
-            <h3>Java</h3>
+            <h3>Java / JVM</h3>
             <ul class="plain">
               <li>
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
@@ -191,6 +191,15 @@
               </li>
               <li>
                 <a href="https://github.com/jbrisbin/rabbitmq-dsl">RabbitMQ Groovy DSL</a>
+              </li>
+            </ul>
+            <h4>Akka</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://akka.io/docs/akka-modules/1.1.2/modules/amqp.html">Akka AMQP module documentation</a>
+              </li>
+              <li>
+                <a href="https://github.com/jboner/akka-modules/tree/master/akka-amqp/src">Akka AMQP module source code</a>
               </li>
             </ul>
             <h4>Play! Framework</h4>
