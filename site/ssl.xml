@@ -174,8 +174,9 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 testca
 # mkdir server
 # cd server
-# openssl req -newkey rsa:2048 -keyout key.pem -keyform PEM -out \
-    req.pem -subj /CN=$(hostname)/O=server/ -outform PEM -nodes
+# openssl genrsa -out key.pem 2048
+# openssl req -new -key key.pem -out req.pem -outform PEM \
+    -subj /CN=$(hostname)/O=server/ -nodes
 # cd ../testca
 # openssl ca -config openssl.cnf -in ../server/req.pem -out \
     ../server/cert.pem -notext -batch -extensions server_ca_extensions
@@ -190,8 +191,9 @@ testca
 server testca
 # mkdir client
 # cd client
-# openssl req -newkey rsa:2048 -keyout key.pem -keyform PEM -out \
-    req.pem -subj /CN=$(hostname)/O=client/ -outform PEM -nodes
+# openssl genrsa -out key.pem 2048
+# openssl req -new -key key.pem -out req.pem -outform PEM \
+    -subj /CN=$(hostname)/O=client/ -nodes
 # cd ../testca
 # openssl ca -config openssl.cnf -in ../client/req.pem -out \
     ../client/cert.pem -notext -batch -extensions client_ca_extensions
