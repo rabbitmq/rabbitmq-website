@@ -25,7 +25,7 @@ To build the STOMP adapter from source, follow the instructions for
 building the umbrella repository contained in the
 [Plugin Development Guide](http://www.rabbitmq.com/plugin-development.html).
 
-You need to install the rabbit\_stomp.ez and amqp\_client.ez packages.
+You need to install the rabbitmq\_stomp.ez and amqp\_client.ez packages.
 
 ## Configuring the adapter
 
