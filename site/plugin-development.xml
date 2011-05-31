@@ -112,16 +112,16 @@ $ make co</pre>
         </p>
         <p>
           To activate a plugin in a development environment, create a
-          symlink for the plugin development directory in the
-          rabbitmq-server/plugins directory (you will have to create
-          that directory if it does not exist already). For example,
-          to activate a development build of
-          the rabbitmq-shovel plugin and
-          its dependencies:
+          symlink to the build output location of the plugin directory
+          from the rabbitmq-server/plugins directory (which you will
+          have to create if it does not exist already). For example,
+          to activate a development build of the rabbitmq-shovel
+          plugin and its dependencies:
+
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel</pre>
+$ ln -s ../../rabbitmq-shovel/build/app/rabbitmq_shovel-0.0.0</pre>
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
@@ -185,10 +185,10 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/ebin/rabbitmq_metronome.app"><code>ebin/rabbitmq_metronome.app</code></a></td>
+            <td><a href="&metronome_hg;/ebin/rabbitmq_metronome.app.in"><code>ebin/rabbitmq_metronome.app.in</code></a></td>
             <td>
               This file declares the dependencies required by the plugin (<code>rabbit</code>
-              and <code>amqp_client</code>). These will be available and started before starting the plugin.
+              and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
             </td>
           </tr>
           <tr>

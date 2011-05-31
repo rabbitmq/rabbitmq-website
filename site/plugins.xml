@@ -78,6 +78,34 @@
 
       <doc:section name="maintained">
         <doc:heading>Maintained Plugins</doc:heading>
+        <doc:subsection name="rabbitmq-auth-backend-ldap">
+          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
+          <p>
+            Authentication / authorisation plugin using an external LDAP
+            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/eldap-&version-server;-&eldap-suffix;.ez">eldap</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_backend_ldap-&version-server;.ez">rabbitmq_auth_backend_ldap</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
+          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
+          <p>
+            Authentication mechanism plugin using SASL EXTERNAL to
+            authenticate using SSL client certificates.  See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_mechanism_ssl-&version-server;.ez">rabbitmq_auth_mechanism_ssl</a></li>
+          </ul>
+        </doc:subsection>
+
         <doc:subsection name="rabbitmq-management">
           <doc:heading>rabbitmq-management</doc:heading>
           <p>
@@ -173,35 +201,6 @@
           do not guarantee compatibility with versions of the RabbitMQ
           server<sup><a href="#compatibility">[1]</a></sup>.
         </p>
-
-
-        <doc:subsection name="rabbitmq-auth-backend-ldap">
-          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
-          <p>
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
-            for more information.
-          </p>
-          <p>To use this plugin the following files are required:</p>
-          <ul>
-            <li><a href="/releases/plugins/v&version-server;/eldap-&version-server;-&eldap-suffix;.ez">eldap</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_backend_ldap-&version-server;.ez">rabbitmq_auth_backend_ldap</a></li>
-          </ul>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
-          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
-          <p>
-            Authentication mechanism plugin using SASL EXTERNAL to
-            authenticate using SSL client certificates.  See
-            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
-            for more information.
-          </p>
-          <p>To use this plugin the following files are required:</p>
-          <ul>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_mechanism_ssl-&version-server;.ez">rabbitmq_auth_mechanism_ssl</a></li>
-          </ul>
-        </doc:subsection>
 
         <doc:subsection name="rabbitmq-jsonrpc-channel">
           <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>
