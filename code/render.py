@@ -25,7 +25,7 @@ def preprocess_markdown(fpath):
     title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
     contents = contents[0:title.start()] + contents[title.end():]
 
-    entities = open(os.path.join(os.path.dirname(fpath), 'rabbit.ent')).read()
+    entities = open(os.path.join(SITE_DIR, 'rabbit.ent')).read()
     entities = '\n'.join(entities.split('\n')[1:])
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
