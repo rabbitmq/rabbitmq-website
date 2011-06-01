@@ -12,6 +12,10 @@ you may want to consider using the HTTP API directly.
 With the management plugin installed, browse to
 `http://server-name/55672/cli/` to download. You will need Python 2.6+.
 
+Alternatively, you can download the version of rabbitmqadmin which
+corresponds with the management plugin version &version-server;
+[here](http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/bin/rabbitmqadmin).
+
 ## Getting started
 
 Unix users will probably want to copy `rabbitmqadmin` to `/usr/local/bin`.
