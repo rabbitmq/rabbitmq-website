@@ -266,7 +266,7 @@
 
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-mirror", Arrays.asList(new String[] {"node1@rabbit", "node2@rabbit", "node4@rabbit"}));
+args.put("x-mirror", Arrays.asList("node1@rabbit", "node2@rabbit", "node4@rabbit"));
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
           This declares a queue <code>myqueue</code> which has a
@@ -287,7 +287,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           cluster. For example:
           <pre class="sourcecode">
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-mirror", new ArrayList&lt;String&gt;());
+args.put("x-mirror", Collections.emptyList());
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </p>
       </doc:section>
