@@ -25,10 +25,18 @@ def preprocess_markdown(fpath):
     title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
     contents = contents[0:title.start()] + contents[title.end():]
 
+    entities = open(os.path.join(os.path.dirname(fpath), 'rabbit.ent')).read()
+    entities = '\n'.join(entities.split('\n')[1:])
+
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+%s
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2003/XInclude">""" % entities
+
+    head = """<head>
     <title>%s</title>
   </head>
   <body>
@@ -38,7 +46,10 @@ def preprocess_markdown(fpath):
 </html>
 """
     processed = markdown.markdown(contents, ["codehilite(css_class=highlight)"])
-    whole = pre + processed + post
+    # Unfortunately we can't stop markdown escaping entities. Unescape them.
+    processed = re.sub(r'&amp;([a-z-]+);', r'&\1;', processed)
+
+    whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 
 MARKUPS=[
