@@ -169,6 +169,14 @@
           those virtual hosts counting towards their "global" message
           rates.
         </p>
+        <p>
+          If you get locked out due to only having non-administrator
+          users, or no users at all, you can use <a
+          href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
+          to create a non-administrator user and <a
+          href="/man/rabbitmqctl.1.man.html#set_admin">rabbitmqctl
+          set_admin</a> to promote a user to administrator.
+        </p>
       </doc:section>
 
       <doc:section name="configuration">
