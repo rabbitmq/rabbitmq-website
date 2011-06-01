@@ -336,6 +336,13 @@ span.code, pre.code {
 	padding: 0 5px 0 5px;
 }
 
+div.highlight pre, pre.example {
+    color: #000;
+    background: #eee;
+    padding: 5px;
+    border: 1px solid #bbb;
+}
+
 span.code {
   white-space: nowrap;
 }

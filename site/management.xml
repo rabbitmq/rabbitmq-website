@@ -227,7 +227,7 @@
             relevant parameters to their default values, would look
             like this:
           </p>
-          <pre>[
+          <pre class="example">[
   {rabbit,                    [ {tcp_listeners,         [5672]} ] },
   {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
@@ -241,7 +241,7 @@
             interface. To do so, you should configure a listener
             named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
           </p>
-          <pre>[
+          <pre class="example">[
   ...
   {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
                                     {mgmt, [{port, 55555}]}]}]},
