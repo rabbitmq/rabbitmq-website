@@ -42,8 +42,8 @@ a:active, a:hover {
 
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
-	margin: 0;
-	padding: 0 ;
+	margin: 1em 0 0.5em 0;
+	padding: 0;
 }
 
 h1 {
