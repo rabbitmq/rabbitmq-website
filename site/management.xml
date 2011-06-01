@@ -19,8 +19,9 @@
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
-          with a browser-based UI and an experimental command line
-          tool, <code>rabbitmqadmin</code>. Features include:
+          with a browser-based UI and a command line tool, <a
+          href="management-cli.html">rabbitmqadmin</a>. Features
+          include:
         </p>
         <ul>
           <li>
@@ -121,8 +122,8 @@
             http://<i>server-name</i>:55672/api/
           </li>
           <li>
-            Download of <code>rabbitmqadmin</code> and its documentation are at:
-            http://<i>server-name</i>:55672/cli/
+            Download <a href="management-cli.html">rabbitmqadmin</a>
+            at: http://<i>server-name</i>:55672/cli/
           </li>
         </ul>
         <p>
