@@ -606,6 +606,9 @@
                 <a href="http://rabbitmqonopenvs.blogspot.com/2011/04/rabbitmq-241-released-on-openvms.html">RabbitMQ 2.4.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system
               </li>
               <li>
+                <a href="http://rabbitmqonopenvs.blogspot.com/2011/05/librabbitmq-v10-released-on-openvms.html">libRabbitMQ for OpenVMS</a> a port of the RabbitMQ C API
+              </li>
+              <li>
                 Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a>
               </li>
               <li>
