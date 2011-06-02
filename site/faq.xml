@@ -1170,8 +1170,8 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      are wired up.
 	      </li>
 	      <li>You do care about replicating state. Then you can fail over to a passive
-	      server – this is not available out of the box but you can <a href="contact.html">
-	      contact us</a> for more information. (You can also do active/active failover but it
+	      server – this is not available out of the box but <a href="pacemaker.html">workarounds are possible</a>
+	      and you can <a href="contact.html"> contact us</a> for more information. (You can also do active/active failover but it
 	      is much more fiddly).
 	      </li>
 	    </ol>
@@ -1424,10 +1424,7 @@ web UI.
 	  </ul>	    
 	    <p>
 	  During debugging, you may wish to monitor the messages that are being sent through the
-	  amq.rabbitmq.log topic exchange. One way of doing this is to make use of the 
-	  <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP IM
-	  gateway</a> we run on dev.rabbitmq.com, by adding amq.rabbitmq.log@dev.rabbitmq.com to
-	  your XMPP roster.
+	  amq.rabbitmq.log topic exchange.
 	    </p>
 	  </doc:a>
 	</doc:faq>
