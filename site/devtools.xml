@@ -606,6 +606,9 @@
                 <a href="http://rabbitmqonopenvs.blogspot.com/2011/04/rabbitmq-241-released-on-openvms.html">RabbitMQ 2.4.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system
               </li>
               <li>
+                <a href="http://rabbitmqonopenvs.blogspot.com/2011/05/librabbitmq-v10-released-on-openvms.html">libRabbitMQ for OpenVMS</a> a port of the RabbitMQ C API
+              </li>
+              <li>
                 Brett Cameron and John Apps' <a href="http://connect-community.de/Events/OpenVMS2010/folien/09-OpenVMSSpringMeeting2010-Rabbitmq.pdf">slides from the OpenVMS 2010 Spring Meeting</a>
               </li>
               <li>
@@ -795,7 +798,7 @@
                 passing through the exchange.
               </li>
               <li>
-                <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
+                <a href="https://github.com/tonyg/rabbitmq-xmpp">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
                 See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
               </li>
               <li>
