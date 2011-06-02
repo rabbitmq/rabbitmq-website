@@ -336,11 +336,13 @@ span.code, pre.code {
 	padding: 0 5px 0 5px;
 }
 
-div.highlight pre, pre.example {
+pre.example, pre span.code {
     color: #000;
     background: #eee;
     padding: 5px;
     border: 1px solid #bbb;
+    white-space: pre !important;
+    display: block;
 }
 
 span.code {
