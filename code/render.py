@@ -58,7 +58,7 @@ def preprocess_markdown(fpath):
     processed = markdown.markdown(contents, args)
 
     # Unfortunately we can't stop markdown escaping entities. Unescape them.
-    processed = re.sub(r'&amp;([a-z-]+);', r'&\1;', processed)
+    processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
 
     whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
