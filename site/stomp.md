@@ -1,4 +1,4 @@
-# RabbitMQ STOMP Adapter
+# RabbitMQ STOMP Adapter NOSYNTAX
 
 ## Introduction
 
