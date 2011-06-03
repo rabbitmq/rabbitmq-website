@@ -786,17 +786,14 @@
   Status of node 'rabbit@xxx' ...
   [{pid,...},
    {running_applications,[{rabbit,"RabbitMQ","&version-server;"},
-          {os_mon,"..."},
-          {sasl,"..."},
-          {mnesia,"..."},
-          {stdlib,"..."},
-          {kernel,"..."},
+                          {os_mon,"..."},
+                          {sasl,"..."},
+                          {mnesia,"..."},
+                          {stdlib,"..."},
+                          {kernel,"..."},
   {os,"..."},
   {erlang_version,"..."},
-  {memory,"..."},
-  {env,"..."},
-  {nodes,[{disc,['rabbit@xxx']}]}
-  {running_nodes,['rabbit@xxx']}]</pre>
+  {memory,"..."}}]</pre>
             </p>
             <p>
               This example indicates that no broker is running:

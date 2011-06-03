@@ -113,27 +113,21 @@ rabbit2$ <i>rabbitmq-server -detached</i>
 rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <p>
             This creates three <i>independent</i> RabbitMQ brokers,
-            one on each node, as confirmed by the <i>status</i>
+            one on each node, as confirmed by the <i>cluster_status</i>
             command:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]}]},
- {running_nodes,[rabbit@rabbit1]}]
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2]}]
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.</pre>
 
           <p>
@@ -175,19 +169,17 @@ rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             We can see that the two nodes are joined in a cluster by
-            running the <i>status</i> command on either of the nodes:
+            running the <i>cluster_status</i> command on either of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 </pre>
@@ -214,25 +206,22 @@ Starting node rabbit@rabbit3 ...done.</pre>
           </p>
           <p>
             We can see that the three nodes are joined in a cluster by
-            running the <i>status</i> command on any of the nodes:
+            running the <i>cluster_status</i> command on any of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
@@ -304,24 +293,21 @@ Starting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit1 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2]}]
 ...done.</pre>
           <p>
@@ -330,35 +316,30 @@ Status of node rabbit@rabbit2 ...
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 rabbit3$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
@@ -415,28 +396,24 @@ Starting node rabbit@rabbit3 ...done.</pre>
             <code>rabbit@rabbit3</code> as a node.
           </p>
           <p>
-            Running the <i>status</i> command on the nodes confirms
+            Running the <i>cluster_status</i> command on the nodes confirms
             that <code>rabbit@rabbit3</code> now is no longer part of
             the cluster and operates independently:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.
 </pre>
           <p>
@@ -451,27 +428,21 @@ Resetting node rabbit@rabbit1 ...done.
 rabbit1$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit1 ...done.</pre>
           <p>
-            The <i>status</i> command now shows all three nodes
+            The <i>cluster_status</i> command now shows all three nodes
             operating as independent RabbitMQ brokers:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]}]},
- {running_nodes,[rabbit@rabbit1]}]
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2]}]
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.</pre>
           <p>
             Note that <code>rabbit@rabbit2</code> retains the residual
@@ -598,25 +569,22 @@ rabbit2$ <i>rabbitmq-server -detached</i>
 rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <p>
             We can see that the three nodes are joined in a cluster by
-            running the <i>status</i> command on any of the nodes:
+            running the <i>cluster_status</i> command on any of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
         <p>
