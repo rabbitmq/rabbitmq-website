@@ -50,6 +50,41 @@ both IPv4 and IPv6) would look like:
                                          {"::1",       61613} ]} ]}
     ].
 
+### Default User
+
+The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
+and `passcode` headers if a corresponding default is configured.
+
+To configure a default login and passcode, add a `default_user`
+section to the `rabbitmq_stomp` application configuration:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"}]}]}
+    ].
+
+The configuration example above makes "guest/guest" the default
+login/passcode pair.
+
+### Implicit Connect
+
+If you configure a default user, you can also choose to allow clients
+to omit the `CONNECT` frame entirely. In this mode, if the first frame
+sent on a session is not a `CONNECT`, the client is automatically
+connected as the default user.
+
+To enable implicit connect, add `implicit_connect` to the
+`default_user` configuration section:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"},
+                                        implicit_connect]}]}
+    ].
+
+Note that client using implicit connect will still receive a
+`CONNECTED` frame from the server.
+
 ### Testing the adapter
 
 If the adapter is running, you should be able to connect to port 61613
