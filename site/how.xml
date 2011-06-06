@@ -536,6 +536,9 @@
       <h3 id="general-posts">General Posts</h3>
       <ul>
     <li>
+      <a href="http://en.wikipedia.org/wiki/RabbitMQ"> Wikipedia on RabbitMQ</a><br />
+      Wikipedia's page on RabbitMQ.
+    <li>
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Can AMQP break IBM's monopoly on middleware: Part 1</a>,
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>,
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a><br />
