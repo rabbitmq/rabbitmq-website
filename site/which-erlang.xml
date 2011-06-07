@@ -7,31 +7,40 @@
     <div>
     <h3>Which Version of Erlang?</h3>
     <p>
-    The default version of <a href="http://www.erlang.se">Erlang</a> provided by your package manager should allow your RabbitMQ server to run,
+    The default version of <a href="http://www.erlang.se">Erlang</a>
+    provided by your package manager should allow your RabbitMQ server to run,
     and will normally be sufficient.
-    In all cases the minimum version required is at least R12B-3. Some functionality provided by erlang requires more recent versions.
+    In all cases the minimum version required is at least R12B-3.
+    Some functionality provided by erlang requires more recent versions.
     </p>
     <p>
-      In general use the latest available non-alpha version of Erlang unless you have a *really* good reason.
+      In general use the latest available non-alpha version of Erlang
+      unless you have a *really* good reason.
     </p>
     <p>
     <table>
       <th>Requirement</th><th>Minimum version</th><th>Notes</th>
       <tr><td>to work at all</td><td>R12B-3</td><td></td></tr>
       <tr><td>build server from source</td><td>R12B-5</td>
-      <td>Needs Erlang development and runtime tools. On Debian:add erlang-nox and erlang-dev.</td></tr>
+      <td>Needs Erlang development and runtime tools.
+      On Debian:add erlang-nox and erlang-dev.</td></tr>
       <tr><td>use mochiweb</td><td>R13B01</td><td></td></tr>
-      <tr><td>management plugin</td><td>R13B01</td><td>Depends on mochiweb.</td></tr>
+      <tr><td>management plugin</td><td>R13B01</td>
+      <td>Depends on mochiweb.</td></tr>
       <tr><td>work on Windows</td><td>R13B03</td>
-      <td>Download <a href="http://www.erlang.org/download.html">Windows Binary</a> or get it from the <a href="server.html#windows_bundle">Windows Install bundle</a>.<br />
+      <td>Download <a href="http://www.erlang.org/download.html">Windows Binary</a>
+      or get it from the <a href="server.html#windows_bundle">Windows Install bundle</a>.<br />
       Earlier versions do not recognise <a href="extensions.html#memsup">memory</a> limits.</td></tr>
-      <tr><td>use SSL reliably</td><td>R14B (SSL 4.0.1)</td><td>Earlier versions do not support <a href="ssl.html">SSL</a> well (certificates, RC4, Windows crypto).</td></tr>
+      <tr><td>use SSL reliably</td><td>R14B (SSL 4.0.1)</td>
+      <td>Earlier versions do not support <a href="ssl.html">SSL</a> well
+      (certificates, RC4, Windows crypto).</td></tr>
     </table>
     </p>
    
     <p>If using clustered nodes, all nodes should use the same version of Erlang.</p>
     <p>
-      <a href="http://www.erlang.org/download.html">Download Erlang</a> or check on a specific version at <a href="http://www.erlang.org">http://www.erlang.org</a>.
+      <a href="http://www.erlang.org/download.html">Download Erlang</a> or check on
+      a specific version at <a href="http://www.erlang.org">http://www.erlang.org</a>.
     </p>
     <p>Check <a href="platforms.html">supported platforms</a>.
     
@@ -58,14 +67,16 @@
     </dd>
     <dt>Update the distribution</dt>
     <dd>
-    If you need newer features of Erlang than the package manager for your Linux distribution provides,
+    If you need newer features of Erlang than the package manager for your
+    Linux distribution provides,
     it may be best to update your distribution.
     </dd>
     </dl>
     </p>
     
     <h3>Building Erlang from source</h3>
-    <p>If you should need to build Erlang from source, you will need openssl installed on your system.</p>
+    <p>If you should need to build Erlang from source,
+    you will need openssl installed on your system.</p>
     <p>
     Be aware that if building Erlang from source, the package manager can't know
     whether the dependency is already available.
@@ -74,7 +85,8 @@
     </p>
     
     <dl><dt>Mac OSX</dt>
-    <dd><a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)</dd>
+    <dd><a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a>
+    (without macports)</dd>
     </dl>
     </div>
   </body>
