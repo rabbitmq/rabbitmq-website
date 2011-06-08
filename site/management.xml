@@ -19,8 +19,9 @@
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
-          with a browser-based UI and an experimental command line
-          tool, <code>rabbitmqadmin</code>. Features include:
+          with a browser-based UI and a command line tool, <a
+          href="management-cli.html">rabbitmqadmin</a>. Features
+          include:
         </p>
         <ul>
           <li>
@@ -121,8 +122,8 @@
             http://<i>server-name</i>:55672/api/
           </li>
           <li>
-            Download of <code>rabbitmqadmin</code> and its documentation are at:
-            http://<i>server-name</i>:55672/cli/
+            Download <a href="management-cli.html">rabbitmqadmin</a>
+            at: http://<i>server-name</i>:55672/cli/
           </li>
         </ul>
         <p>
@@ -168,6 +169,14 @@
           those virtual hosts counting towards their "global" message
           rates.
         </p>
+        <p>
+          If you get locked out due to only having non-administrator
+          users, or no users at all, you can use <a
+          href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
+          to create a non-administrator user and <a
+          href="/man/rabbitmqctl.1.man.html#set_admin">rabbitmqctl
+          set_admin</a> to promote a user to administrator.
+        </p>
       </doc:section>
 
       <doc:section name="configuration">
@@ -194,7 +203,7 @@
             statistics, you can prevent this from happening. Set the
             value of the <code>force_fine_statistics</code> variable
             to <code>false</code> in your configuration file for
-            the <code>rabbit_management_agent</code> application and
+            the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
           </p>
         </doc:subsection>
@@ -203,7 +212,7 @@
           <p>
             To create simple access logs of requests to the HTTP API,
             set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbit_management</code> application to the name
+            the <code>rabbitmq_management</code> application to the name
             of a directory in which logs can be created and restart
             RabbitMQ. Note that only requests to the API
             at <code>/api</code> are logged, not requests to the static
@@ -218,13 +227,39 @@
             relevant parameters to their default values, would look
             like this:
           </p>
-          <pre>[
-  {rabbit,                  [ {tcp_listeners,         [5672]} ] },
-  {rabbit_mochiweb,         [ {port,                  55672} ] },
-  {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
-  {rabbit_management_agent, [ {force_fine_statistics, true} ] }
+          <pre class="example">[
+  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
+  {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
         </doc:subsection>
+        <doc:subsection name="mochiweb-config">
+          <doc:heading>HTTP interfaces</doc:heading>
+          <p>
+            It is possible to configure rabbitmq-mochiweb to serve the
+            management plugin on a different port or TCP/IP
+            interface. To do so, you should configure a listener
+            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+          </p>
+          <pre class="example">[
+  ...
+  {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
+                                    {mgmt, [{port, 55555}]}]}]},
+  ...
+].</pre>
+          <p>
+            See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
+            guide for more details.
+          </p>
+          <p>
+            You can also assign the contexts <code>rabbit_mgmt</code>
+            (the user interface),
+            <code>rabbit_mgmt_api</code> (the HTTP API),
+            and <code>rabbit_mgmt_cli</code> (download and
+            documentation for the command-line client) to different
+            listeners; however, assigning the UI and API to different
+            listeners will break the UI.
+          </p>
       </doc:section>
 
       <doc:section name="clustering">
@@ -256,7 +291,7 @@
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
-          The management plugin will create an HTTP-based API at
+          By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
           location for more information on the API. For convenience
           the documentation can also be obtained

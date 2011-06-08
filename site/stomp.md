@@ -1,4 +1,4 @@
-# RabbitMQ STOMP Adapter
+# RabbitMQ STOMP Adapter NOSYNTAX
 
 ## Introduction
 
@@ -25,7 +25,7 @@ To build the STOMP adapter from source, follow the instructions for
 building the umbrella repository contained in the
 [Plugin Development Guide](http://www.rabbitmq.com/plugin-development.html).
 
-You need to install the rabbit\_stomp.ez and amqp\_client.ez packages.
+You need to install the rabbitmq\_stomp.ez and amqp\_client.ez packages.
 
 ## Configuring the adapter
 
@@ -33,21 +33,21 @@ When no configuration is specified the STOMP Adapter will listen on
 all interfaces on port 61613.
 
 To change this, edit your [Configuration file](http://www.rabbitmq.com/install.html#configfile),
-to contain a tcp_listeners variable for the rabbit_stomp application.
+to contain a tcp_listeners variable for the rabbitmq_stomp application.
 
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
     [
-      {rabbit_stomp, [{tcp_listeners, [12345]} ]}
+      {rabbitmq_stomp, [{tcp_listeners, [12345]} ]}
     ].
 
 while one which changes the listener to listen only on localhost (for
 both IPv4 and IPv6) would look like:
 
     [
-      {rabbit_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
-                                       {"::1",       61613} ]} ]}
+      {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
+                                         {"::1",       61613} ]} ]}
     ].
 
 ### Testing the adapter

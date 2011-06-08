@@ -784,14 +784,16 @@
               Normal output from a running broker without plugins follows this pattern:
               <pre>
   Status of node 'rabbit@xxx' ...
-  [{running_applications,[{rabbit,"RabbitMQ","&version-server;"},
-          {os_mon,"..."},
-          {sasl,"..."},
-          {mnesia,"..."},
-          {stdlib,"..."},
-          {kernel,"..."},
-  {nodes,[{disc,['rabbit@xxx']}]}
-  {running_nodes,['rabbit@xxx']}]</pre>
+  [{pid,...},
+   {running_applications,[{rabbit,"RabbitMQ","&version-server;"},
+                          {os_mon,"..."},
+                          {sasl,"..."},
+                          {mnesia,"..."},
+                          {stdlib,"..."},
+                          {kernel,"..."},
+  {os,"..."},
+  {erlang_version,"..."},
+  {memory,"..."}}]</pre>
             </p>
             <p>
               This example indicates that no broker is running:
