@@ -7,11 +7,11 @@
     <div>
     <h3>Which Version of Erlang?</h3>
     <p>
-    The default version of <a href="http://www.erlang.se">Erlang</a>
-    provided by your package manager should allow your RabbitMQ server to run,
-    and will normally be sufficient.
-    In all cases the minimum version required is at least R12B-3.
-    Some functionality provided by erlang requires more recent versions.
+      The default version of <a href="http://www.erlang.se">Erlang</a>
+      provided by your package manager should allow your RabbitMQ server to run,
+      and will normally be sufficient.
+      In all cases the minimum version required is at least R12B-3.
+      Some functionality provided by erlang requires more recent versions.
     </p>
     <p>
       In general use the latest available non-alpha version of Erlang
@@ -37,7 +37,9 @@
     </table>
     </p>
    
-    <p>If using clustered nodes, all nodes should use the same version of Erlang.</p>
+    <p>
+      If using clustered nodes,
+      all nodes should use the same version of Erlang.</p>
     <p>
       <a href="http://www.erlang.org/download.html">Download Erlang</a> or check on
       a specific version at <a href="http://www.erlang.org">http://www.erlang.org</a>.
@@ -52,42 +54,46 @@
     <dt>RedHat Enterprise Linux (RHEL) 5 and derived distributions (e.g. CentOS 5):</dt>
     <dd>
     <p>
-    Due to
-    <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
-    the EPEL package update policy</a>,
-    EPEL 5 contains Erlang version R12B-5, which rabbitmq-server still supports.
+      Due to
+      <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+      the EPEL package update policy</a>,
+      EPEL 5 contains Erlang version R12B-5, which rabbitmq-server still supports.
     </p>
-    <p>For better performance, and for certain non-core features
-    (SSL support, HTTP-based plugins), use the most recent stable version of Erlang.
-    The owner of the EPEL erlang package provides a package repository:
-    (as root)
-    <code> wget -O /etc/yum.repos.d/epel-erlang.repo 
-    http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>.
-    Invoking <code>yum install erlang</code> will then install or update Erlang.
+    <p>
+      For better performance, and for certain non-core features
+      (SSL support, HTTP-based plugins), use the most recent stable version of Erlang.
+      The owner of the EPEL erlang package provides a package repository:
+      (as root)
+      <code> wget -O /etc/yum.repos.d/epel-erlang.repo 
+      http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>.
+      Invoking <code>yum install erlang</code> will then install or update Erlang.
     </p>
     </dd>
     <dt>Update the distribution</dt>
     <dd>
-    If you need newer features of Erlang than the package manager for your
-    Linux distribution provides,
-    it may be best to update your distribution.
+      If you need newer features of Erlang than the package manager for your
+      Linux distribution provides,
+      it may be best to update your distribution.
     </dd>
     </dl>
     </p>
     
     <h3>Building Erlang from source</h3>
-    <p>If you should need to build Erlang from source,
-    you will need openssl installed on your system.</p>
     <p>
-    Be aware that if building Erlang from source, the package manager can't know
-    whether the dependency is already available.
-    So, for example, if you install an <a href="http://rpm.org/">rpm</a> package,
-    you will get a dependency error. Mixing source builds with packages should be avoided.
+      If you should need to build Erlang from source,
+      you will need openssl installed on your system.</p>
+    <p>
+      Be aware that if building Erlang from source, the package manager can't know
+      whether the dependency is already available.
+      So, for example, if you install an <a href="http://rpm.org/">rpm</a> package,
+      you will get a dependency error. Mixing source builds with packages should be avoided.
     </p>
     
     <dl><dt>Mac OSX</dt>
-    <dd><a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a>
-    (without macports)</dd>
+    <dd>
+      <a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a>
+      (without macports)
+    </dd>
     </dl>
     </div>
   </body>
