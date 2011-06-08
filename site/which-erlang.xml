@@ -7,7 +7,7 @@
     <div>
     <h3>Which Version of Erlang?</h3>
     <p>
-      The default version of <a href="http://www.erlang.se">Erlang</a>
+      The default version of <a href="http://www.erlang.org">Erlang</a>
       provided by your package manager should allow your RabbitMQ server to run,
       and will normally be sufficient.
       In all cases the minimum version required is at least R12B-3.
