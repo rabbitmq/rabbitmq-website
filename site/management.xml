@@ -147,12 +147,14 @@
         <p>
           The management plugin extends the
           existing <a href="admin-guide.html#access-control">permissions
-          model</a> somewhat. Users can be marked as
-          "administrators". Only administrators can view or edit
-          users, virtual hosts or permissions at all. Furthermore,
-          only administrators can see details of other users'
-          connections and channels (and close such connections), as
-          well as node-level data such as memory use and clustering.
+          model</a> somewhat. Users can be given arbitrary tags within
+          RabbitMQ. The management plugin makes use of a tag called
+          "administrator". Only users with this tag (administrators)
+          can view or edit users, virtual hosts or permissions at
+          all. Furthermore, only administrators can see details of
+          other users' connections and channels (and close such
+          connections), as well as node-level data such as memory use
+          and clustering.
         </p>
         <p>
           Normal RabbitMQ permissions still apply to administrators;
@@ -174,8 +176,8 @@
           users, or no users at all, you can use <a
           href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
           to create a non-administrator user and <a
-          href="/man/rabbitmqctl.1.man.html#set_admin">rabbitmqctl
-          set_admin</a> to promote a user to administrator.
+          href="/man/rabbitmqctl.1.man.html#set_user_tags">rabbitmqctl
+          set_user_tags</a> to promote a user to administrator.
         </p>
       </doc:section>
 
