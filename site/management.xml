@@ -251,15 +251,6 @@
             See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
             guide for more details.
           </p>
-          <p>
-            You can also assign the contexts <code>rabbit_mgmt</code>
-            (the user interface),
-            <code>rabbit_mgmt_api</code> (the HTTP API),
-            and <code>rabbit_mgmt_cli</code> (download and
-            documentation for the command-line client) to different
-            listeners; however, assigning the UI and API to different
-            listeners will break the UI.
-          </p>
         </doc:subsection>
       </doc:section>
 
