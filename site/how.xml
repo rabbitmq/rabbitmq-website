@@ -538,6 +538,7 @@
     <li>
       <a href="http://en.wikipedia.org/wiki/RabbitMQ"> Wikipedia on RabbitMQ</a><br />
       Wikipedia's page on RabbitMQ.
+    </li>
     <li>
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-1.html">Can AMQP break IBM's monopoly on middleware: Part 1</a>,
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-2.html">Part 2</a>,
@@ -583,7 +584,7 @@
       Microsoft discuss the challenges of enterprise messaging in a
       heterogeneous environment, and make a business case for AMQP, with
       Qpid as the example broker
-  </li>
+    </li>
     <li>
       <a href="http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/">To AMQP or to XMPP, that is the question</a><br />
       Blog post by Kenneth Kalmer comparing AMQP and XMPP as messaging protocols.
