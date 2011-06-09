@@ -182,14 +182,13 @@
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
-          The management plugin has a couple of configuration
-          options. These are managed through the main RabbitMQ
+          There are several configuration options which affect the
+          management plugin. These are managed through the main
+          RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
         <doc:subsection name="fine-stats">
-          <doc:heading>
-            Fine-grained statistics
-          </doc:heading>
+          <doc:heading>Fine-grained statistics</doc:heading>
           <p>
             The message rates shown by the management plugin require
             fine-grained statistics to be enabled in the server. This
@@ -205,6 +204,23 @@
             to <code>false</code> in your configuration file for
             the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
+          </p>
+          <p>
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="http-logging">
