@@ -107,7 +107,8 @@
       install RabbitMQ from the generic Unix package, or from source.
     </p>
     <p>
-      If you should need to build Erlang from source,
+      If you should need to 
+      <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>,
       you will need openssl installed on your system.
     </p>
       
