@@ -43,11 +43,10 @@
     </p>
     <p>
       In order to compile or run the server, you will need to have
-      downloaded and installed Erlang/OTP, version R12B-3 or
-      higher. Your operating system may come with a package for
-      working with Erlang, or you may need to <a
-      href="http://www.erlang.org/download.html">download and install
-      Erlang</a> yourself.
+      downloaded and installed
+      <a href="which-erlang.html">Erlang/OTP, version R12B-3 or higher</a>.
+      Your operating system may come with a package for working with Erlang, or you may need to
+      <a href="http://www.erlang.org/download.html">download and install Erlang</a> yourself.
     </p>
 
     <p>
