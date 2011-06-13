@@ -396,6 +396,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>collect_statistics_interval</code></td>
+            <td><code>5000</code></td>
+            <td>
+              Statistics collection interval in
+              milliseconds. Primarily relevant for the management
+              plugin - see <a href="management.html#fine-stats">its
+              documentation</a>.
+            </td>
+          </tr>
+          <tr>
             <td><code>auth_mechanisms</code></td>
             <td><code>['PLAIN', 'AMQPLAIN']</code></td>
             <td>
