@@ -823,10 +823,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             needed.
           </p>
           <p>
-            To route all dead messages from your dead letter exchange
-            to a single queue, make sure your DLE is a
-            <code>topic</code> exchange and bind your queue to it with
-            the routing key <code>#</code>.
+            To capture all dead-lettered messages regardless of
+            routing key, use a <code>fanout</code> exchange for your
+            dead letter exchange.
           </p>
         </doc:subsection>
         <doc:subsection>
