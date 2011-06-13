@@ -401,7 +401,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Statistics collection interval in
               milliseconds. Primarily relevant for the management
-              plugin - see <a href="management.html#fine-stats">its
+              plugin - see <a href="management.html#statistics-interval">its
               documentation</a>.
             </td>
           </tr>
