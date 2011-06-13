@@ -149,7 +149,8 @@
           existing <a href="admin-guide.html#access-control">permissions
           model</a> somewhat. Users can be given arbitrary tags within
           RabbitMQ. The management plugin makes use of tags called
-          "administrator" and "monitor". The following table shows what the different types of user can do:
+          "management-user", "monitor" and "administrator". The following
+          table shows what the different types of user can do:
         </p>
         <table>
           <tr>
@@ -158,6 +159,12 @@
           </tr>
           <tr>
             <td>(None)</td>
+            <td>
+              No access to the management plugin
+            </td>
+          </tr>
+          <tr>
+            <td>management-user</td>
             <td>
               Anything the user could do via AMQP plus:
               <ul>
@@ -178,7 +185,7 @@
           <tr>
             <td>monitor</td>
             <td>
-              Everything normal users can plus:
+              Everything "management-user" can plus:
               <ul>
                 <li>
                   List all virtual hosts, including ones they could
@@ -205,7 +212,8 @@
         </table>
         <p>
           Note that since "administrator" does everything "monitor"
-          does, you only need to give each user a maximum of one tag.
+          does, and "monitor" does everything "management-user" does,
+          you only need to give each user a maximum of one tag.
         </p>
         <p>
           Normal RabbitMQ permissions still apply to monitors and
