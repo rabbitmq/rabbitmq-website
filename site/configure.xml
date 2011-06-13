@@ -205,9 +205,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
       <doc:section name="configuration-file">
-      <doc:heading>Configuration File</doc:heading>
+      <doc:heading>Configuration file</doc:heading>
         <doc:subsection name="config-file">
-        <doc:heading>The rabbitmq.config File</doc:heading>
+        <doc:heading>The rabbitmq.config file</doc:heading>
         <p>
           The configuration file <code>rabbitmq.config</code>
           allows the RabbitMQ core application,
