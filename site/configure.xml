@@ -222,13 +222,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 <pre class="sourcecode">
   [
     {mnesia, [{dump_log_write_threshold, 1000}]},
-    {rabbit, []}
+    {rabbit, [{tcp_listeners, [5673]}]}
   ].
 </pre>
         </p>
         <p>
-          This example will alter the dump_log_write_threshold for mnesia
-          (increasing from the default of 100).
+          This example will alter the dump_log_write_threshold for
+          mnesia (increasing from the default of 100), and alter the
+          port RabbitMQ listens on from 5672 to 5673..
         </p>
         <p>
            This configuration file is not the same as
