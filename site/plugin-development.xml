@@ -121,7 +121,7 @@ $ make co</pre>
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel/build/app/rabbitmq_shovel-0.0.0</pre>
+$ ln -s ../../rabbitmq-shovel</pre>
         </p>
         <p>
           Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
