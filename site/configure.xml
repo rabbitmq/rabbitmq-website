@@ -282,9 +282,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <th>Documentation</th>
           </tr>
           <tr>
-            <th colspan="3">RabbitMQ server (application: rabbit)</th>
-          </tr>
-          <tr>
             <td><code>tcp_listeners</code></td>
             <td><code>[5672]</code></td>
             <td>
@@ -496,6 +493,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           </tr>
         </table>
+        <p>
+          In addition, many plugins can have sections in the
+          configuration file, with names of the
+          form <code>rabbitmq_<i>plugin</i></code>. Our maintained
+          plugins are documented in the following locations:
+        </p>
+        <ul>
+          <li><a href="management.html#configuration">rabbitmq_management</a></li>
+          <li><a href="management.html#configuration">rabbitmq_management_agent</a></li>
+          <li><a href="mochiweb.html">rabbitmq_mochiweb</a></li>
+          <li><a href="stomp.html">rabbitmq_stomp</a></li>
+          <li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq_shovel</a></li>
+          <li><a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README">rabbitmq_auth_backend_ldap</a> (<a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README-authorisation">authorisation</a>)</li>
+        </ul>
         </doc:subsection>
       </doc:section>
 
