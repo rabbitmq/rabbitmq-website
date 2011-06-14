@@ -389,13 +389,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>collect_statistics</code></td>
             <td><code>none</code></td>
             <td>
-              Statistics collection mode. Options are none (do not
-              emit statistics events), coarse (emit per-queue /
-              per-channel / per-connection statistics) and fine (also
-              emit per-message statistics). Primarily relevant for the
-              <a href="management.html#fine-stats">management
-              plugin</a>. You probably don't want to change this
-              yourself.
+              Statistics collection mode. Primarily relevant for the
+              management plugin. Options are:
+              <ul>
+                <li>none (do not emit statistics events)</li>
+                <li>coarse (emit per-queue / per-channel / per-connection statistics)</li>
+                <li>fine (also emit per-message statistics)</li>
+                </ul>
+              You probably don't want to change this yourself.
             </td>
           </tr>
           <tr>
@@ -403,9 +404,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>5000</code></td>
             <td>
               Statistics collection interval in
-              milliseconds. Primarily relevant for the management
-              plugin - see <a href="management.html#statistics-interval">its
-              documentation</a>.
+              milliseconds. Primarily relevant for
+              the <a href="management.html#statistics-interval">management
+              plugin</a>.
             </td>
           </tr>
           <tr>
