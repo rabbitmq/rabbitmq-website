@@ -105,7 +105,7 @@ using a STOMP client of your choice. In a pinch, `telnet` or netcat
 That `ERROR` message indicates that the adapter is listening and
 attempting to parse STOMP frames.
 
-Alternatively, you can run the `test/test.py` script from adapter
+Alternatively, you can run the `test/test.py` script from the adapter
 source tree. This script runs a full suite of tests against the
 adapter in its default configuration.
 
