@@ -393,10 +393,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               emit statistics events), coarse (emit per-queue /
               per-channel / per-connection statistics) and fine (also
               emit per-message statistics). Primarily relevant for the
-              management plugin -
-              see <a href="management.html#fine-stats">its
-              documentation</a>. You probably don't want to change
-              this yourself.
+              <a href="management.html#fine-stats">management
+              plugin</a>. You probably don't want to change this
+              yourself.
             </td>
           </tr>
           <tr>
