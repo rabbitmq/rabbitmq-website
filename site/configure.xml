@@ -205,9 +205,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
       <doc:section name="configuration-file">
-      <doc:heading>Configuration file</doc:heading>
+      <doc:heading>Configuration File</doc:heading>
         <doc:subsection name="config-file">
-        <doc:heading>The rabbitmq.config file</doc:heading>
+        <doc:heading>The rabbitmq.config File</doc:heading>
         <p>
           The configuration file <code>rabbitmq.config</code>
           allows the RabbitMQ core application,
@@ -269,7 +269,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </doc:subsection>
 
         <doc:subsection name="config-items">
-        <doc:heading>Variables configurable in rabbitmq.config</doc:heading>
+        <doc:heading>Variables Configurable in rabbitmq.config</doc:heading>
         <p>
           Many users of RabbitMQ never need to change any of these
           values, and some are fairly obscure. However, for
@@ -302,7 +302,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>ssl_options</code></td>
             <td><code>[]</code></td>
             <td>
-              SSL configuration. See the <a href="ssl.html">SSL
+              SSL configuration. See the <a href="ssl.html#enabling-ssl">SSL
               documentation</a>.
             </td>
           </tr>
@@ -389,10 +389,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>collect_statistics</code></td>
             <td><code>none</code></td>
             <td>
-              Statistics collection mode. Options are none, coarse and
-              fine. Primarily relevant for the management plugin -
+              Statistics collection mode. Options are none (do not
+              emit statistics events), coarse (emit per-queue /
+              per-channel / per-connection statistics) and fine (also
+              emit per-message statistics). Primarily relevant for the
+              management plugin -
               see <a href="management.html#fine-stats">its
-              documentation</a>.
+              documentation</a>. You probably don't want to change
+              this yourself.
             </td>
           </tr>
           <tr>
