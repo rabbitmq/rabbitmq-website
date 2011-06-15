@@ -270,6 +270,11 @@
         <a href="http://www.reddit.com/r/programming/comments/h6aai/hey_reddit_i_wrote_a_chat_app_using_rabbitmq_and/">invitation to break it</a>. 
       </li>
       <li>
+        <a href="http://mysqldba.blogspot.com/2011/06/building-realtime-feed-with-rabbitmq.html">Building a Real-time Feed with RabbitMQ, Node.js, AMQP and MySQL</a>
+        <br />
+        A walk through of how to build a browser-based pubsub system.
+      </li>
+      <li>
         <a href="http://videlalvaro.github.com/2011/04/an-army-of-minions-for-rabbitmq.html">An Army of Zombie Minions for RabbitMQ</a>
         <br />
         Alvaro Videla showcases his <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ messaging patterns</a> library by 
