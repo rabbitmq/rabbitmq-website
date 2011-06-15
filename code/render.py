@@ -24,21 +24,43 @@ def preprocess_markdown(fpath):
 
     title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
     contents = contents[0:title.start()] + contents[title.end():]
+    title = title.group(1)
+
+    entities = open(os.path.join(SITE_DIR, 'rabbit.ent')).read()
+    entities = '\n'.join(entities.split('\n')[1:])
+
+    nosyntax = re.search("NOSYNTAX", title)
+    if nosyntax:
+        title = re.sub("NOSYNTAX", "", title)
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
+<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
+"otherwise css isn't included" [
+%s
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2003/XInclude">""" % entities
+
+    head = """<head>
     <title>%s</title>
   </head>
   <body>
-""" % (title.group(1),)
+""" % (title,)
 
     post = """</body>
 </html>
 """
-    processed = markdown.markdown(contents, ["codehilite(css_class=highlight)"])
-    whole = pre + processed + post
+    if nosyntax:
+        args = []
+    else:
+        args = ["codehilite(css_class=highlight)"]
+
+    processed = markdown.markdown(contents, args)
+
+    # Unfortunately we can't stop markdown escaping entities. Unescape them.
+    processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
+
+    whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 
 MARKUPS=[

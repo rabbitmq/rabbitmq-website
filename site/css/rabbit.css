@@ -42,8 +42,8 @@ a:active, a:hover {
 
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
-	margin: 0;
-	padding: 0 ;
+	margin: 1em 0 0.5em 0;
+	padding: 0;
 }
 
 h1 {
@@ -235,9 +235,6 @@ b, strong, .intro {
 .clear {
 	clear:both;
 }
-.p {
-	float:right;
-}
 .lft {
 	clear:left;
 }
@@ -337,6 +334,15 @@ span.code, pre.code {
 	color: darkcyan;
 	background: #f6fcb0;
 	padding: 0 5px 0 5px;
+}
+
+pre.example, pre span.code {
+    color: #000;
+    background: #eee;
+    padding: 5px;
+    border: 1px solid #bbb;
+    white-space: pre !important;
+    display: block;
 }
 
 span.code {
