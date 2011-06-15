@@ -239,9 +239,9 @@
           <doc:heading>Example</doc:heading>
           <p>
             An example configuration file for RabbitMQ that switches
-            on request logging, and explicitly sets some other
-            relevant parameters to their default values, would look
-            like this:
+            on request logging, increases the statistics interval to
+            10000ms and explicitly sets some other relevant parameters
+            to their default values, would look like this:
           </p>
           <pre class="example">[
   {rabbit,                    [ {tcp_listeners,               [5672]},
