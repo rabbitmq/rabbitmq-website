@@ -11,7 +11,7 @@
 	  Sometimes, during development or debugging, it's useful to
 	  be able to see every message that is published, and every
 	  message that is delivered. RabbitMQ has a "firehose"
-	  feature, where the administrator names (on a per-node,
+	  feature, where the administrator can enable (on a per-node,
 	  per-vhost basis) an exchange to which publish- and
 	  delivery-notifications should be CCed.
 	</p>
