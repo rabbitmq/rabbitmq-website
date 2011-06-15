@@ -244,7 +244,8 @@
             like this:
           </p>
           <pre class="example">[
-  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbit,                    [ {tcp_listeners,               [5672]},
+                                {collect_statistics_interval, 10000} ] },
   {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
