@@ -139,11 +139,6 @@
       its appearance in the central Maven repository. Please be patient.
     </p>
 
-    <h2>Windows Bundle</h2>
-    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
-      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
-    </xi:include>
-
     <h2>Mercurial repositories</h2>
     <p>
       The Java AMQP client library and example programs. Depends on
