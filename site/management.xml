@@ -260,6 +260,7 @@
             listeners; however, assigning the UI and API to different
             listeners will break the UI.
           </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="clustering">
