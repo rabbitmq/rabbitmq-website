@@ -195,12 +195,10 @@
 	    </p>
 	    <p>
 	      For further details on the rationale for choosing
-	      Erlang, please see the FAQ entries on <a
+	      Erlang, please see the FAQ entry on <a
 	      href="#clustering-design">clustering technology</a> and
-	      <a href="#management-monitoring-control">management
-	      interfaces</a>. Finally, we've prepared a comprehensive
-	      assessment of Erlang's advantages at <a
-	      href="erlang.html">this page</a>.
+          our <a href="erlang.html">comprehensive
+	      assessment of Erlang's advantages</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1065,8 +1063,8 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	      There are multiple ways for interacting with RabbitMQ in web messaging scenarios. For example, 
 	      we provide broker plugins that expose a JSON/RPC endpoint from within the broker process. The 
 	      community has contributed a set client libraries that allow AMQP communication for a variety of 
-	      web platforms including actionscript and pubsubhubbub. A more complete list can be found under 
-	      <a href="how.html#web-messaging">Web Messaging on the Get Started page</a>.
+	      web platforms including actionscript and pubsubhubbub. A more complete list can be found on the 
+	      <a href="devtools.html#web-messaging">Client and Developer Tools page</a>.
 	    </p>
 	  </doc:a>
 	</doc:faq>
@@ -1100,7 +1098,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  <doc:heading>What are your plans for migrating yourselves and your users to AMQP 1-0 when it is finalised?</doc:heading>
 	  <doc:a>
 	    <p>
-	      The <a href="https://www.amqp.org/confluence/display/AMQP/AMQP1.0+SIG">AMQP 1-0 draft spec</a>
+	      The <a href="https://www.amqp.org/confluence/display/AMQP/AMQP+Specification">AMQP 1-0 specification</a>
 	      is still a work in progress and introduces some major changes from previous
 	      versions.
 	    </p>
@@ -1142,7 +1140,7 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
 	  </doc:a>
 	</doc:faq>
 	
-	<doc:faq name="last-message-on-topic">
+	<doc:faq name="reliable-delivery">
 	  <doc:heading>How can I ensure that a message can always reach a suitable queue even if the
 	  RabbitMQ node which I’m sending to crashes?</doc:heading>
 	  <doc:a>
@@ -1631,7 +1629,7 @@ web UI.
 	</doc:faq>
 
 
-	<doc:faq name="corrupted-state">
+	<doc:faq name="node-mtbf">
 	  <doc:heading>Is there any reasonably viable metric surrounding the MTBF of a node? </doc:heading>
 	  <doc:a>
 	    <p>
