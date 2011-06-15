@@ -56,6 +56,10 @@
       internet scale.
     </li>
     <li>
+      <a href="http://www.rubyinside.com/why-rubyists-should-care-about-messaging-a-high-level-intro-5017.html">Why Rubyists Should Care About Messaging</a><br/>
+      A high level introduction into why you should be using messaging in your applications. Not just for Rubyists.
+    </li>
+    <li>
     <a href="resources/RabbitMQ_FITEclub_2009.pdf">A Technical Look at RabbitMQ and Erlang</a><br/>
     Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
     </li>
