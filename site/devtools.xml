@@ -341,10 +341,7 @@
               </li>
               <li>
                 <a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial
-              </li>
-              <li>
-                <a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser
-              </li>
+              </li>              
               <li>
                 <a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python
               </li>
@@ -707,9 +704,9 @@
                 Node.js and RabbitMQ
               </li>
               <li>
-                <a href="http://kaazing.net/documentation/howto-amqp-silverlight.html">AMQP with Kaazing Enterprise Gateway and Microsoft Silverlight</a>
+                <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
                 <br />
-                Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Silverlight
+                Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Javascript
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
