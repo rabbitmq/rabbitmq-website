@@ -56,6 +56,10 @@
       internet scale.
     </li>
     <li>
+      <a href="http://www.rubyinside.com/why-rubyists-should-care-about-messaging-a-high-level-intro-5017.html">Why Rubyists Should Care About Messaging</a><br/>
+      A high level introduction into why you should be using messaging in your applications. Not just for Rubyists.
+    </li>
+    <li>
     <a href="resources/RabbitMQ_FITEclub_2009.pdf">A Technical Look at RabbitMQ and Erlang</a><br/>
     Matthias' slides from a talk at FITEclub in 2009 where he presents a technical overview of RabbitMQ
     </li>
@@ -268,6 +272,11 @@
         <br />
         A write up of what happens when you build a web chat room with RabbitMQ and issue an open
         <a href="http://www.reddit.com/r/programming/comments/h6aai/hey_reddit_i_wrote_a_chat_app_using_rabbitmq_and/">invitation to break it</a>. 
+      </li>
+      <li>
+        <a href="http://mysqldba.blogspot.com/2011/06/building-realtime-feed-with-rabbitmq.html">Building a Real-time Feed with RabbitMQ, Node.js, AMQP and MySQL</a>
+        <br />
+        A walk through of how to build a browser-based pubsub system.
       </li>
       <li>
         <a href="http://videlalvaro.github.com/2011/04/an-army-of-minions-for-rabbitmq.html">An Army of Zombie Minions for RabbitMQ</a>
@@ -584,7 +593,7 @@
       Microsoft discuss the challenges of enterprise messaging in a
       heterogeneous environment, and make a business case for AMQP, with
       Qpid as the example broker
-  </li>
+    </li>
     <li>
       <a href="http://www.opensourcery.co.za/2009/04/19/to-amqp-or-to-xmpp-that-is-the-question/">To AMQP or to XMPP, that is the question</a><br />
       Blog post by Kenneth Kalmer comparing AMQP and XMPP as messaging protocols.

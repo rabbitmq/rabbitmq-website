@@ -14,6 +14,18 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013248.html">2.5.0</a></td>
+          <td>14 June 2011</td>
+          <td>
+            <ul>
+              <li>Numerous performance improvements</li>
+              <li>New tracing facility for debugging incoming and outgoing messages</li>
+              <li>New rabbitmqctl commands</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-April/012304.html">2.4.1</a></td>
           <td>7 April 2011</td>
           <td>
