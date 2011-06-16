@@ -50,6 +50,22 @@ both IPv4 and IPv6) would look like:
                                          {"::1",       61613} ]} ]}
     ].
 
+## Configuring SSL
+
+To use SSL for STOMP connections, SSL must be configured in the broker
+as described [here](http://www.rabbitmq.com/ssl.html).
+
+To enable a STOMP SSL connections, add a listener configuration to the
+ssl_listeners variable for the rabbit_stomp appliction:
+
+    [
+      {rabbit_stomp, [{tcp_listeners, [61613]},
+                      {ssl_listeners, [61614]}]}
+    ]
+
+This configuration creates a standard TCP listener on port 61613 and
+an SSL listener on port 61614.
+
 ### Testing the adapter
 
 If the adapter is running, you should be able to connect to port 61613
