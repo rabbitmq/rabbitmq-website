@@ -50,6 +50,41 @@ both IPv4 and IPv6) would look like:
                                          {"::1",       61613} ]} ]}
     ].
 
+### Default User
+
+The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
+and `passcode` headers if a default is configured.
+
+To configure a default login and passcode, add a `default_user`
+section to the `rabbitmq_stomp` application configuration:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"}]}]}
+    ].
+
+The configuration example above makes "guest"/"guest" the default
+login/passcode pair.
+
+### Implicit Connect
+
+If you configure a default user, you can also choose to allow clients
+to omit the `CONNECT` frame entirely. In this mode, if the first frame
+sent on a session is not a `CONNECT`, the client is automatically
+connected *as the default user*.
+
+To enable implicit connect, add `implicit_connect` to the
+`default_user` configuration section:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"},
+                                        implicit_connect]}]}
+    ].
+
+**Note** A client using implicit connect will still receive a
+`CONNECTED` frame from the server.
+
 ### Testing the adapter
 
 If the adapter is running, you should be able to connect to port 61613
@@ -70,7 +105,7 @@ using a STOMP client of your choice. In a pinch, `telnet` or netcat
 That `ERROR` message indicates that the adapter is listening and
 attempting to parse STOMP frames.
 
-Alternatively, you can run the `test/test.py` script from adapter
+Alternatively, you can run the `test/test.py` script from the adapter
 source tree. This script runs a full suite of tests against the
 adapter in its default configuration.
 
@@ -84,7 +119,7 @@ adapter supports three kinds of destination: `/exchange`, `/queue` and
 
 ### Exchange Destinations
 
-Any exchange/queue or exchange/routing key combination can be accessed
+Any exchange/queue or exchange/routing-key combination can be accessed
 using destinations prefixed with `/exchange`.
 
 For `SUBSCRIBE` frames, a destination of the form
@@ -100,7 +135,7 @@ For `SEND` frames, a destination of the form
 
 1. sends to exchange `<name>` with the routing key `<routing-key>`.
 
-It should be noted that exchange destinations are {{not}} suitable for
+**Note** Exchange destinations are *not* suitable for
 consuming messages from an existing queue. A new queue is created for
 each subscriber and is bound to the specified exchange using the
 supplied routing key.
@@ -111,7 +146,7 @@ For simple queues, destinations of the form `/queue/<name>` can be
 used.
 
 Queue destinations deliver each message to at most one
-subscriber. Messages sent when no subscriber exist will be queued
+subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
 #### AMQP semantics
@@ -152,13 +187,13 @@ described in the STOMP specs.
 
 On the `SEND` frame, the STOMP adapter supports the inclusion of a `persistent` header.
 
-Setting the `persistent` header to `true` has the obvious effect of making the message persistent.
+Setting the `persistent` header to `true` has the effect of making the message persistent.
 
 Receipts for `SEND` frames with `persistent:true` are not sent until a
 confirm is received from the broker. The exact semantics for confirms
 on persistent messages can be found here.
 
-`MESSAGE` frames for persistent messages also a `persistent:true`
+`MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
 ### AMQP properties
