@@ -257,8 +257,8 @@
       <ul>
       <li>
         <a href="https://github.com/videlalvaro/rmq_patterns">Enterprise Integration Patterns for RabbitMQ</a><br/>
-        A library of sample implementations of common messaging patterns described in the <a href="http://www.eaipatterns.com">EIP book</a>. The
-        patterns currently implemented are:
+        A library of sample implementations of common messaging patterns described in the <a href="http://www.eaipatterns.com">EIP book</a>. See also
+        the <a href="http://www.slideshare.net/old_sound/messaging-patterns">accompanying presentation</a>. The patterns currently implemented are:
         <ul class="plain">
           <li><a href="http://www.eaipatterns.com/EventDrivenConsumer.html">Consumer</a></li>
           <li><a href="http://www.eaipatterns.com/ControlBus.html">Control Bus</a></li>
@@ -266,6 +266,12 @@
           <li><a href="http://www.eaipatterns.com/SmartProxy.html">Smart Proxy</a> (watch the <a href="http://vimeo.com/20966661">video demonstration</a>)</li>
           <li><a href="http://www.eaipatterns.com/WireTap.html">Wire Tap</a></li>
         </ul>
+      </li>
+      <li>
+        <a href="http://dougbarth.github.com/2011/06/10/keeping-the-rabbit-on-a-leash.html">Rabbit on a Leash - Rate Limited AMQP Subscriptions</a>
+        <br />
+        Doug Barth describes how to implement rate controlled message processing using AMQP's <em>prefetch_count</em>, client acks and a blocking
+        token bucket.
       </li>
       <li>
         <a href="http://videlalvaro.github.com/2011/05/rabbitmq-chat-post-mortem.html">RabbitMQ Web Chat Post Mortem</a>
