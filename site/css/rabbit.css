@@ -330,19 +330,18 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-span.code, pre.code {
-	color: darkcyan;
-	background: #f6fcb0;
-	padding: 0 5px 0 5px;
-}
-
-pre.example, pre span.code {
-    color: #000;
+pre {
     background: #eee;
     padding: 5px;
-    border: 1px solid #bbb;
+    border: 1px solid #ddd;
     white-space: pre !important;
     display: block;
+}
+
+pre, span.code, pre.code, pre.example, pre.span.code, span.path {
+        color: #333;
+        font-family: "Courier New", Courier, monospace;
+        font-size: small;
 }
 
 span.code {
@@ -355,10 +354,6 @@ span.envvar {
 span.path{
 	white-space: nowrap;
 }
-.sourcecode {
-	padding: 1em;
-	background: #f6fcb0;
-}
 
 .sourcecode i {
 	color: darkred;
@@ -366,11 +361,6 @@ span.path{
 
 .sourcecode b {
 	color: darkcyan;
-}
-
-.ec2_sourcecode {
-	padding: 1em;
-	background: #66fcb0;
 }
 
 .docSection div.cmdsynopsis {
@@ -385,11 +375,6 @@ span.path{
 }
 .docSection div.cmdsynopsis span.command {
 	color: darkred;
-}
-
-.docSection pre.sourcecode {
-	background: none;
-	padding: 5px 0;
 }
 
 table {
