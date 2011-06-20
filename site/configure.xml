@@ -474,22 +474,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>persister_max_wrap_entries</code></td>
-            <td><code>500</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
-            </td>
-          </tr>
-          <tr>
-            <td><code>persister_hibernate_after</code></td>
-            <td><code>10000</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
-            </td>
-          </tr>
-          <tr>
             <td><code>msg_store_file_size_limit</code></td>
             <td><code>16777216</code></td>
             <td>
