@@ -57,22 +57,9 @@
       <doc:section name="windows">
         <doc:heading>Windows</doc:heading>
         <p>
-          You can either use files from the Windows bundle,
-          or download Erlang and the RabbitMQ server as indicated below.
+          You should download Erlang and the RabbitMQ server as
+          indicated below.
           </p>
-        <doc:subsection name="install-windows-bundle">
-          <doc:heading>Install from the Windows Bundle</doc:heading>
-          <p>
-            For convenience, the <a href="server.html#windows_bundle">Windows Bundle zip file</a>
-            already contains the Erlang system installer
-            and the RabbitMQ broker server binary distribution files needed for the next section.
-            It also includes .Net and Java client libraries for RabbitMQ.
-          </p>
-          <p>
-            Just extract the files from the bundle and
-            then follow the instructions to install each server component.
-          </p>
-        </doc:subsection>
 
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
@@ -82,9 +69,9 @@
               <dd>
                 <p>
                   Install a recent version of Erlang/OTP.
-                  <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">Versions R13B03</a>
-                  and higher should work on Windows. Extract it from
-                  the Windows bundle or choose a version from
+                  <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">Versions
+                  R13B03</a> and higher should work on Windows. Choose
+                  a version from
                   <a href="http://www.erlang.org/download.html">
                   http://www.erlang.org/download.html</a>
                 </p>
@@ -116,8 +103,7 @@
               <dd>
                 <p>
                  Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-                 from the <a href="server.html">download page</a> or extract it
-                 from the Windows bundle.
+                 from the <a href="server.html">download page</a>.
                 </p>
                 <p>
                  From the zip file, extract the folder named
