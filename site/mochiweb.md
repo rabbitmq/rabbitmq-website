@@ -27,16 +27,13 @@ and one on port 55672; then assigns the context used in the management
 plugin to the latter, and lets everything else default to the
 former. It looks like this:
 
-      [{listeners, [{'*',  [{port, 55670}]},
-                    {mgmt, [{port, 55672}]}]},
-       {contexts,  [{rabbit_mgmt, mgmt}]}]
+      [{listeners,        [{mgmt, [{port, 55672}]}]},
+       {default_listener, [{port, 55670}]},
+       {contexts,         [{rabbit_mgmt, mgmt}]}]
 
 The listeners are given as pairs of a name and options; the options
 are given to mochiweb, and only `port` is mandatory (see below for
 other options).
-
-The listener called `'*'` is the catch-all default; a configuration
-must always have a listener named `'*'`.
 
 The context entries assign contexts (`rabbit_mgmt` etc.) to the
 listeners. The context names are used by applications when registering
