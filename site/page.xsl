@@ -506,7 +506,8 @@
 
   <!-- ############################################################ -->
   <xsl:template match="*[local-name(.) = 'code']">
-    <span class="code {./@class}"><xsl:value-of select="." /></span>
+    <!-- NB: multiple class attribute values are space delimited -->
+    <span class="code {./@class}"><xsl:apply-templates select="@*|node()"/></span>
   </xsl:template>
 
   <xsl:template match="@*">

@@ -29,7 +29,7 @@
             <a href="admin-guide.html">Administration Guide</a>
           </li>
           <li>
-            <a href="management.html">Management and Monitoring</a>
+            <a href="management.html">Management and Monitoring</a> (<a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">API</a>) (<a href="/management-cli.html">CLI</a>)
           </li>
           <li>
             <a href="manpages.html">Manual Pages</a>
@@ -88,7 +88,7 @@
           <li>Specific Plugin Pages:</li>
           <ul class="plain">
                     <li><a href="erlang-client-user-guide.html">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
-                  <li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface and HTTP API for managing and monitoring RabbitMQ.</li>
+                  <li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface, <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">HTTP API</a> and <a href="/management-cli.html">command line tool</a> for managing and monitoring RabbitMQ.</li>
                   <li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
                   <li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
                 <li><a href="stomp.html">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>

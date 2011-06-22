@@ -11,7 +11,7 @@
 	  Sometimes, during development or debugging, it's useful to
 	  be able to see every message that is published, and every
 	  message that is delivered. RabbitMQ has a "firehose"
-	  feature, where the administrator names (on a per-node,
+	  feature, where the administrator can enable (on a per-node,
 	  per-vhost basis) an exchange to which publish- and
 	  delivery-notifications should be CCed.
 	</p>
@@ -38,27 +38,17 @@
 	      vhost, "<code>/</code>", and the default node
 	      "<code>rabbit@(hostname)</code>". Use
 	      the <code>-n</code> argument to rabbitmqctl to specify
-	      another node.
+	      another node, and the <code>-p</code> argument to specify
+	      another vhost.
 	    </li>
 	    <li>
-	      Within your chosen vhost, declare the exchange you want
-	      to use to get trace messages, create associated queues
-	      and bindings, and begin consuming. In the examples
-	      below, we will use "<code>firehose</code>" as the
-	      exchange name.
+	      Within your chosen vhost create queues, bind them to
+	      the exchange <code>amq.rabbitmq.trace</code>, and begin consuming.
 	    </li>
 	    <li>
-	      Run <code>rabbitmqctl set_env
-	      trace_exchanges '[{&lt;&lt;"<i>vhost</i>"&gt;&gt;,
-              &lt;&lt;"<i>exchangename</i>"&gt;&gt;}]'</code>.
+	      Run <code>rabbitmqctl trace_on</code>.
 	    </li>
 	  </ol>
-	  <p>
-	    For example, using the assumptions above about the
-	    exchange name and vhost to use, the final
-	    <code>rabbitmqctl</code> command would be
-	  </p>
-	  <pre class="sourcecode">rabbitmqctl set_env trace_exchanges '[{&lt;&lt;"/"&gt;&gt;, &lt;&lt;"firehose"&gt;&gt;}]'</pre>
         </doc:subsection>
         <doc:subsection>
 	  <doc:heading>Disabling the firehose</doc:heading>
@@ -67,10 +57,10 @@
 	  </p>
 	  <ol>
 	    <li>
-	      Run <code>rabbitmqctl unset_env trace_exchanges</code>.
+	      Run <code>rabbitmqctl trace_off</code>.
 	    </li>
 	    <li>
-	      Clean up the queues and exchanges used by the firehose.
+	      Clean up the queues used by the firehose.
 	    </li>
 	  </ol>
         </doc:subsection>
@@ -78,7 +68,7 @@
 	  <doc:heading>Firehose notification format</doc:heading>
 	  <p>
 	    When the firehose is enabled, you will start receiving
-	    messages to the named exchange, with
+	    messages to the exchange <code>amq.rabbitmq.trace</code>, with
 	  </p>
 	  <ul>
 	    <li>
@@ -93,7 +83,7 @@
 	      all its headers, properties, and a few other things
 	    </li>
 	    <li>
-	      body correspnding to the body of the original message
+	      body corresponding to the body of the original message
 	    </li>
 	  </ul>
 	  <p>

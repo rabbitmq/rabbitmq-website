@@ -78,6 +78,34 @@
 
       <doc:section name="maintained">
         <doc:heading>Maintained Plugins</doc:heading>
+        <doc:subsection name="rabbitmq-auth-backend-ldap">
+          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
+          <p>
+            Authentication / authorisation plugin using an external LDAP
+            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/eldap-&version-server;-&eldap-suffix;.ez">eldap</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_backend_ldap-&version-server;.ez">rabbitmq_auth_backend_ldap</a></li>
+          </ul>
+        </doc:subsection>
+
+        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
+          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
+          <p>
+            Authentication mechanism plugin using SASL EXTERNAL to
+            authenticate using SSL client certificates.  See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_mechanism_ssl-&version-server;.ez">rabbitmq_auth_mechanism_ssl</a></li>
+          </ul>
+        </doc:subsection>
+
         <doc:subsection name="rabbitmq-management">
           <doc:heading>rabbitmq-management</doc:heading>
           <p>
@@ -174,35 +202,6 @@
           server<sup><a href="#compatibility">[1]</a></sup>.
         </p>
 
-
-        <doc:subsection name="rabbitmq-auth-backend-ldap">
-          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
-          <p>
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
-            for more information.
-          </p>
-          <p>To use this plugin the following files are required:</p>
-          <ul>
-            <li><a href="/releases/plugins/v&version-server;/eldap-&version-server;-&eldap-suffix;.ez">eldap</a></li>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_backend_ldap-&version-server;.ez">rabbitmq_auth_backend_ldap</a></li>
-          </ul>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
-          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
-          <p>
-            Authentication mechanism plugin using SASL EXTERNAL to
-            authenticate using SSL client certificates.  See
-            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
-            for more information.
-          </p>
-          <p>To use this plugin the following files are required:</p>
-          <ul>
-            <li><a href="/releases/plugins/v&version-server;/rabbitmq_auth_mechanism_ssl-&version-server;.ez">rabbitmq_auth_mechanism_ssl</a></li>
-          </ul>
-        </doc:subsection>
-
         <doc:subsection name="rabbitmq-federation">
           <doc:heading>rabbitmq-federation</doc:heading>
           <p>
@@ -238,27 +237,6 @@
             <a href="/releases/plugins/v&version-server;/rabbitmq_jsonrpc_channel_examples-&version-server;.ez">rabbitmq_jsonrpc_channel_examples</a>.
             This adds some example web applications: a shared
             whiteboard, a chat application, and some tests.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="rabbitmq-xmpp">
-          <doc:heading>rabbitmq-xmpp</doc:heading>
-          <p>
-            A gateway for exposing RabbitMQ's AMQP services to the
-            global XMPP network, by integrating RabbitMQ
-            with <a href="http://www.process-one.net/en/ejabberd/">ejabberd</a>.
-          </p>
-          <p>
-            By bridging between the two systems, we benefit from the
-            combination of XMPP's internet-scale addressing and federation,
-            XMPP's presence model, AMQP's store-and-forward capability and
-            AMQP's routing and filtering.
-          </p>
-          <p>
-            Note that we do not supply this plugin in binary form, as it is
-            a plugin for ejabberd rather than rabbitmq-server. Please
-            see <a href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">the
-              documentation</a> for more information on building and
-            configuring the gateway.
           </p>
         </doc:subsection>
       </doc:section>

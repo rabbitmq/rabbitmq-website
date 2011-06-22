@@ -25,6 +25,9 @@ div#toc h3 {
 div#content div.box h3 {
   margin: 0 0 0.5em 0;
 }
+div#content div.box h4 {
+  margin: 0.8em 0;
+}
 div#content a.top {
   margin: 0.1em 0 0.5em 0;
   font-size: 0.8em;
