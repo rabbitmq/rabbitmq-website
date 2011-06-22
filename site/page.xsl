@@ -507,7 +507,7 @@
   <!-- ############################################################ -->
   <xsl:template match="*[local-name(.) = 'code']">
     <span class="code {./@class}">
-      <!-- ignore any other attributes on the code element --> 
+      <!-- ignore any other attributes on the code element -->
       <xsl:apply-templates select="node()" />
     </span>
   </xsl:template>
