@@ -506,7 +506,10 @@
 
   <!-- ############################################################ -->
   <xsl:template match="*[local-name(.) = 'code']">
-    <span class="code {./@class}"><xsl:apply-templates select="@*|node()" /></span>
+    <span class="code {./@class}">
+      <!-- prevent the generic attribute matching template from over-writing @class --> 
+      <xsl:apply-templates select="@*[not(name() = 'class')]|node()" />
+    </span>
   </xsl:template>
 
   <xsl:template match="@*">
