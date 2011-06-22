@@ -48,7 +48,7 @@
         <ol>
         <li>Install Erlang</li>
         <li>Install RabbitMQ server </li>
-        <li>Configure environment</li>
+        <li>(optional) Configure environment</li>
         <li>(optional) Put plugins in plugin directory</li>
         <li>Start service or daemon</li>
         </ol>
@@ -72,7 +72,7 @@
               Then just run the <a href="server.html">Installer for Windows systems</a>,
               <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
               It takes around 2 minutes, and will set RabbitMQ up and running as a service,
-              with all defaults configured. That's all!
+              with the default configuration. That's all!
             </p>
           </dd>
           <dt>Run RabbitMQ</dt>
