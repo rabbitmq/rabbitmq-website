@@ -206,8 +206,8 @@
         <doc:subsection name="rabbitmq-federation">
           <doc:heading>rabbitmq-federation</doc:heading>
           <p>
-            Transmit messages between brokers without requiring
-            clustering. See
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See
             the <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/default/README">README</a>
             for more information.
           </p>
