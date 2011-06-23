@@ -195,9 +195,9 @@
         <p>
           A node may join a cluster at any time. Depending on the
           configuration of a queue, when a node joins a cluster,
-          queues may add a slave on the new cluster. At this point,
-          the new slave will be empty: it will not contain any
-          existing contents of the queue, and currently, there is no
+          queues may add a slave on the new node. At this point, the
+          new slave will be empty: it will not contain any existing
+          contents of the queue, and currently, there is no
           synchronisation protocol. Such a slave will receive new
           messages published to the queue, and thus over time will
           accurately represent the tail of the mirrored-queue. As
