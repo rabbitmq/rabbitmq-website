@@ -80,9 +80,9 @@
               You can stop/start/reinstall the RabbitMQ service from the Start Menu.
             </p>
             <p>
-              The service should run using default settings. You may need to
+              The service will run fine using its default settings. You may want to
               <a href="configure.html#customise-windows-environment">customise the RabbitMQ environment</a>
-              or <a href="configure.html#configuration-file">configure components</a>.
+              or edit <a href="configure.html#configuration-file">configuration</a>.
             </p>
           </dd>
         </dl>
