@@ -330,19 +330,16 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-pre {
-}
-
-pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode{
+pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode {
 	background: #eee;
 	padding: 5px;
 	border: 1px solid #ddd;
 }
 
 pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.code, span.path {
-        color: #333;
-        font-family: "Courier New", Courier, monospace;
-        font-size: small;
+    color: #333;
+    font-family: "Courier New", Courier, monospace;
+    font-size: small;
 }
 
 span.code {
@@ -352,7 +349,7 @@ span.envvar {
   color: black;
   white-space: nowrap;
 }
-span.path{
+span.path {
 	white-space: nowrap;
 }
 
