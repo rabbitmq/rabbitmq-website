@@ -50,7 +50,7 @@
 	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
 	with other messaging systems: it is the leading <a href="faq.html#what-is-amqp">implementation of AMQP</a>,
 	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
-	XMPP, SMTP, STOMP and HTTP for lightweight web messaging.</p>
+	SMTP, STOMP and HTTP for lightweight web messaging.</p>
 	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
 	contributors. A full range of <a href="services.html">commercial support services</a>
 	are available through the SpringSource division of VMware.</p>

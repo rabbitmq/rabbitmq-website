@@ -315,7 +315,7 @@ The code for `ReceiveLogsDirect.java`:
     }
 
 Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
-For convenience we'll now use an environment variable $CP for the classpath when running examples.
+For convenience we'll now use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
 
 
 If you want to save only 'warning' and 'error' (and not 'info') log
@@ -341,8 +341,7 @@ And, for example, to emit an `error` log message just type:
 (Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
 and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
 
-<!--Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
+Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
 for messages based on a pattern.
--->
 
 </div>

@@ -8,11 +8,11 @@
 
 
 ## Topics
-### (using the pika 0.9.5 Python client)
+### (using the Java client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-python.html) we improved our
+In the [previous tutorial](tutorial-four-java.html) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -97,8 +97,8 @@ It's easiest to explain this in an example:
 In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
 three words (two dots). The first word in the routing key
-will describe a celerity, second a colour and third a species:
-"`<celerity>.<colour>.<species>`".
+will describe speed, second a colour and third a species:
+"`<speed>.<colour>.<species>`".
 
 We created three bindings: Q1 is bound with binding key "`*.orange.*`"
 and Q2 with "`*.*.rabbit`" and "`lazy.#`".
@@ -143,91 +143,106 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-python.html).
+[previous tutorial](tutorial-four-java.html).
 
-The code for `emit_log_topic.py`:
+The code for `EmitLogTopic.java`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
-
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
-
-    channel.exchange_declare(exchange='topic_logs',
-                             type='topic')
-
-    routing_key = sys.argv[1] if len(sys.argv) > 1 else 'anonymous.info'
-    message = ' '.join(sys.argv[2:]) or 'Hello World!'
-    channel.basic_publish(exchange='topic_logs',
-                          routing_key=routing_key,
-                          body=message)
-    print " [x] Sent %r:%r" % (routing_key, message)
-    connection.close()
-
-The code for `receive_logs_topic.py`:
-
-    #!/usr/bin/env python
-    import pika
-    import sys
-
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
-
-    channel.exchange_declare(exchange='topic_logs',
-                             type='topic')
-
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.method.queue
-
-    binding_keys = sys.argv[1:]
-    if not binding_keys:
-        print >> sys.stderr, "Usage: %s [binding_key]..." % (sys.argv[0],)
-        sys.exit(1)
-
-    for binding_key in binding_keys:
-        channel.queue_bind(exchange='topic_logs',
-                           queue=queue_name,
-                           routing_key=binding_key)
-
-    print ' [*] Waiting for logs. To exit press CTRL+C'
+    #!java
+    public class EmitLogTopic {
     
-    def callback(ch, method, properties, body):
-        print " [x] %r:%r" % (method.routing_key, body,)
+        private static final String EXCHANGE_NAME = "topic_logs";
+    
+        public static void main(String[] argv)
+                      throws Exception {
+    
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+    
+            channel.exchangeDeclare(EXCHANGE_NAME, "topic");
+    
+            String routingKey = getRouting(argv);
+            String message = getMessage(argv);
+    
+            channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
+            System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
+    
+            connection.close();
+        }
+        //...
+    }
+    
 
-    channel.basic_consume(callback,
-                          queue=queue_name,
-                          no_ack=True)
+The code for `ReceiveLogsTopic.java`:
 
-    channel.start_consuming()
+    #!java
+    public class ReceiveLogsTopic {
+    
+        private static final String EXCHANGE_NAME = "topic_logs";
+    
+        public static void main(String[] argv)
+                      throws Exception {
+    
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+    
+            channel.exchangeDeclare(EXCHANGE_NAME, "topic");
+            String queueName = channel.queueDeclare().getQueue();
+     
+            if (argv.length < 1){
+                System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
+                System.exit(1);
+            }
+    
+            for(String bindingKey : argv){
+                channel.queueBind(queueName, EXCHANGE_NAME, bindingKey);
+            }
+    
+            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    
+            QueueingConsumer consumer = new QueueingConsumer(channel);
+            channel.basicConsume(queueName, true, consumer);
+    
+            while (true) {
+                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+                String message = new String(delivery.getBody());
+                String routingKey = delivery.getEnvelope().getRoutingKey();
+    
+                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");
+            }
+        }
+    }
 
-To receive all the logs run:
+Run the following examples, including the classpath as in [Tutorial 1](tutorial-one-java.html) - on Windows, use %CP%.  
+
+To receive all the logs:
 
     :::bash
-    python receive_logs_topic.py "#"
+    $ java -cp $CP ReceiveLogsTopic "#"
 
 To receive all logs from the facility "`kern`":
 
     :::bash
-    python receive_logs_topic.py "kern.*"
+    $ java -cp $CP ReceiveLogsTopic "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
     :::bash
-    python receive_logs_topic.py "*.critical"
+    $ java -cp $CP ReceiveLogsTopic "*.critical"
 
 You can create multiple bindings:
 
     :::bash
-    python receive_logs_topic.py "kern.*" "*.critical"
+    $ java -cp $CP ReceiveLogsTopic "kern.*" "*.critical"
 
 
 And to emit a log with a routing key "`kern.critical`" type:
 
     :::bash
-    python emit_log_topic.py "kern.critical" "A critical kernel error"
+    $ java -cp $CP EmitLogTopic "kern.critical" "A critical kernel error"
 
 
 Have fun playing with these programs. Note that the code doesn't make
@@ -239,33 +254,33 @@ Some teasers:
  * Will "`*`" binding catch a message sent with an empty routing key?
    <div class="teaser_answer">
        No.
-       ./receive_logs_topic.py "&#42;"
-       ./emit_log_topic.py ""
+       ./ReceiveLogsTopic "&#42;"
+       ./EmitLogTopic ""
    </div>
  * Will "`#.*`" catch a message with a string "`..`" as a key? Will
    it catch a message with a single word key?
    <div class="teaser_answer">
        No. (but I don't know why!)
-       ./receive_logs_topic.py "#.&#42;"
-       ./emit_log_topic.py ".."
+       ./ReceiveLogsTopic "#.&#42;"
+       ./EmitLogTopic ".."
        Yes
-       ./receive_logs_topic.py "#.&#42;"
-       ./emit_log_topic.py "a"
+       ./ReceiveLogsTopic "#.&#42;"
+       ./EmitLogTopic "a"
    </div>
  * How different is "`a.*.#`" from "`a.#`"?
    <div class="teaser_answer">
        'a.&#42;.#' matches anything that has two words or more, and the first
        word is 'a'. But 'a.#' matches anything that has one word or more
        with the first word set to 'a'.
-       ./receive_logs_topic.py "a.*.#"
-       ./emit_log_topic.py "a.b"
-       ./receive_logs_topic.py "a.#"
-       ./emit_log_topic.py "a.b"
+       ./ReceiveLogsTopic "a.*.#"
+       ./EmitLogTopic "a.b"
+       ./ReceiveLogsTopic "a.#"
+       ./EmitLogTopic "a.b"
    </div>
 
-(Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
-and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
+(Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
+and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
 
-Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)
 
 </div>
