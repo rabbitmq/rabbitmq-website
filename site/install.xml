@@ -56,8 +56,7 @@
       </doc:section>
 
       <doc:section name="windows">
-        <doc:heading>Windows</doc:heading>
-
+        <doc:heading>Windows Quick Install</doc:heading>
         <doc:subsection name="install-windows">
         <doc:heading>Install the Server</doc:heading>
           <dl class="instructions">
@@ -74,22 +73,46 @@
               with a default configuration. That's all!
             </p>
           </dd>
-          <dt>Run RabbitMQ</dt>
+          </dl>
+        </doc:subsection>
+        <doc:subsection name="run-windows">
+        <doc:heading>Run RabbitMQ Service</doc:heading>
+          <dl class="instructions">
+          <dt>Customise RabbitMQ Environment Variables</dt>
           <dd>
-            <p>
-              You can stop/start/reinstall the RabbitMQ service from the Start Menu.
-            </p>
             <p>
               The service will run fine using its default settings. You may want to
               <a href="configure.html#customise-windows-environment">customise the RabbitMQ environment</a>
               or edit <a href="configure.html#configuration-file">configuration</a>.
             </p>
           </dd>
-        </dl>
+          <dt>Run RabbitMQ</dt>
+          <dd>
+            <p>
+              The RabbitMQ service starts automatically.
+              You can stop/reinstall/start the RabbitMQ service from the Start Menu.
+            </p>
+          </dd>
+          <dt>Manage the Service</dt>
+          <dd>
+            <p>
+              You can find links to RabbitMQ directories in the Start Menu.
+            </p>
+            <p>
+              See <a href="#windows-manual">Windows Manual Install</a>
+              for info on <a href="#managing-windows">rabbitmqctl</a>
+              commands and <a href="#logging-windows">logging</a>.
+            </p>
+          </dd>
+          </dl>
         </doc:subsection>
+      </doc:section>
+        
+      <doc:section name="windows-manual">
+        <doc:heading>Windows Manual Install</doc:heading>
         
         <doc:subsection name="install-windows-separately">
-          <doc:heading>Install Server Components Manually</doc:heading>
+          <doc:heading>Install Server Components</doc:heading>
             <p>
               If you really need to install RabbitMQ manually, this is how to do it:
             </p>
