@@ -35,10 +35,16 @@
             <a href="manpages.html">Manual Pages</a>
           </li>
           <li>
+            <a href="extensions.html">Extensions and Experimental Features</a>
+          </li>
+          <li>
             <a href="clustering.html">Clustering Guide</a>
           </li>
           <li>
-            <a href="extensions.html">Extensions and Experimental Features</a>
+            <a href="ha.html">Active/Active High Availability Guide</a>
+          </li>
+          <li>
+            <a href="pacemaker.html">Active/Passive High Availability Guide using Pacemaker and DRBD</a>
           </li>
           <li>
             <a href="changelog.html">Changelog</a>
@@ -137,9 +143,6 @@
           </li>
           <li>
             How to <a href="firehose.html">trace all published and delivered messages</a>.
-          </li>
-          <li>
-            How to make a  <a href="pacemaker.html">highly available RabbitMQ broker with Pacemaker and DRBD</a>
           </li>
           <li>
             <a href="interoperability.html">Interoperability</a> with
