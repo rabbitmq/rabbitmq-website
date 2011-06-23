@@ -344,7 +344,7 @@
           </p>
 
           <dl class="instructions">
-            <dt>Synchronise Erlang Cookies (when running a Windows Service)</dt>
+            <dt>Synchronise Erlang Cookies (when running a manually installed Windows Service)</dt>
             <dd>
               <p>
                  Erlang Security Cookies used by the service account and the user
