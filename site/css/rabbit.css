@@ -345,6 +345,11 @@ pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.c
 span.code {
   white-space: nowrap;
 }
+pre span.code {
+	white-space: inherit;
+	display: block;
+}
+	
 span.envvar {
   color: black;
   white-space: nowrap;
