@@ -493,7 +493,7 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-                See the <a href="#generic-unix">generic Unix</a> section
+                See the <a href="#generic-unix">Generic Unix or Linux</a> section
                 for info on <a href="#managing-server-unix">rabbitmqctl</a>
                 commands and
                 <a href="#logging-generic-unix">logging</a>.
@@ -565,7 +565,7 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-                See the <a href="#generic-unix">generic Unix</a> section
+                See the <a href="#generic-unix">Generic Unix or Linux</a> section
                 for info on <a href="#managing-server-unix">rabbitmqctl</a>
                 commands and
                 <a href="#logging-generic-unix">logging</a>.
@@ -630,7 +630,7 @@
             <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
           </p>
           <p>
-            See the General Linux installation section for further information.
+            See the <a href="#generic-unix">Generic Unix or Linux</a> installation section for further information.
           </p>
         </doc:subsection>
       </doc:section>
@@ -663,6 +663,9 @@
           <p>
             All scripts run under your own user account. Sudo is not required.
           </p>
+          <p>
+            See the <a href="#generic-unix">Generic Unix or Linux</a> section for further information.
+          </p>
         </doc:subsection>
       </doc:section>
 
@@ -671,7 +674,7 @@
         <doc:subsection name="installing-solaris">
         <doc:heading>Install the Server</doc:heading>
           <p>
-            The  <a href="#generic-unix">Generic Unix</a> installation
+            The  <a href="#generic-unix">Generic Unix or Linux</a> installation
             instructions may be used to install RabbitMQ on Solaris, with
             two modifications:
             <ul>
