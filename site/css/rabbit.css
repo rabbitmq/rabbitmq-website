@@ -346,7 +346,7 @@ span.code {
   white-space: nowrap;
 }
 pre span.code {
-	white-space: inherit;
+	white-space: pre;
 	display: block;
 }
 	
