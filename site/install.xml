@@ -134,7 +134,7 @@
               <dd>
                 <p>
                   Set <span class="envvar">ERLANG_HOME</span> to where you actually put your Erlang installation, e.g.
-                  <code>&dir-erlang-windows;</code> (full path).
+                  <code>C:\Program Files\erl<var>x.x.x</var></code> (full path).
                   The RabbitMQ batch files expect to execute
                   <code><span class="envvar">%ERLANG_HOME%</span>\bin\erl.exe</code>.
                 </p>
