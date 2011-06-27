@@ -345,9 +345,10 @@ pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.c
 span.code {
   white-space: nowrap;
 }
+
 pre span.code {
-	white-space: pre;
-	display: block;
+  white-space: pre;
+  display: block;
 }
 	
 span.envvar {
