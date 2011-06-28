@@ -14,6 +14,16 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013449.html">2.5.1</a></td>
+          <td>27 June 2011</td>
+          <td>
+            <ul>
+              <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0.</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013248.html">2.5.0</a></td>
           <td>14 June 2011</td>
           <td>
