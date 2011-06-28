@@ -39,7 +39,7 @@ For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
     [
-      {rabbitmq_stomp, [{tcp_listeners, [12345]} ]}
+      {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
     ].
 
 while one which changes the listener to listen only on localhost (for
@@ -47,21 +47,18 @@ both IPv4 and IPv6) would look like:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
-                                         {"::1",       61613} ]} ]}
+                                         {"::1",       61613}]}]}
     ].
 
-## Configuring SSL
-
 To use SSL for STOMP connections, SSL must be configured in the broker
-as described [here](http://www.rabbitmq.com/ssl.html).
-
-To enable a STOMP SSL connections, add a listener configuration to the
-ssl_listeners variable for the rabbit_stomp appliction:
+as described [here](http://www.rabbitmq.com/ssl.html). To enable a
+STOMP SSL connections, add a listener configuration to the
+ssl_listeners variable for the rabbit_stomp application:
 
     [
-      {rabbit_stomp, [{tcp_listeners, [61613]},
-                      {ssl_listeners, [61614]}]}
-    ]
+      {rabbitmq_stomp, [{tcp_listeners, [61613]},
+                        {ssl_listeners, [61614]}]}
+    ].
 
 This configuration creates a standard TCP listener on port 61613 and
 an SSL listener on port 61614.
