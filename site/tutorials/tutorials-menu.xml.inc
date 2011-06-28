@@ -63,7 +63,7 @@
           </p>
         </li>
 
-        <li class="tutorial-six">
+        <li id="tutorial-six">
           <h2><span class="tute-num">6</span> <a href="/tutorials/tutorial-six-python.html">RPC</a></h2>
           <p>
 	    Remote procedure call implementation

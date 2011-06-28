@@ -16,7 +16,7 @@
 #sidebar.tutorial-three #tutorials > li#tutorial-three { border-color: #444; }
 #sidebar.tutorial-four #tutorials > li#tutorial-four { border-color: #444; }
 #sidebar.tutorial-five #tutorials > li#tutorial-five { border-color: #444; }
-#sidebar.tutorial-six #tutorials > li.tutorial-six { border-color: #444; }
+#sidebar.tutorial-six #tutorials > li#tutorial-six { border-color: #444; }
 
 ul#tutorials {
    list-style-type: none;
