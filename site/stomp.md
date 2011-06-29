@@ -19,6 +19,7 @@ Binary packages for the STOMP adapter can be found on the
 Instructions for installing binary plugins can be found in the
 [Admin Guide](http://www.rabbitmq.com/admin-guide.html#plugins).
 
+ <div id="caifs"/>
 ## Compiling and installing from source
 
 To build the STOMP adapter from source, follow the instructions for
@@ -30,10 +31,12 @@ You need to install the rabbitmq\_stomp.ez and amqp\_client.ez packages.
 ## Configuring the adapter
 
 When no configuration is specified the STOMP Adapter will listen on
-all interfaces on port 61613.
+all interfaces on port 61613 and have a default user login/passcode
+of `guest`/`guest`.
 
-To change this, edit your [Configuration file](http://www.rabbitmq.com/install.html#configfile),
-to contain a tcp_listeners variable for the rabbitmq_stomp application.
+To change this, edit your
+[Configuration file](/configure.html#configuration-file),
+to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
@@ -51,9 +54,9 @@ both IPv4 and IPv6) would look like:
     ].
 
 To use SSL for STOMP connections, SSL must be configured in the broker
-as described [here](http://www.rabbitmq.com/ssl.html). To enable a
+as described [here](http://www.rabbitmq.com/ssl.html). To enable
 STOMP SSL connections, add a listener configuration to the
-ssl_listeners variable for the rabbit_stomp application:
+`ssl_listeners` variable for the `rabbitmq_stomp` application:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [61613]},
@@ -76,7 +79,7 @@ section to the `rabbitmq_stomp` application configuration:
                                         {passcode, "guest"}]}]}
     ].
 
-The configuration example above makes "guest"/"guest" the default
+The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
 ### Implicit Connect
@@ -95,32 +98,44 @@ To enable implicit connect, add `implicit_connect` to the
                                         implicit_connect]}]}
     ].
 
-**Note** A client using implicit connect will still receive a
+Implicit connect is *not* enabled by default.
+
+**Note** A client causing an implicit connect will still receive a
 `CONNECTED` frame from the server.
 
 ### Testing the adapter
 
-If the adapter is running, you should be able to connect to port 61613
+If the default adapter is running, you should be able to connect to port 61613
 using a STOMP client of your choice. In a pinch, `telnet` or netcat
-(`nc`) will do nicely:
+(`nc`) will do nicely, for example:
 
-    $ nc localhost 61613
-    dummy
-    dummy
-    ERROR
-    message:Invalid frame
-    content-type:text/plain
-    content-length:22
+      $ nc localhost 61613
+      CONNECT
+      
+      ^@
+    : CONNECTED
+    : session:session-QaDdyL5lg5dUx0vSWrnVNg==
+    : heart-beat:0,0
+    : version:1.0
+    : 
+      DISCONNECT
+      
+      ^@
+    : 
+      $
 
-    Could not parse frame
-    $
+Here `$` is the command prompt; responses are prefixed with `:`
+(your session-id may vary);
+and Ctrl-@ (`^@`) inserts a zero byte into the stream.
+We connect as the default user (note the blank line
+after the `CONNECT` line) getting a `CONNECTED` response indicating
+that the STOMP adapter is listening and running.
+The `DISCONNECT` frame
+causes the connection to be dropped.
 
-That `ERROR` message indicates that the adapter is listening and
-attempting to parse STOMP frames.
-
-Alternatively, you can run the `test/test.py` script from the adapter
-source tree. This script runs a full suite of tests against the
-adapter in its default configuration.
+The script `test.py` runs a full suite of tests and this can be run
+using `make test` against a STOMP adapter built from source.
+See [Compiling and installing from source](#caifs) above.
 
 ## Destinations
 
