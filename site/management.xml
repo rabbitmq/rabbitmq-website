@@ -300,6 +300,21 @@
           Mercurial server</a>.
         </p>
       </doc:section>
+
+      <doc:section name="proxy">
+        <doc:heading>Proxy setup</doc:heading>
+        <p>
+          It is possible to make the web UI available via any proxy that
+          conforms with RFC 1738. The following sample Apache configuration
+          illustrates the minimum necessary directives to coax Apache into
+          conformance. It assumes a management web UI on the default port of 55672:
+          <pre class="example">
+AllowEncodedSlashes On
+ProxyPass        /mgmt http://localhost:55672/mgmt
+ProxyPassReverse /mgmt http://localhost:55672/mgmt
+ProxyPass        /api  http://localhost:55672/api nocanon</pre>
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
