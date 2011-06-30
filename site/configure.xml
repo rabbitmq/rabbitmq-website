@@ -165,7 +165,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                   </td></tr>
             <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
                   <td><b>Windows Service:</b>
-                  <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-&windows-version-erlang;\bin</span></td>
+                  <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span></td>
                   <td>
                   This path is the location of <code>erlsrv.exe</code>,
                   the Erlang service wrapper script.
@@ -346,7 +346,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>default_password</code></td>
+            <td><code>default_pass</code></td>
             <td><code>&lt;&lt;"guest">></code></td>
             <td>
               Password for the default user.
