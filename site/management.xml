@@ -262,8 +262,7 @@
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
-                                    {mgmt, [{port, 55555}]}]}]},
+  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
   ...
 ].</pre>
           <p>
