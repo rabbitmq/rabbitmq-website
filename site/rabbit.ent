@@ -18,7 +18,5 @@
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win64-apps "C:\Program Files (x86)">
 <!ENTITY dir-win-user "C:\Documents and Settings\User">
-<!ENTITY windows-version-erlang "5.7.4">
 
-<!ENTITY dir-erlang-windows "&dir-win-apps;\erl&windows-version-erlang;">
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">
