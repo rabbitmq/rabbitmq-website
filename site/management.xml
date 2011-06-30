@@ -300,6 +300,20 @@
           Mercurial server</a>.
         </p>
       </doc:section>
+
+      <doc:section name="apache-proxy">
+        <doc:heading>Apache proxy configuration</doc:heading>
+        <p>
+          It is possible to make the web UI available via an Apache web proxy.
+          The following configuration will work on recent versions on Apache
+          and assumes a mochiweb web UI on the default port of 55672:
+          <pre class="example">
+AllowEncodedSlashes On
+ProxyPass /mgmt http://localhost:55672/mgmt nocanon
+ProxyPassReverse /mgmt http://localhost:55672/mgmt
+ProxyPass /api http://localhost:55672/api nocanon</pre>
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
