@@ -66,8 +66,6 @@ request. We can use the default queue (which is exclusive in the Java client).
 Let's try it:
 
     :::java
-    import com.rabbitmq.client.AMQP.BasicProperties;
-    
     callbackQueueName = channel.queueDeclare().getQueue();
     
     BasicProperties props = new BasicProperties
@@ -95,6 +93,10 @@ Let's try it:
 > * `replyTo`: Commonly used to name a callback queue.
 > * `correlationId`: Useful to correlate RPC responses with requests.
 
+We need this new import:
+
+    :::java
+    import com.rabbitmq.client.AMQP.BasicProperties;
 
 ### Correlation Id
 
