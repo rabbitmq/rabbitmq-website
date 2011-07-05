@@ -261,6 +261,16 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           No message will be both confirmed and nack'd.
         </p>
 
+          <p>
+            When a channel is in both 'tx' and 'confirm' mode, the
+            server sends confirms (acks/nacks) as normal, though this
+            may be delayed until after <code>tx.commit</code>
+            or <code>tx.rollback</code>. Note that rolled back
+            publishes get confirmed positivley, i.e. ack'ed rather
+            than nack'ed since the server has discharged its
+            responsibility in regard to these messages
+          </p>
+
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
 
