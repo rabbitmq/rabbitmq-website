@@ -196,7 +196,7 @@
                 <a href="http://tech.favoritemedium.com/2010/08/rabbitmq-pubsub-messaging-with-groovy.html">PubSub with Groovy</a>
               </li>
               <li>
-                <a href="https://github.com/jbrisbin/rabbitmq-dsl">RabbitMQ Groovy DSL</a>
+                <a href="http://blog.springsource.com/2011/06/01/a-simple-groovy-dsl-for-building-rabbitmq-amqp-applications/">RabbitMQ Groovy DSL</a> (the <a href="https://github.com/jbrisbin/rabbitmq-dsl">source code</a> is on github)
               </li>
             </ul>
             <h4>Scala / Lift</h4>
@@ -341,10 +341,7 @@
               </li>
               <li>
                 <a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial
-              </li>
-              <li>
-                <a href="http://orbited.org">Orbited</a>, JavaScript/HTML socket in the browser
-              </li>
+              </li>              
               <li>
                 <a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python
               </li>
@@ -707,9 +704,9 @@
                 Node.js and RabbitMQ
               </li>
               <li>
-                <a href="http://kaazing.net/documentation/howto-amqp-silverlight.html">AMQP with Kaazing Enterprise Gateway and Microsoft Silverlight</a>
+                <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
                 <br />
-                Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Silverlight
+                Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Javascript
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
@@ -813,9 +810,10 @@
                 get or publish a message from or to RabbitMQ.
               </li>
               <li>
+                <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">puppetlabs-rabbitmq</a> and
                 <a href="https://github.com/camptocamp/puppet-rabbitmq">puppet-rabbitmq</a>
                 <br />
-                A Puppet module to manage RabbitMQ.
+                A pair of Puppet modules to manage RabbitMQ.
               <li>
                 <a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a>
                 <br/>

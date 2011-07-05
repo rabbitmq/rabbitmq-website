@@ -7,7 +7,7 @@
 <!ENTITY webmachine-prefix "1.7.0">
 
 <!ENTITY eldap-suffix "gite309de4">
-<!ENTITY jsonrpc-suffix "git00caae5">
+<!ENTITY jsonrpc-suffix "git30c8498">
 <!ENTITY mochiweb-suffix "git9a53dbd">
 <!ENTITY webmachine-suffix "hg0c4b60a">
 ]>
@@ -201,6 +201,21 @@
           do not guarantee compatibility with versions of the RabbitMQ
           server<sup><a href="#compatibility">[1]</a></sup>.
         </p>
+
+        <doc:subsection name="rabbitmq-federation">
+          <doc:heading>rabbitmq-federation</doc:heading>
+          <p>
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_federation-&version-server;.ez">rabbitmq_federation</a></li>
+          </ul>
+        </doc:subsection>
 
         <doc:subsection name="rabbitmq-jsonrpc-channel">
           <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>

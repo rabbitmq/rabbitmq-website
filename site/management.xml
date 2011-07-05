@@ -239,14 +239,13 @@
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
-          The management plugin has a couple of configuration
-          options. These are managed through the main RabbitMQ
+          There are several configuration options which affect the
+          management plugin. These are managed through the main
+          RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
         <doc:subsection name="fine-stats">
-          <doc:heading>
-            Fine-grained statistics
-          </doc:heading>
+          <doc:heading>Fine-grained statistics</doc:heading>
           <p>
             The message rates shown by the management plugin require
             fine-grained statistics to be enabled in the server. This
@@ -262,6 +261,23 @@
             to <code>false</code> in your configuration file for
             the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
+          </p>
+          <p>
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="http-logging">
@@ -280,12 +296,13 @@
           <doc:heading>Example</doc:heading>
           <p>
             An example configuration file for RabbitMQ that switches
-            on request logging, and explicitly sets some other
-            relevant parameters to their default values, would look
-            like this:
+            on request logging, increases the statistics interval to
+            10000ms and explicitly sets some other relevant parameters
+            to their default values, would look like this:
           </p>
           <pre class="example">[
-  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbit,                    [ {tcp_listeners,               [5672]},
+                                {collect_statistics_interval, 10000} ] },
   {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
@@ -308,15 +325,7 @@
             See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
             guide for more details.
           </p>
-          <p>
-            You can also assign the contexts <code>rabbit_mgmt</code>
-            (the user interface),
-            <code>rabbit_mgmt_api</code> (the HTTP API),
-            and <code>rabbit_mgmt_cli</code> (download and
-            documentation for the command-line client) to different
-            listeners; however, assigning the UI and API to different
-            listeners will break the UI.
-          </p>
+        </doc:subsection>
         </doc:subsection>
       </doc:section>
 
@@ -355,6 +364,21 @@
           the documentation can also be obtained
           from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
           Mercurial server</a>.
+        </p>
+      </doc:section>
+
+      <doc:section name="proxy">
+        <doc:heading>Proxy setup</doc:heading>
+        <p>
+          It is possible to make the web UI available via any proxy that
+          conforms with RFC 1738. The following sample Apache configuration
+          illustrates the minimum necessary directives to coax Apache into
+          conformance. It assumes a management web UI on the default port of 55672:
+          <pre class="example">
+AllowEncodedSlashes On
+ProxyPass        /api http://localhost:55672/api nocanon
+ProxyPass        /    http://localhost:55672/
+ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
     </doc:div>

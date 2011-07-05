@@ -1,4 +1,4 @@
-# HTTP server plugin
+# HTTP server plugin NOSYNTAX
 
 The `rabbitmq-mochiweb` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
@@ -23,15 +23,13 @@ configuration is usually supplied in the main [RabbitMQ configuration
 file](configure.html#configuration-file).
 
 The default configuration specifies two listeners, one on port 55670
-and one on port 55672; then assigns contexts used in the management
+and one on port 55672; then assigns the context used in the management
 plugin to the latter, and lets everything else default to the
 former. It looks like this:
 
       [{listeners, [{'*',  [{port, 55670}]},
                     {mgmt, [{port, 55672}]}]},
-       {contexts,  [{rabbit_mgmt, mgmt},
-                    {rabbit_mgmt_api, mgmt},
-                    {rabbit_mgmt_cli, mgmt}]}]
+       {contexts,  [{rabbit_mgmt, mgmt}]}]
 
 The listeners are given as pairs of a name and options; the options
 are given to mochiweb, and only `port` is mandatory (see below for
@@ -71,7 +69,24 @@ server does for AMQP over SSL, <b>but with client certificate
 verification switched off</b>. If you wish to use client certificate
 verification, specify it explicitly.
 
-## Example
+## Example: enable SSL for management
+
+In the following `rabbitmq.config`, SSL is enabled for the management
+plugin on port 55672.
+
+    [{rabbitmq_mochiweb,
+      [{listeners, [{'*',  [{port,     55670}]},
+                    {mgmt, [{port,     55672},
+                            {ssl,      true},
+                            {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                                        {certfile,   "/path/to/cert.pem"},
+                                        {keyfile,    "/path/to/key.pem"}]}
+                           ]}
+                   ]}
+      ]}
+    ].
+
+## Example: moving contexts
 
 In the following `rabbitmq.config`, the management API and its command-line
 tool are assigned to different listeners, and the command-line tool is
