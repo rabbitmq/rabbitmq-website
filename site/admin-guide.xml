@@ -126,13 +126,13 @@
               <th>read</th>
             </tr>
             <tr>
-              <td>exchange.declare</td><td>exchange</td><td/><td/>
+              <td>exchange.declare (passive=false)</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
               <td>exchange.delete</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
-              <td>queue.declare</td><td>queue</td><td/><td/>
+              <td>queue.declare (passive=false)</td><td>queue</td><td/><td/>
             </tr>
             <tr>
               <td>queue.delete</td><td>queue</td><td/><td/>

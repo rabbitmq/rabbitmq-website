@@ -165,7 +165,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                   </td></tr>
             <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
                   <td><b>Windows Service:</b>
-                  <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-&windows-version-erlang;\bin</span></td>
+                  <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span></td>
                   <td>
                   This path is the location of <code>erlsrv.exe</code>,
                   the Erlang service wrapper script.
@@ -400,6 +400,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>collect_statistics_interval</code></td>
+            <td><code>5000</code></td>
+            <td>
+              Statistics collection interval in
+              milliseconds. Primarily relevant for
+              the <a href="management.html#statistics-interval">management
+              plugin</a>.
+            </td>
+          </tr>
+          <tr>
             <td><code>auth_mechanisms</code></td>
             <td><code>['PLAIN', 'AMQPLAIN']</code></td>
             <td>
@@ -461,22 +471,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Implementation module for queue contents. You probably
               don't want to change this.
-            </td>
-          </tr>
-          <tr>
-            <td><code>persister_max_wrap_entries</code></td>
-            <td><code>500</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
-            </td>
-          </tr>
-          <tr>
-            <td><code>persister_hibernate_after</code></td>
-            <td><code>10000</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
             </td>
           </tr>
           <tr>

@@ -147,12 +147,14 @@
         <p>
           The management plugin extends the
           existing <a href="admin-guide.html#access-control">permissions
-          model</a> somewhat. Users can be marked as
-          "administrators". Only administrators can view or edit
-          users, virtual hosts or permissions at all. Furthermore,
-          only administrators can see details of other users'
-          connections and channels (and close such connections), as
-          well as node-level data such as memory use and clustering.
+          model</a> somewhat. Users can be given arbitrary tags within
+          RabbitMQ. The management plugin makes use of a tag called
+          "administrator". Only users with this tag (administrators)
+          can view or edit users, virtual hosts or permissions at
+          all. Furthermore, only administrators can see details of
+          other users' connections and channels (and close such
+          connections), as well as node-level data such as memory use
+          and clustering.
         </p>
         <p>
           Normal RabbitMQ permissions still apply to administrators;
@@ -174,22 +176,21 @@
           users, or no users at all, you can use <a
           href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
           to create a non-administrator user and <a
-          href="/man/rabbitmqctl.1.man.html#set_admin">rabbitmqctl
-          set_admin</a> to promote a user to administrator.
+          href="/man/rabbitmqctl.1.man.html#set_user_tags">rabbitmqctl
+          set_user_tags</a> to promote a user to administrator.
         </p>
       </doc:section>
 
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
-          The management plugin has a couple of configuration
-          options. These are managed through the main RabbitMQ
+          There are several configuration options which affect the
+          management plugin. These are managed through the main
+          RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
         <doc:subsection name="fine-stats">
-          <doc:heading>
-            Fine-grained statistics
-          </doc:heading>
+          <doc:heading>Fine-grained statistics</doc:heading>
           <p>
             The message rates shown by the management plugin require
             fine-grained statistics to be enabled in the server. This
@@ -205,6 +206,23 @@
             to <code>false</code> in your configuration file for
             the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
+          </p>
+          <p>
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="http-logging">
@@ -223,12 +241,13 @@
           <doc:heading>Example</doc:heading>
           <p>
             An example configuration file for RabbitMQ that switches
-            on request logging, and explicitly sets some other
-            relevant parameters to their default values, would look
-            like this:
+            on request logging, increases the statistics interval to
+            10000ms and explicitly sets some other relevant parameters
+            to their default values, would look like this:
           </p>
           <pre class="example">[
-  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbit,                    [ {tcp_listeners,               [5672]},
+                                {collect_statistics_interval, 10000} ] },
   {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
   {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
@@ -251,15 +270,7 @@
             See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
             guide for more details.
           </p>
-          <p>
-            You can also assign the contexts <code>rabbit_mgmt</code>
-            (the user interface),
-            <code>rabbit_mgmt_api</code> (the HTTP API),
-            and <code>rabbit_mgmt_cli</code> (download and
-            documentation for the command-line client) to different
-            listeners; however, assigning the UI and API to different
-            listeners will break the UI.
-          </p>
+        </doc:subsection>
         </doc:subsection>
       </doc:section>
 
@@ -310,9 +321,9 @@
           conformance. It assumes a management web UI on the default port of 55672:
           <pre class="example">
 AllowEncodedSlashes On
-ProxyPass        /mgmt http://localhost:55672/mgmt
-ProxyPassReverse /mgmt http://localhost:55672/mgmt
-ProxyPass        /api  http://localhost:55672/api nocanon</pre>
+ProxyPass        /api http://localhost:55672/api nocanon
+ProxyPass        /    http://localhost:55672/
+ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
     </doc:div>

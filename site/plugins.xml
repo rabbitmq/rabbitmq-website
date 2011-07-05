@@ -202,6 +202,21 @@
           server<sup><a href="#compatibility">[1]</a></sup>.
         </p>
 
+        <doc:subsection name="rabbitmq-federation">
+          <doc:heading>rabbitmq-federation</doc:heading>
+          <p>
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See
+            the <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/default/README">README</a>
+            for more information.
+          </p>
+          <p>To use this plugin the following files are required:</p>
+          <ul>
+            <li><a href="/releases/plugins/v&version-server;/amqp_client-&version-server;.ez">amqp_client</a></li>
+            <li><a href="/releases/plugins/v&version-server;/rabbitmq_federation-&version-server;.ez">rabbitmq_federation</a></li>
+          </ul>
+        </doc:subsection>
+
         <doc:subsection name="rabbitmq-jsonrpc-channel">
           <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>
           <p>
