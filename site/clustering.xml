@@ -666,8 +666,8 @@ $ rabbitmqctl -n hare start_app</pre>
             not to clash as well - for example:
           </p>
           <pre class="sourcecode">
-$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]},{'*',[{port,55670}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]},{'*',[{port,55670}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.
