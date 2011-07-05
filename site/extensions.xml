@@ -266,7 +266,7 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
             server sends confirms (acks/nacks) as normal, though this
             may be delayed until after <code>tx.commit</code>
             or <code>tx.rollback</code>. Note that rolled back
-            publishes get confirmed positivley, i.e. ack'ed rather
+            publishes get confirmed positively, i.e. ack'ed rather
             than nack'ed since the server has discharged its
             responsibility in regard to these messages
           </p>
