@@ -319,9 +319,9 @@
           conformance. It assumes a management web UI on the default port of 55672:
           <pre class="example">
 AllowEncodedSlashes On
-ProxyPass        /mgmt http://localhost:55672/mgmt
-ProxyPassReverse /mgmt http://localhost:55672/mgmt
-ProxyPass        /api  http://localhost:55672/api nocanon</pre>
+ProxyPass        /api http://localhost:55672/api nocanon
+ProxyPass        /    http://localhost:55672/
+ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
     </doc:div>

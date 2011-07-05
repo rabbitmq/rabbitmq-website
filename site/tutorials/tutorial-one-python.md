@@ -132,7 +132,7 @@ messages from that queue.
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     :::bash
->     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.9.5#egg=pika-v0.9.5
+>     $ sudo pip install pika==0.9.5
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them first.
@@ -153,7 +153,7 @@ messages from that queue.
 >
 >         :::bash
 >         > easy_install pip
->         > pip install -e git+http://github.com/pika/pika.git@v0.9.5#egg=pika-v0.9.5
+>         > pip install pika==0.9.5
 >
 
 ### Sending
