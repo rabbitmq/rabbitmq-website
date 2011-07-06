@@ -2600,13 +2600,7 @@
             <td>effect visibility / responsibility transfer / durability</td>
             <td>undefined</td>
             <td>on <code>tx.commit</code></td>
-            <td>handled by <a href="extensions.html#confirms">confirms</a></td>
-          </tr>
-          <tr>
-            <td>use in conjunction with 'confirms'</td>
-            <td>n/a</td>
-            <td>no</td>
-            <td>yes</td>
+            <td>on <code>tx.commit</code></td>
           </tr>
         </table>
         <p>
@@ -2662,18 +2656,11 @@
           should become visible following a <code>tx.commit</code>,
           e.g. when published messages will appear in queues and can
           be consumed from other clients, when persistent messages
-          will be written to disk, etc. In earlier versions of
-          RabbitMQ, the <code>tx.confirm-ok</code> indicated that all
-          transaction effects were visible and that the broker had
+          will be written to disk, etc. In RabbitMQ
+          the <code>tx.confirm-ok</code> indicates that all
+          transaction effects are visible and that the broker has
           accepted responsibility for all the messages published in
-          the transaction. Recent versions of RabbitMQ leave the
-          responsibility transfer guarantees to
-          RabbitMQ's <a href="extensions.html#confirms">confirm</a>
-          mechanism. This gives applications the option of employing
-          <code>tx</code> for light-weight batching, without
-          confirms. And when confirmations <em>are</em> are required,
-          they can be enabled/handled in exactly the same way as in
-          the non-transactional case.
+          the transaction.
         </p>
       </doc:section>
     </doc:div>

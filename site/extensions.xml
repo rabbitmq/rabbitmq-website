@@ -213,7 +213,9 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           <code>no-wait</code> was set or not, the broker may respond
           with a <code>confirm.select-ok</code>.  Once the
           <code>confirm.select</code> method is used on a channel, it
-          is said to be in confirm mode.
+          is said to be in confirm mode.  A transactional channel
+          cannot be put into confirm mode and once a channel is in
+          confirm mode, it cannot be made transactional.
         </p>
 
         <p>
@@ -260,16 +262,6 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           guarantees are made as to how soon a message is confirmed.
           No message will be both confirmed and nack'd.
         </p>
-
-          <p>
-            When a channel is in both 'tx' and 'confirm' mode, the
-            server sends confirms (acks/nacks) as normal, though this
-            may be delayed until after <code>tx.commit</code>
-            or <code>tx.rollback</code>. Note that rolled back
-            publishes get confirmed positively, i.e. ack'ed rather
-            than nack'ed since the server has discharged its
-            responsibility in regard to these messages
-          </p>
 
         <doc:subsection>
           <doc:heading>Usage</doc:heading>
