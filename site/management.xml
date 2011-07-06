@@ -148,28 +148,83 @@
           The management plugin extends the
           existing <a href="admin-guide.html#access-control">permissions
           model</a> somewhat. Users can be given arbitrary tags within
-          RabbitMQ. The management plugin makes use of a tag called
-          "administrator". Only users with this tag (administrators)
-          can view or edit users, virtual hosts or permissions at
-          all. Furthermore, only administrators can see details of
-          other users' connections and channels (and close such
-          connections), as well as node-level data such as memory use
-          and clustering.
+          RabbitMQ. The management plugin makes use of tags called
+          "management", "monitoring" and "administrator". The following
+          table shows what the different types of user can do:
+        </p>
+        <table>
+          <tr>
+            <th>Tag</th>
+            <th>Capabilities</th>
+          </tr>
+          <tr>
+            <td>(None)</td>
+            <td>
+              No access to the management plugin
+            </td>
+          </tr>
+          <tr>
+            <td>management</td>
+            <td>
+              Anything the user could do via AMQP plus:
+              <ul>
+                <li>List virtual hosts to which they can log in via AMQP</li>
+                <li>
+                  View all queues, exchanges and bindings in "their"
+                  virtual hosts
+                </li>
+                <li>View and close their own channels and connections</li>
+                <li>
+                  View "global" statistics covering all their
+                  virtual hosts, including activity by other users
+                  within them
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>monitoring</td>
+            <td>
+              Everything "management" can plus:
+              <ul>
+                <li>
+                  List all virtual hosts, including ones they could
+                  not log in to via AMQP
+                </li>
+                <li>View other users's connections and channels</li>
+                <li>View node-level data such as memory use and clustering</li>
+                <li>View truly global statistics for all virtual hosts</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>administrator</td>
+            <td>
+              Everything "monitoring" can plus:
+              <ul>
+                <li>Create and delete virtual hosts</li>
+                <li>View, create and delete users</li>
+                <li>View, create and delete permissions</li>
+                <li>Close other users's connections</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p>
+          Note that since "administrator" does everything "monitor"
+          does, and "monitor" does everything "management-user" does,
+          you only need to give each user a maximum of one tag.
         </p>
         <p>
-          Normal RabbitMQ permissions still apply to administrators;
-          just because a user is an administrator does not give them
-          full access to exchanges, queues and bindings through either
-          AMQP or the management plugin.
+          Normal RabbitMQ permissions still apply to monitors and
+          administrators; just because a user is a monitor or
+          administrator does not give them full access to exchanges,
+          queues and bindings through either AMQP or the management
+          plugin.
         </p>
         <p>
-          All users, administrators or otherwise, can only list
-          objects within a particular virtual host if they have any
-          permissions for that virtual host. Non-administrators
-          however cannot even see the existence of virtual hosts they
-          do not have permissions for, and will not see messages in
-          those virtual hosts counting towards their "global" message
-          rates.
+          All users can only list objects within a particular virtual
+          host if they have any permissions for that virtual host.
         </p>
         <p>
           If you get locked out due to only having non-administrator
