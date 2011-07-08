@@ -363,6 +363,10 @@
     <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
   </xsl:template>
 
+  <xsl:template match="r:readme-link">
+    <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+  </xsl:template>
+
   <!-- ############################################################ -->
 
   <xsl:template match="r:classes">

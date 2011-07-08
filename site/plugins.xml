@@ -80,7 +80,7 @@
           <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
           <p>
             Authentication / authorisation plugin using an external LDAP
-            server. See the <a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/default/README">README</a>
+            server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
             for more information.
           </p>
 
@@ -92,10 +92,10 @@
         <doc:subsection name="rabbitmq-auth-mechanism-ssl">
           <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
           <p>
-            Authentication mechanism plugin using SASL EXTERNAL to
-            authenticate using SSL client certificates.  See
-            the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/default/README">README</a>
-            for more information.
+            Authentication mechanism plugin using SASL EXTERNAL to authenticate
+            using SSL client certificates. See the
+            <r:readme-link repo="rabbitmq-auth-mechanism-ssl"/> for more
+            information.
           </p>
 
           <r:plugin-download name="rabbitmq_auth_mechanism_ssl"/>
@@ -131,9 +131,10 @@
           <doc:heading>rabbitmq-shovel</doc:heading>
           <p>
             A plug-in for RabbitMQ that shovels messages from a queue on one
-            broker to an exchange on another broker. Please see
-            the <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">README</a> for more information or
-            take a look at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
+            broker to an exchange on another broker. Please see the
+            <r:readme-link repo="rabbitmq-shovel"/> for more information or
+            take a look
+            at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
             working Shovel configuration</a>.
           </p>
 
@@ -179,7 +180,7 @@
             networked version that uses standard TCP-based AMQP framing and
             a direct client that uses native Erlang message passing to a
             RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
-              guide</a> and the <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/&version-server-hg;/README">README</a>
+            guide</a> and the <r:readme-link repo="rabbitmq-erlang-client"/>
             for more information.
           </p>
           <p>
@@ -206,7 +207,7 @@
           <p>
             Scalable publish / subscribe messaging across WANs and
             administrative domains. See
-            the <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/default/README">README</a>
+            the <r:readme-link repo="rabbitmq-federation"/>
             for more information.
           </p>
           <r:plugin-download name="rabbitmq_federation">
