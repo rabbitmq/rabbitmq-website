@@ -102,9 +102,12 @@ def render_page(page_name):
             match = re.compile('.*href="(.*)"').match(child.getContent())
             if match:
                 xslt_file_name = match.group(1)
-                xslt_doc = libxml2.parseFile(os.path.join(SITE_DIR, xslt_file_name))
+                xslt_doc = libxml2.readFile(
+                    os.path.join(SITE_DIR, xslt_file_name),
+                    "UTF-8",
+                    libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})                
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500
