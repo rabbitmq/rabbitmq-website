@@ -68,8 +68,10 @@ Let's try it:
     :::java
     callbackQueueName = channel.queueDeclare().getQueue();
     
-    BasicProperties props = new BasicProperties();
-    props.setReplyTo(callbackQueueName);
+    BasicProperties props = new BasicProperties
+                                .Builder()
+                                .replyTo(callbackQueueName)
+                                .build();
 
     channel.basicPublish("", "rpc_queue", props, message.getBytes());
 
@@ -91,6 +93,10 @@ Let's try it:
 > * `replyTo`: Commonly used to name a callback queue.
 > * `correlationId`: Useful to correlate RPC responses with requests.
 
+We need this new import:
+
+    :::java
+    import com.rabbitmq.client.AMQP.BasicProperties;
 
 ### Correlation Id
 
@@ -235,8 +241,10 @@ The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitm
         QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 
         BasicProperties props = delivery.getProperties();
-        BasicProperties replyProps = new BasicProperties();
-        replyProps.setCorrelationId(props.getCorrelationId());
+        BasicProperties replyProps = new BasicProperties
+                                         .Builder()
+                                         .correlationId(props.getCorrelationId())
+                                         .build();
 
         String message = new String(delivery.getBody());
         int n = Integer.parseInt(message);
@@ -285,9 +293,11 @@ The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitm
         String response = null;
         String corrId = java.util.UUID.randomUUID().toString();
                 
-        BasicProperties props = new BasicProperties();
-        props.setReplyTo(replyQueueName);
-        props.setCorrelationId(corrId);
+        BasicProperties props = new BasicProperties
+                                    .Builder()
+                                    .correlationId(corrId)
+                                    .replyTo(replyQueueName)
+                                    .build();
     
         channel.basicPublish("", requestQueueName, props, message.getBytes());
         
