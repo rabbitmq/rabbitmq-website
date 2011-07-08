@@ -339,17 +339,65 @@
 
   <!-- ############################################################ -->
 
-  <xsl:template match="r:plugin-download">
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <xsl:apply-templates/>
-      <xsl:call-template name="plugin-dependency"/>
-    </ul>
+  <xsl:template match="r:plugin-index">
+    <div class="docToc">
+      <ul>
+        <xsl:for-each select="//r:plugin-group">
+          <li>
+            <a href="#{@id}"><xsl:value-of select="@name"/></a>
+            <ul>
+              <xsl:for-each select=".//r:plugin">
+                <li>
+                  <a href="#{@name}"><xsl:value-of select="@name"/></a>
+                </li>
+              </xsl:for-each>
+            </ul>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </div>
   </xsl:template>
 
-  <xsl:template name="plugin-dependency" match="r:plugin-dependency">
-      <li><xsl:call-template name="plugin-link"/></li>
+  <xsl:template match="r:plugin-group">
+    <div class="docSection" id="{@id}">
+      <h2 class="docHeading"><xsl:value-of select="@name"/> Plugins</h2>
+      <xsl:apply-templates/>
+    </div>
   </xsl:template>
+
+  <xsl:template match="r:plugin">
+    <div class="docSubsection" id="{@name}">
+      <h3 class="docHeading"><xsl:value-of select="@name"/></h3>
+      <xsl:apply-templates/>
+      <xsl:call-template name="plugin-download"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="plugin-download" match="r:plugin-download">
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
+        <li>
+          <xsl:call-template name="plugin-link"/><br/>
+          <xsl:apply-templates/>
+        </li>
+      </xsl:for-each>
+      <li><xsl:call-template name="plugin-link"/></li>
+    </ul>
+    <xsl:if test="r:plugin-dependency[@optional='true']">
+      <p>And the following files are <b>optional</b>:</p>
+      <ul>
+        <xsl:for-each select="r:plugin-dependency[@optional='true']">
+          <li>
+            <xsl:call-template name="plugin-link"/><br/>
+            <xsl:apply-templates/>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="r:plugin-dependency"/>
 
   <xsl:template name="plugin-link" match="r:plugin-link">
     <xsl:variable name="name" select="@name"/>

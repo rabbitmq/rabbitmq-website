@@ -74,167 +74,117 @@
         </p>
       </doc:section>
 
-      <doc:section name="maintained">
-        <doc:heading>Maintained Plugins</doc:heading>
-        <doc:subsection name="rabbitmq-auth-backend-ldap">
-          <doc:heading>rabbitmq-auth-backend-ldap</doc:heading>
-          <p>
+      <doc:section name="index">
+        <doc:heading>Plugin Index</doc:heading>
+        <r:plugin-index />
+      </doc:section>
+
+      <doc:section>
+        <r:plugin-group id="maintained" name="Maintained">
+          <r:plugin name="rabbitmq_auth_backend_ldap">
             Authentication / authorisation plugin using an external LDAP
             server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
             for more information.
-          </p>
-
-          <r:plugin-download name="rabbitmq_auth_backend_ldap">
             <r:plugin-dependency name="eldap"/>
-          </r:plugin-download>
-        </doc:subsection>
+          </r:plugin>
 
-        <doc:subsection name="rabbitmq-auth-mechanism-ssl">
-          <doc:heading>rabbitmq-auth-mechanism-ssl</doc:heading>
-          <p>
+          <r:plugin name="rabbitmq_auth_mechanism_ssl">
             Authentication mechanism plugin using SASL EXTERNAL to authenticate
             using SSL client certificates. See the
             <r:readme-link repo="rabbitmq-auth-mechanism-ssl"/> for more
             information.
-          </p>
+          </r:plugin>
 
-          <r:plugin-download name="rabbitmq_auth_mechanism_ssl"/>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-management">
-          <doc:heading>rabbitmq-management</doc:heading>
-          <p>
-            A management / monitoring API over HTTP, along with a browser-based
-            UI. For more information, see <a href="management.html">the page on
-            the management plugin</a>.
-          </p>
-
-          <r:plugin-download name="rabbitmq_management">
+          <r:plugin name="rabbitmq_management">
+            <p>
+              A management / monitoring API over HTTP, along with a
+              browser-based UI. For more information,
+              see <a href="management.html">the page on the management
+              plugin</a>.
+            </p>
+            <p>
+              <b>Note:</b> When installing the management plugin on <b>some</b>
+              of the nodes in a cluster, you must install
+              <r:plugin-link name="rabbitmq_management_agent"/>
+              on <b>all</b> of the nodes in the cluster. You can install the
+              full management plugin on as many of the nodes as you
+              want.
+            </p>
             <r:plugin-dependency name="mochiweb"/>
             <r:plugin-dependency name="webmachine"/>
             <r:plugin-dependency name="rabbitmq_mochiweb"/>
             <r:plugin-dependency name="amqp_client"/>
             <r:plugin-dependency name="rabbitmq_management_agent"/>
-          </r:plugin-download>
+          </r:plugin>
 
-          <p>
-            <b>Note:</b> When installing the management plugin on <b>some</b>
-            of the nodes in a cluster, you must install
-            <r:plugin-link name="rabbitmq_management_agent"/>
-            on <b>all</b> of the nodes in the cluster. You can install the
-            full management plugin on as many of the nodes as you
-            want.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-shovel">
-          <doc:heading>rabbitmq-shovel</doc:heading>
-          <p>
+          <r:plugin name="rabbitmq_shovel">
             A plug-in for RabbitMQ that shovels messages from a queue on one
             broker to an exchange on another broker. Please see the
             <r:readme-link repo="rabbitmq-shovel"/> for more information or
             take a look
             at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
-            working Shovel configuration</a>.
-          </p>
-
-          <r:plugin-download name="rabbitmq_shovel">
+              working Shovel configuration</a>.
             <r:plugin-dependency name="amqp_client"/>
-          </r:plugin-download>
+            <r:plugin-dependency name="rabbitmq_shovel_management" optional="true">
+              Shows shovel status in the management API and UI. Only of
+              use when using rabbitmq_shovel in conjunction with
+              rabbitmq_management.
+            </r:plugin-dependency>
+          </r:plugin>
 
-          <p>
-            <b>Note:</b> When using rabbitmq-shovel in conjunction with
-            rabbitmq-management, you can additionally install
-            <r:plugin-link name="rabbitmq_shovel_management"/>
-            to see shovel status in the management API and UI.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="rabbitmq-stomp">
-          <doc:heading>rabbitmq-stomp</doc:heading>
-          <p>
-            A gateway for exposing AMQP functionality via
-            the <a href="http://stomp.codehaus.org/Protocol">STOMP
-            protocol</a>, as implemented by
-            many <a href="http://stomp.codehaus.org/Clients">clients</a>
-            for various programming languages, and a few
-            other <a href="http://stomp.codehaus.org/Brokers">servers</a>
-            besides RabbitMQ.
-          </p>
-          <p>
-            Please see the <a href="stomp.html">documentation</a> and
-            our various
-            <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
-            articles</a> about the adapter for more information on
-            compiling and configuring it.
-          </p>
-          <r:plugin-download name="rabbitmq_stomp">
+          <r:plugin name="rabbitmq_stomp">
+            <p>
+              A gateway for exposing AMQP functionality via
+              the <a href="http://stomp.codehaus.org/Protocol">STOMP
+                protocol</a>, as implemented by
+              many <a href="http://stomp.codehaus.org/Clients">clients</a>
+              for various programming languages, and a few
+              other <a href="http://stomp.codehaus.org/Brokers">servers</a>
+              besides RabbitMQ.
+            </p>
+            <p>
+              Please see the <a href="stomp.html">documentation</a> and
+              our various
+              <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
+                articles</a> about the adapter for more information on
+              compiling and configuring it.
+            </p>
             <r:plugin-dependency name="amqp_client"/>
-          </r:plugin-download>
-        </doc:subsection>
+          </r:plugin>
+        </r:plugin-group>
 
-        <doc:subsection name="rabbitmq-erlang-client">
-          <doc:heading>rabbitmq-erlang-client</doc:heading>
+        <r:plugin-group id="experimental" name="Experimental">
           <p>
-            An Erlang client for RabbitMQ. This client offers both a
-            networked version that uses standard TCP-based AMQP framing and
-            a direct client that uses native Erlang message passing to a
-            RabbitMQ broker. See the <a href="erlang-client-user-guide.html">user
-            guide</a> and the <r:readme-link repo="rabbitmq-erlang-client"/>
-            for more information.
+            Currently, all plugins below are <em>experimental</em>. This
+            means we make no claims about their fitness for purpose or
+            stability, though they are in general under active
+            development. In particular, the version numbers of the packages
+            do not guarantee compatibility with versions of the RabbitMQ
+            server<sup><a href="#compatibility">[1]</a></sup>.
           </p>
-          <p>
-            This plugin is a dependency of some others, but can also be
-            used standalone (not embedded in the server). Such use is outside
-            the scope of this page.
-          </p>
-        </doc:subsection>
-      </doc:section>
 
-      <doc:section name="experimental">
-        <doc:heading>Experimental Plugins</doc:heading>
-        <p>
-          Currently, all plugins below are <em>experimental</em>. This
-          means we make no claims about their fitness for purpose or
-          stability, though they are in general under active
-          development. In particular, the version numbers of the packages
-          do not guarantee compatibility with versions of the RabbitMQ
-          server<sup><a href="#compatibility">[1]</a></sup>.
-        </p>
-
-        <doc:subsection name="rabbitmq-federation">
-          <doc:heading>rabbitmq-federation</doc:heading>
-          <p>
+          <r:plugin name="rabbitmq_federation">
             Scalable publish / subscribe messaging across WANs and
-            administrative domains. See
-            the <r:readme-link repo="rabbitmq-federation"/>
-            for more information.
-          </p>
-          <r:plugin-download name="rabbitmq_federation">
+            administrative domains. See the
+            <r:readme-link repo="rabbitmq-federation"/> for more
+            information.
             <r:plugin-dependency name="amqp_client"/>
-          </r:plugin-download>
-        </doc:subsection>
+          </r:plugin>
 
-        <doc:subsection name="rabbitmq-jsonrpc-channel">
-          <doc:heading>rabbitmq-jsonrpc-channel</doc:heading>
-          <p>
+          <r:plugin name="rabbitmq_jsonrpc_channel">
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
-          </p>
-          <r:plugin-download name="rabbitmq_jsonrpc_channel">
             <r:plugin-dependency name="mochiweb"/>
             <r:plugin-dependency name="rfc4627_jsonrpc"/>
             <r:plugin-dependency name="amqp_client"/>
             <r:plugin-dependency name="rabbitmq_mochiweb"/>
             <r:plugin-dependency name="rabbitmq_jsonrpc"/>
-          </r:plugin-download>
-          <p>
-            In addition, you may wish to install
-            <r:plugin-link name="rabbitmq_jsonrpc_channel_examples"/>.
-            This adds some example web applications: a shared
-            whiteboard, a chat application, and some tests.
-          </p>
-        </doc:subsection>
+            <r:plugin-dependency name="rabbitmq_jsonrpc_channel_examples" optional="true">
+              Adds some example web applications: a shared whiteboard, a
+              chat application, and some tests.
+            </r:plugin-dependency>
+          </r:plugin>
+        </r:plugin-group>
       </doc:section>
 
       <doc:section name="building">
