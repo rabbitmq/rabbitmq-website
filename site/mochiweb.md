@@ -82,19 +82,3 @@ plugin on port 55672.
                    ]}
       ]}
     ].
-
-## Example: moving contexts
-
-In the following `rabbitmq.config`, the management API and its command-line
-tool are assigned to different listeners, and the command-line tool is
-given an explicit path prefix. The management listener will only bind to the
-loopback interface.
-
-    [{rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},
-                                       {mgmt, [{port, 55672},
-                                               {ip,   "127.0.0.1"}]},
-                                       {cli,  [{port, 55555}]}]},
-                          {contexts,  [{rabbit_mgmt,     mgmt},
-                                       {rabbit_mgmt_api, mgmt},
-                                       {rabbit_mgmt_cli, {cli, "commandline"}}]}
-    ]}].
