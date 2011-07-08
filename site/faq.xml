@@ -257,7 +257,7 @@
                   <p>
                     Messages are individually flagged as transient or
                     persistent in AMQP at the time of publication. By
-		    sending messages in non-persistent mode, an
+                    sending messages in non-persistent mode, an
                     application can achieve very high throughput and
                     low latency.
                   </p>
@@ -268,8 +268,8 @@
                     Messages that are published in persistent mode are
                     logged to disk for durability. If the server is
                     restarted, the system ensures that received
-		    persistent messages are not lost. The publisher
-		    confirmation part of the protocol provides the
+                    persistent messages are not lost. The publisher
+                    confirmation part of the protocol provides the
                     final piece of the puzzle, by allowing the server
                     to communicate its definite receipt of a set of
                     published messages.
@@ -1451,10 +1451,10 @@ web UI.
           <doc:a>
             <p>
               From our testing, we expect easily-achievable
-	      throughputs of 4000 persistent one-kilobyte messages per
-	      second (Intel Pentium D, 2.8GHz, dual core, gigabit
-	      ethernet) from a single RabbitMQ broker node writing to
-	      a single spindle.
+              throughputs of 4000 persistent one-kilobyte messages per
+              second (Intel Pentium D, 2.8GHz, dual core, gigabit
+              ethernet) from a single RabbitMQ broker node writing to
+              a single spindle.
             </p>
             <p>
               Please let us know how RabbitMQ performs for you!
