@@ -96,25 +96,24 @@
           </r:plugin>
 
           <r:plugin name="rabbitmq_management">
-            <p>
-              A management / monitoring API over HTTP, along with a
-              browser-based UI. For more information,
-              see <a href="management.html">the page on the management
-              plugin</a>.
-            </p>
-            <p>
-              <b>Note:</b> When installing the management plugin on <b>some</b>
-              of the nodes in a cluster, you must install
-              <r:plugin-link name="rabbitmq_management_agent"/>
-              on <b>all</b> of the nodes in the cluster. You can install the
-              full management plugin on as many of the nodes as you
-              want.
-            </p>
+            A management / monitoring API over HTTP, along with a
+            browser-based UI. For more information,
+            see <a href="management.html">the page on the management
+            plugin</a>.
             <r:plugin-dependency name="mochiweb"/>
             <r:plugin-dependency name="webmachine"/>
             <r:plugin-dependency name="rabbitmq_mochiweb"/>
             <r:plugin-dependency name="amqp_client"/>
             <r:plugin-dependency name="rabbitmq_management_agent"/>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_agent">
+            When installing the management plugin on <b>some</b>
+            of the nodes in a cluster, you must install
+            <r:plugin-link name="rabbitmq_management_agent"/>
+            on <b>all</b> of the nodes in the cluster. You can install the
+            full management plugin on as many of the nodes as you
+            want.
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel">
