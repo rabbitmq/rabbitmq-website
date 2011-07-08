@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stylesheet [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:html="http://www.w3.org/1999/xhtml"
@@ -331,6 +335,32 @@
     <a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+
+  <xsl:template match="r:plugin-download">
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <xsl:apply-templates/>
+      <xsl:call-template name="plugin-dependency"/>
+    </ul>
+  </xsl:template>
+
+  <xsl:template name="plugin-dependency" match="r:plugin-dependency">
+      <li><xsl:call-template name="plugin-link"/></li>
+  </xsl:template>
+
+  <xsl:template name="plugin-link" match="r:plugin-link">
+    <xsl:variable name="name" select="@name"/>
+    <xsl:variable name="explicit" select="//r:plugin-ver[@name=$name]/@ver"/>
+    <xsl:variable name="ver">
+      <xsl:choose>
+        <xsl:when test="$explicit"><xsl:value-of select="$explicit"/></xsl:when>
+        <xsl:otherwise>&version-server;</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
   </xsl:template>
 
   <!-- ############################################################ -->
