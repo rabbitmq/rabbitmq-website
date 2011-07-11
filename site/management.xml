@@ -317,15 +317,13 @@
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
-                                    {mgmt, [{port, 55555}]}]}]},
+  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
   ...
 ].</pre>
           <p>
             See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
             guide for more details.
           </p>
-        </doc:subsection>
         </doc:subsection>
       </doc:section>
 
