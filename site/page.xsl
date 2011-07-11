@@ -346,7 +346,7 @@
           <li>
             <a href="#{@id}"><xsl:value-of select="@name"/></a>
             <ul>
-              <xsl:for-each select=".//r:plugin">
+              <xsl:for-each select="r:plugin">
                 <li>
                   <a href="#{@name}"><xsl:value-of select="@name"/></a>
                 </li>
@@ -385,7 +385,7 @@
       <li><xsl:call-template name="plugin-link"/></li>
     </ul>
     <xsl:if test="r:plugin-dependency[@optional='true']">
-      <p>And the following files are <b>optional</b>:</p>
+      <p>And the following files are optional:</p>
       <ul>
         <xsl:for-each select="r:plugin-dependency[@optional='true']">
           <li>
@@ -397,6 +397,7 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="r:plugin-ver"/>
   <xsl:template match="r:plugin-dependency"/>
 
   <xsl:template name="plugin-link" match="r:plugin-link">
