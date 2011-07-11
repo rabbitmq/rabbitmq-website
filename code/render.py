@@ -102,6 +102,8 @@ def render_page(page_name):
             match = re.compile('.*href="(.*)"').match(child.getContent())
             if match:
                 xslt_file_name = match.group(1)
+                # PARSE_NOENT means "substitute entities". This is needed by
+                # the XSL for the plugins page.
                 xslt_doc = libxml2.readFile(
                     os.path.join(SITE_DIR, xslt_file_name),
                     "UTF-8",
