@@ -42,11 +42,13 @@
       see if RabbitMQ is supported on your operating system.
     </p>
     <p>
-      In order to compile or run the server, you will need to have
-      downloaded and installed
-      <a href="which-erlang.html">Erlang/OTP, version R12B-3 or higher</a>.
-      Your operating system may come with a package for working with Erlang, or you may need to
-      <a href="http://www.erlang.org/download.html">download and install Erlang</a> yourself.
+      RabbitMQ server uses
+      <a href="http://www.erlang.org">Erlang/OTP</a>,
+      so a <a href="which-erlang.html">recent version of Erlang</a>
+      must be installed to run or compile the server.
+      Your operating system may provide an Erlang package,
+      or you may need to get it from
+      <a href="http://www.erlang.org/download.html">http://www.erlang.org/download.html</a>.
     </p>
 
     <p>
