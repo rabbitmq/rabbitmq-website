@@ -169,6 +169,12 @@
             <r:readme-link repo="rabbitmq-federation"/> for more
             information.
             <r:plugin-dependency name="amqp_client"/>
+            <r:plugin-dependency name="rabbitmq_federation_management" optional="true">
+              Shows federation status in the management API and UI. Only
+              of use when using rabbitmq_federation in conjunction with
+              rabbitmq_management. In a heterogenous cluster this
+              should be installed on the same nodes as rabbitmq_management.
+            </r:plugin-dependency>
           </r:plugin>
 
           <r:plugin name="rabbitmq_jsonrpc_channel">
