@@ -20,17 +20,15 @@
     <p>
     <table>
       <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
-      <tr><td>run <a href="server.html">RabbitMQ</a></td><td>R12B-3</td><td></td></tr>
+      <tr><td>run <a href="server.html">RabbitMQ</a> server</td><td>R12B-3</td><td></td></tr>
       <tr><td><a href="build-server.html">build RabbitMQ</a> from source</td><td>R12B-5</td>
-      <td>Needs Erlang development and runtime tools.
-      On Debian: add erlang-nox and erlang-dev.</td></tr>
+      <td>Also needs the Erlang development and runtime tools</td></tr>
       <tr><td>use <a href="mochiweb.html">mochiweb</a></td><td>R13B01</td>
       <td>Some <a href="plugins.html">plugins</a> depend on mochiweb, e.g. the <a href="management.html">management plugin</a></td></tr>
       <tr><td>run on <a href="install.html#windows">Windows</a></td><td>R13B03</td>
       <td>Earlier versions do not recognise <a href="extensions.html#memsup">memory</a> limits.</td></tr>
       <tr><td>use <a href="ssl.html">SSL</a> reliably</td><td>R14B (SSL 4.0.1)</td>
-      <td>Earlier versions do not support <a href="ssl.html">SSL</a> well
-      (certificates, RC4, Windows crypto).</td></tr>
+      <td>Earlier versions do not support <a href="ssl.html">SSL</a> well.</td></tr>
     </table>
     </p>
     <p>
@@ -41,12 +39,12 @@
 
     <h3>OS support</h3>
     <p>
-      Most current distributions now package Erlang R14B or above. You can check these specific distributions:
+      Most current distributions now package Erlang that meets all the above. You can check these specific distributions:
     <ul>
     <li><a href="http://software.opensuse.org">OpenSUSE</a></li>
     <li><a href="https://admin.fedoraproject.org/updates/erlang">Fedora</a></li>
     <li><a href="http://www.macports.org/ports.php">Macports</a></li>
-    <li><a href="http://packages.qa.debian.org/e/erlang.html">Debian</a></li>
+    <li><a href="http://packages.debian.org/stable/erlang">Debian</a></li>
     <li><a href="https://launchpad.net/erlang">Ubuntu</a></li>
     <li><a href="http://download.fedora.redhat.com/pub/epel/5/SRPMS/repoview/erlang.html">Fedora EPEL 5 SRPMS</a></li>
     </ul>
@@ -69,7 +67,7 @@
       (as root)
       <code> wget -O /etc/yum.repos.d/epel-erlang.repo
       http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>.
-      Invoking <code>yum install erlang</code> will then install or update Erlang.
+      Invoking <code>yum install erlang</code> will then install Erlang.
     </dd>
     <dt>Ubuntu</dt>
     <dd>
