@@ -77,13 +77,13 @@
     </dd>
     </dl>
     </p>
-    
+
     <h3>Update the distribution</h3>
     <p>
       If you need newer features of Erlang than the package manager for your
       Linux distribution provides, it may be best to update your distribution.
     </p>
-    
+
     <h3>Building Erlang from source</h3>
     <p>
       As a last resort you might build Erlang from source. Be aware that if you do,
@@ -91,7 +91,7 @@
       install RabbitMQ from the generic Unix package, or from source.
     </p>
     <p>
-      If you should need to 
+      If you should need to
       <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>,
       you will need OpenSSL installed on your system.
     </p>
