@@ -36,10 +36,9 @@
       all nodes should use the same version of Erlang.
     </p>
 
-
     <h3>OS support</h3>
     <p>
-      Most current distributions now package Erlang that meets all the above. You can check these specific distributions:
+      Most current distributions now package Erlang that supports all the above. You can check these specific distributions:
     <ul>
     <li><a href="http://software.opensuse.org">OpenSUSE</a></li>
     <li><a href="https://admin.fedoraproject.org/updates/erlang">Fedora</a></li>
@@ -68,10 +67,6 @@
       <code> wget -O /etc/yum.repos.d/epel-erlang.repo
       http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>.
       Invoking <code>yum install erlang</code> will then install Erlang.
-    </dd>
-    <dt>Ubuntu</dt>
-    <dd>
-      If you need SSL you may wish to use a PPA to get a more recent version of Erlang.
     </dd>
     </dl>
     </p>
