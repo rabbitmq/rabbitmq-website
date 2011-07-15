@@ -100,7 +100,7 @@ To enable implicit connect, add `implicit_connect` to the
 
 Implicit connect is *not* enabled by default.
 
-**Note** A client causing an implicit connect will still receive a
+**Note** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
 
 ### Testing the adapter
