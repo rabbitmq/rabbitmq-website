@@ -336,9 +336,11 @@ Online: [ ha-node-2 ha-node-1 ]
         that these survive the transition to the other node. It's a
         good idea to play with stopping and starting the nodes at this
         point to build confidence that it really is doing the right
-        thing. <code>rabbitmqctl -n rabbit@localhost status</code> and
-        similar commands will allow you to see the status of RabbitMQ
-        server from whichever node it is currently running on.</p>
+        thing. Status commands (<code>rabbitmqctl -n rabbit@localhost
+        status</code> and <code>rabbitmqctl -n rabbit@localhost
+        cluster_status</code>) will allow you to see the status of
+        RabbitMQ server from whichever node it is currently running
+        on.</p>
 
         <p>By default, the <code>ocf:rabbitmq:rabbitmq-server</code>
         script sets the node-name to <code>rabbit@localhost</code> on
@@ -509,15 +511,9 @@ ha-node-3:~# rabbitmqctl stop_app
 ha-node-3:~# rabbitmqctl reset
 ha-node-3:~# rabbitmqctl cluster rabbit@rabbit-ha-1 rabbit@rabbit-ha-2
 ha-node-3:~# rabbitmqctl start_app
-ha-node-3:~# rabbitmqctl status
-Status of node 'rabbit@rabbit-ha-2' ...
-[{running_applications,[{rabbit,"RabbitMQ","%%VSN%%"},
-                        {mnesia,"MNESIA  CXC 138 12","4.4.12"},
-                        {os_mon,"CPO  CXC 138 46","2.2.4"},
-                        {sasl,"SASL  CXC 138 11","2.1.8"},
-                        {stdlib,"ERTS  CXC 138 10","1.16.4"},
-                        {kernel,"ERTS  CXC 138 10","2.13.4"}]},
- {nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
+ha-node-3:~# rabbitmqctl cluster_status
+Cluster status of node 'rabbit@rabbit-ha-2' ...
+[{nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
  {running_nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]
 ...done.
 ha-node-3:~#
@@ -538,8 +534,8 @@ ha-node-3:~#
         <code>RABBITMQ_*</code> environment variables that can be used
         to configure Rabbit. They are:</p>
         <dl>
-          <dt>multi</dt>
-          <dd>The path to the rabbitmq-multi script</dd>
+          <dt>server</dt>
+          <dd>The path to the rabbitmq-server script</dd>
 
           <dt>ctl</dt>
           <dd>The path to the rabbitmqctl script</dd>

@@ -42,12 +42,13 @@
       see if RabbitMQ is supported on your operating system.
     </p>
     <p>
-      In order to compile or run the server, you will need to have
-      downloaded and installed Erlang/OTP, version R12B-3 or
-      higher. Your operating system may come with a package for
-      working with Erlang, or you may need to <a
-      href="http://www.erlang.org/download.html">download and install
-      Erlang</a> yourself.
+      RabbitMQ server uses
+      <a href="http://www.erlang.org">Erlang/OTP</a>,
+      so a <a href="which-erlang.html">recent version of Erlang</a>
+      must be installed to run or compile the server.
+      Your operating system may provide an Erlang package,
+      or you may need to get it from
+      <a href="http://www.erlang.org/download.html">http://www.erlang.org/download.html</a>.
     </p>
 
     <p>
@@ -97,6 +98,10 @@
       <r:download downloadfile="rabbitmq-server-windows-&version-server;.zip"
 		  downloadpath="&dir-server;">
 	Packaged for Windows systems
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;.exe"
+		  downloadpath="&dir-server;">
+	<b>Experimental</b><sup><a href="#windows-installer">#</a></sup> installer for Windows systems
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;.zip"
                   downloadpath="&dir-server;">
@@ -195,6 +200,27 @@
       FAQ</a>. Then just <code>yum install erlang</code>.
     </p>
 
+    <p>
+      <b>Note to users of RHEL 5 and derived distributions
+      (e.g. CentOS 5):</b> Due
+      to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+      the EPEL package update policy</a>, EPEL 5 contains Erlang
+      version R12B-5, which is relatively old.  rabbitmq-server
+      supports R12B-5, but performance may be lower than for more
+      recent Erlang versions, and certain non-core features are not
+      supported (SSL support, HTTP-based plugins).  Therefore, we
+      recommend that you install the most recent stable version of
+      Erlang.  The easiest way to do this is to use a package
+      repository provided for this purpose by the owner of the EPEL
+      Erlang package.  Enable it by invoking (as root):
+    </p>
+
+    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
+
+    <p>
+      and then install or update erlang with <code>yum install erlang</code>.
+    </p>
+
     <h3>Mac OS X</h3>
 
     <p>
@@ -216,7 +242,17 @@
       be used on any Unix or Linux variant.
     </p>
 
-    <h3>Windows Bundle</h3>
+    <h3 id="windows-installer">Windows Installer</h3>
+    <p>
+      As an alternative to <a href="install.html#windows">installing
+      the server manually on Windows</a>, we have an experimental
+      executable installer. Please be prepared to report bugs
+      to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">the
+      mailing list</a>. You will need to install Erlang from its
+      installer first.
+    </p>
+
+    <h3 id="windows_bundle">Windows Bundle</h3>
     <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
       <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
     </xi:include>
@@ -233,7 +269,8 @@
     <p>
       The RabbitMQ server itself, implemented in Erlang. Depends on the
       code-generation library module. Please see the <a
-      href="build.html">build instructions</a>.
+      href="build-server.html">build page</a> for instructions on
+      compiling from source code.
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">

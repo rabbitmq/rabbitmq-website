@@ -45,12 +45,7 @@
 	<p>
 	  During debugging, you may wish to monitor the messages that
 	  are being sent through the <code>amq.rabbitmq.log</code>
-	  topic exchange. One way of doing this is to make use of the
-	  <a
-	  href="http://hg.rabbitmq.com/rabbitmq-xmpp/raw-file/default/doc/index.html">XMPP
-	  IM gateway</a> we run on <code>dev.rabbitmq.com</code>, by
-	  adding <code>amq.rabbitmq.log@dev.rabbitmq.com</code> to
-	  your XMPP roster.
+	  topic exchange.
 	</p>
 
 

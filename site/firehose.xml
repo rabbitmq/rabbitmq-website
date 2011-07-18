@@ -1,0 +1,97 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - Firehose</title>
+  </head>
+  <body>
+    <doc:div>
+      <doc:section>
+        <doc:heading>Firehose</doc:heading>
+	<p>
+	  Sometimes, during development or debugging, it's useful to
+	  be able to see every message that is published, and every
+	  message that is delivered. RabbitMQ has a "firehose"
+	  feature, where the administrator can enable (on a per-node,
+	  per-vhost basis) an exchange to which publish- and
+	  delivery-notifications should be CCed.
+	</p>
+        <p>
+          These notifications are close to what's happening on the
+          wire - for example you will see uncommitted messages in
+          transactional mode, and unacked messages in general.
+        </p>
+	<p>
+	  When the feature is switched off, it has no effect on
+	  performance; when it is switched on, it makes a
+	  significant difference. <b>Be cautious</b> in using this
+	  feature on production systems!
+	</p>
+        <doc:subsection>
+	  <doc:heading>Enabling the firehose</doc:heading>
+	  <p>
+	    To enable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Decide which node, and which vhost, you want to enable
+	      it for. In the examples below, we assume the default
+	      vhost, "<code>/</code>", and the default node
+	      "<code>rabbit@(hostname)</code>". Use
+	      the <code>-n</code> argument to rabbitmqctl to specify
+	      another node, and the <code>-p</code> argument to specify
+	      another vhost.
+	    </li>
+	    <li>
+	      Within your chosen vhost create queues, bind them to
+	      the exchange <code>amq.rabbitmq.trace</code>, and begin consuming.
+	    </li>
+	    <li>
+	      Run <code>rabbitmqctl trace_on</code>.
+	    </li>
+	  </ol>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Disabling the firehose</doc:heading>
+	  <p>
+	    To disable the firehose:
+	  </p>
+	  <ol>
+	    <li>
+	      Run <code>rabbitmqctl trace_off</code>.
+	    </li>
+	    <li>
+	      Clean up the queues used by the firehose.
+	    </li>
+	  </ol>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Firehose notification format</doc:heading>
+	  <p>
+	    When the firehose is enabled, you will start receiving
+	    messages to the exchange <code>amq.rabbitmq.trace</code>, with
+	  </p>
+	  <ul>
+	    <li>
+	      routing key either
+	      "<code>publish.<i>exchangename</i></code>", for messages
+	      entering the broker, or
+	      "<code>deliver.<i>queuename</i></code>", for messages
+	      leaving the broker;
+	    </li>
+	    <li>
+	      headers containing metadata about the original message:
+	      all its headers, properties, and a few other things
+	    </li>
+	    <li>
+	      body corresponding to the body of the original message
+	    </li>
+	  </ul>
+	  <p>
+	    The fields in the notification message body table describe
+	    the original message that was published or delivered.
+          </p>
+        </doc:subsection>
+      </doc:section>
+    </doc:div>
+  </body>
+</html>

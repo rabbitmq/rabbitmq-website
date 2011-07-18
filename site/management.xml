@@ -19,8 +19,9 @@
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
-          with a browser-based UI and an experimental command line
-          tool, <code>rabbitmqadmin</code>. Features include:
+          with a browser-based UI and a command line tool, <a
+          href="management-cli.html">rabbitmqadmin</a>. Features
+          include:
         </p>
         <ul>
           <li>
@@ -30,6 +31,9 @@
           <li>
             Monitor queue length, message rates globally and per
             channel, data rates per connection, etc.
+          </li>
+          <li>
+            Send and receive messages.
           </li>
           <li>
             Monitor Erlang processes, file descriptors, memory use.
@@ -100,25 +104,8 @@
           <p>
             rabbitmq-management uses
             the <a href="http://github.com/mochi/mochiweb">Mochiweb</a>
-            web server. As such it has a stricter set of requirements
-            than vanilla RabbitMQ:
-          </p>
-          <ul>
-            <li>A newer Erlang version. At least R13B01 is recommended.</li>
-            <li>The Erlang crypto application must be installed and
-              working. This may be an issue of Windows users and
-              people who compile Erlang from source.</li>
-          </ul>
-          <p>
-            For Windows users: Versions of Erlang as recent as R13B03 do
-            not include the OpenSSL library needed by the crypto
-            application. <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This
-              post</a> explains how to install it. Version R14A appears to
-            include it already.
-          </p>
-          <p>
-            For people compiling Erlang: Ensure <code>configure</code>
-            finds OpenSSL and builds the crypto application.
+            web server which requires a newer Erlang version. At least
+            R13B01 is required, but later versions are recommended.
           </p>
         </doc:subsection>
       </doc:section>
@@ -135,8 +122,8 @@
             http://<i>server-name</i>:55672/api/
           </li>
           <li>
-            Download of <code>rabbitmqadmin</code> and its documentation are at:
-            http://<i>server-name</i>:55672/cli/
+            Download <a href="management-cli.html">rabbitmqadmin</a>
+            at: http://<i>server-name</i>:55672/cli/
           </li>
         </ul>
         <p>
@@ -164,18 +151,31 @@
           "administrators". Only administrators can view or edit
           users, virtual hosts or permissions at all. Furthermore,
           only administrators can see details of other users'
-          connections and channels (and close such connections).
+          connections and channels (and close such connections), as
+          well as node-level data such as memory use and clustering.
         </p>
         <p>
-          Note that normal RabbitMQ permissions still apply to
-          administrators; just because a user is an administrator does
-          not give them full access to exchanges, queues and bindings
-          through either AMQP or the management plugin.
+          Normal RabbitMQ permissions still apply to administrators;
+          just because a user is an administrator does not give them
+          full access to exchanges, queues and bindings through either
+          AMQP or the management plugin.
         </p>
         <p>
-          Also note that all users, administrators or otherwise, can
-          only list objects within a particular virtual host if they
-          have any permissions for that virtual host.
+          All users, administrators or otherwise, can only list
+          objects within a particular virtual host if they have any
+          permissions for that virtual host. Non-administrators
+          however cannot even see the existence of virtual hosts they
+          do not have permissions for, and will not see messages in
+          those virtual hosts counting towards their "global" message
+          rates.
+        </p>
+        <p>
+          If you get locked out due to only having non-administrator
+          users, or no users at all, you can use <a
+          href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
+          to create a non-administrator user and <a
+          href="/man/rabbitmqctl.1.man.html#set_admin">rabbitmqctl
+          set_admin</a> to promote a user to administrator.
         </p>
       </doc:section>
 
@@ -184,8 +184,7 @@
         <p>
           The management plugin has a couple of configuration
           options. These are managed through the main RabbitMQ
-          configuration file. Information on the configuration file
-          can be found <a href="install.html#configfile">here</a>.
+          <a href="configure.html#configuration-file">configuration file</a>.
         </p>
         <doc:subsection name="fine-stats">
           <doc:heading>
@@ -204,7 +203,7 @@
             statistics, you can prevent this from happening. Set the
             value of the <code>force_fine_statistics</code> variable
             to <code>false</code> in your configuration file for
-            the <code>rabbit_management_agent</code> application and
+            the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
           </p>
         </doc:subsection>
@@ -213,7 +212,7 @@
           <p>
             To create simple access logs of requests to the HTTP API,
             set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbit_management</code> application to the name
+            the <code>rabbitmq_management</code> application to the name
             of a directory in which logs can be created and restart
             RabbitMQ. Note that only requests to the API
             at <code>/api</code> are logged, not requests to the static
@@ -228,12 +227,39 @@
             relevant parameters to their default values, would look
             like this:
           </p>
-          <pre>[
-  {rabbit,                  [ {tcp_listeners,         [{"0.0.0.0", 5672}]} ] },
-  {rabbit_mochiweb,         [ {port,                  55672} ] },
-  {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
-  {rabbit_management_agent, [ {force_fine_statistics, true} ] }
+          <pre class="example">[
+  {rabbit,                    [ {tcp_listeners,         [5672]} ] },
+  {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
+  {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
+        </doc:subsection>
+        <doc:subsection name="mochiweb-config">
+          <doc:heading>HTTP interfaces</doc:heading>
+          <p>
+            It is possible to configure rabbitmq-mochiweb to serve the
+            management plugin on a different port or TCP/IP
+            interface. To do so, you should configure a listener
+            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+          </p>
+          <pre class="example">[
+  ...
+  {rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},,
+                                    {mgmt, [{port, 55555}]}]}]},
+  ...
+].</pre>
+          <p>
+            See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
+            guide for more details.
+          </p>
+          <p>
+            You can also assign the contexts <code>rabbit_mgmt</code>
+            (the user interface),
+            <code>rabbit_mgmt_api</code> (the HTTP API),
+            and <code>rabbit_mgmt_cli</code> (download and
+            documentation for the command-line client) to different
+            listeners; however, assigning the UI and API to different
+            listeners will break the UI.
+          </p>
         </doc:subsection>
       </doc:section>
 
@@ -266,12 +292,27 @@
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
-          The management plugin will create an HTTP-based API at
+          By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
           location for more information on the API. For convenience
           the documentation can also be obtained
           from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
           Mercurial server</a>.
+        </p>
+      </doc:section>
+
+      <doc:section name="proxy">
+        <doc:heading>Proxy setup</doc:heading>
+        <p>
+          It is possible to make the web UI available via any proxy that
+          conforms with RFC 1738. The following sample Apache configuration
+          illustrates the minimum necessary directives to coax Apache into
+          conformance. It assumes a management web UI on the default port of 55672:
+          <pre class="example">
+AllowEncodedSlashes On
+ProxyPass        /mgmt http://localhost:55672/mgmt
+ProxyPassReverse /mgmt http://localhost:55672/mgmt
+ProxyPass        /api  http://localhost:55672/api nocanon</pre>
         </p>
       </doc:section>
     </doc:div>

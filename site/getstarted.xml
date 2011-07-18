@@ -17,21 +17,51 @@
         href="install.html">installation guide.</a>
       </p>
 
-      <p>
-         The tutorials here are in Python or Java but there are
-         very good tutorials using other programming languages
-         available <a href="how.html#quickstart">elsewhere</a>.
-      </p>
+      <div id="tutorial-index">
+        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
+      </div>
 
+      <p>
+        The tutorials here are using Python and Java, however, code
+        samples are available in a variety of languages:
+
+        <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/dotnet">C#</a> (using <a href="http://www.rabbitmq.com/dotnet.html">.net/c# client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/default">erlang client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="https://github.com/tnc/php-amqplib">tnc fork of php-amqplib</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python-puka">python-puka</a> (using <a href="https://github.com/majek/puka/">puka</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="https://github.com/ruby-amqp/amqp/">amqp gem</a>)
+          </li>
+        </ul>
+      </p>
+      <p>
+        We also maintain a list
+        of <a href="how.html#quickstart">tutorials</a> and a list
+        of <a href="devtools.html">clients and developer tools</a> for
+        a different platforms that you may find useful.
+      </p>
+      
       <p>
         Once you have been through the tutorials (or if you want to
         skip ahead), you may wish to browse our 
         <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>. 
       </p>
       
-      <div id="tutorial-index">
-        <xi:include href="tutorials-menu.xml.inc"/>
-      </div>
     </doc:div>
   </body>
 </html>

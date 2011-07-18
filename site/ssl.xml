@@ -18,16 +18,36 @@
         <doc:heading>Introduction</doc:heading>
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
         <p>SSL/TLS support in the RabbitMQ server requires
-          the <code class="">new_ssl</code> Erlang/OTP
+          the <code>new_ssl</code> Erlang/OTP
           application. For everything to work correctly, ensure the
           following minimum configuration: </p>
         <ul class="plain">
-          <li> Erlang Distribution - R12B-5</li>
+          <li> Erlang Distribution - R13B</li>
           <li> Erlang SSL - 3.10</li>
         </ul>
-        <p>The recommended distribution is R14B (SSL 4.0.1). This should be
+        <p>The recommended distribution is R14B (SSL 4.0.1) or later. This should be
         considered the minimum configuration for Java and Erlang clients
         due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
+
+        <p>The Erlang crypto application must be installed and working. This may
+        be an issue for Windows users and those who compile Erlang from source.</p>
+
+        <p>For Windows users: Versions of Erlang as recent as R13B03 do not include
+        the OpenSSL library needed by the crypto application.
+        <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This post</a>
+        explains how to install it. It is necessary to install the 32-bit OpenSSL
+        libraries, even on 64-bit versions of Windows.
+        </p>
+
+        <p>For Windows XP users running RabbitMQ as a service: It is not possible to
+        use SSL with RabbitMQ running as a service on Windows XP in combination with
+        OpenSSL versions 0.9.8 or later. The bug has been confirmed on Windows XP SP3
+        with OpenSSL v0.9.8r and v1.0.0d. Suggested workarounds if you want to run RabbitMQ
+        as a service is to upgrade to Windows 7 or downgrade to an earlier version of
+        OpenSSL (v0.9.7e is known to work).</p>
+
+        <p>For those compiling Erlang from source: Ensure <code>configure</code>
+        finds OpenSSL and builds the crypto application.</p>
       </doc:section>
 
       <doc:section name="keys-and-certs">
@@ -61,7 +81,7 @@
 # echo 01 &gt; serial
 # touch index.txt
 </pre>
-          <p>Now place the following in <code class="">openssl.cnf</code> within the <code class="">testca</code>
+          <p>Now place the following in <code>openssl.cnf</code> within the <code>testca</code>
           directory we've just created:</p>
 
 <pre class="sourcecode">
@@ -120,16 +140,16 @@ keyUsage = keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
           <p>Now we can generate the key and certificates that our test
-          <i>Certificate Authority</i> will use. Still within the <code class="">testca</code>
+          <i>Certificate Authority</i> will use. Still within the <code>testca</code>
           directory:</p>
           <pre class="sourcecode">
 # openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
     -out cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
 # openssl x509 -in cacert.pem -out cacert.cer -outform DER</pre>
           <p>This is all that is needed to generate our test <i>Certificate
-          Authority</i>. The <i>root</i> certificate is in <code class="">testca/cacert.pem</code>
+          Authority</i>. The <i>root</i> certificate is in <code>testca/cacert.pem</code>
 
-          and is also in <code class="">testca/cacert.cer</code>. These two files contain the
+          and is also in <code>testca/cacert.cer</code>. These two files contain the
           same information, but in different formats. Whilst the vast majority
           of the world is perfectly happy to use the <i>PEM</i> format, Microsoft
           and Mono like to be different, and so use the <i>DER</i> format.</p>
@@ -154,8 +174,9 @@ extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 testca
 # mkdir server
 # cd server
-# openssl req -newkey rsa:2048 -keyout key.pem -keyform PEM -out \
-    req.pem -subj /CN=$(hostname)/O=server/ -outform PEM -nodes
+# openssl genrsa -out key.pem 2048
+# openssl req -new -key key.pem -out req.pem -outform PEM \
+    -subj /CN=$(hostname)/O=server/ -nodes
 # cd ../testca
 # openssl ca -config openssl.cnf -in ../server/req.pem -out \
     ../server/cert.pem -notext -batch -extensions server_ca_extensions
@@ -170,8 +191,9 @@ testca
 server testca
 # mkdir client
 # cd client
-# openssl req -newkey rsa:2048 -keyout key.pem -keyform PEM -out \
-    req.pem -subj /CN=$(hostname)/O=client/ -outform PEM -nodes
+# openssl genrsa -out key.pem 2048
+# openssl req -new -key key.pem -out req.pem -outform PEM \
+    -subj /CN=$(hostname)/O=client/ -nodes
 # cd ../testca
 # openssl ca -config openssl.cnf -in ../client/req.pem -out \
     ../client/cert.pem -notext -batch -extensions client_ca_extensions
@@ -193,19 +215,24 @@ server testca
           to it. These settings are all controlled by two arguments to RabbitMQ:</p>
 
           <ul class="plain">
-            <li><pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre><p>This is a tuple-list of <code class="">{IpAddress, Port}</code> pairs which tells
-            RabbitMQ to listen on these addresses and ports for SSL
-            connections. Setting the <b>IpAddress</b> to <b>0.0.0.0</b> tells
-            RabbitMQ to listen on all available interfaces.</p></li>
-            <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code class="">new_ssl</code> options. The complete list
-            of ssl_options is available via the <code class="">new_ssl</code> man page:
-            i.e. <code class="">erl -man new_ssl</code>, but the most important are <code class="">cacertfile</code>, <code class="">certfile</code> and <code class="">keyfile</code>.</p></li>
+            <li>
+              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
+              <p>
+                This is a list of ports to listen on for SSL
+                connections. To listen on a single network interface,
+                add something like <code>{"127.0.0.1",
+                5671}</code> to the list.
+              </p>
+            </li>
+            <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
+            of ssl_options is available via the <code>new_ssl</code> man page:
+            i.e. <code>erl -man new_ssl</code>, but the most important are <code>cacertfile</code>, <code>certfile</code> and <code>keyfile</code>.</p></li>
           </ul>
 
           <p>The simplest way to set these options, is to edit
-          the <code class="">rabbitmq.config</code> file (in the
+          the <code>rabbitmq.config</code> file (in the
           appropriate location for your platform, as discussed in
-          the <a href="install.html#configfile">installation
+          the <a href="configure.html#configuration-file">configuration
           guide</a>).  An example of the config file is below, which
           will start one ssl_listener on port 5671 on all interfaces
           on this hostname:</p>
@@ -213,7 +240,7 @@ server testca
 <pre class="sourcecode">
 [
   {rabbit, [
-     {ssl_listeners, [{"0.0.0.0",5671}]},
+     {ssl_listeners, [5671]},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
                     {certfile,"/path/to/server/cert.pem"},
                     {keyfile,"/path/to/server/key.pem"},
@@ -234,25 +261,18 @@ server testca
           <p>This policy of whether or not the server asks for a
           certificate from the client, and whether or not they demand
           that they are able to trust the certificate, is what
-          the <code class="">verify</code>
-          and <code class="">fail_if_no_peer_cert</code> arguments
+          the <code>verify</code>
+          and <code>fail_if_no_peer_cert</code> arguments
           control. Through
-          the <code class="">{fail_if_no_peer_cert,false}</code>
+          the <code>{fail_if_no_peer_cert,false}</code>
           option, we state that we're prepared to accept clients which
           don't have a certificate to send us, but through
-          the <code class="">{verify,verify_peer}</code> option, we
+          the <code>{verify,verify_peer}</code> option, we
           state that if the client does send us a certificate, we must
           be able to establish a chain of trust to it. Note that these
           values can change across versions of ssl shipped with
-          Erlang/OTP, so check your man page <code class="">erl -man
-          new_ssl</code> to ensure you have the proper values. <b>In
-          particular, note that Erlang R12B-5 has a single
-          configuration value <code>verify_code</code> which takes the
-          value <code>0</code>, <code>1</code> or <code>2</code>. There is
-          no <code>fail_if_no_peer_cert</code> option in Erlang
-          R12B-5. The options changed with the release of R13
-          to <code>verify</code> and <code>fail_if_no_peer_cert</code>
-          as documented here.</b></p>
+          Erlang/OTP, so check your man page <code>erl -man
+          new_ssl</code> to ensure you have the proper values.</p>
 
           <p>Note that if <code>{verify, verify_none}</code> is used,
           no certificate exchange takes place from the client to the
@@ -261,7 +281,7 @@ server testca
           items.</p>
 
           <p>After starting the broker, you should then see the
-          following in the <code class="">rabbit.log</code>:</p>
+          following in the <code>rabbit.log</code>:</p>
           <pre>=INFO REPORT==== 9-Aug-2010::15:10:55 ===
 started TCP Listener on 0.0.0.0:5672
 
@@ -272,12 +292,12 @@ started SSL Listener on 0.0.0.0:5671</pre>
 
         <doc:subsection name="clients-root">
           <doc:heading>Trust the Client's Root CA</doc:heading>
-          <p>Currently, we're telling RabbitMQ to look at the <code class="">testca/cacert.pem</code> file. This contains just the public certificate of
+          <p>Currently, we're telling RabbitMQ to look at the <code>testca/cacert.pem</code> file. This contains just the public certificate of
           our test <i>Certificate Authority</i>. We may have certificates being
           presented by clients which have been signed by several different
           <i>Certificate Authorities</i>, and we wish RabbitMQ to trust all of
           them. Therefore, we can simply append these certificates to one
-          another and provide the path to this new file as the <code class="">cacerts</code>
+          another and provide the path to this new file as the <code>cacerts</code>
           argument to RabbitMQ:</p>
 <pre class="sourcecode">
 # cat testca/cacert.pem &gt;&gt; all_cacerts.pem
@@ -287,25 +307,25 @@ started SSL Listener on 0.0.0.0:5671</pre>
         </doc:subsection>
 
         <doc:subsection name="bugs-in-new_ssl">
-          <doc:heading>Bugs in <code class="">new_ssl</code></doc:heading>
+          <doc:heading>Bugs in <code>new_ssl</code></doc:heading>
             <p>In Erlang before release R13B02,
-            the <code class="">new_ssl</code> application has a bug in
+            the <code>new_ssl</code> application has a bug in
             which, if it asks the peer for a certificate, and the peer
             totally fails to respond to this request rather than
             rejecting the connection,
-            the <code class="">new_ssl</code> application permits the
+            the <code>new_ssl</code> application permits the
             connection to be established. Note that this requires the
             client to break the SSL specifications itself: the
             specifications require that if the client has no
             certificate to send and a certificate has been requested
             by the server, the client must send back a <i>null</i>
             certificate. If this happens, then
-            the <code class="">new_ssl</code> application behaves
+            the <code>new_ssl</code> application behaves
             correctly, and acts on the presence of the <i>null</i>
             certificate.</p>
 
             <p><b class="">If the client fails to send any certificate
-            at all, the <code class="">new_ssl</code> application
+            at all, the <code>new_ssl</code> application
             silently ignores this failure and allows the connection to
             be established (i.e. it doesn't enforce that if it demands
             a certificate, a certificate really is sent back by the
@@ -326,8 +346,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
             <p>Note there are major bugs SSL in Erlang release R13B04
             which renders using SSL with cerificates broken. As of
             this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R14B as the
-            least buggy implementation of SSL in Erlang.</p>
+            certificates with RabbitMQ, we recommend R14B or later.</p>
 
             <p>See also the <a href="#bugs-in-mono">bugs in Mono</a>.</p>
         </doc:subsection>
@@ -417,7 +436,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
     }
 }</pre>
 
-            <p>This simple example is an echo test. It creates a channel <code class="">rabbitmq-java-test</code> and publishes to the default direct exchange, then
+            <p>This simple example is an echo test. It creates a channel <code>rabbitmq-java-test</code> and publishes to the default direct exchange, then
             reads back what has been published and echoes it out. Note that we use
             an exclusive, non-durable, auto-delete queue so we don't have to worry
             about manually cleaning up after ourselves.</p>
@@ -432,12 +451,12 @@ started SSL Listener on 0.0.0.0:5671</pre>
 <pre class="sourcecode">
 # keytool -import -alias server1 -file /path/to/server/cert.pem -keystore /path/to/rabbitstore</pre>
 
-            <p>The above command will import <code class="">cert.pem</code> into the <code class="">rabbitstore</code> and will internally refer to it as <code class="">server1</code>. The
+            <p>The above command will import <code>cert.pem</code> into the <code>rabbitstore</code> and will internally refer to it as <code>server1</code>. The
             alias argument is used when you have many certificates or keys, as
             they must all have internally distinct names.</p>
             <p>Be sure to answer <em class="">yes</em> to the question about trusting this
             certificate, and to pick a passphrase. For this example I set my
-            passphrase to <code class="">rabbitstore</code>.</p>
+            passphrase to <code>rabbitstore</code>.</p>
 
             <p>We then use our client certificate and key in a PKCS#12 file as
             already shown above.</p>
@@ -511,7 +530,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <p>For a server certificate to be understood on the .Net platform, they
           can be in a number of formats including <i>DER</i> and <i>PKCS #12</i>, but
           of course, not <i>PEM</i>. For the <i>DER</i> format, .Net expects them to
-          be stored in files with <code class="">.cer</code> extension. In the steps above, when
+          be stored in files with <code>.cer</code> extension. In the steps above, when
           creating the test <i>Certificate Authority</i>, we converted the
           certificate from <i>PEM</i> to <i>DER</i> format using:</p>
 
@@ -551,17 +570,17 @@ started SSL Listener on 0.0.0.0:5671</pre>
           default, OpenSSL omits the <i>Key Usage Extension</i> for self-signed
           certificates because it is expected that if no <i>Key Usage Extension</i>
           is found, the certificate is valid to be used for any purpose.</p>
-          <p>This is the reason why in the sample <code class="">openssl.cnf</code> file listed
-          above, the extensions specified for <code class="">root_ca_extensions</code>, <code class="">client_ca_extensions</code> and <code class="">server_ca_extensions</code> all have <code class="">keyUsage</code> specified, and the lacodeer two also have <code class="">extendedKeyUsage</code> defined. Thus the certificates generated above are
-          valid for use by Mono; <code class="">keyEncipherment</code> specifies that the
-          certificate can be used by an SSL Server, and <code class="">digitalSignature</code>
+          <p>This is the reason why in the sample <code>openssl.cnf</code> file listed
+          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the lacodeer two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
+          valid for use by Mono; <code>keyEncipherment</code> specifies that the
+          certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
           specifies that the certificate can be used by an SSL client. The
-          values in the <code class="">extendedKeyUsage</code> fields precodey much just say the
+          values in the <code>extendedKeyUsage</code> fields precodey much just say the
           same thing.</p>
           <p>You can use <a class="extlink" href="http://gist.github.com/145812">this small tool</a> to
           check that the certificate <i>presented by the RabbitMQ server</i> is
-          acceptable to Mono (note, you'll need to convert the <code class="">server/cert.pem</code> to <code class="">server/cert.cer</code> using the OpenSSL command
+          acceptable to Mono (note, you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using the OpenSSL command
           above):</p>
 
 <pre class="sourcecode">
@@ -581,12 +600,12 @@ This certificate CAN be used by Mono for Server validation
             the server's certificate, otherwise the certificate will be
             rejected. This is why the commands at the start of this guide specify
 
-            <code class="">...-subj /CN=$(hostname)/...</code> which dynamically looks up your
+            <code>...-subj /CN=$(hostname)/...</code> which dynamically looks up your
             hostname. If you're generating certificates on one machine, and using
-            them on the other then be sure to swap out the <code class="">$(hostname)</code>
+            them on the other then be sure to swap out the <code>$(hostname)</code>
             section, and replace it with the correct hostname for your server.</p>
             <p>To suppress the match check, an application can set
-            the <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
+            the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch</code>
             flag in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>.
             </p>
         </doc:subsection>
@@ -617,8 +636,8 @@ This certificate CAN be used by Mono for Server validation
               certificate, the .NET client by default requires this
               verification to succeed. To suppress verification, an
               application can set
-              the <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
-              and <code class="">System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
+              the <code>System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable</code>
+              and <code>System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors</code>
               flags
               in <a href="&dir-current-dotnet-apidoc;/type-RabbitMQ.Client.SslOption.html#property-P:RabbitMQ.Client.SslOption.AcceptablePolicyErrors">SslOptions.AcceptablePolicyErrors</a>.
             </p>
@@ -626,7 +645,7 @@ This certificate CAN be used by Mono for Server validation
 
         <doc:subsubsection name="certmgr">
           <doc:heading>Certificate Management with Certmgr</doc:heading>
-          <p><code class="">certmgr</code> allows us to Add, Delete, List and perform other
+          <p><code>certmgr</code> allows us to Add, Delete, List and perform other
           actions on a specified Store. These stores can be per-user stores, or
           machine wide. Only admin users can have write access to the machine
           wide stores.</p>
@@ -760,9 +779,9 @@ namespace RabbitMQ.Client.Examples {
             it blindly carries on, acting as if the server hadn't
             asked for a certificate at all. Coupled with
             the <a href="#bugs-in-new_ssl">bug
-            in <code class="">new_ssl</code>, mentioned above</a>,
+            in <code>new_ssl</code>, mentioned above</a>,
             this means that <b class="">with RabbitMQ set
-            to <code class="">{fail_if_no_peer_cert,true}</code> on
+            to <code>{fail_if_no_peer_cert,true}</code> on
             Erlang before R13B02, if the .Net client is running under
             Mono, and does not have a certificate to present, the
             connection will successfully be established</b>.</p>
@@ -772,30 +791,27 @@ namespace RabbitMQ.Client.Examples {
       <doc:section name="configure-erlang">
         <doc:heading>Configuring the Erlang client</doc:heading>
           <p>Enabling SSL in the RabbitMQ Erlang client is rather
-          straight-forward. In the <code class="">#amqp_params</code> record, we just need to
-          supply values in the <code class="">ssl_options</code> field. These you will recognise
+          straight-forward. In the <code>#amqp_params</code> record, we just need to
+          supply values in the <code>ssl_options</code> field. These you will recognise
           from the options we specified to RabbitMQ.</p>
 
         <doc:subsection name="erlang-ssl">
           <doc:heading>Erlang SSL Options</doc:heading>
             <p>The three important options which must be supplied are:</p>
             <ul class="plain">
-              <li> The <code class="">cacertfile</code> option specifies the certificates of the root
+              <li> The <code>cacertfile</code> option specifies the certificates of the root
               <i>Certificate Authorities</i> that we wish to implicitly trust.</li>
-              <li> The <code class="">certfile</code> is the client's own certificate in PEM format</li>
-              <li> The <code class="">keyfile</code> is the client's private key file in PEM format.</li>
+              <li> The <code>certfile</code> is the client's own certificate in PEM format</li>
+              <li> The <code>keyfile</code> is the client's private key file in PEM format.</li>
             </ul>
 
             <p>As with RabbitMQ itself,
-            the <code class="">verify</code>
-            and <code class="">fail_if_no_peer_cert</code> options are
+            the <code>verify</code>
+            and <code>fail_if_no_peer_cert</code> options are
             used in Erlang R13 and onwards to specify what action to
             take if the server doesn't present a certificate or if
             we're unable to establish a chain of trust to the server's
-            certificate. In R12B-5 and prior,
-            the <code>verify_code</code> option serves the same
-            purpose. Check <code>erl -man new_ssl</code> to make sure
-            you have the right options for your version of Erlang.</p>
+            certificate.</p>
         </doc:subsection>
 
         <doc:subsection name="code">

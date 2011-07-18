@@ -172,10 +172,7 @@
 	<methods xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
 	  <method name="connection.start"><status value="ok"/></method>
 	  <method name="connection.start-ok"><status value="ok"/></method>
-	  <method name="connection.secure">
-	    <status value="ok"/>
-	    <notes>We also plan to implement further authentication methods.</notes>
-	  </method>
+	  <method name="connection.secure"><status value="ok"/></method>
 	  <method name="connection.secure-ok"><status value="ok"/></method>
 	  <method name="connection.tune"><status value="ok"/></method>
 	  <method name="connection.tune-ok"><status value="ok"/></method>
@@ -380,7 +377,7 @@
           </rule>
 
           <rule>
-            <status value="planned"/>
+            <status value="ok"/>
             <type>SHOULD</type>
             <xref>connection / start-ok / mechanism / security</xref>
             <type/>
@@ -1843,8 +1840,11 @@
 	  </rule>
 
 	  <rule>
-	    <status value="ok"></status>
-	    <xref> 2.4 </xref>
+	    <status value="failing">does</status>
+        <notes>
+         "BCC" headers are removed from properties after routing.
+        </notes>
+	    <xref> 3.1.1 </xref>
 	    <context>
 	    </context>
 	    <type>
@@ -1860,7 +1860,7 @@
 
 	  <rule>
 	    <status value="ok">doesn't</status>
-	    <xref> 2.4 </xref>
+	    <xref> 3.1.1 </xref>
 	    <context>
 	    </context>
 	    <type>

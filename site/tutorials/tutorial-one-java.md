@@ -76,6 +76,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    </div>
 
 ## "Hello World"
+### (using the Java Client)
 
 In this part of the tutorial we'll write two programs in Java; a
 producer that sends a single message, and a consumer that receives
@@ -133,17 +134,26 @@ we need some classes imported:
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
 
-then we can create a connection to the server:
+Set up the class and name the queue:
 
     :::java
     public class Send {
+    
+      private final static String QUEUE_NAME = "hello";
+
       public static void main(String[] argv)
           throws java.io.IOException {
-        Connection conn = null;
+          ...
+      }
+    }    
+    
+then we can create a connection to the server:
+
+    :::java
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        conn = factory.newConnection();
-        Channel chan = conn.createChannel();
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us.
@@ -154,10 +164,10 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
     :::java
-        chan.queueDeclare("hello", false, false, false, null);
-
-        chan.basicPublish("", "hello", null, "Hello World!".getBytes());
-        System.out.println(" [x] Sent 'Hello World!'");
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        String message = "Hello World!";
+        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        System.out.println(" [x] Sent '" + message + "'");
 
 Declaring a queue is idempotent; it will be created if it doesn't
 exist already. The message contents is a byte array, so you can encode
@@ -166,10 +176,8 @@ whatever you like there.
 Lastly, we close the channel and the connection;
 
     :::java
-        chan.close();
-        conn.close();
-      }
-    }
+        channel.close();
+        connection.close();
 
 [Here's the whole Send.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
@@ -201,20 +209,27 @@ Note this matches up with the queue `send` publishes to.
 
     :::java
     public class Recv {
+    
+      private final static String QUEUE_NAME = "hello";
+    
       public static void main(String[] argv)
           throws java.io.IOException,
                  java.lang.InterruptedException {
-        Connection conn = null;
+                 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        conn = factory.newConnection();
-        Channel chan = conn.createChannel();
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
-        chan.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        ...
+        }
+    }
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
-before we try to consumer messages from it.
+before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
@@ -222,15 +237,15 @@ callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what `QueueingConsumer` does.
 
     :::java
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-        QueueingConsumer consumer = new QueueingConsumer(chan);
-        chan.basicConsume("hello", true, consumer);
+        QueueingConsumer consumer = new QueueingConsumer(channel);
+        channel.basicConsume(QUEUE_NAME, true, consumer);
+        
         while (true) {
           QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-          System.out.println(" [x] Received " + new String(delivery.getBody()));
+          String message = new String(delivery.getBody());
+          System.out.println(" [x] Received '" + message + "'");
         }
-      }
-    }
+
 
 `QueueingConsumer.nextDelivery()` blocks until another message has
 been delivered from the server.
@@ -266,5 +281,19 @@ the sender from another terminal.
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
+
+Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
+
+> ####Hint
+> To save typing, you can set an environment variable for the classpath e.g.
+>
+>      $ export CP=.:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+>      $ java -cp $CP Send
+>
+> or on Windows:
+>
+>      > set CP=.;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar
+>      > java -cp %CP% Send
+>
 
 </div>

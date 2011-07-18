@@ -32,8 +32,8 @@
     </div>
     <h3>What Is RabbitMQ?</h3>
     <p>RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
-    cloud scale and supported on all <a href="download.html">major operating systems</a> and
-    <a href="how.html#clients">developer platforms</a>. RabbitMQ is open sourced under the
+    cloud scale and supported on all <a href="platforms.html">major operating systems</a> and
+    <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
     <a href="mpl.html">Mozilla Public License</a>.</p>
     <ul>
       <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
@@ -50,7 +50,7 @@
 	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
 	with other messaging systems: it is the leading <a href="faq.html#what-is-amqp">implementation of AMQP</a>,
 	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
-	XMPP, SMTP, STOMP and HTTP for lightweight web messaging.</p>
+	SMTP, STOMP and HTTP for lightweight web messaging.</p>
 	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
 	contributors. A full range of <a href="services.html">commercial support services</a>
 	are available through the SpringSource division of VMware.</p>
@@ -58,7 +58,7 @@
     <h3>How Do I Get Started?</h3>
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
-      <li>I want to <a href="download.html">download</a> and <a href="install.html">install</a> RabbitMQ</li>
+      <li>I want to <a href="download.html">download</a>, <a href="install.html">install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 

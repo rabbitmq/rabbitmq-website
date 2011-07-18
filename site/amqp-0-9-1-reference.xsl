@@ -8,13 +8,12 @@
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.unmodified.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
   <xsl:template match="x:insert-spec-here">
     <div id="content-pane">
-      <h2>AMQP 0-9-1 Reference Guide</h2>
-      <xsl:call-template name="render-disclaimer" />
+      <h2>AMQP 0-9-1 Complete Reference Guide</h2>
       <!-- switch context from source file to spec doc -->
       <xsl:for-each select="$spec-doc/amqp">
           <xsl:call-template name="render-toc" />
@@ -50,14 +49,19 @@
 
   <xsl:template name="render-content">
     <p>
-      This page contains a complete reference to version 0-9-1 of the AMQP specification
-      as published by the <a href="http://www.amqp.org">AMQP WG</a> in 2008. The <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">
-      original specification</a> is released under the <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
+      This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The
+      <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">original specification</a> was published by
+      the <a href="http://www.amqp.org">AMQP WG</a> in 2008 and is made available under the
+      <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
     </p>
     <p>
       Elsewhere on this site you can read details of <a href="specification.html">RabbitMQ's conformance
-      to the specification</a>. Please also be aware that RabbitMQ implements <a href="extensions.html">several extensions</a>
-      to the core specification that are not documented here.
+      to the specification</a>. RabbitMQ implements <a href="extensions.html">several extensions</a>
+      to the core specification that are documented in this guide.
+    </p>
+    <p>
+      You can <a href="resources/specs/amqp0-9-1.xml" type="text/xml">download the extended specification</a>, which may be useful
+      if you are writing an AMQP client that supports our extensions.
     </p>
     <p>
       You may also be interested in our <a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a>.
@@ -207,10 +211,8 @@
         <xsl:text>)</xsl:text>
         <xsl:if test="response">
           <span class="method-retval">
-          <xsl:text> &#x2794; </xsl:text>
-          <a class="sync-response-method" href="{concat('#', ../@name, '.', response/@name)}">
-            <xsl:value-of select="response/@name" />
-          </a>
+          <xsl:text>&#xA0;&#x2794;&#xA0;</xsl:text>
+          <xsl:apply-templates select="response" mode="render-method-sig"/>
           </span>
         </xsl:if>
       </div>
@@ -235,12 +237,21 @@
   <xsl:template match="field" mode="render-method-sig">
     <a href="{concat('#', ../../@name, '.', ../@name, '.', @name)}">
       <span class="parameter">
-        <xsl:if test="@domain">
-          <span class="data-type" title="{key('domain-key', @domain)/@type}">
-            <xsl:value-of select="@domain"/>
-          </span>
-          <xsl:text>&#xA0;</xsl:text>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="@domain">
+            <span class="data-type" title="{key('domain-key', @domain)/@type}">
+              <xsl:value-of select="@domain"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+          <xsl:when test="@type">
+            <!-- 'reserved' parameters use @type rather than @domain -->
+            <span class="data-type" title="{@type}">
+              <xsl:value-of select="@type"/>
+            </span>
+            <xsl:text>&#xA0;</xsl:text>
+          </xsl:when>
+        </xsl:choose>
         <span class="param-name" title="{@label}">
           <xsl:value-of select="@name"/>
         </span>
@@ -248,6 +259,15 @@
     </a>
     <xsl:if test="position() != last()">
       <xsl:text>, </xsl:text>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="response" mode="render-method-sig">
+    <a href="{concat('#', ../../@name, '.', @name)}">
+      <xsl:value-of select="@name" />
+    </a>
+    <xsl:if test="position() != last()">
+      <xsl:text> | </xsl:text>
     </xsl:if>
   </xsl:template>
 
@@ -326,12 +346,21 @@
 
   <xsl:template name="render-parameter">
     <p id="{concat(../../@name, '.', ../@name, '.', @name)}" class="field">
-      <xsl:if test="@domain">
-        <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
-          <xsl:value-of select="@domain"/>
-        </a>
-        <xsl:text> </xsl:text>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@domain">
+          <a href="{concat('#domain.', @domain)}" title="{key('domain-key', @domain)/@type}">
+            <xsl:value-of select="@domain"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+        <xsl:when test="@type">
+          <!-- 'reserved' parameters use @type rather than @domain -->
+          <a href="{concat('#domain.', @type)}" title="{@type}">
+            <xsl:value-of select="@type"/>
+          </a>
+          <xsl:text> </xsl:text>
+        </xsl:when>
+      </xsl:choose>
       <span title="{@label}" class="field-name"><xsl:value-of select="@name"/></span>
     </p>
     <xsl:if test="doc | @label">
@@ -365,10 +394,6 @@
 
   <xsl:template match="doc[@type='scenario']">
     <!-- noop -->
-  </xsl:template>
-
-  <xsl:template name="render-disclaimer">
-    <xsl:comment> Note: the element IDs in the content section of this document are autogenerated and therefore subject to change </xsl:comment>
   </xsl:template>
 
   <xsl:template name="render-link-to-top">

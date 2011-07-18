@@ -3,6 +3,7 @@
 div#toc {
   float: left;
   width: 20%;
+  margin-top: -1em;
 }
 div#content-pane {
   margin-left: 20%;
@@ -27,14 +28,20 @@ h4.method {
   font-weight: normal;
   font-family: "Courier New", Courier, monospace;
   margin-top: 0.5em;
+  text-indent: -1em;
+  padding-left: 1em;
 }
-h4.method .method-name {
+h4.method .method-name, h4.method .method-retval {
   font-weight: bold;
 }
-h4.method .parameter {
-  font-style: italic;
+h4.method .parameter, h4.method .method-retval {
+  white-space: nowrap;
 }
-h5.extension-method {
+h4.method .param-name {
+  font-style: italic;
+  font-weight: normal;
+}
+h5.amqp-extension {
   font-style: italic;
   color: #F60;
 }
@@ -57,4 +64,8 @@ a.back {
 a.doc {
   display: block;
   margin-bottom: 0.5em;
+}
+span.override {
+  font-size: 90%;
+  vertical-align: super;
 }
