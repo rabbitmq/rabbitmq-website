@@ -740,7 +740,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Util;
 
 namespace RabbitMQ.Client.Examples {
-    public class LogTailSSL {
+    public class HelloSSL {
         public static int Main(string[] args) {
             ConnectionFactory cf = new ConnectionFactory();
 
@@ -751,7 +751,7 @@ namespace RabbitMQ.Client.Examples {
 
             using (IConnection conn = cf.CreateConnection()) {
                 using (IModel ch = conn.CreateModel()) {
-                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, true, false, null);
+                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
                     ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
                     BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
                     if (result == null) {
