@@ -654,13 +654,13 @@ This certificate CAN be used by Mono for Server validation
 
 <pre class="sourcecode">
 (Windows) # certmgr -add -all \path\to\cacert.cer -s Root
-(Mono)    # certmgr -add -c Trust /path/to/cert.cer</pre>
+(Mono)    # certmgr -add -c Trust /path/to/cacert.cer</pre>
 
           <p>To add a certificate to the machine wide store instead we
           run</p>
 <pre class="sourcecode">
 (Windows) # certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
-(Mono)    # certmgr -add -c -m Trust /path/to/cert.cer</pre>
+(Mono)    # certmgr -add -c -m Trust /path/to/cacert.cer</pre>
           <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
 (Windows) # certmgr -all -s Root
