@@ -653,18 +653,18 @@ This certificate CAN be used by Mono for Server validation
           (Mono) store we run:</p>
 
 <pre class="sourcecode">
-(Windows) # certmgr -add -all \path\to\cacert.cer -s Root
-(Mono)    # certmgr -add -c Trust /path/to/cacert.cer</pre>
+(Windows) $ certmgr -add -all \path\to\cacert.cer -s Root
+(Mono)    $ certmgr -add -c Trust /path/to/cacert.cer</pre>
 
-          <p>To add a certificate to the machine wide store instead we
+          <p>To add a certificate to the machine certificate store instead we
           run</p>
 <pre class="sourcecode">
-(Windows) # certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
-(Mono)    # certmgr -add -c -m Trust /path/to/cacert.cer</pre>
+(Windows) $ certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
+(Mono)    $ certmgr -add -c -m Trust /path/to/cacert.cer</pre>
           <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
-(Windows) # certmgr -all -s Root
-(Mono)    # certmgr -list -c Trust
+(Windows) $ certmgr -all -s Root
+(Mono)    $ certmgr -list -c Trust
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -681,8 +681,8 @@ Self-signed X.509 v3 Certificate
           trust store. The Unique Hash uniquely identifies this certificate in
           this store. To delete this certificate, use the unique hash:</p>
 <pre class="sourcecode">
-(Windows) # certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
-(Mono)    # certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
+(Windows) $ certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
+(Mono)    $ certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
