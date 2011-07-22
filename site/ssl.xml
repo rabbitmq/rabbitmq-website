@@ -740,12 +740,12 @@ using RabbitMQ.Client;
 using RabbitMQ.Util;
 
 namespace RabbitMQ.Client.Examples {
-    public class HelloSSL {
+    public class TestSSL {
         public static int Main(string[] args) {
             ConnectionFactory cf = new ConnectionFactory();
 
             cf.Ssl.ServerName = System.Net.Dns.GetHostName();
-            cf.Ssl.CertPath = "/src/client/keycert.p12";
+            cf.Ssl.CertPath = "/path/to/client/keycert.p12";
             cf.Ssl.CertPassphrase = "MySecretPassword";
             cf.Ssl.Enabled = true;
 
@@ -757,10 +757,10 @@ namespace RabbitMQ.Client.Examples {
                     if (result == null) {
                         Console.WriteLine("No message received.");
                     } else {
-                        ch.BasicAck(result.DeliveryTag, false);
                         Console.WriteLine("Received:");
                         DebugUtil.DumpProperties(result, Console.Out, 0);
                     }
+                    ch.QueueDelete("rabbitmq-dotnet-test);
                 }
             }
             return 0;
