@@ -571,7 +571,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           certificates because it is expected that if no <i>Key Usage Extension</i>
           is found, the certificate is valid to be used for any purpose.</p>
           <p>This is the reason why in the sample <code>openssl.cnf</code> file listed
-          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the lacodeer two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
+          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the latter two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
           valid for use by Mono; <code>keyEncipherment</code> specifies that the
           certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
@@ -619,7 +619,7 @@ This certificate CAN be used by Mono for Server validation
           <p>NB: On some flavours of Windows there are two versions of
             the command - one that ships with the operating system and
             provides a graphical interface only, and one that ships
-            with the .NET Framework Tools and provides both a
+            with the Windows SDK and provides both a
             graphical and command line interface. Either will do the
             job, but the examples below are based on the latter.</p>
             <p>For our case, because we're supplying the client certificate/key pair
@@ -653,17 +653,17 @@ This certificate CAN be used by Mono for Server validation
           (Mono) store we run:</p>
 
 <pre class="sourcecode">
-(Windows) $ certmgr -add -all \path\to\cacert.cer -s Root
+(Windows) > certmgr -add -all \path\to\cacert.cer -s Root
 (Mono)    $ certmgr -add -c Trust /path/to/cacert.cer</pre>
 
           <p>To add a certificate to the machine certificate store instead we
           run</p>
 <pre class="sourcecode">
-(Windows) $ certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
+(Windows) > certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
 (Mono)    $ certmgr -add -c -m Trust /path/to/cacert.cer</pre>
           <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
-(Windows) $ certmgr -all -s Root
+(Windows) > certmgr -all -s Root
 (Mono)    $ certmgr -list -c Trust
 
 Mono Certificate Manager - version 2.4.0.0
@@ -681,7 +681,7 @@ Self-signed X.509 v3 Certificate
           trust store. The Unique Hash uniquely identifies this certificate in
           this store. To delete this certificate, use the unique hash:</p>
 <pre class="sourcecode">
-(Windows) $ certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
+(Windows) > certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
 (Mono)    $ certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 Mono Certificate Manager - version 2.4.0.0
@@ -760,7 +760,7 @@ namespace RabbitMQ.Client.Examples {
                         Console.WriteLine("Received:");
                         DebugUtil.DumpProperties(result, Console.Out, 0);
                     }
-                    ch.QueueDelete("rabbitmq-dotnet-test);
+                    ch.QueueDelete("rabbitmq-dotnet-test");
                 }
             }
             return 0;
