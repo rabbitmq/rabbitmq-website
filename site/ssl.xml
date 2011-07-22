@@ -580,11 +580,11 @@ started SSL Listener on 0.0.0.0:5671</pre>
           same thing.</p>
           <p>You can use <a class="extlink" href="http://gist.github.com/145812">this small tool</a> to
           check that the certificate <i>presented by the RabbitMQ server</i> is
-          acceptable to Mono (note, you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using the OpenSSL command
-          above):</p>
+          acceptable to Mono.  Note that you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using an appropriate OpenSSL command:</p>
 
 <pre class="sourcecode">
-# mono certcheck.exe /path/to/server/cert.cer 
+# openssl x509 -in /path/to/server/cert.pem -out /path/to/server/cert.cer -outform DER
+# mono certcheck.exe /path/to/server/cert.
 Checking if certificate is SSLv3... Ok
 Checking for KeyUsageExtension (2.5.29.15)... Ok
 Checking if KeyEncipherment flag is set... Ok
