@@ -791,8 +791,8 @@ namespace RabbitMQ.Client.Examples {
       <doc:section name="configure-erlang">
         <doc:heading>Configuring the Erlang client</doc:heading>
           <p>Enabling SSL in the RabbitMQ Erlang client is rather
-          straight-forward. In the <code>#amqp_params</code> record, we just need to
-          supply values in the <code>ssl_options</code> field. These you will recognise
+          straight-forward. In the <code>#amqp_params_network</code> record, we just need to
+          supply values in the <code>ssl_options</code> field. These, you will recognise
           from the options we specified to RabbitMQ.</p>
 
         <doc:subsection name="erlang-ssl">
@@ -817,13 +817,13 @@ namespace RabbitMQ.Client.Examples {
         <doc:subsection name="code">
           <doc:heading>Code</doc:heading>
 <pre class="sourcecode">
-Params = #amqp_params { port = 5671,
-                        ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
-                                       {certfile, &quot;/path/to/client/cert.pem&quot;},
-                                       {keyfile, &quot;/path/to/client/key.pem&quot;},
-                                       {verify, verify_peer},
-                                       {fail_if_no_peer_cert, true}] },
-{ok, Conn} = amqp_connection:start(network, Params),
+Params = #amqp_params_network { port = 5671,
+                                ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
+                                               {certfile, &quot;/path/to/client/cert.pem&quot;},
+                                               {keyfile, &quot;/path/to/client/key.pem&quot;},
+                                               {verify, verify_peer},
+                                               {fail_if_no_peer_cert, true}] },
+{ok, Conn} = amqp_connection:start(Params),
 </pre>
 
             <p>You can now go ahead and use Conn as a normal connection.</p>
