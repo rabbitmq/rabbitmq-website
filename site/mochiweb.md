@@ -1,4 +1,4 @@
-# HTTP server plugin
+# HTTP server plugin NOSYNTAX
 
 The `rabbitmq-mochiweb` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
@@ -27,16 +27,13 @@ and one on port 55672; then assigns the context used in the management
 plugin to the latter, and lets everything else default to the
 former. It looks like this:
 
-      [{listeners, [{'*',  [{port, 55670}]},
-                    {mgmt, [{port, 55672}]}]},
-       {contexts,  [{rabbit_mgmt, mgmt}]}]
+      [{listeners,        [{mgmt, [{port, 55672}]}]},
+       {default_listener, [{port, 55670}]},
+       {contexts,         [{rabbit_mgmt, mgmt}]}]
 
 The listeners are given as pairs of a name and options; the options
 are given to mochiweb, and only `port` is mandatory (see below for
 other options).
-
-The listener called `'*'` is the catch-all default; a configuration
-must always have a listener named `'*'`.
 
 The context entries assign contexts (`rabbit_mgmt` etc.) to the
 listeners. The context names are used by applications when registering
@@ -69,18 +66,19 @@ server does for AMQP over SSL, <b>but with client certificate
 verification switched off</b>. If you wish to use client certificate
 verification, specify it explicitly.
 
-## Example
+## Example: enable SSL for management
 
-In the following `rabbitmq.config`, the management API and its command-line
-tool are assigned to different listeners, and the command-line tool is
-given an explicit path prefix. The management listener will only bind to the
-loopback interface.
+In the following `rabbitmq.config`, SSL is enabled for the management
+plugin on port 55672.
 
-    [{rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},
-                                       {mgmt, [{port, 55672},
-                                               {ip,   "127.0.0.1"}]},
-                                       {cli,  [{port, 55555}]}]},
-                          {contexts,  [{rabbit_mgmt,     mgmt},
-                                       {rabbit_mgmt_api, mgmt},
-                                       {rabbit_mgmt_cli, {cli, "commandline"}}]}
-    ]}].
+    [{rabbitmq_mochiweb,
+      [{listeners, [{'*',  [{port,     55670}]},
+                    {mgmt, [{port,     55672},
+                            {ssl,      true},
+                            {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                                        {certfile,   "/path/to/cert.pem"},
+                                        {keyfile,    "/path/to/key.pem"}]}
+                           ]}
+                   ]}
+      ]}
+    ].

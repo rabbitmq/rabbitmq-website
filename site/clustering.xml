@@ -666,8 +666,8 @@ $ rabbitmqctl -n hare start_app</pre>
             not to clash as well - for example:
           </p>
           <pre class="sourcecode">
-$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb port 55672" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb port 55673" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.
@@ -680,8 +680,9 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb port 55
             are in a data center or on a reliable network, but separated
             by firewalls. Clustering is not recommended over a WAN or
             when network links between nodes are unreliable.
-            The <a href="plugins.html#rabbitmq-shovel">shovel plugin</a>
-            is a better solution in that case.
+            The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
+            <a href="plugins.html#rabbitmq_federation">federation</a>
+            plugins are a better solution in that case.
           </p>
           <p>
             If different nodes of a cluster are in the same data center,
