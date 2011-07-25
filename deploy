@@ -1,16 +1,17 @@
 #!/bin/sh
 
 set -e
-set -x
 tmp_dir=/tmp/to_deploy
 
 remote_host=$1
 
 if [ x"$remote_host" = x ] ; then
     echo 'Usage: deploy <host to deploy to>'
+    exit 1
 fi
 
+set -x
 
-ssh $remote_host mkdir -p /tmp/to_deploy
+ssh $remote_host mkdir -p $tmp_dir
 rsync -qcrz --delete --perms --chmod=Fo+rw,Do+rwx code conf site wordpress-theme $remote_host:$tmp_dir
 ssh -t $remote_host sudo $tmp_dir/code/deploy-remote
