@@ -543,10 +543,10 @@
   consumer registration and routing of deliveries to the appropriate
   consumers.</p>
 
-  <p>For instance, the default consumer module, namely
-  amqp_selective_consumer keeps track of which processes are
-  subscribed to which queues and then routes deliveries to the correct
-  ones; in addition, if the channel gives it a delivery for an unknown
+  <p>For instance, the default consumer module,
+  amqp_selective_consumer, keeps track of which processes are
+  subscribed to which queues and routes deliveries appropriately; in
+  addition, if the channel gives it a delivery for an unknown
   consumer, it will pass it to a default consumer, should one be
   registered.</p>
 
