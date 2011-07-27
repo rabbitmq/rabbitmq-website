@@ -458,11 +458,18 @@
     As indicated in the "Receiving Messages" section, subscribing to a
     queue can be a more efficient means of delivering messages than
     the polling mechanism. To subscribe to a queue, the
-    #'basic.consume'{} command is used:
+    #'basic.consume'{} command is used in one of two forms:
 
     <pre class="sourcecode">
       Sub = #'basic.consume'{queue = Q},
       #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
+    </pre>
+
+    or
+
+    <pre class="sourcecode">
+      Sub = #'basic.consume'{queue = Q},
+      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:call(Channel, Sub) %% the caller is the subscriber
     </pre>
   </p>
   <p>
@@ -472,14 +479,9 @@
     subscription. The #'basic.consume_ok'{} notification contains a
     tag that identifies the subscription. This is used at a later
     point in time to cancel the subscription. This notification is
-    send both to the process that created the subscription (as the
+    sent both to the process that created the subscription (as the
     return value to amqp_channel:subscribe/3) and as a message to the
     consumer process.
-  </p>
-  <p>
-    Currently, sending basic.consume messages is only possible via the
-    subscribe function. This part of the API may change in the near
-    future.
   </p>
   <p>
     When a consumer process is subscribed to a queue, it will receive
@@ -529,6 +531,37 @@
       amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
     </pre>
 
+</doc:section>
+
+<!-- ..................................................................... -->
+
+<doc:section name="subscribing-internals">
+  <doc:heading>Subscribing Internals</doc:heading>
+  <p>The channel uses a module implementing the amqp_gen_consumer
+  behaviour to determine its behaviour with regard to subscribing
+  related events.  Effectively, this modules handles client-side
+  consumer registration and routing of deliveries to the appropriate
+  consumers.</p>
+
+  <p>For instance, the default consumer module, namely
+  amqp_selective_consumer keeps track of which processes are
+  subscribed to which queues and then routes deliveries to the correct
+  ones; in addition, if the channel gives it a delivery for an unknown
+  consumer, it will pass it to a default consumer, should one be
+  registered.</p>
+
+  <p>By contrast, amqp_direct_consumer simply forwards all the
+  messages it receives from the channel to its only registered
+  consumer.</p>
+
+  <p>The consumer module for a channel is chosen when the channel is
+  opened by setting the second parameter to
+  amqp_connection:open_channel/2.  The consumer module implements the
+  amqp_gen_consumer behaviour and thus implements functions to handle
+  receiving basic.consume, basic.consume_ok, basic.cancel,
+  basic.cancel_ok methods as well as publishes.</p>
+
+  <p>See the API documentation for details.</p>
 </doc:section>
 
 <!-- ..................................................................... -->
