@@ -111,17 +111,17 @@ using a STOMP client of your choice. In a pinch, `telnet` or netcat
 
       $ nc localhost 61613
       CONNECT
-      
+
       ^@
     : CONNECTED
     : session:session-QaDdyL5lg5dUx0vSWrnVNg==
     : heart-beat:0,0
     : version:1.0
-    : 
+    :
       DISCONNECT
-      
+
       ^@
-    : 
+    :
       $
 
 Here `$` is the command prompt; responses are prefixed with `:`
@@ -142,8 +142,16 @@ See [Compiling and installing from source](#caifs) above.
 The STOMP specification does not prescribe what kinds of destinations
 a broker must support, instead the value of the `destination` header
 in `SEND` and `MESSAGE` frames is broker-specific. The RabbitMQ STOMP
-adapter supports three kinds of destination: `/exchange`, `/queue` and
-`/topic`.
+adapter supports a number of different destination types:
+
+1. `/exchange` - `SEND` to arbitrary routing keys and `SUBSCRIBE` to
+arbitrary binding patterns
+2. `/queue` - `SEND` and `SUBSCRIBE` to queues managed by the STOMP
+gateway
+3. `/amq/queue` - `SEND` and `SUBSCRIBE` to queues created outside the
+STOMP gateway
+4. `/topic` - `SEND` and `SUBSCRIBE` to transient and durable topics
+5. `/temp-queue/` - create temporary queues for use in `reply-to` headers
 
 ### Exchange Destinations
 
@@ -186,6 +194,19 @@ with the routing key `<name>`. For `SUBSCRIBE` frames, a subscription
 against the queue `<name>` is created for the current STOMP
 session.
 
+### AMQ Queue Destinations
+
+To address existing queues created outside the STOMP gateway,
+destinations of the form `/amq/queue/<name>` can be used.
+
+#### AMQP Semantics
+
+For `SEND` frames, the message is sent directly to the queue named
+`<name>` via the default exchange. No queue is created.
+
+For  `SUBSCRIBE` frames, a subscription against the queue `<name>` is
+created for the current STOMP session.
+
 ### Topic Destinations
 
 For simple topic destinations which deliver a copy of each message to
@@ -204,6 +225,72 @@ with the routing key `<name>`.
 For `SUBSCRIBE` frames, an exclusive queue is created and bound to the
 `amq.topic` exchange with routing key `<name>`. A subscription is
 created against the exclusive queue.
+
+### Durable Topic Subscriptions
+
+The STOMP adapter supports durable topic subscriptions. Durable
+subscriptions allow clients to disconnect and reconnect the STOMP
+broker as needed, without missing messages that are sent to the topic.
+
+A topic is neither durable nor transient, instead **subscriptions**
+are durable or transient and can be mixed against a given topic.
+
+#### Creating a Durable Subscription
+
+To create a durable subscription, set the `persistent` header to true
+in the `SUBSCRIBE` frame. When creating a durable subscription, the
+`id` header must be specified:
+
+    SUBSCRIBE
+    destination:/topic/my-durable
+    id:1234
+    persistent:true
+
+#### AMQP Semantics
+
+For `SEND` frames, the message is sent to the `amq.topic` exchange
+with the routing key `<name>`.
+
+For `SUBSCRIBE` frames, a shared queue is created for each distinct
+subscription ID x destination pair, and bound to the `amq.topic`
+exchange with routing key `<name>`. A subscription is created against
+the queue.
+
+#### Deleting the Topic
+
+To permantently delete a durable topic, send an `UNSUBCRIBE` frame for
+the subscription ID with the `persistent` header set to `true`:
+
+    UNSUBSCRIBE
+    destination:/topic/my-durable
+    id:1234
+    persistent:true
+
+### Temp Queue Destinations
+
+Temp queue destinations allow you easily define temporary destinations
+in the `reply-to` header of a `SEND` frame.
+
+Temp queues are managed by the broker and identities are private to
+each session - there is no need for your code to worry about ensuring
+that temporary queues are unique across all sessions.
+
+To use a temp queue, simply add in the appropriate `reply-to` header
+on a `SEND` frame:
+
+    SEND
+    destination:/queue/reply-test
+    reply-to:/temp-queue/foo
+
+    Hello World!
+
+This frame creates a temporary queue that is private to the
+session. Other sessions that reference `/temp-queue/foo` get different
+queues.
+
+When this message is received, the receiving client can obtain the
+reply destination from the `reply-to` header. Reply destinations sent
+to consumers are opaque and cannot be inferred.
 
 ## Protocol extensions
 
