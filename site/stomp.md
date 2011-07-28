@@ -196,7 +196,7 @@ session.
 
 ### AMQ Queue Destinations
 
-To address existing queues created outside the STOMP gateway,
+To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
 #### AMQP Semantics
@@ -204,7 +204,7 @@ destinations of the form `/amq/queue/<name>` can be used.
 For `SEND` frames, the message is sent directly to the queue named
 `<name>` via the default exchange. No queue is created.
 
-For  `SUBSCRIBE` frames, a subscription against the queue `<name>` is
+For `SUBSCRIBE` frames, a subscription against the queue `<name>` is
 created for the current STOMP session.
 
 ### Topic Destinations
@@ -229,17 +229,19 @@ created against the exclusive queue.
 ### Durable Topic Subscriptions
 
 The STOMP adapter supports durable topic subscriptions. Durable
-subscriptions allow clients to disconnect and reconnect the STOMP
-broker as needed, without missing messages that are sent to the topic.
+subscriptions allow clients to disconnect from and reconnect to the
+STOMP broker as needed, without missing messages that are sent to the
+topic.
 
-A topic is neither durable nor transient, instead **subscriptions**
-are durable or transient and can be mixed against a given topic.
+Topics are neither durable nor transient, instead **subscriptions**
+are durable or transient. Durable and transient can be mixed against a
+given topic.
 
 #### Creating a Durable Subscription
 
-To create a durable subscription, set the `persistent` header to true
-in the `SUBSCRIBE` frame. When creating a durable subscription, the
-`id` header must be specified:
+To create a durable subscription, set the `persistent` header to
+`true` in the `SUBSCRIBE` frame. When creating a durable subscription,
+the `id` header must be specified:
 
     SUBSCRIBE
     destination:/topic/my-durable
