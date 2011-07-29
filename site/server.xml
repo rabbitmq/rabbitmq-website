@@ -245,8 +245,9 @@
     <h3 id="windows-installer">Windows Installer</h3>
     <p>
       As an alternative to <a href="install.html#windows">installing
-      the server manually on Windows</a>, we have an executable installer.
-      You will need to install Erlang from its installer first.
+      the server manually on Windows</a>, we have an executable
+      installer. You will need to install Erlang from its installer
+      first.
     </p>
 
     <h3 id="windows_bundle">Windows Bundle</h3>
