@@ -110,7 +110,7 @@
           </dl>
         </doc:subsection>
       </doc:section>
-      
+
       <doc:section name="windows-manual">
         <doc:heading>Windows Manual Install</doc:heading>
         <doc:subsection name="install-windows-separately">
