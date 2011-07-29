@@ -6,8 +6,7 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-      xmlns:xi="http://www.w3.org/2003/XInclude">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ Server</title>
   </head>
@@ -93,15 +92,15 @@
 
       <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
 		  downloadpath="&dir-server;">
-	Packaged for generic Unix systems
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-windows-&version-server;.zip"
-		  downloadpath="&dir-server;">
-	Packaged for Windows systems
+	Packaged for generic Unix systems (tar.gz)
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;.exe"
 		  downloadpath="&dir-server;">
-	<b>Experimental</b><sup><a href="#windows-installer">#</a></sup> installer for Windows systems
+	Installer for Windows systems
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-windows-&version-server;.zip"
+		  downloadpath="&dir-server;">
+	Packaged for Windows systems (zip)
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;.zip"
                   downloadpath="&dir-server;">
@@ -245,17 +244,10 @@
     <h3 id="windows-installer">Windows Installer</h3>
     <p>
       As an alternative to <a href="install.html#windows">installing
-      the server manually on Windows</a>, we have an experimental
-      executable installer. Please be prepared to report bugs
-      to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">the
-      mailing list</a>. You will need to install Erlang from its
-      installer first.
+      the server manually on Windows</a>, we have an executable
+      installer. You will need to install Erlang from its installer
+      first.
     </p>
-
-    <h3 id="windows_bundle">Windows Bundle</h3>
-    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
-      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
-    </xi:include>
 
     <h3>Source Code</h3>
 
