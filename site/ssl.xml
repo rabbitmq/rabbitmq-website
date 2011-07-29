@@ -768,6 +768,13 @@ namespace RabbitMQ.Client.Examples {
     }
 }
 </pre>
+
+          <p>Note that, on Windows XP, running the example may fail
+          with <code>CryptographicException: Key not valid for use in
+          specified state</code>.  In this case, you may be successful
+          in loading the certificate from the certificate store and
+          setting <code>ConnectionFactory</code>'s
+          <code>Ssl.Certs</code> parameter directly.</p>
         </doc:subsection>
 
         <doc:subsection name="bugs-in-mono">
