@@ -224,72 +224,12 @@
             <strong>
               Again, since the plugin runs in the same node as the broker, an action that results in the node
               halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
-              this occuring, however Administrators should be aware of the risks of installing plugins - especially
+              this occuring, however Administrators should be aware of the risks of 
+              <a href="plugins.html#installing-plugins">installing plugins</a> - especially
               those that are not known to have undergone a rigorous QA procedure.
             </strong>
           </li>
         </ul>
-
-        <doc:subsection name="installing-plugins">
-          <doc:heading>Plugin Installation</doc:heading>
-          <ul>
-            <li>
-              Plugins will generally be available in two forms. The expected form for a packaged plugin
-              will be a .ez erlang archive. Alternatively, more developmental plugins may be distributed
-              directly from source control, whereby they will be a directory containing (at least) an ebin
-              subdirectory.
-            </li>
-            <li>
-              In both cases, the plugin archive (or directory) should be placed into the plugins subdirectory
-              within the rabbitmq-server installation directory (ie, the directory that the ebin directory
-              resides within). If this directory does not exist, it can be safely created.
-            </li>
-            <li>
-              After adding new plugins to the plugins subdirectory,
-              restart the RabbitMQ server. As it starts, it scans the
-              plugins subdirectory and activates all the plugins it
-              finds there automatically before continuing to load.
-            </li>
-            <li>
-              <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-              Each time you add plugins to the plugins directory, you must re-run the
-              <pre>rabbitmq-service.bat install</pre>
-              command to ensure that the service configuration is updated to perform
-              an appropriate boot sequence.
-            </li>
-          </ul>
-        </doc:subsection>
-       
-        <doc:subsection name="uninstalling-plugins">
-          <doc:heading>Plugin Un-installation</doc:heading>
-          
-          <p>
-            To remove an installed plugin from the broker, delete the
-            .ez file or directory from the plugins directory. When the
-            broker is restarted, the deleted plugin will no longer be
-            started.
-          </p>
-	  <p>
-	    <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-	    Just as for installation, every time you remove plugins
-	    from the plugins directory, you must re-run the
-	    <pre>rabbitmq-service.bat install</pre>
-	    command to ensure that the service configuration is updated to perform
-	    an appropriate boot sequence.
-	  </p>
-        </doc:subsection>
-
-        <doc:subsection name="disabling-all-plugins">
-          <doc:heading>Disabling all Plugins</doc:heading>
-
-          <p>
-            In the event of broker mis-behaviour, it is recommended
-            that all plugins be disabled as a first
-            port-of-call. Either move the plugins subdirectory away,
-            or delete it.  When Rabbit is restarted, no custom plugins
-            will be loaded.
-          </p>
-        </doc:subsection> 
       </doc:section>
     </doc:div>
   </body>
