@@ -27,8 +27,9 @@
       <doc:section name="installation">
         <doc:heading>Installation</doc:heading>
         <p>
-          Please see the <a href="admin-guide.html#plugins">plugin installation guide</a>
+          Please see the <a href="plugins.html#installing-plugins">plugins page</a>
           for more detailed instructions on plugin installation.
+          Also check the <a href="admin-guide.html#plugins">Admin Guide</a>.
         </p>
         <ul>
           <li>
