@@ -164,6 +164,14 @@
             server<sup><a href="#compatibility">[1]</a></sup>.
           </p>
 
+          <r:plugin name="rabbitmq_federation">
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See the
+            <r:readme-link repo="rabbitmq-federation"/> for more
+            information.
+            <r:plugin-dependency name="amqp_client"/>
+          </r:plugin>
+
           <r:plugin name="rabbitmq_jsonrpc_channel">
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.

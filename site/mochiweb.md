@@ -23,22 +23,17 @@ configuration is usually supplied in the main [RabbitMQ configuration
 file](configure.html#configuration-file).
 
 The default configuration specifies two listeners, one on port 55670
-and one on port 55672; then assigns contexts used in the management
+and one on port 55672; then assigns the context used in the management
 plugin to the latter, and lets everything else default to the
 former. It looks like this:
 
-      [{listeners, [{'*',  [{port, 55670}]},
-                    {mgmt, [{port, 55672}]}]},
-       {contexts,  [{rabbit_mgmt, mgmt},
-                    {rabbit_mgmt_api, mgmt},
-                    {rabbit_mgmt_cli, mgmt}]}]
+      [{listeners,        [{mgmt, [{port, 55672}]}]},
+       {default_listener, [{port, 55670}]},
+       {contexts,         [{rabbit_mgmt, mgmt}]}]
 
 The listeners are given as pairs of a name and options; the options
 are given to mochiweb, and only `port` is mandatory (see below for
 other options).
-
-The listener called `'*'` is the catch-all default; a configuration
-must always have a listener named `'*'`.
 
 The context entries assign contexts (`rabbit_mgmt` etc.) to the
 listeners. The context names are used by applications when registering
@@ -87,19 +82,3 @@ plugin on port 55672.
                    ]}
       ]}
     ].
-
-## Example: moving contexts
-
-In the following `rabbitmq.config`, the management API and its command-line
-tool are assigned to different listeners, and the command-line tool is
-given an explicit path prefix. The management listener will only bind to the
-loopback interface.
-
-    [{rabbitmq_mochiweb, [{listeners, [{'*',  [{port, 55670}]},
-                                       {mgmt, [{port, 55672},
-                                               {ip,   "127.0.0.1"}]},
-                                       {cli,  [{port, 55555}]}]},
-                          {contexts,  [{rabbit_mgmt,     mgmt},
-                                       {rabbit_mgmt_api, mgmt},
-                                       {rabbit_mgmt_cli, {cli, "commandline"}}]}
-    ]}].

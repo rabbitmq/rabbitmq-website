@@ -19,6 +19,7 @@ Binary packages for the STOMP adapter can be found on the
 Instructions for installing binary plugins can be found in the
 [Admin Guide](http://www.rabbitmq.com/admin-guide.html#plugins).
 
+ <div id="caifs"/>
 ## Compiling and installing from source
 
 To build the STOMP adapter from source, follow the instructions for
@@ -30,10 +31,12 @@ You need to install the rabbitmq\_stomp.ez and amqp\_client.ez packages.
 ## Configuring the adapter
 
 When no configuration is specified the STOMP Adapter will listen on
-all interfaces on port 61613.
+all interfaces on port 61613 and have a default user login/passcode
+of `guest`/`guest`.
 
-To change this, edit your [Configuration file](http://www.rabbitmq.com/install.html#configfile),
-to contain a tcp_listeners variable for the rabbitmq_stomp application.
+To change this, edit your
+[Configuration file](/configure.html#configuration-file),
+to contain a `tcp_listeners` variable for the `rabbitmq_stomp` application.
 
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
@@ -51,9 +54,9 @@ both IPv4 and IPv6) would look like:
     ].
 
 To use SSL for STOMP connections, SSL must be configured in the broker
-as described [here](http://www.rabbitmq.com/ssl.html). To enable a
+as described [here](http://www.rabbitmq.com/ssl.html). To enable
 STOMP SSL connections, add a listener configuration to the
-ssl_listeners variable for the rabbit_stomp application:
+`ssl_listeners` variable for the `rabbitmq_stomp` application:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [61613]},
@@ -63,29 +66,76 @@ ssl_listeners variable for the rabbit_stomp application:
 This configuration creates a standard TCP listener on port 61613 and
 an SSL listener on port 61614.
 
+### Default User
+
+The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
+and `passcode` headers if a default is configured.
+
+To configure a default login and passcode, add a `default_user`
+section to the `rabbitmq_stomp` application configuration:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"}]}]}
+    ].
+
+The configuration example above makes `guest`/`guest` the default
+login/passcode pair.
+
+### Implicit Connect
+
+If you configure a default user, you can also choose to allow clients
+to omit the `CONNECT` frame entirely. In this mode, if the first frame
+sent on a session is not a `CONNECT`, the client is automatically
+connected *as the default user*.
+
+To enable implicit connect, add `implicit_connect` to the
+`default_user` configuration section:
+
+    [
+      {rabbitmq_stomp, [{default_user, [{login, "guest"},
+                                        {passcode, "guest"},
+                                        implicit_connect]}]}
+    ].
+
+Implicit connect is *not* enabled by default.
+
+**Note** A client causing an implicit connect will *not* receive a
+`CONNECTED` frame from the server.
+
 ### Testing the adapter
 
-If the adapter is running, you should be able to connect to port 61613
+If the default adapter is running, you should be able to connect to port 61613
 using a STOMP client of your choice. In a pinch, `telnet` or netcat
-(`nc`) will do nicely:
+(`nc`) will do nicely, for example:
 
-    $ nc localhost 61613
-    dummy
-    dummy
-    ERROR
-    message:Invalid frame
-    content-type:text/plain
-    content-length:22
+      $ nc localhost 61613
+      CONNECT
+      
+      ^@
+    : CONNECTED
+    : session:session-QaDdyL5lg5dUx0vSWrnVNg==
+    : heart-beat:0,0
+    : version:1.0
+    : 
+      DISCONNECT
+      
+      ^@
+    : 
+      $
 
-    Could not parse frame
-    $
+Here `$` is the command prompt; responses are prefixed with `:`
+(your session-id may vary);
+and Ctrl-@ (`^@`) inserts a zero byte into the stream.
+We connect as the default user (note the blank line
+after the `CONNECT` line) getting a `CONNECTED` response indicating
+that the STOMP adapter is listening and running.
+The `DISCONNECT` frame
+causes the connection to be dropped.
 
-That `ERROR` message indicates that the adapter is listening and
-attempting to parse STOMP frames.
-
-Alternatively, you can run the `test/test.py` script from adapter
-source tree. This script runs a full suite of tests against the
-adapter in its default configuration.
+The script `test.py` runs a full suite of tests and this can be run
+using `make test` against a STOMP adapter built from source.
+See [Compiling and installing from source](#caifs) above.
 
 ## Destinations
 
@@ -97,7 +147,7 @@ adapter supports three kinds of destination: `/exchange`, `/queue` and
 
 ### Exchange Destinations
 
-Any exchange/queue or exchange/routing key combination can be accessed
+Any exchange/queue or exchange/routing-key combination can be accessed
 using destinations prefixed with `/exchange`.
 
 For `SUBSCRIBE` frames, a destination of the form
@@ -113,7 +163,7 @@ For `SEND` frames, a destination of the form
 
 1. sends to exchange `<name>` with the routing key `<routing-key>`.
 
-It should be noted that exchange destinations are {{not}} suitable for
+**Note** Exchange destinations are *not* suitable for
 consuming messages from an existing queue. A new queue is created for
 each subscriber and is bound to the specified exchange using the
 supplied routing key.
@@ -124,7 +174,7 @@ For simple queues, destinations of the form `/queue/<name>` can be
 used.
 
 Queue destinations deliver each message to at most one
-subscriber. Messages sent when no subscriber exist will be queued
+subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
 #### AMQP semantics
@@ -165,13 +215,13 @@ described in the STOMP specs.
 
 On the `SEND` frame, the STOMP adapter supports the inclusion of a `persistent` header.
 
-Setting the `persistent` header to `true` has the obvious effect of making the message persistent.
+Setting the `persistent` header to `true` has the effect of making the message persistent.
 
 Receipts for `SEND` frames with `persistent:true` are not sent until a
 confirm is received from the broker. The exact semantics for confirms
 on persistent messages can be found here.
 
-`MESSAGE` frames for persistent messages also a `persistent:true`
+`MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
 ### AMQP properties

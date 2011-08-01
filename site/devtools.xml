@@ -446,7 +446,7 @@
                 <a href="https://github.com/BraveSirRobin/amqphp">amqphp</a> a pure PHP implementation of AMQP 0-9-1 for RabbitMQ 2+ and PHP 5.3
               </li>
               <li>
-                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</a>
+                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
               </li>
               <li>
                 <a href="https://github.com/videlalvaro/Thumper">Thumper</a> a library of messaging patterns
@@ -534,7 +534,7 @@
               </li>
               <li>
                 <a href="http://github.com/dreid/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
-                based on the <a href="http://www.rabbitmq.com/plugins.html#rabbitmq-erlang-client">rabbit-erlang-client</a>
+                based on the <a href="http://www.rabbitmq.com/erlang-client-user-guide.html">rabbit-erlang-client</a>
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
@@ -650,7 +650,7 @@
               <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
                 <br />
-                An experimental driver (in PHP) for <a href="plugins.html#rabbitmq-jsonrpc-channel">rabbitmq-jsonrpc-channel</a> designed to
+                An experimental driver (in PHP) for <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a> designed to
                 expedite single call HTTP delivery for Basic.Publish calls to RabbitMQ
               </li>
               <li>

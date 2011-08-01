@@ -271,7 +271,7 @@ channel.basicConsume(queueName, autoAck, consumer);
         its methods will be called from within the connection's
         thread, and so they must not in turn invoke any blocking
         AMQP operation (such as <code>queueDeclare</code>,
-        <code>txCommit</code>, <code>basicCancel</code> or
+        <code>basicCancel</code> or
         <code>basicPublish</code>). If they do, the channel will
         deadlock. Only asynchronous AMQP operations without content
         are safe for use within callbacks, such as <code>basicAck</code>.
@@ -592,9 +592,9 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     {
         // The following code depends on the channel being in open state.
         // However there is a possibility of the change in the channel state
-        // between isOpen() and txCommit() call
+        // between isOpen() and basicQos(1) call
         ...
-        channel.txCommit();
+        channel.basicQos(1);
     }
 }</pre>
 	    <p>
@@ -613,7 +613,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 {
     <b>try</b> {
         ...
-        channel.txCommit();
+        channel.basicQos(1);
     } <b>catch</b> (ShutdownSignalException sse) {
         // possibly check if channel was closed
         // by the time we started action and reasons for
