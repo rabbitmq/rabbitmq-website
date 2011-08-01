@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stylesheet [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:html="http://www.w3.org/1999/xhtml"
@@ -331,6 +335,85 @@
     <a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+
+  <xsl:template match="r:plugin-index">
+    <div class="docToc">
+      <ul>
+        <xsl:for-each select="//r:plugin-group">
+          <li>
+            <a href="#{@id}"><xsl:value-of select="@name"/></a>
+            <ul>
+              <xsl:for-each select="r:plugin">
+                <li>
+                  <a href="#{@name}"><xsl:value-of select="@name"/></a>
+                </li>
+              </xsl:for-each>
+            </ul>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="r:plugin-group">
+    <div class="docSection" id="{@id}">
+      <h2 class="docHeading"><xsl:value-of select="@name"/> Plugins</h2>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="r:plugin">
+    <div class="docSubsection" id="{@name}">
+      <h3 class="docHeading"><xsl:value-of select="@name"/></h3>
+      <xsl:apply-templates/>
+      <xsl:call-template name="plugin-download"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="plugin-download" match="r:plugin-download">
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
+        <li>
+          <xsl:call-template name="plugin-link"/><br/>
+          <xsl:apply-templates/>
+        </li>
+      </xsl:for-each>
+      <li><xsl:call-template name="plugin-link"/></li>
+    </ul>
+    <xsl:if test="r:plugin-dependency[@optional='true']">
+      <p>And the following files are optional:</p>
+      <ul>
+        <xsl:for-each select="r:plugin-dependency[@optional='true']">
+          <li>
+            <xsl:call-template name="plugin-link"/><br/>
+            <xsl:apply-templates/>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="r:plugin-ver"/>
+  <xsl:template match="r:plugin-dependency"/>
+
+  <xsl:template name="plugin-link" match="r:plugin-link">
+    <xsl:variable name="name" select="@name"/>
+    <xsl:variable name="explicit" select="//r:plugin-ver[@name=$name]/@ver"/>
+    <xsl:variable name="ver">
+      <xsl:choose>
+        <xsl:when test="$explicit"><xsl:value-of select="$explicit"/></xsl:when>
+        <xsl:otherwise>&version-server;</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
+  </xsl:template>
+
+  <xsl:template match="r:readme-link">
+    <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
   </xsl:template>
 
   <!-- ############################################################ -->
