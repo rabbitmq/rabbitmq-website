@@ -92,9 +92,7 @@
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
-          page or
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
-          file for more information, but be aware that it seems to be
+          page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <doc:subsection name="erlang">
