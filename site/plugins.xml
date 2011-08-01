@@ -220,13 +220,6 @@
               plugins subdirectory and activates all the plugins it
               finds there automatically before continuing to load.
             </li>
-            <li>
-              <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-              Each time you add plugins to the plugins directory, you must re-run the
-              <pre>rabbitmq-service.bat install</pre>
-              command to ensure that the service configuration is updated to perform
-              an appropriate boot sequence.
-            </li>
           </ul>
         </doc:subsection>
        
@@ -239,14 +232,6 @@
             broker is restarted, the deleted plugin will no longer be
             started.
           </p>
-	  <p>
-	    <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-	    Just as for installation, every time you remove plugins
-	    from the plugins directory, you must re-run the
-	    <pre>rabbitmq-service.bat install</pre>
-	    command to ensure that the service configuration is updated to perform
-	    an appropriate boot sequence.
-	  </p>
         </doc:subsection>
 
         <doc:subsection name="disable-all-plugins">
@@ -259,7 +244,21 @@
             will be loaded.
           </p>
         </doc:subsection> 
-       </doc:section>
+        
+        <doc:subsection name="windows-restart">
+          <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
+          <p>
+              Each time you add or remove any plugins in the plugins directory, you must re-run the
+<pre>
+rabbitmq-service.bat remove
+rabbitmq-service.bat install
+rabbitmq-service.bat start
+</pre>
+              commands to ensure that the service configuration is updated to perform
+              an appropriate boot sequence.
+        </p>
+        </doc:subsection>
+        </doc:section>
 
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
