@@ -124,13 +124,6 @@
             at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
               working Shovel configuration</a>.
             <r:plugin-dependency name="amqp_client"/>
-            <r:plugin-dependency name="erlando"/>
-            <r:plugin-dependency name="rabbitmq_shovel_management" optional="true">
-              Shows shovel status in the management API and UI. Only
-              of use when using rabbitmq_shovel in conjunction with
-              rabbitmq_management. In a heterogenous cluster this
-              should be installed on the same nodes as rabbitmq_management.
-            </r:plugin-dependency>
           </r:plugin>
 
           <r:plugin name="rabbitmq_stomp">
