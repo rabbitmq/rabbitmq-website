@@ -6,8 +6,7 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-      xmlns:xi="http://www.w3.org/2003/XInclude">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
   </head>
@@ -41,7 +40,10 @@
 
     <p>
       The current release of the RabbitMQ .NET/C# AMQP library is <b>
-      &version-dotnet-client;</b>.
+      &version-dotnet-client;</b>. Consult
+      <a href="/releases/rabbitmq-dotnet-client/">the archive</a> if
+      you want to download a version of the RabbitMQ .NET/C# Client
+      library or documentation other than the above.
     </p>
 
     <h2>
@@ -119,19 +121,6 @@
 	form)
       </r:download>
     </r:downloads>
-
-    <h3>Other versions</h3>
-
-    <p>
-      Consult <a href="/releases/rabbitmq-dotnet-client/">the
-      archive</a> if you want to download a version of the RabbitMQ
-      .NET/C# Client library or documentation other than the above.
-    </p>
-
-    <h2>Windows Bundle</h2>
-    <xi:include href="windows-bundle.xml.inc" xpointer="xmlns(html=http://www.w3.org/1999/xhtml)xpointer(/html:div/*)">
-      <xi:fallback><p style="color:red;font-weight:bold">[xinclude failed]</p></xi:fallback>
-    </xi:include>
 
     <h2>Mercurial repository</h2>
     <p>The .NET/C# AMQP client library, WCF binding, and example programs. Please

@@ -39,8 +39,8 @@
         <p>
           If you use non-default file locations, ports, account
           or service names, or component properties these should be
-          <a href="configure.html">configured</a>. 
-          If you need multiple server nodes, also see the 
+          <a href="configure.html">configured</a>.
+          If you need multiple server nodes, also see the
           <a href="clustering.html">clustering guide</a>.
         </p>
         <p>
@@ -48,50 +48,83 @@
         <ol>
         <li>Install Erlang</li>
         <li>Install RabbitMQ server </li>
-        <li>Configure environment</li>
+        <li>(optional) Configure environment</li>
+        <li>(optional) Put plugins in plugin directory</li>
         <li>Start service or daemon</li>
         </ol>
         </p>
       </doc:section>
 
       <doc:section name="windows">
-        <doc:heading>Windows</doc:heading>
-        <p>
-          You can either use files from the Windows bundle,
-          or download Erlang and the RabbitMQ server as indicated below.
-          </p>
-        <doc:subsection name="install-windows-bundle">
-          <doc:heading>Install from the Windows Bundle</doc:heading>
-          <p>
-            For convenience, the <a href="server.html#windows_bundle">Windows Bundle zip file</a>
-            already contains the Erlang system installer
-            and the RabbitMQ broker server binary distribution files needed for the next section.
-            It also includes .Net and Java client libraries for RabbitMQ.
-          </p>
-          <p>
-            Just extract the files from the bundle and
-            then follow the instructions to install each server component.
-          </p>
+        <doc:heading>Windows Quick Install</doc:heading>
+        <doc:subsection name="install-windows">
+        <doc:heading>Install the Server</doc:heading>
+          <dl class="instructions">
+            <dt>Install the easy way</dt>
+            <dd>
+             <p>
+              Run the <a href="http://www.erlang.org/download.html">Erlang Windows Binary File</a>.
+              It takes around 5 minutes.
+            </p>
+            <p>
+              Then just run the <a href="server.html">Installer for Windows systems</a>,
+              <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
+              It takes around 2 minutes, and will set RabbitMQ up and running as a service,
+              with a default configuration. That's all!
+            </p>
+          </dd>
+          </dl>
         </doc:subsection>
+        <doc:subsection name="run-windows">
+        <doc:heading>Run RabbitMQ Service</doc:heading>
+          <dl class="instructions">
+          <dt>Customise RabbitMQ Environment Variables</dt>
+          <dd>
+            <p>
+              The service will run fine using its default settings. You may want to
+              <a href="configure.html#customise-windows-environment">customise the RabbitMQ environment</a>
+              or edit <a href="configure.html#configuration-file">configuration</a>.
+            </p>
+          </dd>
+          <dt>Run RabbitMQ</dt>
+          <dd>
+            <p>
+              The RabbitMQ service starts automatically.
+              You can stop/reinstall/start the RabbitMQ service from the Start Menu.
+            </p>
+          </dd>
+          <dt>Manage the Service</dt>
+          <dd>
+            <p>
+              You can find links to RabbitMQ directories in the Start Menu.
+            </p>
+            <p>
+              You can use also any of the
+              <a href="find-rabbitmq-on-windows">command line scripts in sbin</a>
+              as described for <a href="#windows-manual">Windows Manual Install</a>
+              including <a href="#managing-windows">rabbitmqctl</a>
+              commands and <a href="#logging-windows">logging</a>.
+              You can set up the path or just use the link to sbin directory found in the Start Menu.
+            </p>
+          </dd>
+          </dl>
+        </doc:subsection>
+      </doc:section>
 
+      <doc:section name="windows-manual">
+        <doc:heading>Windows Manual Install</doc:heading>
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
-
+            <p>
+              If you should ever need to install RabbitMQ manually, this is how to do it:
+            </p>
             <dl class="instructions">
               <dt>Install Erlang</dt>
               <dd>
                 <p>
-                  Install a recent version of Erlang/OTP.
-                  <a href="http://www.erlang.org/download/otp_win32_R13B03.exe">Versions R13B03</a>
-                  and higher should work on Windows. Extract it from
-                  the Windows bundle or choose a version from
-                  <a href="http://www.erlang.org/download.html">
-                  http://www.erlang.org/download.html</a>
-                </p>
-                <p>
-                  Run the .exe file. Using default installation options,
+                  Run the <a href="http://www.erlang.org/download.html">Erlang Windows Binary File</a>.
                   Erlang will appear in the Start Menu,
-                  and <code>\erl&windows-version-erlang;\bin\erl.exe</code> will be in
+                  and <code>\erl<var>x.x.x</var>\bin\erl.exe</code> will be in
                   <code>&dir-win-apps;</code> or <code>&dir-win64-apps;</code>.
                 </p>
               </dd>
@@ -100,7 +133,7 @@
               <dd>
                 <p>
                   Set <span class="envvar">ERLANG_HOME</span> to where you actually put your Erlang installation, e.g.
-                  <code>&dir-erlang-windows;</code> (full path).
+                  <code>C:\Program Files\erl<var>x.x.x</var></code> (full path).
                   The RabbitMQ batch files expect to execute
                   <code><span class="envvar">%ERLANG_HOME%</span>\bin\erl.exe</code>.
                 </p>
@@ -116,8 +149,7 @@
               <dd>
                 <p>
                  Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-                 from the <a href="server.html">download page</a> or extract it
-                 from the Windows bundle.
+                 from the <a href="server.html">download page</a>.
                 </p>
                 <p>
                  From the zip file, extract the folder named
@@ -337,7 +369,7 @@
           </p>
 
           <dl class="instructions">
-            <dt>Synchronise Erlang Cookies (when running a Windows Service)</dt>
+            <dt>Synchronise Erlang Cookies (when running a manually installed Windows Service)</dt>
             <dd>
               <p>
                  Erlang Security Cookies used by the service account and the user
@@ -460,7 +492,7 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-                See the <a href="#generic-unix">generic Unix</a> section
+                See the <a href="#generic-unix">Generic Unix or Linux</a> section
                 for info on <a href="#managing-server-unix">rabbitmqctl</a>
                 commands and
                 <a href="#logging-generic-unix">logging</a>.
@@ -532,7 +564,7 @@
             </dd>
             <dt>Manage the Server</dt>
             <dd>
-                See the <a href="#generic-unix">generic Unix</a> section
+                See the <a href="#generic-unix">Generic Unix or Linux</a> section
                 for info on <a href="#managing-server-unix">rabbitmqctl</a>
                 commands and
                 <a href="#logging-generic-unix">logging</a>.
@@ -597,7 +629,7 @@
             <code>$MACPORTS_PREFIX/var/lib/rabbitmq/.erlang.cookie</code>.
           </p>
           <p>
-            See the General Linux installation section for further information.
+            See the <a href="#generic-unix">Generic Unix or Linux</a> installation section for further information.
           </p>
         </doc:subsection>
       </doc:section>
@@ -630,6 +662,9 @@
           <p>
             All scripts run under your own user account. Sudo is not required.
           </p>
+          <p>
+            See the <a href="#generic-unix">Generic Unix or Linux</a> section for further information.
+          </p>
         </doc:subsection>
       </doc:section>
 
@@ -638,7 +673,7 @@
         <doc:subsection name="installing-solaris">
         <doc:heading>Install the Server</doc:heading>
           <p>
-            The  <a href="#generic-unix">Generic Unix</a> installation
+            The  <a href="#generic-unix">Generic Unix or Linux</a> installation
             instructions may be used to install RabbitMQ on Solaris, with
             two modifications:
             <ul>
