@@ -34,45 +34,9 @@
         </p>
 
         <p>
-          The simplest way to install plugins is to download all the
-          required .ez files from this page, drop them in your plugins
-          directory and restart RabbitMQ.
-
-          The plugins directory location is determined by the
-          <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
-          value depends on how you installed RabbitMQ. Some common values
-          are:
-
-          <table>
-            <tr><th>Installation method</th><th>Plugins directory</th></tr>
-            <tr>
-              <th>Deb / RPM packages</th>
-              <td>
-                <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-              </td>
-            </tr>
-            <tr>
-              <th>Windows</th>
-              <td>
-                Typically <code>C:\Program
-                  Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
-                (depending on where it was installed)
-              </td>
-            </tr>
-            <tr>
-              <th>Macports</th>
-              <td>
-                <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-              </td>
-            </tr>
-            <tr>
-              <th>Generic Unix</th>
-              <td>
-                <code>rabbitmq_server-<i>version</i>/plugins</code>
-                (depending on where it was installed)
-              </td>
-            </tr>
-          </table>
+          The simplest way to <a href="#installing-plugins">install plugins</a> is to download all the
+          required .ez files from this page, drop them in your <a href="#plugins-directory">plugins
+          directory</a> and restart RabbitMQ.
         </p>
       </doc:section>
 
@@ -245,7 +209,9 @@
         </p>
       </doc:section>
 
-      <doc:section name="compatibility">
+      <doc:section name="installing-plugins">
+      <doc:heading>Installing Plugins</doc:heading>
+        <doc:subsection name="compatibility">
         <doc:heading>Compatibility</doc:heading>
         <p>
           We compile the plugins when we make a release of the server,
@@ -255,6 +221,47 @@
           good" binaries; these will be marked with a particular
           server version with which they are known to work.
         </p>
+        </doc:subsection>
+
+        <doc:subsection name="plugins-directory">
+        <doc:heading>Plugins Directory</doc:heading>
+        <p>        
+          The plugins directory location is determined by the
+          <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
+          value depends on how you installed RabbitMQ. Some common values
+          are:
+
+          <table>
+            <tr><th>Installation method</th><th>Plugins directory</th></tr>
+            <tr>
+              <th>Deb / RPM packages</th>
+              <td>
+                <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Windows</th>
+              <td>
+                Typically <code>C:\Program
+                  Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+            <tr>
+              <th>Macports</th>
+              <td>
+                <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Generic Unix</th>
+              <td>
+                <code>rabbitmq_server-<i>version</i>/plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+          </table>
+        </p>
         <p>
           Since the default location of the plugins directory is
           version-specific, installing / upgrading to a new version of
@@ -263,8 +270,9 @@
           server. Alternatively, plugins can be retained across
           upgrades by setting <b>RABBITMQ_PLUGINS_DIR</b> to a
           location shared by all installed rabbitmq server versions.
-        </p>
-      </doc:section>
+        </p>        
+       </doc:subsection>
+       </doc:section>
     </doc:div>
   </body>
 </html>
