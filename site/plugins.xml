@@ -182,6 +182,12 @@
               </td>
             </tr>
             <tr>
+              <th>Homebrew</th>
+              <td>
+              <code>/usr/local/Cellar/rabbitmq/<i>version</i>/lib/rabbitmq/erlang/lib/rabbitmq-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
               <th>Generic Unix</th>
               <td>
                 <code>rabbitmq_server-<i>version</i>/plugins</code>
