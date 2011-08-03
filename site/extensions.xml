@@ -757,6 +757,23 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
          use of this extension.
         </p>
       </doc:section>
+      <doc:section name="undeprecation">
+        <doc:heading>Undeprecated features</doc:heading>
+        <p>
+         In addition to extensions beyond the specification, RabbitMQ also undeprecates
+         some features that were removed from AMQP 0-9-1.
+        </p>
+        <ul>
+          <li><a href="amqp-0-9-1-reference.html#exchange.declare.auto-delete">Auto-delete exchanges</a></li>
+          <li><a href="amqp-0-9-1-reference.html#exchange.declare.internal">Internal exchanges</a></li>
+        </ul>
+        <p>
+         The access class was deprecated from AMQP 0-9-1. RabbitMQ implements the
+         <code>access.request</code> method from this class as a no-op in order to
+         maintain compatibility with older clients. This method will be removed in
+         the future and should not be relied upon.
+        </p>
+      </doc:section>
     </doc:div>
   </body>
 </html>
