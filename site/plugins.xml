@@ -32,45 +32,9 @@
         </p>
 
         <p>
-          The simplest way to install plugins is to download all the
-          required .ez files from this page, drop them in your plugins
-          directory and restart RabbitMQ.
-
-          The plugins directory location is determined by the
-          <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
-          value depends on how you installed RabbitMQ. Some common values
-          are:
-
-          <table>
-            <tr><th>Installation method</th><th>Plugins directory</th></tr>
-            <tr>
-              <th>Deb / RPM packages</th>
-              <td>
-                <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-              </td>
-            </tr>
-            <tr>
-              <th>Windows</th>
-              <td>
-                Typically <code>C:\Program
-                  Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
-                (depending on where it was installed)
-              </td>
-            </tr>
-            <tr>
-              <th>Macports</th>
-              <td>
-                <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-              </td>
-            </tr>
-            <tr>
-              <th>Generic Unix</th>
-              <td>
-                <code>rabbitmq_server-<i>version</i>/plugins</code>
-                (depending on where it was installed)
-              </td>
-            </tr>
-          </table>
+          The simplest way to <a href="#installing-plugins">install plugins</a> is to download all the
+          required .ez files from this page, drop them in your <a href="#plugins-directory">plugins
+          directory</a> and restart RabbitMQ.
         </p>
       </doc:section>
 
@@ -173,6 +137,135 @@
         </r:plugin-group>
       </doc:section>
 
+      <doc:section name="installing-plugins">
+      <doc:heading>Installing Plugins</doc:heading>
+        <doc:subsection name="compatibility">
+        <doc:heading>Compatibility</doc:heading>
+        <p>
+          We compile the plugins when we make a release of the server,
+          so in general, each plugin has been compiled against the
+          latest release of the server code (and the plugin's
+          dependencies). We may also from time to time post "known
+          good" binaries; these will be marked with a particular
+          server version with which they are known to work.
+        </p>
+        </doc:subsection>
+
+        <doc:subsection name="plugins-directory">
+        <doc:heading>Plugins Directory</doc:heading>
+        <p>        
+          The plugins directory location is determined by the
+          <b>RABBITMQ_PLUGINS_DIR</b> environment variable whose default
+          value depends on how you installed RabbitMQ. Some common values
+          are:
+
+          <table>
+            <tr><th>Installation method</th><th>Plugins directory</th></tr>
+            <tr>
+              <th>Deb / RPM packages</th>
+              <td>
+                <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Windows</th>
+              <td>
+                Typically <code>C:\Program
+                  Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+            <tr>
+              <th>Macports</th>
+              <td>
+                <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Homebrew</th>
+              <td>
+              <code>/usr/local/Cellar/rabbitmq/<i>version</i>/lib/rabbitmq/erlang/lib/rabbitmq-<i>version</i>/plugins</code>
+              </td>
+            </tr>
+            <tr>
+              <th>Generic Unix</th>
+              <td>
+                <code>rabbitmq_server-<i>version</i>/plugins</code>
+                (depending on where it was installed)
+              </td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          Since the default location of the plugins directory is
+          version-specific, installing / upgrading to a new version of
+          the server disables all plugins. That is the safest option
+          since often plugins depend on specific versions of the
+          server. Alternatively, plugins can be retained across
+          upgrades by setting <b>RABBITMQ_PLUGINS_DIR</b> to a
+          location shared by all installed rabbitmq server versions.
+        </p>        
+       </doc:subsection>
+        <doc:subsection name="install-plugins">
+          <doc:heading>Install Plugins</doc:heading>
+          <ul>
+            <li>
+              Plugins will generally be available in two forms. The expected form for a packaged plugin
+              will be a .ez erlang archive. Alternatively, more developmental plugins may be distributed
+              directly from source control, whereby they will be a directory containing (at least) an ebin
+              subdirectory.
+            </li>
+            <li>
+              In both cases, the plugin archive (or directory) should be placed into the plugins subdirectory
+              within the rabbitmq-server installation directory (ie, the directory that the ebin directory
+              resides within). If this directory does not exist, it can be safely created.
+            </li>
+            <li>
+              After adding new plugins to the plugins subdirectory,
+              restart the RabbitMQ server. As it starts, it scans the
+              plugins subdirectory and activates all the plugins it
+              finds there automatically before continuing to load.
+            </li>
+          </ul>
+        </doc:subsection>
+       
+        <doc:subsection name="uninstall-plugins">
+          <doc:heading>Un-install Plugins</doc:heading>
+          
+          <p>
+            To remove an installed plugin from the broker, delete the
+            .ez file or directory from the plugins directory. When the
+            broker is restarted, the deleted plugin will no longer be
+            started.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="disable-all-plugins">
+          <doc:heading>Disable all Plugins</doc:heading>
+          <p>
+            In the event of broker mis-behaviour, it is recommended
+            that all plugins be disabled as a first
+            port-of-call. Either move the plugins subdirectory away,
+            or delete it.  When Rabbit is restarted, no custom plugins
+            will be loaded.
+          </p>
+        </doc:subsection> 
+        
+        <doc:subsection name="windows-restart">
+          <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
+          <p>
+              Each time you add or remove any plugins in the plugins directory, you must re-run the
+<pre>
+rabbitmq-service.bat remove
+rabbitmq-service.bat install
+rabbitmq-service.bat start
+</pre>
+              commands to ensure that the service configuration is updated to perform
+              an appropriate boot sequence.
+        </p>
+        </doc:subsection>
+        </doc:section>
+
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
         <p>
@@ -189,27 +282,6 @@
           version of rabbitmq-server. For example, if you are running
           RabbitMQ &version-server;, you should check out all plugins
           with the tag <code>&version-server-hg;</code>.
-        </p>
-      </doc:section>
-
-      <doc:section name="compatibility">
-        <doc:heading>Compatibility</doc:heading>
-        <p>
-          We compile the plugins when we make a release of the server,
-          so in general, each plugin has been compiled against the
-          latest release of the server code (and the plugin's
-          dependencies). We may also from time to time post "known
-          good" binaries; these will be marked with a particular
-          server version with which they are known to work.
-        </p>
-        <p>
-          Since the default location of the plugins directory is
-          version-specific, installing / upgrading to a new version of
-          the server disables all plugins. That is the safest option
-          since often plugins depend on specific versions of the
-          server. Alternatively, plugins can be retained across
-          upgrades by setting <b>RABBITMQ_PLUGINS_DIR</b> to a
-          location shared by all installed rabbitmq server versions.
         </p>
       </doc:section>
     </doc:div>
