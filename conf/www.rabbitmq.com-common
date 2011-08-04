@@ -34,6 +34,16 @@
     # /how appeared on some printed materials
     Redirect permanent /how http://www.rabbitmq.com/how.html
 
+    # Redirects to assign some permanent URLs to cloudfoundry resources
+    Redirect /cloudfoundry/samples https://github.com/rabbitmq/rabbitmq-coudfoundry-samples
+    Redirect /cloudfoundry/rails http://support.cloudfoundry.com/entries/20334591-getting-started-with-the-rabbitmq-service-from-a-rails-application
+    Redirect /cloudfoundry/spring http://support.cloudfoundry.com/entries/20322602-getting-started-with-the-rabbitmq-service-from-a-spring-application
+    Redirect /cloudfoundry/sinatra https://github.com/rabbitmq/rabbitmq-coudfoundry-samples/tree/master/sinatra
+    Redirect /cloudfoundry/nodejs https://github.com/rabbitmq/rabbitmq-coudfoundry-samples/tree/master/nodejs
+    Redirect /cloudfoundry/faq http://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq
+    # Doesn't exist yet, but might do
+    #Redirect /cloudfoundry/railsvid http://www.youtube.com/watch?v=AId8RTG0eD8
+
     <Directory /home/rabbitmq/extras/releases/rabbitmq-server>
         Options +FollowSymLinks
     </Directory>
