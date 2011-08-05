@@ -140,7 +140,7 @@ apt-get -qy install rabbitmq-server</pre>
   </doc:subsection>
 
 
-  <doc:subsection name="ebs">
+  <doc:subsection name="issues-hostname">
     <doc:heading>Issues with hostname</doc:heading>
     <p>
       RabbitMQ names the database directory using the
