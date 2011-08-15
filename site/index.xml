@@ -59,6 +59,7 @@
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
       <li>I want to <a href="download.html">download</a>, <a href="install.html">install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
+      <li>I want to <a href="http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works">run RabbitMQ on CloudFoundry</a></li>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 
