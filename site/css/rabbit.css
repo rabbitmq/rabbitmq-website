@@ -113,53 +113,6 @@ h3 {
 	font-size: 1.2em;
 	}
 
-.col {
-	float: left;
-	width: 49.5%;
-	background: url(../img/listBg.gif) Repeat-X top right;
-	margin: 0.5ex 0 2ex 0;
-	padding: 0;
-	}
-
-.col div.col {
-	background: url(../img/listBg.gif) Repeat-X top right;
-	width: 100% !important;
-	margin: 0.5ex 0 2ex 0;
-	padding: 0;
-}
-
-.columnLeft {
-	float: left;
-}
-.columnRight {
-	float: right;
-}
-
-.columnRight ul, .columnLeft ul,
-.columnRight ol, .columnLeft ol {
-	padding: 0 0 0 0 ;
-}
-.col .feed li {
-	padding-bottom: 0px;
-	margin-bottom: 0px;
-}
-
-.col .feed li .date {
-	float: right;
-	color: #A9B5AF;
-}
-.col h3 {
-	margin: 0 1em 0 0;
-	padding: 10px;
-        background: url(../img/listBg.gif) Repeat-X top left;
-}
-
-.col h3 a.more-links {
-	float: right;
-	font-size: 12px;
-	font-weight: normal;
-}
-
 ul {
 	margin: 0;
 	padding: 0 2em 0 0 ;
@@ -459,6 +412,7 @@ td.signature, th.signature {
 ol.feed {
 	margin: 0px;
 	padding: 0px;
+	clear: both;
 }
 
 .feed li {
@@ -584,3 +538,14 @@ p.warning {
 
 #changelog td { background-color: #f7f7f7; }
 
+ul.threeColumnLeft {
+  float: left;
+  width: 20%;
+  padding: 0;
+}
+
+ul.twoColumnLeft {
+  float: left;
+  width: 33%;
+  padding: 0;
+}
