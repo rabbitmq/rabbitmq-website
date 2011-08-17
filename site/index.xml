@@ -26,7 +26,7 @@
 	</a>
 	</span>
 	Latest Community Chatter</h3>
-	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="4"/>
+	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
     </div>
 
     </div>
@@ -63,16 +63,53 @@
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 
-    <div class="">
-	<h3>
-	<span class="subscribe"><a href="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq">
-	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to RabbitMQ news from Delicious" title="Subscribe to RabbitMQ news from Delicious" />
-	</a></span>
-	Latest Community Highlights
-	</h3>
-	<doc:homefeed src="../feeds/delicious.rss" type="delicious" limit="3"/>
-	<p><a href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
-    </div>
-
+    <h3>Tutorials &amp; HowTo Articles</h3>
+    <ul class="twoColumnLeft">
+      <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
+      <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
+      <li><a href="how.html#cloud-configurations">Cloud Configurations</a></li>
+      <li><a href="how.html#management">Management and Monitoring</a></li>
+      <li><a href="how.html#messaging-patterns">Messaging Patterns and Common Scenarios</a></li>
+    </ul>
+    <ul class="twoColumnLeft">
+      <li><a href="how.html#specific-examples">Specific Use Cases and Examples</a></li>
+      <li><a href="how.html#going-further">Going Further</a></li>
+      <li><a href="how.html#blogs-and-forums">Blogs, Forums and Social</a></li>
+      <li><a href="how.html#in-print">Books and Print</a></li>
+      <li><a href="how.html#general-posts">General Posts</a></li>
+    </ul>
+    <div class="lft"></div>
+    <h3>Clients &amp; Developer Tools</h3>
+    <ul class="threeColumnLeft">
+      <li>Languages
+        <ul class="plain">
+          <li><a href="devtools.html#java-dev">Java/JVM</a></li>
+          <li><a href="devtools.html#ruby-dev">Ruby</a></li>
+          <li><a href="devtools.html#python-dev">Python</a></li>
+          <li><a href="devtools.html#dotnet-dev">.NET</a></li>
+          <li><a href="devtools.html#php-dev">(more languages...)</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="threeColumnLeft">
+      <li>Cloud
+        <ul class="plain">
+          <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
+          <li><a href="devtools.html#ec2-dev">EC2</a></li>
+          <li><a href="devtools.html#web-messaging">Web Messaging</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="threeColumnLeft">
+      <li>Miscellaneous
+        <ul class="plain">
+          <li><a href="devtools.html#stomp">STOMP</a></li>
+          <li><a href="devtools.html#nosql">NoSQL</a></li>
+          <li><a href="devtools.html#rabbitmq-cli">Command Line</a></li>
+          <li><a href="devtools.html#miscellaneous">(more ...)</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="clear"></div>
   </body>
 </html>
