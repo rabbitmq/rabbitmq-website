@@ -57,13 +57,6 @@
     [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
   </xsl:when>
 
-  <xsl:when test="$type = 'delicious'">				
-    <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
-    <br/>
-    <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
-  </xsl:when>
-
-
   <xsl:when test="$type = 'ournews'">	
     <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/> 			
     <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
