@@ -5,10 +5,63 @@
   </head>
   <body>
     <doc:div>
-      <h2>Community</h2>
-      <p>See <a href="how.html">a summary of recent highlights</a> and our <a href="devtools.html">client and developer tools</a> page. Use these forums 
-      to keep up to date with all developments:</p>
+      <p class="intro">
+        This page list a collection of community contributed content aimed at developers. The are
+        a number of AMQP clients and tools targetted at various languages and platforms. We also
+        list articles that will help you to get started with RabbitMQ.
+      </p>
+      <h2>Clients &amp; Developer Tools</h2>
+      <ul style="float:left; width: 25%">
+        <li>Languages
+          <ul class="plain">
+            <li><a href="devtools.html#java-dev">Java/JVM</a></li>
+            <li><a href="devtools.html#ruby-dev">Ruby</a></li>
+            <li><a href="devtools.html#python-dev">Python</a></li>
+            <li><a href="devtools.html#dotnet-dev">.NET</a></li>
+            <li><a href="devtools.html#php-dev">(more languages...)</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul style="float:left; width: 25%">
+        <li>Cloud
+          <ul class="plain">
+            <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
+            <li><a href="devtools.html#ec2-dev">EC2</a></li>
+            <li><a href="devtools.html#web-messaging">Web Messaging</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul style="float:left; width: 25%">
+        <li>Miscellaneous
+          <ul class="plain">
+            <li><a href="devtools.html#stomp">STOMP</a></li>
+            <li><a href="devtools.html#nosql">NoSQL</a></li>
+            <li><a href="devtools.html#rabbitmq-cli">Command Line</a></li>
+            <li><a href="devtools.html#miscellaneous">(more ...)</a></li>
+          </ul>
+        </li>
+      </ul>
+
       <div class="clear"></div>
+
+      <h2>Tutorials &amp; HowTo Articles</h2>
+      <ul style="float: left; width: 40%">
+        <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
+        <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
+        <li><a href="how.html#cloud-configurations">Cloud Configurations</a></li>
+        <li><a href="how.html#management">Management and Monitoring</a></li>
+        <li><a href="how.html#messaging-patterns">Messaging Patterns and Common Scenarios</a></li>
+      </ul>
+      <ul style="float: left; width: 40%">
+        <li><a href="how.html#specific-examples">Specific Use Cases and Examples</a></li>
+        <li><a href="how.html#going-further">Going Further</a></li>
+        <li><a href="how.html#blogs-and-forums">Blogs, Forums and Social</a></li>
+        <li><a href="how.html#in-print">Books and Print</a></li>
+        <li><a href="how.html#general-posts">General Posts</a></li>
+      </ul>
+
+      <div class="clear"></div>
+
     </doc:div>
   </body>
 </html>
