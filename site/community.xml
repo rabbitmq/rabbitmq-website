@@ -11,7 +11,7 @@
         list articles that will help you to get started with RabbitMQ.
       </p>
       <h2>Clients &amp; Developer Tools</h2>
-      <ul style="float:left; width: 25%">
+      <ul class="threeColumnLeft">
         <li>Languages
           <ul class="plain">
             <li><a href="devtools.html#java-dev">Java/JVM</a></li>
@@ -22,7 +22,7 @@
           </ul>
         </li>
       </ul>
-      <ul style="float:left; width: 25%">
+      <ul class="threeColumnLeft">
         <li>Cloud
           <ul class="plain">
             <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
@@ -31,7 +31,7 @@
           </ul>
         </li>
       </ul>
-      <ul style="float:left; width: 25%">
+      <ul class="threeColumnLeft">
         <li>Miscellaneous
           <ul class="plain">
             <li><a href="devtools.html#stomp">STOMP</a></li>
@@ -45,14 +45,14 @@
       <div class="clear"></div>
 
       <h2>Tutorials &amp; HowTo Articles</h2>
-      <ul style="float: left; width: 40%">
+      <ul class="twoColumnLeft">
         <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
         <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
         <li><a href="how.html#cloud-configurations">Cloud Configurations</a></li>
         <li><a href="how.html#management">Management and Monitoring</a></li>
         <li><a href="how.html#messaging-patterns">Messaging Patterns and Common Scenarios</a></li>
       </ul>
-      <ul style="float: left; width: 40%">
+      <ul class="twoColumnLeft">
         <li><a href="how.html#specific-examples">Specific Use Cases and Examples</a></li>
         <li><a href="how.html#going-further">Going Further</a></li>
         <li><a href="how.html#blogs-and-forums">Blogs, Forums and Social</a></li>

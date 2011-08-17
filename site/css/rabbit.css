@@ -537,3 +537,12 @@ p.warning {
 
 #changelog td { background-color: #f7f7f7; }
 
+ul.threeColumnLeft {
+  float: left;
+  width: 25%;
+}
+
+ul.twoColumnLeft {
+  float: left;
+  width: 40%;
+}
