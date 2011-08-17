@@ -63,16 +63,5 @@
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 
-    <div class="">
-	<h3>
-	<span class="subscribe"><a href="http://feeds.delicious.com/v2/rss/alexisrichardson/rabbitmq">
-	<img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to RabbitMQ news from Delicious" title="Subscribe to RabbitMQ news from Delicious" />
-	</a></span>
-	Latest Community Highlights
-	</h3>
-	<doc:homefeed src="../feeds/delicious.rss" type="delicious" limit="3"/>
-	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
-    </div>
-
   </body>
 </html>
