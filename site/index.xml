@@ -71,7 +71,7 @@
 	Latest Community Highlights
 	</h3>
 	<doc:homefeed src="../feeds/delicious.rss" type="delicious" limit="3"/>
-	<p><a class="more-links" href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
+	<p><a href="/delicious.html">About RabbitMQ on del.icio.us</a></p>
     </div>
 
   </body>
