@@ -87,7 +87,6 @@
           <li><a href="devtools.html#ruby-dev">Ruby</a></li>
           <li><a href="devtools.html#python-dev">Python</a></li>
           <li><a href="devtools.html#dotnet-dev">.NET</a></li>
-          <li><a href="devtools.html#php-dev">(more languages...)</a></li>
         </ul>
       </li>
     </ul>
@@ -106,7 +105,6 @@
           <li><a href="devtools.html#stomp">STOMP</a></li>
           <li><a href="devtools.html#nosql">NoSQL</a></li>
           <li><a href="devtools.html#rabbitmq-cli">Command Line</a></li>
-          <li><a href="devtools.html#miscellaneous">(more ...)</a></li>
         </ul>
       </li>
     </ul>
