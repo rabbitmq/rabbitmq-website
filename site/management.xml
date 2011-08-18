@@ -114,8 +114,12 @@
             http://<i>server-name</i>:55672/mgmt/
           </li>
           <li>
-            The HTTP API and its documentation are located at:
+            The HTTP API and its documentation are both located at:
             http://<i>server-name</i>:55672/api/
+          </li>
+          <li>
+            View our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+            latest HTTP API documentation</a>
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
@@ -290,10 +294,10 @@
         <p>
           By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
-          location for more information on the API. For convenience
-          the documentation can also be obtained
-          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
-          Mercurial server</a>.
+          location for more information on the API.
+          For convenience we also provide the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+          latest HTTP API documentation</a>.
         </p>
       </doc:section>
 
