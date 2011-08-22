@@ -174,7 +174,7 @@ For `SEND` frames, a destination of the form
 **Note:** Exchange destinations are *not* suitable for
 consuming messages from an existing queue. A new queue is created for
 each subscriber and is bound to the specified exchange using the
-supplied routing key. To work with existing queues, use 
+supplied routing key. To work with existing queues, use
 [`/amq/queue` destinations](#amqdest).
 
 ### Queue Destinations
@@ -290,10 +290,27 @@ This frame creates a temporary queue (with a generated name) that is private to 
 session. A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
-The receiving client can obtain the
-(real) reply destination queue name from the `reply-to` header of the `MESSAGE` frame.
-(Then the client can send a reply message to it.) Reply destination queue names
-cannot be inferred from the `/temp-queue/` name.
+The `/temp-queue/` destination is **not** the name of the destination
+that the receiving client uses when sending the reply. Instead, the
+receiving client can obtain the (real) reply destination queue name
+from the `reply-to` header of the `MESSAGE` frame.  This reply
+destination name can then be used as the value of the `destination`
+header in the `SEND` frame sent in reply to the received
+`MESSAGE`.
+
+Reply destination queue names are opaque and cannot be inferred from
+the `/temp-queue/` name.
+
+`SEND` and `SUBSCRIBE` frames **must not** contain `/temp-queue`
+destinations in the `destination` header. Messages cannot be sent to
+`/temp-queue` destinations, and subscriptions to reply queues are
+managed automatically.
+
+#### AMQP Semantics
+
+Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
+auto delete queue. As such, there is no need for explicit clean up of
+reply queues.
 
 ## Protocol Extensions
 
@@ -313,6 +330,12 @@ on persistent messages can be found here.
 
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
+
+### Prefetch
+
+The prefetch count for all subscriptions is set to unlimited by
+default. This can be controlled by setting the `prefetch-count` header
+on `SUBSCRIBE` frames to the desired integer count.
 
 ### AMQP Properties
 
