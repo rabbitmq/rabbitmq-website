@@ -355,6 +355,10 @@
                 <a href="https://github.com/ceelian/callme">callme</a>, a module providing RPC over AMQP
               </li>
               <li>
+                <a href="http://pypi.python.org/pypi/gocept.amqparchive/1.0.0">gocept.amqparchive</a>, an add-on package for <a href="http://pypi.python.org/pypi/gocept.amqprun/">gocept.amqprun</a>
+                that provides archiving, indexing and search for AMQP messages
+              </li>
+              <li>
                 <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a>
                 <br />
                 A series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
