@@ -41,10 +41,17 @@
     A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
     are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
-        <li>
+    <li>
       <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
       Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
       AMQP messaging concepts and RabbitMQ in general.
+    </li>
+    <li>
+      <a href="http://bit.ly/amqp-model-explained">AMQP 0.9.1 Model Explained</a><br />
+      Michael Klishin's Guide to using AMQP with RabbitMQ. Clear explanations of
+      messaging concepts and AMQP 0-9-1. Written for a Ruby audience,
+      but suitable for wider readership.
+      Progresses to discussion and examples of messaging patterns and error handling.
     </li>
     <li>
       <a href="http://www.youtube.com/watch?v=ZQogoEVXBSA">The RabbitMQ Team's Introduction to RabbitMQ and AMQP</a><br/>
