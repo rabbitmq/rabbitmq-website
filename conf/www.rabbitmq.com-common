@@ -50,6 +50,23 @@
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
+      ExpiresActive On
+      ExpiresDefault                "access plus 10 minutes"
+      ExpiresByType text/html       "access plus 1 day"
+      ExpiresByType text/javascript "access plus 1 day"
+      ExpiresByType text/css        "access plus 1 day"
+
+      ExpiresByType image/gif       "access plus 1 month"
+      ExpiresByType image/png       "access plus 1 month"
+      ExpiresByType image/jpg       "access plus 1 month"
+      ExpiresByType application/pdf "access plus 1 month"
+
+      <FilesMatch "search.html">
+            Header set Cache-control "no-cache"
+      </FilesMatch>
+      <FilesMatch "index.html|^$">
+            Header set Cache-control "max-age=200"
+      </FilesMatch>
     </Directory>
 
     Alias /blog /usr/share/wordpress
@@ -59,8 +76,8 @@
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
     # Redirect community until we have some content for it
-    Redirect /community.html /contact.html
-    
+    Redirect /community.html http://www.rabbitmq.com/contact.html
+
     <Location /server-status>
       SetHandler server-status
       Order deny,allow
@@ -69,3 +86,18 @@
       Allow from 213.122.168.19/28
       Allow from 127.0.0.1
     </Location>
+
+      CacheRoot            /var/cache/apache2/mod_disk_cache/
+      CacheEnable          disk /
+      CacheDisable         /releases
+      CacheDisable         /debian
+      CacheDisable         /javadoc
+      CacheDisable         /examples
+      CacheDisable         /resources
+      CacheDisable         /img
+      CacheDisable         /js
+      CacheDirLevels       2
+      CacheDirLength       1
+      CacheIgnoreNoLastMod On
+      CacheIgnoreHeaders   Set-Cookie
+
