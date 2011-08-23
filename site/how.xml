@@ -47,9 +47,9 @@
       AMQP messaging concepts and RabbitMQ in general.
     </li>
     <li>
-      <a href="http://rubydoc.info/github/ruby-amqp/amqp/master/file/docs/AMQP091ModelExplained.textile">AMQP 0.9.1 Model Explained</a><br />
+      <a href="http://bit.ly/amqp-model-explained">AMQP 0.9.1 Model Explained</a><br />
       Michael Klishin's Guide to using AMQP with RabbitMQ. Clear explanations of
-      messaging concepts and AMQP 0.9.1. Written for a Ruby audience,
+      messaging concepts and AMQP 0-9-1. Written for a Ruby audience,
       but suitable for wider readership.
       Progresses to discussion and examples of messaging patterns and error handling.
     </li>
