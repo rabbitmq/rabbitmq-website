@@ -185,7 +185,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/ebin/rabbitmq_metronome.app.in"><code>ebin/rabbitmq_metronome.app.in</code></a></td>
+            <td><a href="&metronome_hg;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
             <td>
               This file declares the dependencies required by the plugin (<code>rabbit</code>
               and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
