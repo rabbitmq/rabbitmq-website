@@ -1,0 +1,530 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>RabbitMQ - AMQP 0-9-1 Model Explained</title>
+  </head>
+  <body>
+    <doc:div>
+
+      <doc:toc class="compact">
+        <doc:heading>Table of Contents</doc:heading>
+      </doc:toc>
+
+        <doc:section name="about-this-guide">
+        <doc:heading>About this guide</doc:heading>
+            <p>
+              This guide explains the AMQP 0-9-1 Model used by RabbitMQ.
+              The guide that this page is based on was written by
+              <a href="http://twitter.com/michaelklishin">Michael Klishin</a>
+              and edited by <a href="https://twitter.com/celldee">Chris Duncan</a>.
+              Also see the <a href="http://bit.ly/amqp-model-explained">original guide</a>
+              (<a href="https://github.com/ruby-amqp/amqp/tree/master/docs">source version</a>).
+            </p>
+           </doc:section>
+           <doc:section name="highlevel-overview">
+           <doc:heading>High-level overview of AMQP 0-9-1 and the AMQP Model</doc:heading>
+             <doc:subsection name="what-is-amqp">
+             <doc:heading>What is AMQP?</doc:heading>
+               <p>
+                 AMQP (Advanced Message Queuing Protocol) is a networking
+                 protocol which enables conforming client applications to
+                 communicate with conforming
+                 messaging middleware brokers.
+               </p>
+             </doc:subsection>
+             <doc:subsection name="why-amqp-was-created">
+             <doc:heading>Why AMQP was created</doc:heading>
+                <p>
+                  Messaging solutions have been around since the 1970s with
+                  a view to solving the problem of integrating incompatible
+                  products from diverse vendors. Without the use of messaging
+                  middleware, the integration of heterogenous systems has proved
+                  to be very expensive and complex. However, messaging solutions,
+                  such as IBM Websphere MQ and Tibco Enterprise Message Service,
+                  are also very costly and tend to be exclusively employed by
+                  large companies (who can afford them), especially those in
+                  the financial services industry.
+                </p>
+                <p>
+                  There is also a problem with interoperability between messaging
+                  solutions. Vendors have created their own proprietary messaging
+                  protocols which do not interoperate with others, therefore
+                  resulting in 'vendor lock-in'.
+                </p>
+                <p>
+                  AMQP has multiple design goals but two of the most important are:
+                </p>
+                <ul>
+                  <li>To produce an open standard for messaging middleware</li>
+                  <li>To enable interoperability between various technologies and platforms</li>
+                </ul>
+                <p>
+                  There is a lot of software running on many operating systems
+                  built with multiple programming languages running on
+                  various hardware architectures and virtual machines. AMQP
+                  not only makes it possible for these disparate systems to
+                  communicate with one another, but also enables different
+                  products that implement AMQP to exchange information.
+                </p>
+             </doc:subsection>
+             <doc:subsection name="brokers=role">
+             <doc:heading>Brokers and their role</doc:heading>
+                 <p>
+                   Messaging brokers receive messages from <em>producers</em>
+                   (applications that publish them) and route them to
+                   <em>consumers</em> (applications
+                   that process them).
+                 </p>
+                 <p>
+                   If you imagine the human body, then brokers would be equivalent
+                   to centers of the nervous system and applications would be
+                   more like limbs.
+                 </p>
+             </doc:subsection>
+             <doc:subsection name="amqp-model">
+             <doc:heading>AMQP 0-9-1 Model in brief</doc:heading>
+                 <p>
+                   The AMQP 0-9-1 Model has the following view of the world:
+                   messages are published by producers to <em>exchanges</em>,
+                   often compared to post offices or mailboxes. Exchanges then
+                   distribute message copies to <em>queues</em> using rules called
+                   <em>bindings</em>. Then AMQP brokers either push messages to
+                   <em>consumers</em> subscribed to queues, or consumers
+                   fetch/pull messages from queues on demand.
+                 </p>
+                 <p>
+                   <img src="/img/tutorials/intro/hello-world-example-routing.png"
+                        alt="Publish path from publisher to consumer via
+                             exchange and queue" />
+                 </p>
+                 <p>
+                   When publishing a message, producers may specify various
+                   <em>message attributes</em> (message metadata). Some of this
+                   metadata may be used by the broker, however, the rest of it
+                   is completely opaque to the broker and is only used by
+                   applications that receive the message.
+                 </p>
+                 <p>
+                   Networks are unreliable and applications may fail to process
+                   messages, therefore the AMQP Model has a notion of
+                   <em>message acknowledgements</em>: when a message is pushed
+                   down to a consumer, the consumer <em>notifies the broker</em>,
+                   either automatically or as soon as the application
+                   developer chooses to do so. When message acknowledgements
+                   are in use, a broker will only completely remove a message
+                   from a queue when it receives a notification for that message
+                   (or group of messages).
+                 </p>
+                 <p>
+                   In certain situations, for example, when a message cannot
+                   be routed, messages may be <em>returned</em> to producers,
+                   dropped, or, if the broker implements an extension,
+                   placed into a so-called "dead letter queue". Producers choose
+                   how to handle situations like this by publishing messages
+                   using certain parameters.
+                 </p>
+                 <p>
+                   Queues, exchanges and bindings are commonly referred to as <em>AMQP entities</em>.
+                 </p>
+             </doc:subsection>
+             <doc:subsection namne="programmable-protocol">
+             <doc:heading>AMQP is a Programmable Protocol</doc:heading>
+                <p>
+                  AMQP 0-9-1 is a programmable protocol in the sense that AMQP
+                  entities and routing schemes are defined by applications
+                  themselves, not a broker administrator. Accordingly, provision
+                  is made for protocol
+                  operations that declare queues and exchanges, define bindings
+                  between them, subscribe to queues and so on.
+                </p>
+                <p>
+                  This gives application developers a lot of freedom but also
+                  requires them to be aware of potential definition conflicts. In
+                  practice, definition conflicts
+                  are rare and often indicate misconfigurations. This can be
+                  very useful as it is a good thing if misconfigurations are
+                  caught early.
+                </p>
+                <p>
+                  Applications declare the AMQP entities that they need,
+                  define necessary routing schemes and may choose to delete
+                  AMQP entities when they are no longer used.
+                </p>
+             </doc:subsection>
+            </doc:section>
+          <doc:section name="exchanges">
+          <doc:heading>AMQP Exchanges and Exchange Types</doc:heading>
+            <p>
+              <em>Exchanges</em> are AMQP entities where messages are
+              sent. Exchanges then take a message and route it into one or
+              more (or no) queues. The routing algorithm used
+              depends on <em>exchange type</em> and rules called
+              <em>bindings</em>. AMQP 0-9-1 brokers typically provide 4
+              exchange types out of the box:
+            </p>
+            <ul>
+              <li>Direct exchange (typically used for for 1-to-1 communication or unicasting)</li>
+              <li>Fanout exchange (1-to-n communication or broadcasting)</li>
+              <li>Topic exchange (1-to-n or n-to-m communication, multicasting)</li>
+              <li>Headers exchange (message metadata-based routing)</li>
+            </ul>
+            <p>
+              but it is possible to extend AMQP 0-9-1 brokers with custom exchange types, for example:
+            </p>
+            <ul>
+              <li>x-random exchange (randomly chooses a queue to route incoming messages to)</li>
+              <li>x-recent-history (a fanout exchange that also keeps N recent messages in memory)</li>
+              <li>regular expressions based variations of headers exchange</li>
+            </ul>
+            <p>
+              and so on.
+            </p>
+            <p>
+              Besides the type, exchanges have a number of attributes, most imprortant of which are:
+            </p>
+            <ul>
+              <li>Name</li>
+              <li>Can be durable (information about them is persisted
+              to disk and thus survives broker restarts) or non-durable
+              (information is only kept in RAM)</li>
+              <li>Can have metadata associated with them on declaration</li>
+            </ul>
+            </doc:section>
+           <doc:section name="queues">
+          <doc:heading>AMQP Queues</doc:heading>
+            <p>
+              Queues in the AMQP Model are very similar to queues in
+              other message and "task queueing" systems: they store
+              messages that are consumed by applications. Like AMQP
+              exchanges, an AMQP queue has a name and a durability
+              property but also
+            </p>
+            <ul>
+              <li>Can be exclusive (used by only one connection)</li>
+              <li>Can be automatically deleted when last consumer unsubscribes</li>
+              <li>Can have metadata associated with them on declaration (some
+              brokers use it to implement features like message TTL)</li>
+            </ul>
+            </doc:section>
+           <doc:section name="bindings">
+          <doc:heading>AMQP Bindings</doc:heading>
+            <p>
+              Bindings are rules that exchanges use (among other things)
+              to route messages to queues. To instruct an exchange E to
+              route messages to a queue Q,
+              Q has to <em>be bound</em> to E. Bindings may have an optional
+              <em>routing key</em> attribute used by some exchange types. The
+              purpose of the routing key is to
+              selectively match only specific (matching) messages published
+              to an exchange to the bound queue. In other words, the routing
+              key acts like a filter.
+            </p>
+            <p>
+              To draw an analogy:
+            </p>
+            <ul>
+              <li>Queue is like your destination in New York city</li>
+              <li>Exchange is like JFK airport</li>
+              <li>Bindings are routes from JFK to your destination. There
+              can be none or more than one way to reach it</li>
+            </ul>
+            <p>
+              Having this layer of indirection enables routing scenarios
+              that are impossible of very hard to implement using publishing
+              directly to queues and
+              also eliminates certain amount of duplicated work application
+              developers have to do.
+            </p>
+            <p>
+              If AMQP message cannot be routed to any queue (for example,
+              because there are no bindings for the exchange it was published
+              to), it is either
+              dropped or returned to the publisher, depending on message
+              attributes the publisher has set.
+            </p>
+            </doc:section>
+          <doc:section name="consumers">
+          <doc:heading>AMQP Message Consumers</doc:heading>
+            <p>
+              Storing messages in queues is useless unless applications
+              can <em>consume</em> them. In the AMQP 0-9-1 Model, there
+              are two ways for applications to do this:
+            </p>
+            <ul>
+              <li>Have messages pushed to them ("push API")</li>
+              <li>Fetch messages as needed ("pull API")</li>
+            </ul>
+            <p>
+              With the "push API", applications have to indicate interest in
+              consuming messages from a particular queue. When they do so,
+              we say that they <em>register a consumer</em>
+              or, simply put, <em>subscribe to a queue</em>. It is possible
+              to have more than one consumer per queue or to register an
+              <em>exclusive consumer</em> (excludes all other consumers from
+              the queue while it is consuming).
+            </p>
+            <p>
+              Each consumer (subscription) has an identifier called a
+              <em>consumer tag</em>. It can be used to unsubscribe from
+              messages. Consumer tags are just strings.
+            </p>
+            </doc:section>
+          <doc:section name="messages">
+          <doc:heading>AMQP Message Attributes and Payload</doc:heading>
+            <p>
+              Messages in the AMQP Model have <em>attributes</em>. Some
+              attributes are so common that the AMQP v0-9-1 specification
+              defines them and application developers do not have to think
+              about the exact attribute name. Some examples are
+            </p>
+            <ul>
+              <li>Content type</li>
+              <li>Content encoding</li>
+              <li>Routing key</li>
+              <li>Delivery mode (persistent or not)</li>
+              <li>Message priority</li>
+              <li>Message publishing timestamp</li>
+              <li>Expiration period</li>
+              <li>Producer application id</li>
+            </ul>
+            <p>
+              Some attributes are used by AMQP brokers, but most are open
+              to interpretation by applications that receive them. Some
+              attributes are optional and known
+              as <em>headers</em>. They are similar to X-Headers in
+              HTTP. Message attributes are set when a message is published.
+            </p>
+            <p>
+              AMQP messages also have a <em>payload</em> (the data that
+              they carry). Brokers treat this data as opaque (it is neither
+              modified nor used by them). It is possible for messages to
+              contain only attributes
+              and no payload. It is common to use serialization formats
+              like JSON, Thrift, Protocol Buffers and MessagePack
+              to serialize structured data
+              in order to publish it as AMQP message payload.
+            </p>
+            </doc:section>
+          <doc:section name="acknowledgements">
+          <doc:heading>AMQP Message Acknowledgements</doc:heading>
+            <p>
+              Since networks are unreliable and applications fail,
+              it is often necessary to have some kind of "processing
+              acknowledgement". Sometimes it is only
+              necessary to acknowledge the fact that a message has been
+              received. Sometimes acknowledgements mean that a message was
+              validated and processed by a consumer,
+              for example, verified as having mandatory data and persisted
+              to a data store or indexed.
+            </p>
+            <p>
+              This situation is very common, so AMQP 0-9-1 has a built-in
+              feature called <em>message acknowledgements</em> (sometimes
+              referred to as <em>acks</em>) that consumers
+              use to confirm message delivery and/or processing. If an
+              application crashes (AMQP broker notices this when connection
+              is closed), if an acknowledgement for a
+              message was expected but not received by the AMQP broker,
+              the message is re-queued (and possibly immediately delivered
+              to another consumer, if any exists).
+            </p>
+            <p>
+              Having acknowledgements built into the protocol helps
+              developers to build more robust software.
+            </p>
+            </doc:section>
+          <doc:section name="amqp-methods">
+          <doc:heading>AMQP 0-9-1 Methods</doc:heading>
+            <p>
+              AMQP 0-9-1 is structured as a number of
+              <em>methods</em>. Methods are operations (like HTTP methods)
+              and have nothing in common with methods in object-oriented
+              programming
+              languages. AMQP methods are grouped into
+              <em>classes</em>. Classes are just logical groupings of AMQP
+              methods. The <a href="/amqp-0-9-1-reference.html">AMQP 0-9-1
+              reference</a> can be found on
+              the RabbitMQ website.
+            </p>
+            <p>
+              Let us take a look at the <em>exchange.*</em> class, a group
+              of methods related to operations on exchanges. It includes
+              the following operations:
+            </p>
+            <ul>
+              <li>exchange.declare</li>
+              <li>exchange.declare-ok</li>
+              <li>exchange.delete</li>
+              <li>exchange.delete-ok</li>
+            </ul>
+            <p>
+              (note that the RabbitMQ site reference also includes
+              RabbitMQ-specific extensions to the exchange.* class that we
+              will not discuss in this guide).
+            </p>
+            <p>
+              The operations above form logical pairs:
+              <strong>exchange.declare</strong> and
+              <strong>exchange.declare-ok</strong>,
+              <strong>exchange.delete</strong> and
+              <strong>exchange.delete-ok</strong>. These operations are
+              "requests" (sent by clients) and "responses" (sent by
+              brokers in response to the aforementioned "requests").
+            </p>
+            <p>
+              As an example, the client asks the broker to declare a new
+              exchange using the <strong>exchange.declare</strong> method:
+            </p>
+            <p>
+              <img src="/img/tutorials/intro/exchange-declare.png"
+                   alt="exchange.declare" />
+            </p>
+            <p>
+              As shown on the diagram above,
+              <strong>exchange.declare</strong> carries several
+              <em>parameters</em>. They enable the client to specify
+              exchange name,
+              type, durability flag and so on.
+            </p>
+            <p>
+              If the operation succeeds, the broker responds with the <strong>exchange.declare-ok</strong> method:
+            </p>
+            <p>
+              <img src="/img/tutorials/intro/exchange-declare-ok.png"
+                   alt="exchange.declare-ok" />
+            </p>
+            <p>
+              <strong>exchange.declare-ok</strong> does not carry any
+              parameters except for the channel number (channels will be
+              described later in this guide).
+            </p>
+            <p>
+              The sequence of events is very similar for another
+              method pair, <strong>queue.declare</strong> and
+              <strong>queue.declare-ok</strong>:
+            </p>
+            <p>
+              <img src="/img/tutorials/intro/queue-declare.png"
+                   alt="queue.declare" />
+            </p>
+            <p>
+              <img src="/img/tutorials/intro/queue-declare-ok.png"
+                   alt="queue.declare-ok" />
+            </p>
+            <p>
+              Not all AMQP methods have counterparts. Some
+              (<strong>basic.publish</strong> being the most widely used one)
+              do not have corresponding "response" methods
+              and some others (<strong>basic.get</strong>, for example)
+              have more than one possible "response".
+            </p>
+            </doc:section>
+          <doc:section name="amqp-connections">
+          <doc:heading>AMQP Connections</doc:heading>
+            <p>
+              AMQP connections are typically long-lived. AMQP is an
+              application level protocol that uses TCP for reliable
+              delivery. AMQP connections use authentication and can be
+              protected using TLS (SSL). When an application no longer needs
+              to be connected to an AMQP broker, it should gracefully close
+              the AMQP connection instead of abruptly closing the underlying
+              TCP connection.
+            </p>
+            </doc:section>
+          <doc:section name="amqp-channels">
+          <doc:heading>AMQP Channels</doc:heading>
+            <p>
+              Some applications need multiple connections to an AMQP
+              broker. However, it is undesirable to keep many TCP
+              connections open at the same time because doing so consumes
+              system resources and makes it more difficult to configure
+              firewalls. AMQP 0-9-1 connections are multiplexed with
+              <em>channels</em> that can be thought of as "lightweight
+              connections that share a single TCP connection".
+            </p>
+            <p>
+              For applications that use multiple threads/processes/etc for
+              processing, it is very common to open a new channel per thread
+              (process, etc.)
+              and <strong>not share</strong> channels between them.
+            </p>
+            <p>
+              Communication on a particular channel is completely separate
+              from communication on another channel, therefore every AMQP
+              method also carries a channel number that clients use to
+              figure out which channel the method is for (and thus, which
+              event handler needs to be invoked, for example).
+            </p>
+            </doc:section>
+           <doc:section name="amqp-vhosts">
+          <doc:heading>AMQP Virtual Hosts (vhosts)</doc:heading>
+            <p>
+              To make it possible for a single broker to host multiple
+              isolated "environments" (groups of users, exchanges,
+              queues and so on), AMQP includes the concept of <em>virtual
+              hosts</em> (vhosts). They are similar to virtual hosts used
+              by many popular Web servers and provide completely isolated
+              environments in which AMQP entities live. AMQP clients
+              specify what vhosts they want to use during AMQP connection
+              negotiation.
+            </p>
+            <p>
+              An AMQP 0-9-1 vhost name can be any non-blank string.
+            </p>
+            </doc:section>
+          <doc:section name="amqp-extensibility">
+          <doc:heading>AMQP is Extensible</doc:heading>
+            <p>
+              AMQP 0-9-1 has several extension points:
+            </p>
+            <ul>
+              <li>Custom exchange types let developers implement routing schemes that exchange types
+                  provided out-of-the-box do not cover well, for example, geodata-based routing.</li>
+              <li>Declaration of exchanges and queues can include additional attributes that the broker
+                  can use. For example, per-queue message TTL in RabbitMQ is implemented this way.</li>
+              <li>Broker-specific extensions to the protocol. See, for example,
+                  <a href="/extensions.html">extensions RabbitMQ implements</a>.</li>
+              <li>New AMQP 0-9-1 method classes can be introduced.</li>
+              <li>Brokers can be extended with additional plugins, for example, RabbitMQ management
+                  frontend and HTTP API are implemented as a plugin.</li>
+            </ul>
+            <p>
+              These features make the AMQP 0-9-1 Model even more flexible
+              and applicable to a very broad range of problems.
+            </p>
+            </doc:section>
+          <doc:section name="amqp-distinguishers">
+          <doc:heading>Key differences from some other messaging models</doc:heading>
+            <p>
+              One key difference to understand about the AMQP 0-9-1 Model
+              is that messages are not sent to queues.
+              They are sent to exchanges that route them to queues according
+              to rules called "bindings".
+              This means that routing is primarily handled by AMQP brokers
+              and not applications themselves.
+            </p>
+            </doc:section>
+          <doc:section name="amqp-clients">
+          <doc:heading>AMQP 0-9-1 clients ecosystem</doc:heading>
+            <p>
+              There are many AMQP 0-9-1 clients for many popular programming
+              languages and platforms. Some of them follow AMQP terminology
+              closely and only provide implementation of AMQP methods. Some
+              others have additional features, convenience methods
+              and abstractions. Some of the clients are asynchronous
+              (non-blocking), some are synchronous (blocking), some support
+              both models. Some clients support vendor-specific extensions
+              (for example, RabbitMQ-specific extensions).
+            </p>
+            <p>
+              Because one of the main AMQP goals is interoperability, it is
+              a good idea for developers to understand protocol operations
+              and not limit themselves to terminology of a particular client
+              library. This way communicating with developers using different
+              libraries will be significantly easier.
+            </p>
+            </doc:section>
+          </body>
+  </doc:div>
+</html>
+
