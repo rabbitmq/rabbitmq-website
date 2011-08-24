@@ -87,7 +87,6 @@
       Allow from 127.0.0.1
     </Location>
 
-      CacheRoot            /var/cache/apache2/mod_disk_cache/
       CacheEnable          disk /
       CacheDisable         /releases
       CacheDisable         /debian
@@ -96,8 +95,6 @@
       CacheDisable         /resources
       CacheDisable         /img
       CacheDisable         /js
-      CacheDirLevels       2
-      CacheDirLength       1
       CacheIgnoreNoLastMod On
       CacheIgnoreHeaders   Set-Cookie
 
