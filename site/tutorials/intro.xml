@@ -132,18 +132,17 @@
                 <p>
                   AMQP 0-9-1 is a programmable protocol in the sense that AMQP
                   entities and routing schemes are defined by applications
-                  themselves, not a broker administrator. Accordingly, provision
-                  is made for protocol
-                  operations that declare queues and exchanges, define bindings
-                  between them, subscribe to queues and so on.
+                  themselves, not a broker administrator. Accordingly,
+                  provision is made for protocol operations that declare
+                  queues and exchanges, define bindings between them,
+                  subscribe to queues and so on.
                 </p>
                 <p>
-                  This gives application developers a lot of freedom but also
-                  requires them to be aware of potential definition conflicts. In
-                  practice, definition conflicts
-                  are rare and often indicate misconfigurations. This can be
-                  very useful as it is a good thing if misconfigurations are
-                  caught early.
+                  This gives application developers a lot of freedom but
+                  also requires them to be aware of potential definition
+                  conflicts. In practice, definition conflicts are rare and
+                  often indicate misconfigurations. This can be very useful
+                  as it is a good thing if misconfigurations are caught early.
                 </p>
                 <p>
                   Applications declare the AMQP entities that they need,
@@ -180,7 +179,8 @@
               and so on.
             </p>
             <p>
-              Besides the type, exchanges have a number of attributes, most imprortant of which are:
+              Besides the type, exchanges have a number of attributes,
+              most imprortant of which are:
             </p>
             <ul>
               <li>Name</li>
@@ -230,17 +230,15 @@
             </ul>
             <p>
               Having this layer of indirection enables routing scenarios
-              that are impossible of very hard to implement using publishing
-              directly to queues and
-              also eliminates certain amount of duplicated work application
-              developers have to do.
+              that are impossible or very hard to implement using publishing
+              directly to queues and also eliminates certain amount of
+              duplicated work application developers have to do.
             </p>
             <p>
               If AMQP message cannot be routed to any queue (for example,
               because there are no bindings for the exchange it was published
-              to), it is either
-              dropped or returned to the publisher, depending on message
-              attributes the publisher has set.
+              to), it is either dropped or returned to the publisher,
+              depending on message attributes the publisher has set.
             </p>
             </doc:section>
           <doc:section name="consumers">
@@ -310,23 +308,21 @@
             <p>
               Since networks are unreliable and applications fail,
               it is often necessary to have some kind of "processing
-              acknowledgement". Sometimes it is only
-              necessary to acknowledge the fact that a message has been
-              received. Sometimes acknowledgements mean that a message was
-              validated and processed by a consumer,
-              for example, verified as having mandatory data and persisted
-              to a data store or indexed.
+              acknowledgement". Sometimes it is only necessary to
+              acknowledge the fact that a message has been received. Sometimes
+              acknowledgements mean that a message was validated and processed
+              by a consumer, for example, verified as having mandatory data
+              and persisted to a data store or indexed.
             </p>
             <p>
               This situation is very common, so AMQP 0-9-1 has a built-in
               feature called <em>message acknowledgements</em> (sometimes
-              referred to as <em>acks</em>) that consumers
-              use to confirm message delivery and/or processing. If an
-              application crashes (AMQP broker notices this when connection
-              is closed), if an acknowledgement for a
-              message was expected but not received by the AMQP broker,
-              the message is re-queued (and possibly immediately delivered
-              to another consumer, if any exists).
+              referred to as <em>acks</em>) that consumers use to confirm
+              message delivery and/or processing. If an application crashes
+              (AMQP broker notices this when connection is closed), if an
+              acknowledgement for a message was expected but not received
+              by the AMQP broker, the message is re-queued (and possibly
+              immediately delivered to another consumer, if any exists).
             </p>
             <p>
               Having acknowledgements built into the protocol helps
