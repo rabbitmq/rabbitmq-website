@@ -56,7 +56,7 @@ both IPv4 and IPv6) would look like:
 To use SSL for STOMP connections, SSL must be configured in the broker
 as described [here](http://www.rabbitmq.com/ssl.html). To enable
 STOMP SSL connections, add a listener configuration to the
-`ssl_listeners` variable for the `rabbitmq_stomp` application:
+`ssl_listeners` variable for the `rabbitmq_stomp` application. For example:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [61613]},
@@ -72,7 +72,7 @@ The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
 and `passcode` headers if a default is configured.
 
 To configure a default login and passcode, add a `default_user`
-section to the `rabbitmq_stomp` application configuration:
+section to the `rabbitmq_stomp` application configuration. For example:
 
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
@@ -90,7 +90,7 @@ sent on a session is not a `CONNECT`, the client is automatically
 connected *as the default user*.
 
 To enable implicit connect, add `implicit_connect` to the
-`default_user` configuration section:
+`default_user` configuration section. For example:
 
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
@@ -107,7 +107,7 @@ Implicit connect is *not* enabled by default.
 
 If the default STOMP adapter is running, you should be able to connect to port 61613
 using a STOMP client of your choice. In a pinch, `telnet` or netcat
-(`nc`) will do nicely, for example:
+(`nc`) will do nicely. For example:
 
       $ nc localhost 61613
       CONNECT
@@ -133,7 +133,7 @@ that the STOMP adapter is listening and running.
 The `DISCONNECT` frame
 causes the connection to be dropped.
 
-The script `test.py` runs a full suite of tests and this can be run
+The script `test.py` runs a suite of tests and this can be run
 using `make test` against a STOMP adapter built from source.
 See [Compiling and installing from source](#caifs) above.
 
@@ -175,7 +175,7 @@ For `SEND` frames, a destination of the form
 consuming messages from an existing queue. A new queue is created for
 each subscriber and is bound to the specified exchange using the
 supplied routing key. To work with existing queues, use
-[`/amq/queue` destinations](#amqdest).
+[`/amq/queue`](#amqdest) destinations.
 
 ### Queue Destinations
 
@@ -188,7 +188,7 @@ until a subscriber connects to the queue.
 
 #### AMQP Semantics
 For both `SEND` and `SUBSCRIBE` frames, these destinations create
-the queue `<name>`.
+a shared queue `<name>`.
 
 For `SEND` frames, the message is sent to the default exchange
 with the routing key `<name>`. For `SUBSCRIBE` frames, a subscription
@@ -202,11 +202,13 @@ To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
 #### AMQP Semantics
+For both `SEND` and `SUBSCRIBE` frames, it is an error if the queue `<name>`
+doesn't already exist; no queue is created.
 
 For `SEND` frames, the message is sent directly to the existing queue named
-`<name>` via the default exchange. No queue is created.
+`<name>` via the default exchange.
 
-For `SUBSCRIBE` frames, a subscription against the queue `<name>` is
+For `SUBSCRIBE` frames, a subscription against the existing queue `<name>` is
 created for the current STOMP session.
 
 ### Topic Destinations
@@ -243,7 +245,7 @@ given topic.
 
 To create a durable subscription, set the `persistent` header to
 `true` in the `SUBSCRIBE` frame. When creating a durable subscription,
-the `id` header must be specified:
+the `id` header must be specified. For example:
 
     SUBSCRIBE
     destination:/topic/my-durable
@@ -263,12 +265,13 @@ the queue.
 #### Deleting a Durable Subscription
 
 To permanently delete a durable subscription, send an `UNSUBSCRIBE` frame for
-the subscription ID with the `persistent` header set to `true`:
+the subscription ID with the `persistent` header set to `true`. For example:
 
     UNSUBSCRIBE
     id:1234
     persistent:true
 
+<a name="tqdest"/>
 ### Temp Queue Destinations
 
 Temp queue destinations allow you to define temporary destinations
@@ -278,7 +281,7 @@ Temp queues are managed by the broker and their identities are private to
 each session -- there is no need to choose distinct names for
 temporary queues in distinct sessions.
 
-To use a temp queue, put the `reply-to` header on a `SEND` frame:
+To use a temp queue, put the `reply-to` header on a `SEND` frame. For example:
 
     SEND
     destination:/queue/reply-test
@@ -286,11 +289,12 @@ To use a temp queue, put the `reply-to` header on a `SEND` frame:
 
     Hello World!
 
-This frame creates a temporary queue (with a generated name) that is private to the
-session. A different session that uses `reply-to:/temp-queue/foo` will have a new,
+This frame creates a temporary queue (with a generated name) that is private
+to the session and automatically subscribes to that queue.
+A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
-The `/temp-queue/` destination is **not** the name of the destination
+The `/temp-queue/` destination is ***not*** the name of the destination
 that the receiving client uses when sending the reply. Instead, the
 receiving client can obtain the (real) reply destination queue name
 from the `reply-to` header of the `MESSAGE` frame.  This reply
@@ -301,10 +305,10 @@ header in the `SEND` frame sent in reply to the received
 Reply destination queue names are opaque and cannot be inferred from
 the `/temp-queue/` name.
 
-`SEND` and `SUBSCRIBE` frames **must not** contain `/temp-queue`
+`SEND` and `SUBSCRIBE` frames ***must not*** contain `/temp-queue`
 destinations in the `destination` header. Messages cannot be sent to
 `/temp-queue` destinations, and subscriptions to reply queues are
-managed automatically.
+created automatically.
 
 #### AMQP Semantics
 
@@ -349,5 +353,6 @@ The supported headers are:
 * `correlation-id` -- sets the `correlation-id` property
 * `content-encoding` -- sets the `content-encoding` property
 * `priority` -- sets the `priority` property
-* `reply-to` -- sets the `reply-to` property
+* `reply-to` -- sets the `reply-to` property (see
+[Temp Queue Destinations](#tqdest) above for a special meaning of this header)
 
