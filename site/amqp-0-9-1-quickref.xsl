@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE stylesheet [
 <!ENTITY % entities SYSTEM "rabbit.ent">
 %entities;
@@ -330,8 +330,8 @@
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.declare">
-      <x:field override="reserved-2" name="auto-delete" domain="bit"/>
-      <x:field override="reserved-3" name="internal" domain="bit"/>
+      <x:field override="auto-delete" name="auto-delete" domain="bit"/>
+      <x:field override="internal" name="internal" domain="bit"/>
       <x:doc>
         <p>
           RabbitMQ implements an extension to the AMQP specification that allows for unroutable messages

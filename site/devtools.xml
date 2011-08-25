@@ -352,6 +352,13 @@
                 <a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python
               </li>
               <li>
+                <a href="https://github.com/ceelian/callme">callme</a>, a module providing RPC over AMQP
+              </li>
+              <li>
+                <a href="http://pypi.python.org/pypi/gocept.amqparchive/1.0.0">gocept.amqparchive</a>, an add-on package for <a href="http://pypi.python.org/pypi/gocept.amqprun/">gocept.amqprun</a>
+                that provides archiving, indexing and search for AMQP messages
+              </li>
+              <li>
                 <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a>
                 <br />
                 A series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
@@ -795,6 +802,9 @@
                 passing through the exchange.
               </li>
               <li>
+                <a href="https://github.com/phrawzty/rabbitmq-collectd-plugin">RabbitMQ Plugin for Collectd</a>
+              </li>
+              <li>
                 <a href="https://github.com/tonyg/rabbitmq-xmpp">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
                 See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
               </li>
@@ -802,7 +812,8 @@
                 <a href="http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
               </li>
               <li>
-                <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>                
+                <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>
+              </li>
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
                 <br />
@@ -814,6 +825,7 @@
                 <a href="https://github.com/camptocamp/puppet-rabbitmq">puppet-rabbitmq</a>
                 <br />
                 A pair of Puppet modules to manage RabbitMQ.
+              </li>
               <li>
                 <a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a>
                 <br/>

@@ -18,7 +18,9 @@
   negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
   with the specification. These three versions are extremely similar.  The
   0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9 
-  and makes it easier for multiple implementations to interoperate.
+  and makes it easier for multiple implementations to interoperate. RabbitMQ
+  implements a number of <a href="extensions.html">extensions</a> to the
+  specification.
   </p>
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
@@ -141,9 +143,7 @@
       </p>
 	<p>
 	  See also the detailed specification compatibility tables
-	  below. Backwards-compatible support for the access.request 
-      method as a no-op will be removed in the near future and
-      should not be relied on.
+	  below.
 	</p>
       </doc:section>
 

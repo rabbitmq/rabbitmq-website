@@ -86,17 +86,13 @@
           The simplest way to obtain the management plugin is to
           download the binary packages from
           the <a href="plugins.html">plugins page</a> and copy them to
-          your plugins directory. See
-          the <a href="plugins.html">plugins page</a> for more
-          details.
+          your <a href="plugins.html#plugins-directory">plugins directory</a>.
         </p>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
-          page or
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
-          file for more information, but be aware that it seems to be
+          page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <doc:subsection name="erlang">
@@ -118,8 +114,10 @@
             http://<i>server-name</i>:55672/mgmt/
           </li>
           <li>
-            The HTTP API and its documentation are located at:
-            http://<i>server-name</i>:55672/api/
+            The HTTP API and its documentation are both located at:
+            http://<i>server-name</i>:55672/api/ (or view
+            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+            latest HTTP API documentation here</a>).
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
@@ -358,10 +356,10 @@
         <p>
           By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
-          location for more information on the API. For convenience
-          the documentation can also be obtained
-          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
-          Mercurial server</a>.
+          location for more information on the API.
+          For convenience you can read the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+          latest HTTP API documentation</a> on our Mercurial server.
         </p>
       </doc:section>
 

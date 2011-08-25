@@ -16,8 +16,8 @@ and [mailing list](http://www.rabbitmq.com/blog).
 Binary packages for the STOMP adapter can be found on the
 [plugins page](http://www.rabbitmq.com/plugins.html).
 
-Instructions for installing binary plugins can be found in the
-[Admin Guide](http://www.rabbitmq.com/admin-guide.html#plugins).
+Instructions for installing binary plugins can also be found in the
+[plugins page](http://www.rabbitmq.com/plugins.html#installing-plugins).
 
 <a name="caifs"/>
 ## Compiling and installing from source

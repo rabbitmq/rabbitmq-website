@@ -34,26 +34,73 @@
     # /how appeared on some printed materials
     Redirect permanent /how http://www.rabbitmq.com/how.html
 
+    # Redirects to assign some permanent URLs to cloudfoundry resources
+    Redirect /cloudfoundry/samples https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples
+    Redirect /cloudfoundry/rails http://support.cloudfoundry.com/entries/20334591-getting-started-with-the-rabbitmq-service-from-a-rails-application
+    Redirect /cloudfoundry/spring http://support.cloudfoundry.com/entries/20322602-getting-started-with-the-rabbitmq-service-from-a-spring-application
+    Redirect /cloudfoundry/sinatra https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/sinatra
+    Redirect /cloudfoundry/nodejs https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/nodejs
+    Redirect /cloudfoundry/faq http://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq
+    # Doesn't exist yet, but might do
+    #Redirect /cloudfoundry/railsvid http://www.youtube.com/watch?v=AId8RTG0eD8
+
     <Directory /home/rabbitmq/extras/releases/rabbitmq-server>
         Options +FollowSymLinks
     </Directory>
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
+      ExpiresActive On
+      ExpiresDefault                "access plus 10 minutes"
+      ExpiresByType text/html       "access plus 1 hour"
+      ExpiresByType application/javascript "access plus 1 day"
+
+      ExpiresByType image/gif       "access plus 1 month"
+      ExpiresByType image/png       "access plus 1 month"
+      ExpiresByType image/jpg       "access plus 1 month"
+      ExpiresByType application/pdf "access plus 1 month"
+
+      <FilesMatch "search.html">
+            Header set Cache-control "no-cache"
+      </FilesMatch>
+      <FilesMatch "index.html|^$">
+            Header set Cache-control "max-age=200"
+      </FilesMatch>
     </Directory>
 
     Alias /blog /usr/share/wordpress
 
     # Redirect manpages from release folder
     RewriteEngine On
-    RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /man/$1.man.html [R]
+    RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
+    # Redirect community until we have some content for it
+    Redirect /community.html http://www.rabbitmq.com/contact.html
 
     <Location /server-status>
       SetHandler server-status
       Order deny,allow
       Deny from all
-      Allow from 10.20.219.170/23
+      Allow from 10.20.218.0/23
       Allow from 213.122.168.19/28
       Allow from 127.0.0.1
     </Location>
+
+      CacheEnable          disk /
+      CacheDisable         /releases
+      CacheDisable         /debian
+      CacheDisable         /javadoc
+      CacheDisable         /examples
+      CacheDisable         /resources
+      CacheDisable         /img
+      CacheDisable         /js
+      CacheIgnoreNoLastMod On
+      CacheIgnoreHeaders   Set-Cookie
+
+      # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
+      #
+      # Drop the Range header when more than 5 ranges.
+      # CVE-2011-3192
+
+      SetEnvIf Range (,.*?){5,} bad-range=1
+      RequestHeader unset Range env=bad-range
