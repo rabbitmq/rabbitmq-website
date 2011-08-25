@@ -176,6 +176,7 @@
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
             <r:plugin-dependency name="mochiweb"/>
+            <r:plugin-dependency name="webmachine"/>
             <r:plugin-dependency name="rfc4627_jsonrpc"/>
             <r:plugin-dependency name="amqp_client"/>
             <r:plugin-dependency name="rabbitmq_mochiweb"/>

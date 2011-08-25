@@ -220,6 +220,11 @@
           that your use of messaging generally results in very short
           or empty queues that rapidly drain.
         </p>
+        <p>
+          You can determine which slaves have synchronised with
+          rabbitmqctl:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
       </doc:section>
 
       <doc:section name="start-stop">
