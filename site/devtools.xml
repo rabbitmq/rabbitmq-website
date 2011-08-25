@@ -802,6 +802,9 @@
                 passing through the exchange.
               </li>
               <li>
+                <a href="https://github.com/phrawzty/rabbitmq-collectd-plugin">RabbitMQ Plugin for Collectd</a>
+              </li>
+              <li>
                 <a href="https://github.com/tonyg/rabbitmq-xmpp">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
                 See also "<a href="https://dev.rabbitmq.com/wiki/RabbiterFederation">rabbiter</a>", an experiment in decentralised microblogging.
               </li>

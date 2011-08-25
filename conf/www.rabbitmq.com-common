@@ -81,7 +81,7 @@
       SetHandler server-status
       Order deny,allow
       Deny from all
-      Allow from 10.20.219.170/23
+      Allow from 10.20.218.0/23
       Allow from 213.122.168.19/28
       Allow from 127.0.0.1
     </Location>
