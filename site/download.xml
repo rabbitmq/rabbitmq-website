@@ -83,9 +83,9 @@
 
     <div>
       <ul id="download-nav" class="related">
-        <li><a href="index.html">RabbitMQ</a> >> 
+        <li><a href="index.html">RabbitMQ</a>&#160;&#187;&#160;
             <a href="download.html"
-              title="Download">Download</a> >> </li>
+              title="Download">Download</a>&#160;&#187;&#160;</li>
         <li class="right" >
           <a href="mpl.html"
             title="Mozilla Public License">License</a></li>
