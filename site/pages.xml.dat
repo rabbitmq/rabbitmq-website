@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<x:links xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <x:doc>
+      ~~~ Using this file ~~~
+    </x:doc>
+  <x:page key="download.html" title="Download" tiptext="Download">
+    <x:related key="mpl.html" text="License"/>
+    <x:related key="changelog.html" text="Change Log"/>
+    <x:related key="releases/" text="Release Archive"/>
+    <x:related key="build.html" text="Build"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="specification.html" text="Specification"/>
+  </x:page>
+  <x:page key="server.html" title="Download Server" tiptext="Server Download">
+    <x:related key="mpl.html" text="License"/>
+    <x:related key="changelog.html" text="Change Log"/>
+    <x:related key="releases/rabbitmq-server/" text="Release Archive"/>
+    <x:related key="build-server.html" text="Build"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="plugins.html" text="Plugins"/>
+    <x:related key="install.html" text="Install Server"/>
+  </x:page>
+  <x:page key="platforms.html" title="Platforms" tiptext="Platforms">
+    <x:related key="ec2.html" text="EC2"/>
+  </x:page>
+  <x:page key="build-server.html" title="Server Build" tiptext="Server Build Instructions"/>
+  <x:page key="which-erlang.html" title="Erlang Versions" tiptext="Clustering Guide">
+    <x:related key="erlang.html" text="Why Erlang?"/>
+    <x:related key="server.html" text="Download Server"/>
+  </x:page>
+  <x:page key="service-guide.html" title="Windows Service Guide" tiptext="Windows Service Guide"/>
+  <x:page key="manpages.html" title="Manual Pages" tiptext="Manual Pages">
+    <x:related key="admin-guide.html" text="Admin"/>
+  </x:page>
+  <x:page key="install.html" title="Installation Guide" tiptext="Installation Guide">
+    <x:related key="management.html" text="Manage &amp; Monitor"/>
+    <x:related key="manpages.html" text="Commands"/>
+    <x:related key="plugins.html" text="Plugins"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="clustering.html" text="Cluster"/>
+    <x:related key="configure.html" text="Configure"/>
+  </x:page>
+  <x:page key="configure.html" title="Configuration" tiptext="Configuration">
+    <x:related key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf"/>
+    <x:related key="authentication.html" text="Authentication"/>
+    <x:related key="plugins.html" text="Plugins"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+  </x:page>
+  <x:page key="clustering.html" title="Clustering Guide" tiptext="Clustering Guide">
+    <x:related key="pacemaker.html" text="Pacemaker HA"/>
+    <x:related key="configure.html" text="Configuration"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+  </x:page>
+  <x:page key="pacemaker.html" title="Pacemaker - High Availability" tiptext="High availability with Pacemaker and DRBD">
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="firehose.html" title="Firehose - Tracer" tiptext="Firehose Tracer">
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="admin-guide.html" title="Administration Guide" tiptext="Administration Guide">
+    <x:related key="management.html" text="Manage &amp; Monitor"/>
+    <x:related key="firehose.html" text="Tracer"/>
+    <x:related key="manpages.html" text="Commands"/>
+    <x:related key="authentication.html" text="Authentication"/>
+    <x:related key="plugins.html" text="Plugins"/>
+    <x:related key="clustering.html" text="Cluster"/>
+  </x:page>
+  <x:page key="plugins.html" title="Plugins" tiptext="Plugins">
+    <x:related key="plugin-development.html" text="Plugin Development"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="configure.html" text="Configuration"/>
+    <x:related key="authentication.html" text="Authentication"/>
+    <x:related key="management.html" text="Management"/>
+  </x:page>
+  <x:page key="plugin-development.html" title="Plugin Development" tiptext="Plugin Development Guide">
+    <x:related key="mercurial.html" text="Mercurial"/>
+    <x:related key="build-server.html" text="Build Server"/>
+    <x:related key="server.html" text="Download Server"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+  </x:page>
+  <x:page key="management.html" title="Management" tiptext="Management Plugin">
+    <x:related key="http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v2_5_1/priv/www-api/help.html" text="&#xA0;HTTP API"/>
+    <x:related key="management-cli.html" text="rabbitmqadmin CLI"/>
+    <x:related key="man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="management-cli.html" title="rabbitmqadmin CLI" tiptext="Management Command Line Tool">
+    <x:related key="http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v2_5_1/priv/www-api/help.html" text="&#xA0;HTTP API"/>
+    <x:related key="management.html" text="Management"/>
+    <x:related key="man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="authentication.html" title="Authentication" tiptext="SASL Authentication">
+    <x:related key="ssl.html" text="SSL"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="ssl.html" title="SSL" tiptext="SSL">
+    <x:related key="authentication.html" text="Authentication"/>
+    <x:related key="admin-guide.html" text="Admin"/>
+    <x:related key="configure.html" text="Configuration"/>
+  </x:page>
+  <x:page key="specification.html" title="Specification" tiptext="Specification">
+    <x:related key="extensions.html" text="Extensions"/>
+    <x:related key="interoperability.html" text="Interoperability"/>
+  </x:page>
+  <x:page key="extensions.html" title="Extensions" tiptext="Extensions and Experimental Features">
+    <x:related key="specification.html" text="Specification"/>
+    <x:related key="interoperability.html" text="Interoperability"/>
+  </x:page>
+  <x:page key="interoperability.html" title="Interoperability" tiptext="Interoperability">
+    <x:related key="extensions.html" text="Extensions"/>
+    <x:related key="specification.html" text="Specification"/>
+  </x:page>
+  <x:page key="ec2.html" title="EC2" tiptext="Amazon EC2">
+    <x:related key="install.html" text="Install"/>
+  </x:page>
+</x:links>

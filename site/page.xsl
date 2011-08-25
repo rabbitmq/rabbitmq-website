@@ -9,11 +9,14 @@
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc html xi"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
+<xsl:variable name="pages" select="document('pages.xml.dat')" />
+<xsl:param name="page-uri" select="'download.xml'" />
 
   <xsl:template match="html:head">
     <head>
@@ -587,7 +590,51 @@
       </td>
     </tr>
   </xsl:template>
+  <!-- ############################################################ -->
 
+  <xsl:template match="x:related-links">
+    <xsl:variable name="n-page-uri">
+      <xsl:call-template name="normalise-page-uri" />
+    </xsl:variable>
+    <xsl:variable name="page" select="document(concat($n-page-uri, '.xml'))" />
+    <xsl:variable name="related" select="$pages/x:*/x:page[@key=concat($n-page-uri,'.html')]/x:related"/>
+    
+    <xsl:if test="count($page) &gt; 0 and count($related) &gt; 0">   
+      <div>
+        <ul class="related">
+          <xsl:copy-of select="@id" />          
+          <xsl:for-each select="$related">
+            <!-- figure out if we are the last element in the list, or not (for styling purposes) -->
+            <xsl:variable name="class-name">
+              <xsl:choose>
+                <xsl:when test="position() = last()">
+                  <xsl:value-of select="'right end'" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="'right'" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <li class="{$class-name}">
+              <a href="{@key}"><xsl:value-of select="@text" /></a>
+            </li>
+          </xsl:for-each>
+        </ul>
+      </div>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="normalise-page-uri">
+    <xsl:choose>
+      <xsl:when test="contains($page-uri, '.')">
+        <xsl:value-of select="substring-before($page-uri, '.')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$page-uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <!-- ############################################################ -->
   <xsl:template match="*[local-name(.) = 'code']">
     <span class="code {./@class}">
