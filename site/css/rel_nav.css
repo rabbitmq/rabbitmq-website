@@ -1,0 +1,29 @@
+/* navigation */
+ul.related  {
+	clear: both;
+	text-align: left;
+	height: 1.5em;
+	padding: 1em;
+	margin: 3em 0 2em 0;
+	background: #eee;
+}
+.related li {
+	float: left;
+	display: inline;
+	min-width: 1em;
+	background: none;
+	padding: 0px;
+}
+.related li.right {
+	float: right;
+	padding: 0 0.6em 0 0.6em;
+	border-left: 1px solid black;
+}
+.related li.left {
+	float: left;
+	padding: 0 0.6em 0 0.6em;
+	border-right: 1px solid black;
+}
+.related li.end {
+	border: none;
+}
