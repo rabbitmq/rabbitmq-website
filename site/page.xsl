@@ -596,15 +596,15 @@
     <xsl:variable name="n-page-uri">
       <xsl:call-template name="normalise-page-uri" />
     </xsl:variable>
-    <xsl:variable name="page" select="document(concat($n-page-uri, '.xml'))" />
+
+    <xsl:variable name="self" select="/" />
     <xsl:variable name="related" select="$pages/x:*/x:page[@key=concat($n-page-uri,'.html')]/x:related"/>
-    
-    <xsl:if test="count($page) &gt; 0 and count($related) &gt; 0">   
+   
+    <xsl:if test="count($related) &gt; 0">   
       <div>
         <ul class="related">
           <xsl:copy-of select="@id" />
           <xsl:for-each select="$related">
-            <!-- figure out if we are the last element in the list, or not (for styling purposes) -->
             <xsl:variable name="class-name">
               <xsl:choose>
                 <xsl:when test="position() = last()">
@@ -623,7 +623,7 @@
                       <xsl:value-of select="@tooltip" />
                     </xsl:when>
                     <xsl:otherwise>
-                     <xsl:value-of select="$page/html:html/html:head/html:title"/>
+                     <xsl:value-of select="$self/html:html/html:head/html:title"/>
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:variable>
@@ -639,6 +639,7 @@
         </ul>
       </div>
     </xsl:if>
+-->
   </xsl:template>
   
   <xsl:template name="normalise-page-uri">
