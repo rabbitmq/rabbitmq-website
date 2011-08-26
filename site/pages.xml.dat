@@ -1,7 +1,30 @@
 <?xml version="1.0"?>
 <x:links xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <x:doc>
+    <![CDATA[
       ~~~ Using this file ~~~
+      The purpose of this file is to provide a central record of
+      "related links" displayed on each page, the aim being to
+      simplify maintenance.
+      
+      For each page where you want to display related links, create
+      an <x:page> section using the page's url (relative to the root
+      of the site) as the key attribute.
+
+      Add a child <x:related> element for each link that you want to
+      appear in the related links section. Use the page's url as the
+      key attribute and the text to display in the link as the text
+      attribute. Optionally, provide a tooltip attribute containing
+      text that describes the target link. If you omit the tooltip
+      attribute, a tooltip will be generated from the target page's
+      title.
+
+      Now, in the page that you wish to insert the related links add
+      a <x:related-links> element. You must specify a key attribute that
+      matches the key that you used for the <x:page> section in this
+      file. Optionally, you can specify an html-id attribute that will
+      be copied to the output html as an id attribute.      
+    ]]>    
   </x:doc>
   <x:page key="download.html" text="Download" tooltip="Download">
     <x:related key="mpl.html" text="License" />
