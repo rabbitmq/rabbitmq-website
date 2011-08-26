@@ -2,9 +2,9 @@
 <x:links xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <x:doc>
       ~~~ Using this file ~~~
-    </x:doc>
+  </x:doc>
   <x:page key="download.html" text="Download" tooltip="Download">
-    <x:related key="mpl.html" text="License" tooltip="Mozilla Public License"/>
+    <x:related key="mpl.html" text="License" />
     <x:related key="changelog.html" text="Change Log" tooltip="Server Changelog"/>
     <x:related key="releases/" text="Release Archive" tooltip="Index of /releases"/>
     <x:related key="build.html" text="Build" tooltip="Build Instructions"/>

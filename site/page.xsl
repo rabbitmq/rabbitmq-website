@@ -15,8 +15,6 @@
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
-<xsl:variable name="pages" select="document('pages.xml.dat')" />
-<xsl:param name="page-uri" select="'download.xml'" />
 
   <xsl:template match="html:head">
     <head>
@@ -590,20 +588,27 @@
       </td>
     </tr>
   </xsl:template>
+
   <!-- ############################################################ -->
 
   <xsl:template match="x:related-links">
-    <xsl:variable name="n-page-uri">
-      <xsl:call-template name="normalise-page-uri" />
+    <xsl:variable name="page-uri">
+      <xsl:call-template name="normalise-uri">
+        <xsl:with-param name="uri" select="@key" />
+      </xsl:call-template>
     </xsl:variable>
 
-    <xsl:variable name="self" select="/" />
-    <xsl:variable name="related" select="$pages/x:*/x:page[@key=concat($n-page-uri,'.html')]/x:related"/>
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:variable name="related" select="$pages/x:*/x:page[@key=concat($page-uri,'.html')]/x:related"/>
    
     <xsl:if test="count($related) &gt; 0">   
       <div>
         <ul class="related">
-          <xsl:copy-of select="@id" />
+          <xsl:if test="@html-id">
+            <xsl:attribute name="id">
+              <xsl:value-of select="@id" />
+            </xsl:attribute>
+          </xsl:if>
           <xsl:for-each select="$related">
             <xsl:variable name="class-name">
               <xsl:choose>
@@ -616,14 +621,30 @@
               </xsl:choose>
             </xsl:variable>
             <li class="{$class-name}">
-              <a href="{@key}">
+              <a href="{@key}">                
                 <xsl:variable name="title">
                   <xsl:choose>
                     <xsl:when test="@tooltip">
                       <xsl:value-of select="@tooltip" />
                     </xsl:when>
                     <xsl:otherwise>
-                     <xsl:value-of select="$self/html:html/html:head/html:title"/>
+                      <xsl:variable name="target-uri">
+                        <xsl:call-template name="normalise-uri">
+                          <xsl:with-param name="uri" select="@key" />
+                        </xsl:call-template>
+                      </xsl:variable>
+                      <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+                      <xsl:if test="count($target) &gt; 0">
+                        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+                        <xsl:choose>
+                          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+                            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:value-of select="$title" />
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:if>
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:variable>
@@ -639,16 +660,16 @@
         </ul>
       </div>
     </xsl:if>
--->
   </xsl:template>
   
-  <xsl:template name="normalise-page-uri">
+  <xsl:template name="normalise-uri">
+    <xsl:param name="uri" />
     <xsl:choose>
-      <xsl:when test="contains($page-uri, '.')">
-        <xsl:value-of select="substring-before($page-uri, '.')" />
+      <xsl:when test="contains($uri, '.')">
+        <xsl:value-of select="substring-before($uri, '.')" />
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$page-uri" />
+        <xsl:value-of select="$uri" />
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
