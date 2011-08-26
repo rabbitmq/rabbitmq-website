@@ -8,163 +8,163 @@
       simplify maintenance.
       
       For each page where you want to display related links, create
-      an <x:page> section using the page's url (relative to the root
-      of the site) as the key attribute.
+      an <x:page> section with a key attribute that is unique within
+      the set of all x:page elements. A suggestion is to use the page's
+      file name (relative to the root of the site) as the key attribute.
 
       Add a child <x:related> element for each link that you want to
-      appear in the related links section. Use the page's url as the
-      key attribute and the text to display in the link as the text
-      attribute. Optionally, provide a tooltip attribute containing
-      text that describes the target link. If you omit the tooltip
-      attribute, a tooltip will be generated from the target page's
-      title.
+      appear in the related links section. Use the page's relative url
+      as the url attribute. By default, the link text and a tooltip are
+      generated from the target page's title. To override this bevhaviour
+      you can specify an optional text attribute containing the link text
+      and/or an optional tooltip attribute containing the tooltip text.
 
-      Now, in the page that you wish to insert the related links add
-      a <x:related-links> element. You must specify a key attribute that
+      In the page that you wish to insert the related links add a
+      <x:related-links> element. You must specify a key attribute that
       matches the key that you used for the <x:page> section in this
       file. Optionally, you can specify an html-id attribute that will
       be copied to the output html as an id attribute.      
     ]]>    
   </x:doc>
-  <x:page key="download.html" text="Download" tooltip="Download">
-    <x:related key="mpl.html" text="License" />
-    <x:related key="changelog.html" text="Change Log" tooltip="Server Changelog"/>
-    <x:related key="releases/" text="Release Archive" tooltip="Index of /releases"/>
-    <x:related key="build.html" text="Build" tooltip="Build Instructions"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="specification.html" text="Specification" tooltip="Specification"/>
-    <x:related key="examples.html" text="Examples" tooltip="Examples"/>
+  <x:page key="download">
+    <x:related url="mpl.html" text="License"/>
+    <x:related url="changelog.html"/>
+    <x:related url="releases/" text="Release Archive" tooltip="Index of /releases"/>
+    <x:related url="build.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="specification.html"/>
+    <x:related url="examples.html"/>
   </x:page>
-  <x:page key="server.html" text="Download Server" tooltip="Server Download">
-    <x:related key="mpl.html" text="License" tooltip="Mozilla Public License"/>
-    <x:related key="changelog.html" text="Change Log" tooltip="Server Changelog"/>
-    <x:related key="releases/rabbitmq-server/" text="Release Archive" tooltip="Index of /releases/rabbitmq-server"/>
-    <x:related key="build-server.html" text="Build" tooltip="Server Build Instructions"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
-    <x:related key="which-erlang.html" text="Erlang" tooltip="Erlang Versions"/>
+  <x:page key="server">
+    <x:related url="mpl.html"/>
+    <x:related url="changelog.html"/>
+    <x:related url="releases/rabbitmq-server/" text="Release Archive" tooltip="Index of /releases/rabbitmq-server"/>
+    <x:related url="build-server.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="install.html"/>
+    <x:related url="which-erlang.html"/>
   </x:page>
-  <x:page key="platforms.html" text="Platforms" tooltip="Platforms">
-    <x:related key="ec2.html" text="EC2" tooltip="Amazon EC2"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
+  <x:page key="platforms">
+    <x:related url="ec2.html"/>
+    <x:related url="server.html"/>
   </x:page>
-  <x:page key="build-server.html" text="Server Build" tooltip="Server Build Instructions">
-    <x:related key="build.html" text="Build" tooltip="Build Instructions"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
+  <x:page key="build-server">
+    <x:related url="build.html"/>
+    <x:related url="server.html"/>
   </x:page>
-  <x:page key="which-erlang.html" text="Erlang Versions" tooltip="Clustering Guide">
-    <x:related key="erlang.html" text="Why Erlang?" tooltip="Erlang Introduction"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
+  <x:page key="which-erlang">
+    <x:related url="erlang.html"/>
+    <x:related url="server.html"/>
+    <x:related url="install.html"/>
   </x:page>
-  <x:page key="service-guide.html" text="Windows Service Guide" tooltip="Windows Service Guide">
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
+  <x:page key="service-guide">
+    <x:related url="install.html"/>
   </x:page>
-  <x:page key="manpages.html" text="Manual Pages" tooltip="Manual Pages">
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
+  <x:page key="manpages">
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
   </x:page>
-  <x:page key="install.html" text="Installation Guide" tooltip="Installation Guide">
-    <x:related key="management.html" text="Manage &amp; Monitor" tooltip="Management Plugin"/>
-    <x:related key="manpages.html" text="Commands" tooltip="Manual Pages"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="clustering.html" text="Cluster" tooltip="Clustering Guide"/>
-    <x:related key="configure.html" text="Configure" tooltip="Configuration"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
+  <x:page key="install">
+    <x:related url="management.html"/>
+    <x:related url="manpages.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="server.html"/>
   </x:page>
-  <x:page key="configure.html" text="Configuration" tooltip="Configuration">
-    <x:related key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
-    <x:related key="authentication.html" text="Authentication" tooltip="SASL Authentication"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
+  <x:page key="configure">
+    <x:related url="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
+    <x:related url="authentication.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
   </x:page>
-  <x:page key="clustering.html" text="Clustering Guide" tooltip="Clustering Guide">
-    <x:related key="pacemaker.html" text="Pacemaker HA" tooltip="High availability with Pacemaker and DRBD"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="install.html" text="Install Server" tooltip="Installation Guide"/>
+  <x:page key="clustering">
+    <x:related url="pacemaker.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
   </x:page>
-  <x:page key="pacemaker.html" text="Pacemaker - High Availability" tooltip="High availability with Pacemaker and DRBD">
-    <x:related key="clustering.html" text="Cluster" tooltip="Clustering Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
+  <x:page key="pacemaker">
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="firehose.html" text="Firehose - Tracer" tooltip="Firehose Tracer">
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
+  <x:page key="firehose">
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="admin-guide.html" text="Administration Guide" tooltip="Administration Guide">
-    <x:related key="management.html" text="Manage &amp; Monitor" tooltip="Management Plugin"/>
-    <x:related key="firehose.html" text="Tracer" tooltip="Firehose Tracer"/>
-    <x:related key="manpages.html" text="Commands" tooltip="Manual Pages"/>
-    <x:related key="authentication.html" text="Authentication" tooltip="SASL Authentication"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
-    <x:related key="clustering.html" text="Cluster" tooltip="Clustering Guide"/>
-    <x:related key="configure.html" text="Configure" tooltip="Configuration"/>
+  <x:page key="admin-guide">
+    <x:related url="management.html"/>
+    <x:related url="firehose.html"/>
+    <x:related url="manpages.html"/>
+    <x:related url="authentication.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
   </x:page>
-  <x:page key="plugins.html" text="Plugins" tooltip="Plugins">
-    <x:related key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development Guide"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="authentication.html" text="Authentication" tooltip="SASL Authentication"/>
-    <x:related key="management.html" text="Management" tooltip="Management Plugin"/>
-    <x:related key="stomp.html" text="Stomp" tooltip="Stomp Plugin"/>
+  <x:page key="plugins">
+    <x:related url="plugin-development.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="authentication.html"/>
+    <x:related url="management.html"/>
+    <x:related url="stomp.html"/>
   </x:page>
-  <x:page key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development Guide">
-    <x:related key="mercurial.html" text="Mercurial" tooltip="Using Mercurial"/>
-    <x:related key="build-server.html" text="Build Server" tooltip="Server Build Instructions"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
+  <x:page key="plugin-development">
+    <x:related url="mercurial.html"/>
+    <x:related url="build-server.html"/>
+    <x:related url="server.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="management.html" text="Management" tooltip="Management Plugin">
-    <x:related key="management-cli.html" text="rabbitmqadmin CLI" tooltip="Management Command Line Tool"/>
-    <x:related key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
+  <x:page key="management">
+    <x:related url="management-cli.html"/>
+    <x:related url="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="management-cli.html" text="rabbitmqadmin CLI" tooltip="Management Command Line Tool">
-    <x:related key="http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v2_5_1/priv/www-api/help.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
-    <x:related key="management.html" text="Management" tooltip="Management Plugin"/>
-    <x:related key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
+  <x:page key="management-cli">
+    <x:related url="http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v2_5_1/priv/www-api/help.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
+    <x:related url="management.html"/>
+    <x:related url="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="authentication.html" text="Authentication" tooltip="SASL Authentication">
-    <x:related key="ssl.html" text="SSL" tooltip="SSL"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
+  <x:page key="authentication">
+    <x:related url="ssl.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="ssl.html" text="SSL" tooltip="SSL">
-    <x:related key="authentication.html" text="Authentication" tooltip="SASL Authentication"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
-    <x:related key="configure.html" text="Configuration" tooltip="Configuration"/>
-    <x:related key="plugins.html" text="Plugins" tooltip="Plugins"/>
+  <x:page key="ssl">
+    <x:related url="authentication.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="specification.html" text="Specification" tooltip="Specification">
-    <x:related key="amqp-0-9-1-quickref.html" text="AMQP Quick Ref" tooltip="AMQP Quick Reference"/>
-    <x:related key="extensions.html" text="Extensions" tooltip="Extensions and Experimental Features"/>
-    <x:related key="interoperability.html" text="Interoperability" tooltip="Interoperability"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
+  <x:page key="specification">
+    <x:related url="amqp-0-9-1-quickref.html"/>
+    <x:related url="extensions.html"/>
+    <x:related url="interoperability.html"/>
+    <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="extensions.html" text="Extensions" tooltip="Extensions and Experimental Features">
-    <x:related key="specification.html" text="Specification" tooltip="Specification"/>
-    <x:related key="interoperability.html" text="Interoperability" tooltip="Interoperability"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
+  <x:page key="extensions">
+    <x:related url="specification.html"/>
+    <x:related url="interoperability.html"/>
+    <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="interoperability.html" text="Interoperability" tooltip="Interoperability">
-    <x:related key="extensions.html" text="Extensions" tooltip="Extensions and Experimental Features"/>
-    <x:related key="specification.html" text="Specification" tooltip="Specification"/>
-    <x:related key="admin-guide.html" text="Admin" tooltip="Administration Guide"/>
+  <x:page key="interoperability">
+    <x:related url="extensions.html"/>
+    <x:related url="specification.html"/>
+    <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="ec2.html" text="EC2" tooltip="Amazon EC2">
-    <x:related key="install.html" text="Install" tooltip="Installation Guide"/>
-    <x:related key="server.html" text="Download Server" tooltip="Server Download"/>
+  <x:page key="ec2">
+    <x:related url="install.html"/>
+    <x:related url="server.html"/>
   </x:page>
 </x:links>

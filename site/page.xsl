@@ -594,16 +594,10 @@
   <!-- ############################################################ -->
 
   <xsl:template match="x:related-links">
-    <xsl:variable name="page-uri">
-      <xsl:call-template name="normalise-uri">
-        <xsl:with-param name="uri" select="@key" />
-      </xsl:call-template>
-    </xsl:variable>
-
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
-    <xsl:variable name="related" select="$pages/x:*/x:page[@key=concat($page-uri,'.html')]/x:related"/>
+    <xsl:variable name="related" select="$pages/x:*/x:page[@key=current()/@key]/x:related"/>
    
-    <xsl:if test="count($related) &gt; 0">   
+    <xsl:if test="count($related) &gt; 0">
       <div>
         <ul class="related">
           <xsl:if test="@html-id">
@@ -623,30 +617,17 @@
               </xsl:choose>
             </xsl:variable>
             <li class="{$class-name}">
-              <a href="{@key}">                
+              <a href="{@url}">
+                <xsl:variable name="default-title">
+                  <xsl:call-template name="lookup-title"/>
+                </xsl:variable>
                 <xsl:variable name="title">
                   <xsl:choose>
                     <xsl:when test="@tooltip">
                       <xsl:value-of select="@tooltip" />
                     </xsl:when>
                     <xsl:otherwise>
-                      <xsl:variable name="target-uri">
-                        <xsl:call-template name="normalise-uri">
-                          <xsl:with-param name="uri" select="@key" />
-                        </xsl:call-template>
-                      </xsl:variable>
-                      <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
-                      <xsl:if test="count($target) &gt; 0">
-                        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
-                        <xsl:choose>                          
-                          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
-                            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:value-of select="$title" />
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </xsl:if>
+                      <xsl:value-of select="$default-title" />
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:variable>
@@ -655,12 +636,44 @@
                     <xsl:value-of select="$title"/>
                   </xsl:attribute>
                 </xsl:if>
-                <xsl:value-of select="@text" />
+                <xsl:choose>
+                  <xsl:when test="@text">
+                    <xsl:value-of select="@text" />
+                  </xsl:when>
+                  <xsl:when test="$default-title">
+                    <xsl:value-of select="$default-title" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="'{missing text}'" />
+                  </xsl:otherwise>
+                </xsl:choose>
               </a>         
             </li>
           </xsl:for-each>
         </ul>
       </div>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="lookup-title">
+    <xsl:if test="not(@text) or not(@tooltip)">
+      <xsl:variable name="target-uri">
+        <xsl:call-template name="normalise-uri">
+          <xsl:with-param name="uri" select="@url" />
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+      <xsl:if test="count($target) &gt; 0">
+        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+        <xsl:choose>                          
+          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
     </xsl:if>
   </xsl:template>
   
