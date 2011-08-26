@@ -602,7 +602,7 @@
         <ul class="related">
           <xsl:if test="@html-id">
             <xsl:attribute name="id">
-              <xsl:value-of select="@id" />
+              <xsl:value-of select="@html-id" />
             </xsl:attribute>
           </xsl:if>
           <xsl:for-each select="$related">
