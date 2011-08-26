@@ -602,7 +602,7 @@
     <xsl:if test="count($page) &gt; 0 and count($related) &gt; 0">   
       <div>
         <ul class="related">
-          <xsl:copy-of select="@id" />          
+          <xsl:copy-of select="@id" />
           <xsl:for-each select="$related">
             <!-- figure out if we are the last element in the list, or not (for styling purposes) -->
             <xsl:variable name="class-name">
@@ -616,7 +616,24 @@
               </xsl:choose>
             </xsl:variable>
             <li class="{$class-name}">
-              <a href="{@key}"><xsl:value-of select="@text" /></a>
+              <a href="{@key}">
+                <xsl:variable name="title">
+                  <xsl:choose>
+                    <xsl:when test="@tooltip">
+                      <xsl:value-of select="@tooltip" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                     <xsl:value-of select="$page/html:html/html:head/html:title"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:if test="$title">
+                  <xsl:attribute name="title">
+                    <xsl:value-of select="$title"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="@text" />
+              </a>                
             </li>
           </xsl:for-each>
         </ul>

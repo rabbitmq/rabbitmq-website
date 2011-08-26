@@ -81,37 +81,8 @@
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
     </p>
-    <!-- the new way! -->
+
     <x:related-links id="download-nav" />
-    <!-- the template of what we are attempting to render -->
-    <div>
-      <ul id="download-nav" class="related">
-        <li><a href="index.html">RabbitMQ</a>&#160;&#187;&#160;
-            <a href="download.html"
-              title="Download">Download</a>&#160;&#187;&#160;</li>
-        <li class="right" >
-          <a href="mpl.html"
-            title="Mozilla Public License">License</a></li>
-        <li class="right" >
-          <a href="changelog.html"
-            title="Server Changelog">Change Log</a></li>
-        <li class="right" >
-          <a href="http://www.rabbitmq.com/releases/"
-            title="Index of /releases">Release Archive</a></li>
-        <li class="right" >
-          <a href="build.html"
-            title="Build Instructions">Build</a></li>
-        <li class="right" >
-          <a href="admin-guide.html"
-            title="Administration Guide">Admin</a></li>
-        <li class="right" >
-          <a href="specification.html"
-            title="Specification">Specification</a></li>
-        <li class="right end">
-          <a href="examples.html"
-            title="Examples">Examples</a></li>
-      </ul>
-    </div>
     
   </body>
 </html>
