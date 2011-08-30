@@ -683,6 +683,8 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
             <pre class="sourcecode">
 =INFO REPORT==== 29-Oct-2009::15:43:27 ===
 Memory limit set to 2048MB.</pre>
+            The memory limit may also be queried using the
+            <code>rabbitmqctl get_vm_memory_limits</code> command.
           </p>
 
           <p>
