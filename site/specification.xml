@@ -2608,6 +2608,7 @@
           more so its implementation on RabbitMQ, is closer to
           providing a 'batching' feature than ACID capabilities known
           from the database world.
+        </p>
         <p>
           AMQP transactions only apply to publishes and acks. Other
           operations, such as message rejection, are not
