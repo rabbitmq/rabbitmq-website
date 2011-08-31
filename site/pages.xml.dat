@@ -30,19 +30,19 @@
     <x:related url="mpl.html" text="License"/>
     <x:related url="changelog.html"/>
     <x:related url="releases/" text="Release Archive" tooltip="Index of /releases"/>
-    <x:related url="build.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="build.html" text="Build"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="specification.html"/>
     <x:related url="examples.html"/>
   </x:page>
   <x:page key="server">
-    <x:related url="mpl.html"/>
+    <x:related url="mpl.html" text="License"/>
     <x:related url="changelog.html"/>
     <x:related url="releases/rabbitmq-server/" text="Release Archive" tooltip="Index of /releases/rabbitmq-server"/>
-    <x:related url="build-server.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="build-server.html" text="Build Server"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="plugins.html"/>
-    <x:related url="install.html"/>
+    <x:related url="install.html" text="Install"/>
     <x:related url="which-erlang.html"/>
   </x:page>
   <x:page key="platforms">
@@ -50,80 +50,80 @@
     <x:related url="server.html"/>
   </x:page>
   <x:page key="build-server">
-    <x:related url="build.html"/>
+    <x:related url="build.html" text="Build"/>
     <x:related url="server.html"/>
   </x:page>
   <x:page key="which-erlang">
     <x:related url="erlang.html"/>
     <x:related url="server.html"/>
-    <x:related url="install.html"/>
+    <x:related url="install.html" text="Install"/>
   </x:page>
   <x:page key="service-guide">
-    <x:related url="install.html"/>
+    <x:related url="install.html" text="Install"/>
   </x:page>
   <x:page key="manpages">
-    <x:related url="admin-guide.html"/>
-    <x:related url="install.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
+    <x:related url="install.html" text="Install"/>
   </x:page>
   <x:page key="install">
     <x:related url="management.html"/>
     <x:related url="manpages.html"/>
     <x:related url="plugins.html"/>
-    <x:related url="admin-guide.html"/>
-    <x:related url="clustering.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
+    <x:related url="clustering.html" text="Clustering"/>
     <x:related url="configure.html"/>
     <x:related url="server.html"/>
   </x:page>
   <x:page key="configure">
     <x:related url="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
-    <x:related url="authentication.html"/>
+    <x:related url="authentication.html" text="Authentication"/>
     <x:related url="plugins.html"/>
-    <x:related url="admin-guide.html"/>
-    <x:related url="install.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
+    <x:related url="install.html" text="Install"/>
   </x:page>
   <x:page key="clustering">
     <x:related url="pacemaker.html"/>
     <x:related url="configure.html"/>
-    <x:related url="admin-guide.html"/>
-    <x:related url="install.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
+    <x:related url="install.html" text="Install"/>
   </x:page>
   <x:page key="pacemaker">
-    <x:related url="clustering.html"/>
+    <x:related url="clustering.html" text="Clustering"/>
     <x:related url="configure.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
   </x:page>
   <x:page key="firehose">
     <x:related url="configure.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
   </x:page>
   <x:page key="admin-guide">
     <x:related url="management.html"/>
     <x:related url="firehose.html"/>
     <x:related url="manpages.html"/>
-    <x:related url="authentication.html"/>
+    <x:related url="authentication.html" text="Authentication"/>
     <x:related url="plugins.html"/>
-    <x:related url="clustering.html"/>
+    <x:related url="clustering.html" text="Clustering"/>
     <x:related url="configure.html"/>
   </x:page>
   <x:page key="plugins">
-    <x:related url="plugin-development.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="plugin-development.html" text="Plugin Development"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="configure.html"/>
-    <x:related url="authentication.html"/>
+    <x:related url="authentication.html" text="Authentication"/>
     <x:related url="management.html"/>
     <x:related url="stomp.html"/>
   </x:page>
   <x:page key="plugin-development">
     <x:related url="mercurial.html"/>
-    <x:related url="build-server.html"/>
+    <x:related url="build-server.html" text="Build Server"/>
     <x:related url="server.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="plugins.html"/>
   </x:page>
   <x:page key="management">
     <x:related url="management-cli.html"/>
     <x:related url="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
@@ -131,40 +131,40 @@
     <x:related url="http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v2_5_1/priv/www-api/help.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
     <x:related url="management.html"/>
     <x:related url="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
   <x:page key="authentication">
     <x:related url="ssl.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
   <x:page key="ssl">
-    <x:related url="authentication.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="authentication.html" text="Authentication"/>
+    <x:related url="admin-guide.html" text="Admin"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
   <x:page key="specification">
     <x:related url="amqp-0-9-1-quickref.html"/>
-    <x:related url="extensions.html"/>
+    <x:related url="extensions.html" text="Extensions"/>
     <x:related url="interoperability.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
   </x:page>
   <x:page key="extensions">
     <x:related url="specification.html"/>
     <x:related url="interoperability.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
   </x:page>
   <x:page key="interoperability">
-    <x:related url="extensions.html"/>
+    <x:related url="extensions.html" text="Extensions"/>
     <x:related url="specification.html"/>
-    <x:related url="admin-guide.html"/>
+    <x:related url="admin-guide.html" text="Admin"/>
   </x:page>
   <x:page key="ec2">
-    <x:related url="install.html"/>
+    <x:related url="install.html" text="Install"/>
     <x:related url="server.html"/>
   </x:page>
 </x:links>

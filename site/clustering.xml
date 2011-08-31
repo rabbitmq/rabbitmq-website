@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Clustering Guide</title>
   </head>
@@ -726,5 +728,8 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
           </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="clustering" html-id="cluster-nav" />
+    
   </body>
 </html>

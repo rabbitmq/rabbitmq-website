@@ -5,7 +5,8 @@
 %entities;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - SASL Authentication</title>
   </head>
@@ -128,5 +129,8 @@
         </doc:subsection>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="authentication" html-id="authentication-nav" />
+    
   </body>
 </html>

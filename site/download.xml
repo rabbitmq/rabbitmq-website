@@ -3,7 +3,7 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
