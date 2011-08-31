@@ -16,7 +16,7 @@
     
 
   <doc:item>
-	  <doc:date iso="2011-06-27T16:15:42+0100">31 August 2011</doc:date>
+	  <doc:date iso="2011-08-31T16:15:42+0100">31 August 2011</doc:date>
 	  <doc:title>
 	    RabbitMQ 2.6.0 release
 	  </doc:title>
@@ -1102,6 +1102,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	  <p>Binary and source distributions of the new release can be found in the
 	  usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
 	  this latest release.</p>
