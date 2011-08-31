@@ -12,6 +12,18 @@
           <th>Release Date</th>
           <th>Highlights</th>
         </tr>
+        
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-August/014783.html">2.6.0</a></td>
+          <td>31 August 2011</td>
+          <td>
+            <ul>
+              <li>Active-active HA.</li>
+              <li>Stomp improvements</li>
+              <li>Management improvements</li>              
+            </ul>
+          </td>
+        </tr>
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013449.html">2.5.1</a></td>
