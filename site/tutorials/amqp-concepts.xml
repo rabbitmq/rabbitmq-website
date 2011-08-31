@@ -12,8 +12,8 @@
         <doc:section name="about-this-guide">
         <doc:heading>About this guide</doc:heading>
             <p>
-              This guide explains the AMQP 0-9-1 Model used by RabbitMQ.
-              The <a href="http://bit.ly/amqp-model-explained">original guide</a>
+              This guide explains the AMQP 0-9-1 model used by RabbitMQ.
+              The <a href="http://bit.ly/amqp-model-explained">original version</a>
               that this page is based on was written by
               <a href="http://twitter.com/michaelklishin">Michael Klishin</a>
               and edited by <a href="https://twitter.com/celldee">Chris Duncan</a>.
@@ -30,7 +30,7 @@
                  messaging middleware brokers.
                </p>
              </doc:subsection>
-             <doc:subsection name="brokers=role">
+             <doc:subsection name="brokers-role">
              <doc:heading>Brokers and their role</doc:heading>
                  <p>
                    Messaging brokers receive messages from <em>producers</em>
@@ -46,7 +46,7 @@
                    messages are published by producers to <em>exchanges</em>,
                    often compared to post offices or mailboxes. Exchanges then
                    distribute message copies to <em>queues</em> using rules called
-                   <em>bindings</em>. Then AMQP brokers either push messages to
+                   <em>bindings</em>. Then AMQP brokers either deliver messages to
                    <em>consumers</em> subscribed to queues, or consumers
                    fetch/pull messages from queues on demand.
                  </p>
@@ -57,16 +57,16 @@
                  </p>
                  <p>
                    When publishing a message, producers may specify various
-                   <em>message attributes</em> (message metadata). Some of this
-                   metadata may be used by the broker, however, the rest of it
+                   <em>message attributes</em> (message meta-data). Some of this
+                   meta-data may be used by the broker, however, the rest of it
                    is completely opaque to the broker and is only used by
                    applications that receive the message.
                  </p>
                  <p>
                    Networks are unreliable and applications may fail to process
-                   messages, therefore the AMQP Model has a notion of
-                   <em>message acknowledgements</em>: when a message is pushed
-                   down to a consumer, the consumer <em>notifies the broker</em>,
+                   messages, therefore the AMQP model has a notion of
+                   <em>message acknowledgements</em>: when a message is delivered
+                   to a consumer, the consumer <em>notifies the broker</em>,
                    either automatically or as soon as the application
                    developer chooses to do so. When message acknowledgements
                    are in use, a broker will only completely remove a message
@@ -99,8 +99,7 @@
                   This gives application developers a lot of freedom but
                   also requires them to be aware of potential definition
                   conflicts. In practice, definition conflicts are rare and
-                  often indicate misconfigurations. This can be very useful
-                  as it is a good thing if misconfigurations are caught early.
+                  often indicate a misconfiguration.
                 </p>
                 <p>
                   Applications declare the AMQP entities that they need,
@@ -149,12 +148,11 @@
                <doc:subsection name="exchange-default">
                <doc:heading>Default Exchange</doc:heading>
                <p>
-                 The default exchange is a direct exchange with no name (the
-                 amqp gem refers to it using an empty string) pre-declared by
-                 the broker. It has one special property that makes it very
-                 useful for simple applications, namely that every queue is
-                 automatically bound to it with a routing key which is the
-                 same as the queue name.
+                 The default exchange is a direct exchange with no name
+                 (empty string) pre-declared by the broker. It has one special
+                 property that makes it very useful for simple applications,
+                 namely that every queue is automatically bound to it with
+                 a routing key which is the same as the queue name.
                </p>
                <p>
                  For example, when you declare a queue with the name of
@@ -190,7 +188,7 @@
                  between consumers and not between queues.
                </p>
                <p>
-                  A direct echange can be represented graphically as follows:
+                  A direct exchange can be represented graphically as follows:
                   <img src="/img/tutorials/intro/exchange-direct.png"
                        alt="exchange delivering messages to  queues based on routing key" />
                </p>
@@ -210,7 +208,7 @@
                   Because a fanout exchange delivers a copy of a message to
                   every queue bound to it, its use cases are quite similar:
                   <ul>
-                  <li>Massively multiplayer online (MMO) games can use it
+                  <li>Massively multi-player online (MMO) games can use it
                   for leaderboard updates or other global events</li>
                   <li>Sport news sites can use fanout exchanges for
                   distributing score updates to mobile clients in near
@@ -224,7 +222,7 @@
                   </ul>
                </p>
                <p>
-                  A fanout echange can be represented graphically as follows:
+                  A fanout exchange can be represented graphically as follows:
                   <img src="/img/tutorials/intro/exchange-fanout.png"
                        alt="exchange delivering messages to three queues" />
                </p>
@@ -302,7 +300,7 @@
            <doc:section name="queues">
           <doc:heading>Queues</doc:heading>
             <p>
-              Queues in the AMQP Model are very similar to queues in
+              Queues in the AMQP model are very similar to queues in
               other message and "task queueing" systems: they store
               messages that are consumed by applications. Queues share
               some properties with exchanges, but also have some additional
@@ -410,7 +408,7 @@
               are two ways for applications to do this:
             </p>
             <ul>
-              <li>Have messages pushed to them ("push API")</li>
+              <li>Have messages delivered to them ("push API")</li>
               <li>Fetch messages as needed ("pull API")</li>
             </ul>
             <p>
@@ -511,7 +509,7 @@
           <doc:section name="messages">
           <doc:heading>Message Attributes and Payload</doc:heading>
             <p>
-              Messages in the AMQP Model have <em>attributes</em>. Some
+              Messages in the AMQP model have <em>attributes</em>. Some
               attributes are so common that the AMQP 0-9-1 specification
               defines them and application developers do not have to think
               about the exact attribute name. Some examples are
@@ -535,13 +533,14 @@
             </p>
             <p>
               AMQP messages also have a <em>payload</em> (the data that
-              they carry). Brokers treat this data as opaque (it is neither
-              modified nor used by them). It is possible for messages to
-              contain only attributes
-              and no payload. It is common to use serialization formats
-              like JSON, Thrift, Protocol Buffers and MessagePack
-              to serialize structured data
-              in order to publish it as AMQP message payload.
+              they carry). Brokers treat this data as an opaque byte array.
+              The broker will not inspect of modify the payload. It is possible
+              for messages to contain only attributes and no payload. It
+              is common to use serialisation formats like JSON, Thrift,
+              Protocol Buffers and MessagePack to serialize structured data
+              in order to publish it as AMQP message payload. AMQP peers
+              typically use the "content-type" and "content-encoding" fields to
+              communicate this information,  but this is by convention only.
             </p>
             <p>
               Messages may be published as persistent, which makes AMQP broker
@@ -552,7 +551,7 @@
               make messages persistent: it all depends on persistence mode
               of the messages itself. Publishing messages as persistent
               affects performance (just like with data stores, durability
-              comes at a certain cost in performance and vise versa).
+              comes at a certain cost in performance and vice versa).
             </p>
             </doc:section>
 
@@ -691,9 +690,8 @@
               connections that share a single TCP connection".
             </p>
             <p>
-              For applications that use multiple threads/processes/etc for
-              processing, it is very common to open a new channel per thread
-              (process, etc.)
+              For applications that use multiple threads/processes for
+              processing, it is very common to open a new channel per thread/process
               and <strong>not share</strong> channels between them.
             </p>
             <p>
@@ -760,8 +758,8 @@
               library. This way communicating with developers using different
               libraries will be significantly easier.
             </p>
-            </doc:section>
-          </body>
-  </doc:div>
+         </doc:section>
+     </doc:div>
+  </body>
 </html>
 
