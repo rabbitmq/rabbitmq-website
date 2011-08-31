@@ -605,6 +605,7 @@
               <xsl:value-of select="@html-id" />
             </xsl:attribute>
           </xsl:if>
+          <li>Related Links:</li>
           <xsl:for-each select="$related">
             <xsl:variable name="class-name">
               <xsl:choose>
