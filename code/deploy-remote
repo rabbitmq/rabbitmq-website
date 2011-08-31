@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-. /etc/default/apache2
 cd `dirname $0`
 cd ..
 
@@ -39,17 +38,10 @@ if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
     ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/man $site_dir/site/
 fi
 
-a2enmod cache
-a2enmod disk_cache
-a2enmod expires
-a2enmod headers
-
 if [ -d /etc/apache2/sites-available/ ]; then
     cp conf/www.rabbitmq.com conf/www.rabbitmq.com-ssl conf/www.rabbitmq.com-common  /etc/apache2/sites-available/
     a2ensite www.rabbitmq.com
-    /etc/init.d/apache2 stop
-    htcacheclean -trv -p$HTCACHECLEAN_PATH -l1
-    /etc/init.d/apache2 start
+    /etc/init.d/apache2 restart
 fi
 
 if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
@@ -57,4 +49,3 @@ if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
 fi
 
 sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
-
