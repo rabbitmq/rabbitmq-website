@@ -148,7 +148,7 @@
     <x:related url="plugins.html"/>
   </x:page>
   <x:page key="specification">
-    <x:related url="amqp-0-9-1-quickref.html"/>
+    <x:related url="amqp-0-9-1-quickref.html" tooltip="AMQP 0-9-1 Quick Reference" text="AMQP QuickRef"/>
     <x:related url="extensions.html" text="Extensions"/>
     <x:related url="interoperability.html"/>
     <x:related url="admin-guide.html" text="Admin"/>
