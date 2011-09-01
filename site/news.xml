@@ -15,6 +15,30 @@
       -->
 
       <doc:item>
+        <doc:date iso="2011-08-31T23:50:00+0100">31 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ on Heroku
+        </doc:title>
+
+        <doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is happy to announce that the RabbitMQ
+            add-on for <a
+            href="http://www.cloudfoundry.com/">Heroku</a> is now
+            available in beta.  You can read about it on <a
+            href="http://blog.heroku.com/archives/2011/8/31/rabbitmq_add_on_now_available_on_heroku/">on
+            the Heroku blog</a> and on <a
+            href="http://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
+            RabbitMQ blog</a>.  And there is more information and
+            links to sample code on <a
+            href="http://heroku.srs.rabbitmq.com">this page</a>.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
         <doc:date iso="2011-08-31T16:15:42+0100">31 August 2011</doc:date>
         <doc:title>
           RabbitMQ 2.6.0 release
