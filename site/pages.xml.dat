@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <!--
+    
+      ~~~ Using this file ~~~
+      The purpose of this file is to provide a central record of
+      "related links" displayed on each page, the aim being to
+      simplify maintenance.
+      
+      For each page where you want to display related links, create
+      an <x:page> section with a key attribute that is unique within
+      the set of all x:page elements. A suggestion is to use the page's
+      url (relative to the root of the site) as the key attribute.
+
+      By default, the link text and a tooltip are generated from the
+      target page's title. To override this behaviour you can specify
+      on x:page an optional text attribute containing the link text
+      and/or an optional tooltip attribute containing the tooltip text.
+      
+      Add a child <x:related> element for each link that you want to
+      appear in the related links section. Use the page's relative url
+      as the url attribute. 
+
+      In the page that you wish to insert the related links add a
+      <x:related-links> element. You must specify a key attribute that
+      matches the key that you used for the <x:page> section in this
+      file. Optionally, you can specify an html-id attribute that will
+      be copied to the output html as an id attribute.      
+        
+  -->
+  <x:page key="admin-guide.html" text="Admin">
+    <x:related url="management.html"/>
+    <x:related url="firehose.html"/>
+    <x:related url="manpages.html"/>
+    <x:related url="authentication.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
+  </x:page>
+  <x:page key="amqp-0-9-1-quickref.html" tooltip="AMQP 0-9-1 Quick Reference" text="AMQP QuickRef"/>
+  <x:page key="authentication.html" text="Authentication">
+    <x:related url="ssl.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
+  </x:page>
+  <x:page key="build-server.html" text="Build Server">
+    <x:related url="build.html"/>
+    <x:related url="server.html"/>
+  </x:page>
+  <x:page key="clustering.html" text="Clustering">
+    <x:related url="pacemaker.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
+  </x:page>
+  <x:page key="configure.html">
+    <x:related url="man/rabbitmq-env.conf.5.man.html"/>
+    <x:related url="authentication.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
+  </x:page>
+  <x:page key="download.html">
+    <x:related url="mpl.html"/>
+    <x:related url="changelog.html"/>
+    <x:related url="releases/"/>
+    <x:related url="build.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="specification.html"/>
+    <x:related url="examples.html"/>
+  </x:page>
+  <x:page key="ec2.html">
+    <x:related url="install.html"/>
+    <x:related url="server.html"/>
+  </x:page>
+  <x:page key="extensions.html" text="Extensions">
+    <x:related url="specification.html"/>
+    <x:related url="interoperability.html"/>
+    <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="firehose.html">
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
+  <x:page key="install.html" text="Install">
+    <x:related url="management.html"/>
+    <x:related url="manpages.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="server.html"/>
+  </x:page>
+  <x:page key="interoperability.html">
+    <x:related url="extensions.html"/>
+    <x:related url="specification.html"/>
+    <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="management.html">
+    <x:related url="management-cli.html"/>
+    <x:related url="man/rabbitmqctl.1.man.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
+  </x:page>
+  <x:page key="management-cli.html">
+    <x:related url="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html"/>
+    <x:related url="management.html"/>
+    <x:related url="man/rabbitmqctl.1.man.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
+  </x:page>
+  <x:page key="manpages.html">
+    <x:related url="admin-guide.html"/>
+    <x:related url="install.html"/>
+  </x:page>
+  <x:page key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
+  <x:page key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
+  <x:page key="mpl.html" text="License"/>
+  <x:page key="pacemaker.html">
+    <x:related url="clustering.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="platforms.html">
+    <x:related url="ec2.html"/>
+    <x:related url="server.html"/>
+  </x:page>
+  <x:page key="plugin-development.html" text="Plugin Development">
+    <x:related url="mercurial.html"/>
+    <x:related url="build-server.html"/>
+    <x:related url="server.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="plugins.html"/>
+  </x:page>
+  <x:page key="plugins.html">
+    <x:related url="plugin-development.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="authentication.html"/>
+    <x:related url="management.html"/>
+    <x:related url="stomp.html"/>
+  </x:page>
+  <x:page key="releases/" text="Release Archive" tooltip="Index of /releases"/>
+  <x:page key="releases/rabbitmq-server/" text="Release Archive" tooltip="Index of /releases/rabbitmq-server"/>
+  <x:page key="server.html">
+    <x:related url="mpl.html"/>
+    <x:related url="changelog.html"/>
+    <x:related url="releases/rabbitmq-server/"/>
+    <x:related url="build-server.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="plugins.html"/>
+    <x:related url="install.html"/>
+    <x:related url="which-erlang.html"/>
+  </x:page>
+  <x:page key="service-guide.html">
+    <x:related url="install.html"/>
+  </x:page>
+  <x:page key="specification.html">
+    <x:related url="amqp-0-9-1-quickref.html"/>
+    <x:related url="extensions.html"/>
+    <x:related url="interoperability.html"/>
+    <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="ssl.html">
+    <x:related url="authentication.html"/>
+    <x:related url="admin-guide.html"/>
+    <x:related url="configure.html"/>
+    <x:related url="plugins.html"/>
+  </x:page>
+  <x:page key="which-erlang.html">
+    <x:related url="erlang.html"/>
+    <x:related url="server.html"/>
+    <x:related url="install.html"/>
+  </x:page>
+</x:pages>

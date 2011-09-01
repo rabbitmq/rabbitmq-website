@@ -9,7 +9,8 @@
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc html xi"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
@@ -25,6 +26,9 @@
       <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
+      <xsl:if test="../html:body//x:related-links">
+        <link rel="stylesheet" href="/css/rel_nav.css" type="text/css"/>
+      </xsl:if>
       <script type="text/javascript" src="/js/site.js"/>
       <script type="text/javascript" src="/js/ga-bootstrap.js"/>
       <xsl:apply-templates/>
@@ -587,6 +591,114 @@
     </tr>
   </xsl:template>
 
+  <!-- ############################################################ -->
+
+  <xsl:template match="x:related-links">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:variable name="related" select="$pages/x:*/x:page[@key=current()/@key]/x:related"/>
+
+    <xsl:if test="count($related) &gt; 0">
+      <div>
+        <ul class="related">
+          <xsl:if test="@html-id">
+            <xsl:attribute name="id">
+              <xsl:value-of select="@html-id" />
+            </xsl:attribute>
+          </xsl:if>
+          <li>Related Links:</li>
+          <xsl:for-each select="$related">
+            <xsl:variable name="class-name">
+              <xsl:choose>
+                <xsl:when test="position() = last()">
+                  <xsl:value-of select="'right end'" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="'right'" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <li class="{$class-name}">
+              <a href="{@url}">
+                <xsl:variable name="override-title">
+                  <xsl:value-of select="/x:*/x:page[@key = current()/@url]/@tooltip"/>
+                </xsl:variable>
+                <xsl:variable name="override-text">
+                  <xsl:value-of select="/x:*/x:page[@key = current()/@url]/@text"/>
+                </xsl:variable>
+                <xsl:variable name="default-title">
+                  <xsl:call-template name="lookup-title">
+                    <xsl:with-param name="lookup" select="concat($override-title, $override-text)"/>
+                  </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="title">
+                  <xsl:choose>
+                    <xsl:when test="$override-title != ''">
+                      <xsl:value-of select="$override-title" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="$default-title" />
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:if test="$title">
+                  <xsl:attribute name="title">
+                    <xsl:value-of select="$title"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:choose>
+                  <xsl:when test="$override-text != ''">
+                    <xsl:value-of select="$override-text" />
+                  </xsl:when>
+                  <xsl:when test="$default-title">
+                    <xsl:value-of select="$default-title" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="'{missing text}'" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>         
+            </li>
+          </xsl:for-each>
+        </ul>
+      </div>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="lookup-title">
+    <xsl:param name="lookup" />
+    <xsl:if test="string-length($lookup) = 0">
+      <xsl:variable name="target-uri">
+        <xsl:call-template name="normalise-uri">
+          <xsl:with-param name="uri" select="@url" />
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+      <xsl:if test="count($target) &gt; 0">
+        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+        <xsl:choose>                          
+          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="normalise-uri">
+    <xsl:param name="uri" />
+    <xsl:choose>
+      <xsl:when test="contains($uri, '.')">
+        <xsl:value-of select="substring-before($uri, '.')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <!-- ############################################################ -->
   <xsl:template match="*[local-name(.) = 'code']">
     <span class="code {./@class}">

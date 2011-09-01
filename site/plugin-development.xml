@@ -5,7 +5,9 @@
 %entities;
 <!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Plugin Development Guide</title>
   </head>
@@ -261,5 +263,8 @@ $ cd ..</pre>
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="plugin-development" html-id="plugin-dev-nav" />
+    
   </body>
 </html>

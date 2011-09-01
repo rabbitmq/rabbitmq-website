@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Download</title>
   </head>
@@ -79,5 +80,7 @@
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
     </p>
 
+    <x:related-links key="download.html" html-id="download-nav" />
+    
   </body>
 </html>

@@ -4,7 +4,9 @@
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Configuration</title>
   </head>
@@ -515,5 +517,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="configure" html-id="config-nav" />
+    
   </body>
 </html>

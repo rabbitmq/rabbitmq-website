@@ -1,11 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - SASL Authentication</title>
   </head>
@@ -128,5 +124,8 @@
         </doc:subsection>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="authentication" html-id="authentication-nav" />
+    
   </body>
 </html>
