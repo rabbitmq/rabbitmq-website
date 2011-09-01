@@ -702,7 +702,7 @@
               environments in which AMQP entities live. AMQP clients
               specify what vhosts they want to use during AMQP connection
               negotiation.
-            </p>            
+            </p>
             </doc:section>
           <doc:section name="amqp-extensibility">
           <doc:heading>AMQP is Extensible</doc:heading>
