@@ -15,7 +15,7 @@
       Add a child <x:related> element for each link that you want to
       appear in the related links section. Use the page's relative url
       as the url attribute. By default, the link text and a tooltip are
-      generated from the target page's title. To override this bevhaviour
+      generated from the target page's title. To override this behaviour
       you can specify an optional text attribute containing the link text
       and/or an optional tooltip attribute containing the tooltip text.
 
