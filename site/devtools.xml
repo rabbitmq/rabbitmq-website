@@ -740,7 +740,7 @@
             <h3>CLI</h3>
             <ul class="plain">
               <li>
-                <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-cli/index.html">rabbitmqadmin</a>, the RabbitMQ Management command line tool
+                <a href="management-cli.html">rabbitmqadmin</a>, the RabbitMQ Management command line tool
               </li>
               <li>
                 <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
