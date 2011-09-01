@@ -10,28 +10,27 @@
       </doc:toc>
 
         <doc:section name="about-this-guide">
-        <doc:heading>About this guide</doc:heading>
+        <doc:heading>About This Guide</doc:heading>
             <p>
               This guide explains the AMQP 0-9-1 model used by RabbitMQ.
               The <a href="http://bit.ly/amqp-model-explained">original version</a>
-              that this page is based on was written by
+              was written and kindly contributed by
               <a href="http://twitter.com/michaelklishin">Michael Klishin</a>
               and edited by <a href="https://twitter.com/celldee">Chris Duncan</a>.
             </p>
            </doc:section>
            <doc:section name="highlevel-overview">
-           <doc:heading>High-level overview of AMQP 0-9-1 and the AMQP Model</doc:heading>
+           <doc:heading>High-level Overview of AMQP 0-9-1 and the AMQP Model</doc:heading>
              <doc:subsection name="what-is-amqp">
              <doc:heading>What is AMQP?</doc:heading>
                <p>
                  AMQP (Advanced Message Queuing Protocol) is a networking
-                 protocol which enables conforming client applications to
-                 communicate with conforming
-                 messaging middleware brokers.
+                 protocol that enables conforming client applications to
+                 communicate with conforming messaging middleware brokers.
                </p>
              </doc:subsection>
              <doc:subsection name="brokers-role">
-             <doc:heading>Brokers and their role</doc:heading>
+             <doc:heading>Brokers and Their Role</doc:heading>
                  <p>
                    Messaging brokers receive messages from <em>producers</em>
                    (applications that publish them) and route them to
@@ -40,14 +39,14 @@
                  </p>
              </doc:subsection>
              <doc:subsection name="amqp-model">
-             <doc:heading>AMQP 0-9-1 Model in brief</doc:heading>
+             <doc:heading>AMQP 0-9-1 Model in Brief</doc:heading>
                  <p>
                    The AMQP 0-9-1 Model has the following view of the world:
                    messages are published by producers to <em>exchanges</em>,
-                   often compared to post offices or mailboxes. Exchanges then
+                   which are often compared to post offices or mailboxes. Exchanges then
                    distribute message copies to <em>queues</em> using rules called
                    <em>bindings</em>. Then AMQP brokers either deliver messages to
-                   <em>consumers</em> subscribed to queues, or consumers
+                   consumers subscribed to queues, or consumers
                    fetch/pull messages from queues on demand.
                  </p>
                  <p>
@@ -64,9 +63,9 @@
                  </p>
                  <p>
                    Networks are unreliable and applications may fail to process
-                   messages, therefore the AMQP model has a notion of
+                   messages therefore the AMQP model has a notion of
                    <em>message acknowledgements</em>: when a message is delivered
-                   to a consumer, the consumer <em>notifies the broker</em>,
+                   to a consumer the consumer <em>notifies the broker</em>,
                    either automatically or as soon as the application
                    developer chooses to do so. When message acknowledgements
                    are in use, a broker will only completely remove a message
@@ -82,7 +81,7 @@
                    using certain parameters.
                  </p>
                  <p>
-                   Queues, exchanges and bindings are commonly referred to as <em>AMQP entities</em>.
+                   Queues, exchanges and bindings are collectively referred to as <em>AMQP entities</em>.
                  </p>
              </doc:subsection>
              <doc:subsection namne="programmable-protocol">
@@ -113,25 +112,23 @@
           <doc:heading>Exchanges and Exchange Types</doc:heading>
             <p>
               <em>Exchanges</em> are AMQP entities where messages are
-              sent. Exchanges then take a message and route it into one or
-              more (or no) queues. The routing algorithm used
-              depends on <em>exchange type</em> and rules called
-              <em>bindings</em>. AMQP 0-9-1 brokers provide four
-              exchange types:
+              sent. Exchanges take a message and route it into zero or
+              more queues. The routing algorithm used depends on the
+              <em>exchange type</em> and rules called <em>bindings</em>.
+              AMQP 0-9-1 brokers provide four exchange types:
             </p>
-
             <table>
-              <tr><td>Name</td>             <td>Default pre-declared names</td></tr>
+              <tr><th>Name</th>             <th>Default pre-declared names</th></tr>
               <tr><td>Direct exchange</td>  <td>(Empty string) and amq.direct</td></tr>
               <tr><td>Fanout exchange</td>  <td>amq.fanout</td></tr>
               <tr><td>Topic exchange</td>   <td>amq.topic</td></tr>
               <tr><td>Headers exchange</td> <td>amq.match (and amq.headers in RabbitMQ)</td></tr>
             </table>
             <p>
-              Besides the type, exchanges are declared with a number of
-              attributes, most important of which are:
+              Besides the exchange type, exchanges are declared with a number of
+              attributes, the most important of which are:
             </p>
-            <ul>
+            <ul class="plain">
               <li>Name</li>
               <li>Durability (exchanges survive broker restart)</li>
               <li>Auto-delete (exchange is deleted when all queues have finished using it)</li>
@@ -139,27 +136,26 @@
             </ul>
             <p>
               Exchanges can be durable or transient. Durable
-              exchanges survive broker restart, transient
-              exchanges don't (they have to be redeclared
+              exchanges survive broker restart whereas transient
+              exchanges do not (they have to be redeclared
               when broker comes back online). Not all scenarios
               and use cases require exchanges to be durable.
             </p>
-
-               <doc:subsection name="exchange-default">
+             <doc:subsection name="exchange-default">
                <doc:heading>Default Exchange</doc:heading>
                <p>
                  The default exchange is a direct exchange with no name
                  (empty string) pre-declared by the broker. It has one special
-                 property that makes it very useful for simple applications,
-                 namely that every queue is automatically bound to it with
+                 property that makes it very useful for simple applications:
+                 every queue that is created is automatically bound to it with
                  a routing key which is the same as the queue name.
                </p>
                <p>
                  For example, when you declare a queue with the name of
                  "search-indexing-online", the AMQP broker will bind it
                  to the default exchange using "search-indexing-online" as
-                 the routing key. Therefore a message published to the default
-                 exchange with routing key = "search-indexing-online"
+                 the routing key. Therefore, a message published to the default
+                 exchange with the routing key "search-indexing-online"
                  will be routed to the queue "search-indexing-online". In
                  other words, the default exchange makes it seem like it
                  is possible to deliver messages directly to queues, even
@@ -192,9 +188,8 @@
                   <img src="/img/tutorials/intro/exchange-direct.png"
                        alt="exchange delivering messages to  queues based on routing key" />
                </p>
-               </doc:subsection>
-
-               <doc:subsection name="exchange-fanout">
+             </doc:subsection>
+             <doc:subsection name="exchange-fanout">
                <doc:heading>Fanout Exchange</doc:heading>
                <p>
                   A fanout exchange routes messages to all of the queues
@@ -226,9 +221,8 @@
                   <img src="/img/tutorials/intro/exchange-fanout.png"
                        alt="exchange delivering messages to three queues" />
                </p>
-               </doc:subsection>
-
-               <doc:subsection name="exchange-topic">
+             </doc:subsection>
+             <doc:subsection name="exchange-topic">
                <doc:heading>Topic Exchange</doc:heading>
                <p>
                   Topic exchanges route messages to one or many queues
@@ -260,9 +254,8 @@
                  or OS</li>
                  </ul>
                </p>
-               </doc:subsection>
-
-               <doc:subsection name="exchange-headers">
+             </doc:subsection>
+             <doc:subsection name="exchange-headers">
                <doc:heading>Headers Exchange</doc:heading>
                <p>
                  A headers exchange is designed to for routing on multiple
@@ -281,8 +274,8 @@
                  of the headers matching, or all of them? This is what the
                  "x-match" binding argument is for. When the "x-match"
                  argument is set to "any", just one matching header value
-                 is sufficient. So in the example above, any message with
-                 "cores" header value equal to 8 will be considered matching.
+                 is sufficient. Alternatively, setting "x-match" to "all"
+                 mandates that all the values must match.
                </p>
                <p>
                  Headers exchanges can be looked upon as "direct exchanges
@@ -294,19 +287,18 @@
                <p>
                </p>
                </doc:subsection>
-
             </doc:section>
 
            <doc:section name="queues">
           <doc:heading>Queues</doc:heading>
             <p>
               Queues in the AMQP model are very similar to queues in
-              other message and "task queueing" systems: they store
+              other message- and task-queueing systems: they store
               messages that are consumed by applications. Queues share
               some properties with exchanges, but also have some additional
               properties:
             </p>
-            <ul>
+            <ul class="plain">
               <li>Name</li>
               <li>Durable (the queue will survive a broker restart)</li>
               <li>Exclusive (used by only one connection and the queue will be deleted when that connection closes)</li>
@@ -315,7 +307,7 @@
             </ul>
 
              <p>
-              Before a queue can be used, it has to be declared. Declaring
+              Before a queue can be used it has to be declared. Declaring
               a queue will cause it to be created if it does not already
               exist. The declaration will have no effect if the queue does
               already exist and its attributes are the same as those in the
@@ -324,7 +316,7 @@
               with code 406 (PRECONDITION_FAILED) will be  raised.
              </p>
              <doc:subsection name="queue-names">
-             <doc:heading>Queue names</doc:heading>
+             <doc:heading>Queue Names</doc:heading>
              <p>
               Applications may pick queue names or ask the broker to generate
               a name for them.  Queue names may be up to 255 bytes of UTF-8
@@ -343,7 +335,7 @@
              </p>
              </doc:subsection>
              <doc:subsection name="queue-durability">
-             <doc:heading>Queue durability</doc:heading>
+             <doc:heading>Queue Durability</doc:heading>
              <p>
               Durable queues are persisted to disk and thus survive broker
               restarts. Queues that are not durable are called transient.
@@ -370,11 +362,10 @@
               Bindings are rules that exchanges use (among other things)
               to route messages to queues. To instruct an exchange E to
               route messages to a queue Q,
-              Q has to <em>be bound</em> to E. Bindings may have an optional
+              Q has to be <em>bound</em> to E. Bindings may have an optional
               <em>routing key</em> attribute used by some exchange types. The
-              purpose of the routing key is to
-              selectively match only specific (matching) messages published
-              to an exchange to the bound queue. In other words, the routing
+              purpose of the routing key is to select certain messages published
+              to an exchange to be routed the bound queue. In other words, the routing
               key acts like a filter.
             </p>
             <p>
@@ -384,7 +375,7 @@
               <li>Queue is like your destination in New York city</li>
               <li>Exchange is like JFK airport</li>
               <li>Bindings are routes from JFK to your destination. There
-              can be none or more than one way to reach it</li>
+              can be zero or many ways to reach it</li>
             </ul>
             <p>
               Having this layer of indirection enables routing scenarios
@@ -395,7 +386,7 @@
             <p>
               If AMQP message cannot be routed to any queue (for example,
               because there are no bindings for the exchange it was published
-              to), it is either dropped or returned to the publisher,
+              to) it is either dropped or returned to the publisher,
               depending on message attributes the publisher has set.
             </p>
             </doc:section>
@@ -431,30 +422,30 @@
               <p>
                Consumer applications – applications that receive and process
                messages – may occasionally fail to process individual
-               messages, or will just crash. There is also the possibility
-               of network issues causing problems. This raises a question –
-               "When should the AMQP broker remove messages from queues?" The
+               messages or will sometimes just crash. There is also the possibility
+               of network issues causing problems. This raises a question:
+               when should the AMQP broker remove messages from queues? The
                AMQP 0-9-1 specification proposes two choices:
                <ul>
                <li>After broker sends a message to an application (using
-               either basic.deliver or basic.get-ok methods).</li>
+               either <code>basic.deliver</code> or <code>basic.get-ok</code> AMQP methods).</li>
                <li>After the application sends back an acknowledgement
-               (using basic.ack AMQP method).</li>
+               (using <code>basic.ack</code> AMQP method).</li>
                </ul>
                </p>
               <p>
                The former choice is called the automatic acknowledgement
-               model, while the latter is called the *explicit acknowledgement
-               model*. With the explicit model, the application chooses when
-               it is time to send an acknowledgement.  It can be right after
+               model, while the latter is called the explicit acknowledgement
+               model. With the explicit model the application chooses when
+               it is time to send an acknowledgement. It can be right after
                receiving a message, or after persisting it to a data store
                before processing, or after fully processing the message
                (for example, successfully fetching a Web page, processing
                and storing it into some persistent data store).
               </p>
               <p>
-               If a consumer dies without sending an acknowledgement,
-               the AMQP broker will redeliver it to another consumer, or,
+               If a consumer dies without sending an acknowledgement
+               the AMQP broker will redeliver it to another consumer or,
                if none are available at the time, the broker will wait until
                at least one consumer is registered for the same queue before
                attempting redelivery.
@@ -475,21 +466,20 @@
               </p>
             </doc:subsection>
             <doc:subsection name="messages-nack">
-            <doc:heading>Negative acknowledgements </doc:heading>
+            <doc:heading>Negative Acknowledgements </doc:heading>
               <p>
                Messages are rejected with the <code>basic.reject</code> AMQP
                method. There is one limitation that <code>basic.reject</code> has:
-               there is no way to reject multiple messages, as you can do
+               there is no way to reject multiple messages as you can do
                with acknowledgements. However, if you are using RabbitMQ,
                then there is a solution. RabbitMQ provides an AMQP 0-9-1
-               extension known as negative acknowledgements (nacks) and
-               the amqp gem supports this extension. For more information,
-               please refer to the <a href="/extensions.html#negative-acknowledgements">Rabbit-specific
-               extensuions</a>.
+               extension known as <em>negative acknowledgements</em> or <em>nacks</em>. For
+               more information, please refer to the <a href="/extensions.html#negative-acknowledgements">
+               Rabbit-specific extensions</a>.
               </p>
             </doc:subsection>
             <doc:subsection name="messages-prefetch">
-            <doc:heading>Prefetching messages</doc:heading>
+            <doc:heading>Prefetching Messages</doc:heading>
               <p>
                For cases when multiple consumers share a queue, it is useful
                to be able to specify how many messages each consumer can be
@@ -514,7 +504,7 @@
               defines them and application developers do not have to think
               about the exact attribute name. Some examples are
             </p>
-            <ul>
+            <ul class="plain">
               <li>Content type</li>
               <li>Content encoding</li>
               <li>Routing key</li>
@@ -533,25 +523,25 @@
             </p>
             <p>
               AMQP messages also have a <em>payload</em> (the data that
-              they carry). Brokers treat this data as an opaque byte array.
-              The broker will not inspect of modify the payload. It is possible
+              they carry), which AMQP brokers treat as an opaque byte array.
+              The broker will not inspect or modify the payload. It is possible
               for messages to contain only attributes and no payload. It
               is common to use serialisation formats like JSON, Thrift,
               Protocol Buffers and MessagePack to serialize structured data
-              in order to publish it as AMQP message payload. AMQP peers
+              in order to publish it as the message payload. AMQP peers
               typically use the "content-type" and "content-encoding" fields to
               communicate this information,  but this is by convention only.
             </p>
             <p>
               Messages may be published as persistent, which makes AMQP broker
-              persist them to disk. If the server is restarted, the
+              persist them to disk. If the server is restarted the
               system ensures that received persistent messages are not
               lost. Simply publishing message to a durable exchange or
               the fact that queue(s) they are routed to is durable doesn't
               make messages persistent: it all depends on persistence mode
               of the messages itself. Publishing messages as persistent
               affects performance (just like with data stores, durability
-              comes at a certain cost in performance and vice versa).
+              comes at a certain cost in performance).
             </p>
             </doc:section>
 
@@ -559,8 +549,8 @@
           <doc:heading>Message Acknowledgements</doc:heading>
             <p>
               Since networks are unreliable and applications fail,
-              it is often necessary to have some kind of "processing
-              acknowledgement". Sometimes it is only necessary to
+              it is often necessary to have some kind of processing
+              acknowledgement. Sometimes it is only necessary to
               acknowledge the fact that a message has been received. Sometimes
               acknowledgements mean that a message was validated and processed
               by a consumer, for example, verified as having mandatory data
@@ -599,11 +589,11 @@
               of methods related to operations on exchanges. It includes
               the following operations:
             </p>
-            <ul>
-              <li>exchange.declare</li>
-              <li>exchange.declare-ok</li>
-              <li>exchange.delete</li>
-              <li>exchange.delete-ok</li>
+            <ul class="plain">
+              <li><code>exchange.declare</code></li>
+              <li><code>exchange.declare-ok</code></li>
+              <li><code>exchange.delete</code></li>
+              <li><code>exchange.delete-ok</code></li>
             </ul>
             <p>
               (note that the RabbitMQ site reference also includes
@@ -612,16 +602,16 @@
             </p>
             <p>
               The operations above form logical pairs:
-              <strong>exchange.declare</strong> and
-              <strong>exchange.declare-ok</strong>,
-              <strong>exchange.delete</strong> and
-              <strong>exchange.delete-ok</strong>. These operations are
+              <code>exchange.declare</code> and
+              <code>exchange.declare-ok</code>,
+              <code>exchange.delete</code> and
+              <code>exchange.delete-ok</code>. These operations are
               "requests" (sent by clients) and "responses" (sent by
               brokers in response to the aforementioned "requests").
             </p>
             <p>
               As an example, the client asks the broker to declare a new
-              exchange using the <strong>exchange.declare</strong> method:
+              exchange using the <code>exchange.declare</code> method:
             </p>
             <p>
               <img src="/img/tutorials/intro/exchange-declare.png"
@@ -629,26 +619,26 @@
             </p>
             <p>
               As shown on the diagram above,
-              <strong>exchange.declare</strong> carries several
+              <code>exchange.declare</code> carries several
               <em>parameters</em>. They enable the client to specify
               exchange name, type, durability flag and so on.
             </p>
             <p>
-              If the operation succeeds, the broker responds with the <strong>exchange.declare-ok</strong> method:
+              If the operation succeeds, the broker responds with the <code>exchange.declare-ok</code> method:
             </p>
             <p>
               <img src="/img/tutorials/intro/exchange-declare-ok.png"
                    alt="exchange.declare-ok" />
             </p>
             <p>
-              <strong>exchange.declare-ok</strong> does not carry any
+              <code>exchange.declare-ok</code> does not carry any
               parameters except for the channel number (channels will be
               described later in this guide).
             </p>
             <p>
               The sequence of events is very similar for another
-              method pair, <strong>queue.declare</strong> and
-              <strong>queue.declare-ok</strong>:
+              method pair on the AMQP <em>queue</em> class: <code>queue.declare</code> and
+              <code>queue.declare-ok</code>:
             </p>
             <p>
               <img src="/img/tutorials/intro/queue-declare.png"
@@ -660,9 +650,9 @@
             </p>
             <p>
               Not all AMQP methods have counterparts. Some
-              (<strong>basic.publish</strong> being the most widely used one)
+              (<code>basic.publish</code> being the most widely used one)
               do not have corresponding "response" methods
-              and some others (<strong>basic.get</strong>, for example)
+              and some others (<code>basic.get</code>, for example)
               have more than one possible "response".
             </p>
             </doc:section>
@@ -713,10 +703,7 @@
               environments in which AMQP entities live. AMQP clients
               specify what vhosts they want to use during AMQP connection
               negotiation.
-            </p>
-            <p>
-              An AMQP 0-9-1 vhost name can be any non-blank string.
-            </p>
+            </p>            
             </doc:section>
           <doc:section name="amqp-extensibility">
           <doc:heading>AMQP is Extensible</doc:heading>
@@ -740,7 +727,7 @@
             </p>
             </doc:section>
           <doc:section name="amqp-clients">
-          <doc:heading>AMQP 0-9-1 clients ecosystem</doc:heading>
+          <doc:heading>AMQP 0-9-1 Clients Ecosystem</doc:heading>
             <p>
               There are many AMQP 0-9-1 clients for many popular programming
               languages and platforms. Some of them follow AMQP terminology
