@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
       <ul id="tutorials">
         <li id="tutorial-one">
+          <h2><span class="tute-num">0</span> <a href="/tutorials/amqp-concepts.html">AMQP Concepts</a></h2>
+          <p>
+            <img src="/img/tutorials/intro/amqp-concepts.png" width="180"/>
+          </p>
+        </li>
+        <li id="tutorial-one">
           <h2><span class="tute-num">1</span> <a href="/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
           <p>
             The simplest thing that does <em>something</em>
