@@ -313,7 +313,7 @@
               already exist and its attributes are the same as those in the
               declaration. When the existing queue attributes are not the
               same as those in the declaration a channel-level exception
-              with code 406 (PRECONDITION_FAILED) will be  raised.
+              with code 406 (<code>PRECONDITION_FAILED</code>) will be  raised.
              </p>
              <doc:subsection name="queue-names">
              <doc:heading>Queue Names</doc:heading>
@@ -331,7 +331,7 @@
               Queue names starting with "amq." are reserved for internal
               use by the broker. Attempts to declare a queue with a name that
               violates this rule will result in a channel-level exception
-              with reply code 403 (ACCESS_REFUSED).
+              with reply code 403 (<code>ACCESS_REFUSED</code>).
              </p>
              </doc:subsection>
              <doc:subsection name="queue-durability">
@@ -342,8 +342,8 @@
               Not all scenarios and use cases mandate queues to be durable.
              </p>
              <p>
-              Note that <strong>only durable queues can be bound to
-              durable exchanges</strong>. This guarantees that it is
+              Note that only durable queues can be bound to
+              durable exchanges. This guarantees that it is
               possible to restore bindings on broker restart.
              </p>
              <p>
@@ -581,8 +581,7 @@
               languages. AMQP methods are grouped into
               <em>classes</em>. Classes are just logical groupings of AMQP
               methods. The <a href="/amqp-0-9-1-reference.html">AMQP 0-9-1
-              reference</a> can be found on
-              the RabbitMQ website.
+              reference</a> has full details of all the AMQP methods.
             </p>
             <p>
               Let us take a look at the <em>exchange</em> class, a group
@@ -682,7 +681,7 @@
             <p>
               For applications that use multiple threads/processes for
               processing, it is very common to open a new channel per thread/process
-              and <strong>not share</strong> channels between them.
+              and not share channels between them.
             </p>
             <p>
               Communication on a particular channel is completely separate
@@ -711,14 +710,16 @@
               AMQP 0-9-1 has several extension points:
             </p>
             <ul>
-              <li>Custom exchange types let developers implement routing schemes that exchange types
-                  provided out-of-the-box do not cover well, for example, geodata-based routing.</li>
+              <li><a href="/devtools.html#miscellaneous">Custom exchange types</a> let developers
+                  implement routing schemes that exchange types provided out-of-the-box do
+                  not cover well, for example, geodata-based routing.</li>
               <li>Declaration of exchanges and queues can include additional attributes that the broker
-                  can use. For example, per-queue message TTL in RabbitMQ is implemented this way.</li>
+                  can use. For example, <a href="/extensions.html#queue-ttl">per-queue message TTL</a> in RabbitMQ is implemented this way.</li>
               <li>Broker-specific extensions to the protocol. See, for example,
-                  <a href="/extensions.html">extensions RabbitMQ implements</a>.</li>
-              <li>New AMQP 0-9-1 method classes can be introduced.</li>
-              <li>Brokers can be extended with additional plugins, for example, RabbitMQ management
+                  <a href="/extensions.html">extensions that RabbitMQ implements</a>.</li>
+              <li><a href="/amqp-0-9-1-quickref.html#class.confirm">New AMQP 0-9-1 method classes</a> can be introduced.</li>
+              <li>Brokers can be extended with <a href="/plugins.html">additional plugins</a>,
+                  for example, the <a href="/management.html">RabbitMQ management</a>
                   frontend and HTTP API are implemented as a plugin.</li>
             </ul>
             <p>
@@ -729,8 +730,8 @@
           <doc:section name="amqp-clients">
           <doc:heading>AMQP 0-9-1 Clients Ecosystem</doc:heading>
             <p>
-              There are many AMQP 0-9-1 clients for many popular programming
-              languages and platforms. Some of them follow AMQP terminology
+              There are <a href="/devtools.html">many AMQP 0-9-1 clients</a> for many
+              popular programming languages and platforms. Some of them follow AMQP terminology
               closely and only provide implementation of AMQP methods. Some
               others have additional features, convenience methods
               and abstractions. Some of the clients are asynchronous
