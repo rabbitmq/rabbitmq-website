@@ -82,7 +82,7 @@
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
     </p>
 
-    <x:related-links key="download" html-id="download-nav" />
+    <x:related-links key="download.html" html-id="download-nav" />
     
   </body>
 </html>

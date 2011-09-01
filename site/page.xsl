@@ -596,7 +596,7 @@
   <xsl:template match="x:related-links">
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:variable name="related" select="$pages/x:*/x:page[@key=current()/@key]/x:related"/>
-   
+
     <xsl:if test="count($related) &gt; 0">
       <div>
         <ul class="related">
@@ -619,13 +619,21 @@
             </xsl:variable>
             <li class="{$class-name}">
               <a href="{@url}">
+                <xsl:variable name="override-title">
+                  <xsl:value-of select="/x:*/x:page[@key = current()/@url]/@tooltip"/>
+                </xsl:variable>
+                <xsl:variable name="override-text">
+                  <xsl:value-of select="/x:*/x:page[@key = current()/@url]/@text"/>
+                </xsl:variable>
                 <xsl:variable name="default-title">
-                  <xsl:call-template name="lookup-title"/>
+                  <xsl:call-template name="lookup-title">
+                    <xsl:with-param name="lookup" select="concat($override-title, $override-text)"/>
+                  </xsl:call-template>
                 </xsl:variable>
                 <xsl:variable name="title">
                   <xsl:choose>
-                    <xsl:when test="@tooltip">
-                      <xsl:value-of select="@tooltip" />
+                    <xsl:when test="$override-title != ''">
+                      <xsl:value-of select="$override-title" />
                     </xsl:when>
                     <xsl:otherwise>
                       <xsl:value-of select="$default-title" />
@@ -638,8 +646,8 @@
                   </xsl:attribute>
                 </xsl:if>
                 <xsl:choose>
-                  <xsl:when test="@text">
-                    <xsl:value-of select="@text" />
+                  <xsl:when test="$override-text != ''">
+                    <xsl:value-of select="$override-text" />
                   </xsl:when>
                   <xsl:when test="$default-title">
                     <xsl:value-of select="$default-title" />
@@ -657,7 +665,8 @@
   </xsl:template>
 
   <xsl:template name="lookup-title">
-    <xsl:if test="not(@text) or not(@tooltip)">
+    <xsl:param name="lookup" />
+    <xsl:if test="string-length($lookup) = 0">
       <xsl:variable name="target-uri">
         <xsl:call-template name="normalise-uri">
           <xsl:with-param name="uri" select="@url" />
