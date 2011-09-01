@@ -2112,7 +2112,7 @@
 	  <rule>
 	    <status value="ok">does</status>
         <notes>
-         Relevan't information will be written to the server log.
+         Relevant information will be written to the server log.
         </notes>
 	    <xref> 4.2.2 </xref>
 	    <context>
