@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
       <ul id="tutorials">
-        <li id="tutorial-one">
+        <li id="tutorial-zero">
           <h2><span class="tute-num">0</span> <a href="/tutorials/amqp-concepts.html">AMQP Concepts</a></h2>
           <p>
             <img src="/img/tutorials/intro/amqp-concepts.png" width="180"/>
