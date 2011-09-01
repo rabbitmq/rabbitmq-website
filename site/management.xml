@@ -381,7 +381,7 @@ ProxyPassReverse /    http://localhost:55672/</pre>
       </doc:section>
     </doc:div>
 
-    <x:related-links key="management" html-id="management-nav" />
+    <x:related-links key="management.html" html-id="management-nav" />
     
   </body>
 </html>

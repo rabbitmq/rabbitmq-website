@@ -305,7 +305,7 @@ rabbitmq-service.bat start
       </doc:section>
     </doc:div>
 
-    <x:related-links key="plugins" html-id="plugins-nav" />
+    <x:related-links key="plugins.html" html-id="plugins-nav" />
     
   </body>
 </html>

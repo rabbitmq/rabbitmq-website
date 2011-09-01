@@ -28,7 +28,7 @@
       </doc:section>
     </doc:div>
 
-    <x:related-links key="manpages" html-id="manpages-nav" />
+    <x:related-links key="manpages.html" html-id="manpages-nav" />
     
   </body>
 </html>

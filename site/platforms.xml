@@ -83,7 +83,7 @@
       please <a href="contact.html">contact us</a>.
     </p>
 
-    <x:related-links key="platforms" html-id="platforms-nav" />
+    <x:related-links key="platforms.html" html-id="platforms-nav" />
 
   </body>
 </html>

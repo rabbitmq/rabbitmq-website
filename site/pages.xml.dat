@@ -44,12 +44,14 @@
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
+  <x:page key="build.html"/>
   <x:page key="build-server.html" text="Build Server">
     <x:related url="build.html"/>
     <x:related url="server.html"/>
   </x:page>
   <x:page key="clustering.html" text="Clustering">
     <x:related url="pacemaker.html"/>
+    <x:related url="ha.html"/>
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="install.html"/>
@@ -74,6 +76,7 @@
     <x:related url="install.html"/>
     <x:related url="server.html"/>
   </x:page>
+  <x:page key="erlang.html"/>
   <x:page key="extensions.html" text="Extensions">
     <x:related url="specification.html"/>
     <x:related url="interoperability.html"/>
@@ -82,6 +85,10 @@
   <x:page key="firehose.html">
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
+  </x:page>
+  <x:page key="ha.html" text="High Availability">
+    <x:related url="clustering.html"/>
+    <x:related url="pacemaker.html"/>
   </x:page>
   <x:page key="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
   <x:page key="install.html" text="Install">
@@ -98,14 +105,14 @@
     <x:related url="specification.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="management.html">
+  <x:page key="management.html" text="Manage &amp; Monitor">
     <x:related url="management-cli.html"/>
     <x:related url="man/rabbitmqctl.1.man.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="management-cli.html">
+  <x:page key="management-cli.html" tooltip="Management Command Line Interface" text="Management CLI">
     <x:related url="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html"/>
     <x:related url="management.html"/>
     <x:related url="man/rabbitmqctl.1.man.html"/>
@@ -119,8 +126,9 @@
   </x:page>
   <x:page key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
   <x:page key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
+  <x:page key="mercurial.html"/>
   <x:page key="mpl.html" text="License"/>
-  <x:page key="pacemaker.html">
+  <x:page key="pacemaker.html" text="Pacemaker HA">
     <x:related url="clustering.html"/>
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
@@ -171,6 +179,7 @@
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
+  <x:page key="stomp.html" text="Stomp" tooltip="Stomp Plugin" />
   <x:page key="which-erlang.html">
     <x:related url="erlang.html"/>
     <x:related url="server.html"/>

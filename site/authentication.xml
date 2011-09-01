@@ -125,7 +125,7 @@
       </doc:section>
     </doc:div>
 
-    <x:related-links key="authentication" html-id="authentication-nav" />
+    <x:related-links key="authentication.html" html-id="authentication-nav" />
     
   </body>
 </html>

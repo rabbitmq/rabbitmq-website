@@ -264,7 +264,7 @@ $ cd ..</pre>
       </doc:section>
     </doc:div>
 
-    <x:related-links key="plugin-development" html-id="plugin-dev-nav" />
+    <x:related-links key="plugin-development.html" html-id="plugin-dev-nav" />
     
   </body>
 </html>

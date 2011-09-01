@@ -932,7 +932,7 @@
 
     </doc:div>
 
-    <x:related-links key="install" html-id="install-nav" />
+    <x:related-links key="install.html" html-id="install-nav" />
     
   </body>
 </html>

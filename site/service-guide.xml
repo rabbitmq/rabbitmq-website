@@ -50,7 +50,7 @@
 
     </doc:div>
 
-    <x:related-links key="service-guide" html-id="service-nav" />
+    <x:related-links key="service-guide.html" html-id="service-nav" />
     
   </body>
 </html>
