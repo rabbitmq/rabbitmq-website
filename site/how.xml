@@ -170,10 +170,9 @@
     <a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
     "A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
     doubled using the Amazon cloud and messaging.
-    The <a href="http://us.pycon.org/2010/conference/schedule/event/148/">slides are also available</a> as a PDF.
     </li>
     <li>
-    <a href="http://blog.cloudeventprocessing.com/2010/03/03/twityourl-in-action/">TwitYourl-Map/Reduce in CEP Land</a><br/>
+    <a href="http://www.sys-con.com/node/1307384">TwitYourl-Map/Reduce in CEP Land</a><br/>
     Video about how to do complex event processing to derive intelligence
     about twitter streams. Uses RabbitMQ on EC2.</li>
     <li>
@@ -463,7 +462,7 @@
       <h3 id="going-further">Going Further</h3>
       <ul>
     <li>
-      <a href="http://jira.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a><br />
+      <a href="http://www.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a><br />
       More information on the open standard from the AMQP working group.
     </li>
     <li>
@@ -492,7 +491,7 @@
       to <em>rabbitmq-env.conf</em> since writing.
     </li>
     <li>
-      <a href="http://leftrightfold.com/2009/04/26/how-to-build-rabbit-management-console/">HOWTO: Build a RabbitMQ Management Console</a><br />
+      <a href="http://leftrightfold.com/?p=74">HOWTO: Build a RabbitMQ Management Console</a><br />
       Walk through of how you might build a RabbitMQ management tool.
     </li>
     <li>
@@ -618,7 +617,7 @@
       <a href="http://www.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team.
     </li>
     <li>
-      <a href="http://jira.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
+      <a href="http://www.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
       Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
     </li>
   </ul>

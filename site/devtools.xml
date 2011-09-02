@@ -822,7 +822,7 @@
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">puppetlabs-rabbitmq</a> and
-                <a href="https://github.com/camptocamp/puppet-rabbitmq">puppet-rabbitmq</a>
+                <a href="https://github.com/vurbia/puppet-rabbitmq">puppet-rabbitmq</a>
                 <br />
                 A pair of Puppet modules to manage RabbitMQ.
               </li>
