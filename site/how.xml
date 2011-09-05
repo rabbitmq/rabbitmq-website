@@ -42,6 +42,12 @@
     are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
     <li>
+      <a href="http://ep2011.europython.eu/media/conference/slides/its-the-message-stupid.pdf">It's the message, stupid</a><br/>
+      A presentation by Muharem Hrnjadovic discussing why messaging is a good thing and when and how to use it. Muraham covers
+      an introduction to messaging concepts and how the AMQP model can be used to implement common messaging patterns. A
+      <a href="http://www.youtube.com/watch?v=dIwsKYNbtnI">video</a> is also available.
+    </li>
+    <li>
       <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
       Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
       AMQP messaging concepts and RabbitMQ in general.
