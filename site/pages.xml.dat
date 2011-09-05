@@ -28,7 +28,8 @@
       be copied to the output html as an id attribute.      
         
   -->
-  <x:page key="admin-guide.html" text="Admin">
+  <x:page key="about.html" text="About" tooltip="About RabbitMQ"/>
+  <x:page key="admin-guide.html" text="Admin" tooltip="Administration Guide">
     <x:related url="management.html"/>
     <x:related url="firehose.html"/>
     <x:related url="manpages.html"/>
@@ -37,33 +38,44 @@
     <x:related url="clustering.html"/>
     <x:related url="configure.html"/>
   </x:page>
-  <x:page key="amqp-0-9-1-quickref.html" tooltip="AMQP 0-9-1 Quick Reference" text="AMQP QuickRef"/>
-  <x:page key="authentication.html" text="Authentication">
+  <x:page key="amqp-0-9-1-quickref.html" text="AMQP Quick Ref" tooltip="AMQP 0-9-1 Quick Reference"/>
+  <x:page key="amqp-0-9-1-reference.html" text="AMQP Reference" tooltip="AMQP 0-9-1 Reference Guide"/>
+  <x:page key="api-guide.html" text="Java API" tooltip="Java Client API Guide"/>
+  <x:page key="authentication.html" text="Authentication" tooltip="SASL Authentication">
     <x:related url="ssl.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="build.html"/>
-  <x:page key="build-server.html" text="Build Server">
+  <x:page key="build.html" text="Build" tooltip="Build Instructions"/>
+  <x:page key="build-dotnet-client.html" text="Dotnet Client" tooltip=".Net/C# AMQP Client Library Build Instructions"/>
+  <x:page key="build-java-client.html" text="Java Client" tooltip="Java AMQP Client Library Build Instructions"/>
+  <x:page key="build-server.html" text="Build Server" tooltip="Server Build Instructions">
     <x:related url="build.html"/>
     <x:related url="server.html"/>
   </x:page>
-  <x:page key="clustering.html" text="Clustering">
+  <x:page key="changelog.html" text="Server Changelog" tooltip="Server Changelog"/>
+  <x:page key="clustering.html" text="Clustering" tooltip="Clustering Guide">
     <x:related url="pacemaker.html"/>
     <x:related url="ha.html"/>
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="install.html"/>
   </x:page>
-  <x:page key="configure.html">
+  <x:page key="configure.html" text="Configure" tooltip="Configuration">
     <x:related url="man/rabbitmq-env.conf.5.man.html"/>
     <x:related url="authentication.html"/>
     <x:related url="plugins.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="install.html"/>
   </x:page>
-  <x:page key="download.html">
+  <x:page key="contact.html" text="Contact" tooltip="Contact"/>
+  <x:page key="debian.html" text="Debian" tooltip="Debian APT Repository"/>
+  <x:page key="delicious.html" text="Del.icio.us" tooltip="Del.icio.us Links"/>
+  <x:page key="devtools.html" text="Clients &amp; Tools" tooltip="Clients &amp; Developer Tools"/>
+  <x:page key="documentation.html" text="Documentation" tooltip="Documentation"/>
+  <x:page key="dotnet.html" text="DotNet Client" tooltip=".NET/C# AMQP client library and WCF binding"/>
+  <x:page key="download.html" text="Download" tooltip="Download">
     <x:related url="mpl.html"/>
     <x:related url="changelog.html"/>
     <x:related url="releases/"/>
@@ -72,26 +84,33 @@
     <x:related url="specification.html"/>
     <x:related url="examples.html"/>
   </x:page>
-  <x:page key="ec2.html">
+  <x:page key="download-ex.html" text="Experimental Downloads" tooltip="Experimental Downloads"/>
+  <x:page key="ec2.html" text="EC2" tooltip="Amazon EC2">
     <x:related url="install.html"/>
     <x:related url="server.html"/>
   </x:page>
-  <x:page key="erlang.html"/>
-  <x:page key="extensions.html" text="Extensions">
+  <x:page key="erlang.html" text="Erlang Introduction" tooltip="Erlang Introduction"/>
+  <x:page key="erlang-client-user-guide.html" text="Erlang Client" tooltip="Erlang AMQP Client library"/>
+  <x:page key="examples.html" text="Examples" tooltip="Examples"/>
+  <x:page key="extensions.html" text="Extensions" tooltip="Extensions and Experimental Features">
     <x:related url="specification.html"/>
     <x:related url="interoperability.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="firehose.html">
+  <x:page key="faq.html" text="FAQ" tooltip="Frequently Asked Questions"/>
+  <x:page key="firehose.html" text="Firehose Tracer" tooltip="Firehose Tracer">
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="ha.html" text="High Availability">
+  <x:page key="getstarted.html" text="Get Started" tooltip="Getting Started"/>
+  <x:page key="ha.html" text="HA Queues" tooltip="Highly Available Queues">
     <x:related url="clustering.html"/>
     <x:related url="pacemaker.html"/>
   </x:page>
   <x:page key="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html" text="&#xA0;HTTP API" tooltip="Management HTTP API"/>
-  <x:page key="install.html" text="Install">
+  <x:page key="how.html" text="How To" tooltip="How To"/>
+  <x:page key="index.html" text="RabbitMQ Home" tooltip="Messaging that just works"/>
+  <x:page key="install.html" text="Install" tooltip="Installation Guide">
     <x:related url="management.html"/>
     <x:related url="manpages.html"/>
     <x:related url="plugins.html"/>
@@ -100,19 +119,21 @@
     <x:related url="configure.html"/>
     <x:related url="server.html"/>
   </x:page>
-  <x:page key="interoperability.html">
+  <x:page key="interoperability.html" text="Interoperability" tooltip="Interoperability">
     <x:related url="extensions.html"/>
     <x:related url="specification.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="management.html" text="Manage &amp; Monitor">
+  <x:page key="java-client.html" text="Java Client" tooltip="Java AMQP client library"/>
+  <x:page key="macports.html" text="MacPorts" tooltip="MacPorts Repository"/>
+  <x:page key="management.html" text="Manage &amp; Monitor" tooltip="Management Plugin">
     <x:related url="management-cli.html"/>
     <x:related url="man/rabbitmqctl.1.man.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="management-cli.html" tooltip="Management Command Line Interface" text="Management CLI">
+  <x:page key="management-cli.html" text="Management CLI" tooltip="Management Command Line Interface">
     <x:related url="http://hg.rabbitmq.com/rabbitmq-management/file/default/priv/www/api/index.html"/>
     <x:related url="management.html"/>
     <x:related url="man/rabbitmqctl.1.man.html"/>
@@ -120,31 +141,36 @@
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="manpages.html">
+  <x:page key="manpages.html" text="Manual Pages" tooltip="Manual Pages">
     <x:related url="admin-guide.html"/>
     <x:related url="install.html"/>
   </x:page>
   <x:page key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
   <x:page key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
-  <x:page key="mercurial.html"/>
-  <x:page key="mpl.html" text="License"/>
-  <x:page key="pacemaker.html" text="Pacemaker HA">
+  <x:page key="man/rabbitmq-server.1.man.html" text="rabbitmq-server" tooltip="rabbitmq-server(1) manual page"/>
+  <x:page key="man/rabbitmq-service.man.html" text="rabbitmq-service" tooltip="rabbitmq-service manual page"/>
+  <x:page key="mercurial.html" text="Mercurial" tooltip="Using Mercurial"/>
+  <x:page key="mochiweb.html" text="Mochiweb" tooltip="Mochiweb Plugin"/>
+  <x:page key="mpl.html" text="License" tooltip="Mozilla Public License"/>
+  <x:page key="news.html" text="News" tooltip="News"/>
+  <x:page key="pacemaker.html" text="Pacemaker HA" tooltip="High availability with Pacemaker and DRBD">
     <x:related url="clustering.html"/>
     <x:related url="configure.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="platforms.html">
+  <x:page key="partners.html" text="Partners" tooltip="Partners"/>
+  <x:page key="platforms.html" text="Platforms" tooltip="Platforms">
     <x:related url="ec2.html"/>
     <x:related url="server.html"/>
   </x:page>
-  <x:page key="plugin-development.html" text="Plugin Development">
+  <x:page key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development guide">
     <x:related url="mercurial.html"/>
     <x:related url="build-server.html"/>
     <x:related url="server.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="plugins.html">
+  <x:page key="plugins.html" text="Plugins" tooltip="Plugins">
     <x:related url="plugin-development.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="configure.html"/>
@@ -152,9 +178,10 @@
     <x:related url="management.html"/>
     <x:related url="stomp.html"/>
   </x:page>
+  <x:page key="rabbitmq-bql" text="BQL" tooltip="Broker Query Language"/>
   <x:page key="releases/" text="Release Archive" tooltip="Index of /releases"/>
   <x:page key="releases/rabbitmq-server/" text="Release Archive" tooltip="Index of /releases/rabbitmq-server"/>
-  <x:page key="server.html">
+  <x:page key="server.html" text="Download Server" tooltip="Server Download">
     <x:related url="mpl.html"/>
     <x:related url="changelog.html"/>
     <x:related url="releases/rabbitmq-server/"/>
@@ -164,23 +191,26 @@
     <x:related url="install.html"/>
     <x:related url="which-erlang.html"/>
   </x:page>
-  <x:page key="service-guide.html">
+  <x:page key="service-guide.html" text="Windows Service" tooltip="Windows Service Guide">
     <x:related url="install.html"/>
   </x:page>
-  <x:page key="specification.html">
+  <x:page key="services.html" text="Commercial Services" tooltip="Commercial Services"/>
+  <x:page key="signatures.html" text="Signatures" tooltip="Signatures"/>
+  <x:page key="specification.html" text="Specification" tooltip="Specification">
     <x:related url="amqp-0-9-1-quickref.html"/>
     <x:related url="extensions.html"/>
     <x:related url="interoperability.html"/>
     <x:related url="admin-guide.html"/>
   </x:page>
-  <x:page key="ssl.html">
+  <x:page key="ssl.html" text="SSL" tooltip="SSL">
     <x:related url="authentication.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="configure.html"/>
     <x:related url="plugins.html"/>
   </x:page>
-  <x:page key="stomp.html" text="Stomp" tooltip="Stomp Plugin" />
-  <x:page key="which-erlang.html">
+  <x:page key="stomp.html" text="Stomp" tooltip="Stomp Plugin"/>
+  <x:page key="tutorials/amqp-concepts.html" text="AMQP Concepts" tooltip="AMQP 0-9-1 Model Explained"/>
+  <x:page key="which-erlang.html" text="Erlang Versions" tooltip="Erlang Versions">
     <x:related url="erlang.html"/>
     <x:related url="server.html"/>
     <x:related url="install.html"/>
