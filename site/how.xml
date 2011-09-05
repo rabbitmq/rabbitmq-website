@@ -42,6 +42,12 @@
     are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
     <li>
+      <a href="http://ep2011.europython.eu/media/conference/slides/its-the-message-stupid.pdf">It's the message, stupid</a><br/>
+      A presentation by Muharem Hrnjadovic discussing why messaging is a good thing and when and how to use it. Muraham covers
+      an introduction to messaging concepts and how the AMQP model can be used to implement common messaging patterns. A
+      <a href="http://www.youtube.com/watch?v=dIwsKYNbtnI">video</a> is also available.
+    </li>
+    <li>
       <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
       Presentation by Dmitriy Samovskiy on slideshare.net. Good primer on
       AMQP messaging concepts and RabbitMQ in general.
@@ -476,9 +482,10 @@
       <a href="http://hg.rabbitmq.com/rabbitmq-public-umbrella">RabbitMQ Public Umbrella</a>.
     </li>
     <li>
-      <a href="http://www.slideshare.net/noahgift/rabbitmq-plugins-talk">HOWTO: Writing plugins with RabbitMQ</a><br />
-      Noah Gift and Michael Vierling present an overview of how to go about building a plugin for RabbitMQ. The 
-      <a href="http://www.erlang-factory.com/upload/presentations/355/rabbitMQ_plugins_talk.pdf">slides are available</a> as a PDF.
+      <a href="http://vimeo.com/27158376">HOWTO: Writing plugins with RabbitMQ</a><br />
+      Noah Gift and Michael Vierling present an overview of how to go about building a plugin for RabbitMQ. The slides are
+      available <a href="http://www.slideshare.net/noahgift/rabbitmq-plugins-talk">on slideshare</a> or
+      <a href="http://www.erlang-factory.com/upload/presentations/355/rabbitMQ_plugins_talk.pdf">as a PDF</a>.
     </li>
     <li>
       <a href="http://www.skaag.net/2010/03/12/rabbitmq-for-beginners/">HOWTO: Set up a RabbitMQ cluster and enable plugins</a><br />
