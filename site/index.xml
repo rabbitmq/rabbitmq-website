@@ -43,7 +43,7 @@
 
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a> and offers a
-	reliable, <a href="faq.html#feature-reliable">highly available</a>, scalable and portable messaging system with predictable and consistent
+	reliable, scalable and portable messaging system with predictable and consistent
 	throughput and latency.</p>
 	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
 	dependency on proprietary vendor-supplied libraries.</p>
