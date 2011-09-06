@@ -1,5 +1,4 @@
 <?xml-stylesheet type="text/xml" href="amqp-0-9-1-reference.xsl"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - AMQP Reference Guide</title>

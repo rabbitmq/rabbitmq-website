@@ -1,5 +1,4 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
     <title>RabbitMQ - Experimental Downloads</title>
