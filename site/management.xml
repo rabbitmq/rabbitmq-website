@@ -1,6 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
@@ -118,7 +117,7 @@
           <li>
             The HTTP API and its documentation are both located at:
             http://<i>server-name</i>:55672/api/ (or view
-            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
           <li>
@@ -360,7 +359,7 @@
           http://<i>server-name</i>:55672/api/. Browse to that
           location for more information on the API.
           For convenience you can read the
-          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
           latest HTTP API documentation</a> on our Mercurial server.
         </p>
       </doc:section>

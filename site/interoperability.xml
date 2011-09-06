@@ -1,5 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>

@@ -1,6 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 <!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
@@ -215,7 +214,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/test/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
+            <td><a href="&metronome_hg;/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
             <td>
               Automated tests for the plugin.
             </td>

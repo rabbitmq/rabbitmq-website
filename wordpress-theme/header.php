@@ -41,7 +41,7 @@ try{
         <input type="submit" id="search-button" alt="Search" value="" />
       </form>
     </div>
-  <ul class="mainNav"><li><a href="/download.html">Download</a></li><li><a href="/documentation.html">Documentation</a></li><li><a href="/getstarted.html">Get Started</a></li><li><a href="/services.html">Services</a></li><li><a href="/community.html">Community</a></li><li><a href="/blog/">Blog</a></li></ul>
+  <ul class="mainNav"><li><a href="/download.html">Download</a></li><li><a href="/documentation.html">Documentation</a></li><li><a href="/getstarted.html">Get Started</a></li><li><a href="/services.html">Services</a></li><li><a href="/contact.html">Community</a></li><li><a href="/blog/">Blog</a></li></ul>
 
   <div class="nav-separator"/>
 
