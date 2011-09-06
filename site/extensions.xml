@@ -288,7 +288,7 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
             For instance, consider this scenario:
             <ol>
               <li>a client publishes a persistent message to a durable
-              queue on a non-transactional channel,</li>
+              queue</li>
               <li>a client consumes the message from the queue (noting
               that the message is persistent and the queue
               durable), but doesn't yet ack it,</li>
@@ -299,11 +299,11 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
             message will be delivered again.  This is not the case:
             the restart has caused the broker to lose the message.  In
             order to guarantee persistence, a client should use
-            transactions or publisher acknowledgements.  If the
-            publisher's channel had been in confirm mode, the
-            publisher would <em>not</em> have received an ack for the
-            lost message (since the consumer hadn't ack'd it and it
-            hadn't been written to disk).
+            publisher acknowledgements.  If the publisher's channel
+            had been in confirm mode, the publisher would <em>not</em>
+            have received an ack for the lost message (since the
+            consumer hadn't ack'd it and it hadn't been written to
+            disk).
           </p>
 
         </doc:subsection>
@@ -549,13 +549,6 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             routed via AEs. For example, when a message that was
             marked as persistent is routed to some queue via an AE
             then it does get persisted.
-          </p>
-          <p>
-            The queues to which a messages is routed from an AE
-            participate in AMQP's <code>tx</code> transactions,
-            i.e. if an unroutable message was published inside a tx
-            then it will only appear in the queues when that tx is
-            committed.
           </p>
 
         </doc:subsection>

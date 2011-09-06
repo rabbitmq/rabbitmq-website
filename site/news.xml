@@ -13,15 +13,88 @@
 	   date +"%FT%T%z"
 	   will give you a suitable value.
       -->
-    <doc:item>
-	<doc:date iso="2011-08-15T21:03:02+0100">15 August 2011</doc:date>
-	<doc:title>
-	  RabbitMQ on CloudFoundry
-	</doc:title>
 
-	<doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+      <doc:item>
+        <doc:date iso="2011-08-31T23:50:00+0100">31 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ on Heroku
+        </doc:title>
 
-	<doc:text>
+        <doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is happy to announce that the RabbitMQ
+            add-on for <a
+            href="http://www.cloudfoundry.com/">Heroku</a> is now
+            available in beta.  You can read about it on <a
+            href="http://blog.heroku.com/archives/2011/8/31/rabbitmq_add_on_now_available_on_heroku/">on
+            the Heroku blog</a> and on <a
+            href="http://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
+            RabbitMQ blog</a>.  And there is more information and
+            links to sample code on <a
+            href="http://heroku.srs.rabbitmq.com">this page</a>.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2011-08-31T16:15:42+0100">31 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ 2.6.0 release
+        </doc:title>
+
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20110831/36015373/attachment.txt</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is pleased to announce the release
+            of RabbitMQ 2.6.0.
+          </p>
+
+          <p>
+            The highlight of this release is the introduction of
+            active-active HA, with queues getting replicated
+            across nodes in a cluster. There are many other
+            improvements, particularly to the management and
+            stomp plug-ins, as well as a number of bug
+            fixes. See the release notes for more details.
+          </p>
+
+          <p>
+            Binary and source distributions of the new release can
+            be found in the <a
+            href="http://www.rabbitmq.com/download.html">usual
+            place</a>.
+          </p>
+
+          <p>
+            We recommend that all users of earlier versions of
+            RabbitMQ upgrade to this latest release.
+          </p>
+
+          <p>
+            As always, we welcome any questions, bug reports,
+            and other feedback on this release, as well as
+            general suggestions for features and enhancements in
+            future releases. Mail us via the RabbitMQ discussion
+            list at <a
+            href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
+            or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2011-08-15T21:03:02+0100">15 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ on CloudFoundry
+        </doc:title>
+
+        <doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+
+        <doc:text>
           <p>
             The RabbitMQ team is excited to announce the launch of the
             RabbitMQ service on <a
@@ -37,13 +110,13 @@
             base.
           </p>
         </doc:text>
-    </doc:item>
+      </doc:item>
 
-    <doc:item>
-	<doc:date iso="2011-06-27T16:15:42+0100">27 June 2011</doc:date>
-	<doc:title>
-	  RabbitMQ 2.5.1 release
-	</doc:title>
+      <doc:item>
+        <doc:date iso="2011-06-27T16:15:42+0100">27 June 2011</doc:date>
+        <doc:title>
+          RabbitMQ 2.5.1 release
+        </doc:title>
 
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013449.html</doc:link>
 
@@ -1075,6 +1148,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	  <p>Binary and source distributions of the new release can be found in the
 	  usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
 	  this latest release.</p>

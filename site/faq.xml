@@ -253,23 +253,11 @@
                   </p>
                 </li>
                 <li>
-                  <b>Transactional publication and acknowledgement</b>
-                  <p>
-                    AMQP supports transactional publication, where an
-                    AMQP channel is opened, transactional mode is
-                    selected, messages are published and acknowledged,
-                    and the transaction is committed. The system
-                    guarantees atomicity and durability properties for
-                    transactional message activity.
-                  </p>
-                </li>
-                <li>
                   <b>High-speed transient message flows</b>
                   <p>
                     Messages are individually flagged as transient or
                     persistent in AMQP at the time of publication. By
-                    sending messages outside the transactional part of
-                    the protocol, in non-persistent mode, an
+                    sending messages in non-persistent mode, an
                     application can achieve very high throughput and
                     low latency.
                   </p>
@@ -280,8 +268,8 @@
                     Messages that are published in persistent mode are
                     logged to disk for durability. If the server is
                     restarted, the system ensures that received
-                    persistent messages are not lost. The
-                    transactional part of the protocol provides the
+                    persistent messages are not lost. The publisher
+                    confirmation part of the protocol provides the
                     final piece of the puzzle, by allowing the server
                     to communicate its definite receipt of a set of
                     published messages.
@@ -636,82 +624,6 @@
       <doc:section name="features">
         <doc:heading>RabbitMQ Features</doc:heading>
 
-        <doc:faq name="feature-transactional">
-          <doc:heading>Is RabbitMQ transactional?</doc:heading>
-          <doc:a>
-            <p>
-              Yes. RabbitMQ implements AMQP's "TX" message class, which
-              provides atomicity and durability properties to those
-              clients that request them.
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="feature-reliable">
-          <doc:heading>Is RabbitMQ reliable and highly-available?</doc:heading>
-          <doc:a>
-            <p>
-              Yes. RabbitMQ is built atop the industry-leading <a
-              href="#what-is-otp">OTP</a> Erlang libraries, which
-              provides a solid foundation for building reliable
-              software. The underlying system supporting the Rabbit
-              codebase has been used by Ericsson to achieve <i>nine
-              nines</i> (99.9999999%) of availability.
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="feature-clustering-failover">
-          <doc:heading>Does RabbitMQ support clustering, and high-availability through live failover?</doc:heading>
-          <doc:a>
-            <p>
-              Yes. RabbitMQ brokers can be made up of an arbitrary
-              number of nodes, each of which is available for AMQP
-              clients to connect to and interact with. RabbitMQ's
-              routing tables are shared across the entire cluster, and
-              delivery of messages published at one node to a queue
-              residing at another node is seamless. For details see
-              the <a href="clustering.html">clustering guide</a> and
-              the <a href="pacemaker.html">high availability</a>
-              guide.
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="smp-support">
-          <doc:heading>Will RabbitMQ use SMP, when it's available?</doc:heading>
-          <doc:a>
-            <p>
-              Yes. Erlang supports both single-node SMP configurations
-              and configurations with multiple Erlang nodes running in
-              a cluster within a single host.
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="support-store-and-forward">
-          <doc:heading>Does RabbitMQ support store-and-forward?</doc:heading>
-          <doc:a>
-            <p>
-              Yes, RabbitMQ, and AMQP in general, supports
-              store-and-forward-style exchanges and queues.
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="SMSstore-forward">
-          <doc:heading>Do you think RabbitMQ, as a core module, could handle real time traffic of
-something like an SMSC (SMS foreward&amp;store)?</doc:heading>
-          <doc:a>
-            <p>
-Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
-    in their SMSC infrastructure. At present these systems are not based on
-    AMQP/RabbitMQ, but there is no reason why they couldn't be.
-
-            </p>
-          </doc:a>
-        </doc:faq>
-
         <doc:faq name="webframework-support">
            <doc:heading>Can I create RabbitMQ applications using web frameworks (e.g. Spring, or Ruby-On-Rails)?
           </doc:heading>
@@ -733,23 +645,6 @@ Absolutely. Some large telcos currently deploy Erlang/OTP-based systems
           </doc:a>
         </doc:faq>
 
-
-        <doc:faq name="message-delivered">
-           <doc:heading>At what point is a message delivered, from the sender's perspective?</doc:heading>
-          <doc:a>
-            <p>
-              Publication is an asynchronous activity - in other words, a message
-              is "published" as soon it has left the client's TCP stack. The client
-              has no knowledge of to whom the message is delivered. If you want some
-              guarantees, you can use the mandatory and immediate flags on
-              basic.publish, and you can also use transactional mode. In
-              transactional mode, publishes are batched on the broker, until
-              you issue a tx.commit. When you get the tx.commit-ok message
-              back (i.e. commit is synchronous), you know the broker really has
-              received the messages.
-            </p>
-          </doc:a>
-        </doc:faq>
 
         <doc:faq name="at-least-once-delivery">
            <doc:heading>Can you explain the cases where a message might be delivered to a consumer more than once? </doc:heading>
@@ -1289,34 +1184,6 @@ web UI.
           </doc:a>
         </doc:faq>
 
-        <doc:faq name="atomic-operations">
-          <doc:heading>How do I use transactions to implement atomic operations in RabbitMQ?</doc:heading>
-          <doc:a>
-          <p>
-          RabbitMQ implements AMQP's TX message class to support atomic operations
-          with clients that request them.
-          </p>
-          <p>
-          If you need only to acknowledge receipt of a message you should get the
-          consumer to send a basic.ack once its done with processing. There's no
-          need to use tx in this case.
-          </p>
-          <p>
-          However, if you need to both ack a message and publish some other messages
-          as an atomic unit then you should set tx.select on the channel to start a
-          transaction. When processing the received message, you can publish your
-          messages and ack; only when you finally call tx.commit do the
-          actions of the transaction take effect. In this case, if the consumer
-          crashes, the ack and all publications get forgotten: either all of the actions
-          happen or nothing happens.
-          </p>
-          <p>
-          If, at the application level, you realise that due to some external event
-          everything needs to be cancelled then call tx.rollback on the channel.
-          </p>
-          </doc:a>
-        </doc:faq>
-
         <doc:faq name="testing-rabbit">
           <doc:heading>How do I test RabbitMQ?</doc:heading>
           <doc:a>
@@ -1519,28 +1386,13 @@ web UI.
           <doc:a>
             <p>
               From our testing, we expect easily-achievable
-              throughputs of 4000 persistent, non-transacted
-              one-kilobyte messages per second (Intel Pentium D,
-              2.8GHz, dual core, gigabit ethernet) from a single
-              RabbitMQ broker node writing to a single spindle.
+              throughputs of 4000 persistent one-kilobyte messages per
+              second (Intel Pentium D, 2.8GHz, dual core, gigabit
+              ethernet) from a single RabbitMQ broker node writing to
+              a single spindle.
             </p>
             <p>
               Please let us know how RabbitMQ performs for you!
-            </p>
-          </doc:a>
-        </doc:faq>
-
-        <doc:faq name="performance-options">
-          <doc:heading>How do I switch off persistence/transactionality?</doc:heading>
-          <doc:a>
-            <p>
-              To disable transactionality, use an AMQP channel which
-              is not in "TX" mode (ie. do not call
-              <code>tx.select</code>). To disable message persistence,
-              set the "delivery mode" field in the
-              <code>basic</code>-class properties for the message to
-              either absent or to one, as mode two enables
-              persistence.
             </p>
           </doc:a>
         </doc:faq>

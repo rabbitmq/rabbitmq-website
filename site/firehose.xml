@@ -17,8 +17,7 @@
 	</p>
         <p>
           These notifications are close to what's happening on the
-          wire - for example you will see uncommitted messages in
-          transactional mode, and unacked messages in general.
+          wire - for example you will see unacked messages.
         </p>
 	<p>
 	  When the feature is switched off, it has no effect on
