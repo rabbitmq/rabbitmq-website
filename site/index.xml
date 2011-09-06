@@ -9,7 +9,7 @@
     <p class="rgt button">
     <a class="" href="download.html">Download</a>
     <a class="" href="getstarted.html">Get Started</a>
-    <a class="" href="community.html">Get Involved</a>
+    <a class="" href="contact.html">Get Involved</a>
     </p>
 
       <h3>
@@ -43,15 +43,15 @@
 
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a <a href="faq.html#what-is-otp">proven platform</a> and offers a
-	reliable, <a href="faq.html#feature-reliable">highly available</a>, scalable and portable messaging system with predictable and consistent
+	reliable, scalable and portable messaging system with predictable and consistent
 	throughput and latency.</p>
 	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
 	dependency on proprietary vendor-supplied libraries.</p>
-	<p>RabbitMQ is designed from the ground up <a href="interoperability.html">to interoperate</a>
+	<p>RabbitMQ is designed from the ground up to <a href="interoperability.html">interoperate</a>
 	with other messaging systems: it is the leading <a href="faq.html#what-is-amqp">implementation of AMQP</a>,
-	the open standard for business messaging, and, <a href="plugins.html">through adapters</a>, supports
-	SMTP, STOMP and HTTP for lightweight web messaging.</p>
-	<p>RabbitMQ is supported by a <a href="community.html">thriving community</a> of active
+	the open standard for business messaging, and, through <a href="plugins.html">plug-ins</a>, supports
+	STOMP, HTTP for lightweight web messaging, and other protocols.</p>
+	<p>RabbitMQ is supported by a <a href="contact.html">thriving community</a> of active
 	contributors. A full range of <a href="services.html">commercial support services</a>
 	are available through the SpringSource division of VMware.</p>
 

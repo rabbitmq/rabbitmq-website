@@ -1,6 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
@@ -102,7 +101,7 @@
             </p>
             <p>
               You can use also any of the
-              <a href="find-rabbitmq-on-windows">command line scripts in sbin</a>
+              <a href="#find-rabbitmq-on-windows">command line scripts in sbin</a>
               as described for <a href="#windows-manual">Windows Manual Install</a>
               including <a href="#managing-windows">rabbitmqctl</a>
               commands and <a href="#logging-windows">logging</a>.

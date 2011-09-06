@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent">
 %entities;
 ]>
@@ -40,6 +40,12 @@
     <li><a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
     A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
     are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
+    </li>
+    <li>
+      <a href="http://ep2011.europython.eu/media/conference/slides/its-the-message-stupid.pdf">It's the message, stupid</a><br/>
+      A presentation by Muharem Hrnjadovic discussing why messaging is a good thing and when and how to use it. Muraham covers
+      an introduction to messaging concepts and how the AMQP model can be used to implement common messaging patterns. A
+      <a href="http://www.youtube.com/watch?v=dIwsKYNbtnI">video</a> is also available.
     </li>
     <li>
       <a href="http://www.slideshare.net/somic/introduction-to-amqp-messaging-with-rabbitmq/">Introduction to AMQP and Messaging with RabbitMQ</a> <br />
