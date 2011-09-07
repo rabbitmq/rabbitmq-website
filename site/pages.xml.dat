@@ -54,7 +54,9 @@
     <x:related url="build.html"/>
     <x:related url="server.html"/>
   </x:page>
-  <x:page key="changelog.html" text="Server Changelog" tooltip="Server Changelog"/>
+  <x:page key="changelog.html" text="Server Changelog" tooltip="Server Changelog">
+    <x:related url="server.html"/>
+  </x:page>
   <x:page key="clustering.html" text="Clustering" tooltip="Clustering Guide">
     <x:related url="pacemaker.html"/>
     <x:related url="ha.html"/>
