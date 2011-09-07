@@ -26,9 +26,7 @@
       <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
-      <xsl:if test="../html:body//x:related-links">
-        <link rel="stylesheet" href="/css/rel_nav.css" type="text/css"/>
-      </xsl:if>
+      <link rel="stylesheet" href="/css/rel_nav.css" type="text/css"/>
       <script type="text/javascript" src="/js/site.js"/>
       <script type="text/javascript" src="/js/ga-bootstrap.js"/>
       <xsl:apply-templates/>
