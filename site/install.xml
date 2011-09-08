@@ -218,8 +218,8 @@
               <p>
                 By default, the RabbitMQ logs and Mnesia database
                 are stored in the current user's Application Data directory
-                e.g. <code>&dir-win-user;\Application Data</code> or
-                <code>&dir-win-user;\AppData\Roaming</code>
+                e.g. <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Application Data</code> or
+                <code>C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming</code>
                 (Windows Vista).
                 </p>
                 <p>
@@ -385,7 +385,7 @@
                  to replace the user <code>.erlang.cookie</code>.
                  The user cookie will be in the user's home directory
                  (<span class="envvar">%HOMEDRIVE%%HOMEPATH%</span>), e.g.
-                 <code>&dir-win-user;\.erlang.cookie</code>.
+                 <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>.
               </p>
             </dd>
 
