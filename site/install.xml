@@ -195,23 +195,22 @@
               </dd>
               <dt>Find Commands Easily</dt>
               <dd>
-                 Set up the system path so you can find the server and
-                 <code>sbin</code> directory easily.
-                 <ul>
-                  <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
-                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
-                 Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
-                 or if you upgrade versions.</li>
-                 <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
-                  to your system path (aka %PATH%).</li>
-                  </ul>
-                  Now you can run rabbitmq commands from any (administrator)
-                  Command Prompt.
-                  <p>
+                Set up the system path so you can find the server and
+                <code>sbin</code> directory easily.
+                <ul>
+                    <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
+                    <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
+                    Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
+                    or if you upgrade versions.</li>
+                    <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
+                    to your system path (aka %PATH%).</li>
+                </ul>
+                Now you can run rabbitmq commands from any (administrator) Command Prompt.
+                <p>
                    You will need to navigate to <code>rabbitmq_server-&version-server;\sbin</code>
                    to run commands if your system path does not contain the RabbitMQ <code>sbin</code>
                    directory.
-                  </p>
+                </p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
