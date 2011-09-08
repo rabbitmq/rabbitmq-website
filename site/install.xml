@@ -219,7 +219,7 @@
                 are stored in the current user's Application Data directory
                 e.g. <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Application Data</code> or
                 <code>C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming</code>
-                (Windows Vista).
+                (Windows Vista and later).
                 </p>
                 <p>
                 Execute <code>echo %APPDATA%</code> at a Command Prompt
