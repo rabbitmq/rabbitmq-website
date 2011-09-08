@@ -152,6 +152,7 @@
   </x:page>
   <x:page key="management-cli.html" text="Management CLI" tooltip="Management Command Line Interface"/>
   <x:page key="manpages.html" text="Manual Pages" tooltip="Manual Pages">
+    <x:related url="service-guide.html"/>
     <x:related url="admin-guide.html"/>
     <x:related url="install.html"/>
   </x:page>
