@@ -562,7 +562,7 @@ ha-node-3:~#
 
     </doc:div>
 
-    <x:related-links key="pacemaker.html" html-id="pacemaker-nav" />
+    <x:related-links key="pacemaker.html" />
     
   </body>
 </html>

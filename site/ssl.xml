@@ -840,7 +840,7 @@ Params = #amqp_params_network { port = 5671,
 
     </doc:div>
 
-    <x:related-links key="ssl.html" html-id="ssl-nav" />
+    <x:related-links key="ssl.html" />
     
   </body>
 </html>

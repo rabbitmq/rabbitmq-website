@@ -327,7 +327,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </doc:section>
     </doc:div>
 
-    <x:related-links key="ha.html" html-id="ha-nav" />
+    <x:related-links key="ha.html" />
 
   </body>
 </html>

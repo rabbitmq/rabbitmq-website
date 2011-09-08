@@ -328,7 +328,7 @@
       </table>
     </doc:div>
 
-    <x:related-links key="changelog.html" html-id="changelog-nav" />
+    <x:related-links key="changelog.html" />
 
   </body>
 </html>

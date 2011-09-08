@@ -599,11 +599,6 @@
       <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
         <div>
           <ul class="related">
-            <xsl:if test="@html-id">
-              <xsl:attribute name="id">
-                <xsl:value-of select="@html-id" />
-              </xsl:attribute>
-            </xsl:if>
             <li>Related Links:</li>
             <xsl:apply-templates select="key('page-key', $key)/x:related"/>
           </ul>

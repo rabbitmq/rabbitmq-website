@@ -93,7 +93,7 @@
 
     </div>
 
-    <x:related-links key="which-erlang.html" html-id="erlang-nav" />
+    <x:related-links key="which-erlang.html" />
     
   </body>
 </html>

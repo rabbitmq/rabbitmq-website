@@ -235,7 +235,7 @@
       </doc:section>
     </doc:div>
 
-    <x:related-links key="admin-guide.html" html-id="admin-nav" />
+    <x:related-links key="admin-guide.html" />
     
   </body>
 </html>

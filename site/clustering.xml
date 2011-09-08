@@ -730,7 +730,7 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
       </doc:section>
     </doc:div>
 
-    <x:related-links key="clustering.html" html-id="cluster-nav" />
+    <x:related-links key="clustering.html" />
     
   </body>
 </html>

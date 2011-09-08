@@ -137,7 +137,7 @@ $ make</pre>
 	</doc:section>
     </doc:div>
 
-    <x:related-links key="build-server.html" html-id="build-server-nav" />
+    <x:related-links key="build-server.html" />
     
   </body>
 </html>

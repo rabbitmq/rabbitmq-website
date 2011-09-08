@@ -276,7 +276,7 @@
     </p>
     </doc:div>
     
-    <x:related-links key="server.html" html-id="server-nav" />
+    <x:related-links key="server.html" />
     
   </body>
 </html>

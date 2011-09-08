@@ -771,7 +771,7 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
       </doc:section>
     </doc:div>
 
-    <x:related-links key="extensions.html" html-id="extensions-nav" />
+    <x:related-links key="extensions.html" />
     
   </body>
 </html>

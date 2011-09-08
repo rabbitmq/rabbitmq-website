@@ -95,7 +95,7 @@
       </doc:section>
     </doc:div>
 
-    <x:related-links key="firehose.html" html-id="firehose-nav" />
+    <x:related-links key="firehose.html" />
     
   </body>
 </html>

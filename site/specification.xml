@@ -2668,7 +2668,7 @@
       </doc:section>
     </doc:div>
 
-    <x:related-links key="specification.html" html-id="specification-nav" />
+    <x:related-links key="specification.html" />
     
   </body>
 </html>

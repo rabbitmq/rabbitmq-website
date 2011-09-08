@@ -517,7 +517,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 
     </doc:div>
 
-    <x:related-links key="configure.html" html-id="config-nav" />
+    <x:related-links key="configure.html" />
     
   </body>
 </html>
