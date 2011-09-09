@@ -17,6 +17,5 @@
 
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win64-apps "C:\Program Files (x86)">
-<!ENTITY dir-win-user "C:\Documents and Settings\User">
 
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">
