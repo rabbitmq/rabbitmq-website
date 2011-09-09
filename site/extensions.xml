@@ -344,10 +344,10 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           <h4>Notes</h4>
 
           <p>
-            The broker loses persistent messages if it crashes before
-            said messages are written to disk.  Under certain
-            conditions, this causes the broker to behave in surprising
-            ways.
+            When confirm mode is <b>not</b> used, the broker can loses
+            persistent messages if it crashes before said messages are
+            written to disk.  Under certain conditions, this causes
+            the broker to behave in surprising ways.
           </p>
 
           <p>
