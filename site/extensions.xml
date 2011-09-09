@@ -1,16 +1,14 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Extensions and Experimental Features</title>
+    <title>RabbitMQ - Protocol Extensions</title>
   </head>
   <body>
     <doc:div>
       <p class="intro">
         The RabbitMQ Server implements a number of extensions of the
         <a href="specification.html">AMQP specification</a>, which we
-        are documenting here.  There are also some experimental
-        features, not directly related to the specification, which we
-        consider to be useful but require further testing.
+        are documenting here.
       </p>
 
       <doc:toc class="compact">
