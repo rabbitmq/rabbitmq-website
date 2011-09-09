@@ -685,7 +685,7 @@ Memory limit set to 2048MB.</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection name="unrecognised-platforms">
+        <doc:subsection name="memsup-unrecognised-platforms">
           <doc:heading>Unrecognised platforms</doc:heading>
           <p>
             If the RabbitMQ server is unable to recognise your system,
