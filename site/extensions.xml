@@ -170,7 +170,7 @@ channel.basicConsume(queue, consumer);
           semantics of <code>basic.ack</code>.
         </p>
 
-        <doc:subsection name="usage">
+        <doc:subsection name="nack-usage">
           <doc:heading>Usage</doc:heading>
 
           <p>
@@ -261,7 +261,7 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           No message will be both confirmed and nack'd.
         </p>
 
-        <doc:subsection>
+        <doc:subsection name="confirms-usage">
           <doc:heading>Usage</doc:heading>
 
           <p>
@@ -272,7 +272,7 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="confirms-notes">
           <doc:heading>Notes</doc:heading>
 
           <p>
@@ -341,7 +341,7 @@ channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);
           long-long-int.
         </p>
 
-        <doc:subsection>
+        <doc:subsection name="queue-ttl-usage">
           <doc:heading>Usage</doc:heading>
 
           <p>
@@ -429,7 +429,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           long-long-int.
         </p>
 
-        <doc:subsection>
+        <doc:subsection name="queue-leases-usage">
           <doc:heading>Usage</doc:heading>
 
           <p>
@@ -464,7 +464,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           addresses these use cases.
         </p>
 
-        <doc:subsection>
+        <doc:subsection name="ae-configuration">
           <doc:heading>Configuration</doc:heading>
           <p>
             When creating an exchange the name of an AE can be
@@ -500,7 +500,7 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="ae-operation">
           <doc:heading>Operation</doc:heading>
           <p>
             Whenever an exchange with a configured AE cannot route a
@@ -638,7 +638,7 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
           address space of 2GB.
         </p>
 
-        <doc:subsection>
+        <doc:subsection name="memsup-usage">
           <doc:heading>Usage</doc:heading>
 
           <p>
@@ -685,7 +685,7 @@ Memory limit set to 2048MB.</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="unrecognised-platforms">
           <doc:heading>Unrecognised platforms</doc:heading>
           <p>
             If the RabbitMQ server is unable to recognise your system,
