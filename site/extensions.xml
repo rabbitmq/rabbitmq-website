@@ -365,11 +365,10 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             message will be delivered again.  This is not the case:
             the restart has caused the broker to lose the message.  In
             order to guarantee persistence, a client should use
-            publisher acknowledgements.  If the publisher's channel
-            had been in confirm mode, the publisher would <em>not</em>
-            have received an ack for the lost message (since the
-            consumer hadn't ack'd it and it hadn't been written to
-            disk).
+            confirms.  If the publisher's channel had been in confirm
+            mode, the publisher would <em>not</em> have received an
+            ack for the lost message (since the consumer hadn't ack'd
+            it and it hadn't been written to disk).
           </p>
         </doc:subsection>
 
