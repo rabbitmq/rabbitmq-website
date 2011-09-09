@@ -188,7 +188,7 @@
                 in the <code>sbin</code> directory.
                 </p>
                 <p>
-                <em>Note: </em>On Vista/Windows7 you will need to
+                <em>Note: </em>On Windows Vista (and later) you will need to
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
                 (e.g. right-click on the icon to select Run as Administrator).
                 </p>
@@ -383,8 +383,9 @@
                  directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
                  to replace the user <code>.erlang.cookie</code>.
                  The user cookie will be in the user's home directory
-                 (<span class="envvar">%HOMEDRIVE%%HOMEPATH%</span>), e.g.
-                 <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>.
+                 (<span class="envvar">%USERPROFILE%</span>), e.g.
+                 <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>
+                 or <code>C:\Users\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code> (Windows Vista and later).
               </p>
             </dd>
 
