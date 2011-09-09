@@ -115,19 +115,17 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
             message to any queue (or the message was marked as
             immediate and it cannot be delivered to any consumer) then
             it publishes the message to the specified AE instead. If
-            that AE does not exist then a warning is logged.
+            that AE does not exist then a warning is logged. If an AE
+            cannot route a message, it in turn publishes the message
+            to its AE, if it has one configured. This process
+            continues until either the message is successfully routed,
+            the end of the chain of AEs is reached, or an AE is
+            encountered which has already attempted to route the
+            message.
           </p>
           <p>
-            For example:
-          </p>
-          <pre class="sourcecode">
-channel.basicPublish("my-direct", "key2", null, "test".getBytes());
-GetResponse r2 = channel.basicGet("unrouted", true); //returns message
-channel.basicPublish("my-direct", "key1", null, "test".getBytes());
-GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
-          <p>
-            Here we first publish a message to 'my-direct' with a
-            routing key of 'key1'. That message is routed to the
+            For example if we publish a message to 'my-direct' with a
+            routing key of 'key1' then that message is routed to the
             'routed' queue, in accordance with the standard AMQP
             behaviour.  However, when publishing a message to
             'my-direct' with a routing key of 'key2', rather than
@@ -135,26 +133,10 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             AE to the 'unrouted' queue.
           </p>
           <p>
-            When an AE cannot route a message, it in turn publishes
-            the message to its AE, if it has one configured. This
-            process continues until either the message is successfully
-            routed, the end of the chain of AEs is reached, or an AE
-            is encountered which has already attempted to route the
-            message.
-          </p>
-          <p>
-            The semantics of the 'mandatory' and 'immediate' flags
-            carries through to AEs. So, for example, if a sender
-            specified the 'mandatory' flag on publication of a
-            message, and that message could not be routed by the
-            original exchange, but was then routed to a queue via an
-            AE, then no <code>basic.return</code> is issued.
-          </p>
-          <p>
-            Message properties are carried through when messages are
-            routed via AEs. For example, when a message that was
-            marked as persistent is routed to some queue via an AE
-            then it does get persisted.
+            The behaviour of an AE purely pertains to routing. If a
+            message is routed via an AE it still counts as routed for
+            the purpose of the 'mandatory' and 'immediate' flags, and
+            the message is otherwise unchanged.
           </p>
         </doc:subsection>
 
