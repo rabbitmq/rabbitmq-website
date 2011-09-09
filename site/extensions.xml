@@ -110,8 +110,6 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
             bind one queue 'routed' to 'my-direct' with a binding key
             of 'key1', and a queue 'unrouted' to 'my-ae'.
           </p>
-
-          <h4>Operation</h4>
           <p>
             Whenever an exchange with a configured AE cannot route a
             message to any queue (or the message was marked as
@@ -231,7 +229,6 @@ GetResponse r1 = channel.basicGet("routed", true); //returns message</pre>
             long-long-int.
           </p>
 
-          <h4>Usage</h4>
           <p>
             This example in Java creates a queue in which messages may reside for at most 60 seconds:
           </p>
@@ -272,8 +269,6 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             AMQP type short-short-int, short-int, long-int, or
             long-long-int.
           </p>
-
-          <h4>Usage</h4>
 
           <p>
             This example in Java creates a queue which expires after
@@ -356,8 +351,6 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             guarantees are made as to how soon a message is confirmed.
             No message will be both confirmed and nack'd.
           </p>
-
-          <h4>Usage</h4>
 
           <p>
             An example in Java that publishes a large number of
@@ -460,8 +453,6 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
             <code>basic.nack</code> complements the bulk acknowledgement
             semantics of <code>basic.ack</code>.
           </p>
-
-          <h4>Usage</h4>
 
           <p>
             This example rejects a single message, asking the broker to requeue it:
