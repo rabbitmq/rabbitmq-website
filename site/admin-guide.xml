@@ -230,7 +230,7 @@
           most applications since the throttling is observable merely
           as a delay. Nevertheless, other design considerations
           permitting, it is advisable to only use individual AMQP
-          channels for either producing or consuming.
+          connections for either producing or consuming.
         </p>
 
         <p>
