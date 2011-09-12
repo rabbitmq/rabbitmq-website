@@ -221,8 +221,9 @@
           or empty queues that rapidly drain.
         </p>
         <p>
-          You can determine which slaves have synchronised with
-          rabbitmqctl:
+          You can determine which slaves have synchronised with the
+          following rabbitmqctl invocation, or through the management
+          plugin:
         </p>
         <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
       </doc:section>
