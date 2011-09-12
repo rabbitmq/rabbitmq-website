@@ -50,6 +50,7 @@
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
+        Options -Indexes
     </Directory>
 
     Alias /blog /usr/share/wordpress
