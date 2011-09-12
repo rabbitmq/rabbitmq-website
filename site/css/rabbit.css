@@ -551,25 +551,26 @@ ul.twoColumnLeft {
 }
 
 /* related links navigation */
-
-#related-links {
-  text-align: left;
-  height: 1.5em;
-  padding: 1em;
-  margin: 0;
-  background: #f3f6f6;
+ul.related  {
+    clear: both;
+    text-align: left;
+    height: 1.5em;
+    padding: 1em;
+    margin: 3em 0 1.2em 0;
+    background: #f3f6f6;
 }
-#related-links ul  {
-  float: right;
+.related li {
+    float: left;
+    display: inline;
+    min-width: 1em;
+    background: none;
+    color: grey;
+    padding: 0 0.6em 0 0.6em;
 }
-#related-links li {
-  display: inline;
-  background: 0;
-  min-width: 1em;
-  color: grey;
-  padding: 0 0.6em 0 0.6em;
-  border-left: 1px solid grey;
+.related li.right {
+    float: right;
+    border-left: 1px solid grey;
 }
-#related-links li.no-border {
+.related li.end {
     border: none;
 }

@@ -597,9 +597,9 @@
     
     <xsl:for-each select="$pages">
       <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
-        <div id="related-links">
-          Related Links:
-          <ul>
+        <div>
+          <ul class="related">
+            <li>Related Links:</li>
             <xsl:apply-templates select="key('page-key', $key)/x:related"/>
           </ul>
         </div>
@@ -611,8 +611,9 @@
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
       <xsl:attribute name="class">
-        <xsl:if test="position() = 1">
-          <xsl:value-of select="'no-border'" />
+        <xsl:value-of select="'right'" />
+        <xsl:if test="position() = last()">
+          <xsl:value-of select="' end'" />
         </xsl:if>
       </xsl:attribute>
         <a href="{@url}">
