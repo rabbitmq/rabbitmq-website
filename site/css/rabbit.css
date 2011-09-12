@@ -551,26 +551,28 @@ ul.twoColumnLeft {
 }
 
 /* related links navigation */
-ul.related  {
+#related-links {
     clear: both;
+    padding: 2em 0 0 0;
+}
+#related-links ul {
     text-align: left;
     height: 1.5em;
     padding: 1em;
-    margin: 3em 0 1.2em 0;
     background: #f3f6f6;
 }
-.related li {
-    float: left;
+#related-links li {
+	float: right;
     display: inline;
     min-width: 1em;
-    background: none;
+    background: 0;
     color: grey;
     padding: 0 0.6em 0 0.6em;
+    border-right: 1px solid grey;
 }
-.related li.right {
-    float: right;
-    border-left: 1px solid grey;
+#related-links li.label {
+    float: left;
 }
-.related li.end {
+#related-links li.no-separator {
     border: none;
 }
