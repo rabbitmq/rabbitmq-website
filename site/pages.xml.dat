@@ -253,13 +253,12 @@
 
    <x:page key="releases/rabbitmq-server/" text="Server Archive" tooltip="Index of /releases/rabbitmq-server"/>
 
-   <x:page key="server.html" text="Download Server" tooltip="Server Download">
+   <x:page key="server.html" text="Server Download" tooltip="Server Download">
       <x:related url="which-erlang.html"/>
       <x:related url="install.html"/>
       <x:related url="plugins.html"/>
       <x:related url="admin-guide.html"/>
       <x:related url="build-server.html"/>
-      <x:related url="releases/rabbitmq-server/"/>
       <x:related url="changelog.html"/>
       <x:related url="mpl.html"/>
    </x:page>
@@ -270,7 +269,7 @@
 
    <x:page key="services.html" text="Commercial Services" tooltip="Commercial Services"/>
 
-   <x:page key="signatures.html" text="Signatures" tooltip="Signatures">
+   <x:page key="signatures.html" text="Signatures" tooltip="Package signing and digital signatures">
       <x:related url="server.html"/>
    </x:page>
 
