@@ -179,7 +179,7 @@
     </li>
     <li>
     <a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
-    "A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
+    A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
     doubled using the Amazon cloud and messaging.
     </li>
     <li>
@@ -333,7 +333,7 @@
         Or how to use RabbitMQ to stream data events across PostgreSQL databases. The <a href="https://github.com/gmr/On-Rabbits-and-Elephants">code is available on github</a>.
       </li>
       <li>
-        <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
+        <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
         Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
         with proven enterprise integration patterns results in code that is easier to maintain, easier to test
         and is faster than the legacy system it replaces.
