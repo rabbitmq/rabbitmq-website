@@ -598,8 +598,8 @@
     <xsl:for-each select="$pages">
       <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
         <div id="related-links">
+          <p>Related Links:</p>
           <ul>
-            <li class="label no-separator">Related Links:</li>
             <xsl:apply-templates select="key('page-key', $key)/x:related"/>
           </ul>
         </div>
