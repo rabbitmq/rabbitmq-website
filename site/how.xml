@@ -270,7 +270,8 @@
       <li>
         <a href="https://github.com/videlalvaro/rmq_patterns">Enterprise Integration Patterns for RabbitMQ</a><br/>
         A library of sample implementations of common messaging patterns described in the <a href="http://www.eaipatterns.com">EIP book</a>. See also
-        the <a href="http://www.slideshare.net/old_sound/messaging-patterns">accompanying presentation</a>. The patterns currently implemented are:
+        the <a href="http://vimeo.com/25578317">accompanying video</a> and <a href="http://www.slideshare.net/old_sound/messaging-patterns">slides</a>.
+        The patterns currently implemented are:
         <ul class="plain">
           <li><a href="http://www.eaipatterns.com/EventDrivenConsumer.html">Consumer</a></li>
           <li><a href="http://www.eaipatterns.com/ControlBus.html">Control Bus</a></li>
