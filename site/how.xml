@@ -19,15 +19,20 @@
 
     <h2>How To with RabbitMQ</h2>
 
-    <p>The links below highlight some of our favourite content on this site and the
-    web that will help you get started with messaging and RabbitMQ. For even more
-    you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.
+    <p class="intro">The links below highlight some of our favourite content on this site and the
+      web that will help you get started with messaging and RabbitMQ. If you are just starting out
+      with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started
+      tutorials</a>. If you feel we have missed something or would like to suggest more links please
+      <a href="contact.html">contact us</a>.
     </p>
-    <p>If you are just starting out with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started tutorials</a>.</p>
-    <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
-      <h3 id="quickstart">Overviews and Introductions</h3>
-      <ul>
+    <doc:toc class="compact">
+      <doc:heading>Table of Contents</doc:heading>
+    </doc:toc>
+    
+    <doc:section name="quickstart">
+    <doc:heading>Overviews and Introductions</doc:heading>
+    <ul>
     <li>
     <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
     Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
@@ -140,10 +145,10 @@
       <a href="http://del.icio.us/alexisrichardson/rabbitmq">RabbitMQ on del.icio.us</a><br />
       We present a list of useful searches on the social bookmarking site.
     </li>
-      </ul>
-    <h3 id="clients">Specific Configurations</h3>
-      <p>This section has moved to the <a href="devtools.html">Client and Developer Tools</a> page.</p>
-      <h3 id="cloud-configurations">Cloud Configurations</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="cloud-configurations">
+      <doc:heading>Cloud Configurations</doc:heading>   
       <ul>
         <li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
           Alexis' presention on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
@@ -185,9 +190,10 @@
     <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
     More links to cloud use cases at delicious.com.
     </li>
-      </ul>
-
-      <h3 id="management">Management and Monitoring</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="management">
+      <doc:heading>Management and Monitoring</doc:heading>     
       <p>
         Management and monitoring capabilities are provided
         by <a href="admin-guide.html#management">rabbitmqctl</a>
@@ -265,7 +271,9 @@
       More links to what others are doing to manage and monitor RabbitMQ.
     </li>
       </ul>
-      <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
+    </doc:section>
+    <doc:section name="messaging-patterns">
+      <doc:heading>Messaging Patterns and Common Scenarios</doc:heading>
       <ul>
       <li>
         <a href="https://github.com/videlalvaro/rmq_patterns">Enterprise Integration Patterns for RabbitMQ</a><br/>
@@ -410,9 +418,10 @@
       <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
       See more links to articles on messaging patterns at delicious.com.
     </li>
-      </ul>
-
-      <h3 id="specific-examples">Specific Use Cases and Examples</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="specific-examples">
+      <doc:heading>Specific Use Cases and Examples</doc:heading>     
       <ul>
     <li>
       <a href="http://about.digg.com/blog/how-digg-is-built">How Digg is Built</a><br />
@@ -464,8 +473,10 @@
       <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">Use Cases on del.icio.us</a><br />
       See more links to articles on RabbitMQ use cases at delicious.com.
     </li>
-      </ul>
-      <h3 id="going-further">Going Further</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="going-further">
+      <doc:heading>Going Further</doc:heading>      
       <ul>
     <li>
       <a href="http://www.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a><br />
@@ -510,8 +521,10 @@
       Browse the source code used to auto-generate AMQP base classes from the
       protocol specification.
     </li>
-      </ul>
-      <h3 id="blogs-and-forums">Blogs, Forums and Social</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="blogs-and-forums">
+      <doc:heading>Blogs, Forums and Social</doc:heading>
       <ul>
     <li>
       <a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift's Blogs</a><br />
@@ -540,8 +553,9 @@
        Get the latest buzz about <a href="http://addictomatic.com/topic/rabbitmq">RabbitMQ on Addict-o-matic</a>
     </li>
    </ul>
-
-      <h3 id="in-print">Books and Print Articles</h3>
+   </doc:section>
+   <doc:section name="in-print">
+     <doc:heading>Books and Print Articles</doc:heading>
       <ul>
         <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
         A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
@@ -558,10 +572,10 @@
       <a href="http://www.pearsoned.co.uk/bookshop/detail.asp?item=100000000350448">Distributed Programming with Ruby</a><br/>
       See chapter eight 'AMQP/RabbitMQ'.
     </li>
-      </ul>
-
-
-      <h3 id="general-posts">General Posts</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="general-posts">
+      <doc:heading>General Posts</doc:heading>
       <ul>
     <li>
       <a href="http://en.wikipedia.org/wiki/RabbitMQ"> Wikipedia on RabbitMQ</a><br />
@@ -626,8 +640,8 @@
       <a href="http://www.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
       Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
     </li>
-  </ul>
-
+    </ul>
+    </doc:section>
     </doc:div>
   </body>
 </html>
