@@ -136,6 +136,20 @@
             <r:plugin-dependency name="amqp_client"/>
           </r:plugin>
 
+          <r:plugin name="rabbitmq_management_visualiser">
+            Broker topology visualiser plugin which is itself a plugin
+            to the management plugin. Adds a <i>Visualiser</i> tab to
+            the management web interface, which then flexibly and
+            interactively displays channels, queues and exchanges, and
+            the links between them.
+            <r:plugin-dependency name="rabbitmq_management"/>
+            <r:plugin-dependency name="mochiweb"/>
+            <r:plugin-dependency name="webmachine"/>
+            <r:plugin-dependency name="rabbitmq_mochiweb"/>
+            <r:plugin-dependency name="amqp_client"/>
+            <r:plugin-dependency name="rabbitmq_management_agent"/>
+          </r:plugin>
+
           <r:plugin name="rabbitmq_jsonrpc_channel">
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
