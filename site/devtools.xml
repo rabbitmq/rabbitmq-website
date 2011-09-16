@@ -359,6 +359,9 @@
                 that provides archiving, indexing and search for AMQP messages
               </li>
               <li>
+                <a href="https://github.com/yellowpark/pyRabbitMqAlert">pyRabbitMQAlert</a>, a script that monitors queue length and triggers alerts if messages back up
+              </li>
+              <li>
                 <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a>
                 <br />
                 A series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
@@ -813,6 +816,12 @@
               </li>
               <li>
                 <a href="http://www.habarisoft.com/habari_rabbitmq.html">Delphi/Free Pascal RabbitMQ Client</a>
+              </li>
+              <li>
+                <a href="http://linux.softpedia.com/get/Programming/Bug-Tracking/AMQPDeliver-73612.shtml">AMQPDeliver</a>
+                <br />
+                A command line utility that sends AMQP messages read from stdin and a daemon that executes a command for
+                each message.
               </li>
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
