@@ -610,11 +610,11 @@
   <xsl:template match="x:related">
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
-      <xsl:attribute name="class">
-        <xsl:if test="position() = 1">
-          <xsl:value-of select="'no-separator'" />
-        </xsl:if>
-      </xsl:attribute>
+      <xsl:if test="position() = 1">
+        <xsl:attribute name="class">
+          <xsl:value-of select="'no-separator'" />        
+        </xsl:attribute>
+      </xsl:if>
         <a href="{@url}">
           <xsl:variable name="default-title">
             <xsl:if test="not($page/@text) or not($page/@tooltip)">
