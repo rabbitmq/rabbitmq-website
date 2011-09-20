@@ -148,7 +148,7 @@
 
    <x:page key="getstarted.html" text="Get Started" tooltip="Getting Started"/>
 
-   <x:page key="ha.html" text="HA Queues" tooltip="Highly Available Queues">
+   <x:page key="ha.html" text="High Availability" tooltip="Highly Available Queues">
       <x:related url="pacemaker.html"/>
       <x:related url="clustering.html"/>
    </x:page>
