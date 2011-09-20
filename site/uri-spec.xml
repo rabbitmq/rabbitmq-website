@@ -39,7 +39,7 @@
 
           <li>Information to authenticate the client.  AMQP uses <a
           href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
-          for authentication.  Typically the PLAIN mechanism from is
+          for authentication.  Typically the PLAIN mechanism is
           used, and so the authentication parameters consist of a
           username and password.</li>
 
