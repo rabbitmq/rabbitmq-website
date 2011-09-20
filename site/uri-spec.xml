@@ -431,15 +431,6 @@ vhost          = segment</pre>
           </tr>
 
           <tr>
-              <td>amqp:///vhost</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>"vhost"</td>
-          </tr>
-
-          <tr>
               <td>amqp://host/</td>
               <td></td>
               <td></td>
