@@ -391,7 +391,7 @@ vhost          = segment</pre>
           </tr>
 
           <tr>
-              <td>amqp://user@pass</td>
+              <td>amqp://user:pass@</td>
               <td>"user"</td>
               <td>"pass"</td>
               <td></td>
