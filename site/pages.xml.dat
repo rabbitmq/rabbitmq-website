@@ -114,7 +114,7 @@
       <x:related url="specification.html"/>
    </x:page>
 
-   <x:page key="firehose.html" text="Firehose Tracer" tooltip="Firehose Tracer">
+   <x:page key="firehose.html" text="Firehose Tracer" tooltip="Firehose Tracer for observing message flow">
       <x:related url="admin-guide.html"/>
       <x:related url="configure.html"/>
    </x:page>
@@ -136,7 +136,7 @@
       <x:related url="management.html"/>
    </x:page>
 
-   <x:page key="interoperability.html" text="Interoperability" tooltip="Interoperability">
+   <x:page key="interoperability.html" text="Interoperation" tooltip="Interoperation with other AMQP brokers and clients">
       <x:related url="admin-guide.html"/>
       <x:related url="specification.html"/>
       <x:related url="extensions.html"/>
@@ -147,7 +147,7 @@
       <x:related url="server.html"/>
    </x:page>
 
-   <x:page key="management.html" text="Manage &amp; Monitor" tooltip="Management Plugin">
+   <x:page key="management.html" text="Management" tooltip="Info on Plugin for Management &amp; Monitoring">
       <x:related url="plugins.html"/>
       <x:related url="configure.html"/>
       <x:related url="admin-guide.html"/>
@@ -187,7 +187,7 @@
       <x:related url="ec2.html"/>
    </x:page>
 
-   <x:page key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development guide">
+   <x:page key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development Guide">
       <x:related url="plugins.html"/>
       <x:related url="admin-guide.html"/>
       <x:related url="server.html"/>
@@ -195,7 +195,7 @@
       <x:related url="mercurial.html"/>
    </x:page>
 
-   <x:page key="plugins.html" text="Plugins" tooltip="Plugins">
+   <x:page key="plugins.html" text="Plugins" tooltip="Using and choosing Plugins for extra Broker functionality">
       <x:related url="stomp.html"/>
       <x:related url="management.html"/>
       <x:related url="authentication.html"/>
@@ -204,7 +204,7 @@
       <x:related url="plugin-development.html"/>
    </x:page>
 
-   <x:page key="releases/" text="Release Archive" tooltip="Index of /releases"/>
+   <x:page key="releases/" text="Release Archive" tooltip="Archive of RabbitMQ Server and Client Releases"/>
 
    <x:page key="server.html" text="Server Download" tooltip="Server Download">
       <x:related url="which-erlang.html"/>
@@ -238,7 +238,7 @@
       <x:related url="authentication.html"/>
    </x:page>
 
-   <x:page key="stomp.html" text="Stomp" tooltip="Stomp Plugin"/>
+   <x:page key="stomp.html" text="STOMP" tooltip="Info on Plugin for STOMP (Simple Text Orientated Messaging Protocol)"/>
 
    <x:page key="which-erlang.html" text="Erlang Versions" tooltip="Erlang Versions">
       <x:related url="install.html"/>
