@@ -427,6 +427,11 @@
       <doc:heading>Specific Use Cases and Examples</doc:heading>
       <ul>
     <li>
+      <a href="http://jamesburkhart.com/building-a-nodejs-events-app-using-rabbitmq-w">Building a Node.js Events Application using RabbitMQ</a><br />
+      James Burkhart builds a scalable platform to orchestrate round-table events in which chat, tweets and other activities
+      are broadcast to thousands of participants in as close to real-time as possible.
+    </li>
+    <li>
       <a href="http://www.erlang-factory.com/conference/SFBay2011/speakers/JamesAimonetti">Powerful, Open Source, VoIP Cloud Services</a><br />
       James Aimonetti describes a open-source product that automatically deploys, scales and distributes
       VoIP calls across the Internet on commodity or virtualized servers. It fully utilizes Erlang for VoIP

@@ -272,6 +272,9 @@
                 <a href="http://www.rubyflow.com/items/1159">Workling</a> now supports RabbitMQ
               </li>
               <li>
+                <a href="http://vladexologija.blogspot.com/2011/09/using-rabbitmq-with-jruby-and-workling.html">Using RabbitMQ with JRuby and Workling</a>
+              </li>
+              <li>
                 <a href="https://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group
               </li>
               <li>
