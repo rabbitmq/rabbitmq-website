@@ -147,7 +147,7 @@
       <x:related url="server.html"/>
    </x:page>
 
-   <x:page key="management.html" text="Management" tooltip="Info on Plugin for Management &amp; Monitoring">
+   <x:page key="management.html" text="Management" tooltip="Plugin for Management &amp; Monitoring">
       <x:related url="plugins.html"/>
       <x:related url="configure.html"/>
       <x:related url="admin-guide.html"/>
@@ -195,7 +195,7 @@
       <x:related url="mercurial.html"/>
    </x:page>
 
-   <x:page key="plugins.html" text="Plugins" tooltip="Using and choosing Plugins for extra Broker functionality">
+   <x:page key="plugins.html" text="Plugins" tooltip="Plugins for extra broker functionality">
       <x:related url="stomp.html"/>
       <x:related url="management.html"/>
       <x:related url="authentication.html"/>
@@ -204,7 +204,7 @@
       <x:related url="plugin-development.html"/>
    </x:page>
 
-   <x:page key="releases/" text="Release Archive" tooltip="Archive of RabbitMQ Server and Client Releases"/>
+   <x:page key="releases/" text="Release Archive" tooltip="Archive of historical releases"/>
 
    <x:page key="server.html" text="Server Download" tooltip="Server Download">
       <x:related url="which-erlang.html"/>
@@ -238,7 +238,7 @@
       <x:related url="authentication.html"/>
    </x:page>
 
-   <x:page key="stomp.html" text="STOMP" tooltip="Info on Plugin for STOMP (Simple Text Orientated Messaging Protocol)"/>
+   <x:page key="stomp.html" text="STOMP" tooltip="Plugin for STOMP (Simple Text Orientated Messaging Protocol)"/>
 
    <x:page key="which-erlang.html" text="Erlang Versions" tooltip="Erlang Versions">
       <x:related url="install.html"/>
