@@ -480,23 +480,28 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
+
 div.rgt-third {
-	width: 320px;
-	float: right;
+    width: 30%;
+    float: right;
 }
 div.rgt-third p,
-div.rgt-third h3,
 div.rgt-third ol {
-    margin-left: 30px;
+    padding: 0 2.0em 1.0em 2.0em;
 }
+div.rgt-third h3 {
+    padding: 1em;
+    margin: 0 1em 0 1em;
+}
+
 p.button {
 	text-align: center;
 	font-size: 18px;
-	margin:  0px 0 0px 0px;
+	margin: 0;
 }
 
 p.button a {
-        background-color: #f93;
+	background-color: #f93;
 	padding: 21px 0 21px 0px;
 	margin: 21px 0 21px 0px;
 	color: #fff;
@@ -539,13 +544,37 @@ p.warning {
 #changelog td { background-color: #f7f7f7; }
 
 ul.threeColumnLeft {
-  float: left;
-  width: 20%;
-  padding: 0;
+    float: left;
+    width: 30%;
+    padding: 0.5em;
 }
 
 ul.twoColumnLeft {
-  float: left;
-  width: 33%;
-  padding: 0;
+    float: left;
+    width: 45%;
+    padding: 0.5em;
+}
+
+.home-content {
+    float:left;
+    background: #fff;
+    border: 1px solid orange;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    padding: 1em;
+    width: 60%;
+}
+.display-panel {
+    float: left;
+    padding: 1em;
+    margin: 0.5em;	
+}
+
+.colour-box {
+    margin: 0.5em;
+    color: #136;
+    background: #e0e6e9;
+    border: 3px solid #069;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
