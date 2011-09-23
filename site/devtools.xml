@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+<!DOCTYPE html [
   <!ENTITY % entities SYSTEM "rabbit.ent" >
   %entities;
 ]>
@@ -266,7 +266,7 @@
                 <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)
               </li>
               <li>
-                <a href="http://playtype.net/past/2008/11/7/workling_0_4_0_is_out_with_rabbitmq_ampq_support/">Workling</a> now supports RabbitMQ
+                <a href="http://www.rubyflow.com/items/1159">Workling</a> now supports RabbitMQ
               </li>
               <li>
                 <a href="https://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group
@@ -822,7 +822,7 @@
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">puppetlabs-rabbitmq</a> and
-                <a href="https://github.com/camptocamp/puppet-rabbitmq">puppet-rabbitmq</a>
+                <a href="https://github.com/vurbia/puppet-rabbitmq">puppet-rabbitmq</a>
                 <br />
                 A pair of Puppet modules to manage RabbitMQ.
               </li>

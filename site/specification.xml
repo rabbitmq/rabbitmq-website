@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Specification</title>
   </head>
@@ -26,7 +28,7 @@
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
   future version of RabbitMQ will implement AMQP 1.0.  Please 
-  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://jira.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
+  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://www.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
 	</p>
@@ -2665,5 +2667,8 @@
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="specification.html" />
+
   </body>
 </html>

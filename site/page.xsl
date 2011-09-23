@@ -9,7 +9,8 @@
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc html xi"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
@@ -585,6 +586,101 @@
         </code>
       </td>
     </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:key name="page-key" match="x:page" use="@key" />
+
+  <xsl:template match="x:related-links">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:variable name="key" select="@key" />
+    
+    <xsl:for-each select="$pages">
+      <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
+        <div id="related-links">
+          <p>Related Links:</p>
+          <ul>
+            <xsl:apply-templates select="key('page-key', $key)/x:related"/>
+          </ul>
+        </div>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:related">
+    <xsl:variable name="page" select="key('page-key', @url)" />
+    <li>
+      <xsl:if test="position() = 1">
+        <xsl:attribute name="class">
+          <xsl:value-of select="'no-separator'" />        
+        </xsl:attribute>
+      </xsl:if>
+        <a href="{@url}">
+          <xsl:variable name="default-title">
+            <xsl:if test="not($page/@text) or not($page/@tooltip)">
+              <xsl:call-template name="lookup-title">
+                <xsl:with-param name="url" select="@url" />
+              </xsl:call-template>
+            </xsl:if>
+          </xsl:variable>
+          <xsl:attribute name="title">
+            <xsl:choose>
+              <xsl:when test="$page/@tooltip">
+                <xsl:value-of select="$page/@tooltip" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$default-title" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="$page/@text">
+              <xsl:value-of select="$page/@text" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$default-title" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </a>
+    </li>
+  </xsl:template>
+  
+  <xsl:template name="lookup-title">
+    <xsl:param name="url" />
+    <xsl:variable name="target-uri">
+      <xsl:call-template name="normalise-uri">
+        <xsl:with-param name="uri" select="$url" />
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+    <xsl:choose>
+      <xsl:when test="count($target) &gt; 0">
+        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+        <xsl:choose>
+          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$target-uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="normalise-uri">
+    <xsl:param name="uri" />
+    <xsl:choose>
+      <xsl:when test="contains($uri, '.')">
+        <xsl:value-of select="substring-before($uri, '.')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$uri" />
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ############################################################ -->

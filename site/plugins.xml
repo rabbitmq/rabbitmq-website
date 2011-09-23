@@ -1,10 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Plugins</title>
   </head>
@@ -134,6 +136,20 @@
             <r:readme-link repo="rabbitmq-federation"/> for more
             information.
             <r:plugin-dependency name="amqp_client"/>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_visualiser">
+            Broker topology visualiser plugin which is itself a plugin
+            to the management plugin. Adds a <i>Visualiser</i> tab to
+            the management web interface, which then flexibly and
+            interactively displays channels, queues and exchanges, and
+            the links between them.
+            <r:plugin-dependency name="rabbitmq_management"/>
+            <r:plugin-dependency name="mochiweb"/>
+            <r:plugin-dependency name="webmachine"/>
+            <r:plugin-dependency name="rabbitmq_mochiweb"/>
+            <r:plugin-dependency name="amqp_client"/>
+            <r:plugin-dependency name="rabbitmq_management_agent"/>
           </r:plugin>
 
           <r:plugin name="rabbitmq_jsonrpc_channel">
@@ -301,5 +317,8 @@ rabbitmq-service.bat start
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="plugins.html" />
+
   </body>
 </html>
