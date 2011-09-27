@@ -375,7 +375,10 @@
   </xsl:template>
 
   <xsl:template name="plugin-download" match="r:plugin-download">
-    <p>To use this plugin the following files are required:</p>
+    <p>To use this plugin on newer versions of RabbitMQ, run:</p>
+    <pre class="example">    rabbitmq-plugins enable <xsl:value-of select="@name"/></pre>
+    <p>To use this plugin on older version of RabbitMQ, the following
+    files are required:</p>
     <ul>
       <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
         <li>

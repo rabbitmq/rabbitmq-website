@@ -104,7 +104,7 @@ $ make co</pre>
       </doc:section>
 
       <doc:section name="installing-plugins-during-development">
-        <doc:heading>Installing Plugins During Development</doc:heading>
+        <doc:heading>Enabling Plugins During Development</doc:heading>
 
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
@@ -122,10 +122,13 @@ $ make co</pre>
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel</pre>
+$ ln -s ../../rabbitmq-shovel
+$ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
         </p>
         <p>
-          Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
+          Conversely, to disable a plugin, simply remove the symlink,
+          run <code>rabbitmq-plugins disable plugin-name</code>, and
+          restart the broker instance.
         </p>
       </doc:section>
 
