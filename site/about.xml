@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>RabbitMQ - About</title>
   </head>
@@ -28,23 +28,14 @@
 
     <p>
       For more information about RabbitMQ, explore the <a href="documentation.html">documentation</a>,
-      <a href="examples.html">examples</a>, <a href="community.html">community forums</a> and
+      <a href="examples.html">examples</a>, <a href="contact.html">community forums</a> and
       <a href="partners.html">partner</a> pages.
     </p>
-    
-     <p>Please note, RabbitMQ is <a href="mailto:info@rabbitmq.com?subject=Recruitment">recruiting!</a></p>
-    
-    <h2>Contact Us</h2>
-    <p>You can contact us <a href="mailto:info@rabbitmq.com?subject=Contact%20Us">via email</a> or at the address below.</p>
-    <address>
-    RabbitMQ<br/>
-    c/o VMWare UK Limited<br/>
-    Bluefin Building<br/>
-    110, Southwark Street<br/>
-    London SE1 0TA<br/>
-    United Kingdom<br/>
-    </address>
-        
-    
+    <p>
+      Information about the features in different releases of RabbitMQ
+      is available in the <a href="changelog.html">changelog</a>.
+    </p>
+
+     <p>Please note, RabbitMQ is <a href="contact.html">recruiting!</a></p>
 </body>
 </html>

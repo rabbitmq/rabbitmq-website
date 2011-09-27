@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Interoperability</title>
   </head>
@@ -300,50 +301,11 @@
             <qpid-test name="tests_0-8.tx.TxTests.test_commit_overlapping_acks">
               <status value="ok"/>
             </qpid-test>
-            <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_direct">
+            <qpid-test name="tests_0-9.query.QueryTests.*">
               <status value="invalid"/>
               <notes>
                 Qpid specific extension.
               </notes>
-            </qpid-test>
-            <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_fanout">
-              <status value="invalid"/>
-              <notes>
-                Qpid specific extension.
-              </notes>
-            </qpid-test>
-            <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_header">
-              <status value="invalid"/>
-              <notes>
-                Qpid specific extension.
-              </notes>
-            </qpid-test>
-            <qpid-test name="tests_0-9.query.QueryTests.test_binding_query_topic">
-              <status value="invalid"/>
-              <notes>
-                Qpid specific extension.
-              </notes>
-            </qpid-test>
-            <qpid-test name="tests_0-9.query.QueryTests.test_exchange_query">
-              <status value="invalid"/>
-              <notes>
-                Qpid specific extension.
-              </notes>
-            </qpid-test>
-            <qpid-test name="tests_0-9.queue.QueueTests.test_autodelete_shared">
-              <status value="ok"/>
-            </qpid-test>
-            <qpid-test name="tests_0-9.queue.QueueTests.test_unbind_direct">
-              <status value="ok"/>
-            </qpid-test>
-            <qpid-test name="tests_0-9.queue.QueueTests.test_unbind_fanout">
-              <status value="ok"/>
-            </qpid-test>
-            <qpid-test name="tests_0-9.queue.QueueTests.test_unbind_headers">
-              <status value="ok"/>
-            </qpid-test>
-            <qpid-test name="tests_0-9.queue.QueueTests.test_unbind_topic">
-              <status value="ok"/>
             </qpid-test>
 	  </qpid-tests>
 	</doc:subsection>
@@ -431,5 +393,8 @@
         </table>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="interoperability.html" />
+    
   </body>
 </html>

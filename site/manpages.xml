@@ -1,12 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Manual pages</title>
+    <title>RabbitMQ - Manual Pages</title>
   </head>
   <body>
     <doc:div>
@@ -18,19 +19,21 @@
         <doc:heading>Section 1 - General Commands</doc:heading>
         <ul>
           <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a></li>
-          <li><a href="man/rabbitmq-multi.1.man.html">rabbitmq-multi</a></li>
           <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
-          <li><a href="man/rabbitmq-service.1.man.html">rabbitmq-service</a></li>
+          <li><a href="man/rabbitmq-service.man.html">rabbitmq-service</a></li>
         </ul>
       </doc:section>
 
       <doc:section name="section5">
         <doc:heading>Section 5 - File formats</doc:heading>
         <ul>
-          <li><a href="man/rabbitmq.conf.5.man.html">rabbitmq.conf</a></li>
+          <li><a href="man/rabbitmq-env.conf.5.man.html">rabbitmq-env.conf</a></li>
         </ul>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="manpages.html" />
+    
   </body>
 </html>
 

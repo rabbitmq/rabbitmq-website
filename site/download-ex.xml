@@ -1,27 +1,17 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
-<html xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>RabbitMQ - Download</title>
+    <title>RabbitMQ - Experimental Downloads</title>
   </head>
   <body>
     <h2>Experimental Code</h2>
 
     <p class="intro">
       We make some experimental code available to download as snapshots and <a href="mercurial.html">mercurial</a> repositories. This
-      code is unsupported but as with the main RabbitMQ code base we welcome <a href="mailto:info@rabbitmq?subject=Feedback">feedback</a>
-      and <a href="mailto:contribute@rabbitmq.com">contributions</a>.
+      code is not officially supported but if you have comments or feedback please do <a href="contact.html">contact us</a>.
     </p>
 
-    <p>Also please check out the <a href="how.html">Get Started page</a> for more links to
-    experimental code and other contributions.</p>
-
-    <a name="rabbit-c" />
-    <h3>rabbitmq-c</h3>
+    <h3 id="rabbit-c">rabbitmq-c</h3>
 
     <p>
       An experimental C-language AMQP client. See <a

@@ -1,10 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - API Guide</title>
   </head>
@@ -335,8 +334,8 @@ channel.basicConsume(ticket, queueName, noAck,
 	    extracted :
 	  </p>
 
-	  <pre class="sourcecode"><b>boolean</b> noAck = <b>false</b>;
-GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
+	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 <b>if</b> (response == <b>null</b>) {
     <i>// No message retrieved.
 </i>} <b>else</b> {
@@ -346,7 +345,7 @@ GetResponse response = channel.basicGet(<b>queueName</b>, noAck);
     ...</pre>
 
 	  <p>
-	    Since the <code>noAck</code> = <code>false</code> above,
+	    Since the <code>autoAck</code> = <code>false</code> above,
 	    you must also call <code>Channel.basicAck</code> to
 	    acknowledge that you have successfully received and
 	    processed the message :
@@ -574,9 +573,9 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     {
         // The following code depends on the channel being in open state.
         // However there is a possibility of the change in the channel state
-        // between isOpen() and txCommit() call
+        // between isOpen() and basicQos(1) call
         ...
-        channel.txCommit();
+        channel.basicQos(1);
     }
 }</pre>
 	    <p>
@@ -595,7 +594,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 {
     <b>try</b> {
         ...
-        channel.txCommit();
+        channel.basicQos(1);
     } <b>catch</b> (ShutdownSignalException sse) {
         // possibly check if channel was closed
         // by the time we started action and reasons for

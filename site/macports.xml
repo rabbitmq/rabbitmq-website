@@ -1,7 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - MacPorts</title>
+    <title>RabbitMQ - MacPorts Repository</title>
   </head>
   <body>
     <p class="intro">
@@ -56,5 +58,8 @@ Found 2 ports.</pre></li>
       installation process</a> will now install the latest release of
       the RabbitMQ server.</li>
     </ol>
+
+    <x:related-links key="macports.html" />
+    
   </body>
 </html>

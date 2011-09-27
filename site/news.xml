@@ -1,18 +1,446 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - News</title>
     <link rel="alternate" type="application/atom+xml" href="news.atom"/>
   </head>
   <body>
     <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
-    <p>Also keep an eye on the <a href="/how.html">Get Started</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
+    <p>Also keep an eye on the <a href="how.html">How To</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
     <doc:feed>
       <!-- Please give news items a doc:date/@iso.  It is used in the
 	   Atom feed, for the updated time and as a guid.
 	   date +"%FT%T%z"
 	   will give you a suitable value.
-      -->   
+      -->
+
+      <doc:item>
+        <doc:date iso="2011-08-31T23:50:00+0100">31 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ on Heroku
+        </doc:title>
+
+        <doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is happy to announce that the RabbitMQ
+            add-on for <a
+            href="http://www.cloudfoundry.com/">Heroku</a> is now
+            available in beta.  You can read about it on <a
+            href="http://blog.heroku.com/archives/2011/8/31/rabbitmq_add_on_now_available_on_heroku/">on
+            the Heroku blog</a> and on <a
+            href="http://www.rabbitmq.com/blog/2011/09/01/rabbitmq-on-heroku/">the
+            RabbitMQ blog</a>.  And there is more information and
+            links to sample code on <a
+            href="http://heroku.srs.rabbitmq.com">this page</a>.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2011-08-31T16:15:42+0100">31 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ 2.6.0 release
+        </doc:title>
+
+        <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20110831/36015373/attachment.txt</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is pleased to announce the release
+            of RabbitMQ 2.6.0.
+          </p>
+
+          <p>
+            The highlight of this release is the introduction of
+            active-active HA, with queues getting replicated
+            across nodes in a cluster. There are many other
+            improvements, particularly to the management and
+            stomp plug-ins, as well as a number of bug
+            fixes. See the release notes for more details.
+          </p>
+
+          <p>
+            Binary and source distributions of the new release can
+            be found in the <a
+            href="http://www.rabbitmq.com/download.html">usual
+            place</a>.
+          </p>
+
+          <p>
+            We recommend that all users of earlier versions of
+            RabbitMQ upgrade to this latest release.
+          </p>
+
+          <p>
+            As always, we welcome any questions, bug reports,
+            and other feedback on this release, as well as
+            general suggestions for features and enhancements in
+            future releases. Mail us via the RabbitMQ discussion
+            list at <a
+            href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
+            or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2011-08-15T21:03:02+0100">15 August 2011</doc:date>
+        <doc:title>
+          RabbitMQ on CloudFoundry
+        </doc:title>
+
+        <doc:link>http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works</doc:link>
+
+        <doc:text>
+          <p>
+            The RabbitMQ team is excited to announce the launch of the
+            RabbitMQ service on <a
+            href="http://www.cloudfoundry.com/">CloudFoundry.com</a>.
+            This service brings the messaging functionality of
+            RabbitMQ to developers building applications on Cloud
+            Foundry. Please see <a
+            href="http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works">the
+            main announcement</a> over on the Cloud Foundry
+            blog. There's also <a
+            href="http://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq">an
+            FAQ with more details</a> on the Cloud Foundry knowledge
+            base.
+          </p>
+        </doc:text>
+      </doc:item>
+
+      <doc:item>
+        <doc:date iso="2011-06-27T16:15:42+0100">27 June 2011</doc:date>
+        <doc:title>
+          RabbitMQ 2.5.1 release
+        </doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013449.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is pleased to announce the release of
+            RabbitMQ 2.5.1.
+          </p>
+          <p>
+            This release correctly upgrades from RabbitMQ 2.1.1 and
+            2.2.0. There are no other changes compared with 2.5.0.
+          </p>
+          <p>
+            For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013449.html">release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+            discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+    </doc:item>
+
+    <doc:item>
+	<doc:date iso="2011-06-14T23:05:07+0100">14 June 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.5.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013248.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is delighted to announce the release of
+            RabbitMQ 2.5.0.
+          </p>
+          <p>
+            This release fixes a number of bugs.  In particular:
+            <ul>
+              <li>recovery has been simplified, improving startup
+              times when many exchanges or bindings exist</li>
+              <li>bindings are recovered between durable queues and
+              non-durable exchanges on restart of individual cluster
+              nodes</li>
+              <li>better performance under high load and memory pressure</li>
+              <li>source compatibility with the new Erlang R14B03 release</li>
+            </ul>
+            New features include:
+            <ul>
+              <li>tracing facility for debugging incoming and outgoing messages,
+     (see <a href="http://www.rabbitmq.com/firehose.html">firehose</a>)</li>
+              <li>improved inbound network performance</li>
+              <li>improved routing performance</li>
+              <li>new rabbitmqctl commands ('report', 'environment', and
+                  'cluster_status')</li>
+            </ul>
+          </p>
+          <p>
+            For details see the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-June/013249.html">release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+            discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+    </doc:item>
+
+    <doc:item>
+	<doc:date iso="2011-04-07T18:41:02+0100">7 April 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.4.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-April/012304.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is delighted to announce the release of
+            RabbitMQ 2.4.1.
+          </p>
+          <p>
+            This release fixes a number of bugs, in particular one bug
+            in 2.4.0 that would break upgrades if durable queues were
+            present. A notable enhancement included in this release
+            are cluster upgrades.
+
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-April/012304.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+            discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
+        <doc:date iso="2011-04-06T12:00:00Z">6 April 2011</doc:date>
+        <doc:title>Messaging Patterns with RabbitMQ</doc:title>
+        <doc:link>http://www.erlang-factory.com/conference/London2011/speakers/AlvaroVidela</doc:link>
+        <doc:text>
+          <p><a href="http://obvioushints.blogspot.com/">Alvaro Videla</a>, co-author of <a href="http://manning.com/videla/">RabbitMQ in Action</a>, will
+             be speaking about RabbitMQ and messaging patterns at the next <a href="http://www.erlang-factory.com/conference/London2011/">Erlang 
+             Factory meeting</a> in London, June 9-10th.</p>
+          <p>Alvaro will present how to implement several messaging patterns using RabbitMQ such as:
+            <ul class="plain">
+              <li>Competing Consumers</li>
+              <li>RPC</li>
+              <li>Parallel RPC</li>
+              <li>Smart Proxy</li>
+              <li>Publish/Subscribe</li>
+            </ul>
+          </p>
+          <p>To learn more, visit the <a href="http://www.erlang-factory.com/conference/London2011/speakers/AlvaroVidela">Erlang Factory website</a>.</p>
+        </doc:text>
+      </doc:item>
+      <doc:item>
+        <doc:date iso="2011-04-01T00:00:00Z">1 April 2011</doc:date>
+        <doc:title>Spring AMQP Project 1.0 RC1 release</doc:title>
+        <doc:link>https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821</doc:link>
+        <doc:text>
+          <p>The RabbitMQ team and SpringSource are pleased to announce that the Spring AMQP Project (for Java) has reached RC1 status.</p>
+          <p>For details see the <a href="https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821">release notes</a>.</p>
+          <p>You can download the <a href="http://www.springsource.com/download/community?project=Spring%20AMQP">distribution zip file</a>. The
+             JARs are available in the <a href="http://shrub.appspot.com/maven.springframework.org/milestone/org/springframework/amqp/">SpringSource
+             Milestone Maven repository</a>.</p>
+          <p>To learn more about the project and provide welcome feedback, please visit the
+          <a href="http://www.springsource.org/spring-amqp">Spring AMQP homepage</a> for links to downloads, documentation, the forum and more.</p>
+      </doc:text>
+    </doc:item>
+    <doc:item>
+	<doc:date iso="2011-03-23T11:44:52+0000">23 March 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.4.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-March/011985.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is delighted to announce the release of
+            RabbitMQ 2.4.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some
+            enhancements, including fast routing for topic exchanges,
+            sender-selected distribution and server-side consumer
+            cancellation notifications.
+
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-March/011985.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and
+            other feedback on this release, as well as general
+            suggestions for features and enhancements in future
+            releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+            discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2011-02-03T14:26:10+0000">3 February 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.3.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html</doc:link>
+
+	<doc:text>
+          <p>
+            The RabbitMQ team is pleased to announce the release of RabbitMQ
+            2.3.1.
+          </p>
+          <p>
+            This release fixes a small number of bugs, in particular one serious
+            bug in 2.3.0 which could lead to queue processes crashing.
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2011-February/000033.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2011-02-02T15:43:42+0000">2 February 2011</doc:date>
+	<doc:title>
+	  RabbitMQ 2.3.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-February/011019.html</doc:link>
+
+	<doc:text>
+          <p>
+            Perfectly timed one day before the start of the year of the Rabbit, the
+            RabbitMQ team is pleased to announce the release of RabbitMQ
+            2.3.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some enhancements,
+            including streaming publish confirmations, new plugin mechanisms for
+            authentication and authorisation, and a great deal more.
+            For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-February/011019.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+      <doc:item>
+        <doc:date iso="2010-12-13T00:00:00Z">13 December 2010</doc:date>
+        <doc:title>RabbitMQ Webinar: Messaging that just works (update)</doc:title>
+        <doc:link>http://www.springsource.com/webinar/rabbitmq-messaging-just-works</doc:link>
+        <doc:text>
+          <p>A recording of the webinar is available to download from the <a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">SpringSource website</a>.</p>
+        </doc:text>
+      </doc:item>
+      <doc:item>
+        <doc:date iso="2010-12-09T00:00:00Z">9 December 2010</doc:date>
+        <doc:title>RabbitMQ Webinar: Messaging that just works</doc:title>
+        <doc:link>http://www.springsource.com/newsevents/webinars</doc:link>
+        <doc:text>
+          <p>We are pleased to announce that we will be hosting our first, live (and free)
+          webinar today at 1500 GMT and repeated at 1300 EST / 1000 PST.</p>
+          <p>Emile, from the RabbitMQ engineering team, will look at the relevance
+          of Erlang/OTP as an implementation platform, the benefits of a messaging
+          system and common messaging patterns. Some important features in recent
+          releases will be discussed with examples. Join us to find out how RabbitMQ
+          can help to scale your application, whether it's on a device, the web, in
+          the data centre, or the cloud.</p>
+          <p>To register, please visit the <a href="http://www.springsource.com/newsevents/webinars">SpringSource webinars page</a>.</p>
+        </doc:text>
+      </doc:item>
+      <doc:item>
+	<doc:date iso="2010-11-30T00:00:00Z">30 November 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 2.2.0 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-November/010172.html</doc:link>
+
+	<doc:text>
+          <p>
+	    The RabbitMQ team is pleased to announce the release of RabbitMQ
+	    2.2.0.
+          </p>
+          <p>
+            This release fixes a number of bugs and introduces some enhancements,
+            including automatic upgrades of non-clustered brokers, per-queue
+            message TTLs and significantly reduced memory usage for pending
+            acknowledgements. For details see the <a
+            href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-November/010172.html">
+            release notes</a>.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
+
+      <doc:item>
+	<doc:date iso="2010-10-19T00:00:00Z">19 October 2010</doc:date>
+	<doc:title>
+	  RabbitMQ 2.1.1 release
+	</doc:title>
+
+	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-October/009516.html</doc:link>
+
+	<doc:text>
+          <p>
+	    The RabbitMQ team is pleased to announce the release of RabbitMQ
+	    2.1.1.
+          </p>
+          <p>
+	    This release fixes a number of bugs and introduces some enhancements,
+        including exchange to exchange bindings and some performance
+        improvements, in the server and clients.
+          </p>
+          <p>
+            As always, we welcome any questions, bug reports, and other feedback on
+            this release, as well as general suggestions for features and
+            enhancements in future releases. Mail us via the RabbitMQ <a
+            href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+	    discussion list</a>, or directly at <a
+            href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.
+          </p>
+	</doc:text>
+      </doc:item>
 
       <doc:item>
 	<doc:date iso="2010-09-15T00:00:00Z">15 September 2010</doc:date>
@@ -487,7 +915,7 @@ filmed, and you can catch up online.</p>
 <a href="http://delicious.com/alexisrichardson/rabbitmq+video">these bookmarks on Delicious</a>.</p>
 
 <p>There have also been many exciting developments in the RabbitMQ community recently. Keep an eye 
-on <a href="/how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
+on <a href="how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
 
 	</doc:text>
       </doc:item>
@@ -720,6 +1148,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	  <p>Binary and source distributions of the new release can be found in the
 	  usual place, at <a href="download.html">http://www.rabbitmq.com/download.html</a>.</p>
+
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
 	  this latest release.</p>

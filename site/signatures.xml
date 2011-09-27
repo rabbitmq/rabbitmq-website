@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Signatures</title>
   </head>
@@ -22,16 +24,26 @@
 	</p>
       </doc:section>
 
+      <doc:section name="importing-gpg-key">
+	<doc:heading>Importing the signing key</doc:heading>
+	<p>
+	  First, you need to import our <a
+	  href="rabbitmq-signing-key-public.asc">gpg key</a>. You can do that
+	  using <a href="http://pgp.mit.edu/">MIT PGP Public Key Server</a>:
+	</p>
+	<pre class="sourcecode">gpg --keyserver pgp.mit.edu --recv-keys 0x056E8E56</pre>
+	<p>
+	  or you can download the key from our website directly:
+	</p>
+	<pre class="sourcecode">wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+gpg --import rabbitmq-signing-key-public.asc</pre>
+      </doc:section>
+
       <doc:section name="checking-signatures">
 	<doc:heading>Checking signatures</doc:heading>
 	<p>
-	  To check the signatures, use <a
-	  href="rabbitmq-signing-key-public.asc">our public signing
-	  key</a> with any <a
-	  href="http://www.openpgp.org/">OpenPGP</a>-compatible
-	  implementation. For instance, using <a
-	  href="http://www.gnupg.org/">GnuPG</a>, the appropriate
-	  command for checking a detached signature is
+	  Now you should be able to check signatures for our packages.
+	  The appropriate command for checking a detached signature is
 	</p>
 	<pre class="sourcecode">gpg --verify <i>filename</i>.asc <i>filename</i></pre>
 	<p>
@@ -39,15 +51,31 @@
 	  source archive and its associated detached signature from
 	  the download area:
 	</p>
-	<pre class="sourcecode">$ gpg --verify rabbitmq-0.0.tar.gz.asc rabbitmq-0.0.tar.gz
-gpg: Signature made Mon 29 Jan 2007 05:33:27 PM GMT using DSA key ID E96F1FA7
-gpg: Good signature from "RabbitMQ Signing Key &lt;packaging@rabbitmq.com&gt;"</pre>
-	<p>
-	  If the signature is valid, you will expect a "Good
-	  signature" message; if it is invalid, you will see a "BAD
-	  signature" message.
+	<pre class="sourcecode">
+$ gpg --verify rabbitmq-server_2.1.0-1_all.deb.asc rabbitmq-server_2.1.0-1_all.deb
+gpg: Signature made Tue 14 Sep 2010 02:28:03 PM BST using DSA key ID 056E8E56
+gpg: Good signature from "RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;"
+</pre>
+        <p>
+	  If the signature is invalid, you will see a "BAD signature"
+	  message, and you should not use the package.
 	</p>
+	<p>
+	  If the signature is valid, you should expect a "Good
+	  signature" message; if you've not signed our key, you will
+	  see a "Good signature" message along with a warning about
+	  our key being untrusted.
+        </p>
+	<p>
+	  If you trust our key, you can avoid the warning output by
+	  GnuPG by signing it using your own key (to
+	  create your private key run <code>gpg --gen-key</code>):
+	</p>
+	<pre>gpg --sign-key 0x056E8E56</pre>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="signatures.html" />
+
   </body>
 </html>

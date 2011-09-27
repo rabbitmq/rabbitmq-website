@@ -1,52 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE stylesheet [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:html="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc xi"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
-<xsl:output method="html" media-type="text/xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
+<xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
-  <xsl:template match="/html/head">
-    <xsl:copy>
-      <xsl:apply-templates/>
+  <xsl:template match="html:head">
+    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
       <meta name="googlebot" content="NOODP"/>
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
-      <link rel="stylesheet" rev="stylesheet" href="/css/rabbit.css" type="text/css"/>
-      <link rel="icon" type="/image/vnd.microsoft.icon" href="favicon.ico"/>
-      <script type="text/javascript">
-try{
- var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1001800-1']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-}catch(err){};
-      </script>
-    </xsl:copy>
+      <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
+      <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
+      <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
+      <script type="text/javascript" src="/js/site.js"/>
+      <script type="text/javascript" src="/js/ga-bootstrap.js"/>
+      <xsl:apply-templates/>
+    </head>
   </xsl:template>
 
-  <xsl:template match="/html/body">
-    <xsl:copy>
+  <xsl:template match="html:body">
+    <body>
       <div id="outerContainer">
-	<xsl:call-template name="page-header"/>
-	<xsl:apply-templates/>
-	<xsl:call-template name="page-footer"/>
+    <xsl:call-template name="page-header"/>
+    <xsl:apply-templates/>
+    <xsl:call-template name="page-footer"/>
       </div>
-    </xsl:copy>
-    <script type="text/javascript" src="/site.js"/>
+    </body>
   </xsl:template>
 
-  <xsl:template match="table">
+  <xsl:template match="html:table">
     <table>
       <xsl:copy-of select="@*"/>
       <xsl:attribute name="border">0</xsl:attribute>
@@ -72,18 +68,23 @@ try{
     <ul class="mainNav">
       <li><a href="/download.html">Download</a></li>
       <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/how.html">Get Started</a></li>
+      <li><a href="/getstarted.html">Get Started</a></li>
       <li><a href="/services.html">Services</a></li>
-      <li><a href="/community.html">Community</a></li>
+      <li><a href="/contact.html">Community</a></li>
       <li><a href="/blog/">Blog</a></li>
     </ul>
     <div class="nav-separator"/>
   </xsl:template>
 
   <xsl:template name="page-footer">
-    <div class="clear"/>	
-    <div class="pageFooter"><p><a class="about" href="about.html">About us</a> RabbitMQ&#8482; is a Trademark of Rabbit
-Technologies Ltd.</p></div>
+    <div class="clear"/>
+    <div class="pageFooter">
+      <p class="righter">
+        <a href="/contact.html">Contact</a> |
+        <a href="/about.html">About</a>
+      </p>
+      <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
+    </div>
   </xsl:template>
 
   <!-- ############################################################ -->
@@ -99,13 +100,13 @@ Technologies Ltd.</p></div>
     <div class="docToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
-	<xsl:for-each select="//doc:section[@name]">
-	  <li>
-	    <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-	    <xsl:if test=".//doc:subsection[@name]">
-	      <ul class="{$tocNode/@class}">
-		<xsl:for-each select=".//doc:subsection[@name]">
-		  <li>
+    <xsl:for-each select="//doc:section[@name]">
+      <li>
+        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+        <xsl:if test=".//doc:subsection[@name]">
+          <ul class="{$tocNode/@class}">
+        <xsl:for-each select=".//doc:subsection[@name]">
+          <li>
             <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
             <ul class="{$tocNode/@class}">
               <xsl:for-each select=".//doc:subsubsection[@name]">
@@ -113,11 +114,11 @@ Technologies Ltd.</p></div>
               </xsl:for-each>
             </ul>
           </li>
-		</xsl:for-each>
-	      </ul>
-	    </xsl:if>
-	  </li>
-	</xsl:for-each>
+        </xsl:for-each>
+          </ul>
+        </xsl:if>
+      </li>
+    </xsl:for-each>
       </ul>
     </div>
   </xsl:template>
@@ -175,18 +176,18 @@ Technologies Ltd.</p></div>
     <div class="docToc faqToc">
       <xsl:apply-templates/>
       <ul class="{@class}">
-	<xsl:for-each select="//doc:section[@name]">
-	  <li>
-	    <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-	    <xsl:if test=".//doc:faq[@name]">
-	      <ul class="{$tocNode/@class}">
-		<xsl:for-each select=".//doc:faq[@name]">
-		  <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-		</xsl:for-each>
-	      </ul>
-	    </xsl:if>
-	  </li>
-	</xsl:for-each>
+    <xsl:for-each select="//doc:section[@name]">
+      <li>
+        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+        <xsl:if test=".//doc:faq[@name]">
+          <ul class="{$tocNode/@class}">
+        <xsl:for-each select=".//doc:faq[@name]">
+          <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+        </xsl:for-each>
+          </ul>
+        </xsl:if>
+      </li>
+    </xsl:for-each>
       </ul>
     </div>
   </xsl:template>
@@ -233,19 +234,19 @@ Technologies Ltd.</p></div>
   <xsl:template match="doc:item">
     <li>
       <xsl:choose>
-	<xsl:when test="doc:link">
-	  <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
-	    <xsl:value-of select="doc:title"/>
-	  </a>
-	</xsl:when>
-	<xsl:otherwise>
-	  <span class="feed-item-title">
-	    <xsl:value-of select="doc:title"/>
-	  </span>
-	</xsl:otherwise>
+    <xsl:when test="doc:link">
+      <a id="{doc:date/@iso}" class="feed-item-title" href="{doc:link}">
+        <xsl:value-of select="doc:title"/>
+      </a>
+    </xsl:when>
+    <xsl:otherwise>
+      <span class="feed-item-title">
+        <xsl:value-of select="doc:title"/>
+      </span>
+    </xsl:otherwise>
       </xsl:choose>
       <span class="feed-item-date">
-	<xsl:value-of select="doc:date"/>
+    <xsl:value-of select="doc:date"/>
       </span>
       <hr/>
       <xsl:apply-templates select="doc:text"/>
@@ -261,11 +262,8 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:downloads">
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th class="desc">Description</th>
-	<th>Download </th>
-        <xsl:if test="@mirror = 'yes'">
-            <th class="mirror">&#160;</th>
-        </xsl:if>
+    <th class="desc">Description</th>
+    <th>Download </th>
         <xsl:if test="@signature = 'yes'">
             <th class="onethird">&#160;</th>
         </xsl:if>
@@ -276,15 +274,10 @@ Technologies Ltd.</p></div>
 
   <xsl:template match="r:download">
     <tr>
-      <td class="desc" id="{@id}"><xsl:copy-of select="."/></td>
+      <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
         <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
-      <xsl:if test="../@mirror = 'yes'">
-          <td class="mirror">
-              <a href="http://mirror.rabbitmq.com/releases/{@downloadpath}/{@downloadfile}">(Mirror)</a>
-          </td>
-      </xsl:if>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
             <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
@@ -309,9 +302,9 @@ Technologies Ltd.</p></div>
 
     <table class="downloads" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Snapshot</th>
-	<th>Repository checkout command</th>
-	<th>Repository overview</th>
+    <th>Snapshot</th>
+    <th>Repository checkout command</th>
+    <th>Repository overview</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -320,13 +313,13 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'hg']">
     <tr>
       <td>
-	<a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
+    <a class="adownload" href="{@url}archive/default.zip"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
-	<code>hg clone <xsl:value-of select="@url"/></code>
+    <code>hg clone <xsl:value-of select="@url"/></code>
       </td>
       <td>
-	<a class="arepo" href="{@url}">Browse source</a>
+    <a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
@@ -334,25 +327,104 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:repository[@type = 'github']">
     <tr>
       <td>
-	<a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
+    <a class="adownload" href="{@url}/archives/master"><xsl:value-of select="@shortname"/></a>
       </td>
       <td>
-	<code>git clone <xsl:value-of select="@url"/>.git</code>
+    <code>git clone <xsl:value-of select="@url"/>.git</code>
       </td>
       <td>
-	<a class="arepo" href="{@url}">Browse source</a>
+    <a class="arepo" href="{@url}">Browse source</a>
       </td>
     </tr>
   </xsl:template>
 
   <!-- ############################################################ -->
-  
+
+  <xsl:template match="r:plugin-index">
+    <div class="docToc">
+      <ul>
+        <xsl:for-each select="//r:plugin-group">
+          <li>
+            <a href="#{@id}"><xsl:value-of select="@name"/></a>
+            <ul>
+              <xsl:for-each select="r:plugin">
+                <li>
+                  <a href="#{@name}"><xsl:value-of select="@name"/></a>
+                </li>
+              </xsl:for-each>
+            </ul>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="r:plugin-group">
+    <div class="docSection" id="{@id}">
+      <h2 class="docHeading"><xsl:value-of select="@name"/> Plugins</h2>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="r:plugin">
+    <div class="docSubsection" id="{@name}">
+      <h3 class="docHeading"><xsl:value-of select="@name"/></h3>
+      <xsl:apply-templates/>
+      <xsl:call-template name="plugin-download"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="plugin-download" match="r:plugin-download">
+    <p>To use this plugin the following files are required:</p>
+    <ul>
+      <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
+        <li>
+          <xsl:call-template name="plugin-link"/><br/>
+          <xsl:apply-templates/>
+        </li>
+      </xsl:for-each>
+      <li><xsl:call-template name="plugin-link"/></li>
+    </ul>
+    <xsl:if test="r:plugin-dependency[@optional='true']">
+      <p>And the following files are optional:</p>
+      <ul>
+        <xsl:for-each select="r:plugin-dependency[@optional='true']">
+          <li>
+            <xsl:call-template name="plugin-link"/><br/>
+            <xsl:apply-templates/>
+          </li>
+        </xsl:for-each>
+      </ul>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="r:plugin-ver"/>
+  <xsl:template match="r:plugin-dependency"/>
+
+  <xsl:template name="plugin-link" match="r:plugin-link">
+    <xsl:variable name="name" select="@name"/>
+    <xsl:variable name="explicit" select="//r:plugin-ver[@name=$name]/@ver"/>
+    <xsl:variable name="ver">
+      <xsl:choose>
+        <xsl:when test="$explicit"><xsl:value-of select="$explicit"/></xsl:when>
+        <xsl:otherwise>&version-server;</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
+  </xsl:template>
+
+  <xsl:template match="r:readme-link">
+    <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+
   <xsl:template match="r:classes">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Current Status</th>
-	<th>Class</th>
-	<th>Notes</th>
+    <th>Current Status</th>
+    <th>Class</th>
+    <th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -361,9 +433,9 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:methods">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Current Status</th>
-	<th>Method</th>
-	<th>Notes</th>
+    <th>Current Status</th>
+    <th>Method</th>
+    <th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -372,19 +444,19 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:qpid-tests">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Current Status</th>
-	<th>Test Name</th>
-	<!-- <th>Test Class</th> -->
-	<th>Notes</th>
+    <th>Current Status</th>
+    <th>Test Name</th>
+    <!-- <th>Test Class</th> -->
+    <th>Notes</th>
       </tr>
       <xsl:apply-templates/>
     </table>
   </xsl:template>
 
   <xsl:template match="r:class|r:method">
-    <tr>
+    <tr id="{concat(local-name(), '-status-', @name)}">
       <td class="statusCell status_{r:status/@value}">
-	<xsl:apply-templates select="r:status"/>
+    <xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="@name"/></td>
       <td><xsl:apply-templates select="r:notes"/></td>
@@ -394,7 +466,7 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:qpid-test">
     <tr>
       <td class="statusCell status_{r:status/@value}">
-	<xsl:apply-templates select="r:status"/>
+    <xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="@name"/></td>
       <!-- <td><xsl:value-of select="@class"/></td> -->
@@ -405,11 +477,11 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:rules">
     <table class="amqpRules" border="0" cellpadding="0" cellspacing="0">
       <tr>
-	<th>Current Status</th>
-	<th>Type</th>
-	<th>Actor</th>
-	<th>Reference</th>
-	<th>Text</th>
+    <th>Current Status</th>
+    <th>Type</th>
+    <th>Actor</th>
+    <th>Reference</th>
+    <th>Text</th>
       </tr>
       <xsl:apply-templates/>
     </table>
@@ -418,24 +490,24 @@ Technologies Ltd.</p></div>
   <xsl:template match="r:rule">
     <tr>
       <td class="statusCell status_{r:status/@value}">
-	<xsl:apply-templates select="r:status"/>
+    <xsl:apply-templates select="r:status"/>
       </td>
       <td><xsl:value-of select="r:type"/></td>
       <td><xsl:value-of select="r:actor"/></td>
       <td><xsl:value-of select="r:xref"/></td>
       <td>
-	<div>
-	  <xsl:if test="normalize-space(r:context)">
-	    <xsl:value-of select="normalize-space(r:context)"/>:
-	  </xsl:if>
-	  <xsl:value-of select="r:text"/>
-	</div>
-	<xsl:if test="r:notes">
-	  <div class="notes">
-	    <span class="leader">Notes: </span>
-	    <xsl:apply-templates select="r:notes"/>
-	  </div>
-	</xsl:if>
+    <div>
+      <xsl:if test="normalize-space(r:context)">
+        <xsl:value-of select="normalize-space(r:context)"/>:
+      </xsl:if>
+      <xsl:value-of select="r:text"/>
+    </div>
+    <xsl:if test="r:notes">
+      <div class="notes">
+        <span class="leader">Notes: </span>
+        <xsl:apply-templates select="r:notes"/>
+      </div>
+    </xsl:if>
       </td>
     </tr>
   </xsl:template>
@@ -517,8 +589,116 @@ Technologies Ltd.</p></div>
   </xsl:template>
 
   <!-- ############################################################ -->
+  <xsl:key name="page-key" match="x:page" use="@key" />
+
+  <xsl:template match="x:related-links">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:variable name="key" select="@key" />
+    
+    <xsl:for-each select="$pages">
+      <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
+        <div id="related-links">
+          <p>Related Links:</p>
+          <ul>
+            <xsl:apply-templates select="key('page-key', $key)/x:related"/>
+          </ul>
+        </div>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:related">
+    <xsl:variable name="page" select="key('page-key', @url)" />
+    <li>
+      <xsl:if test="position() = 1">
+        <xsl:attribute name="class">
+          <xsl:value-of select="'no-separator'" />        
+        </xsl:attribute>
+      </xsl:if>
+        <a href="{@url}">
+          <xsl:variable name="default-title">
+            <xsl:if test="not($page/@text) or not($page/@tooltip)">
+              <xsl:call-template name="lookup-title">
+                <xsl:with-param name="url" select="@url" />
+              </xsl:call-template>
+            </xsl:if>
+          </xsl:variable>
+          <xsl:attribute name="title">
+            <xsl:choose>
+              <xsl:when test="$page/@tooltip">
+                <xsl:value-of select="$page/@tooltip" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$default-title" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="$page/@text">
+              <xsl:value-of select="$page/@text" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$default-title" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </a>
+    </li>
+  </xsl:template>
+  
+  <xsl:template name="lookup-title">
+    <xsl:param name="url" />
+    <xsl:variable name="target-uri">
+      <xsl:call-template name="normalise-uri">
+        <xsl:with-param name="uri" select="$url" />
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+    <xsl:choose>
+      <xsl:when test="count($target) &gt; 0">
+        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+        <xsl:choose>
+          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$target-uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="normalise-uri">
+    <xsl:param name="uri" />
+    <xsl:choose>
+      <xsl:when test="contains($uri, '.')">
+        <xsl:value-of select="substring-before($uri, '.')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:template match="*[local-name(.) = 'code']">
+    <span class="code {./@class}">
+      <!-- ignore any other attributes on the code element -->
+      <xsl:apply-templates select="node()" />
+    </span>
+  </xsl:template>
+
   <xsl:template match="@*">
     <xsl:copy/>
+  </xsl:template>
+
+  <xsl:template match="html:*">
+    <xsl:element name="{name()}" namespace="{namespace-uri()}">
+      <xsl:apply-templates select="@*|node()" />
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="*">

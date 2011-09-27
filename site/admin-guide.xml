@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Administration Guide</title>
   </head>
@@ -17,15 +19,43 @@
         <p>
           Please see the <a href="build-server.html">build</a> and <a
           href="install.html">installation</a> guides for instructions
-          on compiling, installing, starting and shutting down the
-          server. See the <a href="service-guide.html">service</a> 
+          on compiling, installing, starting and shutting down the server.
+          To change default settings, see the
+          <a href="configure.html">configuration guide</a>. 
+          See the <a href="service-guide.html">service</a>
           guide for instructions on running the server as a Windows
           Service.
         </p>
       </doc:section>
 
+      <doc:section name="management">
+        <doc:heading>Management and monitoring</doc:heading>
+        <p>
+          To monitor the broker's connections, channels,
+          queues and exchanges you can use:          
+        <dl>
+        <dt>Web UI and HTTP API</dt>
+        <dd>
+          To view, manage and monitor the current state of a RabbitMQ broker, the <a href="management.html">management
+          plugin</a> provides a web UI and HTTP API.
+        </dd>
+        <dt>Command Line Tool</dt>
+        <dd>
+          <code>rabbitmqctl</code> is a command line tool for managing
+          a RabbitMQ broker. Please see the 
+          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a> for information.
+        </dd>
+        <dt>Other tools</dt>
+        <dd>There are
+          several <a href="how.html#management"> community-maintained
+          management tools</a>.
+        </dd>
+        </dl>
+        </p>
+      </doc:section>
+
       <doc:section name="default-state">
-        <doc:heading>Default database contents</doc:heading>
+        <doc:heading>Default database access</doc:heading>
 
         <p>
           When the server first starts running, and detects that its
@@ -45,26 +75,12 @@
         </ul>
 
         <p>
-          It is advisable to <a href="man/rabbitmqctl.1.man.html#change_password">change the
-          password</a> of the <code>guest</code> user to something
-          private, particularly if your broker is accessible publicly.
-        </p>
-      </doc:section>
-
-      <doc:section name="management">
-        <doc:heading>Management and monitoring</doc:heading>
-        <p>
-          <code>rabbitmqctl</code> is a command line tool for managing
-          a RabbitMQ broker.
-          For (much) more information on <code>rabbitmqctl</code>, please see
-          <a href="man/rabbitmqctl.1.man.html">the rabbitmqctl(1) man page</a>.
-        </p>
-        <p>
-          There is also a <a href="management.html">management
-          plugin</a> which provides a web UI and HTTP API for managing
-          and monitoring a RabbitMQ broker. And there are
-          several <a href="how.html#management"> community-maintained
-          management tools</a>.
+          It is advisable
+          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
+          the <code>guest</code> user
+          or <a href="man/rabbitmqctl.1.man.html#change_password">change
+          the password</a> to something private, particularly if your
+          broker is accessible publicly.
         </p>
       </doc:section>
 
@@ -112,19 +128,28 @@
               <th>read</th>
             </tr>
             <tr>
-              <td>exchange.declare</td><td>exchange</td><td/><td/>
+              <td>exchange.declare (passive=false)</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
               <td>exchange.delete</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
-              <td>queue.declare</td><td>queue</td><td/><td/>
+              <td>queue.declare (passive=false)</td><td>queue</td><td/><td/>
             </tr>
             <tr>
               <td>queue.delete</td><td>queue</td><td/><td/>
             </tr>
             <tr>
+              <td>exchange.bind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
+            </tr>
+            <tr>
+              <td>exchange.unbind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
+            </tr>
+            <tr>
               <td>queue.bind</td><td/><td>queue</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>queue.unbind</td><td/><td>queue</td><td>exchange</td>
             </tr>
             <tr>
               <td>basic.publish</td><td/><td>exchange</td><td/>
@@ -152,39 +177,16 @@
         </p>
 
         <p>
-          Some AMQP operations can create resources with
-          server-generated names. By default, every user has
-          configure, write and read permissions for such
-          resources. The names are strong and not discoverable as part
-          of the protocol, only through management
-          functionality. Therefore, these resources are in effect
-          private to the client that created them, unless their names
-          are explicitly shared with other clients via some external
-          mechanism.
-        </p>
-
-        <p>
-          Permissions have scope.  Permissions with
-          <code>client</code> scope are enforced only for
-          client-specified names.  As detailed above, operations with
-          server-generated names or standard names (such as the
-          standard AMQP exchanges) are allowed.  Permissions with
-          <code>all</code> scope are enforced for all resources.  In
-          this case, users must be explicitly granted permission to
-          <code>'amq\.gen.*'</code> if they are to use
-          server-generated resources.  Similarly, grant no access
-          could simply be expressed as <code>''</code>.  Permissions
-          have <code>client</code> scope, by default.
-        </p>
-
-        <p>
           The regular expression <code>'^$'</code>, i.e. matching
-          nothing but the empty string, exactly covers resources with
-          server-generated names. That, for example, allows an
-          administrator to restrict a user to declaring private
-          resources only.  The empty string, <code>''</code> is a
-          synonym for <code>'^$'</code> and restricts permissions in the
-          exact same way.
+          nothing but the empty string, covers all resources and
+          effectively stops the user from performing any operation.
+          Standard AMQP resource names are prefixed with
+          <code>amq.</code> and server generated names are prefixed
+          with <code>amq.gen</code>.  For example,
+          <code>'^amq\.gen.*|amq\.default$'</code> gives a user access to
+          server-generated names and the default exchange.  The empty
+          string, <code>''</code> is a synonym for <code>'^$'</code>
+          and restricts permissions in the exact same way.
         </p>
 
         <p>
@@ -224,73 +226,16 @@
             <strong>
               Again, since the plugin runs in the same node as the broker, an action that results in the node
               halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
-              this occuring, however Administrators should be aware of the risks of installing plugins - especially
+              this occuring, however Administrators should be aware of the risks of 
+              <a href="plugins.html#installing-plugins">installing plugins</a> - especially
               those that are not known to have undergone a rigorous QA procedure.
             </strong>
           </li>
         </ul>
-
-        <doc:subsection name="installing-plugins">
-          <doc:heading>Plugin Installation</doc:heading>
-          <ul>
-            <li>
-              Plugins will generally be available in two forms. The expected form for a packaged plugin
-              will be a .ez erlang archive. Alternatively, more developmental plugins may be distributed
-              directly from source control, whereby they will be a directory containing (at least) an ebin
-              subdirectory.
-            </li>
-            <li>
-              In both cases, the plugin archive (or directory) should be placed into the plugins subdirectory
-              within the rabbitmq-server installation directory (ie, the directory that the ebin directory
-              resides within). If this directory does not exist, it can be safely created.
-            </li>
-            <li>
-              After adding new plugins to the plugins subdirectory,
-              restart the RabbitMQ server. As it starts, it scans the
-              plugins subdirectory and activates all the plugins it
-              finds there automatically before continuing to load.
-            </li>
-            <li>
-              <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-              Each time you add plugins to the plugins directory, you must re-run the
-              <pre>rabbitmq-service.bat install</pre>
-              command to ensure that the service configuration is updated to perform
-              an appropriate boot sequence.
-            </li>
-          </ul>
-        </doc:subsection>
-       
-        <doc:subsection name="uninstalling-plugins">
-          <doc:heading>Plugin Un-installation</doc:heading>
-          
-          <p>
-            To remove an installed plugin from the broker, delete the
-            .ez file or directory from the plugins directory. When the
-            broker is restarted, the deleted plugin will no longer be
-            started.
-          </p>
-	  <p>
-	    <strong>Note for users with RabbitMQ installed as a Windows Service:</strong>
-	    Just as for installation, every time you remove plugins
-	    from the plugins directory, you must re-run the
-	    <pre>rabbitmq-service.bat install</pre>
-	    command to ensure that the service configuration is updated to perform
-	    an appropriate boot sequence.
-	  </p>
-        </doc:subsection>
-
-        <doc:subsection name="disabling-all-plugins">
-          <doc:heading>Disabling all Plugins</doc:heading>
-
-          <p>
-            In the event of broker mis-behaviour, it is recommended
-            that all plugins be disabled as a first
-            port-of-call. Either move the plugins subdirectory away,
-            or delete it.  When Rabbit is restarted, no custom plugins
-            will be loaded.
-          </p>
-        </doc:subsection> 
       </doc:section>
     </doc:div>
+
+    <x:related-links key="admin-guide.html" />
+    
   </body>
 </html>

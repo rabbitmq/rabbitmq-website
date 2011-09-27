@@ -1,14 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Server Error - 500 Error</title>
   </head>
   <body>
 
-  <p>Sorry, there has been an error. Please try again later, or <a class="mailto" href="mailto:info@rabbitmq.com">email</a>.</p>
-  
+  <p>Sorry, there has been an error. Please try again later or <a href="mailto:info@rabbitmq.com">email us</a>.</p>
+
   <p>Thanks</p>
 
   </body>
 </html>
-

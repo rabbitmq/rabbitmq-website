@@ -1,0 +1,10 @@
+<?xml-stylesheet type="text/xml" href="amqp-0-9-1-reference.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>RabbitMQ - AMQP Reference Guide</title>
+    <link rel="stylesheet" rev="stylesheet" href="/css/amqp-0-9-1-reference.css" type="text/css"/>
+  </head>
+  <body>
+    <x:insert-spec-here />
+  </body>
+</html>

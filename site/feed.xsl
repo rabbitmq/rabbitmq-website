@@ -4,9 +4,12 @@
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns="http://www.w3.org/1999/xhtml"
+                exclude-result-prefixes="rss1 rdf atom dc"
                 >
 
-  <xsl:template match="feed">
+  <xsl:template match="doc:homefeed">
     <xsl:apply-templates select="document(@src)/*">
       <xsl:with-param name="type">
         <xsl:choose>
@@ -53,13 +56,6 @@
     <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/> 
     [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
   </xsl:when>
-
-  <xsl:when test="$type = 'delicious'">				
-    <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
-    <br/>
-    <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
-  </xsl:when>
-
 
   <xsl:when test="$type = 'ournews'">	
     <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/> 			
