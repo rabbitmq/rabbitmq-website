@@ -163,18 +163,6 @@
 
       <doc:section name="installing-plugins">
       <doc:heading>Installing Plugins</doc:heading>
-        <doc:subsection name="compatibility">
-        <doc:heading>Compatibility</doc:heading>
-        <p>
-          We compile the plugins when we make a release of the server,
-          so in general, each plugin has been compiled against the
-          latest release of the server code (and the plugin's
-          dependencies). We may also from time to time post "known
-          good" binaries; these will be marked with a particular
-          server version with which they are known to work.
-        </p>
-        </doc:subsection>
-
         <doc:subsection name="plugins-directory">
         <doc:heading>Plugins Directory</doc:heading>
         <p>
