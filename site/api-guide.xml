@@ -82,10 +82,21 @@ factory.setVirtualHost(<b>virtualHost</b>);
 factory.setHost(<b>hostName</b>);
 factory.setPort(<b>portNumber</b>);
 Connection conn = factory.newConnection();
-</pre>	  
+</pre>
 
     <p>
-      All of these parameters have sensible defaults for a stock RabbitMQ server running locally. 
+      Alternatively, <a href="uri-spec.xml">AMQP URIs</a> may be used:
+    </p>
+
+<pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUri("<b>amqp://userName:password@hostName:portNumber/virtualHost</b>");
+Connection conn = factory.newConnection();
+</pre>
+
+    <p>
+      All of these parameters have sensible defaults for a stock
+      RabbitMQ server running locally.
     </p>
 
 	  <p>
