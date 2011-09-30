@@ -234,8 +234,8 @@
       WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
     </li>
     <li>
-      <a href="http://github.com/b/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
-      Ben Black's cookbook for managing RabbitMQ with Chef.
+      <a href="https://github.com/opscode/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+      A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
       <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
