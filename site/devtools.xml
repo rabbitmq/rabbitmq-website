@@ -206,7 +206,8 @@
             <ul class="plain">
               <li>
                 <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
-                a tutorial and screencast that might be of interest for users of other languages
+                <br />
+                A tutorial and screencast that might be of interest for users of other languages
               </li>
               <li>
                 <a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">AMQP library for Lift</a>
@@ -214,6 +215,11 @@
             </ul>
             <h4>Akka</h4>
             <ul class="plain">
+              <li>
+                <a href="http://thoughts.inphina.com/2011/09/15/amqp-and-akka/">AMQP and Akka</a>
+                <br />
+                A post explaining how to send and consume messages on RabbitMQ with Akka
+              </li>
               <li>
                 <a href="http://akka.io/docs/akka-modules/1.1.2/modules/amqp.html">Akka AMQP module documentation</a>
               </li>
