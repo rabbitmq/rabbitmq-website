@@ -170,10 +170,8 @@
       </p>
       <p>
         The plugins directory location is determined by the
-        <b>RABBITMQ_PLUGINS_DIST_DIR</b> environment variable on
-        newer brokers and by the <b>RABBITMQ_PLUGINS_DIR</b>
-        variable on older brokers.  Its default value depends on how
-        you installed RabbitMQ. Some common values are:
+        <b>RABBITMQ_PLUGINS_DIR</b> variable.  Its default value
+        depends on how you installed RabbitMQ. Some common values are:
       </p>
       <table>
         <tr><th>Installation method</th><th>Plugins directory</th></tr>
@@ -212,13 +210,11 @@
         </tr>
       </table>
       <p>
-        The two variables are used in slightly different ways: newer
-        brokers keep installed (but not necessarily enabled) plugins
-        in <b>RABBITMQ_PLUGINS_DIST_DIR</b>.  Older brokers kept
-        installed and enabled plugins in
-        <b>RABBITMQ_PLUGINS_DIR</b>.  In addition, newer brokers
-        will already have released RabbitMQ plugins installed in
-        that directory.
+        The variable's meaning has changed in 2.7.0: whereas it
+        previously referred to the directory of installed plugins, it
+        now refers to the directory with all available plugins.  The
+        <code>rabbitmq-plugins</code> tool can only enable plugins
+        found in this directory.
       </p>
       </doc:section>
       <doc:section name="upgrades">

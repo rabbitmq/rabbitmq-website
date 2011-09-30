@@ -236,6 +236,7 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
 $ cd ../rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-metronome
+$ ../scripts/rabbitmq-plugins enable rabbitmq_metronome
 $ cd ..</pre>
           </li>
           <li>
