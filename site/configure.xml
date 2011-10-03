@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Configuration</title>
   </head>
@@ -335,7 +336,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>default_vhost</code></td>
-            <td><code>&lt;&lt;"/">></code></td>
+            <td><code>&lt;&lt;"/"&gt;&gt;</code></td>
             <td>
               Virtual host to create when RabbitMQ creates a new
               database from scratch. The
@@ -345,7 +346,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>default_user</code></td>
-            <td><code>&lt;&lt;"guest">></code></td>
+            <td><code>&lt;&lt;"guest"&gt;&gt;</code></td>
             <td>
               User name to create when RabbitMQ creates a new database
               from scratch.
@@ -353,7 +354,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>default_pass</code></td>
-            <td><code>&lt;&lt;"guest">></code></td>
+            <td><code>&lt;&lt;"guest"&gt;&gt;</code></td>
             <td>
               Password for the default user.
             </td>
@@ -368,7 +369,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>default_permissions</code></td>
             <td><code>
-                [&lt;&lt;".*">>, &lt;&lt;".*">>, &lt;&lt;".*">>]
+                [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;]
             </code></td>
             <td>
               <a href="admin-guide.html#access-control">Permissions</a>
@@ -403,6 +404,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 <li>fine (also emit per-message statistics)</li>
                 </ul>
               You probably don't want to change this yourself.
+            </td>
+          </tr>
+          <tr>
+            <td><code>collect_statistics_interval</code></td>
+            <td><code>5000</code></td>
+            <td>
+              Statistics collection interval in
+              milliseconds. Primarily relevant for
+              the <a href="management.html#statistics-interval">management
+              plugin</a>.
             </td>
           </tr>
           <tr>
@@ -443,12 +454,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>tcp_listen_options</code></td>
-            <td>[binary,
-                {packet,        raw},
-                {reuseaddr,     true},
-                {backlog,       128},
-                {nodelay,       true},
-                {exit_on_close, false}]</td>
+            <td><pre>[binary, {packet,        raw},
+         {reuseaddr,     true},
+         {backlog,       128},
+         {nodelay,       true},
+         {exit_on_close, false}]</pre>
+            </td>
             <td>
               Default socket options. You probably don't want to
               change this.
@@ -467,22 +478,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Implementation module for queue contents. You probably
               don't want to change this.
-            </td>
-          </tr>
-          <tr>
-            <td><code>persister_max_wrap_entries</code></td>
-            <td><code>500</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
-            </td>
-          </tr>
-          <tr>
-            <td><code>persister_hibernate_after</code></td>
-            <td><code>10000</code></td>
-            <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
             </td>
           </tr>
           <tr>
@@ -521,5 +516,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="configure.html" />
+    
   </body>
 </html>

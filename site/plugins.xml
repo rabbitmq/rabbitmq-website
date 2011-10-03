@@ -1,10 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Plugins</title>
   </head>
@@ -88,6 +90,13 @@
             at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
               working Shovel configuration</a>.
             <r:plugin-dependency name="amqp_client"/>
+            <r:plugin-dependency name="erlando"/>
+            <r:plugin-dependency name="rabbitmq_shovel_management" optional="true">
+              Shows shovel status in the management API and UI. Only
+              of use when using rabbitmq_shovel in conjunction with
+              rabbitmq_management. In a heterogenous cluster this
+              should be installed on the same nodes as rabbitmq_management.
+            </r:plugin-dependency>
           </r:plugin>
 
           <r:plugin name="rabbitmq_stomp">
@@ -121,10 +130,33 @@
             server<sup><a href="#compatibility">[1]</a></sup>.
           </p>
 
+          <r:plugin name="rabbitmq_federation">
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See the
+            <r:readme-link repo="rabbitmq-federation"/> for more
+            information.
+            <r:plugin-dependency name="amqp_client"/>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_visualiser">
+            Broker topology visualiser plugin which is itself a plugin
+            to the management plugin. Adds a <i>Visualiser</i> tab to
+            the management web interface, which then flexibly and
+            interactively displays channels, queues and exchanges, and
+            the links between them.
+            <r:plugin-dependency name="rabbitmq_management"/>
+            <r:plugin-dependency name="mochiweb"/>
+            <r:plugin-dependency name="webmachine"/>
+            <r:plugin-dependency name="rabbitmq_mochiweb"/>
+            <r:plugin-dependency name="amqp_client"/>
+            <r:plugin-dependency name="rabbitmq_management_agent"/>
+          </r:plugin>
+
           <r:plugin name="rabbitmq_jsonrpc_channel">
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
             <r:plugin-dependency name="mochiweb"/>
+            <r:plugin-dependency name="webmachine"/>
             <r:plugin-dependency name="rfc4627_jsonrpc"/>
             <r:plugin-dependency name="amqp_client"/>
             <r:plugin-dependency name="rabbitmq_mochiweb"/>
@@ -285,5 +317,8 @@ rabbitmq-service.bat start
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="plugins.html" />
+
   </body>
 </html>

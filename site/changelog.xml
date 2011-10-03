@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Server Changelog</title>
   </head>
@@ -11,6 +13,18 @@
           <th>Version</th>
           <th>Release Date</th>
           <th>Highlights</th>
+        </tr>
+        
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-August/014783.html">2.6.0</a></td>
+          <td>31 August 2011</td>
+          <td>
+            <ul>
+              <li>Active-active HA.</li>
+              <li>Stomp improvements</li>
+              <li>Management improvements</li>              
+            </ul>
+          </td>
         </tr>
 
         <tr>
@@ -313,5 +327,8 @@
         </tr>
       </table>
     </doc:div>
+
+    <x:related-links key="changelog.html" />
+
   </body>
 </html>

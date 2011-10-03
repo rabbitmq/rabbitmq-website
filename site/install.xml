@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Installation Guide</title>
   </head>
@@ -100,7 +101,7 @@
             </p>
             <p>
               You can use also any of the
-              <a href="find-rabbitmq-on-windows">command line scripts in sbin</a>
+              <a href="#find-rabbitmq-on-windows">command line scripts in sbin</a>
               as described for <a href="#windows-manual">Windows Manual Install</a>
               including <a href="#managing-windows">rabbitmqctl</a>
               commands and <a href="#logging-windows">logging</a>.
@@ -188,37 +189,38 @@
                 in the <code>sbin</code> directory.
                 </p>
                 <p>
-                <em>Note: </em>On Vista/Windows7 you will need to
+                <em>Note: </em>On Windows Vista (and later) you will need to
                 <a href="http://windows.microsoft.com/en-GB/windows7/Command-Prompt-frequently-asked-questions">elevate privilege</a>
                 (e.g. right-click on the icon to select Run as Administrator).
                 </p>
               </dd>
               <dt>Find Commands Easily</dt>
               <dd>
-                 Set up the system path so you can find the server and
-                 <code>sbin</code> directory easily.
-                  <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
-                 <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
-                 Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
-                 or if you upgrade versions.</li>
-                 <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
-                  to your system path (aka %PATH%).</li>
-                  Now you can run rabbitmq commands from any (administrator)
-                  Command Prompt.
-                  <p>
+                Set up the system path so you can find the server and
+                <code>sbin</code> directory easily.
+                <ul>
+                    <li>Create a system environment variable (e.g. RABBITMQ_SERVER) for
+                    <code>"&dir-server-windows;\rabbitmq_server-&version-server;"</code>.
+                    Adjust this if you put <code>rabbitmq_server-&version-server;</code> elsewhere,
+                    or if you upgrade versions.</li>
+                    <li>Append the literal string "<code>;%RABBITMQ_SERVER%\sbin</code>"
+                    to your system path (aka %PATH%).</li>
+                </ul>
+                Now you can run rabbitmq commands from any (administrator) Command Prompt.
+                <p>
                    You will need to navigate to <code>rabbitmq_server-&version-server;\sbin</code>
                    to run commands if your system path does not contain the RabbitMQ <code>sbin</code>
                    directory.
-                  </p>
+                </p>
               </dd>
               <dt>Finding Application Data</dt>
               <dd>
               <p>
                 By default, the RabbitMQ logs and Mnesia database
                 are stored in the current user's Application Data directory
-                e.g. <code>&dir-win-user;\Application Data</code> or
-                <code>&dir-win-user;\AppData\Roaming</code>
-                (Windows Vista).
+                e.g. <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\Application Data</code> or
+                <code>C:\Users\<span class="envvar">%USERNAME%</span>\AppData\Roaming</code>
+                (Windows Vista and later).
                 </p>
                 <p>
                 Execute <code>echo %APPDATA%</code> at a Command Prompt
@@ -382,8 +384,9 @@
                  directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
                  to replace the user <code>.erlang.cookie</code>.
                  The user cookie will be in the user's home directory
-                 (<span class="envvar">%HOMEDRIVE%%HOMEPATH%</span>), e.g.
-                 <code>&dir-win-user;\.erlang.cookie</code>.
+                 (<span class="envvar">%USERPROFILE%</span>), e.g.
+                 <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>
+                 or <code>C:\Users\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code> (Windows Vista and later).
               </p>
             </dd>
 
@@ -420,10 +423,8 @@
             written to <b>RABBITMQ_NODENAME</b>-sasl.log.
           </p>
           <p>
-            The log files are created afresh every time the broker
-            starts. In order to retain a complete log history the
-            startup scripts append the contents to the corresponding
-            <code>.1</code> files prior to starting the broker.
+            The broker always appends to the log files, so a complete
+            log history is retained.
           </p>
           <p>
             You can rotate logs using <code>rabbitmqctl rotate_logs</code>.
@@ -790,10 +791,8 @@
             written to <b>RABBITMQ_NODENAME</b>-sasl.log.
           </p>
           <p>
-            These log files are created afresh every time the broker starts.
-            In order to retain a complete log history the startup scripts
-            append the contents to the corresponding <code>.1</code>
-            files prior to starting the broker.
+            The broker always appends to the log files, so a complete
+            log history is retained.
           </p>
           <p>
             You can use the <code>logrotate</code> program
@@ -929,5 +928,8 @@
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="install.html" />
+    
   </body>
 </html>

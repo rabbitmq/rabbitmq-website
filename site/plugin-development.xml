@@ -1,11 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 <!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Plugin Development Guide</title>
   </head>
@@ -185,7 +186,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/ebin/rabbitmq_metronome.app.in"><code>ebin/rabbitmq_metronome.app.in</code></a></td>
+            <td><a href="&metronome_hg;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
             <td>
               This file declares the dependencies required by the plugin (<code>rabbit</code>
               and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
@@ -213,7 +214,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/test/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
+            <td><a href="&metronome_hg;/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
             <td>
               Automated tests for the plugin.
             </td>
@@ -261,5 +262,8 @@ $ cd ..</pre>
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="plugin-development.html" />
+
   </body>
 </html>

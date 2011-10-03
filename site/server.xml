@@ -1,12 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Server Download</title>
   </head>
@@ -15,12 +15,10 @@
     <h2>RabbitMQ Server</h2>
 
     <p class="intro">
-      Our goal is to streamline the server installation process such
-      that on Linux you can have RabbitMQ up and running within two minutes of
-      completing your download. 
-      If this doesn't happen to you, please
-      let us know at <a
-      href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
+      Our goal is that you can have a default configuration RabbitMQ server up and running
+      within two minutes of completing your download.
+      If this doesn't happen for you, please let us know at
+      <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
 
     <p>
@@ -277,5 +275,8 @@
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
     </doc:div>
+
+    <x:related-links key="server.html" />
+
   </body>
 </html>

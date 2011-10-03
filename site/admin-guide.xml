@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Administration Guide</title>
   </head>
@@ -126,13 +128,13 @@
               <th>read</th>
             </tr>
             <tr>
-              <td>exchange.declare</td><td>exchange</td><td/><td/>
+              <td>exchange.declare (passive=false)</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
               <td>exchange.delete</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
-              <td>queue.declare</td><td>queue</td><td/><td/>
+              <td>queue.declare (passive=false)</td><td>queue</td><td/><td/>
             </tr>
             <tr>
               <td>queue.delete</td><td>queue</td><td/><td/>
@@ -232,5 +234,8 @@
         </ul>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="admin-guide.html" />
+    
   </body>
 </html>
