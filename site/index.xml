@@ -20,9 +20,18 @@
 	    </span>Latest News
       </h3>
       <doc:homefeed src="news.atom" type="ournews" limit="3" />
+
+  	  <h3>
+  	    <span class="subscribe">
+	    <a href="http://search.twitter.com/search.atom?q=rabbitmq">
+	      <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
+	    </a>
+	    </span>Latest Community Chatter
+	  </h3>
+	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
     </div>
 
-    <div class="home-content">
+    <div id="home-content">
     <div class="display-panel colour-box">
     <h3>What Is RabbitMQ?</h3>
     <p>
@@ -38,7 +47,6 @@
       <li>Get involved on our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
     </ul>
 	</div>
-    <div class="clear"></div>
 
     <div class="display-panel colour-box">
     <h3>Why Choose RabbitMQ?</h3>
@@ -65,7 +73,6 @@
 	are available through the SpringSource division of VMware.
 	</p>
 	</div>
-    <div class="clear"></div>
 
     <div class="display-panel">
     <h3>How Do I Get Started?</h3>
@@ -76,10 +83,10 @@
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>
 	</div>
-    <div class="clear"></div>
 
     <div class="display-panel colour-box">
     <h3>Tutorials &amp; HowTo Articles</h3>
+    <p>
     <ul class="twoColumnLeft">
       <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
       <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
@@ -94,11 +101,12 @@
       <li><a href="how.html#in-print">Books and Print</a></li>
       <li><a href="how.html#general-posts">General Posts</a></li>
     </ul>
+    </p>
     </div>
-    <div class="clear"></div>
 
     <div class="display-panel">
     <h3>Clients &amp; Developer Tools</h3>
+    <p>
     <ul class="threeColumnLeft">
       <li>Languages
         <ul class="plain">
@@ -127,20 +135,9 @@
         </ul>
       </li>
     </ul>
+    </p>
     </div>
     </div>
-
-    <div class="rgt-third">
-  	  <h3>
-  	    <span class="subscribe">
-	    <a href="http://search.twitter.com/search.atom?q=rabbitmq">
-	      <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
-	    </a>
-	    </span>Latest Community Chatter
-	  </h3>
-	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
-    </div>
-    <div class="clear"></div>
 
   </body>
 </html>
