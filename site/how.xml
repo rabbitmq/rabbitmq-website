@@ -253,7 +253,11 @@
       A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
       and AMQP.
     </li>
-   <li>
+    <li>
+      <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Monitoring RabbitMQ with Zenoss</a><br />
+      A video showing you how to monitor RabbitMQ with <a href="http://community.zenoss.org/">Zenoss</a>
+    </li>
+    <li>
       <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
       A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
     </li>
