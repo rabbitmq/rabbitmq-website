@@ -193,9 +193,10 @@ vhost          = segment</pre>
 
           <li>The vhost is a single segment.  Therefore, any "/"
           characters that appear in the vhost name must be
-          percent-encoded. Multi-segment paths are reserved to allow
-          this URI scheme to be extended in the future to refer to
-          AMQP entities other than vhosts.</li>
+          percent-encoded. URIs with multi-segment paths do not obey
+          this specification. (They are reserved to allow future
+          revisions of this URI scheme to refer to AMQP entities other
+          than vhosts.)</li>
       </ul>
 
       <p>
