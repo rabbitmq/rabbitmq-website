@@ -45,9 +45,8 @@
 
           <li>The name of the "virtual host" (or <em>vhost</em>) that
           specifies the namespace for entities (exchanges and queues)
-          referred to by the protocol. This is not virtual hosting in
-          the HTTP sense, so we will refer to this parameter as the
-          vhost from here on.</li>
+          referred to by the protocol.  Note that this is not virtual
+          hosting in the HTTP sense.</li>
       </ul>
 
       <p>
