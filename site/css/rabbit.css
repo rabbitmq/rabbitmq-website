@@ -545,36 +545,36 @@ p.warning {
 
 ul.threeColumnLeft {
     float: left;
-    width: 26%;
+    width: 27%;
     padding: 1%;
-    margin: 0 2% 0 2%;
+    margin: 0 2% 0 0;
 }
 
 ul.twoColumnLeft {
     float: left;
     width: 44%;
     padding: 1%;
-    margin: 0 2% 0 2%;
+    margin: 0 2% 0 0;
 }
 
 #home-content {
     width: 60%;
     border: 1px solid orange;
-    padding: 1em;
+    padding: 2%;
     margin: 0;
     border-radius: 10px;
     -moz-border-radius: 10px;
-    float: left;/* for firefox */
+    float: left;
 }
-#home-content .display-panel {
+#home-content .plain-panel {
+    width: 96%;
     padding: 1em;
-    margin: 0.5em;
+    margin:  0 0 1em 0;
+    float: left;/*to contain floated children*/
 }
 #home-content .colour-box {
     color: #3a443f;
     background: #dae4df;
-    margin:  0.5em 0.5em 1em 0.5em;
     border-radius: 5px;
     -moz-border-radius: 5px;
-    float: left;/* for firefox */
 }

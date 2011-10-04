@@ -28,11 +28,11 @@
 	    </a>
 	    </span>Latest Community Chatter
 	  </h3>
-	<doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
+	  <doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
     </div>
 
     <div id="home-content">
-    <div class="display-panel colour-box">
+    <div class="plain-panel colour-box">
     <h3>What Is RabbitMQ?</h3>
     <p>
     RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
@@ -48,7 +48,7 @@
     </ul>
 	</div>
 
-    <div class="display-panel colour-box">
+    <div class="plain-panel colour-box">
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a
     <a href="faq.html#what-is-otp">proven platform</a> and offers a
@@ -74,7 +74,7 @@
 	</p>
 	</div>
 
-    <div class="display-panel">
+    <div class="plain-panel">
     <h3>How Do I Get Started?</h3>
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
@@ -84,9 +84,8 @@
     </ul>
 	</div>
 
-    <div class="display-panel colour-box">
+    <div class="plain-panel colour-box">
     <h3>Tutorials &amp; HowTo Articles</h3>
-    <p>
     <ul class="twoColumnLeft">
       <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
       <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
@@ -101,12 +100,10 @@
       <li><a href="how.html#in-print">Books and Print</a></li>
       <li><a href="how.html#general-posts">General Posts</a></li>
     </ul>
-    </p>
     </div>
 
-    <div class="display-panel">
+    <div class="plain-panel">
     <h3>Clients &amp; Developer Tools</h3>
-    <p>
     <ul class="threeColumnLeft">
       <li>Languages
         <ul class="plain">
@@ -135,7 +132,6 @@
         </ul>
       </li>
     </ul>
-    </p>
     </div>
     </div>
 
