@@ -251,6 +251,10 @@
                 <a href="https://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
               </li>
               <li>
+                <a href="http://rubygems.org/gems/euston-rabbitmq">euston-rabbitmq</a>, JRuby bindings for RabbitMQ
+                (see also <a href="http://rubygems.org/gems/euston-daemons">euston-daemons</a>)
+              </li>
+              <li>
                 <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
               </li>
               <li>
