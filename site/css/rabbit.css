@@ -486,12 +486,9 @@ div.rgt-third {
     float: right;
 }
 div.rgt-third p,
+div.rgt-third h3,
 div.rgt-third ol {
-    padding: 0 2.0em 1.0em 2.0em;
-}
-div.rgt-third h3 {
-    padding: 1em;
-    margin: 0 1em 0 1em;
+    margin-left: 2%;
 }
 
 p.button {
@@ -544,37 +541,20 @@ p.warning {
 #changelog td { background-color: #f7f7f7; }
 
 ul.threeColumnLeft {
-    float: left;
     width: 27%;
-    padding: 1%;
-    margin: 0 2% 0 0;
+    float: left;
 }
 
 ul.twoColumnLeft {
-    float: left;
     width: 44%;
-    padding: 1%;
-    margin: 0 2% 0 0;
+    float: left;
 }
 
 #home-content {
-    width: 60%;
-    border: 1px solid orange;
-    padding: 2%;
-    margin: 0;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    float: left;
-}
-#home-content .plain-panel {
-    width: 96%;
-    padding: 1em;
-    margin:  0 0 1em 0;
+    width: 70%;
     float: left;/*to contain floated children*/
 }
-#home-content .colour-box {
-    color: #3a443f;
-    background: #dae4df;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
+#home-content div {
+    width: 96%;
+    float: left;/*to contain floated or inline children*/
 }
