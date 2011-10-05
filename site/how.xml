@@ -67,6 +67,12 @@
       Progresses to discussion and examples of messaging patterns and error handling.
     </li>
     <li>
+      <a href="http://www.infoq.com/presentations/Multi-Platform-Messaging-with-RabbitMQ">Multi-platform Messaging with RabbitMQ</a><br />
+      Rob Harrop demonstrates how to use RabbitMQ from a variety of languages (Java,
+      Python, Ruby and Erlang) and different environments using AMQP and STOMP for
+      multi-platform communication.
+    </li>
+    <li>
       <a href="http://www.youtube.com/watch?v=ZQogoEVXBSA">The RabbitMQ Team's Introduction to RabbitMQ and AMQP</a><br/>
       A video of the RabbitMQ team presenting their Tech Talks at Google London,
       Oct 2008. Alexis explains what is meant by messaging and why you might need
