@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
       <ul id="tutorials">
-        
+
         <li id="tutorial-one">
           <h2><span class="tute-num">1</span> <a href="/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
           <p>
@@ -13,7 +13,7 @@
           <a href="/tutorials/tutorial-one-java.html">Java</a>
           </p>
         </li>
-        
+
         <li id="tutorial-two">
           <h2><span class="tute-num">2</span> <a href="/tutorials/tutorial-two-python.html">Work queues</a></h2>
           <p>
@@ -26,7 +26,7 @@
           <a href="/tutorials/tutorial-two-java.html">Java</a>
           </p>
         </li>
-        
+
         <li id="tutorial-three">
           <h2><span class="tute-num">3</span> <a href="/tutorials/tutorial-three-python.html">Publish/Subscribe</a></h2>
           <p>
