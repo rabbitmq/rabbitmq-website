@@ -21,16 +21,12 @@
         <p>
           RabbitMQ supports a variety of plugins. This page documents
           the plugins that ship with RabbitMQ
-          &version-server;. Releases prior to 2.7.0 did not include
-          plugins with the server; you can download binary plugin
-          files from <a href="/releases/plugins/">the
-          archive</a>. Note that we did not make binary plugins
-          available prior to release 2.0.0.
+          &version-server;.
         </p>
         <p>
-          The simplest way to enable plugins is to use
+          To enable plugins, use
           the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
-          tool shipped with RabbitMQ:
+          tool:
         </p>
         <pre class="example">    rabbitmq-plugins enable <i>plugin-name</i></pre>
         <p>And to disable plugins again, use:</p>
@@ -46,6 +42,16 @@
           For more information on <code>rabbitmq-plugins</code>,
           consult <a href="man/rabbitmq-plugins.1.man.html">the manual
           page</a>.
+        </p>
+        <!-- TODO: remove this after a suitable transition period -->
+        <p>
+          <b>Note: </b> Releases prior to 2.7.0 did not include
+          plugins with the server, and any plugins that were installed
+          were always activated; <b>rabbitmq-plugins</b> did not
+          exist. You can download binary plugin files for older
+          releases from <a href="/releases/plugins/">the
+          archive</a>. Note further that we did not make binary
+          plugins available prior to release 2.0.0.
         </p>
       </doc:section>
 
