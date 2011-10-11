@@ -71,6 +71,13 @@
             information.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_federation">
+            Scalable publish / subscribe messaging across WANs and
+            administrative domains. See the
+            <r:readme-link repo="rabbitmq-federation"/> for more
+            information.
+          </r:plugin>
+
           <r:plugin name="rabbitmq_management">
             A management / monitoring API over HTTP, along with a
             browser-based UI. For more information,
@@ -134,13 +141,6 @@
         </p>
 
         <table>
-          <r:plugin name="rabbitmq_federation">
-            Scalable publish / subscribe messaging across WANs and
-            administrative domains. See the
-            <r:readme-link repo="rabbitmq-federation"/> for more
-            information.
-          </r:plugin>
-
           <r:plugin name="rabbitmq_management_visualiser">
             Broker topology visualiser plugin which is itself a plugin
             to the management plugin. Adds a <i>Visualiser</i> tab to
