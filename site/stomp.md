@@ -13,8 +13,13 @@ and [mailing list](http://www.rabbitmq.com/blog).
 
 ## <a id="ifb"/>Installing from binary
 
-Binary packages for the STOMP adapter can be found on the
-[plugins page](/plugins.html).
+The STOMP adapter is included in the RabbitMQ distribution.  To enable
+it, use [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
+
+    rabbitmq-plugins enable rabbitmq_stomp
+
+Binary packages for previous versions of the STOMP adapter can be
+found on the [plugins page](/plugins.html).
 
 Instructions for installing binary plugins can also be found in the
 [plugins page](/plugins.html#installing-plugins).

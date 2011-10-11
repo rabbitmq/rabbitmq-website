@@ -359,58 +359,11 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="r:plugin-group">
-    <div class="docSection" id="{@id}">
-      <h2 class="docHeading"><xsl:value-of select="@name"/> Plugins</h2>
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
   <xsl:template match="r:plugin">
-    <div class="docSubsection" id="{@name}">
-      <h3 class="docHeading"><xsl:value-of select="@name"/></h3>
-      <xsl:apply-templates/>
-      <xsl:call-template name="plugin-download"/>
-    </div>
-  </xsl:template>
-
-  <xsl:template name="plugin-download" match="r:plugin-download">
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
-        <li>
-          <xsl:call-template name="plugin-link"/><br/>
-          <xsl:apply-templates/>
-        </li>
-      </xsl:for-each>
-      <li><xsl:call-template name="plugin-link"/></li>
-    </ul>
-    <xsl:if test="r:plugin-dependency[@optional='true']">
-      <p>And the following files are optional:</p>
-      <ul>
-        <xsl:for-each select="r:plugin-dependency[@optional='true']">
-          <li>
-            <xsl:call-template name="plugin-link"/><br/>
-            <xsl:apply-templates/>
-          </li>
-        </xsl:for-each>
-      </ul>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="r:plugin-ver"/>
-  <xsl:template match="r:plugin-dependency"/>
-
-  <xsl:template name="plugin-link" match="r:plugin-link">
-    <xsl:variable name="name" select="@name"/>
-    <xsl:variable name="explicit" select="//r:plugin-ver[@name=$name]/@ver"/>
-    <xsl:variable name="ver">
-      <xsl:choose>
-        <xsl:when test="$explicit"><xsl:value-of select="$explicit"/></xsl:when>
-        <xsl:otherwise>&version-server;</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
+    <tr>
+      <th><code><xsl:value-of select="@name"/></code></th>
+      <td><xsl:apply-templates/></td>
+    </tr>
   </xsl:template>
 
   <xsl:template match="r:readme-link">
