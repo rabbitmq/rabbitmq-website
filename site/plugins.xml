@@ -149,6 +149,12 @@
             the links between them.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_tracing">
+            Adds message tracing to the management plugin. Logs
+            messages from the <a href="firehose.html">firehose</a> in
+            a couple of formats.
+          </r:plugin>
+
           <r:plugin name="rabbitmq_jsonrpc_channel">
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
