@@ -86,14 +86,12 @@
 
     <div class="plain-panel colour-box">
     <h3>Tutorials &amp; HowTo Articles</h3>
-    <ul class="twoColumnLeft">
+    <ul class="twoColumns">
       <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
       <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
       <li><a href="how.html#cloud-configurations">Cloud Configurations</a></li>
       <li><a href="how.html#management">Management and Monitoring</a></li>
       <li><a href="how.html#messaging-patterns">Messaging Patterns and Common Scenarios</a></li>
-    </ul>
-    <ul class="twoColumnLeft">
       <li><a href="how.html#specific-examples">Specific Use Cases and Examples</a></li>
       <li><a href="how.html#going-further">Going Further</a></li>
       <li><a href="how.html#blogs-and-forums">Blogs, Forums and Social</a></li>
@@ -104,8 +102,8 @@
 
     <div class="plain-panel colour-box">
     <h3>Clients &amp; Developer Tools</h3>
-    <ul class="threeColumnLeft">
-      <li>Languages
+    <ul class="threeColumns">
+      <li class="headedSublist">Languages
         <ul class="plain">
           <li><a href="devtools.html#java-dev">Java/JVM</a></li>
           <li><a href="devtools.html#ruby-dev">Ruby</a></li>
@@ -113,18 +111,14 @@
           <li><a href="devtools.html">(more...)</a></li>
         </ul>
       </li>
-    </ul>
-    <ul class="threeColumnLeft">
-      <li>Cloud
+      <li class="headedSublist">Cloud
         <ul class="plain">
           <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
           <li><a href="devtools.html#ec2-dev">EC2</a></li>
           <li><a href="devtools.html#web-messaging">Web Messaging</a></li>
         </ul>
       </li>
-    </ul>
-    <ul class="threeColumnLeft">
-      <li>Miscellaneous
+      <li class="headedSublist">Miscellaneous
         <ul class="plain">
           <li><a href="devtools.html#stomp">STOMP</a></li>
           <li><a href="devtools.html#nosql">NoSQL</a></li>

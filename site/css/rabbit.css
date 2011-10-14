@@ -541,15 +541,14 @@ p.warning {
 
 #changelog td { background-color: #f7f7f7; }
 
-ul.threeColumnLeft {
-    width: 27%;
+ul.twoColumns li {
+    width: 47%;
     display: inline-block;
     vertical-align: top;
     background-color: #dae4df;/*diagnostic*/
 }
-
-ul.twoColumnLeft {
-    width: 44%;
+ul.threeColumns li.headedSublist {
+    min-width: 30%;
     display: inline-block;
     vertical-align: top;
     background-color: #dae4df;/*diagnostic*/
@@ -563,7 +562,7 @@ ul.twoColumnLeft {
 /**/
 }
 #home-content div {
-    width: 96%;
+    max-width: 96%;
 }
 /**/
 #home-content .plain-panel {
