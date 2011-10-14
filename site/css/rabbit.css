@@ -504,8 +504,9 @@ p.button a {
 	color: #fff;
 	display: block;
 	text-decoration: none;
-	border-radius:10px;
+	-webkit-border-radius: 10px;
 	-moz-border-radius:10px;
+	border-radius:10px;
 }
 
 p.button a:hover {
@@ -542,19 +543,41 @@ p.warning {
 
 ul.threeColumnLeft {
     width: 27%;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #dae4df;/*diagnostic*/
 }
 
 ul.twoColumnLeft {
     width: 44%;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #dae4df;/*diagnostic*/
 }
 
 #home-content {
-    width: 70%;
-    float: left;/*to contain floated children*/
+    width: 60%;
+/**/
+    border: 1px solid orange;
+    padding: 2%;
+/**/
 }
 #home-content div {
     width: 96%;
-    float: left;/*to contain floated or inline children*/
 }
+/**/
+#home-content .plain-panel {
+    padding: 1em;
+    margin:  0 0 1em 0;
+
+    background-color: #dae4df;/*diagnostic*/
+}
+
+#home-content .colour-box {
+    color: #3a443f;
+	background-color: #eaf4ef;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/**/

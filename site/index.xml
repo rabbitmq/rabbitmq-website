@@ -32,7 +32,7 @@
     </div>
 
     <div id="home-content">
-    <div>
+    <div class="plain-panel colour-box">
     <h3>What Is RabbitMQ?</h3>
     <p>
     RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
@@ -48,7 +48,7 @@
     </ul>
 	</div>
 
-    <div>
+    <div class="plain-panel colour-box">
     <h3>Why Choose RabbitMQ?</h3>
     <p>RabbitMQ is based on a
     <a href="faq.html#what-is-otp">proven platform</a> and offers a
@@ -74,7 +74,7 @@
 	</p>
 	</div>
 
-    <div>
+    <div class="plain-panel colour-box">
     <h3>How Do I Get Started?</h3>
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
@@ -84,7 +84,7 @@
     </ul>
 	</div>
 
-    <div>
+    <div class="plain-panel colour-box">
     <h3>Tutorials &amp; HowTo Articles</h3>
     <ul class="twoColumnLeft">
       <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
@@ -102,7 +102,7 @@
     </ul>
     </div>
 
-    <div>
+    <div class="plain-panel colour-box">
     <h3>Clients &amp; Developer Tools</h3>
     <ul class="threeColumnLeft">
       <li>Languages
