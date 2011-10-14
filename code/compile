@@ -7,20 +7,25 @@ import os.path
 import shutil
 
 def main():
-    if len(sys.argv) != 3:
-        print "Usage: compile <in-dir> <out-dir>"
+    if len(sys.argv) < 3 or len(sys.argv) > 4:
+        print "Usage: compile <in-dir> <out-dir> [<file>]"
         exit(1)
     in_dir = sys.argv[1]
     render.SITE_DIR = in_dir
     out_dir = sys.argv[2]
-    for in_path, dirs, files in os.walk(in_dir, followlinks = True):
-        path = os.path.relpath(in_path, in_dir)
-        out_path = os.path.join(out_dir, path)
-        if not os.path.exists(out_path):
-            os.makedirs(out_path)
-        for f in files:
-            handle_file(in_dir,
-                        os.path.join(path, f), os.path.join(out_path, f))
+    if len(sys.argv) == 4:
+        f = sys.argv[3]
+        handle_file(in_dir, f, os.path.join(out_dir, f))
+    else:
+        for in_path, dirs, files in os.walk(in_dir, followlinks = True):
+            path = os.path.relpath(in_path, in_dir)
+            out_path = os.path.join(out_dir, path)
+            if not os.path.exists(out_path):
+                os.makedirs(out_path)
+                for f in files:
+                    handle_file(in_dir,
+                                os.path.join(path, f),
+                                os.path.join(out_path, f))
     print ""
 
 def handle_file(in_dir, in_f, out_f):
