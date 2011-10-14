@@ -21,6 +21,7 @@ def main():
         for f in files:
             handle_file(in_dir,
                         os.path.join(path, f), os.path.join(out_path, f))
+    print ""
 
 def handle_file(in_dir, in_f, out_f):
     ext = os.path.splitext(in_f)[1].lower()
@@ -30,7 +31,7 @@ def handle_file(in_dir, in_f, out_f):
         pass
     else:
         shutil.copyfile(os.path.join(in_dir, in_f), out_f)
-        print "C:", in_f
+        sys.stdout.write(".")
 
 def blacklist(f):
     return f.startswith('resources/specs/')
@@ -39,7 +40,7 @@ def render_file(in_f, out_f):
     rendered = render.render_page('/' + html_ext(in_f))
     with open(html_ext(out_f), 'w') as f:
         f.write(rendered)
-    print "R:", in_f
+    sys.stdout.write("#")
 
 def html_ext(f):
     return os.path.splitext(f)[0] + '.html'
