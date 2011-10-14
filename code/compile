@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+import render
+import sys
+import os
+import os.path
+import shutil
+
+def main():
+    if len(sys.argv) != 3:
+        print "Usage: compile <in-dir> <out-dir>"
+        exit(1)
+    in_dir = sys.argv[1]
+    render.SITE_DIR = in_dir
+    out_dir = sys.argv[2]
+    for in_path, dirs, files in os.walk(in_dir, followlinks = True):
+        path = os.path.relpath(in_path, in_dir)
+        out_path = os.path.join(out_dir, path)
+        if not os.path.exists(out_path):
+            os.makedirs(out_path)
+        for f in files:
+            handle_file(in_dir,
+                        os.path.join(path, f), os.path.join(out_path, f))
+
+def handle_file(in_dir, in_f, out_f):
+    ext = os.path.splitext(in_f)[1].lower()
+    if (ext == '.xml' and not blacklist(in_f)) or ext == '.md':
+        render_file(in_f, out_f)
+    elif ext == '.xsl' or ext.endswith('~'):
+        pass
+    else:
+        shutil.copyfile(os.path.join(in_dir, in_f), out_f)
+        print "C:", in_f
+
+def blacklist(f):
+    return f.startswith('resources/specs/')
+
+def render_file(in_f, out_f):
+    rendered = render.render_page('/' + html_ext(in_f))
+    with open(html_ext(out_f), 'w') as f:
+        f.write(rendered)
+    print "R:", in_f
+
+def html_ext(f):
+    return os.path.splitext(f)[0] + '.html'
+
+if __name__ == "__main__":
+    main()
