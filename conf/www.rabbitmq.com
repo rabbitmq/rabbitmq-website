@@ -15,6 +15,8 @@
     ServerAlias www.rabbitmq.net
     ServerAlias rabbitmq.org
     ServerAlias rabbitmq.net
+    ServerAlias smacmullen.eng.vmware.com
+
 
     Redirect permanent / http://www.rabbitmq.com/
 </VirtualHost>

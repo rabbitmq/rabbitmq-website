@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import with_statement
+
 import render
 import sys
 import os
@@ -17,8 +19,8 @@ def main():
         f = sys.argv[3]
         handle_file(in_dir, f, os.path.join(out_dir, f))
     else:
-        for in_path, dirs, files in os.walk(in_dir, followlinks = True):
-            path = os.path.relpath(in_path, in_dir)
+        for in_path, dirs, files in os.walk(in_dir):
+            path = relpath(in_path, in_dir)
             out_path = os.path.join(out_dir, path)
             if not os.path.exists(out_path):
                 os.makedirs(out_path)
@@ -49,6 +51,27 @@ def render_file(in_f, out_f):
 
 def html_ext(f):
     return os.path.splitext(f)[0] + '.html'
+
+
+# os.path.relpath is not in 2.5. This is taken from
+# http://www.saltycrane.com/blog/2010/03/ospathrelpath-source-code-python-25/
+
+import posixpath
+
+def relpath(path, start):
+    """Return a relative version of a path"""
+    if not path:
+        raise ValueError("no path specified")
+    start_list = posixpath.abspath(start).split(posixpath.sep)
+    path_list = posixpath.abspath(path).split(posixpath.sep)
+    # Work out how much of the filepath is shared by start and path.
+    i = len(posixpath.commonprefix([start_list, path_list]))
+    rel_list = [posixpath.pardir] * (len(start_list)-i) + path_list[i:]
+    if not rel_list:
+        return posixpath.curdir
+    return posixpath.join(*rel_list)
+
+
 
 if __name__ == "__main__":
     main()
