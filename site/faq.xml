@@ -880,7 +880,7 @@
           <p>
             We would be surprised if it's possible to push messages into RabbitMQ that
             are greater than 1/4 of the installed RAM. RabbitMQ tries to avoid using
-            swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/extensions.html#memsup">memory
+            swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/admin-guide.html#memsup">memory
             threshold above which producers are throttled</a>.
           </p>
           <p>

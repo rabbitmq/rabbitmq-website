@@ -97,8 +97,11 @@
 $ make co</pre>
           </li>
           <li>
-            Build all the components under the Umbrella to ensure that your environment is functional:
-            <pre class="sourcecode">$ make</pre>
+            Ensure that the umbrella environment is functional by building one of the supplied sub-projects, for example <code>rabbitmq-stomp</code>:
+            <pre class="sourcecode">$ cd rabbitmq-stomp
+$ make</pre>
+            This should build the dependencies of STOMP (in this case, this includes the <code>rabbitmq-server</code> sub-project) and then the STOMP adapter.
+            You could also run the STOMP tests (issue <code>make test</code> in the sub-project directory), which should all PASS.
           </li>
         </ul>
       </doc:section>

@@ -28,7 +28,7 @@
       <tr><td>use <a href="mochiweb.html">mochiweb</a></td><td>R13B01</td>
       <td>Some <a href="plugins.html">plugins</a> depend on mochiweb, e.g. the <a href="management.html">management plugin</a></td></tr>
       <tr><td>run on <a href="install.html#windows">Windows</a></td><td>R13B03</td>
-      <td>Earlier versions do not recognise <a href="extensions.html#memsup">memory</a> limits.</td></tr>
+      <td>Earlier versions do not recognise <a href="admin-guide.html#memsup">memory</a> limits.</td></tr>
       <tr><td>use <a href="ssl.html">SSL</a> reliably</td><td>R14B (SSL 4.0.1)</td>
       <td>Earlier versions do not support <a href="ssl.html">SSL</a> well.</td></tr>
     </table>

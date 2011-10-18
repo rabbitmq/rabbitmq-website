@@ -319,7 +319,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Memory threshold at which the flow control is
               triggered. See
-              the <a href="extensions.html#memsup">memory-based flow
+              the <a href="admin-guide.html#memsup">memory-based flow
               control</a> documentation.
             </td>
           </tr>

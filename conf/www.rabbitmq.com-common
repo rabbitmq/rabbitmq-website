@@ -7,17 +7,6 @@
     CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined
     ErrorLog /var/log/apache2/error-www.rabbitmq.com.log
 
-    # Send requests for the empty path and any path ending in .html, .xml or
-    # .xsl to the Python XSLT handler. It will 404 on the .xml and .xsl files.
-    # NOTE: we don't want to send the java and .net docs to render.py so they
-    #       are excluded here by virtue of being >1 dir deep
-    <Location ~ "^/(|((man/.*|[^/]*)|(tutorials/.*|[^/]*))\.(html|xml|xsl))$">
-      SetHandler python-program
-      PythonHandler render
-      PythonDebug On
-      PythonPath "['/srv/www.rabbitmq.com/code/'] + sys.path"
-    </Location>
-
     # Send 404 and 500s to the appropriate pages.  403 is permission denied.
     ErrorDocument 403 /404.html
     ErrorDocument 404 /404.html
@@ -50,6 +39,7 @@
 
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
+        Options -Indexes
     </Directory>
 
     Alias /blog /usr/share/wordpress

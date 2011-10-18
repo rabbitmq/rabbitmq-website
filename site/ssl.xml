@@ -251,6 +251,16 @@ server testca
 ].
 </pre>
 
+          <p>
+            <b>Note to Windows users:</b> Backslashes ("\") in the
+            configuration file are interpreted as escape sequences -
+            so for example to specify the
+            path <code>c:\cacert.pem</code> for the CA certificate you
+            would need to enter <code>{cacertfile,
+            "c:\\cacert.pem"}</code> or <code>{cacertfile,
+            "c:/cacert.pem"}</code>.
+          </p>
+
           <p>When a web browser connects to an HTTPS web server, the server
           presents its public certificate, the web browser attempts to establish
           a chain of trust between the root certificates the browser is aware of

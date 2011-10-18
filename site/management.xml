@@ -210,8 +210,8 @@
           </tr>
         </table>
         <p>
-          Note that since "administrator" does everything "monitor"
-          does, and "monitor" does everything "management-user" does,
+          Note that since "administrator" does everything "monitoring"
+          does, and "monitoring" does everything "management" does,
           you only need to give each user a maximum of one tag.
         </p>
         <p>
