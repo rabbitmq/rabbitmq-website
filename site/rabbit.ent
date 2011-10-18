@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!ENTITY version-java-client "2.6.1">
-<!ENTITY version-dotnet-client "2.6.1">
-<!ENTITY version-server "2.6.1">
-<!ENTITY version-server-hg "rabbitmq_v2_6_1">
+<!ENTITY version-java-client "2.7.0">
+<!ENTITY version-dotnet-client "2.7.0">
+<!ENTITY version-server "2.7.0">
+<!ENTITY version-server-hg "rabbitmq_v2_7_0">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
