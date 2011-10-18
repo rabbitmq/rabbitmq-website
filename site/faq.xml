@@ -1,6 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
@@ -608,14 +607,16 @@
       <p>For the most part, yes. Say a publisher publishes messages M1, M2, M3 and M4 (in that order) on the same channel
       and with the same routing information. If these messages are routed to a queue then they will end up in the same order that
       they were published. Consuming on the queue will yield M1, M2, M3 and then M4.</p>
-      <p>However, the order is only guaranteed in the absence of requeuing. A message will be implicitly requeued if a consumer
-      closes the channel before ack'ing a message. For example, if a consumer receives M1, fails to ack and closes the channel then
-      the next consumer will receive messages in the order M2, M3, M4, M1. Messages can also be explicitly requeued if the consumer
-      calls <code>basic.recover{requeue=true}</code>. The FAQ on <a href="#at-least-once-delivery">at least once delivery</a> talks
-      about this in some more detail.
-      </p>
+      <p>Message order is maintained if messages are returned to the queue using AMQP methods that feature a requeue parameter
+      (<code>basic.recover</code>, <code>basic.reject</code> and <code>basic.nack</code>), or due to a channel closing while
+      holding unacknowledged messages. E.g. a publisher sends messages M1, M2, M3 and M4 and these messages are routed to the
+      same queue. A consumer fetches two messages, rejecting (with requeue) the first and acknowledging the second.
+      The queue now contains M1, M3 and M4. The consumer again fetches two messages without acknowledgement when a network error
+      causes the connection with the broker to be terminated. The queue contains M1, M3 and M4 (in that order) after the broker
+      discovers that the consumer has disconnected.</p>
       <p>Section 4.7 of <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf?version=1&amp;modificationDate=1227526523000">the AMQP 0-9-1 specification</a>
-      explains the conditions under which ordering is guaranteed.</p>
+      explains the conditions under which ordering is guaranteed. RabbitMQ offers stronger guarantees than required by
+      the specification, as explained above.</p>
     </doc:a>
   </doc:faq>
 
@@ -879,7 +880,7 @@
           <p>
             We would be surprised if it's possible to push messages into RabbitMQ that
             are greater than 1/4 of the installed RAM. RabbitMQ tries to avoid using
-            swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/extensions.html#memsup">memory
+            swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/admin-guide.html#memsup">memory
             threshold above which producers are throttled</a>.
           </p>
           <p>

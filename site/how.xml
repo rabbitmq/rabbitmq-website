@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent">
 %entities;
 ]>
@@ -19,27 +19,34 @@
 
     <h2>How To with RabbitMQ</h2>
 
-    <p>The links below highlight some of our favourite content on this site and the
-    web that will help you get started with messaging and RabbitMQ. For even more
-    you can <a href="delicious.html">explore RabbitMQ links on del.icio.us</a>.
+    <p class="intro">The links below highlight some of our favourite content on this site and the
+      web that will help you get started with messaging and RabbitMQ. If you are just starting out
+      with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started
+      tutorials</a>. If you feel we have missed something or would like to suggest more links please
+      <a href="contact.html">contact us</a>.
     </p>
-    <p>If you are just starting out with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started tutorials</a>.</p>
-    <p>If you feel we have missed something or would like to suggest more links please <a href="contact.html">contact us</a>.</p>
 
-      <h3 id="quickstart">Overviews and Introductions</h3>
-      <ul>
+    <doc:toc class="compact">
+      <doc:heading>Table of Contents</doc:heading>
+    </doc:toc>
+
+    <doc:section name="quickstart">
+    <doc:heading>Overviews and Introductions</doc:heading>
+    <ul>
     <li>
-    <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
-    Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
-    he introduces RabbitMQ “An open source message broker that just works”.
+      <a href="http://skillsmatter.com/podcast/erlang/alexis-richardson-introduction-to-rabbitmq">Alexis' Introduction to RabbitMQ</a><br />
+      Alexis' presentation at Thoughtworks 'London Geek Night', May 2009, where
+      he introduces RabbitMQ “An open source message broker that just works”.
     </li>
-    <li><a href="resources/RabbitMQ_MessagingInTheCloud_VMworld_2010_MS.pdf">RabbitMQ: Messaging in the Cloud</a><br/>
-    Matthew's presentation to VMworld 2010 that covers an introduction to messaging with common use cases, an
-    AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
+    <li>
+      <a href="resources/RabbitMQ_MessagingInTheCloud_VMworld_2010_MS.pdf">RabbitMQ: Messaging in the Cloud</a><br/>
+      Matthew's presentation to VMworld 2010 that covers an introduction to messaging with common use cases, an
+      AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
     </li>
-    <li><a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
-    A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
-    are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
+    <li>
+      <a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
+      A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
+      are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
     <li>
       <a href="http://ep2011.europython.eu/media/conference/slides/its-the-message-stupid.pdf">It's the message, stupid</a><br/>
@@ -58,6 +65,12 @@
       messaging concepts and AMQP 0-9-1. Written for a Ruby audience,
       but suitable for wider readership.
       Progresses to discussion and examples of messaging patterns and error handling.
+    </li>
+    <li>
+      <a href="http://www.infoq.com/presentations/Multi-Platform-Messaging-with-RabbitMQ">Multi-platform Messaging with RabbitMQ</a><br />
+      Rob Harrop demonstrates how to use RabbitMQ from a variety of languages (Java,
+      Python, Ruby and Erlang) and different environments using AMQP and STOMP for
+      multi-platform communication.
     </li>
     <li>
       <a href="http://www.youtube.com/watch?v=ZQogoEVXBSA">The RabbitMQ Team's Introduction to RabbitMQ and AMQP</a><br/>
@@ -140,10 +153,10 @@
       <a href="http://del.icio.us/alexisrichardson/rabbitmq">RabbitMQ on del.icio.us</a><br />
       We present a list of useful searches on the social bookmarking site.
     </li>
-      </ul>
-    <h3 id="clients">Specific Configurations</h3>
-      <p>This section has moved to the <a href="devtools.html">Client and Developer Tools</a> page.</p>
-      <h3 id="cloud-configurations">Cloud Configurations</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="cloud-configurations">
+      <doc:heading>Cloud Configurations</doc:heading>
       <ul>
         <li><a href="http://skillsmatter.com/podcast/cloud-grid/use-cases-for-cloud-messaging/rl-311">Cloud Messaging Use Cases</a><br/>
           Alexis' presention on use cases for cloud messaging at the Cloud and Grid Exchange 2010. The talk discusses what is messaging
@@ -174,7 +187,7 @@
     </li>
     <li>
     <a href="http://pycon.blip.tv/file/3257303/">Scaling your Python application on EC2</a><br/>
-    "A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
+    A video presentation from Py Con 2010 on how <a href="http://www.reddit.com">Reddit</a> scaled as its traffic
     doubled using the Amazon cloud and messaging.
     </li>
     <li>
@@ -185,9 +198,10 @@
     <a href="http://delicious.com/alexisrichardson/rabbitmq+cloud+usecase">RabbitMQ Cloud Use Cases on del.icio.us</a><br/>
     More links to cloud use cases at delicious.com.
     </li>
-      </ul>
-
-      <h3 id="management">Management and Monitoring</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="management">
+      <doc:heading>Management and Monitoring</doc:heading>
       <p>
         Management and monitoring capabilities are provided
         by <a href="admin-guide.html#management">rabbitmqctl</a>
@@ -226,8 +240,8 @@
       WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
     </li>
     <li>
-      <a href="http://github.com/b/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
-      Ben Black's cookbook for managing RabbitMQ with Chef.
+      <a href="https://github.com/opscode/cookbooks/tree/master/rabbitmq">Chef Cookbook</a><br />
+      A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
       <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
@@ -235,17 +249,20 @@
       to trace message delivery to queues so that you can pull the total number of messages delivered.
     </li>
     <li>
-      <a href="http://blog.dossot.net/2010/01/monitoring-rabbitmq-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
+      <a href="http://blog.thomasvandoren.com/2011/10/monitoring-rabbitmq-queues-with-zabbix/">Monitoring RabbitMQ with Zabbix</a><br/>
       A simple example of how to configure Zabbix (an open source monitoring and
-      graphing tool)  to keep track of the number of messages pending delivery and
-      the total number of queues.
+      graphing tool) to monitor queue and exchange statistics in RabbitMQ.
     </li>
     <li>
       <a href="http://github.com/paukul/humpty">Humpty</a><br />
       A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
       and AMQP.
     </li>
-   <li>
+    <li>
+      <a href="http://www.youtube.com/watch?v=CAak2ayFcV0">Monitoring RabbitMQ with Zenoss</a><br />
+      A video showing you how to monitor RabbitMQ with <a href="http://community.zenoss.org/">Zenoss</a>
+    </li>
+    <li>
       <a href="http://community.zenoss.org/docs/DOC-5817">AMQP Event Monitor on Zenoss</a><br />
       A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
     </li>
@@ -265,12 +282,15 @@
       More links to what others are doing to manage and monitor RabbitMQ.
     </li>
       </ul>
-      <h3 id="messaging-patterns">Messaging Patterns and Common Scenarios</h3>
+    </doc:section>
+    <doc:section name="messaging-patterns">
+      <doc:heading>Messaging Patterns and Common Scenarios</doc:heading>
       <ul>
       <li>
         <a href="https://github.com/videlalvaro/rmq_patterns">Enterprise Integration Patterns for RabbitMQ</a><br/>
         A library of sample implementations of common messaging patterns described in the <a href="http://www.eaipatterns.com">EIP book</a>. See also
-        the <a href="http://www.slideshare.net/old_sound/messaging-patterns">accompanying presentation</a>. The patterns currently implemented are:
+        the <a href="http://vimeo.com/25578317">accompanying video</a> and <a href="http://www.slideshare.net/old_sound/messaging-patterns">slides</a>.
+        The patterns currently implemented are:
         <ul class="plain">
           <li><a href="http://www.eaipatterns.com/EventDrivenConsumer.html">Consumer</a></li>
           <li><a href="http://www.eaipatterns.com/ControlBus.html">Control Bus</a></li>
@@ -288,8 +308,8 @@
       <li>
         <a href="http://videlalvaro.github.com/2011/05/rabbitmq-chat-post-mortem.html">RabbitMQ Web Chat Post Mortem</a>
         <br />
-        A write up of what happens when you build a web chat room with RabbitMQ and issue an open
-        <a href="http://www.reddit.com/r/programming/comments/h6aai/hey_reddit_i_wrote_a_chat_app_using_rabbitmq_and/">invitation to break it</a>. 
+        A write up of what happens when you build a web <a href="http://vimeo.com/23424752">chat room with RabbitMQ</a> and issue an open
+        <a href="http://www.reddit.com/r/programming/comments/h6aai/hey_reddit_i_wrote_a_chat_app_using_rabbitmq_and/">invitation to break it</a>.
       </li>
       <li>
         <a href="http://mysqldba.blogspot.com/2011/06/building-realtime-feed-with-rabbitmq.html">Building a Real-time Feed with RabbitMQ, Node.js, AMQP and MySQL</a>
@@ -299,7 +319,7 @@
       <li>
         <a href="http://videlalvaro.github.com/2011/04/an-army-of-minions-for-rabbitmq.html">An Army of Zombie Minions for RabbitMQ</a>
         <br />
-        Alvaro Videla showcases his <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ messaging patterns</a> library by 
+        Alvaro Videla showcases his <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ messaging patterns</a> library by
         creating "control enabled messaging endpoints". These are message consumers that dynamically alter their behaviour
         in response to out-of-band control messages.
       </li>
@@ -325,7 +345,7 @@
         Or how to use RabbitMQ to stream data events across PostgreSQL databases. The <a href="https://github.com/gmr/On-Rabbits-and-Elephants">code is available on github</a>.
       </li>
       <li>
-        <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Building an Event-driven Architecture using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
+        <a href="http://www.digitalsanctum.com/2010/08/31/using-rabbitmq,-spring-amqp-and-spring-integration/" >Using RabbitMQ, Spring AMQP and Spring Integration</a><br/>
         Shane Witbeck describes a proof of concept in which he demonstrates how these open source technologies combined
         with proven enterprise integration patterns results in code that is easier to maintain, easier to test
         and is faster than the legacy system it replaces.
@@ -410,14 +430,26 @@
       <a href="http://del.icio.us/alexisrichardson/rabbitmq+patterns">Messaging Patterns on del.icio.us</a><br />
       See more links to articles on messaging patterns at delicious.com.
     </li>
-      </ul>
-
-      <h3 id="specific-examples">Specific Use Cases and Examples</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="specific-examples">
+      <doc:heading>Specific Use Cases and Examples</doc:heading>
       <ul>
+    <li>
+      <a href="http://jamesburkhart.com/building-a-nodejs-events-app-using-rabbitmq-w">Building a Node.js Events Application using RabbitMQ</a><br />
+      James Burkhart builds a scalable platform to orchestrate round-table events in which chat, tweets and other activities
+      are broadcast to thousands of participants in as close to real-time as possible.
+    </li>
+    <li>
+      <a href="http://www.erlang-factory.com/conference/SFBay2011/speakers/JamesAimonetti">Powerful, Open Source, VoIP Cloud Services</a><br />
+      James Aimonetti describes a open-source product that automatically deploys, scales and distributes
+      VoIP calls across the Internet on commodity or virtualized servers. It fully utilizes Erlang for VoIP
+      logic and on other Erlang products like CouchDB and RabbitMQ.
+    </li>
     <li>
       <a href="http://about.digg.com/blog/how-digg-is-built">How Digg is Built</a><br />
       Dave Beckett describes how Digg, a social news and content sharing website, rebuilt their infrastructure. Digg use RabbitMQ
-      to bridge their on-line applications and asynchround backend systems, queuing up events that have happened and jobs to perform. 
+      to bridge their on-line applications and asynchround backend systems, queuing up events that have happened and jobs to perform.
     </li>
     <li>
       <a href="http://blog.james-carr.org/2010/09/09/rabbitmq-nodejs-and-java-goodness/">RabbitMQ, node.js and Java</a><br />
@@ -464,8 +496,10 @@
       <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase">Use Cases on del.icio.us</a><br />
       See more links to articles on RabbitMQ use cases at delicious.com.
     </li>
-      </ul>
-      <h3 id="going-further">Going Further</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="going-further">
+      <doc:heading>Going Further</doc:heading>
       <ul>
     <li>
       <a href="http://www.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a><br />
@@ -477,7 +511,7 @@
     </li>
     <li>
       <a href="http://vimeo.com/23834429">HOWTO: Creating plugins for RabbitMQ</a><br />
-      A video by Alvaro Videla demonstrating how to create plugins for RabbitMQ using the 
+      A video by Alvaro Videla demonstrating how to create plugins for RabbitMQ using the
       <a href="http://hg.rabbitmq.com/rabbitmq-public-umbrella">RabbitMQ Public Umbrella</a>.
     </li>
     <li>
@@ -510,8 +544,10 @@
       Browse the source code used to auto-generate AMQP base classes from the
       protocol specification.
     </li>
-      </ul>
-      <h3 id="blogs-and-forums">Blogs, Forums and Social</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="blogs-and-forums">
+      <doc:heading>Blogs, Forums and Social</doc:heading>
       <ul>
     <li>
       <a href="http://www.lshift.net/blog/category/lshift-sw/rabbitmq/">LShift's Blogs</a><br />
@@ -540,8 +576,9 @@
        Get the latest buzz about <a href="http://addictomatic.com/topic/rabbitmq">RabbitMQ on Addict-o-matic</a>
     </li>
    </ul>
-
-      <h3 id="in-print">Books and Print Articles</h3>
+   </doc:section>
+   <doc:section name="in-print">
+     <doc:heading>Books and Print Articles</doc:heading>
       <ul>
         <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
         A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
@@ -558,10 +595,10 @@
       <a href="http://www.pearsoned.co.uk/bookshop/detail.asp?item=100000000350448">Distributed Programming with Ruby</a><br/>
       See chapter eight 'AMQP/RabbitMQ'.
     </li>
-      </ul>
-
-
-      <h3 id="general-posts">General Posts</h3>
+    </ul>
+    </doc:section>
+    <doc:section name="general-posts">
+      <doc:heading>General Posts</doc:heading>
       <ul>
     <li>
       <a href="http://en.wikipedia.org/wiki/RabbitMQ"> Wikipedia on RabbitMQ</a><br />
@@ -573,7 +610,7 @@
       <a href="http://www1.interopsystems.com/analysis/can-amqp-break-ibms-mom-monopoly-part-3.html">Part 3</a><br />
       Three part series from Open Enterprise on messaging middleware and
       AMQP. Includes an interview with RabbitMQ’s very own Alexis Richardson.
-    </li>    
+    </li>
     <li>
       <a href="http://streambase.typepad.com/streambase_stream_process/2010/01/prediction-6-new-cep-stack.html">AMQP will play a crucial role in the future of complex event processing</a><br />
       Mark Palmer, CEO of StreamBase, predicts that interoperability between AMQP-enabled
@@ -626,8 +663,8 @@
       <a href="http://www.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
       Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
     </li>
-  </ul>
-
+    </ul>
+    </doc:section>
     </doc:div>
   </body>
 </html>

@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Installation Guide</title>
   </head>
@@ -422,10 +423,8 @@
             written to <b>RABBITMQ_NODENAME</b>-sasl.log.
           </p>
           <p>
-            The log files are created afresh every time the broker
-            starts. In order to retain a complete log history the
-            startup scripts append the contents to the corresponding
-            <code>.1</code> files prior to starting the broker.
+            The broker always appends to the log files, so a complete
+            log history is retained.
           </p>
           <p>
             You can rotate logs using <code>rabbitmqctl rotate_logs</code>.
@@ -792,10 +791,8 @@
             written to <b>RABBITMQ_NODENAME</b>-sasl.log.
           </p>
           <p>
-            These log files are created afresh every time the broker starts.
-            In order to retain a complete log history the startup scripts
-            append the contents to the corresponding <code>.1</code>
-            files prior to starting the broker.
+            The broker always appends to the log files, so a complete
+            log history is retained.
           </p>
           <p>
             You can use the <code>logrotate</code> program
@@ -931,5 +928,8 @@
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="install.html" />
+    
   </body>
 </html>

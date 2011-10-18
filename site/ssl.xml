@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - SSL</title>
   </head>
@@ -249,6 +250,16 @@ server testca
    ]}
 ].
 </pre>
+
+          <p>
+            <b>Note to Windows users:</b> Backslashes ("\") in the
+            configuration file are interpreted as escape sequences -
+            so for example to specify the
+            path <code>c:\cacert.pem</code> for the CA certificate you
+            would need to enter <code>{cacertfile,
+            "c:\\cacert.pem"}</code> or <code>{cacertfile,
+            "c:/cacert.pem"}</code>.
+          </p>
 
           <p>When a web browser connects to an HTTPS web server, the server
           presents its public certificate, the web browser attempts to establish
@@ -838,5 +849,8 @@ Params = #amqp_params_network { port = 5671,
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="ssl.html" />
+
   </body>
 </html>

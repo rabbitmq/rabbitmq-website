@@ -1,5 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Platforms</title>
   </head>
@@ -93,6 +94,8 @@
       If your platform is on this list or you need assistance then
       please <a href="contact.html">contact us</a>.
     </p>
+
+    <x:related-links key="platforms.html" />
 
   </body>
 </html>

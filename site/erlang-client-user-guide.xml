@@ -1,6 +1,4 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>RabbitMQ - Erlang AMQP Client library</title>
@@ -241,6 +239,20 @@
       <tr><td>node</td><td>node()</td></tr>
       <tr><td>client_properties</td><td>[ ]</td></tr>
     </table>
+</doc:section>
+<doc:section name="amqp-uris">
+  <doc:heading>Connecting To A Broker with AMQP URIs</doc:heading>
+  <p>
+    Instead of working the #amqp_params_* records directly, <a
+    href="uri-spec.xml">AMQP URIs</a> may be used.  The
+    amqp_uri:parse/1 function si provided for this purpose.  It parses
+    an URI and returns the equivalent #amqp_params_* record.
+    Diverging from the spec, if the hostname is omitted, the
+    connection is assumed to be direct and an #amqp_params_direct{}
+    record is returned.  In addition to the standard host, port, user,
+    password and vhost parameters, extra parameters may be specified
+    via the query string (e.g. "?heartbeat=5").
+  </p>
 </doc:section>
 <doc:section name="channels">
   <doc:heading>Creating Channels</doc:heading>

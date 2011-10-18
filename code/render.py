@@ -14,7 +14,7 @@ except ImportError:
             self.OK = 0
     apache = StubApache()
 
-SITE_DIR='/srv/www.rabbitmq.com/site/'
+SITE_DIR='define_me_before_use'
 
 def preprocess_markdown(fpath):
     contents = open(fpath).read()
@@ -34,8 +34,7 @@ def preprocess_markdown(fpath):
         title = re.sub("NOSYNTAX", "", title)
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 %s
 <!ENTITY nbsp "&#160;">
 ]>
@@ -64,10 +63,8 @@ def preprocess_markdown(fpath):
     whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 
-MARKUPS=[
-    ('.xml', libxml2.createFileParserCtxt),
-    ('.md', preprocess_markdown)
-]
+MARKUPS={'.xml': libxml2.createFileParserCtxt,
+         '.md':  preprocess_markdown}
 
 class Error404(Exception):
     pass
@@ -116,7 +113,8 @@ def render_page(page_name):
     raise Error500
 
 def create_xml_context(page_name):
-    for (ext, ctxt_maker) in MARKUPS:
+    for ext in MARKUPS:
+        ctxt_maker = MARKUPS[ext]
         file_name = page_name + ext
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):
