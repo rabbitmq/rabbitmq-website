@@ -617,6 +617,8 @@
       <p>Section 4.7 of <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf?version=1&amp;modificationDate=1227526523000">the AMQP 0-9-1 specification</a>
       explains the conditions under which ordering is guaranteed. RabbitMQ offers stronger guarantees than required by
       the specification, as explained above.</p>
+      <p>The expiry time of messages are preserved when they are returned to the queue due to the use of an AMQP method
+      that features a requeue parameter, or due to a channel closure.</p>
     </doc:a>
   </doc:faq>
 
