@@ -227,9 +227,10 @@ Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
           <p>
-            The original expiry time of messages are preserved when
-            returned to the queue due to the use of an AMQP method
-            that features a requeue parameter, or due to a channel closure.
+            The original expiry time of a message is preserved if it
+            is requeued (for example due to the use of an AMQP method
+            that features a requeue parameter, or due to a channel
+            closure).
           </p>
         </doc:subsection>
         <doc:subsection name="queue-leases">
