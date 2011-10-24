@@ -464,6 +464,26 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Default socket options. You probably don't want to
               change this.
             </td>
+          </tr>
+          <tr>
+            <td><code>hipe_compile</code></td>
+            <td><code>false</code></td>
+            <td>
+              Set to <code>true</code> to precompile parts of RabbitMQ
+              with the High Performance Erlang compiler. This will
+              increase the message rate that the server can handle,
+              while also increasing startup time.
+
+              <p>
+                You might see 20-50% better performance at the cost of
+                approximately 1 minute at start up. These figures are
+                highly workload- and hardware-dependent.
+              </p>
+              <p>
+                This option should be considered <b>experimental</b>.
+              </p>
+            </td>
+          </tr>
           <tr>
             <td><code>msg_store_index_module</code></td>
             <td><code>rabbit_msg_store_ets_index</code></td>
@@ -495,7 +515,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Tunable value for the persister. You almost certainly
               should not change this.
             </td>
-          </tr>
           </tr>
         </table>
         <p>
