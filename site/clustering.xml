@@ -23,10 +23,11 @@
           All data/state required for the operation of a RabbitMQ
           broker is replicated across all nodes, for reliability and
           scaling, with full ACID properties. An exception to this are
-          message queues, which currently only reside on the node that
+          message queues, which by default reside on the node that
           created them, though they are visible and reachable from all
-          nodes. Future releases of RabbitMQ will introduce migration
-          and replication of message queues.
+          nodes. To replicate queues across nodes in a cluster, see
+          the documentation on <a href="ha.html">high availability</a>
+          (note that you will need a working cluster first).
         </p>
         <p>
           The easiest way to set up a cluster is by auto configuration
