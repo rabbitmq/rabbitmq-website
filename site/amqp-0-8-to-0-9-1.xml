@@ -6,13 +6,17 @@
   <body>
     <doc:div>
       <p class="intro">
-          This is a summary of the semantic differences between AMQP 0-8 and 0-9-1.
-        </p>
+        This is a summary of the semantic differences between AMQP 0-8 and 0-9-1.
+      </p>
       <ul>
-        <li>The advertised version number is major=0,minor=9,revision=1 rather
-than major=8,minor=0.</li>
-        <li>Frame types 4-7 (OOB and trace frames) have been removed, as they
-were not well specified in AMQP 0-8.</li>
+        <li>
+          The advertised version number is major=0,minor=9,revision=1 rather
+          than major=8,minor=0.
+        </li>
+        <li>
+          Frame types 4-7 (OOB and trace frames) have been removed, as they
+          were not well specified in AMQP 0-8.
+        </li>
         <li>Status code changes:
           <ul class="plain">
             <li>Removed:
