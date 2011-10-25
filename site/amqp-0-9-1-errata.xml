@@ -30,10 +30,10 @@
          <p>"If [requeue] is zero, the message will be redelivered to the original recipient. If this bit is 1, the server will
 attempt to requeue the message, potentially then delivering it to an alternative subscriber."</p>
          <p>These don't account for</p>
-         <ol>
-            <li>. Messages that were handed over as a result of basic.get; or,</li>
-            <li>. Consumers that have since since cancelled.</li>
-         </ol>
+         <ul class="plain">
+            <li>Messages that were handed over as a result of basic.get; or,</li>
+            <li>Consumers that have since since cancelled.</li>
+         </ul>
          <p>RabbitMQ doesn't try to redeliver messages that were sent as a response to basic.get, and doesn't attempt to find out if a consumer has been cancelled.</p>
          <p>(Probably the best solution to this under-specification is to remove the requeue flag and just always requeue things.)</p>
 
