@@ -79,6 +79,8 @@
     <div class="clear"/>
     <div class="pageFooter">
       <p class="righter">
+        <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
+        <a href="http://www.vmware.com/help/privacy.html">Privacy</a> |
         <a href="/contact.html">Contact</a> |
         <a href="/about.html">About</a>
       </p>
