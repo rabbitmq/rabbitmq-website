@@ -118,6 +118,13 @@
 	</table>
       </doc:section>
 
+      <doc:section name="ver-diffs">
+    	  <doc:heading>Differences between versions</doc:heading>
+        <p>
+          Please see the <a href="amqp-0-8-to-0-9-1.html">0-8 to 0-9-1 page</a>.
+        </p>
+      </doc:section>
+      
       <doc:section name="interop">
 	<doc:heading>Interoperability</doc:heading>
 	<p>
