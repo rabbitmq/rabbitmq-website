@@ -17,7 +17,7 @@
   with legacy support for version 0-8 and 0-9.  RabbitMQ will perform protocol
   negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
   with the specification. These three versions are extremely similar.  The
-  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9 
+  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9
   and makes it easier for multiple implementations to interoperate. RabbitMQ
   implements a number of <a href="extensions.html">extensions</a> to the
   specification.
@@ -25,7 +25,7 @@
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
-  future version of RabbitMQ will implement AMQP 1.0.  Please 
+  future version of RabbitMQ will implement AMQP 1.0.  Please
   <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://www.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
@@ -39,7 +39,7 @@
           Or, you can visit <a href="http://www.amqp.org/">amqp.org</a>.
 	</p>
       </doc:section>
-      
+
       <doc:section name="release-version-mapping">
 
 
@@ -118,6 +118,13 @@
 	</table>
       </doc:section>
 
+      <doc:section name="ver-diffs">
+    	  <doc:heading>Differences between versions</doc:heading>
+        <p>
+          Please see the <a href="amqp-0-8-to-0-9-1.html">0-8 to 0-9-1 page</a>.
+        </p>
+      </doc:section>
+
       <doc:section name="interop">
 	<doc:heading>Interoperability</doc:heading>
 	<p>
@@ -128,9 +135,9 @@
       <doc:section name="deprecated-classes">
 	<doc:heading>Deprecated classes</doc:heading>
     <p>
-      The following classes were deprecated in version 0-9-1. 
-      RabbitMQ does not implement these classes at all, including 
-      when the broker is connected to a version 0-8 client, or 
+      The following classes were deprecated in version 0-9-1.
+      RabbitMQ does not implement these classes at all, including
+      when the broker is connected to a version 0-8 client, or
       when the .NET client is configured to use 0-8.
        <ul>
         <li>access</li>
@@ -239,7 +246,7 @@
       <doc:section name="rules">
 	<doc:heading>Rules from the AMQP specification, version 0-9-1</doc:heading>
 	<p>
-	  The Reference column contains the class or domain, method, field and 
+	  The Reference column contains the class or domain, method, field and
       rule name where present.
     </p>
 	<rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
@@ -284,8 +291,8 @@
           <rule>
             <status value="planned"/>
             <notes>
-                The client already conforms, in that it does not rely on the 
-                redelivered field, and we plan on adding duplicate tracking in a future 
+                The client already conforms, in that it does not rely on the
+                redelivered field, and we plan on adding duplicate tracking in a future
                 release.
             </notes>
             <type>MUST NOT</type>
@@ -684,7 +691,7 @@
             <status value="ok"/>
             <notes>
                    The server does not prevent exchange names starting with "amq." from
-                   being declared. Clients may declare exchanges starting with "amq." 
+                   being declared. Clients may declare exchanges starting with "amq."
                    without the passive bit set.
             </notes>
             <type>MUST, MAY</type>
@@ -843,7 +850,7 @@
             <status value="ok">ok</status>
             <notes>
                    The server does not prevent queue names starting with "amq." from
-                   being declared. Clients may declare queues starting with "amq." 
+                   being declared. Clients may declare queues starting with "amq."
                    without the passive bit set.
             </notes>
             <type>MUST</type>
@@ -2464,7 +2471,7 @@
       <doc:section name="rules-08">
         <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
         <p>
-          The rules listed below relate to features supported by RabbitMQ that 
+          The rules listed below relate to features supported by RabbitMQ that
           have been deprecated.
         </p>
         <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
