@@ -30,6 +30,14 @@
           (note that you will need a working cluster first).
         </p>
         <p>
+          <b>RabbitMQ clustering does not tolerate network partions
+          well</b>, so it should not be used over a WAN.
+          The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
+          <a href="plugins.html#rabbitmq_federation">federation</a>
+          plugins are better solutions for connecting brokers across a
+          WAN.
+        </p>
+        <p>
           The easiest way to set up a cluster is by auto configuration
           using a default cluster config file. See the <a
           href="#auto-config">clustering
@@ -679,11 +687,8 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
           <p>
             The case for firewalled clustered nodes exists when nodes
             are in a data center or on a reliable network, but separated
-            by firewalls. Clustering is not recommended over a WAN or
+            by firewalls. Again, clustering is not recommended over a WAN or
             when network links between nodes are unreliable.
-            The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
-            <a href="plugins.html#rabbitmq_federation">federation</a>
-            plugins are a better solution in that case.
           </p>
           <p>
             If different nodes of a cluster are in the same data center,
