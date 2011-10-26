@@ -25,10 +25,19 @@
           All data/state required for the operation of a RabbitMQ
           broker is replicated across all nodes, for reliability and
           scaling, with full ACID properties. An exception to this are
-          message queues, which currently only reside on the node that
+          message queues, which by default reside on the node that
           created them, though they are visible and reachable from all
-          nodes. Future releases of RabbitMQ will introduce migration
-          and replication of message queues.
+          nodes. To replicate queues across nodes in a cluster, see
+          the documentation on <a href="ha.html">high availability</a>
+          (note that you will need a working cluster first).
+        </p>
+        <p>
+          <b>RabbitMQ clustering does not tolerate network partions
+          well</b>, so it should not be used over a WAN.
+          The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
+          <a href="plugins.html#rabbitmq_federation">federation</a>
+          plugins are better solutions for connecting brokers across a
+          WAN.
         </p>
         <p>
           The easiest way to set up a cluster is by auto configuration
@@ -92,7 +101,15 @@
             can be as long or short as you like.
           </p>
           <p>
-            Erlang will automatically create a random cookie file when the RabbitMQ server starts up. This will be typically located in <code>/var/lib/rabbitmq/.erlang.cookie</code> on Unix systems and <code>C:\Documents and Settings\<i>Current User</i>\Application Data\RabbitMQ\.erlang.cookie</code> on Windows systems. The easiest way to proceed is to allow one node to create the file, and then copy it to all the other nodes in the cluster.
+            Erlang will automatically create a random cookie file when
+            the RabbitMQ server starts up. This will be typically
+            located in <code>/var/lib/rabbitmq/.erlang.cookie</code>
+            on Unix systems and <code>C:\Users\<i>Current
+            User</i>\.erlang.cookie</code> or <code>C:\Documents and
+            Settings\<i>Current User</i>\.erlang.cookie</code> on
+            Windows systems. The easiest way to proceed is to allow
+            one node to create the file, and then copy it to all the
+            other nodes in the cluster.
           </p>
           <p>
             As an alternative, you can insert the option "<code>-setcookie
@@ -680,11 +697,8 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
           <p>
             The case for firewalled clustered nodes exists when nodes
             are in a data center or on a reliable network, but separated
-            by firewalls. Clustering is not recommended over a WAN or
+            by firewalls. Again, clustering is not recommended over a WAN or
             when network links between nodes are unreliable.
-            The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
-            <a href="plugins.html#rabbitmq_federation">federation</a>
-            plugins are a better solution in that case.
           </p>
           <p>
             If different nodes of a cluster are in the same data center,
