@@ -367,7 +367,14 @@
   </xsl:template>
 
   <xsl:template match="r:readme-link">
-    <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+    <xsl:choose>
+      <xsl:when test="@extension">
+        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README{@extension}">README</a>
+      </xsl:when>
+      <xsl:otherwise>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ############################################################ -->

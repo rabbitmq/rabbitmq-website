@@ -82,6 +82,7 @@
           <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
           <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
           <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
+          <li><a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata</a></li>
         </ul>
       </doc:section>
 

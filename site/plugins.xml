@@ -149,6 +149,12 @@
             the links between them.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_consistent_hash_exchange">
+            Consistent hash exchange type. Please see the
+            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
+            for more information.
+          </r:plugin>
+
           <r:plugin name="rabbitmq_tracing">
             Adds message tracing to the management plugin. Logs
             messages from the <a href="firehose.html">firehose</a> in
