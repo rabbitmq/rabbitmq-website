@@ -244,7 +244,7 @@
   <doc:heading>Connecting To A Broker with AMQP URIs</doc:heading>
   <p>
     Instead of working the #amqp_params_* records directly, <a
-    href="uri-spec.xml">AMQP URIs</a> may be used.  The
+    href="uri-spec.html">AMQP URIs</a> may be used.  The
     amqp_uri:parse/1 function si provided for this purpose.  It parses
     an URI and returns the equivalent #amqp_params_* record.
     Diverging from the spec, if the hostname is omitted, the

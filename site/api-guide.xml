@@ -117,7 +117,7 @@ Connection conn = factory.newConnection();
       All of these parameters have sensible defaults for a RabbitMQ server running locally.
     </p>
     <p>
-      Alternatively, <a href="uri-spec.xml">AMQP URIs</a> may be used:
+      Alternatively, <a href="uri-spec.html">AMQP URIs</a> may be used:
     </p>
 
 <pre class="sourcecode">
