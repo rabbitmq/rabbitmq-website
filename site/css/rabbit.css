@@ -480,30 +480,33 @@ div#promo p.quote-credit a {
 	color: #fff;
 	font-weight: bold;
 }
+
 div.rgt-third {
-	width: 320px;
-	float: right;
+    width: 30%;
+    float: right;
 }
 div.rgt-third p,
 div.rgt-third h3,
 div.rgt-third ol {
-    margin-left: 30px;
+    margin-left: 2%;
 }
+
 p.button {
 	text-align: center;
 	font-size: 18px;
-	margin:  0px 0 0px 0px;
+	margin: 0;
 }
 
 p.button a {
-        background-color: #f93;
+	background-color: #f93;
 	padding: 21px 0 21px 0px;
 	margin: 21px 0 21px 0px;
 	color: #fff;
 	display: block;
 	text-decoration: none;
-	border-radius:10px;
+	-webkit-border-radius: 10px;
 	-moz-border-radius:10px;
+	border-radius:10px;
 }
 
 p.button a:hover {
@@ -538,14 +541,21 @@ p.warning {
 
 #changelog td { background-color: #f7f7f7; }
 
-ul.threeColumnLeft {
-  float: left;
-  width: 20%;
-  padding: 0;
+ul.twoColumns, ul.threeColumns {
+    padding-right: 0;
+}
+ul.twoColumns li {
+    width: 47%;
+    display: inline-block;
+    vertical-align: top;
+}
+ul.threeColumns li.headedSublist {
+    min-width: 30%;
+    display: inline-block;
+    vertical-align: top;
 }
 
-ul.twoColumnLeft {
-  float: left;
-  width: 33%;
-  padding: 0;
+#home-content {
+    width: 65%;
 }
+
