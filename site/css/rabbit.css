@@ -541,6 +541,9 @@ p.warning {
 
 #changelog td { background-color: #f7f7f7; }
 
+ul.twoColumns, ul.threeColumns {
+    padding-right: 0;
+}
 ul.twoColumns li {
     width: 47%;
     display: inline-block;
@@ -553,9 +556,6 @@ ul.threeColumns li.headedSublist {
 }
 
 #home-content {
-    width: 60%;
-}
-#home-content div {
-    max-width: 96%;
+    width: 65%;
 }
 
