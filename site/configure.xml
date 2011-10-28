@@ -476,8 +476,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 
               <p>
                 You might see 20-50% better performance at the cost of
-                approximately 1 minute at start up. These figures are
-                highly workload- and hardware-dependent.
+                approximately 1 minute delay at startup. These
+                figures are highly workload- and hardware-dependent.
+              </p>
+              <p>
+                HiPE support may not be compiled into your Erlang
+                installation. If it is not, enabling this option will
+                just cause a warning message to be displayed and
+                startup will proceed as normal. For example, Debian /
+                Ubuntu users will need to install
+                the <code>erlang-base-hipe</code> package.
+              </p>
+              <p>
+                HiPE is not available at all on some platforms,
+                notably including Windows.
               </p>
               <p>
                 This option should be considered <b>experimental</b>.
