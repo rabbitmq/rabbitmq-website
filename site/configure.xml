@@ -494,7 +494,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <p>
                 This option should be
                 considered <b>experimental</b>. If your Erlang VM
-                segfaults, switch it off.
+                segfaults, disable this option again.
               </p>
             </td>
           </tr>
