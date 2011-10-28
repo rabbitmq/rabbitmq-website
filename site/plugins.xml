@@ -135,9 +135,7 @@
           Currently, all plugins below are <em>experimental</em>. This
           means we make no claims about their fitness for purpose or
           stability, though they are in general under active
-          development. In particular, the version numbers of the packages
-          do not guarantee compatibility with versions of the RabbitMQ
-          server<sup><a href="#compatibility">[1]</a></sup>.
+          development.
         </p>
 
         <table>
