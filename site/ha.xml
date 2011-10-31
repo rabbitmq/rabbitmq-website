@@ -340,7 +340,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           pre-configure producers and consumers with the set of all
           nodes in a cluster, assuming the set of all nodes that
           may join the cluster remains static. Peers then reconnect
-          with a different node when the connection to the current
+          to a different node when the connection to the current
           node drops, or upon receipt of <code>basic.cancel</code>
           by consumers that support it.
         </p>
@@ -350,8 +350,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           Consumers must be able to deal with the potential loss
           of messages in case no other synchronised queues existed
           at the time of failure. Consumers must also be able to
-          deal with potential duplicate messages which may occur
-          as result of network interruptions.
+          deal with potential duplicate messages which may always occur
+          as result of network interruptions, regardless of
+          mirrored queues or high availability.
         </p>
           It is possible to make use of a load-balancer in front of
           producers to perform the duties of connection maintenance
