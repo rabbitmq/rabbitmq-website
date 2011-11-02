@@ -373,7 +373,7 @@
         <p>
           Queues can be declared with an optional lease time. The lease time determines how long a queue
           can remain unused before it is automatically deleted by the server. The lease time is provided
-          as an <em>x-expires</em> argument in the the arguments parameter to this method.
+          as an <em>x-expires</em> argument in the arguments parameter to this method.
         </p>
         <h5>Mirrored Queues</h5>
         <p>
@@ -381,7 +381,7 @@
           to be mirrored on other nodes within a RabbitMQ cluster. The result is that should one node
           of a cluster fail, the queue can automatically switch to one of the mirrors and continue to
           operate, with no unavailability of service. To create a mirrored queue, you provide an
-          <em>x-ha-policy</em> argument in the the arguments parameter to this method.
+          <em>x-ha-policy</em> argument in the arguments parameter to this method.
         </p>
       </x:doc>
       <x:url href="http://www.rabbitmq.com/extensions.html#queue-ttl" label="x-message-ttl documentation"/>
