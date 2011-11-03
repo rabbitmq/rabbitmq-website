@@ -91,6 +91,7 @@
     <div class="clear"/>
     <div class="pageFooter">
       <p class="righter">
+        <a href="/sitemap.html">Sitemap</a> |
         <a href="/contact.html">Contact</a> |
         <a href="/about.html">About</a>
       </p>
@@ -540,6 +541,28 @@
           <a href="{@key}.html"><xsl:value-of select="@text"/></a>
         </xsl:otherwise>
       </xsl:choose>
+    </li>
+  </xsl:template>
+
+  <xsl:template match="x:sitemap">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="x:pages/x:page">
+        <h3><a href="{@key}.html"><xsl:value-of select="@text"/></a></h3>
+        <ul>
+          <xsl:apply-templates mode="sitemap" />
+        </ul>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:page" mode="sitemap">
+    <li>
+      <xsl:variable name="key" select="@key" />
+      <a href="{@key}.html"><xsl:value-of select="@text"/></a>
+      <xsl:if test="x:page">
+        <ul><xsl:apply-templates mode="sitemap" /></ul>
+      </xsl:if>
     </li>
   </xsl:template>
 
