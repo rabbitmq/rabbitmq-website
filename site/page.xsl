@@ -506,7 +506,7 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="key('page-key', $page-name)">
-        <xsl:variable name="section" select="ancestor::x:page[parent::x:pages]/@key" />
+        <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@key" />
         <xsl:for-each select="key('page-key', $section)">
           <div id="in-this-section">
             <h4>In This Section</h4>
