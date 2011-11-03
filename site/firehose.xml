@@ -6,7 +6,6 @@
     <title>RabbitMQ - Firehose Tracer</title>
   </head>
   <body>
-    <doc:div>
       <doc:section>
         <doc:heading>Firehose</doc:heading>
 	<p>
@@ -93,9 +92,5 @@
           </p>
         </doc:subsection>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="firehose.html" />
-    
   </body>
 </html>

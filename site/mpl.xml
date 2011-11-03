@@ -4,7 +4,6 @@
     <title>RabbitMQ - Mozilla Public License</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page contains the complete license text as used in the
 	RabbitMQ <a href="download.html">distributions</a>.
@@ -470,6 +469,5 @@ EXHIBIT A - Mozilla Public License.
 
 </pre>
       </doc:section>
-    </doc:div>
   </body>
 </html>

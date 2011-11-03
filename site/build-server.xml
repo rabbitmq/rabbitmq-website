@@ -6,17 +6,11 @@
   	<title>RabbitMQ - Server Build Instructions</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This section describes the process for obtaining a copy of the
 	RabbitMQ server source code, as well as instructions for building the
 	server from source.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="obtaining">
 	<doc:heading>Obtaining the source</doc:heading>
 
@@ -135,9 +129,5 @@ $ make</pre>
 	    </dl>
 	  </p>
 	</doc:section>
-    </doc:div>
-
-    <x:related-links key="build-server.html" />
-    
   </body>
 </html>

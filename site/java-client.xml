@@ -10,7 +10,6 @@
     <title>RabbitMQ - Java AMQP client library</title>
   </head>
   <body>
-    <doc:div>
     <h2>RabbitMQ Java AMQP client library</h2>
 
     <p>
@@ -156,6 +155,5 @@
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
-    </doc:div>
   </body>
 </html>

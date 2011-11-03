@@ -6,14 +6,9 @@
     <title>RabbitMQ - Administration Guide</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
         This is the RabbitMQ Server Administrator's Guide.
       </p>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="installation">
         <doc:heading>Building and installation</doc:heading>
         <p>
@@ -386,9 +381,5 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
           </li>
         </ul>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="admin-guide.html" />
-    
   </body>
 </html>

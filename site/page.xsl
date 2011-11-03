@@ -15,6 +15,7 @@
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
+<xsl:param name="page-name"/>
 
   <xsl:template match="html:head">
     <head>
@@ -35,9 +36,18 @@
   <xsl:template match="html:body">
     <body>
       <div id="outerContainer">
-    <xsl:call-template name="page-header"/>
-    <xsl:apply-templates/>
-    <xsl:call-template name="page-footer"/>
+        <xsl:call-template name="page-header"/>
+        <div id="innerContainer">
+          <div id="left-content">
+            <xsl:apply-templates/>
+          </div>
+          <div id="right-nav">
+            <xsl:call-template name="in-this-section"/>
+            <xsl:call-template name="in-this-page"/>
+            <xsl:call-template name="related-links"/>
+          </div>
+        </div>
+        <xsl:call-template name="page-footer"/>
       </div>
     </body>
   </xsl:template>
@@ -89,38 +99,33 @@
 
   <!-- ############################################################ -->
 
-  <xsl:template match="doc:div">
-    <div class="document">
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:toc">
-    <xsl:variable name="tocNode" select="."/>
-    <div class="docToc">
-      <xsl:apply-templates/>
-      <ul class="{@class}">
-    <xsl:for-each select="//doc:section[@name]">
-      <li>
-        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-        <xsl:if test=".//doc:subsection[@name]">
-          <ul class="{$tocNode/@class}">
-        <xsl:for-each select=".//doc:subsection[@name]">
-          <li>
-            <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-            <ul class="{$tocNode/@class}">
-              <xsl:for-each select=".//doc:subsubsection[@name]">
-                <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-              </xsl:for-each>
-            </ul>
-          </li>
-        </xsl:for-each>
-          </ul>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
-      </ul>
-    </div>
+  <xsl:template name="in-this-page">
+    <xsl:if test="//html:body[@show-in-this-page]">
+      <div class="in-this-page">
+        <h4>In This Page</h4>
+        <ul>
+          <xsl:for-each select="//doc:section[@name]">
+            <li>
+              <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+              <xsl:if test=".//doc:subsection[@name]">
+                <ul>
+                  <xsl:for-each select=".//doc:subsection[@name]">
+                    <li>
+                      <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+                      <ul>
+                        <xsl:for-each select=".//doc:subsubsection[@name]">
+                          <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
+                        </xsl:for-each>
+                      </ul>
+                    </li>
+                  </xsl:for-each>
+                </ul>
+              </xsl:if>
+            </li>
+          </xsl:for-each>
+        </ul>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="doc:section">
@@ -165,10 +170,6 @@
 
   <xsl:template match="doc:roadmapentry/doc:heading">
     <div class="docRoadmapentryHeading"><xsl:apply-templates/></div>
-  </xsl:template>
-
-  <xsl:template match="doc:toc/doc:heading">
-    <h3 class="docHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
   <xsl:template match="doc:faqtoc">
@@ -487,60 +488,94 @@
   <!-- ############################################################ -->
   <xsl:key name="page-key" match="x:page" use="@key" />
 
-  <xsl:template match="x:related-links">
+  <xsl:template name="related-links">
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
-    <xsl:variable name="key" select="@key" />
-    
+
     <xsl:for-each select="$pages">
-      <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
+      <xsl:if test="count(key('page-key', $page-name)/x:related) &gt; 0">
         <div id="related-links">
-          <p>Related Links:</p>
+          <h4>Related Links</h4>
           <ul>
-            <xsl:apply-templates select="key('page-key', $key)/x:related"/>
+            <xsl:apply-templates select="key('page-key', $page-name)/x:related"/>
           </ul>
         </div>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
+  <xsl:template name="in-this-section">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="key('page-key', $page-name)">
+        <xsl:variable name="section" select="ancestor::x:page[parent::x:pages]/@key" />
+        <!-- <p>section: <xsl:value-of select="$section"/></p> -->
+        <!-- <p>page-name: <xsl:value-of select="$page-name"/></p> -->
+        <xsl:for-each select="key('page-key', $section)">
+          <div id="in-this-section">
+            <h4>In This Section</h4>
+            <ul>
+              <xsl:apply-templates mode="pages" />
+            </ul>
+          </div>
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:page" mode="pages">
+    <li>
+      <xsl:variable name="key" select="@key" />
+      <xsl:choose>
+        <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
+          <a href="{@key}.html" class="selected">
+            <xsl:value-of select="@text"/>
+          </a>
+          <xsl:if test="x:page">
+            <ul><xsl:apply-templates mode="pages" /></ul>
+          </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+          <a href="{@key}.html"><xsl:value-of select="@text"/></a>
+        </xsl:otherwise>
+      </xsl:choose>
+    </li>
+  </xsl:template>
+
   <xsl:template match="x:related">
+    <!-- TODO fix the title lookup here. Or strip it out. -->
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
-      <xsl:if test="position() = 1">
-        <xsl:attribute name="class">
-          <xsl:value-of select="'no-separator'" />        
-        </xsl:attribute>
-      </xsl:if>
-        <a href="{@url}">
-          <xsl:variable name="default-title">
-            <xsl:if test="not($page/@text) or not($page/@tooltip)">
-              <xsl:call-template name="lookup-title">
-                <xsl:with-param name="url" select="@url" />
-              </xsl:call-template>
-            </xsl:if>
-          </xsl:variable>
-          <xsl:attribute name="title">
-            <xsl:choose>
-              <xsl:when test="$page/@tooltip">
-                <xsl:value-of select="$page/@tooltip" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="$default-title" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
+      <a href="{@url}.html">
+        <xsl:variable name="default-title">
+          <xsl:if test="not($page/@text) or not($page/@tooltip)">
+            <xsl:call-template name="lookup-title">
+              <xsl:with-param name="url" select="@url" />
+            </xsl:call-template>
+          </xsl:if>
+        </xsl:variable>
+        <xsl:attribute name="title">
           <xsl:choose>
-            <xsl:when test="$page/@text">
-              <xsl:value-of select="$page/@text" />
+            <xsl:when test="$page/@tooltip">
+              <xsl:value-of select="$page/@tooltip" />
             </xsl:when>
             <xsl:otherwise>
               <xsl:value-of select="$default-title" />
             </xsl:otherwise>
           </xsl:choose>
-        </a>
+        </xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="$page/@text">
+            <xsl:value-of select="$page/@text" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$default-title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
     </li>
   </xsl:template>
-  
+
+
   <xsl:template name="lookup-title">
     <xsl:param name="url" />
     <xsl:variable name="target-uri">

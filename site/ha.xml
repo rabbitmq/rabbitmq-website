@@ -6,12 +6,6 @@
     <title>RabbitMQ - Highly Available Queues</title>
   </head>
   <body>
-    <doc:div>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="overview">
         <doc:heading>Availability overview</doc:heading>
         <p>
@@ -329,9 +323,5 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           <code>node2@rabbit</code> and <code>node4@rabbit</code>.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="ha.html" />
-
   </body>
 </html>

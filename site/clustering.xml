@@ -6,12 +6,6 @@
     <title>RabbitMQ - Clustering Guide</title>
   </head>
   <body>
-    <doc:div>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="clustering">
         <doc:heading>Clustering overview</doc:heading>
         <p>
@@ -742,9 +736,5 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
             file.
           </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="clustering.html" />
-    
   </body>
 </html>

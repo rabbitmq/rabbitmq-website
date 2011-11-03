@@ -12,17 +12,11 @@
     </script>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
         The RabbitMQ Server implements a number of extensions of the
         <a href="specification.html">AMQP specification</a>, which we
         are documenting here.
       </p>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="routing">
         <doc:heading>Message Routing</doc:heading>
 
@@ -606,9 +600,5 @@ channel.basicConsume(queue, consumer);</pre>
          the future and should not be relied upon.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="extensions.html" />
-    
   </body>
 </html>

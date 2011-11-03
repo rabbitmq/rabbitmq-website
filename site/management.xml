@@ -10,11 +10,6 @@
     <title>RabbitMQ - Management Plugin</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="features">
         <doc:heading>Features</doc:heading>
         <p>
@@ -378,9 +373,5 @@ ProxyPass        /    http://localhost:55672/
 ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="management.html" />
-    
   </body>
 </html>

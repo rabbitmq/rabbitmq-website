@@ -4,14 +4,9 @@
     <title>RabbitMQ - Erlang AMQP Client library</title>
   </head>
 <body>
-<doc:div>
  <p class="intro">
   This is the programmer's guide to the Erlang AMQP client.
  </p>
-
- <doc:toc class="compact">
-   <doc:heading>Table of Contents</doc:heading>
- </doc:toc>
 
  <doc:section name="introduction">
    <doc:heading>Introduction</doc:heading>
@@ -813,7 +808,5 @@
    </p>
 
   </doc:section>
-
-</doc:div>
 </body>
 </html>

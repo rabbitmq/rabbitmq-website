@@ -10,7 +10,6 @@
     <link rel="stylesheet" rev="stylesheet" href="/css/devtools.css" type="text/css"/>
   </head>
   <body>
-    <doc:div>
       <h2 id="top">Clients &amp; Developer Tools</h2>
       <p>
         RabbitMQ is <a href="platforms.html">officially supported</a> on a number of
@@ -905,6 +904,5 @@
           </div>
         </div>
       </div>
-    </doc:div>
   </body>
 </html>

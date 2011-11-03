@@ -10,17 +10,11 @@
     <title>RabbitMQ - Installation Guide</title>
   </head>
   <body>
-    <doc:div>
-
     <p class="intro">
       Here you can find instructions to get your
       <a href="server.html"> server download</a>
       installed and running for your chosen platform.
     </p>
-
-    <doc:toc class="compact">
-      <doc:heading>RabbitMQ Server Installation</doc:heading>
-    </doc:toc>
 
     <doc:section name="introduction">
       <doc:heading>Introduction</doc:heading>
@@ -926,10 +920,5 @@
           including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
         </p>
       </doc:section>
-
-    </doc:div>
-
-    <x:related-links key="install.html" />
-    
   </body>
 </html>

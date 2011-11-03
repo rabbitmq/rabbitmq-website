@@ -6,7 +6,6 @@
     <title>RabbitMQ - Server Changelog</title>
   </head>
   <body>
-    <doc:div>
       <h1>RabbitMQ Server changelog</h1>
       <table id="changelog">
         <tr>
@@ -337,9 +336,5 @@
           </td>
         </tr>
       </table>
-    </doc:div>
-
-    <x:related-links key="changelog.html" />
-
   </body>
 </html>

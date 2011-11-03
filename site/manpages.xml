@@ -10,7 +10,6 @@
     <title>RabbitMQ - Manual Pages</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
     	This page lists the available manual pages taken from the latest server release.
       </p>
@@ -31,10 +30,6 @@
           <li><a href="man/rabbitmq-env.conf.5.man.html">rabbitmq-env.conf</a></li>
         </ul>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="manpages.html" />
-    
   </body>
 </html>
 

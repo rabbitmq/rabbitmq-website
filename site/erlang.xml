@@ -6,15 +6,10 @@
     <title>RabbitMQ - Erlang Introduction</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page describes the advantages of using Erlang for
 	Enterprise-class messaging systems.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <p>
 	Erlang, which was developed and is used by Ericsson in its
@@ -212,9 +207,5 @@
 	  <li>Windows 2003</li>
 	</ul>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="erlang.html" />
-    
   </body>
 </html>

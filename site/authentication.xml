@@ -10,11 +10,6 @@
     <title>RabbitMQ - SASL Authentication</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="intro">
         <doc:heading>Introduction</doc:heading>
         <p>
@@ -127,9 +122,5 @@
           </p>
         </doc:subsection>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="authentication.html" />
-    
   </body>
 </html>

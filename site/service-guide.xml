@@ -6,14 +6,9 @@
     <title>RabbitMQ - Windows Service Guide</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This is the RabbitMQ Server Windows Service Guide.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="service-overview">
 	<doc:heading>Service overview</doc:heading>
@@ -47,10 +42,5 @@
         defaulting to <code>%APPDATA%\RabbitMQ</code> otherwise).
       </p>
     </doc:section>
-
-    </doc:div>
-
-    <x:related-links key="service-guide.html" />
-
   </body>
 </html>

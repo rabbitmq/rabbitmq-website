@@ -6,15 +6,10 @@
     <title>RabbitMQ - Examples</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This section describes some of the demos and example programs
 	available for the RabbitMQ AMQP implementation.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="demo-server">
 	<doc:heading>Publicly-accessible Demonstration Broker Service</doc:heading>
@@ -117,9 +112,5 @@ shown what is in the queue- so this will show people how it all works)
           available <a href="download.html#experimental">here</a>.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="examples.html" />
-    
   </body>
 </html>

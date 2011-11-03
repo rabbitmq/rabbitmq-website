@@ -6,7 +6,6 @@
     <title>RabbitMQ - Getting started</title>
   </head>
   <body>
-    <doc:div>
       <h2>Getting started with RabbitMQ</h2>
       <p>
         These tutorials cover the basics of creating messaging
@@ -66,6 +65,5 @@
         <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>.
       </p>
       </div>
-    </doc:div>
   </body>
 </html>

@@ -8,7 +8,6 @@
     <title>RabbitMQ - Frequently Asked Questions</title>
   </head>
   <body>
-    <doc:div>
       <h2>Frequently Asked Questions</h2>
 
       <p class="intro">
@@ -1851,6 +1850,5 @@ web UI.
         </doc:faq>
 
       </doc:section>
-    </doc:div>
   </body>
 </html>

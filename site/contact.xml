@@ -6,7 +6,6 @@
     <script type="text/javascript" src="/js/contact.js"></script>
   </head>
   <body>
-    <doc:div>
     <h2 id="mailing-list">Mailing List</h2>
     <p>
       We host the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a> list for
@@ -88,7 +87,6 @@
       <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Waterloo,+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FT7eEQMdpUD-_ykxANxMuAR2SDGy9Nq8xoURJg%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50464,-0.10739&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.504602,-0.103405&amp;spn=0.013076,0.015407&amp;z=16">London Waterloo</a> (1,300 metres)</li>
     </ul>
     </div>
-    </doc:div>
   </body>
 </html>
 

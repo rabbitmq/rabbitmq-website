@@ -6,15 +6,10 @@
     <title>RabbitMQ - Using Mercurial</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page describes the way we work with Mercurial on the
 	RabbitMQ project.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="overview">
 	<doc:heading>What is Mercurial?</doc:heading>
@@ -158,9 +153,5 @@ $ hg update v1_5
 4 files updated, 0 files merged, 5 files removed, 0 files unresolved
 $ </pre>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="mercurial.html" />
-    
   </body>
 </html>

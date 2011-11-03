@@ -4,8 +4,6 @@
     <title>RabbitMQ - Partners</title>
   </head>
   <body>
-    <doc:div>    
-    
     <h2>Partners and Alliances</h2>
     
     <p>If your company operates a partner model and feel that we may benefit through 
@@ -109,7 +107,5 @@
 	<p><a href="http://www.terracotta.org/">More information is available at http://www.terracotta.org/.</a></p>
       </li>  
     </ul>
-    
-    </doc:div>
   </body>
 </html>

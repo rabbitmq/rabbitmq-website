@@ -11,7 +11,6 @@
     <title>RabbitMQ - Plugin Development Guide</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
         This is the RabbitMQ Server Plugin Development Guide. It is expected that
         before reading this guide, the reader has a basic understanding of the RabbitMQ
@@ -21,10 +20,6 @@
         <a href="http://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
         <a href="http://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
       </p>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="why">
         <doc:heading>Why Write A Plugin?</doc:heading>
@@ -268,9 +263,5 @@ $ cd ..</pre>
           There are a number of <a href="how.html#going-further">links on the How To page</a> that demonstrate plugin development.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="plugin-development.html" />
-
   </body>
 </html>

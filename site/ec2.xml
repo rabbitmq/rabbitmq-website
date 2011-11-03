@@ -10,14 +10,6 @@
     <title>RabbitMQ - Amazon EC2</title>
   </head>
   <body>
-
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-    </doc:div>
-    <br/>
-
 <doc:section name="ec2">
   <doc:heading>RabbitMQ on Amazon EC2</doc:heading>
   <p>
@@ -193,9 +185,5 @@ sending rate: 4989 msg/s</pre>
   <p>
     If you have any comments please <a href="contact.html">let us know</a>.
   </p>
-
-
-    <x:related-links key="ec2.html" />
-    
   </body>
 </html>

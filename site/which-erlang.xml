@@ -6,7 +6,6 @@
     <title>RabbitMQ - Erlang Versions</title>
   </head>
   <body>
-    <div>
     <h2>Erlang Versions</h2>
     <h3>Which Version of Erlang?</h3>
     <p>
@@ -90,10 +89,5 @@
       <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>,
       you will need OpenSSL installed on your system.
     </p>
-
-    </div>
-
-    <x:related-links key="which-erlang.html" />
-
   </body>
 </html>

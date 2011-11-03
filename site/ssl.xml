@@ -10,11 +10,6 @@
     <title>RabbitMQ - SSL</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="intro">
         <doc:heading>Introduction</doc:heading>
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
@@ -847,10 +842,5 @@ Params = #amqp_params_network { port = 5671,
         </doc:subsection>
 
       </doc:section>
-
-    </doc:div>
-
-    <x:related-links key="ssl.html" />
-
   </body>
 </html>

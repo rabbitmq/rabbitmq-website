@@ -5,7 +5,6 @@
   </head>
   
   <body>
-   <doc:div>
     <h2>RabbitMQ on Del.icio.us</h2>
      <p>
         Delicious is a social bookmarking web service for storing, sharing, and discovering web bookmarks. We've been collecting 
@@ -92,7 +91,6 @@ tag:
          <li><a href="http://delicious.com/alexisrichardson/rabbitmq+cloud">Cloud</a></li>
         </ul>
       </p>
-   </doc:div>
   </body>
  
  </html> 

@@ -4,7 +4,6 @@
     <title>RabbitMQ - Commercial Services</title>
   </head>
   <body>
-    <doc:div>
     <h2>Services</h2>
     <p class="intro">
       RabbitMQ is commercially supported by SpringSource professional services, which includes
@@ -44,7 +43,5 @@
       professional services covering architectural application review, migration and solutions and proof of concept.
     </p>
     <p><a href="contact.html">Contact us</a> for more details on RabbitMQ consulting services.</p>
-
-    </doc:div>
   </body>
 </html>

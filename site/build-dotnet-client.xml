@@ -4,17 +4,11 @@
     <title>RabbitMQ - .Net/C# AMQP Client Library Build Instructions</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This section describes the process for obtaining a copy of the
 	RabbitMQ .Net/C# AMQP client library source code, as well as
 	instructions for building the .Net/C# client libraries from source.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="obtaining">
 	<doc:heading>Obtaining the source</doc:heading>
 
@@ -131,7 +125,6 @@
       </ul>
      </doc:subsection>
     </doc:section>
-    </doc:div>
   </body>
 </html>
 

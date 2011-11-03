@@ -6,7 +6,6 @@
     <title>RabbitMQ - Debian APT Repository</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page describes our Debian repository and available
 	RabbitMQ Debian packages.
@@ -48,9 +47,5 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
 	</ol>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="debian.html" />
-    
   </body>
 </html>

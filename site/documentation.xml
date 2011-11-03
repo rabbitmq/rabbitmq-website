@@ -8,7 +8,6 @@
     <title>RabbitMQ - Documentation</title>
   </head>
   <body>
-    <doc:div>
       <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
       <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
@@ -159,7 +158,5 @@
           </li>
         </ul>
       </doc:section>
-
-    </doc:div>
   </body>
 </html>

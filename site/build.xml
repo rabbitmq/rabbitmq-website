@@ -33,8 +33,5 @@
       See <a href="build-dotnet-client.html">.Net/C# AMQP client
       library and WCF bindings build instructions</a>.
     </p>
-
-    <x:related-links key="build.html" />
-    
   </body>
 </html>

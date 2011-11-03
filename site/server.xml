@@ -11,7 +11,6 @@
     <title>RabbitMQ - Server Download</title>
   </head>
   <body>
-    <doc:div>
     <h2>RabbitMQ Server</h2>
 
     <p class="intro">
@@ -274,9 +273,5 @@
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
-    </doc:div>
-
-    <x:related-links key="server.html" />
-
   </body>
 </html>

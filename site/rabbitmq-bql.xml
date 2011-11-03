@@ -8,7 +8,6 @@
     <title>RabbitMQ - Broker Query Language Plugin</title>
   </head>
   <body>
-    <doc:div>
       <p class="warning">
         WARNING: the BQL plugin is deprecated and as of RabbitMQ 2.1.1
         will likely not work correctly. This page is retained for
@@ -19,10 +18,6 @@
         a textual, SQL-like query language for interrogating and configuring the broker.
       </p>
       
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="installation">
         <doc:heading>Installation</doc:heading>
         <p>
@@ -751,6 +746,5 @@ $</pre>
            </ul>
         </doc:subsection>
       </doc:section>
-    </doc:div>
   </body>
 </html>

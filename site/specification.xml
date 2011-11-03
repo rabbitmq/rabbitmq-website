@@ -6,12 +6,8 @@
     <title>RabbitMQ - Specification</title>
   </head>
   <body>
-    <doc:div>
       <h2>Compatibility and Conformance</h2>
 
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
       <doc:section name="spec">
   <p>
   The AMQP specification is open and free to all users and implementers.
@@ -2673,9 +2669,5 @@
           the transaction.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="specification.html" />
-
   </body>
 </html>

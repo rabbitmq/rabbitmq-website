@@ -10,7 +10,6 @@
     <title>RabbitMQ - .NET/C# AMQP client library and WCF binding</title>
   </head>
   <body>
-    <doc:div>
     <h2>RabbitMQ .NET/C# AMQP client library and WCF binding</h2>
 
     <p>
@@ -150,6 +149,5 @@ fcb943b5.
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
     </p>
-    </doc:div>
   </body>
 </html>

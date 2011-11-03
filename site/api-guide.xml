@@ -8,7 +8,6 @@
     <title>RabbitMQ - API Guide</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page gives an overview of the RabbitMQ Java client	API. 
       </p>
@@ -20,11 +19,6 @@
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
     <doc:section name="core">
         <doc:heading>Core API Guide</doc:heading>
         <p>
@@ -750,6 +744,5 @@ Object call(String[] args) <b>throws</b> NumberFormatException, IOException, Jso
 	<pre class="sourcecode">rpcProxy.call(<b>&quot;add_user&quot;</b>, <b>new</b> Object[] { <b>&quot;user name&quot;</b>, <b>&quot;password&quot;</b> });</pre>
       </doc:section>
 -->
-    </doc:div>
   </body>
 </html>
