@@ -26,7 +26,7 @@ def main():
                 os.makedirs(out_path)
                 for f in files:
                     handle_file(in_dir,
-                                os.path.join(path, f),
+                                os.path.normpath(os.path.join(path, f)),
                                 os.path.join(out_path, f))
     print ""
 
