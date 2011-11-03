@@ -76,11 +76,7 @@
       </form>
     </div>
     <ul class="mainNav">
-      <li><a href="/download.html">Download</a></li>
-      <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/getstarted.html">Get Started</a></li>
-      <li><a href="/services.html">Services</a></li>
-      <li><a href="/contact.html">Community</a></li>
+      <xsl:call-template name="main-nav"/>
       <li><a href="/blog/">Blog</a></li>
     </ul>
     <div class="nav-separator"/>
@@ -489,13 +485,28 @@
     </xsl:for-each>
   </xsl:template>
 
+  <xsl:template name="main-nav">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="x:pages/x:page">
+        <xsl:variable name="key" select="@key" />
+        <li>
+          <a href="{@key}.html">
+            <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
+              <xsl:attribute name="class">selected</xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="@text"/>
+          </a>
+        </li>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
   <xsl:template name="in-this-section">
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="key('page-key', $page-name)">
         <xsl:variable name="section" select="ancestor::x:page[parent::x:pages]/@key" />
-        <!-- <p>section: <xsl:value-of select="$section"/></p> -->
-        <!-- <p>page-name: <xsl:value-of select="$page-name"/></p> -->
         <xsl:for-each select="key('page-key', $section)">
           <div id="in-this-section">
             <h4>In This Section</h4>

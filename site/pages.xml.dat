@@ -30,6 +30,7 @@
   -->
 
   <!-- TODO obvs this is rather incomplete -->
+   <x:page key="download" text="Download"/>
    <x:page key="documentation" text="Documentation">
      <x:page key="server" text="Server Documentation">
        <x:page key="authentication" text="Authentication"/>
@@ -41,4 +42,7 @@
        <x:page key="api-guide" text="Java Client API Guide"/>
      </x:page>
    </x:page>
+   <x:page key="getstarted" text="Get Started"/>
+   <x:page key="services" text="Services"/>
+   <x:page key="contact" text="Community"/>
 </x:pages>

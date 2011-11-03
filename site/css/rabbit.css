@@ -223,6 +223,10 @@ ul.mainNav {
 	text-decoration: underline;
 }
 
+.mainNav a.selected {
+    color: #444;
+}
+
 hr {
 	clear: both;
 	visibility: hidden;
