@@ -9,7 +9,7 @@
   <head>
     <title>SSL Support</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="intro">
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
         <p>SSL/TLS support in the RabbitMQ server requires

@@ -5,7 +5,7 @@
   <head>
     <title>Compatibility and Conformance</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="spec">
   <p>
   The AMQP specification is open and free to all users and implementers.

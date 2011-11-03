@@ -7,7 +7,7 @@
   <head>
     <title>API Guide</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <p class="intro">
 	This page gives an overview of the RabbitMQ Java client	API. 
       </p>

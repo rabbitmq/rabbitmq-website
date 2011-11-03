@@ -3,7 +3,7 @@
   <head>
     <title>Erlang AMQP Client library</title>
   </head>
-<body>
+<body show-in-this-page="true">
  <p class="intro">
   This is the programmer's guide to the Erlang AMQP client.
  </p>

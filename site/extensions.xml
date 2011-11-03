@@ -11,7 +11,7 @@
       }
     </script>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <p class="intro">
         The RabbitMQ Server implements a number of extensions of the
         <a href="specification.html">AMQP specification</a>, which we
