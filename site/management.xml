@@ -7,11 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Management Plugin</title>
+    <title>Management Plugin</title>
   </head>
   <body>
       <doc:section name="features">
-        <doc:heading>Features</doc:heading>
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along

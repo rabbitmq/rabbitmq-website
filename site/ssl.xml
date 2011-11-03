@@ -7,11 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - SSL</title>
+    <title>SSL Support</title>
   </head>
   <body>
       <doc:section name="intro">
-        <doc:heading>Introduction</doc:heading>
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
         <p>SSL/TLS support in the RabbitMQ server requires
           the <code>new_ssl</code> Erlang/OTP

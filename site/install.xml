@@ -7,7 +7,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Installation Guide</title>
+    <title>Installation Guide</title>
   </head>
   <body>
     <p class="intro">
@@ -17,7 +17,6 @@
     </p>
 
     <doc:section name="introduction">
-      <doc:heading>Introduction</doc:heading>
         <p>
           Each installation requires Erlang, which also provides
           Mnesia (DBMS) and logging support for the brokers.

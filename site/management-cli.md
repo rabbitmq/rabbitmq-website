@@ -1,4 +1,4 @@
-# RabbitMQ Management Command Line Tool NOSYNTAX
+# Management Command Line Tool NOSYNTAX
 
 The [management plugin](/management.html) ships with a command line
 tool **rabbitmqadmin** which can perform the same actions as the

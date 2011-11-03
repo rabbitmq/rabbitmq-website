@@ -3,11 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Specification</title>
+    <title>Compatibility and Conformance</title>
   </head>
   <body>
-      <h2>Compatibility and Conformance</h2>
-
       <doc:section name="spec">
   <p>
   The AMQP specification is open and free to all users and implementers.

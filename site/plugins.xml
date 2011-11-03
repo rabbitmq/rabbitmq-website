@@ -8,11 +8,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Plugins</title>
+    <title>Plugins</title>
   </head>
   <body>
       <doc:section name="overview">
-        <doc:heading>Overview</doc:heading>
         <p>
           RabbitMQ supports a variety of plugins. This page documents
           the plugins that ship with RabbitMQ

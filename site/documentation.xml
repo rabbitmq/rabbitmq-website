@@ -5,10 +5,9 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Documentation</title>
+    <title>Documentation</title>
   </head>
   <body>
-      <h2>Documentation</h2>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
       <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
          messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.

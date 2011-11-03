@@ -6,7 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - How To</title>
+    <title>How To</title>
     <script type="text/javascript">
       // redirect to new page
       if (location.hash == '#clients' || location.hash == '#specific-configs') {
@@ -15,8 +15,6 @@
     </script>
   </head>
   <body>
-    <h2>How To with RabbitMQ</h2>
-
     <p class="intro">The links below highlight some of our favourite content on this site and the
       web that will help you get started with messaging and RabbitMQ. If you are just starting out
       with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started

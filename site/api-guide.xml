@@ -5,7 +5,7 @@
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - API Guide</title>
+    <title>API Guide</title>
   </head>
   <body>
       <p class="intro">
@@ -20,7 +20,6 @@
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
     <doc:section name="core">
-        <doc:heading>Core API Guide</doc:heading>
         <p>
             The client API is closely modelled on the AMQP protocol specification,
             with additional abstractions for ease of use.

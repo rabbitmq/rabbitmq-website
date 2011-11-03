@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Erlang Introduction</title>
+    <title>Erlang Introduction</title>
   </head>
   <body>
       <p class="intro">

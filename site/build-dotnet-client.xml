@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - .Net/C# AMQP Client Library Build Instructions</title>
+    <title>.Net/C# AMQP Client Library Build Instructions</title>
   </head>
   <body>
       <p class="intro">

@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Windows Service Guide</title>
+    <title>Windows Service Guide</title>
   </head>
   <body>
       <p class="intro">
@@ -11,7 +11,6 @@
       </p>
 
       <doc:section name="service-overview">
-	<doc:heading>Service overview</doc:heading>
 	<p>
 	  The server can be run as a Windows service under Microsoft Windows
           NT/2000/2003/XP/Vista&#174;. There is no need for a user to be 

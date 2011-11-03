@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Signatures</title>
+    <title>Signatures</title>
   </head>
   <body>
       <p class="intro">
@@ -13,7 +13,6 @@
       </p>
 
       <doc:section name="signing-process">
-	<doc:heading>Our signing process</doc:heading>
 	<p>
 	  When we build package archive files, both binary and source,
 	  we digitally sign them using <a

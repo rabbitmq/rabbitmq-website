@@ -7,11 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Amazon EC2</title>
+    <title>Amazon EC2</title>
   </head>
   <body>
 <doc:section name="ec2">
-  <doc:heading>RabbitMQ on Amazon EC2</doc:heading>
   <p>
     Using RabbitMQ on EC2 is no more complex than running it on other
     platforms. Although we don't support our own AMI images, we make

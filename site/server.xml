@@ -8,11 +8,9 @@
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Server Download</title>
+    <title>Server Download</title>
   </head>
   <body>
-    <h2>RabbitMQ Server</h2>
-
     <p class="intro">
       Our goal is that you can have a default configuration RabbitMQ server up and running
       within two minutes of completing your download.

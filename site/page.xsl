@@ -29,6 +29,7 @@
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script type="text/javascript" src="/js/site.js"/>
       <script type="text/javascript" src="/js/ga-bootstrap.js"/>
+      <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
@@ -43,6 +44,7 @@
           </xsl:when>
           <xsl:otherwise>
             <div id="left-content">
+              <h2><xsl:value-of select="//html:title"/></h2>
               <xsl:apply-templates/>
             </div>
             <div id="right-nav">
@@ -650,6 +652,8 @@
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
+
+  <xsl:template match="html:title"/>
 
   <xsl:template match="html:*">
     <xsl:element name="{name()}" namespace="{namespace-uri()}">

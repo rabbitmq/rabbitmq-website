@@ -5,11 +5,9 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Frequently Asked Questions</title>
+    <title>Frequently Asked Questions</title>
   </head>
   <body>
-      <h2>Frequently Asked Questions</h2>
-
       <p class="intro">
  See also these other sources of information:
 <ul class="plain">

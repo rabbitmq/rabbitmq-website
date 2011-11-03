@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ - Getting started</title>
+    <title>Getting started</title>
   </head>
   <body suppress-rhs="true">
       <h2>Getting started with RabbitMQ</h2>

@@ -25,7 +25,6 @@
 
   <xsl:template match="x:insert-spec-here">
     <div id="container">
-      <h2>AMQP 0-9-1 &amp; API Quick Reference</h2>
       <p>
         This page provides a guide to RabbitMQ's implementation of AMQP 0-9-1. In addition to the classes
         and methods defined in the <a href="specification.html">AMQP specification</a>, RabbitMQ supports several

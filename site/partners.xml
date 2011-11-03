@@ -1,11 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Partners</title>
+    <title>Partners and Alliances</title>
   </head>
   <body>
-    <h2>Partners and Alliances</h2>
-    
     <p>If your company operates a partner model and feel that we may benefit through 
     working together we would love to hear from you.</p>
     <p>We are developing a RabbitMQ Partner Programme of our own for consultancies and 

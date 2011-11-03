@@ -1,11 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
    <head>
-    <title>RabbitMQ - Delicious links</title>
+    <title>Delicious links</title>
   </head>
   
   <body>
-    <h2>RabbitMQ on Del.icio.us</h2>
      <p>
         Delicious is a social bookmarking web service for storing, sharing, and discovering web bookmarks. We've been collecting 
 	RabbitMQ related links for a few years now (and putting some of the <a href="how.html">highlights here</a>) and they are

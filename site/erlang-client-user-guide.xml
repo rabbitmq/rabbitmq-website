@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Erlang AMQP Client library</title>
+    <title>Erlang AMQP Client library</title>
   </head>
 <body>
  <p class="intro">
@@ -9,7 +9,6 @@
  </p>
 
  <doc:section name="introduction">
-   <doc:heading>Introduction</doc:heading>
    <p>
      The AMQP client provides an Erlang interface to compliant AMQP
      brokers. The client follows the AMQP execution model and

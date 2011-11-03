@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Debian APT Repository</title>
+    <title>Debian APT Repository</title>
   </head>
   <body>
       <p class="intro">
@@ -12,8 +12,6 @@
       </p>
 
       <doc:section name="apt">
-	<doc:heading>Debian APT repository</doc:heading>
-
 	<p>
 	  To make use of our APT repository,
 	</p>

@@ -1,10 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Commercial Services</title>
+    <title>Commercial Services</title>
   </head>
   <body>
-    <h2>Services</h2>
     <p class="intro">
       RabbitMQ is commercially supported by SpringSource professional services, which includes
       the expertise of RabbitMQ's core team and principal contributors.

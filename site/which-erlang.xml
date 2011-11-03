@@ -3,10 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Erlang Versions</title>
+    <title>Erlang Versions</title>
   </head>
   <body>
-    <h2>Erlang Versions</h2>
     <h3>Which Version of Erlang?</h3>
     <p>
       In general, use the <a href="http://www.erlang.org/download.html">latest available</a>

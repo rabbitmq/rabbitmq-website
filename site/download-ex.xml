@@ -1,11 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>RabbitMQ - Experimental Downloads</title>
+    <title>Experimental Downloads</title>
   </head>
   <body>
-    <h2>Experimental Code</h2>
-
     <p class="intro">
       We make some experimental code available to download as snapshots and <a href="mercurial.html">mercurial</a> repositories. This
       code is not officially supported but if you have comments or feedback please do <a href="contact.html">contact us</a>.

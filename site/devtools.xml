@@ -6,10 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Clients &amp; Developer Tools</title>
+    <title>Clients &amp; Developer Tools</title>
   </head>
   <body show-in-this-page="true">
-      <h2 id="top">Clients &amp; Developer Tools</h2>
       <p>
         RabbitMQ is <a href="platforms.html">officially supported</a> on a number of
         operating systems and several languages. In addition, the RabbitMQ community

@@ -7,11 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Configuration</title>
+    <title>Configuration</title>
   </head>
   <body show-in-this-page="true">
       <doc:section name="introduction">
-      <doc:heading>Introduction</doc:heading>
       <p>
       RabbitMQ comes with default built-in settings which will most likely be
       sufficient for running your RabbitMQ server effectively. If it runs fine,
