@@ -107,20 +107,6 @@
           <xsl:for-each select="//doc:section[@name]">
             <li>
               <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-              <xsl:if test=".//doc:subsection[@name]">
-                <ul>
-                  <xsl:for-each select=".//doc:subsection[@name]">
-                    <li>
-                      <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-                      <ul>
-                        <xsl:for-each select=".//doc:subsubsection[@name]">
-                          <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-                        </xsl:for-each>
-                      </ul>
-                    </li>
-                  </xsl:for-each>
-                </ul>
-              </xsl:if>
             </li>
           </xsl:for-each>
         </ul>

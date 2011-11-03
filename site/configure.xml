@@ -33,7 +33,7 @@
       defaults.
       </p>
 
-      <doc:subsection>
+      <doc:subsection name="verify-configuration">
       <doc:heading>Verify Configuration</doc:heading>
          <p>
              The active configuration can be verified in the startup banner, e.g. the active configuration file:
@@ -53,7 +53,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
 
       <doc:section name="customise-environment">
       <doc:heading>Customise RabbitMQ Environment</doc:heading>
-        <doc:subsection>
+        <doc:subsection name="customise-general-unix-environment">
         <doc:heading>Unix (general)</doc:heading>
           <p>
               On Unix-based systems (including Linux, MacOSX) you can create/edit
@@ -75,7 +75,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="customise-windows-environment">
         <doc:heading>Windows</doc:heading>
             <p>
                If you need to customise names, ports, locations, it is easiest
@@ -208,7 +208,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 
       <doc:section name="configuration-file">
       <doc:heading>Configuration File</doc:heading>
-        <doc:subsection>
+        <doc:subsection name="config-file">
         <doc:heading>The rabbitmq.config File</doc:heading>
         <p>
           The configuration file <code>rabbitmq.config</code>
@@ -241,7 +241,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="config-location">
         <doc:heading>Location of rabbitmq.config and rabbitmq-env.conf</doc:heading>
         <p>
           The location of these files is distribution-specific. By default, they
@@ -270,7 +270,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         </doc:subsection>
 
-        <doc:subsection>
+        <doc:subsection name="config-items">
         <doc:heading>Variables Configurable in rabbitmq.config</doc:heading>
         <p>
           Many users of RabbitMQ never need to change any of these

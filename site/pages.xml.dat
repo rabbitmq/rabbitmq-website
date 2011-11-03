@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <!--
+      TODO rewrite
 
       ~~~ Using this file ~~~
       The purpose of this file is to provide a central record of
