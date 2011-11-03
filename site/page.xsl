@@ -38,14 +38,21 @@
       <div id="outerContainer">
         <xsl:call-template name="page-header"/>
         <div id="innerContainer">
-          <div id="left-content">
-            <xsl:apply-templates/>
-          </div>
-          <div id="right-nav">
-            <xsl:call-template name="in-this-section"/>
-            <xsl:call-template name="in-this-page"/>
-            <xsl:call-template name="related-links"/>
-          </div>
+          <xsl:choose>
+            <xsl:when test="//html:body[@suppress-rhs]">
+              <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:otherwise>
+              <div id="left-content">
+                <xsl:apply-templates/>
+              </div>
+              <div id="right-nav">
+                <xsl:call-template name="in-this-section"/>
+                <xsl:call-template name="in-this-page"/>
+                <xsl:call-template name="related-links"/>
+              </div>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
         <xsl:call-template name="page-footer"/>
       </div>

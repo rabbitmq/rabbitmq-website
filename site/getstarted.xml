@@ -5,7 +5,7 @@
   <head>
     <title>RabbitMQ - Getting started</title>
   </head>
-  <body>
+  <body suppress-rhs="true">
       <h2>Getting started with RabbitMQ</h2>
       <p>
         These tutorials cover the basics of creating messaging

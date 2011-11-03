@@ -3,7 +3,7 @@
   <head>
     <title>RabbitMQ - Messaging that just works</title>
   </head>
-  <body>
+  <body suppress-rhs="true">
     <div class="rgt-third">
 
     <p class="rgt button">
