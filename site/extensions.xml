@@ -589,6 +589,19 @@ channel.basicConsume(queue, consumer);</pre>
           notifications.
         </p>
       </doc:section>
+      <doc:section name="ha">
+        <doc:heading>High Availability (Mirrored) Queues</doc:heading>
+        <p>
+          We have developed active/active high availability for queues
+          that allows queues to be mirrored across multiple nodes in a
+          RabbitMQ <a href="clustering.html">cluster</a>.
+        </p>
+        <p>
+          Please see the <a href="ha.html">technical documentation</a> and
+          the <a href="blog/2011/10/25/high-availability-in-rabbitmq-solving-part-of-the-puzzle/">blog post</a>
+          that accompanied the release.
+        </p>
+      </doc:section>
       <doc:section name="undeprecation">
         <doc:heading>Undeprecated features</doc:heading>
         <p>

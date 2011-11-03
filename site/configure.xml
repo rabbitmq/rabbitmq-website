@@ -360,10 +360,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>default_user_is_admin</code></td>
-            <td><code>true</code></td>
+            <td><code>default_user_tags</code></td>
+            <td><code>[administrator]</code></td>
             <td>
-              Whether to make the default user an administrator.
+              Tags for the default user.
             </td>
           </tr>
           <tr>

@@ -55,13 +55,13 @@
         We also maintain a list
         of <a href="how.html#quickstart">tutorials</a> and a list
         of <a href="devtools.html">clients and developer tools</a> for
-        a different platforms that you may find useful.
+        a range of platforms, which you may find useful.
       </p>
       <h3>Further reading</h3>
       <p>
         Once you have been through the tutorials (or if you want to
-        skip ahead), you may wish to read more about
-        <a href="/tutorials/amqp-concepts.html">AMQP Concepts</a>
+        skip ahead), you may wish to read an
+        <a href="tutorials/amqp-concepts.html">Introduction to AMQP Concepts</a>
         and browse our
         <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>.
       </p>
