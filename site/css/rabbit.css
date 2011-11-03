@@ -42,7 +42,7 @@ a:active, a:hover {
 
 h1, h2, h3  {
 	font-family: Helvetica, Arial, sans-serif;
-	margin: 0 0 0.5em 0;
+	margin: 20px 0 0.5em 0;
 	padding: 0;
 }
 
@@ -242,7 +242,6 @@ div.nav-separator {
 	border-bottom: none;
 	border-left: none;
 	border-right: none;
-	margin: 0px 0px 21px 0px;
 	padding: 0px;
 }
 .compact li {
@@ -543,7 +542,7 @@ ul.twoColumnLeft {
 
 div#left-content { float: left; width: 720px; }
 
-div#right-nav { float: right; width: 220px; }
+div#right-nav { float: right; width: 220px; margin-top: 20px; }
 div#right-nav div { margin: 0 5px 20px 5px; }
 div#right-nav h4 { margin: 0; padding: 5px; background: #eee; }
 div#right-nav li { padding: 6px 0 0 10px; }
