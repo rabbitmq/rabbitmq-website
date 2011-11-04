@@ -59,16 +59,6 @@
     </body>
   </xsl:template>
 
-  <xsl:template match="html:table">
-    <table>
-      <xsl:copy-of select="@*"/>
-      <xsl:attribute name="border">0</xsl:attribute>
-      <xsl:attribute name="cellpadding">0</xsl:attribute>
-      <xsl:attribute name="cellspacing">0</xsl:attribute>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
   <xsl:template name="page-header">
     <h1>
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>

@@ -17,6 +17,10 @@ body {
 	text-align: center;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 div#outerContainer {
 	text-align: left;
 	clear: both;
