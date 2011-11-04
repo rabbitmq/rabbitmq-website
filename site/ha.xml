@@ -332,10 +332,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         <p>
           The client libraries distributed by RabbitMQ do not deal
           with a master node failure in a transparent manner. However
-          it is possible to implement with relative ease a producer
-          and consumer that transition between pre-determined
-          cluster nodes in a seamless way using the client
-          libraries. The recommended method is to pre-configure
+          it is possible to implement a producer and consumer that
+          transition between pre-determined cluster nodes using the
+          client libraries. The recommended method is to pre-configure
           producers and consumers with the set of all nodes in a
           cluster, assuming the set of all nodes that may join the
           cluster remains static. Clients should then reconnect
