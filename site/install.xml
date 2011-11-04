@@ -519,7 +519,7 @@
             </p>
             <p>
               Alternatively, install
-              <code>rabbitmq-server-&version-server;-<em>architecture</em>.rpm</code>
+              <code>rabbitmq-server-&version-server;-noarch.rpm</code>
               (which you can download from the
               <a href="server.html">download page</a>).
               We recommend using your distribution's packaged
