@@ -548,3 +548,7 @@ div#right-nav h4 { margin: 0; padding: 5px; background: #eee; }
 div#right-nav li { padding: 6px 0 0 10px; }
 div#right-nav a { font-weight: normal; }
 div#right-nav a.selected { font-weight: bold; }
+
+/* landing box */
+
+.landing-box { background: #ffebde; border-radius: 20px; padding: 1px 20px 10px 20px; margin-bottom: 30px; -moz-border-radius: 20px; }

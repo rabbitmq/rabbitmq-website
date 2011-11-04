@@ -17,59 +17,65 @@
       <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
     </p>
 
-    <h3>RabbitMQ Server</h3>
-    <p>The latest release is &version-server;. 
-    Get it from the <a href="server.html">server download page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
-      you want to download a version of the server other than
-      the above. Consult the <a href="changelog.html">changelog</a> to
-      find out what you'll be missing.
-    </p>
+    <div class="landing-box">
+      <h2>RabbitMQ Server</h2>
+      <p>The latest release is &version-server;.
+        Get it from the <a href="server.html">server download page</a>.</p>
+      <p>
+        Consult <a href="/releases/rabbitmq-server/">the archive</a> if
+        you want to download a version of the server other than
+        the above. Consult the <a href="changelog.html">changelog</a> to
+        find out what you'll be missing.
+      </p>
 
-    <h3>RabbitMQ Java Client</h3>
-    <p>The latest release is &version-java-client;. Get it from
-      the <a href="java-client.html">Java client download
-      page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-java-client/">the
-      archive</a> if you want to download a version of the
-      Java client library other than the above.
-    </p>
+      <p>
+        We make plugins available for download as binary packages, snapshots and
+        <a href="mercurial.html">mercurial</a> repositories. See the <a href="plugins.html">plugins page</a>
+        for more information on using our plugins.
+      </p>
+    </div>
 
-    <h3>RabbitMQ .NET/C# Client and WCF Binding</h3>
-    <p>The latest release is &version-dotnet-client;. Get it from
-      the <a href="dotnet.html">.NET/C# client download page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-dotnet-client/">the
-      archive</a> if you want to download a version of the RabbitMQ
-      .NET/C# client library other than the above.
-    </p>
+    <div class="landing-box">
+      <h2>Java client</h2>
+      <p>The latest release is &version-java-client;. Get it from
+        the <a href="java-client.html">Java client download
+          page</a>.</p>
+      <p>
+        Consult <a href="/releases/rabbitmq-java-client/">the
+          archive</a> if you want to download a version of the
+        Java client library other than the above.
+      </p>
+    </div>
+
+    <div class="landing-box">
+      <h2>.NET/C# client</h2>
+      <p>The latest release is &version-dotnet-client;. Get it from
+        the <a href="dotnet.html">.NET/C# client download page</a>.</p>
+      <p>
+        Consult <a href="/releases/rabbitmq-dotnet-client/">the
+          archive</a> if you want to download a version of the RabbitMQ
+        .NET/C# client library other than the above.
+      </p>
+    </div>
+
+    <div class="landing-box">
+      <h2>Clients for other languages</h2>
+      <p>
+        The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
+      </p>
+    </div>
+
 
     <hr class="pad" />
     <h2>Additional Components</h2>
-
-    <h3 id="plugins">RabbitMQ Plugins</h3>
-
-    <p>
-      We make plugins available for download as binary packages, snapshots and
-      <a href="mercurial.html">mercurial</a> repositories. See the <a href="plugins.html">plugins page</a>
-      for more information on using our plugins.
-    </p>
 
     <h3 id="experimental">Experimental Downloads</h3>
 
     <p>
       Some <a href="download-ex.html">experimental downloads</a> are available.
     </p>
-    
-    <h3 id="devtools">Community-Contributed Code</h3>
 
-    <p>
-      The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
-      a variety of platforms and languages.
-    </p>
-    
     <hr class="pad" />
     <h2>Support</h2>
     <p>
