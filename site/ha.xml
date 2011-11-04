@@ -328,38 +328,21 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </p>
       </doc:section>
       <doc:section name="peer-perspective">
-        <doc:heading>Using mirrored queues</doc:heading>
+        <doc:heading>Handling node failure in clients</doc:heading>
         <p>
           The client libraries distributed by RabbitMQ do not deal
-          with a master node failure in a transparent manner, and
-          no simple way of determining the remaining nodes of the
-          cluster is provided. However it is possible to implement
-          with relative ease a producer and consumer that transition
-          between pre-determined cluster nodes in a seamless way
-          using the client libraries. The recommended method is to
-          pre-configure producers and consumers with the set of all
-          nodes in a cluster, assuming the set of all nodes that
-          may join the cluster remains static. Peers then reconnect
+          with a master node failure in a transparent manner. However
+          it is possible to implement with relative ease a producer
+          and consumer that transition between pre-determined
+          cluster nodes in a seamless way using the client
+          libraries. The recommended method is to pre-configure
+          producers and consumers with the set of all nodes in a
+          cluster, assuming the set of all nodes that may join the
+          cluster remains static. Clients should then reconnect
           to a different node when the connection to the current
           node drops, or upon receipt of <code>basic.cancel</code>
           by consumers that support it.
         </p>
-        <p>
-          From the perspective of a consumer this assumes an
-          <code>x-ha-policy</code> set to <code>all</code>.
-          Consumers must be able to deal with the potential loss
-          of messages in case no other synchronised queues existed
-          at the time of failure. Consumers must also be able to
-          deal with potential duplicate messages which may always occur
-          as result of network interruptions, regardless of
-          mirrored queues or high availability.
-        </p>
-          It is possible to make use of a load-balancer in front of
-          producers to perform the duties of connection maintenance
-          and round-robin reconnection, but in practice the greater
-          flexibility afforded by a software solution is often
-          preferable.
-        <p>
       </doc:section>
     </doc:div>
   </body>
