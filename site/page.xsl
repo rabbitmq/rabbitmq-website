@@ -499,7 +499,7 @@
       <xsl:for-each select="x:pages/x:page">
         <xsl:variable name="key" select="@key" />
         <li>
-          <a href="{@key}.html">
+          <a href="/{@key}.html">
             <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
               <xsl:attribute name="class">selected</xsl:attribute>
             </xsl:if>
@@ -532,7 +532,7 @@
       <xsl:variable name="key" select="@key" />
       <xsl:choose>
         <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
-          <a href="{@key}.html" class="selected">
+          <a href="/{@key}.html" class="selected">
             <xsl:value-of select="@text"/>
           </a>
           <xsl:if test="x:page">
@@ -550,7 +550,7 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="x:pages/x:page">
-        <h3><a href="{@key}.html"><xsl:value-of select="@text"/></a></h3>
+        <h3><a href="/{@key}.html"><xsl:value-of select="@text"/></a></h3>
         <ul>
           <xsl:apply-templates mode="sitemap" />
         </ul>
@@ -561,7 +561,7 @@
   <xsl:template match="x:page" mode="sitemap">
     <li>
       <xsl:variable name="key" select="@key" />
-      <a href="{@key}.html"><xsl:value-of select="@text"/></a>
+      <a href="/{@key}.html"><xsl:value-of select="@text"/></a>
       <xsl:if test="x:page">
         <ul><xsl:apply-templates mode="sitemap" /></ul>
       </xsl:if>
@@ -572,7 +572,7 @@
     <!-- TODO fix the title lookup here. Or strip it out. -->
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
-      <a href="{@url}.html">
+      <a href="/{@url}.html">
         <xsl:variable name="default-title">
           <xsl:if test="not($page/@text) or not($page/@tooltip)">
             <xsl:call-template name="lookup-title">
