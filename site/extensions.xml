@@ -7,7 +7,7 @@
     <script type="text/javascript">
       // Added 2011-09-13, should only live a few months at most.
       if (location.hash == '#memsup') {
-      location.href = location.href.substring(0, location.href.indexOf('extensions.html#')) + 'admin-guide.html#memsup';
+      location.href = location.href.substring(0, location.href.indexOf('extensions.html#')) + 'memory.html';
       }
     </script>
   </head>

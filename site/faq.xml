@@ -866,7 +866,7 @@
           <p>
             We would be surprised if it's possible to push messages into RabbitMQ that
             are greater than 1/4 of the installed RAM. RabbitMQ tries to avoid using
-            swap wherever possible and uses a configurable parameter to set a <a href="http://www.rabbitmq.com/admin-guide.html#memsup">memory
+            swap wherever possible and uses a configurable parameter to set a <a href="memory.html">memory
             threshold above which producers are throttled</a>.
           </p>
           <p>
@@ -1139,7 +1139,7 @@
           events. Administration and management exchanges are provided for tools to bind to.
           </p>
           <p>
-          Various management and monitoring tools are <a href="/admin-guide.html#management">available
+          Various management and monitoring tools are <a href="management.html">available
           from RabbitMQ</a> and <a href="how.html#management">the community</a>.
           Information about logging output can be found in the <a href="/install.html">install guide</a>.
           </p>

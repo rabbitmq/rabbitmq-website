@@ -139,7 +139,7 @@
         <doc:heading>Permissions</doc:heading>
         <p>
           The management plugin extends the
-          existing <a href="admin-guide.html#access-control">permissions
+          existing <a href="access-control.html">permissions
           model</a> somewhat. Users can be given arbitrary tags within
           RabbitMQ. The management plugin makes use of tags called
           "management", "monitoring" and "administrator". The following

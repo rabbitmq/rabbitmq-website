@@ -196,7 +196,7 @@
       <doc:heading>Management and Monitoring</doc:heading>
       <p>
         Management and monitoring capabilities are provided
-        by <a href="admin-guide.html#management">rabbitmqctl</a>
+        by <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>
         and <a href="management.html">the management plugin</a>.
       </p>
       <p>
