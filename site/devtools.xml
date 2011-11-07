@@ -443,7 +443,7 @@
             <doc:heading>C / C++</doc:heading>
             <ul class="plain">
               <li>
-                Experimental <a href="download-ex.html#rabbitmq-c">RabbitMQ-C</a> client
+                Experimental <a href="c-client.html">RabbitMQ-C</a> client
               </li>
               <li>
                 You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a>

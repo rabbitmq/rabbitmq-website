@@ -59,27 +59,25 @@
     </div>
 
     <div class="landing-box">
+      <h2>Erlang and C clients</h2>
+      <p>
+        We also offer clients for Erlang and C. These do not form part
+        of any release.
+      </p>
+      <p>
+        <a href="erlang-client-user-guide.html">Details on the Erlang Client.</a>
+      </p>
+      <p>
+        <a href="c-client.html">Details on the C Client.</a>
+      </p>
+    </div>
+
+    <div class="landing-box">
       <h2>Clients for other languages</h2>
       <p>
         The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
         a variety of platforms and languages.
       </p>
     </div>
-
-
-    <hr class="pad" />
-    <h2>Additional Components</h2>
-
-    <h3 id="experimental">Experimental Downloads</h3>
-
-    <p>
-      Some <a href="download-ex.html">experimental downloads</a> are available.
-    </p>
-
-    <hr class="pad" />
-    <h2>Support</h2>
-    <p>
-      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
-    </p>
   </body>
 </html>

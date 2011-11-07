@@ -34,7 +34,8 @@
      <x:page key="server" text="Server Downloads"/>
      <x:page key="java-client" text="Java Client Downloads"/>
      <x:page key="dotnet" text=".NET Client Downloads"/>
-     <x:page key="download-ex" text="Experimental Downloads"/>
+     <x:related url="erlang-client-user-guide"/>
+     <x:related url="c-client"/>
    </x:page>
    <x:page key="documentation" text="Documentation">
      <x:page key="install" text="Server Documentation">

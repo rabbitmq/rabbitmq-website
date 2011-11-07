@@ -1,16 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>Experimental Downloads</title>
+    <title>C Client</title>
   </head>
   <body>
-    <p class="intro">
-      We make some experimental code available to download as snapshots and <a href="mercurial.html">mercurial</a> repositories. This
-      code is not officially supported but if you have comments or feedback please do <a href="contact.html">contact us</a>.
-    </p>
-
-    <h3 id="rabbit-c">rabbitmq-c</h3>
-
     <p>
       An experimental C-language AMQP client. See <a
       href="http://hg.rabbitmq.com/rabbitmq-c/file/default/README">the
