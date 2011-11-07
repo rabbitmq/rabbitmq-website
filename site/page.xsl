@@ -44,7 +44,7 @@
           </xsl:when>
           <xsl:otherwise>
             <div id="left-content">
-              <h2><xsl:value-of select="//html:title"/></h2>
+              <h1><xsl:value-of select="//html:title"/></h1>
               <xsl:apply-templates/>
             </div>
             <div id="right-nav">
@@ -60,9 +60,9 @@
   </xsl:template>
 
   <xsl:template name="page-header">
-    <h1>
+    <div id="rabbit-logo">
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
-    </h1>
+    </div>
     <div class="s2-logo">
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>

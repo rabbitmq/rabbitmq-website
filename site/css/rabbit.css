@@ -50,8 +50,7 @@ h1, h2, h3  {
 	padding: 0;
 }
 
-h1 {
-	color: #f60;
+#rabbit-logo {
 	margin: 10px 0 0 0;
 	float: left;
 	height: 42px;
@@ -107,10 +106,10 @@ h2 a {
 	color: #f60;
       }
 
-h2 {
-	color: #f60;
-	font-size: 1.7em;
-	}
+h1, h2 {
+    color: #f60;
+    font-size: 1.7em;
+}
 
 h3 {
 	color: #f60;
