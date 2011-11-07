@@ -150,29 +150,7 @@ ol.plain li {
 .col li {
 	border-bottom: #e4e4e4 1px solid;
 }
-ul.partners li {
-	list-style-type : none;
-	padding-left: 300px;
-	background: none;
-}
-li#canonical {
-	background: url(../img/canonical.png) no-repeat 1px 22px;
-}
-li#microsoft {
-	background: url(../img/microsoft.png) no-repeat 1px 22px;
-}
-li#vmware {
-	background: url(../img/vmware-small.png) no-repeat 1px 22px;
-}
-li#kaazing {
-	background: url(../img/kaazing.png) no-repeat 1px 22px;
-}
-li#novell {
-	background: url(../img/novell.png) no-repeat 1px 22px;
-}
-li#terracotta {
-	background: url(../img/terracotta.png) no-repeat 1px 22px;
-}
+
 p {
 	clear:left;
 	}
