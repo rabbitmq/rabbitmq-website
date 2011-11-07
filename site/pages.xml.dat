@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <!--
       TODO rewrite
@@ -30,34 +34,39 @@
   -->
 
   <!-- TODO obvs this is rather incomplete -->
-   <x:page key="download" text="Download">
-     <x:page key="server" text="Server Downloads"/>
-     <x:page key="java-client" text="Java Client Downloads"/>
-     <x:page key="dotnet" text=".NET Client Downloads"/>
-     <x:related url="erlang-client-user-guide"/>
-     <x:related url="c-client"/>
+   <x:page key="download.html" text="Download">
+     <x:page key="server.html" text="Server Downloads"/>
+     <x:page key="java-client.html" text="Java Client Downloads"/>
+     <x:page key="dotnet.html" text=".NET Client Downloads"/>
+     <x:related url="erlang-client-user-guide.html"/>
+     <x:related url="c-client.html"/>
    </x:page>
-   <x:page key="documentation" text="Documentation">
-     <x:page key="admin-guide" text="Server Documentation">
-       <x:page key="configure" text="Configuration"/>
-       <x:page key="ssl" text="SSL Support"/>
-       <x:page key="clustering" text="Clustering"/>
-       <x:page key="ha" text="High Availability"/>
-       <x:page key="pacemaker" text="High Availability (pacemaker)"/>
-       <x:page key="access-control" text="Access Control"/>
-       <x:page key="authentication" text="SASL Authentication"/>
-       <x:page key="memory" text="Memory Management"/>
-       <x:page key="firehose" text="Firehose / Tracing"/>
-       <x:page key="manpages" text="Manual Pages"/>
-       <x:related url="management"/>
-       <x:related url="extensions"/>
-       <x:related url="changelog"/>
+   <x:page key="documentation.html" text="Documentation">
+     <x:page key="admin-guide.html" text="Server Documentation">
+       <x:page key="configure.html" text="Configuration"/>
+       <x:page key="ssl.html" text="SSL Support"/>
+       <x:page key="clustering.html" text="Clustering"/>
+       <x:page key="ha.html" text="High Availability"/>
+       <x:page key="pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page key="access-control.html" text="Access Control"/>
+       <x:page key="authentication.html" text="SASL Authentication"/>
+       <x:page key="memory.html" text="Memory Management"/>
+       <x:page key="firehose.html" text="Firehose / Tracing"/>
+       <x:page key="manpages.html" text="Manual Pages"/>
+       <x:related url="management.html"/>
+       <x:related url="extensions.html"/>
+       <x:related url="changelog.html"/>
      </x:page>
-     <x:page key="clients" text="Client Documentation">
-       <x:page key="api-guide" text="Java Client API Guide"/>
+     <x:page key="clients.html" text="Client Documentation">
+       <x:page key="api-guide.html" text="Java Client Guide"/>
+       <x:page key="&dir-current-javadoc;/index.html" text="Java Client javadoc"/>
+       <x:page key="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".Net API Guide (PDF)"/>
+       <x:page key="&dir-current-dotnet-apidoc;/index.html" text=".Net API Guide (generated)"/>
+       <x:page key="erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page key="uri-spec.html" text="AMQP URI Spec"/>
      </x:page>
    </x:page>
-   <x:page key="getstarted" text="Get Started"/>
-   <x:page key="services" text="Services"/>
-   <x:page key="contact" text="Community"/>
+   <x:page key="getstarted.html" text="Get Started"/>
+   <x:page key="services.html" text="Services"/>
+   <x:page key="contact.html" text="Community"/>
 </x:pages>

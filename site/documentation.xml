@@ -15,7 +15,7 @@
       <div class="landing-box">
         <h2>Get Started</h2>
         <p>
-          See the '<a href="getstarted.html">Get Started</a>' page
+          See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
           messaging, the AMQP model and RabbitMQ.
         </p>
@@ -38,31 +38,23 @@
         </ul>
       </div>
 
-    <h2>Everything below this has not yet been converted</h2>
-
-      <doc:section name="client">
-        <doc:heading>Clients</doc:heading>
+      <div class="landing-box">
+        <h2>Client Documentation</h2>
         <ul>
           <li>
-            <a href="api-guide.html">Java Client API Guide</a>
+            Quick links:
+            <a href="api-guide.html">Java Guide</a> |
+            <a href="&dir-current-javadoc;">Javadoc</a> |
+            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Guide</a> |
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET API (generated)</a>
           </li>
           <li>
-            <a href="&dir-current-javadoc;">Javadoc documentation</a>
-          </li>
-          <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
-          </li>
-          <li>
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation</a>
-          </li>
-          <li>
-            <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-wcf-service-model.pdf">Guide to the WCF binding and Service Model</a>
-          </li>
-          <li>
-            See also these <a href="devtools.html">developer tools</a> for community-contributed code.
+            View all <a href="clients.html">client documentation</a>.
           </li>
         </ul>
-      </doc:section>
+      </div>
+
+    <h2>Everything below this has not yet been converted</h2>
 
       <doc:section name="amqp">
         <doc:heading>AMQP</doc:heading>

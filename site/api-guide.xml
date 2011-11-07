@@ -5,7 +5,7 @@
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>API Guide</title>
+    <title>Java Client API Guide</title>
   </head>
   <body show-in-this-page="true">
       <p class="intro">
