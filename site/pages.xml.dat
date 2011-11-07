@@ -65,8 +65,29 @@
        <x:page key="erlang-client-user-guide.html" text="Erlang Client Guide"/>
        <x:page key="uri-spec.html" text="AMQP URI Spec"/>
      </x:page>
+     <x:page key="plugins.html" text="Plugins">
+       <x:page key="management.html" text="Management plugin">
+         <x:page key="management-cli.html" text="Management CLI"/>
+       </x:page>
+       <x:page key="stomp.html" text="STOMP plugin"/>
+       <x:page key="plugin-development.html" text="Plugin development"/>
+     </x:page>
+     <x:page key="protocol.html" text="Protocol">
+       <x:page key="extensions.html" text="Our Extensions"/>
+       <x:page key="specification.html" text="Compatibility"/>
+       <x:page key="interoperability.html" text="Interoperability"/>
+
+       <x:page key="amqp-0-9-1-quickref.html" text="Quick Reference"/>
+       <x:page key="amqp-0-9-1-reference.html" text="Full Reference"/>
+       <x:page key="amqp-0-9-1-errata.html" text="Errata"/>
+       <x:page key="amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:related url="tutorials/amqp-concepts.html"/>
+     </x:page>
    </x:page>
    <x:page key="getstarted.html" text="Get Started"/>
    <x:page key="services.html" text="Services"/>
    <x:page key="contact.html" text="Community"/>
 </x:pages>
+
+<!-- TODO related links should be able to be non-HTML -->
+<!-- TODO all links should be able to be non-www.rabbitmq.com -->

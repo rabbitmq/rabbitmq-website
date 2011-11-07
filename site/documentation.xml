@@ -54,35 +54,37 @@
         </ul>
       </div>
 
+      <div class="landing-box">
+        <h2>Plugins</h2>
+        <ul>
+          <li>
+            Quick links:
+            <a href="management.html">rabbitmq-management</a> |
+            <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">rabbitmq-federation</a> |
+            <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> |
+            <a href="stomp.html">rabbitmq-stomp</a>
+
+          </li>
+          <li>
+            View all <a href="plugins.html">plugins</a>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="landing-box">
+        <h2>Other Documentation</h2>
+        <ul>
+          <li>
+            AMQP 0-9-1: <a href="extensions.html">Extensions</a> |
+            <a href="amqp-0-9-1-quickref.html">Quick Reference</a>
+          </li>
+          <li>
+            View all <a href="protocol.html">protocol documentation</a>.
+          </li>
+        </ul>
+      </div>
+
     <h2>Everything below this has not yet been converted</h2>
-
-      <doc:section name="amqp">
-        <doc:heading>AMQP</doc:heading>
-        <ul>
-          <li><a href="tutorials/amqp-concepts.html">Introduction to the AMQP 0-9-1 Model</a></li>
-          <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
-          <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
-          <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
-          <li><a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata</a></li>
-        </ul>
-      </doc:section>
-
-      <doc:section name="plugins">
-        <doc:heading>Plugins</doc:heading>
-        <ul>
-          <li><a href="plugins.html">Plugins Page</a></li>
-          <li><a href="admin-guide.html#plugins">Plugin Installation Guide</a></li>
-          <li><a href="plugin-development.html">Plugin Development Guide</a></li>
-          <li>Specific Plugin Pages:</li>
-          <ul class="plain">
-                    <li><a href="erlang-client-user-guide.html">rabbitmq-erlang-client</a> - RabbitMQ's Erlang Client</li>
-                  <li><a href="management.html">rabbitmq-management</a> - Management plugin provides a web interface, <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">HTTP API</a> and <a href="/management-cli.html">command line tool</a> for managing and monitoring RabbitMQ.</li>
-                  <li><a href="http://hg.rabbitmq.com/rabbitmq-jsonrpc-channel/file/&version-server-hg;/README">rabbitmq-jsonrpc-channel</a> - AMQP-over-HTTP protocol binding</li>
-                  <li><a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> - Allows chaining of brokers</li>
-                <li><a href="stomp.html">rabbitmq-stomp</a> - Exposes AMQP functionality via a STOMP gateway</li>
-          </ul>
-        </ul>
-      </doc:section>
 
       <doc:section name="cloud">
             <doc:heading>Cloud Configurations</doc:heading>
@@ -115,21 +117,6 @@
           <li>
             Instructions for <a href="build.html">building</a> the
             RabbitMQ server and client libraries from source
-          </li>
-          <li>
-            How to use <a href="ssl.html">SSL with RabbitMQ</a>
-          </li>
-          <li>
-            How to configure <a href="authentication.html">authentication with RabbitMQ</a>
-          </li>
-          <li>
-            How to <a href="firehose.html">trace all published and delivered messages</a>.
-          </li>
-          <li>
-            <a href="interoperability.html">Interoperability</a> with
-            other implementations of AMQP (including the <a
-            href="interoperability.html#qpid-python-tests">results</a> of
-            running some of Qpid's tests against the RabbitMQ broker)
           </li>
           <li>
             Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use

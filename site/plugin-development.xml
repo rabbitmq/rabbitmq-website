@@ -10,7 +10,7 @@
   <head>
     <title>Plugin Development Guide</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <p class="intro">
         This is the RabbitMQ Server Plugin Development Guide. It is expected that
         before reading this guide, the reader has a basic understanding of the RabbitMQ
@@ -256,12 +256,6 @@ $ cd ..</pre>
             <pre class="sourcecode">$ make dist</pre>
           </li>
         </ul>
-      </doc:section>
-      <doc:section name="external-resources">
-        <doc:heading>External Resources</doc:heading>
-        <p>
-          There are a number of <a href="how.html#going-further">links on the How To page</a> that demonstrate plugin development.
-        </p>
       </doc:section>
   </body>
 </html>
