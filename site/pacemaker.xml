@@ -6,6 +6,12 @@
     <title>High availability with Pacemaker and DRBD</title>
   </head>
   <body>
+    <p class="warning">
+      This page documents a legacy technique for achieving
+      active-passive high availability with
+      RabbitMQ. <a href="ha.html">Active-active mirrored queues</a>
+      are easier to use and do not impose a delay at failover.
+    </p>
       <doc:section name="introduction">
         <p>There are many forms of high availability, replication and
         resilience in the face of various different types of

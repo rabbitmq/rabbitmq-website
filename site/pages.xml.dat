@@ -38,11 +38,16 @@
      <x:related url="c-client"/>
    </x:page>
    <x:page key="documentation" text="Documentation">
-     <x:page key="install" text="Server Documentation">
-       <x:page key="authentication" text="Authentication"/>
-       <x:page key="configure" text="Configuration">
-         <x:related url="plugins"/>
-       </x:page>
+     <x:page key="admin-guide" text="Server Documentation">
+       <x:page key="configure" text="Configuration"/>
+       <x:page key="ssl" text="SSL Support"/>
+       <x:page key="clustering" text="Clustering"/>
+       <x:page key="ha" text="High Availability"/>
+       <x:page key="pacemaker" text="High Availability (pacemaker)"/>
+       <x:page key="access-control" text="Access Control"/>
+       <x:page key="authentication" text="SASL Authentication"/>
+       <x:page key="memory" text="Memory Management"/>
+       <x:page key="firehose" text="Firehose / Tracing"/>
      </x:page>
      <x:page key="clients" text="Client Documentation">
        <x:page key="api-guide" text="Java Client API Guide"/>

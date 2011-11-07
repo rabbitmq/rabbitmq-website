@@ -481,16 +481,21 @@ p.button a:hover {
    color: white;
 }
 
-p.warning { 
-	color: black; 
-	background: #ff8; 
+p.warning {
+	color: black;
+	background: #ff8;
 	border: 2px solid #880;
-	font-weight: bold; 
-	margin: 20px; 
-	padding: 15px; 
+	font-weight: bold;
+	margin: 20px;
+	padding: 15px;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
-	text-align: center; 
+	text-align: center;
+}
+
+p.warning a {
+    color: black;
+    text-decoration: underline;
 }
 
 #getting_here address {
@@ -533,4 +538,4 @@ div#right-nav a.selected { font-weight: bold; }
 
 /* landing box */
 
-.landing-box { background: #ffebde; border-radius: 20px; padding: 1px 20px 10px 20px; margin-bottom: 30px; -moz-border-radius: 20px; }
+.landing-box { background: #ffebde; border-radius: 20px; padding: 1px 20px 20px 20px; margin-bottom: 30px; -moz-border-radius: 20px; }
