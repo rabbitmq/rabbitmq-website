@@ -8,46 +8,37 @@
     <title>Documentation</title>
   </head>
   <body>
-      <p class="intro">This page summarises the available RabbitMQ documentation.</p>
-      <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
-         messaging, the AMQP model and RabbitMQ.
+      <p class="intro">
+        This page summarises the available RabbitMQ documentation.
       </p>
 
-      <doc:section name="server">
-        <doc:heading>Server</doc:heading>
+      <div class="landing-box">
+        <h2>Get Started</h2>
+        <p>
+          See the '<a href="getstarted.html">Get Started</a>' page
+          for our tutorials that offer a gentle introduction to
+          messaging, the AMQP model and RabbitMQ.
+        </p>
+      </div>
+
+      <div class="landing-box">
+        <h2>Server Documentation</h2>
         <ul>
           <li>
-            <a href="install.html">Installation Guide</a>
+            Quick links:
+            <a href="configure.html">Configuration</a> |
+            <a href="ssl.html">SSL</a> |
+            <a href="management.html">Management</a> |
+            <a href="clustering.html">Clustering</a> |
+            <a href="ha.html">High Availability</a>
           </li>
           <li>
-            <a href="configure.html">Configuration Guide</a>
-          </li>
-          <li>
-            <a href="admin-guide.html">Administration Guide</a>
-          </li>
-          <li>
-            <a href="management.html">Management and Monitoring</a> (<a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">API</a>) (<a href="/management-cli.html">CLI</a>)
-          </li>
-          <li>
-            <a href="manpages.html">Manual Pages</a>
-          </li>
-          <li>
-            <a href="extensions.html">Protocol Extensions</a>
-          </li>
-          <li>
-            <a href="clustering.html">Clustering Guide</a>
-          </li>
-          <li>
-            <a href="ha.html">Active/Active High Availability Guide</a>
-          </li>
-          <li>
-            <a href="pacemaker.html">Active/Passive High Availability Guide using Pacemaker and DRBD</a>
-          </li>
-          <li>
-            <a href="changelog.html">Changelog</a>
+            View all <a href="admin-guide.html">server documentation</a>.
           </li>
         </ul>
-      </doc:section>
+      </div>
+
+    <h2>Everything below this has not yet been converted</h2>
 
       <doc:section name="client">
         <doc:heading>Clients</doc:heading>

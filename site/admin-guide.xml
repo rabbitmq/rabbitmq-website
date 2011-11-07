@@ -1,4 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
@@ -34,7 +38,10 @@
       <ul>
         <li>
           The <a href="management.html">management plugin</a>: a web UI
-          and HTTP API for managing and monitoring RabbitMQ.
+          and HTTP API for managing and monitoring RabbitMQ.<br/>
+          See its <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">HTTP API documentation</a> and its
+          <a href="/management-cli.html">command line interface,
+          rabbitmqadmin</a>.
         </li>
         <li>
           <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>: a
@@ -45,8 +52,6 @@
 
     <div class="landing-box">
       <h2>Clustering and High Availability</h2>
-      <p>
-      </p>
       <ul>
         <li>
           How to <a href="clustering.html">set up a RabbitMQ cluster</a>.

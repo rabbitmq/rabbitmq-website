@@ -48,6 +48,10 @@
        <x:page key="authentication" text="SASL Authentication"/>
        <x:page key="memory" text="Memory Management"/>
        <x:page key="firehose" text="Firehose / Tracing"/>
+       <x:page key="manpages" text="Manual Pages"/>
+       <x:related url="management"/>
+       <x:related url="extensions"/>
+       <x:related url="changelog"/>
      </x:page>
      <x:page key="clients" text="Client Documentation">
        <x:page key="api-guide" text="Java Client API Guide"/>
