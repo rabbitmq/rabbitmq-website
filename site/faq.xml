@@ -188,13 +188,6 @@
                 </li>
               </ul>
             </p>
-            <p>
-              For further details on the rationale for choosing
-              Erlang, please see the FAQ entry on <a
-              href="#clustering-design">clustering technology</a> and
-          our <a href="erlang.html">comprehensive
-              assessment of Erlang's advantages</a>.
-            </p>
           </doc:a>
         </doc:faq>
 
@@ -778,10 +771,6 @@
               clients connect to machines within the cluster, and
               Erlang's distributed routing database routes AMQP
               messages to the appropriate endpoints.
-            </p>
-            <p>
-              For more detail on Erlang's benefits in an AMQP setting,
-              please see <a href="erlang.html">this page</a>.
             </p>
           </doc:a>
         </doc:faq>

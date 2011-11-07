@@ -10,7 +10,7 @@
   <body>
       <p class="intro">This page summarises the available RabbitMQ documentation.</p>
       <p>See the '<a href="getstarted.html">Get Started</a>' page for our tutorials that offer a gentle introduction to
-         messaging, the AMQP model and RabbitMQ. We maintain an extensive list of links related to <a href="delicious.html">RabbitMQ at del.icio.us</a>.
+         messaging, the AMQP model and RabbitMQ.
       </p>
 
       <doc:section name="server">
@@ -150,10 +150,6 @@
           </li>
           <li>
             Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use
-          </li>
-          <li>
-            Information on <a href="erlang.html">Erlang's suitability
-            for AMQP implementations</a>
           </li>
         </ul>
       </doc:section>
