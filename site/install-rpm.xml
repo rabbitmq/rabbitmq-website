@@ -1,0 +1,83 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Installing on RPM-based Linux (CentOS, Fedora, OpenSuse, RedHat)</title>
+  </head>
+  <body>
+      <doc:section name="rpm">
+        <doc:subsection name="install-rpm">
+          <doc:heading>Install the Server</doc:heading>
+            <dl class="instructions">
+            <dt>Install from a package</dt>
+            <dd>
+            <p>
+              The RabbitMQ server is included in Fedora, so for Fedora
+              and RHEL users we recommend to install the
+              <i>rabbitmq-server</i> package via the distribution's
+              package manager.
+            </p>
+            <p>
+              Alternatively, install
+              <code>rabbitmq-server-&version-server;-noarch.rpm</code>
+              (which you can download from the
+              <a href="server.html">download page</a>).
+              We recommend using your distribution's packaged
+              version of Erlang to run the server. See <a
+              href="server.html">the server download page</a> for more
+              information.
+            </p>
+            </dd>
+            </dl>
+        </doc:subsection>
+
+        <doc:subsection name="running-rpm">
+          <doc:heading>Run RabbitMQ Server</doc:heading>
+            <dl class="instructions">
+            <dt>Customise RabbitMQ Environment Variables</dt>
+            <dd>
+            <p>
+              The server should start using defaults.
+              You can 
+              <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+              Also see how to <a href="configure.html#configuration-file">configure components</a>.
+            </p>
+            </dd>
+            <dt>Start the Server</dt>
+            <dd>
+            <p>
+              The server is not started as a daemon by default when the
+              RabbitMQ server package is installed. To start the daemon by default
+              when the system boots, as an administrator run
+              <code>chkconfig rabbitmq-server on</code>.
+            </p>
+            <p>
+              As an administrator, start and stop the
+              server as usual using <code>/sbin/service rabbitmq-server
+              <i>stop/start/etc</i></code>.
+            </p>
+            <p>
+              <em>Note: </em>The server is set up to run as system user
+              <code>rabbitmq</code>.
+              If you change the location of the Mnesia database or the logs,
+              you must ensure the files are owned by this user
+              (and also update the environment variables).
+            </p>
+            </dd>
+            <dt>Manage the Server</dt>
+            <dd>
+                See the <a href="install-generic-unix.html">Generic Unix or Linux</a> section
+                for info on <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>
+                commands and
+                <a href="install-generic-unix.html#logging-generic-unix">logging</a>.
+            </dd>
+            </dl>
+        </doc:subsection>
+      </doc:section>
+  </body>
+</html>

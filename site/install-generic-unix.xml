@@ -1,0 +1,121 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Installin on Generic Unix</title>
+  </head>
+  <body>
+      <doc:section name="generic-unix">
+        <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
+
+        <doc:subsection name="install-generic-unix">
+          <doc:heading>Install the Server</doc:heading>
+            <p>
+              Install a recent version of Erlang.
+            </p>
+            <p>
+              Download
+              <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
+              from the <a href="download.html">download page</a>.
+            </p>
+            <p>
+              Contained in the tarball is a directory named
+              <code>rabbitmq_server-&version-server;</code>. You should
+              extract this into somewhere appropriate for application
+              binaries on your system. The <code>sbin</code> directory will be found in
+              this directory.
+            </p>
+        </doc:subsection>
+
+        <doc:subsection name="running-generic-unix">
+          <doc:heading>Run RabbitMQ Server</doc:heading>
+            <dl class="instructions">
+              <dt>Customise RabbitMQ Environment Variables</dt>
+              <dd>
+              <p>
+              Within the <code>sbin</code> directory is a shell script
+              <code>rabbitmq-server</code> which uses default values.
+              You can 
+              <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+              Also see how to
+              <a href="configure.html#configuration-file">configure components</a>.
+              </p>
+              <p><em>Note: </em>If the directories
+                <strong>RABBITMQ_MNESIA_BASE</strong> and
+                <strong>RABBITMQ_LOG_BASE</strong> do not exist
+                the server will attempt to create them.
+                The server needs write permission at the configured locations.
+              </p>
+              </dd>
+ 
+              <dt>Start the Server</dt>
+              <dd>
+              <p>
+              Invoke the <code>rabbitmq-server</code> shell script.
+              This displays a banner message, and reports on progress in
+              the startup sequence, concluding with the message "broker
+              running", indicating that the RabbitMQ broker has been
+              started successfully.
+              </p>
+              <p>
+              You can also start the server in "detached" mode with
+              <code>rabbitmq-server -detached</code>, in which case the
+              server process runs in the background.
+              </p>
+              </dd>
+            </dl>
+        </doc:subsection>
+
+        <doc:subsection name="managing-server-unix">
+          <doc:heading>Manage the Server</doc:heading>
+            <p>
+              To stop the server or check its status, etc., you can use
+              <code>rabbitmqctl</code> (as an administrator). It should be
+              available on the path. All <code>rabbitmqctl</code> commands will report the node absence
+              if no broker is running.
+            </p>
+            <ul>
+                 <li>Use <code>rabbitmqctl stop</code> to stop the server.
+                 Alternatively, just terminate the Erlang process.</li>
+                 <li>Use <code>rabbitmqctl status</code> to check whether it is
+                 running.</li>
+            </ul>
+            <p>
+              More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl commands</a>
+            </p>
+            <p>
+              More <a href="admin-guide.html">info on  administration</a>
+            </p>
+        </doc:subsection>
+
+        <doc:subsection name="logging-generic-unix">
+          <doc:heading>Logging</doc:heading>
+          <p>
+            Output from the server is sent to a
+            <b>RABBITMQ_NODENAME</b>.log file in the
+            <b>RABBITMQ_LOG_BASE</b> directory. Additional log data is
+            written to <b>RABBITMQ_NODENAME</b>-sasl.log.
+          </p>
+          <p>
+            The broker always appends to the log files, so a complete
+            log history is retained.
+          </p>
+          <p>
+            You can use the <code>logrotate</code> program
+            to do all necessary rotation and compression,
+            and you can change it. By default,
+            this script runs weekly on files located in default
+            <code>/var/log/rabbitmq</code> directory. See
+            <code>/etc/logrotate.d/rabbitmq-server</code>
+            to configure
+            <code>logrotate</code>.
+          </p>
+        </doc:subsection>
+      </doc:section>
+  </body>
+</html>
