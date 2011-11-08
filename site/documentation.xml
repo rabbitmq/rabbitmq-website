@@ -22,7 +22,7 @@
       </div>
 
       <div class="landing-box">
-        <h2>Server Documentation</h2>
+        <h2>Server</h2>
         <ul>
           <li>
             Quick links:
@@ -39,7 +39,7 @@
       </div>
 
       <div class="landing-box">
-        <h2>Client Documentation</h2>
+        <h2>Client</h2>
         <ul>
           <li>
             Quick links:
@@ -58,11 +58,11 @@
         <h2>Plugins</h2>
         <ul>
           <li>
-            Quick links:
-            <a href="management.html">rabbitmq-management</a> |
-            <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">rabbitmq-federation</a> |
-            <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">rabbitmq-shovel</a> |
-            <a href="stomp.html">rabbitmq-stomp</a>
+            Popular plugins:
+            <a href="management.html">Management</a> |
+            <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">Federation</a> |
+            <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">Shovel</a> |
+            <a href="stomp.html">STOMP</a>
 
           </li>
           <li>
@@ -72,7 +72,7 @@
       </div>
 
       <div class="landing-box">
-        <h2>Other Documentation</h2>
+        <h2>Other</h2>
         <ul>
           <li>
             AMQP 0-9-1: <a href="extensions.html">Extensions</a> |
@@ -81,47 +81,11 @@
           <li>
             View all <a href="protocol.html">protocol documentation</a>.
           </li>
+          <li>
+            How to <a href="build.html">build RabbitMQ</a> from source, or
+            from <a href="mercurial.html">Mercurial</a>.
+          </li>
         </ul>
       </div>
-
-    <h2>Everything below this has not yet been converted</h2>
-
-      <doc:section name="cloud">
-            <doc:heading>Cloud Configurations</doc:heading>
-            <ul>
-                    <li><a href="ec2.html">Amazon EC2</a> - Deploy RabbitMQ on Amazon's Cloud</li>
-            </ul>
-          </doc:section>
-
-      <doc:section name="faq">
-       <doc:heading>Frequently Asked Questions</doc:heading>
-        <ul>
-                    <li><a href="faq.html">The Complete RabbitMQ FAQ</a></li>
-                    <ul class="plain">
-                            <li><a href="faq.html#background">Background</a></li>
-                                <li><a href="faq.html#managing-concepts-exchanges">Messaging Concepts</a></li>
-                                <li><a href="faq.html#features">RabbitMQ Features</a></li>
-                                <li><a href="faq.html#architecture">RabbitMQ Architecture</a></li>
-                                <li><a href="faq.html#integration">Integration &amp; Interoperability</a></li>
-                                <li><a href="faq.html#howto">How To</a></li>
-                                <li><a href="faq.html#configuration">Configuration</a></li>
-                                <li><a href="faq.html#performance">Performance, Scalability and Clustering</a></li>
-                                <li><a href="faq.html#general">General</a></li>
-                        </ul>
-            </ul>
-          </doc:section>
-
-      <doc:section name="general">
-        <doc:heading>General Documentation</doc:heading>
-        <ul>
-          <li>
-            Instructions for <a href="build.html">building</a> the
-            RabbitMQ server and client libraries from source
-          </li>
-          <li>
-            Learn more <a href="mercurial.html">about Mercurial</a>, the source and version control system that we use
-          </li>
-        </ul>
-      </doc:section>
   </body>
 </html>

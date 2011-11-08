@@ -40,6 +40,7 @@
      <x:page url="dotnet.html" text=".NET Client Downloads"/>
      <x:related url="erlang-client-user-guide.html"/>
      <x:related url="c-client.html"/>
+     <x:related url="ec2.html"/>
    </x:page>
    <x:page url="documentation.html" text="Documentation">
      <x:page url="admin-guide.html" text="Server Documentation">
