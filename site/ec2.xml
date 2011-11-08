@@ -69,7 +69,7 @@
     <p>
       Ubuntu ships with RabbitMQ but it's often not the latest
       version. If you want the recent version, you may use
-      our <a href="http://www.rabbitmq.com/debian.html">Debian
+      our <a href="install-debian.html">Debian
       repository</a>. Here is a shell
       script <code>rabbitmq-user-data.sh</code> that automates
       RabbitMQ installation on Ubuntu:

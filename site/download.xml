@@ -36,7 +36,7 @@
         </li>
         <li>
             Linux / Unix:
-            <a href="debian.html">Debian / Ubuntu</a> |
+            <a href="install-debian.html">Debian / Ubuntu</a> |
             <a href="install-rpm.html">Fedora / RHEL</a> |
             <a href="install-generic-unix.html">Generic Unix</a> |
             <a href="install-solaris.html">Solaris</a>

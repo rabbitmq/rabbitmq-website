@@ -36,7 +36,7 @@
   <!-- TODO obvs this is rather incomplete -->
    <x:page url="download.html" text="Download">
      <x:page url="install-windows.html" text="Install: Windows"/>
-     <x:page url="debian.html" text="Install: Debian / Ubuntu"/>
+     <x:page url="install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="install-rpm.html" text="Install: RPM-based Linux"/>
      <x:page url="install-macports.html" text="Install: MacPorts"/>
      <x:page url="install-homebrew.html" text="Install: Homebrow"/>
