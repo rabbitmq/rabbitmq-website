@@ -505,12 +505,14 @@
       <xsl:for-each select="key('page-key', $page-name)">
         <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@url" />
         <xsl:for-each select="key('page-key', $section)">
-          <div id="in-this-section">
-            <h4>In This Section</h4>
-            <ul>
-              <xsl:apply-templates mode="pages" />
-            </ul>
-          </div>
+          <xsl:if test="count(x:page) &gt; 0">
+            <div id="in-this-section">
+              <h4>In This Section</h4>
+              <ul>
+                <xsl:apply-templates mode="pages" />
+              </ul>
+            </div>
+          </xsl:if>
         </xsl:for-each>
       </xsl:for-each>
     </xsl:for-each>
