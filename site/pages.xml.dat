@@ -34,59 +34,59 @@
   -->
 
   <!-- TODO obvs this is rather incomplete -->
-   <x:page key="download.html" text="Download">
-     <x:page key="server.html" text="Server Downloads"/>
-     <x:page key="java-client.html" text="Java Client Downloads"/>
-     <x:page key="dotnet.html" text=".NET Client Downloads"/>
+   <x:page url="download.html" text="Download">
+     <x:page url="server.html" text="Server Downloads"/>
+     <x:page url="java-client.html" text="Java Client Downloads"/>
+     <x:page url="dotnet.html" text=".NET Client Downloads"/>
      <x:related url="erlang-client-user-guide.html"/>
      <x:related url="c-client.html"/>
    </x:page>
-   <x:page key="documentation.html" text="Documentation">
-     <x:page key="admin-guide.html" text="Server Documentation">
-       <x:page key="configure.html" text="Configuration"/>
-       <x:page key="ssl.html" text="SSL Support"/>
-       <x:page key="clustering.html" text="Clustering"/>
-       <x:page key="ha.html" text="High Availability"/>
-       <x:page key="pacemaker.html" text="High Availability (pacemaker)"/>
-       <x:page key="access-control.html" text="Access Control"/>
-       <x:page key="authentication.html" text="SASL Authentication"/>
-       <x:page key="memory.html" text="Memory Management"/>
-       <x:page key="firehose.html" text="Firehose / Tracing"/>
-       <x:page key="manpages.html" text="Manual Pages"/>
+   <x:page url="documentation.html" text="Documentation">
+     <x:page url="admin-guide.html" text="Server Documentation">
+       <x:page url="configure.html" text="Configuration"/>
+       <x:page url="ssl.html" text="SSL Support"/>
+       <x:page url="clustering.html" text="Clustering"/>
+       <x:page url="ha.html" text="High Availability"/>
+       <x:page url="pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page url="access-control.html" text="Access Control"/>
+       <x:page url="authentication.html" text="SASL Authentication"/>
+       <x:page url="memory.html" text="Memory Management"/>
+       <x:page url="firehose.html" text="Firehose / Tracing"/>
+       <x:page url="manpages.html" text="Manual Pages"/>
        <x:related url="management.html"/>
        <x:related url="extensions.html"/>
        <x:related url="changelog.html"/>
      </x:page>
-     <x:page key="clients.html" text="Client Documentation">
-       <x:page key="api-guide.html" text="Java Client Guide"/>
-       <x:page key="&dir-current-javadoc;/index.html" text="Java Client javadoc"/>
-       <x:page key="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".Net API Guide (PDF)"/>
-       <x:page key="&dir-current-dotnet-apidoc;/index.html" text=".Net API Guide (generated)"/>
-       <x:page key="erlang-client-user-guide.html" text="Erlang Client Guide"/>
-       <x:page key="uri-spec.html" text="AMQP URI Spec"/>
+     <x:page url="clients.html" text="Client Documentation">
+       <x:page url="api-guide.html" text="Java Client Guide"/>
+       <x:page url="erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="uri-spec.html" text="AMQP URI Spec"/>
+       <x:related url="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+       <x:related url="&dir-current-javadoc;/index.html" text="Java Client javadoc"/>
+       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
      </x:page>
-     <x:page key="plugins.html" text="Plugins">
-       <x:page key="management.html" text="Management plugin">
-         <x:page key="management-cli.html" text="Management CLI"/>
+     <x:page url="plugins.html" text="Plugins">
+       <x:page url="management.html" text="Management plugin">
+         <x:page url="management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page key="stomp.html" text="STOMP plugin"/>
-       <x:page key="plugin-development.html" text="Plugin development"/>
+       <x:page url="stomp.html" text="STOMP plugin"/>
+       <x:page url="plugin-development.html" text="Plugin development"/>
      </x:page>
-     <x:page key="protocol.html" text="Protocol">
-       <x:page key="extensions.html" text="Our Extensions"/>
-       <x:page key="specification.html" text="Compatibility"/>
-       <x:page key="interoperability.html" text="Interoperability"/>
+     <x:page url="protocol.html" text="Protocol">
+       <x:page url="extensions.html" text="Our Extensions"/>
+       <x:page url="specification.html" text="Compatibility"/>
+       <x:page url="interoperability.html" text="Interoperability"/>
 
-       <x:page key="amqp-0-9-1-quickref.html" text="Quick Reference"/>
-       <x:page key="amqp-0-9-1-reference.html" text="Full Reference"/>
-       <x:page key="amqp-0-9-1-errata.html" text="Errata"/>
-       <x:page key="amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:page url="amqp-0-9-1-quickref.html" text="Quick Reference"/>
+       <x:page url="amqp-0-9-1-reference.html" text="Full Reference"/>
+       <x:page url="amqp-0-9-1-errata.html" text="Errata"/>
+       <x:page url="amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
        <x:related url="tutorials/amqp-concepts.html"/>
      </x:page>
    </x:page>
-   <x:page key="getstarted.html" text="Get Started"/>
-   <x:page key="services.html" text="Services"/>
-   <x:page key="contact.html" text="Community"/>
+   <x:page url="getstarted.html" text="Get Started"/>
+   <x:page url="services.html" text="Services"/>
+   <x:page url="contact.html" text="Community"/>
 </x:pages>
 
 <!-- TODO related links should be able to be non-HTML -->

@@ -465,7 +465,7 @@
   </xsl:template>
 
   <!-- ############################################################ -->
-  <xsl:key name="page-key" match="x:page" use="@key" />
+  <xsl:key name="page-key" match="x:page" use="@url" />
 
   <xsl:template name="related-links">
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
@@ -486,10 +486,10 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="x:pages/x:page">
-        <xsl:variable name="key" select="@key" />
+        <xsl:variable name="key" select="@url" />
         <li>
-          <a href="/{@key}">
-            <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
+          <a href="/{@url}">
+            <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
               <xsl:attribute name="class">selected</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="@text"/>
@@ -503,7 +503,7 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="key('page-key', $page-name)">
-        <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@key" />
+        <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@url" />
         <xsl:for-each select="key('page-key', $section)">
           <div id="in-this-section">
             <h4>In This Section</h4>
@@ -518,10 +518,10 @@
 
   <xsl:template match="x:page" mode="pages">
     <li>
-      <xsl:variable name="key" select="@key" />
+      <xsl:variable name="key" select="@url" />
       <xsl:choose>
-        <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@key = $key]) &gt; 0">
-          <a href="/{@key}" class="selected">
+        <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
+          <a href="/{@url}" class="selected">
             <xsl:value-of select="@text"/>
           </a>
           <xsl:if test="x:page">
@@ -529,7 +529,7 @@
           </xsl:if>
         </xsl:when>
         <xsl:otherwise>
-          <a href="/{@key}"><xsl:value-of select="@text"/></a>
+          <a href="/{@url}"><xsl:value-of select="@text"/></a>
         </xsl:otherwise>
       </xsl:choose>
     </li>
@@ -539,7 +539,7 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="x:pages/x:page">
-        <h3><a href="/{@key}"><xsl:value-of select="@text"/></a></h3>
+        <h3><a href="/{@url}"><xsl:value-of select="@text"/></a></h3>
         <ul>
           <xsl:apply-templates mode="sitemap" />
         </ul>
@@ -549,8 +549,8 @@
 
   <xsl:template match="x:page" mode="sitemap">
     <li>
-      <xsl:variable name="key" select="@key" />
-      <a href="/{@key}"><xsl:value-of select="@text"/></a>
+      <xsl:variable name="key" select="@url" />
+      <a href="/{@url}"><xsl:value-of select="@text"/></a>
       <xsl:if test="x:page">
         <ul><xsl:apply-templates mode="sitemap" /></ul>
       </xsl:if>
@@ -558,28 +558,20 @@
   </xsl:template>
 
   <xsl:template match="x:related">
-    <!-- TODO fix the title lookup here. Or strip it out. -->
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
       <a href="/{@url}">
         <xsl:variable name="default-title">
-          <xsl:if test="not($page/@text) or not($page/@tooltip)">
+          <xsl:if test="not($page/@text)">
             <xsl:call-template name="lookup-title">
               <xsl:with-param name="url" select="@url" />
             </xsl:call-template>
           </xsl:if>
         </xsl:variable>
-        <xsl:attribute name="title">
-          <xsl:choose>
-            <xsl:when test="$page/@tooltip">
-              <xsl:value-of select="$page/@tooltip" />
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="$default-title" />
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
         <xsl:choose>
+          <xsl:when test="@text">
+            <xsl:value-of select="@text" />
+          </xsl:when>
           <xsl:when test="$page/@text">
             <xsl:value-of select="$page/@text" />
           </xsl:when>
@@ -603,14 +595,7 @@
     <xsl:choose>
       <xsl:when test="count($target) &gt; 0">
         <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
-        <xsl:choose>
-          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
-            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$title" />
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="$title" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$target-uri" />
