@@ -46,6 +46,10 @@
             <a href="install-macports.html">Macports</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
+        <li>
+            Cloud:
+            <a href="ec2.html">EC2</a>
+        </li>
       </ul>
       <h3>Older Versions</h3>
       <ul>

@@ -43,11 +43,11 @@
      <x:page url="install-windows-manual.html" text="Install: Windows (manual)"/>
      <x:page url="install-generic-unix.html" text="Install: Generic Unix"/>
      <x:page url="install-solaris.html" text="Install: Solaris"/>
+     <x:page url="ec2.html" text="Install: EC2"/>
      <x:page url="java-client.html" text="Java Client Downloads"/>
      <x:page url="dotnet.html" text=".NET Client Downloads"/>
      <x:related url="erlang-client-user-guide.html"/>
      <x:related url="c-client.html"/>
-     <x:related url="ec2.html"/>
    </x:page>
    <x:page url="documentation.html" text="Documentation">
      <x:page url="admin-guide.html" text="Server Documentation">
