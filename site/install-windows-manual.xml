@@ -11,7 +11,6 @@
   </head>
   <body>
       <doc:section name="windows-manual">
-        <doc:heading>Windows Manual Install</doc:heading>
         <doc:subsection name="install-windows-separately">
           <doc:heading>Install Server Components</doc:heading>
             <p>

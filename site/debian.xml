@@ -7,12 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Installation Guide</title>
+    <title>Installing on Debian / Ubuntu</title>
   </head>
   <body>
       <doc:section name="debian">
-        <doc:heading>Debian GNU/Linux and Ubuntu Linux</doc:heading>
-
         <doc:subsection name="install-debian">
           <doc:heading>Install the Server</doc:heading>
             <dl class="instructions">
@@ -39,7 +37,7 @@
         </doc:subsection>
 
         <doc:subsection name="running-debian">
-          <doc:heading>Run RabbitMQ  Server</doc:heading>
+          <doc:heading>Run RabbitMQ Server</doc:heading>
             <dl class="instructions">
             <dt>Customise RabbitMQ Environment Variables</dt>
             <dd>
