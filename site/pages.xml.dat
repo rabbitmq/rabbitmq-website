@@ -89,5 +89,4 @@
    <x:page url="contact.html" text="Community"/>
 </x:pages>
 
-<!-- TODO related links should be able to be non-HTML -->
-<!-- TODO all links should be able to be non-www.rabbitmq.com -->
+<!-- TODO maybe related links should be able to be non-www.rabbitmq.com -->
