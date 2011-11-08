@@ -256,8 +256,7 @@ rabbitmq-service.bat install
 rabbitmq-service.bat start
 </pre>
          to ensure that the service configuration is updated
-         to perform an appropriate boot sequence. You should then
-         restart the RabbitMQ service.
+         and the server restarted.
         </p>
       </doc:section>
 
