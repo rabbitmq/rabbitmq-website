@@ -50,7 +50,6 @@
         <li>Install Erlang</li>
         <li>Install RabbitMQ server </li>
         <li>(optional) Configure environment</li>
-        <li>(optional) Put plugins in plugin directory</li>
         <li>Start service or daemon</li>
         </ol>
         </p>
