@@ -52,7 +52,14 @@
        <x:page url="authentication.html" text="SASL Authentication"/>
        <x:page url="memory.html" text="Memory Management"/>
        <x:page url="firehose.html" text="Firehose / Tracing"/>
-       <x:page url="manpages.html" text="Manual Pages"/>
+       <x:page url="manpages.html" text="Manual Pages">
+         <x:page url="man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+         <x:page url="man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
+         <x:page url="man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
+         <x:page url="man/rabbitmq-service.man.html" text="rabbitmq-service"/>
+         <x:page url="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf"/>
+
+       </x:page>
        <x:related url="management.html"/>
        <x:related url="extensions.html"/>
        <x:related url="changelog.html"/>
