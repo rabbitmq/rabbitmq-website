@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Work Queues
+# RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-two">
    <xi:include href="tutorials-menu.xml.inc"/>

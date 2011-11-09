@@ -33,6 +33,10 @@ def preprocess_markdown(fpath):
     if nosyntax:
         title = re.sub("NOSYNTAX", "", title)
 
+    suppressRHS = re.search("SUPPRESS-RHS", title)
+    if suppressRHS:
+        title = re.sub("SUPPRESS-RHS", "", title)
+
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html [
 %s
@@ -44,8 +48,8 @@ def preprocess_markdown(fpath):
     head = """<head>
     <title>%s</title>
   </head>
-  <body>
-""" % (title,)
+  <body%s>
+""" % (title, suppressRHS and ' suppress-rhs="true"' or '')
 
     post = """</body>
 </html>
