@@ -15,7 +15,6 @@
     <div id="content-pane">
       <!-- switch context from source file to spec doc -->
       <xsl:for-each select="$spec-doc/amqp">
-          <xsl:call-template name="render-toc" />
           <xsl:call-template name="render-content" />
       </xsl:for-each>
       <xsl:if test="not($spec-doc/amqp)">
@@ -25,25 +24,29 @@
     </div>
   </xsl:template>
 
-  <xsl:template name="render-toc">
-    <h3 id="toc">Table of Contents</h3>
-    <ul>
-      <li>
-        <a href="#protocol-info">Protocol Information</a>
-      </li>
-      <li>
-        <a href="#classes">Classes</a>
-        <ul class="plain">
-          <xsl:apply-templates select="class" mode="summary"/>
-        </ul>
-      </li>
-      <li>
-        <a href="#domains">Domains</a>
-      </li>
-      <li>
-        <a href="#constants">Constants</a>
-      </li>
-    </ul>
+  <xsl:template name="in-this-page">
+    <div class="in-this-page">
+      <h4>In This Page</h4>
+      <ul>
+        <li>
+          <a href="#protocol-info">Protocol Information</a>
+        </li>
+        <li>
+          <a href="#classes">Classes</a>
+          <ul>
+            <xsl:for-each select="$spec-doc/amqp">
+              <xsl:apply-templates select="class" mode="summary"/>
+            </xsl:for-each>
+          </ul>
+        </li>
+        <li>
+          <a href="#domains">Domains</a>
+        </li>
+        <li>
+          <a href="#constants">Constants</a>
+        </li>
+      </ul>
+    </div>
   </xsl:template>
 
   <xsl:template name="render-content">
