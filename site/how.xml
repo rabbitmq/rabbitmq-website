@@ -14,7 +14,7 @@
       }
     </script>
   </head>
-  <body>
+  <body show-in-this-page="true">
     <p class="intro">The links below highlight some of our favourite content on this site and the
       web that will help you get started with messaging and RabbitMQ. If you are just starting out
       with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started
