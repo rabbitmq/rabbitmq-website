@@ -20,7 +20,7 @@
     <p>
     <table>
       <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
-      <tr><td>run <a href="server.html">RabbitMQ</a> server</td><td>R12B-3</td><td></td></tr>
+      <tr><td>run <a href="download.html">RabbitMQ</a> server</td><td>R12B-3</td><td></td></tr>
       <tr><td><a href="build-server.html">build RabbitMQ</a> from source</td><td>R12B-5</td>
       <td>Also needs the Erlang development and runtime tools</td></tr>
       <tr><td>use <a href="mochiweb.html">mochiweb</a></td><td>R13B01</td>

@@ -28,7 +28,7 @@
 
     <p>
       You will need an AMQP server, such as our very own <a
-      href="server.html">RabbitMQ server</a>, to use with the client
+      href="download.html">RabbitMQ server</a>, to use with the client
       library.
     </p>
 

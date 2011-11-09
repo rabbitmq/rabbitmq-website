@@ -18,7 +18,7 @@
 	<ul>
 	  <li>
 	    Either download a released source code distribution from
-	    the <a href="server.html">download page</a>, or
+	    the <a href="download.html">download page</a>, or
 	  </li>
 
 	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:

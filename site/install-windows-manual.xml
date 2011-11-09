@@ -49,7 +49,7 @@
       <h3>Install RabbitMQ Server</h3>
       <p>
         Download <code>rabbitmq-server-windows-&version-server;.zip</code>
-        from the <a href="server.html">download page</a>.
+        from the link above.
       </p>
       <p>
         From the zip file, extract the folder named
