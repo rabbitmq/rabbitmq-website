@@ -9,7 +9,8 @@
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
                 xmlns:xi="http://www.w3.org/2003/XInclude"
-                exclude-result-prefixes="r doc html xi"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
+                exclude-result-prefixes="r doc html xi x"
                 version="1.0">
 
 <xsl:include href="feed.xsl"/>
@@ -358,62 +359,22 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="r:plugin-group">
-    <div class="docSection" id="{@id}">
-      <h2 class="docHeading"><xsl:value-of select="@name"/> Plugins</h2>
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
   <xsl:template match="r:plugin">
-    <div class="docSubsection" id="{@name}">
-      <h3 class="docHeading"><xsl:value-of select="@name"/></h3>
-      <xsl:apply-templates/>
-      <xsl:call-template name="plugin-download"/>
-    </div>
-  </xsl:template>
-
-  <xsl:template name="plugin-download" match="r:plugin-download">
-    <p>To use this plugin the following files are required:</p>
-    <ul>
-      <xsl:for-each select="r:plugin-dependency[not(@optional='true')]">
-        <li>
-          <xsl:call-template name="plugin-link"/><br/>
-          <xsl:apply-templates/>
-        </li>
-      </xsl:for-each>
-      <li><xsl:call-template name="plugin-link"/></li>
-    </ul>
-    <xsl:if test="r:plugin-dependency[@optional='true']">
-      <p>And the following files are optional:</p>
-      <ul>
-        <xsl:for-each select="r:plugin-dependency[@optional='true']">
-          <li>
-            <xsl:call-template name="plugin-link"/><br/>
-            <xsl:apply-templates/>
-          </li>
-        </xsl:for-each>
-      </ul>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="r:plugin-ver"/>
-  <xsl:template match="r:plugin-dependency"/>
-
-  <xsl:template name="plugin-link" match="r:plugin-link">
-    <xsl:variable name="name" select="@name"/>
-    <xsl:variable name="explicit" select="//r:plugin-ver[@name=$name]/@ver"/>
-    <xsl:variable name="ver">
-      <xsl:choose>
-        <xsl:when test="$explicit"><xsl:value-of select="$explicit"/></xsl:when>
-        <xsl:otherwise>&version-server;</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <a href="/releases/plugins/v&version-server;/{@name}-{$ver}.ez"><xsl:value-of select="@name"/></a>
+    <tr>
+      <th><code><xsl:value-of select="@name"/></code></th>
+      <td><xsl:apply-templates/></td>
+    </tr>
   </xsl:template>
 
   <xsl:template match="r:readme-link">
-    <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+    <xsl:choose>
+      <xsl:when test="@extension">
+        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README{@extension}">README</a>
+      </xsl:when>
+      <xsl:otherwise>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ############################################################ -->
@@ -585,6 +546,101 @@
         </code>
       </td>
     </tr>
+  </xsl:template>
+
+  <!-- ############################################################ -->
+  <xsl:key name="page-key" match="x:page" use="@key" />
+
+  <xsl:template match="x:related-links">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:variable name="key" select="@key" />
+    
+    <xsl:for-each select="$pages">
+      <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
+        <div id="related-links">
+          <p>Related Links:</p>
+          <ul>
+            <xsl:apply-templates select="key('page-key', $key)/x:related"/>
+          </ul>
+        </div>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:related">
+    <xsl:variable name="page" select="key('page-key', @url)" />
+    <li>
+      <xsl:if test="position() = 1">
+        <xsl:attribute name="class">
+          <xsl:value-of select="'no-separator'" />        
+        </xsl:attribute>
+      </xsl:if>
+        <a href="{@url}">
+          <xsl:variable name="default-title">
+            <xsl:if test="not($page/@text) or not($page/@tooltip)">
+              <xsl:call-template name="lookup-title">
+                <xsl:with-param name="url" select="@url" />
+              </xsl:call-template>
+            </xsl:if>
+          </xsl:variable>
+          <xsl:attribute name="title">
+            <xsl:choose>
+              <xsl:when test="$page/@tooltip">
+                <xsl:value-of select="$page/@tooltip" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="$default-title" />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="$page/@text">
+              <xsl:value-of select="$page/@text" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$default-title" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </a>
+    </li>
+  </xsl:template>
+  
+  <xsl:template name="lookup-title">
+    <xsl:param name="url" />
+    <xsl:variable name="target-uri">
+      <xsl:call-template name="normalise-uri">
+        <xsl:with-param name="uri" select="$url" />
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
+    <xsl:choose>
+      <xsl:when test="count($target) &gt; 0">
+        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
+        <xsl:choose>
+          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
+            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$target-uri" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="normalise-uri">
+    <xsl:param name="uri" />
+    <xsl:choose>
+      <xsl:when test="contains($uri, '.')">
+        <xsl:value-of select="substring-before($uri, '.')" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$uri" />
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- ############################################################ -->

@@ -34,8 +34,7 @@ def preprocess_markdown(fpath):
         title = re.sub("NOSYNTAX", "", title)
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 %s
 <!ENTITY nbsp "&#160;">
 ]>

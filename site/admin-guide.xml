@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Administration Guide</title>
   </head>
@@ -209,16 +211,18 @@
         -->
 
         <p>
-          The RabbitMQ server detects the total amount of RAM
-          installed in the computer on startup. By default, when the
-          RabbitMQ server uses above 40% of the installed RAM, it
-          raises a memory alarm. In response the server pauses reading
-          from the sockets of connected clients which send
-          content-bearing methods (such as <code>basic.publish</code>)
-          after the alarm was raised. Connection heartbeat monitoring
-          gets disabled too. Once the memory alarm has cleared
-          (e.g. due to the server paging messages to disk or
-          delivering them to clients) normal service resumes.
+          The RabbitMQ server detects the total amount of
+          RAM installed in the computer on startup and when
+          <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
+          executed. By default, when the RabbitMQ server uses above
+          40% of the installed RAM, it raises a memory alarm. In
+          response the server pauses reading from the sockets of
+          connected clients which send content-bearing methods
+          (such as <code>basic.publish</code>) after the alarm was
+          raised. Connection heartbeat monitoring gets disabled
+          too. Once the memory alarm has cleared (e.g. due to the
+          server paging messages to disk or delivering them to
+          clients) normal service resumes.
         </p>
         <p>
           The intent here is to introduce a flow control mechanism
@@ -289,6 +293,20 @@
             <pre class="sourcecode">
 =INFO REPORT==== 29-Oct-2009::15:43:27 ===
 Memory limit set to 2048MB.</pre>
+            The memory limit may also be queried using the
+            <code>rabbitmqctl status</code> command.
+          </p>
+
+          <p>
+            The threshhold can be changed while the broker is running
+            using the <code>rabbitmqctl set_vm_memory_high_watermark
+            <em>fraction</em></code> command. This command will take effect
+            until the broker shuts down. The corresponding configuration
+            setting should also be changed when the effects should survive
+            a broker restart. The memory limit may change on systems with
+            hot-swappable RAM when this command is executed without altering
+            the threshhold, due to the fact that the total amount of system
+            RAM is queried.
           </p>
 
           <p>
@@ -369,5 +387,8 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         </ul>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="admin-guide.html" />
+    
   </body>
 </html>

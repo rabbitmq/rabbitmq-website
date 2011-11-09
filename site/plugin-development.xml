@@ -1,11 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 <!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Plugin Development Guide</title>
   </head>
@@ -106,7 +107,7 @@ $ make</pre>
       </doc:section>
 
       <doc:section name="installing-plugins-during-development">
-        <doc:heading>Installing Plugins During Development</doc:heading>
+        <doc:heading>Enabling Plugins During Development</doc:heading>
 
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
@@ -124,10 +125,13 @@ $ make</pre>
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel</pre>
+$ ln -s ../../rabbitmq-shovel
+$ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
         </p>
         <p>
-          Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
+          Conversely, to disable a plugin, simply remove the symlink,
+          run <code>rabbitmq-plugins disable plugin-name</code>, and
+          restart the broker instance.
         </p>
       </doc:section>
 
@@ -235,6 +239,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
 $ cd ../rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-metronome
+$ ../scripts/rabbitmq-plugins enable rabbitmq_metronome
 $ cd ..</pre>
           </li>
           <li>
@@ -264,5 +269,8 @@ $ cd ..</pre>
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="plugin-development.html" />
+
   </body>
 </html>

@@ -1,10 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Configuration</title>
   </head>
@@ -463,6 +464,40 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Default socket options. You probably don't want to
               change this.
             </td>
+          </tr>
+          <tr>
+            <td><code>hipe_compile</code></td>
+            <td><code>false</code></td>
+            <td>
+              Set to <code>true</code> to precompile parts of RabbitMQ
+              with the High Performance Erlang compiler. This will
+              increase the message rate that the server can handle,
+              while also increasing startup time.
+
+              <p>
+                You might see 20-50% better performance at the cost of
+                approximately 1 minute delay at startup. These
+                figures are highly workload- and hardware-dependent.
+              </p>
+              <p>
+                HiPE support may not be compiled into your Erlang
+                installation. If it is not, enabling this option will
+                just cause a warning message to be displayed and
+                startup will proceed as normal. For example, Debian /
+                Ubuntu users will need to install
+                the <code>erlang-base-hipe</code> package.
+              </p>
+              <p>
+                HiPE is not available at all on some platforms,
+                notably including Windows.
+              </p>
+              <p>
+                This option should be
+                considered <b>experimental</b>. If your Erlang VM
+                segfaults, disable this option again.
+              </p>
+            </td>
+          </tr>
           <tr>
             <td><code>msg_store_index_module</code></td>
             <td><code>rabbit_msg_store_ets_index</code></td>
@@ -495,7 +530,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               should not change this.
             </td>
           </tr>
-          </tr>
         </table>
         <p>
           In addition, many plugins can have sections in the
@@ -515,5 +549,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
     </doc:div>
+
+    <x:related-links key="configure.html" />
+    
   </body>
 </html>

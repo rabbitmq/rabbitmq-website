@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>RabbitMQ - Protocol Extensions</title>
     <script type="text/javascript">
@@ -224,6 +226,12 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
+          <p>
+            The original expiry time of a message is preserved if it
+            is requeued (for example due to the use of an AMQP method
+            that features a requeue parameter, or due to a channel
+            closure).
+          </p>
         </doc:subsection>
         <doc:subsection name="queue-leases">
           <doc:heading>Queue Leases</doc:heading>
@@ -612,5 +620,8 @@ channel.basicConsume(queue, consumer);</pre>
         </p>
       </doc:section>
     </doc:div>
+
+    <x:related-links key="extensions.html" />
+    
   </body>
 </html>
