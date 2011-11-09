@@ -245,7 +245,7 @@
     <th class="desc">Description</th>
     <th>Download </th>
         <xsl:if test="@signature = 'yes'">
-            <th class="onethird">&#160;</th>
+            <th>&#160;</th>
         </xsl:if>
       </tr>
       <xsl:apply-templates/>

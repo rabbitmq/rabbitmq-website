@@ -63,10 +63,6 @@
   <doc:subsection name="install">
     <doc:heading>Install RabbitMQ</doc:heading>
     <p>
-      Once your Amazon EC2 instance is up and running, you can follow
-      the <a href="server.html">usual RabbitMQ installation steps</a>.
-    </p>
-    <p>
       Ubuntu ships with RabbitMQ but it's often not the latest
       version. If you want the recent version, you may use
       our <a href="install-debian.html">Debian

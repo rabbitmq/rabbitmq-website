@@ -325,13 +325,9 @@ tr {
   margin: 10px 0px 10px 0px;
   padding: 0px 10px 10px 10px;
 }
-	
+
 td.desc, th.desc {
   width:350px;
-}
-
-td.signature, th.signature {
-  width:80px;
 }
 
 .signature a {

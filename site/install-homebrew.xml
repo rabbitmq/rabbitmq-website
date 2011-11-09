@@ -10,38 +10,32 @@
     <title>Installing on Homebrew</title>
   </head>
   <body>
-      <doc:section name="machomebrew">
-        <p>
-            A brew for the RabbitMQ server is available from
-            <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
-           <em>Note: </em>You may not be able to install the RabbitMQ brew from inside a firewall.
-           </p>
-        <doc:subsection name="install-machomebrew">
-          <doc:heading>Install the Server</doc:heading>
-          <p>
-            Before installing make sure you have the latest brews:
-            <pre>brew update</pre>
-                Then, install RabbitMQ server with:
-                <pre>brew install rabbitmq</pre>
-              </p>
-        </doc:subsection>
-        <doc:subsection name="running-machomebrew">
-          <doc:heading>Run RabbitMQ Server</doc:heading>
-          <p>
-            The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
-            This is not automatically added to your path, so you may wish to add<br />
-            <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
-            or <code>.profile</code>.
-            The server can then be started with <code>rabbitmq-server</code>.
-          </p>
-          <p>
-            All scripts run under your own user account. Sudo is not required.
-          </p>
-          <p>
-            See the <a href="install-generic-unix.html">Generic Unix or Linux</a> section for further information.
-          </p>
-        </doc:subsection>
-      </doc:section>
+    <p>
+      A brew for the RabbitMQ server is available from
+      <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
+      <em>Note: </em>You may not be able to install the RabbitMQ brew from inside a firewall.
+    </p>
+    <h3>Install the Server</h3>
+    <p>
+      Before installing make sure you have the latest brews:
+      <pre>brew update</pre>
+      Then, install RabbitMQ server with:
+      <pre>brew install rabbitmq</pre>
+    </p>
+    <h3>Run RabbitMQ Server</h3>
+    <p>
+      The RabbitMQ server scripts are installed into <code>/usr/local/sbin</code>.
+      This is not automatically added to your path, so you may wish to add<br />
+      <code>PATH=$PATH:/usr/local/sbin</code> to your <code>.bash_profile</code>
+      or <code>.profile</code>.
+      The server can then be started with <code>rabbitmq-server</code>.
+    </p>
+    <p>
+      All scripts run under your own user account. Sudo is not required.
+    </p>
 
+    <p>
+      See the <a href="install-generic-unix.html">Generic Unix or Linux</a> section for further information.
+    </p>
   </body>
 </html>
