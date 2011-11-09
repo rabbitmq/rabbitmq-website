@@ -26,7 +26,7 @@
     </dd>
   </dl>
   <p>
-    More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl commands</a>
+    More  <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl</a>
   </p>
 
   <h3>Logging</h3>
