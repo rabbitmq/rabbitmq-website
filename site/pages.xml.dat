@@ -33,7 +33,6 @@
 
   -->
 
-  <!-- TODO obvs this is rather incomplete -->
    <x:page url="download.html" text="Download">
      <x:page url="install-windows.html" text="Install: Windows"/>
      <x:page url="install-debian.html" text="Install: Debian / Ubuntu"/>
@@ -45,7 +44,8 @@
      <x:page url="install-solaris.html" text="Install: Solaris"/>
      <x:page url="ec2.html" text="Install: EC2" gap-after="true"/>
      <x:page url="platforms.html" text="Supported Platforms"/>
-     <x:page url="changelog.html" text="Server Changelog" gap-after="true"/>
+     <x:page url="changelog.html" text="Server Changelog"/>
+     <x:page url="signatures.html" text="Signed Packages" gap-after="true"/>
      <x:page url="java-client.html" text="Java Client Downloads"/>
      <x:page url="dotnet.html" text=".NET Client Downloads"/>
      <x:related url="erlang-client-user-guide.html"/>
@@ -87,6 +87,7 @@
          <x:page url="management-cli.html" text="Management CLI"/>
        </x:page>
        <x:page url="stomp.html" text="STOMP plugin"/>
+       <x:page url="mochiweb.html" text="Configuring web plugins"/>
        <x:page url="plugin-development.html" text="Plugin development"/>
      </x:page>
      <x:page url="protocol.html" text="Protocol">
@@ -104,18 +105,20 @@
        <x:page url="build-server.html" text="Building the Server"/>
        <x:page url="build-java-client.html" text="Building the Java Client"/>
        <x:page url="build-dotnet-client.html" text="Building the .NET Client"/>
+       <x:page url="mercurial.html" text="Our use of Mercurial"/>
        <x:related url="plugin-development.html"/>
-       <x:related url="mercurial.html"/>
      </x:page>
+     <x:page url="news.html" text="News"/>
+     <x:page url="mpl.html" text="License"/>
    </x:page>
    <x:page url="getstarted.html" text="Get Started">
-     <x:page url="tutorials/amqp-concepts.html" text="AMQP Concepts"/>
+     <x:page url="tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
      <x:page url="tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
      <x:page url="tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
      <x:page url="tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
      <x:page url="tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
      <x:page url="tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
-     <x:page url="tutorials/tutorial-six-java.html" text="6: RPC (Java)"/>
+     <x:page url="tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
      <x:page url="tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
      <x:page url="tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
      <x:page url="tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
