@@ -537,6 +537,7 @@ div#right-nav { float: right; width: 220px; margin-top: 20px; }
 div#right-nav div { margin: 0 5px 20px 5px; padding: 10px; background: #eee; border-radius: 10px; -moz-border-radius: 10px; }
 div#right-nav h4 { margin: 0; }
 div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
+div#right-nav li.gap-after { padding-bottom: 10px; }
 div#right-nav a { font-weight: normal; }
 div#right-nav a.selected { font-weight: bold; }
 

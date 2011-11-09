@@ -43,8 +43,9 @@
      <x:page url="install-windows-manual.html" text="Install: Windows (manual)"/>
      <x:page url="install-generic-unix.html" text="Install: Generic Unix"/>
      <x:page url="install-solaris.html" text="Install: Solaris"/>
-     <x:page url="ec2.html" text="Install: EC2"/>
-     <x:page url="changelog.html" text="Server Changelog"/>
+     <x:page url="ec2.html" text="Install: EC2" gap-after="true"/>
+     <x:page url="platforms.html" text="Supported Platforms"/>
+     <x:page url="changelog.html" text="Server Changelog" gap-after="true"/>
      <x:page url="java-client.html" text="Java Client Downloads"/>
      <x:page url="dotnet.html" text=".NET Client Downloads"/>
      <x:related url="erlang-client-user-guide.html"/>

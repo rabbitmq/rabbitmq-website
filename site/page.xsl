@@ -520,6 +520,9 @@
 
   <xsl:template match="x:page" mode="pages">
     <li>
+      <xsl:if test="@gap-after">
+        <xsl:attribute name="class">gap-after</xsl:attribute>
+      </xsl:if>
       <xsl:variable name="key" select="@url" />
       <xsl:choose>
         <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
