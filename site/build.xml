@@ -3,15 +3,13 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Build Instructions</title>
+    <title>Build Instructions</title>
   </head>
   <body>
     <p class="intro">
       This section provides links to the build instructions
       of the RabbitMQ server and available client libraries.
     </p>
-
-    <h2>Building the source</h2>
 
     <h3>RabbitMQ Server</h3>
 
@@ -33,8 +31,5 @@
       See <a href="build-dotnet-client.html">.Net/C# AMQP client
       library and WCF bindings build instructions</a>.
     </p>
-
-    <x:related-links key="build.html" />
-    
   </body>
 </html>

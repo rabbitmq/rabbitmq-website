@@ -7,16 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - SSL</title>
+    <title>SSL Support</title>
   </head>
-  <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+  <body show-in-this-page="true">
       <doc:section name="intro">
-        <doc:heading>Introduction</doc:heading>
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
         <p>SSL/TLS support in the RabbitMQ server requires
           the <code>new_ssl</code> Erlang/OTP
@@ -847,10 +841,5 @@ Params = #amqp_params_network { port = 5671,
         </doc:subsection>
 
       </doc:section>
-
-    </doc:div>
-
-    <x:related-links key="ssl.html" />
-
   </body>
 </html>

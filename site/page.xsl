@@ -15,6 +15,7 @@
 
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
+<xsl:param name="page-name"/>
 
   <xsl:template match="html:head">
     <head>
@@ -28,6 +29,7 @@
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script type="text/javascript" src="/js/site.js"/>
       <script type="text/javascript" src="/js/ga-bootstrap.js"/>
+      <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
       <xsl:apply-templates/>
     </head>
   </xsl:template>
@@ -35,27 +37,32 @@
   <xsl:template match="html:body">
     <body>
       <div id="outerContainer">
-    <xsl:call-template name="page-header"/>
-    <xsl:apply-templates/>
-    <xsl:call-template name="page-footer"/>
+        <xsl:call-template name="page-header"/>
+        <xsl:choose>
+          <xsl:when test="//html:body[@suppress-rhs]">
+            <xsl:apply-templates/>
+          </xsl:when>
+          <xsl:otherwise>
+            <div id="left-content">
+              <h1><xsl:value-of select="//html:title"/></h1>
+              <xsl:apply-templates/>
+            </div>
+            <div id="right-nav">
+              <xsl:call-template name="in-this-section"/>
+              <xsl:call-template name="in-this-page"/>
+              <xsl:call-template name="related-links"/>
+            </div>
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="page-footer"/>
       </div>
     </body>
   </xsl:template>
 
-  <xsl:template match="html:table">
-    <table>
-      <xsl:copy-of select="@*"/>
-      <xsl:attribute name="border">0</xsl:attribute>
-      <xsl:attribute name="cellpadding">0</xsl:attribute>
-      <xsl:attribute name="cellspacing">0</xsl:attribute>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
   <xsl:template name="page-header">
-    <h1>
+    <div id="rabbit-logo">
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
-    </h1>
+    </div>
     <div class="s2-logo">
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
@@ -66,11 +73,7 @@
       </form>
     </div>
     <ul class="mainNav">
-      <li><a href="/download.html">Download</a></li>
-      <li><a href="/documentation.html">Documentation</a></li>
-      <li><a href="/getstarted.html">Get Started</a></li>
-      <li><a href="/services.html">Services</a></li>
-      <li><a href="/contact.html">Community</a></li>
+      <xsl:call-template name="main-nav"/>
       <li><a href="/blog/">Blog</a></li>
     </ul>
     <div class="nav-separator"/>
@@ -80,8 +83,8 @@
     <div class="clear"/>
     <div class="pageFooter">
       <p class="righter">
-        <a href="/contact.html">Contact</a> |
-        <a href="/about.html">About</a>
+        <a href="/sitemap.html">Sitemap</a> |
+        <a href="/contact.html">Contact</a>
       </p>
       <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
     </div>
@@ -89,38 +92,19 @@
 
   <!-- ############################################################ -->
 
-  <xsl:template match="doc:div">
-    <div class="document">
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:toc">
-    <xsl:variable name="tocNode" select="."/>
-    <div class="docToc">
-      <xsl:apply-templates/>
-      <ul class="{@class}">
-    <xsl:for-each select="//doc:section[@name]">
-      <li>
-        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-        <xsl:if test=".//doc:subsection[@name]">
-          <ul class="{$tocNode/@class}">
-        <xsl:for-each select=".//doc:subsection[@name]">
-          <li>
-            <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-            <ul class="{$tocNode/@class}">
-              <xsl:for-each select=".//doc:subsubsection[@name]">
-                <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-              </xsl:for-each>
-            </ul>
-          </li>
-        </xsl:for-each>
-          </ul>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
-      </ul>
-    </div>
+  <xsl:template name="in-this-page">
+    <xsl:if test="//html:body[@show-in-this-page]">
+      <div class="in-this-page">
+        <h4>In This Page</h4>
+        <ul>
+          <xsl:for-each select="//doc:section[@name]">
+            <li>
+              <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
+            </li>
+          </xsl:for-each>
+        </ul>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="doc:section">
@@ -165,10 +149,6 @@
 
   <xsl:template match="doc:roadmapentry/doc:heading">
     <div class="docRoadmapentryHeading"><xsl:apply-templates/></div>
-  </xsl:template>
-
-  <xsl:template match="doc:toc/doc:heading">
-    <h3 class="docHeading"><xsl:apply-templates/></h3>
   </xsl:template>
 
   <xsl:template match="doc:faqtoc">
@@ -485,126 +465,127 @@
   </xsl:template>
 
   <!-- ############################################################ -->
-  <xsl:template match="r:amilist">
-    <table class="amilist" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <th>Availability zone</th>
-        <th>Arch</th>
-        <th>Ami</th>
-        <th>Ec2 command</th>
-      </tr>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
+  <xsl:key name="page-key" match="x:page" use="@url" />
 
-  <xsl:template match="r:amiitem">
-    <tr>
-      <td>
-        <xsl:value-of select="@zone"/>
-      </td>
-      <td>
-        <xsl:value-of select="@arch"/>
-      </td>
-      <td>
-        <xsl:value-of select="@ami"/>
-      </td>
-      <td>
-        <code>ec2-run-instances <xsl:value-of select="@ami"/> --key ${EC2_KEYPAIR} --instance-type
-            <xsl:if test="@arch = 'x86_64'">m1.large</xsl:if>
-            <xsl:if test="@arch != 'x86_64'">m1.small</xsl:if>
-            <xsl:if test="@zone != 'us-east-1'">
-                --region <xsl:value-of select="@zone"/>
-            </xsl:if>
-        </code>
-      </td>
-    </tr>
-  </xsl:template>
-
-  <!-- ############################################################ -->
-  <xsl:template match="r:snapshotlist">
-    <table class="snapshotlist" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <th>Availability zone</th>
-        <th>Public snapshot id</th>
-        <th>Ec2 command</th>
-      </tr>
-      <xsl:apply-templates/>
-    </table>
-  </xsl:template>
-
-  <xsl:template match="r:snapshotitem">
-    <tr>
-      <td>
-        <xsl:value-of select="@zone"/>
-      </td>
-      <td>
-        <xsl:value-of select="@snapid"/>
-      </td>
-      <td>
-        <code>ec2-create-volume --snapshot <xsl:value-of select="@snapid"/> --size 8 \<br/>
-        --region <xsl:value-of select="@zone"/> --availability-zone <xsl:value-of select="@zone"/>b
-        </code>
-      </td>
-    </tr>
-  </xsl:template>
-
-  <!-- ############################################################ -->
-  <xsl:key name="page-key" match="x:page" use="@key" />
-
-  <xsl:template match="x:related-links">
+  <xsl:template name="related-links">
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
-    <xsl:variable name="key" select="@key" />
-    
+
     <xsl:for-each select="$pages">
-      <xsl:if test="count(key('page-key', $key)/x:related) &gt; 0">
+      <xsl:if test="count(key('page-key', $page-name)/x:related) &gt; 0">
         <div id="related-links">
-          <p>Related Links:</p>
+          <h4>Related Links</h4>
           <ul>
-            <xsl:apply-templates select="key('page-key', $key)/x:related"/>
+            <xsl:apply-templates select="key('page-key', $page-name)/x:related"/>
           </ul>
         </div>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
+  <xsl:template name="main-nav">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="x:pages/x:page">
+        <xsl:variable name="key" select="@url" />
+        <li>
+          <a href="/{@url}">
+            <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
+              <xsl:attribute name="class">selected</xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="@text"/>
+          </a>
+        </li>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="in-this-section">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="key('page-key', $page-name)">
+        <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@url" />
+        <xsl:for-each select="key('page-key', $section)">
+          <xsl:if test="count(x:page) &gt; 0">
+            <div id="in-this-section">
+              <h4>In This Section</h4>
+              <ul>
+                <xsl:apply-templates mode="pages" />
+              </ul>
+            </div>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:page" mode="pages">
+    <li>
+      <xsl:variable name="key" select="@url" />
+      <xsl:choose>
+        <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
+          <a href="/{@url}" class="selected">
+            <xsl:value-of select="@text"/>
+          </a>
+          <xsl:if test="x:page">
+            <ul><xsl:apply-templates mode="pages" /></ul>
+          </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+          <a href="/{@url}"><xsl:value-of select="@text"/></a>
+        </xsl:otherwise>
+      </xsl:choose>
+    </li>
+  </xsl:template>
+
+  <xsl:template match="x:sitemap">
+    <xsl:variable name="pages" select="document('pages.xml.dat')" />
+    <xsl:for-each select="$pages">
+      <xsl:for-each select="x:pages/x:page">
+        <h3><a href="/{@url}"><xsl:value-of select="@text"/></a></h3>
+        <ul>
+          <xsl:apply-templates mode="sitemap" />
+        </ul>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="x:page" mode="sitemap">
+    <li>
+      <xsl:variable name="key" select="@url" />
+      <a href="/{@url}"><xsl:value-of select="@text"/></a>
+      <xsl:if test="x:page">
+        <ul><xsl:apply-templates mode="sitemap" /></ul>
+      </xsl:if>
+    </li>
+  </xsl:template>
+
   <xsl:template match="x:related">
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
-      <xsl:if test="position() = 1">
-        <xsl:attribute name="class">
-          <xsl:value-of select="'no-separator'" />        
-        </xsl:attribute>
-      </xsl:if>
-        <a href="{@url}">
-          <xsl:variable name="default-title">
-            <xsl:if test="not($page/@text) or not($page/@tooltip)">
-              <xsl:call-template name="lookup-title">
-                <xsl:with-param name="url" select="@url" />
-              </xsl:call-template>
-            </xsl:if>
-          </xsl:variable>
-          <xsl:attribute name="title">
-            <xsl:choose>
-              <xsl:when test="$page/@tooltip">
-                <xsl:value-of select="$page/@tooltip" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="$default-title" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <xsl:choose>
-            <xsl:when test="$page/@text">
-              <xsl:value-of select="$page/@text" />
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="$default-title" />
-            </xsl:otherwise>
-          </xsl:choose>
-        </a>
+      <a href="/{@url}">
+        <xsl:variable name="default-title">
+          <xsl:if test="not($page/@text)">
+            <xsl:call-template name="lookup-title">
+              <xsl:with-param name="url" select="@url" />
+            </xsl:call-template>
+          </xsl:if>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="@text">
+            <xsl:value-of select="@text" />
+          </xsl:when>
+          <xsl:when test="$page/@text">
+            <xsl:value-of select="$page/@text" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$default-title" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </a>
     </li>
   </xsl:template>
-  
+
+
   <xsl:template name="lookup-title">
     <xsl:param name="url" />
     <xsl:variable name="target-uri">
@@ -616,14 +597,7 @@
     <xsl:choose>
       <xsl:when test="count($target) &gt; 0">
         <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
-        <xsl:choose>
-          <xsl:when test="starts-with($title, 'RabbitMQ - ')">
-            <xsl:value-of select="substring-after($title, 'RabbitMQ - ')" />
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$title" />
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="$title" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$target-uri" />
@@ -654,6 +628,8 @@
   <xsl:template match="@*">
     <xsl:copy/>
   </xsl:template>
+
+  <xsl:template match="html:title"/>
 
   <xsl:template match="html:*">
     <xsl:element name="{name()}" namespace="{namespace-uri()}">

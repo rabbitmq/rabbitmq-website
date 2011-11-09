@@ -3,10 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Signatures</title>
+    <title>Signatures</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page describes the signing process we use when building
 	RabbitMQ release packages, and how to verify the signatures on
@@ -14,7 +13,6 @@
       </p>
 
       <doc:section name="signing-process">
-	<doc:heading>Our signing process</doc:heading>
 	<p>
 	  When we build package archive files, both binary and source,
 	  we digitally sign them using <a
@@ -73,9 +71,5 @@ gpg: Good signature from "RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;
 	</p>
 	<pre>gpg --sign-key 0x056E8E56</pre>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="signatures.html" />
-
   </body>
 </html>

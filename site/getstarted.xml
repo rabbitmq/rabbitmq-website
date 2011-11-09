@@ -3,10 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ - Getting started</title>
+    <title>Getting started</title>
   </head>
-  <body>
-    <doc:div>
+  <body suppress-rhs="true">
       <h2>Getting started with RabbitMQ</h2>
       <p>
         These tutorials cover the basics of creating messaging
@@ -66,6 +65,5 @@
         <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>.
       </p>
       </div>
-    </doc:div>
   </body>
 </html>

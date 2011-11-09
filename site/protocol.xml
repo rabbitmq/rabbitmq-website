@@ -1,0 +1,21 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Protocol Documentation</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="tutorials/amqp-concepts.html">Introduction to the AMQP 0-9-1 Model</a></li>
+      <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
+      <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
+      <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
+      <li><a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata</a></li>
+    </ul>
+  </body>
+</html>

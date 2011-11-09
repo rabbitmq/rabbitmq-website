@@ -1,0 +1,44 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Installing on Solaris</title>
+  </head>
+  <body>
+      <doc:section name="solaris">
+        <doc:heading>Solaris</doc:heading>
+        <doc:subsection name="installing-solaris">
+        <doc:heading>Install the Server</doc:heading>
+          <p>
+            The  <a href="install-generic-unix.html">Generic Unix or Linux</a> installation
+            instructions may be used to install RabbitMQ on Solaris, with
+            two modifications:
+            <ul>
+              <li>
+                The RabbitMQ shell scripts assume a standard POSIX environment.
+                On Solaris this requires that startup scripts be executed with
+                the <code>/usr/xpg4/bin/sh</code> shell. This can
+                be accomplished by replacing the first line of each script
+                (which normally reads <code>#!/bin/sh</code>) with
+                <code>#!/bin/xpg4/bin/sh</code>.
+              </li>
+              <li>
+                The RabbitMQ shell scripts assume the existence of the
+                "readlink" utility for resolving symbolic links. This can be
+                obtained by installing the
+                <a href="http://www.sunfreeware.com/">Sunfreeware</a>
+                "coreutils" package or compiling
+                <a href="http://www.gnu.org/software/coreutils/">GNU
+                coreutils</a>.
+              </li>
+            </ul>
+          </p>
+        </doc:subsection>
+      </doc:section>
+  </body>
+</html>

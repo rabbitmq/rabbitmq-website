@@ -7,16 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - SASL Authentication</title>
+    <title>SASL Authentication</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="intro">
-        <doc:heading>Introduction</doc:heading>
         <p>
           RabbitMQ has pluggable support for various SASL authentication
           mechanisms. There are three such mechanisms built into the
@@ -127,9 +121,5 @@
           </p>
         </doc:subsection>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="authentication.html" />
-    
   </body>
 </html>

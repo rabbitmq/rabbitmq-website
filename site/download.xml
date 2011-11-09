@@ -7,80 +7,91 @@
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Download</title>
+    <title>Downloading and Installing RabbitMQ</title>
   </head>
   <body>
-    <h2>
-      Downloading and Installing RabbitMQ
-    </h2>
+    <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
+    <div class="landing-box">
+      <h2>RabbitMQ Server</h2>
+      <h3>Quick Download</h3>
+      <ul>
+        <li>
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
+          Binary
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
+          Source
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
+        </li>
+      </ul>
+      <h3>Installation Guides</h3>
+      <ul>
+        <li>
+            Windows:
+            <a href="install-windows.html">With installer (recommended)</a> |
+            <a href="install-windows-manual.html">Manual</a>
+        </li>
+        <li>
+            Linux / Unix:
+            <a href="install-debian.html">Debian / Ubuntu</a> |
+            <a href="install-rpm.html">Fedora / RHEL</a> |
+            <a href="install-generic-unix.html">Generic Unix</a> |
+            <a href="install-solaris.html">Solaris</a>
+        </li>
+        <li>
+            Mac OS X:
+            <a href="install-macports.html">Macports</a> |
+            <a href="install-homebrew.html">Homebrew</a>
+        </li>
+        <li>
+            Cloud:
+            <a href="ec2.html">EC2</a>
+        </li>
+      </ul>
+      <h3>Older Versions</h3>
+      <ul>
+        <li>
+          <a href="/releases/rabbitmq-server/">Download</a> |
+          <a href="changelog.html">Changelog</a>
+        </li>
+      </ul>
+    </div>
 
-    <p class="intro">
-      Our goal is that you can have a default configuration RabbitMQ server up and running
-      within two minutes of completing your download.
-      If this doesn't happen for you, please let us know at
-      <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
-    </p>
+    <div class="landing-box">
+      <h2>Java Client</h2>
+      <p>
+        Get it from the <a href="java-client.html">Java client
+        download page</a>.
+      </p>
+      <p>
+        Consult <a href="/releases/rabbitmq-java-client/">the
+          archive</a> if you want to download a version of the
+        Java client library other than the above.
+      </p>
+    </div>
 
-    <h3>RabbitMQ Server</h3>
-    <p>The latest release is &version-server;. 
-    Get it from the <a href="server.html">server download page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-server/">the archive</a> if
-      you want to download a version of the server other than
-      the above. Consult the <a href="changelog.html">changelog</a> to
-      find out what you'll be missing.
-    </p>
+    <div class="landing-box">
+      <h2>.NET/C# Client</h2>
+      <p>
+        Get it from the <a href="dotnet.html">.NET/C# client download
+        page</a>.
+      </p>
+      <p>
+        Consult <a href="/releases/rabbitmq-dotnet-client/">the
+          archive</a> if you want to download a version of the RabbitMQ
+        .NET/C# client library other than the above.
+      </p>
+    </div>
 
-    <h3>RabbitMQ Java Client</h3>
-    <p>The latest release is &version-java-client;. Get it from
-      the <a href="java-client.html">Java client download
-      page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-java-client/">the
-      archive</a> if you want to download a version of the
-      Java client library other than the above.
-    </p>
-
-    <h3>RabbitMQ .NET/C# Client and WCF Binding</h3>
-    <p>The latest release is &version-dotnet-client;. Get it from
-      the <a href="dotnet.html">.NET/C# client download page</a>.</p>
-    <p>
-      Consult <a href="/releases/rabbitmq-dotnet-client/">the
-      archive</a> if you want to download a version of the RabbitMQ
-      .NET/C# client library other than the above.
-    </p>
-
-    <hr class="pad" />
-    <h2>Additional Components</h2>
-
-    <h3 id="plugins">RabbitMQ Plugins</h3>
-
-    <p>
-      We make plugins available for download as binary packages, snapshots and
-      <a href="mercurial.html">mercurial</a> repositories. See the <a href="plugins.html">plugins page</a>
-      for more information on using our plugins.
-    </p>
-
-    <h3 id="experimental">Experimental Downloads</h3>
-
-    <p>
-      Some <a href="download-ex.html">experimental downloads</a> are available.
-    </p>
-    
-    <h3 id="devtools">Community-Contributed Code</h3>
-
-    <p>
-      The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
-      a variety of platforms and languages.
-    </p>
-    
-    <hr class="pad" />
-    <h2>Support</h2>
-    <p>
-      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html">contact us</a>.
-    </p>
-
-    <x:related-links key="download.html" />
-    
+    <div class="landing-box">
+      <h2>Clients for other languages</h2>
+      <p>
+        The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
+      </p>
+    </div>
   </body>
 </html>

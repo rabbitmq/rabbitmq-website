@@ -7,10 +7,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Interoperability</title>
+    <title>Interoperability</title>
   </head>
   <body>
-    <doc:div>
       <doc:section name="qpid">
 	<doc:heading>Interoperation with Qpid</doc:heading>
 
@@ -392,9 +391,5 @@
           <tr><td>RabbitMQ .NET Client</td><td><code>2.0.0</code></td></tr>
         </table>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="interoperability.html" />
-    
   </body>
 </html>

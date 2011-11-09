@@ -13,7 +13,6 @@
 
   <xsl:template match="x:insert-spec-here">
     <div id="content-pane">
-      <h2>AMQP 0-9-1 Complete Reference Guide</h2>
       <!-- switch context from source file to spec doc -->
       <xsl:for-each select="$spec-doc/amqp">
           <xsl:call-template name="render-toc" />

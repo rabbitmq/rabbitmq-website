@@ -3,11 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Server Changelog</title>
+    <title>Server Changelog</title>
   </head>
   <body>
-    <doc:div>
-      <h1>RabbitMQ Server changelog</h1>
       <table id="changelog">
         <tr>
           <th>Version</th>
@@ -337,9 +335,5 @@
           </td>
         </tr>
       </table>
-    </doc:div>
-
-    <x:related-links key="changelog.html" />
-
   </body>
 </html>

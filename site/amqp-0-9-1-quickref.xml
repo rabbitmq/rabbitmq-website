@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="amqp-0-9-1-quickref.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - AMQP Quick Reference</title>
+    <title>AMQP 0-9-1 Quick Reference</title>
     <link rel="stylesheet" rev="stylesheet" href="/css/amqp-0-9-1-quickref.css" type="text/css"/>
   </head>
   <body>

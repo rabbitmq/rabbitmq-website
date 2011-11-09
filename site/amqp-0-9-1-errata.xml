@@ -1,18 +1,13 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
    <head>
-      <title>RabbitMQ - AMQP 0-9-1 Errata</title>
+      <title>AMQP 0-9-1 Errata</title>
    </head>
    <body>
-      <doc:div>
          <p class="intro">
            Here we list errors and ambiguities in the 0-9-1 specification and
            provide our interpretations and corrections.
          </p>
-         <doc:toc class="compact">
-            <doc:heading>Table of Contents</doc:heading>
-         </doc:toc>
-
          <doc:section name="section_1">
             <doc:heading>1 Use of "consumer"</doc:heading>
          </doc:section>
@@ -282,7 +277,5 @@ this should presumably say "...deletes any exclusive queues owned...".</p>
             <doc:heading>29 Heartbeat frametype inconsitency</doc:heading>
          </doc:section>
          <p>The PDF specifies the heartbeat frametype as 4. The XML specifies it as 8.</p>
-
-      </doc:div>
    </body>
 </html>
