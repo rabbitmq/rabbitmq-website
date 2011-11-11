@@ -53,8 +53,6 @@
     RewriteEngine On
     RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
     RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
-    # Redirect community until we have some content for it
-    Redirect /community.html /contact.html
     
     <Location /server-status>
       SetHandler server-status
