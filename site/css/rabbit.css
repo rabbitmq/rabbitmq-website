@@ -544,3 +544,8 @@ div#right-nav a.selected { font-weight: bold; }
 /* landing box */
 
 .landing-box { background: #ffebde; border-radius: 20px; padding: 1px 20px 20px 20px; margin-bottom: 30px; -moz-border-radius: 20px; }
+
+#sitemap h3 { clear: both; padding: 20px 0 0 0; }
+#sitemap ul { float: left; }
+#sitemap ul ul a { font-weight: normal; }
+#sitemap li { float: left; width: 250px; }

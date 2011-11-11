@@ -5,7 +5,9 @@
   <head>
     <title>Sitemap</title>
   </head>
-  <body>
-    <x:sitemap/>
+  <body suppress-rhs="true">
+    <div id="sitemap">
+      <x:sitemap/>
+    </div>
   </body>
 </html>
