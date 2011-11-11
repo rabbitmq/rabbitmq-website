@@ -126,6 +126,5 @@
           If all of the above fails, please <a href="contact.html">tell us about the problem</a>,
           including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
         </p>
-      </doc:section>
   </body>
 </html>
