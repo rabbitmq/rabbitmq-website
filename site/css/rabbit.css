@@ -531,10 +531,10 @@ ul.threeColumns li.headedSublist {
 
 /* right hand navigation */
 
-div#left-content { float: left; width: 720px; }
+div#left-content { float: left; width: 730px; }
 
-div#right-nav { float: right; width: 220px; margin-top: 20px; }
-div#right-nav div { margin: 0 5px 20px 5px; padding: 10px; background: #eee; border-radius: 10px; -moz-border-radius: 10px; }
+div#right-nav { float: right; width: 215px; margin-top: 20px; }
+div#right-nav div { margin: 0 0 20px 5px; padding: 10px; background: #eee; border-radius: 10px; -moz-border-radius: 10px; }
 div#right-nav h4 { margin: 0; }
 div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
 div#right-nav li.gap-after { padding-bottom: 10px; }
