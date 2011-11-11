@@ -33,112 +33,112 @@
 
   -->
 
-   <x:page url="download.html" text="Download">
-     <x:page url="install-windows.html" text="Install: Windows"/>
-     <x:page url="install-debian.html" text="Install: Debian / Ubuntu"/>
-     <x:page url="install-rpm.html" text="Install: RPM-based Linux"/>
-     <x:page url="install-macports.html" text="Install: MacPorts"/>
-     <x:page url="install-homebrew.html" text="Install: Homebrew"/>
-     <x:page url="install-windows-manual.html" text="Install: Windows (manual)"/>
-     <x:page url="install-generic-unix.html" text="Install: Generic Unix"/>
-     <x:page url="install-solaris.html" text="Install: Solaris"/>
-     <x:page url="ec2.html" text="Install: EC2" gap-after="true"/>
-     <x:page url="platforms.html" text="Supported Platforms"/>
-     <x:page url="changelog.html" text="Server Changelog"/>
-     <x:page url="which-erlang.html" text="Erlang Versions"/>
-     <x:page url="troubleshooting.html" text="Install Troubleshooting"/>
-     <x:page url="signatures.html" text="Signed Packages" gap-after="true"/>
-     <x:page url="java-client.html" text="Java Client Downloads">
-       <x:related url="api-guide.html"/>
+   <x:page url="/download.html" text="Download">
+     <x:page url="/install-windows.html" text="Install: Windows"/>
+     <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
+     <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
+     <x:page url="/install-macports.html" text="Install: MacPorts"/>
+     <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
+     <x:page url="/install-windows-manual.html" text="Install: Windows (manual)"/>
+     <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
+     <x:page url="/install-solaris.html" text="Install: Solaris"/>
+     <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
+     <x:page url="/platforms.html" text="Supported Platforms"/>
+     <x:page url="/changelog.html" text="Server Changelog"/>
+     <x:page url="/which-erlang.html" text="Erlang Versions"/>
+     <x:page url="/troubleshooting.html" text="Install Troubleshooting"/>
+     <x:page url="/signatures.html" text="Signed Packages" gap-after="true"/>
+     <x:page url="/java-client.html" text="Java Client Downloads">
+       <x:related url="/api-guide.html"/>
      </x:page>
-     <x:page url="dotnet.html" text=".NET Client Downloads">
-       <x:related url="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+     <x:page url="/dotnet.html" text=".NET Client Downloads">
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
      </x:page>
-     <x:related url="erlang-client-user-guide.html"/>
-     <x:related url="c-client.html"/>
+     <x:related url="/erlang-client-user-guide.html"/>
+     <x:related url="/c-client.html"/>
    </x:page>
-   <x:page url="documentation.html" text="Documentation">
-     <x:page url="admin-guide.html" text="Server Documentation">
-       <x:page url="configure.html" text="Configuration"/>
-       <x:page url="ssl.html" text="SSL Support"/>
-       <x:page url="clustering.html" text="Clustering"/>
-       <x:page url="ha.html" text="High Availability"/>
-       <x:page url="pacemaker.html" text="High Availability (pacemaker)"/>
-       <x:page url="access-control.html" text="Access Control"/>
-       <x:page url="authentication.html" text="SASL Authentication"/>
-       <x:page url="memory.html" text="Memory Management"/>
-       <x:page url="firehose.html" text="Firehose / Tracing"/>
-       <x:page url="manpages.html" text="Manual Pages">
-         <x:page url="man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
-         <x:page url="man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
-         <x:page url="man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
-         <x:page url="man/rabbitmq-service.man.html" text="rabbitmq-service"/>
-         <x:page url="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf"/>
+   <x:page url="/documentation.html" text="Documentation">
+     <x:page url="/admin-guide.html" text="Server Documentation">
+       <x:page url="/configure.html" text="Configuration"/>
+       <x:page url="/ssl.html" text="SSL Support"/>
+       <x:page url="/clustering.html" text="Clustering"/>
+       <x:page url="/ha.html" text="High Availability"/>
+       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page url="/access-control.html" text="Access Control"/>
+       <x:page url="/authentication.html" text="SASL Authentication"/>
+       <x:page url="/memory.html" text="Memory Management"/>
+       <x:page url="/firehose.html" text="Firehose / Tracing"/>
+       <x:page url="/manpages.html" text="Manual Pages">
+         <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+         <x:page url="/man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
+         <x:page url="/man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
+         <x:page url="/man/rabbitmq-service.man.html" text="rabbitmq-service"/>
+         <x:page url="/man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf"/>
 
        </x:page>
-       <x:related url="management.html"/>
-       <x:related url="extensions.html"/>
-       <x:related url="changelog.html"/>
+       <x:related url="/management.html"/>
+       <x:related url="/extensions.html"/>
+       <x:related url="/changelog.html"/>
      </x:page>
-     <x:page url="clients.html" text="Client Documentation">
-       <x:page url="api-guide.html" text="Java Client Guide">
-         <x:related url="java-client.html"/>
+     <x:page url="/clients.html" text="Client Documentation">
+       <x:page url="/api-guide.html" text="Java Client Guide">
+         <x:related url="/java-client.html"/>
        </x:page>
-       <x:page url="erlang-client-user-guide.html" text="Erlang Client Guide"/>
-       <x:page url="uri-spec.html" text="AMQP URI Spec"/>
-       <x:related url="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+       <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
-       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="/&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
      </x:page>
-     <x:page url="plugins.html" text="Plugins">
-       <x:page url="management.html" text="Management plugin">
-         <x:page url="management-cli.html" text="Management CLI"/>
+     <x:page url="/plugins.html" text="Plugins">
+       <x:page url="/management.html" text="Management plugin">
+         <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page url="stomp.html" text="STOMP plugin"/>
-       <x:page url="mochiweb.html" text="Configuring web plugins"/>
-       <x:page url="plugin-development.html" text="Plugin development"/>
+       <x:page url="/stomp.html" text="STOMP plugin"/>
+       <x:page url="/mochiweb.html" text="Configuring web plugins"/>
+       <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
-     <x:page url="protocol.html" text="Protocol">
-       <x:page url="extensions.html" text="Our Extensions"/>
-       <x:page url="specification.html" text="Compatibility"/>
-       <x:page url="interoperability.html" text="Interoperability"/>
+     <x:page url="/protocol.html" text="Protocol">
+       <x:page url="/extensions.html" text="Our Extensions"/>
+       <x:page url="/specification.html" text="Compatibility"/>
+       <x:page url="/interoperability.html" text="Interoperability"/>
 
-       <x:page url="amqp-0-9-1-quickref.html" text="Quick Reference"/>
-       <x:page url="amqp-0-9-1-reference.html" text="Full Reference"/>
-       <x:page url="amqp-0-9-1-errata.html" text="Errata"/>
-       <x:page url="amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
-       <x:related url="tutorials/amqp-concepts.html"/>
+       <x:page url="/amqp-0-9-1-quickref.html" text="Quick Reference"/>
+       <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
+       <x:page url="/amqp-0-9-1-errata.html" text="Errata"/>
+       <x:page url="/amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:related url="/tutorials/amqp-concepts.html"/>
      </x:page>
-     <x:page url="build.html" text="Building">
-       <x:page url="build-server.html" text="Building the Server"/>
-       <x:page url="build-java-client.html" text="Building the Java Client"/>
-       <x:page url="build-dotnet-client.html" text="Building the .NET Client"/>
-       <x:page url="mercurial.html" text="Our use of Mercurial"/>
-       <x:related url="plugin-development.html"/>
+     <x:page url="/build.html" text="Building">
+       <x:page url="/build-server.html" text="Building the Server"/>
+       <x:page url="/build-java-client.html" text="Building the Java Client"/>
+       <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
+       <x:page url="/mercurial.html" text="Our use of Mercurial"/>
+       <x:related url="/plugin-development.html"/>
      </x:page>
-     <x:page url="news.html" text="News"/>
-     <x:page url="mpl.html" text="License"/>
+     <x:page url="/news.html" text="News"/>
+     <x:page url="/mpl.html" text="License"/>
    </x:page>
-   <x:page url="getstarted.html" text="Get Started">
-     <x:page url="tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
-     <x:page url="tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
-     <x:page url="tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
-     <x:page url="tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
-     <x:page url="tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
-     <x:page url="tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
-     <x:page url="tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
-     <x:page url="tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
-     <x:page url="tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
-     <x:page url="tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
-     <x:page url="tutorials/tutorial-four-python.html" text="4: Routing (Python)"/>
-     <x:page url="tutorials/tutorial-five-python.html" text="5: Topics (Python)"/>
-     <x:page url="tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
+   <x:page url="/getstarted.html" text="Get Started">
+     <x:page url="/tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
+     <x:page url="/tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
+     <x:page url="/tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
+     <x:page url="/tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
+     <x:page url="/tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
+     <x:page url="/tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
+     <x:page url="/tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
+     <x:page url="/tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
+     <x:page url="/tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
+     <x:page url="/tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
+     <x:page url="/tutorials/tutorial-four-python.html" text="4: Routing (Python)"/>
+     <x:page url="/tutorials/tutorial-five-python.html" text="5: Topics (Python)"/>
+     <x:page url="/tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
    </x:page>
-   <x:page url="services.html" text="Services"/>
-   <x:page url="community.html" text="Community">
-     <x:page url="how.html" text="How To..."/>
-     <x:page url="devtools.html" text="Development tools"/>
-     <x:page url="contact.html" text="Contact Us"/>
+   <x:page url="/services.html" text="Services"/>
+   <x:page url="/community.html" text="Community">
+     <x:page url="/how.html" text="How To..."/>
+     <x:page url="/devtools.html" text="Development tools"/>
+     <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
 </x:pages>
 

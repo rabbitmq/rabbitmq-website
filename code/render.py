@@ -111,7 +111,7 @@ def render_page(page_name):
                     "UTF-8",
                     libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'%s.html'" % page_name})
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'/%s.html'" % page_name})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500

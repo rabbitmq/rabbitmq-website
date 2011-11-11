@@ -438,7 +438,7 @@
       <xsl:for-each select="x:pages/x:page">
         <xsl:variable name="key" select="@url" />
         <li>
-          <a href="/{@url}">
+          <a href="{@url}">
             <xsl:if test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
               <xsl:attribute name="class">selected</xsl:attribute>
             </xsl:if>
@@ -476,7 +476,7 @@
       <xsl:variable name="key" select="@url" />
       <xsl:choose>
         <xsl:when test="count(key('page-key', $page-name)/ancestor-or-self::x:page[@url = $key]) &gt; 0">
-          <a href="/{@url}" class="selected">
+          <a href="{@url}" class="selected">
             <xsl:value-of select="@text"/>
           </a>
           <xsl:if test="x:page">
@@ -484,7 +484,7 @@
           </xsl:if>
         </xsl:when>
         <xsl:otherwise>
-          <a href="/{@url}"><xsl:value-of select="@text"/></a>
+          <a href="{@url}"><xsl:value-of select="@text"/></a>
         </xsl:otherwise>
       </xsl:choose>
     </li>
@@ -494,7 +494,7 @@
     <xsl:variable name="pages" select="document('pages.xml.dat')" />
     <xsl:for-each select="$pages">
       <xsl:for-each select="x:pages/x:page">
-        <h3><a href="/{@url}"><xsl:value-of select="@text"/></a></h3>
+        <h3><a href="{@url}"><xsl:value-of select="@text"/></a></h3>
         <ul>
           <xsl:apply-templates mode="sitemap" />
         </ul>
@@ -505,7 +505,7 @@
   <xsl:template match="x:page" mode="sitemap">
     <li>
       <xsl:variable name="key" select="@url" />
-      <a href="/{@url}"><xsl:value-of select="@text"/></a>
+      <a href="{@url}"><xsl:value-of select="@text"/></a>
       <xsl:if test="x:page">
         <ul><xsl:apply-templates mode="sitemap" /></ul>
       </xsl:if>
@@ -515,7 +515,7 @@
   <xsl:template match="x:related">
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
-      <a href="/{@url}">
+      <a href="{@url}">
         <xsl:variable name="default-title">
           <xsl:if test="not($page/@text)">
             <xsl:call-template name="lookup-title">
