@@ -41,17 +41,11 @@
     <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
     <a href="mpl.html">Mozilla Public License</a>.
     </p>
-    <ul>
-      <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
-      <li>Read more about <a href="how.html">RabbitMQ</a></li>
-      <li>Get involved on our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
-    </ul>
-	</div>
+    </div>
 
     <div>
     <h3>Why Choose RabbitMQ?</h3>
-    <p>RabbitMQ is based on a
-    <a href="faq.html#what-is-otp">proven platform</a> and offers a
+    <p>RabbitMQ is based on a proven platform and offers a
 	reliable, scalable and portable messaging system with predictable and consistent
 	throughput and latency.
 	</p>
@@ -61,7 +55,7 @@
 	<p>RabbitMQ is designed from the ground up to
 	<a href="interoperability.html">interoperate</a>
 	with other messaging systems: it is the leading
-	<a href="faq.html#what-is-amqp">implementation of AMQP</a>,
+	implementation of AMQP,
 	the open standard for business messaging, and, through
 	<a href="plugins.html">plug-ins</a>, supports
 	STOMP, HTTP for lightweight web messaging, and other protocols.
