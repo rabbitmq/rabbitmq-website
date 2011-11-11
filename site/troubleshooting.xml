@@ -7,49 +7,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Installation Guide</title>
+    <title>Troubleshooting</title>
   </head>
   <body>
-    <p class="intro">
-      Here you can find instructions to get your
-      <a href="server.html"> server download</a>
-      installed and running for your chosen platform.
-    </p>
-
-    <doc:section name="introduction">
-        <p>
-          Each installation requires Erlang, which also provides
-          Mnesia (DBMS) and logging support for the brokers.
-          <a href="configure.html#define-environment-variables">Mnesia and log directories</a>
-          may need read/write permissions for the service account.
-        </p>
-        <p>
-          Management scripts start and stop the broker,
-          and set up a default environment.
-          Scripts and commands need to run as a privileged user e.g.
-          an administrator on Windows, or with root permission
-          (e.g. sudo) on Unix-like systems.
-        </p>
-        <p>
-          If you use non-default file locations, ports, account
-          or service names, or component properties these should be
-          <a href="configure.html">configured</a>.
-          If you need multiple server nodes, also see the
-          <a href="clustering.html">clustering guide</a>.
-        </p>
-        <p>
-        These are the steps, done manually or via a packager:
-        <ol>
-        <li>Install Erlang</li>
-        <li>Install RabbitMQ server </li>
-        <li>(optional) Configure environment</li>
-        <li>Start service or daemon</li>
-        </ol>
-        </p>
-      </doc:section>
-
-      <doc:section name="troubleshooting">
-        <doc:heading>Troubleshooting</doc:heading>
         <dl class="instructions">
           <dt>Checking Broker Status</dt>
           <dd>

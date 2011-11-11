@@ -46,6 +46,7 @@
      <x:page url="platforms.html" text="Supported Platforms"/>
      <x:page url="changelog.html" text="Server Changelog"/>
      <x:page url="which-erlang.html" text="Erlang Versions"/>
+     <x:page url="troubleshooting.html" text="Install Troubleshooting"/>
      <x:page url="signatures.html" text="Signed Packages" gap-after="true"/>
      <x:page url="java-client.html" text="Java Client Downloads"/>
      <x:page url="dotnet.html" text=".NET Client Downloads"/>
