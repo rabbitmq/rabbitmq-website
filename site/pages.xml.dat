@@ -85,6 +85,7 @@
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="/c-client.html" text="C Client"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
