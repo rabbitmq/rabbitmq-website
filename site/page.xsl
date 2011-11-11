@@ -151,56 +151,6 @@
     <div class="docRoadmapentryHeading"><xsl:apply-templates/></div>
   </xsl:template>
 
-  <xsl:template match="doc:faqtoc">
-    <xsl:variable name="tocNode" select="."/>
-    <div class="docToc faqToc">
-      <xsl:apply-templates/>
-      <ul class="{@class}">
-    <xsl:for-each select="//doc:section[@name]">
-      <li>
-        <a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a>
-        <xsl:if test=".//doc:faq[@name]">
-          <ul class="{$tocNode/@class}">
-        <xsl:for-each select=".//doc:faq[@name]">
-          <li><a href="#{@name}"><xsl:value-of select=".//doc:heading[1]"/></a></li>
-        </xsl:for-each>
-          </ul>
-        </xsl:if>
-      </li>
-    </xsl:for-each>
-      </ul>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:faq">
-    <div class="faq">
-      <xsl:if test="@name"><a name="{@name}"/></xsl:if>
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:faq/doc:heading">
-    <h3 class="faqHeading"><xsl:apply-templates/></h3>
-  </xsl:template>
-
-  <xsl:template match="doc:q">
-    <div class="faqQuestion">
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:a">
-    <div class="faqAnswer">
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="doc:a/p[1]">
-    <xsl:copy>
-      <xsl:apply-templates/>
-    </xsl:copy>
-  </xsl:template>
-
   <xsl:template match="doc:feed">
     <ul class="feed">
       <xsl:apply-templates/>

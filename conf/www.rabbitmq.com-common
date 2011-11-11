@@ -26,6 +26,7 @@
     # From former versions of the website
     Redirect permanent /server.html /download.html
     Redirect permanent /debian.html /install-debian.html
+    Redirect permanent /faq.html /documentation.html
 
     # Redirects to assign some permanent URLs to cloudfoundry resources
     Redirect /cloudfoundry/samples https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples
