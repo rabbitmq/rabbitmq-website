@@ -175,8 +175,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                          <li><b>Unix*:</b> <span class="path">/etc/rabbitmq/enabled_plugins</span></li>
                          <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\enabled_plugins</span></li></ul></td>
                   <td>
-                  See <a href="plugins.html">plugins</a> for details
-                  on how this file is used.  </td></tr>
+                  This file records explicitly enabled plugins. </td></tr>
             <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
                   <td><b>Windows Service:</b>
                   <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span></td>
