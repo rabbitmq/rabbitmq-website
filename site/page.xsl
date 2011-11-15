@@ -504,7 +504,6 @@
 
   <xsl:template match="x:page" mode="sitemap">
     <li>
-      <xsl:variable name="key" select="@url" />
       <a href="{@url}"><xsl:value-of select="@text"/></a>
       <xsl:if test="x:page">
         <ul><xsl:apply-templates mode="sitemap" /></ul>
