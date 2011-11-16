@@ -3,7 +3,7 @@
   <head>
     <title>Commercial Services</title>
   </head>
-  <body>
+  <body suppress-rhs="true">
     <p class="intro">
       RabbitMQ is commercially supported by SpringSource professional services, which includes
       the expertise of RabbitMQ's core team and principal contributors.
