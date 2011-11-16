@@ -5,32 +5,22 @@
 ]>
 <x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <!--
-      TODO rewrite
+     ~~~ Using this file ~~~
 
-      ~~~ Using this file ~~~
-      The purpose of this file is to provide a central record of
-      "related links" displayed on each page, the aim being to
-      simplify maintenance.
+     The purpose of this file is to provide a central record of the
+     site structure as shown in the right hand nav, along with related
+     links.
 
-      For each page where you want to display related links, create
-      an <x:page> section with a key attribute that is unique within
-      the set of all x:page elements. A suggestion is to use the page's
-      url (relative to the root of the site) as the key attribute.
+     For each page, create an <x:page> section with a url attribute
+     pointing to its URL.
 
-      By default, the link text and a tooltip are generated from the
-      target page's title. To override this behaviour you can specify
-      on x:page an optional text attribute containing the link text
-      and/or an optional tooltip attribute containing the tooltip text.
+     By default, the link text and a tooltip are generated from the
+     target page's title. In general you want to override this -
+     specify on x:page a text attribute containing the link text.
 
-      Add a child <x:related> element for each link that you want to
-      appear in the related links section. Use the page's relative url
-      as the url attribute.
-
-      In the page that you wish to insert the related links add a
-      <x:related-links> element. You must specify a key attribute that
-      matches the key that you used for the <x:page> section in this
-      file.
-
+     Add a child <x:related> element for each link that you want to
+     appear in the related links section. Use the page's relative url
+     as the url attribute.
   -->
 
    <x:page url="/download.html" text="Download">
@@ -146,5 +136,3 @@
      <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
 </x:pages>
-
-<!-- TODO maybe related links should be able to be non-www.rabbitmq.com -->
