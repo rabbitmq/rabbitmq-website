@@ -75,6 +75,9 @@
         <h2>Other</h2>
         <ul>
           <li>
+            <a href="news.html">News about RabbitMQ</a>
+          </li>
+          <li>
             AMQP 0-9-1: <a href="extensions.html">Extensions</a> |
             <a href="amqp-0-9-1-quickref.html">Quick Reference</a>
           </li>

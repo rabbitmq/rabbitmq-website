@@ -86,6 +86,7 @@
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
+     <x:page url="/news.html" text="News"/>
      <x:page url="/protocol.html" text="Protocol">
        <x:page url="/extensions.html" text="Our Extensions"/>
        <x:page url="/specification.html" text="Compatibility"/>
@@ -104,7 +105,6 @@
        <x:page url="/mercurial.html" text="Our use of Mercurial"/>
        <x:related url="/plugin-development.html"/>
      </x:page>
-     <x:page url="/news.html" text="News"/>
      <x:page url="/mpl.html" text="License"/>
    </x:page>
    <x:page url="/getstarted.html" text="Get Started">
