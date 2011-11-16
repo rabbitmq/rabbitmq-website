@@ -10,12 +10,35 @@
     <title>Protocol Documentation</title>
   </head>
   <body>
-    <ul>
-      <li><a href="tutorials/amqp-concepts.html">Introduction to the AMQP 0-9-1 Model</a></li>
-      <li><a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a></li>
-      <li><a href="amqp-0-9-1-reference.html">AMQP 0-9-1 Complete Reference Guide</a></li>
-      <li>RabbitMQ's <a href="specification.html">compatibility and conformance</a> with the AMQP specification</li>
-      <li><a href="amqp-0-9-1-errata.html">AMQP 0-9-1 Errata</a></li>
-    </ul>
+    <p>
+      AMQP is a standard wire-level protocol and semantic framework
+      for high performance enterprise messaging.
+    </p>
+    <p>
+      From the AMQP website:
+    </p>
+    <blockquote>
+      <p>
+        AMQP is an Open Standard for Messaging Middleware.
+      </p>
+      <p>
+        By complying to the AMQP standard, middleware products
+        written for different platforms and in different
+        languages can send messages to one another. AMQP
+        addresses the problem of transporting value-bearing
+        messages across and between organisations in a timely
+        manner.
+      </p>
+      <p>
+        AMQP enables complete interoperability for messaging
+        middleware; both the networking protocol and the
+        semantics of broker services are defined in AMQP.
+      </p>
+    </blockquote>
+    <p>
+      For more information on what AMQP is, please see
+        the <a href="http://www.amqp.org/confluence/display/AMQP/About+AMQP">AMQP
+        Working Group's overview page</a>.
+    </p>
   </body>
 </html>
