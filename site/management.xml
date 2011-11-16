@@ -46,8 +46,6 @@
             <tr>
               <th>Overview</th>
               <th>Import / Export</th>
-              <th>Channel List</th>
-              <th>Queue Details</th>
             </tr>
             <tr>
               <td>
@@ -60,6 +58,12 @@
                   <img src="/img/management/thumbs/import-export.png"/>
                 </a>
               </td>
+            </tr>
+            <tr>
+              <th>Channel List</th>
+              <th>Queue Details</th>
+            </tr>
+            <tr>
               <td>
                 <a href="/img/management/channels.png">
                   <img src="/img/management/thumbs/channels.png"/>
