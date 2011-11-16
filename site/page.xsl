@@ -515,13 +515,6 @@
     <xsl:variable name="page" select="key('page-key', @url)" />
     <li>
       <a href="{@url}">
-        <xsl:variable name="default-title">
-          <xsl:if test="not($page/@text)">
-            <xsl:call-template name="lookup-title">
-              <xsl:with-param name="url" select="@url" />
-            </xsl:call-template>
-          </xsl:if>
-        </xsl:variable>
         <xsl:choose>
           <xsl:when test="@text">
             <xsl:value-of select="@text" />
@@ -529,44 +522,9 @@
           <xsl:when test="$page/@text">
             <xsl:value-of select="$page/@text" />
           </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$default-title" />
-          </xsl:otherwise>
         </xsl:choose>
       </a>
     </li>
-  </xsl:template>
-
-
-  <xsl:template name="lookup-title">
-    <xsl:param name="url" />
-    <xsl:variable name="target-uri">
-      <xsl:call-template name="normalise-uri">
-        <xsl:with-param name="uri" select="$url" />
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:variable name="target" select="document(concat($target-uri, '.xml'))" />
-    <xsl:choose>
-      <xsl:when test="count($target) &gt; 0">
-        <xsl:variable name="title" select="$target/html:html/html:head/html:title" />
-        <xsl:value-of select="$title" />
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$target-uri" />
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  
-  <xsl:template name="normalise-uri">
-    <xsl:param name="uri" />
-    <xsl:choose>
-      <xsl:when test="contains($uri, '.')">
-        <xsl:value-of select="substring-before($uri, '.')" />
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$uri" />
-      </xsl:otherwise>
-    </xsl:choose>
   </xsl:template>
 
   <!-- ############################################################ -->
