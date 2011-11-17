@@ -1,0 +1,130 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Troubleshooting</title>
+  </head>
+  <body>
+        <dl class="instructions">
+          <dt>Checking Broker Status</dt>
+          <dd>
+            <p>
+              You can use <code>rabbitmqctl status</code>
+              to verify whether a broker is running.<br />
+              Normal output from a running broker without plugins follows this pattern:
+              <pre>
+  Status of node 'rabbit@xxx' ...
+  [{pid,...},
+   {running_applications,[{rabbit,"RabbitMQ","&version-server;"},
+                          {os_mon,"..."},
+                          {sasl,"..."},
+                          {mnesia,"..."},
+                          {stdlib,"..."},
+                          {kernel,"..."},
+  {os,"..."},
+  {erlang_version,"..."},
+  {memory,"..."}}]</pre>
+            </p>
+            <p>
+              This example indicates that no broker is running:
+              <pre>
+  Status of node 'rabbit@xxx' ...
+  Error: unable to connect to node 'rabbit@xxx': nodedown
+  diagnostics:
+  - nodes and their ports on xxx: [{rabbitmqctl,...}]
+  - current node: 'rabbitmqctlxxx@xxx'
+  - current node home dir: [...]
+  - current node cookie hash: [...]</pre>
+              If the diagnostic line looks like this:
+              <pre>
+  - nodes and their ports on xxx: [{rabbit,...},{rabbitmqctl,...}]</pre>
+              and the broker logfile contains entries similar to
+              <pre>
+  Connection attempt from disallowed node...</pre>
+              then you should make sure the erlang cookies are the same.
+            </p>
+          </dd>
+          <dt>Server Fails to Start</dt>
+          <dd>
+            <p>
+              When the server fails to start, usually a crash dump file
+              <code>erl_crash.dump</code> is created in the directory
+              where the server was started. This can provide very detailed
+              information on the causes of a start up failure, but its
+              analysis requires Erlang expertise.
+            </p>
+            <p>
+          If you attempt to start another server while a broker is already running,
+          then you will receive an error report.
+          You can confirm whether the broker is already running by checking the status.
+            </p>
+            <p>
+              If the server fails to start, examine the console output and
+              the log files in the <b>RABBITMQ_LOG_BASE</b> directory.
+              Configuration and permission errors are frequently the cause, e.g. the
+              Mnesia directory cannot be created.
+            </p>
+          </dd>
+          <dt>Windows Service fails to Install</dt>
+          <dd>
+            If the service fails to install, check the service account has full access permission for
+            <b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
+            <b>RABBITMQ_LOG_BASE</b> directories
+            [<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
+                <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
+          </dd>
+          <dt>Windows Service fails to Start</dt>
+          <dd>
+            <p>
+            If the service fails to start, make sure the service has been
+            installed.
+            </p>
+            <p>
+                On starting the service, if the service output reads "<code>The process
+                terminated unexpectedly</code>" instead, then the
+                service did not start correctly. Check that the
+                environment variables are set correctly. The logfiles in
+                <code>RABBITMQ_BASE</code> may also contain useful diagnostic
+                information.
+            </p>
+          </dd>
+        </dl>
+        <p>
+          If the server is not behaving as expected during operation,
+          examine the log files and use the rabbitmqctl
+          commands from the <a href="admin-guide.html">admin guide</a>
+          to obtain further information on the server status.
+        </p>
+        <p>
+          For problems encountered in the handling of AMQP traffic,
+          the <a href="examples.html#tracer">AMQP capture and analysis
+          tool</a> may help in the analysis.
+        </p>
+        <p>
+          Failing that, it's possible that we've solved the problem for someone else.
+          Try using the search box at the top of our web pages to find site,
+          mailing list and blog information.
+           You might also check our
+          <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>.
+        </p>
+        <p>
+          If you still can't find a solution to your problem then
+          please post a new message to
+          <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>
+          (you may have to
+          <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
+          join the mailing list first</a>).
+          Let us know what you were trying to do, the error you received and
+          relevant entries from the logfile and one of our engineers will help you get it fixed.
+        </p>
+        <p>
+          If all of the above fails, please <a href="contact.html">tell us about the problem</a>,
+          including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
+        </p>
+  </body>
+</html>

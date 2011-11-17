@@ -11,6 +11,8 @@
    margin-right: 1.2em;
 }
 
+#sidebar #tutorials { margin-top: 2.2em; }
+
 #sidebar.tutorial-one #tutorials > li#tutorial-one { border-color: #444; }
 #sidebar.tutorial-two #tutorials > li#tutorial-two { border-color: #444; }
 #sidebar.tutorial-three #tutorials > li#tutorial-three { border-color: #444; }

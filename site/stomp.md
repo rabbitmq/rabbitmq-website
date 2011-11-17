@@ -1,7 +1,5 @@
 # RabbitMQ STOMP Adapter NOSYNTAX
 
-## <a id="i"/>Introduction
-
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
 both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)

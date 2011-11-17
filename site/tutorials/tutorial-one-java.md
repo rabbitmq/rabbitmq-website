@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - "Hello World!"
+# RabbitMQ tutorial - "Hello World!" SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-one">
   <xi:include href="tutorials-menu.xml.inc"/>

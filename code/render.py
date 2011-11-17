@@ -33,6 +33,10 @@ def preprocess_markdown(fpath):
     if nosyntax:
         title = re.sub("NOSYNTAX", "", title)
 
+    suppressRHS = re.search("SUPPRESS-RHS", title)
+    if suppressRHS:
+        title = re.sub("SUPPRESS-RHS", "", title)
+
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html [
 %s
@@ -44,8 +48,8 @@ def preprocess_markdown(fpath):
     head = """<head>
     <title>%s</title>
   </head>
-  <body>
-""" % (title,)
+  <body%s>
+""" % (title, suppressRHS and ' suppress-rhs="true"' or '')
 
     post = """</body>
 </html>
@@ -107,7 +111,7 @@ def render_page(page_name):
                     "UTF-8",
                     libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'/%s.html'" % page_name})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500

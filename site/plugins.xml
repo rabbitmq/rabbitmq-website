@@ -8,16 +8,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Plugins</title>
+    <title>Plugins</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="overview">
-        <doc:heading>Overview</doc:heading>
         <p>
           RabbitMQ supports a variety of plugins. This page documents
           the plugins that ship with RabbitMQ
@@ -278,9 +272,5 @@ rabbitmq-service.bat start
           with the tag <code>&version-server-hg;</code>.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="plugins.html" />
-
   </body>
 </html>

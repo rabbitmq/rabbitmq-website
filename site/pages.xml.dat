@@ -1,249 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <!--
+     ~~~ Using this file ~~~
 
-      ~~~ Using this file ~~~
-      The purpose of this file is to provide a central record of
-      "related links" displayed on each page, the aim being to
-      simplify maintenance.
+     The purpose of this file is to provide a central record of the
+     site structure as shown in the right hand nav, along with related
+     links.
 
-      For each page where you want to display related links, create
-      an <x:page> section with a key attribute that is unique within
-      the set of all x:page elements. A suggestion is to use the page's
-      url (relative to the root of the site) as the key attribute.
+     For each page, create an <x:page> section with a url attribute
+     pointing to its URL and a text attribute containing the link text.
 
-      By default, the link text and a tooltip are generated from the
-      target page's title. To override this behaviour you can specify
-      on x:page an optional text attribute containing the link text
-      and/or an optional tooltip attribute containing the tooltip text.
-
-      Add a child <x:related> element for each link that you want to
-      appear in the related links section. Use the page's relative url
-      as the url attribute.
-
-      In the page that you wish to insert the related links add a
-      <x:related-links> element. You must specify a key attribute that
-      matches the key that you used for the <x:page> section in this
-      file.
-
+     Add a child <x:related> element for each link that you want to
+     appear in the related links section. Use the page's relative url
+     as the url attribute.
   -->
 
-   <x:page key="admin-guide.html" text="Admin" tooltip="Administration Guide">
-      <x:related url="configure.html"/>
-      <x:related url="clustering.html"/>
-      <x:related url="plugins.html"/>
-      <x:related url="authentication.html"/>
-      <x:related url="manpages.html"/>
-      <x:related url="firehose.html"/>
-      <x:related url="management.html"/>
+   <x:page url="/download.html" text="Download">
+     <x:page url="/install-windows.html" text="Install: Windows"/>
+     <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
+     <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
+     <x:page url="/install-macports.html" text="Install: MacPorts"/>
+     <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
+     <x:page url="/install-windows-manual.html" text="Install: Windows (manual)"/>
+     <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
+     <x:page url="/install-solaris.html" text="Install: Solaris"/>
+     <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
+     <x:page url="/platforms.html" text="Supported Platforms"/>
+     <x:page url="/changelog.html" text="Server Changelog"/>
+     <x:page url="/which-erlang.html" text="Erlang Versions"/>
+     <x:page url="/troubleshooting.html" text="Install Troubleshooting"/>
+     <x:page url="/signatures.html" text="Signed Packages" gap-after="true"/>
+     <x:page url="/java-client.html" text="Java Client Downloads">
+       <x:related url="/api-guide.html"/>
+     </x:page>
+     <x:page url="/dotnet.html" text=".NET Client Downloads">
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+     </x:page>
+     <x:related url="/erlang-client-user-guide.html"/>
+     <x:related url="/c-client.html"/>
    </x:page>
+   <x:page url="/documentation.html" text="Documentation">
+     <x:page url="/admin-guide.html" text="Server Documentation">
+       <x:page url="/configure.html" text="Configuration"/>
+       <x:page url="/ssl.html" text="SSL Support"/>
+       <x:page url="/clustering.html" text="Clustering"/>
+       <x:page url="/ha.html" text="High Availability"/>
+       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page url="/access-control.html" text="Access Control"/>
+       <x:page url="/authentication.html" text="SASL Authentication"/>
+       <x:page url="/memory.html" text="Memory Management"/>
+       <x:page url="/firehose.html" text="Firehose / Tracing"/>
+       <x:page url="/manpages.html" text="Manual Pages">
+         <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+         <x:page url="/man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
+         <x:page url="/man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
+         <x:page url="/man/rabbitmq-service.man.html" text="rabbitmq-service"/>
+         <x:page url="/man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf">
+           <x:related url="/configure.html"/>
+         </x:page>
+       </x:page>
+       <x:related url="/management.html"/>
+       <x:related url="/extensions.html"/>
+       <x:related url="/changelog.html"/>
+     </x:page>
+     <x:page url="/clients.html" text="Client Documentation">
+       <x:page url="/api-guide.html" text="Java Client Guide">
+         <x:related url="/java-client.html"/>
+       </x:page>
+       <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="/c-client.html" text="C Client"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+       <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
+       <x:related url="/&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+     </x:page>
+     <x:page url="/plugins.html" text="Plugins">
+       <x:page url="/management.html" text="Management plugin">
+         <x:page url="/management-cli.html" text="Management CLI"/>
+       </x:page>
+       <x:page url="/stomp.html" text="STOMP plugin"/>
+       <x:page url="/mochiweb.html" text="Configuring web plugins"/>
+       <x:page url="/plugin-development.html" text="Plugin development"/>
+     </x:page>
+     <x:page url="/news.html" text="News"/>
+     <x:page url="/protocol.html" text="Protocol">
+       <x:page url="/extensions.html" text="Our Extensions"/>
+       <x:page url="/specification.html" text="Compatibility"/>
+       <x:page url="/interoperability.html" text="Interoperability"/>
 
-   <x:page key="amqp-0-9-1-quickref.html" text="AMQP Quick Ref" tooltip="AMQP 0-9-1 Quick Reference"/>
-
-   <x:page key="authentication.html" text="Authentication" tooltip="SASL Authentication">
-      <x:related url="plugins.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="ssl.html"/>
+       <x:page url="/amqp-0-9-1-quickref.html" text="Quick Reference"/>
+       <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
+       <x:page url="/amqp-0-9-1-errata.html" text="Errata"/>
+       <x:page url="/amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:related url="/tutorials/amqp-concepts.html"/>
+     </x:page>
+     <x:page url="/build.html" text="Building">
+       <x:page url="/build-server.html" text="Building the Server"/>
+       <x:page url="/build-java-client.html" text="Building the Java Client"/>
+       <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
+       <x:page url="/mercurial.html" text="Our use of Mercurial"/>
+       <x:related url="/plugin-development.html"/>
+     </x:page>
+     <x:page url="/mpl.html" text="License"/>
    </x:page>
-
-   <x:page key="build.html" text="Build" tooltip="Build Instructions">
-      <x:related url="mercurial.html"/>
-      <x:related url="plugin-development.html"/>
+   <x:page url="/getstarted.html" text="Get Started">
+     <x:page url="/tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
+     <x:page url="/tutorials/tutorial-one-java.html" text="Java">
+       <x:page url="/tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
+       <x:page url="/tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
+       <x:page url="/tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
+       <x:page url="/tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
+       <x:page url="/tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
+       <x:page url="/tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
+     </x:page>
+     <x:page url="/tutorials/tutorial-one-python.html" text="Python">
+       <x:page url="/tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
+       <x:page url="/tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
+       <x:page url="/tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
+       <x:page url="/tutorials/tutorial-four-python.html" text="4: Routing (Python)"/>
+       <x:page url="/tutorials/tutorial-five-python.html" text="5: Topics (Python)"/>
+       <x:page url="/tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
+     </x:page>
    </x:page>
-
-   <x:page key="build-server.html" text="Build Server" tooltip="Server Build Instructions">
-      <x:related url="server.html"/>
-      <x:related url="which-erlang.html"/>
-      <x:related url="mercurial.html"/>
-      <x:related url="build.html"/>
+   <x:page url="/services.html" text="Services"/>
+   <x:page url="/community.html" text="Community">
+     <x:page url="/how.html" text="How To..."/>
+     <x:page url="/devtools.html" text="Development tools"/>
+     <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
-
-   <x:page key="changelog.html" text="Server Changelog" tooltip="Server Changelog">
-      <x:related url="server.html"/>
-   </x:page>
-
-   <x:page key="clustering.html" text="Clustering" tooltip="Clustering Guide">
-      <x:related url="install.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="ha.html"/>
-      <x:related url="pacemaker.html"/>
-   </x:page>
-
-   <x:page key="configure.html" text="Configure" tooltip="Configuration">
-      <x:related url="install.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="plugins.html"/>
-      <x:related url="authentication.html"/>
-      <x:related url="man/rabbitmq-env.conf.5.man.html"/>
-   </x:page>
-
-   <x:page key="debian.html" text="Debian" tooltip="Debian APT Repository">
-      <x:related url="install.html"/>
-      <x:related url="server.html"/>
-   </x:page>
-
-   <x:page key="download.html" text="Download" tooltip="Download">
-      <x:related url="examples.html"/>
-      <x:related url="specification.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="build.html"/>
-      <x:related url="releases/"/>
-      <x:related url="changelog.html"/>
-      <x:related url="mpl.html"/>
-   </x:page>
-
-   <x:page key="ec2.html" text="EC2" tooltip="Amazon EC2">
-      <x:related url="server.html"/>
-      <x:related url="install.html"/>
-   </x:page>
-
-   <x:page key="erlang.html" text="Erlang Introduction" tooltip="Erlang Introduction">
-      <x:related url="which-erlang.html"/>
-   </x:page>
-
-   <x:page key="examples.html" text="Examples" tooltip="Examples">
-      <x:related url="how.html"/>
-      <x:related url="server.html"/>
-   </x:page>
-
-   <x:page key="extensions.html" text="Extensions" tooltip="Extensions and Experimental Features">
-      <x:related url="admin-guide.html"/>
-      <x:related url="interoperability.html"/>
-      <x:related url="specification.html"/>
-   </x:page>
-
-   <x:page key="firehose.html" text="Firehose Tracer" tooltip="Firehose Tracer for observing message flow">
-      <x:related url="admin-guide.html"/>
-      <x:related url="configure.html"/>
-   </x:page>
-
-   <x:page key="ha.html" text="High Availability" tooltip="Highly Available Queues">
-      <x:related url="pacemaker.html"/>
-      <x:related url="clustering.html"/>
-   </x:page>
-
-   <x:page key="how.html" text="How To" tooltip="How To"/>
-
-   <x:page key="install.html" text="Install" tooltip="Installation Guide">
-      <x:related url="server.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="clustering.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="plugins.html"/>
-      <x:related url="manpages.html"/>
-      <x:related url="management.html"/>
-   </x:page>
-
-   <x:page key="interoperability.html" text="Interoperation" tooltip="Interoperation with other AMQP brokers and clients">
-      <x:related url="admin-guide.html"/>
-      <x:related url="specification.html"/>
-      <x:related url="extensions.html"/>
-   </x:page>
-
-   <x:page key="macports.html" text="MacPorts" tooltip="MacPorts Repository">
-      <x:related url="install.html"/>
-      <x:related url="server.html"/>
-   </x:page>
-
-   <x:page key="management.html" text="Management" tooltip="Plugin for Management &amp; Monitoring">
-      <x:related url="plugins.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="man/rabbitmqctl.1.man.html"/>
-      <x:related url="management-cli.html"/>
-   </x:page>
-
-   <x:page key="management-cli.html" text="Management CLI" tooltip="Management Command Line Interface"/>
-
-   <x:page key="manpages.html" text="Manual Pages" tooltip="Manual Pages">
-      <x:related url="install.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="service-guide.html"/>
-   </x:page>
-
-   <x:page key="man/rabbitmqctl.1.man.html" text="rabbitmqctl" tooltip="rabbitmqctl(1) manual page"/>
-
-   <x:page key="man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf" tooltip="rabbitmq-env.conf(5) manual page"/>
-
-   <x:page key="mercurial.html" text="Mercurial" tooltip="Using Mercurial">
-      <x:related url="build.html"/>
-      <x:related url="build-server.html"/>
-      <x:related url="plugin-development.html"/>
-   </x:page>
-
-   <x:page key="mpl.html" text="License" tooltip="Mozilla Public License"/>
-
-   <x:page key="pacemaker.html" text="Pacemaker HA" tooltip="High availability with Pacemaker and DRBD">
-      <x:related url="ha.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="clustering.html"/>
-   </x:page>
-
-   <x:page key="platforms.html" text="Platforms" tooltip="Platforms">
-      <x:related url="server.html"/>
-      <x:related url="ec2.html"/>
-   </x:page>
-
-   <x:page key="plugin-development.html" text="Plugin Development" tooltip="Plugin Development Guide">
-      <x:related url="plugins.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="server.html"/>
-      <x:related url="build-server.html"/>
-      <x:related url="mercurial.html"/>
-   </x:page>
-
-   <x:page key="plugins.html" text="Plugins" tooltip="Plugins for extra broker functionality">
-      <x:related url="stomp.html"/>
-      <x:related url="management.html"/>
-      <x:related url="authentication.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="plugin-development.html"/>
-   </x:page>
-
-   <x:page key="releases/" text="Release Archive" tooltip="Archive of historical releases"/>
-
-   <x:page key="server.html" text="Server Download" tooltip="Server Download">
-      <x:related url="which-erlang.html"/>
-      <x:related url="install.html"/>
-      <x:related url="plugins.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="build-server.html"/>
-      <x:related url="changelog.html"/>
-      <x:related url="mpl.html"/>
-   </x:page>
-
-   <x:page key="service-guide.html" text="Windows Service" tooltip="Windows Service Guide">
-      <x:related url="install.html"/>
-   </x:page>
-
-   <x:page key="signatures.html" text="Signatures" tooltip="Package signing and digital signatures">
-      <x:related url="server.html"/>
-   </x:page>
-
-   <x:page key="specification.html" text="Specification" tooltip="Specification">
-      <x:related url="admin-guide.html"/>
-      <x:related url="interoperability.html"/>
-      <x:related url="extensions.html"/>
-      <x:related url="amqp-0-9-1-quickref.html"/>
-   </x:page>
-
-   <x:page key="ssl.html" text="SSL" tooltip="SSL">
-      <x:related url="plugins.html"/>
-      <x:related url="configure.html"/>
-      <x:related url="admin-guide.html"/>
-      <x:related url="authentication.html"/>
-   </x:page>
-
-   <x:page key="stomp.html" text="STOMP" tooltip="Plugin for STOMP (Simple Text Orientated Messaging Protocol)"/>
-
-   <x:page key="which-erlang.html" text="Erlang Versions" tooltip="Erlang Versions">
-      <x:related url="install.html"/>
-      <x:related url="server.html"/>
-      <x:related url="erlang.html"/>
-   </x:page>
-
 </x:pages>

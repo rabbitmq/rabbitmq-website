@@ -1,394 +1,97 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Administration Guide</title>
+    <title>Server Documentation</title>
   </head>
   <body>
-    <doc:div>
-      <p class="intro">
-        This is the RabbitMQ Server Administrator's Guide.
+    <p class="intro">
+      RabbitMQ ships in a state where it can be used straight away in
+      simple cases - just start the server and it's ready to go. If
+      you have more complex needs you may need to adjust your server
+      configuration.
+    </p>
+
+    <div class="landing-box">
+      <h2>Configuring your Server</h2>
+      <ul>
+        <li>
+          How to <a href="configure.html">configure</a> RabbitMQ:
+          configuration files and environment variables.
+        </li>
+        <li>
+          Configuring RabbitMQ to accept <a href="ssl.html">SSL connections</a>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Management and Monitoring</h2>
+      <p>
+        RabbitMQ ships with:
       </p>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
+      <ul>
+        <li>
+          The <a href="management.html">management plugin</a>: a web UI
+          and HTTP API for managing and monitoring RabbitMQ.<br/>
+          See its <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">HTTP API documentation</a> and its
+          <a href="/management-cli.html">command line interface,
+          rabbitmqadmin</a>.
+        </li>
+        <li>
+          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>: a
+          simpler command line tool for managing RabbitMQ.
+        </li>
+      </ul>
+    </div>
 
-      <doc:section name="installation">
-        <doc:heading>Building and installation</doc:heading>
-        <p>
-          Please see the <a href="build-server.html">build</a> and <a
-          href="install.html">installation</a> guides for instructions
-          on compiling, installing, starting and shutting down the server.
-          To change default settings, see the
-          <a href="configure.html">configuration guide</a>. 
-          See the <a href="service-guide.html">service</a>
-          guide for instructions on running the server as a Windows
-          Service.
-        </p>
-      </doc:section>
+    <div class="landing-box">
+      <h2>Clustering and High Availability</h2>
+      <ul>
+        <li>
+          How to <a href="clustering.html">set up a RabbitMQ cluster</a>.
+        </li>
+        <li>
+          Configuring a RabbitMQ cluster to
+          use <a href="ha.html">active-active highly available queues</a>.
+        </li>
+        <li>
+          Configuring a pair of RabbitMQ brokers in an active-passive
+          <a href="pacemaker.html">highly available</a> configuration (legacy).
+        </li>
+      </ul>
+    </div>
 
-      <doc:section name="management">
-        <doc:heading>Management and monitoring</doc:heading>
-        <p>
-          To monitor the broker's connections, channels,
-          queues and exchanges you can use:          
-        <dl>
-        <dt>Web UI and HTTP API</dt>
-        <dd>
-          To view, manage and monitor the current state of a RabbitMQ broker, the <a href="management.html">management
-          plugin</a> provides a web UI and HTTP API.
-        </dd>
-        <dt>Command Line Tool</dt>
-        <dd>
-          <code>rabbitmqctl</code> is a command line tool for managing
-          a RabbitMQ broker. Please see the 
-          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a> for information.
-        </dd>
-        <dt>Other tools</dt>
-        <dd>There are
-          several <a href="how.html#management"> community-maintained
-          management tools</a>.
-        </dd>
-        </dl>
-        </p>
-      </doc:section>
+    <div class="landing-box">
+      <h2>Authentication and Authorisation</h2>
+      <ul>
+        <li>
+          How to <a href="access-control.html">set up access
+          control</a> for the objects in your broker.
+        </li>
+        <li>
+          Configuring <a href="authentication.html">SASL authentication</a>.
+        </li>
+      </ul>
+    </div>
 
-      <doc:section name="default-state">
-        <doc:heading>Default database access</doc:heading>
-
-        <p>
-          When the server first starts running, and detects that its
-          database is uninitialised or has been deleted, it
-          initialises a fresh database with the following resources:
-        </p>
-
-        <ul class="compact">
-          <li>
-            a virtual host named <code>/</code>
-          </li>
-          <li>
-            a user named <code>guest</code> with a default password of
-            <code>guest</code>, granted full access to the
-            <code>/</code> virtual host.
-          </li>
-        </ul>
-
-        <p>
-          It is advisable
-          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
-          the <code>guest</code> user
-          or <a href="man/rabbitmqctl.1.man.html#change_password">change
-          the password</a> to something private, particularly if your
-          broker is accessible publicly.
-        </p>
-      </doc:section>
-
-      <doc:section name="access-control">
-        <doc:heading>Access control</doc:heading>
-
-        <p>
-          When an AMQP client establishes a connection to an AMQP
-          server, it specifies a virtual host within which it intends
-          to operate. A first level of access control is enforced at
-          this point, with the server checking whether the user has
-          any permissions to access the virtual hosts, and rejecting
-          the connection attempt otherwise.
-        </p>
-
-        <p>
-          Resources, i.e. exchanges and queues, are named entities
-          inside a particular virtual host; the same name denotes a
-          different resource in each virtual host. A second level of
-          access control is enforced when certain operations are
-          performed on resources.
-        </p>
-
-        <p>
-          RabbitMQ distinguishes between <em>configure</em>,
-          <em>write</em> and <em>read</em> operations on a
-          resource. The <em>configure</em> operations create or
-          destroy resources, or alter their behaviour. The
-          <em>write</em> operations inject messages into a
-          resource. And the <em>read</em> operations retrieve messages
-          from a resource.
-        </p>
-
-        <p>
-          In order to perform an operation on a resource the user must
-          have been granted the appropriate permissions for it. The
-          following table shows what permissions on what type of
-          resource are required for all the AMQP commands which
-          perform permission checks.
-          <table>
-            <tr>
-              <th>AMQP command</th>
-              <th>configure</th>
-              <th>write</th>
-              <th>read</th>
-            </tr>
-            <tr>
-              <td>exchange.declare (passive=false)</td><td>exchange</td><td/><td/>
-            </tr>
-            <tr>
-              <td>exchange.delete</td><td>exchange</td><td/><td/>
-            </tr>
-            <tr>
-              <td>queue.declare (passive=false)</td><td>queue</td><td/><td/>
-            </tr>
-            <tr>
-              <td>queue.delete</td><td>queue</td><td/><td/>
-            </tr>
-            <tr>
-              <td>exchange.bind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
-            </tr>
-            <tr>
-              <td>exchange.unbind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
-            </tr>
-            <tr>
-              <td>queue.bind</td><td/><td>queue</td><td>exchange</td>
-            </tr>
-            <tr>
-              <td>queue.unbind</td><td/><td>queue</td><td>exchange</td>
-            </tr>
-            <tr>
-              <td>basic.publish</td><td/><td>exchange</td><td/>
-            </tr>
-            <tr>
-              <td>basic.get</td><td/><td/><td>queue</td>
-            </tr>
-            <tr>
-              <td>basic.consume</td><td/><td/><td>queue</td>
-            </tr>
-            <tr>
-              <td>queue.purge</td><td/><td/><td>queue</td>
-            </tr>
-          </table>
-        </p>
-
-        <p>
-          Permissions are expressed as a triple of regular expressions
-          - one each for configure, write and read - on per-vhost
-          basis. The user is granted the respective permission for
-          operations on all resources with names matching the regular
-          expressions. <i>(Note: For convenience RabbitMQ maps AMQP's
-          default exchange's blank name to 'amq.default' when
-          performing permission checks.)</i>
-        </p>
-
-        <p>
-          The regular expression <code>'^$'</code>, i.e. matching
-          nothing but the empty string, covers all resources and
-          effectively stops the user from performing any operation.
-          Standard AMQP resource names are prefixed with
-          <code>amq.</code> and server generated names are prefixed
-          with <code>amq.gen</code>.  For example,
-          <code>'^amq\.gen.*|amq\.default$'</code> gives a user access to
-          server-generated names and the default exchange.  The empty
-          string, <code>''</code> is a synonym for <code>'^$'</code>
-          and restricts permissions in the exact same way.
-        </p>
-
-        <p>
-          RabbitMQ may cache the results of access control checks on a
-          per-connection or per-channel basis. Hence changes to user
-          permissions may only take effect when the user reconnects.
-        </p>
-        <p>
-          For details of how to set up access control, please see the
-          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
-          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
-        </p>
-
-      </doc:section>
-
-      <doc:section name="memsup">
-        <doc:heading>Memory-based flow control</doc:heading>
-        <!--
-            To avoid terminology soup:
-            - "memory threshold" always refers to the configured fraction
-            - "memory limit" always refers to the computed absolute limit
-        -->
-
-        <p>
-          The RabbitMQ server detects the total amount of
-          RAM installed in the computer on startup and when
-          <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
-          executed. By default, when the RabbitMQ server uses above
-          40% of the installed RAM, it raises a memory alarm. In
-          response the server pauses reading from the sockets of
-          connected clients which send content-bearing methods
-          (such as <code>basic.publish</code>) after the alarm was
-          raised. Connection heartbeat monitoring gets disabled
-          too. Once the memory alarm has cleared (e.g. due to the
-          server paging messages to disk or delivering them to
-          clients) normal service resumes.
-        </p>
-        <p>
-          The intent here is to introduce a flow control mechanism
-          that throttles producers but lets consumers continue
-          unaffected. However, since AMQP permits producers and
-          consumers to operate on the same channel, and on different
-          channels of a single connection, this logic is necessarily
-          imperfect. In practice that does not pose any problems for
-          most applications since the throttling is observable merely
-          as a delay. Nevertheless, other design considerations
-          permitting, it is advisable to only use individual AMQP
-          connections for either producing or consuming.
-        </p>
-
-        <p>
-          The default memory threshold is set to 40% of installed
-          RAM. Note that this does not prevent the RabbitMQ server
-          from using more than 40%, it is merely the point at which
-          publishers are throttled. Erlang's garbage collector can, in
-          the worst case, cause double the amount of memory to be used
-          (by default, 80% of RAM), and non-compliant AMQP clients can
-          cause the RabbitMQ server to use more still. It is strongly
-          recommended that OS swap or page files are enabled.
-        </p>
-
-        <p>
-          32-bit architectures impose a per process memory limit of
-          4GB, though under Windows, this is frequently further
-          reduced to 2GB. Common implementations of 64-bit
-          architectures (i.e. AMD64 and Intel EM64T) permit only a
-          paltry 256TB per process. 64-bit Windows again further
-          limits this to 8TB. However, note that even under 64-bit
-          Windows, a 32-bit process frequently only has a maximum
-          address space of 2GB.
-        </p>
-
-        <doc:subsection name="memsup-usage">
-          <doc:heading>Usage</doc:heading>
-
-          <p>
-            The memory threshold at which the flow control is
-            triggered can be adjusted by editing the <code>rabbitmq.config</code>
-            file (in the appropriate location for your platform, as discussed in the
-            <a href="configure.html#configuration-file">configuration guide</a>).
-            The example below sets the threshold to the
-            default value of 0.4:
-            <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
-          </p>
-
-          <p>
-            The default value of 0.4 stands for 40% of installed RAM
-            or 40% of available virtual address space, whichever is
-            smaller. E.g. on a 32-bit Windows platform, if you have
-            4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
-            Windows normally limits processes to 2GB, so the threshold
-            is actually to 40% of 2GB (which is 820MB).
-          </p>
-
-          <p>
-            A value of 0 disables the memory monitor and throttling of
-            producers.
-          </p>
-
-          <p>
-            The memory limit is appended to the
-            <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
-            starts:
-            <pre class="sourcecode">
-=INFO REPORT==== 29-Oct-2009::15:43:27 ===
-Memory limit set to 2048MB.</pre>
-            The memory limit may also be queried using the
-            <code>rabbitmqctl status</code> command.
-          </p>
-
-          <p>
-            The threshhold can be changed while the broker is running
-            using the <code>rabbitmqctl set_vm_memory_high_watermark
-            <em>fraction</em></code> command. This command will take effect
-            until the broker shuts down. The corresponding configuration
-            setting should also be changed when the effects should survive
-            a broker restart. The memory limit may change on systems with
-            hot-swappable RAM when this command is executed without altering
-            the threshhold, due to the fact that the total amount of system
-            RAM is queried.
-          </p>
-
-          <p>
-            Versions of Erlang prior to R13B had a bug that meant they
-            do not reliably detect the amount of memory installed on
-            Windows platforms. If RabbitMQ is running under Windows on
-            a version of Erlang prior to R13B, then it does not
-            attempt to automatically set a threshold. Instead, it
-            behaves as if it's unable to recognise the platform: see
-            below.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="memsup-unrecognised-platforms">
-          <doc:heading>Unrecognised platforms</doc:heading>
-          <p>
-            If the RabbitMQ server is unable to recognise your system,
-            or if you're using Windows and a version of Erlang prior
-            to R13B, it will append a warning to the
-            <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
-            1GB of RAM is installed:
-            <pre class="sourcecode">
-=WARNING REPORT==== 29-Oct-2009::17:23:44 ===
-Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
-          </p>
-
-          <p>
-            In this case, the <code>vm_memory_high_watermark</code>
-            configuration value is used to scale the assumed 1GB
-            RAM. With the default value of
-            <code>vm_memory_high_watermark</code> set to 0.4,
-            RabbitMQ's memory threshold is set to 410MB, thus it will
-            throttle producers whenever RabbitMQ is using more than
-            410MB memory. Thus when RabbitMQ can't recognize your
-            platform, if you actually have 8GB RAM installed and you
-            want RabbitMQ to throttle producers when the server is using
-            above 3GB, set <code>vm_memory_high_watermark</code> to 3.
-          </p>
-
-          <p>
-            It is advised you do not set the threshold above 50% of
-            your installed RAM, and to note that under Windows, it is
-            commonly the case that a maximum of 2GB memory is
-            available to RabbitMQ.
-          </p>
-        </doc:subsection>
-      </doc:section>
-
-      <doc:section name="plugins">
-        <doc:heading>Plugins</doc:heading>
-        
-        <p>
-          RabbitMQ provides a plugin mechanism allowing for additional OTP applications to be run 
-          within the broker node. Plugins should not be seen as a general purpose mechanism for writing
-          applications, but instead as a specialised tool when additional functionality is required
-          at the broker level.
-        </p>
-        <p>
-          The RabbitMQ plugin mechanism makes use of a custom OTP .boot file, to start additional OTP 
-          applications within the broker node, and thus comes with a number of caveats:
-        </p>
-        <ul>
-          <li>
-            Since the plugin runs in the same node as the broker, it should not be assumed that any access
-            controls configured on the broker will be observed by the plugin. Whilst plugins can interact
-            with the ACL mechanism to ensure enforcement of security mechanisms, it is also possible for
-            plugins to completely ignore security configuration.
-          </li>
-          <li>
-            <strong>
-              Again, since the plugin runs in the same node as the broker, an action that results in the node
-              halting will shut down the RabbitMQ broker as well. Well-written plugins can be built to avoid
-              this occuring, however Administrators should be aware of the risks of 
-              <a href="plugins.html#installing-plugins">installing plugins</a> - especially
-              those that are not known to have undergone a rigorous QA procedure.
-            </strong>
-          </li>
-        </ul>
-      </doc:section>
-    </doc:div>
-
-    <x:related-links key="admin-guide.html" />
-    
+    <div class="landing-box">
+      <h2>Other Documentation</h2>
+      <ul>
+        <li>
+          Documentation on how RabbitMQ <a href="memory.html">manages
+          memory</a>.
+        </li>
+        <li>
+          <a href="firehose.html">The Firehose</a> - trace messages as
+          they pass through your RabbitMQ server.
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

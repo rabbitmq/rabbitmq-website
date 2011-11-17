@@ -2,11 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Platforms</title>
+    <title>Supported Platforms</title>
   </head>
   <body>
-    <h2>Supported Platforms</h2>
-
     <p class="intro">
       Our goal is for RabbitMQ to run on as wide a range of platforms as
       possible. RabbitMQ can potentially run on any platform that Erlang
@@ -94,8 +92,5 @@
       If your platform is on this list or you need assistance then
       please <a href="contact.html">contact us</a>.
     </p>
-
-    <x:related-links key="platforms.html" />
-
   </body>
 </html>

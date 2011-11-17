@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Remote procedure call (RPC)
+# RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-six">
    <xi:include href="tutorials-menu.xml.inc"/>

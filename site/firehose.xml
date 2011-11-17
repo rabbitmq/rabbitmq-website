@@ -3,12 +3,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Firehose Tracer</title>
+    <title>Firehose Tracer</title>
   </head>
   <body>
-    <doc:div>
       <doc:section>
-        <doc:heading>Firehose</doc:heading>
 	<p>
 	  Sometimes, during development or debugging, it's useful to
 	  be able to see every message that is published, and every
@@ -93,9 +91,5 @@
           </p>
         </doc:subsection>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="firehose.html" />
-    
   </body>
 </html>
