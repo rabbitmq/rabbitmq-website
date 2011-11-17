@@ -16,15 +16,15 @@
       <h3>Quick Download</h3>
       <ul>
         <li>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
           Binary
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
           Source
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
         </li>
       </ul>
       <h3>Installation Guides</h3>
