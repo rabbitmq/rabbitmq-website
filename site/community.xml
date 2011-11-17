@@ -1,0 +1,35 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Community Contributions to RabbitMQ</title>
+  </head>
+  <body>
+    <div class="landing-box">
+      <h2>How To...</h2>
+      <p>
+        The <a href="how.html">How To</a> page showcases some of our favourite
+        content on this site and the web that will help you get started
+        with messaging and RabbitMQ.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>Development Tools</h2>
+      <p>
+        Details of official and unofficial
+        <a href="devtools.html">clients, adaptors and tools</a>.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>Contact Us</h2>
+      <p>
+        Contact us via a <a href="contact.html">variety of means</a>.
+      </p>
+    </div>
+  </body>
+</html>

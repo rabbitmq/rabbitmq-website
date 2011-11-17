@@ -6,107 +6,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Clients &amp; Developer Tools</title>
-    <link rel="stylesheet" rev="stylesheet" href="/css/devtools.css" type="text/css"/>
+    <title>Clients &amp; Developer Tools</title>
   </head>
-  <body>
-    <doc:div>
-      <h2 id="top">Clients &amp; Developer Tools</h2>
+  <body show-in-this-page="true">
       <p>
         RabbitMQ is <a href="platforms.html">officially supported</a> on a number of
         operating systems and several languages. In addition, the RabbitMQ community
         has created numerous clients, adaptors and tools that we list here for
-        your convenience. We also maintain an extensive list of links related to
-        <a href="delicious.html">RabbitMQ at del.icio.us</a>.
+        your convenience.
       </p>
       <p>
         Please <a href="contact.html">contact us</a> with suggestions for things you
         would like to see added to this list.
       </p>
-      <div id="innerContainer">
-        <div id="toc">
-          <h3>ToC</h3>
-          <ul class="compact">
-            <li>
-              Languages
-              <ul class="plain">
-                <li>
-                  <a href="#java-dev">Java/JVM</a>
-                </li>
-                <li>
-                  <a href="#ruby-dev">Ruby</a>
-                </li>
-                <li>
-                  <a href="#python-dev">Python</a>
-                </li>
-                <li>
-                  <a href="#dotnet-dev">.NET</a>
-                </li>
-                <li>
-                  <a href="#php-dev">PHP</a>
-                </li>                
-                <li>
-                  <a href="#perl-dev">Perl</a>
-                </li>
-                <li>
-                  <a href="#c-dev">C/C++</a>
-                </li>
-                <li>
-                  <a href="#erlang-dev">Erlang</a>
-                </li>
-                <li>
-                  <a href="#lisp-dev">Lisp</a>
-                </li>
-                <li>
-                  <a href="#haskell-dev">Haskell</a>
-                </li>
-                <li>
-                  <a href="#ocaml-dev">Ocaml</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Operating Systems
-              <ul class="plain">
-                <li>
-                  <a href="#macosx-dev">MacOSX</a>
-                </li>
-                <li>
-                  <a href="#openvms">OpenVMS</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Web, Cloud and Mobile
-              <ul class="plain">
-                <li>
-                  <a href="#ec2-dev">Amazon EC2</a>
-                </li>
-                <li>
-                  <a href="#web-messaging">Web Messaging</a>
-                </li>
-                <li>
-                  <a href="#mobile">Mobile</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#stomp">STOMP</a>
-            </li>
-            <li>
-              <a href="#nosql">NoSQL</a>
-            </li>
-            <li>
-              <a href="#rabbitmq-cli">CLI</a>
-            </li>
-            <li>
-              <a href="#miscellaneous">Miscellaneous</a>
-            </li>
-          </ul>
-        </div>
-        <div id="content">
-          <div class="box" id="java-dev">
-            <h3>Java / JVM</h3>
+          <doc:section name="java-dev">
+            <doc:heading>Java / JVM</doc:heading>
             <ul class="plain">
               <li>
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
@@ -234,9 +148,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="ruby-dev">
-            <h3>Ruby</h3>
+          </doc:section>
+          <doc:section name="ruby-dev">
+            <doc:heading>Ruby</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/ruby-amqp/amqp">Ruby/EM AMQP client</a>
@@ -319,9 +233,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="python-dev">
-            <h3>Python</h3>
+          </doc:section>
+          <doc:section name="python-dev">
+            <doc:heading>Python</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens: An Introduction</a>
@@ -387,9 +301,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="dotnet-dev">
-            <h3>.NET</h3>
+          </doc:section>
+          <doc:section name="dotnet-dev">
+            <doc:heading>.NET</doc:heading>
             <ul class="plain">
               <li>
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
@@ -438,9 +352,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="php-dev">
-            <h3>PHP</h3>
+          </doc:section>
+          <doc:section name="php-dev">
+            <doc:heading>PHP</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://www.slideshare.net/old_sound/integrating-php-withrabbitmqzendcon">Integrating PHP with RabbitMQ</a>
@@ -491,9 +405,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="perl-dev">
-            <h3>Perl</h3>
+          </doc:section>
+          <doc:section name="perl-dev">
+            <doc:heading>Perl</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/cooldaemon/AnyEvent-RabbitMQ">AnyEvent::RabbitMQ</a>, an asynchronous and multi-channel AMQP client
@@ -524,12 +438,12 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="c-dev">
-            <h3>C / C++</h3>
+          </doc:section>
+          <doc:section name="c-dev">
+            <doc:heading>C / C++</doc:heading>
             <ul class="plain">
               <li>
-                Experimental <a href="download-ex.html#rabbitmq-c">RabbitMQ-C</a> client
+                Experimental <a href="c-client.html">RabbitMQ-C</a> client
               </li>
               <li>
                 You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a>
@@ -542,9 +456,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="erlang-dev">
-            <h3>Erlang</h3>
+          </doc:section>
+          <doc:section name="erlang-dev">
+            <doc:heading>Erlang</doc:heading>
             <ul class="plain">
               <li>
                 <a href="erlang-client-user-guide.html">Erlang client guide</a>
@@ -564,9 +478,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="lisp-dev">
-            <h3>Lisp</h3>
+          </doc:section>
+          <doc:section name="lisp-dev">
+            <doc:heading>Lisp</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://github.com/lisp/de.setf.amqp/">de.setf.amqp</a> a Common Lisp client library for AMQP
@@ -579,9 +493,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="haskell-dev">
-            <h3>Haskell</h3>
+          </doc:section>
+          <doc:section name="haskell-dev">
+            <doc:heading>Haskell</doc:heading>
             <ul class="plain">
               <li>
                 An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a>
@@ -591,18 +505,18 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="ocaml-dev">
-            <h3>Ocaml</h3>
+          </doc:section>
+          <doc:section name="ocaml-dev">
+            <doc:heading>Ocaml</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="macosx-dev">
-            <h3>MacOSX</h3>
+          </doc:section>
+          <doc:section name="macosx-dev">
+            <doc:heading>MacOSX</doc:heading>
             <ul class="plain">
               <li>
                 Official installation documentation using <a href="install.html#macports">macports</a> or <a href="install.html#machomebrew">homebrew</a>
@@ -621,9 +535,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="openvms">
-            <h3>OpenVMS</h3>
+          </doc:section>
+          <doc:section name="openvms">
+            <doc:heading>OpenVMS</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://rabbitmqonopenvs.blogspot.com/2011/04/rabbitmq-241-released-on-openvms.html">RabbitMQ 2.4.1 on OpenVMS</a> describes a port of RabbitMQ to the OpenVMS operating system
@@ -639,9 +553,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="ec2-dev">
-            <h3>Amazon EC2</h3>
+          </doc:section>
+          <doc:section name="ec2-dev">
+            <doc:heading>Amazon EC2</doc:heading>
             <ul class="plain">
               <li>
                 <a href="ec2.html">How to set up RabbitMQ on EC2</a>
@@ -654,9 +568,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>         
-          <div class="box" id="web-messaging">
-            <h3>Web Messaging</h3>
+          </doc:section>         
+          <doc:section name="web-messaging">
+            <doc:heading>Web Messaging</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
@@ -742,18 +656,18 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="mobile">
-            <h3>Mobile</h3>
+          </doc:section>
+          <doc:section name="mobile">
+            <doc:heading>Mobile</doc:heading>
             <ul class="plain">
               <li>
                 <a href="http://simonwdixon.wordpress.com/2011/06/03/getting-started-with-rabbitmq-on-android-part-1/">Get Started with RabbitMQ on Android</a>
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="stomp">
-            <h3>STOMP</h3>
+          </doc:section>
+          <doc:section name="stomp">
+            <doc:heading>STOMP</doc:heading>
             <ul class="plain">
               <li>
                 <a href="stomp.html">RabbitMQ STOMP plug-in</a>
@@ -769,9 +683,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>          
-          <div class="box" id="rabbitmq-cli">
-            <h3>CLI</h3>
+          </doc:section>          
+          <doc:section name="rabbitmq-cli">
+            <doc:heading>CLI</doc:heading>
             <ul class="plain">
               <li>
                 <a href="management-cli.html">rabbitmqadmin</a>, the RabbitMQ Management command line tool
@@ -784,9 +698,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="nosql">
-            <h3>NoSQL</h3>
+          </doc:section>
+          <doc:section name="nosql">
+            <doc:heading>NoSQL</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
@@ -808,9 +722,9 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-          <div class="box" id="miscellaneous">
-            <h3>Miscellaneous</h3>
+          </doc:section>
+          <doc:section name="miscellaneous">
+            <doc:heading>Miscellaneous</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-global-fanout-exchange">RabbitMQ Global Fanout Exchange</a>
@@ -902,9 +816,6 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </doc:div>
+          </doc:section>
   </body>
 </html>

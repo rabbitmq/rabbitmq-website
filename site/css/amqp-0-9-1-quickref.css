@@ -1,16 +1,5 @@
 /* stylesheet for rendering AMQP 0-9-1 quick reference */
 
-div#toc {
-  float: left;
-  width: 20%;
-  margin-top: -1em;
-}
-div#content-pane {
-  margin-left: 20%;
-}
-div#content-pane p {
-  clear: none;
-}
 div.method-box {
   border: 1px solid #555;
   padding: 0.5em 1em;

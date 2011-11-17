@@ -1,9 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Messaging that just works</title>
+    <title>Messaging that just works</title>
   </head>
-  <body>
+  <body suppress-rhs="true">
 
     <div class="rgt-third">
       <p class="button">
@@ -41,17 +41,11 @@
     <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
     <a href="mpl.html">Mozilla Public License</a>.
     </p>
-    <ul>
-      <li>Learn more about <a href="/faq.html#what-is-messaging">messaging</a></li>
-      <li>Read more about <a href="how.html">RabbitMQ</a></li>
-      <li>Get involved on our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a></li>
-    </ul>
-	</div>
+    </div>
 
     <div>
     <h3>Why Choose RabbitMQ?</h3>
-    <p>RabbitMQ is based on a
-    <a href="faq.html#what-is-otp">proven platform</a> and offers a
+    <p>RabbitMQ is based on a proven platform and offers a
 	reliable, scalable and portable messaging system with predictable and consistent
 	throughput and latency.
 	</p>
@@ -61,7 +55,7 @@
 	<p>RabbitMQ is designed from the ground up to
 	<a href="interoperability.html">interoperate</a>
 	with other messaging systems: it is the leading
-	<a href="faq.html#what-is-amqp">implementation of AMQP</a>,
+	implementation of AMQP,
 	the open standard for business messaging, and, through
 	<a href="plugins.html">plug-ins</a>, supports
 	STOMP, HTTP for lightweight web messaging, and other protocols.
@@ -78,7 +72,7 @@
     <h3>How Do I Get Started?</h3>
     <ul>
       <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
-      <li>I want to <a href="download.html">download</a>, <a href="install.html">install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
+      <li>I want to <a href="download.html">download, install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
       <li>I want to <a href="http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works">run RabbitMQ on CloudFoundry</a></li>
       <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
     </ul>

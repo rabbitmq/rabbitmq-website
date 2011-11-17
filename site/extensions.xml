@@ -3,26 +3,20 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Protocol Extensions</title>
+    <title>Protocol Extensions</title>
     <script type="text/javascript">
       // Added 2011-09-13, should only live a few months at most.
       if (location.hash == '#memsup') {
-      location.href = location.href.substring(0, location.href.indexOf('extensions.html#')) + 'admin-guide.html#memsup';
+      location.href = location.href.substring(0, location.href.indexOf('extensions.html#')) + 'memory.html';
       }
     </script>
   </head>
-  <body>
-    <doc:div>
+  <body show-in-this-page="true">
       <p class="intro">
         The RabbitMQ Server implements a number of extensions of the
         <a href="specification.html">AMQP specification</a>, which we
         are documenting here.
       </p>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="routing">
         <doc:heading>Message Routing</doc:heading>
 
@@ -619,9 +613,5 @@ channel.basicConsume(queue, consumer);</pre>
          the future and should not be relied upon.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="extensions.html" />
-    
   </body>
 </html>

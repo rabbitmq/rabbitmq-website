@@ -5,10 +5,9 @@
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - API Guide</title>
+    <title>Java Client API Guide</title>
   </head>
-  <body>
-    <doc:div>
+  <body show-in-this-page="true">
       <p class="intro">
 	This page gives an overview of the RabbitMQ Java client	API. 
       </p>
@@ -20,13 +19,7 @@
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
     <doc:section name="core">
-        <doc:heading>Core API Guide</doc:heading>
         <p>
             The client API is closely modelled on the AMQP protocol specification,
             with additional abstractions for ease of use.
@@ -663,6 +656,43 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           </doc:subsection>
       </doc:section>
 
+      <doc:section name="bundled">
+	<doc:heading>Bundled examples</doc:heading>
+	<p>
+	  The Java client library distribution is shipped with a
+	  <code>rabbitmq-client-tests.jar</code>, containing several
+	  small example programs for exercising the functionality of
+	  the RabbitMQ server.  The source code for these examples is
+	  in the <code>test/src</code> folder in the source
+	  distribution.
+        </p>
+        <p>
+          The script <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> runs Java with
+          the class path correctly configured for the examples, e.g.
+          <code>runjava.sh com.rabbitmq.examples.TestMain</code> runs
+          the <code>TestMain</code> functional tests.
+        </p>
+      </doc:section>
+
+      <doc:section name="tracer">
+	<doc:heading>AMQP Protocol Capture/Analysis Tool</doc:heading>
+	<p>
+	  There's a very basic, very simple AMQP protocol analyzer in
+	  class <code>com.rabbitmq.tools.Tracer</code>. Invoke it with
+	</p>
+	<pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
+	<p>
+	  <dl>
+	    <dt>listenPort</dt>
+	    <dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
+	    <dt>connectHost</dt>
+	    <dd>hostname to use when making an outbound connection in response to an incoming connection - defaults to localhost.</dd>
+	    <dt>connectPort</dt>
+	    <dd>port number to use when making an outbound connection - defaults to 5672.</dd>
+	  </dl>
+	</p>
+      </doc:section>
+
 <!-- Removed because we decided to exclude these libs from the release.
      See bug 16391.
 
@@ -750,6 +780,5 @@ Object call(String[] args) <b>throws</b> NumberFormatException, IOException, Jso
 	<pre class="sourcecode">rpcProxy.call(<b>&quot;add_user&quot;</b>, <b>new</b> Object[] { <b>&quot;user name&quot;</b>, <b>&quot;password&quot;</b> });</pre>
       </doc:section>
 -->
-    </doc:div>
   </body>
 </html>

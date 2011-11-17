@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Publish/Subscribe
+# RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-three">
    <xi:include href="tutorials-menu.xml.inc"/>

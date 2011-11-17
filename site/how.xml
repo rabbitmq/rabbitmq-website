@@ -6,7 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - How To</title>
+    <title>How To</title>
     <script type="text/javascript">
       // redirect to new page
       if (location.hash == '#clients' || location.hash == '#specific-configs') {
@@ -14,21 +14,13 @@
       }
     </script>
   </head>
-  <body>
-    <doc:div>
-
-    <h2>How To with RabbitMQ</h2>
-
+  <body show-in-this-page="true">
     <p class="intro">The links below highlight some of our favourite content on this site and the
       web that will help you get started with messaging and RabbitMQ. If you are just starting out
       with messaging and RabbitMQ, please take a look at our <a href="getstarted.html">Get Started
       tutorials</a>. If you feel we have missed something or would like to suggest more links please
       <a href="contact.html">contact us</a>.
     </p>
-
-    <doc:toc class="compact">
-      <doc:heading>Table of Contents</doc:heading>
-    </doc:toc>
 
     <doc:section name="quickstart">
     <doc:heading>Overviews and Introductions</doc:heading>
@@ -204,7 +196,7 @@
       <doc:heading>Management and Monitoring</doc:heading>
       <p>
         Management and monitoring capabilities are provided
-        by <a href="admin-guide.html#management">rabbitmqctl</a>
+        by <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>
         and <a href="management.html">the management plugin</a>.
       </p>
       <p>
@@ -665,6 +657,5 @@
     </li>
     </ul>
     </doc:section>
-    </doc:div>
   </body>
 </html>
