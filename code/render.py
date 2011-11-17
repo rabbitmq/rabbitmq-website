@@ -14,7 +14,7 @@ except ImportError:
             self.OK = 0
     apache = StubApache()
 
-SITE_DIR='/srv/www.rabbitmq.com/site/'
+SITE_DIR='define_me_before_use'
 
 def preprocess_markdown(fpath):
     contents = open(fpath).read()
@@ -33,10 +33,14 @@ def preprocess_markdown(fpath):
     if nosyntax:
         title = re.sub("NOSYNTAX", "", title)
 
+    suppressRHS = re.search("SUPPRESS-RHS", title)
+    if suppressRHS:
+        title = re.sub("SUPPRESS-RHS", "", title)
+
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 %s
+<!ENTITY nbsp "&#160;">
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:xi="http://www.w3.org/2003/XInclude">""" % entities
@@ -44,8 +48,8 @@ def preprocess_markdown(fpath):
     head = """<head>
     <title>%s</title>
   </head>
-  <body>
-""" % (title,)
+  <body%s>
+""" % (title, suppressRHS and ' suppress-rhs="true"' or '')
 
     post = """</body>
 </html>
@@ -63,10 +67,8 @@ def preprocess_markdown(fpath):
     whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 
-MARKUPS=[
-    ('.xml', libxml2.createFileParserCtxt),
-    ('.md', preprocess_markdown)
-]
+MARKUPS={'.xml': libxml2.createFileParserCtxt,
+         '.md':  preprocess_markdown}
 
 class Error404(Exception):
     pass
@@ -109,13 +111,14 @@ def render_page(page_name):
                     "UTF-8",
                     libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'/%s.html'" % page_name})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500
 
 def create_xml_context(page_name):
-    for (ext, ctxt_maker) in MARKUPS:
+    for ext in MARKUPS:
+        ctxt_maker = MARKUPS[ext]
         file_name = page_name + ext
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):

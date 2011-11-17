@@ -1,7 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Build Instructions</title>
+    <title>Build Instructions</title>
   </head>
   <body>
     <p class="intro">
@@ -9,27 +11,28 @@
       of the RabbitMQ server and available client libraries.
     </p>
 
-    <h2>Building the source</h2>
+    <div class="landing-box">
+      <h2>RabbitMQ Server</h2>
+      <p>
+        See <a href="build-server.html">server build instructions</a>.
+      </p>
+    </div>
 
-    <h3>RabbitMQ Server</h3>
+    <div class="landing-box">
+      <h2>RabbitMQ Java AMQP client library</h2>
+      <p>
+        See <a href="build-java-client.html">Java client library build
+          instructions</a>.
+      </p>
+    </div>
 
-    <p>
-      See <a href="build-server.html">server
-      build instructions</a>.
-    </p>
+    <div class="landing-box">
+      <h2>RabbitMQ .NET/C# AMQP client library and WCF bindings</h2>
+      <p>
+        See <a href="build-dotnet-client.html">.Net/C# AMQP client
+          library and WCF bindings build instructions</a>.
+      </p>
+    </div>
 
-    <h3>RabbitMQ Java AMQP client library</h3>
-    
-    <p>
-      See <a href="build-java-client.html">Java client
-      library build instructions</a>.
-    </p>
-
-    <h3>RabbitMQ .NET/C# AMQP client library and WCF bindings</h3>
-
-    <p>
-      See <a href="build-dotnet-client.html">.Net/C# AMQP client
-      library and WCF bindings build instructions</a>.
-    </p>
   </body>
 </html>

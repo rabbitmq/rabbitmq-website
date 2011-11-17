@@ -1,16 +1,52 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Server Changelog</title>
+    <title>Server Changelog</title>
   </head>
   <body>
-    <doc:div>
-      <h1>RabbitMQ Server changelog</h1>
       <table id="changelog">
         <tr>
           <th>Version</th>
           <th>Release Date</th>
           <th>Highlights</th>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
+          <td>9 Nov 2011</td>
+          <td>
+            <ul>
+              <li>Order preservation of re-queued messages</li>
+              <li>Plugins included with server</li>
+              <li>"amqp" URI client connection</li>
+              <li>Performance improvements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-September/015033.html">2.6.1</a></td>
+          <td>12 Sep 2011</td>
+          <td>
+            <ul>
+              <li>This release fixes a bug in the 2.6.0 version that causes the broker to fail to restart on reboot on some operating systems.</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-August/014783.html">2.6.0</a></td>
+          <td>31 August 2011</td>
+          <td>
+            <ul>
+              <li>Active-active HA.</li>
+              <li>Stomp improvements</li>
+              <li>Management improvements</li>
+              <li>Federation plugin</li>
+            </ul>
+          </td>
         </tr>
 
         <tr>
@@ -312,6 +348,5 @@
           </td>
         </tr>
       </table>
-    </doc:div>
   </body>
 </html>

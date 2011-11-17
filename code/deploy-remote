@@ -24,18 +24,23 @@ mirror_group=$(id -ng $mirror_user)
 xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
 
 site_dir=/srv/www.rabbitmq.com
-rm -rf $site_dir/site $site_dir/code
+rm -rf $site_dir/site-src $site_dir/site $site_dir/code
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
-cp -r site code $site_dir
+cp -r code $site_dir
+cp -r site $site_dir/site-src
+
+if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
+    cp -r /home/rabbitmq/extras/releases/rabbitmq-server/current/man $site_dir/site-src/man
+fi
+
+./code/compile $site_dir/site-src $site_dir/site
+
+chown $mirror_user:$mirror_group $site_dir/site/index.html
 
 if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
     rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
     cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
-fi
-
-if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
-    ln -sf /home/rabbitmq/extras/releases/rabbitmq-server/current/man $site_dir/site/
 fi
 
 if [ -d /etc/apache2/sites-available/ ]; then

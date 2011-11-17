@@ -1,22 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Highly Available Queues</title>
+    <title>Highly Available Queues</title>
   </head>
   <body>
-    <doc:div>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="overview">
-        <doc:heading>Availability overview</doc:heading>
         <p>
           If your RabbitMQ broker consists of a single node, then a
           failure of that node will cause downtime, temporary
@@ -71,19 +61,6 @@
 
       <doc:section name="behaviour">
         <doc:heading>Mirrored Queue Behaviour</doc:heading>
-        <p>
-          A mirrored queue will behave the same as a non-mirrored
-          queue, with the following exceptions:
-          <ul>
-            <li>Transactions are <b>not</b> supported. If you wish to
-            have confirmation when a message has been received and
-            processed by the broker, use <a
-            href="extensions.html#confirms">publisher
-            confirms</a>. Messages published to mirrored queues within
-            a transaction are silently dropped.
-            </li>
-          </ul>
-        </p>
         <p>
           In normal operation, for each mirrored-queue, there is one
           <i>master</i> and several <i>slaves</i>, each on a
@@ -188,6 +165,26 @@
           you care about not losing messages then you are advised to
           consume with <i>noAck=false</i>.
         </p>
+        <doc:subsection name="confirms-transactions">
+          <doc:heading>Publisher Confirms and Transactions</doc:heading>
+          <p>
+            Mirrored queues support both <a
+            href="extensions.html#confirms">Publisher Confirms</a> and
+            <a href="specification.html#tx">Transactions</a>. The
+            semantics chosen are that in the case of both confirms and
+            transactions, the action spans all mirrors of the
+            queue. So in the case of a transaction, a
+            <code>tx.commit-ok</code> will only be returned to a
+            client when the transaction has been applied across all
+            mirrors of the queue. Equally, in the case of publisher
+            confirms, a message will only be confirmed to the
+            publisher when it has been accepted by all of the
+            mirrors. It is correct to think of the semantics as being
+            the same as a message being routed to multiple normal
+            queues, and of a transaction with publications within
+            that similarly are routed to multiple queues.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="unsynchronised-slaves">
@@ -220,6 +217,12 @@
           that your use of messaging generally results in very short
           or empty queues that rapidly drain.
         </p>
+        <p>
+          You can determine which slaves have synchronised with the
+          following rabbitmqctl invocation, or through the management
+          plugin:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
       </doc:section>
 
       <doc:section name="start-stop">
@@ -243,7 +246,7 @@
           master to which it is rejoining (this could happen during a
           network partition, for example). As such, when a slave
           rejoins a mirrored-queue, it throws away any durable local
-          contents it already has and starts empty. It's behaviour is
+          contents it already has and starts empty. Its behaviour is
           at this point the same as if it were a <a
           href="#unsynchronised-slaves">new node joining the
           cluster</a>.
@@ -319,6 +322,21 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           <code>node2@rabbit</code> and <code>node4@rabbit</code>.
         </p>
       </doc:section>
-    </doc:div>
+      <doc:section name="peer-perspective">
+        <doc:heading>Handling node failure in clients</doc:heading>
+        <p>
+          The client libraries distributed by RabbitMQ do not deal
+          with a master node failure in a transparent manner. However
+          it is possible to implement a producer and consumer that
+          transition between pre-determined cluster nodes using the
+          client libraries. The recommended method is to pre-configure
+          producers and consumers with the set of all nodes in a
+          cluster, assuming the set of all nodes that may join the
+          cluster remains static. Clients should then reconnect
+          to a different node when the connection to the current
+          node drops, or upon receipt of <code>basic.cancel</code>
+          by consumers that support it.
+        </p>
+      </doc:section>
   </body>
 </html>

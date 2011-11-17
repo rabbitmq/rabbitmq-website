@@ -1,22 +1,14 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Erlang AMQP Client library</title>
+    <title>Erlang AMQP Client library</title>
   </head>
-<body>
-<doc:div>
+<body show-in-this-page="true">
  <p class="intro">
   This is the programmer's guide to the Erlang AMQP client.
  </p>
 
- <doc:toc class="compact">
-   <doc:heading>Table of Contents</doc:heading>
- </doc:toc>
-
  <doc:section name="introduction">
-   <doc:heading>Introduction</doc:heading>
    <p>
      The AMQP client provides an Erlang interface to compliant AMQP
      brokers. The client follows the AMQP execution model and
@@ -242,6 +234,20 @@
       <tr><td>client_properties</td><td>[ ]</td></tr>
     </table>
 </doc:section>
+<doc:section name="amqp-uris">
+  <doc:heading>Connecting To A Broker with AMQP URIs</doc:heading>
+  <p>
+    Instead of working the #amqp_params_* records directly, <a
+    href="uri-spec.html">AMQP URIs</a> may be used.  The
+    amqp_uri:parse/1 function si provided for this purpose.  It parses
+    an URI and returns the equivalent #amqp_params_* record.
+    Diverging from the spec, if the hostname is omitted, the
+    connection is assumed to be direct and an #amqp_params_direct{}
+    record is returned.  In addition to the standard host, port, user,
+    password and vhost parameters, extra parameters may be specified
+    via the query string (e.g. "?heartbeat=5").
+  </p>
+</doc:section>
 <doc:section name="channels">
   <doc:heading>Creating Channels</doc:heading>
   <p>
@@ -458,11 +464,18 @@
     As indicated in the "Receiving Messages" section, subscribing to a
     queue can be a more efficient means of delivering messages than
     the polling mechanism. To subscribe to a queue, the
-    #'basic.consume'{} command is used:
+    #'basic.consume'{} command is used in one of two forms:
 
     <pre class="sourcecode">
       Sub = #'basic.consume'{queue = Q},
       #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
+    </pre>
+
+    or
+
+    <pre class="sourcecode">
+      Sub = #'basic.consume'{queue = Q},
+      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:call(Channel, Sub) %% the caller is the subscriber
     </pre>
   </p>
   <p>
@@ -472,14 +485,9 @@
     subscription. The #'basic.consume_ok'{} notification contains a
     tag that identifies the subscription. This is used at a later
     point in time to cancel the subscription. This notification is
-    send both to the process that created the subscription (as the
+    sent both to the process that created the subscription (as the
     return value to amqp_channel:subscribe/3) and as a message to the
     consumer process.
-  </p>
-  <p>
-    Currently, sending basic.consume messages is only possible via the
-    subscribe function. This part of the API may change in the near
-    future.
   </p>
   <p>
     When a consumer process is subscribed to a queue, it will receive
@@ -529,6 +537,37 @@
       amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
     </pre>
 
+</doc:section>
+
+<!-- ..................................................................... -->
+
+<doc:section name="subscribing-internals">
+  <doc:heading>Subscribing Internals</doc:heading>
+  <p>The channel uses a module implementing the amqp_gen_consumer
+  behaviour to determine its behaviour with regard to subscribing
+  related events.  Effectively, this modules handles client-side
+  consumer registration and routing of deliveries to the appropriate
+  consumers.</p>
+
+  <p>For instance, the default consumer module,
+  amqp_selective_consumer, keeps track of which processes are
+  subscribed to which queues and routes deliveries appropriately; in
+  addition, if the channel gives it a delivery for an unknown
+  consumer, it will pass it to a default consumer, should one be
+  registered.</p>
+
+  <p>By contrast, amqp_direct_consumer simply forwards all the
+  messages it receives from the channel to its only registered
+  consumer.</p>
+
+  <p>The consumer module for a channel is chosen when the channel is
+  opened by setting the second parameter to
+  amqp_connection:open_channel/2.  The consumer module implements the
+  amqp_gen_consumer behaviour and thus implements functions to handle
+  receiving basic.consume, basic.consume_ok, basic.cancel,
+  basic.cancel_ok methods as well as publishes.</p>
+
+  <p>See the API documentation for details.</p>
 </doc:section>
 
 <!-- ..................................................................... -->
@@ -768,7 +807,5 @@
    </p>
 
   </doc:section>
-
-</doc:div>
 </body>
 </html>

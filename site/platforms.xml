@@ -1,11 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Platforms</title>
+    <title>Supported Platforms</title>
   </head>
   <body>
-    <h2>Supported Platforms</h2>
-
     <p class="intro">
       Our goal is for RabbitMQ to run on as wide a range of platforms as
       possible. RabbitMQ can potentially run on any platform that Erlang
@@ -30,13 +29,25 @@
     </p>
 
     <p id="rabbit-supported">
-      RabbitMQ is officially supported on a limited number of platforms:
+      The open source release of RabbitMQ is officially supported on a
+      limited number of platforms:
       <ul class="compact">
         <li>Ubuntu and Debian-based Linux distributions</li>
         <li>Fedora and RPM-based Linux distributions</li>
         <li>openSUSE and derived distributions (including SLES and SLERT)</li>
         <li>Mac OS X</li>
         <li>Windows XP and later</li>
+      </ul>
+    </p>
+
+    <p id="vfabric-rabbit-supported">
+      Commerical support for <a href="http://www.vmware.com/products/datacenter-virtualization/vfabric-rabbitmq/overview.html">vFabric RabbitMQ</a>,
+      both the vFabric Advanced and vFabric RabbitMQ standalone editions, is available for the following platforms:
+      <ul class="compact">
+        <li>Ubuntu 10.04 LTS (64 bit)</li>
+        <li>RHEL 5 and CentOS 5 (32 and 64 bit)</li>
+        <li>Windows 2003 (32 bit)</li>
+        <li>Windows 2008 (32 and 64 bit)</li>
       </ul>
     </p>
 
@@ -81,6 +92,5 @@
       If your platform is on this list or you need assistance then
       please <a href="contact.html">contact us</a>.
     </p>
-
   </body>
 </html>

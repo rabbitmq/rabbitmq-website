@@ -1,22 +1,18 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - High availability with Pacemaker and DRBD</title>
+    <title>High availability with Pacemaker and DRBD</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+    <p class="warning">
+      This page documents a legacy technique for achieving
+      active-passive high availability with
+      RabbitMQ. <a href="ha.html">Active-active mirrored queues</a>
+      are easier to use and do not impose a delay at failover.
+    </p>
       <doc:section name="introduction">
-	<doc:heading>Introduction</doc:heading>
-
         <p>There are many forms of high availability, replication and
         resilience in the face of various different types of
         failure. RabbitMQ can be made to work in an active/passive
@@ -562,7 +558,5 @@ ha-node-3:~#
           <dd>Additional arguments provided to the server on startup</dd>
         </dl>
       </doc:section>
-
-    </doc:div>
   </body>
 </html>

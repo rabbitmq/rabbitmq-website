@@ -1,12 +1,11 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Contact</title>
+    <title>Contact Us</title>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="/js/contact.js"></script>
   </head>
   <body>
-    <doc:div>
     <h2 id="mailing-list">Mailing List</h2>
     <p>
       We host the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a> list for
@@ -39,21 +38,24 @@
         <td>If you have a genuine complaint or need to rant</td><td><a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a></td>
       </tr>
     </table>
-    <h2 id="irc">IRC</h2>
+    <h2 id="socialmedia">Social Media</h2>
+    <h3 id="microblog">Twitter</h3>
+    <p>
+      RabbitMQ is on twitter. <a href="http://twitter.com/#!/rabbitmq">Follow us</a> or <a href="http://twitter.com/search?q=rabbitmq">search realtime</a> results.
+      If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
+    </p>
+    <h3 id="irc">IRC</h3>
     <p>
       RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
       <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
       The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
 	  You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
 	</p>
-	<h2 id="microblog">Twitter</h2>
-	<p>
-	  RabbitMQ is on twitter. <a href="http://twitter.com/#!/rabbitmq">Follow us</a> or <a href="http://twitter.com/search?q=rabbitmq">search realtime</a> results.
-	</p>
-	<p>
-	  If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
-	</p>
-	<div id="getting_here">
+    <h3>Facebook</h3>
+    <p>
+      RabbitMQ is <a href="http://www.facebook.com/pages/RabbitMQ/202623286424686">on Facebook</a>.
+    </p>
+    <div id="getting_here">
     <h2>Getting here</h2>
     <h3 id="location">Location</h3>
     <address>
@@ -85,7 +87,6 @@
       <li><a href="http://maps.google.co.uk/maps?f=d&amp;source=s_d&amp;saddr=Waterloo,+London&amp;daddr=110+Southwark+Street,+London+SE1+0TA,+UK&amp;hl=en&amp;geocode=FT7eEQMdpUD-_ykxANxMuAR2SDGy9Nq8xoURJg%3BFYfsEQMd4Xn-_ylD0-kyrwR2SDFsnJAnBFfByw&amp;gl=uk&amp;mra=ls&amp;dirflg=w&amp;doflg=ptk&amp;sll=51.50464,-0.10739&amp;sspn=0.013076,0.015407&amp;ie=UTF8&amp;ll=51.504602,-0.103405&amp;spn=0.013076,0.015407&amp;z=16">London Waterloo</a> (1,300 metres)</li>
     </ul>
     </div>
-    </doc:div>
   </body>
 </html>
 

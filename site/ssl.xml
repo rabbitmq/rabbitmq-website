@@ -1,21 +1,16 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - SSL</title>
+    <title>SSL Support</title>
   </head>
-  <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+  <body show-in-this-page="true">
       <doc:section name="intro">
-        <doc:heading>Introduction</doc:heading>
         <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
         <p>SSL/TLS support in the RabbitMQ server requires
           the <code>new_ssl</code> Erlang/OTP
@@ -249,6 +244,16 @@ server testca
    ]}
 ].
 </pre>
+
+          <p>
+            <b>Note to Windows users:</b> Backslashes ("\") in the
+            configuration file are interpreted as escape sequences -
+            so for example to specify the
+            path <code>c:\cacert.pem</code> for the CA certificate you
+            would need to enter <code>{cacertfile,
+            "c:\\cacert.pem"}</code> or <code>{cacertfile,
+            "c:/cacert.pem"}</code>.
+          </p>
 
           <p>When a web browser connects to an HTTPS web server, the server
           presents its public certificate, the web browser attempts to establish
@@ -571,7 +576,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           certificates because it is expected that if no <i>Key Usage Extension</i>
           is found, the certificate is valid to be used for any purpose.</p>
           <p>This is the reason why in the sample <code>openssl.cnf</code> file listed
-          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the lacodeer two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
+          above, the extensions specified for <code>root_ca_extensions</code>, <code>client_ca_extensions</code> and <code>server_ca_extensions</code> all have <code>keyUsage</code> specified, and the latter two also have <code>extendedKeyUsage</code> defined. Thus the certificates generated above are
           valid for use by Mono; <code>keyEncipherment</code> specifies that the
           certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
@@ -580,11 +585,11 @@ started SSL Listener on 0.0.0.0:5671</pre>
           same thing.</p>
           <p>You can use <a class="extlink" href="http://gist.github.com/145812">this small tool</a> to
           check that the certificate <i>presented by the RabbitMQ server</i> is
-          acceptable to Mono (note, you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using the OpenSSL command
-          above):</p>
+          acceptable to Mono.  Note that you'll need to convert the <code>server/cert.pem</code> to <code>server/cert.cer</code> using an appropriate OpenSSL command:</p>
 
 <pre class="sourcecode">
-# mono certcheck.exe /path/to/server/cert.cer 
+# openssl x509 -in /path/to/server/cert.pem -out /path/to/server/cert.cer -outform DER
+# mono certcheck.exe /path/to/server/cert.
 Checking if certificate is SSLv3... Ok
 Checking for KeyUsageExtension (2.5.29.15)... Ok
 Checking if KeyEncipherment flag is set... Ok
@@ -619,7 +624,7 @@ This certificate CAN be used by Mono for Server validation
           <p>NB: On some flavours of Windows there are two versions of
             the command - one that ships with the operating system and
             provides a graphical interface only, and one that ships
-            with the .NET Framework Tools and provides both a
+            with the Windows SDK and provides both a
             graphical and command line interface. Either will do the
             job, but the examples below are based on the latter.</p>
             <p>For our case, because we're supplying the client certificate/key pair
@@ -653,18 +658,18 @@ This certificate CAN be used by Mono for Server validation
           (Mono) store we run:</p>
 
 <pre class="sourcecode">
-(Windows) # certmgr -add -all \path\to\cacert.cer -s Root
-(Mono)    # certmgr -add -c Trust /path/to/cert.cer</pre>
+(Windows) > certmgr -add -all \path\to\cacert.cer -s Root
+(Mono)    $ certmgr -add -c Trust /path/to/cacert.cer</pre>
 
-          <p>To add a certificate to the machine wide store instead we
+          <p>To add a certificate to the machine certificate store instead we
           run</p>
 <pre class="sourcecode">
-(Windows) # certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
-(Mono)    # certmgr -add -c -m Trust /path/to/cert.cer</pre>
+(Windows) > certmgr -add -all \path\to\cacert.cer -s -r localMachine Root
+(Mono)    $ certmgr -add -c -m Trust /path/to/cacert.cer</pre>
           <p>After adding to a store, we can view the contents of that store with the -list switch:</p>
 <pre class="sourcecode">
-(Windows) # certmgr -all -s Root
-(Mono)    # certmgr -list -c Trust
+(Windows) > certmgr -all -s Root
+(Mono)    $ certmgr -list -c Trust
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -681,8 +686,8 @@ Self-signed X.509 v3 Certificate
           trust store. The Unique Hash uniquely identifies this certificate in
           this store. To delete this certificate, use the unique hash:</p>
 <pre class="sourcecode">
-(Windows) # certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
-(Mono)    # certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
+(Windows) > certmgr -del -c -sha1 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E -s Root
+(Mono)    $ certmgr -del -c Trust 1F04D1D2C20B97BDD5DB70B9EB2013550697A05E
 
 Mono Certificate Manager - version 2.4.0.0
 Manage X.509 certificates and CRL from stores.
@@ -740,27 +745,27 @@ using RabbitMQ.Client;
 using RabbitMQ.Util;
 
 namespace RabbitMQ.Client.Examples {
-    public class LogTailSSL {
+    public class TestSSL {
         public static int Main(string[] args) {
             ConnectionFactory cf = new ConnectionFactory();
 
             cf.Ssl.ServerName = System.Net.Dns.GetHostName();
-            cf.Ssl.CertPath = "/src/client/keycert.p12";
+            cf.Ssl.CertPath = "/path/to/client/keycert.p12";
             cf.Ssl.CertPassphrase = "MySecretPassword";
             cf.Ssl.Enabled = true;
 
             using (IConnection conn = cf.CreateConnection()) {
                 using (IModel ch = conn.CreateModel()) {
-                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, true, false, null);
+                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
                     ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
                     BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
                     if (result == null) {
                         Console.WriteLine("No message received.");
                     } else {
-                        ch.BasicAck(result.DeliveryTag, false);
                         Console.WriteLine("Received:");
                         DebugUtil.DumpProperties(result, Console.Out, 0);
                     }
+                    ch.QueueDelete("rabbitmq-dotnet-test");
                 }
             }
             return 0;
@@ -768,6 +773,12 @@ namespace RabbitMQ.Client.Examples {
     }
 }
 </pre>
+          <p>Note that, on Windows XP, running the example may fail
+          with <code>CryptographicException: Key not valid for use in
+          specified state</code>.  In this case, you may be successful
+          in loading the certificate from the certificate store and
+          setting <code>ConnectionFactory</code>'s
+          <code>Ssl.Certs</code> parameter directly.</p>
         </doc:subsection>
 
         <doc:subsection name="bugs-in-mono">
@@ -791,8 +802,8 @@ namespace RabbitMQ.Client.Examples {
       <doc:section name="configure-erlang">
         <doc:heading>Configuring the Erlang client</doc:heading>
           <p>Enabling SSL in the RabbitMQ Erlang client is rather
-          straight-forward. In the <code>#amqp_params</code> record, we just need to
-          supply values in the <code>ssl_options</code> field. These you will recognise
+          straight-forward. In the <code>#amqp_params_network</code> record, we just need to
+          supply values in the <code>ssl_options</code> field. These, you will recognise
           from the options we specified to RabbitMQ.</p>
 
         <doc:subsection name="erlang-ssl">
@@ -817,20 +828,18 @@ namespace RabbitMQ.Client.Examples {
         <doc:subsection name="code">
           <doc:heading>Code</doc:heading>
 <pre class="sourcecode">
-Params = #amqp_params { port = 5671,
-                        ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
-                                       {certfile, &quot;/path/to/client/cert.pem&quot;},
-                                       {keyfile, &quot;/path/to/client/key.pem&quot;},
-                                       {verify, verify_peer},
-                                       {fail_if_no_peer_cert, true}] },
-{ok, Conn} = amqp_connection:start(network, Params),
+Params = #amqp_params_network { port = 5671,
+                                ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
+                                               {certfile, &quot;/path/to/client/cert.pem&quot;},
+                                               {keyfile, &quot;/path/to/client/key.pem&quot;},
+                                               {verify, verify_peer},
+                                               {fail_if_no_peer_cert, true}] },
+{ok, Conn} = amqp_connection:start(Params),
 </pre>
 
             <p>You can now go ahead and use Conn as a normal connection.</p>
         </doc:subsection>
 
       </doc:section>
-
-    </doc:div>
   </body>
 </html>

@@ -1,21 +1,16 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Management Plugin</title>
+    <title>Management Plugin</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="features">
-        <doc:heading>Features</doc:heading>
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
@@ -51,8 +46,6 @@
             <tr>
               <th>Overview</th>
               <th>Import / Export</th>
-              <th>Channel List</th>
-              <th>Queue Details</th>
             </tr>
             <tr>
               <td>
@@ -65,6 +58,12 @@
                   <img src="/img/management/thumbs/import-export.png"/>
                 </a>
               </td>
+            </tr>
+            <tr>
+              <th>Channel List</th>
+              <th>Queue Details</th>
+            </tr>
+            <tr>
               <td>
                 <a href="/img/management/channels.png">
                   <img src="/img/management/thumbs/channels.png"/>
@@ -83,20 +82,16 @@
       <doc:section name="installation">
         <doc:heading>Installation</doc:heading>
         <p>
-          The simplest way to obtain the management plugin is to
-          download the binary packages from
-          the <a href="plugins.html">plugins page</a> and copy them to
-          your plugins directory. See
-          the <a href="plugins.html">plugins page</a> for more
-          details.
+          The management plugin is included in the RabbitMQ
+          distribution.  To enable it, use <a
+          href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
+        <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
-          page or
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
-          file for more information, but be aware that it seems to be
+          page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <doc:subsection name="erlang">
@@ -118,8 +113,10 @@
             http://<i>server-name</i>:55672/mgmt/
           </li>
           <li>
-            The HTTP API and its documentation are located at:
-            http://<i>server-name</i>:55672/api/
+            The HTTP API and its documentation are both located at:
+            http://<i>server-name</i>:55672/api/ (or view
+            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+            latest HTTP API documentation here</a>).
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
@@ -146,7 +143,7 @@
         <doc:heading>Permissions</doc:heading>
         <p>
           The management plugin extends the
-          existing <a href="admin-guide.html#access-control">permissions
+          existing <a href="access-control.html">permissions
           model</a> somewhat. Users can be given arbitrary tags within
           RabbitMQ. The management plugin makes use of tags called
           "management", "monitoring" and "administrator". The following
@@ -211,8 +208,8 @@
           </tr>
         </table>
         <p>
-          Note that since "administrator" does everything "monitor"
-          does, and "monitor" does everything "management-user" does,
+          Note that since "administrator" does everything "monitoring"
+          does, and "monitoring" does everything "management" does,
           you only need to give each user a maximum of one tag.
         </p>
         <p>
@@ -358,10 +355,10 @@
         <p>
           By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
-          location for more information on the API. For convenience
-          the documentation can also be obtained
-          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
-          Mercurial server</a>.
+          location for more information on the API.
+          For convenience you can read the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+          latest HTTP API documentation</a> on our Mercurial server.
         </p>
       </doc:section>
 
@@ -379,6 +376,5 @@ ProxyPass        /    http://localhost:55672/
 ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
-    </doc:div>
   </body>
 </html>

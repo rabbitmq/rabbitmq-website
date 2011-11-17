@@ -1,29 +1,24 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 <!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Plugin Development Guide</title>
+    <title>Plugin Development Guide</title>
   </head>
-  <body>
-    <doc:div>
+  <body show-in-this-page="true">
       <p class="intro">
         This is the RabbitMQ Server Plugin Development Guide. It is expected that
         before reading this guide, the reader has a basic understanding of the RabbitMQ
-        plugin mechanism, as described in the <a href="admin-guide.html#plugins">Plugins</a>
-        section of the Administration Guide. Readers are also expected to have a basic
+        plugin mechanism. Readers are also expected to have a basic
         understanding of Erlang OTP
         <a href="http://www.erlang.org/doc/system_principles/users_guide.html">system</a> and
         <a href="http://www.erlang.org/doc/design_principles/users_guide.html">design</a> principles.
       </p>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="why">
         <doc:heading>Why Write A Plugin?</doc:heading>
@@ -96,14 +91,17 @@
 $ make co</pre>
           </li>
           <li>
-            Build all the components under the Umbrella to ensure that your environment is functional:
-            <pre class="sourcecode">$ make</pre>
+            Ensure that the umbrella environment is functional by building one of the supplied sub-projects, for example <code>rabbitmq-stomp</code>:
+            <pre class="sourcecode">$ cd rabbitmq-stomp
+$ make</pre>
+            This should build the dependencies of STOMP (in this case, this includes the <code>rabbitmq-server</code> sub-project) and then the STOMP adapter.
+            You could also run the STOMP tests (issue <code>make test</code> in the sub-project directory), which should all PASS.
           </li>
         </ul>
       </doc:section>
 
       <doc:section name="installing-plugins-during-development">
-        <doc:heading>Installing Plugins During Development</doc:heading>
+        <doc:heading>Enabling Plugins During Development</doc:heading>
 
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
@@ -121,10 +119,13 @@ $ make co</pre>
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
 $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel</pre>
+$ ln -s ../../rabbitmq-shovel
+$ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
         </p>
         <p>
-          Conversely, to disable a plugin, simply remove the symlink and restart the broker instance.
+          Conversely, to disable a plugin, simply remove the symlink,
+          run <code>rabbitmq-plugins disable plugin-name</code>, and
+          restart the broker instance.
         </p>
       </doc:section>
 
@@ -185,7 +186,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/ebin/rabbitmq_metronome.app.in"><code>ebin/rabbitmq_metronome.app.in</code></a></td>
+            <td><a href="&metronome_hg;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
             <td>
               This file declares the dependencies required by the plugin (<code>rabbit</code>
               and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
@@ -213,7 +214,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/test/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
+            <td><a href="&metronome_hg;/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
             <td>
               Automated tests for the plugin.
             </td>
@@ -232,6 +233,7 @@ $ ln -s ../../rabbitmq-shovel</pre>
 $ cd ../rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-metronome
+$ ../scripts/rabbitmq-plugins enable rabbitmq_metronome
 $ cd ..</pre>
           </li>
           <li>
@@ -254,12 +256,5 @@ $ cd ..</pre>
           </li>
         </ul>
       </doc:section>
-      <doc:section name="external-resources">
-        <doc:heading>External Resources</doc:heading>
-        <p>
-          There are a number of <a href="how.html#going-further">links on the How To page</a> that demonstrate plugin development.
-        </p>
-      </doc:section>
-    </doc:div>
   </body>
 </html>
