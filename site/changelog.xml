@@ -14,6 +14,19 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
+          <td>9 Nov 2011</td>
+          <td>
+            <ul>
+              <li>Order preservation of re-queued messages</li>
+              <li>Plugins included with server</li>
+              <li>"amqp" URI client connection</li>
+              <li>Performance improvements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-September/015033.html">2.6.1</a></td>
           <td>12 Sep 2011</td>
           <td>

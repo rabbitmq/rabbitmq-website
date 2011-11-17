@@ -246,7 +246,7 @@
           master to which it is rejoining (this could happen during a
           network partition, for example). As such, when a slave
           rejoins a mirrored-queue, it throws away any durable local
-          contents it already has and starts empty. It's behaviour is
+          contents it already has and starts empty. Its behaviour is
           at this point the same as if it were a <a
           href="#unsynchronised-slaves">new node joining the
           cluster</a>.
