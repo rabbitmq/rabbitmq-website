@@ -92,12 +92,6 @@ input#search-button {
 	border: none;
 }
 
-* html input#search-button {
-	/* IE6 and lower only */
-	margin-top: -23px;
-	margin-left: 175px;
-}
-
 dd p {
 	margin: 0 0 5px 0;
 }
