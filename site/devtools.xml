@@ -377,7 +377,7 @@
                 <a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib
               </li>
               <li>
-                <a href="https://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
+                <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
               </li>
               <li>
                 <a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a>
