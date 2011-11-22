@@ -2429,6 +2429,9 @@
 
 	  <rule>
 	    <status value="ok"></status>
+        <notes>
+        The broker makes <a href="#ordering">stronger guarantees</a>.
+        </notes>
 	    <xref> 4.7 </xref>
 	    <context>
 	    </context>
@@ -2665,6 +2668,37 @@
           transaction effects are visible and that the broker has
           accepted responsibility for all the messages published in
           the transaction.
+        </p>
+      </doc:section>
+      <doc:section name="ordering">
+        <doc:heading>Message ordering guarantees</doc:heading>
+        <p>
+          Section 4.7 of the AMQP 0-9-1 core specification explains the
+          conditions under which ordering is guaranteed: messages
+          published in one channel, passing through one exchange and
+          one queue and one outgoing channel will be received in the
+          same order that they were sent. RabbitMQ offers stronger
+          guarantees since release 2.7.0 .
+        </p>
+        <p>
+          Messages can be returned to the queue using
+          AMQP methods that feature a requeue parameter
+          (<code>basic.recover</code>, <code>basic.reject</code> and
+          <code>basic.nack</code>), or due to a channel closing while
+          holding unacknowledged messages.  Any of these scenarios
+          caused messages to be requeued at the back of the queue
+          for RabbitMQ releases earlier than 2.7.0. From RabbitMQ
+          release 2.7.0, messages are always held in the queue in
+          publication order, even in the presence of requeueing or
+          channel closure.
+        </p>
+        <p>
+          With release 2.7.0 and later it is still possible for
+          individual consumers to observe messages out of order if
+          the queue has multiple subscribers.  This is due to the
+          actions of other subscribers who may requeue messages. From
+          the perspective of the queue the messages are always held
+          in the publication order.
         </p>
       </doc:section>
   </body>
