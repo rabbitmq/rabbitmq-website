@@ -50,11 +50,14 @@
             We illustrate the builder classes by constructing
             some <code>AMQP.BasicProperties</code> objects with its <code>Builder</code> class:
         </p>
-        <pre class="sourcecode">AMQP.BasicProperties.Builder bob = <b>new</b> AMQP.BasicProperties.Builder();
+<pre class="sourcecode">
+AMQP.BasicProperties.Builder bob = <b>new</b> AMQP.BasicProperties.Builder();
 AMQP.BasicProperties minBasic = bob.build();
 AMQP.BasicProperties minPersistentBasic = bob.deliveryMode(2).build();
-AMQP.BasicProperties persistentBasic = bob.priority(0).contentType("application/octet-stream").build();
-AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build();</pre>
+AMQP.BasicProperties persistentBasic
+                    = bob.priority(0).contentType("application/octet-stream").build();
+AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build();
+</pre>
         <p>
             <code>bob</code> (the builder) is constructed first
             and whenever <code>build()</code> is invoked this method returns
@@ -62,7 +65,8 @@ AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build()
             set in <code>bob</code> at that point. The parameter calls (<code>deliveryMode</code>,
             <code>priority</code>, etc.) update <code>bob</code> and <i>not</i>
             the <code>BasicProperties</code> object. Each of these methods returns the
-            updated builder (allowing chaining). This pattern
+            updated builder (allowing chaining, for example as in <code>persistentBasic</code> above).
+            This pattern
             allows the parameters to be named and set in any order, the consistency of the
             complete set of parameters to be checked at <code>build()</code> time,
             the built objects to be immutable, and partially initialised builders
@@ -147,7 +151,77 @@ conn.close();</pre>
 	    automatically anyway when the underlying connection is closed.
 	  </p>
 
-	</doc:subsection>
+  </doc:subsection>
+
+  <doc:subsection name="advanced-connection">
+  <doc:heading>Advanced Connection options</doc:heading>
+  <doc:heading level="3"><i>Consumer thread pool</i></doc:heading>
+
+      <p>
+          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
+          automatically allocated in a new <code>ExecutorService</code> thread pool
+          by default. If greater control is required supply an <code>ExecutorService</code> on the
+          <code>newConnection()</code> method, so that this pool of threads is
+          used instead. Here is an example where a larger thread pool is
+          supplied than is normally allocated:
+<pre class="sourcecode">
+    ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+    Connection conn = factory.newConnection(<b>es</b>);
+</pre>
+          Both <code>Executors</code> and <code>ExecutorService</code> classes
+          are in the <code>java.util.concurrent</code> package.
+      </p>
+      <p>
+          When the connection is closed a default <code>ExecutorService</code>
+          will be <code>shutdown()</code>, but a user-supplied
+          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <i>not</i> be <code>shutdown()</code>.
+          Clients that supply a custom <code>ExecutorService</code> must ensure
+          it is shutdown eventually (by calling its <code>shutdown()</code>
+          method), or else the pool&#8217;s threads may prevent JVM termination.
+      </p>
+      <p>
+          The same executor service may be shared between multiple connections,
+          or serially re-used on re-connection but it cannot be used after it is
+          <code>shutdown()</code>.
+      </p>
+      <p>
+          Use of this feature should only be considered if there is evidence
+          that there is a severe bottleneck in the processing of Consumer
+          callbacks.
+          If there are no Consumer callbacks executed, or very few, the default
+          allocation is more than sufficient, is initially minimal and bounds
+          the resources allocated for this task, even if a burst of Consumer
+          activity may occasionally occur.
+      </p>
+
+  <doc:heading level="3"><i>Address array</i></doc:heading>
+      <p>
+          It is possible to pass an <code>Address</code> array
+          to <code>newConnection()</code>.
+          An <code>Address</code> is simply a convenience class 
+          (in the <code>com.rabbitmq.client</code> package) with <i>host</i>
+          and <i>port</i> components.
+          For example:
+<pre class="sourcecode">
+    ConnectionFactory cf = <b>new</b> ConnectionFactory();
+    Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                     , <b>new</b> Address(hostname2, portnumber2)};
+    Connection conn = newConnection(addrArr);
+</pre>
+          will attempt to connect to <code>hostname1:portnumber1</code>, and if
+          that fails to <code>hostname2:portnumber2</code>. The connection is
+          the first in the array that succeeds (without throwing
+          <code>IOException</code>). This is entirely equivalent to the repeated
+          use of <code>setHost()</code> and <code>setPort()</code> on the
+          factory, prior to calling <code>newConnection()</code>.
+      </p>
+      <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>newConnection(es, addrArr)</code>) the thread pool is 
+          associated with the (first) successful connection.
+      </p>
+</doc:subsection>
 
 	<doc:subsection name="declaring">
 	  <doc:heading>Using exchanges and queues</doc:heading>
