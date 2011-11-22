@@ -15,7 +15,7 @@
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
-          <td>9 Nov 2011</td>
+          <td>9 November 2011</td>
           <td>
             <ul>
               <li>Order preservation of re-queued messages</li>
@@ -28,7 +28,7 @@
 
         <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-September/015033.html">2.6.1</a></td>
-          <td>12 Sep 2011</td>
+          <td>12 September 2011</td>
           <td>
             <ul>
               <li>This release fixes a bug in the 2.6.0 version that causes the broker to fail to restart on reboot on some operating systems.</li>
