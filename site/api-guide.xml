@@ -212,9 +212,9 @@ conn.close();</pre>
           will attempt to connect to <code>hostname1:portnumber1</code>, and if
           that fails to <code>hostname2:portnumber2</code>. The connection is
           the first in the array that succeeds (without throwing
-          <code>IOException</code>). This is entirely equivalent to the repeated
-          use of <code>setHost()</code> and <code>setPort()</code> on the
-          factory, prior to calling <code>newConnection()</code>.
+          <code>IOException</code>). This is entirely equivalent to repeatedly
+          setting host and port on a factory, calling
+          <code>newConnection()</code> each time, until one of them succeeds.
       </p>
       <p>
           If an <code>ExecutorService</code> is provided as well (using the
