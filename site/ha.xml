@@ -5,7 +5,7 @@
   <head>
     <title>Highly Available Queues</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="overview">
         <p>
           If your RabbitMQ broker consists of a single node, then a
