@@ -29,9 +29,9 @@ try{
 
 <body>
 <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
-    <h1>
+    <div id="rabbit-logo">
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
-    </h1>
+    </div>
     <div class="s2-logo">
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
