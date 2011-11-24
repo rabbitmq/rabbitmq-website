@@ -19,13 +19,12 @@
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
-    <doc:section name="core">
-        <p>
-            The client API is closely modelled on the AMQP protocol specification,
-            with additional abstractions for ease of use.
-        </p>
+    <p>
+       The client API is closely modelled on the AMQP protocol specification,
+       with additional abstractions for ease of use.
+    </p>
 
-    <doc:subsection name="classoverview">
+    <doc:section name="classoverview">
         <doc:heading>Protocol class overview</doc:heading>
         <p>
             The holder class <code>AMQP</code> stores all the code
@@ -81,9 +80,9 @@ AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build()
             <a href="http://drdobbs.com/java/208403883?pgno=2">this Dr. Dobb&#8217;s article</a> or
             refer to <a href="http://amzn.com/0321356683">Effective Java</a> by <i>Joshua Bloch</i>.
         </p>
-    </doc:subsection>
+    </doc:section>
 
-	<doc:subsection name="connecting">
+	<doc:section name="connecting">
 	<doc:heading>Connections and channels</doc:heading>
 
 	<p>
@@ -151,13 +150,13 @@ conn.close();</pre>
 	    automatically anyway when the underlying connection is closed.
 	  </p>
 
-  </doc:subsection>
+  </doc:section>
 
-  <doc:subsection name="advanced-connection">
+<doc:section name="advanced-connection">
   <doc:heading>Advanced Connection options</doc:heading>
-  <doc:heading level="3"><i>Consumer thread pool</i></doc:heading>
-
-      <p>
+    <doc:subsection name="consumer-thread-pool">
+        <doc:heading><i>Consumer thread pool</i></doc:heading>
+        <p>
           <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
           automatically allocated in a new <code>ExecutorService</code> thread pool
           by default. If greater control is required supply an <code>ExecutorService</code> on the
@@ -165,13 +164,13 @@ conn.close();</pre>
           used instead. Here is an example where a larger thread pool is
           supplied than is normally allocated:
 <pre class="sourcecode">
-    ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
-    Connection conn = factory.newConnection(<b>es</b>);
+ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(<b>es</b>);
 </pre>
           Both <code>Executors</code> and <code>ExecutorService</code> classes
           are in the <code>java.util.concurrent</code> package.
-      </p>
-      <p>
+        </p>
+        <p>
           When the connection is closed a default <code>ExecutorService</code>
           will be <code>shutdown()</code>, but a user-supplied
           <code>ExecutorService</code> (like <code><b>es</b></code> above) will
@@ -179,24 +178,26 @@ conn.close();</pre>
           Clients that supply a custom <code>ExecutorService</code> must ensure
           it is shutdown eventually (by calling its <code>shutdown()</code>
           method), or else the pool&#8217;s threads may prevent JVM termination.
-      </p>
-      <p>
+        </p>
+        <p>
           The same executor service may be shared between multiple connections,
           or serially re-used on re-connection but it cannot be used after it is
           <code>shutdown()</code>.
-      </p>
-      <p>
+        </p>
+        <p>
           Use of this feature should only be considered if there is evidence
-          that there is a severe bottleneck in the processing of Consumer
+          that there is a severe bottleneck in the processing of <code>Consumer</code>
           callbacks.
-          If there are no Consumer callbacks executed, or very few, the default
-          allocation is more than sufficient, is initially minimal and bounds
-          the resources allocated for this task, even if a burst of Consumer
+          If there are no <code>Consumer</code> callbacks executed, or very few, the default
+          allocation is more than sufficient. The overhead is initially minimal and
+          the total thread resources allocated are bounded, even if a burst of consumer
           activity may occasionally occur.
-      </p>
+        </p>
+    </doc:subsection>
 
-  <doc:heading level="3"><i>Address array</i></doc:heading>
-      <p>
+    <doc:subsection name="address-array">
+        <doc:heading><i>Address array</i></doc:heading>
+        <p>
           It is possible to pass an <code>Address</code> array
           to <code>newConnection()</code>.
           An <code>Address</code> is simply a convenience class 
@@ -204,26 +205,26 @@ conn.close();</pre>
           and <i>port</i> components.
           For example:
 <pre class="sourcecode">
-    ConnectionFactory cf = <b>new</b> ConnectionFactory();
-    Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
-                                     , <b>new</b> Address(hostname2, portnumber2)};
-    Connection conn = newConnection(addrArr);
+Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                 , <b>new</b> Address(hostname2, portnumber2)};
+Connection conn = factory.newConnection(addrArr);
 </pre>
           will attempt to connect to <code>hostname1:portnumber1</code>, and if
-          that fails to <code>hostname2:portnumber2</code>. The connection is
+          that fails to <code>hostname2:portnumber2</code>. The connection returned is
           the first in the array that succeeds (without throwing
           <code>IOException</code>). This is entirely equivalent to repeatedly
           setting host and port on a factory, calling
-          <code>newConnection()</code> each time, until one of them succeeds.
-      </p>
-      <p>
+          <code>factory.newConnection()</code> each time, until one of them succeeds.
+        </p>
+        <p>
           If an <code>ExecutorService</code> is provided as well (using the
-          form <code>newConnection(es, addrArr)</code>) the thread pool is 
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is 
           associated with the (first) successful connection.
-      </p>
-</doc:subsection>
+        </p>
+    </doc:subsection>
+</doc:section>
 
-	<doc:subsection name="declaring">
+	<doc:section name="declaring">
 	  <doc:heading>Using exchanges and queues</doc:heading>
 
 	  <p>
@@ -286,9 +287,9 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
 	  <p>
 	    This "short form, long form" pattern is used throughout the client API uses.
 	  </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="publishing">
+	<doc:section name="publishing">
 	  <doc:heading>Publishing messages</doc:heading>
 
 	  <p>
@@ -328,9 +329,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	    Note that <code>BasicProperties</code> is an inner class of the autogenerated
 	    holder class <code>AMQP</code>.
 	  </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="channel-threads">
+	<doc:section name="channel-threads">
 	  <doc:heading>Channel thread-safety</doc:heading>
 
       <p>
@@ -342,9 +343,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         instead of sharing the same <code>Channel</code> across
         multiple threads.
       </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="consuming">
+	<doc:section name="consuming">
 	  <doc:heading>Receiving messages by subscription</doc:heading>
 
 	  <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
@@ -388,25 +389,24 @@ channel.basicConsume(ticket, queueName, autoAck,
              String routingKey = envelope.getRoutingKey();
              String contentType = properties.contentType;
              <b>long</b> deliveryTag = envelope.getDeliveryTag();
-             <i>// (process the message components ...)</i>
-             <i>. . .</i>
+             <i>// (process the message components here ...)</i>
              channel.basicAck(deliveryTag, <b>false</b>);
          }
      });</pre>
 
       <p>
           Here, since we specified <code>autoAck = </code><b><code>false</code></b>,
-          it is necessary to acknowledge messages delivered to the consumer,
-          most conveniently done in the consumer&#8217;s <code>handleDelivery</code>
+          it is necessary to acknowledge messages delivered to the <code>Consumer</code>,
+          most conveniently done in the <code>handleDelivery</code>
           method, as illustrated.
       </p>
 
 	  <p>
-	    More sophisticated consumers will need to override further
+	    More sophisticated <code>Consumer</code>s will need to override further
 	    methods.  In particular, <code>handleShutdownSignal</code>
-	    traps channel and connection closures, and
+	    is called when channels and connections close, and
 	    <code>handleConsumeOk</code> is passed the consumer tag
-	    before any other callbacks to that consumer are called.
+	    before any other callbacks to that <code>Consumer</code> are called.
 	  </p>
 
 	  <p>
@@ -417,11 +417,13 @@ channel.basicConsume(ticket, queueName, autoAck,
 	  </p>
 
 	  <p>
-	    You can explicitly cancel a particular active consumer with
+	    You can explicitly cancel a particular <code>Consumer</code> with
 	    <code>Channel.basicCancel</code>:
-	  </p>
-
-	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
+<pre class="sourcecode">
+channel.basicCancel(consumerTag);
+</pre>
+        passing the consumer tag.
+      </p>
 
 	  <p>
         Callbacks to <code>Consumer</code>s are dispatched on a thread
@@ -444,9 +446,9 @@ channel.basicConsume(ticket, queueName, autoAck,
         <code>Channel</code>.
 	  </p>
 
-    </doc:subsection>
+    </doc:section>
 
-	<doc:subsection name="getting">
+	<doc:section name="getting">
 	  <doc:heading>Retrieving individual messages</doc:heading>
 
 	  <p>
@@ -455,9 +457,8 @@ channel.basicConsume(ticket, queueName, autoAck,
 	    instance of <code>GetResponse</code>, from which the
 	    header information (properties) and message body can be
 	    extracted:
-	  </p>
-
-	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+<pre class="sourcecode">
+<b>boolean</b> autoAck = <b>false</b>;
 GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 <b>if</b> (response == <b>null</b>) {
     <i>// No message retrieved.
@@ -465,21 +466,20 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
     AMQP.BasicProperties props = response.getProps();
     <b>byte</b>[] body = response.getBody();
     long deliveryTag = response.getEnvelope().getDeliveryTag();
-    ...</pre>
-
-	  <p>
-	    Since the <code>autoAck</code> = <code>false</code> above,
+    ...
+</pre>
+	    and since the <code>autoAck</code> = <code>false</code> above,
 	    you must also call <code>Channel.basicAck</code> to
 	    acknowledge that you have successfully received the message:
-	  </p>
-
-	  <pre class="sourcecode">    ...
+<pre class="sourcecode">
+    ...
     channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
 }</pre>
+	  </p>
 
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="returning">
+	<doc:section name="returning">
 	  <doc:heading>Handling unroutable or undelivered messages</doc:heading>
 
 	  <p>
@@ -489,29 +489,29 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 	  </p>
 	  <p>
 	    To be notified of such returns, clients can implement the <code>ReturnListener</code>
-	    interface and calling <code>Channel.setReturnListener</code>. 
+	    interface and call <code>Channel.setReturnListener</code>. 
 	    If the client has not configured a return listener for a particular channel,
 	    then the associated returned messages will be silently dropped.
 	  </p>
 
-	  <pre class="sourcecode">channel.setReturnListener(<b>new</b> ReturnListener() {
-        <b>public</b> <b>void</b> handleBasicReturn(int replyCode, 
-					String replyText, 
-					String exchange, 
-					String routingKey, 
-					AMQP.BasicProperties properties, 
-					byte[] body) 
-            <b>throws</b> IOException {
-            ...
-        }
-    });</pre>
+<pre class="sourcecode">
+channel.setReturnListener(<b>new</b> ReturnListener() {
+    <b>public</b> <b>void</b> handleBasicReturn(int replyCode,
+                                  String replyText,
+                                  String exchange,
+                                  String routingKey,
+                                  AMQP.BasicProperties properties,
+                                  byte[] body)
+    <b>throws</b> IOException {
+        ...
+    }
+});
+</pre>
 	  <p>
-	    This return listener will be called, for example, if the client publishes a message with
+	    A return listener will be called, for example, if the client publishes a message with
 	    the "mandatory" flag set to an exchange of "direct" type which is not bound to a queue.
 	  </p>
-	</doc:subsection>
-
-      </doc:section>
+	</doc:section>
 
       <doc:section name="rpc">
 	<doc:heading>Basic RPC</doc:heading>
@@ -728,7 +728,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     } 
 }</pre>
           </doc:subsection>
-      </doc:section>
+    </doc:section>
 
       <doc:section name="bundled">
 	<doc:heading>Bundled examples</doc:heading>
