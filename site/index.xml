@@ -30,6 +30,15 @@
       <doc:homefeed src="news.atom" type="ournews" limit="3" />
 
       <h3>
+	<span class="subscribe">
+	  <a href="news.atom">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
+	  </a>
+	</span>Latest Blog Posts
+      </h3>
+      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" />
+
+      <h3>
   	<span class="subscribe">
 	  <a href="http://search.twitter.com/search.atom?q=rabbitmq">
 	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />

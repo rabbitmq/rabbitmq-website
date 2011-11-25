@@ -46,44 +46,36 @@
     <xsl:param name="type"/>
     <ol class="feed">
       <xsl:for-each select="(item|rss1:item|atom:entry)[position() &lt;= $limit]">
-        <li>          
+        <li>
+          <xsl:choose>
+            <xsl:when test="$type = 'twitter'">
+              <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
+              <br/>
+              <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/>
+              [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
+            </xsl:when>
 
-<xsl:choose>
+            <xsl:when test="$type = 'ournews'">
+              <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/>
+              <span class="news-date"><xsl:value-of select="substring($itemdate, 0, 11)"/></span>
+              <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
+              <br/>
+            </xsl:when>
 
-  <xsl:when test="$type = 'twitter'">				
-    <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>	
-    <br/>
-    <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/> 
-    [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
-  </xsl:when>
+            <xsl:otherwise>
+              <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
+            </xsl:otherwise>
+          </xsl:choose>
 
-  <xsl:when test="$type = 'ournews'">	
-    <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/>
-    <span class="news-date"><xsl:value-of select="substring($itemdate, 0, 11)"/></span>
-    <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
-    <br/>
-  </xsl:when>
-
-  <xsl:otherwise>
-    <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a> 
-    <p><xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/></p>
-</xsl:otherwise>
-
-</xsl:choose>
-
-         <xsl:choose>
-          <xsl:when test="$type = 'ourblog'">
-  						<div class="meta">
-  							<p>
+          <xsl:choose>
+            <xsl:when test="$type = 'ourblog'">
+              <span class="blog-date-author">
                 <xsl:value-of select="dc:creator|rss1:author|atom:author"/> |
                 <xsl:variable name="pub" select="pubDate|rss1:pubDate|atom:pubDate"/>
-                <xsl:value-of select="substring($pub, 5, 12)"/> |
-                </p>
-							</div>
-          </xsl:when>
-        </xsl:choose>
-
-
+                <xsl:value-of select="substring($pub, 5, 12)"/>
+              </span>
+            </xsl:when>
+          </xsl:choose>
         </li>
       </xsl:for-each>
     </ol>

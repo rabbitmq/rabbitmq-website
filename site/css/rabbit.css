@@ -531,6 +531,7 @@ ul.headed-sublist li.last { border-right: none; }
 #buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
 
 .news-date { float: right; color: #888; }
+.blog-date-author { display: block; color: #888; }
 
 /* right hand navigation */
 
