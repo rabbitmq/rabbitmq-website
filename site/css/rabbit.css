@@ -502,7 +502,7 @@ ul.headed-sublist li.last { border-right: none; }
 
 #home-what-is { overflow: auto; width: 100%; }
 #home-what-is ul#bullets { margin: 1em 0 1.5em 0; }
-#home-what-is ul#bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px; background: none; }
+#home-what-is ul#bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background-position: 3px 15px;}
 
 #buttons { text-align: center; margin: 0; padding: 0; }
 #buttons li { float: left; display: block; width: 33.33%; padding: 0; background: none; }
