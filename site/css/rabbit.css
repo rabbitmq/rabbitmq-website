@@ -502,22 +502,35 @@ ul.headed-sublist li.last { border-right: none; }
 
 #home-what-is { overflow: auto; width: 100%; }
 #home-what-is ul#bullets { margin: 1em 0 1.5em 0; }
-#home-what-is ul#bullets li { font-size: 2.8em; line-height: 1.1em; padding: 5px; background: none; }
+#home-what-is ul#bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px; background: none; }
 
-#buttons { text-align: center; font-size: 1.5em; margin: 0; padding: 0; }
+#buttons { text-align: center; margin: 0; padding: 0; }
 #buttons li { float: left; display: block; width: 33.33%; padding: 0; background: none; }
 #buttons li a {
-    background-color: #f93;
-    padding: 15px 10px;
+    height: 9em;
+    padding: 0;
     margin: 0 5px;
-    color: white;
     display: block;
     text-decoration: none;
-    -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    border: 2px solid #f93;
+    background:url(../img/rabbitmq-bg.png);
 }
-#home-buttons a:hover { background-color: #f60; color: white; }
+#buttons li a h3 {
+    font-size: 1.5em;
+    margin: 0;
+    background: #f93;
+    color: white;
+    padding: 10px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
+
+x#buttons a:hover { background-color: #f60; }
 
 /* right hand navigation */
 
