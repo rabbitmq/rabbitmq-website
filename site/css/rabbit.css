@@ -515,7 +515,6 @@ ul.headed-sublist li.last { border-right: none; }
     -moz-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #f93;
-    background:url(../img/rabbitmq-bg.png);
 }
 #buttons li a h3 {
     font-size: 1.5em;
