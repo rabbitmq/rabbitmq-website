@@ -58,7 +58,8 @@
   </xsl:when>
 
   <xsl:when test="$type = 'ournews'">	
-    <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/> 			
+    <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/>
+    <span class="news-date"><xsl:value-of select="substring($itemdate, 0, 11)"/></span>
     <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
     <br/>
   </xsl:when>
