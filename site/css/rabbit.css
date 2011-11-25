@@ -368,6 +368,10 @@ td.desc, th.desc {
    font-weight: normal;
 }
 
+.pageFooter #copyright a {
+    color: #a9b5af;
+}
+
 ol.feed {
 	margin: 0px;
 	padding: 0px;
