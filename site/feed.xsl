@@ -64,15 +64,16 @@
 
             <xsl:otherwise>
               <a href="{link|rss1:link|atom:link/@local}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
+              <br/>
             </xsl:otherwise>
           </xsl:choose>
 
           <xsl:choose>
             <xsl:when test="$type = 'ourblog'">
-              <span class="blog-date-author">
-                <xsl:value-of select="dc:creator|rss1:author|atom:author"/> |
-                <xsl:variable name="pub" select="pubDate|rss1:pubDate|atom:pubDate"/>
-                <xsl:value-of select="substring($pub, 5, 12)"/>
+              <xsl:variable name="pub" select="pubDate|rss1:pubDate|atom:pubDate"/>
+              <span class="news-date"><xsl:value-of select="substring($pub, 5, 12)"/></span>
+              <span class="blog-author">
+                <xsl:value-of select="dc:creator|rss1:author|atom:author"/>
               </span>
             </xsl:when>
           </xsl:choose>
