@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
@@ -612,6 +613,106 @@ channel.basicConsume(queue, consumer);</pre>
          maintain compatibility with older clients. This method will be removed in
          the future and should not be relied upon.
         </p>
+      </doc:section>
+      <doc:section name="dead-letter-exchanges">
+        <doc:heading>Dead Letter Exchanges</doc:heading>
+        <p>
+          The <code>x-dead-letter-exchange</code> argument to
+          <code>queue.declare</code> controls the exchange to which
+          messages from that queue are 'dead-lettered'. A message is
+          dead-lettered when any of the following events occurs:
+          <ul>
+            <li>The queue containing the message is deleted</li>
+            <li>The queue containing the message is purged</li>
+            <li>The queue containing is deleted due to lease expiry</li>
+            <li>The message is rejected (<code>basic.reject</code> or
+            <code>basic.nack</code>) with
+            <code>requeue=false</code></li>
+            <li>The TTL for the message expires</li>
+          </ul>
+        </p>
+        <doc:subsection>
+          <doc:heading>Declaring the Dead Letter Exchange</doc:heading>
+          <p>
+            To declare the dead letter exchange for a queue simply set
+            the <code>x-dead-letter-exchange</code> argument to the
+            name of the exchange:
+          </p>
+
+          <pre class="sourcecode">
+channel.exchangeDeclare("some.exchange.name", "direct");
+
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-dead-letter-exchange", "some.exchange.name");
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+          <p>
+            The code above declares a new exchange called
+            <code>some.exchange.name</code> and sets this new exchange
+            as the dead letter exchange for a newly created queue.
+          </p>
+        </doc:subsection>
+        <doc:subsection>
+          <doc:heading>Routing dead-lettered messages</doc:heading>
+          <p>
+            Dead-lettered messages are routed to their dead letter
+            exchange with the same routing key they were originally
+            published with.
+          </p>
+          <p>
+            For example, if you publish a message to an exchange with
+            routing key <code>foo</code>, and that message is
+            dead-lettered, it will be published to its dead letter
+            exchange with routing key <code>foo</code>.
+          </p>
+        </doc:subsection>
+        <doc:subsection>
+          <doc:heading>Consuming dead-lettered messages</doc:heading>
+          <p>
+            Dead-lettered messages can be consumed in the same way as
+            any message.
+          </p>
+          <p>
+            Simply create a queue and bind it to the dead letter
+            exchange with the relevant routing key(s). Now a bind a
+            consumer to this queue and process your dead messages as
+            needed.
+          </p>
+          <p>
+            To capture all dead-lettered messages regardless of
+            routing key, use a <code>fanout</code> exchange for your
+            dead letter exchange.
+          </p>
+        </doc:subsection>
+        <doc:subsection>
+          <doc:heading>Administering dead-lettered messages</doc:heading>
+          <p>
+            Dead-lettered messages retain the original exchange and
+            routing key in their envelope.
+          </p>
+          <p>
+            The dead-lettering process adds two headers to each
+            dead-lettered message: <code>x-death-queue</code> and
+            <code>x-death-reason</code>.
+          </p>
+          <p>
+            The <code>x-death-queue</code> is the name of the queue
+            the message was in before it was dead-lettered.
+          </p>
+          <p>
+            The <code>x-death-reason</code> is a simple code
+            describing why the message was dead-lettered and is one of
+            the following:
+
+            <ul>
+              <li><code>queue_deleted</code> - the queue was deleted or its lease expired</li>
+              <li><code>queue_purged</code> - the queue was purged</li>
+              <li><code>expired</code> - the TTL of the message expired</li>
+              <li><code>rejected</code> - the message was rejected with <code>requeue=false</code></li>
+            </ul>
+          </p>
+        </doc:subsection>
+
       </doc:section>
   </body>
 </html>
