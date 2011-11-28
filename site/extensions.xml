@@ -620,15 +620,16 @@ channel.basicConsume(queue, consumer);</pre>
           The <code>x-dead-letter-exchange</code> argument to
           <code>queue.declare</code> controls the exchange to which
           messages from that queue are 'dead-lettered'. A message is
-          dead-lettered when any of the following events occurs:
+          dead-lettered when any of the following events occur:
           <ul>
-            <li>The queue containing the message is deleted</li>
-            <li>The queue containing the message is purged</li>
-            <li>The queue containing is deleted due to lease expiry</li>
+            <li>The queue containing the message is deleted (via
+            <code>queue.delete</code> or by a queue lease
+            expiring);</li>
+            <li>The queue containing the message is purged;</li>
             <li>The message is rejected (<code>basic.reject</code> or
-            <code>basic.nack</code>) with
-            <code>requeue=false</code></li>
-            <li>The TTL for the message expires</li>
+            <code>basic.nack</code>) with <code>requeue=false</code>;
+            or</li>
+            <li>The TTL for the message expires.</li>
           </ul>
         </p>
         <doc:subsection>
@@ -650,6 +651,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             The code above declares a new exchange called
             <code>some.exchange.name</code> and sets this new exchange
             as the dead letter exchange for a newly created queue.
+            Note that the exchange does not have to be declared when
+            the queue is declared, but it should exist by the time
+            messages need to be dead-lettered.
           </p>
         </doc:subsection>
         <doc:subsection>
@@ -691,9 +695,14 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             routing key in their envelope.
           </p>
           <p>
-            The dead-lettering process adds two headers to each
-            dead-lettered message: <code>x-death-queue</code> and
-            <code>x-death-reason</code>.
+            The dead-lettering process adds an array to the header of
+            each dead-lettered message named <code>x-death</code>.
+            This array contains an entry for each time the message was
+            dead-lettered.  Each such entry consists of two fields,
+            <code>x-death-queue</code> and
+            <code>x-death-reason</code>.  Note that the array is
+            sorted most-recent-first, so the most recent
+            dead-lettering will be recorded in the first entry.
           </p>
           <p>
             The <code>x-death-queue</code> is the name of the queue
@@ -705,10 +714,14 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             the following:
 
             <ul>
-              <li><code>queue_deleted</code> - the queue was deleted or its lease expired</li>
-              <li><code>queue_purged</code> - the queue was purged</li>
-              <li><code>expired</code> - the TTL of the message expired</li>
-              <li><code>rejected</code> - the message was rejected with <code>requeue=false</code></li>
+              <li><code>queue_deleted</code> - the queue was deleted
+              or its lease expired;</li>
+              <li><code>queue_purged</code> - the queue was
+              purged;</li>
+              <li><code>expired</code> - the TTL of the message
+              expired; or</li>
+              <li><code>rejected</code> - the message was rejected
+              with <code>requeue=false</code>.</li>
             </ul>
           </p>
         </doc:subsection>
