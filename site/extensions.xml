@@ -669,6 +669,16 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             dead-lettered, it will be published to its dead letter
             exchange with routing key <code>foo</code>.
           </p>
+          <p>
+            Dead-lettered messages are re-published with publisher
+            confirms turned on internally.  This means that the
+            publishing queue will <em>not</em> remove messages before
+            the dead-letter queues acknowledge receiving them.  See
+            the <a href="#confirms">Confirms</a> entry on this page
+            for more details.  Note that, in the event of an unclean
+            broker shutdown, the same message may be duplicated on
+            both the original queue and on the dead-letter queues.
+          </p>
         </doc:subsection>
         <doc:subsection>
           <doc:heading>Consuming dead-lettered messages</doc:heading>
@@ -725,7 +735,6 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             </ul>
           </p>
         </doc:subsection>
-
       </doc:section>
   </body>
 </html>
