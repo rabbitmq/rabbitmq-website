@@ -492,19 +492,16 @@ ul.twoColumns li {
     vertical-align: top;
 }
 
-ul.headed-sublist { overflow: auto; width: 100%; padding: 0 5px; }
-ul.headed-sublist li { float: left; background: none; border-right: 1px solid #ddd; padding: 0 5px; }
-ul.headed-sublist li.last { border-right: none; }
-
 #home-content { width: 65%; border-right: 1px solid #eee; padding-right: 2.5%; }
 
 #home-content h3, .rgt-third h3 { background-color: #ffebde; color: #444; padding: 3px 5px; font-size: 1em; border-bottom: 1px solid #f93; }
 
-#home-what-is { overflow: auto; width: 100%; }
-#home-what-is ul#bullets { margin: 1em 0 1.5em 0; }
-#home-what-is ul#bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background-position: 3px 15px;}
+ul#large-bullets { margin: 1em 0 0 0; }
+ul#large-bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background-position: 3px 15px;}
 
-#buttons { text-align: center; margin: 0; padding: 0; }
+#buttons { overflow: auto; width: 100%; }
+
+#buttons { text-align: center; margin: 0; padding: 1em 0 0 0; }
 #buttons li { float: left; display: block; width: 33.33%; padding: 0; background: none; }
 #buttons li a {
     height: 9em;

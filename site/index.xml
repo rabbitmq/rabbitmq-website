@@ -5,21 +5,6 @@
   </head>
   <body suppress-rhs="true">
     <div class="rgt-third">
-      <h3>Languages</h3>
-      <ul class="headed-sublist">
-        <li><a href="devtools.html#java-dev">Java</a></li>
-        <li><a href="devtools.html#dotnet-dev">.NET</a></li>
-        <li><a href="devtools.html#ruby-dev">Ruby</a></li>
-        <li><a href="devtools.html#python-dev">Python</a></li>
-        <li><a href="devtools.html#c-dev">C</a></li>
-        <li class="last"><a href="devtools.html">(more...)</a></li>
-      </ul>
-      <h3>Cloud</h3>
-      <ul class="headed-sublist">
-        <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
-        <li><a href="devtools.html#ec2-dev">EC2</a></li>
-        <li class="last"><a href="devtools.html#web-messaging">Web Messaging</a></li>
-      </ul>
       <h3>
 	<span class="subscribe">
 	  <a href="news.atom">
@@ -36,7 +21,8 @@
 	  </a>
 	</span>Latest Blog Posts
       </h3>
-      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" />
+      <!-- <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" /> -->
+      <doc:homefeed src="/blog/feed/" type="ourblog" limit="3" />
 
       <h3>
   	<span class="subscribe">
@@ -49,15 +35,17 @@
     </div>
 
     <div id="home-content">
+      <h3>What is RabbitMQ?</h3>
+      <ul id="large-bullets">
+        <li>Robust <a href="how.html#quickstart">messaging</a> for applications</li>
+        <li><a href="getstarted.html">Easy to use</a></li>
+        <li>All major <a href="platforms.html">operating systems</a></li>
+        <li>Huge number of <a href="devtools.html">developer platforms</a></li>
+        <li><a href="mpl.html">Open source</a></li>
+      </ul>
+
       <div id="home-what-is">
-        <h3>What is RabbitMQ?</h3>
-        <ul id="bullets">
-          <li>Robust messaging for applications</li>
-          <li>Easy to use</li>
-          <li>All major operating systems</li>
-          <li>All major developer platforms</li>
-          <li>Open source</li>
-        </ul>
+        <h3>Get Started</h3>
         <ul id="buttons">
           <li>
             <a href="download.html">
@@ -80,12 +68,24 @@
         </ul>
       </div>
 
-      <h3>Get Started</h3>
+      <h3>Read More</h3>
       <ul>
-        <li>Follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
-        <li><a href="download.html">Download, install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
-        <li><a href="http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works">Run RabbitMQ on CloudFoundry</a></li>
-        <li><a href="services.html">RabbitMQ commercial services</a></li>
+        <li>
+          Languages:
+          <a href="devtools.html#java-dev">Java</a> |
+          <a href="devtools.html#dotnet-dev">.NET</a> |
+          <a href="devtools.html#ruby-dev">Ruby</a> |
+          <a href="devtools.html#python-dev">Python</a> |
+          <a href="devtools.html#c-dev">C</a> |
+          <a href="devtools.html">more...</a>
+        </li>
+        <li>
+          Cloud:
+          <a href="http://rabbitmq.cloudfoundry.com">Cloud Foundry</a> |
+          <a href="devtools.html#ec2-dev">EC2</a>
+        </li>
+        <li><a href="services.html">RabbitMQ commercial support</a></li>
+        <li>(TODO vFabric link here?)</li>
       </ul>
     </div>
   </body>
