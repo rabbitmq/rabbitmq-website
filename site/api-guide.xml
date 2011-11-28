@@ -416,15 +416,16 @@ channel.basicConsume(ticket, queueName, autoAck,
 	    respectively.
 	  </p>
 
-	  <p>
-	    You can explicitly cancel a particular <code>Consumer</code> with
-	    <code>Channel.basicCancel</code>:
+      <p>
+        You can explicitly cancel a particular <code>Consumer</code> with
+        <code>Channel.basicCancel</code>:
+      </p>
 <pre class="sourcecode">
 channel.basicCancel(consumerTag);
 </pre>
+      <p>
         passing the consumer tag.
       </p>
-
 	  <p>
         Callbacks to <code>Consumer</code>s are dispatched on a thread
         separate from the thread managed by the
@@ -451,12 +452,13 @@ channel.basicCancel(consumerTag);
 	<doc:section name="getting">
 	  <doc:heading>Retrieving individual messages</doc:heading>
 
-	  <p>
-	    To explicitly retrieve messages, use
-	    <code>Channel.basicGet</code>.  The returned value is an
-	    instance of <code>GetResponse</code>, from which the
-	    header information (properties) and message body can be
-	    extracted:
+      <p>
+        To explicitly retrieve messages, use
+        <code>Channel.basicGet</code>.  The returned value is an
+        instance of <code>GetResponse</code>, from which the
+        header information (properties) and message body can be
+        extracted:
+      </p>
 <pre class="sourcecode">
 <b>boolean</b> autoAck = <b>false</b>;
 GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
@@ -468,14 +470,15 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
     long deliveryTag = response.getEnvelope().getDeliveryTag();
     ...
 </pre>
-	    and since the <code>autoAck</code> = <code>false</code> above,
-	    you must also call <code>Channel.basicAck</code> to
-	    acknowledge that you have successfully received the message:
+      <p>
+        and since the <code>autoAck</code> = <code>false</code> above,
+        you must also call <code>Channel.basicAck</code> to
+        acknowledge that you have successfully received the message:
+      </p>
 <pre class="sourcecode">
     ...
     channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
 }</pre>
-	  </p>
 
 	</doc:section>
 
@@ -491,7 +494,7 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 	    To be notified of such returns, clients can implement the <code>ReturnListener</code>
 	    interface and call <code>Channel.setReturnListener</code>. 
 	    If the client has not configured a return listener for a particular channel,
-	    then the associated returned messages will be silently dropped.
+        then the associated returned messages will be silently dropped.
 	  </p>
 
 <pre class="sourcecode">
@@ -767,92 +770,5 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 	</p>
       </doc:section>
 
-<!-- Removed because we decided to exclude these libs from the release.
-     See bug 16391.
-
-      <doc:section name="jsonrpc">
-	<doc:heading>JSON-RPC over AMQP</doc:heading>
-
-	<p>
-	  <a
-	  href="http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html">JSON-RPC</a>
-	  is a lightweight RPC mechanism using <a
-	  href="http://www.json.org/">JSON</a> as a data language for
-	  request and reply messages. It is rapidly becoming a
-	  standard in web development, where it is used to make RPC
-	  requests over HTTP. RabbitMQ provides an AMQP transport
-	  binding for JSON-RPC in the form of
-	  the <code>JsonRpcClient</code> class.
-	</p>
-
-	<pre class="sourcecode"><b>import</b> com.rabbitmq.tools.JsonRpcClient;</pre>
-
-	<p>
-	  <code>JsonRpcClient</code> inherits
-	  from <code>RpcClient</code>, extending it with
-	</p>
-
-	<pre class="sourcecode">Object call(String method, Object[] params) <b>throws</b> IOException, JsonRpcException;
-Object call(String[] args) <b>throws</b> NumberFormatException, IOException, JsonRpcException;</pre>
-
-	<p>
-	  The first variant encodes the <code>params</code> using
-	  JSON, and sends a JSON-RPC request to the exchange that was
-	  configured in the <code>JsonRpcClient</code>
-	  constructor. The second variant is useful for simple
-	  command-line or scripting use: the first of
-	  the <code>args</code> is assumed to be the method name, and
-	  the remainder are coerced to the expected types before being
-	  sent.
-	</p>
-
-	<p>
-	  JSON-RPC services are self-describing - each service is able
-	  to list its supported procedures, and each procedure
-	  describes its parameters and types. An instance of
-	  JsonRpcClient retrieves its service description using the
-	  standard <code>system.describe</code> procedure when it is
-	  constructed, and uses the information to coerce parameter
-	  types appropriately. A JSON service description is parsed
-	  into instances
-	  of <code>JsonRpcClient.ServiceDescription</code>. Client
-	  code can access the service description by reading
-	  the <code>serviceDescription</code> field
-	  of <code>JsonRpcClient</code> instances.
-	</p>
-
-	<p>
-	  To illustrate, the following is an excerpt from the RabbitMQ
-	  management JSON-RPC service:
-	</p>
-
-	<pre class="sourcecode">{
-    <b>&quot;sdversion&quot;</b>: <b>&quot;1.0&quot;</b>,
-    <b>&quot;name&quot;</b>: <b>&quot;amq.rabbitmq.management&quot;</b>,
-    <b>&quot;id&quot;</b>: <b>&quot;urn:uuid:ce13b1c6-bb5d-4532-9156-8ad5a498c256&quot;</b>,
-    <b>&quot;version&quot;</b>: <b>&quot;1.0&quot;</b>,
-    <b>&quot;address&quot;</b>: <b>&quot;amq.rabbitmq.management&quot;</b>,
-    <b>&quot;procs&quot;</b>: [{
-                  <b>&quot;name&quot;</b>: <b>&quot;add_user&quot;</b>,
-                  <b>&quot;idempotent&quot;</b>: <b>false</b>,
-                  <b>&quot;params&quot;</b>: [{<b>&quot;name&quot;</b>: <b>&quot;username&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>},
-                             {<b>&quot;name&quot;</b>: <b>&quot;password&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>}]
-              },
-              {
-                  <b>&quot;name&quot;</b>: <b>&quot;delete_user&quot;</b>,
-                  <b>&quot;idempotent&quot;</b>: <b>false</b>,
-                  <b>&quot;params&quot;</b>: [{<b>&quot;name&quot;</b>: <b>&quot;username&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>}]
-              },
-              ...
-              ]
-}</pre>
-
-	<p>
-	  One might create a new user by calling
-	</p>
-
-	<pre class="sourcecode">rpcProxy.call(<b>&quot;add_user&quot;</b>, <b>new</b> Object[] { <b>&quot;user name&quot;</b>, <b>&quot;password&quot;</b> });</pre>
-      </doc:section>
--->
   </body>
 </html>
