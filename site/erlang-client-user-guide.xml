@@ -1,4 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>Erlang AMQP Client library</title>
@@ -36,6 +40,10 @@
        <li>When no longer required, close the channel and the
        connection</li>
      </ol>
+   </p>
+   <p>
+     Obtain the library source and related materials from the
+     <a href="&dir-current-erlang-client;">download directory</a>.
    </p>
 
  </doc:section>
