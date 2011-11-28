@@ -420,9 +420,9 @@ channel.basicConsume(ticket, queueName, autoAck,
         You can explicitly cancel a particular <code>Consumer</code> with
         <code>Channel.basicCancel</code>:
       </p>
-<pre class="sourcecode">
-channel.basicCancel(consumerTag);
-</pre>
+
+	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
+
       <p>
         passing the consumer tag.
       </p>
@@ -468,8 +468,8 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
     AMQP.BasicProperties props = response.getProps();
     <b>byte</b>[] body = response.getBody();
     long deliveryTag = response.getEnvelope().getDeliveryTag();
-    ...
-</pre>
+    ...</pre>
+
       <p>
         and since the <code>autoAck</code> = <code>false</code> above,
         you must also call <code>Channel.basicAck</code> to
@@ -508,8 +508,7 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
     <b>throws</b> IOException {
         ...
     }
-});
-</pre>
+});</pre>
 	  <p>
 	    A return listener will be called, for example, if the client publishes a message with
 	    the "mandatory" flag set to an exchange of "direct" type which is not bound to a queue.
