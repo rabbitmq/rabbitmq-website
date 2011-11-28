@@ -514,19 +514,11 @@ ul.headed-sublist li.last { border-right: none; }
     text-decoration: none;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    border: 2px solid #f93;
-}
-#buttons li a h3 {
-    font-size: 1.5em;
-    margin: 0;
-    background: #f93;
     color: white;
-    padding: 10px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    background: #f93;
 }
+#buttons li a:hover { background-color: #f60; }
+#buttons li a h4 { font-size: 1.3em; font-weight: normal; margin: 0; padding: 10px; border-bottom: 1px solid #ffebde; }
 #buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
 
 .news-date { float: right; color: #888; }

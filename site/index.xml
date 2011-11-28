@@ -61,19 +61,19 @@
         <ul id="buttons">
           <li>
             <a href="download.html">
-              <h3>Download</h3>
+              <h4>Download</h4>
               <p>Server and clients, for many operating systems and languages.</p>
             </a>
           </li>
           <li>
             <a href="getstarted.html">
-              <h3>Tutorials</h3>
+              <h4>Tutorials</h4>
               <p>Teach yourself RabbitMQ, in six easy lessons.</p>
             </a>
           </li>
           <li>
             <a href="documentation.html">
-              <h3>Documentation</h3>
+              <h4>Documentation</h4>
               <p>How to do almost anything with RabbitMQ.</p>
             </a>
           </li>
