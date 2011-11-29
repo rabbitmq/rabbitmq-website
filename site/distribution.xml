@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Distribution</title>
+    <title>Distributed Messaging</title>
   </head>
   <body>
     <p class="intro">
@@ -38,7 +38,7 @@
     </p>
     <p>
       Typically you would use clustering for high availability and
-      increased capacity, with machines in a single location.
+      increased throughput, with machines in a single location.
     </p>
 
     <h2>Federation</h2>
@@ -62,7 +62,8 @@
       federated exchange, it will not be forwarded in the first place.
     </p>
     <p>
-      Typically you would use federation to link brokers across the internet.
+      Typically you would use federation to link brokers across the
+      internet for pub/sub messaging.
     </p>
 
     <h2>The Shovel</h2>
@@ -80,8 +81,8 @@
       another.
     </p>
     <p>
-      The shovel is thus more general than federation, but may require
-      more configuration to use.
+      Typically you would use the shovel to link brokers across the
+      internet when you need more control than federation provides.
     </p>
 
     <h2>Summary</h2>
@@ -110,11 +111,12 @@
         <td>
           Brokers can be connected via unreliable WAN
           links. Communication is via AMQP (optionally secured by
-          SSL).
+          SSL), requiring appropriate users and permissions to be set up.
         </td>
         <td>
           Brokers must be connected via reliable LAN
-          links. Communication is via Erlang internode messaging.
+          links. Communication is via Erlang internode messaging,
+          requiring a shared Erlang cookie.
         </td>
       </tr>
       <tr>
