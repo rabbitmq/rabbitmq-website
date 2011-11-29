@@ -1,6 +1,7 @@
 syntax: glob
 *~
 *.pyc
+site/man/*.xml
 
 syntax: regexp
 ^target/
