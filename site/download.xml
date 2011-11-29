@@ -101,12 +101,12 @@
     <div class="landing-box">
       <h2>Clients for other languages</h2>
       <p>
-        The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
-        a variety of platforms and languages.
-      </p>
-      <p>
         The Erlang AMQP client library and related materials can be found in its
         <a href="&dir-current-erlang-client;">download directory</a>.
+      </p>
+      <p>
+        The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
       </p>
     </div>
   </body>
