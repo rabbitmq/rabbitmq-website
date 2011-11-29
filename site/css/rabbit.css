@@ -283,6 +283,10 @@ span.path {
 	color: darkcyan;
 }
 
+.docSection div.cmdsynopsis {
+	margin: 2.5em 0 0.5em 0;
+}
+
 .docSection div.cmdsynopsis p {
 	margin: 0;
 }
