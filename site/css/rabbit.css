@@ -492,7 +492,7 @@ ul.twoColumns li {
     vertical-align: top;
 }
 
-#home-content { width: 68%; padding-right: 2.5%; }
+#home-content { width: 68%; }
 
 #home-content h3, .rgt-third h3 { background-color: #ffebde; color: #444; padding: 3px 5px; font-size: 1em; border-bottom: 1px solid #f93; }
 
@@ -502,7 +502,7 @@ ul#large-bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px
 #buttons { overflow: auto; width: 100%; }
 
 #buttons { text-align: center; margin: 0; padding: 1em 0 0 0; }
-#buttons li { float: left; display: block; width: 33.33%; padding: 0; background: none; }
+#buttons li { float: left; display: block; width: 33%; padding: 0; background: none; }
 #buttons li a {
     height: 9em;
     padding: 0;
@@ -514,6 +514,7 @@ ul#large-bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px
     color: white;
     background: #f93;
 }
+
 #buttons li a:hover { background-color: #f60; }
 #buttons li a h4 { font-size: 1.3em; margin: 0; padding: 10px; border-bottom: 1px solid #ffebde; }
 #buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
