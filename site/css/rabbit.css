@@ -501,8 +501,8 @@ ul#large-bullets li { font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px
 
 #buttons { overflow: auto; width: 100%; }
 
-#buttons { text-align: center; margin: 0; padding: 1em 0 0 0; }
-#buttons li { float: left; display: block; width: 33%; padding: 0; background: none; }
+#buttons { text-align: center; margin: 0; padding: 1em 0 0 0; height: 9.1em; }
+#buttons li { float: left; display: block; width: 33%; padding: 0; background: none; height: 9.1em; }
 #buttons li a {
     height: 9em;
     padding: 0;
