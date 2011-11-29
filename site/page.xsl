@@ -62,6 +62,7 @@
     </body>
   </xsl:template>
 
+  <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
@@ -82,6 +83,7 @@
     <div class="nav-separator"/>
   </xsl:template>
 
+  <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
@@ -89,7 +91,11 @@
         <a href="/sitemap.html">Sitemap</a> |
         <a href="/contact.html">Contact</a>
       </p>
-      <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
+      <p id="copyright">
+        Copyright &#169; 2011 VMware, Inc. All rights reserved.
+        <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
+        <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+      </p>
     </div>
   </xsl:template>
 
