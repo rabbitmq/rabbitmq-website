@@ -47,7 +47,7 @@
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration"/>
        <x:page url="/ssl.html" text="SSL Support"/>
-       <x:page url="/distribution.html" text="Distributed RabbitMQ"/>
+       <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/clustering.html" text="Clustering"/>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>

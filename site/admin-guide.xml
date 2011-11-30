@@ -54,7 +54,7 @@
       <h2>Clustering and High Availability</h2>
       <ul>
         <li>
-          The different ways to <a href="distribution.html">distribute RabbitMQ</a>.
+          The different ways to <a href="distributed.html">distribute RabbitMQ</a>.
         </li>
         <li>
           How to <a href="clustering.html">set up a RabbitMQ cluster</a>.
