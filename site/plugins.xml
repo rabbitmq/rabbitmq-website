@@ -245,12 +245,13 @@
           Each time you enable or disable a plugin, you must re-run
           the commands:
 <pre class="code">
-rabbitmq-service.bat remove
+rabbitmq-service.bat stop
 rabbitmq-service.bat install
 rabbitmq-service.bat start
 </pre>
          to ensure that the service configuration is updated
-         and the server restarted.
+         and the server restarted. This only applies if you are
+         running RabbitMQ as a Windows service.
         </p>
       </doc:section>
 
