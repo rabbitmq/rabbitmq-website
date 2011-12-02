@@ -5,7 +5,7 @@
   <head>
     <title>Highly Available Queues</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="overview">
         <p>
           If your RabbitMQ broker consists of a single node, then a
@@ -226,7 +226,7 @@
       </doc:section>
 
       <doc:section name="start-stop">
-        <doc:heading>Starting and stopping nodes</doc:heading>
+        <doc:heading>Starting and Stopping Nodes</doc:heading>
         <p>
           If you stop a RabbitMQ node which contains the master of a
           mirrored-queue, some slave on some other node will be
@@ -254,7 +254,7 @@
       </doc:section>
 
       <doc:section name="genesis">
-        <doc:heading>Creating a mirrored-queue</doc:heading>
+        <doc:heading>Creating a Mirrored Queue</doc:heading>
         <p>
           A mirrored-queue must be created as a mirrored-queue. It is
           not possible to convert a non-mirrored-queue to a
@@ -323,7 +323,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </p>
       </doc:section>
       <doc:section name="peer-perspective">
-        <doc:heading>Handling node failure in clients</doc:heading>
+        <doc:heading>Handling Node Failure in Clients</doc:heading>
         <p>
           The client libraries distributed by RabbitMQ do not deal
           with a master node failure in a transparent manner. However
