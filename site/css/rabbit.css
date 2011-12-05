@@ -463,7 +463,7 @@ p.warning a {
 #home-content h3, .rgt-third h3 { background-color: #ffebde; color: #444; padding: 3px 5px; font-size: 1em; border-bottom: 1px solid #f93; }
 
 ul#large-bullets { margin: 1em 0 0 0; }
-ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background-position: 3px 15px;}
+ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background: url(../img/li-big.gif) no-repeat 0px 13px; }
 
 #buttons { overflow: auto; width: 100%; }
 
