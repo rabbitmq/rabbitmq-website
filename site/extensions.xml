@@ -633,9 +633,14 @@ channel.basicConsume(queue, consumer);</pre>
           </ul>
         </p>
         <doc:subsection>
-          <doc:heading>Declaring the Dead Letter Exchange</doc:heading>
+          <doc:heading>Using Dead Letter Exchanges</doc:heading>
           <p>
-            To declare the dead letter exchange for a queue simply set
+            Dead letter exchanges are normal exchanges.  They can be
+            any of the usual types and are declared as usual.
+          </p>
+
+          <p>
+            To set the dead letter exchange for a queue, simply set
             the <code>x-dead-letter-exchange</code> argument to the
             name of the exchange:
           </p>
@@ -655,40 +660,67 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             the queue is declared, but it should exist by the time
             messages need to be dead-lettered.
           </p>
+
+          <p>
+            You may also specify a routing key to be used when
+            dead-lettering messages.  If this is not set, the
+            message's own routing keys will be used.
+<pre class="sourcecode">
+args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
+          </p>
         </doc:subsection>
         <doc:subsection>
-          <doc:heading>Routing dead-lettered messages</doc:heading>
+          <doc:heading>Routing Dead-Lettered Messages</doc:heading>
           <p>
             Dead-lettered messages are routed to their dead letter
-            exchange with the same routing key they were originally
-            published with.
+            exchange either:
+            <ul>
+              <li>with the routing key specified for the queue they
+              were on; or, <em>if this was not set</em>,</li>
+              <li>with the same routing keys they were originally
+              published with.</li>
+            </ul>
           </p>
           <p>
             For example, if you publish a message to an exchange with
             routing key <code>foo</code>, and that message is
             dead-lettered, it will be published to its dead letter
-            exchange with routing key <code>foo</code>.
+            exchange with routing key <code>foo</code>.  If the queue
+            the message originally landed on had been declared with
+            <code>x-dead-letter-routing-key</code> set to
+            <code>bar</code>, then the message will be published to
+            its dead letter exchange with routing key
+            <code>bar</code>.
+          </p>
+          <p>
+            Note that, if a specific routing key was not set for the
+            queue, messages on it are dead-lettered with <em>all</em>
+            their original routing keys.  This includes routing keys
+            added by the <code>CC</code> and <code>BCC</code> headers
+            (see <a
+            href="#sender-selected-distribution">Sender-selected
+            distribution</a> for details on these two headers).
           </p>
           <p>
             Dead-lettered messages are re-published with publisher
             confirms turned on internally.  This means that the
             publishing queue will <em>not</em> remove messages before
-            the dead-letter queues acknowledge receiving them.  See
-            the <a href="#confirms">Confirms</a> entry on this page
-            for more details.  Note that, in the event of an unclean
+            the dead-letter queues acknowledge receiving them (see <a
+            href="#confirms">Confirms</a> for details on the
+            guarantees made).  Note that, in the event of an unclean
             broker shutdown, the same message may be duplicated on
             both the original queue and on the dead-letter queues.
           </p>
         </doc:subsection>
         <doc:subsection>
-          <doc:heading>Consuming dead-lettered messages</doc:heading>
+          <doc:heading>Consuming Dead-Lettered Messages</doc:heading>
           <p>
             Dead-lettered messages can be consumed in the same way as
             any message.
           </p>
           <p>
             Simply create a queue and bind it to the dead letter
-            exchange with the relevant routing key(s). Now a bind a
+            exchange with the relevant routing key. Now a bind a
             consumer to this queue and process your dead messages as
             needed.
           </p>
@@ -699,29 +731,46 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           </p>
         </doc:subsection>
         <doc:subsection>
-          <doc:heading>Administering dead-lettered messages</doc:heading>
+          <doc:heading>Dead-Lettered Messages</doc:heading>
           <p>
-            Dead-lettered messages retain the original exchange and
-            routing key in their envelope.
+            Dead-lettering a message modifies its headers:
+            <ul>
+              <li>the exchange name is replaced with that of latest
+              dead-letter exchange,</li>
+              <li>the routing key may be replaced with that specified
+              in a dead letter queue,</li>
+              <li>if the above happens, the <code>CC</code> header
+              will also be removed, and</li>
+              <li>the <code>BCC</code> header will be removed as per
+              <a href="#sender-selected-distribution">Sender-selected
+              distribution</a>.</li>
+            </ul>
           </p>
           <p>
             The dead-lettering process adds an array to the header of
             each dead-lettered message named <code>x-death</code>.
             This array contains an entry for each time the message was
-            dead-lettered.  Each such entry consists of two fields,
-            <code>x-death-queue</code> and
-            <code>x-death-reason</code>.  Note that the array is
-            sorted most-recent-first, so the most recent
-            dead-lettering will be recorded in the first entry.
+            dead-lettered.  Each such entry is a table that consists
+            of several fields:
+            <ul>
+              <li><code>queue</code> - the name of the queue the
+              message was in before it was dead-lettered,</li>
+              <li><code>reason</code> - see below,</li>
+              <li><code>time</code> - the date and time the message
+              was dead lettered as an RFC1123 formatted string,</li>
+              <li><code>exchange</code> - the exchange the message was
+              published to (note that this will be a dead letter
+              exchange if the message is dead lettered multiple
+              times), and</li>
+              <li><code>routing-keys</code> - the routing keys
+              (including <code>CC</code> keys but excluding
+              <code>BCC</code> ones) the message was published
+              with.</li>
+            </ul>
           </p>
           <p>
-            The <code>x-death-queue</code> is the name of the queue
-            the message was in before it was dead-lettered.
-          </p>
-          <p>
-            The <code>x-death-reason</code> is a simple code
-            describing why the message was dead-lettered and is one of
-            the following:
+            The <code>reason</code> is a simple code describing why
+            the message was dead-lettered and is one of the following:
 
             <ul>
               <li><code>queue_deleted</code> - the queue was deleted
@@ -733,6 +782,11 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
               <li><code>rejected</code> - the message was rejected
               with <code>requeue=false</code>.</li>
             </ul>
+          </p>
+          <p>
+            Note that the array is sorted most-recent-first, so the
+            most recent dead-lettering will be recorded in the first
+            entry.
           </p>
         </doc:subsection>
       </doc:section>
