@@ -482,7 +482,7 @@ ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0e
 }
 
 #buttons li a:hover { background-color: #f60; }
-#buttons li a h4 { font-size: 1.3em; margin: 0; padding: 10px; border-bottom: 1px solid #ffebde; }
+#buttons li a h4 { margin: 0; padding: 8px; border-bottom: 1px solid #ffebde; }
 #buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
 
 .news-date { float: right; color: #888; }
