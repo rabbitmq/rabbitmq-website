@@ -57,7 +57,7 @@
       more complex routing topologies.
     </p>
     <p>
-      Not all messages will be necessarily be forwarded over the link;
+      Some messages may not be forwarded over the link;
       if a message would not be routed to a queue after reaching the
       federated exchange, it will not be forwarded in the first place.
     </p>
