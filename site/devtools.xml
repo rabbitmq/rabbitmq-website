@@ -309,6 +309,11 @@
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
               </li>
               <li>
+                <a href="http://www.yourenterprisearchitect.com/">Your Enterprise Architect</a>
+                <br />
+                Enterprise and distributed architecture topics covered using RabbitMQ and C#
+              </li>
+              <li>
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
