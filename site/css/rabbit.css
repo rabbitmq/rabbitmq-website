@@ -246,7 +246,7 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode {
+pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
 	background: #eee;
 	padding: 5px;
 	border: 1px solid #ddd;
@@ -284,17 +284,20 @@ span.path {
 }
 
 .docSection div.cmdsynopsis {
-	color: darkcyan;
-	background: #f6fcb0;
-	padding: 5px 5px;
-	margin: 10px 0 5px 0;
+	margin: 2.5em 0 0.5em 0;
 }
 
 .docSection div.cmdsynopsis p {
 	margin: 0;
 }
 .docSection div.cmdsynopsis span.command {
-	color: darkred;
+	font-weight: bold;
+}
+
+div.variablelist .sourcecode {
+    color: white;
+    background: #444;
+    border: none;
 }
 
 table {

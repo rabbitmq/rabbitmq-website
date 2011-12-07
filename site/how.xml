@@ -7,12 +7,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>How To</title>
-    <script type="text/javascript">
-      // redirect to new page
-      if (location.hash == '#clients' || location.hash == '#specific-configs') {
-        location.href = location.href.substring(0, location.href.indexOf('how.html#')) + 'devtools.html';
-      }
-    </script>
   </head>
   <body show-in-this-page="true">
     <p class="intro">The links below highlight some of our favourite content on this site and the
