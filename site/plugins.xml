@@ -242,15 +242,15 @@
       <doc:section name="windows-restart">
         <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
         <p>
-          Each time you enable or disable a plugin, you must re-run
-          the commands:
+          Each time you enable or disable a plugin, you must run the
+          following commands to ensure that the service configuration
+          is updated and the server restarted:
 <pre class="code">
-rabbitmq-service.bat remove
+rabbitmq-service.bat stop
 rabbitmq-service.bat install
 rabbitmq-service.bat start
 </pre>
-         to ensure that the service configuration is updated
-         and the server restarted.
+         This only applies if you are running RabbitMQ as a Windows service.
         </p>
       </doc:section>
 
