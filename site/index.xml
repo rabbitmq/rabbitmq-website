@@ -39,8 +39,8 @@
       <ul id="large-bullets">
         <li>Robust <a href="how.html#quickstart">messaging</a> for applications</li>
         <li><a href="getstarted.html">Easy to use</a></li>
-        <li>All major <a href="platforms.html">operating systems</a></li>
-        <li>Huge number of <a href="devtools.html">developer platforms</a></li>
+        <li>Runs on all major <a href="platforms.html">operating systems</a></li>
+        <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
         <li><a href="mpl.html">Open source</a></li>
       </ul>
 
@@ -50,19 +50,19 @@
           <li>
             <a href="download.html">
               <h4>Download</h4>
-              <p>Server and clients, for many operating systems and languages.</p>
+              <p>Server and clients for various operating systems and languages</p>
             </a>
           </li>
           <li>
             <a href="documentation.html">
               <h4>Documentation</h4>
-              <p>How to do almost anything with RabbitMQ.</p>
+              <p>How to do almost anything with RabbitMQ</p>
             </a>
           </li>
           <li>
             <a href="getstarted.html">
               <h4>Tutorials</h4>
-              <p>Teach yourself RabbitMQ, in six easy lessons.</p>
+              <p>Teach yourself RabbitMQ in six easy lessons</p>
             </a>
           </li>
         </ul>
