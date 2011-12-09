@@ -162,7 +162,7 @@
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="tx" handler="channel" index="90"><status value="partial"/><notes>See <a href="#tx">notes on tx support</a></notes></class>
+	  <class name="tx" handler="channel" index="90"><status value="partial"/><notes>See <a href="semantics.html#tx">notes on tx support</a></notes></class>
 	</classes>
       </doc:section>
 
@@ -2430,7 +2430,8 @@
 	  <rule>
 	    <status value="ok"></status>
         <notes>
-        The broker makes <a href="#ordering">stronger guarantees</a>.
+        The broker makes <a href="semantics.html#ordering">stronger
+        guarantees</a>.
         </notes>
 	    <xref> 4.7 </xref>
 	    <context>
