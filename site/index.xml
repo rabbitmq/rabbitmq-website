@@ -16,8 +16,8 @@
 
       <h3>
 	<span class="subscribe">
-	  <a href="news.atom">
-	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
+	  <a href="/blog/feed/">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our blog posts" />
 	  </a>
 	</span>Latest Blog Posts
       </h3>
