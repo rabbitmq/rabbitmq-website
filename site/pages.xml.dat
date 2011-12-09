@@ -92,6 +92,7 @@
        <x:page url="/extensions.html" text="Our Extensions"/>
        <x:page url="/specification.html" text="Compatibility"/>
        <x:page url="/interoperability.html" text="Interoperability"/>
+       <x:page url="/semantics.html" text="Broker Semantics"/>
 
        <x:page url="/amqp-0-9-1-quickref.html" text="Quick Reference"/>
        <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
