@@ -5,10 +5,26 @@
                 xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+                xmlns:x="http://www.rabbitmq.com/2011/extensions"
                 xmlns="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="rss1 rdf atom dc"
+                exclude-result-prefixes="rss1 rdf atom dc x"
                 >
 
+  <x:months>
+    <x:month>Jan</x:month>
+    <x:month>Feb</x:month>
+    <x:month>Mar</x:month>
+    <x:month>Apr</x:month>
+    <x:month>May</x:month>
+    <x:month>Jun</x:month>
+    <x:month>Jul</x:month>
+    <x:month>Aug</x:month>
+    <x:month>Sep</x:month>
+    <x:month>Oct</x:month>
+    <x:month>Nov</x:month>
+    <x:month>Dec</x:month>
+  </x:months>
+  
   <xsl:template match="doc:homefeed">
     <xsl:apply-templates select="document(@src)/*">
       <xsl:with-param name="type">
@@ -52,12 +68,21 @@
               <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
               <br/>
               <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/>
-              [<a href="{atom:author/atom:uri}" title="{substring($published, 0, 11)}"><xsl:value-of select="atom:author/atom:name"/></a>]
+              <xsl:variable name="pub-date">
+                <xsl:call-template name="date-format">
+                  <xsl:with-param name="date" select="substring($published, 0, 11)"/>
+                </xsl:call-template>
+              </xsl:variable>
+              [<a href="{atom:author/atom:uri}" title="{$pub-date}"><xsl:value-of select="atom:author/atom:name"/></a>]
             </xsl:when>
 
             <xsl:when test="$type = 'ournews'">
               <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/>
-              <span class="news-date"><xsl:value-of select="substring($itemdate, 0, 11)"/></span>
+              <span class="news-date">
+                <xsl:call-template name="date-format">
+                  <xsl:with-param name="date" select="substring($itemdate, 0, 11)"/>
+                </xsl:call-template>
+              </span>
               <a href="/news.html#{$itemdate}"><xsl:value-of select="title|rss1:title|atom:title"/></a>
               <br/>
             </xsl:when>
@@ -80,6 +105,24 @@
         </li>
       </xsl:for-each>
     </ol>
+  </xsl:template>
+
+  <xsl:template name="date-format">
+    <xsl:param name="date" />
+    <xsl:variable name="year" select="substring($date, 1, 4)" />
+    <xsl:variable name="month" select="substring($date, 6, 2)" />
+    <xsl:variable name="day" select="substring($date, 9, 2)" />
+    <xsl:variable name="s-month">
+      <xsl:choose>
+        <xsl:when test="number($month) != number($month) or $month &lt; 1 or $month &gt; 12">
+          <xsl:value-of select="'   '"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="document('')/xsl:stylesheet/x:months/x:month[position() = $month]" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:value-of select="concat($day, ' ', $s-month, ' ', $year)" />
   </xsl:template>
 
 </xsl:stylesheet>
