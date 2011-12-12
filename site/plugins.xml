@@ -106,19 +106,15 @@
 
           <r:plugin name="rabbitmq_stomp">
             A gateway for exposing AMQP functionality via
-            the <a href="http://stomp.codehaus.org/Protocol">STOMP
-              protocol</a>, as implemented by
-            many <a href="http://stomp.codehaus.org/Clients">clients</a>
-            for various programming languages, and a few
-            other <a href="http://stomp.codehaus.org/Brokers">servers</a>
-            besides RabbitMQ.
-            <p>
+            the <a href="http://stomp.github.com">STOMP protocol</a>.
+            (Some clients and servers supporting STOMP are
+            listed <a href="http://stomp.github.com/implementations.html">
+            here</a>.)
               Please see the <a href="stomp.html">documentation</a> and
-              our various
+              various
               <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
                 articles</a> about the adapter for more information on
               compiling and configuring it.
-            </p>
           </r:plugin>
         </table>
       </doc:section>
@@ -242,15 +238,15 @@
       <doc:section name="windows-restart">
         <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
         <p>
-          Each time you enable or disable a plugin, you must re-run
-          the commands:
+          Each time you enable or disable a plugin, you must run the
+          following commands to ensure that the service configuration
+          is updated and the server restarted:
 <pre class="code">
-rabbitmq-service.bat remove
+rabbitmq-service.bat stop
 rabbitmq-service.bat install
 rabbitmq-service.bat start
 </pre>
-         to ensure that the service configuration is updated
-         and the server restarted.
+         This only applies if you are running RabbitMQ as a Windows service.
         </p>
       </doc:section>
 

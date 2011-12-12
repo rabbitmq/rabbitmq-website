@@ -47,6 +47,7 @@
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration"/>
        <x:page url="/ssl.html" text="SSL Support"/>
+       <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/clustering.html" text="Clustering"/>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
@@ -91,6 +92,7 @@
        <x:page url="/extensions.html" text="Our Extensions"/>
        <x:page url="/specification.html" text="Compatibility"/>
        <x:page url="/interoperability.html" text="Interoperability"/>
+       <x:page url="/semantics.html" text="Broker Semantics"/>
 
        <x:page url="/amqp-0-9-1-quickref.html" text="Quick Reference"/>
        <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
