@@ -82,9 +82,10 @@
         <li>
           Cloud:
           <a href="http://rabbitmq.cloudfoundry.com">Cloud Foundry</a> |
-          <a href="devtools.html#ec2-dev">EC2</a>
+          <a href="devtools.html#ec2-dev">EC2</a> |
+          <a href="how.html#cloud-configurations">more...</a>
         </li>
-        <li><a href="services.html">RabbitMQ commercial support</a></li>
+        <li>vFabric RabbitMQ: <a href="services.html">Commercial Support and Services</a></li>
       </ul>
     </div>
   </body>
