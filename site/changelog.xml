@@ -3,11 +3,9 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Server Changelog</title>
+    <title>Server Changelog</title>
   </head>
   <body>
-    <doc:div>
-      <h1>RabbitMQ Server changelog</h1>
       <table id="changelog">
         <tr>
           <th>Version</th>
@@ -16,8 +14,21 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
+          <td>9 November 2011</td>
+          <td>
+            <ul>
+              <li>Order preservation of re-queued messages</li>
+              <li>Plugins included with server</li>
+              <li><a href="uri-spec.html">"amqp" URI</a> client connection</li>
+              <li>Performance improvements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-September/015033.html">2.6.1</a></td>
-          <td>12 Sep 2011</td>
+          <td>12 September 2011</td>
           <td>
             <ul>
               <li>This release fixes a bug in the 2.6.0 version that causes the broker to fail to restart on reboot on some operating systems.</li>
@@ -30,10 +41,10 @@
           <td>31 August 2011</td>
           <td>
             <ul>
-              <li>Active-active HA.</li>
+              <li><a href="ha.html">Active-active HA</a></li>
               <li>Stomp improvements</li>
               <li>Management improvements</li>
-              <li>Federation plugin</li>
+              <li><a href="plugins.html#rabbitmq_federation">Federation plugin</a></li>
             </ul>
           </td>
         </tr>
@@ -54,7 +65,7 @@
           <td>
             <ul>
               <li>Numerous performance improvements</li>
-              <li>New tracing facility for debugging incoming and outgoing messages</li>
+              <li>New <a href="firehose.html">tracing facility</a> for debugging incoming and outgoing messages</li>
               <li>New rabbitmqctl commands</li>
             </ul>
           </td>
@@ -99,7 +110,7 @@
           <td>
             <ul>
               <li><a href="extensions.html#confirms">Confirm mode</a></li>
-              <li>Pluggable authentication backends / SASL mechanisms</li>
+              <li><a href="authentication.html">Pluggable authentication backends / SASL mechanisms</a></li>
               <li>IPv6 support</li>
             </ul>
           </td>
@@ -190,7 +201,7 @@
           <td>25 January 2010</td>
           <td>
             <ul>
-              <li>Improved producer throttling</li>
+              <li>Improved <a href="memory.html">producer throttling</a></li>
             </ul>
           </td>
         </tr>
@@ -200,7 +211,7 @@
           <td>7 October 2009</td>
           <td>
             <ul>
-              <li>Native SSL support</li>
+              <li><a href="ssl.html">Native SSL support</a></li>
               <li>Plugin mechanism</li>
               <li>Configuration file</li>
             </ul>
@@ -337,9 +348,5 @@
           </td>
         </tr>
       </table>
-    </doc:div>
-
-    <x:related-links key="changelog.html" />
-
   </body>
 </html>

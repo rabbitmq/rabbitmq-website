@@ -1,20 +1,18 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Erlang AMQP Client library</title>
+    <title>Erlang AMQP Client library</title>
   </head>
-<body>
-<doc:div>
+<body show-in-this-page="true">
  <p class="intro">
   This is the programmer's guide to the Erlang AMQP client.
  </p>
 
- <doc:toc class="compact">
-   <doc:heading>Table of Contents</doc:heading>
- </doc:toc>
-
  <doc:section name="introduction">
-   <doc:heading>Introduction</doc:heading>
    <p>
      The AMQP client provides an Erlang interface to compliant AMQP
      brokers. The client follows the AMQP execution model and
@@ -42,6 +40,10 @@
        <li>When no longer required, close the channel and the
        connection</li>
      </ol>
+   </p>
+   <p>
+     Obtain the library source and related materials from the
+     <a href="&dir-current-erlang-client;">download directory</a>.
    </p>
 
  </doc:section>
@@ -813,7 +815,5 @@
    </p>
 
   </doc:section>
-
-</doc:div>
 </body>
 </html>

@@ -3,17 +3,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Highly Available Queues</title>
+    <title>Highly Available Queues</title>
   </head>
-  <body>
-    <doc:div>
-
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+  <body show-in-this-page="true">
       <doc:section name="overview">
-        <doc:heading>Availability overview</doc:heading>
         <p>
           If your RabbitMQ broker consists of a single node, then a
           failure of that node will cause downtime, temporary
@@ -233,7 +226,7 @@
       </doc:section>
 
       <doc:section name="start-stop">
-        <doc:heading>Starting and stopping nodes</doc:heading>
+        <doc:heading>Starting and Stopping Nodes</doc:heading>
         <p>
           If you stop a RabbitMQ node which contains the master of a
           mirrored-queue, some slave on some other node will be
@@ -253,7 +246,7 @@
           master to which it is rejoining (this could happen during a
           network partition, for example). As such, when a slave
           rejoins a mirrored-queue, it throws away any durable local
-          contents it already has and starts empty. It's behaviour is
+          contents it already has and starts empty. Its behaviour is
           at this point the same as if it were a <a
           href="#unsynchronised-slaves">new node joining the
           cluster</a>.
@@ -261,7 +254,7 @@
       </doc:section>
 
       <doc:section name="genesis">
-        <doc:heading>Creating a mirrored-queue</doc:heading>
+        <doc:heading>Creating a Mirrored Queue</doc:heading>
         <p>
           A mirrored-queue must be created as a mirrored-queue. It is
           not possible to convert a non-mirrored-queue to a
@@ -330,7 +323,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </p>
       </doc:section>
       <doc:section name="peer-perspective">
-        <doc:heading>Handling node failure in clients</doc:heading>
+        <doc:heading>Handling Node Failure in Clients</doc:heading>
         <p>
           The client libraries distributed by RabbitMQ do not deal
           with a master node failure in a transparent manner. However
@@ -345,9 +338,5 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           by consumers that support it.
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="ha.html" />
-
   </body>
 </html>

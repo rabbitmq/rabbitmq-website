@@ -13,5 +13,5 @@ fi
 set -x
 
 ssh $remote_host mkdir -p $tmp_dir
-rsync -qcrz --delete --perms --chmod=a+rwX code conf site wordpress-theme $remote_host:$tmp_dir
+rsync -qcrz --delete --perms --chmod=a+rwX --exclude=site/man code conf site wordpress-theme $remote_host:$tmp_dir
 ssh -t $remote_host sudo $tmp_dir/code/deploy-remote

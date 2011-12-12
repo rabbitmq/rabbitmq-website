@@ -7,16 +7,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Management Plugin</title>
+    <title>Management Plugin</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="features">
-        <doc:heading>Features</doc:heading>
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
@@ -52,8 +46,6 @@
             <tr>
               <th>Overview</th>
               <th>Import / Export</th>
-              <th>Channel List</th>
-              <th>Queue Details</th>
             </tr>
             <tr>
               <td>
@@ -66,6 +58,12 @@
                   <img src="/img/management/thumbs/import-export.png"/>
                 </a>
               </td>
+            </tr>
+            <tr>
+              <th>Channel List</th>
+              <th>Queue Details</th>
+            </tr>
+            <tr>
               <td>
                 <a href="/img/management/channels.png">
                   <img src="/img/management/thumbs/channels.png"/>
@@ -89,6 +87,11 @@
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
         <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
+        <p>
+          Windows service users need to take
+          <a href="/plugins.html#windows-restart">additional steps</a> when
+          changing plugins.
+        </p>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
@@ -145,7 +148,7 @@
         <doc:heading>Permissions</doc:heading>
         <p>
           The management plugin extends the
-          existing <a href="admin-guide.html#access-control">permissions
+          existing <a href="access-control.html">permissions
           model</a> somewhat. Users can be given arbitrary tags within
           RabbitMQ. The management plugin makes use of tags called
           "management", "monitoring" and "administrator". The following
@@ -378,9 +381,5 @@ ProxyPass        /    http://localhost:55672/
 ProxyPassReverse /    http://localhost:55672/</pre>
         </p>
       </doc:section>
-    </doc:div>
-
-    <x:related-links key="management.html" />
-    
   </body>
 </html>

@@ -1,10 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - AMQP 0-8 to 0-9-1</title>
+    <title>AMQP 0-8 to 0-9-1</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
         This is a summary of the semantic differences between AMQP 0-8 and 0-9-1.
       </p>
@@ -374,6 +373,5 @@
         <em>Note:</em> Framing and connection establishment (modulo the removed frame-types
         and the spec version number advertisement, respectively) are identical.
       </p>
-    </doc:div>
   </body>
 </html>

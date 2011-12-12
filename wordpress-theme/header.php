@@ -29,9 +29,9 @@ try{
 
 <body>
 <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
-    <h1>
+    <div id="rabbit-logo">
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
-    </h1>
+    </div>
     <div class="s2-logo">
       <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
@@ -41,7 +41,14 @@ try{
         <input type="submit" id="search-button" alt="Search" value="" />
       </form>
     </div>
-  <ul class="mainNav"><li><a href="/download.html">Download</a></li><li><a href="/documentation.html">Documentation</a></li><li><a href="/getstarted.html">Get Started</a></li><li><a href="/services.html">Services</a></li><li><a href="/contact.html">Community</a></li><li><a href="/blog/">Blog</a></li></ul>
+  <ul class="mainNav">
+    <li><a href="/download.html">Download</a></li>
+    <li><a href="/documentation.html">Documentation</a></li>
+    <li><a href="/getstarted.html">Get Started</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/contact.html">Community</a></li>
+    <li><a href="/blog/" class="selected">Blog</a></li>
+  </ul>
 
   <div class="nav-separator"/>
 

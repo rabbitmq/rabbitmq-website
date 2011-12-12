@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Topics
+# RabbitMQ tutorial - Topics SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-five">
    <xi:include href="tutorials-menu.xml.inc"/>

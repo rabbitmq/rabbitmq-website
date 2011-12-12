@@ -1,11 +1,9 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Commercial Services</title>
+    <title>Commercial Services</title>
   </head>
-  <body>
-    <doc:div>
-    <h2>Services</h2>
+  <body suppress-rhs="true">
     <p class="intro">
       RabbitMQ is commercially supported by SpringSource professional services, which includes
       the expertise of RabbitMQ's core team and principal contributors.
@@ -20,7 +18,7 @@
       RabbitMQ support is the best way to assure your system is dependable and to harness the full
       power of the RabbitMQ platform. With RabbitMQ support you will get to access to the best management
       and technical service levels that are available anywhere.</p>
-    <p><a href="contact.html">Contact us</a> for more details on RabbitMQ support.</p>
+    <p><a href="contact.html#email">Contact us</a> for more details on RabbitMQ support.</p>
 
     <h3>RabbitMQ Training</h3>
     <p>
@@ -28,7 +26,7 @@
       worldwide. These focus on the use cases and patterns for best practice with RabbitMQ and AMQP, as well
       as design, architecture and future development.
     </p>
-    <p><a href="contact.html">Contact us</a> for more details on RabbitMQ training.</p>
+    <p><a href="contact.html#email">Contact us</a> for more details on RabbitMQ training.</p>
 
     <h3>RabbitMQ Expert Consulting</h3>
     <p>
@@ -43,8 +41,6 @@
       planning, project delivery and other value-adding services tailored to suit your needs. We also provide packaged
       professional services covering architectural application review, migration and solutions and proof of concept.
     </p>
-    <p><a href="contact.html">Contact us</a> for more details on RabbitMQ consulting services.</p>
-
-    </doc:div>
+    <p><a href="contact.html#email">Contact us</a> for more details on RabbitMQ consulting services.</p>
   </body>
 </html>

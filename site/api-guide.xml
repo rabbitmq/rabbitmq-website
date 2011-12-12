@@ -5,10 +5,9 @@
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - API Guide</title>
+    <title>Java Client API Guide</title>
   </head>
-  <body>
-    <doc:div>
+  <body show-in-this-page="true">
       <p class="intro">
 	This page gives an overview of the RabbitMQ Java client	API. 
       </p>
@@ -20,19 +19,12 @@
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
+    <p>
+       The client API is closely modelled on the AMQP protocol specification,
+       with additional abstractions for ease of use.
+    </p>
 
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
-    <doc:section name="core">
-        <doc:heading>Core API Guide</doc:heading>
-        <p>
-            The client API is closely modelled on the AMQP protocol specification,
-            with additional abstractions for ease of use.
-        </p>
-
-    <doc:subsection name="classoverview">
+    <doc:section name="classoverview">
         <doc:heading>Protocol class overview</doc:heading>
         <p>
             The holder class <code>AMQP</code> stores all the code
@@ -57,11 +49,14 @@
             We illustrate the builder classes by constructing
             some <code>AMQP.BasicProperties</code> objects with its <code>Builder</code> class:
         </p>
-        <pre class="sourcecode">AMQP.BasicProperties.Builder bob = <b>new</b> AMQP.BasicProperties.Builder();
+<pre class="sourcecode">
+AMQP.BasicProperties.Builder bob = <b>new</b> AMQP.BasicProperties.Builder();
 AMQP.BasicProperties minBasic = bob.build();
 AMQP.BasicProperties minPersistentBasic = bob.deliveryMode(2).build();
-AMQP.BasicProperties persistentBasic = bob.priority(0).contentType("application/octet-stream").build();
-AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build();</pre>
+AMQP.BasicProperties persistentBasic
+                    = bob.priority(0).contentType("application/octet-stream").build();
+AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build();
+</pre>
         <p>
             <code>bob</code> (the builder) is constructed first
             and whenever <code>build()</code> is invoked this method returns
@@ -69,7 +64,8 @@ AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build()
             set in <code>bob</code> at that point. The parameter calls (<code>deliveryMode</code>,
             <code>priority</code>, etc.) update <code>bob</code> and <i>not</i>
             the <code>BasicProperties</code> object. Each of these methods returns the
-            updated builder (allowing chaining). This pattern
+            updated builder (allowing chaining, for example as in <code>persistentBasic</code> above).
+            This pattern
             allows the parameters to be named and set in any order, the consistency of the
             complete set of parameters to be checked at <code>build()</code> time,
             the built objects to be immutable, and partially initialised builders
@@ -84,9 +80,9 @@ AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build()
             <a href="http://drdobbs.com/java/208403883?pgno=2">this Dr. Dobb&#8217;s article</a> or
             refer to <a href="http://amzn.com/0321356683">Effective Java</a> by <i>Joshua Bloch</i>.
         </p>
-    </doc:subsection>
+    </doc:section>
 
-	<doc:subsection name="connecting">
+	<doc:section name="connecting">
 	<doc:heading>Connections and channels</doc:heading>
 
 	<p>
@@ -154,9 +150,81 @@ conn.close();</pre>
 	    automatically anyway when the underlying connection is closed.
 	  </p>
 
-	</doc:subsection>
+  </doc:section>
 
-	<doc:subsection name="declaring">
+<doc:section name="advanced-connection">
+  <doc:heading>Advanced Connection options</doc:heading>
+    <doc:subsection name="consumer-thread-pool">
+        <doc:heading><i>Consumer thread pool</i></doc:heading>
+        <p>
+          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
+          automatically allocated in a new <code>ExecutorService</code> thread pool
+          by default. If greater control is required supply an <code>ExecutorService</code> on the
+          <code>newConnection()</code> method, so that this pool of threads is
+          used instead. Here is an example where a larger thread pool is
+          supplied than is normally allocated:
+<pre class="sourcecode">
+ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(<b>es</b>);
+</pre>
+          Both <code>Executors</code> and <code>ExecutorService</code> classes
+          are in the <code>java.util.concurrent</code> package.
+        </p>
+        <p>
+          When the connection is closed a default <code>ExecutorService</code>
+          will be <code>shutdown()</code>, but a user-supplied
+          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <i>not</i> be <code>shutdown()</code>.
+          Clients that supply a custom <code>ExecutorService</code> must ensure
+          it is shutdown eventually (by calling its <code>shutdown()</code>
+          method), or else the pool&#8217;s threads may prevent JVM termination.
+        </p>
+        <p>
+          The same executor service may be shared between multiple connections,
+          or serially re-used on re-connection but it cannot be used after it is
+          <code>shutdown()</code>.
+        </p>
+        <p>
+          Use of this feature should only be considered if there is evidence
+          that there is a severe bottleneck in the processing of <code>Consumer</code>
+          callbacks.
+          If there are no <code>Consumer</code> callbacks executed, or very few, the default
+          allocation is more than sufficient. The overhead is initially minimal and
+          the total thread resources allocated are bounded, even if a burst of consumer
+          activity may occasionally occur.
+        </p>
+    </doc:subsection>
+
+    <doc:subsection name="address-array">
+        <doc:heading><i>Address array</i></doc:heading>
+        <p>
+          It is possible to pass an <code>Address</code> array
+          to <code>newConnection()</code>.
+          An <code>Address</code> is simply a convenience class 
+          (in the <code>com.rabbitmq.client</code> package) with <i>host</i>
+          and <i>port</i> components.
+          For example:
+<pre class="sourcecode">
+Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                 , <b>new</b> Address(hostname2, portnumber2)};
+Connection conn = factory.newConnection(addrArr);
+</pre>
+          will attempt to connect to <code>hostname1:portnumber1</code>, and if
+          that fails to <code>hostname2:portnumber2</code>. The connection returned is
+          the first in the array that succeeds (without throwing
+          <code>IOException</code>). This is entirely equivalent to repeatedly
+          setting host and port on a factory, calling
+          <code>factory.newConnection()</code> each time, until one of them succeeds.
+        </p>
+        <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is 
+          associated with the (first) successful connection.
+        </p>
+    </doc:subsection>
+</doc:section>
+
+	<doc:section name="declaring">
 	  <doc:heading>Using exchanges and queues</doc:heading>
 
 	  <p>
@@ -219,9 +287,9 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
 	  <p>
 	    This "short form, long form" pattern is used throughout the client API uses.
 	  </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="publishing">
+	<doc:section name="publishing">
 	  <doc:heading>Publishing messages</doc:heading>
 
 	  <p>
@@ -261,9 +329,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	    Note that <code>BasicProperties</code> is an inner class of the autogenerated
 	    holder class <code>AMQP</code>.
 	  </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="channel-threads">
+	<doc:section name="channel-threads">
 	  <doc:heading>Channel thread-safety</doc:heading>
 
       <p>
@@ -275,9 +343,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         instead of sharing the same <code>Channel</code> across
         multiple threads.
       </p>
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="consuming">
+	<doc:section name="consuming">
 	  <doc:heading>Receiving messages by subscription</doc:heading>
 
 	  <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
@@ -321,25 +389,24 @@ channel.basicConsume(ticket, queueName, autoAck,
              String routingKey = envelope.getRoutingKey();
              String contentType = properties.contentType;
              <b>long</b> deliveryTag = envelope.getDeliveryTag();
-             <i>// (process the message components ...)</i>
-             <i>. . .</i>
+             <i>// (process the message components here ...)</i>
              channel.basicAck(deliveryTag, <b>false</b>);
          }
      });</pre>
 
       <p>
           Here, since we specified <code>autoAck = </code><b><code>false</code></b>,
-          it is necessary to acknowledge messages delivered to the consumer,
-          most conveniently done in the consumer&#8217;s <code>handleDelivery</code>
+          it is necessary to acknowledge messages delivered to the <code>Consumer</code>,
+          most conveniently done in the <code>handleDelivery</code>
           method, as illustrated.
       </p>
 
 	  <p>
-	    More sophisticated consumers will need to override further
+	    More sophisticated <code>Consumer</code>s will need to override further
 	    methods.  In particular, <code>handleShutdownSignal</code>
-	    traps channel and connection closures, and
+	    is called when channels and connections close, and
 	    <code>handleConsumeOk</code> is passed the consumer tag
-	    before any other callbacks to that consumer are called.
+	    before any other callbacks to that <code>Consumer</code> are called.
 	  </p>
 
 	  <p>
@@ -349,13 +416,16 @@ channel.basicConsume(ticket, queueName, autoAck,
 	    respectively.
 	  </p>
 
-	  <p>
-	    You can explicitly cancel a particular active consumer with
-	    <code>Channel.basicCancel</code>:
-	  </p>
+      <p>
+        You can explicitly cancel a particular <code>Consumer</code> with
+        <code>Channel.basicCancel</code>:
+      </p>
 
 	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
 
+      <p>
+        passing the consumer tag.
+      </p>
 	  <p>
         Callbacks to <code>Consumer</code>s are dispatched on a thread
         separate from the thread managed by the
@@ -377,20 +447,20 @@ channel.basicConsume(ticket, queueName, autoAck,
         <code>Channel</code>.
 	  </p>
 
-    </doc:subsection>
+    </doc:section>
 
-	<doc:subsection name="getting">
+	<doc:section name="getting">
 	  <doc:heading>Retrieving individual messages</doc:heading>
 
-	  <p>
-	    To explicitly retrieve messages, use
-	    <code>Channel.basicGet</code>.  The returned value is an
-	    instance of <code>GetResponse</code>, from which the
-	    header information (properties) and message body can be
-	    extracted:
-	  </p>
-
-	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+      <p>
+        To explicitly retrieve messages, use
+        <code>Channel.basicGet</code>.  The returned value is an
+        instance of <code>GetResponse</code>, from which the
+        header information (properties) and message body can be
+        extracted:
+      </p>
+<pre class="sourcecode">
+<b>boolean</b> autoAck = <b>false</b>;
 GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 <b>if</b> (response == <b>null</b>) {
     <i>// No message retrieved.
@@ -400,19 +470,19 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
     long deliveryTag = response.getEnvelope().getDeliveryTag();
     ...</pre>
 
-	  <p>
-	    Since the <code>autoAck</code> = <code>false</code> above,
-	    you must also call <code>Channel.basicAck</code> to
-	    acknowledge that you have successfully received the message:
-	  </p>
-
-	  <pre class="sourcecode">    ...
+      <p>
+        and since the <code>autoAck</code> = <code>false</code> above,
+        you must also call <code>Channel.basicAck</code> to
+        acknowledge that you have successfully received the message:
+      </p>
+<pre class="sourcecode">
+    ...
     channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
 }</pre>
 
-	</doc:subsection>
+	</doc:section>
 
-	<doc:subsection name="returning">
+	<doc:section name="returning">
 	  <doc:heading>Handling unroutable or undelivered messages</doc:heading>
 
 	  <p>
@@ -422,29 +492,28 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 	  </p>
 	  <p>
 	    To be notified of such returns, clients can implement the <code>ReturnListener</code>
-	    interface and calling <code>Channel.setReturnListener</code>. 
+	    interface and call <code>Channel.setReturnListener</code>. 
 	    If the client has not configured a return listener for a particular channel,
-	    then the associated returned messages will be silently dropped.
+        then the associated returned messages will be silently dropped.
 	  </p>
 
-	  <pre class="sourcecode">channel.setReturnListener(<b>new</b> ReturnListener() {
-        <b>public</b> <b>void</b> handleBasicReturn(int replyCode, 
-					String replyText, 
-					String exchange, 
-					String routingKey, 
-					AMQP.BasicProperties properties, 
-					byte[] body) 
-            <b>throws</b> IOException {
-            ...
-        }
-    });</pre>
+<pre class="sourcecode">
+channel.setReturnListener(<b>new</b> ReturnListener() {
+    <b>public</b> <b>void</b> handleBasicReturn(int replyCode,
+                                  String replyText,
+                                  String exchange,
+                                  String routingKey,
+                                  AMQP.BasicProperties properties,
+                                  byte[] body)
+    <b>throws</b> IOException {
+        ...
+    }
+});</pre>
 	  <p>
-	    This return listener will be called, for example, if the client publishes a message with
+	    A return listener will be called, for example, if the client publishes a message with
 	    the "mandatory" flag set to an exchange of "direct" type which is not bound to a queue.
 	  </p>
-	</doc:subsection>
-
-      </doc:section>
+	</doc:section>
 
       <doc:section name="rpc">
 	<doc:heading>Basic RPC</doc:heading>
@@ -661,95 +730,44 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     } 
 }</pre>
           </doc:subsection>
+    </doc:section>
+
+      <doc:section name="bundled">
+	<doc:heading>Bundled examples</doc:heading>
+	<p>
+	  The Java client library distribution is shipped with a
+	  <code>rabbitmq-client-tests.jar</code>, containing several
+	  small example programs for exercising the functionality of
+	  the RabbitMQ server.  The source code for these examples is
+	  in the <code>test/src</code> folder in the source
+	  distribution.
+        </p>
+        <p>
+          The script <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> runs Java with
+          the class path correctly configured for the examples, e.g.
+          <code>runjava.sh com.rabbitmq.examples.TestMain</code> runs
+          the <code>TestMain</code> functional tests.
+        </p>
       </doc:section>
 
-<!-- Removed because we decided to exclude these libs from the release.
-     See bug 16391.
-
-      <doc:section name="jsonrpc">
-	<doc:heading>JSON-RPC over AMQP</doc:heading>
-
+      <doc:section name="tracer">
+	<doc:heading>AMQP Protocol Capture/Analysis Tool</doc:heading>
 	<p>
-	  <a
-	  href="http://json-rpc.org/wd/JSON-RPC-1-1-WD-20060807.html">JSON-RPC</a>
-	  is a lightweight RPC mechanism using <a
-	  href="http://www.json.org/">JSON</a> as a data language for
-	  request and reply messages. It is rapidly becoming a
-	  standard in web development, where it is used to make RPC
-	  requests over HTTP. RabbitMQ provides an AMQP transport
-	  binding for JSON-RPC in the form of
-	  the <code>JsonRpcClient</code> class.
+	  There's a very basic, very simple AMQP protocol analyzer in
+	  class <code>com.rabbitmq.tools.Tracer</code>. Invoke it with
 	</p>
-
-	<pre class="sourcecode"><b>import</b> com.rabbitmq.tools.JsonRpcClient;</pre>
-
+	<pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
 	<p>
-	  <code>JsonRpcClient</code> inherits
-	  from <code>RpcClient</code>, extending it with
+	  <dl>
+	    <dt>listenPort</dt>
+	    <dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
+	    <dt>connectHost</dt>
+	    <dd>hostname to use when making an outbound connection in response to an incoming connection - defaults to localhost.</dd>
+	    <dt>connectPort</dt>
+	    <dd>port number to use when making an outbound connection - defaults to 5672.</dd>
+	  </dl>
 	</p>
-
-	<pre class="sourcecode">Object call(String method, Object[] params) <b>throws</b> IOException, JsonRpcException;
-Object call(String[] args) <b>throws</b> NumberFormatException, IOException, JsonRpcException;</pre>
-
-	<p>
-	  The first variant encodes the <code>params</code> using
-	  JSON, and sends a JSON-RPC request to the exchange that was
-	  configured in the <code>JsonRpcClient</code>
-	  constructor. The second variant is useful for simple
-	  command-line or scripting use: the first of
-	  the <code>args</code> is assumed to be the method name, and
-	  the remainder are coerced to the expected types before being
-	  sent.
-	</p>
-
-	<p>
-	  JSON-RPC services are self-describing - each service is able
-	  to list its supported procedures, and each procedure
-	  describes its parameters and types. An instance of
-	  JsonRpcClient retrieves its service description using the
-	  standard <code>system.describe</code> procedure when it is
-	  constructed, and uses the information to coerce parameter
-	  types appropriately. A JSON service description is parsed
-	  into instances
-	  of <code>JsonRpcClient.ServiceDescription</code>. Client
-	  code can access the service description by reading
-	  the <code>serviceDescription</code> field
-	  of <code>JsonRpcClient</code> instances.
-	</p>
-
-	<p>
-	  To illustrate, the following is an excerpt from the RabbitMQ
-	  management JSON-RPC service:
-	</p>
-
-	<pre class="sourcecode">{
-    <b>&quot;sdversion&quot;</b>: <b>&quot;1.0&quot;</b>,
-    <b>&quot;name&quot;</b>: <b>&quot;amq.rabbitmq.management&quot;</b>,
-    <b>&quot;id&quot;</b>: <b>&quot;urn:uuid:ce13b1c6-bb5d-4532-9156-8ad5a498c256&quot;</b>,
-    <b>&quot;version&quot;</b>: <b>&quot;1.0&quot;</b>,
-    <b>&quot;address&quot;</b>: <b>&quot;amq.rabbitmq.management&quot;</b>,
-    <b>&quot;procs&quot;</b>: [{
-                  <b>&quot;name&quot;</b>: <b>&quot;add_user&quot;</b>,
-                  <b>&quot;idempotent&quot;</b>: <b>false</b>,
-                  <b>&quot;params&quot;</b>: [{<b>&quot;name&quot;</b>: <b>&quot;username&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>},
-                             {<b>&quot;name&quot;</b>: <b>&quot;password&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>}]
-              },
-              {
-                  <b>&quot;name&quot;</b>: <b>&quot;delete_user&quot;</b>,
-                  <b>&quot;idempotent&quot;</b>: <b>false</b>,
-                  <b>&quot;params&quot;</b>: [{<b>&quot;name&quot;</b>: <b>&quot;username&quot;</b>, <b>&quot;type&quot;</b>: <b>&quot;str&quot;</b>}]
-              },
-              ...
-              ]
-}</pre>
-
-	<p>
-	  One might create a new user by calling
-	</p>
-
-	<pre class="sourcecode">rpcProxy.call(<b>&quot;add_user&quot;</b>, <b>new</b> Object[] { <b>&quot;user name&quot;</b>, <b>&quot;password&quot;</b> });</pre>
       </doc:section>
--->
-    </doc:div>
+
   </body>
 </html>
