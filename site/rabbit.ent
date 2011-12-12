@@ -15,6 +15,8 @@
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
 
+<!ENTITY dir-current-erlang-client "/releases/rabbitmq-erlang-client/v&version-server;/">
+
 <!ENTITY dir-win-apps "C:\Program Files">
 <!ENTITY dir-win64-apps "C:\Program Files (x86)">
 

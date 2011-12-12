@@ -16,15 +16,15 @@
       <h3>Quick Download</h3>
       <ul>
         <li>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
           Binary
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
           Source
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
-          <a href="/releases/rabbitmq-server/&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
         </li>
       </ul>
       <h3>Installation Guides</h3>
@@ -100,6 +100,10 @@
 
     <div class="landing-box">
       <h2>Clients for other languages</h2>
+      <p>
+        The Erlang AMQP client library and related materials can be found in its
+        <a href="&dir-current-erlang-client;">download directory</a>.
+      </p>
       <p>
         The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
         a variety of platforms and languages.
