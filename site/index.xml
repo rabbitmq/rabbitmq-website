@@ -39,7 +39,7 @@
         <li><a href="getstarted.html">Easy to use</a></li>
         <li>Runs on all major <a href="platforms.html">operating systems</a></li>
         <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
-        <li><a href="mpl.html">Open source</a></li>
+        <li><a href="mpl.html">Open source</a> and <a href="services.html">commercially supported</a></li>
       </ul>
 
       <div id="home-what-is">
@@ -74,7 +74,7 @@
           <a href="devtools.html#dotnet-dev">.NET</a> |
           <a href="devtools.html#ruby-dev">Ruby</a> |
           <a href="devtools.html#python-dev">Python</a> |
-          <a href="devtools.html#c-dev">C</a> |
+          <a href="devtools.html#php-dev">PHP</a> |
           <a href="devtools.html">more...</a>
         </li>
         <li>
@@ -82,8 +82,7 @@
           <a href="http://rabbitmq.cloudfoundry.com">Cloud Foundry</a> |
           <a href="devtools.html#ec2-dev">EC2</a> |
           <a href="how.html#cloud-configurations">more...</a>
-        </li>
-        <li>vFabric RabbitMQ: <a href="services.html">Commercial Support and Services</a></li>
+        </li>        
       </ul>
     </div>
   </body>
