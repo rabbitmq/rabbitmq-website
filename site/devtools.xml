@@ -812,6 +812,11 @@
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
               </li>
               <li>
+                <a href="https://github.com/dominiklanger/LabbitMQ">LabbitMQ</a>
+                <br/>
+                A RabbitMQ client for LabVIEW
+              </li>
+              <li>
                 <a href="https://github.com/yrashk/amqpfs">amqpfs</a>
                 <br/>
                 AMQP file system interface
