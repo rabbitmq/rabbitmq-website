@@ -28,46 +28,49 @@
       the versions included are often quite old. You will probably
       get better results installing the .rpm from our website. Check
       the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
-        package</a> details for which version of the server is
+      package</a> details for which version of the server is
       available for which versions of the distribution.
     </p>
 
     <h3>Install the Server</h3>
 
     <p>
-      We strongly recommend using a packaged version of Erlang to run
-      the server. This is part of Fedora, and
-      in <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> for
-      RHEL. To enable EPEL on your Red Hat machine, see
-      the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
-        FAQ</a>. Then just <code>yum install erlang</code>.
+      If you are on RHEL, or a derived distribution such as Fedora or
+      CentOS, we strongly recommend using a packaged version of Erlang.
+      You can obtain this from <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a>
+      following the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
+      FAQ</a> to enable EPEL on your machine. Make sure to do this before
+      continuing.
     </p>
-
-    <h3>Erlang on RHEL 5 (and CentOS 5)</h3>
-
     <p>
-      Due
-      to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+      <strong>The subsquent steps you need to take to install Erlang
+      will vary, depending on which version of RHEL you are on.</strong>
+    </p>    
+    <h4>On RHEL 5 and derived (including Fedora 6 and CentOS 5)</h4>
+    <p>
+      Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
       the EPEL package update policy</a>, EPEL 5 contains Erlang
-      version R12B-5, which is relatively old. rabbitmq-server
-      supports R12B-5, but performance may be lower than for more
-      recent Erlang versions, and certain non-core features are not
+      version R12B-5, which is relatively old. <code>rabbitmq-server</code>
+      supports R12B-5 but performance may be lower than for more
+      recent Erlang versions and certain non-core features are not
       supported (SSL support, HTTP-based plugins including
       the <a href="management.html">management
-      plugin</a>). <b>Therefore, we recommend that you install the
-      most recent stable version of Erlang.</b> The easiest way to do
-      this is to use a package repository provided for this purpose by
-      the owner of the EPEL Erlang package. Enable it by invoking (as
-      root):
+      plugin</a>).
     </p>
-
-    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
-
     <p>
-      and then install or update erlang with <code>yum install
-        erlang</code>.
+      To install a more recent version of Erlang, once you have enabled EPEL,
+      you need to enable a more up-to-date package repository that is provided
+      by the owner of the Erlang package. To do this, issue the following 
+      command as 'root':
     </p>
-
+    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>  
+    <p>
+      Then install or update erlang as usual with <code>yum install erlang</code>.
+    </p>
+    <h4>On RHEL6+ and derived</h4>
+    <p>
+      Once you have enabled EPEL, then just <code>yum install erlang</code>.
+    </p>
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>
