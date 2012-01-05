@@ -45,7 +45,7 @@
     <p>
       <strong>The subsquent steps you need to take to install Erlang
       will vary, depending on which version of RHEL you are on.</strong>
-    </p>    
+    </p>
     <h4>On RHEL 5 and derived (including Fedora 6 and CentOS 5)</h4>
     <p>
       Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
@@ -60,10 +60,10 @@
     <p>
       To install a more recent version of Erlang, once you have enabled EPEL,
       you need to enable a more up-to-date package repository that is provided
-      by the owner of the Erlang package. To do this, issue the following 
+      by the owner of the Erlang package. To do this, issue the following
       command as 'root':
     </p>
-    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>  
+    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
     <p>
       Then install or update erlang as usual with <code>yum install erlang</code>.
     </p>
