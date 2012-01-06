@@ -86,26 +86,15 @@
       Some common pitfalls that have been encountered and their solutions are
       listed below.
     </p>
-    <ul>
-      <li>
-        <em>Missing Dependency: libSDL-1.2.so.0()(64bit) is needed by package
-        wxGTK-2.8.12-1.el5.x86_64 (epel)</em><br/>
-        <p>
-          <strong>Solution:</strong> Locate and install the 64bit SDL package
-          for your platform, which will be named something like
-          <code>SDL-1.2.*.x86-64.rpm</code>.
-        </p>
-      </li>
-      <li>
-        <em> Missing Dependency: libodbc.so.1()(64bit) is needed by package
-        erlang-odbc-R14B-03.3.el5.x86_64 (epel-erlang)</em><br/>
-        <p>
-          <strong>Solution:</strong> Locate and install the 64bit unixODBC
-          package for your platform, which will be named something like
-          <code>unixODBC-2.2.*.x86-64.rpm</code>.
-        </p>
-      </li>
-    </ul>
+    <dl>
+      <dt>Missing dependencies: SDL and unixODBC</dt>
+      <dd>
+        <code>erlang-wx</code> and <code>erlang-odbc</code> have dependencies that need
+        to be satisfied from your system package repository. If you receive dependency
+        errors then make sure your system repository is configured correctly and
+        contains the correct versions of SDL and unixODBC packages for your architecture.
+      </dd>
+    </dl>
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>
