@@ -78,23 +78,10 @@
         <p>
           After downloading the server package, issue the following command as 'root':
         </p>
-        <pre>yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+        <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
       </li>
     </ol>
-    <h4>Potential Issues</h4>
-    <p>
-      Some common pitfalls that have been encountered and their solutions are
-      listed below.
-    </p>
-    <dl>
-      <dt>Missing dependencies: SDL and unixODBC</dt>
-      <dd>
-        <code>erlang-wx</code> and <code>erlang-odbc</code> have dependencies that need
-        to be satisfied from your system package repository. If you receive dependency
-        errors then make sure your system repository is configured correctly and
-        contains the correct versions of SDL and unixODBC packages for your architecture.
-      </dd>
-    </dl>
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>
