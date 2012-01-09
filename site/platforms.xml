@@ -58,9 +58,9 @@
     </p>
     <p>
       The Windows Erlang VM is available as 32bit (all available versions) and 64bit
-      versions (since R15B). Limitations (such as address space) will be apparant when
+      versions (since R15B). Some limitations (such as address space) will be apparent when
       running a 32bit Erlang VM on 64bit hardware.
-    <p>
+    </p>
 
     <h3 id="unix">Generic UNIX</h3>
     <p>
