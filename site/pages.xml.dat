@@ -19,7 +19,7 @@
      as the url attribute.
   -->
 
-   <x:page url="/download.html" text="Download">
+   <x:page url="/download.html" text="Installation">
      <x:page url="/install-windows.html" text="Install: Windows"/>
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
