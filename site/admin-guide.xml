@@ -21,10 +21,6 @@
       <h2>Configuring your Server</h2>
       <ul>
         <li>
-          <a href="download.html">Download</a> the RabbitMQ server
-          for your platform.
-        </li>
-        <li>
           How to <a href="configure.html">configure</a> RabbitMQ:
           configuration files and environment variables.
         </li>
