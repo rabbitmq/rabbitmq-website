@@ -8,7 +8,7 @@
           <a href="/contact.html">Contact</a>
         </p>
         <p id="copyright">
-          Copyright &#169; 2011 VMware, Inc. All rights reserved.
+          Copyright &#169; 2012 VMware, Inc. All rights reserved.
           <a href="http://www.vmware.com/help/legal.html">Terms of Use</a>,
           <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
         </p>

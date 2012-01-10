@@ -19,7 +19,7 @@
      as the url attribute.
   -->
 
-   <x:page url="/download.html" text="Download">
+   <x:page url="/download.html" text="Installation">
      <x:page url="/install-windows.html" text="Install: Windows"/>
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
@@ -32,7 +32,7 @@
      <x:page url="/platforms.html" text="Supported Platforms"/>
      <x:page url="/changelog.html" text="Server Changelog"/>
      <x:page url="/which-erlang.html" text="Erlang Versions"/>
-     <x:page url="/troubleshooting.html" text="Install Troubleshooting"/>
+     <x:page url="/troubleshooting.html" text="Troubleshooting Installation"/>
      <x:page url="/signatures.html" text="Signed Packages" gap-after="true"/>
      <x:page url="/java-client.html" text="Java Client Downloads">
        <x:related url="/api-guide.html"/>
