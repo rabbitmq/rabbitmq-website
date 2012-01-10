@@ -28,46 +28,60 @@
       the versions included are often quite old. You will probably
       get better results installing the .rpm from our website. Check
       the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
-        package</a> details for which version of the server is
+      package</a> details for which version of the server is
       available for which versions of the distribution.
     </p>
 
     <h3>Install the Server</h3>
-
     <p>
-      We strongly recommend using a packaged version of Erlang to run
-      the server. This is part of Fedora, and
-      in <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> for
-      RHEL. To enable EPEL on your Red Hat machine, see
-      the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
-        FAQ</a>. Then just <code>yum install erlang</code>.
+      If you are on RHEL, or a derived distribution such as Fedora or
+      CentOS, we strongly recommend using a packaged version of Erlang.
     </p>
-
-    <h3>Erlang on RHEL 5 (and CentOS 5)</h3>
-
     <p>
-      Due
-      to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
-      the EPEL package update policy</a>, EPEL 5 contains Erlang
-      version R12B-5, which is relatively old. rabbitmq-server
-      supports R12B-5, but performance may be lower than for more
-      recent Erlang versions, and certain non-core features are not
-      supported (SSL support, HTTP-based plugins including
-      the <a href="management.html">management
-      plugin</a>). <b>Therefore, we recommend that you install the
-      most recent stable version of Erlang.</b> The easiest way to do
-      this is to use a package repository provided for this purpose by
-      the owner of the EPEL Erlang package. Enable it by invoking (as
-      root):
+      <strong>Note: the steps you need to take vary, depending on which version of
+      RHEL you are on.</strong>
     </p>
-
-    <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
-
-    <p>
-      and then install or update erlang with <code>yum install
-        erlang</code>.
-    </p>
-
+    <ol class="plain">
+      <li>Enable <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> (all versions)<br/>
+        <p>
+          Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
+          FAQ</a> to enable EPEL on your machine.
+        </p>
+      </li>
+      <li>Enable Erlang repository (RHEL 5 and derived, including Fedora 6 and CentOS 5)<br/>
+        <p>
+          <strong>If you are on a later version of RHEL (or derived) you should skip this step.</strong>
+        </p>
+        <p>
+          Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+          the EPEL package update policy</a>, EPEL 5 contains a relatively
+          old version of Erlang, R12B-5. Although <code>rabbitmq-server</code>
+          supports R12B-5, performance may be lower than for more
+          recent Erlang versions and certain non-core features are unsupported,
+          such as SSL and HTTP-based plugins including
+          the <a href="management.html">management plugin</a>.
+        </p>
+        <p>
+          To install a more recent version of Erlang you need to enable a more
+          up-to-date package repository that is provided by the owner of the
+          Erlang package. To do this, issue the following command as 'root':
+        </p>
+        <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
+      </li>
+      <li>Install (or update) Erlang (all versions)<br/>
+        <p>
+          Issue the following command as 'root':
+        </p>
+        <pre>yum install erlang</pre>
+      </li>
+      <li>Install <code>rabbitmq-server</code> (all versions)<br/>
+        <p>
+          After downloading the server package, issue the following command as 'root':
+        </p>
+        <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+      </li>
+    </ol>
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>
