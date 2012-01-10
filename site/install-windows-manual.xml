@@ -30,7 +30,7 @@
         Erlang will appear in the Start Menu,
         and <code>\erl<var>x.x.x</var>\bin\erl.exe</code> will be in
         <code>&dir-win32-apps;</code> or <code>&dir-win-apps;</code>, depending on
-        whether you chose a 32bit or the 64bit version.
+        your platform and whether you chose a 32bit or 64bit version of Erlang.
       </p>
 
       <h3>Set ERLANG_HOME</h3>
