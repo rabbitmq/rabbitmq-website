@@ -28,8 +28,9 @@
         <p>You can see a list of which plugins are enabled with:</p>
         <pre class="example">    rabbitmq-plugins list</pre>
         <p>
-          After enabling or disabling plugins you will need to restart
-          RabbitMQ. If you are running RabbitMQ as a Windows service,
+          Enabling or disabling plugins has no effect on a running RabbitMQ
+          server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
+          If you are running RabbitMQ as a Windows service,
           <a href="#windows-restart">see below</a>.
         </p>
         <p>
@@ -182,35 +183,35 @@
       <table>
         <tr><th>Installation method</th><th>Plugins directory</th></tr>
         <tr>
-          <th>Deb / RPM packages</th>
+          <th>Debian/RPM packages</th>
           <td>
-            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
           </td>
         </tr>
         <tr>
           <th>Windows</th>
           <td>
             Typically <code>C:\Program
-              Files\RabbitMQ\rabbitmq_server-<i>version</i>\plugins</code>
+              Files\RabbitMQ\rabbitmq_server-</code><i>version</i><code>\plugins</code>
             (depending on where it was installed)
           </td>
         </tr>
         <tr>
           <th>Macports</th>
           <td>
-            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
           </td>
         </tr>
         <tr>
           <th>Homebrew</th>
           <td>
-            <code>/usr/local/Cellar/rabbitmq/<i>version</i>/lib/rabbitmq/erlang/lib/rabbitmq-<i>version</i>/plugins</code>
+            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
           </td>
         </tr>
         <tr>
-          <th>Generic Unix</th>
+          <th>Generic&#160;Unix</th>
           <td>
-            <code>rabbitmq_server-<i>version</i>/plugins</code>
+            <code>rabbitmq_server-</code><i>version</i><code>/plugins</code>
             (depending on where it was installed)
           </td>
         </tr>
@@ -238,9 +239,10 @@
       <doc:section name="windows-restart">
         <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
         <p>
-          Each time you enable or disable a plugin, you must run the
+          If you enable or disable plugins, you must run the
           following commands to ensure that the service configuration
-          is updated and the server restarted:
+          is updated and the server restarted with the new collection of
+          enabled plugins:
 <pre class="code">
 rabbitmq-service.bat stop
 rabbitmq-service.bat install
@@ -253,7 +255,7 @@ rabbitmq-service.bat start
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
         <p>
-          You can also build plugins from source.  The sources for a
+          You can also build RabbitMQ plugins from source.  The sources for a
           particular version of the plugins is distributed in the same
           archive as the broker with that version.  The source code
           repositories can all be found on our <a
@@ -262,10 +264,10 @@ rabbitmq-service.bat start
           guide for more information on building plugins from source.
         </p>
         <p>
-          Note that plugins tend to be strongly bound to the a certain
-          version of rabbitmq-server. For example, if you are running
-          RabbitMQ &version-server;, you should check out all plugins
-          with the tag <code>&version-server-hg;</code>.
+          Note that plugins tend to be strongly bound to a particular
+          version of <code>rabbitmq-server</code>. For example, if you are
+          running RabbitMQ &version-server;, you should check out all plugins
+          with the Mercurial tag <code>&version-server-hg;</code>.
         </p>
       </doc:section>
   </body>
