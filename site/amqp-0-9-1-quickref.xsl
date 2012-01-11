@@ -34,7 +34,7 @@
       <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides
         for the RabbitMQ <a href="java-client.html">Java</a> and <a href="dotnet.html">.NET</a> clients. Full
-        details of each method and it's parameters are available in our <a href="amqp-0-9-1-reference.html">complete
+        details of each method and its parameters are available in our <a href="amqp-0-9-1-reference.html">complete
         AMQP 0-9-1 reference</a>.
       </p>
       <!-- switch context from source file to spec doc -->
