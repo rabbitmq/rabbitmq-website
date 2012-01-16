@@ -91,9 +91,8 @@
         from using more than 40%, it is merely the point at which
         publishers are throttled. Erlang's garbage collector can, in
         the worst case, cause double the amount of memory to be used
-        (by default, 80% of RAM), and non-compliant AMQP clients can
-        cause the RabbitMQ server to use more still. It is strongly
-        recommended that OS swap or page files are enabled.
+        (by default, 80% of RAM). It is strongly recommended that OS
+        swap or page files are enabled.
       </p>
 
       <p>
