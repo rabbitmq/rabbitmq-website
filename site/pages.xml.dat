@@ -53,7 +53,7 @@
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control"/>
        <x:page url="/authentication.html" text="SASL Authentication"/>
-       <x:page url="/memory.html" text="Memory Management"/>
+       <x:page url="/memory.html" text="Flow Control"/>
        <x:page url="/firehose.html" text="Firehose / Tracing"/>
        <x:page url="/manpages.html" text="Manual Pages">
          <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
