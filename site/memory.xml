@@ -49,7 +49,7 @@
       connections for either producing or consuming.
     </p>
 
-    <doc:section name="memsup">
+    <doc:section name="per-connection">
       <doc:heading>Per-Connection Flow Control</doc:heading>
       <p>
         RabbitMQ will block connections which are publishing too
