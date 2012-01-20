@@ -261,7 +261,7 @@
             the definitions you want.
           </p>
           <p>
-            Note that the definitions in the file will be merged with
+            Note that the definitions in the file will overwrite
             anything already in the broker; using this option will not
             delete anything that is already there. However, if you
             start from a completely reset broker, use of this
