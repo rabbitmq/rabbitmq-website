@@ -34,7 +34,7 @@
             Monitor Erlang processes, file descriptors, memory use.
           </li>
           <li>
-            Export / import broker config to JSON.
+            Export / import object definitions to JSON.
           </li>
           <li>
             Force close connections, purge queues.
@@ -87,6 +87,11 @@
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
         <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
+        <p>
+          Windows service users need to take
+          <a href="/plugins.html#windows-restart">additional steps</a> when
+          changing plugins.
+        </p>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
@@ -241,6 +246,29 @@
           RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
+        <doc:subsection name="load-definitions">
+          <doc:heading>Load definitions at startup</doc:heading>
+          <p>
+            The management plugin lets you export a JSON file
+            containing definitions of all broker objects (queues,
+            exchanges, bindings, users, virtual hosts and
+            permissions). In some scenarios it may be useful to ensure
+            the existence of these objects at every startup.
+          </p>
+          <p>
+            To do this, set the <code>load_definitions</code> variable
+            to the path of a previously exported JSON file containing
+            the definitions you want.
+          </p>
+          <p>
+            Note that the definitions in the file will overwrite
+            anything already in the broker; using this option will not
+            delete anything that is already there. However, if you
+            start from a completely reset broker, use of this
+            option <b>will</b> prevent the usual default user /
+            virtual host / permissions from being created.
+          </p>
+        </doc:subsection>
         <doc:subsection name="fine-stats">
           <doc:heading>Fine-grained statistics</doc:heading>
           <p>

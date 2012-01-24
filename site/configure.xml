@@ -270,8 +270,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           value of this variable.
         </p>
         <p>
-          Restart the server after changes.
-          If running as a Windows Service, remove, install and restart the RabbitMQ service.
+          Restart the server after changes. Windows service users need to take
+          <a href="/plugins.html#windows-restart">additional steps</a> when changing plugins.
         </p>
         </doc:subsection>
 
