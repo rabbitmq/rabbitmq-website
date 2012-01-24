@@ -652,7 +652,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             as the dead letter exchange for a newly created queue.
             Note that the exchange does not have to be declared when
             the queue is declared, but it should exist by the time
-            messages need to be dead-lettered.
+            messages need to be dead-lettered; if it is missing then,
+            the queue will crash and all messages on it will be
+            discarded.
           </p>
 
           <p>
@@ -697,13 +699,16 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           </p>
           <p>
             Dead-lettered messages are re-published with publisher
-            confirms turned on internally.  This means that the
-            publishing queue will <em>not</em> remove messages before
-            the dead-letter queues acknowledge receiving them (see <a
-            href="#confirms">Confirms</a> for details on the
-            guarantees made).  Note that, in the event of an unclean
-            broker shutdown, the same message may be duplicated on
-            both the original queue and on the dead-letter queues.
+            confirms turned on internally so, the dead-letter queues
+            the messages eventually land on must confirm the messages
+            before they are removed from the original queue.  In other
+            words, the publishing queue will <em>not</em> remove
+            messages before the dead-letter queues acknowledge
+            receiving them (see <a href="#confirms">Confirms</a> for
+            details on the guarantees made).  Note that, in the event
+            of an unclean broker shutdown, the same message may be
+            duplicated on both the original queue and on the
+            dead-letter queues.
           </p>
         </doc:subsection>
         <doc:subsection>
