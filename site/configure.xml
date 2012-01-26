@@ -324,6 +324,28 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>log_levels</code></td>
+            <td><code>[{connection, info}]</code></td>
+            <td>
+              Controls the granularity of logging. The value is a list
+              of log event category and log level pairs.
+
+              <p>
+                The level can be one of 'none' (no events are logged),
+                'error' (only errors are logged), 'warning' (only
+                errors and warning are logged), or 'info' (errors,
+                warnings and informational messages are logged).
+              </p>
+
+              <p>
+                At present there is just one category defined -
+                'connection', for all events relating to network
+                connections. Other, currently uncategorised, events
+                are always logged.
+              </p>
+            </td>
+          </tr>
+          <tr>
             <td><code>frame_max</code></td>
             <td><code>131072</code></td>
             <td>
