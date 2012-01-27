@@ -59,5 +59,6 @@
       If a sufficiently recent Erlang package is not available for your system then you will need to
       <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
       This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
+    </p>
   </body>
 </html>
