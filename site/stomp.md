@@ -189,13 +189,14 @@ subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
 #### AMQP Semantics
-For both `SEND` and `SUBSCRIBE` frames, these destinations create
-a shared queue `<name>`.
-
-For `SEND` frames, the message is sent to the default exchange
-with the routing key `<name>`. For `SUBSCRIBE` frames, a subscription
-against the queue `<name>` is created for the current STOMP
+For `SUBSCRIBE` frames, these destinations create a shared queue `<name>`. A
+subscription against the queue `<name>` is created for the current STOMP
 session.
+
+For `SEND` frames, a shared queue `<name>` is created on the _first_ `SEND` to
+this destination in this session, but not subsequently. The message is sent to
+the default exchange with the routing key `<name>`.
+
 
 ### <a id="d.aqd"/>AMQ Queue Destinations
 
@@ -203,8 +204,8 @@ To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
 #### AMQP Semantics
-For both `SEND` and `SUBSCRIBE` frames, it is an error if the queue `<name>`
-doesn't already exist; no queue is created.
+For both `SEND` and `SUBSCRIBE` frames no queue is created.
+For `SUBSCRIBE` frames, it is an error if the queue does not exist
 
 For `SEND` frames, the message is sent directly to the existing queue named
 `<name>` via the default exchange.
