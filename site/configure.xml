@@ -15,17 +15,17 @@
       RabbitMQ comes with default built-in settings which will most likely be
       sufficient for running your RabbitMQ server effectively. If it runs fine,
       then you probably don't need any configuration at all.
-      If you have other constraints, RabbitMQ provides two general ways to customise the server:
+      </p>
+      <p>
+          If you have other constraints, RabbitMQ provides two general ways to
+          customise the server:
       <dl>
           <dt>
               <a href="#define-environment-variables">environment variables</a>
           </dt>
           <dd>
-              define ports, file locations, names
-              <ul>
-                  <li>taken from the local shell, or</li>
-                  <li>set in the <code>rabbitmq-env.conf</code> file</li>
-              </ul>
+              define ports, file locations and names (taken from the shell, or
+              set in the <code>rabbitmq-env.conf</code> file)
           </dd>
           <dt>
               <a href="#configuration-file">a configuration file</a>
@@ -111,33 +111,28 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       variables set in <code>rabbitmq-env.conf</code>, which in turn over-ride
       RabbitMQ built-in defaults.</p>
       </p>
-        <p> It is unlikely you will need to set any of these environment variables.
-        If you have non-standard requirements, then RabbitMQ environment variables include,
-        but are not limited to:</p>
+        <p>
+            It is unlikely you will need to set any of these environment
+            variables. If you have non-standard requirements, then RabbitMQ
+            environment variables include, but are not limited to:
+        </p>
         <div>
           <table>
             <th>Name</th><th>Default</th><th>Description</th>
+
             <tr><td>RABBITMQ_NODE_IP_ADDRESS</td>
-                  <td>the empty string - meaning bind to all
-		  network interfaces.</td>
-                  <td>
-		  Change this if you only
-		  want to bind to one network interface.
-                  </td></tr>
+                <td>the empty string - meaning bind to all network interfaces.</td>
+                <td>Change this if you only want to bind to one network interface.</td>
+            </tr>
+
             <tr><td>RABBITMQ_NODE_PORT</td>
-                  <td>5672</td>
-                  <td></td></tr>
-            <tr><td>HOSTNAME</td>
-                  <td><ul>
-                         <li><b>Unix, Linux:</b> `env&#xA0;hostname`</li>
-                         <li><b>MacOSX:</b> `env&#xA0;hostname&#xA0;-s`</li></ul></td>
-                  <td>The name of the current machine</td></tr>
-            <tr><td>COMPUTERNAME</td>
-                  <td><b>Windows:</b> localhost</td>
-                  <td>The name of the current machine</td></tr>
+                <td>5672</td>
+                <td></td>
+            </tr>
+
             <tr><td>RABBITMQ_BASE</td>
-                  <td><b>Windows:</b> <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span></td>
-                  <td>
+                <td><b>Windows:</b> <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span></td>
+                <td>
                   This base directory contains sub-directories for the
                   RabbitMQ server's database and log files. Alternatively, set
                   <b>RABBITMQ_MNESIA_BASE</b> and
@@ -191,13 +186,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                          <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\enabled_plugins</span></li></ul></td>
                   <td>
                   This file records explicitly enabled plugins. </td></tr>
-            <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
-                  <td><b>Windows Service:</b>
-                  <span class="path"><span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span></td>
-                  <td>
-                  This path is the location of <code>erlsrv.exe</code>,
-                  the Erlang service wrapper script.
-                  </td></tr>
             <tr><td>RABBITMQ_SERVICENAME</td>
                   <td><b>Windows Service:</b>
                   RabbitMQ</td>
@@ -229,6 +217,39 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <code><span class="path">/usr/local</span></code> on
             Mac OSX (homebrew) and some BSD installations.
             </p>
+
+            <p>
+                Other variables upon which RabbitMQ depends are:
+            </p>
+            <table>
+                <th>Name</th><th>Default</th><th>Description</th>
+
+                <tr><td>HOSTNAME</td>
+                    <td><ul>
+                        <li><b>Unix, Linux:</b> `env&#xA0;hostname`</li>
+                        <li><b>MacOSX:</b> `env&#xA0;hostname&#xA0;-s`</li>
+                        </ul>
+                    </td>
+                    <td>The name of the current machine</td>
+                </tr>
+
+                <tr><td>COMPUTERNAME</td>
+                    <td><b>Windows:</b> localhost</td>
+                    <td>The name of the current machine</td>
+                </tr>
+
+                <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
+                    <td><b>Windows Service:</b>
+                        <span class="path">
+                        <span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span>
+                    </td>
+                    <td>
+                        This path is the location of <code>erlsrv.exe</code>,
+                        the Erlang service wrapper script.
+                    </td>
+                </tr>
+
+            </table>
         </div>
       </doc:section>
 
