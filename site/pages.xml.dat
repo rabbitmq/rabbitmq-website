@@ -45,7 +45,9 @@
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
      <x:page url="/admin-guide.html" text="Server Documentation">
-       <x:page url="/configure.html" text="Configuration"/>
+       <x:page url="/configure.html" text="Configuration">
+         <x:page url="/relocate.html" text="File Locations"/>
+       </x:page>
        <x:page url="/ssl.html" text="SSL Support"/>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/clustering.html" text="Clustering"/>

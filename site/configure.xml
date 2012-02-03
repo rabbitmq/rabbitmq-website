@@ -95,289 +95,171 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
       </doc:section>
 
       <doc:section name="define-environment-variables">
-      <doc:heading>RabbitMQ Environment Variables</doc:heading>
-      <p>
-      RabbitMQ environment variable names have the prefix <code>RABBITMQ_</code>.
-      </p>
-      <p><ul>
-      A typical variable called <code>RABBITMQ_</code><i>var_name</i> is set as follows:
-          <li>a shell environment variable called
-          <code>RABBITMQ_</code><i>var_name</i> is used if this is defined;</li>
-          <li><i>otherwise</i>, a variable called <i>var_name</i> is used if
-          this is set in the <code>rabbitmq-env.conf</code> file;</li>
-          <li><i>otherwise</i>, a system-specified default value is used.</li>
-      </ul>
-      <p>In this way, variables set in the shell environment take priority over
-      variables set in <code>rabbitmq-env.conf</code>, which in turn over-ride
-      RabbitMQ built-in defaults.</p>
-      </p>
+        <doc:heading>RabbitMQ Environment Variables</doc:heading>
         <p>
-            It is unlikely you will need to set any of these environment
-            variables. If you have non-standard requirements, then RabbitMQ
-            environment variables include, but are not limited to:
+          RabbitMQ environment variable names have the
+          prefix <code>RABBITMQ_</code>. A typical variable
+          called <code>RABBITMQ_</code><i>var_name</i> is set as
+          follows:
+          <ul>
+            <li>
+              a shell environment variable called
+              <code>RABBITMQ_</code><i>var_name</i> is used if this is
+              defined;
+            </li>
+            <li><i>otherwise</i>, a variable called <i>var_name</i> is used if
+              this is set in the <code>rabbitmq-env.conf</code> file;</li>
+            <li><i>otherwise</i>, a system-specified default value is used.</li>
+          </ul>
+          <p>
+            In this way, variables set in the shell environment take
+            priority over variables set
+            in <code>rabbitmq-env.conf</code>, which in turn over-ride
+            RabbitMQ built-in defaults.
+          </p>
+        </p>
+        <p>
+          It is unlikely you will need to set any of these environment
+          variables. If you have non-standard requirements, then RabbitMQ
+          environment variables include, but are not limited to:
         </p>
         <div>
           <table>
             <th>Name</th><th>Default</th><th>Description</th>
 
-            <tr><td>RABBITMQ_NODE_IP_ADDRESS</td>
-                <td>the empty string - meaning bind to all network interfaces.</td>
-                <td>Change this if you only want to bind to one network interface.</td>
+            <tr>
+              <td>RABBITMQ_NODE_IP_ADDRESS</td>
+              <td>
+                the empty string - meaning bind to all network interfaces.
+              </td>
+              <td>
+                Change this if you only want to bind to one network interface.
+              </td>
             </tr>
 
-            <tr><td>RABBITMQ_NODE_PORT</td>
-                <td>5672</td>
-                <td></td>
+            <tr>
+              <td>RABBITMQ_NODE_PORT</td>
+              <td>5672</td>
+              <td></td>
             </tr>
 
-            <tr><td>RABBITMQ_BASE</td>
-                <td><b>Windows:</b> <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span></td>
-                <td>
-                  This base directory contains sub-directories for the
-                  RabbitMQ server's database and log files. Alternatively, set
-                  <b>RABBITMQ_MNESIA_BASE</b> and
-                  <b>RABBITMQ_LOG_BASE</b> individually.
-                  </td></tr>
-            <tr><td>RABBITMQ_NODENAME</td>
-                  <td><ul>
-                         <li><b>Unix*:</b> <code>rabbit@<span class="envvar">$HOSTNAME</span></code></li>
-                         <li><b>Windows:</b> <code>rabbit@<span class="envvar">%COMPUTERNAME%</span></code></li></ul></td>
-                  <td>
-                  The node name should be unique per
-                  erlang-node-and-machine combination. To run multiple nodes,
-                  see the
-                  <a href="clustering.html">clustering guide</a>.
-                  </td></tr>
-            <tr><td>RABBITMQ_CONFIG_FILE</td>
-                  <td><ul>
-                         <li><b>Unix*:</b> <span class="path">/etc/rabbitmq/rabbitmq</span></li>
-                         <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\rabbitmq</span></li></ul></td>
-                  <td>
-                  If the <a href="configure.html#configuration-file">configuration file</a>
-                  is present it is used by the server to configure
-                  RabbitMQ components.
-                  The .config extension is automatically appended by the
-                  Erlang runtime. This file is also used to
-                  <a href="clustering.html#auto-config">auto-configure RabbitMQ clusters</a>.
-                  </td></tr>
-            <tr><td>RABBITMQ_MNESIA_BASE</td>
-                  <td><ul>
-                      <li><b>Unix*:</b> <span class="path">/var/lib/rabbitmq/mnesia</span></li>
-                      <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\db</span>
-                      </li>
-                      </ul></td>
-                  <td>
-                  This base directory contains sub-directories for the RabbitMQ
-                  server's Mnesia database files, one for each node, unless
-                  <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
-                  </td></tr>
-            <tr><td>RABBITMQ_MNESIA_DIR</td>
-                <td><ul>
-                    <li><b>Unix*:</b>
-                    <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span></span>
-                    </li>
-                    <li><b>Windows:</b>
-                    <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span></span>
-                    </li>
-                    </ul>
-                </td>
-                <td>
-                  The directory where this RabbitMQ node's Mnesia database files
-                  are placed.
-                </td>
+            <tr>
+              <td>RABBITMQ_NODENAME</td>
+              <td>
+                <ul>
+                  <li>
+                    <b>Unix*:</b>
+                    <code>rabbit@<span class="envvar">$HOSTNAME</span></code>
+                  </li>
+                  <li>
+                    <b>Windows:</b>
+                    <code>rabbit@<span class="envvar">%COMPUTERNAME%</span></code>
+                  </li>
+                </ul>
+              </td>
+              <td>
+                The node name should be unique per
+                erlang-node-and-machine combination. To run multiple nodes,
+                see the
+                <a href="clustering.html">clustering guide</a>.
+              </td>
             </tr>
 
-            <tr><td>RABBITMQ_LOG_BASE</td>
-                  <td><ul>
-                      <li><b>Unix*:</b>
-                      <span class="path">/var/log/rabbitmq</span>
-                      </li>
-                      <li><b>Windows:</b>
-                      <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\log</span>
-                      </li>
-                      </ul>
-                  </td>
-                  <td>
-                    This base directory contains the RabbitMQ server's log
-                    files, unless <b>RABBITMQ_LOGS</b> or
-                    <b>RABBITMQ_SASL_LOGS</b> are set explicitly.
-                  </td>
+            <tr>
+              <td>RABBITMQ_SERVICENAME</td>
+              <td><b>Windows Service:</b>
+                RabbitMQ</td>
+              <td>
+                The name of the installed service. This will appear in
+                <code>services.msc</code>.
+            </td>
             </tr>
 
-            <tr><td>RABBITMQ_LOGS</td>
-                  <td><ul>
-                      <li><b>Unix*:</b>
-                      <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>.log</span>
-                      </li>
-                      <li><b>Windows:</b>
-                      <span class="path"><span class="envvar">%RABBITMQ_LOG_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>.log</span>
-                      </li>
-                      </ul>
-                  </td>
-                  <td>
-                    The path of the RabbitMQ server's Erlang log file. This
-                    variable cannot be overridden in Windows.
-                  </td>
-            </tr>
-
-            <tr><td>RABBITMQ_SASL_LOGS</td>
-                  <td><ul>
-                      <li><b>Unix*:</b>
-                      <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-sasl.log</span>
-                      </li>
-                      <li><b>Windows:</b>
-                      <span class="path"><span class="envvar">%RABBITMQ_LOG_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-sasl.log</span>
-                      </li>
-                      </ul>
-                  </td>
-                  <td>
-                    The path of the RabbitMQ server's Erlang SASL (System
-                    Application Support Libraries) log file. This variable
-                    cannot be overridden in Windows.
-                  </td>
-            </tr>
-
-            <tr><td>RABBITMQ_PLUGINS_DIR</td>
-                <td><ul>
-                    <li><b>Unix*:</b>
-                    <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
-                    </li>
-                    <li><b>Windows:</b>
-                    <i>Installation-directory</i><span class="path">/plugins</span>
-                    </li>
-                    </ul>
-                </td>
-                <td>
-                  The <a href="plugins.html#installing-plugins">directory</a> in
-                  which the <a href="plugins.html">plugins</a> are found. This
-                  variable cannot be overridden on Windows.
-                </td>
-            </tr>
-
-            <tr><td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-                <td><ul>
-                    <li><b>Unix*:</b> 
-                    <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
-                    </li>
-                    <li><b>Windows:</b>
-                    <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-plugins-expand</span>
-                    </li>
-                    </ul>
-                </td>
-                <td>
-                  Working directory used to expand enabled plugins when starting
-                  the server.
-                </td>
-            </tr>
-
-            <tr><td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
-                  <td><ul>
-                         <li><b>Unix*:</b> <span class="path">/etc/rabbitmq/enabled_plugins</span></li>
-                         <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\enabled_plugins</span></li></ul></td>
-                  <td>
-                  This file records explicitly enabled plugins. </td></tr>
-            <tr><td>RABBITMQ_SERVICENAME</td>
-                  <td><b>Windows Service:</b>
-                  RabbitMQ</td>
-                  <td>
-                    The name of the installed service. This will appear in
-                    <code>services.msc</code>.
-                  </td></tr>
-            <tr><td>RABBITMQ_CONSOLE_LOG</td>
-                  <td><b>Windows Service:</b></td>
-                  <td>
-                    Set this variable to <code>new</code> or <code>reuse</code>
-                    to redirect console output from the server to a file named
-                    <span class="envvar">%RABBITMQ_SERVICENAME%</span>.debug in the
-                    default <b>RABBITMQ_BASE</b> directory.
-                    <ul>
-                    <li>If not set, console output from the server will be discarded (default).</li>
-                    <li><code>new</code> A new file will be created
+            <tr>
+              <td>RABBITMQ_CONSOLE_LOG</td>
+              <td><b>Windows Service:</b></td>
+              <td>
+                Set this variable to <code>new</code> or <code>reuse</code>
+                to redirect console output from the server to a file named
+                <span class="envvar">%RABBITMQ_SERVICENAME%</span>.debug in the
+                default <b>RABBITMQ_BASE</b> directory.
+                <ul>
+                  <li>If not set, console output from the server will be discarded (default).</li>
+                  <li><code>new</code> A new file will be created
                     each time the service starts.</li>
-                    <li><code>reuse</code> The file will be overwritten each time
+                  <li><code>reuse</code> The file will be overwritten each time
                     the service starts.</li>
-                    </ul>
-                  </td></tr>
+                </ul>
+              </td>
+            </tr>
 
-            <tr><td>RABBITMQ_SERVER_ERL_ARGS</td>
-                <td><ul>
-                    <li><b>Unix*:</b> 
+            <tr>
+              <td>RABBITMQ_SERVER_ERL_ARGS</td>
+              <td>
+                <ul>
+                  <li><b>Unix*:</b>
                     <span class="sourcecode">"+K true +A30 +P 1048576 -kernel inet_default_connect_options [{nodelay,true}]"</span>
-                    </li>
-                    <li><b>Windows:</b> None</li>
-                    </ul>
-                </td>
-                <td>
-                  Standard parameters for the <code>erl</code> command used when
-                  invoking the RabbitMQ Server. This should be overridden for
-                  debugging purposes only.
-                </td>
+                  </li>
+                  <li><b>Windows:</b> Not configurable</li>
+                </ul>
+              </td>
+              <td>
+                Standard parameters for the <code>erl</code> command used when
+                invoking the RabbitMQ Server. This should be overridden for
+                debugging purposes only.
+              </td>
             </tr>
 
-            <tr><td>RABBITMQ_SERVER_START_ARGS</td>
-                <td>None</td>
-                <td>
-                  Extra parameters for the <code>erl</code> command used when
-                  invoking the RabbitMQ Server. This will not override
-                  <b>RABBITMQ_SERVER_ERL_ARGS</b>.
-                </td>
+            <tr>
+              <td>RABBITMQ_SERVER_START_ARGS</td>
+              <td>None</td>
+              <td>
+                Extra parameters for the <code>erl</code> command used when
+                invoking the RabbitMQ Server. This will not override
+                <b>RABBITMQ_SERVER_ERL_ARGS</b>.
+              </td>
+            </tr>
+          </table>
+          <p>
+            In addition, there are several environment variables which
+            tell RabbitMQ <a href="relocate.html">where to locate its
+            database, log files, plugins etc.</a>
+          </p>
+
+          <p>
+            Other variables upon which RabbitMQ depends are:
+          </p>
+          <table>
+            <th>Name</th><th>Default</th><th>Description</th>
+
+            <tr>
+              <td>HOSTNAME</td>
+              <td><ul>
+                  <li><b>Unix, Linux:</b> `env&#xA0;hostname`</li>
+                  <li><b>MacOSX:</b> `env&#xA0;hostname&#xA0;-s`</li>
+                </ul>
+              </td>
+              <td>The name of the current machine</td>
             </tr>
 
-            <tr><td>RABBITMQ_PID_FILE</td>
-                <td><ul>
-                    <li><b>Unix*:</b> 
-                    <span class="path"><span class="envvar">$RABBITMQ_MNESIA_DIR</span>.pid</span>
-                    </li>
-                    </ul>
-                </td>
-                <td>
-                  File in which the process id is placed for use by
-                  <code>rabbitmqctl wait</code>.
-                </td>
+            <tr>
+              <td>COMPUTERNAME</td>
+              <td><b>Windows:</b> localhost</td>
+              <td>The name of the current machine</td>
             </tr>
 
-            </table>
-            * Unix, Linux, MacOSX
-            <p>
-            Paths are given relative to the installation directory prefix.
-            For example Mac OSX (macports) are normally based in
-            <code><span class="path">/opt/local/</span></code>, or
-            <code><span class="path">/usr/local</span></code> on
-            Mac OSX (homebrew) and some BSD installations.
-            </p>
-
-            <p>
-                Other variables upon which RabbitMQ depends are:
-            </p>
-            <table>
-                <th>Name</th><th>Default</th><th>Description</th>
-
-                <tr><td>HOSTNAME</td>
-                    <td><ul>
-                        <li><b>Unix, Linux:</b> `env&#xA0;hostname`</li>
-                        <li><b>MacOSX:</b> `env&#xA0;hostname&#xA0;-s`</li>
-                        </ul>
-                    </td>
-                    <td>The name of the current machine</td>
-                </tr>
-
-                <tr><td>COMPUTERNAME</td>
-                    <td><b>Windows:</b> localhost</td>
-                    <td>The name of the current machine</td>
-                </tr>
-
-                <tr><td>ERLANG_SERVICE_MANAGER_PATH</td>
-                    <td><b>Windows Service:</b>
-                        <span class="path">
-                        <span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span>
-                    </td>
-                    <td>
-                        This path is the location of <code>erlsrv.exe</code>,
-                        the Erlang service wrapper script.
-                    </td>
-                </tr>
-
-            </table>
+            <tr>
+              <td>ERLANG_SERVICE_MANAGER_PATH</td>
+              <td><b>Windows Service:</b>
+                <span class="path">
+                  <span class="envvar">%ERLANG_HOME%</span>\erts-<var>x.x.x</var>\bin</span>
+              </td>
+              <td>
+                This path is the location of <code>erlsrv.exe</code>,
+                the Erlang service wrapper script.
+              </td>
+            </tr>
+          </table>
         </div>
       </doc:section>
 

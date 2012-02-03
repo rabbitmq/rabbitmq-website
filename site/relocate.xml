@@ -1,0 +1,206 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+          <!ENTITY % entities SYSTEM "rabbit.ent" >
+          %entities;
+          ]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>File Locations</title>
+  </head>
+  <body>
+    <p>
+      You can set the following environment variables to specify where
+      RabbitMQ should locate certain things. Most people will not need
+      to do this.
+    </p>
+    <table>
+      <th>Name</th><th>Default</th><th>Description</th>
+      <tr>
+        <td>RABBITMQ_BASE</td>
+        <td>
+          <b>Windows:</b> <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ</span></td>
+        <td>
+          This base directory contains sub-directories for the
+          RabbitMQ server's database and log files. Alternatively, set
+          <b>RABBITMQ_MNESIA_BASE</b> and
+          <b>RABBITMQ_LOG_BASE</b> individually.
+      </td></tr>
+      <tr>
+        <td>RABBITMQ_CONFIG_FILE</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b> <span class="path">/etc/rabbitmq/rabbitmq</span></li>
+            <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\rabbitmq</span></li></ul>
+        </td>
+        <td>
+          If the <a href="configure.html#configuration-file">configuration file</a>
+          is present it is used by the server to configure
+          RabbitMQ components.
+          The .config extension is automatically appended by the
+          Erlang runtime. This file is also used to
+          <a href="clustering.html#auto-config">auto-configure RabbitMQ clusters</a>.
+      </td>
+      </tr>
+      <tr>
+        <td>RABBITMQ_MNESIA_BASE</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b> <span class="path">/var/lib/rabbitmq/mnesia</span></li>
+            <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\db</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          This base directory contains sub-directories for the RabbitMQ
+          server's Mnesia database files, one for each node, unless
+          <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
+        </td>
+      </tr>
+      <tr>
+        <td>RABBITMQ_MNESIA_DIR</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span></span>
+            </li>
+            <li><b>Windows:</b>
+              <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span></span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          The directory where this RabbitMQ node's Mnesia database files
+          are placed.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_LOG_BASE</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path">/var/log/rabbitmq</span>
+            </li>
+            <li><b>Windows:</b>
+              <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\log</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          This base directory contains the RabbitMQ server's log
+          files, unless <b>RABBITMQ_LOGS</b> or
+          <b>RABBITMQ_SASL_LOGS</b> are set explicitly.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_LOGS</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>.log</span>
+            </li>
+            <li><b>Windows:</b>
+              <span class="path"><span class="envvar">%RABBITMQ_LOG_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>.log</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          The path of the RabbitMQ server's Erlang log file. This
+          variable cannot be overridden in Windows.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_SASL_LOGS</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-sasl.log</span>
+            </li>
+            <li><b>Windows:</b>
+              <span class="path"><span class="envvar">%RABBITMQ_LOG_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-sasl.log</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          The path of the RabbitMQ server's Erlang SASL (System
+          Application Support Libraries) log file. This variable
+          cannot be overridden in Windows.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_PLUGINS_DIR</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
+            </li>
+            <li><b>Windows:</b>
+              <i>Installation-directory</i><span class="path">/plugins</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          The <a href="plugins.html#installing-plugins">directory</a> in
+          which the <a href="plugins.html">plugins</a> are found. This
+          variable cannot be overridden on Windows.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b>
+              <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
+            </li>
+            <li><b>Windows:</b>
+              <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-plugins-expand</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          Working directory used to expand enabled plugins when starting
+          the server.
+        </td>
+      </tr>
+
+      <tr>
+        <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b> <span class="path">/etc/rabbitmq/enabled_plugins</span></li>
+            <li><b>Windows:</b> <span class="path"><span class="envvar">%RABBITMQ_BASE%</span>\enabled_plugins</span></li></ul></td>
+        <td>
+          This file records explicitly enabled plugins. </td></tr>
+
+      <tr>
+        <td>RABBITMQ_PID_FILE</td>
+        <td>
+          <ul>
+            <li><b>Unix*:</b> 
+              <span class="path"><span class="envvar">$RABBITMQ_MNESIA_DIR</span>.pid</span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          File in which the process id is placed for use by
+          <code>rabbitmqctl wait</code>.
+        </td>
+      </tr>
+
+    </table>
+    * Unix, Linux, MacOSX
+    <p>
+      Paths are given relative to the installation directory prefix.
+      For example Mac OSX (macports) are normally based in
+      <code><span class="path">/opt/local/</span></code>, or
+      <code><span class="path">/usr/local</span></code> on
+      Mac OSX (homebrew) and some BSD installations.
+    </p>
+  </body>
+</html>
