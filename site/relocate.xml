@@ -33,9 +33,10 @@
           If the <a href="configure.html#configuration-file">configuration file</a>
           is present it is used by the server to configure
           RabbitMQ components.
-          The .config extension is automatically appended by the
-          Erlang runtime. This file is also used to
-          <a href="clustering.html#auto-config">auto-configure RabbitMQ clusters</a>.
+          The <span class="path">.config</span> extension is automatically
+          appended by the Erlang runtime. This file is also used to <a
+          href="clustering.html#auto-config">auto-configure RabbitMQ
+          clusters</a>.
         </td>
       </tr>
       <tr>
