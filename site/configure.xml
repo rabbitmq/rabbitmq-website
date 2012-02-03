@@ -140,8 +140,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                   </td></tr>
             <tr><td>RABBITMQ_NODENAME</td>
                   <td><ul>
-                         <li><b>Unix*:</b> rabbit@<span class="envvar">$HOSTNAME</span></li>
-                         <li><b>Windows:</b> rabbit@<span class="envvar">%COMPUTERNAME%</span></li></ul></td>
+                         <li><b>Unix*:</b> <code>rabbit@<span class="envvar">$HOSTNAME</span></code></li>
+                         <li><b>Windows:</b> <code>rabbit@<span class="envvar">%COMPUTERNAME%</span></code></li></ul></td>
                   <td>
                   The node name should be unique per
                   erlang-node-and-machine combination. To run multiple nodes,
