@@ -67,7 +67,7 @@
         <td>RABBITMQ_LOGS</td>
         <td>
           The path of the RabbitMQ server's Erlang log file. This
-          variable cannot be overridden in Windows.
+          variable cannot be overridden on Windows.
         </td>
       </tr>
 
@@ -76,7 +76,7 @@
         <td>
           The path of the RabbitMQ server's Erlang SASL (System
           Application Support Libraries) log file. This variable
-          cannot be overridden in Windows.
+          cannot be overridden on Windows.
         </td>
       </tr>
 

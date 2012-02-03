@@ -194,6 +194,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_CTL_ERL_ARGS</td>
+              <td>None</td>
+              <td>
+                Parameters for the <code>erl</code> command used when invoking
+                <code>rabbitmqctl</code>. This should be overridden for
+                debugging purposes only.
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_SERVER_ERL_ARGS</td>
               <td>
                 <ul>
@@ -220,6 +230,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </td>
             </tr>
           </table>
+          * Unix, Linux, MacOSX
           <p>
             In addition, there are several environment variables which
             tell RabbitMQ <a href="relocate.html">where to locate its
