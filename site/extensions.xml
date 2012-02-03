@@ -710,6 +710,14 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             duplicated on both the original queue and on the
             dead-letter queues.
           </p>
+          <p>
+            It is possible to form a cycle of dead-letter queues.  For
+            instance, this can happen when a queue dead-letters
+            messages to the default exchange without specifiying a
+            dead-letter routing key.  Messages in such cycles (i.e.
+            messages that reach the same queue twice) will be
+            <em>dropped</em>.
+          </p>
         </doc:subsection>
         <doc:subsection>
           <doc:heading>Consuming Dead-Lettered Messages</doc:heading>
