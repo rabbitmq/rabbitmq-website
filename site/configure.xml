@@ -43,7 +43,7 @@
              The active configuration can be verified in the startup banner, e.g. the active configuration file:
              <pre  class="sourcecode">
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
-             This may appear in on the console or in a file, depending on how the broker was started:
+             This may appear on the console or in a file, depending on how the broker was started:
              <ul>
              <li>Linux (when running as a service): see the <code>startup_log</code> file in the log directory;</li>
              <li>MacOSX (macports): see <span class="path"><span class="envvar">${install prefix}</span>/var/log/rabbitmq/startupitem.log</span>;</li>
