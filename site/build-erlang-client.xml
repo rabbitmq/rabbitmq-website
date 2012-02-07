@@ -1,7 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-  	<title>RabbitMQ Erlang AMQP Client Library Build Instructions</title>
+  	<title>Erlang AMQP Client Library Build Instructions</title>
   </head>
   <body>
       <p class="intro">
@@ -52,7 +52,7 @@ $ make</pre>
 	  (an implementation of a <a href="http://json.org">JSON</a>
 	  reader and writer in Python), for generating AMQP framing code.
           simplejson.py is included as a standard json library in the Python
-          core since 2.6 release. 
+          core since 2.6 release.
 	</p>
 
 	<p>
