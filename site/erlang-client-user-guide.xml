@@ -192,8 +192,8 @@
     In case of an error, the above call returns {error, Error}.
   </p>
   <p>
-    An AMQP broker contains objects that are organised into groups called
-    virtual hosts. The concept of virtual host gives an administrator
+    An AMQP broker contains objects organised into groups called
+    virtual hosts. The concept of virtual hosts gives an administrator
     the facility to partition a broker resource into separate domains
     and restrict access to the objects contained within these
     groups. AMQP connections require client authentication and the

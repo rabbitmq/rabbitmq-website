@@ -35,7 +35,7 @@
     </div>
 
     <div class="landing-box">
-      <h2>RabbitMQ Erlang client library</h2>
+      <h2>RabbitMQ Erlang AMQP client library</h2>
       <p>
         See <a href="build-erlang-client.html">Erlang client
           library build instructions</a>.
