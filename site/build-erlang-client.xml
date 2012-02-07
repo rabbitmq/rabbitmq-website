@@ -1,19 +1,14 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-  	<title>RabbitMQ - Erlang AMQP Client Library Build Instructions</title>
+  	<title>RabbitMQ Erlang AMQP Client Library Build Instructions</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This section describes the process for obtaining a copy of the
 	RabbitMQ Erlang AMQP client source code and its dependecies, as
 	well as instructions for building the Erlang client from source.
       </p>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
 
       <doc:section name="obtaining">
 	<doc:heading>Obtaining the source</doc:heading>
@@ -86,45 +81,44 @@ $ make</pre>
 
       </doc:section>
 
-	<doc:section name="building-erlang-client">
-	  <doc:heading>Building the Erlang client libraries</doc:heading>
+      <doc:section name="building-erlang-client">
+	<doc:heading>Building the Erlang client libraries</doc:heading>
 
-	  <p>
-	    Change to the <code>rabbitmq-erlang-client</code> directory, and
-	    type <code>make</code>.
-	  </p>
+	<p>
+	  Change to the <code>rabbitmq-erlang-client</code> directory, and
+	  type <code>make</code>.
+	</p>
 
-	  <p>
-	    Other interesting <code>Makefile</code> targets include
-	  </p>
+	<p>
+	  Other interesting <code>Makefile</code> targets include
+	</p>
 
-	  <p>
-	    <dl>
-	      <dt>all</dt>
-	      <dd>
-		The default target. Builds the client libraries.
-	      </dd>
+	<p>
+	  <dl>
+	    <dt>all</dt>
+	    <dd>
+	      The default target. Builds the client libraries.
+	    </dd>
 
-	      <dt>run</dt>
-	      <dd>
-		Builds the client libraries and starts an Erlang shell with the
-		libraries loaded.
-	      </dd>
+	    <dt>run</dt>
+	    <dd>
+	      Builds the client libraries and starts an Erlang shell with the
+	      libraries loaded.
+	    </dd>
 
-	      <dt>clean</dt>
-	      <dd>
-		Removes build products.
-	      </dd>
-	      
-	      <dt>test</dt>
-	      <dd>
-		Runs a set of tests against a server running on locally. You will need
-		to start a local instance of an AMQP server, running on port 5672,
-		which allows guest/guest access on virtual host "/", beforehand.
-	      </dd>
-	    </dl>
-	  </p>
+	    <dt>clean</dt>
+	    <dd>
+	      Removes build products.
+	    </dd>
+
+	    <dt>test</dt>
+	    <dd>
+	      Runs a set of tests against a server running on locally. You will need
+	      to start a local instance of an AMQP server, running on port 5672,
+	      which allows guest/guest access on virtual host "/", beforehand.
+	    </dd>
+	  </dl>
+	</p>
       </doc:section>
-    </doc:div>
   </body>
 </html>

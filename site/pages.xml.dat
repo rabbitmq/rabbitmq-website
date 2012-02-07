@@ -106,6 +106,7 @@
        <x:page url="/build-server.html" text="Building the Server"/>
        <x:page url="/build-java-client.html" text="Building the Java Client"/>
        <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
+       <x:page url="/build-erlang-client.html" text="Building the Erlang Client"/>
        <x:page url="/mercurial.html" text="Our use of Mercurial"/>
        <x:related url="/plugin-development.html"/>
      </x:page>

@@ -34,8 +34,8 @@
       </p>
     </div>
 
-    <div class="landing-box"> 
-      <h3>RabbitMQ Erlang client library</h3>
+    <div class="landing-box">
+      <h2>RabbitMQ Erlang client library</h2>
       <p>
         See <a href="build-erlang-client.html">Erlang client
           library build instructions</a>.
@@ -43,4 +43,3 @@
     </div>
   </body>
 </html>
-
