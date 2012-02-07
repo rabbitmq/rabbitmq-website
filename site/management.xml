@@ -1,26 +1,22 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Management Plugin</title>
+    <title>Management Plugin</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="features">
-        <doc:heading>Features</doc:heading>
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
-          with a browser-based UI and an experimental command line
-          tool, <code>rabbitmqadmin</code>. Features include:
+          with a browser-based UI and a command line tool, <a
+          href="management-cli.html">rabbitmqadmin</a>. Features
+          include:
         </p>
         <ul>
           <li>
@@ -38,7 +34,7 @@
             Monitor Erlang processes, file descriptors, memory use.
           </li>
           <li>
-            Export / import broker config to JSON.
+            Export / import object definitions to JSON.
           </li>
           <li>
             Force close connections, purge queues.
@@ -50,8 +46,6 @@
             <tr>
               <th>Overview</th>
               <th>Import / Export</th>
-              <th>Channel List</th>
-              <th>Queue Details</th>
             </tr>
             <tr>
               <td>
@@ -64,6 +58,12 @@
                   <img src="/img/management/thumbs/import-export.png"/>
                 </a>
               </td>
+            </tr>
+            <tr>
+              <th>Channel List</th>
+              <th>Queue Details</th>
+            </tr>
+            <tr>
               <td>
                 <a href="/img/management/channels.png">
                   <img src="/img/management/thumbs/channels.png"/>
@@ -82,20 +82,21 @@
       <doc:section name="installation">
         <doc:heading>Installation</doc:heading>
         <p>
-          The simplest way to obtain the management plugin is to
-          download the binary packages from
-          the <a href="plugins.html">plugins page</a> and copy them to
-          your plugins directory. See
-          the <a href="plugins.html">plugins page</a> for more
-          details.
+          The management plugin is included in the RabbitMQ
+          distribution.  To enable it, use <a
+          href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+        </p>
+        <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
+        <p>
+          Windows service users need to take
+          <a href="/plugins.html#windows-restart">additional steps</a> when
+          changing plugins.
         </p>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
-          page or
-          the <a href="http://hg.rabbitmq.com/rabbitmq-management/file/&version-server-hg;/BUILDING">BUILDING</a>
-          file for more information, but be aware that it seems to be
+          page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
         <doc:subsection name="erlang">
@@ -117,12 +118,14 @@
             http://<i>server-name</i>:55672/mgmt/
           </li>
           <li>
-            The HTTP API and its documentation are located at:
-            http://<i>server-name</i>:55672/api/
+            The HTTP API and its documentation are both located at:
+            http://<i>server-name</i>:55672/api/ (or view
+            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+            latest HTTP API documentation here</a>).
           </li>
           <li>
-            Download of <code>rabbitmqadmin</code> and its documentation are at:
-            http://<i>server-name</i>:55672/cli/
+            Download <a href="management-cli.html">rabbitmqadmin</a>
+            at: http://<i>server-name</i>:55672/cli/
           </li>
         </ul>
         <p>
@@ -145,42 +148,129 @@
         <doc:heading>Permissions</doc:heading>
         <p>
           The management plugin extends the
-          existing <a href="admin-guide.html#access-control">permissions
-          model</a> somewhat. Users can be marked as
-          "administrators". Only administrators can view or edit
-          users, virtual hosts or permissions at all. Furthermore,
-          only administrators can see details of other users'
-          connections and channels (and close such connections), as
-          well as node-level data such as memory use and clustering.
+          existing <a href="access-control.html">permissions
+          model</a> somewhat. Users can be given arbitrary tags within
+          RabbitMQ. The management plugin makes use of tags called
+          "management", "monitoring" and "administrator". The following
+          table shows what the different types of user can do:
+        </p>
+        <table>
+          <tr>
+            <th>Tag</th>
+            <th>Capabilities</th>
+          </tr>
+          <tr>
+            <td>(None)</td>
+            <td>
+              No access to the management plugin
+            </td>
+          </tr>
+          <tr>
+            <td>management</td>
+            <td>
+              Anything the user could do via AMQP plus:
+              <ul>
+                <li>List virtual hosts to which they can log in via AMQP</li>
+                <li>
+                  View all queues, exchanges and bindings in "their"
+                  virtual hosts
+                </li>
+                <li>View and close their own channels and connections</li>
+                <li>
+                  View "global" statistics covering all their
+                  virtual hosts, including activity by other users
+                  within them
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>monitoring</td>
+            <td>
+              Everything "management" can plus:
+              <ul>
+                <li>
+                  List all virtual hosts, including ones they could
+                  not log in to via AMQP
+                </li>
+                <li>View other users's connections and channels</li>
+                <li>View node-level data such as memory use and clustering</li>
+                <li>View truly global statistics for all virtual hosts</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>administrator</td>
+            <td>
+              Everything "monitoring" can plus:
+              <ul>
+                <li>Create and delete virtual hosts</li>
+                <li>View, create and delete users</li>
+                <li>View, create and delete permissions</li>
+                <li>Close other users's connections</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p>
+          Note that since "administrator" does everything "monitoring"
+          does, and "monitoring" does everything "management" does,
+          you only need to give each user a maximum of one tag.
         </p>
         <p>
-          Normal RabbitMQ permissions still apply to administrators;
-          just because a user is an administrator does not give them
-          full access to exchanges, queues and bindings through either
-          AMQP or the management plugin.
+          Normal RabbitMQ permissions still apply to monitors and
+          administrators; just because a user is a monitor or
+          administrator does not give them full access to exchanges,
+          queues and bindings through either AMQP or the management
+          plugin.
         </p>
         <p>
-          All users, administrators or otherwise, can only list
-          objects within a particular virtual host if they have any
-          permissions for that virtual host. Non-administrators
-          however cannot even see the existence of virtual hosts they
-          do not have permissions for, and will not see messages in
-          those virtual hosts counting towards their "global" message
-          rates.
+          All users can only list objects within a particular virtual
+          host if they have any permissions for that virtual host.
+        </p>
+        <p>
+          If you get locked out due to only having non-administrator
+          users, or no users at all, you can use <a
+          href="/man/rabbitmqctl.1.man.html#">rabbitmqctl add_user</a>
+          to create a non-administrator user and <a
+          href="/man/rabbitmqctl.1.man.html#set_user_tags">rabbitmqctl
+          set_user_tags</a> to promote a user to administrator.
         </p>
       </doc:section>
 
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
-          The management plugin has a couple of configuration
-          options. These are managed through the main RabbitMQ
+          There are several configuration options which affect the
+          management plugin. These are managed through the main
+          RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
+        <doc:subsection name="load-definitions">
+          <doc:heading>Load definitions at startup</doc:heading>
+          <p>
+            The management plugin lets you export a JSON file
+            containing definitions of all broker objects (queues,
+            exchanges, bindings, users, virtual hosts and
+            permissions). In some scenarios it may be useful to ensure
+            the existence of these objects at every startup.
+          </p>
+          <p>
+            To do this, set the <code>load_definitions</code> variable
+            to the path of a previously exported JSON file containing
+            the definitions you want.
+          </p>
+          <p>
+            Note that the definitions in the file will overwrite
+            anything already in the broker; using this option will not
+            delete anything that is already there. However, if you
+            start from a completely reset broker, use of this
+            option <b>will</b> prevent the usual default user /
+            virtual host / permissions from being created.
+          </p>
+        </doc:subsection>
         <doc:subsection name="fine-stats">
-          <doc:heading>
-            Fine-grained statistics
-          </doc:heading>
+          <doc:heading>Fine-grained statistics</doc:heading>
           <p>
             The message rates shown by the management plugin require
             fine-grained statistics to be enabled in the server. This
@@ -194,8 +284,25 @@
             statistics, you can prevent this from happening. Set the
             value of the <code>force_fine_statistics</code> variable
             to <code>false</code> in your configuration file for
-            the <code>rabbit_management_agent</code> application and
+            the <code>rabbitmq_management_agent</code> application and
             restart RabbitMQ.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
+          </p>
+          <p>
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="http-logging">
@@ -203,7 +310,7 @@
           <p>
             To create simple access logs of requests to the HTTP API,
             set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbit_management</code> application to the name
+            the <code>rabbitmq_management</code> application to the name
             of a directory in which logs can be created and restart
             RabbitMQ. Note that only requests to the API
             at <code>/api</code> are logged, not requests to the static
@@ -214,16 +321,34 @@
           <doc:heading>Example</doc:heading>
           <p>
             An example configuration file for RabbitMQ that switches
-            on request logging, and explicitly sets some other
-            relevant parameters to their default values, would look
-            like this:
+            on request logging, increases the statistics interval to
+            10000ms and explicitly sets some other relevant parameters
+            to their default values, would look like this:
           </p>
-          <pre>[
-  {rabbit,                  [ {tcp_listeners,         [5672]} ] },
-  {rabbit_mochiweb,         [ {port,                  55672} ] },
-  {rabbit_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
-  {rabbit_management_agent, [ {force_fine_statistics, true} ] }
+          <pre class="example">[
+  {rabbit,                    [ {tcp_listeners,               [5672]},
+                                {collect_statistics_interval, 10000} ] },
+  {rabbitmq_management,       [ {http_log_dir,          "/tmp/rabbit-mgmt"} ] },
+  {rabbitmq_management_agent, [ {force_fine_statistics, true} ] }
 ].</pre>
+        </doc:subsection>
+        <doc:subsection name="mochiweb-config">
+          <doc:heading>HTTP interfaces</doc:heading>
+          <p>
+            It is possible to configure rabbitmq-mochiweb to serve the
+            management plugin on a different port or TCP/IP
+            interface. To do so, you should configure a listener
+            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+          </p>
+          <pre class="example">[
+  ...
+  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
+  ...
+].</pre>
+          <p>
+            See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
+            guide for more details.
+          </p>
         </doc:subsection>
       </doc:section>
 
@@ -256,14 +381,28 @@
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
-          The management plugin will create an HTTP-based API at
+          By default the management plugin will create an HTTP-based API at
           http://<i>server-name</i>:55672/api/. Browse to that
-          location for more information on the API. For convenience
-          the documentation can also be obtained
-          from <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www-api/help.html">our
-          Mercurial server</a>.
+          location for more information on the API.
+          For convenience you can read the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+          latest HTTP API documentation</a> on our Mercurial server.
         </p>
       </doc:section>
-    </doc:div>
+
+      <doc:section name="proxy">
+        <doc:heading>Proxy setup</doc:heading>
+        <p>
+          It is possible to make the web UI available via any proxy that
+          conforms with RFC 1738. The following sample Apache configuration
+          illustrates the minimum necessary directives to coax Apache into
+          conformance. It assumes a management web UI on the default port of 55672:
+          <pre class="example">
+AllowEncodedSlashes On
+ProxyPass        /api http://localhost:55672/api nocanon
+ProxyPass        /    http://localhost:55672/
+ProxyPassReverse /    http://localhost:55672/</pre>
+        </p>
+      </doc:section>
   </body>
 </html>

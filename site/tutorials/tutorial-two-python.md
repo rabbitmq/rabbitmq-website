@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Work Queues
+# RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-two">
    <xi:include href="tutorials-menu.xml.inc"/>
@@ -7,7 +7,7 @@
 <div id="tutorial">
 
 ## Work Queues
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -67,8 +67,10 @@ program will schedule tasks to our work queue, so let's name it
 
     :::python
     import sys
+    
     message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='', routing_key='hello',
+    channel.basic_publish(exchange='',
+                          routing_key='hello',
                           body=message)
     print " [x] Sent %r" % (message,)
 
@@ -243,7 +245,8 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `delivery_mode` property with a value `2`.
 
     :::python
-    channel.basic_publish(exchange='', routing_key="task_queue",
+    channel.basic_publish(exchange='',
+                          routing_key="task_queue",
                           body=message,
                           properties=pika.BasicProperties(
                              delivery_mode = 2, # make message persistent
@@ -324,19 +327,21 @@ Final code of our `new_task.py` script:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
     channel.queue_declare(queue='task_queue', durable=True)
 
     message = ' '.join(sys.argv[1:]) or "Hello World!"
-    channel.basic_publish(exchange='', routing_key='task_queue',
+    channel.basic_publish(exchange='',
+                          routing_key='task_queue',
                           body=message,
                           properties=pika.BasicProperties(
                              delivery_mode = 2, # make message persistent
                           ))
     print " [x] Sent %r" % (message,)
+    connection.close()
 
 [(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
 
@@ -346,7 +351,7 @@ And our worker:
     import pika
     import time
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -363,7 +368,7 @@ And our worker:
     channel.basic_consume(callback,
                           queue='task_queue')
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 [(worker.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/worker.py)
 
@@ -376,3 +381,4 @@ Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
 
 </div>
+

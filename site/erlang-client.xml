@@ -9,13 +9,9 @@
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ - Erlang AMQP client library</title>
+    <title>RabbitMQ Erlang AMQP client library</title>
   </head>
   <body>
-    <h2>
-      RabbitMQ Erlang AMQP client library
-    </h2>
-
     <p>
       The RabbitMQ Erlang client library allows Erlang code to interface
       to AMQP servers.</p>

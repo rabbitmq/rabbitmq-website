@@ -1,22 +1,17 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Mercurial</title>
+    <title>Using Mercurial</title>
   </head>
   <body>
-    <doc:div>
       <p class="intro">
 	This page describes the way we work with Mercurial on the
 	RabbitMQ project.
       </p>
 
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="overview">
-	<doc:heading>What is Mercurial?</doc:heading>
-
 	<p>
 	  <a href="http://www.selenic.com/mercurial/">Mercurial</a> is
 	  a fast, lightweight <a
@@ -156,6 +151,5 @@ $ hg update v1_5
 4 files updated, 0 files merged, 5 files removed, 0 files unresolved
 $ </pre>
       </doc:section>
-    </doc:div>
   </body>
 </html>

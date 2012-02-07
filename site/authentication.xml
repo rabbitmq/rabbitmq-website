@@ -1,22 +1,16 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - SASL Authentication</title>
+    <title>SASL Authentication</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
       <doc:section name="intro">
-        <doc:heading>Introduction</doc:heading>
         <p>
           RabbitMQ has pluggable support for various SASL authentication
           mechanisms. There are three such mechanisms built into the
@@ -87,11 +81,16 @@
         <doc:subsection name="java-config">
           <doc:heading>Java</doc:heading>
           <p>
-            The Java client uses the <code>javax.security.sasl</code>
-            mechanism, with a RabbitMQ-specific <code>SaslConfig</code>
-            interface to define SASL configuration in one place. A
+            The Java client does not use
+            the <code>javax.security.sasl</code> package by default
+            since this can be unpredictable on non-Oracle JDKs and is
+            missing entirely on Android. There is a RabbitMQ-specific
+            SASL implementation, configured by
+            the <code>SaslConfig</code> interface. A
             class <code>DefaultSaslConfig</code> is provided to make
-            SASL configuration more convenient in the common case.
+            SASL configuration more convenient in the common case. A
+            class <code>JDKSaslConfig</code> is provided to act as a
+            bridge to <code>javax.security.sasl</code>.
           </p>
           <p>
             See <code>ConnectionFactory.getSaslConfig()</code>
@@ -122,6 +121,5 @@
           </p>
         </doc:subsection>
       </doc:section>
-    </doc:div>
   </body>
 </html>

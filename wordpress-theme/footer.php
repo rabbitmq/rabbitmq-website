@@ -4,10 +4,14 @@
           RabbitMQ team, and do not represent VMware’s positions, strategies
           or opinions.</small></p>
         <p class="righter">
-          <a href="/contact.html">Contact</a> |
-          <a href="/about.html">About</a>
+          <a href="/sitemap.html">Sitemap</a> |
+          <a href="/contact.html">Contact</a>
         </p>
-        <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
+        <p id="copyright">
+          Copyright &#169; 2011 VMware, Inc. All rights reserved.
+          <a href="http://www.vmware.com/help/legal.html">Terms of Use</a>,
+          <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+        </p>
       </div>
     </div>
   </div>

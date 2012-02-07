@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Routing
+# RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-four">
    <xi:include href="tutorials-menu.xml.inc"/>
@@ -7,7 +7,7 @@
 <div id="tutorial">
 
 ## Routing
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -199,7 +199,7 @@ we're interested in.
 
     :::python
     result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    queue_name = result.method.queue
 
     for severity in severities:
         channel.queue_bind(exchange='direct_logs',
@@ -257,7 +257,7 @@ The code for `emit_log_direct.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -279,7 +279,7 @@ The code for `receive_logs_direct.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -287,7 +287,7 @@ The code for `receive_logs_direct.py`:
                              type='direct')
 
     result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    queue_name = result.method.queue
 
     severities = sys.argv[1:]
     if not severities:
@@ -309,26 +309,33 @@ The code for `receive_logs_direct.py`:
                           queue=queue_name,
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
+    :::bash
     $ python receive_logs_direct.py warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
+    :::bash
     $ python receive_logs_direct.py info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
+    :::bash
     $ python emit_log_direct.py error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
 (Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
+
+Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
+for messages based on a pattern.
+
 
 </div>

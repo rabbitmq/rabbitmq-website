@@ -1,22 +1,18 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>RabbitMQ - Erlang AMQP Client library</title>
+    <title>Erlang AMQP Client library</title>
   </head>
-<body>
-<doc:div>
+<body show-in-this-page="true">
  <p class="intro">
   This is the programmer's guide to the Erlang AMQP client.
  </p>
 
- <doc:toc class="compact">
-   <doc:heading>Table of Contents</doc:heading>
- </doc:toc>
-
  <doc:section name="introduction">
-   <doc:heading>Introduction</doc:heading>
    <p>
      The AMQP client provides an Erlang interface to compliant AMQP
      brokers. The client follows the AMQP execution model and
@@ -44,6 +40,10 @@
        <li>When no longer required, close the channel and the
        connection</li>
      </ol>
+   </p>
+   <p>
+     Obtain the library source and related materials from the
+     <a href="&dir-current-erlang-client;">download directory</a>.
    </p>
 
  </doc:section>
@@ -78,16 +78,16 @@
       <li>The network driver establishes a TCP connection to a
       protocol compliant AMQP broker and encodes each command
       according to the specification. To use this driver, start a
-      connection using amqp_connection:start/{1,2} with the first
-      parameter set to 'network'.</li>
+      connection using amqp_connection:start/1 with the
+      parameter set to an #amqp_params_network record.</li>
       <li>The direct driver uses native Erlang messaging instead of
       sending AMQP encoded commands over TCP. This approach avoids the
       overhead of marshaling commands onto and off the wire. However,
       the direct driver can only be used in conjunction with the
       RabbitMQ broker and the client code must be deployed into the
       same Erlang cluster. To use the direct driver, start a
-      connection using amqp_connection:start/{1,2} with the first
-      parameter set to 'direct'.</li>
+      connection using amqp_connection:start/1 with the
+      parameter set to an #amqp_params_direct record.</li>
     </ol>
   </p>
   <p>
@@ -180,7 +180,7 @@
      broker:
 
      <pre class="sourcecode">
-       {ok, Connection} = amqp_connection:start(network, #amqp_params{})
+       {ok, Connection} = amqp_connection:start(#amqp_params_network{})
      </pre>
   </p>
   <p>
@@ -200,7 +200,7 @@
     authorisation to access specific virtual hosts.
     </p>
     <p>
-      The #amqp_params{} record sets the following default values:
+      The #amqp_params_network record sets the following default values:
     </p>
     <table>
       <tr><th>Parameter</th><th>Default Value</th></tr>
@@ -209,8 +209,6 @@
       <tr><td>virtual_host</td><td>/</td></tr>
       <tr><td>host</td><td>localhost</td></tr>
       <tr><td>port</td><td>5672</td></tr>
-      <tr><td>node</td><td>the current node - relevant only for the
-      direct type of connection</td></tr>
       <tr><td>channel_max</td><td>0</td></tr>
       <tr><td>frame_max</td><td>0</td></tr>
       <tr><td>heartbeat</td><td>0</td></tr>
@@ -230,9 +228,33 @@
       If a client wishes to run inside the same Erlang cluster as the
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
-      amqp_connection:start/{1,2} with the first parameter set to
-      'direct', instead of 'network'.
+      amqp_connection:start/1 with the parameter set to
+      an #amqp_params_direct record.
     </p>
+    <p>
+      The #amqp_params_direct record sets the following default values:
+    </p>
+    <table>
+      <tr><th>Parameter</th><th>Default Value</th></tr>
+      <tr><td>username</td><td>guest</td></tr>
+      <tr><td>virtual_host</td><td>/</td></tr>
+      <tr><td>node</td><td>node()</td></tr>
+      <tr><td>client_properties</td><td>[ ]</td></tr>
+    </table>
+</doc:section>
+<doc:section name="amqp-uris">
+  <doc:heading>Connecting To A Broker with AMQP URIs</doc:heading>
+  <p>
+    Instead of working the #amqp_params_* records directly, <a
+    href="uri-spec.html">AMQP URIs</a> may be used.  The
+    amqp_uri:parse/1 function si provided for this purpose.  It parses
+    an URI and returns the equivalent #amqp_params_* record.
+    Diverging from the spec, if the hostname is omitted, the
+    connection is assumed to be direct and an #amqp_params_direct{}
+    record is returned.  In addition to the standard host, port, user,
+    password and vhost parameters, extra parameters may be specified
+    via the query string (e.g. "?heartbeat=5").
+  </p>
 </doc:section>
 <doc:section name="channels">
   <doc:heading>Creating Channels</doc:heading>
@@ -449,120 +471,111 @@
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
     queue can be a more efficient means of delivering messages than
-    the polling mechanism. In order to be able to use this, you need to
-    specify a consumer implementation when opening a channel:
-    
-    <pre class="sourcecode">
-      {ok, Channel} = amqp_connection:open_channel(
-                          Connection, {example_consumer, Params}).
-    </pre>
-  </p>
-  <p>
-    example_consumer is the consumer module (that you need to implement) and
-    Params is the argument passed to example_consumer:init/1.
-  </p>
-  <p>
-    Before example_consumer can receive any messages, the channel has to be
-    subscribed to a queue. To subscribe to a queue, the
-    #'basic.consume'{} command is used:
+    the polling mechanism. To subscribe to a queue, the
+    #'basic.consume'{} command is used in one of two forms:
 
     <pre class="sourcecode">
-      Consume = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} =
-          amqp_channel:call(Channel, Consume, Consumer)
+      Sub = #'basic.consume'{queue = Q},
+      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
     </pre>
-  </p>
-  <p>
-    In order to be
-    able to consume messages, example_consumer needs to implement the
-    amqp_gen_consumer behaviour. A sample implementation of example_consumer
-    is provided below:
-    
-    <pre class="sourcecode">
-      -module(example_consumer).
-      
-      -include("amqp_client.hrl").
-      
-      -compile([export_all]).
-      
-      -record(state, { %% some state fields
-                     }).
-      
-      init(_Params) ->
-        %% called when channel starts up
-        {ok, #state{}}.
-      
-      handle_consume_ok(#'basic.consume_ok'{},
-                        #'basic.consume'{},
-                        State) ->
-        %% This is called after sending out a #'basic.consume'{}.
-        {ok, State}.
-      
-      handle_cancel(#'basic.cancel'{} = Cancel, State) ->
-        %% received basic.cancel (notification that queue has been deleted)
-        %% do something useful
-        {ok, NewState}.
-      
-      handle_cancel_ok(#'basic.cancel_ok'{} = CancelOk,
-                       #'basic.cancel'{},
-                       State) ->
-        %% This is called after sending out a #'basic.cancel'{}.
-        %% do something useful
-        {ok, NewState}.
-      
-      handle_deliver({#'basic.deliver'{delivery_tag = Tag} = Deliver,
-                      Msg = #amqp_msg{}},
-                     State) ->
-        %% received a message from one of the subscriptions!
-        %% do something useful with it
-        %% ... and then ack it
-        amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
-        {ok, NewState}.
-      
-      handle_call(_Call, State) ->
-        %% received after calling amqp_channel:call_consumer/2
-        {reply, ok, State}.
-      
-      terminate(_Reason, _State) ->
-        %% called when channel shuts down
-        ok.
-    </pre>
-  </p>
-  <p>
-    Please note that all the consumer callback functions are called
-    <strong>within</strong> the channel process. For this reason,
-    using amqp_channel:call/{2,3} in the callbacks will block the channel
-    indefinitely. Use only amqp_channel:cast/2 to ack messages, unless the
-    acking takes place asynchronously, in another process. It is also a good
-    idea to do minimal work within the callbacks, to avoid blocking the channel
-    too long, allowing it to communicate freely with the server. If more work
-    is needed to be done as part of consuming, it is recommended to delegate
-    another process for it or to use one of the two provided consumer
-    implementations (see below).
-  </p>
-   <p>
-     If a consumer implementation is not specified when opening a channel,
-     the default one (amqp_selective_consumer) will be used instead. See the
-     <a href="&dir-current-edoc;">Erlang client's documentation</a>
-     for information on how it works. Additionally, another consumer
-     implementation, called amqp_direct_consumer, is provided as part of the
-     Erlang client library, which converts the callback events to messages,
-     that are sent to a user-specified pid.
-   </p>
-   <p>
-    The #'basic.consume_ok'{} notification contains a
-    tag (in the consumer_tag field) that identifies the subscription.
-    This is used at a later in time to cancel the subscription. This
-    notification is sent both to the process that created the
-    subscription (as the return value to amqp_channel:call/2) and as a callback
-    to the consumer module. To cancel a subscription, use the tag that the
-    broker passed back with the #'basic.consume_ok'{} acknowledgement:
+
+    or
 
     <pre class="sourcecode">
-      #'basic.cancel_ok'{} =
-          amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
+      Sub = #'basic.consume'{queue = Q},
+      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:call(Channel, Sub) %% the caller is the subscriber
     </pre>
-   </p>
+  </p>
+  <p>
+    The consumer argument is the pid of a process to which the client
+    library will deliver messages. This can be an arbitrary Erlang
+    process, including the process that initiated the
+    subscription. The #'basic.consume_ok'{} notification contains a
+    tag that identifies the subscription. This is used at a later
+    point in time to cancel the subscription. This notification is
+    sent both to the process that created the subscription (as the
+    return value to amqp_channel:subscribe/3) and as a message to the
+    consumer process.
+  </p>
+  <p>
+    When a consumer process is subscribed to a queue, it will receive
+    messages in its mailbox. An example receive loop looks like this:
+
+    <pre class="sourcecode">
+      loop(Channel) ->
+          receive
+              %% This is the first message received
+              #'basic.consume_ok'{} ->
+                  loop(Channel);
+
+              %% This is received when the subscription is cancelled
+              #'basic.cancel_ok'{} ->
+                  ok;
+
+              %% A delivery
+              {#'basic.deliver'{delivery_tag = Tag}, Content} ->
+                  %% Do something with the message payload
+                  %% (some work here)
+
+                  %% Ack the message
+                  amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+
+                  %% Loop
+                  loop(Channel)
+          end.
+     </pre>
+
+     In this simple example, the process consumes the subscription
+     notification and then proceeds to wait for delivery messages to
+     arrive in its mailbox. When messages are received from the
+     mailbox, the loop does something useful with the message and
+     sends a receipt acknowledge back to the broker. If the
+     subscription is cancelled, either by the consumer itself or some
+     other process, a cancellation notification will be sent to the
+     consumer process. In this scenario, the receive loop just
+     exits. If the application does not wish to explicitly acknowledge
+     message receipts, it should set the no_ack flag on the
+     subscription request.
+    </p>
+
+    To cancel a subscription, use the tag that the broker passed back
+    with the #'basic.consume_ok'{} acknowledgement:
+
+    <pre class="sourcecode">
+      amqp_channel:call(Channel, #'basic.cancel'{consumer_tag = Tag})
+    </pre>
+
+</doc:section>
+
+<!-- ..................................................................... -->
+
+<doc:section name="subscribing-internals">
+  <doc:heading>Subscribing Internals</doc:heading>
+  <p>The channel uses a module implementing the amqp_gen_consumer
+  behaviour to determine its behaviour with regard to subscribing
+  related events.  Effectively, this modules handles client-side
+  consumer registration and routing of deliveries to the appropriate
+  consumers.</p>
+
+  <p>For instance, the default consumer module,
+  amqp_selective_consumer, keeps track of which processes are
+  subscribed to which queues and routes deliveries appropriately; in
+  addition, if the channel gives it a delivery for an unknown
+  consumer, it will pass it to a default consumer, should one be
+  registered.</p>
+
+  <p>By contrast, amqp_direct_consumer simply forwards all the
+  messages it receives from the channel to its only registered
+  consumer.</p>
+
+  <p>The consumer module for a channel is chosen when the channel is
+  opened by setting the second parameter to
+  amqp_connection:open_channel/2.  The consumer module implements the
+  amqp_gen_consumer behaviour and thus implements functions to handle
+  receiving basic.consume, basic.consume_ok, basic.cancel,
+  basic.cancel_ok methods as well as publishes.</p>
+
+  <p>See the API documentation for details.</p>
 </doc:section>
 
 <!-- ..................................................................... -->
@@ -616,7 +629,7 @@
 
       test() ->
           %% Start a network connection
-          {ok, Connection} = amqp_connection:start(network, #amqp_params{}),
+          {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
           %% Open a channel on the connection
           {ok, Channel} = amqp_connection:open_channel(Connection),
 
@@ -802,7 +815,5 @@
    </p>
 
   </doc:section>
-
-</doc:div>
 </body>
 </html>

@@ -1,12 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Search</title>
+    <title>Search This Site</title>
     <link rel="stylesheet" href="./css/search.css" type="text/css" />
   </head>
   <body>
-
-<h2>Search this site</h2>
 <p>Use the form below to search using our RabbitMQ customised search engine.</p>
 
 <div id="cse" style="width: 100%;">Loading</div>

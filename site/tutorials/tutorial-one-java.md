@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - "Hello World!"
+# RabbitMQ tutorial - "Hello World!" SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-one">
   <xi:include href="tutorials-menu.xml.inc"/>
@@ -281,5 +281,19 @@ the sender from another terminal.
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
+
+Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
+
+> ####Hint
+> To save typing, you can set an environment variable for the classpath e.g.
+>
+>      $ export CP=.:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+>      $ java -cp $CP Send
+>
+> or on Windows:
+>
+>      > set CP=.;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar
+>      > java -cp %CP% Send
+>
 
 </div>

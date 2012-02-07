@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Work Queues
+# RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-two">
    <xi:include href="tutorials-menu.xml.inc"/>
@@ -456,7 +456,7 @@ RabbitMQ is restarted.
 For more information on `Channel` methods and `MessageProperties`, you can browse the
 [javadocs online](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/).
 
-<!--Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
+Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
 to deliver the same message to many consumers.
--->
+
 </div>
