@@ -9,15 +9,12 @@
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ Erlang AMQP client library</title>
+    <title>Erlang AMQP client library</title>
   </head>
   <body>
     <p>
-      The RabbitMQ Erlang client library allows Erlang code to interface
-      to AMQP servers.</p>
-
-    <p>
-      The current release implements AMQP
+      The RabbitMQ Erlang client library allows Erlang code to
+      interface to AMQP servers. The current release implements AMQP
       protocol version 0-9-1. Please see the <a
       href="specification.html">specification</a> page for more
       information on interoperation and standards-conformance.
@@ -32,24 +29,22 @@
 
     <p>
       You will need an AMQP server, such as our very own <a
-      href="server.html">RabbitMQ server</a>, to use with the client
+      href="download.html">RabbitMQ server</a>, to use with the client
       library.
     </p>
 
-    <h3>
-      Status
-    </h3>
+    <h3>Version</h3>
 
     <p>
       The current release of the RabbitMQ Erlang AMQP library is <b>
       &version-erlang-client;</b>.
     </p>
 
-    <h3>
+    <h2>
       Download the library and documentation
-    </h3>
+    </h2>
 
-    <h4>The library</h4>
+    <h3>The library</h3>
 
     <p>
       The library is available as source, or compiled as a loadable .ez binary
@@ -58,14 +53,14 @@ modules common to the RabbitMQ server. These are provided as a separate
 loadable .ez archive.
     </p>
 
-    <r:downloads>
+    <r:downloads signature="yes">
       <r:download downloadfile="amqp_client-&version-erlang-client;.ez"
 		  downloadpath="&dir-erlang-client;">
-	AMQP client library binary archive (loadable .ez archive)
+	AMQP client library .ez archive
       </r:download>
       <r:download downloadfile="rabbit_common-&version-erlang-client;.ez"
 		  downloadpath="&dir-erlang-client;">
-	RabbitMQ common library bundle (loadable .ez archive)
+	RabbitMQ common library .ez bundle
       </r:download>
       <r:download downloadfile="amqp_client-&version-erlang-client;-src.tar.gz"
 		  downloadpath="&dir-erlang-client;">
@@ -73,8 +68,15 @@ loadable .ez archive.
       </r:download>
     </r:downloads>
 
-    <h4>The documentation</h4>
-    
+    <p>
+      Please see <a href="signatures.html">checking signatures</a> for
+      details on how to verify the signatures on our packages, and the
+      <a href="build-erlang-client.html">build page</a> for
+      instructions on compiling from source-code.
+    </p>
+
+    <h3>The documentation</h3>
+
     <p>Please refer to the <a href="erlang-client-user-guide.html">Erlang AMQP
 user quide</a>.</p>
 
@@ -83,13 +85,21 @@ user quide</a>.</p>
       href="&dir-current-edoc;">browseable on-line</a>.
     </p>
 
-    <h3>Mercurial repositories</h3>
+    <h3>Other versions</h3>
+
     <p>
-      The Erlang AMQP client library and tests depends on
-      the server and the code-generation library modules. Please see the <a
-      href="build.html">build instructions</a>.
+      Consult <a href="/releases/rabbitmq-erlang-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      Erlang Client library other than the above.
     </p>
-    
+
+    <h2>Mercurial repositories</h2>
+    <p>
+      The Erlang AMQP client library and tests depends on the server
+      and the code-generation library modules. Please see the <a
+      href="build-erlang-client.html">build instructions</a>.
+    </p>
+
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
       <repository type="hg" shortname="rabbitmq-erlang-client"
         url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
@@ -98,16 +108,12 @@ user quide</a>.</p>
       <repository type="hg" shortname="rabbitmq-codegen"
         url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
     </repositories>
-    
 
-    <h3>Support</h3>
+    <h2>Support</h2>
 
     <p>
-      For help compiling or installing RabbitMQ, please contact <a
-      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
-      Contact <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>
-      for general RabbitMQ queries. You can also 
-      <a href="http://lists.rabbitmq.com">join our mailing list.</a>
+      For help compiling or installing RabbitMQ, or for general
+      queries, please <a href="contact.html"> contact us</a>.
     </p>
   </body>
 </html>
