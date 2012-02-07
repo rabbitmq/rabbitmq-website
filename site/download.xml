@@ -97,13 +97,12 @@
         </li>
       </ul>
 
-      <h2>Erlang Client</h2>
+      <h3>Erlang Client</h3>
       <ul>
         <li>
           Quick download:
-          <a href="/releases/&dir-current-erlang-client;/&nameVersion-dotnet-client;-dotnet-3.0.zip">Binary (.NET 3.0+)</a> |
-          <a href="/releases/&dir-current-erlang-client;/&nameVersion-dotnet-client;-dotnet-2.0.zip">Binary (.NET 2.0)</a> |
-          <a href="/releases/&dir-current-erlang-client;/&nameVersion-dotnet-client;.zip">Source</a>
+          Binary <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;.ez">.ez</a> |
+          Source <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;-src.tar.gz">.tar.gz</a>
         </li>
         <li>
           <a href="erlang-client.html">All Erlang client downloads</a>
@@ -114,9 +113,13 @@
       </ul>
     </div>
 
-    <p>
-      The RabbitMQ community has created a large number of <a href="devtools.html">clients and developer tools</a> covering
-      a variety of platforms and languages.
-    </p>
+    <div class="landing-box">
+      <h2>Clients for other languages</h2>
+      <p>
+        The RabbitMQ community has created a large number of <a
+        href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
+      </p>
+    </div>
   </body>
 </html>

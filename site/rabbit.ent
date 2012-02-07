@@ -24,4 +24,5 @@
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">
 
 <!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
+<!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
 <!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">
