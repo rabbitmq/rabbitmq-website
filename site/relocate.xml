@@ -30,11 +30,11 @@
       <tr>
         <td>RABBITMQ_CONFIG_FILE</td>
         <td>
+          The name of the configuration file, without the <code>.config</code> extension.
           If the <a href="configure.html#configuration-file">configuration file</a>
           is present it is used by the server to configure
           RabbitMQ components.
-          The <span class="path">.config</span> extension is automatically
-          appended by the Erlang runtime. This file is also used to <a
+          This file is also used to <a
           href="clustering.html#auto-config">auto-configure RabbitMQ
           clusters</a>.
         </td>
@@ -117,7 +117,10 @@
 
     <doc:section name="unix">
       <doc:heading>Unix Default Locations</doc:heading>
-      <p>(Unix is taken to include Linux and OS X)</p>
+      <p>
+        (Unix is taken to include Linux and OS X, except the Generic
+        Unix download - see below)
+      </p>
       <table>
         <th>Name</th><th>Location</th>
         <tr>
@@ -276,8 +279,97 @@
       </table>
     </doc:section>
 
+    <doc:section name="generic-unix">
+      <doc:heading>Generic Unix Default Locations</doc:heading>
+      <p>
+        These are the defaults obtained when unpacking the Generic Unix tar-file
+        and running the server without modification. In this table <span
+        class="envvar">$RABBITMQ_HOME</span> refers to the directory
+        <code>rabbitmq_server-&version-server;</code> produced when unpacking
+        the download.
+      </p>
+      <table>
+        <th>Name</th><th>Location</th>
+        <tr>
+          <td>RABBITMQ_BASE</td>
+          <td>
+            (Not used)
+          </td>
+        </tr>
+        <tr>
+          <td>RABBITMQ_CONFIG_FILE</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq</span>
+          </td>
+        </tr>
+        <tr>
+          <td>RABBITMQ_MNESIA_BASE</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/var/lib/rabbitmq/mnesia</span>
+          </td>
+        </tr>
+        <tr>
+          <td>RABBITMQ_MNESIA_DIR</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_LOG_BASE</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/var/log/rabbitmq</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_LOGS</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>.log</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_SASL_LOGS</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_LOG_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-sasl.log</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_PLUGINS_DIR</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/enabled_plugins</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>RABBITMQ_PID_FILE</td>
+          <td>
+            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_DIR</span>.pid</span>
+          </td>
+        </tr>
+
+      </table>
+    </doc:section>
+
     <p>
-      Paths are given relative to the installation directory prefix.
+      Except for the Generic Unix table, paths are given relative to the
+      installation directory prefix.
       For example Mac OSX (macports) are normally based in
       <code><span class="path">/opt/local/</span></code>, or
       <code><span class="path">/usr/local</span></code> on
