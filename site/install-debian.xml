@@ -86,8 +86,7 @@
 	    any particular Debian distribution. You can use it with
 	    Debian stable, testing or unstable, as well as with
 	    Ubuntu. We describe the release as "testing" to emphasise
-	    that we release somewhat frequently; you should expect
-	    periodic upgrades.)
+	    that we release somewhat frequently.)
 	  </li>
 	  <li>
 	    (optional) To avoid warnings about unsigned packages, add
