@@ -295,6 +295,11 @@ to the session and automatically subscribes to that queue.
 A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
+The internal subscription name is a concatenation of the string
+`subscription_id` and the temporary queue (so `subscription_id_foo`
+in this example). The subscription name must not be used and will appear
+in the headers of messages delivered to the temporary queue.
+
 The `/temp-queue/` destination is ***not*** the name of the destination
 that the receiving client uses when sending the reply. Instead, the
 receiving client can obtain the (real) reply destination queue name
