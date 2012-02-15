@@ -2,6 +2,7 @@
 <!ENTITY version-java-client "2.7.1">
 <!ENTITY version-dotnet-client "2.7.1">
 <!ENTITY version-server "2.7.1">
+<!ENTITY version-erlang-client "2.7.1">
 <!ENTITY version-server-hg "rabbitmq_v2_7_1">
 
 <!ENTITY serverDebMinorVersion "1">
@@ -21,3 +22,7 @@
 <!ENTITY dir-win64-apps "C:\Program Files (x86)">
 
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">
+
+<!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
+<!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
+<!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">

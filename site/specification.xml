@@ -89,6 +89,10 @@
         <td>.NET/C# client</td>
 	    <td> 0-9-1, 0-9 and 0-8 switchable at runtime </td>
 	  </tr>
+	  <tr>
+	    <td>Erlang client</td>
+	    <td> 0-9-1 </td>
+	  </tr>
 	</table>
 	<p>
 	  The following table describes the version of the AMQP
