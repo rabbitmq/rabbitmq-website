@@ -1,0 +1,98 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Windows Quirks</title>
+  </head>
+  <body>
+    <p>
+      We aim to make RabbitMQ a first-class citizen on
+      Windows. However, sometimes there are circumstances beyond our
+      control that can introduce quirky behaviour. This page documents
+      them.
+    </p>
+
+    <h3>Cannot install to a path with non-ASCII characters</h3>
+    <p>
+      RabbitMQ will fail to start when installed to a path with
+      non-ASCII characters in it. This is because we need to pass the
+      location of the compiled Erlang files to the Erlang VM. It
+      expects input in UTF-8, but the console will typically use some
+      other encoding.
+    </p>
+    <strong>Workarounds:</strong>
+    <ul>
+      <li>
+        Install to a path containing only ASCII characters <em>or</em>
+      </li>
+      <li>
+        Edit the file <code>rabbitmq-server.bat</code> and change the
+        line "<code>set TDP0=%~dp0</code>" to "<code>set
+        TDP0=%~dps0</code>". This will use short paths (the
+        infamous <code>C:\PROGRA~1</code>) everywhere.
+      </li>
+    </ul>
+
+    <h3>rabbitmqctl shows non-ASCII characters incorrectly in list commands</h3>
+    <p>
+      Similarly, <code>rabbitmqctl</code> will return strings as
+      UTF-8, which will then be interpreted incorrectly by the console
+      in some country-specific encoding.
+    </p>
+    <strong>Workarounds:</strong>
+    <ul>
+      <li>
+        On recent versions of Windows, issue the command "<code>chcp
+        65001</code>" before using <code>rabbitmqctl</code> to force
+        the console to use UTF-8. (Beware: on older versions
+        including Windows XP this will cause the console to silently
+        fail to run any batch file at all!) <em>or</em>
+      </li>
+      <li>
+        Avoid using non-ascii characters in object names <em>or</em>
+      </li>
+      <li>
+        Use the management plugin instead of <code>rabbitmqctl</code>.
+      </li>
+    </ul>
+
+    <h3>Installing as a non-administrator user leaves .erlang.cookie
+    in the wrong place</h3>
+    <p>
+      This makes in impossible to use <code>rabbitmqctl</code>.
+    </p>
+    <strong>Workarounds:</strong>
+    <ul>
+      <li>
+        Run the installer as an administrator <em>or</em>
+      </li>
+      <li>
+        Copy the file <code>.erlang.cookie</code> manually
+        from <code>%SystemRoot%</code> to %USERPROFILE%.
+      </li>
+    </ul>
+
+    <h3>Service must be reinstalled when activating / deactivating plugins</h3>
+    <p>
+      When activating or deactivating plugins and running RabbitMQ as
+      a service, changes will not take effect until the service is
+      reinstalled.
+    </p>
+    <h3>Shutting down Windows</h3>
+    <p>
+      Due to limitations in the underlying Erlang VM, the broker will
+      not go through the controlled shutdown sequence when Windows
+      shuts down. If RabbitMQ is installed as a service then you must
+      stop the service manually before shutting down Windows. Failure
+      to do so may cause the broker to spend longer on recovery when
+      started subsequently.
+    </p>
+  </body>
+</html>
