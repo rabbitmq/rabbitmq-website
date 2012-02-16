@@ -8,7 +8,7 @@
   <xsl:import href="page.xsl" />
   <xsl:output method="html" indent="yes" />
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.extended.xml')"/>
   <xsl:key name="domain-key" match="domain" use="@name"/>
 
   <xsl:template match="x:insert-spec-here">
@@ -52,7 +52,7 @@
   <xsl:template name="render-content">
     <p>
       This page contains a complete reference to RabbitMQ's implementaton of version 0-9-1 of the AMQP specification. The
-      <a href="http://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">original specification</a> was published by
+      <a href="resources/specs/amqp0-9-1.xml">original specification</a> was published by
       the <a href="http://www.amqp.org">AMQP WG</a> in 2008 and is made available under the
       <a href="http://www.amqp.org/confluence/display/AMQP/AMQP+License">AMQP license</a>.
     </p>

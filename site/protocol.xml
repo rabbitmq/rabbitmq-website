@@ -49,26 +49,30 @@
     <table class="styled-table">
       <tr>
         <th>Protocol Version</th>
-        <th colspan="2">Downloads</th>
+        <th colspan="3">Downloads</th>
       </tr>
       <tr>
         <td>AMQP 0-10</td>
         <td><a href="resources/specs/amqp.0-10.pdf">Specification (pdf)</a></td>
+        <td></td>
         <td><a href="resources/specs/amqp.0-10.xml">Definitions (xml)</a></td>
       </tr>
       <tr>
         <td>AMQP 0-9-1</td>
         <td><a href="resources/specs/amqp0-9-1.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp-xml-doc0-9-1.pdf">Documentation (pdf)</a></td>
         <td><a href="resources/specs/amqp0-9-1.xml">Definitions (xml)</a></td>
       </tr>
       <tr>
         <td>AMQP 0-9</td>
         <td><a href="resources/specs/amqp0-9.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp-xml-doc0-9.pdf">Documentation (pdf)</a></td>
         <td><a href="resources/specs/amqp0-9.xml">Definitions (xml)</a></td>
       </tr>
       <tr>
         <td>AMQP 0-8</td>
         <td><a href="resources/specs/amqp0-8.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp-xml-doc0-8.pdf">Documentation (pdf)</a></td>
         <td><a href="resources/specs/amqp0-8.xml">Definitions (xml)</a></td>
       </tr>
     </table>

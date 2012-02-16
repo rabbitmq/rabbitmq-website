@@ -48,21 +48,21 @@
 	  </tr>
       <tr>
         <td>0-9-1</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
+	    <td><a href="resources/specs/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
+	    <td><a href="resources/specs/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
+	    <td><a href="resources/specs/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
       </tr>
       <tr>
         <td>0-9</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">amqp0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">amqp0-9.xml</a></td>
+	    <td><a href="resources/specs/mqp0-9.pdf">amqp0-9.pdf</a></td>
+	    <td><a href="resources/specs/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
+	    <td><a href="resources/specs/amqp0-9.xml">amqp0-9.xml</a></td>
       </tr>
       <tr>
         <td>0-8</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">amqp0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">amqp0-8.xml</a></td>
+	    <td><a href="resources/specs/amqp0-8.pdf">amqp0-8.pdf</a></td>
+	    <td><a href="resources/specs/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
+	    <td><a href="resources/specs/amqp0-8.xml">amqp0-8.xml</a></td>
       </tr>
     </table>
 
