@@ -297,8 +297,8 @@ distinct queue created.
 
 The internal subscription name is a concatenation of the string
 `subscription_id` and the temporary queue (so `subscription_id_foo`
-in this example). The subscription name must not be used and will appear
-in the headers of messages delivered to the temporary queue.
+in this example). The subscription id can be used to identify reply
+messages.
 
 The `/temp-queue/` destination is ***not*** the name of the destination
 that the receiving client uses when sending the reply. Instead, the
