@@ -1,13 +1,6 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions"
-      xmlns:xi="http://www.w3.org/2003/XInclude">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Windows Quirks</title>
   </head>
@@ -56,17 +49,18 @@
         fail to run any batch file at all!) <em>or</em>
       </li>
       <li>
-        Avoid using non-ascii characters in object names <em>or</em>
+        Avoid using non-ASCII characters in object names <em>or</em>
       </li>
       <li>
-        Use the management plugin instead of <code>rabbitmqctl</code>.
+        Use the <a href="management.html">management plugin</a> instead of
+        <code>rabbitmqctl</code>.
       </li>
     </ul>
 
     <h3>Installing as a non-administrator user leaves .erlang.cookie
     in the wrong place</h3>
     <p>
-      This makes in impossible to use <code>rabbitmqctl</code>.
+      This makes it impossible to use <code>rabbitmqctl</code>.
     </p>
     <strong>Workarounds:</strong>
     <ul>
@@ -75,15 +69,15 @@
       </li>
       <li>
         Copy the file <code>.erlang.cookie</code> manually
-        from <code>%SystemRoot%</code> to %USERPROFILE%.
+        from <code>%SystemRoot%</code> to <code>%USERPROFILE%</code>.
       </li>
     </ul>
 
     <h3>Service must be reinstalled when activating / deactivating plugins</h3>
     <p>
       When activating or deactivating plugins and running RabbitMQ as
-      a service, changes will not take effect until the service is
-      reinstalled.
+      a service you must <a href="plugins.html#windows-restart">reinstall
+      the service</a> for changes to take effect.
     </p>
     <h3>Shutting down Windows</h3>
     <p>
