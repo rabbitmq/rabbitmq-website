@@ -37,8 +37,40 @@
     </blockquote>
     <p>
       For more information on what AMQP is, please see
-        the <a href="http://www.amqp.org/confluence/display/AMQP/About+AMQP">AMQP
+        the <a href="http://amqp.org/about/what">AMQP
         Working Group's overview page</a>.
     </p>
+    <h2 id="downloads">Downloads</h2>
+    <p>
+      All AMQP specifications and protocol definitions are published under
+      the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
+      unless stated otherwise.
+    </p>
+    <table class="styled-table">
+      <tr>
+        <th>Protocol Version</th>
+        <th colspan="2">Downloads</th>
+      </tr>
+      <tr>
+        <td>AMQP 0-10</td>
+        <td><a href="resources/specs/amqp.0-10.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp.0-10.xml">Definitions (xml)</a></td>
+      </tr>
+      <tr>
+        <td>AMQP 0-9-1</td>
+        <td><a href="resources/specs/amqp0-9-1.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp0-9-1.xml">Definitions (xml)</a></td>
+      </tr>
+      <tr>
+        <td>AMQP 0-9</td>
+        <td><a href="resources/specs/amqp0-9.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp0-9.xml">Definitions (xml)</a></td>
+      </tr>
+      <tr>
+        <td>AMQP 0-8</td>
+        <td><a href="resources/specs/amqp0-8.pdf">Specification (pdf)</a></td>
+        <td><a href="resources/specs/amqp0-8.xml">Definitions (xml)</a></td>
+      </tr>
+    </table>
   </body>
 </html>
