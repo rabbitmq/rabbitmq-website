@@ -735,5 +735,28 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
             file.
           </p>
       </doc:section>
+      <doc:section name="clients">
+        <doc:heading>Connecting to Clusters from Clients</doc:heading>
+        <p>
+          A client can connect as normal to any node within a
+          cluster. If that node should fail, and the rest of the
+          cluster survives, then the client should notice the closed
+          connection, and should be able to reconnect to some
+          surviving member of the cluster. Generally, it's not
+          advisable to bake in node hostnames or IP addresses into
+          client applications: this introduces inflexibility and will
+          require client applications to be edited, recompiled and
+          redeployed should the configuration of the cluster change or
+          the number of nodes in the cluster change. Instead, we
+          recommend a more abstracted approach: this could be a
+          dynamic DNS service which has a very short TTL
+          configuration, or a plain TCP load balancer, or some sort of
+          mobile IP achieved with pacemaker or similar
+          technologies. In general, this aspect of managing the
+          connection to nodes within a cluster is beyond the scope of
+          RabbitMQ itself, and we recommend the use of other
+          technologies designed specifically to solve these problems.
+        </p>
+      </doc:section>
   </body>
 </html>
