@@ -276,17 +276,6 @@
             Start&#xA0;>&#xA0;Run&#xA0;<code>services.msc</code>.
           </p>
         </dd>
-        <dt>Shutting down Windows</dt>
-        <dd>
-          <p>
-            Due to limitations in the underlying Erlang VM, the broker
-            will not go through the controlled shutdown sequence when
-            Windows shuts down. If RabbitMQ is installed as a service
-            then you must stop the service manually before shutting
-            down Windows. Failure to do so may cause the broker to
-            spend longer on recovery when started subsequently.
-          </p>
-        </dd>
       </dl>
     </doc:section>
 

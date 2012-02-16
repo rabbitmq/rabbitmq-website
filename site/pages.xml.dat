@@ -20,12 +20,16 @@
   -->
 
    <x:page url="/download.html" text="Installation">
-     <x:page url="/install-windows.html" text="Install: Windows"/>
+     <x:page url="/install-windows.html" text="Install: Windows">
+       <x:related url="/windows-quirks.html"/>
+     </x:page>
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
      <x:page url="/install-macports.html" text="Install: MacPorts"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
-     <x:page url="/install-windows-manual.html" text="Install: Windows (manual)"/>
+     <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
+       <x:related url="/windows-quirks.html"/>
+     </x:page>
      <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
      <x:page url="/install-solaris.html" text="Install: Solaris"/>
      <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
@@ -64,6 +68,7 @@
            <x:related url="/configure.html"/>
          </x:page>
        </x:page>
+       <x:page url="/windows-quirks.html" text="Windows Quirks"/>
        <x:related url="/management.html"/>
        <x:related url="/extensions.html"/>
        <x:related url="/changelog.html"/>
