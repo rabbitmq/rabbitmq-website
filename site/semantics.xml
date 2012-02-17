@@ -20,13 +20,15 @@
         </p>
         <table>
 	  <tr>
-            <th>Feature</th>
-	    <th>AMQP 0-9-1</th>
-	    <th>RabbitMQ &lt; 2.6.0</th>
-	    <th>RabbitMQ &gt;= 2.6.0</th>
+	    <th>Feature</th>
+	    <th>AMQP<br/>0-9-1</th>
+	    <th>RabbitMQ<br/>&lt; 2.6.0</th>
+	    <th>RabbitMQ<br/>2.6.0-2.7.1</th>
+	    <th>RabbitMQ<br/>&gt;= 2.8.0</th>
 	  </tr>
           <tr>
             <td>transactional <code>basic.publish</code></td>
+            <td>yes</td>
             <td>yes</td>
             <td>yes</td>
             <td>yes</td>
@@ -36,15 +38,18 @@
             <td>yes</td>
             <td>yes</td>
             <td>yes</td>
+            <td>yes</td>
           </tr>
           <tr>
             <td>transactional <code>basic.reject</code></td>
             <td>no</td>
             <td>no</td>
             <td>no</td>
+            <td>yes</td>
           </tr>
           <tr>
             <td>transactional exchange/queue/binding creation/deletion</td>
+            <td>no</td>
             <td>no</td>
             <td>no</td>
             <td>no</td>
@@ -54,15 +59,18 @@
             <td>no</td>
             <td>no</td>
             <td>no</td>
+            <td>no</td>
           </tr>
           <tr>
             <td>atomicity in single queue</td>
             <td>yes</td>
             <td>no</td>
             <td>no</td>
+            <td>no</td>
           </tr>
           <tr>
             <td>atomicity across multiple queues</td>
+            <td>no</td>
             <td>no</td>
             <td>no</td>
             <td>no</td>
@@ -72,24 +80,28 @@
             <td>undefined</td>
             <td>immediate</td>
             <td>immediate</td>
+            <td>immediate</td>
           </tr>
           <tr>
             <td>sending of 'no_route' <code>basic.return</code></td>
             <td>undefined</td>
             <td>immediate</td>
-            <td>on <code>tx.commit</code></td>
+            <td>on commit</td>
+            <td>on commit</td>
           </tr>
           <tr>
             <td>sending of 'no_consumers' <code>basic.return</code></td>
             <td>undefined</td>
             <td>never</td>
-            <td>on <code>tx.commit</code></td>
+            <td>on commit</td>
+            <td>on commit</td>
           </tr>
           <tr>
             <td>effect visibility / responsibility transfer / durability</td>
             <td>undefined</td>
-            <td>on <code>tx.commit</code></td>
-            <td>on <code>tx.commit</code></td>
+            <td>on commit</td>
+            <td>on commit</td>
+            <td>on commit</td>
           </tr>
         </table>
         <p>
@@ -99,12 +111,12 @@
           from the database world.
         </p>
         <p>
-          AMQP transactions only apply to publishes and acks. Other
-          operations, such as message rejection, are not
-          transactional. Neither is resource creation/deletion, and
-          consequently <em>the behaviour of transactions when any of
-          the involved exchanges, queues or bindings are altered is
-          undefined</em>.
+          AMQP transactions only apply to publishes and acks. We have
+          additionally made rejection transactional. Other operations
+          such as resource creation/deletion are not
+          transactional. Consequently <em>the behaviour of
+          transactions when any of the involved exchanges, queues or
+          bindings are altered is undefined</em>.
         </p>
         <p>
           On the consuming side, the <em>acknowledgements</em> are
