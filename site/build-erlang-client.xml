@@ -45,10 +45,23 @@ $ make</pre>
       <doc:section name="building-erlang-client">
 	<doc:heading>Building the Erlang client libraries</doc:heading>
 
-	<p>
-	  Change to the <code>rabbitmq-erlang-client</code> directory, and
-	  type <code>make</code>.
-	</p>
+        <p>
+          You will need to get the source of the server and the
+          codegen. If you ran the commands above, the these will be
+          placed in sibling directories to the Erlang client (i.e:
+          <code>../rabbitmq-server</code> and
+          <code>../rabbitmq-codegen</code>), which is the default that
+          the <code>Makefile</code> expects. In this case, you can
+          just run <code>make</code>.
+        </p>
+
+        <p>
+          If the source tree for the server is not in the sibling
+          directory, you will need to specify the path to this
+          directory with <code>make
+          BROKER_DIR=/path/to/server</code>. In this case, make sure
+          you specify BROKER_DIR every time you run a make target.
+        </p>
 
 	<p>
 	  Other interesting <code>Makefile</code> targets include
@@ -67,6 +80,12 @@ $ make</pre>
 	      libraries loaded.
 	    </dd>
 
+            <dt>run_in_broker</dt>
+            <dd>
+              Builds the client and starts RabbitMQ server with shell
+              and the client included in load path.
+            </dd>
+
 	    <dt>clean</dt>
 	    <dd>
 	      Removes build products.
@@ -74,10 +93,70 @@ $ make</pre>
 
 	    <dt>test</dt>
 	    <dd>
-	      Runs a set of tests against a server running on locally. You will need
-	      to start a local instance of an AMQP server, running on port 5672,
-	      which allows guest/guest access on virtual host "/", beforehand.
+	      Runs a set of tests against a server running on
+	      locally. You will need to start a local instance of an
+	      AMQP server, running on port 5672, which allows
+	      guest/guest access on virtual host "/", beforehand.
 	    </dd>
+
+            <dt>all_tests</dt>
+            <dd>
+              Clean compiles the client and client tests source code
+              and runs <code>network_client_SUITE</code>,
+              <code>direct_client_SUITE</code> and packaging
+              tests. During testing, this make target runs an instance
+              of the broker, so make sure there is no other instance
+              of RabbitMQ server running.
+            </dd>
+
+            <dt>dialyze</dt>
+            <dd>
+              Analyses the client source code with dialyzer. Uses PLT
+              file from default location:
+              <code>~/.dialyzer_plt</code>. Use
+
+              <pre class="sourcecode">
+$ make PLT=/path/to/plt dialyze</pre>
+
+              to override this. Add broker to PLT beforehand,
+              otherwise you will a lot of 'unknown function'
+              warnings. See <code>add_broker_to_plt</code> make
+              target.
+            </dd>
+
+            <dt>dialyze_all</dt>
+            <dd>
+              Same as dialyze, except that this also analyses tests
+              source code.
+            </dd>
+
+            <dt>add_broker_to_plt</dt>
+            <dd>
+              Adds broker .beam files to default plt. Use
+
+              <pre class="sourcecode">
+$ make PLT=/path/to/plt add_broker_to_plt</pre>
+
+              to override default plt location
+              (<code>~/.dialyzer_plt</code>).
+            </dd>
+
+            <dt>source_tarball</dt>
+            <dd>
+              Creates tarball of all the client source code.
+            </dd>
+
+            <dt>package</dt>
+            <dd>
+              Creates an erlang archive of the client.
+            </dd>
+
+            <dt>common_package</dt>
+            <dd>
+              Creates an erlang archive of the server modules required
+              by the erlang client.
+            </dd>
+
 	  </dl>
 	</p>
       </doc:section>
