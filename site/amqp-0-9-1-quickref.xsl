@@ -29,7 +29,7 @@
         This page provides a guide to RabbitMQ's implementation of AMQP 0-9-1. In addition to the classes
         and methods defined in the <a href="specification.html">AMQP specification</a>, RabbitMQ supports several
         <a href="extensions.html">protocol extensions</a>, which are also listed here. The extended specification
-        can be <a href="resources/specs/amqp0-9-1.xml" type="text/xml">downloaded here</a>.
+        can be <a href="resources/specs/amqp0-9-1.extended.xml" type="text/xml">downloaded here</a>.
       </p>
       <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides

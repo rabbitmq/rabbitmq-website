@@ -62,7 +62,7 @@
       to the core specification that are documented in this guide.
     </p>
     <p>
-      You can <a href="resources/specs/amqp0-9-1.xml" type="text/xml">download the extended specification</a>, which may be useful
+      You can <a href="resources/specs/amqp0-9-1.extended.xml" type="text/xml">download the extended specification</a>, which may be useful
       if you are writing an AMQP client that supports our extensions.
     </p>
     <p>
