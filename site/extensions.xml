@@ -616,10 +616,6 @@ channel.basicConsume(queue, consumer);</pre>
           messages from that queue are 'dead-lettered'. A message is
           dead-lettered when any of the following events occur:
           <ul>
-            <li>The queue containing the message is deleted (via
-            <code>queue.delete</code> or by a queue lease
-            expiring);</li>
-            <li>The queue containing the message is purged;</li>
             <li>The message is rejected (<code>basic.reject</code> or
             <code>basic.nack</code>) with <code>requeue=false</code>;
             or</li>
@@ -780,10 +776,6 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             the message was dead-lettered and is one of the following:
 
             <ul>
-              <li><code>queue_deleted</code> - the queue was deleted
-              or its lease expired;</li>
-              <li><code>queue_purged</code> - the queue was
-              purged;</li>
               <li><code>expired</code> - the TTL of the message
               expired; or</li>
               <li><code>rejected</code> - the message was rejected
