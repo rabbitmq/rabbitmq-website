@@ -1,5 +1,7 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
   	<title>Erlang AMQP Client Library Build Instructions</title>
   </head>
@@ -38,48 +40,7 @@ $ make</pre>
 	</p>
       </doc:section>
 
-      <doc:section name="prerequisites">
-	<doc:heading>Required Libraries and Tools</doc:heading>
-
-	<p>
-	  In order to build RabbitMQ Erlang AMQP client library, you will need a few tools.
-	</p>
-
-	<p>
-	  The Erlang client libraries require a recent version of <a
-	  href="http://www.python.org/download/">Python</a>  and
-	  <a href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
-	  (an implementation of a <a href="http://json.org">JSON</a>
-	  reader and writer in Python), for generating AMQP framing code.
-          simplejson.py is included as a standard json library in the Python
-          core since 2.6 release.
-	</p>
-
-	<p>
-	  Additionally, for building the Erlang client libraries, you will need
-	</p>
-
-	<ul class="compact">
-	  <li>
-	    the <a href="http://www.erlang.org/download.html">Erlang</a>
-	    development and runtime tools<br/> If you are on a
-	    Debian-based system then you need the following packages
-	    installed as a
-	    minimum: <i>erlang-dev</i>, <i>erlang-base</i>
-	    or <i>erlang-base-hipe</i>, <i>erlang-ssl</i>,
-	    <i>erlang-os-mon</i>, <i>erlang-mnesia</i> (on some older
-	    distributions the last three are bundled
-	    into <i>erlang-nox</i>).  If you are building and
-	    installing Erlang from source then you must ensure that
-	    openssl is installed on your system.
-	  </li>
-
-	  <li>
-	    a recent version of <a href="http://www.gnu.org/software/make/">GNU make</a>
-	  </li>
-	</ul>
-
-      </doc:section>
+      <xi:include href="build-erlang-prerequisites.xml.inc"/>
 
       <doc:section name="building-erlang-client">
 	<doc:heading>Building the Erlang client libraries</doc:heading>
