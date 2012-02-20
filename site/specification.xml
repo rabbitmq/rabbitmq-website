@@ -1,7 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Compatibility and Conformance</title>
   </head>
@@ -27,7 +28,7 @@
 1-0 Draft</a> (PDF).
 	</p>
         <p>
-          The 0-9-1, 0-9 and 0-8 specifications are linked to below for
+          The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
           learn more about AMQP.  Please see our <a
           href="documentation.html">documentation</a> and, in particular, our <a
@@ -36,35 +37,9 @@
 	</p>
       </doc:section>
 
-      <doc:section name="release-version-mapping">
+    <doc:section name="release-version-mapping">
 
-
-    <table>
-	  <tr>
-        <th>Version</th>
-	    <th>Core specification</th>
-	    <th>PDF</th>
-	    <th>XML</th>
-	  </tr>
-      <tr>
-        <td>0-9-1</td>
-	    <td><a href="resources/specs/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
-	    <td><a href="resources/specs/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
-	    <td><a href="resources/specs/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-9</td>
-	    <td><a href="resources/specs/amqp0-9.pdf">amqp0-9.pdf</a></td>
-	    <td><a href="resources/specs/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
-	    <td><a href="resources/specs/amqp0-9.xml">amqp0-9.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-8</td>
-	    <td><a href="resources/specs/amqp0-8.pdf">amqp0-8.pdf</a></td>
-	    <td><a href="resources/specs/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
-	    <td><a href="resources/specs/amqp0-8.xml">amqp0-8.xml</a></td>
-      </tr>
-    </table>
+    <xi:include href="amqp-proto-download-table.xml.inc"/>
 
 	<doc:heading>Specification versions supported</doc:heading>
 	<p>
@@ -72,7 +47,7 @@
 	  protocol specification implemented by RabbitMQ release 2.0.0 and later:
 	</p>
 
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
@@ -94,7 +69,7 @@
 	  The following table describes the version of the AMQP
 	  protocol specification implemented by RabbitMQ release prior to 2.0.0:
 	</p>
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
