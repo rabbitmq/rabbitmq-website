@@ -84,20 +84,52 @@ section to the `rabbitmq_stomp` application configuration. For example:
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
+### <a id="cta.ssl"/>Authentication with SSL client certificates
+
+The STOMP adapter can authenticate SSL-based connections by extracting
+a name from the client's SSL certificate, without using a password.
+
+For safety the server must be configured with the SSL options
+`fail_if_no_peer_cert` set to `true` and `verify` set to `verify_peer`, to
+force all SSL clients to have a verifiable client certificate.
+
+To switch this feature on, set `ssl_cert_login` to `true` for the
+`rabbitmq_stomp` application. For example:
+
+    [
+      {rabbitmq_stomp, [{ssl_cert_login, true}]}
+    ].
+
+By default this will set the username to an RFC4514-ish string form of
+the certificate's subject's Distinguished Name, similar to that
+produced by OpenSSL's "-nameopt RFC2253" option.
+
+To use the Common Name instead, add:
+
+    {rabbit, [{ssl_cert_login_from, common_name}]}
+
+to your configuration.
+
+Note that:
+
+* The authenticated user must exist in the configured authentication / authorisation backend(s).
+* Clients must **not** supply `login` and `passcode` headers.
+
 ### <a id="cta.ic"/>Implicit Connect
 
-If you configure a default user, you can also choose to allow clients
-to omit the `CONNECT` frame entirely. In this mode, if the first frame
-sent on a session is not a `CONNECT`, the client is automatically
-connected *as the default user*.
+If you configure a default user or use SSL client certificate
+authentication, you can also choose to allow clients to omit the
+`CONNECT` frame entirely. In this mode, if the first frame sent on a
+session is not a `CONNECT`, the client is automatically connected as
+the default user or the user supplied in the SSL certificate.
 
 To enable implicit connect, add `implicit_connect` to the
 `default_user` configuration section. For example:
 
     [
-      {rabbitmq_stomp, [{default_user, [{login, "guest"},
-                                        {passcode, "guest"},
-                                        implicit_connect]}]}
+      {rabbitmq_stomp, [{default_user,     [{login, "guest"},
+                                            {passcode, "guest"}]},
+                        {implicit_connect, true}]}
     ].
 
 Implicit connect is *not* enabled by default.
