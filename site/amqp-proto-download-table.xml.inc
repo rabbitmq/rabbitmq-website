@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-    <table class="styled-table">
+    <table class="styled-table" xmlns="http://www.w3.org/1999/xhtml">
       <tr>
         <th>Protocol Version</th>
         <th colspan="3">Downloads</th>
