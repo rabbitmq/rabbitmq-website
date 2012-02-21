@@ -5,7 +5,8 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Protocol Documentation</title>
   </head>
@@ -46,29 +47,6 @@
       the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
       unless stated otherwise.
     </p>
-    <table class="styled-table">
-      <tr>
-        <th>Protocol Version</th>
-        <th colspan="3">Downloads</th>
-      </tr>
-      <tr>
-        <td>AMQP 0-9-1</td>
-        <td><a href="resources/specs/amqp0-9-1.pdf">Specification (pdf)</a></td>
-        <td><a href="resources/specs/amqp-xml-doc0-9-1.pdf">Documentation (pdf)</a></td>
-        <td><a href="resources/specs/amqp0-9-1.xml">Definitions (xml)</a></td>
-      </tr>
-      <tr>
-        <td>AMQP 0-9</td>
-        <td><a href="resources/specs/amqp0-9.pdf">Specification (pdf)</a></td>
-        <td><a href="resources/specs/amqp-xml-doc0-9.pdf">Documentation (pdf)</a></td>
-        <td><a href="resources/specs/amqp0-9.xml">Definitions (xml)</a></td>
-      </tr>
-      <tr>
-        <td>AMQP 0-8</td>
-        <td><a href="resources/specs/amqp0-8.pdf">Specification (pdf)</a></td>
-        <td><a href="resources/specs/amqp-xml-doc0-8.pdf">Documentation (pdf)</a></td>
-        <td><a href="resources/specs/amqp0-8.xml">Definitions (xml)</a></td>
-      </tr>
-    </table>
+    <xi:include href="amqp-proto-download-table.xml.inc"/>
   </body>
 </html>

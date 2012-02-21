@@ -59,11 +59,8 @@
     <p>
       Elsewhere on this site you can read details of <a href="specification.html">RabbitMQ's conformance
       to the specification</a>. RabbitMQ implements <a href="extensions.html">several extensions</a>
-      to the core specification that are documented in this guide.
-    </p>
-    <p>
-      You can <a href="resources/specs/amqp0-9-1.extended.xml" type="text/xml">download the extended specification</a>, which may be useful
-      if you are writing an AMQP client that supports our extensions.
+      to the core specification that are documented in this guide. The original and extended
+      specification downloads can be found on the <a href="protocol.html">protocol page</a>.
     </p>
     <p>
       You may also be interested in our <a href="amqp-0-9-1-quickref.html">Protocol &amp; API Quick Reference</a>.
