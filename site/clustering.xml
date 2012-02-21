@@ -25,7 +25,7 @@
           (note that you will need a working cluster first).
         </p>
         <p>
-          <b>RabbitMQ clustering does not tolerate network partions
+          <b>RabbitMQ clustering does not tolerate network partitions
           well</b>, so it should not be used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
           <a href="plugins.html#rabbitmq_federation">federation</a>
@@ -49,8 +49,10 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          A node can be a <em>RAM node</em> or a <em>disk
-          node</em>. RAM nodes keep their state only in memory (with
+          A node can be a <em>RAM node</em> or a <em>disk node</em>.
+          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used interchangeably.
+          Configuration syntax or status messages normally use <i>disc</i>.)
+          RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
           which are still stored safely on disc). Disk nodes keep
           state in memory and on disk. As RAM nodes don't have to
