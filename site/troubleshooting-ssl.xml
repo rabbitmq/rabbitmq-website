@@ -16,7 +16,7 @@
          Confirm that your Erlang VM has support for SSL by running the
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode">ssl:versions().</pre>
-         The output should look similar to this (with version number differerences possible):
+         The output should look similar to this (with version number differences possible):
          <pre>[{ssl_app,"5.0"},
  {supported,[tlsv1,sslv3]},
  {available,[tlsv1,sslv3]}]</pre>
@@ -31,7 +31,7 @@
        <doc:subsection name="keys-and-certs">
        <doc:heading>Verify keys and certificates with OpenSSL</doc:heading>
        <p>
-         The certificates and keys specified in <code>rabbit.config</code> can be verified
+         The certificates and keys specified in <code>rabbitmq.config</code> can be verified
          separately using OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
          and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
          For the example that follows we will assume you have the following:
@@ -70,7 +70,7 @@
          <pre class="sourcecode">openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
          If the certificates and keys have been correctly created then an SSL connection establishment
-         sequence will appear and the terminals will be linked. Input from either terminal will apear
+         sequence will appear and the terminals will be linked. Input from either terminal will appear
          on the other. If the trust chain could be established then the second terminal will display
          this confirmation: <pre>Verify return code: 0 (ok)</pre>
        </p>
@@ -119,26 +119,26 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
 
        <p>
          Attempting to establish a connection with an AMQP client that supports AMQP
-         should succeed if all the aforementioned checks pass, provided you use the
-         client uses the same certificate and key.
+         should succeed if all the aforementioned checks pass, provided the client uses
+         the same certificate and key.
        </p>
-
 
       <doc:section>
        <doc:heading>Diagnostics</doc:heading>
         <dl>
-            <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ekeyfile}</code></dt>
+            <dt>
+               The broker log has entries that contain <code>{ssl_upgrade_error, ekeyfile}</code>
+               (or <code>{ssl_upgrade_error, ecertfile}</code>)
+            </dt>
             <dd>
                <p>
-                 This means the broker keyfile is invalid. Confirm that it matches the server
-                 certificate and that it is in PEM format.
-               </p>
-            </dd>
-            <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ecertfile}</code></dt>
-            <dd>
-               <p>
-                 This means that the broker certificate is invalid. Confirm that it
-                 is in the correct format.
+                 This means the broker keyfile (or certificate file) is invalid.
+                 Confirm that the keyfile matches the certificate and that both are in PEM format.
+                 PEM format is a printable encoding with recognisable delimiters. The certificate
+                 will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
+                 <code>-----END CERTIFICATE-----</code> respectively. The keyfile will likewise
+                 start and end with <code>-----BEGIN RSA PRIVATE KEY-----</code> and
+                 <code>-----END RSA PRIVATE KEY-----</code> respectively.
                </p>
             </dd>
             <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ...}</code></dt>
