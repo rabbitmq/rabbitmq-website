@@ -46,9 +46,10 @@
         <p>
           The Generic Unix tarball is designed as far as possible to run without
           requiring configuration changes or special permissions. The
-          directories and files (excluding the <code>rabbitmq-env.conf</code>
-          file) used by default are all held under the installation directory
-          <code>rabbitmq_server-&version-server;</code>.
+          directories and files used by default are all held under the
+          installation directory <code>rabbitmq_server-&version-server;</code>
+          which is in the <span class="envvar">$RABBITMQ_HOME</span> variable in
+          the scripts.
         </p>
         <p>
           In this way, a general user may install and run RabbitMQ Server simply
@@ -72,7 +73,8 @@
           </dd>
           <dt>Configure the Server</dt>
           <dd>
-            The configuration file <code>/etc/rabbitmq/rabbitmq-env.conf</code>
+            The configuration file <code><span
+            class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</code>
             is used to override environment variables. You can <a
             href="configure.html#customise-general-unix-environment">customise
             the RabbitMQ environment</a> by altering this file. Components may
@@ -89,8 +91,8 @@
             system it is recommended you install one of the packages designed
             for your platform. However, it is possible to alter the Generic Unix
             installation so that it uses the more conventional system
-            directories as the defaults for its database, log files, plugins
-            etc.
+            directories as the defaults for its configuration, database, log
+            files, plugins etc.
           </p>
           <p>
             This is controlled by the line
@@ -115,6 +117,8 @@ SYS_PREFIX=
             server will attempt to create them at startup), and the
             <strong>RABBITMQ_ENABLED_PLUGINS_FILE</strong> will need to be
             writable (for <code>rabbitmq-plugins</code>).
+            The configuration file <code>rabbitmq-env.conf</code> will be
+            looked for in <code>/etc/rabbitmq/</code>.
           </p>
       </doc:subsection>
 
