@@ -295,6 +295,14 @@ to the session and automatically subscribes to that queue.
 A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
+The internal subscription id is a concatenation of the string
+`/temp-queue/` and the temporary queue (so `/temp-queue/foo`
+in this example). The subscription id can be used to identify reply
+messages. Reply messages cannot be identified from the `destination`
+header, which will be different from the value in the `reply-to`
+header. The internal subscription uses auto-ack mode and it cannot be
+cancelled.
+
 The `/temp-queue/` destination is ***not*** the name of the destination
 that the receiving client uses when sending the reply. Instead, the
 receiving client can obtain the (real) reply destination queue name
