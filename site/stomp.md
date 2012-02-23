@@ -123,8 +123,8 @@ authentication, you can also choose to allow clients to omit the
 session is not a `CONNECT`, the client is automatically connected as
 the default user or the user supplied in the SSL certificate.
 
-To enable implicit connect, add `implicit_connect` to the
-`default_user` configuration section. For example:
+To enable implicit connect, set `implicit_connect` to `true` for the
+`rabbit_stomp` application. For example:
 
     [
       {rabbitmq_stomp, [{default_user,     [{login, "guest"},
