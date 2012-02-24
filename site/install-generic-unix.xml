@@ -99,7 +99,7 @@
 <pre class="sourcecode">
 SYS_PREFIX=${RABBITMQ_HOME}
 </pre>
-            in the <code>sbin/rabbitmq-sys</code> script.
+            in the <code>sbin/rabbitmq-sys-defaults</code> script.
           </p>
           <p>
             To set the RabbitMQ system defaults to be identical to the general
