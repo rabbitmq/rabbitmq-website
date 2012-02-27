@@ -649,8 +649,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             Note that the exchange does not have to be declared when
             the queue is declared, but it should exist by the time
             messages need to be dead-lettered; if it is missing then,
-            the queue will crash and all messages on it will be
-            discarded.
+            the messages will be silently dropped.
           </p>
 
           <p>
