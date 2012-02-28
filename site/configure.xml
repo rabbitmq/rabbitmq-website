@@ -304,7 +304,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <p>
            This configuration file is not the same as
           <code>rabbitmq-env.conf</code>, which can be used to set environment
-          variables on non-windows systems.
+          variables on non-windows systems. A future release of RabbitMQ will unify the two configuration
+          mechanisms.
         </p>
         </doc:subsection>
 
@@ -314,13 +315,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           The location of these files is distribution-specific. By default, they
           are not created, but expect to be located in the following places on each platform:
           <ul>
-            <li><b>Generic UNIX</b> - both in
-              <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/</span>
+            <li><b>Generic UNIX</b> - <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/</span>
             </li>
-            <li><b>Debian</b> - both in <span class="path">/etc/rabbitmq/</span></li>
-            <li><b>RPM</b> - both in <span class="path">/etc/rabbitmq/</span></li>
-            <li><b>Mac OS X (Macports)</b> - both in <span class="path">/opt/local/etc/rabbitmq/</span></li>
-            <li><b>Windows</b> - both in <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\</span></li>
+            <li><b>Debian</b> - <span class="path">/etc/rabbitmq/</span></li>
+            <li><b>RPM</b> - <span class="path">/etc/rabbitmq/</span></li>
+            <li><b>Mac OS X (Macports)</b> - <span class="path">/opt/local/etc/rabbitmq/</span></li>
+            <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\</span></li>
           </ul>
         </p>
         <p>

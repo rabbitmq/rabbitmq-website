@@ -30,13 +30,13 @@
       <tr>
         <td>RABBITMQ_CONFIG_FILE</td>
         <td>
-          The name of the configuration file, without the <code>.config</code> extension.
-          If the <a href="configure.html#configuration-file">configuration file</a>
-          is present it is used by the server to configure
-          RabbitMQ components.
-          This file is also used to <a
-          href="clustering.html#auto-config">auto-configure RabbitMQ
-          clusters</a>.
+          The name of the configuration file, without
+          the <code>.config</code> extension. If
+          the <a href="configure.html#configuration-file">configuration
+          file</a> is present it is used by the server to configure
+          RabbitMQ components.  This file is also used
+          to <a href="clustering.html#auto-config">auto-configure
+          RabbitMQ clusters</a>.
         </td>
       </tr>
       <tr>
