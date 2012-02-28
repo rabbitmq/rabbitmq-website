@@ -234,8 +234,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             In addition, there are several environment variables which
             tell RabbitMQ <a href="relocate.html">where to locate its
-            database, log files, plugins etc.</a> and in particular where to
-            locate the <code>rabbitmq.config</code> file.
+            database, log files, plugins, configuration etc</a>.
           </p>
 
           <p>
