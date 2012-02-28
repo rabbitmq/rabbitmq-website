@@ -118,8 +118,7 @@
     <doc:section name="unix">
       <doc:heading>Unix Default Locations</doc:heading>
       <p>
-        (Unix is taken to include Linux and OS X, except the Generic
-        Unix download - see below)
+        These are locations used by Deb / RPM packages, and Macports.
       </p>
       <table>
         <th>Name</th><th>Location</th>
@@ -282,11 +281,12 @@
     <doc:section name="generic-unix">
       <doc:heading>Generic Unix Default Locations</doc:heading>
       <p>
-        These are the defaults obtained when unpacking the Generic Unix tar-file
-        and running the server without modification. In this table <span
-        class="envvar">$RABBITMQ_HOME</span> refers to the directory
-        <code>rabbitmq_server-&version-server;</code> produced when unpacking
-        the download.
+        These are the defaults obtained when unpacking the Generic
+        Unix tar-file and running the server without modification. In
+        this table <span class="envvar">$RABBITMQ_HOME</span> refers
+        to the directory
+        <code>rabbitmq_server-&version-server;</code> produced when
+        unpacking the download.
       </p>
       <table>
         <th>Name</th><th>Location</th>

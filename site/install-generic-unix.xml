@@ -45,16 +45,13 @@
       <doc:subsection name="running-generic-unix">
         <doc:heading>Run RabbitMQ Server</doc:heading>
         <p>
-          The Generic Unix tarball is designed as far as possible to run without
-          requiring configuration changes or special permissions. The
-          directories and files used by default are all held under the
-          installation directory <code>rabbitmq_server-&version-server;</code>
-          which is in the <span class="envvar">$RABBITMQ_HOME</span> variable in
-          the scripts.
-        </p>
-        <p>
-          In this way, a general user may install and run RabbitMQ Server simply
-          by unpacking a tar file.
+          The Generic Unix tarball is designed as far as possible to
+          run without requiring configuration changes or special
+          permissions. The directories and files used by default are
+          all held under the installation
+          directory <code>rabbitmq_server-&version-server;</code>
+          which is in the <span class="envvar">$RABBITMQ_HOME</span>
+          variable in the scripts.
         </p>
         <dl class="instructions">
           <dt>Start the Server</dt>
