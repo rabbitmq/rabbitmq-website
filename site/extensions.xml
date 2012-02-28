@@ -715,24 +715,6 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           </p>
         </doc:subsection>
         <doc:subsection>
-          <doc:heading>Consuming Dead-Lettered Messages</doc:heading>
-          <p>
-            Dead-lettered messages can be consumed in the same way as
-            any message.
-          </p>
-          <p>
-            Simply create a queue and bind it to the dead letter
-            exchange with the relevant routing key. Now a bind a
-            consumer to this queue and process your dead messages as
-            needed.
-          </p>
-          <p>
-            To capture all dead-lettered messages regardless of
-            routing key, use a <code>fanout</code> exchange for your
-            dead letter exchange.
-          </p>
-        </doc:subsection>
-        <doc:subsection>
           <doc:heading>Dead-Lettered Messages</doc:heading>
           <p>
             Dead-lettering a message modifies its headers:
