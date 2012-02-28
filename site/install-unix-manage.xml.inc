@@ -9,13 +9,13 @@
     report the node absence if no broker is running.
   </p>
   <ul>
-    <li>Use <code>rabbitmqctl stop</code> to stop the server.
-      Alternatively, just terminate the Erlang process.</li>
+    <li>Use <code>rabbitmqctl stop</code> to stop both the server and the Erlang
+      node on which it is running.</li>
     <li>Use <code>rabbitmqctl status</code> to check whether it is
       running.</li>
   </ul>
   <p>
-    More <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl</a>
+    More <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl</a>.
   </p>
 
   <h3>Logging</h3>

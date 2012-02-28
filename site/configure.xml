@@ -64,7 +64,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
               <code><span class="path">rabbitmq-env.conf</span></code>
               to define environment variables.
               Its <a href="#config-location">location</a> is not configurable
-              (unlike rabbitmq.config, which is by default in the same directory).
+              (unlike <code>rabbitmq.config</code>).
             </p>
             <p>
               Use the standard environment variable names
@@ -234,7 +234,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <p>
             In addition, there are several environment variables which
             tell RabbitMQ <a href="relocate.html">where to locate its
-            database, log files, plugins etc.</a>
+            database, log files, plugins etc.</a> and in particular where to
+            locate the <code>rabbitmq.config</code> file.
           </p>
 
           <p>
@@ -304,8 +305,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <p>
            This configuration file is not the same as
           <code>rabbitmq-env.conf</code>, which can be used to set environment
-          variables on non-windows systems. A future release of RabbitMQ will unify the two configuration
-          mechanisms.
+          variables on non-windows systems.
         </p>
         </doc:subsection>
 
@@ -315,11 +315,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           The location of these files is distribution-specific. By default, they
           are not created, but expect to be located in the following places on each platform:
           <ul>
-            <li><b>Generic UNIX</b> - <span class="path">/etc/rabbitmq/</span></li>
-            <li><b>Debian</b> - <span class="path">/etc/rabbitmq/</span></li>
-            <li><b>RPM</b> - <span class="path">/etc/rabbitmq/</span></li>
-            <li><b>Mac OS X (Macports)</b> - <span class="path">/opt/local/etc/rabbitmq/</span></li>
-            <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\</span></li>
+            <li><b>Generic UNIX</b> - both in
+              <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/</span>
+            </li>
+            <li><b>Debian</b> - both in <span class="path">/etc/rabbitmq/</span></li>
+            <li><b>RPM</b> - both in <span class="path">/etc/rabbitmq/</span></li>
+            <li><b>Mac OS X (Macports)</b> - both in <span class="path">/opt/local/etc/rabbitmq/</span></li>
+            <li><b>Windows</b> - both in <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\</span></li>
           </ul>
         </p>
         <p>
