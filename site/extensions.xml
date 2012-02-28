@@ -630,7 +630,7 @@ channel.basicConsume(queue, consumer);</pre>
           </p>
 
           <p>
-            To set the dead letter exchange for a queue, simply set
+            To set the dead letter exchange for a queue, set
             the <code>x-dead-letter-exchange</code> argument to the
             name of the exchange:
           </p>
@@ -737,8 +737,8 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           <p>
             Dead-lettering a message modifies its headers:
             <ul>
-              <li>the exchange name is replaced with that of latest
-              dead-letter exchange,</li>
+              <li>the exchange name is replaced with that of the
+              latest dead-letter exchange,</li>
               <li>the routing key may be replaced with that specified
               in a dead letter queue,</li>
               <li>if the above happens, the <code>CC</code> header
@@ -771,8 +771,8 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             </ul>
           </p>
           <p>
-            The <code>reason</code> is a simple code describing why
-            the message was dead-lettered and is one of the following:
+            The <code>reason</code> is a name describing why the
+            message was dead-lettered and is one of the following:
 
             <ul>
               <li><code>expired</code> - the TTL of the message
