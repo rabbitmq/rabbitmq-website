@@ -118,7 +118,14 @@
     <doc:section name="unix">
       <doc:heading>Unix Default Locations</doc:heading>
       <p>
-        These are locations used by Deb / RPM packages, and Macports.
+        In the following table the <code>${install_prefix}</code> to
+        some paths is indicated. Macports installations use the
+        <i>installation-prefix</i> set when Macports is installed. By
+        default this is <code>/opt/local</code>.
+      </p>
+      <p>
+        Deb / RPM package installations use an empty
+        <code>${install_prefix}</code>.
       </p>
       <table>
         <th>Name</th><th>Location</th>
@@ -131,13 +138,13 @@
         <tr>
           <td>RABBITMQ_CONFIG_FILE</td>
           <td>
-            <span class="path">/etc/rabbitmq/rabbitmq</span>
+            <span class="path"><span class="envvar">${install_prefix}</span>/etc/rabbitmq/rabbitmq</span>
           </td>
         </tr>
         <tr>
           <td>RABBITMQ_MNESIA_BASE</td>
           <td>
-            <span class="path">/var/lib/rabbitmq/mnesia</span>
+            <span class="path"><span class="envvar">${install_prefix}</span>/var/lib/rabbitmq/mnesia</span>
           </td>
         </tr>
         <tr>
@@ -150,7 +157,7 @@
         <tr>
           <td>RABBITMQ_LOG_BASE</td>
           <td>
-            <span class="path">/var/log/rabbitmq</span>
+            <span class="path"><span class="envvar">${install_prefix}</span>/var/log/rabbitmq</span>
           </td>
         </tr>
 
@@ -185,7 +192,7 @@
         <tr>
           <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
           <td>
-            <span class="path">/etc/rabbitmq/enabled_plugins</span>
+            <span class="path"><span class="envvar">${install_prefix}</span>/etc/rabbitmq/enabled_plugins</span>
           </td>
         </tr>
 
@@ -367,13 +374,5 @@
       </table>
     </doc:section>
 
-    <p>
-      Except for the Generic Unix table, paths are given relative to the
-      installation directory prefix.
-      For example Mac OSX (macports) are normally based in
-      <code><span class="path">/opt/local/</span></code>, or
-      <code><span class="path">/usr/local</span></code> on
-      Mac OSX (homebrew) and some BSD installations.
-    </p>
   </body>
 </html>

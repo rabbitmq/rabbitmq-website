@@ -41,7 +41,7 @@
         <p>
           <b>Note: </b> Releases prior to 2.7.0 did not include
           plugins with the server, and any plugins that were installed
-          were always activated; <b>rabbitmq-plugins</b> did not
+          were always activated; <code>rabbitmq-plugins</code> did not
           exist. You can download binary plugin files for older
           releases from <a href="/releases/plugins/">the
           archive</a>. Note further that we did not make binary
@@ -198,7 +198,8 @@
         <tr>
           <th>Macports</th>
           <td>
-            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
           </td>
         </tr>
         <tr>
