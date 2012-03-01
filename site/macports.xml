@@ -7,8 +7,8 @@
   </head>
   <body>
     <p class="intro">
-      This page describes how to use the rabbitmq.com MacPorts
-      repository to install the latest server release.
+      This page describes how to use the <code>rabbitmq.com</code>
+      MacPorts repository to install the latest server release.
     </p>
       
     <p>
@@ -20,12 +20,13 @@
     </p>
     
     <p>
-      Once you have installed MacPorts, enable the rabbitmq.com
-      repository as follows:
+      Once you have installed MacPorts, note the installation
+      <code>${install_prefix}</code> (default <code>/opt/local</code>) and enable the
+      <code>rabbitmq.com</code> repository as follows:
     </p>
     
     <ol>
-      <li>Open <code>/opt/local/etc/macports/sources.conf</code>
+      <li>Open <code>${install_prefix}/etc/macports/sources.conf</code>
       in a text editor, and add the following <code>http:</code> URL
       before the existing <code>rsync:</code> URL like so:
       
