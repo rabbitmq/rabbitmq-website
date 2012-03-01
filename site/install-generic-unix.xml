@@ -44,15 +44,6 @@
 
       <doc:subsection name="running-generic-unix">
         <doc:heading>Run RabbitMQ Server</doc:heading>
-        <p>
-          The Generic Unix tarball is designed as far as possible to
-          run without requiring configuration changes or special
-          permissions. The directories and files used by default are
-          all held under the installation
-          directory <code>rabbitmq_server-&version-server;</code>
-          which is in the <span class="envvar">$RABBITMQ_HOME</span>
-          variable in the scripts.
-        </p>
         <dl class="instructions">
           <dt>Start the Server</dt>
           <dd>
@@ -82,26 +73,30 @@
         </dl>
       </doc:subsection>
 
-      <doc:subsection name="general-generic-unix">
-        <doc:heading>Configure Generic Unix RabbitMQ Server For General Use</doc:heading>
+      <doc:subsection name="">
+        <doc:heading>File Locations</doc:heading>
+        <p>
+          The Generic Unix tarball is designed as far as possible to
+          run without requiring configuration changes or special
+          permissions. The directories and files used by default are
+          all held under the installation
+          directory <code>rabbitmq_server-&version-server;</code>
+          which is in the <span class="envvar">$RABBITMQ_HOME</span>
+          variable in the scripts.
+        </p>
+
+        <p>
+          Should you wish to install RabbitMQ Server such that it uses
+          the conventional system directories for configuration,
+          database, log files, plugins etc, it is possible to do this.
+        </p>
           <p>
-            Should you wish to install RabbitMQ Server for general use on your
-            system it is recommended you install one of the packages designed
-            for your platform. However, it is possible to alter the Generic Unix
-            installation so that it uses the more conventional system
-            directories as the defaults for its configuration, database, log
-            files, plugins etc.
-          </p>
-          <p>
-            This is controlled by the line
+            Find the line:
 <pre class="sourcecode">
 SYS_PREFIX=${RABBITMQ_HOME}
 </pre>
-            in the <code>sbin/rabbitmq-defaults</code> script.
-          </p>
-          <p>
-            To set the RabbitMQ default locations to be identical to the general
-            unix defaults, change this line to
+            in the <code>sbin/rabbitmq-defaults</code> script and
+            change this change this line to:
 <pre class="sourcecode">
 SYS_PREFIX=
 </pre>
@@ -113,14 +108,30 @@ SYS_PREFIX=
             <strong>RABBITMQ_MNESIA_BASE</strong> and
             <strong>RABBITMQ_LOG_BASE</strong> may need to be created (the
             server will attempt to create them at startup), and the
-            <strong>RABBITMQ_ENABLED_PLUGINS_FILE</strong> will need to be
-            writable (for <code>rabbitmq-plugins</code>).
-            The configuration file <code>rabbitmq-env.conf</code> will be
-            looked for in <code>/etc/rabbitmq/</code>.
+            <strong>RABBITMQ_ENABLED_PLUGINS_FILE</strong> will need
+            to be writable (for <code>rabbitmq-plugins</code>).  The
+            configuration files will be looked for
+            in <code>/etc/rabbitmq/</code>.
           </p>
       </doc:subsection>
-
     </doc:section>
-    <xi:include href="install-unix-manage.xml.inc"/>
+
+    <doc:section>
+      <doc:heading>Managing the Broker</doc:heading>
+      <p>
+        To stop the server or check its status, etc., you can use
+        <code>rabbitmqctl</code> (as the user running
+        <code>rabbitmq-server</code>). All <code>rabbitmqctl</code>
+        commands will report the node absence if no broker is running.
+      </p>
+      <ul>
+        <li>Use <code>rabbitmqctl stop</code> to stop the server.</li>
+        <li>Use <code>rabbitmqctl status</code> to check whether it is
+          running.</li>
+      </ul>
+      <p>
+        More <a href="man/rabbitmqctl.1.man.html">info on rabbitmqctl</a>.
+      </p>
+    </doc:section>
   </body>
 </html>
