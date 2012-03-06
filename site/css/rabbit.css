@@ -56,10 +56,14 @@ h1, h2, h3  {
 	height: 42px;
 }
 
-div.vmw-logo {
-	float:right;
-	margin: 10px 0 0 0;
-	height: 70px;
+#vmw-logo {
+	float: right;
+	margin: 15px 0 0 0;
+}
+
+div#nav-search {
+    padding-top: 5px;
+    clear: both;
 }
 
 div#search-box {
@@ -174,9 +178,8 @@ div.docRoadmapentryHeading {
 
 ul.mainNav {
 	text-align: left;
-	padding-top: 45px;
 	height: 21px;
-	clear: left;
+        padding-top: 5px;
 }
 
 .mainNav li {

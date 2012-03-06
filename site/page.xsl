@@ -65,21 +65,23 @@
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
-      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
+      <a href="/"><img src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="204" height="37"/></a>
     </div>
-    <div class="vmw-logo">     
-      <a href="http://www.vmware.com/go/rabbitmq"><img style="margin-top: 0px; zoom: 50%" border="0" src="/img/vmw_logo_09q3.png" alt="VMware" width="268" height="41"/></a>
+    <div id="vmw-logo">
+      <a href="http://www.vmware.com/go/rabbitmq"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="150" height="23"/></a>
     </div>
-    <div id="search-box">
-      <form action="/search.html" method="get">
-        <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
-        <input type="submit" id="search-button" alt="Search" value="" />
-      </form>
+    <div id="nav-search">
+      <div id="search-box">
+        <form action="/search.html" method="get">
+          <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+          <input type="submit" id="search-button" alt="Search" value="" />
+        </form>
+      </div>
+      <ul class="mainNav">
+        <xsl:call-template name="main-nav"/>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
     </div>
-    <ul class="mainNav">
-      <xsl:call-template name="main-nav"/>
-      <li><a href="/blog/">Blog</a></li>
-    </ul>
     <div class="nav-separator"/>
   </xsl:template>
 
