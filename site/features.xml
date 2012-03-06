@@ -11,7 +11,23 @@
   </head>
   <body>
       <p class="intro">
-    	Talk about messaging. Asynchrony, decoupling, etc.
+        Messaging enables software applications to connect and scale.
+        Applications can connect to each other, as components of a
+        larger application, or to user devices and data.  Messaging is
+        asynchronous, decoupling applications by separating sending
+        and receiving data.
+      </p>
+      <p>
+        You may be thinking of data delivery, non-blocking operations
+        or push notifications. Or you want to use publish / subscribe,
+        asynchronous processing, or work queues. All these are
+        patterns, and they form part of messaging.
+      </p>
+      <p>
+        RabbitMQ is a messaging broker - an intermediary for
+        messaging. It gives your applications a common platform to
+        send and receive messages, and your messages a safe place to
+        live until received.
       </p>
 
       <doc:section>
