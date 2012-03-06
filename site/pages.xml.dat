@@ -70,6 +70,7 @@
          </x:page>
        </x:page>
        <x:related url="/management.html"/>
+       <x:related url="/federation.html"/>
        <x:related url="/extensions.html"/>
        <x:related url="/changelog.html"/>
      </x:page>
@@ -88,6 +89,7 @@
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
+       <x:page url="/federation.html" text="Federation plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>

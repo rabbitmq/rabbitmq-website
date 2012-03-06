@@ -67,9 +67,8 @@
 
           <r:plugin name="rabbitmq_federation">
             Scalable publish / subscribe messaging across WANs and
-            administrative domains. See the
-            <r:readme-link repo="rabbitmq-federation"/> for more
-            information.
+            administrative domains. See <a href="federation.html">the
+            page on the federation plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_management">
