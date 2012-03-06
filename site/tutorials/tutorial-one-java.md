@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - "Hello World!"
+# RabbitMQ tutorial - "Hello World!" SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-one">
   <xi:include href="tutorials-menu.xml.inc"/>
@@ -36,10 +36,10 @@ RabbitMQ, and messaging in general, uses some jargon.
  * _A queue_ is the name for a mailbox. It lives inside
    RabbitMQ. Although messages flow through RabbitMQ and your
    applications, they can be stored only inside a _queue_. A _queue_
-   is not bound by any limits, it can store how many messages you
+   is not bound by any limits, it can store as many messages as you
    like - it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
-   receive data from one _queue_. A queue will be drawn as like that, with
+   messages that go to one queue - many _consumers_ can try to
+   receive data from one _queue_. A queue will be drawn like this, with
    its name above it:
    <div class="diagram">
      <img src="/img/tutorials/queue.png" height="90" />
@@ -85,7 +85,7 @@ the Java API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
-box in the middle is a queue -- a message buffer that RabbitMQ keeps
+box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
@@ -169,8 +169,8 @@ to the queue:
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 
-Declaring a queue is idempotent; it will be created if it doesn't
-exist already. The message contents is a byte array, so you can encode
+Declaring a queue is idempotent - it will only be created if it doesn't
+exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 Lastly, we close the channel and the connection;
@@ -205,7 +205,7 @@ messages pushed to us by the server.
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
-Note this matches up with the queue `send` publishes to.
+Note this matches up with the queue that `send` publishes to.
 
     :::java
     public class Recv {
@@ -272,7 +272,7 @@ then, run the receiver:
     :::bash
     $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 
-Use a semicolon instead of a colon to separate items in the classpath on Windows.
+On Windows, use a semicolon instead of a colon to separate items in the classpath.
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
@@ -285,7 +285,7 @@ Hello World!
 Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
 
 > ####Hint
-> You can set an environment variable for the jar files on the classpath e.g.
+> To save typing, you can set an environment variable for the classpath e.g.
 >
 >      $ export CP=.:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
 >      $ java -cp $CP Send

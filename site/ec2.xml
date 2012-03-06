@@ -1,24 +1,16 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype" 
-"otherwise css isn't included" [
+<!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
 ]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ on Amazon EC2</title>
+    <title>Amazon EC2</title>
   </head>
   <body>
-
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-    </doc:div>
-    <br/>
-
 <doc:section name="ec2">
-  <doc:heading>RabbitMQ on Amazon EC2</doc:heading>
   <p>
     Using RabbitMQ on EC2 is no more complex than running it on other
     platforms. Although we don't support our own AMI images, we make
@@ -71,13 +63,9 @@
   <doc:subsection name="install">
     <doc:heading>Install RabbitMQ</doc:heading>
     <p>
-      Once your Amazon EC2 instance is up and running, you can follow
-      the <a href="server.html">usual RabbitMQ installation steps</a>.
-    </p>
-    <p>
       Ubuntu ships with RabbitMQ but it's often not the latest
       version. If you want the recent version, you may use
-      our <a href="http://www.rabbitmq.com/debian.html">Debian
+      our <a href="install-debian.html">Debian
       repository</a>. Here is a shell
       script <code>rabbitmq-user-data.sh</code> that automates
       RabbitMQ installation on Ubuntu:
@@ -140,7 +128,7 @@ apt-get -qy install rabbitmq-server</pre>
   </doc:subsection>
 
 
-  <doc:subsection name="ebs">
+  <doc:subsection name="issues-hostname">
     <doc:heading>Issues with hostname</doc:heading>
     <p>
       RabbitMQ names the database directory using the
@@ -192,6 +180,5 @@ sending rate: 4989 msg/s</pre>
   <p>
     If you have any comments please <a href="contact.html">let us know</a>.
   </p>
-
-</body>
+  </body>
 </html>

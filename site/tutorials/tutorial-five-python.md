@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - Topics
+# RabbitMQ tutorial - Topics SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-five">
    <xi:include href="tutorials-menu.xml.inc"/>
@@ -8,7 +8,7 @@
 
 
 ## Topics
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
@@ -28,7 +28,7 @@ routes logs based on both severity (info/warn/crit...) and facility
 (auth/cron/kern...).
 
 That would give us a lot of flexibility - we may want to listen to
-just critical errors coming from 'cron' and all logs from 'kern'.
+just critical errors coming from 'cron' but also all logs from 'kern'.
 
 To implement that in our logging system we need to learn about a more
 complex `topic` exchange.
@@ -45,7 +45,7 @@ connected to the message. A few valid routing key examples:
 many words in the routing key as you like, up to the limit of 255
 bytes.
 
-Binding key must also be in the same form. The logic behind the
+The binding key must also be in the same form. The logic behind the
 `topic` exchange is similar to a `direct` one - a message sent with a
 particular routing key will be delivered to all the queues that are
 bound with a matching binding key. However there are two important
@@ -54,7 +54,7 @@ special cases for binding keys:
   * `*` (star) can substitute for exactly one word.
   * `#` (hash) can substitute for zero or more words.
 
-It's easiest to explain that in the example:
+It's easiest to explain this in an example:
 
 <div class="diagram">
   <img src="/img/tutorials/python-five.png" height="170" />
@@ -94,16 +94,16 @@ It's easiest to explain that in the example:
   </div>
 </div>
 
-In this example, we're going to send messages that all describe
+In this example, we're going to send messages which all describe
 animals. The messages will be sent with a routing key that consists of
-three words (two dots). The first word in routing key
+three words (two dots). The first word in the routing key
 will describe a celerity, second a colour and third a species:
 "`<celerity>.<colour>.<species>`".
 
 We created three bindings: Q1 is bound with binding key "`*.orange.*`"
 and Q2 with "`*.*.rabbit`" and "`lazy.#`".
 
-This bindings can be summarised as:
+These bindings can be summarised as:
 
   * Q1 is interested in all the orange animals.
   * Q2 wants to hear everything about rabbits, and everything about lazy
@@ -119,7 +119,7 @@ be delivered to the second queue only once, even though it matches two bindings.
 
 What happens if we break our contract and send a message with one or
 four words, like "`orange`" or "`quick.orange.male.rabbit`"? Well,
-such messages won't match any bindings and will be lost.
+these messages won't match any bindings and will be lost.
 
 On the other hand "`lazy.orange.male.rabbit`", even though it has four
 words, will match the last binding and will be delivered to the second
@@ -138,7 +138,7 @@ queue.
 Putting it all together
 -----------------------
 
-We're going to use the `topic` exchange in our logging system. We'll
+We're going to use a `topic` exchange in our logging system. We'll
 start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
@@ -151,7 +151,7 @@ The code for `emit_log_topic.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -172,7 +172,7 @@ The code for `receive_logs_topic.py`:
     import pika
     import sys
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -180,7 +180,7 @@ The code for `receive_logs_topic.py`:
                              type='topic')
 
     result = channel.queue_declare(exclusive=True)
-    queue_name = result.queue
+    queue_name = result.method.queue
 
     binding_keys = sys.argv[1:]
     if not binding_keys:
@@ -193,6 +193,7 @@ The code for `receive_logs_topic.py`:
                            routing_key=binding_key)
 
     print ' [*] Waiting for logs. To exit press CTRL+C'
+    
     def callback(ch, method, properties, body):
         print " [x] %r:%r" % (method.routing_key, body,)
 
@@ -200,28 +201,33 @@ The code for `receive_logs_topic.py`:
                           queue=queue_name,
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 To receive all the logs run:
 
-    python receive_logs_topic.py '#'
+    :::bash
+    python receive_logs_topic.py "#"
 
-To receive all logs from the facility 'kern':
+To receive all logs from the facility "`kern`":
 
-    python receive_logs_topic.py 'kern.*'
+    :::bash
+    python receive_logs_topic.py "kern.*"
 
-Or if you want to hear only about 'critical' logs:
+Or if you want to hear only about "`critical`" logs:
 
-    python receive_logs_topic.py '*.critical'
+    :::bash
+    python receive_logs_topic.py "*.critical"
 
 You can create multiple bindings:
 
-    python receive_logs_topic.py 'kern.*' '*.critical'
+    :::bash
+    python receive_logs_topic.py "kern.*" "*.critical"
 
 
 And to emit a log with a routing key "`kern.critical`" type:
 
-    python emit_log_topic.py 'kern.critical' 'A critical kernel error'
+    :::bash
+    python emit_log_topic.py "kern.critical" "A critical kernel error"
 
 
 Have fun playing with these programs. Note that the code doesn't make
@@ -233,31 +239,33 @@ Some teasers:
  * Will "`*`" binding catch a message sent with an empty routing key?
    <div class="teaser_answer">
        No.
-       ./receive_logs_topic.py '&#42;'
-       ./emit_log_topic.py ''
+       ./receive_logs_topic.py "&#42;"
+       ./emit_log_topic.py ""
    </div>
  * Will "`#.*`" catch a message with a string "`..`" as a key? Will
    it catch a message with a single word key?
    <div class="teaser_answer">
        No. (but I don't know why!)
-       ./receive_logs_topic.py '#.&#42;'
-       ./emit_log_topic.py '..'
+       ./receive_logs_topic.py "#.&#42;"
+       ./emit_log_topic.py ".."
        Yes
-       ./receive_logs_topic.py '#.&#42;'
-       ./emit_log_topic.py 'a'
+       ./receive_logs_topic.py "#.&#42;"
+       ./emit_log_topic.py "a"
    </div>
  * How different is "`a.*.#`" from "`a.#`"?
    <div class="teaser_answer">
        'a.&#42;.#' matches anything that has two words or more, and the first
        word is 'a'. But 'a.#' matches anything that has one word or more
        with the first word set to 'a'.
-       ./receive_logs_topic.py 'a.*.#'
-       ./emit_log_topic.py 'a.b'
-       ./receive_logs_topic.py 'a.#'
-       ./emit_log_topic.py 'a.b'
+       ./receive_logs_topic.py "a.*.#"
+       ./emit_log_topic.py "a.b"
+       ./receive_logs_topic.py "a.#"
+       ./emit_log_topic.py "a.b"
    </div>
 
-(Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py) and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
+(Full source code for [emit_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_topic.py)
+and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
+Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
 
 </div>

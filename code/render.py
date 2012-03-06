@@ -14,7 +14,7 @@ except ImportError:
             self.OK = 0
     apache = StubApache()
 
-SITE_DIR='/srv/www.rabbitmq.com/site/'
+SITE_DIR='define_me_before_use'
 
 def preprocess_markdown(fpath):
     contents = open(fpath).read()
@@ -24,27 +24,51 @@ def preprocess_markdown(fpath):
 
     title = re.search("^#\s*(\S.*\S)\s*$", contents, re.M)
     contents = contents[0:title.start()] + contents[title.end():]
+    title = title.group(1)
+
+    entities = open(os.path.join(SITE_DIR, 'rabbit.ent')).read()
+    entities = '\n'.join(entities.split('\n')[1:])
+
+    nosyntax = re.search("NOSYNTAX", title)
+    if nosyntax:
+        title = re.sub("NOSYNTAX", "", title)
+
+    suppressRHS = re.search("SUPPRESS-RHS", title)
+    if suppressRHS:
+        title = re.sub("SUPPRESS-RHS", "", title)
 
     pre = """<?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:xi="http://www.w3.org/2003/XInclude">
-  <head>
+<!DOCTYPE html [
+%s
+<!ENTITY nbsp "&#160;">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2003/XInclude">""" % entities
+
+    head = """<head>
     <title>%s</title>
   </head>
-  <body>
-""" % (title.group(1),)
+  <body%s>
+""" % (title, suppressRHS and ' suppress-rhs="true"' or '')
 
     post = """</body>
 </html>
 """
-    processed = markdown.markdown(contents, ["codehilite(css_class=highlight)"])
-    whole = pre + processed + post
+    if nosyntax:
+        args = []
+    else:
+        args = ["codehilite(css_class=highlight)"]
+
+    processed = markdown.markdown(contents, args)
+
+    # Unfortunately we can't stop markdown escaping entities. Unescape them.
+    processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
+
+    whole = pre + head + processed + post
     return libxml2.createMemoryParserCtxt(whole, len(whole))
 
-MARKUPS=[
-    ('.xml', libxml2.createFileParserCtxt),
-    ('.md', preprocess_markdown)
-]
+MARKUPS={'.xml': libxml2.createFileParserCtxt,
+         '.md':  preprocess_markdown}
 
 class Error404(Exception):
     pass
@@ -80,15 +104,21 @@ def render_page(page_name):
             match = re.compile('.*href="(.*)"').match(child.getContent())
             if match:
                 xslt_file_name = match.group(1)
-                xslt_doc = libxml2.parseFile(os.path.join(SITE_DIR, xslt_file_name))
+                # PARSE_NOENT means "substitute entities". This is needed by
+                # the XSL for the plugins page.
+                xslt_doc = libxml2.readFile(
+                    os.path.join(SITE_DIR, xslt_file_name),
+                    "UTF-8",
+                    libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page_name': "'%s'" % page_name})                
+                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'/%s.html'" % page_name})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500
 
 def create_xml_context(page_name):
-    for (ext, ctxt_maker) in MARKUPS:
+    for ext in MARKUPS:
+        ctxt_maker = MARKUPS[ext]
         file_name = page_name + ext
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):

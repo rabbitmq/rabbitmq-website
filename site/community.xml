@@ -1,71 +1,35 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Community</title>
+    <title>Community Contributions to RabbitMQ</title>
   </head>
   <body>
-    <doc:div>    
-    
-    <h2>Community</h2>
-    
-    <p>See <a href="how.html">a summary of recent highlights</a> and our <a href="devtools.html">client and developer tools</a> page. Use these forums 
-    to keep up to date with all developments:</p>
-  
-      <div class="col columnLeft">      
-      <h3>Mailing list</h3>
-      <ul>
-	<li>There is a <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing list</a> dedicated to
-        RabbitMQ. Everyone is welcome to join and ask questions but please make sure your question hasn't been answered before
-        by searching the archives.
-	</li>
-      </ul>   
-      </div>            
-      <div class="col columnRight">      
-	<h3>IRC chat</h3>
-	<ul>
-	  <li>
-	  RabbitMQ developers are also sometimes available to chat rabbitmq on irc.freenode.net 
-	  (see also <a href="http://freenode.net/">http://freenode.net/</a>) in channel 
-	  <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>. 
-	  <p>The logs of these conversations are available here: 
-	  <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.</p>
-	  <p>You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> 
-	  if you don't have an IRC client installed.</p>
-	  </li>
-	</ul>
-      </div>    
-      
-      <div class="clear"></div>
- 
-      <div class="col columnLeft">
-	<h3>Bug reports</h3>	
-	<ul>
-	  <li>To report a bug or problem email <a href="mailto:legitimategrievance@rabbitmq.com">legitimategrievance@rabbitmq.com</a>!
-	  </li>
-	</ul>
-      </div>            
-      <div class="col columnRight">
-	<h3>Development wiki</h3>
-	<ul>
-	  <li>
-	  We are also working on a development wiki: 
-	  <a href="http://dev.rabbitmq.com/wiki/">http://dev.rabbitmq.com/wiki/</a>.
-	  </li>
-	</ul>
-      </div>
-      
-      <div class="clear"></div>      
-      
-      <div class="col columnLeft">        
-	  <h3><a class="more-links" href="/delicious.html">about del.icio.us</a>On Del.icio.us</h3>
-	  <feed src="../feeds/delicious.rss" type="delicious" limit="3"/>  	
-      </div>
-      <div class="col columnRight">
-	  <h3><a class="more-links" href="http://twitter.com/#search?q=rabbitmq">go to Twitter</a>On Twitter</h3>
-	  <feed src="../feeds/twitter.atom" type="twitter" limit="4"/>  	
-      </div>    
-      
-      <div class="clear"></div>
-    </doc:div>
+    <div class="landing-box">
+      <h2>How To...</h2>
+      <p>
+        The <a href="how.html">How To</a> page showcases some of our favourite
+        content on this site and the web that will help you get started
+        with messaging and RabbitMQ.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>Development Tools</h2>
+      <p>
+        Details of official and unofficial
+        <a href="devtools.html">clients, adaptors and tools</a>.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>Contact Us</h2>
+      <p>
+        Contact us via a <a href="contact.html">variety of means</a>.
+      </p>
+    </div>
   </body>
 </html>

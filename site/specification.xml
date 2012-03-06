@@ -1,15 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>RabbitMQ - Specification</title>
+    <title>Compatibility and Conformance</title>
   </head>
-  <body>
-    <doc:div>
-      <h2>Compatibility and Conformance</h2>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
+  <body show-in-this-page="true">
       <doc:section name="spec">
   <p>
   The AMQP specification is open and free to all users and implementers.
@@ -17,19 +14,21 @@
   with legacy support for version 0-8 and 0-9.  RabbitMQ will perform protocol
   negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
   with the specification. These three versions are extremely similar.  The
-  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9 
-  and makes it easier for multiple implementations to interoperate.
+  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9
+  and makes it easier for multiple implementations to interoperate. RabbitMQ
+  implements a number of <a href="extensions.html">extensions</a> to the
+  specification.
   </p>
   <p>
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
-  future version of RabbitMQ will implement AMQP 1.0.  Please 
-  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://jira.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
+  future version of RabbitMQ will implement AMQP 1.0.  Please
+  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://www.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
 	</p>
         <p>
-          The 0-9-1, 0-9 and 0-8 specifications are linked to below for
+          The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
           learn more about AMQP.  Please see our <a
           href="documentation.html">documentation</a> and, in particular, our <a
@@ -37,36 +36,10 @@
           Or, you can visit <a href="http://www.amqp.org/">amqp.org</a>.
 	</p>
       </doc:section>
-      
-      <doc:section name="release-version-mapping">
 
+    <doc:section name="release-version-mapping">
 
-    <table>
-	  <tr>
-        <th>Version</th>
-	    <th>Core specification</th>
-	    <th>PDF</th>
-	    <th>XML</th>
-	  </tr>
-      <tr>
-        <td>0-9-1</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-9</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">amqp0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">amqp0-9.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-8</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">amqp0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">amqp0-8.xml</a></td>
-      </tr>
-    </table>
+    <xi:include href="amqp-proto-download-table.xml.inc"/>
 
 	<doc:heading>Specification versions supported</doc:heading>
 	<p>
@@ -74,7 +47,7 @@
 	  protocol specification implemented by RabbitMQ release 2.0.0 and later:
 	</p>
 
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
@@ -96,7 +69,7 @@
 	  The following table describes the version of the AMQP
 	  protocol specification implemented by RabbitMQ release prior to 2.0.0:
 	</p>
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
@@ -116,6 +89,13 @@
 	</table>
       </doc:section>
 
+      <doc:section name="ver-diffs">
+    	  <doc:heading>Differences between versions</doc:heading>
+        <p>
+          Please see the <a href="amqp-0-8-to-0-9-1.html">0-8 to 0-9-1 page</a>.
+        </p>
+      </doc:section>
+
       <doc:section name="interop">
 	<doc:heading>Interoperability</doc:heading>
 	<p>
@@ -126,9 +106,9 @@
       <doc:section name="deprecated-classes">
 	<doc:heading>Deprecated classes</doc:heading>
     <p>
-      The following classes were deprecated in version 0-9-1. 
-      RabbitMQ does not implement these classes at all, including 
-      when the broker is connected to a version 0-8 client, or 
+      The following classes were deprecated in version 0-9-1.
+      RabbitMQ does not implement these classes at all, including
+      when the broker is connected to a version 0-8 client, or
       when the .NET client is configured to use 0-8.
        <ul>
         <li>access</li>
@@ -141,9 +121,7 @@
       </p>
 	<p>
 	  See also the detailed specification compatibility tables
-	  below. Backwards-compatible support for the access.request 
-      method as a no-op will be removed in the near future and
-      should not be relied on.
+	  below.
 	</p>
       </doc:section>
 
@@ -159,7 +137,7 @@
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="tx" handler="channel" index="90"><status value="ok"/></class>
+	  <class name="tx" handler="channel" index="90"><status value="partial"/><notes>See <a href="semantics.html#tx">notes on tx support</a></notes></class>
 	</classes>
       </doc:section>
 
@@ -239,7 +217,7 @@
       <doc:section name="rules">
 	<doc:heading>Rules from the AMQP specification, version 0-9-1</doc:heading>
 	<p>
-	  The Reference column contains the class or domain, method, field and 
+	  The Reference column contains the class or domain, method, field and
       rule name where present.
     </p>
 	<rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
@@ -284,8 +262,8 @@
           <rule>
             <status value="planned"/>
             <notes>
-                The client already conforms, in that it does not rely on the 
-                redelivered field, and we plan on adding duplicate tracking in a future 
+                The client already conforms, in that it does not rely on the
+                redelivered field, and we plan on adding duplicate tracking in a future
                 release.
             </notes>
             <type>MUST NOT</type>
@@ -684,7 +662,7 @@
             <status value="ok"/>
             <notes>
                    The server does not prevent exchange names starting with "amq." from
-                   being declared. Clients may declare exchanges starting with "amq." 
+                   being declared. Clients may declare exchanges starting with "amq."
                    without the passive bit set.
             </notes>
             <type>MUST, MAY</type>
@@ -843,7 +821,7 @@
             <status value="ok">ok</status>
             <notes>
                    The server does not prevent queue names starting with "amq." from
-                   being declared. Clients may declare queues starting with "amq." 
+                   being declared. Clients may declare queues starting with "amq."
                    without the passive bit set.
             </notes>
             <type>MUST</type>
@@ -2112,7 +2090,7 @@
 	  <rule>
 	    <status value="ok">does</status>
         <notes>
-         Relevan't information will be written to the server log.
+         Relevant information will be written to the server log.
         </notes>
 	    <xref> 4.2.2 </xref>
 	    <context>
@@ -2426,6 +2404,10 @@
 
 	  <rule>
 	    <status value="ok"></status>
+        <notes>
+        The broker makes <a href="semantics.html#ordering">stronger
+        guarantees</a>.
+        </notes>
 	    <xref> 4.7 </xref>
 	    <context>
 	    </context>
@@ -2464,7 +2446,7 @@
       <doc:section name="rules-08">
         <doc:heading>Rules from the AMQP specification, version 0-8</doc:heading>
         <p>
-          The rules listed below relate to features supported by RabbitMQ that 
+          The rules listed below relate to features supported by RabbitMQ that
           have been deprecated.
         </p>
         <rules xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
@@ -2521,6 +2503,5 @@
           </rule>
         </rules>
       </doc:section>
-    </doc:div>
   </body>
 </html>

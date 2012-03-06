@@ -1,0 +1,119 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Installing on RPM-based Linux (CentOS, Fedora, OpenSuse, RedHat)</title>
+  </head>
+  <body>
+    <h3>Download the Server</h3>
+    <r:downloads signature="yes">
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for Fedora / RHEL / CentOS Linux
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
+		  downloadpath="&dir-server;">
+	Packaged as RPM for openSUSE Linux
+      </r:download>
+    </r:downloads>
+    <p>
+      <code>rabbitmq-server</code> is included in Fedora. However,
+      the versions included are often quite old. You will probably
+      get better results installing the .rpm from our website. Check
+      the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
+      package</a> details for which version of the server is
+      available for which versions of the distribution.
+    </p>
+
+    <h3>Install the Server</h3>
+    <p>
+      If you are on RHEL, or a derived distribution such as Fedora or
+      CentOS, we strongly recommend using a packaged version of Erlang.
+    </p>
+    <p>
+      <strong>Note: the steps you need to take vary, depending on which version of
+      RHEL you are on.</strong>
+    </p>
+    <ol class="plain">
+      <li>Enable <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> (all versions)<br/>
+        <p>
+          Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
+          FAQ</a> to enable EPEL on your machine.
+        </p>
+      </li>
+      <li>Enable Erlang repository (RHEL 5 and derived, including Fedora 6 and CentOS 5)<br/>
+        <p>
+          <strong>If you are on a later version of RHEL (or derived) you should skip this step.</strong>
+        </p>
+        <p>
+          Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
+          the EPEL package update policy</a>, EPEL 5 contains a relatively
+          old version of Erlang, R12B-5. Although <code>rabbitmq-server</code>
+          supports R12B-5, performance may be lower than for more
+          recent Erlang versions and certain non-core features are unsupported,
+          such as SSL and HTTP-based plugins including
+          the <a href="management.html">management plugin</a>.
+        </p>
+        <p>
+          To install a more recent version of Erlang you need to enable a more
+          up-to-date package repository that is provided by the owner of the
+          Erlang package. To do this, issue the following command as 'root':
+        </p>
+        <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
+      </li>
+      <li>Install (or update) Erlang (all versions)<br/>
+        <p>
+          Issue the following command as 'root':
+        </p>
+        <pre>yum install erlang</pre>
+      </li>
+      <li>Install <code>rabbitmq-server</code> (all versions)<br/>
+        <p>
+          After downloading the server package, issue the following command as 'root':
+        </p>
+        <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+      </li>
+    </ol>
+    <h3>Run RabbitMQ Server</h3>
+    <dl class="instructions">
+      <dt>Customise RabbitMQ Environment Variables</dt>
+      <dd>
+        <p>
+          The server should start using defaults. You can
+          <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+          Also see how to <a href="configure.html#configuration-file">configure components</a>.
+        </p>
+      </dd>
+      <dt>Start the Server</dt>
+      <dd>
+        <p>
+          The server is not started as a daemon by default when the
+          RabbitMQ server package is installed. To start the daemon by default
+          when the system boots, as an administrator run
+          <code>chkconfig rabbitmq-server on</code>.
+        </p>
+        <p>
+          As an administrator, start and stop the
+          server as usual using <code>/sbin/service rabbitmq-server
+            <i>stop/start/etc</i></code>.
+        </p>
+        <p>
+          <em>Note: </em>The server is set up to run as system user
+          <code>rabbitmq</code>.
+          If you change the location of the Mnesia database or the logs,
+          you must ensure the files are owned by this user
+          (and also update the environment variables).
+        </p>
+      </dd>
+    </dl>
+    <xi:include href="install-unix-manage.xml.inc"/>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Protocol Documentation</title>
+  </head>
+  <body>
+    <p>
+      AMQP is a standard wire-level protocol and semantic framework
+      for high performance enterprise messaging.
+    </p>
+    <p>
+      From the AMQP website:
+    </p>
+    <blockquote>
+      <p>
+        AMQP is an Open Standard for Messaging Middleware.
+      </p>
+      <p>
+        By complying to the AMQP standard, middleware products
+        written for different platforms and in different
+        languages can send messages to one another. AMQP
+        addresses the problem of transporting value-bearing
+        messages across and between organisations in a timely
+        manner.
+      </p>
+      <p>
+        AMQP enables complete interoperability for messaging
+        middleware; both the networking protocol and the
+        semantics of broker services are defined in AMQP.
+      </p>
+    </blockquote>
+    <p>
+      For more information on what AMQP is, please see
+        the <a href="http://amqp.org/about/what">AMQP
+        Working Group's overview page</a>.
+    </p>
+    <h2 id="downloads">Downloads</h2>
+    <p>
+      All AMQP specifications and protocol definitions are published under
+      the <a href="http://www.amqp.org/legal/amqp-license">AMQP license</a>
+      unless stated otherwise.
+    </p>
+    <xi:include href="amqp-proto-download-table.xml.inc"/>
+  </body>
+</html>

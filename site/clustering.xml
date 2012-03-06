@@ -1,17 +1,12 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - Clustering Guide</title>
+    <title>Clustering Guide</title>
   </head>
-  <body>
-    <doc:div>
-
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+  <body show-in-this-page="true">
       <doc:section name="clustering">
-        <doc:heading>Clustering overview</doc:heading>
         <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
           several Erlang <i>nodes</i>, each running the RabbitMQ
@@ -23,10 +18,19 @@
           All data/state required for the operation of a RabbitMQ
           broker is replicated across all nodes, for reliability and
           scaling, with full ACID properties. An exception to this are
-          message queues, which currently only reside on the node that
+          message queues, which by default reside on the node that
           created them, though they are visible and reachable from all
-          nodes. Future releases of RabbitMQ will introduce migration
-          and replication of message queues.
+          nodes. To replicate queues across nodes in a cluster, see
+          the documentation on <a href="ha.html">high availability</a>
+          (note that you will need a working cluster first).
+        </p>
+        <p>
+          <b>RabbitMQ clustering does not tolerate network partitions
+          well</b>, so it should not be used over a WAN.
+          The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
+          <a href="plugins.html#rabbitmq_federation">federation</a>
+          plugins are better solutions for connecting brokers across a
+          WAN.
         </p>
         <p>
           The easiest way to set up a cluster is by auto configuration
@@ -45,8 +49,10 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          A node can be a <em>RAM node</em> or a <em>disk
-          node</em>. RAM nodes keep their state only in memory (with
+          A node can be a <em>RAM node</em> or a <em>disk node</em>.
+          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used interchangeably.
+          Configuration syntax or status messages normally use <i>disc</i>.)
+          RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
           which are still stored safely on disc). Disk nodes keep
           state in memory and on disk. As RAM nodes don't have to
@@ -90,7 +96,15 @@
             can be as long or short as you like.
           </p>
           <p>
-            Erlang will automatically create a random cookie file when the RabbitMQ server starts up. This will be typically located in <code>/var/lib/rabbitmq/.erlang.cookie</code> on Unix systems and <code>C:\Documents and Settings\<i>Current User</i>\Application Data\RabbitMQ\.erlang.cookie</code> on Windows systems. The easiest way to proceed is to allow one node to create the file, and then copy it to all the other nodes in the cluster.
+            Erlang will automatically create a random cookie file when
+            the RabbitMQ server starts up. This will be typically
+            located in <code>/var/lib/rabbitmq/.erlang.cookie</code>
+            on Unix systems and <code>C:\Users\<i>Current
+            User</i>\.erlang.cookie</code> or <code>C:\Documents and
+            Settings\<i>Current User</i>\.erlang.cookie</code> on
+            Windows systems. The easiest way to proceed is to allow
+            one node to create the file, and then copy it to all the
+            other nodes in the cluster.
           </p>
           <p>
             As an alternative, you can insert the option "<code>-setcookie
@@ -113,27 +127,21 @@ rabbit2$ <i>rabbitmq-server -detached</i>
 rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <p>
             This creates three <i>independent</i> RabbitMQ brokers,
-            one on each node, as confirmed by the <i>status</i>
+            one on each node, as confirmed by the <i>cluster_status</i>
             command:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]}]},
- {running_nodes,[rabbit@rabbit1]}]
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2]}]
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.</pre>
 
           <p>
@@ -175,19 +183,17 @@ rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             We can see that the two nodes are joined in a cluster by
-            running the <i>status</i> command on either of the nodes:
+            running the <i>cluster_status</i> command on either of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 </pre>
@@ -214,25 +220,22 @@ Starting node rabbit@rabbit3 ...done.</pre>
           </p>
           <p>
             We can see that the three nodes are joined in a cluster by
-            running the <i>status</i> command on any of the nodes:
+            running the <i>cluster_status</i> command on any of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
@@ -304,24 +307,21 @@ Starting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit1 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2]}]
 ...done.</pre>
           <p>
@@ -330,35 +330,30 @@ Status of node rabbit@rabbit2 ...
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 rabbit3$ <i>rabbitmq-server -detached</i>
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
@@ -415,28 +410,24 @@ Starting node rabbit@rabbit3 ...done.</pre>
             <code>rabbit@rabbit3</code> as a node.
           </p>
           <p>
-            Running the <i>status</i> command on the nodes confirms
+            Running the <i>cluster_status</i> command on the nodes confirms
             that <code>rabbit@rabbit3</code> now is no longer part of
             the cluster and operates independently:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.
 </pre>
           <p>
@@ -451,27 +442,21 @@ Resetting node rabbit@rabbit1 ...done.
 rabbit1$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit1 ...done.</pre>
           <p>
-            The <i>status</i> command now shows all three nodes
+            The <i>cluster_status</i> command now shows all three nodes
             operating as independent RabbitMQ brokers:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1]}]},
- {running_nodes,[rabbit@rabbit1]}]
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit2]}]},
- {running_nodes,[rabbit@rabbit2]}]
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3]}]
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
 ...done.</pre>
           <p>
             Note that <code>rabbit@rabbit2</code> retains the residual
@@ -598,25 +583,22 @@ rabbit2$ <i>rabbitmq-server -detached</i>
 rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <p>
             We can see that the three nodes are joined in a cluster by
-            running the <i>status</i> command on any of the nodes:
+            running the <i>cluster_status</i> command on any of the nodes:
           </p>
           <pre class="sourcecode">
-rabbit1$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit1 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
-rabbit2$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit2 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
-rabbit3$ <i>rabbitmqctl status</i>
-Status of node rabbit@rabbit3 ...
-[...,
- {nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+rabbit3$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
         <p>
@@ -698,8 +680,8 @@ $ rabbitmqctl -n hare start_app</pre>
             not to clash as well - for example:
           </p>
           <pre class="sourcecode">
-$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55672" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 55673" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.
@@ -710,10 +692,8 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 5567
           <p>
             The case for firewalled clustered nodes exists when nodes
             are in a data center or on a reliable network, but separated
-            by firewalls. Clustering is not recommended over a WAN or
+            by firewalls. Again, clustering is not recommended over a WAN or
             when network links between nodes are unreliable.
-            The <a href="plugins.html#rabbitmq-shovel">shovel plugin</a>
-            is a better solution in that case.
           </p>
           <p>
             If different nodes of a cluster are in the same data center,
@@ -757,6 +737,28 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbit_mochiweb port 5567
             file.
           </p>
       </doc:section>
-    </doc:div>
+      <doc:section name="clients">
+        <doc:heading>Connecting to Clusters from Clients</doc:heading>
+        <p>
+          A client can connect as normal to any node within a
+          cluster. If that node should fail, and the rest of the
+          cluster survives, then the client should notice the closed
+          connection, and should be able to reconnect to some
+          surviving member of the cluster. Generally, it's not
+          advisable to bake in node hostnames or IP addresses into
+          client applications: this introduces inflexibility and will
+          require client applications to be edited, recompiled and
+          redeployed should the configuration of the cluster change or
+          the number of nodes in the cluster change. Instead, we
+          recommend a more abstracted approach: this could be a
+          dynamic DNS service which has a very short TTL
+          configuration, or a plain TCP load balancer, or some sort of
+          mobile IP achieved with pacemaker or similar
+          technologies. In general, this aspect of managing the
+          connection to nodes within a cluster is beyond the scope of
+          RabbitMQ itself, and we recommend the use of other
+          technologies designed specifically to solve these problems.
+        </p>
+      </doc:section>
   </body>
 </html>

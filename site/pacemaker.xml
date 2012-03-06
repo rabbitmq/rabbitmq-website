@@ -1,22 +1,18 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<!DOCTYPE html PUBLIC "bug in xslt processor requires fake doctype"
-"otherwise css isn't included" [
-<!ENTITY % entities SYSTEM "rabbit.ent" >
-%entities;
-]>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>RabbitMQ - High availability with Pacemaker and DRBD</title>
+    <title>High availability with Pacemaker and DRBD</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-	<doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
+    <p class="warning">
+      This page documents a legacy technique for achieving
+      active-passive high availability with
+      RabbitMQ. <a href="ha.html">Active-active mirrored queues</a>
+      are easier to use and do not impose a delay at failover.
+    </p>
       <doc:section name="introduction">
-	<doc:heading>Introduction</doc:heading>
-
         <p>There are many forms of high availability, replication and
         resilience in the face of various different types of
         failure. RabbitMQ can be made to work in an active/passive
@@ -336,9 +332,11 @@ Online: [ ha-node-2 ha-node-1 ]
         that these survive the transition to the other node. It's a
         good idea to play with stopping and starting the nodes at this
         point to build confidence that it really is doing the right
-        thing. <code>rabbitmqctl -n rabbit@localhost status</code> and
-        similar commands will allow you to see the status of RabbitMQ
-        server from whichever node it is currently running on.</p>
+        thing. Status commands (<code>rabbitmqctl -n rabbit@localhost
+        status</code> and <code>rabbitmqctl -n rabbit@localhost
+        cluster_status</code>) will allow you to see the status of
+        RabbitMQ server from whichever node it is currently running
+        on.</p>
 
         <p>By default, the <code>ocf:rabbitmq:rabbitmq-server</code>
         script sets the node-name to <code>rabbit@localhost</code> on
@@ -509,15 +507,9 @@ ha-node-3:~# rabbitmqctl stop_app
 ha-node-3:~# rabbitmqctl reset
 ha-node-3:~# rabbitmqctl cluster rabbit@rabbit-ha-1 rabbit@rabbit-ha-2
 ha-node-3:~# rabbitmqctl start_app
-ha-node-3:~# rabbitmqctl status
-Status of node 'rabbit@rabbit-ha-2' ...
-[{running_applications,[{rabbit,"RabbitMQ","%%VSN%%"},
-                        {mnesia,"MNESIA  CXC 138 12","4.4.12"},
-                        {os_mon,"CPO  CXC 138 46","2.2.4"},
-                        {sasl,"SASL  CXC 138 11","2.1.8"},
-                        {stdlib,"ERTS  CXC 138 10","1.16.4"},
-                        {kernel,"ERTS  CXC 138 10","2.13.4"}]},
- {nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
+ha-node-3:~# rabbitmqctl cluster_status
+Cluster status of node 'rabbit@rabbit-ha-2' ...
+[{nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
  {running_nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]
 ...done.
 ha-node-3:~#
@@ -566,7 +558,5 @@ ha-node-3:~#
           <dd>Additional arguments provided to the server on startup</dd>
         </dl>
       </doc:section>
-
-    </doc:div>
   </body>
 </html>

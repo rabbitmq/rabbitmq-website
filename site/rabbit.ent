@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!ENTITY version-java-client "2.4.1">
-<!ENTITY version-dotnet-client "2.4.1">
-<!ENTITY version-server "2.4.1">
-<!ENTITY version-server-hg "rabbitmq_v2_4_1">
+<!ENTITY version-java-client "2.7.1">
+<!ENTITY version-dotnet-client "2.7.1">
+<!ENTITY version-server "2.7.1">
+<!ENTITY version-server-hg "rabbitmq_v2_7_1">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -15,10 +15,9 @@
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
 
-<!ENTITY dir-win-apps "C:\Program Files">
-<!ENTITY dir-win64-apps "C:\Program Files (x86)">
-<!ENTITY dir-win-user "C:\Documents and Settings\User">
-<!ENTITY windows-version-erlang "5.7.4">
+<!ENTITY dir-current-erlang-client "/releases/rabbitmq-erlang-client/v&version-server;/">
 
-<!ENTITY dir-erlang-windows "&dir-win-apps;\erl&windows-version-erlang;">
+<!ENTITY dir-win-apps "C:\Program Files">
+<!ENTITY dir-win32-apps "C:\Program Files (x86)">
+
 <!ENTITY dir-server-windows "&dir-win-apps;\RabbitMQ">

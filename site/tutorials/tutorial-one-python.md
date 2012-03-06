@@ -1,4 +1,4 @@
-# RabbitMQ tutorial - "Hello world!"
+# RabbitMQ tutorial - "Hello world!" SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-one">
   <xi:include href="tutorials-menu.xml.inc"/>
@@ -83,7 +83,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 Hello World!
 ------------
-### (using the pika 0.5.2 Python client)
+### (using the pika 0.9.5 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -128,29 +128,32 @@ messages from that queue.
 > * [txAMQP](https://launchpad.net/txamqp)
 > * [pika](http://github.com/pika/pika)
 >
-> In this tutorial series we're going to use `pika`. More recent versions are 
-> undergoing major changes,
-> so for now we'll stick with version 0.5.2. To install it
+> In this tutorial series we're going to use `pika`. To install it
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
->     $ sudo pip install -e git+http://github.com/pika/pika.git@v0.5.2#egg=pika-v0.5.2
+>     :::bash
+>     $ sudo pip install pika==0.9.5
 >
 > The installation depends on `pip` and `git-core` packages, you may
-> need to install them.
+> need to install them first.
 >
 > * On Ubuntu:
 >
+>         :::bash
 >         $ sudo apt-get install python-pip git-core
 >
 > * On Debian:
 >
+>         :::bash
 >         $ sudo apt-get install python-setuptools git-core
 >         $ sudo easy_install pip
 >
 > * On Windows:
 >To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
 >
->         > easy_install pika==0.5.2
+>         :::bash
+>         > easy_install pip
+>         > pip install pika==0.9.5
 >
 
 ### Sending
@@ -184,7 +187,7 @@ RabbitMQ server.
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
                    'localhost'))
     channel = connection.channel()
 
@@ -273,6 +276,7 @@ declaring the queue in both programs.
 > You may wish to see what queues RabbitMQ has and how many
 > messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
 >
+>     :::bash
 >     $ sudo rabbitmqctl list_queues
 >     Listing queues ...
 >     hello    0
@@ -311,7 +315,7 @@ whenever necessary.
 
     :::python
     print ' [*] Waiting for messages. To exit press CTRL+C'
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 
 ### Putting it all together
@@ -322,7 +326,7 @@ Full code for `send.py`:
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -343,7 +347,7 @@ Full `receive.py` code:
     #!/usr/bin/env python
     import pika
 
-    connection = pika.AsyncoreConnection(pika.ConnectionParameters(
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
             host='localhost'))
     channel = connection.channel()
 
@@ -359,19 +363,21 @@ Full `receive.py` code:
                           queue='hello',
                           no_ack=True)
 
-    pika.asyncore_loop()
+    channel.start_consuming()
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's send a
 message using our `send.py` program:
 
-    $ python send.py
+     :::bash
+     $ python send.py
      [x] Sent 'Hello World!'
 
 The producer program `send.py` will stop after every run. Let's receive it:
 
-    $ python receive.py
+     :::bash
+     $ python receive.py
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Hello World!'
 

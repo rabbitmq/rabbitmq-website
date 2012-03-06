@@ -11,12 +11,14 @@
    margin-right: 1.2em;
 }
 
+#sidebar #tutorials { margin-top: 2.2em; }
+
 #sidebar.tutorial-one #tutorials > li#tutorial-one { border-color: #444; }
 #sidebar.tutorial-two #tutorials > li#tutorial-two { border-color: #444; }
 #sidebar.tutorial-three #tutorials > li#tutorial-three { border-color: #444; }
 #sidebar.tutorial-four #tutorials > li#tutorial-four { border-color: #444; }
 #sidebar.tutorial-five #tutorials > li#tutorial-five { border-color: #444; }
-#sidebar.tutorial-six #tutorials > li.tutorial-six { border-color: #444; }
+#sidebar.tutorial-six #tutorials > li#tutorial-six { border-color: #444; }
 
 ul#tutorials {
    list-style-type: none;
@@ -117,10 +119,6 @@ ul#tutorials > li ul {
 
 #tutorial-index {
    clear: both;
-}
-
-#tutorial pre .p {
-    float: inherit;
 }
 
 #tutorial .highlighttable tr {
