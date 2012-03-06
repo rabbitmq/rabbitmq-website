@@ -44,7 +44,7 @@
               <li><a href="ha.html">Active-active HA</a></li>
               <li>Stomp improvements</li>
               <li>Management improvements</li>
-              <li><a href="plugins.html#rabbitmq_federation">Federation plugin</a></li>
+              <li><a href="federation.html">Federation plugin</a></li>
             </ul>
           </td>
         </tr>
