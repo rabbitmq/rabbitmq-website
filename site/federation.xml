@@ -16,7 +16,7 @@
       useful for various reasons:
     </p>
 
-    <ol>
+    <ol class="plain">
       <li>
         Federated brokers may be in different administrative
         domains. Clustered brokers form a single administrative
