@@ -11,86 +11,168 @@
   </head>
   <body show-in-this-page="true">
     <p>
-      The high level goal of the federation plugin is to transmit
-      messages between brokers without requiring clustering. This is
-      useful for various reasons:
+      The high level goal of the federation plugin is to transmit messages
+      between brokers without requiring clustering. This is useful for various
+      reasons:
     </p>
 
-    <ol class="plain">
-      <li>
-        Federated brokers may be in different administrative
-        domains. Clustered brokers form a single administrative
-        domain.
-        <ol>
+    <dl class="plain">
+      <dt><b>Loose coupling</b></dt>
+      <dd>
+        The federation plugin can transmit messages between brokers in
+        different administrative domains:
+        <ul class="plain">
           <li>
-            Federated brokers may have different users and virtual
-            hosts. Federated brokers only need to partially trust
-            each other.
+            they need not be in the same cluster;
           </li>
           <li>
-            Federated brokers may run different versions of RabbitMQ
-            and Erlang.
+            they may have different users and virtual hosts;
           </li>
-        </ol>
-      </li>
-      <li>
-        Federated brokers only speak AMQP to each other, and the
-        federation mechanism is designed to deal with intermittent
-        connectivity.  Federation is therefore much more WAN-friendly.
-      </li>
-      <li>
-        Brokers can contain federated and local-only components - you
+          <li>
+            they may run on different versions of RabbitMQ and Erlang.
+          </li>
+        </ul>
+      </dd>
+      <dt><b>WAN-friendly</b></dt>
+      <dd>
+        The federation plugin uses AMQP to communicate between brokers, and is
+        designed to tolerate intermittent connectivity.
+      </dd>
+      <dt><b>Specificity</b></dt>
+      <dd>
+        A broker can contain federated <i>and</i> local-only components - you
         don't need to federate everything if you don't want to.
-      </li>
-      <li>
-        Ultimately, greater scalability should be possible, since more
-        complex routing topologies avoid the need for
-        n<sup>2</sup> connections between n brokers.
-      </li>
-    </ol>
+      </dd>
+      <dt><b>Scalability</b></dt>
+      <dd>
+        Federation does not require <i>n</i><sup>2</sup> connections between
+        <i>n</i> brokers, which should mean it scales better.
+      </dd>
+    </dl>
 
     <p>
       For the time being, federation is primarily useful in pub/sub scenarios.
     </p>
 
+    <doc:section name="what-does-it-do">
+      <doc:heading>What does it do?</doc:heading>
+
+      <p>
+        The federation plugin defines a new exchange type
+        <code>x-federation</code>. An exchange instance of this type is called
+        a <i>federated exchange</i>.
+      </p>
+      <dl>
+        <dt>
+          <b>What does a federated exchange do?</b>
+        </dt>
+        <dd>
+          <p>
+            A federated exchange links to other exchanges (called
+            <i>upstream</i> exchanges). Logically (see next item), messages
+            sent to the upstream exchanges are copied to the federated
+            exchange, as though they were published directly to it. The
+            upstream exchanges do not need to be reconfigured. Messages copied
+            in this way are called <i>federated messages</i>.
+          </p>
+        </dd>
+
+        <dt>
+          <b>Are <i>all</i> messages copied?</b>
+        </dt>
+        <dd>
+          <p>
+            Actually, only those messages that need to be copied are
+            propagated. This is an optimisation arranged dynamically by the
+            federation plugin.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does a federated exchange link to its upstream exchanges?</b>
+        </dt>
+        <dd>
+          <p>
+            The federated exchange will connect to all its upstream exchanges
+            using the AMQP protocol. When declaring or configuring the
+            federated exchange the upstream exchanges are listed with, for
+            each upstream exchange, the connection properties to be used to
+            establish that link.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does the federated exchange <i>route</i> the messages it
+          receives?</b>
+        </dt>
+        <dd>
+          <p>
+            Rather than being a complete exchange type of its own (with its
+            own routing strategy) the federated exchange type is a
+            <i>modified</i> version of another type of exchange. The type
+            which is modified is called the <i>backing-type</i>. A federated
+            exchange behaves like its <i>backing-type</i> of exchange does,
+            but with federated messages routed as well. You specify the
+            backing-type when you declare the federated exchange.
+          </p>
+          <p>
+            Messages can be published to a federated exchange like any other.
+          </p>
+          <p>
+            Although not strictly correct, we often say the backing-type is
+            the <i>type</i> of the federated exchange.
+          </p>
+          <p>
+            Normally the backing-type is <code>topic</code>. This is the type
+            of exchange federation was designed for. Using federated exchanges
+            a topic space can be extended across a number of independently
+            managed rabbit servers.
+          </p>
+        </dd>
+
+        <dt>
+          <b>Can I federate a federated exchange?</b>
+        </dt>
+        <dd>
+          <p>
+            There is nothing to prevent a federated exchange being 'upstream'
+            from another federated exchange. This is actually expected. One
+            can even form 'loops', for example, exchange A declares exchange B
+            to be upstream from it, and exchange B declares exchange A to be
+            upstream from it. Such loops (or more complex multiply-connected
+            graphs) are allowed.
+          </p>
+          <p>
+            To prevent messages being continually propagated and re-routed
+            there is a limit placed on the number of times a message can be
+            federated (see <a href="#upstream-sets"><code>max_hops</code></a>
+            below). It is recommended that all the exchanges linked by
+            federation are of the same type (or backing-type). Mixing types
+            will lead to strange routing behaviour.
+          </p>
+          <p>
+            The backing-type cannot be <code>x-federation</code>.
+          </p>
+        </dd>
+      </dl>
+
+    </doc:section>
+
     <doc:section name="getting-started">
       <doc:heading>Getting Started</doc:heading>
 
       <p>
-        The federation plugin is included in the RabbitMQ
-        distribution. To enable it,
-        use <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+        The federation plugin is included in the RabbitMQ distribution. To
+        enable it, use
+        <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
       <pre class="example">    rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
-        When using federation with clustering, all cluster nodes must
-        have the federation plugin installed. Any node may establish
-        connections to upstream exchanges. If a node fails, any upstream
-        links will fail over to a surviving node.
-      </p>
-
-      <p>
-        The federation plugin provides a federated exchange type. A
-        federated exchange has type <code>x-federation</code>. However,
-        this type does not provide any routing logic. The routing logic
-        is implemented by a backing type, provided to the exchange as an
-        argument.
-      </p>
-
-      <p>
-        Messages can be published to a federated exchange like any
-        other. However, a federated exchange also receives messages from
-        one or more "upstream" exchanges, located on remote brokers.
-        (Well, you don't need to have upstream exchanges, and they don't
-        need to be remote. But then you don't get anything very useful.)
-      </p>
-
-      <p>
-        An upstream exchange can be a regular exchange or a federation
-        exchange. It is expected that upstream and downstream exchanges
-        have the same type (or backing type). Mixing types will lead to
-        strange routing behaviour.
+        When using federation with clustering, all cluster nodes must have the
+        federation plugin installed. Any node in the cluster may establish
+        connections to upstream exchanges. If a node fails, any upstream links
+        will fail over to a surviving node.
       </p>
 
       <p>
@@ -116,10 +198,12 @@
       </p>
 
       <p>
-        Federated exchanges can be set up statically via broker configuration,
-        or declared dynamically over AMQP.
+        Federated exchanges are set up statically via
+        <a href="#example">broker configuration</a>, or declared dynamically
+        over AMQP.
       </p>
     </doc:section>
+
     <doc:section name="example">
       <doc:heading>Example Configuration</doc:heading>
 
