@@ -277,244 +277,256 @@
         configuration is given <a href="#example-config">below</a>.
       </p>
 
-    <doc:subsection name="exchanges">
-      <doc:heading>exchanges</doc:heading>
-      <p>
-        The list of exchanges looks like a set of <code>exchange.declare</code>s
-        for the most part, but with each declaration including the name of an
-        <code>upstream_set</code>, representing a list of remote exchanges whose
-        messages should be federated to the local exchange. Note that the
-        <code>type</code> parameter should match the type of all the upstream
-        exchanges for routing to work sensibly.
-      </p>
-
-      <p>
-        Here are the properties of an element in the exchanges list:
-      </p>
-      <dl>
-        <dt><code>exchange</code>
-        </dt>
-        <dd>
-          The name of the federated exchange to be created (exchange type
-          <code>x-federation</code> assumed). Mandatory. The names in this list
-          should be distinct.
-        </dd>
-        <dt><code>virtual_host</code></dt>
-        <dd>
-          The virtual host in which this exchange is created. Defaults to the
-          broker's <code>default_vhost</code>.
-        </dd>
-        <dt><code>type</code></dt>
-        <dd>
-          The backing-type of this federated exchange. Mandatory. (This cannot
-          be <code>x-federation</code>.)
-        </dd>
-        <dt><code>durable</code></dt>
-        <dd>
-          The <code>durable</code> property of the created federated exchange.
-          Default <code>true</code>.
-        </dd>
-        <dt><code>auto_delete</code></dt>
-        <dd>
-          The <code>auto_delete</code> property of the created federated
-          exchange. Default <code>false</code>.
-        </dd>
-        <dt><code>internal</code></dt>
-        <dd>
-          The <code>internal</code> property of the created federated
-          exchange. Default <code>false</code>.
-        </dd>
-        <dt><code>upstream_set</code></dt>
-        <dd>
-          The name of an element of the <code>upstream_sets</code> list.
-          Mandatory.
-        </dd>
-        <dt>
-        </dt>
-        <dd>
-        </dd>
-      </dl>
-      
-      <p>
-        Note that the static configuration will only declare federated
-        exchanges on the local broker. It does not ensure the upstream
-        exchanges exist.
-      </p>
-    </doc:subsection>
-
-    <doc:subsection name="upstream-sets">
-      <doc:heading>upstream_sets</doc:heading>
-      <p>
-        Each element of the <code>upstream_sets</code> list is a mapping from a
-        name to a list of upstream exchanges. Each upstream exchange entry is a
-        property list:
-      </p>
-<pre class="example">
-  {upstream_sets, [{"name1", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
-</pre>
-      <p>
-        The properties can be:
-      </p>
-
-      <dl>
-        <dt><code>connection</code></dt>
-        <dd>
-          The name of a connection from the connection list. Mandatory.
-        </dd>
-
-        <dt><code>exchange</code></dt>
-        <dd>
-          The name of the upstream exchange. Default is to use the same name as
-          the federated exchange being created. (If this name is omitted one
-          <code>upstream_set</code> can be referenced by more than one federated
-          exchange and still refer to distinct upstream exchanges. Multiple
-          families of exchanges, with common names on a set of brokers, can be
-          federated simply by this technique.)
-        </dd>
-
-        <dt><code>max_hops</code></dt>
-        <dd>
-          The maximum number of times a message received over this link can be
-          federated (including traversing this link). The default is 1. If this
-          limit is exceeded, the message is quietly discarded. (This prevents
-          messages from being federated forever when there are circular
-          topologies, and can reduce or prevent message duplication.)
-        </dd>
-      </dl>
-    </doc:subsection>
-
-    <doc:subsection name="connections">
-      <doc:heading>connections</doc:heading>
-      <p>
-        The <code>connections</code> list specifies how to connect to brokers
-        mentioned in the upstream sets. It can contain the following properties:
-      </p>
-
-      <dl>
-        <dt><code>host</code></dt>
-        <dd>
-          hostname to connect to
-        </dd>
-
-        <dt><code>protocol</code></dt>
-        <dd>
-          "amqp" or "amqps". Default is "amqp".
-        </dd>
-
-        <dt><code>port</code></dt>
-        <dd>
-          port to connect to. Default is 5672, or 5671 when using SSL.
-        </dd>
-
-        <dt><code>virtual_host</code></dt>
-        <dd>
-          virtual host to connect to. Default is to use the virtual host
-          for the downstream exchange.
-        </dd>
-
-        <dt><code>username</code></dt>
-        <dd>
-          user to connect as. Default is "guest". The user will need the
-          ability to create exchanges and queues with names beginning
-          with "federation:". It will also need to be able to bind to
-          the upstream exchange.
-        </dd>
-
-        <dt><code>password</code></dt>
-        <dd>
-          password to use. Default is "guest".
-        </dd>
-
-        <dt><code>mechanism</code></dt>
-        <dd>
-          SASL mechanism to use. One of:
-          <ul>
-            <li>
-              'default' - to use PLAIN or AMQPLAIN by negotiation (this
-              is the default)
-            </li>
-            <li>
-              'EXTERNAL' - to use SASL EXTERNAL authentication - i.e.
-              <code>rabbitmq-auth-mechanism-ssl</code>
-            </li>
-          </ul>
-        </dd>
-
-        <dt><code>prefetch_count</code></dt>
-        <dd>
-          limit on the maximum number of unacknowledged messages in
-          flight per link. Default is 'none'.
-        </dd>
-
-        <dt><code>reconnect_delay</code></dt>
-        <dd>
-          time in seconds to wait to reconnect to the broker after being
-          disconnected. Default is 1.
-        </dd>
-
-        <dt><code>heartbeat</code></dt>
-        <dd>
-          AMQP heartbeat interval (in seconds) on the connection, or
-          none. Default is 'none'.
-        </dd>
-
-        <dt><code>expires</code></dt>
-        <dd>
-          Messages are buffered in the upstream broker in a queue before
-          being sent downstream. This setting controls how long the
-          upstream queue lasts before being deleted if the downstream is
-          disconnected (i.e.  it controls the "x-expires" argument for
-          the upstream queue). The value is in milliseconds. Default is
-          'none', meaning the queue should never expire.
-        </dd>
-
-        <dt><code>message_ttl</code></dt>
-        <dd>
-          Controls how long to keep upstream messages buffered, in
-          milliseconds (i.e. the "x-message-ttl" argument for the
-          upstream queue). Default is 'none', meaning messages should
-          never expire.
-        </dd>
-
-        <dt><code>ha_policy</code></dt>
-        <dd>
-          Controls whether the upstream queue should be highly
-          available. (i.e.  the "x-ha-policy" argument for the upstream
-          queue). Default is 'none', meaning the queue is not HA.
-        </dd>
-
-        <dt><code>ssl_options</code></dt>
-        <dd>
-          Specifies how to make client SSL connections. See the Erlang
-          client documentation for more details.
-        </dd>
-      </dl>
-    </doc:subsection>
-    <doc:subsection name="other-config">
-      <doc:heading>Other Configuration</doc:heading>
-      <p>
-        The <code>local_username</code> parameter specifies how to
-        connect to the local broker. The default is "guest". This user
-        will need the ability to publish messages to the downstream
-        exchange.
-      </p>
-
-      <p>
-        The <code>local_nodename</code> parameter specifies the name
-        this node should use to identify itself in the federation. If
-        not specified it will attempt to build a "long form" version of
-        the usual Erlang node name (but using the machine's FQDN). You
-        should only have to specify this if your DNS will not give each
-        machine in the federation unique names.
-      </p>
-    </doc:subsection>
-      <doc:subsection name="dynamic-configuration">
-        <doc:heading>Dynamic Configuration</doc:heading>
-
+      <doc:subsection name="exchanges">
+        <doc:heading>exchanges</doc:heading>
         <p>
-          
+          The list of exchanges looks like a set of <code>exchange.declare</code>s
+          for the most part, but with each declaration including the name of an
+          <code>upstream_set</code>, representing a list of remote exchanges whose
+          messages should be federated to the local exchange. Note that the
+          <code>type</code> parameter should match the type of all the upstream
+          exchanges for routing to work sensibly.
         </p>
 
+        <p>
+          Here are the properties of an element in the exchanges list:
+        </p>
+        <dl>
+          <dt><code>exchange</code>
+          </dt>
+          <dd>
+            The name of the federated exchange to be created (exchange type
+            <code>x-federation</code> assumed). Mandatory. The names in this list
+            should be distinct.
+          </dd>
+          <dt><code>virtual_host</code></dt>
+          <dd>
+            The virtual host in which this exchange is created. Defaults to the
+            broker's <code>default_vhost</code>.
+          </dd>
+          <dt><code>type</code></dt>
+          <dd>
+            The backing-type of this federated exchange. Mandatory. (This cannot
+            be <code>x-federation</code>.)
+          </dd>
+          <dt><code>durable</code></dt>
+          <dd>
+            The <code>durable</code> property of the created federated exchange.
+            Default <code>true</code>.
+          </dd>
+          <dt><code>auto_delete</code></dt>
+          <dd>
+            The <code>auto_delete</code> property of the created federated
+            exchange. Default <code>false</code>.
+          </dd>
+          <dt><code>internal</code></dt>
+          <dd>
+            The <code>internal</code> property of the created federated
+            exchange. Default <code>false</code>.
+          </dd>
+          <dt><code>upstream_set</code></dt>
+          <dd>
+            The name of an element of the <code>upstream_sets</code> list.
+            Mandatory.
+          </dd>
+        </dl>
+
+        <p>
+          The static configuration will only declare federated exchanges on the
+          local broker. It does not ensure the upstream exchanges exist.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="upstream-sets">
+        <doc:heading>upstream_sets</doc:heading>
+        <p>
+          Each element of the <code>upstream_sets</code> list is a mapping from a
+          name to a list of upstream exchanges. Each upstream exchange entry is a
+          property list:
+        </p>
+<pre class="example">
+  {upstream_sets, [{"set_name", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
+</pre>
+        <p>
+          where <code>"set_name"</code> is a name mentioned in an element of the
+          <code>exchanges</code> list. The properties can be:
+        </p>
+
+        <dl>
+          <dt><code>connection</code></dt>
+          <dd>
+            The name of a connection from the connection list. Mandatory.
+          </dd>
+
+          <dt><code>exchange</code></dt>
+          <dd>
+            The name of the upstream exchange. Default is to use the same name as
+            the federated exchange being created. (If this name is omitted one
+            <code>upstream_set</code> can be referenced by more than one federated
+            exchange and still refer to distinct upstream exchanges. Multiple
+            families of exchanges, with common names on a set of brokers, can be
+            federated simply by this technique.)
+          </dd>
+
+          <dt><code>max_hops</code></dt>
+          <dd>
+            The maximum number of times a message received over this link can be
+            federated (including traversing this link). The default is 1. If this
+            limit is exceeded, the message is quietly discarded. (This prevents
+            messages from being federated forever when there are circular
+            topologies, and can reduce or prevent message duplication.)
+          </dd>
+        </dl>
+      </doc:subsection>
+
+      <doc:subsection name="connections">
+        <doc:heading>connections</doc:heading>
+        <p>
+          The <code>connections</code> list specifies how to connect to brokers.
+          It takes the form:
+        </p>
+<pre class="example">
+  {connections, [{"conn_name", [<i>connection-property-list</i>]}, ... ]}
+</pre>
+        <p>
+          where <code>"conn_name"</code> is a name mentioned in an upstream
+          property list. The <code><i>connection-property-list</i></code> can
+          contain the following properties:
+        </p>
+
+        <dl>
+          <dt><code>host</code></dt>
+          <dd>
+            The hostname to connect to. Mandatory.
+          </dd>
+
+          <dt><code>protocol</code></dt>
+          <dd>
+            <code>"amqp"</code> or <code>"amqps"</code>. Default is
+            <code>"amqp"</code>.
+          </dd>
+
+          <dt><code>port</code></dt>
+          <dd>
+            Port to connect to. Default is 5672 (or 5671 when using SSL).
+          </dd>
+
+          <dt><code>virtual_host</code></dt>
+          <dd>
+            The virtual host to connect to. Default is the virtual host
+            for the federated exchange.
+          </dd>
+
+          <dt><code>username</code></dt>
+          <dd>
+            The user to connect as. Default is <code>"guest"</code>. (This user
+            will need the appropriate permissions to create exchanges and queues
+            with names beginning with "federation:", and to bind to the upstream
+            exchange.)
+          </dd>
+
+          <dt><code>password</code></dt>
+          <dd>
+            The password to use when connecting as <code>username</code>. Default
+            is <code>"guest"</code>.
+          </dd>
+
+          <dt><code>mechanism</code></dt>
+          <dd>
+            The <a href="authentication.html">SASL mechanism</a> to use. One of:
+            <ul>
+              <li>
+                <code>'default'</code> - to use PLAIN or AMQPLAIN by negotiation
+                (this is the default),
+              </li>
+              <li>
+                <code>'EXTERNAL'</code> - to use SASL EXTERNAL authentication,
+                that is, <code>rabbitmq-auth-mechanism-ssl</code>.
+              </li>
+            </ul>
+            (Note the single quotes here.)
+          </dd>
+
+          <dt><code>prefetch_count</code></dt>
+          <dd>
+            The maximum number of unacknowledged messages federated per link.
+            Default is <code>'none'</code>, meaning there is no limit.
+          </dd>
+
+          <dt><code>reconnect_delay</code></dt>
+          <dd>
+            The duration (in seconds) to wait before reconnecting to the broker
+            after being disconnected. Default is 1.
+          </dd>
+
+          <dt><code>heartbeat</code></dt>
+          <dd>
+            The AMQP heartbeat interval (in seconds) on the connection. Default is
+            <code>'none'</code>, meaning there are no heartbeats.
+          </dd>
+
+          <dt><code>expires</code></dt>
+          <dd>
+            <p>
+              The expiry time (in milliseconds) after which an <i>upstream
+              queue</i> may be deleted, if the connection is lost.
+            </p>
+            <p>
+              Messages are buffered in a queue in the upstream exchange's broker
+              before being federated. This is called the <i>upstream queue</i>.
+              This setting controls how long the queue will last (before it is
+              eligible for deletion) if the connection is lost. (It determines the
+              <code>"x-expires"</code> argument for the queue). The default is
+              <code>'none'</code>, meaning the queue should never expire.
+            </p>
+          </dd>
+
+          <dt><code>message_ttl</code></dt>
+          <dd>
+            <p>
+              The expiry time for messages in the <i>upstream queue</i> (see
+              <code>expires</code>), in milliseconds.
+            </p>
+            <p>
+              (It determines the the <code>"x-message-ttl"</code> argument for the
+              queue.) Default is <code>'none'</code>, meaning messages should
+              never expire.
+            </p>
+          </dd>
+
+          <dt><code>ha_policy</code></dt>
+          <dd>
+            Determines the <code>"x-ha-policy"</code> argument for the <i>upstream
+            queue</i> (see <code>expires</code>). Default is <code>'none'</code>,
+            meaning the queue is not HA.
+          </dd>
+
+          <dt><code>ssl_options</code></dt>
+          <dd>
+            The client SSL connection options. See the Erlang client documentation
+            for more details. Default is that there are no options.
+          </dd>
+        </dl>
+      </doc:subsection>
+
+      <doc:subsection name="other-config">
+        <doc:heading>local_username</doc:heading>
+        <p>
+          The <code>local_username</code> setting specifies the user under which
+          to publish messages to the (local) federated exchanges. The default is
+          <code>"guest"</code>. This user will need the appropriate permissions to
+          publish messages to these exchanges.
+        </p>
+
+        <doc:heading>local_nodename</doc:heading>
+        <p>
+          The <code>local_nodename</code> setting specifies the name this node
+          should use to identify itself to other nodes in the federation graph.
+          The default is constructed from the Erlang node and the machine's
+          fully-qualified domain name. You should only have to specify this
+          explicitly if your Domain Name Server will not give the relevant
+          machines distinct names.
+        </p>
       </doc:subsection>
 
     </doc:section>
