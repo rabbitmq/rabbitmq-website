@@ -256,8 +256,8 @@
         The <span class="code">upstream_sets</span> list contains <i>sets</i> of
         upstream exchanges. Each set of upstream exchanges is named in the list.
         These named sets may also be referenced on the AMQP protocol (as
-        argument "upstream-set") when dynamically declaring a federated exchange
-        (of type "x-federation").
+        argument <code>"upstream-set"</code>) when dynamically declaring a
+        federated exchange (of type <code>x-federation</code>).
       </p>
       <p>
         Each element of an upstream set is an upstream exchange, which will
@@ -282,12 +282,59 @@
       <p>
         The list of exchanges looks like a set of <code>exchange.declare</code>s
         for the most part, but with each declaration including the name of an
-        "upstream_set", representing a list of remote exchanges whose messages
-        should be federated to the local exchange. Note that the type parameter
-        must match the type of the upstream exchanges for routing to work at all
-        sensibly.
+        <code>upstream_set</code>, representing a list of remote exchanges whose
+        messages should be federated to the local exchange. Note that the
+        <code>type</code> parameter should match the type of all the upstream
+        exchanges for routing to work sensibly.
       </p>
 
+      <p>
+        Here are the properties of an element in the exchanges list:
+      </p>
+      <dl>
+        <dt><code>exchange</code>
+        </dt>
+        <dd>
+          The name of the federated exchange to be created (exchange type
+          <code>x-federation</code> assumed). Mandatory. The names in this list
+          should be distinct.
+        </dd>
+        <dt><code>virtual_host</code></dt>
+        <dd>
+          The virtual host in which this exchange is created. Defaults to the
+          broker's <code>default_vhost</code>.
+        </dd>
+        <dt><code>type</code></dt>
+        <dd>
+          The backing-type of this federated exchange. Mandatory. (This cannot
+          be <code>x-federation</code>.)
+        </dd>
+        <dt><code>durable</code></dt>
+        <dd>
+          The <code>durable</code> property of the created federated exchange.
+          Default <code>true</code>.
+        </dd>
+        <dt><code>auto_delete</code></dt>
+        <dd>
+          The <code>auto_delete</code> property of the created federated
+          exchange. Default <code>false</code>.
+        </dd>
+        <dt><code>internal</code></dt>
+        <dd>
+          The <code>internal</code> property of the created federated
+          exchange. Default <code>false</code>.
+        </dd>
+        <dt><code>upstream_set</code></dt>
+        <dd>
+          The name of an element of the <code>upstream_sets</code> list.
+          Mandatory.
+        </dd>
+        <dt>
+        </dt>
+        <dd>
+        </dd>
+      </dl>
+      
       <p>
         Note that the static configuration will only declare federated
         exchanges on the local broker. It does not ensure the upstream
@@ -295,106 +342,52 @@
       </p>
     </doc:subsection>
 
-
-      <doc:subsection name="dynamic-configuration">
-        <doc:heading>Dynamic Configuration</doc:heading>
-
-        <p>
-          
-        </p>
-
-      </doc:subsection>
-
-    </doc:section>
-
-    <doc:section name="example-config">
-      <doc:heading>Example Configuration</doc:heading>
-
-      <p>A verbose configuration might look like this:</p>
-
-      <pre class="example">  {rabbitmq_federation,
-   [ {exchanges, [[{exchange,     "my-exchange"},
-                   {virtual_host, "/"},
-                   {type,         "topic"},
-                   {durable,      true},
-                   {auto_delete,  false},
-                   {internal,     false},
-                   {upstream_set, "my-upstreams"}]
-                 ]},
-     {upstream_sets, [{"my-upstreams", [[{connection, "upstream-server"},
-                                         {exchange,   "my-upstream-x"},
-                                         {max_hops,   2}],
-                                        [{connection, "another-server"}]
-                                       ]}
-                     ]},
-     {connections, [{"upstream-server", [{host,            "upstream-server"},
-                                         {protocol,        "amqps"},
-                                         {port,            5671},
-                                         {virtual_host,    "/"},
-                                         {username,        "myusername"},
-                                         {password,        "secret"},
-                                         {mechanism,       default},
-                                         {prefetch_count,  1000},
-                                         {reconnect_delay, 5},
-                                         {heartbeat,       1},
-                                         {expires,         30000},
-                                         {message_ttl,     10000},
-                                         {ha_policy,       "all"},
-                                         {ssl_options,
-                                          [{cacertfile, "/path/to/cacert.pem"},
-                                           {certfile,   "/path/to/cert.pem"},
-                                           {keyfile,    "/path/to/key.pem"},
-                                           {verify,     verify_peer},
-                                           {fail_if_no_peer_cert, true}
-                                          ]}
-                                        ]},
-                    {"another-server", [...elided...]}
-                   ]},
-     {local_username, "myusername"},
-     {local_nodename, "my-server"}
-   ]
-  }</pre>
-    </doc:section>
-
     <doc:subsection name="upstream-sets">
       <doc:heading>upstream_sets</doc:heading>
       <p>
-        Each element in the <code>upstream_set</code> contains a mapping
-        from a name to a list of upstreams. Each element in this list
-        can contain the following properties:
+        Each element of the <code>upstream_sets</code> list is a mapping from a
+        name to a list of upstream exchanges. Each upstream exchange entry is a
+        property list:
+      </p>
+<pre class="example">
+  {upstream_sets, [{"name1", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
+</pre>
+      <p>
+        The properties can be:
       </p>
 
       <dl>
         <dt><code>connection</code></dt>
         <dd>
-          name of a connection from the connection list. Mandatory.
+          The name of a connection from the connection list. Mandatory.
         </dd>
 
         <dt><code>exchange</code></dt>
         <dd>
-          name for exchange to connect to. Default is to use the same
-          name as the downstream exchange. (Therefore
-          one <code>upstream_set</code> can be refered to by many local
-          exchanges as long as exchange names are the same across all
-          the nodes in your federation.)
+          The name of the upstream exchange. Default is to use the same name as
+          the federated exchange being created. (If this name is omitted one
+          <code>upstream_set</code> can be referenced by more than one federated
+          exchange and still refer to distinct upstream exchanges. Multiple
+          families of exchanges, with common names on a set of brokers, can be
+          federated simply by this technique.)
         </dd>
 
         <dt><code>max_hops</code></dt>
         <dd>
-          the maximum number of times a message received over this link
-          may have been forwarded (including traversing this link). The
-          default for <code>max_hops</code> is 1. This prevents messages
-          from looping forever when there are circular topologies, and
-          can reduce or prevent message duplication
+          The maximum number of times a message received over this link can be
+          federated (including traversing this link). The default is 1. If this
+          limit is exceeded, the message is quietly discarded. (This prevents
+          messages from being federated forever when there are circular
+          topologies, and can reduce or prevent message duplication.)
         </dd>
       </dl>
     </doc:subsection>
+
     <doc:subsection name="connections">
       <doc:heading>connections</doc:heading>
       <p>
-        The connections list provides information on how to connect to
-        brokers mentioned in the upstream sets. It can contain the
-        following properties:
+        The <code>connections</code> list specifies how to connect to brokers
+        mentioned in the upstream sets. It can contain the following properties:
       </p>
 
       <dl>
@@ -515,6 +508,66 @@
         machine in the federation unique names.
       </p>
     </doc:subsection>
+      <doc:subsection name="dynamic-configuration">
+        <doc:heading>Dynamic Configuration</doc:heading>
+
+        <p>
+          
+        </p>
+
+      </doc:subsection>
+
+    </doc:section>
+
+    <doc:section name="example-config">
+      <doc:heading>Example Configuration</doc:heading>
+
+      <p>A verbose configuration might look like this:</p>
+
+      <pre class="example">  {rabbitmq_federation,
+   [ {exchanges, [[{exchange,     "my-exchange"},
+                   {virtual_host, "/"},
+                   {type,         "topic"},
+                   {durable,      true},
+                   {auto_delete,  false},
+                   {internal,     false},
+                   {upstream_set, "my-upstreams"}]
+                 ]},
+     {upstream_sets, [{"my-upstreams", [[{connection, "upstream-server"},
+                                         {exchange,   "my-upstream-x"},
+                                         {max_hops,   2}],
+                                        [{connection, "another-server"}]
+                                       ]}
+                     ]},
+     {connections, [{"upstream-server", [{host,            "upstream-server"},
+                                         {protocol,        "amqps"},
+                                         {port,            5671},
+                                         {virtual_host,    "/"},
+                                         {username,        "myusername"},
+                                         {password,        "secret"},
+                                         {mechanism,       default},
+                                         {prefetch_count,  1000},
+                                         {reconnect_delay, 5},
+                                         {heartbeat,       1},
+                                         {expires,         30000},
+                                         {message_ttl,     10000},
+                                         {ha_policy,       "all"},
+                                         {ssl_options,
+                                          [{cacertfile, "/path/to/cacert.pem"},
+                                           {certfile,   "/path/to/cert.pem"},
+                                           {keyfile,    "/path/to/key.pem"},
+                                           {verify,     verify_peer},
+                                           {fail_if_no_peer_cert, true}
+                                          ]}
+                                        ]},
+                    {"another-server", [...elided...]}
+                   ]},
+     {local_username, "myusername"},
+     {local_nodename, "my-server"}
+   ]
+  }</pre>
+    </doc:section>
+
     <doc:section name="over-amqp">
       <doc:heading>Declaring Federation Exchanges Over AMQP</doc:heading>
 
@@ -522,7 +575,7 @@
 
       <ul>
         <li>
-          Declare the downstream exchange with type "x-federation".
+          Declare the downstream exchange with type <code>x-federation</code>.
         </li>
         <li>
           Give it arguments "type" and "upstream-set", both of type
