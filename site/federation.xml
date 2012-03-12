@@ -69,8 +69,7 @@
             A federated exchange links to other exchanges (called
             <i>upstream</i> exchanges). Logically (see next item), messages sent
             to the upstream exchanges are copied to the federated exchange, as
-            though they were published directly to it. Messages copied in this
-            way are called <i>federated messages</i>. The upstream exchanges do
+            though they were published directly to it. The upstream exchanges do
             not need to be reconfigured and they do not have to be on the same
             broker or in the same cluster.
           </p>
@@ -113,9 +112,10 @@
             the federated exchange is declared.
           </p>
           <p>
-            Messages can be published to a federated exchange like any other.
-            Federated messages and directly published messages are routed just
-            as the backing-type exchange would route them.
+            Messages can be published to a federated exchange like any
+            other. Messages received over federation and locally
+            published messages are routed just as the backing-type
+            exchange would route them.
           </p>
           <p>
             Although not strictly correct, we often say the backing-type is the
