@@ -234,20 +234,20 @@
     }
 </pre>
       <p>
-        It is a list of the (federated) <span class="code">exchanges</span> to
-        declare, a list of named <span class="code">upstream-sets</span>, and a
-        list of named <span class="code">connections</span>. The settings <span
-        class="code">local_username</span> and <span
-        class="code">local_nodename</span> are explained below.
+        It is a list of the (federated) <code>exchanges</code> to
+        declare, a list of named <code>upstream-sets</code>, and a
+        list of named <code>connections</code>. The
+        settings <code>local_username</code>
+        and <code>local_nodename</code> are explained below.
       </p>
       <p>
         The general idea is that each federated exchange links to a set of
-        upstream exchanges (an <span class="code">upstream_set</span>). Each
-        exchange in the <span class="code">exchanges</span> list names of one of
-        the sets defined in <span class="code">upstream_sets</span>.
+        upstream exchanges (an <code>upstream_set</code>). Each
+        exchange in the <code>exchanges</code> list names of one of
+        the sets defined in <code>upstream_sets</code>.
       </p>
       <p>
-        The <span class="code">upstream_sets</span> list contains <i>sets</i> of
+        The <code>upstream_sets</code> list contains <i>sets</i> of
         upstream exchanges. Each set of upstream exchanges is named in the list.
         These named sets may also be referenced on the AMQP protocol (as
         argument <code>"upstream-set"</code>) when dynamically declaring a
@@ -259,11 +259,12 @@
         to use is the name of one of the connections in the connections list.
       </p>
       <p>
-        All of these settings are optional. If the <span
-        class="code">exchanges</span> list is present, the federated exchanges
-        are declared when the broker starts. It is necessary to specify at least
-        one named upstream set before any federated exchange can be declared,
-        either statically or <a href="over-amqp">using an AMQP client</a>.
+        All of these settings are optional. If
+        the <code>exchanges</code> list is present, the federated
+        exchanges are declared when the broker starts. It is necessary
+        to specify at least one named upstream set before any
+        federated exchange can be declared, either statically
+        or <a href="over-amqp">using an AMQP client</a>.
       </p>
 
       <p>
