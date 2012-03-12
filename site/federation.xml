@@ -67,11 +67,11 @@
         <dd>
           <p>
             A federated exchange links to other exchanges (called
-            <i>upstream</i> exchanges). Logically (see next item), messages sent
-            to the upstream exchanges are copied to the federated exchange, as
-            though they were published directly to it. The upstream exchanges do
-            not need to be reconfigured and they do not have to be on the same
-            broker or in the same cluster.
+            <i>upstream</i> exchanges). Logically (see next item), messages
+            published to the upstream exchanges are copied to the federated
+            exchange, as though they were published directly to it. The upstream
+            exchanges do not need to be reconfigured and they do not have to be
+            on the same broker or in the same cluster.
           </p>
         </dd>
 
@@ -113,7 +113,7 @@
           </p>
           <p>
             Messages can be published to a federated exchange like any
-            other. Messages received over federation and locally
+            other. Messages copied from upstream exchanges and locally
             published messages are routed just as the backing-type
             exchange would route them.
           </p>
@@ -141,12 +141,13 @@
             multiply-connected arrangements are allowed.
           </p>
           <p>
-            To prevent messages being continually propagated and re-routed (in a
-            cycle) there is a limit placed on the number of times a message can
-            be federated (see <a href="#upstream-sets"><code>max_hops</code></a>
-            below). It is recommended that all the exchanges linked by
-            federation are of the same type (i.e. backing-type). Mixing types
-            will lead to strange routing behaviour.
+            To prevent messages being continually copied and re-routed (in a
+            never-ending cycle) there is a limit placed on the number of times a
+            message can be copied over a link (see 
+            <a href="#upstream-sets"><code>max_hops</code></a> below). It is
+            recommended that all the exchanges linked by federation are of the
+            same type (i.e. backing-type). Mixing types will lead to strange
+            routing behaviour.
           </p>
           <p>
             The backing-type cannot be <code>x-federation</code>.
@@ -175,15 +176,14 @@
 
       <doc:subsection name="details">
         <doc:heading>Implementation</doc:heading>
-            <p>
-              Inter-broker communication is implemented using AMQP (optionally
-              secured with SSL). Bindings are grouped together and bind / unbind
-              commands are sent to the upstream exchange. Therefore the
-              federated exchange only receives messages for which it has a
-              subscription. The bindings are sent upstream asynchronously - so
-              the effect of adding or removing a binding is only guaranteed to
-              be seen eventually.
-            </p>
+          <p>
+            Inter-broker communication is implemented using AMQP (optionally
+            secured with SSL). Bindings are grouped together and bind / unbind
+            commands are sent to the upstream exchange. Therefore the federated
+            exchange only receives messages for which it has a subscription. The
+            bindings are sent upstream asynchronously - so the effect of adding
+            or removing a binding is only guaranteed to be seen eventually.
+          </p>
       </doc:subsection>
 
     </doc:section>
@@ -202,8 +202,8 @@
         When using a federated exchange in a cluster, all the nodes of the
         cluster must have the federation plugin installed. Any node can declare
         a federated exchange and its properties are shared in the cluster as
-        usual. If a node fails, upstream links will restart on a surviving
-        node.
+        usual. If a node fails, links to upstream exchanges will be recreated on
+        a surviving node.
       </p>
     </doc:section>
 
@@ -243,7 +243,7 @@
       <p>
         The general idea is that each federated exchange links to a set of
         upstream exchanges (an <code>upstream_set</code>). Each
-        exchange in the <code>exchanges</code> list names of one of
+        exchange in the <code>exchanges</code> list names one of
         the sets defined in <code>upstream_sets</code>.
       </p>
       <p>
@@ -275,12 +275,13 @@
       <doc:subsection name="exchanges">
         <doc:heading>exchanges</doc:heading>
         <p>
-          The list of exchanges looks like a set of <code>exchange.declare</code>s
-          for the most part, but with each declaration including the name of an
-          <code>upstream_set</code>, representing a list of remote exchanges whose
-          messages should be federated to the local exchange. Note that the
-          <code>type</code> parameter should match the type of all the upstream
-          exchanges for routing to work sensibly.
+          The list of exchanges looks like a set of
+          <code>exchange.declare</code>s for the most part, but with each
+          declaration including the name of an <code>upstream_set</code>,
+          representing a list of exchanges whose messages should be copied to
+          the local exchange. Note that the <code>type</code> parameter should
+          match the type of all the upstream exchanges for routing to work
+          sensibly.
         </p>
 
         <p>
@@ -291,8 +292,8 @@
           </dt>
           <dd>
             The name of the federated exchange to be created (exchange type
-            <code>x-federation</code> assumed). Mandatory. The names in this list
-            should be distinct.
+            <code>x-federation</code> assumed). Mandatory. The names in this
+            list should be distinct.
           </dd>
           <dt><code>virtual_host</code></dt>
           <dd>
@@ -335,9 +336,9 @@
       <doc:subsection name="upstream-sets">
         <doc:heading>upstream_sets</doc:heading>
         <p>
-          Each element of the <code>upstream_sets</code> list is a mapping from a
-          name to a list of upstream exchanges. Each upstream exchange entry is a
-          property list:
+          Each element of the <code>upstream_sets</code> list is a mapping from
+          a name to a list of upstream exchanges. Each upstream exchange entry
+          is a property list:
         </p>
 <pre class="example">
   {upstream_sets, [{"set_name", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
@@ -355,21 +356,31 @@
 
           <dt><code>exchange</code></dt>
           <dd>
-            The name of the upstream exchange. Default is to use the same name as
-            the federated exchange being created. If this name is omitted one
-            <code>upstream_set</code> can be referenced by more than one federated
-            exchange and still refer to distinct upstream exchanges. Multiple
-            families of exchanges, with common names on a set of brokers, can be
-            federated simply by this technique.
+            <p>
+              The name of the upstream exchange. Default is to use the same name
+              as the federated exchange being created.
+            </p>
+            <p>
+              If this name is omitted one <code>upstream_set</code> can be
+              referenced by more than one federated exchange and still refer to
+              distinct upstream exchanges. Multiple families of exchanges, with
+              common names on a set of brokers, can be federated simply by this
+              technique.
+            </p>
           </dd>
 
           <dt><code>max_hops</code></dt>
           <dd>
-            The maximum number of times a message received over this link can be
-            federated, including traversing this link. The default is 1. If this
-            limit is exceeded, the message is quietly discarded. This prevents
-            messages from being federated forever when there are circular
-            topologies, and can reduce or prevent message duplication.
+            <p>
+              The maximum number of times a message can be copied over a link,
+              including this link. The default is 1.
+            </p>
+            <p>
+              If this limit is exceeded on this link, the message is quietly
+              discarded. This prevents messages from being indefinitely copied
+              when there are circular topologies, and can reduce or prevent
+              message duplication.
+            </p>
           </dd>
         </dl>
       </doc:subsection>
@@ -422,8 +433,8 @@
 
           <dt><code>password</code></dt>
           <dd>
-            The password to use when connecting as <code>username</code>. Default
-            is <code>"guest"</code>.
+            The password to use when connecting as <code>username</code>.
+            Default is <code>"guest"</code>.
           </dd>
 
           <dt><code>mechanism</code></dt>
@@ -444,8 +455,9 @@
 
           <dt><code>prefetch_count</code></dt>
           <dd>
-            The maximum number of unacknowledged messages federated per link.
-            Default is <code>'none'</code>, meaning there is no limit.
+            The maximum number of unacknowledged messages copied over a link at
+            any one time. Default is <code>'none'</code>, meaning there is no
+            limit.
           </dd>
 
           <dt><code>reconnect_delay</code></dt>
@@ -456,23 +468,26 @@
 
           <dt><code>heartbeat</code></dt>
           <dd>
-            The AMQP heartbeat interval (in seconds) on the connection. Default is
-            <code>'none'</code>, meaning there are no heartbeats.
+            The AMQP heartbeat interval (in seconds) on the connection. Default
+            is <code>'none'</code>, meaning there are no heartbeats.
           </dd>
 
           <dt><code>expires</code></dt>
           <dd>
             <p>
               The expiry time (in milliseconds) after which an <i>upstream
-              queue</i> may be deleted, if the connection is lost.
+              queue</i> may be deleted, if the connection is lost. The default
+              is <code>'none'</code>, meaning the queue should never expire.
             </p>
             <p>
               Messages are buffered in a queue in the upstream exchange's broker
               before being federated. This is called the <i>upstream queue</i>.
               This setting controls how long the queue will last before it is
-              eligible for deletion if the connection is lost. (It determines the
-              <code>"x-expires"</code> argument for the queue). The default is
-              <code>'none'</code>, meaning the queue should never expire.
+              eligible for deletion if the connection is lost.
+            </p>
+            <p>
+              This value is used to set the <code>"x-expires"</code> argument
+              for the upstream queue.
             </p>
           </dd>
 
@@ -480,26 +495,27 @@
           <dd>
             <p>
               The expiry time for messages in the <i>upstream queue</i> (see
-              <code>expires</code>), in milliseconds.
+              <code>expires</code>), in milliseconds. Default is
+              <code>'none'</code>, meaning messages should never expire.
             </p>
             <p>
-              (It determines the the <code>"x-message-ttl"</code> argument for the
-              queue.) Default is <code>'none'</code>, meaning messages should
-              never expire.
+              This value is used to set the <code>"x-message-ttl"</code>
+              argument for the upstream queue.
             </p>
           </dd>
 
           <dt><code>ha_policy</code></dt>
           <dd>
-            Determines the <code>"x-ha-policy"</code> argument for the <i>upstream
-            queue</i> (see <code>expires</code>). Default is <code>'none'</code>,
-            meaning the queue is not HA.
+            Determines the <code>"x-ha-policy"</code> argument for the
+            <i>upstream queue</i> (see <code>expires</code>). Default is
+            <code>'none'</code>, meaning the queue is not HA.
           </dd>
 
           <dt><code>ssl_options</code></dt>
           <dd>
-            The client SSL connection options. See the Erlang client documentation
-            for more details. Default is that there are no options.
+            The client SSL connection options. See the Erlang client
+            documentation for more details. Default is that there are no
+            options.
           </dd>
         </dl>
       </doc:subsection>
@@ -509,8 +525,8 @@
         <p>
           The <code>local_username</code> setting specifies the user under which
           to publish messages to the (local) federated exchanges. The default is
-          <code>"guest"</code>. This user will need the appropriate permissions to
-          publish messages to these exchanges.
+          <code>"guest"</code>. This user will need the appropriate permissions
+          to publish messages to these exchanges.
         </p>
 
         <doc:heading>local_nodename</doc:heading>
