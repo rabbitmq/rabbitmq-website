@@ -220,8 +220,8 @@
         Federated exchanges may be statically declared in the federation plugin
         configuration, requiring no further exchange set-up after the broker is
         started. Alternatively, some information may be statically configured
-        and the federated exchanges themselves declared dynamically like other
-        exchange types.
+        and the federated exchanges themselves <a href="#over-amqp">declared
+        dynamically</a> like other exchange types.
       </p>
 
       <p>
@@ -269,7 +269,7 @@
         class="code">exchanges</span> list is present, the federated exchanges
         are declared when the broker starts. It is necessary to specify at least
         one named upstream set before any federated exchange can be declared,
-        either statically or using an AMQP client.
+        either statically or <a href="over-amqp">using an AMQP client</a>.
       </p>
 
       <p>
@@ -522,21 +522,70 @@
         <p>
           The <code>local_nodename</code> setting specifies the name this node
           should use to identify itself to other nodes in the federation graph.
-          The default is constructed from the Erlang node and the machine's
-          fully-qualified domain name. You should only have to specify this
-          explicitly if your Domain Name Server will not give the relevant
-          machines distinct names.
+          (The default is constructed from the Erlang node and the machine's
+          fully-qualified domain name.)
+        </p>
+        <p>
+          You should only have to specify this explicitly if your Domain Name
+          Server will not give the relevant machines distinct names.
         </p>
       </doc:subsection>
 
     </doc:section>
 
+    <doc:section name="over-amqp">
+      <doc:heading>Declaring Federated Exchanges Over AMQP</doc:heading>
+
+      <p>
+        In order to declare federated exchanges dynamically, using an AMQP
+        client, it is still necessary to <a href="#configuration">statically
+        configure</a> <code>upstream_sets</code> and the
+        <code>connections</code> to support them.
+      </p>
+      <p>
+        A federated exchange can then be declared as follows:
+      </p>
+
+      <ul>
+        <li>
+          Declare the downstream exchange with type <code>x-federation</code>.
+        </li>
+        <li>
+          On the declare exchange method supply <i>arguments</i> named
+          <code>"type"</code> and <code>"upstream-set"</code>, both of type
+          <code>"long string"</code>. The value of the <code>"type"</code>
+          argument should be the <i>backing-type</i>; the value of the
+          <code>"upstream-set"</code> argument should be the name of an
+          <i>upstream set</i> from the static configuration. (Note that over
+          AMQP <code>upstream-set</code> uses a hyphen, but in the static
+          <code>exchanges</code> configuration <code>upstream_set</code>
+          uses an underscore.)
+        </li>
+      </ul>
+
+      <p>
+        Here is an example using the Java client:
+      </p>
+
+<pre class="example">
+  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+  args.put("type", "topic");
+  args.put("upstream-set", "my-upstream-set");
+
+  <i>// Channel ch = ...;</i>
+  ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);
+</pre>
+    </doc:section>
+
     <doc:section name="example-config">
       <doc:heading>Example Configuration</doc:heading>
 
-      <p>A verbose configuration might look like this:</p>
+      <p>
+        A verbose configuration might look like this:
+      </p>
 
-      <pre class="example">  {rabbitmq_federation,
+<pre class="example">
+  {rabbitmq_federation,
    [ {exchanges, [[{exchange,     "my-exchange"},
                    {virtual_host, "/"},
                    {type,         "topic"},
@@ -572,41 +621,34 @@
                                            {fail_if_no_peer_cert, true}
                                           ]}
                                         ]},
-                    {"another-server", [...elided...]}
+                    {"another-server", [{host, "another-server"}]}
                    ]},
      {local_username, "myusername"},
      {local_nodename, "my-server"}
    ]
-  }</pre>
+  }
+</pre>
+      <p>
+        The configuration above declares one federated (topic) exchange (called
+        <code>"my-exchange"</code>). This exchange links to <i>two</i> upstream
+        exchanges (defined in the upstream set called
+        <code>"my-upstreams"</code>).
+      </p>
+      <p>
+        One upstream exchange is called <code>"my-upstream-x"</code> and is on a
+        server on host <code>"upstream-server"</code>, and the other is called
+        <code>"my-exchange"</code> (it takes its default name from the local
+        federated exchange) and is on a server on the host
+        <code>"another-server"</code>.
+      </p>
+      <p>
+        The local federation plugin actions are taken under the user
+        <code>"myusername"</code>, which is also the user used to link to the
+        host <code>"upstream-server"</code> on an SSL connection. The host
+        <code>"another-server"</code> is linked to with user name
+        <code>"guest"</code> on an unsecured connection.
+      </p>
     </doc:section>
 
-    <doc:section name="over-amqp">
-      <doc:heading>Declaring Federation Exchanges Over AMQP</doc:heading>
-
-      <p>This is a less common case, but in case you want to do this:</p>
-
-      <ul>
-        <li>
-          Declare the downstream exchange with type <code>x-federation</code>.
-        </li>
-        <li>
-          Give it arguments "type" and "upstream-set", both of type
-          "long string". "type" should refer to its backing type; the
-          type of the upstream exchanges. "upstream-set" should be the
-          name of an upstream_set from the static configuration (note
-          that it's a hyphen over AMQP but an underscore in the
-          configuration).
-        </li>
-      </ul>
-
-      <p>Example using the Java API:</p>
-
-      <pre class="example">Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-args.put("type", "topic");
-args.put("upstream-set", "my-upstream-set");
-
-Channel ch = ...;
-ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);</pre>
-    </doc:section>
   </body>
 </html>
