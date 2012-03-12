@@ -19,12 +19,9 @@
     <dl class="plain">
       <dt><b>Loose coupling</b></dt>
       <dd>
-        The federation plugin can transmit messages between brokers in
-        different administrative domains:
+        The federation plugin can transmit messages between brokers
+        (or clusters) in different administrative domains:
         <ul class="plain">
-          <li>
-            they need not be in the same cluster;
-          </li>
           <li>
             they may have different users and virtual hosts;
           </li>
@@ -46,7 +43,8 @@
       <dt><b>Scalability</b></dt>
       <dd>
         Federation does not require <i>n</i><sup>2</sup> connections between
-        <i>n</i> brokers, which should mean it scales better.
+        <i>n</i> brokers (although this is the easiest way to set
+        things up), which should mean it scales better.
       </dd>
     </dl>
 
@@ -94,10 +92,11 @@
         </dt>
         <dd>
           <p>
-            The federated exchange will connect to all its upstream exchanges
-            using the AMQP protocol. When declaring or configuring the federated
-            exchange each upstream exchange is listed with the connection
-            properties to be used to establish the link.
+            The federated exchange will connect to all its upstream
+            exchanges using AMQP. When declaring or configuring the
+            federated exchange each upstream exchange is listed with
+            the connection properties to be used to establish the
+            link.
           </p>
         </dd>
 
@@ -175,7 +174,7 @@
       </dl>
 
       <doc:subsection name="details">
-        <doc:heading>Some more details</doc:heading>
+        <doc:heading>Implementation</doc:heading>
             <p>
               Inter-broker communication is implemented using AMQP (optionally
               secured with SSL). Bindings are grouped together and bind / unbind
@@ -203,13 +202,8 @@
         When using a federated exchange in a cluster, all the nodes of the
         cluster must have the federation plugin installed. Any node can declare
         a federated exchange and its properties are shared in the cluster as
-        usual. If a node fails, upstream links will be adopted by a surviving
+        usual. If a node fails, upstream links will restart on a surviving
         node.
-      </p>
-
-      <p>
-        Federated exchanges are set up via "static configuration", or can be
-        declared dynamically over AMQP.
       </p>
     </doc:section>
 
@@ -361,20 +355,20 @@
           <dt><code>exchange</code></dt>
           <dd>
             The name of the upstream exchange. Default is to use the same name as
-            the federated exchange being created. (If this name is omitted one
+            the federated exchange being created. If this name is omitted one
             <code>upstream_set</code> can be referenced by more than one federated
             exchange and still refer to distinct upstream exchanges. Multiple
             families of exchanges, with common names on a set of brokers, can be
-            federated simply by this technique.)
+            federated simply by this technique.
           </dd>
 
           <dt><code>max_hops</code></dt>
           <dd>
             The maximum number of times a message received over this link can be
-            federated (including traversing this link). The default is 1. If this
-            limit is exceeded, the message is quietly discarded. (This prevents
+            federated, including traversing this link. The default is 1. If this
+            limit is exceeded, the message is quietly discarded. This prevents
             messages from being federated forever when there are circular
-            topologies, and can reduce or prevent message duplication.)
+            topologies, and can reduce or prevent message duplication.
           </dd>
         </dl>
       </doc:subsection>
@@ -419,10 +413,10 @@
 
           <dt><code>username</code></dt>
           <dd>
-            The user to connect as. Default is <code>"guest"</code>. (This user
+            The user to connect as. Default is <code>"guest"</code>. This user
             will need the appropriate permissions to create exchanges and queues
             with names beginning with "federation:", and to bind to the upstream
-            exchange.)
+            exchange.
           </dd>
 
           <dt><code>password</code></dt>
@@ -436,7 +430,7 @@
             The <a href="authentication.html">SASL mechanism</a> to use. One of:
             <ul>
               <li>
-                <code>'default'</code> - to use PLAIN or AMQPLAIN by negotiation
+                <code>default</code> - to use PLAIN or AMQPLAIN by negotiation
                 (this is the default),
               </li>
               <li>
@@ -474,8 +468,8 @@
             <p>
               Messages are buffered in a queue in the upstream exchange's broker
               before being federated. This is called the <i>upstream queue</i>.
-              This setting controls how long the queue will last (before it is
-              eligible for deletion) if the connection is lost. (It determines the
+              This setting controls how long the queue will last before it is
+              eligible for deletion if the connection is lost. (It determines the
               <code>"x-expires"</code> argument for the queue). The default is
               <code>'none'</code>, meaning the queue should never expire.
             </p>
@@ -526,8 +520,8 @@
           fully-qualified domain name.)
         </p>
         <p>
-          You should only have to specify this explicitly if your Domain Name
-          Server will not give the relevant machines distinct names.
+          You should only have to specify this explicitly if your DNS
+          will not give the relevant machines distinct names.
         </p>
       </doc:subsection>
 
