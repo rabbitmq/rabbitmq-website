@@ -670,8 +670,8 @@
       <p>
         Here are some diagrams of particular federation topologies. Where
         RabbitMQ brokers are shown in these diagrams (indicated by a
-        <img src="img/kitten.png" height="15"/>) it is possible to have a
-        cluster of brokers instead.
+        <img src="img/rabbitmq_logo_30x30.png" height="15"/>) it is
+        possible to have a cluster of brokers instead.
       </p>
       <dl>
         <dt><b>Simple link</b></dt>
