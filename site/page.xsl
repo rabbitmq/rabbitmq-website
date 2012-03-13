@@ -308,10 +308,10 @@
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README{@extension}">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
