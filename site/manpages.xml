@@ -21,6 +21,7 @@
           <li><a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a></li>
           <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
           <li><a href="man/rabbitmq-service.man.html">rabbitmq-service</a></li>
+          <li><a href="man/rabbitmq-echopid.man.html">rabbitmq-echopid</a></li>
         </ul>
       </doc:section>
 

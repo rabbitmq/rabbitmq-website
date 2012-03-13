@@ -322,21 +322,5 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
           <code>node2@rabbit</code> and <code>node4@rabbit</code>.
         </p>
       </doc:section>
-      <doc:section name="peer-perspective">
-        <doc:heading>Handling Node Failure in Clients</doc:heading>
-        <p>
-          The client libraries distributed by RabbitMQ do not deal
-          with a master node failure in a transparent manner. However
-          it is possible to implement a producer and consumer that
-          transition between pre-determined cluster nodes using the
-          client libraries. The recommended method is to pre-configure
-          producers and consumers with the set of all nodes in a
-          cluster, assuming the set of all nodes that may join the
-          cluster remains static. Clients should then reconnect
-          to a different node when the connection to the current
-          node drops, or upon receipt of <code>basic.cancel</code>
-          by consumers that support it.
-        </p>
-      </doc:section>
   </body>
 </html>

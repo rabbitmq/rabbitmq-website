@@ -21,6 +21,14 @@
         </r:download>
       </r:downloads>
       <doc:subsection name="install-windows">
+        <doc:heading>Uninstall previous version</doc:heading>
+        <p>
+          If you have an existing installation and are planning to upgrade
+          the Erlang VM from a 32bit to a 64bit version then you must uninstall
+          the broker before upgrading the VM. The installer will not be able to stop
+          or remove a service that was installed with an Erlang VM of a different
+          architecture.
+        </p>
         <doc:heading>Install the Server</doc:heading>
         <p>
           Firstly, download and run
@@ -67,17 +75,6 @@
               the most convenient way to run
               the <a href="manpages.html">various command line
                 tools</a>.
-            </p>
-          </dd>
-          <dt>Shutting down Windows</dt>
-          <dd>
-            <p>
-              Due to limitations in the underlying Erlang VM, the broker
-              will not go through the controlled shutdown sequence when
-              Windows shuts down. If RabbitMQ is installed as a service
-              then you must stop the service manually before shutting
-              down Windows. Failure to do so may cause the broker to
-              spend longer on recovery when started subsequently.
             </p>
           </dd>
         </dl>

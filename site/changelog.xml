@@ -14,6 +14,18 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-December/016941.html">2.7.1</a></td>
+          <td>20 December 2011</td>
+          <td>
+            <ul>
+              <li>Important fixes to High Availability</li>
+              <li>Compatibility with Erlang R15B</li>
+              <li>Bug fixes and performance improvements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
           <td>9 November 2011</td>
           <td>
@@ -44,7 +56,7 @@
               <li><a href="ha.html">Active-active HA</a></li>
               <li>Stomp improvements</li>
               <li>Management improvements</li>
-              <li><a href="plugins.html#rabbitmq_federation">Federation plugin</a></li>
+              <li><a href="federation.html">Federation plugin</a></li>
             </ul>
           </td>
         </tr>

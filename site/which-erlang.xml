@@ -29,6 +29,8 @@
       <td>Earlier versions do not recognise <a href="memory.html">memory</a> limits.</td></tr>
       <tr><td>use <a href="ssl.html">SSL</a> reliably</td><td>R14B (SSL 4.0.1)</td>
       <td>Earlier versions do not support <a href="ssl.html">SSL</a> well.</td></tr>
+      <tr><td>run on a <a href="platforms.html#windows">64bit Windows</a> VM</td><td>R15B</td>
+      <td>Earlier versions are 32bit only.</td></tr>
     </table>
     </p>
     <p>
@@ -38,55 +40,19 @@
 
     <h3>OS support</h3>
     <p>
-      Most current distributions now package Erlang that supports all the above. You can check these specific distributions:
-    <ul>
-    <li><a href="http://software.opensuse.org">OpenSUSE</a></li>
-    <li><a href="https://admin.fedoraproject.org/updates/erlang">Fedora</a></li>
-    <li><a href="http://www.macports.org/ports.php">Macports</a></li>
-    <li><a href="http://packages.debian.org/stable/erlang">Debian</a></li>
-    <li><a href="https://launchpad.net/erlang">Ubuntu</a></li>
-    <li><a href="http://download.fedora.redhat.com/pub/epel/5/SRPMS/repoview/erlang.html">Fedora EPEL 5 SRPMS</a></li>
-    </ul>
-    </p>
-    <p>
-      Platforms which <a href="platforms.html">support Erlang</a>.
-    </p>
-
-    <h3>How to get a later version</h3>
-    <p>
-    <dl>
-    <dt>Windows Users</dt>
-    <dd>
-      Install the Erlang Windows binary from
-      <a href="http://www.erlang.org/download.html">www.erlang.org/downloads.html</a>
-    </dd>
-    <dt>RedHat Enterprise Linux (RHEL) and derived distributions (e.g. CentOS):</dt>
-    <dd>
-      The owner of the EPEL Erlang package provides a package repository:
-      (as root)
-      <code> wget -O /etc/yum.repos.d/epel-erlang.repo
-      http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</code>.
-      Invoking <code>yum install erlang</code> will then install Erlang.
-    </dd>
-    </dl>
-    </p>
-
-    <h3>Update the distribution</h3>
-    <p>
-      If you need newer features of Erlang than the package manager for your
-      Linux distribution provides, it may be best to update your distribution.
+      Most current distributions now package Erlang that supports all
+      the above. One (partial) exception is Red Hat Enterprise Linux -
+      RPMs are available but not as part of the core distribution.
+      See the <a href="install-rpm.html">RPM-based Linux
+      Installation</a> page for how to install Erlang on RPM-based
+      distributions.
     </p>
 
     <h3>Building Erlang from source</h3>
     <p>
-      As a last resort you might build Erlang from source. Be aware that if you do,
-      your package manager can't know that you have done so. You'll therefore need to
-      install RabbitMQ from the generic Unix package, or from source.
-    </p>
-    <p>
-      If you should need to
-      <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>,
-      you will need OpenSSL installed on your system.
+      If a sufficiently recent Erlang package is not available for your system then you will need to
+      <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
+      This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
     </p>
   </body>
 </html>
