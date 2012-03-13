@@ -73,6 +73,17 @@
             exchanges do not need to be reconfigured and they do not have to be
             on the same broker or in the same cluster.
           </p>
+          <p>
+            Here is a diagram showing a single federated exchange in one
+            broker linking to a set of two upstream exchanges in other
+            brokers.
+          </p>
+          <img src="img/federation00.png" height="250" alt="Basic federated exchange" title="Basic federated exchange"/>
+          <p>
+            All of the configuration needed to establish the upstream
+            links and the federated exchange is in the broker with the
+            federated exchange.
+          </p>
         </dd>
 
         <dt>
@@ -172,8 +183,8 @@
             on.
           </p>
           <p>
-            See the <a href="#topology-diagrams">diagrams below</a> for other
-            possible arrangements.
+            See the <a href="#topology-diagrams">example diagrams
+            below</a> for some possible arrangements.
           </p>
         </dd>
       </dl>
@@ -187,6 +198,22 @@
             exchange only receives messages for which it has a subscription. The
             bindings are sent upstream asynchronously - so the effect of adding
             or removing a binding is only guaranteed to be seen eventually.
+          </p>
+          <p>
+            Here is a detailed diagram showing a single federated
+            exchange linking to a single upstream exchange including the
+            upstream queue and bindings created by the federation plugin
+            shown in grey. The fat arrow on the upstream link indicates
+            messages republished by the federated exchange. Some
+            potential publisher clients are shown publishing to both
+            exchanges.
+          </p>
+          <img src="img/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
+          <p>
+            Publications to either exchange may be received by queues bound to
+            the federated exchange, but publications directly to the federated
+            exchange cannot be received by queues bound to the upstream
+            exchange.
           </p>
       </doc:subsection>
 
@@ -666,32 +693,14 @@
     </doc:section>
 
     <doc:section name="topology-diagrams">
-      <doc:heading>Diagrams of federation graphs</doc:heading>
+      <doc:heading>Example topologies</doc:heading>
       <p>
-        Here are some diagrams of particular federation topologies. Where
-        RabbitMQ brokers are shown in these diagrams (indicated by a
-        <img src="img/rabbitmq_logo_30x30.png" height="15"/>) it is
-        possible to have a cluster of brokers instead.
+        We illustrate some example federation topologies. Where RabbitMQ
+        brokers are shown in these diagrams (indicated by a <img
+        src="img/rabbitmq_logo_30x30.png" height="15"/>) it is possible
+        to have a cluster of brokers instead.
       </p>
       <dl>
-        <dt><b>Simple link</b></dt>
-        <dd>
-          <p>
-            This is the most detailed diagram. It shows a single federated
-            exchange linking to a single upstream exchange, with the upstream
-            queue and bindings created by the federation broker as a result of
-            bindings to the federated exchange. Some potential publisher clients
-            are shown publishing to both exchanges.
-          </p>
-          <img src="img/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
-          <p>
-            Publications to either exchange may be received by queues bound to
-            the federated exchange, but publications directly to the federated
-            exchange cannot be received by queues bound to the upstream
-            exchange.
-          </p>
-        </dd>
-
         <dt><b>Pair of federated exchanges</b></dt>
         <dd>
           <p>
@@ -714,7 +723,7 @@
             This arrangement is the analogue of the pair of federated exchanges
             but for three exchanges. Each exchange links to both the others.
           </p>
-          <img src="img/federation03.png" height="340" alt="Three-way federation" title="Three-way federation" />
+          <img src="img/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
           <p>
             Again <code>max_hops=1</code> because the "hop distance" to any
             other exchange is exactly one. This will be the case in any complete
@@ -732,10 +741,10 @@
           </p>
           <img src="img/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
           <p>
-            Because there are no loops it is not so crucial to get the
-            <code>max_hops</code> value right, but it must be at least as long
-            as the longest connecting path. For a tree this is the number of
-            levels minus one.
+            Because there are no loops it is not as crucial to get the
+            <code>max_hops</code> value right, but it must be at least
+            as large as the longest connecting path. For a tree this is
+            the number of levels minus one.
           </p>
         </dd>
 
