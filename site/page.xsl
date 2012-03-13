@@ -68,7 +68,7 @@
       <a href="/"><img src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="204" height="37"/></a>
     </div>
     <div id="vmw-logo">
-      <a href="http://www.vmware.com/go/rabbitmq"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="150" height="23"/></a>
+      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
     </div>
     <div id="nav-search">
       <div id="search-box">
