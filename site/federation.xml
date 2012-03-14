@@ -200,6 +200,14 @@
             or removing a binding is only guaranteed to be seen eventually.
           </p>
           <p>
+            The messages are buffered in a queue created in the upstream
+            exchange's broker. This is called the <i>upstream queue</i>.
+            It is the upstream queue which is bound to the upstream
+            exchange with the grouped bindings. It is possible to tailor
+            some of the properties of this queue in the <a
+            href="#connections">connection configuration</a>.
+          </p>
+          <p>
             Here is a detailed diagram showing a single federated
             exchange linking to a single upstream exchange including the
             upstream queue and bindings created by the federation plugin
@@ -506,15 +514,16 @@
           <dt><code>expires</code></dt>
           <dd>
             <p>
-              The expiry time (in milliseconds) after which an <i>upstream
-              queue</i> may be deleted, if the connection is lost. The default
-              is <code>'none'</code>, meaning the queue should never expire.
+              The expiry time (in milliseconds) after which an <a
+              href="#details"><i>upstream queue</i></a> may be deleted,
+              if the connection is lost. The default is
+              <code>'none'</code>, meaning the queue should never
+              expire.
             </p>
             <p>
-              Messages are buffered in a queue in the upstream exchange's broker
-              before being federated. This is called the <i>upstream queue</i>.
-              This setting controls how long the queue will last before it is
-              eligible for deletion if the connection is lost.
+              This setting controls how long the upstream queue will
+              last before it is eligible for deletion if the connection
+              is lost.
             </p>
             <p>
               This value is used to set the <code>"x-expires"</code> argument
