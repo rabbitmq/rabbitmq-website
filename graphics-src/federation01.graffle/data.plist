@@ -64,96 +64,28 @@
 			<key>Graphics</key>
 			<array>
 				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>382</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{80.37, 79.5587}</string>
-						<string>{100.779, 44.8537}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>3</real>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>383</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{80.37, 44.8537}</string>
-						<string>{100.779, 79.5587}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>3</real>
-						</dict>
-					</dict>
-				</dict>
-			</array>
-			<key>ID</key>
-			<integer>381</integer>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>Group</string>
-			<key>Graphics</key>
-			<array>
-				<dict>
 					<key>Bounds</key>
-					<string>{{284.066, 72.7927}, {15.4059, 15.916}}</string>
+					<string>{{278.727, 54.7529}, {17.5765, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
 					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>0.271739</string>
+							<key>g</key>
+							<string>0.271739</string>
+							<key>r</key>
+							<string>0.271739</string>
+						</dict>
 						<key>Font</key>
 						<string>Georgia-Italic</string>
 						<key>Size</key>
 						<real>14</real>
 					</dict>
 					<key>ID</key>
-					<integer>374</integer>
+					<integer>401</integer>
 					<key>Shape</key>
 					<string>Rectangle</string>
 					<key>Style</key>
@@ -180,20 +112,198 @@
 						<integer>0</integer>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fnil\fcharset0 Georgia;}
-{\colortbl;\red255\green255\blue255;}
+{\fonttbl\f0\fswiss\fcharset0 ArialRoundedMTBold;}
+{\colortbl;\red255\green255\blue255;\red69\green69\blue69;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\i\fs20 \cf0 f}</string>
+\f0\b\fs18 \cf2 F}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
 				</dict>
 				<dict>
 					<key>Class</key>
+					<string>Group</string>
+					<key>Graphics</key>
+					<array>
+						<dict>
+							<key>Class</key>
+							<string>Group</string>
+							<key>Graphics</key>
+							<array>
+								<dict>
+									<key>Class</key>
+									<string>LineGraphic</string>
+									<key>ID</key>
+									<integer>404</integer>
+									<key>Notes</key>
+									<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+									<key>Points</key>
+									<array>
+										<string>{270.05, 72.1559}</string>
+										<string>{285.573, 46.9009}</string>
+									</array>
+									<key>Style</key>
+									<dict>
+										<key>stroke</key>
+										<dict>
+											<key>CornerRadius</key>
+											<real>3</real>
+											<key>HeadArrow</key>
+											<string>0</string>
+											<key>Join</key>
+											<integer>0</integer>
+											<key>TailArrow</key>
+											<string>0</string>
+											<key>Width</key>
+											<real>2</real>
+										</dict>
+									</dict>
+								</dict>
+								<dict>
+									<key>Class</key>
+									<string>LineGraphic</string>
+									<key>ID</key>
+									<integer>405</integer>
+									<key>Notes</key>
+									<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+									<key>Points</key>
+									<array>
+										<string>{270.05, 46.9009}</string>
+										<string>{285.573, 72.1559}</string>
+									</array>
+									<key>Style</key>
+									<dict>
+										<key>stroke</key>
+										<dict>
+											<key>CornerRadius</key>
+											<real>3</real>
+											<key>HeadArrow</key>
+											<string>0</string>
+											<key>Join</key>
+											<integer>0</integer>
+											<key>TailArrow</key>
+											<string>0</string>
+											<key>Width</key>
+											<real>2</real>
+										</dict>
+									</dict>
+								</dict>
+							</array>
+							<key>ID</key>
+							<integer>403</integer>
+						</dict>
+						<dict>
+							<key>Bounds</key>
+							<string>{{262.288, 39.6849}, {31.0459, 39.6851}}</string>
+							<key>Class</key>
+							<string>ShapedGraphic</string>
+							<key>ID</key>
+							<integer>406</integer>
+							<key>Shape</key>
+							<string>Circle</string>
+							<key>Style</key>
+							<dict/>
+							<key>Text</key>
+							<dict>
+								<key>VerticalPad</key>
+								<integer>0</integer>
+							</dict>
+							<key>VFlip</key>
+							<string>YES</string>
+						</dict>
+					</array>
+					<key>ID</key>
+					<integer>402</integer>
+				</dict>
+			</array>
+			<key>ID</key>
+			<integer>400</integer>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>414</integer>
+			<key>Points</key>
+			<array>
+				<string>{111.886, 43.185}</string>
+				<string>{102.378, 48.8543}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Color</key>
+					<dict>
+						<key>b</key>
+						<string>0.293478</string>
+						<key>g</key>
+						<string>0.293478</string>
+						<key>r</key>
+						<string>0.293478</string>
+					</dict>
+					<key>HeadArrow</key>
+					<string>StickArrow</string>
+					<key>HeadScale</key>
+					<real>0.59999990463256836</real>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>ID</key>
+			<integer>102</integer>
+			<key>Points</key>
+			<array>
+				<string>{110.886, 39.685}</string>
+				<string>{101.378, 45.3543}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>Color</key>
+					<dict>
+						<key>b</key>
+						<string>0.293478</string>
+						<key>g</key>
+						<string>0.293478</string>
+						<key>r</key>
+						<string>0.293478</string>
+					</dict>
+					<key>HeadArrow</key>
+					<string>StickArrow</string>
+					<key>HeadScale</key>
+					<real>0.59999990463256836</real>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>Group</string>
+			<key>Graphics</key>
+			<array>
+				<dict>
+					<key>Class</key>
 					<string>LineGraphic</string>
 					<key>ID</key>
-					<integer>375</integer>
+					<integer>49</integer>
 					<key>Notes</key>
 					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
@@ -203,13 +313,22 @@
 \f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
 					<key>Points</key>
 					<array>
-						<string>{267.457, 79.5587}</string>
-						<string>{287.866, 44.8537}</string>
+						<string>{131.619, 37.5157}</string>
+						<string>{131.619, 43.1857}</string>
 					</array>
 					<key>Style</key>
 					<dict>
 						<key>stroke</key>
 						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
 							<key>CornerRadius</key>
 							<real>3</real>
 							<key>HeadArrow</key>
@@ -218,8 +337,6 @@
 							<integer>0</integer>
 							<key>TailArrow</key>
 							<string>0</string>
-							<key>Width</key>
-							<real>3</real>
 						</dict>
 					</dict>
 				</dict>
@@ -227,7 +344,7 @@
 					<key>Class</key>
 					<string>LineGraphic</string>
 					<key>ID</key>
-					<integer>376</integer>
+					<integer>50</integer>
 					<key>Notes</key>
 					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
@@ -237,13 +354,145 @@
 \f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
 					<key>Points</key>
 					<array>
-						<string>{267.457, 44.8537}</string>
-						<string>{287.866, 79.5587}</string>
+						<string>{126.265, 37.5157}</string>
+						<string>{126.265, 43.1857}</string>
 					</array>
 					<key>Style</key>
 					<dict>
 						<key>stroke</key>
 						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
+							<key>CornerRadius</key>
+							<real>3</real>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>51</integer>
+					<key>Notes</key>
+					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+					<key>Points</key>
+					<array>
+						<string>{120.91, 37.5157}</string>
+						<string>{120.91, 43.1857}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
+							<key>CornerRadius</key>
+							<real>3</real>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>52</integer>
+					<key>Notes</key>
+					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+					<key>Points</key>
+					<array>
+						<string>{115.556, 37.5157}</string>
+						<string>{115.556, 43.1857}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
+							<key>CornerRadius</key>
+							<real>3</real>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>53</integer>
+					<key>Notes</key>
+					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+					<key>Points</key>
+					<array>
+						<string>{113.556, 46.3547}</string>
+						<string>{136.233, 46.3547}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
 							<key>CornerRadius</key>
 							<real>3</real>
 							<key>HeadArrow</key>
@@ -253,13 +502,161 @@
 							<key>TailArrow</key>
 							<string>0</string>
 							<key>Width</key>
+							<real>2</real>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>LineGraphic</string>
+					<key>ID</key>
+					<integer>54</integer>
+					<key>Notes</key>
+					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+					<key>Points</key>
+					<array>
+						<string>{113.556, 35.0157}</string>
+						<string>{136.233, 35.0157}</string>
+					</array>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.293478</string>
+								<key>g</key>
+								<string>0.293478</string>
+								<key>r</key>
+								<string>0.293478</string>
+							</dict>
+							<key>CornerRadius</key>
 							<real>3</real>
+							<key>HeadArrow</key>
+							<string>0</string>
+							<key>Join</key>
+							<integer>0</integer>
+							<key>TailArrow</key>
+							<string>0</string>
+							<key>Width</key>
+							<real>2</real>
 						</dict>
 					</dict>
 				</dict>
 			</array>
 			<key>ID</key>
-			<integer>373</integer>
+			<integer>48</integer>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>Group</string>
+			<key>Graphics</key>
+			<array>
+				<dict>
+					<key>Class</key>
+					<string>Group</string>
+					<key>Graphics</key>
+					<array>
+						<dict>
+							<key>Class</key>
+							<string>LineGraphic</string>
+							<key>ID</key>
+							<integer>411</integer>
+							<key>Notes</key>
+							<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+							<key>Points</key>
+							<array>
+								<string>{82.4635, 72.156}</string>
+								<string>{97.9865, 46.901}</string>
+							</array>
+							<key>Style</key>
+							<dict>
+								<key>stroke</key>
+								<dict>
+									<key>CornerRadius</key>
+									<real>3</real>
+									<key>HeadArrow</key>
+									<string>0</string>
+									<key>Join</key>
+									<integer>0</integer>
+									<key>TailArrow</key>
+									<string>0</string>
+									<key>Width</key>
+									<real>2</real>
+								</dict>
+							</dict>
+						</dict>
+						<dict>
+							<key>Class</key>
+							<string>LineGraphic</string>
+							<key>ID</key>
+							<integer>412</integer>
+							<key>Notes</key>
+							<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
+							<key>Points</key>
+							<array>
+								<string>{82.4635, 46.901}</string>
+								<string>{97.9865, 72.156}</string>
+							</array>
+							<key>Style</key>
+							<dict>
+								<key>stroke</key>
+								<dict>
+									<key>CornerRadius</key>
+									<real>3</real>
+									<key>HeadArrow</key>
+									<string>0</string>
+									<key>Join</key>
+									<integer>0</integer>
+									<key>TailArrow</key>
+									<string>0</string>
+									<key>Width</key>
+									<real>2</real>
+								</dict>
+							</dict>
+						</dict>
+					</array>
+					<key>ID</key>
+					<integer>410</integer>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{74.7015, 39.685}, {31.0459, 39.6851}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>413</integer>
+					<key>Shape</key>
+					<string>Circle</string>
+					<key>Style</key>
+					<dict/>
+					<key>Text</key>
+					<dict>
+						<key>VerticalPad</key>
+						<integer>0</integer>
+					</dict>
+					<key>VFlip</key>
+					<string>YES</string>
+				</dict>
+			</array>
+			<key>ID</key>
+			<integer>409</integer>
 		</dict>
 		<dict>
 			<key>Class</key>
@@ -375,70 +772,6 @@ bindings}</string>
 			<dict>
 				<key>VerticalPad</key>
 				<integer>0</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>103</integer>
-			<key>Points</key>
-			<array>
-				<string>{107.716, 56.6929}</string>
-				<string>{98.2086, 62.3622}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Color</key>
-					<dict>
-						<key>b</key>
-						<string>0.293478</string>
-						<key>g</key>
-						<string>0.293478</string>
-						<key>r</key>
-						<string>0.293478</string>
-					</dict>
-					<key>HeadArrow</key>
-					<string>StickArrow</string>
-					<key>HeadScale</key>
-					<real>0.59999990463256836</real>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>102</integer>
-			<key>Points</key>
-			<array>
-				<string>{107.717, 51.0236}</string>
-				<string>{98.2086, 56.6929}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>Color</key>
-					<dict>
-						<key>b</key>
-						<string>0.293478</string>
-						<key>g</key>
-						<string>0.293478</string>
-						<key>r</key>
-						<string>0.293478</string>
-					</dict>
-					<key>HeadArrow</key>
-					<string>StickArrow</string>
-					<key>HeadScale</key>
-					<real>0.59999990463256836</real>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
 			</dict>
 		</dict>
 		<dict>
@@ -784,9 +1117,9 @@ exchange}</string>
 			<real>-1</real>
 			<key>Points</key>
 			<array>
-				<string>{255.118, 51.0236}</string>
-				<string>{249.449, 56.6929}</string>
-				<string>{266.457, 56.6929}</string>
+				<string>{252.449, 51.0236}</string>
+				<string>{246.78, 56.6929}</string>
+				<string>{263.788, 56.6929}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -819,7 +1152,7 @@ exchange}</string>
 \f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
 			<key>Points</key>
 			<array>
-				<string>{130.394, 51.0236}</string>
+				<string>{102.048, 51.0236}</string>
 				<string>{264.457, 51.0236}</string>
 			</array>
 			<key>Style</key>
@@ -856,7 +1189,7 @@ exchange}</string>
 			<key>Points</key>
 			<array>
 				<string>{127.394, 23.3543}</string>
-				<string>{117.886, 42.3543}</string>
+				<string>{117.886, 34.5157}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1507,265 +1840,6 @@ queue}</string>
 			</dict>
 		</dict>
 		<dict>
-			<key>Class</key>
-			<string>Group</string>
-			<key>Graphics</key>
-			<array>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>49</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{125.78, 47.8543}</string>
-						<string>{125.78, 53.5243}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>50</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{120.426, 47.8543}</string>
-						<string>{120.426, 53.5243}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>51</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{115.071, 47.8543}</string>
-						<string>{115.071, 53.5243}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>52</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{109.717, 47.8543}</string>
-						<string>{109.717, 53.5243}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>53</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{107.717, 56.6933}</string>
-						<string>{130.394, 56.6933}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>2</real>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>54</integer>
-					<key>Notes</key>
-					<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs24 \cf0 Either use lines or regular shapes with a 9 point stroke to create walls}</string>
-					<key>Points</key>
-					<array>
-						<string>{107.717, 45.3543}</string>
-						<string>{130.394, 45.3543}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.293478</string>
-								<key>g</key>
-								<string>0.293478</string>
-								<key>r</key>
-								<string>0.293478</string>
-							</dict>
-							<key>CornerRadius</key>
-							<real>3</real>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Join</key>
-							<integer>0</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>2</real>
-						</dict>
-					</dict>
-				</dict>
-			</array>
-			<key>ID</key>
-			<integer>48</integer>
-		</dict>
-		<dict>
 			<key>Bounds</key>
 			<string>{{260.472, 88.7165}, {35, 20}}</string>
 			<key>Class</key>
@@ -1984,7 +2058,7 @@ exchange}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-03-13 17:04:30 +0000</string>
+	<string>2012-03-16 16:09:47 +0000</string>
 	<key>Modifier</key>
 	<string>Steve Powell</string>
 	<key>NotesVisible</key>
