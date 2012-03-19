@@ -3,7 +3,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Memory-based flow control</title>
+    <title>Flow Control</title>
   </head>
   <body>
     <!--
@@ -12,19 +12,30 @@
        - "memory limit" always refers to the computed absolute limit
     -->
     <p>
-      The RabbitMQ server detects the total amount of
-      RAM installed in the computer on startup and when
-      <code>rabbitmqctl set_vm_memory_high_watermark <em>fraction</em></code> is
-      executed. By default, when the RabbitMQ server uses above
-      40% of the installed RAM, it raises a memory alarm. In
-      response the server pauses reading from the sockets of
-      connected clients which send content-bearing methods
-      (such as <code>basic.publish</code>) after the alarm was
-      raised. Connection heartbeat monitoring gets disabled
-      too. Once the memory alarm has cleared (e.g. due to the
-      server paging messages to disk or delivering them to
-      clients) normal service resumes.
+      There are two flow control mechanisms in RabbitMQ. Both work by
+      exerting TCP backpressure on connections that are publishing too
+      fast. They are:
     </p>
+    <ul>
+      <li>
+        A per-connection mechanism that prevents messages being
+        published faster than they can be routed to queues.
+      </li>
+      <li>
+        A global mechanism that prevents any messages from being
+        published when the memory usage exceeds a configured
+        threshold.
+      </li>
+    </ul>
+
+    <p>
+      Both mechanisms will temporarily <em>block</em> connections -
+      the server will pause reading from the sockets of connected
+      clients which send content-bearing methods (such
+      as <code>basic.publish</code>) which have been
+      blocked. Connection heartbeat monitoring will be disabled too.
+    </p>
+
     <p>
       The intent here is to introduce a flow control mechanism
       that throttles producers but lets consumers continue
@@ -38,30 +49,66 @@
       connections for either producing or consuming.
     </p>
 
-    <p>
-      The default memory threshold is set to 40% of installed
-      RAM. Note that this does not prevent the RabbitMQ server
-      from using more than 40%, it is merely the point at which
-      publishers are throttled. Erlang's garbage collector can, in
-      the worst case, cause double the amount of memory to be used
-      (by default, 80% of RAM), and non-compliant AMQP clients can
-      cause the RabbitMQ server to use more still. It is strongly
-      recommended that OS swap or page files are enabled.
-    </p>
+    <doc:section name="per-connection">
+      <doc:heading>Per-Connection Flow Control</doc:heading>
+      <p>
+        RabbitMQ will block connections which are publishing too
+        quickly for queues to keep up. No configuration is required.
+      </p>
+      <p>
+        A blocked connection will show a <code>state</code>
+        of <code>blocked</code> in <code>rabbitmqctl</code> and the
+        management plugin. Typically such fast-publishing connections
+        will be blocked and unblocked several times per second, so
+        inspecting a connection's <code>state</code> may not show
+        per-connection flow control happening
+        clearly. The <code>last_blocked_by</code>
+        and <code>last_blocked_age</code> fields
+        in <code>rabbitmqctl</code> and the management plugin can be
+        inspected to determine whether flow control is taking
+        place. The management plugin web UI unifies this information
+        into a single field.
+      </p>
+    </doc:section>
 
-    <p>
-      32-bit architectures impose a per process memory limit of
-      4GB, though under Windows, this is frequently further
-      reduced to 2GB. Common implementations of 64-bit
-      architectures (i.e. AMD64 and Intel EM64T) permit only a
-      paltry 256TB per process. 64-bit Windows again further
-      limits this to 8TB. However, note that even under 64-bit
-      Windows, a 32-bit process frequently only has a maximum
-      address space of 2GB.
-    </p>
+    <doc:section name="memsup">
+      <doc:heading>Memory-Based Flow Control</doc:heading>
+      <p>
+        The RabbitMQ server detects the total amount of
+        RAM installed in the computer on startup and when
+        <code>rabbitmqctl
+        set_vm_memory_high_watermark <em>fraction</em></code> is
+        executed. By default, when the RabbitMQ server uses above 40%
+        of the installed RAM, it raises a memory alarm and blocks all
+        connections. Once the memory alarm has cleared (e.g. due
+        to the server paging messages to disk or delivering them to
+        clients) normal service resumes.
+      </p>
+
+      <p>
+        The default memory threshold is set to 40% of installed
+        RAM. Note that this does not prevent the RabbitMQ server
+        from using more than 40%, it is merely the point at which
+        publishers are throttled. Erlang's garbage collector can, in
+        the worst case, cause double the amount of memory to be used
+        (by default, 80% of RAM). It is strongly recommended that OS
+        swap or page files are enabled.
+      </p>
+
+      <p>
+        32-bit architectures impose a per process memory limit of
+        4GB, though under Windows, this is frequently further
+        reduced to 2GB. Common implementations of 64-bit
+        architectures (i.e. AMD64 and Intel EM64T) permit only a
+        paltry 256TB per process. 64-bit Windows again further
+        limits this to 8TB. However, note that even under 64-bit
+        Windows, a 32-bit process frequently only has a maximum
+        address space of 2GB.
+      </p>
+    </doc:section>
 
     <doc:section name="memsup-usage">
-      <doc:heading>Usage</doc:heading>
+      <doc:heading>Configuring the Memory Threshold</doc:heading>
 
       <p>
         The memory threshold at which the flow control is
@@ -153,10 +200,10 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
       </p>
 
       <p>
-        It is advised you do not set the threshold above 50% of
-        your installed RAM, and to note that under Windows, it is
-        commonly the case that a maximum of 2GB memory is
-        available to RabbitMQ.
+        It is advised you do not set the threshold above 50% of your
+        installed RAM, and to note that under Windows with a 32-bit
+        Erlang VM, it is commonly the case that a maximum of 2GB
+        memory is available to RabbitMQ.
       </p>
     </doc:section>
   </body>

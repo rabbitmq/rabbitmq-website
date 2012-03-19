@@ -43,7 +43,7 @@
 
     <h2>Federation</h2>
     <p>
-      <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">Federation</a>
+      <a href="federation.html">Federation</a>
       allows an exchange on one broker to receive messages published
       to an exchange on another (the brokers may be individual machines, or
       clusters). Communication is via AMQP (with optional SSL), so for

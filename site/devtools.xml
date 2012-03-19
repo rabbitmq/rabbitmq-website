@@ -469,7 +469,7 @@
             <doc:heading>Erlang</doc:heading>
             <ul class="plain">
               <li>
-                <a href="erlang-client-user-guide.html">Erlang client guide</a>
+                <a href="erlang-client-user-guide.html">RabbitMQ Erlang client guide</a>
               </li>
               <li>
                 <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client

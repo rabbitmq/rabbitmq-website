@@ -28,7 +28,7 @@
           <b>RabbitMQ clustering does not tolerate network partitions
           well</b>, so it should not be used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
-          <a href="plugins.html#rabbitmq_federation">federation</a>
+          <a href="federation.html">federation</a>
           plugins are better solutions for connecting brokers across a
           WAN.
         </p>
