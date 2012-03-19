@@ -11,121 +11,632 @@
   </head>
   <body show-in-this-page="true">
     <p>
-      The high level goal of the federation plugin is to transmit
-      messages between brokers without requiring clustering. This is
-      useful for various reasons:
+      The high level goal of the federation plugin is to transmit messages
+      between brokers without requiring clustering. This is useful for various
+      reasons:
     </p>
 
-    <ol class="plain">
-      <li>
-        Federated brokers may be in different administrative
-        domains. Clustered brokers form a single administrative
-        domain.
-        <ol>
+    <dl class="plain">
+      <dt><b>Loose coupling</b></dt>
+      <dd>
+        The federation plugin can transmit messages between brokers
+        (or clusters) in different administrative domains:
+        <ul class="plain">
           <li>
-            Federated brokers may have different users and virtual
-            hosts. Federated brokers only need to partially trust
-            each other.
+            they may have different users and virtual hosts;
           </li>
           <li>
-            Federated brokers may run different versions of RabbitMQ
-            and Erlang.
+            they may run on different versions of RabbitMQ and Erlang.
           </li>
-        </ol>
-      </li>
-      <li>
-        Federated brokers only speak AMQP to each other, and the
-        federation mechanism is designed to deal with intermittent
-        connectivity.  Federation is therefore much more WAN-friendly.
-      </li>
-      <li>
-        Brokers can contain federated and local-only components - you
+        </ul>
+      </dd>
+      <dt><b>WAN-friendly</b></dt>
+      <dd>
+        The federation plugin uses AMQP to communicate between brokers, and is
+        designed to tolerate intermittent connectivity.
+      </dd>
+      <dt><b>Specificity</b></dt>
+      <dd>
+        A broker can contain federated <i>and</i> local-only components - you
         don't need to federate everything if you don't want to.
-      </li>
-      <li>
-        Ultimately, greater scalability should be possible, since more
-        complex routing topologies avoid the need for
-        n<sup>2</sup> connections between n brokers.
-      </li>
-    </ol>
+      </dd>
+      <dt><b>Scalability</b></dt>
+      <dd>
+        Federation does not require <i>n</i><sup>2</sup> connections between
+        <i>n</i> brokers (although this is the easiest way to set
+        things up), which should mean it scales better.
+      </dd>
+    </dl>
 
     <p>
       For the time being, federation is primarily useful in pub/sub scenarios.
     </p>
 
+    <doc:section name="what-does-it-do">
+      <doc:heading>What does it do?</doc:heading>
+
+      <p>
+        The federation plugin defines a new exchange type
+        <code>x-federation</code>. An exchange instance of this type is called a
+        <i>federated exchange</i>.
+      </p>
+      <dl>
+        <dt>
+          <b>What does a federated exchange do?</b>
+        </dt>
+        <dd>
+          <p>
+            A federated exchange links to other exchanges (called
+            <i>upstream</i> exchanges). Logically (see next item), messages
+            published to the upstream exchanges are copied to the federated
+            exchange, as though they were published directly to it. The upstream
+            exchanges do not need to be reconfigured and they do not have to be
+            on the same broker or in the same cluster.
+          </p>
+          <p>
+            Here is a diagram showing a single federated exchange in one
+            broker linking to a set of two upstream exchanges in other
+            brokers.
+          </p>
+          <img src="img/federation00.png" height="250" alt="Basic federated exchange" title="Basic federated exchange"/>
+          <p>
+            All of the configuration needed to establish the upstream
+            links and the federated exchange is in the broker with the
+            federated exchange.
+          </p>
+        </dd>
+
+        <dt>
+          <b>Are <i>all</i> messages copied?</b>
+        </dt>
+        <dd>
+          <p>
+            Actually, only those messages that need to be copied are propagated.
+            This is an optimisation arranged dynamically by the federation
+            plugin. (See <a href="#details">below</a>.)
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does a federated exchange link to its upstream exchanges?</b>
+        </dt>
+        <dd>
+          <p>
+            The federated exchange will connect to all its upstream
+            exchanges using AMQP. When declaring or configuring the
+            federated exchange each upstream exchange is listed with
+            the connection properties to be used to establish the
+            link.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does the federated exchange <i>route</i> the messages it
+          receives?</b>
+        </dt>
+        <dd>
+          <p>
+            Rather than being a complete exchange type of its own (with its own
+            routing strategy) the federated exchange type is a <i>modified</i>
+            version of another type of exchange. The type which is modified is
+            called the <i>backing-type</i>. The backing-type is specified when
+            the federated exchange is declared.
+          </p>
+          <p>
+            Messages can be published to a federated exchange like any
+            other. Messages copied from upstream exchanges and locally
+            published messages are routed just as the backing-type
+            exchange would route them.
+          </p>
+          <p>
+            Although not strictly correct, we often say the backing-type is the
+            <i>type</i> of the federated exchange.
+          </p>
+          <p>
+            Normally the backing-type is <code>topic</code>. This is the type of
+            exchange the federation plugin was designed for. By using federated
+            exchanges a topic space can be extended across a number of
+            independently managed RabbitMQ servers.
+          </p>
+        </dd>
+
+        <dt>
+          <b>Can I federate a federated exchange?</b>
+        </dt>
+        <dd>
+          <p>
+            There is nothing to prevent a federated exchange being 'upstream'
+            from another federated exchange. One can even form 'loops', for
+            example, exchange A declares exchange B to be upstream from it, and
+            exchange B declares exchange A to be upstream from it. More complex
+            multiply-connected arrangements are allowed.
+          </p>
+          <p>
+            To prevent messages being continually copied and re-routed (in a
+            never-ending cycle) there is a limit placed on the number of times a
+            message can be copied over a link (see 
+            <a href="#upstream-sets"><code>max_hops</code></a> below). It is
+            recommended that all the exchanges linked by federation are of the
+            same type (i.e. backing-type). Mixing types will lead to strange
+            routing behaviour.
+          </p>
+          <p>
+            The backing-type cannot be <code>x-federation</code>.
+          </p>
+        </dd>
+
+        <dt>
+          <b>What are typical uses for federated exchanges?</b>
+        </dt>
+        <dd>
+          <p>
+            One typical use would be to have the same "logical" exchange
+            distributed over many brokers. Each broker would declare a federated
+            exchange with all the other federated exchanges upstream. (The links
+            would form a complete bi-directional graph on <i>n</i> exchanges.)
+          </p>
+          <p>
+            Another use would be to implement massive fanout - a single "root"
+            exchange in one broker (which need not be federated) can be declared
+            as upstream by many other federated exchanges in other brokers. In
+            turn, each of these can be upstream for many more exchanges, and so
+            on.
+          </p>
+          <p>
+            See the <a href="#topology-diagrams">example diagrams
+            below</a> for some possible arrangements.
+          </p>
+        </dd>
+      </dl>
+
+      <doc:subsection name="details">
+        <doc:heading>Implementation</doc:heading>
+          <p>
+            Inter-broker communication is implemented using AMQP (optionally
+            secured with SSL). Bindings are grouped together and bind / unbind
+            commands are sent to the upstream exchange. Therefore the federated
+            exchange only receives messages for which it has a subscription. The
+            bindings are sent upstream asynchronously - so the effect of adding
+            or removing a binding is only guaranteed to be seen eventually.
+          </p>
+          <p>
+            The messages are buffered in a queue created in the upstream
+            exchange's broker. This is called the <i>upstream queue</i>.
+            It is the upstream queue which is bound to the upstream
+            exchange with the grouped bindings. It is possible to tailor
+            some of the properties of this queue in the <a
+            href="#connections">connection configuration</a>.
+          </p>
+          <p>
+            Here is a detailed diagram showing a single federated
+            exchange linking to a single upstream exchange including the
+            upstream queue and bindings created by the federation plugin
+            shown in grey. The fat arrow on the upstream link indicates
+            messages republished by the federated exchange. Some
+            potential publisher clients are shown publishing to both
+            exchanges.
+          </p>
+          <img src="img/federation01.png" height="180" alt="Simple federation" title="Simple federation" />
+          <p>
+            Publications to either exchange may be received by queues bound to
+            the federated exchange, but publications directly to the federated
+            exchange cannot be received by queues bound to the upstream
+            exchange.
+          </p>
+      </doc:subsection>
+
+    </doc:section>
+
     <doc:section name="getting-started">
       <doc:heading>Getting Started</doc:heading>
 
       <p>
-        The federation plugin is included in the RabbitMQ
-        distribution. To enable it,
-        use <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+        The federation plugin is included in the RabbitMQ distribution. To
+        enable it, use
+        <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
       <pre class="example">    rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
-        When using federation with clustering, all cluster nodes must
-        have the federation plugin installed. Any node may establish
-        connections to upstream exchanges. If a node fails, any upstream
-        links will fail over to a surviving node.
-      </p>
-
-      <p>
-        The federation plugin provides a federated exchange type. A
-        federated exchange has type <code>x-federation</code>. However,
-        this type does not provide any routing logic. The routing logic
-        is implemented by a backing type, provided to the exchange as an
-        argument.
-      </p>
-
-      <p>
-        Messages can be published to a federated exchange like any
-        other. However, a federated exchange also receives messages from
-        one or more "upstream" exchanges, located on remote brokers.
-        (Well, you don't need to have upstream exchanges, and they don't
-        need to be remote. But then you don't get anything very useful.)
-      </p>
-
-      <p>
-        An upstream exchange can be a regular exchange or a federation
-        exchange. It is expected that upstream and downstream exchanges
-        have the same type (or backing type). Mixing types will lead to
-        strange routing behaviour.
-      </p>
-
-      <p>
-        Inter-broker communication is implemented using AMQP (optionally
-        secured with SSL). Bindings are grouped together and bind /
-        unbind commands are sent to the upstream exchange. Therefore the
-        federation plugin only receives messages over the wire for which
-        the downstream exchange has a subscription. To promote
-        scalability the bindings are sent upstream asynchronously - so
-        the effect of adding or removing a binding is only guaranteed to
-        be seen eventually.
-      </p>
-
-      <p>
-        A typical use would be to have the same "logical" exchange
-        distributed over many brokers. This would be achieved by having
-        the exchange declared as a federated exchange in each broker,
-        with upstreams corresponding to all the other brokers.  Another
-        would be massive fanout - a single "root" exchange in one broker
-        can be treated as an upstream by many other brokers. In turn
-        each of these can be the upstream for many more downstreams, and
-        so on.  Other topologies are of course possible.
-      </p>
-
-      <p>
-        Federated exchanges can be set up statically via broker configuration,
-        or declared dynamically over AMQP.
+        When using a federated exchange in a cluster, all the nodes of the
+        cluster must have the federation plugin installed. Any node can declare
+        a federated exchange and its properties are shared in the cluster as
+        usual. If a node fails, links to upstream exchanges will be recreated on
+        a surviving node.
       </p>
     </doc:section>
-    <doc:section name="example">
+
+    <doc:section name="configuration">
+      <doc:heading>Configuration</doc:heading>
+
+      <p>
+        Federated exchanges may be statically declared in the federation plugin
+        configuration, requiring no further exchange set-up after the broker is
+        started. Alternatively, some information may be statically configured
+        and the federated exchanges themselves <a href="#over-amqp">declared
+        dynamically</a> like other exchange types.
+      </p>
+
+      <p>
+        The configuration for the federation plugin in the
+        <a href="configure.html#configuration-file">broker configuration
+        file</a> has the following structure:
+      </p>
+<pre class="example">
+    {rabbitmq_federation,
+     [ {exchanges, [[{exchange, "my-exchange"}, ... ], ... ]},
+       {upstream_sets, [{"my-set", [ ... ]}, ... ]},
+       {connections, [{"remote-server", [ ... ]}, ... ]},
+       {local_username, "myusername"},
+       {local_nodename, "my-server"}
+     ]
+    }
+</pre>
+      <p>
+        It is a list of the (federated) <code>exchanges</code> to
+        declare, a list of named <code>upstream-sets</code>, and a
+        list of named <code>connections</code>. The
+        settings <code>local_username</code>
+        and <code>local_nodename</code> are explained below.
+      </p>
+      <p>
+        The general idea is that each federated exchange links to a set of
+        upstream exchanges (an <code>upstream_set</code>). Each
+        exchange in the <code>exchanges</code> list names one of
+        the sets defined in <code>upstream_sets</code>.
+      </p>
+      <p>
+        The <code>upstream_sets</code> list contains <i>sets</i> of
+        upstream exchanges. Each set of upstream exchanges is named in the list.
+        These named sets may also be referenced on the AMQP protocol (as
+        argument <code>"upstream-set"</code>) when dynamically declaring a
+        federated exchange (of type <code>x-federation</code>).
+      </p>
+      <p>
+        Each element of an upstream set is an upstream exchange, which will
+        need to connect to the broker where the exchange resides. The connection
+        to use is the name of one of the connections in the connections list.
+      </p>
+      <p>
+        All of these settings are optional. If
+        the <code>exchanges</code> list is present, the federated
+        exchanges are declared when the broker starts. It is necessary
+        to specify at least one named upstream set before any
+        federated exchange can be declared, either statically
+        or <a href="over-amqp">using an AMQP client</a>.
+      </p>
+
+      <p>
+        We define the settings in more detail.  A (deliberately verbose) example
+        configuration is given <a href="#example-config">below</a>.
+      </p>
+
+      <doc:subsection name="exchanges">
+        <doc:heading>exchanges</doc:heading>
+        <p>
+          The list of exchanges looks like a set of
+          <code>exchange.declare</code>s for the most part, but with each
+          declaration including the name of an <code>upstream_set</code>,
+          representing a list of exchanges whose messages should be copied to
+          the local exchange. Note that the <code>type</code> parameter should
+          match the type of all the upstream exchanges for routing to work
+          sensibly.
+        </p>
+
+        <p>
+          Here are the properties of an element in the exchanges list:
+        </p>
+        <dl>
+          <dt><code>exchange</code>
+          </dt>
+          <dd>
+            The name of the federated exchange to be created (exchange type
+            <code>x-federation</code> assumed). Mandatory. The names in this
+            list should be distinct.
+          </dd>
+          <dt><code>virtual_host</code></dt>
+          <dd>
+            The virtual host in which this exchange is created. Defaults to the
+            broker's <code>default_vhost</code>.
+          </dd>
+          <dt><code>type</code></dt>
+          <dd>
+            The backing-type of this federated exchange. Mandatory. (This cannot
+            be <code>x-federation</code>.)
+          </dd>
+          <dt><code>durable</code></dt>
+          <dd>
+            The <code>durable</code> property of the created federated exchange.
+            Default <code>true</code>.
+          </dd>
+          <dt><code>auto_delete</code></dt>
+          <dd>
+            The <code>auto_delete</code> property of the created federated
+            exchange. Default <code>false</code>.
+          </dd>
+          <dt><code>internal</code></dt>
+          <dd>
+            The <code>internal</code> property of the created federated
+            exchange. Default <code>false</code>.
+          </dd>
+          <dt><code>upstream_set</code></dt>
+          <dd>
+            The name of an element of the <code>upstream_sets</code> list.
+            Mandatory.
+          </dd>
+        </dl>
+
+        <p>
+          The static configuration will only declare federated exchanges on the
+          local broker. It does not ensure the upstream exchanges exist.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="upstream-sets">
+        <doc:heading>upstream_sets</doc:heading>
+        <p>
+          Each element of the <code>upstream_sets</code> list is a mapping from
+          a name to a list of upstream exchanges. Each upstream exchange entry
+          is a property list:
+        </p>
+<pre class="example">
+  {upstream_sets, [{"set_name", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
+</pre>
+        <p>
+          where <code>"set_name"</code> is a name mentioned in an element of the
+          <code>exchanges</code> list. The properties can be:
+        </p>
+
+        <dl>
+          <dt><code>connection</code></dt>
+          <dd>
+            The name of a connection from the connection list. Mandatory.
+          </dd>
+
+          <dt><code>exchange</code></dt>
+          <dd>
+            <p>
+              The name of the upstream exchange. Default is to use the same name
+              as the federated exchange being created.
+            </p>
+            <p>
+              If this name is omitted one <code>upstream_set</code> can be
+              referenced by more than one federated exchange and still refer to
+              distinct upstream exchanges. Multiple families of exchanges, with
+              common names on a set of brokers, can be federated simply by this
+              technique.
+            </p>
+          </dd>
+
+          <dt><code>max_hops</code></dt>
+          <dd>
+            <p>
+              The maximum number of times a message can be copied over a link,
+              including this link. The default is 1.
+            </p>
+            <p>
+              If this limit is exceeded on this link, the message is quietly
+              discarded. This prevents messages from being indefinitely copied
+              when there are circular topologies, and can reduce or prevent
+              message duplication.
+            </p>
+          </dd>
+        </dl>
+      </doc:subsection>
+
+      <doc:subsection name="connections">
+        <doc:heading>connections</doc:heading>
+        <p>
+          The <code>connections</code> list specifies how to connect to brokers.
+          It takes the form:
+        </p>
+<pre class="example">
+  {connections, [{"conn_name", [<i>connection-property-list</i>]}, ... ]}
+</pre>
+        <p>
+          where <code>"conn_name"</code> is a name mentioned in an upstream
+          property list. The <code><i>connection-property-list</i></code> can
+          contain the following properties:
+        </p>
+
+        <dl>
+          <dt><code>host</code></dt>
+          <dd>
+            The hostname to connect to. Mandatory.
+          </dd>
+
+          <dt><code>protocol</code></dt>
+          <dd>
+            <code>"amqp"</code> or <code>"amqps"</code>. Default is
+            <code>"amqp"</code>.
+          </dd>
+
+          <dt><code>port</code></dt>
+          <dd>
+            Port to connect to. Default is 5672 (or 5671 when using SSL).
+          </dd>
+
+          <dt><code>virtual_host</code></dt>
+          <dd>
+            The virtual host to connect to. Default is the virtual host
+            for the federated exchange.
+          </dd>
+
+          <dt><code>username</code></dt>
+          <dd>
+            The user to connect as. Default is <code>"guest"</code>. This user
+            will need the appropriate permissions to create exchanges and queues
+            with names beginning with "federation:", and to bind to the upstream
+            exchange.
+          </dd>
+
+          <dt><code>password</code></dt>
+          <dd>
+            The password to use when connecting as <code>username</code>.
+            Default is <code>"guest"</code>.
+          </dd>
+
+          <dt><code>mechanism</code></dt>
+          <dd>
+            The <a href="authentication.html">SASL mechanism</a> to use. One of:
+            <ul>
+              <li>
+                <code>default</code> - to use PLAIN or AMQPLAIN by negotiation
+                (this is the default),
+              </li>
+              <li>
+                <code>'EXTERNAL'</code> - to use SASL EXTERNAL authentication,
+                that is, <code>rabbitmq-auth-mechanism-ssl</code>.
+              </li>
+            </ul>
+            (Note the single quotes here.)
+          </dd>
+
+          <dt><code>prefetch_count</code></dt>
+          <dd>
+            The maximum number of unacknowledged messages copied over a link at
+            any one time. Default is <code>'none'</code>, meaning there is no
+            limit.
+          </dd>
+
+          <dt><code>reconnect_delay</code></dt>
+          <dd>
+            The duration (in seconds) to wait before reconnecting to the broker
+            after being disconnected. Default is 1.
+          </dd>
+
+          <dt><code>heartbeat</code></dt>
+          <dd>
+            The AMQP heartbeat interval (in seconds) on the connection. Default
+            is <code>'none'</code>, meaning there are no heartbeats.
+          </dd>
+
+          <dt><code>expires</code></dt>
+          <dd>
+            <p>
+              The expiry time (in milliseconds) after which an <a
+              href="#details"><i>upstream queue</i></a> may be deleted,
+              if the connection is lost. The default is
+              <code>'none'</code>, meaning the queue should never
+              expire.
+            </p>
+            <p>
+              This setting controls how long the upstream queue will
+              last before it is eligible for deletion if the connection
+              is lost.
+            </p>
+            <p>
+              This value is used to set the <code>"x-expires"</code> argument
+              for the upstream queue.
+            </p>
+          </dd>
+
+          <dt><code>message_ttl</code></dt>
+          <dd>
+            <p>
+              The expiry time for messages in the <i>upstream queue</i> (see
+              <code>expires</code>), in milliseconds. Default is
+              <code>'none'</code>, meaning messages should never expire.
+            </p>
+            <p>
+              This value is used to set the <code>"x-message-ttl"</code>
+              argument for the upstream queue.
+            </p>
+          </dd>
+
+          <dt><code>ha_policy</code></dt>
+          <dd>
+            Determines the <code>"x-ha-policy"</code> argument for the
+            <i>upstream queue</i> (see <code>expires</code>). Default is
+            <code>'none'</code>, meaning the queue is not HA.
+          </dd>
+
+          <dt><code>ssl_options</code></dt>
+          <dd>
+            The client SSL connection options. See the Erlang client
+            documentation for more details. Default is that there are no
+            options.
+          </dd>
+        </dl>
+      </doc:subsection>
+
+      <doc:subsection name="other-config">
+        <doc:heading>local_username</doc:heading>
+        <p>
+          The <code>local_username</code> setting specifies the user under which
+          to publish messages to the (local) federated exchanges. The default is
+          <code>"guest"</code>. This user will need the appropriate permissions
+          to publish messages to these exchanges.
+        </p>
+
+        <doc:heading>local_nodename</doc:heading>
+        <p>
+          The <code>local_nodename</code> setting specifies the name this node
+          should use to identify itself to other nodes in the federation graph.
+          (The default is constructed from the Erlang node and the machine's
+          fully-qualified domain name.)
+        </p>
+        <p>
+          You should only have to specify this explicitly if your DNS
+          will not give the relevant machines distinct names.
+        </p>
+      </doc:subsection>
+
+    </doc:section>
+
+    <doc:section name="over-amqp">
+      <doc:heading>Declaring Federated Exchanges Over AMQP</doc:heading>
+
+      <p>
+        In order to declare federated exchanges dynamically, using an AMQP
+        client, it is still necessary to <a href="#configuration">statically
+        configure</a> <code>upstream_sets</code> and the
+        <code>connections</code> to support them.
+      </p>
+      <p>
+        A federated exchange can then be declared as follows:
+      </p>
+
+      <ul>
+        <li>
+          Declare the downstream exchange with type <code>x-federation</code>.
+        </li>
+        <li>
+          On the declare exchange method supply <i>arguments</i> named
+          <code>"type"</code> and <code>"upstream-set"</code>, both of type
+          <code>"long string"</code>. The value of the <code>"type"</code>
+          argument should be the <i>backing-type</i>; the value of the
+          <code>"upstream-set"</code> argument should be the name of an
+          <i>upstream set</i> from the static configuration. (Note that over
+          AMQP <code>upstream-set</code> uses a hyphen, but in the static
+          <code>exchanges</code> configuration <code>upstream_set</code>
+          uses an underscore.)
+        </li>
+      </ul>
+
+      <p>
+        Here is an example using the Java client:
+      </p>
+
+<pre class="example">
+  Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+  args.put("type", "topic");
+  args.put("upstream-set", "my-upstream-set");
+
+  <i>// Channel ch = ...;</i>
+  ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);
+</pre>
+    </doc:section>
+
+    <doc:section name="example-config">
       <doc:heading>Example Configuration</doc:heading>
 
-      <p>A verbose configuration might look like this:</p>
+      <p>
+        A verbose configuration might look like this:
+      </p>
 
-      <pre class="example">  {rabbitmq_federation,
+<pre class="example">
+  {rabbitmq_federation,
    [ {exchanges, [[{exchange,     "my-exchange"},
                    {virtual_host, "/"},
                    {type,         "topic"},
@@ -161,215 +672,108 @@
                                            {fail_if_no_peer_cert, true}
                                           ]}
                                         ]},
-                    {"another-server", [...elided...]}
+                    {"another-server", [{host, "another-server"}]}
                    ]},
      {local_username, "myusername"},
      {local_nodename, "my-server"}
    ]
-  }</pre>
-
-      <doc:heading>Statically-Declared Exchanges</doc:heading>
+  }
+</pre>
       <p>
-        The list of exchanges looks like a set of exchange.declares for
-        the most part, but with each declaration including the name of
-        an "upstream_set", representing a list of remote exchanges whose
-        messages should be federated to the local exchange. Note that
-        the type parameter must match the type of the upstream exchanges
-        for routing to work at all sensibly.
+        The configuration above declares one federated (topic) exchange (called
+        <code>"my-exchange"</code>). This exchange links to <i>two</i> upstream
+        exchanges (defined in the upstream set called
+        <code>"my-upstreams"</code>).
       </p>
-
       <p>
-        Note that the static configuration will declare the downstream
-        exchanges (on the local broker). It does not ensure the upstream
-        exchanges exist.
+        One upstream exchange is called <code>"my-upstream-x"</code> and is on a
+        server on host <code>"upstream-server"</code>, and the other is called
+        <code>"my-exchange"</code> (it takes its default name from the local
+        federated exchange) and is on a server on the host
+        <code>"another-server"</code>.
+      </p>
+      <p>
+        The local federation plugin actions are taken under the user
+        <code>"myusername"</code>, which is also the user used to link to the
+        host <code>"upstream-server"</code> on an SSL connection. The host
+        <code>"another-server"</code> is linked to with user name
+        <code>"guest"</code> on an unsecured connection.
       </p>
     </doc:section>
-    <doc:section name="upstream-sets">
-      <doc:heading>Upstream Sets</doc:heading>
-      <p>
-        Each element in the <code>upstream_set</code> contains a mapping
-        from a name to a list of upstreams. Each element in this list
-        can contain the following properties:
-      </p>
 
+    <doc:section name="topology-diagrams">
+      <doc:heading>Example topologies</doc:heading>
+      <p>
+        We illustrate some example federation topologies. Where RabbitMQ
+        brokers are shown in these diagrams (indicated by a <img
+        src="img/rabbitmq_logo_30x30.png" height="15"/>) it is possible
+        to have a cluster of brokers instead.
+      </p>
       <dl>
-        <dt><code>connection</code></dt>
+        <dt><b>Pair of federated exchanges</b></dt>
         <dd>
-          name of a connection from the connection list. Mandatory.
+          <p>
+            Each exchange links to the other in this symmetric arrangement. A
+            publisher and consumer connected to each broker are illustrated.
+            Both consumers can receive messages published by either publisher.
+          </p>
+          <img src="img/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
+          <p>
+            Both links are declared with <code>max_hops=1</code> so that
+            messages are copied only once, otherwise the consumers will see
+            multiple copies of the same message (up to the <code>max_hops</code>
+            limit).
+          </p>
         </dd>
 
-        <dt><code>exchange</code></dt>
+        <dt><b>Small complete graph</b></dt>
         <dd>
-          name for exchange to connect to. Default is to use the same
-          name as the downstream exchange. (Therefore
-          one <code>upstream_set</code> can be refered to by many local
-          exchanges as long as exchange names are the same across all
-          the nodes in your federation.)
+          <p>
+            This arrangement is the analogue of the pair of federated exchanges
+            but for three exchanges. Each exchange links to both the others.
+          </p>
+          <img src="img/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
+          <p>
+            Again <code>max_hops=1</code> because the "hop distance" to any
+            other exchange is exactly one. This will be the case in any complete
+            graph of federated exchanges.
+          </p>
         </dd>
 
-        <dt><code>max_hops</code></dt>
+        <dt><b>Fan-out</b></dt>
         <dd>
-          the maximum number of times a message received over this link
-          may have been forwarded (including traversing this link). The
-          default for <code>max_hops</code> is 1. This prevents messages
-          from looping forever when there are circular topologies, and
-          can reduce or prevent message duplication
+          <p>
+            One master exchange (which it is <i>not</i> necessary to federate)
+            is linked to by a tree of exchanges, which can extend to any depth.
+            In this case messages published to the master exchange can be
+            received by any consumer connected to any broker in the tree.
+          </p>
+          <img src="img/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
+          <p>
+            Because there are no loops it is not as crucial to get the
+            <code>max_hops</code> value right, but it must be at least
+            as large as the longest connecting path. For a tree this is
+            the number of levels minus one.
+          </p>
         </dd>
+
+        <dt><b>Ring</b></dt>
+        <dd>
+          <p>
+            In this ring of six brokers each federated exchange links to just
+            one other in the ring. The <code>"max_hops"</code> property is set
+            to 5 so that every exchange in the ring sees the message exactly
+            once.
+          </p>
+          <img src="img/federation05.png" height="300" alt="Ring" title="Ring" />
+          <p>
+            This topology, though relatively cheap in queues and connections, is
+            rather fragile compared to a completely connected graph. One broker
+            (or connection) failure breaks the ring.
+          </p>
+        </dd>
+
       </dl>
-    </doc:section>
-    <doc:section name="connections">
-      <doc:heading>Connections</doc:heading>
-      <p>
-        The connections list provides information on how to connect to
-        brokers mentioned in the upstream sets. It can contain the
-        following properties:
-      </p>
-
-      <dl>
-        <dt><code>host</code></dt>
-        <dd>
-          hostname to connect to
-        </dd>
-
-        <dt><code>protocol</code></dt>
-        <dd>
-          "amqp" or "amqps". Default is "amqp".
-        </dd>
-
-        <dt><code>port</code></dt>
-        <dd>
-          port to connect to. Default is 5672, or 5671 when using SSL.
-        </dd>
-
-        <dt><code>virtual_host</code></dt>
-        <dd>
-          virtual host to connect to. Default is to use the virtual host
-          for the downstream exchange.
-        </dd>
-
-        <dt><code>username</code></dt>
-        <dd>
-          user to connect as. Default is "guest". The user will need the
-          ability to create exchanges and queues with names beginning
-          with "federation:". It will also need to be able to bind to
-          the upstream exchange.
-        </dd>
-
-        <dt><code>password</code></dt>
-        <dd>
-          password to use. Default is "guest".
-        </dd>
-
-        <dt><code>mechanism</code></dt>
-        <dd>
-          SASL mechanism to use. One of:
-          <ul>
-            <li>
-              'default' - to use PLAIN or AMQPLAIN by negotiation (this
-              is the default)
-            </li>
-            <li>
-              'EXTERNAL' - to use SASL EXTERNAL authentication - i.e.
-              <code>rabbitmq-auth-mechanism-ssl</code>
-            </li>
-          </ul>
-        </dd>
-
-        <dt><code>prefetch_count</code></dt>
-        <dd>
-          limit on the maximum number of unacknowledged messages in
-          flight per link. Default is 'none'.
-        </dd>
-
-        <dt><code>reconnect_delay</code></dt>
-        <dd>
-          time in seconds to wait to reconnect to the broker after being
-          disconnected. Default is 1.
-        </dd>
-
-        <dt><code>heartbeat</code></dt>
-        <dd>
-          AMQP heartbeat interval (in seconds) on the connection, or
-          none. Default is 'none'.
-        </dd>
-
-        <dt><code>expires</code></dt>
-        <dd>
-          Messages are buffered in the upstream broker in a queue before
-          being sent downstream. This setting controls how long the
-          upstream queue lasts before being deleted if the downstream is
-          disconnected (i.e.  it controls the "x-expires" argument for
-          the upstream queue). The value is in milliseconds. Default is
-          'none', meaning the queue should never expire.
-        </dd>
-
-        <dt><code>message_ttl</code></dt>
-        <dd>
-          Controls how long to keep upstream messages buffered, in
-          milliseconds (i.e. the "x-message-ttl" argument for the
-          upstream queue). Default is 'none', meaning messages should
-          never expire.
-        </dd>
-
-        <dt><code>ha_policy</code></dt>
-        <dd>
-          Controls whether the upstream queue should be highly
-          available. (i.e.  the "x-ha-policy" argument for the upstream
-          queue). Default is 'none', meaning the queue is not HA.
-        </dd>
-
-        <dt><code>ssl_options</code></dt>
-        <dd>
-          Specifies how to make client SSL connections. See the Erlang
-          client documentation for more details.
-        </dd>
-      </dl>
-    </doc:section>
-    <doc:section name="other-config">
-      <doc:heading>Other Configuration</doc:heading>
-      <p>
-        The <code>local_username</code> parameter specifies how to
-        connect to the local broker. The default is "guest". This user
-        will need the ability to publish messages to the downstream
-        exchange.
-      </p>
-
-      <p>
-        The <code>local_nodename</code> parameter specifies the name
-        this node should use to identify itself in the federation. If
-        not specified it will attempt to build a "long form" version of
-        the usual Erlang node name (but using the machine's FQDN). You
-        should only have to specify this if your DNS will not give each
-        machine in the federation unique names.
-      </p>
-    </doc:section>
-    <doc:section name="over-amqp">
-      <doc:heading>Declaring Federation Exchanges Over AMQP</doc:heading>
-
-      <p>This is a less common case, but in case you want to do this:</p>
-
-      <ul>
-        <li>
-          Declare the downstream exchange with type "x-federation".
-        </li>
-        <li>
-          Give it arguments "type" and "upstream-set", both of type
-          "long string". "type" should refer to its backing type; the
-          type of the upstream exchanges. "upstream-set" should be the
-          name of an upstream_set from the static configuration (note
-          that it's a hyphen over AMQP but an underscore in the
-          configuration).
-        </li>
-      </ul>
-
-      <p>Example using the Java API:</p>
-
-      <pre class="example">Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-args.put("type", "topic");
-args.put("upstream-set", "my-upstream-set");
-
-Channel ch = ...;
-ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);</pre>
     </doc:section>
   </body>
 </html>
