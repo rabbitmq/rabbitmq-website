@@ -378,9 +378,9 @@ ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);<
       <pre class="example">    $ rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
 
       <p>
-        This will return a list of proplists. Each proplist represents
-        a link; that is a combination of a federated exchange and an
-        upstream. It contains the following keys:
+        This will return a list of federation links; that is a
+        combination of a federated exchange and an upstream. It
+        contains the following keys:
       </p>
 
       <dl>
@@ -417,11 +417,11 @@ ch.exchangeDeclare("my-federated-exchange", "x-federation", true, false, args);<
       <p>Example:</p>
 
       <pre class="example">$ ./scripts/rabbitmqctl eval 'rabbit_federation_status:status().'
-[[{exchange,&lt;&lt;"downstream">>},
+[[{exchange,&lt;&lt;"my-exchange">>},
   {vhost,&lt;&lt;"/">>},
-  {connection,&lt;&lt;"remote-host">>},
-  {upstream_exchange,&lt;&lt;"upstream">>},
-  {status,{running,&lt;&lt;"&lt;rabbit@smacmullen.1.281.0>">>}},
+  {connection,&lt;&lt;"upstream-server">>},
+  {upstream_exchange,&lt;&lt;"my-upstream-x">>},
+  {status,{running,&lt;&lt;"&lt;rabbit@my-server.1.281.0>">>}},
   {timestamp,{{2012,3,1},{12,3,28}}}]]
 ...done.</pre>
     </doc:section>
