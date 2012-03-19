@@ -577,8 +577,11 @@
           fully-qualified domain name.)
         </p>
         <p>
-          You should only have to specify this explicitly if your DNS
-          will not give the relevant machines distinct names.
+          It is useful to give all the nodes in a cluster the
+          same <code>local_nodename</code> when federating clusters,
+          so that your node's identity will be constant. It is also
+          useful to specify it explicitly if your DNS will not give
+          machines distinct names.
         </p>
       </doc:subsection>
 
