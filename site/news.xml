@@ -15,6 +15,40 @@
       -->
 
     <doc:item>
+      <doc:date iso="2012-03-22T16:28:54+0000">22 March 2012</doc:date>
+      <doc:title>RabbitMQ 2.8.1 release</doc:title>
+      <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000044.html</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          2.8.1.
+        </p>
+        <p>
+          This release fixes a small number of bugs, including one
+          which prevented cluster RAM nodes which had run an earlier
+          version from being upgraded.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2012-03-19T12:04:08+0000">19 March 2012</doc:date>
       <doc:title>RabbitMQ 2.8.0 release</doc:title>
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000044.html</doc:link>
