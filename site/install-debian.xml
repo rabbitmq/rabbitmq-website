@@ -81,11 +81,12 @@
 	  <li>
 	    Add the following line to your <code>/etc/apt/sources.list</code>:
 	    <pre class="sourcecode">deb http://www.rabbitmq.com/debian/ testing main</pre>
-	    (Please note that the word <code>testing</code> in this line 
-	    refers to the state of our release of RabbitMQ, not any 
-            particular Debian distribution. You can use it with Debian 
-            stable, testing or unstable, as well as with Ubuntu. In the  
-            future we will have a stable release too.)
+	    (Please note that the word <code>testing</code> in this
+	    line refers to the state of our release of RabbitMQ, not
+	    any particular Debian distribution. You can use it with
+	    Debian stable, testing or unstable, as well as with
+	    Ubuntu. We describe the release as "testing" to emphasise
+	    that we release somewhat frequently.)
 	  </li>
 	  <li>
 	    (optional) To avoid warnings about unsigned packages, add

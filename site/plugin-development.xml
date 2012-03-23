@@ -101,7 +101,7 @@ $ make</pre>
       </doc:section>
 
       <doc:section name="installing-plugins-during-development">
-        <doc:heading>Enabling Plugins During Development</doc:heading>
+        <doc:heading>Activating Plugins During Development</doc:heading>
 
         <p>
           Instead of requiring that developers rebuild plugin archives and re-install them each time a change
@@ -109,11 +109,11 @@ $ make</pre>
           in place.
         </p>
         <p>
-          To activate a plugin in a development environment, create a
+          To enable and activate a plugin in a development environment, create a
           symlink to the build output location of the plugin directory
           from the rabbitmq-server/plugins directory (which you will
           have to create if it does not exist already). For example,
-          to activate a development build of the rabbitmq-shovel
+          to enable a development build of the rabbitmq-shovel
           plugin and its dependencies:
 
           <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
@@ -121,9 +121,10 @@ $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-shovel
 $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
+          The plugin will be activated when the server is restarted.
         </p>
         <p>
-          Conversely, to disable a plugin, simply remove the symlink,
+          Conversely, to deactivate a plugin, simply remove the symlink,
           run <code>rabbitmq-plugins disable plugin-name</code>, and
           restart the broker instance.
         </p>

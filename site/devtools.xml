@@ -309,6 +309,11 @@
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
               </li>
               <li>
+                <a href="http://www.yourenterprisearchitect.com/">Your Enterprise Architect</a>
+                <br />
+                Enterprise and distributed architecture topics covered using RabbitMQ and C#
+              </li>
+              <li>
                 <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
               </li>
               <li>
@@ -377,7 +382,7 @@
                 <a href="http://code.google.com/p/php-amqplib/">php-amqplib</a> a port of py-amqplib
               </li>
               <li>
-                <a href="https://github.com/tnc/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
+                <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a fork of php-amqplib updated to support PHP 5.3
               </li>
               <li>
                 <a href="http://pecl.php.net/package/amqp">PECL release of the AMQP client</a>
@@ -446,6 +451,9 @@
                 Experimental <a href="c-client.html">RabbitMQ-C</a> client
               </li>
               <li>
+                <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
+              </li>
+              <li>
                 You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a>
               </li>
               <li>
@@ -461,7 +469,7 @@
             <doc:heading>Erlang</doc:heading>
             <ul class="plain">
               <li>
-                <a href="erlang-client-user-guide.html">Erlang client guide</a>
+                <a href="erlang-client-user-guide.html">RabbitMQ Erlang client guide</a>
               </li>
               <li>
                 <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client
@@ -525,7 +533,7 @@
                 <a href="http://exceptionz.wordpress.com/2010/03/10/install-rabbitmq-on-snow-leopard-with-macports/">Install RabbitMQ on Snow Leopard with MacPorts</a>
               </li>
               <li>
-                <a href="http://edelsonmedia.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)
+                <a href="http://helenaedelson.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)
               </li>
               <li>
                 <a href="http://codingiscoding.wordpress.com/2011/04/17/rabbitmq-on-os-x/">Post-install tips on OSX</a>
@@ -805,6 +813,11 @@
                 <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
                 <br/>
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
+              </li>
+              <li>
+                <a href="https://github.com/dominiklanger/LabbitMQ">LabbitMQ</a>
+                <br/>
+                A RabbitMQ client for LabVIEW
               </li>
               <li>
                 <a href="https://github.com/yrashk/amqpfs">amqpfs</a>

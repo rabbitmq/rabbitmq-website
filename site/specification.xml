@@ -1,7 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Compatibility and Conformance</title>
   </head>
@@ -27,7 +28,7 @@
 1-0 Draft</a> (PDF).
 	</p>
         <p>
-          The 0-9-1, 0-9 and 0-8 specifications are linked to below for
+          The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
           learn more about AMQP.  Please see our <a
           href="documentation.html">documentation</a> and, in particular, our <a
@@ -36,35 +37,9 @@
 	</p>
       </doc:section>
 
-      <doc:section name="release-version-mapping">
+    <doc:section name="release-version-mapping">
 
-
-    <table>
-	  <tr>
-        <th>Version</th>
-	    <th>Core specification</th>
-	    <th>PDF</th>
-	    <th>XML</th>
-	  </tr>
-      <tr>
-        <td>0-9-1</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.pdf">amqp0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9-1.pdf">amqp-xml-doc0-9-1.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9-1.xml">amqp0-9-1.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-9</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.pdf">amqp0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-9.pdf">amqp-xml-doc0-9.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-9.xml">amqp0-9.xml</a></td>
-      </tr>
-      <tr>
-        <td>0-8</td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.pdf">amqp0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp-xml-doc0-8.pdf">amqp-xml-doc0-8.pdf</a></td>
-	    <td><a href="https://www.amqp.org/confluence/download/attachments/720900/amqp0-8.xml">amqp0-8.xml</a></td>
-      </tr>
-    </table>
+    <xi:include href="amqp-proto-download-table.xml.inc"/>
 
 	<doc:heading>Specification versions supported</doc:heading>
 	<p>
@@ -72,7 +47,7 @@
 	  protocol specification implemented by RabbitMQ release 2.0.0 and later:
 	</p>
 
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
@@ -89,12 +64,16 @@
         <td>.NET/C# client</td>
 	    <td> 0-9-1, 0-9 and 0-8 switchable at runtime </td>
 	  </tr>
+	  <tr>
+	    <td>Erlang client</td>
+	    <td> 0-9-1 </td>
+	  </tr>
 	</table>
 	<p>
 	  The following table describes the version of the AMQP
 	  protocol specification implemented by RabbitMQ release prior to 2.0.0:
 	</p>
-	<table>
+	<table class="styled-table">
 	  <tr>
         <th>Component</th>
 	    <th>Implements AMQP protocol version</th>
@@ -162,7 +141,7 @@
 	  <class name="exchange" handler="channel" index="40"><status value="ok"/></class>
 	  <class name="queue" handler="channel" index="50"><status value="ok"/></class>
 	  <class name="basic" handler="channel" index="60"><status value="ok"/></class>
-	  <class name="tx" handler="channel" index="90"><status value="partial"/><notes>See <a href="#tx">notes on tx support</a></notes></class>
+	  <class name="tx" handler="channel" index="90"><status value="partial"/><notes>See <a href="semantics.html#tx">notes on tx support</a></notes></class>
 	</classes>
       </doc:section>
 
@@ -2429,6 +2408,10 @@
 
 	  <rule>
 	    <status value="ok"></status>
+        <notes>
+        The broker makes <a href="semantics.html#ordering">stronger
+        guarantees</a>.
+        </notes>
 	    <xref> 4.7 </xref>
 	    <context>
 	    </context>
@@ -2523,149 +2506,6 @@
             </text>
           </rule>
         </rules>
-      </doc:section>
-      <doc:section name="tx">
-        <doc:heading>Semantics of tx</doc:heading>
-        <p>
-          The semantics of AMQP's <code>tx</code> class, as defined in
-          AMQP 0-9-1, and its implementation in different versions of
-          the RabbitMQ server, is often misunderstood. Here is a
-          summary of the behaviour:
-        </p>
-        <table>
-	  <tr>
-            <th>Feature</th>
-	    <th>AMQP 0-9-1</th>
-	    <th>RabbitMQ &lt; 2.6.0</th>
-	    <th>RabbitMQ &gt;= 2.6.0</th>
-	  </tr>
-          <tr>
-            <td>transactional <code>basic.publish</code></td>
-            <td>yes</td>
-            <td>yes</td>
-            <td>yes</td>
-          </tr>
-          <tr>
-            <td>transactional <code>basic.ack</code></td>
-            <td>yes</td>
-            <td>yes</td>
-            <td>yes</td>
-          </tr>
-          <tr>
-            <td>transactional <code>basic.reject</code></td>
-            <td>no</td>
-            <td>no</td>
-            <td>no</td>
-          </tr>
-          <tr>
-            <td>transactional exchange/queue/binding creation/deletion</td>
-            <td>no</td>
-            <td>no</td>
-            <td>no</td>
-          </tr>
-          <tr>
-            <td>transactional consuming/getting of messages</td>
-            <td>no</td>
-            <td>no</td>
-            <td>no</td>
-          </tr>
-          <tr>
-            <td>atomicity in single queue</td>
-            <td>yes</td>
-            <td>no</td>
-            <td>no</td>
-          </tr>
-          <tr>
-            <td>atomicity across multiple queues</td>
-            <td>no</td>
-            <td>no</td>
-            <td>no</td>
-          </tr>
-          <tr>
-            <td>error detection (e.g. invalid exchange)</td>
-            <td>undefined</td>
-            <td>immediate</td>
-            <td>immediate</td>
-          </tr>
-          <tr>
-            <td>sending of 'no_route' <code>basic.return</code></td>
-            <td>undefined</td>
-            <td>immediate</td>
-            <td>on <code>tx.commit</code></td>
-          </tr>
-          <tr>
-            <td>sending of 'no_consumers' <code>basic.return</code></td>
-            <td>undefined</td>
-            <td>never</td>
-            <td>on <code>tx.commit</code></td>
-          </tr>
-          <tr>
-            <td>effect visibility / responsibility transfer / durability</td>
-            <td>undefined</td>
-            <td>on <code>tx.commit</code></td>
-            <td>on <code>tx.commit</code></td>
-          </tr>
-        </table>
-        <p>
-          Overall the behaviour of the AMQP <code>tx</code> class, and
-          more so its implementation on RabbitMQ, is closer to
-          providing a 'batching' feature than ACID capabilities known
-          from the database world.
-        </p>
-        <p>
-          AMQP transactions only apply to publishes and acks. Other
-          operations, such as message rejection, are not
-          transactional. Neither is resource creation/deletion, and
-          consequently <em>the behaviour of transactions when any of
-          the involved exchanges, queues or bindings are altered is
-          undefined</em>.
-        </p>
-        <p>
-          On the consuming side, the <em>acknowledgements</em> are
-          transactional, not the consuming of the messages
-          themselves. Hence no requeuing of consumed messages takes
-          place on rollback; the client can still ack/reject these
-          messages in subsequent transactions.
-        </p>
-        <p>
-          AMQP guarantees atomicity only when transactions involve a
-          single queue, i.e. all the publishes inside the tx get
-          routed to a single queue and all acks relate to messages
-          consumed from the same queue. When multiple queues are
-          involved it is possible that in the event of a broker
-          failure during <code>tx.commit</code> the effects of the
-          transaction are only visible in some of the
-          queues. Furthermore, RabbitMQ provides no atomicity
-          guarantees even in case of transactions involving just a
-          single queue, e.g. a fault during <code>tx.commit</code> can
-          result in a sub-set of the transaction's publishes appearing
-          in the queue after a broker restart.
-        </p>
-        <p>
-          AMQP does not specify when errors (e.g. lack of permissions,
-          references to unknown exchanges) in
-          transactional <code>basic.publish</code>
-          and <code>basic.ack</code> commands should be
-          detected. RabbitMQ performs the necessary checks immediately
-          (rather than, say, at the time of commit), but note that
-          both <code>basic.publish</code> and <code>basic.ack</code>
-          are asynchronous commands so any errors will be reported
-          back to the client asynchronously. The situation is similar
-          with <code>basic.return</code>s, though note the slight
-          change in behaviour between earlier and recent versions of
-          RabbitMQ.
-        </p>
-        <p>
-          AMQP does not specify when the effects of transactions
-          should become visible following a <code>tx.commit</code>,
-          e.g. when published messages will appear in queues and can
-          be consumed from other clients, when persistent messages
-          will be written to disk, etc. In RabbitMQ
-          the <code>tx.confirm-ok</code> indicates that all
-          transaction effects are visible and that the broker has
-          accepted responsibility for all the messages published in
-          the transaction.
-        </p>
       </doc:section>
   </body>
 </html>

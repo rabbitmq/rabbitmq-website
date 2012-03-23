@@ -39,14 +39,16 @@
       </div>
 
       <div class="landing-box">
-        <h2>Client</h2>
+        <h2>Clients</h2>
         <ul>
           <li>
             Quick links:
             <a href="api-guide.html">Java Guide</a> |
             <a href="&dir-current-javadoc;">Javadoc</a> |
             <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Guide</a> |
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET API (generated)</a>
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET API</a> |
+            <a href="erlang-client-user-guide.html">Erlang Guide</a> |
+            <a href="&dir-current-edoc;">Erlang edoc</a>
           </li>
           <li>
             View all <a href="clients.html">client documentation</a>.
@@ -60,7 +62,7 @@
           <li>
             Popular plugins:
             <a href="management.html">Management</a> |
-            <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">Federation</a> |
+            <a href="federation.html">Federation</a> |
             <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">Shovel</a> |
             <a href="stomp.html">STOMP</a>
 
