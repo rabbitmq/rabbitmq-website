@@ -14,6 +14,33 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000044.html">2.8.0</a></td>
+          <td>19 March 2012</td>
+          <td>
+            <ul>
+              <li>
+                Dead lettering
+              </li>
+              <li>
+                Internal flow control
+              </li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-December/016941.html">2.7.1</a></td>
+          <td>20 December 2011</td>
+          <td>
+            <ul>
+              <li>Important fixes to High Availability</li>
+              <li>Compatibility with Erlang R15B</li>
+              <li>Bug fixes and performance improvements</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html">2.7.0</a></td>
           <td>9 November 2011</td>
           <td>

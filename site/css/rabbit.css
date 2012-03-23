@@ -463,7 +463,7 @@ p.warning a {
 
 #changelog  { width: auto; clear: both; }
 
-#changelog td { background-color: #f7f7f7; }
+#changelog td, table.styled-table td { background-color: #f7f7f7; }
 
 #home-content { width: 68%; }
 

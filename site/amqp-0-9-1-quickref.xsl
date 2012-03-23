@@ -13,7 +13,7 @@
 
   <xsl:output method="html" indent="yes"/>
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.extended.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
@@ -28,13 +28,13 @@
       <p>
         This page provides a guide to RabbitMQ's implementation of AMQP 0-9-1. In addition to the classes
         and methods defined in the <a href="specification.html">AMQP specification</a>, RabbitMQ supports several
-        <a href="extensions.html">protocol extensions</a>, which are also listed here. The extended specification
-        can be <a href="resources/specs/amqp0-9-1.xml" type="text/xml">downloaded here</a>.
+        <a href="extensions.html">protocol extensions</a>, which are also listed here. The original and extended
+        specification downloads can be found on the <a href="protocol.html">protocol page</a>.
       </p>
       <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides
         for the RabbitMQ <a href="java-client.html">Java</a> and <a href="dotnet.html">.NET</a> clients. Full
-        details of each method and it's parameters are available in our <a href="amqp-0-9-1-reference.html">complete
+        details of each method and its parameters are available in our <a href="amqp-0-9-1-reference.html">complete
         AMQP 0-9-1 reference</a>.
       </p>
       <!-- switch context from source file to spec doc -->

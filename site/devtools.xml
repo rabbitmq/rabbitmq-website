@@ -451,6 +451,9 @@
                 Experimental <a href="c-client.html">RabbitMQ-C</a> client
               </li>
               <li>
+                <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
+              </li>
+              <li>
                 You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="http://github.com/selivanovm/rabbitmq-d">port of this client to d</a>
               </li>
               <li>
@@ -810,6 +813,11 @@
                 <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
                 <br/>
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
+              </li>
+              <li>
+                <a href="https://github.com/dominiklanger/LabbitMQ">LabbitMQ</a>
+                <br/>
+                A RabbitMQ client for LabVIEW
               </li>
               <li>
                 <a href="https://github.com/yrashk/amqpfs">amqpfs</a>

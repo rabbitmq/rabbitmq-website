@@ -274,7 +274,7 @@ this should presumably say "...deletes any exclusive queues owned...".</p>
          <p>Although basic.recover is introduced as a synchronous version of basic.recover-async, it is not marked as synchronous in the XML spec.</p>
 
          <doc:section name="section_29">
-            <doc:heading>29 Heartbeat frametype inconsitency</doc:heading>
+            <doc:heading>29 Heartbeat frametype inconsistency</doc:heading>
          </doc:section>
          <p>The PDF specifies the heartbeat frametype as 4. The XML specifies it as 8.</p>
    </body>

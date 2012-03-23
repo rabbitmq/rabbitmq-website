@@ -92,7 +92,7 @@
         <a href="/contact.html">Contact</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2011 VMware, Inc. All rights reserved.
+        Copyright &#169; 2012 VMware, Inc. All rights reserved.
         <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
         <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
       </p>
@@ -308,10 +308,10 @@
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README{@extension}">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

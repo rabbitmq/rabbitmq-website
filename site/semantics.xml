@@ -8,7 +8,7 @@
   <body>
       <p class="intro">
         Here we describe the broker semantics. This should be read together
-        with the specification.
+        with the AMQP specification.
       </p>
       <doc:section name="tx">
         <doc:heading>Semantics of tx</doc:heading>
@@ -173,7 +173,7 @@
           published in one channel, passing through one exchange and
           one queue and one outgoing channel will be received in the
           same order that they were sent. RabbitMQ offers stronger
-          guarantees since release 2.7.0 .
+          guarantees since release 2.7.0.
         </p>
         <p>
           Messages can be returned to the queue using
