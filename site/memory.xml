@@ -24,6 +24,7 @@
       <li>
         A global mechanism that prevents any messages from being
         published when the memory usage exceeds a configured
+        threshold or free disk space drops below a configured
         threshold.
       </li>
     </ul>
@@ -107,7 +108,7 @@
       </p>
     </doc:section>
 
-    <doc:section name="memsup-usage">
+    <doc:subsection name="memsup-usage">
       <doc:heading>Configuring the Memory Threshold</doc:heading>
 
       <p>
@@ -171,9 +172,9 @@ Memory limit set to 2048MB.</pre>
         behaves as if it's unable to recognise the platform: see
         below.
       </p>
-    </doc:section>
+    </doc:subsection>
 
-    <doc:section name="memsup-unrecognised-platforms">
+    <doc:subsection name="memsup-unrecognised-platforms">
       <doc:heading>Unrecognised platforms</doc:heading>
       <p>
         If the RabbitMQ server is unable to recognise your system,
@@ -205,6 +206,45 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         Erlang VM, it is commonly the case that a maximum of 2GB
         memory is available to RabbitMQ.
       </p>
+    </doc:subsection>
+    <doc:section name="diskfreesup">
+      <doc:heading>Disk-Based Flow Control</doc:heading>
+      <p>
+        Global flow control will be triggered if the amount of free disk
+        space drops below a configured limit. The free space of the drive or
+        partition that the broker database uses will be monitored every
+        minute to determine whether the alarm should be raised or cleared.
+        Monitoring will start as soon as the broker starts up, causing an entry
+        in the broker logfile:
+        <pre class="sourcecode">
+=INFO REPORT==== 23-Mar-2012::14:52:41 ===
+Disk free limit set to 21665MB</pre>
+        Monitoring will be disabled on unrecognised platforms, causing an
+        entry such as the one below:
+        <pre class="sourcecode">
+=WARNING REPORT==== 23-Mar-2012::15:45:29 ===
+Disabling disk free space monitoring</pre>
+        The disk free space limit may also be set with the
+        <code>rabbitmqctl set_disk_free_limit <em>bytes</em></code> or the
+        <code>rabbitmqctl set_disk_free_limit_mem_relative <em>multiple</em></code>
+        commands.
+      </p>
+
+    <doc:subsection name="memsup-usage">
+      <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
+
+      <p>
+        The disk free space limit is configured with the <code>disk_free_limit</code>
+        setting. By default 1.8 times the amount of total RAM is required
+        to be free on the Mnesia partition. The example below sets the limit to
+        the default value:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.8}}]}].</pre>
+        A number of bytes may also be configured. This configuration file
+        sets the disk free space limit to 25Gb:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 26843545600}]}].</pre>
+       </p>
+    </doc:subsection>
     </doc:section>
+
   </body>
 </html>
