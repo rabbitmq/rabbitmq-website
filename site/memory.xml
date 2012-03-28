@@ -224,10 +224,6 @@ Disk free limit set to 21665MB</pre>
         <pre class="sourcecode">
 =WARNING REPORT==== 23-Mar-2012::15:45:29 ===
 Disabling disk free space monitoring</pre>
-        The disk free space limit may also be set with the
-        <code>rabbitmqctl set_disk_free_limit <em>bytes</em></code> or the
-        <code>rabbitmqctl set_disk_free_limit_mem_relative <em>multiple</em></code>
-        commands.
       </p>
 
     <doc:subsection name="memsup-usage">
