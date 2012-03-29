@@ -230,10 +230,10 @@ Disabling disk free space monitoring</pre>
 
       <p>
         The disk free space limit is configured with the <code>disk_free_limit</code>
-        setting. By default 1.8 times the amount of total RAM is required
+        setting. By default 1.0 times the amount of total RAM is required
         to be free on the Mnesia partition. The example below sets the limit to
         the default value:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.8}}]}].</pre>
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
         A number of bytes may also be configured. This configuration file
         sets the disk free space limit to 25Gb:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, 26843545600}]}].</pre>
