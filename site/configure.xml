@@ -392,6 +392,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>disk_free_limit</code></td>
+            <td><code>{mem_relative, 1.0}</code></td>
+            <td>
+              Disk free space limit of the partition on which RabbitMQ
+              is storing data. When available disk space falls below
+              this limit, flow control is triggered. The value may be
+              set relative to the total amount of RAM and by default
+              free disk space must exceed 1.0 times total RAM. The
+              value may also be set to an integer number of bytes.
+              See the <a href="memory.html#diskfreesup">memory-based
+              flow control</a> documentation.
+            </td>
+          </tr>
+          <tr>
             <td><code>log_levels</code></td>
             <td><code>[{connection, info}]</code></td>
             <td>
