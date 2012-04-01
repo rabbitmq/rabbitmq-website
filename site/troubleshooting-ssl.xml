@@ -22,7 +22,7 @@
  {available,[tlsv1,sslv3]}]</pre>
        </p>
        <p>
-         If you receive an error instead then confirm that Erlang was built
+         If you receive an error instead, confirm that Erlang was built
          with OpenSSL. On Debian-based systems you may need to install the
          <code>erlang-ssl</code> package.
        </p>
@@ -34,7 +34,7 @@
          The certificates and keys specified in <code>rabbitmq.config</code> can be verified
          separately using OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
          and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
-         For the example that follows we will assume you have the following:
+         For the examples that follow, we will assume you have the following:
        </p>
          <table>
           <tr>
@@ -43,23 +43,23 @@
           </tr>
           <tr>
            <td>CA certificate</td>
-           <td><code>/path/to/testca/cacert.pem</code></td>
+           <td><code>testca/cacert.pem</code></td>
           </tr>
           <tr>
            <td>Server certificate</td>
-           <td><code>/path/to/server/cert.pem</code></td>
+           <td><code>server/cert.pem</code></td>
           </tr>
           <tr>
            <td>Server key</td>
-           <td><code>/path/to/server/key.pem</code></td>
+           <td><code>server/key.pem</code></td>
           </tr>
           <tr>
            <td>Client certificate</td>
-           <td><code>/path/to/client/cert.pem</code></td>
+           <td><code>client/cert.pem</code></td>
           </tr>
           <tr>
            <td>Client key</td>
-           <td><code>/path/to/client/key.pem</code></td>
+           <td><code>client/key.pem</code></td>
           </tr>
          </table>
        <p>
@@ -69,13 +69,13 @@
          In another terminal window execute
          <pre class="sourcecode">openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
-         If the certificates and keys have been correctly created then an SSL connection establishment
+         If the certificates and keys have been correctly created, an SSL connection establishment
          sequence will appear and the terminals will be linked. Input from either terminal will appear
-         on the other. If the trust chain could be established then the second terminal will display
+         on the other. If the trust chain could be established, the second terminal will display
          this confirmation: <pre>Verify return code: 0 (ok)</pre>
        </p>
        <p>
-         If you receive an error then confirm that the certificates and keys were
+         If you receive an error, confirm that the certificates and keys were
          generated correctly.
        </p>
        </doc:subsection>
@@ -83,16 +83,17 @@
        <doc:subsection name="broker-listens">
        <doc:heading>Broker listening</doc:heading>
        <p>
-         When you start the broker with a valid SSL configuration file then broker
+         When you start the broker with a valid SSL configuration file, broker
          will report the SSL listening address in the logfile. You should see an entry
          similar to this:<pre>=INFO REPORT==== 8-Aug-2011::11:51:47 ===
 started SSL Listener on 0.0.0.0:5671</pre>
          If you included an "ssl_listeners" configuration directive and you don't see
-         this message then it is possible that your configuration file was not read by
+         this message, it is possible that your configuration file was not read by
          the broker. Confirm that the configuration file quoted in the broker startup
          banner contain SSL configuration options. See the
          <a href="/configure.html#introduction">configuration page</a> for details.
        </p>
+       </doc:subsection>
 
        <doc:subsection name="broker-listens-ssl">
        <doc:heading>SSL connection to broker</doc:heading>
@@ -111,9 +112,9 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        <p>
          It should now be possible to present the broker with an AMQP connection
          establishment sequence over the SSL connection. If you present the broker
-         with eight random bytes then the broker will respond with the string "AMQP"
-         followed by an encoded version number. If you recognise the "AMQP" string
-         then you can be confident that you are connected to an AMQP broker.
+         with eight random bytes, the broker will respond with the string "AMQP"
+         followed by an encoded version number. If you recognise the "AMQP" string,
+         you can be confident that you are connected to an AMQP broker.
        </p>
       </doc:subsection>
 
@@ -123,7 +124,7 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
          the same certificate and key.
        </p>
 
-      <doc:section>
+      <doc:subsection>
        <doc:heading>Diagnostics</doc:heading>
         <dl>
             <dt>
@@ -149,8 +150,7 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
                </p>
             </dd>
         </dl>
-      </doc:section>
-
+      </doc:subsection>
 
   </body>
 </html>
