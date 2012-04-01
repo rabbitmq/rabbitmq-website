@@ -377,7 +377,7 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	  </p>
 
 	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
-channel.basicConsume(ticket, queueName, autoAck,
+channel.basicConsume(queueName, autoAck, "myConsumerTag",
      <b>new</b> DefaultConsumer(channel) {
          @Override
          <b>public</b> <b>void</b> handleDelivery(String consumerTag,

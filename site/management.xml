@@ -34,7 +34,7 @@
             Monitor Erlang processes, file descriptors, memory use.
           </li>
           <li>
-            Export / import broker config to JSON.
+            Export / import object definitions to JSON.
           </li>
           <li>
             Force close connections, purge queues.
@@ -246,6 +246,29 @@
           RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
+        <doc:subsection name="load-definitions">
+          <doc:heading>Load definitions at startup</doc:heading>
+          <p>
+            The management plugin lets you export a JSON file
+            containing definitions of all broker objects (queues,
+            exchanges, bindings, users, virtual hosts and
+            permissions). In some scenarios it may be useful to ensure
+            the existence of these objects at every startup.
+          </p>
+          <p>
+            To do this, set the <code>load_definitions</code> variable
+            to the path of a previously exported JSON file containing
+            the definitions you want.
+          </p>
+          <p>
+            Note that the definitions in the file will overwrite
+            anything already in the broker; using this option will not
+            delete anything that is already there. However, if you
+            start from a completely reset broker, use of this
+            option <b>will</b> prevent the usual default user /
+            virtual host / permissions from being created.
+          </p>
+        </doc:subsection>
         <doc:subsection name="fine-stats">
           <doc:heading>Fine-grained statistics</doc:heading>
           <p>
@@ -332,17 +355,16 @@
       <doc:section name="clustering">
         <doc:heading>Note on clustering</doc:heading>
         <p>
-          The management plugin is aware of clusters. You can install
+          The management plugin is aware of clusters. You can enable
           it on one or more nodes in a cluster, and see information
           pertaining to the entire cluster no matter which node you
           connect to.
         </p>
         <p>
           If you want to deploy cluster nodes which do not have the
-          full management plugin installed, they will still require
-          the <code>rabbitmq-management-agent</code> plugin. This can
-          be obtained from the <a href="plugins.html">plugins
-          page</a>.
+          full management plugin enabled, you will still need to
+          enable the <code>rabbitmq-management-agent</code> plugin on
+          each node.
         </p>
       </doc:section>
 

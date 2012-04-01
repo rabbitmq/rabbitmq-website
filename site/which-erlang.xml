@@ -40,18 +40,12 @@
 
     <h3>OS support</h3>
     <p>
-      Most current distributions now package Erlang that supports all the above. You can check these specific distributions:
-    <ul>
-    <li><a href="http://software.opensuse.org">OpenSUSE</a></li>
-    <li><a href="https://admin.fedoraproject.org/updates/erlang">Fedora</a></li>
-    <li><a href="http://www.macports.org/ports.php">Macports</a></li>
-    <li><a href="http://packages.debian.org/stable/erlang">Debian</a></li>
-    <li><a href="https://launchpad.net/erlang">Ubuntu</a></li>
-    <li><a href="http://download.fedora.redhat.com/pub/epel/5/SRPMS/repoview/erlang.html">Fedora EPEL 5 SRPMS</a></li>
-    </ul>
-    </p>
-    <p>
-    See the <a href="install-rpm.html">RPM-based Linux Installation</a> page for how to install Erlang on RPM-based distributions.
+      Most current distributions now package Erlang that supports all
+      the above. One (partial) exception is Red Hat Enterprise Linux -
+      RPMs are available but not as part of the core distribution.
+      See the <a href="install-rpm.html">RPM-based Linux
+      Installation</a> page for how to install Erlang on RPM-based
+      distributions.
     </p>
 
     <h3>Building Erlang from source</h3>
