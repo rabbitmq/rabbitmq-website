@@ -21,9 +21,9 @@
         </p>
 	<p>
 	  When the feature is switched off, it has no effect on
-	  performance; when it is switched on, it makes a
-	  significant difference. <b>Be cautious</b> in using this
-	  feature on production systems!
+	  performance; when it is switched on, performance will drop
+	  somewhat due to additional messages being generated and
+	  routed.
 	</p>
         <doc:subsection>
 	  <doc:heading>Enabling the firehose</doc:heading>
