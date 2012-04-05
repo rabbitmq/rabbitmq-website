@@ -741,7 +741,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
               message was in before it was dead-lettered,</li>
               <li><code>reason</code> - see below,</li>
               <li><code>time</code> - the date and time the message
-              was dead lettered as an RFC1123 formatted string,</li>
+              was dead lettered as a 64-bit AMQP format timestamp,</li>
               <li><code>exchange</code> - the exchange the message was
               published to (note that this will be a dead letter
               exchange if the message is dead lettered multiple
