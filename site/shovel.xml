@@ -1,0 +1,183 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Shovel Plugin</title>
+  </head>
+  <body show-in-this-page="true">
+    <p>
+      The <em>Shovel Plugin</em> allows you to configure a number of
+      <em>shovel</em>s, which start automatically when the broker
+      starts.
+    </p>
+    <p>
+      The high level goal of a <em>shovel</em> is to reliably and
+      continually move messages from a queue (a <em>source</em>) to an
+      exchange (a <em>destination</em>). The source, destination <em>and
+      shovel</em> can be on the same broker or different brokers.
+    </p>
+    <p>
+      A shovel behaves like a well-written client application, which
+      connects to its source and destination, reads and writes messages,
+      and copes with connection failures.
+    </p>
+
+    <p>
+      The primary advantages of a shovel to move messages are:
+    </p>
+    <dl class="plain">
+      <dt><strong>Loose coupling</strong></dt>
+      <dd>
+        A shovel can move messages between brokers (or clusters) in
+        different administrative domains:
+        <ul class="plain">
+          <li>
+            they may have different users and virtual hosts;
+          </li>
+          <li>
+            they may run on different versions of RabbitMQ and Erlang.
+          </li>
+        </ul>
+      </dd>
+      <dt><strong>WAN-friendly</strong></dt>
+      <dd>
+        The shovel plugin uses AMQP to communicate between brokers, and
+        is designed to tolerate intermittent connectivity without
+        message loss.
+      </dd>
+      <dt><strong>Non-invasive</strong></dt>
+      <dd>
+        To define and start a shovel, you do not have to reconfigure
+        either the source or the destination resources. You do not even
+        have to restart the broker(s) upon which they reside: the shovel
+        can run in a separate broker.
+      </dd>
+    </dl>
+
+      <p>
+        The Shovel plugin defines (and runs) an Erlang client
+        application for each shovel defined in its configuration.
+      </p>
+
+    <doc:section name="getting-started">
+      <doc:heading>Getting Started</doc:heading>
+      <p>
+        The <em>Shovel plugin</em> is included in the RabbitMQ
+        distribution. To enable it, use
+        <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+      </p>
+      <pre class="example">    rabbitmq-plugins enable rabbitmq_shovel</pre>
+
+    </doc:section>
+
+    <doc:section name="configuration">
+      <doc:heading>Configuration</doc:heading>
+
+      <p>
+        The configuration for the Shovel plugin in the
+        <a href="configure.html#configuration-file">broker configuration
+        file</a> has the following simple structure:
+      </p>
+<pre class="example">
+    {rabbitmq_shovel,
+     [ {shovels, [{'sh1', [..]},
+                  {'sh2', [..]}]
+       }
+     ]
+    }
+</pre>
+      <p>
+        Each element of the list in <code>shovels</code> is a shovel. In
+        this example there are two shovels, one named <code>sh1</code>
+        and one named <code>sh2</code>. The names of the shovels must be
+        distinct.
+      </p>
+      <p>
+        Each shovel has the following format:
+      </p>
+<pre class="example">
+    {'shovel_name', [ {sources, [..]}
+                    , {destinations, [..]}
+                    , {queue, <em>qname</em>}
+                    , {prefetch_count, <em>count</em>}
+                    , {ack_mode, <em>amode</em>}
+                    , {publish_properties, [..]}
+                    , {publish_fields, [..]}
+                    , {reconnect_delay, <em>delay</em>}
+                    ]
+    }
+</pre>
+      <p>
+        where <code>sources</code>, <code>destinations</code> and
+        <code>queue</code> are mandatory, and all the other settings are
+        optional.
+      </p>
+
+      <p>
+        We define each setting in more detail. A (deliberately verbose)
+        example configuration is given <a
+        href="#example-config">below</a>.
+      </p>
+
+      <doc:subsection name="sources">
+        <doc:heading>sources</doc:heading>
+      </doc:subsection>
+
+      <doc:subsection name="destinations">
+        <doc:heading>destinations</doc:heading>
+      </doc:subsection>
+
+    </doc:section>
+
+    <doc:section name="example-config">
+      <doc:heading>Example Configuration</doc:heading>
+
+      <p>
+        A verbose configuration might look like this:
+      </p>
+
+<pre class="example">
+  {rabbitmq_shovel,
+    [{shovels,
+      [{my_first_shovel,
+        [{sources,      [{brokers,
+                            ["amqp://fred:secret@host1.domain/my_vhost",
+                             "amqp://john:secret@host2.domain/my_vhost"
+                            ]},
+                         {declarations,
+                            ['queue.declare',
+                             {'queue.bind',
+                                    [{exchange, &lt;&lt;"my_exchange">>},
+                                     {queue,    &lt;&lt;>>}]}
+                            ]}]},
+         {destinations, [{broker, "amqp://"},
+                         {declarations,
+                            [{'exchange.declare',
+                                    [{exchange, &lt;&lt;"my_exchange">>},
+                                     {type, &lt;&lt;"direct">>},
+                                     durable]}
+                            ]}]},
+         {queue, &lt;&lt;>>},
+         {prefetch_count, 10},
+         {ack_mode, on_confirm},
+         {publish_properties, [{delivery_mode, 2}]},
+         {publish_fields, [{exchange, &lt;&lt;"my_exchange">>},
+                           {routing_key, &lt;&lt;"from_shovel">>}]},
+         {reconnect_delay, 5}
+        ]}
+       ]
+     }]
+  }
+</pre>
+      <p>
+        The configuration above ..
+      </p>
+    </doc:section>
+
+  </body>
+</html>

@@ -69,7 +69,7 @@
     <h2>The Shovel</h2>
     <p>
       Connecting brokers
-      with <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">the
+      with <a href="shovel.html">the
       shovel</a> is conceptually similar to connecting them with
       federation. However, the shovel works at a lower level.
     </p>
