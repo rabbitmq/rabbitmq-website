@@ -179,25 +179,23 @@ in `SEND` and `MESSAGE` frames is broker-specific. The RabbitMQ STOMP
 adapter supports a number of different destination types:
 
 * `/exchange` -- `SEND` to arbitrary routing keys and `SUBSCRIBE` to
-arbitrary binding patterns
+arbitrary binding patterns;
 * `/queue` -- `SEND` and `SUBSCRIBE` to queues managed by the STOMP
-gateway
+gateway;
 * `/amq/queue` -- `SEND` and `SUBSCRIBE` to queues created outside the
-STOMP gateway
-* `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics
-* `/temp-queue/` -- create temporary queues (in `reply-to` headers only)
+STOMP gateway;
+* `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics;
+* `/temp-queue/` -- create temporary queues (in `reply-to` headers only).
 
 #### AMQP Semantics
 The `destination` header on a `MESSAGE` frame is set as though the
-message originated from a `SEND` frame.
+message originated from a `SEND` frame:
 
-Messages published to the default exchange are given the destination
-`/queue/`*queuename*.
-
-Messages published to `amq.topic` are given the destination
-`/topic/`*routing_key*.
-
-All other messages are given the destination
+* messages published to the default exchange are given the destination
+`/queue/`*queuename*;
+* messages published to `amq.topic` are given the destination
+`/topic/`*routing_key*;
+* all other messages are given the destination
 `/exchange/`*exchange_name*[`/`*routing_key*].
 
 If `/`, `%` or non-ascii bytes are in the *queuename*, *exchange_name*
