@@ -228,8 +228,9 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             delivered to a consumer immediately. Thus this provides an
             alternative to <code>basic.publish</code>'s
             <code>immediate</code> flag. Unlike the latter, no
-            <code>basic.return</code>'s are issued. Performance is
-            significantly better.
+            <code>basic.return</code>s are issued, and if a dead
+            letter exchange is set then messages will be
+            dead-lettered. Performance is significantly better.
           </p>
 
         </doc:subsection>
