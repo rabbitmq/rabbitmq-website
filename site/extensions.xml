@@ -200,7 +200,7 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
 
           <p>
             The value of the <code>x-message-ttl</code> argument must be
-            an non-negative integer, describing the TTL period in
+            a non-negative integer, describing the TTL period in
             milliseconds. Thus a value of 1000 means that a message
             added to the queue will live in the queue for 1 second or
             until it is delivered to a consumer. The argument can be of
