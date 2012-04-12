@@ -17,9 +17,10 @@
     </p>
     <p>
       The high level goal of a <em>shovel</em> is to reliably and
-      continually move messages from a queue (a <em>source</em>) to an
-      exchange (a <em>destination</em>). The source, destination <em>and
-      shovel</em> can be on the same broker or different brokers.
+      continually move messages from a queue (a <em>source</em>) to
+      another broker (a <em>destination</em>). The source and
+      destination brokers can be the same or distinct. The shovel need
+      not run on either of them.
     </p>
     <p>
       A shovel behaves like a well-written client application, which
@@ -59,10 +60,77 @@
       </dd>
     </dl>
 
+    <doc:section name="what-it-do">
+      <doc:heading>What does it do?</doc:heading>
       <p>
         The Shovel plugin defines (and runs) an Erlang client
         application for each shovel defined in its configuration.
       </p>
+      <p>
+        In essence, a shovel is a simple pump. Each shovel:
+        <ul class="plain">
+          <li>
+            <strong><em>connects</em></strong> to the source broker and
+            the destination broker,
+          </li>
+          <li>
+            <strong><em>consumes</em></strong> messages from the queue,
+          </li>
+          <li>
+            <strong><em>re-publishes</em></strong> each message to the
+            destination broker (using the original exchange and
+            routing_key).
+          </li>
+        </ul>
+      </p>
+      <p>
+        The shovel configuration allows each of these actions to be
+        adjusted:
+      </p>
+      <dl class="plain">
+        <dt><strong><em>connects</em></strong></dt>
+        <dd>
+          <p>
+            a shovel will attempt to reconnect to a broker if a failure
+            occurs; multiple brokers may be specified for the source and
+            destination so that another broker may be selected (at
+            random) to reconnect to; a reconnection delay may be
+            specified to avoid flooding the network with reconnection
+            attempts;
+          </p>
+        </dd>
+        <dd>
+          <p>
+            after connection to a source broker (and independently to a
+            destination broker) a series of AMQP
+            <code>declarations</code> may be issued; any resources may
+            be declared; this gives the opportunity to create a queue or
+            an exchange, including any bindings that might be needed;
+            these declarations are re-issued upon re-connect;
+          </p>
+        </dd>
+        <dt><strong><em>consumes</em></strong></dt>
+        <dd>
+          <p>
+            the consumer can be set to acknowledge messages
+            automatically on receipt, after publication, or after
+            confirmation of the publication;
+          </p>
+        </dd>
+        <dt><strong><em>re-publishes</em></strong></dt>
+        <dd>
+          <p>
+            both the publish method and the message properties can be
+            modified with explicit parameter values.
+          </p>
+        </dd>
+      </dl>
+      <p>
+        Full details are given in the
+        <a href="#configuration">configuration</a> section, below.
+      </p>
+
+    </doc:section>
 
     <doc:section name="getting-started">
       <doc:heading>Getting Started</doc:heading>
@@ -71,7 +139,9 @@
         distribution. To enable it, use
         <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
-      <pre class="example">    rabbitmq-plugins enable rabbitmq_shovel</pre>
+<pre class="example">
+  rabbitmq-plugins enable rabbitmq_shovel
+</pre>
 
     </doc:section>
 
@@ -79,58 +149,265 @@
       <doc:heading>Configuration</doc:heading>
 
       <p>
-        The configuration for the Shovel plugin in the
+        The configuration for the Shovel plugin in the 
         <a href="configure.html#configuration-file">broker configuration
-        file</a> has the following simple structure:
+        file</a> is an Erlang term (as usual) and consists of a single
+        <code>shovels</code> clause:
       </p>
 <pre class="example">
-    {rabbitmq_shovel,
-     [ {shovels, [{'sh1', [..]},
-                  {'sh2', [..]}]
-       }
-     ]
-    }
+  {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [..]}, ..]} ]}
 </pre>
       <p>
-        Each element of the list in <code>shovels</code> is a shovel. In
-        this example there are two shovels, one named <code>sh1</code>
-        and one named <code>sh2</code>. The names of the shovels must be
-        distinct.
+        A (deliberately verbose)
+        <a href="#example-config">example configuration</a> is given
+        below.
       </p>
       <p>
-        Each shovel has the following format:
+        Each element of the list in the <code>shovels</code> clause is a
+        named shovel. The <code><em>shovel_name</em></code>s in the list
+        must be distinct.
+      </p>
+      <p>
+        Each shovel definition looks like this:
       </p>
 <pre class="example">
-    {'shovel_name', [ {sources, [..]}
-                    , {destinations, [..]}
-                    , {queue, <em>qname</em>}
-                    , {prefetch_count, <em>count</em>}
-                    , {ack_mode, <em>amode</em>}
-                    , {publish_properties, [..]}
-                    , {publish_fields, [..]}
-                    , {reconnect_delay, <em>delay</em>}
-                    ]
-    }
+  {<em>shovel_name</em>, [ {sources, [..]}
+                , {destinations, [..]}
+                , {queue, <em>queue_name</em>}
+                , {prefetch_count, <em>count</em>}
+                , {ack_mode, <em>a_mode</em>}
+                , {publish_properties, [..]}
+                , {publish_fields, [..]}
+                , {reconnect_delay, <em>reconn_delay</em>}
+                ]
+  }
 </pre>
       <p>
-        where <code>sources</code>, <code>destinations</code> and
-        <code>queue</code> are mandatory, and all the other settings are
+        where <code><em>shovel_name</em></code> is the name of the
+        shovel (an Erlang atom). Each clause is described below.
+      </p>
+      <p>
+        The clauses for <code>sources</code>, <code>destinations</code>
+        and <code>queue</code> are mandatory. All the other clauses are
         optional.
       </p>
 
-      <p>
-        We define each setting in more detail. A (deliberately verbose)
-        example configuration is given <a
-        href="#example-config">below</a>.
-      </p>
+      <dl>
+        <dt><a id="sources"/><strong>sources</strong></dt>
+        <dt><a id="destinations"/><strong>destinations</strong></dt>
+        <dd>
+          <p>
+            These clauses are mandatory. They take the form:
+          </p>
+<pre class="example">
+  {sources, [ {brokers, <em>broker_list</em>}
+            , {declarations, <em>declaration_list</em>}
+            ]
+  }
+</pre>
+          <p>
+            (or <code>{destinations, ..}</code>). The
+            <code>brokers</code> clause is mandatory and the
+            <code>declarations</code> clause optional.
+          </p>
+          <dl>
+            <dt><strong>brokers</strong></dt>
+            <dd>
+              <p>
+                This clause (or the <code>broker</code> clause) is
+                mandatory. In
+              </p>
+<pre class="example">
+  {brokers, <em>broker_list</em>}
+</pre>
+              <p>
+                <code><em>broker_list</em></code> is a list of URI
+                broker connections (for the basic syntax, see
+                <a href="uri-spec.html">AMQP URI</a>), for example:
+<pre class="example">
+  [ "amqp://fred:secret@host1.domain/my_vhost"
+  , "amqp://john:secret@host2.domain/my_vhost"
+  ]
+</pre>
+                If the host is omitted (not valid in a general AMQP
+                URI), the shovel uses a <em>direct</em> connection to
+                the broker in which it is running. This avoids using the
+                network stack.
+              </p>
+              <p>
+                The syntax is extended to include a query part to permit
+                the configuration of additional connection parameters.
+                <em>heartbeat</em>, <em>channel_max</em>, and
+                <em>frame_max</em> can be specified, in any order.
+                Omitted fields assume default values. For example:
+<pre class="example">
+  "amqp://myhost?heartbeat=5&amp;frame_max=8192"
+</pre>
+                specifies a (non-encrypted) network connection to the
+                host <code>myhost</code>, using default username,
+                password, port, vhost and channel_max. The heartbeat
+                interval is set to 5 seconds, and the maximum frame size
+                to 8192 bytes.
+              </p>
+              <p>
+                It is possible to specify an encrypted SSL connection,
+                the general form of which is:
+<pre class="example">
+  "amqps://username:password@host:port/vhost
+    ?cacertfile=/path/to/cacert.pem
+    &amp;certfile=/path/to/certfile.pem
+    &amp;keyfile=/path/to/keyfile.pem
+    &amp;verify=verifyOption
+    &amp;fail_if_no_peer_cert=failOption"
+</pre>
+                (The line-breaks are not part of the string.)
+              </p>
+              <p>
+                All five parameters (3 paths: <em>cacertfile</em>,
+                <em>certfile</em> and <em>keyfile</em>; and 2 options:
+                <em>verify</em>, <em>fail_if_no_peer_cert</em>) must be
+                specified. See the <a
+                href="ssl.html#configure-erlang">SSL guide</a> for
+                details of SSL in RabbitMQ in general and specifically
+                for the Erlang client.
+              </p>
+              <p>
+                <strong>Note</strong>: If the broker list consists of a
+                single connection URI, the forms:
+              </p>
+<pre class="example">
+  {broker, <em>amqp_uri_string</em>}
 
-      <doc:subsection name="sources">
-        <doc:heading>sources</doc:heading>
-      </doc:subsection>
+  {brokers, [ <em>amqp_uri_string</em> ]}
+</pre>
+              <p>
+                are fully equivalent.
+              </p>
+            </dd>
 
-      <doc:subsection name="destinations">
-        <doc:heading>destinations</doc:heading>
-      </doc:subsection>
+            <dt><code><em>declaration_list</em></code></dt>
+            <dd>
+              <p>
+                
+              </p>
+            </dd>
+          </dl>
+        </dd>
+
+        <dt><strong>queue</strong></dt>
+        <dd>
+          <p>
+            This clause is mandatory. In
+          </p>
+<pre class="example">
+  {queue, <em>queue_name</em>}
+</pre>
+          <p>
+            <code><em>queue_name</em></code> is the name of the queue
+            (as a binary string) to shovel messages from. For example:
+          </p>
+<pre class="example">
+  {queue, &lt;&lt;"my_work_queue"&gt;&gt;}
+</pre>
+          <p>
+            This queue must exist. Use the resource
+            <code>declarations</code> (see
+            <a href="#sources"><code>sources</code></a>) to create the
+            queue (or ensure it exists) first. If
+            <code><em>queue_name</em></code> is
+            <code>&lt;&lt;&gt;&gt;</code> (the empty binary string) the
+            <em>most recently declared queue</em> in
+            <code>declarations</code> is used. This allows anonymous
+            queues to be defined and used.
+          </p>
+        </dd>
+
+        <dt><strong>prefetch_count</strong></dt>
+        <dd>
+          <p>
+            This clause is optional. In
+          </p>
+<pre class="example">
+  {prefetch_count, <em>count</em>}
+</pre>
+          <p>
+            <code><em>count</em></code> is the maximum number of
+            unacknowledged messages sent to the shovel at once (a
+            non-negative integer). For example:
+          </p>
+<pre class="example">
+  {prefetch_count, 1}
+</pre>
+          <p>
+            If this number is zero (the default), there is no limit.
+          </p>
+        </dd>
+
+        <dt><strong>ack_mode</strong></dt>
+        <dd>
+          <p>
+            This clause is optional. In
+          </p>
+<pre class="example">
+  {ack_mode, <em>a_mode</em>}
+</pre>
+          <p>
+            <code><em>a_mode</em></code> is one of
+            <code>'no_ack'</code>, <code>'on_publish'</code> or
+            <code>'on_confirm'</code>.
+          </p>
+          <dl>
+            <dt><code>'no_ack'</code></dt>
+            <dd>
+              <p>
+                indicates that no message acknowledgements are generated
+                by the shovel (the broker automatically acknowledges all
+                delivered messages);
+              </p>
+            </dd>
+            <dt><code>'on_publish'</code></dt>
+            <dd>
+              <p>
+                indicates that message acknowledgements are sent (to the
+                source broker) after the message is re-published to the
+                destination;
+              </p>
+            </dd>
+            <dt><code>'on_confirm'</code></dt>
+            <dd>
+              <p>
+                indicates that publish confirmations are sought and that
+                message acknowledgements are sent (to the source broker)
+                after the message publication is confirmed by the
+                destination.
+              </p>
+            </dd>
+          </dl>
+          <p>
+            The default is <code>'on_confirm'</code>, which is highly
+            recommended. If other options are chosen performance may
+            improve slightly, but messages are more likely to be lost in
+            the event of re-connections.
+          </p>
+        </dd>
+
+        <dt><strong>publish_properties</strong></dt>
+        <dd>
+          ..
+        </dd>
+
+        <dt><strong>publish_fields</strong></dt>
+        <dd>
+          ..
+        </dd>
+
+        <dt><strong>reconnect_delay</strong></dt>
+        <dd>
+          <p>
+            and <code><em>reconn_delay</em></code> is the number of milliseconds to wait before reconnecting in the event of failure (a non-negative integer).
+          </p>
+        </dd>
+      </dl>
 
     </doc:section>
 
@@ -152,26 +429,26 @@
                          {declarations,
                             ['queue.declare',
                              {'queue.bind',
-                                    [{exchange, &lt;&lt;"my_exchange">>},
-                                     {queue,    &lt;&lt;>>}]}
+                                    [{exchange, &lt;&lt;"my_exchange"&gt;&gt;},
+                                     {queue,    &lt;&lt;&gt;&gt;}]}
                             ]}]},
          {destinations, [{broker, "amqp://"},
                          {declarations,
                             [{'exchange.declare',
-                                    [{exchange, &lt;&lt;"my_exchange">>},
-                                     {type, &lt;&lt;"direct">>},
+                                    [{exchange, &lt;&lt;"my_exchange"&gt;&gt;},
+                                     {type, &lt;&lt;"direct"&gt;&gt;},
                                      durable]}
                             ]}]},
-         {queue, &lt;&lt;>>},
+         {queue, &lt;&lt;&gt;&gt;},
          {prefetch_count, 10},
          {ack_mode, on_confirm},
          {publish_properties, [{delivery_mode, 2}]},
-         {publish_fields, [{exchange, &lt;&lt;"my_exchange">>},
-                           {routing_key, &lt;&lt;"from_shovel">>}]},
+         {publish_fields, [{exchange, &lt;&lt;"my_exchange"&gt;&gt;},
+                           {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}]},
          {reconnect_delay, 5}
         ]}
-       ]
-     }]
+      ]
+    }]
   }
 </pre>
       <p>
