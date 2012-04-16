@@ -77,9 +77,9 @@
     </dl>
 
     <p>
-      A comparison between <i>clustering</i>, <i>federated exchanges</i>
-      and <i>shovels</i> is given on the <a
-      href="distribution.hmtl">Distributed Messaging</a> page.
+      A comparison between <em>clustering</em>, <em>federated
+      exchanges</em> and <em>shovels</em> is given on the
+      <a href="distribution.hmtl">Distributed Messaging</a> page.
     </p>
 
     <doc:section name="what-it-do">
@@ -164,6 +164,103 @@
 <pre class="example">
   rabbitmq-plugins enable rabbitmq_shovel
 </pre>
+    </doc:section>
+
+    <doc:section name="status">
+      <doc:heading>Getting Shovel Status</doc:heading>
+      <p>
+        So you are running some shovels in a broker; "How do you find
+        out their status?"
+      </p>
+      <p>
+        The easiest way is to ask the <code>rabbitmq_shovel</code> app
+        directly, by issuing the following <code>rabbitmqctl</code>
+        command against the broker they are running in:
+      </p>
+<pre class="example">
+  $ rabbitmqctl eval 'rabbit_shovel_status:status().'
+</pre>
+      <p>
+        This calls the <code>status</code> method in a module of the
+        <code>rabbitmq_shovel</code> plugin, which will return a list,
+        with one element for each configured shovel.
+      </p>
+      <p>
+        Each element of the list is a tuple with three fields: the
+        shovel <strong><em>name</em></strong>, the shovel
+        <strong><em>status</em></strong>, and the
+        <strong><em>timestamp</em></strong>:
+      </p>
+      <dl>
+        <dt><strong><em>name</em></strong></dt>
+        <dd>
+          the shovel name (an atom) in the configuration
+        </dd>
+        <dt><strong><em>status</em></strong></dt>
+        <dd>
+          <p>
+            There are three possible statuses:
+          </p>
+          <sl>
+            <li>
+<pre class="example">
+  'starting'
+</pre>
+              <p>
+                The shovel is starting up, connecting and creating
+                resources.
+              </p>
+            </li>
+            <li>
+<pre class="example">
+  {'running'|'blocked, {'source', <em>Source</em>},
+                       {'destination', <em>Destination</em>}}:
+</pre>
+              <p>
+                (where <code><em>Source</em></code> and
+                <code><em>Destination</em></code> give the respective
+                connection parameters)
+              </p>
+              <p>
+                <code><strong>'running'</strong></code> means the shovel
+                is up and running, shovelling messages.
+              </p>
+              <p>
+                <code><strong>'blocked'</strong></code> means the
+                destination has raised <code>channel.flow</code>,
+                preventing the shovel from sending messages to the
+                destination.
+              </p>
+              <p>
+                (When <code><strong>'blocked'</strong></code>, the
+                shovel will raise <code>channel.flow</code> to the
+                source, asking the source to stop sending further
+                messages to the shovel. Any messages that are received
+                by the shovel before the source observes the
+                <code>channel.flow</code> are correctly buffered and
+                maintained in order, and are published to the
+                destination as soon as the destination drops the
+                <code>channel.flow</code> block.)
+              </p>
+            </li>
+            <li>
+<pre class="example">
+  {'terminated', <em>Reason</em>}
+</pre>
+              <p>
+                Something's gone wrong. The <code><em>Reason</em></code>
+                should give a further indication of where the fault
+                lies.
+              </p>
+            </li>
+          </sl>
+        </dd>
+        <dt><strong><em>timestamp</em></strong></dt>
+        <dd>
+          a local calendar time of the form
+          <code>{{YYYY,MM,DD},{HH,MM,SS}}</code>.
+        </dd>
+      </dl>
 
     </doc:section>
 
