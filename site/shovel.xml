@@ -68,7 +68,19 @@
         explicit methods. For example, the source queue need not exist
         initially, and can be <em>declared</em> on connect.
       </dd>
+      <dt><strong>Well-written by experts</strong></dt>
+      <dd>
+        The shovel plugin is written, tested and supported by the
+        RabbitMQ team, who know how to achieve reliability and
+        efficiency. Some consider this to be an advantage.
+      </dd>
     </dl>
+
+    <p>
+      A comparison between <i>clustering</i>, <i>federated exchanges</i>
+      and <i>shovels</i> is given on the <a
+      href="distribution.hmtl">Distributed Messaging</a> page.
+    </p>
 
     <doc:section name="what-it-do">
       <doc:heading>What does it do?</doc:heading>
