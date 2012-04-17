@@ -1,0 +1,45 @@
+body { font: 12px Verdana,sans-serif; color: #484848; padding: 8px 35px; }
+
+p, ul { font: 14px Verdana,sans-serif; }
+
+.chart {
+    width: 600px;
+    height: 300px;
+}
+
+.small-chart {
+    width: 200px;
+    height: 100px;
+}
+
+.small-chart-wrapper {
+    float: left;
+}
+
+.xaxis, .yaxis {
+    text-align: center;
+    xcolor: #545454;
+    font-size: smaller;
+}
+
+/* Any similarity is entirely intentional */
+
+.summary { min-width: 120px; font-size: 120%; text-align:center; padding:10px; background-color: #ddd; margin: 0 20px 0 0; color: #888; border-radius: 10px; -moz-border-radius: 10px; float: left; clear: both; }
+.summary strong { font-size: 2em; display: block; color: #444; font-weight: normal; }
+
+.summary {
+    background: -moz-linear-gradient(center top, #f0f0f0 0%,#e0e0e0 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f0f0f0),color-stop(1, #e0e0e0));
+    border: 1px solid #e0e0e0;
+}
+
+.box {
+    overflow: auto;
+    width: 100%;
+}
+
+.box p {
+    margin: 0 0 0 20px;
+    float: left;
+    width: 600px;
+}
