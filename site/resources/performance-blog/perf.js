@@ -2,7 +2,7 @@ var main_results;
 
 $(document).ready(function() {
     $.ajax({
-        url: 'results.js',
+        url: '/resources/performance-blog/results.js',
         success: function(data) {
             main_results = JSON.parse(data);
             $('.chart, .small-chart').map(function() {
