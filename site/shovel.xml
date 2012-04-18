@@ -361,7 +361,7 @@
 </pre>
               <p>
                 <code><em>broker_list</em></code> is a list of URI
-                broker connections (for the basic syntax, see
+                broker <em>connections</em> (for the basic syntax, see
                 <a href="uri-spec.html">AMQP URI</a>), for example:
 <pre class="example">
   [ "amqp://fred:secret@host1.domain/my_vhost"
@@ -392,20 +392,22 @@
                 It is possible to specify an encrypted SSL connection,
                 the general form of which is:
 <pre class="example">
-  "amqps://username:password@host:port/vhost
-    ?cacertfile=/path/to/cacert.pem
-    &amp;certfile=/path/to/certfile.pem
-    &amp;keyfile=/path/to/keyfile.pem
-    &amp;verify=verifyOption
-    &amp;fail_if_no_peer_cert=failOption"
+  "amqps://username:password@host:port/vhost?
+      cacertfile=/path/to/cacert.pem
+     &amp;certfile=/path/to/certfile.pem
+     &amp;keyfile=/path/to/keyfile.pem
+     &amp;verify=verifyOption
+     &amp;fail_if_no_peer_cert=failOption"
 </pre>
-                (The line-breaks are not part of the string.)
+                (This URI has been split across several lines only for
+                readbility. There must be no white-space in the URI.)
               </p>
               <p>
                 All five parameters (3 paths: <em>cacertfile</em>,
                 <em>certfile</em> and <em>keyfile</em>; and 2 options:
                 <em>verify</em>, <em>fail_if_no_peer_cert</em>) must be
-                specified. See the <a href="ssl.html">SSL guide</a> for
+                specified as well as the <code>amqps</code> scheme.
+                See the <a href="ssl.html">SSL guide</a> for
                 details of SSL in RabbitMQ in general and specifically
                 the <a href="ssl.html#configure-erlang">Erlang
                 client</a> section.
