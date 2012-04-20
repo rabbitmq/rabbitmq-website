@@ -7,11 +7,11 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Shovel Plugin</title>
+    <title>Shovel plugin</title>
   </head>
   <body show-in-this-page="true">
     <p>
-      The <em>Shovel Plugin</em> allows you to configure a number of
+      The <em>Shovel plugin</em> allows you to configure a number of
       <em>shovel</em>s, which start automatically when the broker
       starts.
     </p>
@@ -50,7 +50,7 @@
       </dd>
       <dt><strong>WAN-friendly</strong></dt>
       <dd>
-        The shovel plugin uses AMQP to communicate between brokers, and
+        The Shovel plugin uses AMQP to communicate between brokers, and
         is designed to tolerate intermittent connectivity without
         message loss.
       </dd>
@@ -58,28 +58,22 @@
       <dd>
         To define and start a shovel, you do not have to reconfigure
         either the source or the destination resources. You do not even
-        have to restart the broker(s) upon which they reside: the shovel
+        have to restart the broker(s) upon which they reside: the shovels
         can run in a separate broker altogether.
       </dd>
       <dt><strong>Highly tailorable</strong></dt>
       <dd>
-        When the shovel connects (either to the source or the
+        When a shovel connects (either to the source or the
         destination) it can be configured to perform any number of
         explicit methods. For example, the source queue need not exist
         initially, and can be <em>declared</em> on connect.
-      </dd>
-      <dt><strong>Well-written by experts</strong></dt>
-      <dd>
-        The shovel plugin is written, tested and supported by the
-        RabbitMQ team, who know how to achieve reliability and
-        efficiency. Some consider this to be an advantage.
       </dd>
     </dl>
 
     <p>
       A comparison between <em>clustering</em>, <em>federated
       exchanges</em> and <em>shovels</em> is given on the
-      <a href="distribution.hmtl">Distributed Messaging</a> page.
+      <a href="distributed.html">Distributed Messaging</a> page.
     </p>
 
     <doc:section name="what-it-do">
@@ -167,120 +161,127 @@
     </doc:section>
 
     <doc:section name="status">
-      <doc:heading>Getting Shovel Status</doc:heading>
+      <doc:heading>Shovel status</doc:heading>
       <p>
-        So you are running some shovels in a broker; "How do you find
-        out if they are working?"
-      </p>
-      <p>
-        There are two ways.
+        There are two ways of discovering the status of configured shovels.
       </p>
       <doc:subsection name="management-status">
         <doc:heading>Use shovel management</doc:heading>
         <p>
-          If you are using <code>rabbitmq_management</code> already,
-          then simply enable the <code>rabbitmq_shovel_management</code>
-          plugin wherever you have the management plugin enabled and
-          shovel information will automatically appear in the management
-          API and UI.
-        </p>
-        <p>
-          It's that easy.
+          Shovel status can be reported on the
+          <a href="management.html">Management plugin</a> user interface
+          by enabling the <code>rabbitmq_shovel_management</code> plugin
+          wherever you have the management plugin enabled. Information
+          about configured shovels will automatically appear in the
+          management API and UI.
         </p>
       </doc:subsection>
 
       <doc:subsection name="direct-status">
-        <doc:heading>Simple direct query</doc:heading>
+        <doc:heading>Direct query</doc:heading>
         <p>
-          Another way (which always works) is to ask the
-          <code>rabbitmq_shovel</code> app directly, by issuing the
-          following <code>rabbitmqctl</code> command against the broker
-          they are running in:
+          Shovel status can be obtained by direct query of the Shovel
+          plugin app. Issue the following <code>rabbitmqctl</code>
+          command:
         </p>
 <pre class="example">
   $ rabbitmqctl eval 'rabbit_shovel_status:status().'
 </pre>
         <p>
           This calls the <code>status</code> method in a module of the
-          <code>rabbitmq_shovel</code> plugin, which will return a list,
-          with one element for each configured shovel.
+          <code>rabbitmq_shovel</code> plugin, which will return an
+          Erlang list, with one element for each configured shovel.
         </p>
         <p>
-          Each element of the list is a tuple with three fields: the
-          shovel <strong><em>name</em></strong>, the shovel
-          <strong><em>status</em></strong>, and the
-          <strong><em>timestamp</em></strong>:
+          Each element of the list is a tuple with three fields:
+          <code>{<em><strong>Name</strong></em>,
+          <em><strong>Status</strong></em>,
+          <em><strong>Timestamp</strong></em>}</code>.
         </p>
-        <dl>
-          <dt><strong><em>name</em></strong></dt>
-          <dd>
-            the shovel name (an atom) in the configuration
-          </dd>
-          <dt><strong><em>status</em></strong></dt>
-          <dd>
-            <p>
-              There are three possible statuses:
-            </p>
-            <sl>
-              <li>
+        <sl>
+          <li>
+            <code><strong><em>Name</em></strong></code>
+            is the shovel name (an atom) in the configuration,
+          </li>
+          <li>
+            <code><strong><em>Status</em></strong></code>
+            is the current shovel state,
+          </li>
+          <li>
+            and <code><strong><em>Timestamp</em></strong></code> is the
+            time when the shovel entered the state reported in
+            <code><strong><em>Status</em></strong></code>.
+          </li>
+        </sl>
+        <p>
+          <code><strong><em>Timestamp</em></strong></code> is a local
+          calendar time of the form
+          <code>{{YYYY, MM, DD}, {HH, MM, SS}}</code>.
+        </p>
+        <p>
+          <code><strong><em>Status</em></strong></code> takes one of
+          three forms:
+        </p>
+        <ul>
+          <li>
 <pre class="example">
   'starting'
 </pre>
-                <p>
-                  The shovel is starting up, connecting and creating
-                  resources.
-                </p>
-              </li>
-              <li>
+            <p>
+              The shovel is starting up, connecting and creating
+              resources.
+            </p>
+          </li>
+          <li>
 <pre class="example">
-  {'running'|'blocked, {'source', <em>Source</em>},
-                       {'destination', <em>Destination</em>}}:
+  { 'running' | 'blocked', {'source', <em>Source</em>},
+                           {'destination', <em>Destination</em>}}:
 </pre>
-                <p>
-                  (where <code><em>Source</em></code> and
-                  <code><em>Destination</em></code> give the respective
-                  connection parameters)
-                </p>
-                <p>
-                  <code><strong>'running'</strong></code> means the shovel
-                  is up and running, shovelling messages.
-                </p>
-                <p>
-                  <code><strong>'blocked'</strong></code> means the
-                  destination has raised <code>channel.flow</code>,
-                  preventing the shovel from sending messages to the
-                  destination.
-                </p>
-                <p>
-                  (When <code><strong>'blocked'</strong></code>, the
-                  shovel will raise <code>channel.flow</code> to the
-                  source, asking the source to stop sending further
-                  messages to the shovel. Any messages that are received
-                  by the shovel before the source observes the
-                  <code>channel.flow</code> are correctly buffered and
-                  maintained in order, and are published to the
-                  destination as soon as the destination drops the
-                  <code>channel.flow</code> block.)
-                </p>
-              </li>
-              <li>
+            <p>
+              The shovel is running normally.
+              The <code><em>Source</em></code> and
+              <code><em>Destination</em></code> terms give the
+              respective connection parameters.
+            </p>
+          </li>
+          <li>
 <pre class="example">
   {'terminated', <em>Reason</em>}
 </pre>
-                <p>
-                  Something's gone wrong. The <code><em>Reason</em></code>
-                  should give a further indication of where the fault
-                  lies.
-                </p>
+              <p>
+                The shovel has terminated.
+                <code><em>Reason</em></code> is an Erlang term that
+                indicates the reason for the termination.
+              </p>
+            </li>
+          </ul>
+          <p>
+            The first term of a normal status can be <code>'running'</code> or
+            <code>'blocked'</code>:
+            <ul class="plain">
+              <li>
+                <code><strong>'running'</strong></code>: the shovel
+                is up and running, shovelling messages;
               </li>
-            </sl>
-          </dd>
-          <dt><strong><em>timestamp</em></strong></dt>
-          <dd>
-            a local calendar time of the form
-            <code>{{YYYY,MM,DD},{HH,MM,SS}}</code>.
-          </dd>
-        </dl>
+              <li>
+                <code><strong>'blocked'</strong></code>: the
+                destination has raised <code>channel.flow</code>,
+                preventing the shovel from sending messages to the
+                destination.
+              </li>
+            </ul>
+          </p>
+          <p>
+            When <code><strong>'blocked'</strong></code>, the
+            shovel will raise <code>channel.flow</code> to the
+            source, asking the source to stop sending further
+            messages to the shovel. Any messages that are received
+            by the shovel before the source observes the
+            <code>channel.flow</code> are correctly buffered and
+            maintained in order, and are published to the
+            destination as soon as the destination drops the
+            <code>channel.flow</code> block.
+          </p>
       </doc:subsection>
 
     </doc:section>
@@ -295,7 +296,7 @@
         <code>shovels</code> clause:
       </p>
 <pre class="example">
-  {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [..]}, ..]} ]}
+  {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [ <em>...</em> ]}, <em>...</em> ]} ]}
 </pre>
       <p>
         A (deliberately verbose)
@@ -311,13 +312,13 @@
         Each shovel definition looks like this:
       </p>
 <pre class="example">
-  {<em>shovel_name</em>, [ {sources, [..]}
-                , {destinations, [..]}
+  {<em>shovel_name</em>, [ {sources, [ <em>...</em> ]}
+                , {destinations, [ <em>...</em> ]}
                 , {queue, <em>queue_name</em>}
                 , {prefetch_count, <em>count</em>}
                 , {ack_mode, <em>a_mode</em>}
-                , {publish_properties, [..]}
-                , {publish_fields, [..]}
+                , {publish_properties, [ <em>...</em> ]}
+                , {publish_fields, [ <em>...</em> ]}
                 , {reconnect_delay, <em>reconn_delay</em>}
                 ]}
 </pre>
@@ -345,7 +346,7 @@
             ]}
 </pre>
           <p>
-            (or <code>{destinations, ..}</code>). The
+            (or <code>{destinations, <em>...</em>}</code>). The
             <code>brokers</code> clause is mandatory and the
             <code>declarations</code> clause optional.
           </p>
