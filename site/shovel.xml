@@ -100,43 +100,44 @@
         </ul>
       </p>
       <p>
-        The shovel configuration allows each of these actions to be
-        tailored:
+        The shovel configuration allows each of these processes to be
+        tailored.
       </p>
       <dl class="plain">
         <dt><strong><em>connects</em></strong></dt>
         <dd>
           <p>
-            a shovel will attempt to reconnect to a broker if a failure
-            occurs; multiple brokers may be specified for the source and
-            destination so that another broker may be selected (at
-            random) to reconnect to; a reconnection delay may be
-            specified to avoid flooding the network with reconnection
-            attempts;
+            After connection to a source or a destination broker a
+            series of configured AMQP <em>declarations</em> can be
+            issued. Queues, exchanges and bindings can be declared.
           </p>
         </dd>
         <dd>
           <p>
-            after connection to a source broker (and independently to a
-            destination broker) a series of AMQP
-            <code>declarations</code> may be issued; any resources may
-            be declared giving the opportunity to declare a queue
-            or an exchange, including any bindings that might be needed;
-            these declarations are re-issued upon re-connect;
+            A shovel will attempt to reconnect to a broker if a failure
+            occurs and multiple brokers can be specified for the source and
+            destination so that another broker may be selected (at
+            random) to reconnect to. A reconnection delay can be
+            specified to avoid flooding the network with reconnection
+            attempts, or to prevent reconnection on failure altogether.
+          </p>
+          <p>
+            All configured <em>declarations</em> (for that source or
+            destination) are re-issued upon re-connect.
           </p>
         </dd>
         <dt><strong><em>consumes</em></strong></dt>
         <dd>
           <p>
-            the consumer can be set to acknowledge messages
+            The shovel's consumer can acknowledge messages
             automatically on receipt, after (re-)publication, or after
-            confirmation of the publication;
+            confirmation of its publication.
           </p>
         </dd>
         <dt><strong><em>re-publishes</em></strong></dt>
         <dd>
           <p>
-            both the publish method and the message properties can be
+            Both the publish method and the message properties can be
             modified with explicit parameter values.
           </p>
         </dd>
@@ -158,6 +159,11 @@
 <pre class="example">
   rabbitmq-plugins enable rabbitmq_shovel
 </pre>
+      <p>
+        You may also wish to enable the
+        <code>rabbitmq_shovel_management</code> plugin (see
+        <a href="#management-status">below</a>).
+      </p>
     </doc:section>
 
     <doc:section name="status">
@@ -171,9 +177,11 @@
           Shovel status can be reported on the
           <a href="management.html">Management plugin</a> user interface
           by enabling the <code>rabbitmq_shovel_management</code> plugin
-          wherever you have the management plugin enabled. Information
-          about configured shovels will automatically appear in the
-          management API and UI.
+          wherever you have the management plugin enabled.
+        </p>
+        <p>
+          Information about configured shovels will automatically appear
+          in the management API and UI.
         </p>
       </doc:subsection>
 
@@ -201,7 +209,7 @@
         <sl>
           <li>
             <code><strong><em>Name</em></strong></code>
-            is the shovel name (an atom) in the configuration,
+            is the shovel name (an Erlang atom),
           </li>
           <li>
             <code><strong><em>Status</em></strong></code>
@@ -209,8 +217,7 @@
           </li>
           <li>
             and <code><strong><em>Timestamp</em></strong></code> is the
-            time when the shovel entered the state reported in
-            <code><strong><em>Status</em></strong></code>.
+            time when the shovel <em>entered</em> this state.
           </li>
         </sl>
         <p>
@@ -224,33 +231,31 @@
         </p>
         <ul>
           <li>
+            The shovel is starting up, connecting and creating
+            resources:
 <pre class="example">
   'starting'
 </pre>
-            <p>
-              The shovel is starting up, connecting and creating
-              resources.
-            </p>
           </li>
           <li>
+            The shovel is running normally:
 <pre class="example">
   { 'running' | 'blocked', {'source', <em>Source</em>},
                            {'destination', <em>Destination</em>}}:
 </pre>
             <p>
-              The shovel is running normally.
-              The <code><em>Source</em></code> and
+              where <code><em>Source</em></code> and
               <code><em>Destination</em></code> terms give the
               respective connection parameters.
             </p>
           </li>
           <li>
+            The shovel has terminated:
 <pre class="example">
   {'terminated', <em>Reason</em>}
 </pre>
               <p>
-                The shovel has terminated.
-                <code><em>Reason</em></code> is an Erlang term that
+                where <code><em>Reason</em></code> is an Erlang term that
                 indicates the reason for the termination.
               </p>
             </li>
@@ -455,7 +460,7 @@
               <p>
                 will first declare an anonymous queue, and then bind it
                 to the exchange called "<code>my_exchange</code>". (The
-                un-named queue parameter on <code>queue.bind</code>
+                queue parameter <code>&lt;&lt;&gt;&gt;</code> on <code>queue.bind</code>
                 means 'use the queue last declared on this channel'.)
               </p>
               <p>
@@ -533,7 +538,7 @@
 </pre>
           <p>
             <code><em>count</em></code> is the maximum number of
-            unacknowledged messages sent to the shovel at once (a
+            unacknowledged messages the shovel may hold at a time (a
             non-negative integer). For example:
           </p>
 <pre class="example">
@@ -759,8 +764,8 @@
         local broker.
       </p>
       <p>
-        At most ten unacknowledged messages will be sent to the shovel
-        consumer at any one time.
+        The shovel consumer will not be allowed to hold more than ten
+        unacknowledged messages at a time.
       </p>
     </doc:section>
 
