@@ -107,6 +107,34 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
 	</ol>
       </doc:subsection>
+
+      <doc:subsection name="debian-system-limits">
+        <doc:heading>Controlling system limits</doc:heading>
+        <p>
+          Although the <code>rabbitmq-server</code> service runs under
+          the <code>rabbitmq</code> user, no PAM session is created
+          (to avoid problems at system shutdown).
+        </p>
+        <p>
+          The normal means of adjusting system limits for the
+          <code>rabbitmq</code> user (with <code>limits.conf</code>)
+          therefore doesn't work.
+        </p>
+        <p>
+          To allow adjustments a file
+          <code>/etc/default/rabbitmq-server</code> is installed
+          which can be used to place <code>ulimit</code> commands when
+          the service is started, for example:
+        </p>
+<pre class="sourcecode">
+  ulimit -n 1024
+</pre>
+        <p>
+          will set the maximum number of file open handles for the
+          service process to 1024.
+        </p>
+      </doc:subsection>
+
     </doc:section>
     <xi:include href="install-unix-manage.xml.inc"/>
   </body>
