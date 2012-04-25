@@ -21,7 +21,7 @@
 /* Any similarity is entirely intentional */
 
 .summary { min-width: 120px; font-size: 120%; text-align:center; padding:10px; background-color: #ddd; margin: 0 20px 0 0; color: #888; border-radius: 10px; -moz-border-radius: 10px; float: left; clear: both; }
-.summary strong { font-size: 2em; display: block; color: #444; font-weight: normal; }
+.summary strong { font-size: 2em; line-height: 1.2em; display: block; color: #444; font-weight: normal; }
 
 .summary {
     background: -moz-linear-gradient(center top, #f0f0f0 0%,#e0e0e0 100%);
@@ -35,15 +35,15 @@
 }
 
 .box p {
-    margin: 0 0 0 20px;
     float: left;
-    width: 600px;
+    margin: 0 0 30px 0;
 }
 
 /* Override from rabbit.css  */
 table.chart-wrapper, table.small-chart-wrapper, table.chart-wrapper th, table.chart-wrapper td, table.small-chart-wrapper th, table.small-chart-wrapper td {
     border: none;
     vertical-align: middle;
+    width: auto;
 }
 
 div.legend table {
