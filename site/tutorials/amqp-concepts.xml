@@ -4,11 +4,6 @@
     <title>AMQP 0-9-1 Model Explained</title>
   </head>
   <body>
-    <doc:div>
-      <doc:toc class="compact">
-        <doc:heading>Table of Contents</doc:heading>
-      </doc:toc>
-
         <doc:section name="about-this-guide">
         <doc:heading>About This Guide</doc:heading>
             <p>
@@ -747,7 +742,6 @@
               libraries will be significantly easier.
             </p>
          </doc:section>
-     </doc:div>
   </body>
 </html>
 

@@ -200,7 +200,7 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
 
           <p>
             The value of the <code>x-message-ttl</code> argument must be
-            an integer, greater than zero, describing the TTL period in
+            a non-negative integer, describing the TTL period in
             milliseconds. Thus a value of 1000 means that a message
             added to the queue will live in the queue for 1 second or
             until it is delivered to a consumer. The argument can be of
@@ -221,6 +221,18 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             that features a requeue parameter, or due to a channel
             closure).
           </p>
+
+          <p>
+            Setting <code>x-message-ttl</code> to 0 causes messages to
+            be expired upon reaching a queue unless they can be
+            delivered to a consumer immediately. Thus this provides an
+            alternative to <code>basic.publish</code>'s
+            <code>immediate</code> flag. Unlike the latter, no
+            <code>basic.return</code>s are issued, and if a dead
+            letter exchange is set then messages will be
+            dead-lettered. Performance is significantly better.
+          </p>
+
         </doc:subsection>
         <doc:subsection name="queue-leases">
           <doc:heading>Queue Leases</doc:heading>
@@ -230,9 +242,8 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             <code>queue.declare</code> controls for how long a queue can
             be unused before it is automatically
             deleted. <em>Unused</em> means the queue has no consumers,
-            the queue has not been redeclared, and no consumer related
-            operations (<code>basic.get</code> or
-            <code>basic.cancel</code>) have occurred for a duration of
+            the queue has not been redeclared, and <code>basic.get</code>
+            has not been invoked for a duration of
             at least the expiration period. This can be used, for
             example, for RPC-style reply queues, where many queues can
             be created which may never be drained.
@@ -741,7 +752,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
               message was in before it was dead-lettered,</li>
               <li><code>reason</code> - see below,</li>
               <li><code>time</code> - the date and time the message
-              was dead lettered as an RFC1123 formatted string,</li>
+              was dead lettered as a 64-bit AMQP format timestamp,</li>
               <li><code>exchange</code> - the exchange the message was
               published to (note that this will be a dead letter
               exchange if the message is dead lettered multiple

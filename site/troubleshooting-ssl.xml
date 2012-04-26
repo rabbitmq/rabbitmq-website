@@ -1,0 +1,156 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>SSL Troubleshooting</title>
+  </head>
+  <body>
+       <doc:subsection name="erlang-support">
+       <doc:heading>SSL support in Erlang</doc:heading>
+       <p>
+         Confirm that your Erlang VM has support for SSL by running the
+         <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
+         entering <pre class="sourcecode">ssl:versions().</pre>
+         The output should look similar to this (with version number differences possible):
+         <pre>[{ssl_app,"5.0"},
+ {supported,[tlsv1,sslv3]},
+ {available,[tlsv1,sslv3]}]</pre>
+       </p>
+       <p>
+         If you receive an error instead, confirm that Erlang was built
+         with OpenSSL. On Debian-based systems you may need to install the
+         <code>erlang-ssl</code> package.
+       </p>
+       </doc:subsection>
+
+       <doc:subsection name="keys-and-certs">
+       <doc:heading>Verify keys and certificates with OpenSSL</doc:heading>
+       <p>
+         The certificates and keys specified in <code>rabbitmq.config</code> can be verified
+         separately using OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
+         and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
+         For the examples that follow, we will assume you have the following:
+       </p>
+         <table>
+          <tr>
+           <td>Item</td>
+           <td>Location</td>
+          </tr>
+          <tr>
+           <td>CA certificate</td>
+           <td><code>testca/cacert.pem</code></td>
+          </tr>
+          <tr>
+           <td>Server certificate</td>
+           <td><code>server/cert.pem</code></td>
+          </tr>
+          <tr>
+           <td>Server key</td>
+           <td><code>server/key.pem</code></td>
+          </tr>
+          <tr>
+           <td>Client certificate</td>
+           <td><code>client/cert.pem</code></td>
+          </tr>
+          <tr>
+           <td>Client key</td>
+           <td><code>client/key.pem</code></td>
+          </tr>
+         </table>
+       <p>
+         In one terminal window execute the following command:
+         <pre class="sourcecode">openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
+  -CAfile testca/cacert.pem</pre>
+         In another terminal window execute
+         <pre class="sourcecode">openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
+  -CAfile testca/cacert.pem</pre>
+         If the certificates and keys have been correctly created, an SSL connection establishment
+         sequence will appear and the terminals will be linked. Input from either terminal will appear
+         on the other. If the trust chain could be established, the second terminal will display
+         this confirmation: <pre>Verify return code: 0 (ok)</pre>
+       </p>
+       <p>
+         If you receive an error, confirm that the certificates and keys were
+         generated correctly.
+       </p>
+       </doc:subsection>
+
+       <doc:subsection name="broker-listens">
+       <doc:heading>Broker listening</doc:heading>
+       <p>
+         When you start the broker with a valid SSL configuration file, broker
+         will report the SSL listening address in the logfile. You should see an entry
+         similar to this:<pre>=INFO REPORT==== 8-Aug-2011::11:51:47 ===
+started SSL Listener on 0.0.0.0:5671</pre>
+         If you included an "ssl_listeners" configuration directive and you don't see
+         this message, it is possible that your configuration file was not read by
+         the broker. Confirm that the configuration file quoted in the broker startup
+         banner contain SSL configuration options. See the
+         <a href="/configure.html#introduction">configuration page</a> for details.
+       </p>
+       </doc:subsection>
+
+       <doc:subsection name="broker-listens-ssl">
+       <doc:heading>SSL connection to broker</doc:heading>
+       <p>
+         Once you have a RabbitMQ broker listening on an SSL port you can again use
+         the OpenSSL s_client to verify SSL connection establishment, this time against the broker.
+         The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
+         SSL connections on localhost port 5671:
+         <pre class="sourcecode">openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
+  -CAfile testca/cacert.pem</pre>
+         The output should appear similar to the case where port 8443 was used. The broker logfile
+         should contain a new entry when the connection is established:
+         <pre>=INFO REPORT==== 8-Aug-2011::11:55:13 ===
+accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
+       </p>
+       <p>
+         It should now be possible to present the broker with an AMQP connection
+         establishment sequence over the SSL connection. If you present the broker
+         with eight random bytes, the broker will respond with the string "AMQP"
+         followed by an encoded version number. If you recognise the "AMQP" string,
+         you can be confident that you are connected to an AMQP broker.
+       </p>
+      </doc:subsection>
+
+       <p>
+         Attempting to establish a connection with an AMQP client that supports AMQP
+         should succeed if all the aforementioned checks pass, provided the client uses
+         the same certificate and key.
+       </p>
+
+      <doc:subsection>
+       <doc:heading>Diagnostics</doc:heading>
+        <dl>
+            <dt>
+               The broker log has entries that contain <code>{ssl_upgrade_error, ekeyfile}</code>
+               (or <code>{ssl_upgrade_error, ecertfile}</code>)
+            </dt>
+            <dd>
+               <p>
+                 This means the broker keyfile (or certificate file) is invalid.
+                 Confirm that the keyfile matches the certificate and that both are in PEM format.
+                 PEM format is a printable encoding with recognisable delimiters. The certificate
+                 will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
+                 <code>-----END CERTIFICATE-----</code> respectively. The keyfile will likewise
+                 start and end with <code>-----BEGIN RSA PRIVATE KEY-----</code> and
+                 <code>-----END RSA PRIVATE KEY-----</code> respectively.
+               </p>
+            </dd>
+            <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ...}</code></dt>
+            <dd>
+               <p>
+                 This is a generic error that could have many causes. Make sure you are
+                 using the recommended version of Erlang.
+               </p>
+            </dd>
+        </dl>
+      </doc:subsection>
+
+  </body>
+</html>

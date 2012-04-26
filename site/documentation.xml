@@ -63,9 +63,8 @@
             Popular plugins:
             <a href="management.html">Management</a> |
             <a href="federation.html">Federation</a> |
-            <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">Shovel</a> |
+            <a href="shovel.html">Shovel</a> |
             <a href="stomp.html">STOMP</a>
-
           </li>
           <li>
             View all <a href="plugins.html">plugins</a>.

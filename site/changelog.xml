@@ -14,6 +14,19 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000045.html">2.8.1</a></td>
+          <td>22 March 2012</td>
+          <td>
+            <ul>
+              <li>
+                Fixes a bug in 2.8.0 which prevented RAM nodes from
+                being upgraded.
+              </li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000044.html">2.8.0</a></td>
           <td>19 March 2012</td>
           <td>
