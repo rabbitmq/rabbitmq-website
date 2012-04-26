@@ -242,9 +242,8 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
             <code>queue.declare</code> controls for how long a queue can
             be unused before it is automatically
             deleted. <em>Unused</em> means the queue has no consumers,
-            the queue has not been redeclared, and no consumer related
-            operations (<code>basic.get</code> or
-            <code>basic.cancel</code>) have occurred for a duration of
+            the queue has not been redeclared, and <code>basic.get</code>
+            has not been invoked for a duration of
             at least the expiration period. This can be used, for
             example, for RPC-style reply queues, where many queues can
             be created which may never be drained.
@@ -753,7 +752,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
               message was in before it was dead-lettered,</li>
               <li><code>reason</code> - see below,</li>
               <li><code>time</code> - the date and time the message
-              was dead lettered as an RFC1123 formatted string,</li>
+              was dead lettered as a 64-bit AMQP format timestamp,</li>
               <li><code>exchange</code> - the exchange the message was
               published to (note that this will be a dead letter
               exchange if the message is dead lettered multiple
