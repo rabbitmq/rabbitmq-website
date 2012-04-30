@@ -14,6 +14,21 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-April/000046.html">2.8.2</a></td>
+          <td>30 April 2012</td>
+          <td>
+            <ul>
+              <li>
+                Performance improvements
+              </li>
+              <li>
+                Disc space monitoring
+              </li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-March/000045.html">2.8.1</a></td>
           <td>22 March 2012</td>
           <td>
