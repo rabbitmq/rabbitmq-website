@@ -110,6 +110,23 @@
           also <a href="plugin-development.html">write your own</a>.
         </p>
 
+        <h2>And Also...</h2>
+
+        <h3>Commercial Support</h3>
+        <p>
+          Commercial <a href="services.html">support, training and
+          consulting</a> are available from VMware.
+        </p>
+
+        <h3>Large Community</h3>
+        <p>
+          There's a large <a href="devtools.html">community</a> around
+          RabbitMQ, producing all sorts of clients, plugins, guides,
+          etc. Join
+          our <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">mailing
+          list</a> to get involved!
+        </p>
+
       </doc:section>
   </body>
 </html>
