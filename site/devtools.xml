@@ -451,7 +451,7 @@
             <doc:heading>C / C++</doc:heading>
             <ul class="plain">
               <li>
-                Experimental <a href="c-client.html">RabbitMQ-C</a> client
+                <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
               </li>
               <li>
                 <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
