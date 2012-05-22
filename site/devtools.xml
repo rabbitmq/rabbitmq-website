@@ -172,6 +172,9 @@
                 <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
               </li>
               <li>
+                <a href="https://github.com/rudionrails/cottontail">Cottontail</a>, a Sinatra-inspired wrapper around Bunny
+              </li>
+              <li>
                 <a href="https://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
               </li>
               <li>
