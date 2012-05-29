@@ -50,6 +50,7 @@
      <x:related url="/c-client.html"/>
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
+     <x:page url="/features.html" text="Features"/>
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>

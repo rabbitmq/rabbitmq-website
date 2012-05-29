@@ -152,9 +152,11 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
             message will be routed to all destinations matching the
             routing key supplied as a parameter to
             the <code>basic.publish</code> method, as well as the
-            routes supplied in the "CC" and "BCC" headers. If the
-            header does not contain "CC" or "BCC" keys then this
-            extension has no effect.
+            routes supplied in the "CC" and "BCC" headers. The type of
+            "CC" and "BCC" values must be an array of <a
+            href="/amqp-0-9-1-reference.html#domain.longstr">longstr</a>
+            and these keys are case-sensitive. If the header does not
+            contain "CC" or "BCC" keys then this extension has no effect.
           </p>
           <p>
             The "BCC" key and value will be removed from the message

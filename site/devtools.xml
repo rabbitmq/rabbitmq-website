@@ -172,6 +172,9 @@
                 <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="http://github.com/DRMacIver/bunny">fork of bunny</a>
               </li>
               <li>
+                <a href="https://github.com/rudionrails/cottontail">Cottontail</a>, a Sinatra-inspired wrapper around Bunny
+              </li>
+              <li>
                 <a href="https://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
               </li>
               <li>
@@ -451,7 +454,7 @@
             <doc:heading>C / C++</doc:heading>
             <ul class="plain">
               <li>
-                Experimental <a href="c-client.html">RabbitMQ-C</a> client
+                <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
               </li>
               <li>
                 <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
