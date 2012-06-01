@@ -30,8 +30,6 @@
         <p>
           Enabling or disabling plugins has no effect on a running RabbitMQ
           server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
-          If you are running RabbitMQ as a Windows service,
-          <a href="#windows-restart">see below</a>.
         </p>
         <p>
           For more information on <code>rabbitmq-plugins</code>,
@@ -245,22 +243,6 @@
           plugins at this point.
         </p>
       </doc:section>
-      <doc:section name="windows-restart">
-        <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
-        <p>
-          If you enable or disable plugins, you must run the
-          following commands to ensure that the service configuration
-          is updated and the server restarted with the new collection of
-          enabled plugins:
-<pre class="code">
-rabbitmq-service.bat stop
-rabbitmq-service.bat install
-rabbitmq-service.bat start
-</pre>
-         This only applies if you are running RabbitMQ as a Windows service.
-        </p>
-      </doc:section>
-
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
         <p>
