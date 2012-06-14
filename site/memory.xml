@@ -212,6 +212,14 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
     <doc:section name="diskfreesup">
       <doc:heading>Disk-Based Flow Control</doc:heading>
       <p>
+        RabbitMQ can also block producers when free disk space drops
+        below a certain limit. This is a good idea since even
+        transient messages can be paged to disk at any time, and
+        running out of disk space can cause the server to
+        crash. This feature is disabled by default.
+      </p>
+
+      <p>
         Global flow control will be triggered if the amount of free disk
         space drops below a configured limit. The free space of the drive or
         partition that the broker database uses will be monitored every
@@ -230,16 +238,17 @@ Disabling disk free space monitoring</pre>
 
     <doc:subsection name="memsup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
-
       <p>
-        The disk free space limit is configured with the <code>disk_free_limit</code>
-        setting. By default 1.0 times the amount of total RAM is required
-        to be free on the Mnesia partition. The example below sets the limit to
-        the default value:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
-        A number of bytes may also be configured. This configuration file
-        sets the disk free space limit to 25Gb:
+        The disk free space limit is configured with
+        the <code>disk_free_limit</code> setting. By default 0 bytes
+        is required to be free on the Mnesia partition -
+        i.e. disk-based flow control will never be activated. This
+        configuration file sets the disk free space limit to 25Gb:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, 26843545600}]}].</pre>
+        It is also possible to set a free space limit relative to the
+        RAM in the machine. This configuration file sets the disk free
+        space limit to the same as the amount of RAM on the machine:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
        </p>
     </doc:subsection>
     </doc:section>
