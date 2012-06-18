@@ -6,8 +6,8 @@ both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)
 and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html).
 
 Announcements regarding the adapter are periodically made on the
-[RabbitMQ blog](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
-and [mailing list](http://www.rabbitmq.com/blog).
+[RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
+and [blog](http://www.rabbitmq.com/blog).
 
 ## <a id="ifb"/>Installing from binary
 
