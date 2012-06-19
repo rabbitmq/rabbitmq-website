@@ -232,12 +232,12 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         Monitoring will start as soon as the broker starts up, causing an entry
         in the broker logfile:
         <pre class="sourcecode">
-=INFO REPORT==== 23-Mar-2012::14:52:41 ===
-Disk free limit set to 21665MB</pre>
+=INFO REPORT==== 23-Jun-2012::14:52:41 ===
+Disk free limit set to 953MB</pre>
         Monitoring will be disabled on unrecognised platforms, causing an
         entry such as the one below:
         <pre class="sourcecode">
-=WARNING REPORT==== 23-Mar-2012::15:45:29 ===
+=WARNING REPORT==== 23-Jun-2012::15:45:29 ===
 Disabling disk free space monitoring</pre>
       </p>
 
@@ -246,14 +246,13 @@ Disabling disk free space monitoring</pre>
       <p>
         The disk free space limit is configured with
         the <code>disk_free_limit</code> setting. By default 1GB is
-        required to be free on the Mnesia partition. This
-        configuration file sets the disk free space limit to the same
+        required to be free on the Mnesia partition.
+        This configuration file sets the disk free space limit to 25Gb:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 25000000000}]}].</pre>
+        It is also possible to set a free space limit relative to the RAM in the machine.
+        This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
-        It is also possible to set a free space limit relative to the
-        RAM in the machine. This configuration file sets the disk free
-        space limit to 25Gb:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 25000000000}]}].</pre>
        </p>
     </doc:subsection>
     </doc:section>
