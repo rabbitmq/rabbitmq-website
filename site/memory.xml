@@ -215,8 +215,13 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         RabbitMQ can also block producers when free disk space drops
         below a certain limit. This is a good idea since even
         transient messages can be paged to disk at any time, and
-        running out of disk space can cause the server to
-        crash. This feature is disabled by default.
+        running out of disk space can cause the server to crash. By
+        default RabbitMQ will block producers when free disk space
+        drops below 1GB. This will reduce but not completely eliminate
+        the likelihood of a crash due to disk space being exhausted. A
+        more conservative approach would be to set the limit to the
+        same as the amount of memory installed on the system (see
+        below).
       </p>
 
       <p>
@@ -240,15 +245,15 @@ Disabling disk free space monitoring</pre>
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
         The disk free space limit is configured with
-        the <code>disk_free_limit</code> setting. By default 0 bytes
-        is required to be free on the Mnesia partition -
-        i.e. disk-based flow control will never be activated. This
-        configuration file sets the disk free space limit to 25Gb:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 26843545600}]}].</pre>
+        the <code>disk_free_limit</code> setting. By default 1GB is
+        required to be free on the Mnesia partition. This
+        configuration file sets the disk free space limit to the same
+        as the amount of RAM on the machine:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
         It is also possible to set a free space limit relative to the
         RAM in the machine. This configuration file sets the disk free
-        space limit to the same as the amount of RAM on the machine:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
+        space limit to 25Gb:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 25000000000}]}].</pre>
        </p>
     </doc:subsection>
     </doc:section>
