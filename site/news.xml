@@ -15,6 +15,42 @@
       -->
 
     <doc:item>
+      <doc:date iso="2012-06-21T12:52:12+0100">21 June 2012</doc:date>
+      <doc:title>RabbitMQ 2.8.3 release</doc:title>
+      <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-June/000047.html</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          2.8.3.
+        </p>
+        <p>
+          This is primarily a bugfix release, with some minor
+          enhancements (make disk space monitoring less intrusive by
+          default, improve SSL performance with the Java client).
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+
+    <doc:item>
       <doc:date iso="2012-04-30T13:00:12+0100">30 April 2012</doc:date>
       <doc:title>RabbitMQ 2.8.2 release</doc:title>
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-April/000046.html</doc:link>
