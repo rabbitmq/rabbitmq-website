@@ -14,6 +14,18 @@
         </tr>
 
         <tr>
+          <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-June/000048.html">2.8.4</a></td>
+          <td>22 June 2012</td>
+          <td>
+            <ul>
+              <li>
+                Critical bug fix
+              </li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
           <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-June/000047.html">2.8.3</a></td>
           <td>21 June 2012</td>
           <td>
