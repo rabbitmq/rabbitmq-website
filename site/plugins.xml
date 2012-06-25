@@ -168,6 +168,24 @@
             to <code>rabbitmq_jsonrpc_channel</code>: a shared
             whiteboard, a chat application, and some tests.
           </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp">
+            A bridge exposing <code>rabbitmq_stomp</code> to web
+            browsers - using WebSockets. On a transport layer using a
+            WebSocket emulation layer: <a
+            href="http://sockjs.org">SockJS</a>. That way it could be
+            used by all browsers - new with WebSocket support built in
+            and older ones with WebSockets emulated by SockJS.  Please
+            see <a href="web-stomp.html">the page on web-stomp
+            plugin</a>.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
+            Adds some basic examples to
+            <code>rabbitmq_web_stomp</code>: a simple "echo" service
+            and a basic canvas-based collaboration tool.
+          </r:plugin>
+
         </table>
       </doc:section>
 
