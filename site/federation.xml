@@ -338,78 +338,30 @@
       <doc:heading>Configuration Reference</doc:heading>
 
       <doc:subsection name="connections">
-        <doc:heading>connections</doc:heading>
+        <doc:heading>Connections</doc:heading>
         <p>
-          The <code>connections</code> list specifies how to connect to brokers.
-          It takes the form:
+          A <code>federation_connection</code> parameter specifies how
+          to connect to a broker. It takes the form:
         </p>
 <pre class="example">
-  {connections, [{"conn_name", [<i>connection-property-list</i>]}, ... ]}
+  rabbitmqctl set_parameter federation_connection <i>name</i> '[<i>property-list</i>]'
 </pre>
         <p>
-          where <code>"conn_name"</code> is a name mentioned in an upstream
-          property list. The <code><i>connection-property-list</i></code> can
-          contain the following properties:
+          The <code><i>property-list</i></code> can contain the
+          following properties:
         </p>
 
         <dl>
-          <dt><code>host</code></dt>
+          <dt><code>uri</code></dt>
           <dd>
-            The hostname to connect to. Mandatory.
-          </dd>
-
-          <dt><code>protocol</code></dt>
-          <dd>
-            <code>"amqp"</code> or <code>"amqps"</code>. Default is
-            <code>"amqp"</code>.
-          </dd>
-
-          <dt><code>port</code></dt>
-          <dd>
-            Port to connect to. Default is 5672 (or 5671 when using SSL).
-          </dd>
-
-          <dt><code>virtual_host</code></dt>
-          <dd>
-            The virtual host to connect to. Default is the virtual host
-            for the federated exchange.
-          </dd>
-
-          <dt><code>username</code></dt>
-          <dd>
-            The user to connect as. Default is <code>"guest"</code>. This user
-            will need the appropriate permissions to create exchanges and queues
-            with names beginning with "federation:", and to bind to the upstream
-            exchange.
-          </dd>
-
-          <dt><code>password</code></dt>
-          <dd>
-            The password to use when connecting as <code>username</code>.
-            Default is <code>"guest"</code>.
-          </dd>
-
-          <dt><code>mechanism</code></dt>
-          <dd>
-            The <a href="authentication.html">SASL mechanism</a> to use. One of:
-            <ul>
-              <li>
-                <code>default</code> - to use PLAIN or AMQPLAIN by negotiation
-                (this is the default),
-              </li>
-              <li>
-                <code>'EXTERNAL'</code> - to use SASL EXTERNAL authentication,
-                that is, <code>rabbitmq-auth-mechanism-ssl</code>.
-              </li>
-            </ul>
-            (Note the single quotes here.)
+            The <a href="uri-spec.html">AMQP URI</a> for the
+            connection. Mandatory.
           </dd>
 
           <dt><code>prefetch_count</code></dt>
           <dd>
             The maximum number of unacknowledged messages copied over a link at
-            any one time. Default is <code>'none'</code>, meaning there is no
-            limit.
+            any one time. Default is <code>1000</code>.
           </dd>
 
           <dt><code>reconnect_delay</code></dt>
@@ -418,10 +370,10 @@
             after being disconnected. Default is 1.
           </dd>
 
-          <dt><code>heartbeat</code></dt>
+          <dt><code>max_hops</code></dt>
           <dd>
-            The AMQP heartbeat interval (in seconds) on the connection. Default
-            is <code>'none'</code>, meaning there are no heartbeats.
+            The maximum number of federation links that a message can
+            traverse before it is discarded. Default is 1.
           </dd>
 
           <dt><code>expires</code></dt>
@@ -463,67 +415,44 @@
             <i>upstream queue</i> (see <code>expires</code>). Default is
             <code>'none'</code>, meaning the queue is not HA.
           </dd>
-
-          <dt><code>ssl_options</code></dt>
-          <dd>
-            The client SSL connection options. See the Erlang client
-            documentation for more details. Default is that there are no
-            options.
-          </dd>
         </dl>
       </doc:subsection>
 
 
       <doc:subsection name="upstream-sets">
-        <doc:heading>upstream_sets</doc:heading>
+        <doc:heading>Upstream sets</doc:heading>
         <p>
-          Each element of the <code>upstream_sets</code> list is a mapping from
-          a name to a list of upstream exchanges. Each upstream exchange entry
-          is a property list:
+          Each <code>upstream_set</code> list is a mapping from
+          a name to a list of upstream exchanges. They look like:
         </p>
-<pre class="example">
-  {upstream_sets, [{"set_name", [<i>property-list</i>, <i>property-list</i>, ... ]}, ... ]}
+<pre class="example">rabbitmqctl set_parameter federation_upstream_set <i>name</i> '[[<i>property-list</i>], [<i>property-list</i>], ...]'
 </pre>
         <p>
-          where <code>"set_name"</code> is a name mentioned in an element of the
-          <code>exchanges</code> list. The properties can be:
+          The properties can be:
         </p>
 
         <dl>
           <dt><code>connection</code></dt>
           <dd>
-            The name of a connection from the connection list. Mandatory.
+            The name of a connection. Mandatory.
           </dd>
 
           <dt><code>exchange</code></dt>
           <dd>
-            <p>
-              The name of the upstream exchange. Default is to use the same name
-              as the federated exchange being created.
-            </p>
-            <p>
-              If this name is omitted one <code>upstream_set</code> can be
-              referenced by more than one federated exchange and still refer to
-              distinct upstream exchanges. Multiple families of exchanges, with
-              common names on a set of brokers, can be federated simply by this
-              technique.
-            </p>
-          </dd>
-
-          <dt><code>max_hops</code></dt>
-          <dd>
-            <p>
-              The maximum number of times a message can be copied over a link,
-              including this link. The default is 1.
-            </p>
-            <p>
-              If this limit is exceeded on this link, the message is quietly
-              discarded. This prevents messages from being indefinitely copied
-              when there are circular topologies, and can reduce or prevent
-              message duplication.
-            </p>
+            The name of the upstream exchange. Default is to use the same name
+            as the federated exchange.
           </dd>
         </dl>
+
+        <p>
+          In addition, any of the properties from a connection can be
+          overridden in an upstream set.
+        </p>
+
+        <p>
+          There is an implicitly-defined upstream
+          set, <code>all</code>, which contains all connections.
+        </p>
       </doc:subsection>
 
       <doc:subsection name="other-config">
@@ -532,8 +461,10 @@
           The <code>local_username</code> setting specifies the user under which
           to publish messages to the (local) federated exchanges. The default is
           <code>"guest"</code>. This user will need the appropriate permissions
-          to publish messages to these exchanges.
+          to publish messages to these exchanges. Example:
         </p>
+
+        <pre class="example">rabbitmqctl set_parameter federation local_username '&lt;&lt;"guest">>'</pre>
 
         <doc:heading>local_nodename</doc:heading>
         <p>
@@ -549,8 +480,13 @@
           useful to specify it explicitly if your DNS will not give
           machines distinct names.
         </p>
-      </doc:subsection>
+        <p>
+          Example:
+        </p>
 
+        <pre class="example">rabbitmqctl set_parameter federation local_nodename '&lt;&lt;"my-node">>'</pre>
+
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="topology-diagrams">
