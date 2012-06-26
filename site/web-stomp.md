@@ -1,6 +1,6 @@
 # RabbitMQ Web-Stomp Plugin NOSYNTAX
 
-The Web-Stomp plugin is a simple bridge exposing RabbitMQ
+The Web-Stomp plugin is a simple bridge exposing the
 [STOMP](http://stomp.github.com) protocol over emulated
 [HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
 
@@ -17,41 +17,17 @@ as provided by [RabbitMQ-STOMP plugin](/stomp.html) and exposes it using
 [a SockJS server](http://sockjs.org).
 
 SockJS is a WebSockets poly-fill that provides a WebSocket-like
-JavaScript object in any browser. It will in older browsers that don't
-have native WebSocket support, as well as in new browsers that are
-behind WebSocket-unfriendly proxies.
+JavaScript object in any browser. It will therefore work in older
+browsers that don't have native WebSocket support, as well as in new
+browsers that are behind WebSocket-unfriendly proxies.
 
 
 ## <a id="iws"/>Installing Web-Stomp
-
-The Web-Stomp plugin is not yet included in the RabbitMQ distribution.
-To use it you will need to have
-[RabbitMQ server](http://www.rabbitmq.com/download.html) installed.
-
-Once you have RabbitMQ-server installed, download the plugins required
-by Web-Stomp:
-
-    wget \
-      http://www.rabbitmq.com/releases/plugins/v2.8.2-web-stomp-preview/cowboy-0.5.0-rmq2.8.2-git4b93c2d.ez \
-      http://www.rabbitmq.com/releases/plugins/v2.8.2-web-stomp-preview/sockjs-0.2.1-rmq2.8.2-gitfa1db96.ez \
-      http://www.rabbitmq.com/releases/plugins/v2.8.2-web-stomp-preview/rabbitmq_web_stomp-2.8.2.ez \
-      http://www.rabbitmq.com/releases/plugins/v2.8.2-web-stomp-preview/rabbitmq_web_stomp_examples-2.8.2.ez
-
-Next, copy them to
-[the plugins directory](http://www.rabbitmq.com/plugins.html#installing-plugins). For
-example, on Ubuntu this will be:
-
-    sudo cp *.ez /usr/lib/rabbitmq/lib/rabbitmq_server-2.8.2/plugins
-
-Finally, to enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
+To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_web_stomp
 
 To apply the changes you need to restart the RabbitMQ broker.
-
-Instructions for installing binary plugins can also be found in the
-[plugins page](/plugins.html#installing-plugins).
-
 
 ## <a id="usage"/>Usage
 
@@ -69,7 +45,7 @@ By default the Web-Stomp plugin exposes a SockJS endpoint on port
     http://127.0.0.1:55674/stomp
 
 In order to establish connection from the browser using SockJS you may
-use code like that:
+use code like:
 
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script src="stomp.js"></script>
@@ -96,7 +72,7 @@ To use it:
 
 ## <a id="examples"/>Examples (RabbitMQ-Web-Stomp-Examples)
 
-Few simple Web-Stomp examples are provided as a
+A few simple Web-Stomp examples are provided as a
 [RabbitMQ-Web-Stomp-Examples](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/)
 plugin. To get it running follow the installation instructions above
 and enable the plugin:
@@ -111,7 +87,7 @@ The examples will be available under
  * "echo" - shows how to use STOMP to do simple message broadcasting
  * "bunny" - example of a simple collaboration canvas painting app
 
-We encourage to take a look [at the source code](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv).
+We encourage you to take a look [at the source code](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv).
 
 ## <a id="config"/>Configuration
 
@@ -135,4 +111,4 @@ port to 12345 would look like:
 
 RabbitMQ-Web-Stomp is fully compatible with the
 [RabbitMQ-STOMP](/stomp.html) plugin, with the exception of STOMP
-heartbeats. STOMP heartbeats won't work with Web-Stomp plugin.
+heartbeats. STOMP heartbeats won't work with the Web-Stomp plugin.

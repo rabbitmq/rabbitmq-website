@@ -171,12 +171,10 @@
 
           <r:plugin name="rabbitmq_web_stomp">
             A bridge exposing <code>rabbitmq_stomp</code> to web
-            browsers - using WebSockets. On a transport layer using a
-            WebSocket emulation layer: <a
-            href="http://sockjs.org">SockJS</a>. That way it could be
-            used by all browsers - new with WebSocket support built in
-            and older ones with WebSockets emulated by SockJS.  Please
-            see <a href="web-stomp.html">the page on web-stomp
+            browsers using WebSockets, using the WebSockets emulation
+            / compatibility
+            layer <a href="http://sockjs.org">SockJS</a>. Please see
+            the page on <a href="web-stomp.html">the web-stomp
             plugin</a>.
           </r:plugin>
 
