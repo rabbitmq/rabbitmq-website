@@ -242,8 +242,8 @@
         Connections, upstream sets and policies are all instances
         of <i>parameters</i>. For more generic information on
         parameters, <a href="parameters.html">see the
-        documentation</a>. TODO write this. There are also a couple
-        of global parameters, <code>local_username</code>
+        documentation</a>. There are also a couple of global
+        parameters, <code>local_username</code>
         and <code>local_nodename</code>. These are explained below.
       </p>
 
