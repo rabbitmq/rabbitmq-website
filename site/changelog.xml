@@ -17,7 +17,8 @@
         <td>22 June 2012</td>
         <td>
           <ul>
-            <li>Critical bug fix</li>
+            <li>Fixes a serious bug in 2.8.3 that could cause log
+            files to grow in size infinitely when being rotated</li>
           </ul>
         </td>
       </tr>
@@ -49,7 +50,7 @@
         <td>
           <ul>
             <li>Fixes a bug in 2.8.0 which prevented RAM nodes from
-            being upgraded.</li>
+            being upgraded</li>
           </ul>
         </td>
       </tr>
@@ -95,7 +96,8 @@
         <td>12 September 2011</td>
         <td>
           <ul>
-            <li>This release fixes a bug in the 2.6.0 version that causes the broker to fail to restart on reboot on some operating systems.</li>
+            <li>Fixes a bug in 2.6.0 that caused the broker to fail to
+            restart on reboot on some operating systems</li>
           </ul>
         </td>
       </tr>
@@ -118,7 +120,7 @@
         <td>27 June 2011</td>
         <td>
           <ul>
-            <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0.</li>
+            <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0</li>
           </ul>
         </td>
       </tr>
@@ -163,7 +165,8 @@
         <td>3 February 2011</td>
         <td>
           <ul>
-            <li>Fixes a serious bug in 2.3.0</li>
+            <li>Fixes a serious bug in 2.3.0 that could cause queues
+            to crash</li>
           </ul>
         </td>
       </tr>
