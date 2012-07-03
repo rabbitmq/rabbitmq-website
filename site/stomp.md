@@ -377,9 +377,24 @@ reply queues.
 
 ## <a id="pe"/>Protocol Extensions
 
-The STOMP adapter supports a number of non-standard headers on certain
+The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
+and supports a number of non-standard headers on certain
 frames. These extra headers provide access to features that are not
 described in the STOMP specs.
+
+### <a id="pe.c"/>Connect
+
+The `CONNECT` (or `STOMP`) frame in
+[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
+mandatory `host` header (to select the virtual host to use for the
+connection). The RabbitMQ adapter allows this to be optional.
+
+When omitted, the default virtual host (`/`) is presumed.
+
+If a `host` header is specified it must be one of the
+virtual hosts known to the RabbitMQ server, otherwise the connection is
+rejected. The `host` header is respected even if the STOMP 1.0 version is
+negotiated at the time of the connect.
 
 ### <a id="pe.mp"/>Message Persistence
 
