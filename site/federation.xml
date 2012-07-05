@@ -123,7 +123,7 @@
             To prevent messages being continually copied and re-routed (in a
             never-ending cycle) there is a limit placed on the number of times a
             message can be copied over a link (see
-            <a href="#upstream-sets"><code>max_hops</code></a> below). It is
+            <a href="#upstream-sets"><code>max-hops</code></a> below). It is
             recommended that all the exchanges linked by federation are of the
             same type. Mixing types will lead to strange
             routing behaviour.
@@ -170,7 +170,7 @@
             It is the upstream queue which is bound to the upstream
             exchange with the grouped bindings. It is possible to tailor
             some of the properties of this queue in the <a
-            href="#connections">connection configuration</a>.
+            href="#upstreams">upstream configuration</a>.
           </p>
           <p>
             Here is a detailed diagram showing a single federated
@@ -218,12 +218,12 @@
 
       <ul>
         <li>
-          <b>Connections</b> - each connection defines how to connect
+          <b>Upstreams</b> - each upstream defines how to connect
           to another broker.
         </li>
         <li>
           <b>Upstream sets</b> - each upstream set groups together a
-          set of connections for exchanges to use for federation.
+          set of upstreams for exchanges to use for federation.
         </li>
         <li>
           <b>Policies</b> - each policy selects a set of exchanges,
@@ -235,16 +235,16 @@
         In practice for simple use cases you can almost ignore the
         existence of upstream sets, since there is an
         implicitly-defined upstream set called <code>all</code> to
-        which all connections are added.
+        which all upstreams are added.
       </p>
 
       <p>
-        Connections, upstream sets and policies are all instances
+        Upstreams, upstream sets and policies are all instances
         of <i>parameters</i>. For more generic information on
         parameters, <a href="parameters.html">see the
         documentation</a>. There are also a couple of global
-        parameters, <code>local_username</code>
-        and <code>local_nodename</code>. These are explained below.
+        parameters, <code>local-username</code>
+        and <code>local-nodename</code>. These are explained below.
       </p>
 
       <p>
@@ -261,49 +261,49 @@
 
         <p>
           Here we will federate all the built-in exchanges, with a
-          single upstream. The connection will be defined to expire
-          after one hour (3600000ms).
+          single upstream. The upstream will be defined to buffer
+          messages when disconnected for up to one hour (3600000ms).
         </p>
 
-        <p><b>Define a connection:</b></p>
+        <p><b>Define an upstream:</b></p>
         <table>
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_parameter federation_connection my_connection \<br/>'[{&lt;&lt;"uri">>,&lt;&lt;"amqp://server-name">>},{&lt;&lt;"expires">>,3600000}]'</code>
+            <code>rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'[{&lt;&lt;"uri">>,&lt;&lt;"amqp://server-name">>},{&lt;&lt;"expires">>,3600000}]'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/federation_connection/my_connection</code><br/>
+            PUT <code>/api/parameters/federation-upstream/my-upstream</code><br/>
             <code>{"value":{"uri":"amqp://server-name","expires":3600000}}</code>
           </td>
         </tr>
         <tr>
           <th>Web UI</th>
           <td>
-            Navigate to Admin > Federation Connections > Add a new
-            connection. Enter "my_connection" next to Name,
+            Navigate to Admin > Federation Upstreams > Add a new
+            upstream. Enter "my-upstream" next to Name,
             "amqp://server-name" next to URI, and 36000000 next to
-            Expiry. Click Add connection.
+            Expiry. Click Add upstream.
           </td>
         </tr>
         </table>
 
-        <p><b>Then define a policy to use this connection:</b></p>
+        <p><b>Then define a policy to use this upstream:</b></p>
         <table>
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_parameter policy federate_me \<br/>
+            <code>rabbitmqctl set_parameter policy federate-me \<br/>
 '[{&lt;&lt;"prefix">>,&lt;&lt;"amq.">>},{&lt;&lt;"policy">>,[{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/policy/federate_me</code><br/>
+            PUT <code>/api/parameters/policy/federate-me</code><br/>
             <code>{"value":{"prefix":"amq.","policy":{"federation-upstream-set":"all"}}}</code>
           </td>
         </tr>
@@ -311,7 +311,7 @@
           <th>Web UI</th>
           <td>
             Navigate to Admin > Policies > Add / update a
-            policy. Enter "federate_me" next to Name, "amq." next to
+            policy. Enter "federate-me" next to Name, "amq." next to
             Prefix, and "federation-upstream-set" = "all" in the
             first line next to Policy. Click Add policy.
           </td>
@@ -323,7 +323,7 @@
           check that the policy has applied to the exchanges by
           checking the exchanges list in management or with:
         </p>
-        <pre class="code">rabbitmqctl list_exchanges name policy | grep federate_me</pre>
+        <pre class="code">rabbitmqctl list_exchanges name policy | grep federate-me</pre>
         <p>
           And you can check that federation links for each exchange have come up with Admin > Federation Status > Running Links or with:
         </p>
@@ -337,14 +337,14 @@
     <doc:section name="configuration">
       <doc:heading>Configuration Reference</doc:heading>
 
-      <doc:subsection name="connections">
-        <doc:heading>Connections</doc:heading>
+      <doc:subsection name="upstreams">
+        <doc:heading>Upstreams</doc:heading>
         <p>
-          A <code>federation_connection</code> parameter specifies how
+          A <code>federation-upstream</code> parameter specifies how
           to connect to a broker. It takes the form:
         </p>
 <pre class="example">
-  rabbitmqctl set_parameter federation_connection <i>name</i> '[<i>property-list</i>]'
+  rabbitmqctl set_parameter federation-upstream <i>name</i> '[<i>property-list</i>]'
 </pre>
         <p>
           The <code><i>property-list</i></code> can contain the
@@ -355,22 +355,22 @@
           <dt><code>uri</code></dt>
           <dd>
             The <a href="uri-spec.html">AMQP URI</a> for the
-            connection. Mandatory.
+            upstream. Mandatory.
           </dd>
 
-          <dt><code>prefetch_count</code></dt>
+          <dt><code>prefetch-count</code></dt>
           <dd>
             The maximum number of unacknowledged messages copied over a link at
             any one time. Default is <code>1000</code>.
           </dd>
 
-          <dt><code>reconnect_delay</code></dt>
+          <dt><code>reconnect-delay</code></dt>
           <dd>
             The duration (in seconds) to wait before reconnecting to the broker
             after being disconnected. Default is 1.
           </dd>
 
-          <dt><code>max_hops</code></dt>
+          <dt><code>max-hops</code></dt>
           <dd>
             The maximum number of federation links that a message can
             traverse before it is discarded. Default is 1.
@@ -381,7 +381,7 @@
             <p>
               The expiry time (in milliseconds) after which an <a
               href="#details"><i>upstream queue</i></a> may be deleted,
-              if the connection is lost. The default is
+              if a connection to the upstream broker is lost. The default is
               <code>'none'</code>, meaning the queue should never
               expire.
             </p>
@@ -396,7 +396,7 @@
             </p>
           </dd>
 
-          <dt><code>message_ttl</code></dt>
+          <dt><code>message-ttl</code></dt>
           <dd>
             <p>
               The expiry time for messages in the <i>upstream queue</i> (see
@@ -409,7 +409,7 @@
             </p>
           </dd>
 
-          <dt><code>ha_policy</code></dt>
+          <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
             <i>upstream queue</i> (see <code>expires</code>). Default is
@@ -422,19 +422,19 @@
       <doc:subsection name="upstream-sets">
         <doc:heading>Upstream sets</doc:heading>
         <p>
-          Each <code>upstream_set</code> list is a mapping from
+          Each <code>upstream-set</code> list is a mapping from
           a name to a list of upstream exchanges. They look like:
         </p>
-<pre class="example">rabbitmqctl set_parameter federation_upstream_set <i>name</i> '[[<i>property-list</i>], [<i>property-list</i>], ...]'
+<pre class="example">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[[<i>property-list</i>], [<i>property-list</i>], ...]'
 </pre>
         <p>
           The properties can be:
         </p>
 
         <dl>
-          <dt><code>connection</code></dt>
+          <dt><code>upstream</code></dt>
           <dd>
-            The name of a connection. Mandatory.
+            The name of an upstream. Mandatory.
           </dd>
 
           <dt><code>exchange</code></dt>
@@ -445,37 +445,37 @@
         </dl>
 
         <p>
-          In addition, any of the properties from a connection can be
+          In addition, any of the properties from an upstream can be
           overridden in an upstream set.
         </p>
 
         <p>
           There is an implicitly-defined upstream
-          set, <code>all</code>, which contains all connections.
+          set, <code>all</code>, which contains all upstreams.
         </p>
       </doc:subsection>
 
       <doc:subsection name="other-config">
-        <doc:heading>local_username</doc:heading>
+        <doc:heading>local-username</doc:heading>
         <p>
-          The <code>local_username</code> setting specifies the user under which
+          The <code>local-username</code> setting specifies the user under which
           to publish messages to the (local) federated exchanges. The default is
           <code>"guest"</code>. This user will need the appropriate permissions
           to publish messages to these exchanges. Example:
         </p>
 
-        <pre class="example">rabbitmqctl set_parameter federation local_username '&lt;&lt;"guest">>'</pre>
+        <pre class="example">rabbitmqctl set_parameter federation local-username '&lt;&lt;"guest">>'</pre>
 
-        <doc:heading>local_nodename</doc:heading>
+        <doc:heading>local-nodename</doc:heading>
         <p>
-          The <code>local_nodename</code> setting specifies the name this node
+          The <code>local-nodename</code> setting specifies the name this node
           should use to identify itself to other nodes in the federation graph.
           (The default is constructed from the Erlang node and the machine's
           fully-qualified domain name.)
         </p>
         <p>
           It is useful to give all the nodes in a cluster the
-          same <code>local_nodename</code> when federating clusters,
+          same <code>local-nodename</code> when federating clusters,
           so that your node's identity will be constant. It is also
           useful to specify it explicitly if your DNS will not give
           machines distinct names.
@@ -484,7 +484,7 @@
           Example:
         </p>
 
-        <pre class="example">rabbitmqctl set_parameter federation local_nodename '&lt;&lt;"my-node">>'</pre>
+        <pre class="example">rabbitmqctl set_parameter federation local-nodename '&lt;&lt;"my-node">>'</pre>
 
       </doc:subsection>
     </doc:section>
@@ -507,9 +507,9 @@
           </p>
           <img src="img/federation02.png" height="215" alt="Symmetric pair" title="Symmetric pair" />
           <p>
-            Both links are declared with <code>max_hops=1</code> so that
+            Both links are declared with <code>max-hops=1</code> so that
             messages are copied only once, otherwise the consumers will see
-            multiple copies of the same message (up to the <code>max_hops</code>
+            multiple copies of the same message (up to the <code>max-hops</code>
             limit).
           </p>
         </dd>
@@ -522,7 +522,7 @@
           </p>
           <img src="img/federation03.png" height="250" alt="Three-way federation" title="Three-way federation" />
           <p>
-            Again <code>max_hops=1</code> because the "hop distance" to any
+            Again <code>max-hops=1</code> because the "hop distance" to any
             other exchange is exactly one. This will be the case in any complete
             graph of federated exchanges.
           </p>
@@ -539,7 +539,7 @@
           <img src="img/federation04.png" height="500" alt="Fan-out" title="Fan-out" />
           <p>
             Because there are no loops it is not as crucial to get the
-            <code>max_hops</code> value right, but it must be at least
+            <code>max-hops</code> value right, but it must be at least
             as large as the longest connecting path. For a tree this is
             the number of levels minus one.
           </p>
@@ -549,7 +549,7 @@
         <dd>
           <p>
             In this ring of six brokers each federated exchange links to just
-            one other in the ring. The <code>"max_hops"</code> property is set
+            one other in the ring. The <code>"max-hops"</code> property is set
             to 5 so that every exchange in the ring sees the message exactly
             once.
           </p>
