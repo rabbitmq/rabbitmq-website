@@ -20,7 +20,7 @@
       in a future release.
     </p>
     <doc:section name="differences">
-      <doc:heading>Differences</doc:heading>
+      <doc:heading>Differences Between Old and New Federation</doc:heading>
       <p>
         Federation works the same in both versions of the plugin; the
         only differences are in how it is configured. A summary is:

@@ -98,7 +98,7 @@
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
        <x:page url="/federation.html" text="Federation plugin">
-         <x:page url="/old-federation.html" text="Old Federation"/>
+         <x:page url="/old-federation.html" text="Old federation"/>
        </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
