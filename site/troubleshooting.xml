@@ -40,13 +40,42 @@
   - current node: 'rabbitmqctlxxx@xxx'
   - current node home dir: [...]
   - current node cookie hash: [...]</pre>
+            </p>
+            <p>
               If the diagnostic line looks like this:
               <pre>
   - nodes and their ports on xxx: [{rabbit,...},{rabbitmqctl,...}]</pre>
-              and the broker logfile contains entries similar to
+  and the <a href="relocate.html">broker log file</a> contains entries
+  similar to
               <pre>
-  Connection attempt from disallowed node...</pre>
-              then you should make sure the erlang cookies are the same.
+  Connection attempt from disallowed node...</pre> then you should
+  make sure the <a href="clustering.html#setup">erlang cookies</a> are
+  the same, e.g. by checking that the cookie hash displayed in the
+  diagnostics is the same as that shown by the broker when it starts
+  up.
+            </p>
+            <p>
+              A common reason for cookie mismatches when invoking
+              rabbitmqctl against a broker on the same host is that
+              broker and rabbitmqctl were run as different
+              user. Evidence of this comes in the form of a mismatch
+              in the node home dir shown by the broker on startup vs
+              what is displayed in the rabbitmqctl diagnostics.
+            </p>
+            <p>
+              In the absence of the "<code>Connection attempt from
+              disallowed node...</code>" log entry, check that the
+              Erlang distribution port on which the broker is
+              listening is not blocked by a <a
+              href="clustering.html#firewall">firewall</a>. The port
+              is shown in the <code>{rabbit,...}</code> part of the
+              "<code>nodes and their ports...</code>" diagnostics
+              line. Try connecting to it with e.g. telnet.
+            </p>
+            <p>
+              If the "<code>nodes and their ports...</code>" line
+              contains no entry for rabbit then the broker probably
+              isn't running. Check the broker logs for errors.
             </p>
           </dd>
           <dt>Server Fails to Start</dt>
@@ -97,9 +126,7 @@
           <dd>
             <p>
             If a plugin fails to activate, check the output of
-            <code>rabbitmq-plugins list</code>. Windows service users need
-            to take <a href="/plugins.html#windows-restart">additional steps</a>
-            when changing plugins.
+            <code>rabbitmq-plugins list</code>.
             </p>
           </dd>
         </dl>
