@@ -49,17 +49,15 @@
     <ul class="compact">
       <li>RHEL 5 (32 and 64 bit)</li>
       <li>RHEL 6 (64 bit)</li>
-      <li>Windows 2003 (32 bit)</li>
       <li>Windows 2008 (32 and 64 bit)</li>
     </ul>
     <p><a href="http://www.vmware.com/support/services/vfabric-developer.html">
       vFabric developer support</a> is available additionally for:</p>
     <ul class="compact">
-      <li>Mac OS X</li>
-      <li>Windows XP and 7</li>
-      <li>Ubuntu 10 and 11</li>
+      <li>Mac OS X (10.6+ 64 bit)</li>
+      <li>Windows XP and 7 (64 bit)</li>
+      <li>Ubuntu 10.11 (64 bit)</li>
     </ul>
-
 
     <h3 id="windows">Windows</h3>
     <p>
