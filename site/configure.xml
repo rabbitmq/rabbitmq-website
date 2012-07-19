@@ -440,6 +440,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>heartbeat</code></td>
+            <td><code>600</code></td>
+            <td>
+              Value representing the heartbeat delay, in seconds, that the
+              server sends in the <code>connection.tune</code> frame. If set to
+              0, heartbeats are disabled. Clients might not follow the server
+              suggestion, see the <a
+              href="amqp-0-9-1-reference.html#connection.tune">AMQP
+              reference</a> for more details. Disabling heartbeats might improve
+              performance in situations with a great number of connections, but
+              might lead to connections dropping in the presence of network
+              devices that close inactive connections.
+            </td>
+          </tr>
+          <tr>
             <td><code>default_vhost</code></td>
             <td><code>&lt;&lt;"/"&gt;&gt;</code></td>
             <td>
