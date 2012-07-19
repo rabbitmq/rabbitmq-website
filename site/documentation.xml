@@ -89,6 +89,9 @@
             How to <a href="build.html">build RabbitMQ</a> from source, or
             from <a href="mercurial.html">Mercurial</a>.
           </li>
+          <li>
+            <a href="troubleshooting.html">Some troubleshooting tips</a>.
+          </li>
         </ul>
       </div>
   </body>

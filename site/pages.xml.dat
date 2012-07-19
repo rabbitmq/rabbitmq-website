@@ -36,7 +36,6 @@
      <x:page url="/platforms.html" text="Supported Platforms"/>
      <x:page url="/changelog.html" text="Server Changelog"/>
      <x:page url="/which-erlang.html" text="Erlang Versions"/>
-     <x:page url="/troubleshooting.html" text="Troubleshooting Installation"/>
      <x:page url="/signatures.html" text="Signed Packages" gap-after="true"/>
      <x:page url="/java-client.html" text="Java Client Downloads">
        <x:related url="/api-guide.html"/>
@@ -44,9 +43,10 @@
      <x:page url="/dotnet.html" text=".NET Client Downloads">
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
      </x:page>
-     <x:page url="/erlang-client.html" text="Erlang Client Downloads">
+     <x:page url="/erlang-client.html" text="Erlang Client Downloads" gap-after="true">
        <x:related url="/erlang-client-user-guide.html"/>
      </x:page>
+     <x:related url="/troubleshooting.html" text="Troubleshooting"/>
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
      <x:page url="/features.html" text="Features"/>
