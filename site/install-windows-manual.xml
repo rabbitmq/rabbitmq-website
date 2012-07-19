@@ -130,7 +130,7 @@
             directory (normally <code>C:\WINDOWS\.erlang.cookie</code>)
             to replace the user <code>.erlang.cookie</code>.
             The user cookie will be in the user's home directory
-            (<span class="envvar">%USERPROFILE%</span>), e.g.
+            (<span class="envvar">%HOMEDRIVE%</span><span class="envvar">%HOMEPATH%</span>), e.g.
             <code>C:\Documents and Settings\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code>
             or <code>C:\Users\<span class="envvar">%USERNAME%</span>\.erlang.cookie</code> (Windows Vista and later).
           </p>
