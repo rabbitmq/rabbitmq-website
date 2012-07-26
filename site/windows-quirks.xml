@@ -69,7 +69,8 @@
       </li>
       <li>
         Copy the file <code>.erlang.cookie</code> manually
-        from <code>%SystemRoot%</code> to <code>%USERPROFILE%</code>.
+        from <code>%SystemRoot%</code> to
+        <code>%HOMEDRIVE%</code><code>%HOMEPATH%</code>.
       </li>
     </ul>
 
