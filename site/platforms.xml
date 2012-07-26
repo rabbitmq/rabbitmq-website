@@ -30,7 +30,7 @@
 
     <p id="rabbit-supported">
       The open source release of RabbitMQ is most commonly deployed on the
-      following set of platforms and we recommend their use:
+      following platforms:
       <ul class="compact">
         <li>Ubuntu and Debian-based Linux distributions</li>
         <li>Fedora and RPM-based Linux distributions</li>
