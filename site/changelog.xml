@@ -13,6 +13,16 @@
       </tr>
 
       <tr>
+        <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-Jule/xxxxx.html">2.8.5</a></td>
+        <td>xx July 2012</td>
+        <td>
+          <ul>
+            <li>Assorted bugfixes</i>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
         <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-June/000048.html">2.8.4</a></td>
         <td>22 June 2012</td>
         <td>
