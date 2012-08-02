@@ -470,7 +470,7 @@
   <doc:heading>Subscribing To Queues</doc:heading>
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
-    queue can be a more efficient means of delivering messages than
+    queue can be a more efficient means of consuming messages than
     the polling mechanism. To subscribe to a queue, the
     #'basic.consume'{} command is used in one of two forms:
 
