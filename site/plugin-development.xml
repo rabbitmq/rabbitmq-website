@@ -91,6 +91,10 @@
 $ make co</pre>
           </li>
           <li>
+            Optionally, switch to a different branch, e.g. if you want to build plugins for a particular version of rabbitmq:
+            <pre class="sourcecode">$ make BRANCH=<i>&lt;tag></i> up_c</pre>
+          </li>
+          <li>
             Ensure that the umbrella environment is functional by building one of the supplied sub-projects, for example <code>rabbitmq-stomp</code>:
             <pre class="sourcecode">$ cd rabbitmq-stomp
 $ make</pre>
