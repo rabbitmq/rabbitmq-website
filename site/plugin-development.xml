@@ -91,7 +91,7 @@
 $ make co</pre>
           </li>
           <li>
-            Optionally, switch to a different branch, e.g. if you want to build plugins for a particular version of rabbitmq:
+            Optionally, switch to a different branch, e.g. if you want to build plugins for a particular version of RabbitMQ:
             <pre class="sourcecode">$ make BRANCH=<i>&lt;tag></i> up_c</pre>
           </li>
           <li>
