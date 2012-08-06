@@ -75,6 +75,9 @@ RabbitMQ, and messaging in general, uses some jargon.
      </div>
    </div>
 
+Note that the producer, consumer, and  broker do not have to reside on
+the same machine; indeed in most applications they don't.
+
 ## "Hello World"
 ### (using the Java Client)
 
@@ -156,7 +159,11 @@ then we can create a connection to the server:
         Channel channel = connection.createChannel();
 
 The connection abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us.
+protocol version negotiation and authentication and so on for us. Here
+we connect to a broker on the local machine - hence the
+_localhost_. If we wanted to connect to a broker on a different
+machine we'd simply specify its name or IP address here.
+
 Next we create a channel, which is where most of the API for getting
 things done resides.
 

@@ -32,6 +32,11 @@
                    <em>consumers</em> (applications
                    that process them).
                  </p>
+                 <p>
+                   Since AMQP is a network protocol, the producers,
+                   consumers and the broker can all reside on
+                   different machines.
+                 </p>
              </doc:subsection>
              <doc:subsection name="amqp-model">
              <doc:heading>AMQP 0-9-1 Model in Brief</doc:heading>
