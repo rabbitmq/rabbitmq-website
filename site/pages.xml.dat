@@ -102,18 +102,6 @@
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
-     <x:page url="/extensions.html" text="Our Extensions">
-       <x:page url="/confirms.html" text="Confirms"/>
-       <x:page url="/validated-user-id.html" text="Validated User ID"/>
-       <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
-       <x:page url="/nack.html" text="basic.nack"/>
-       <x:page url="/e2e.html" text="e2e bindings"/>
-       <x:page url="/ae.html" text="Alternate Exchanges"/>
-       <x:page url="/sender-selected.html" text="Sender Routing"/>
-       <x:page url="/ttl.html" text="TTL"/>
-       <x:page url="/dlx.html" text="Dead Lettering"/>
-       <x:page url="/undeprecated.html" text="Undeprecation"/>
-     </x:page>
      <x:page url="/news.html" text="News"/>
      <x:page url="/protocol.html" text="Protocol">
        <x:page url="/specification.html" text="Compatibility"/>
@@ -125,6 +113,18 @@
        <x:page url="/amqp-0-9-1-errata.html" text="Errata"/>
        <x:page url="/amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
        <x:related url="/tutorials/amqp-concepts.html"/>
+     </x:page>
+     <x:page url="/extensions.html" text="Our Extensions">
+       <x:page url="/confirms.html" text="Confirms"/>
+       <x:page url="/validated-user-id.html" text="Validated User ID"/>
+       <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/nack.html" text="basic.nack"/>
+       <x:page url="/e2e.html" text="e2e bindings"/>
+       <x:page url="/ae.html" text="Alternate Exchanges"/>
+       <x:page url="/sender-selected.html" text="Sender Routing"/>
+       <x:page url="/ttl.html" text="TTL"/>
+       <x:page url="/dlx.html" text="Dead Lettering"/>
+       <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">
        <x:page url="/build-server.html" text="Building the Server"/>
