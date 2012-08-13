@@ -70,8 +70,7 @@
         <td>19 March 2012</td>
         <td>
           <ul>
-            <li><a href="extensions.html#dead-letter-exchanges">Dead
-            lettering</a></li>
+            <li><a href="dlx.html">Dead lettering</a></li>
             <li><a href="memory.html#per-connection">Internal flow
             control</a></li>
           </ul>
@@ -166,8 +165,8 @@
         <td>23 March 2011</td>
         <td>
           <ul>
-            <li><a href="extensions.html#sender-selected-distribution">Sender selected distribution</a></li>
-            <li><a href="extensions.html#consumer-cancel-notify">Consumer cancellation notifications</a></li>
+            <li><a href="sender-selected.html">Sender selected distribution</a></li>
+            <li><a href="consumer-cancel.html">Consumer cancellation notifications</a></li>
             <li>Fast topic routing</li>
           </ul>
         </td>
@@ -189,7 +188,7 @@
         <td>2 February 2011</td>
         <td>
           <ul>
-            <li><a href="extensions.html#confirms">Confirm mode</a></li>
+            <li><a href="confirm.html">Confirm mode</a></li>
             <li><a href="authentication.html">Pluggable authentication backends / SASL mechanisms</a></li>
             <li>IPv6 support</li>
           </ul>
@@ -201,7 +200,7 @@
         <td>30 November 2010</td>
         <td>
           <ul>
-            <li><a href="extensions.html#queue-ttl">Per-queue message TTL</a></li>
+            <li><a href="ttl.html#per-queue-message-ttl">Per-queue message TTL</a></li>
             <li>Automatic upgrades</li>
           </ul>
         </td>
@@ -212,7 +211,7 @@
         <td>20 October 2010</td>
         <td>
           <ul>
-            <li><a href="extensions.html#exchange-bindings">Exchange to exchange bindings</a></li>
+            <li><a href="e2e.html">Exchange to exchange bindings</a></li>
           </ul>
         </td>
       </tr>
@@ -234,7 +233,7 @@
           <ul>
             <li>New persister</li>
             <li>AMQP 0-9-1</li>
-            <li><a href="extensions.html#queue-leases">Queue leases</a></li>
+            <li><a href="ttl.html#queue-ttl">Queue TTL</a></li>
             <li>Binary Plugin releases</li>
           </ul>
         </td>
@@ -306,7 +305,7 @@
             <li>Prefetch count</li>
             <li>Headers exchange</li>
             <li>Permissions system</li>
-            <li><a href="extensions.html#alternate-exchange">Alternate exchanges</a></li>
+            <li><a href="ae.html">Alternate exchanges</a></li>
           </ul>
         </td>
       </tr>
