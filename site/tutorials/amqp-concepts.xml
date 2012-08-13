@@ -474,8 +474,8 @@
                with acknowledgements. However, if you are using RabbitMQ,
                then there is a solution. RabbitMQ provides an AMQP 0-9-1
                extension known as <em>negative acknowledgements</em> or <em>nacks</em>. For
-               more information, please refer to the <a href="/extensions.html#negative-acknowledgements">
-               Rabbit-specific extensions</a>.
+               more information, please refer to the <a href="/nack.html">
+               the help page</a>.
               </p>
             </doc:subsection>
             <doc:subsection name="messages-prefetch">
@@ -714,7 +714,7 @@
                   implement routing schemes that exchange types provided out-of-the-box do
                   not cover well, for example, geodata-based routing.</li>
               <li>Declaration of exchanges and queues can include additional attributes that the broker
-                  can use. For example, <a href="/extensions.html#queue-ttl">per-queue message TTL</a> in RabbitMQ is implemented this way.</li>
+                  can use. For example, <a href="/ttl.html">per-queue message TTL</a> in RabbitMQ is implemented this way.</li>
               <li>Broker-specific extensions to the protocol. See, for example,
                   <a href="/extensions.html">extensions that RabbitMQ implements</a>.</li>
               <li><a href="/amqp-0-9-1-quickref.html#class.confirm">New AMQP 0-9-1 method classes</a> can be introduced.</li>
