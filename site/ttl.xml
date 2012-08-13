@@ -25,11 +25,10 @@
       </p>
 
       <p>
-        The server guarantees that dead messages will not be
-        included in any <code>basic.get-ok</code> or
-        <code>basic.deliver</code> methods. Further, the server
-        guarantees to reap dead messages at an interval
-        corresponding to the configured TTL.
+        The server guarantees that dead messages will not be included
+        in any <code>basic.get-ok</code> or <code>basic.deliver</code>
+        methods. Further, the server will try to reap messages at or
+        shortly after their TTL-based expiry.
       </p>
 
       <p>
