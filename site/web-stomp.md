@@ -50,7 +50,7 @@ use code like:
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script src="stomp.js"></script>
     <script>
-        WebSocketStompMock = SockJS;
+        Stomp.WebSocketClass = SockJS;
 
         var client = Stomp.client('http://127.0.0.1:55674/stomp');
         [...]
@@ -63,10 +63,23 @@ pure [RFC 6455](http://www.rfc-editor.org/rfc/rfc6455.txt) endpoint url:
     
 To use it:
 
-
     <script src="stomp.js"></script>
     <script>
         var client = Stomp.client('ws://127.0.0.1:55674/stomp/websocket');
+        [...]
+
+Once you have the `client` object you can follow API's exposed by
+stomp.js library. The next step is usually to establish a STOMP
+connection with the broker:
+
+        [...]
+        var on_connect = function() {
+            console.log('connected');
+        };
+        var on_error =  function() {
+            console.log('error');
+        };
+        client.connect('guest', 'guest', on_connect, on_error, '/');
         [...]
 
 
