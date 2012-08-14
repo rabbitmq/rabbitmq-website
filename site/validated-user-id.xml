@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Validated User-ID</title>
+  </head>
+  <body>
+    <p>
+      In some scenarios it is useful for consumers to be able
+      to know the identity of the user who published a
+      message. We have therefore made sure that
+      the <code>user-id</code> message property is validated. If
+      this property is set by a publisher, its value must be equal
+      to the name of the user used to open the connection. If
+      the <code>user-id</code> property is not set, the
+      publisher's identity remains private.
+    </p>
+    <p>
+      For example (in Java):
+    </p>
+    <pre class="sourcecode">
+AMQP.BasicProperties properties = new AMQP.BasicProperties();
+properties.setUserId("guest");
+channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
+    <p>
+      This message will only be published successfully if the user
+      is "guest".
+    </p>
+    <p>
+      If security is a serious concern, you should probably
+      combine the use of this feature
+      with <a href="ssl.html">SSL</a> based connections.
+    </p>
+  </body>
+</html>

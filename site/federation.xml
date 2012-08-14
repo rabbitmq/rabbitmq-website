@@ -495,8 +495,7 @@
           <dt><code>prefetch_count</code></dt>
           <dd>
             The maximum number of unacknowledged messages copied over a link at
-            any one time. Default is <code>'none'</code>, meaning there is no
-            limit.
+            any one time. Default is <code>1000</code>.
           </dd>
 
           <dt><code>reconnect_delay</code></dt>
