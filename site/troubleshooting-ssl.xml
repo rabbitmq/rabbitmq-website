@@ -125,6 +125,70 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        </p>
 
       <doc:subsection>
+       <doc:heading>stunnel (client mode)</doc:heading>
+       <p>
+         Making use of an intermediary to provide SSL can help diagnosing SSL
+         errors by producing more verbose logging. <a href="http://www.stunnel.org/">stunnel</a>
+         is typically used in this context, but any SSL-capable redirector (such as <a href="http://www.dest-unreach.org/socat/">socat</a>)
+         can be used.
+       </p>
+       <p>
+         stunnel can be used as in client-mode and then typically runs on the same host as the client.
+         In this mode it can be used to help diagnose SSL errors in the broker. In the following example
+         we see stunnel connecting to the AMQP-over-SSL (AMQPS) port 5671 of a remote broker and making
+         an unencrypted AMQP port (5678) available to a local client.
+         <pre  class="sourcecode">stunnel -c -r brokerhost:5671 -d 5678 -f -D 7</pre>
+         Notice that stunnel is not providing any certificates. For this to work the broker must not
+         require verification:
+         <pre>    {ssl_options, [{verify, verify_none}, ...]}</pre>
+       </p>
+       <p>
+         Verbose diagnostics can be obtained by supplying the <code>-D</code> flag to stunnel.
+         Continuing with the example here, stunnel may log the following to the console as soon as a
+         connection is established to port 5678:
+         <pre>   Negotiated ciphers: AES256-SHA SSLv3 Kx=RSA Au=RSA Enc=AES(256) Mac=SHA1</pre>
+       </p>
+      </doc:subsection>
+
+      <doc:subsection>
+       <doc:heading>stunnel (daemon mode)</doc:heading>
+       <p>
+         stunnel can also be used in daemon (or server) mode, which is the default. In this case
+         stunnel typically runs on the same host as the broker. In the discussion that follows it is
+         assumed that stunnel will only be used temporarily. It is of course possible to use stunnel to
+         provide SSL AMQP connections more permanently, but the lack of integration with the broker
+         means that management reporting features and authentication plugins that make use of the SSL
+         state will not be able to do so.
+       </p>
+       <p>
+         In this example, stunnel will connect to the unencrypted AMQP port of the broker and accept
+         AMQPS connections from SSL-capable clients on port 5679:
+         <pre  class="sourcecode">cat client/key.pem client/cert.pem > client/key-cert.pem
+stunnel -r localhost:5672 -d 5679 -f -p key-cert.pem -D 7</pre>
+         In this case stunnel requires a certificate. The client certificate should be used and doing
+         so validates that certificate. stunnel requires that the key not require a password and
+         precede the certificate, as concatenated with the <code>cat</code> command.
+       </p>
+       <p>
+         SSL-aware clients should now be able to connect to port 5679 and any SSL errors will appear
+         on the console where stunnel was started.
+       </p>
+      </doc:subsection>
+
+      <doc:subsection>
+       <doc:heading>ssldump</doc:heading>
+       <p>
+        While not available on as many platforms as stunnel, <a href="http://www.rtfm.com/ssldump/">ssldump</a>
+        can be a valuable source of information where availability and permissions allow. It works in a similar
+        way to <a href="http://www.tcpdump.org/">tcpdump</a>, but includes support for inspecting SSL handshaking.
+        The following commandline can be used together with the previous example to inspect SSL connection
+        establishment:
+        <pre  class="sourcecode">$ ssldump -i lo port 5679  -k client/key.pem</pre>
+        When an AMQPS client connects on port 5679 this will display information about cipher and compression
+        method advertisements from the server side and selections made by the client.
+       </p>
+
+      <doc:subsection>
        <doc:heading>Diagnostics</doc:heading>
         <dl>
             <dt>
