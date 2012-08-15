@@ -142,6 +142,16 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
                  <code>-----END RSA PRIVATE KEY-----</code> respectively.
                </p>
             </dd>
+            <dt>The broker log has entries that contain <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
+            <dd>
+               <p>
+                 This error is related to client verification. The client is presenting an invalid
+                 certificate or no certificate. If the ssl_options has the <code>verify</code> option
+                 set to <code>verify_peer</code> then try using the value <code>verify_none</code>
+                 temporarily. Ensure that the client cerificate has been generated correctly, and that
+                 the client is presenting the correct certificate.
+               </p>
+            </dd>
             <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ...}</code></dt>
             <dd>
                <p>
