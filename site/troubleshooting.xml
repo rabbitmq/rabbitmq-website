@@ -126,9 +126,7 @@
           <dd>
             <p>
             If a plugin fails to activate, check the output of
-            <code>rabbitmq-plugins list</code>. Windows service users need
-            to take <a href="/plugins.html#windows-restart">additional steps</a>
-            when changing plugins.
+            <code>rabbitmq-plugins list</code>.
             </p>
           </dd>
         </dl>

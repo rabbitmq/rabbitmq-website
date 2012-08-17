@@ -88,11 +88,6 @@
         </p>
         <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
-          Windows service users need to take
-          <a href="/plugins.html#windows-restart">additional steps</a> when
-          changing plugins.
-        </p>
-        <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
