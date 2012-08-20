@@ -240,11 +240,10 @@
 
       <p>
         Upstreams, upstream sets and policies are all instances
-        of <i>parameters</i>. For more generic information on
-        parameters, <a href="parameters.html">see the
-        documentation</a>. There are also a couple of global
-        parameters, <code>local-username</code>
-        and <code>local-nodename</code>. These are explained below.
+        of <i>parameters</i>.  Like exchanges and queues, each virtual
+        host has its own distinct set of parameters. For more generic
+        information on parameters, <a href="parameters.html">see the
+        documentation</a>.
       </p>
 
       <p>
@@ -458,8 +457,9 @@
       <doc:subsection name="other-config">
         <doc:heading>local-username</doc:heading>
         <p>
-          The <code>local-username</code> setting specifies the user under which
-          to publish messages to the (local) federated exchanges. The default is
+          The <code>local-username</code> parameter specifies the user
+          under which to publish messages to the (local) federated
+          exchanges. The default is
           <code>"guest"</code>. This user will need the appropriate permissions
           to publish messages to these exchanges. Example:
         </p>
@@ -468,17 +468,14 @@
 
         <doc:heading>local-nodename</doc:heading>
         <p>
-          The <code>local-nodename</code> setting specifies the name this node
-          should use to identify itself to other nodes in the federation graph.
-          (The default is constructed from the Erlang node and the machine's
-          fully-qualified domain name.)
+          The <code>local-nodename</code> parameter specifies the name
+          this node should use to identify itself to other nodes in
+          the federation graph. (The default is constructed from the
+          Erlang node and the machine's fully-qualified domain name.)
         </p>
         <p>
-          It is useful to give all the nodes in a cluster the
-          same <code>local-nodename</code> when federating clusters,
-          so that your node's identity will be constant. It is also
-          useful to specify it explicitly if your DNS will not give
-          machines distinct names.
+          It is important to specify it explicitly if your DNS will
+          not give machines distinct names.
         </p>
         <p>
           Example:
