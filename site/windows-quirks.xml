@@ -69,16 +69,10 @@
       </li>
       <li>
         Copy the file <code>.erlang.cookie</code> manually
-        from <code>%SystemRoot%</code> to <code>%USERPROFILE%</code>.
+        from <code>%SystemRoot%</code> to
+        <code>%HOMEDRIVE%</code><code>%HOMEPATH%</code>.
       </li>
     </ul>
-
-    <h3>Service must be reinstalled when activating / deactivating plugins</h3>
-    <p>
-      When activating or deactivating plugins and running RabbitMQ as
-      a service you must <a href="plugins.html#windows-restart">reinstall
-      the service</a> for changes to take effect.
-    </p>
     <h3>Shutting down Windows</h3>
     <p>
       Due to limitations in the underlying Erlang VM, the broker will

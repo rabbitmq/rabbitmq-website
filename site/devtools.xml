@@ -32,7 +32,7 @@
                 <a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a>
               </li>
               <li>
-                <a href="https://github.com/joshdevins/rabbitmq-ha-client">RabbitMQ HA Client</a>                
+                <a href="https://github.com/joshdevins/rabbitmq-ha-client">RabbitMQ HA Client</a>
                 <br />
                 An implementation of ConnectionFactory that supports automatic connection recovery and message redelivery,
                 which are requirements for many HA topologies.
@@ -160,7 +160,7 @@
               </li>
               <li>
                 <a href="https://github.com/ivanvanderbyl/cloudist">Cloudist</a>, a highly scalable job queue for Ruby
-              </li>       
+              </li>
               <li>
                 <a href="https://github.com/jerryluk/rabbitmq-jruby-client/tree/master">JRuby client</a>
               </li>
@@ -277,7 +277,7 @@
               </li>
               <li>
                 <a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial
-              </li>              
+              </li>
               <li>
                 <a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python
               </li>
@@ -315,16 +315,14 @@
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
               </li>
               <li>
-                <a href="http://www.yourenterprisearchitect.com/">Your Enterprise Architect</a>
+                <a href="http://lostechies.com/derekgreer/tag/rabbitmq/">RabbitMQ for Windows</a>
+                <br/>
+                An eight-part blog series covering RabbitMQ on Windows
+              </li>
+              <li>
+                <a href="http://www.yourenterprisearchitect.com//p/distributed-systems-mist.html">Distributed Systems &amp; AMQP</a>
                 <br />
                 Enterprise and distributed architecture topics covered using RabbitMQ and C#
-              </li>
-              <li>
-                <a href="http://www.codethinked.com/post/2010/10/10/Using-RabbitMQ-with-C-and-NET.aspx">Using RabbitMQ with C# and .NET</a>
-              </li>
-              <li>
-                <a href="https://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ">Get Started Tutorials</a>, a community port of the
-                <a href="getstarted.html">RabbitMQ Tutorials</a>
               </li>
               <li>
                 <a href="http://simonwdixon.wordpress.com/2011/05/08/getting-started-with-rabbitmq-in-dotnet/">Getting Started with RabbitMQ in .NET Part 1</a>, 
@@ -332,12 +330,11 @@
                 <a href="http://simonwdixon.wordpress.com/2011/05/19/getting-started-with-rabbitmq-in-net-%E2%80%93-part-3/">Part 3</a>
               </li>
               <li>
-                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+                <a href="http://freshbrewedcode.com/derekgreer/tag/rabbitmq/">RabbitBus</a>, a fluent interface to the RabbitMQ .NET API
               </li>
               <li>
-                <a href="http://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ">Code samples</a> including a 
-                <a href="http://code.google.com/p/mexexp/source/browse/#svn%2Ftrunk%2FRabbitMQ%2FResbit">client for the management API</a>
-              </li>              
+                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+              </li>
               <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
               </li>
@@ -529,6 +526,15 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="go-dev">
+            <doc:heading>Go</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="macosx-dev">
             <doc:heading>MacOSX</doc:heading>
             <ul class="plain">
@@ -582,7 +588,7 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
-          </doc:section>         
+          </doc:section>
           <doc:section name="web-messaging">
             <doc:heading>Web Messaging</doc:heading>
             <ul class="plain">
@@ -825,9 +831,9 @@
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
               </li>
               <li>
-                <a href="https://github.com/dominiklanger/LabbitMQ">LabbitMQ</a>
+                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
                 <br/>
-                A RabbitMQ client for LabVIEW
+                A node.js interface for RabbitMQ management statistics
               </li>
               <li>
                 <a href="https://github.com/yrashk/amqpfs">amqpfs</a>
