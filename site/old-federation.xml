@@ -206,7 +206,7 @@ rabbitmq-plugins enable rabbitmq_old_federation</pre>
           <p>
             To prevent messages being continually copied and re-routed (in a
             never-ending cycle) there is a limit placed on the number of times a
-            message can be copied over a link (see 
+            message can be copied over a link (see
             <a href="#upstream-sets"><code>max_hops</code></a> below). It is
             recommended that all the exchanges linked by federation are of the
             same type (i.e. backing-type). Mixing types will lead to strange
