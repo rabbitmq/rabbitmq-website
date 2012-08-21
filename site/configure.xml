@@ -38,7 +38,7 @@
               <a href="parameters.html">runtime parameters</a>
           </dt>
           <dd>
-            defines cluster-wide settings which can change at run time
+              defines cluster-wide settings which can change at run time
           </dd>
       </dl>
       </p>
