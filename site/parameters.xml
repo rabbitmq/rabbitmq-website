@@ -54,6 +54,12 @@
       management plugin.
     </p>
     <p>
+      Parameters reside in the database used by RabbitMQ for
+      definitions of virtual hosts, exchanges, queues, bindings, users
+      and permissions. Parameters are exported along with other object
+      definitions by the mananagement plugin's export feature.
+    </p>
+    <p>
       Currently parameters are only used by the federation plugin.
     </p>
     <h2>Policies</h2>
@@ -71,6 +77,10 @@
       and they can change at any time. Note that the set of features
       which can be controlled by policy is not the same as the set of
       features which can be controlled by arguments.
+    </p>
+    <p>
+      Policies are matched every time an exchange or queue is created,
+      not just when the policy is created.
     </p>
     <p>
       Currently policies are only used by the federation plugin.

@@ -318,6 +318,13 @@
         </table>
 
         <p>
+          We tell the policy to federate all exchanges whose names
+          begin with "amq." (i.e. all the built in exchanges), and to
+          federate them using the implicitly created upstream set
+          "all", which includes our newly-created upstream.
+        </p>
+
+        <p>
           The built in exchanges should now be federated. You can
           check that the policy has applied to the exchanges by
           checking the exchanges list in management or with:
@@ -327,6 +334,13 @@
           And you can check that federation links for each exchange have come up with Admin > Federation Status > Running Links or with:
         </p>
         <pre class="code">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
+        <p>
+          In general there will be one federation link for each
+          upstream that is applied to an exchange. So for example with
+          three exchanges and two upstreams for each there will be six
+          links.
+        </p>
+
         <p>
           For simple use this should be all you need - you will probably want to look at the <a href="uri-spec.html">AMQP URI reference</a>.
         </p>
