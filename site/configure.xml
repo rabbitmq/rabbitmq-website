@@ -34,6 +34,12 @@
               defines server component settings for permissions, limits and
               clusters, and also plugin settings.
           </dd>
+          <dt>
+              <a href="parameters.html">runtime parameters</a>
+          </dt>
+          <dd>
+              defines cluster-wide settings which can change at run time
+          </dd>
       </dl>
       </p>
 

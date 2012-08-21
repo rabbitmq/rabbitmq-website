@@ -246,8 +246,8 @@
           <p>
             The management plugin lets you export a JSON file
             containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts and
-            permissions). In some scenarios it may be useful to ensure
+            exchanges, bindings, users, virtual hosts, permissions and
+            parameters). In some scenarios it may be useful to ensure
             the existence of these objects at every startup.
           </p>
           <p>
