@@ -294,7 +294,7 @@
             </td>
           </tr>
           <tr>
-            <td><code>at-least</code></td>
+            <td><code>exactly</code></td>
             <td><i>count</i></td>
             <td>
               Queue is mirrored to <i>count</i> nodes in the
@@ -380,7 +380,7 @@
             <td>
               <pre>rabbitmqctl set_parameter policy ha-two \
                 '[{&lt;&lt;"prefix">>, &lt;&lt;"two.">>}, \
-                  {&lt;&lt;"policy">>, [{&lt;&lt;"ha-mode">>,&lt;&lt;"at-least">>}]}]'</pre>
+                  {&lt;&lt;"policy">>, [{&lt;&lt;"ha-mode">>,&lt;&lt;"exactly">>}]}]'</pre>
             </td>
           </tr>
           <tr>
@@ -388,7 +388,7 @@
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-two
                 {"value":{"prefix":"two.",
-                          "policy":{"ha-mode":   "at-least",
+                          "policy":{"ha-mode":   "exactly",
                                     "ha-params": 2}}}</pre>
             </td>
           </tr>
@@ -405,7 +405,7 @@
                   Prefix.
                 </li>
                 <li>
-                  Enter "ha-mode" = "at-least" in the first line
+                  Enter "ha-mode" = "exactly" in the first line
                   next to Policy, then "ha-params" = 2 in the second line,
                   and set the type on the second line to "Number".
                 </li>
