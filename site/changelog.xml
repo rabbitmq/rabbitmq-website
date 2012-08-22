@@ -13,6 +13,16 @@
       </tr>
 
       <tr>
+        <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-August/000050.html">2.8.6</a></td>
+        <td>22 August 2012</td>
+        <td>
+          <ul>
+            <li>Sundry bugfixes</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
         <td><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-August/000049.html">2.8.5</a></td>
         <td>2 August 2012</td>
         <td>
