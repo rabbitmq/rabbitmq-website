@@ -269,7 +269,7 @@
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'[{&lt;&lt;"uri">>,&lt;&lt;"amqp://server-name">>},{&lt;&lt;"expires">>,3600000}]'</code>
+            <code>rabbitmqctl set_parameter federation-upstream my-upstream \<br/>'{"uri":"amqp://server-name","expires":3600000}'</code>
           </td>
         </tr>
         <tr>
@@ -296,7 +296,7 @@
           <th>rabbitmqctl</th>
           <td>
             <code>rabbitmqctl set_parameter policy federate-me \<br/>
-'[{&lt;&lt;"prefix">>,&lt;&lt;"amq.">>},{&lt;&lt;"policy">>,[{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</code>
+'{"prefix":"amq.","policy":{"federation-upstream-set":"all"}}'</code>
           </td>
         </tr>
         <tr>
@@ -357,11 +357,10 @@
           to connect to a broker. It takes the form:
         </p>
 <pre class="example">
-  rabbitmqctl set_parameter federation-upstream <i>name</i> '[<i>property-list</i>]'
+  rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 </pre>
         <p>
-          The <code><i>property-list</i></code> can contain the
-          following properties:
+          The <code><i>json-object</i></code> can contain the following keys:
         </p>
 
         <dl>
@@ -438,10 +437,10 @@
           Each <code>upstream-set</code> list is a mapping from
           a name to a list of upstream exchanges. They look like:
         </p>
-<pre class="example">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[[<i>property-list</i>], [<i>property-list</i>], ...]'
+<pre class="example">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[<i>json-object</i>, <i>json-object</i>, ...]'
 </pre>
         <p>
-          The properties can be:
+          The keys of the JSON objects can be:
         </p>
 
         <dl>
@@ -478,7 +477,7 @@
           to publish messages to these exchanges. Example:
         </p>
 
-        <pre class="example">rabbitmqctl set_parameter federation local-username '&lt;&lt;"guest">>'</pre>
+        <pre class="example">rabbitmqctl set_parameter federation local-username '"guest"'</pre>
 
         <doc:heading>local-nodename</doc:heading>
         <p>
@@ -495,7 +494,7 @@
           Example:
         </p>
 
-        <pre class="example">rabbitmqctl set_parameter federation local-nodename '&lt;&lt;"my-node">>'</pre>
+        <pre class="example">rabbitmqctl set_parameter federation local-nodename '"my-node"'</pre>
 
       </doc:subsection>
     </doc:section>
