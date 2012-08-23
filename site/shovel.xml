@@ -706,7 +706,12 @@
                         [ {brokers, [ "amqp://fred:secret@host1.domain/my_vhost"
                                     , "amqp://john:secret@host2.domain/my_vhost"
                                     ]}
-                        , {declarations, [ {'queue.declare',
+                        , {declarations, [ {'exchange.declare',
+                                              [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
+                                              , {type, &lt;&lt;"direct"&gt;&gt;}
+                                              , durable
+                                              ]}
+                                         , {'queue.declare',
                                               [{arguments,
                                                  [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]}
                                          , {'queue.bind',
