@@ -753,22 +753,20 @@
         seconds.
       </p>
       <p>
-        When connected to the source it will declare an anonymous queue
-        there, and bind it to the pre-existing exchange called
-        "<code>my_exchange</code>".
+        When connected to the source it will declare a a direct, durable
+        exchange called "<code>my_exchange</code>", an anonymous queue with a <a
+        href="ttl.html#per-queue-message-ttl">per-queue message ttl</a>, and
+        bind the queue to the exchange.
       </p>
       <p>
-        When connected to the destination (the local broker) it will
-        declare a direct, durable exchange called
-        "<code>my_exchange</code>".
+        When connected to the destination (the local broker) it will an exchange
+        identical to the one declared in the source.
       </p>
       <p>
-        This shovel will re-publish messages sent to the anonymous queue
-        on the source to the local exchange (also called
-        "<code>my_exchange</code>") with the fixed routing key
-        "<code>from_shovel</code>". The messages will be persistent and
-        only acknowledged after receiving a publish confirm from the
-        local broker.
+        This shovel will re-publish messages sent to the anonymous queue on the
+        source to the local exchange with the fixed routing key
+        "<code>from_shovel</code>". The messages will be persistent and only
+        acknowledged after receiving a publish confirm from the local broker.
       </p>
       <p>
         The shovel consumer will not be allowed to hold more than ten
