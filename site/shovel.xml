@@ -759,8 +759,8 @@
         bind the queue to the exchange.
       </p>
       <p>
-        When connected to the destination (the local broker) it will an exchange
-        identical to the one declared in the source.
+        When connected to the destination (the local broker) it will declare an
+        exchange identical to the one declared in the source.
       </p>
       <p>
         This shovel will re-publish messages sent to the anonymous queue on the
