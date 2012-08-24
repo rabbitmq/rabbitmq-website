@@ -708,7 +708,7 @@
                                     ]}
                         , {declarations, [ {'exchange.declare',
                                               [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
-                                              , {type, &lt;&lt;"direct"&gt;&gt;}
+                                              , {type, &lt;&lt;"fanout"&gt;&gt;}
                                               , durable
                                               ]}
                                          , {'queue.declare',
@@ -753,14 +753,14 @@
         seconds.
       </p>
       <p>
-        When connected to the source it will declare a a direct, durable
+        When connected to the source it will declare a a direct, fanout
         exchange called "<code>my_exchange</code>", an anonymous queue with a <a
         href="ttl.html#per-queue-message-ttl">per-queue message ttl</a>, and
         bind the queue to the exchange.
       </p>
       <p>
-        When connected to the destination (the local broker) it will declare an
-        exchange identical to the one declared in the source.
+        When connected to the destination (the local broker) it will declare a
+        durable, direct exchange also called "<code>my_exchange</code>".
       </p>
       <p>
         This shovel will re-publish messages sent to the anonymous queue on the
