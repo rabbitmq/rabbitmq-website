@@ -198,7 +198,7 @@
         <td>2 February 2011</td>
         <td>
           <ul>
-            <li><a href="confirm.html">Confirm mode</a></li>
+            <li><a href="confirms.html">Confirm mode</a></li>
             <li><a href="authentication.html">Pluggable authentication backends / SASL mechanisms</a></li>
             <li>IPv6 support</li>
           </ul>
