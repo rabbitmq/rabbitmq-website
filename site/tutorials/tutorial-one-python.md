@@ -80,6 +80,8 @@ RabbitMQ, and messaging in general, uses some jargon.
      </div>
    </div>
 
+Note that the producer, consumer, and broker do not have to reside on
+the same machine; indeed in most applications they don't.
 
 Hello World!
 ------------
@@ -191,10 +193,14 @@ RabbitMQ server.
                    'localhost'))
     channel = connection.channel()
 
-We're connected now. Next, before sending we need to make sure the
-recipient queue exists. If we send a message to non-existing location,
-RabbitMQ will just trash the message. Let's create a queue to which
-the message will be delivered, let's name it _hello_:
+We're connected now, to a broker on the local machine - hence the
+_localhost_. If we wanted to connect to a broker on a different
+machine we'd simply specify its name or IP address here.
+
+Next, before sending we need to make sure the recipient queue
+exists. If we send a message to non-existing location, RabbitMQ will
+just trash the message. Let's create a queue to which the message will
+be delivered, let's name it _hello_:
 
     :::python
     channel.queue_declare(queue='hello')

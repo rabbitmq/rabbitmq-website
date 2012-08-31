@@ -6,13 +6,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Distributed Messaging</title>
+    <title>Distributed RabbitMQ brokers</title>
   </head>
   <body>
     <p class="intro">
-      There are three ways in which RabbitMQ brokers can be connected
-      on more than one machine: with clustering, with federation, and
-      using the shovel. This page explains the purpose of each approach.
+      AMQP and the other messaging protocols supported by RabbitMQ via
+      plug-ins (e.g. STOMP), are (of course) inherently distributed -
+      it is quite common for applications from multiple machines to
+      connect to a single broker, even across the internet.
+    </p>
+    <p class="intro">
+      Sometimes however it is necessary or desirable to make the
+      RabbitMQ broker itself distributed. There are three ways in
+      which to accomplish that: with clustering, with federation, and
+      using the shovel. This page explains the purpose of each
+      approach.
     </p>
     <p>
       Note that you do not need to pick a single approach - you can
