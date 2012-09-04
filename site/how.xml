@@ -216,12 +216,12 @@
       Plugins for monitoring a RabbitMQ server with <a href="http://munin-monitoring.org">Munin</a>.
     </li>
     <li>
-      <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
+      <a href="https://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
       RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
     </li>
     <li>
-      <a href="http://github.com/auser/alice/tree/master">Alice</a> and
-      <a href="http://github.com/auser/wonderland/tree/master">Wonderland</a><br />
+      <a href="https://github.com/auser/alice">Alice</a> and
+      <a href="https://github.com/auser/wonderland">Wonderland</a><br />
       Provide RESTful administration and monitoring of RabbitMQ nodes and a
       WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
     </li>
@@ -230,7 +230,7 @@
       A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
-      <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
+      <a href="https://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
       An experimental RabbitMQ plugin to provide SNMP statistics, developed by Scott Brooks. It includes the ability
       to trace message delivery to queues so that you can pull the total number of messages delivered.
     </li>
@@ -240,8 +240,8 @@
       graphing tool) to monitor queue and exchange statistics in RabbitMQ.
     </li>
     <li>
-      <a href="http://github.com/paukul/humpty">Humpty</a><br />
-      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
+      <a href="https://github.com/paukul/humpty">Humpty</a><br />
+      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="https://github.com/auser/alice">alice</a>)
       and AMQP.
     </li>
     <li>
@@ -253,12 +253,12 @@
       A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
     </li>
     <li>
-      <a href="http://github.com/gmr/Cony/tree/master">Cony</a><br />
+      <a href="https://github.com/gmr/Cony">Cony</a><br />
       A HTTP based service written in Python for providing insight into running
       RabbitMQ processes.
     </li>
     <li>
-      <a href="http://github.com/aaronfeng/trixx/tree/master">Trixx</a><br />
+      <a href="https://github.com/aaronfeng/trixx">Trixx</a><br />
       An administration and monitoring tool written in Clojure so available for all
       languages that run on JVM.
     </li>
@@ -352,7 +352,7 @@
       </li>
       <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
-      Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
+      Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="https://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
       presentation contains an excellent introduction to AMQP and examples of why you might need messaging in your application.
       </li>
     <li>
