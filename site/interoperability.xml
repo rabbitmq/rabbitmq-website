@@ -346,7 +346,7 @@
           <p>
             The <a href="http://www.openamq.org">OpenAMQ</a> project
             has <a
-            href="http://github.com/imatix/openamq-pal-examples">a
+            href="https://github.com/imatix/openamq-pal-examples">a
             small number</a> of <a
             href="http://www.openamq.org/doc:prog-pal">PAL scripts</a>
             designed to test AMQP brokers.
