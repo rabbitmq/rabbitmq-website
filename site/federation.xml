@@ -203,6 +203,12 @@
       <pre class="example">    rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
+        When using the management plugin, you will also want to
+        enable <code>rabbitmq_federation_management</code>:
+      </p>
+      <pre class="example">    rabbitmq-plugins enable rabbitmq_federation_management</pre>
+
+      <p>
         When using a federation in a cluster, all the nodes of the
         cluster must have the federation plugin installed. Any node
         can declare a federated exchange and its properties are shared
