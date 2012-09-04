@@ -148,10 +148,14 @@
           (rather than, say, at the time of commit), but note that
           both <code>basic.publish</code> and <code>basic.ack</code>
           are asynchronous commands so any errors will be reported
-          back to the client asynchronously. The situation is similar
-          with <code>basic.return</code>s, though note the slight
-          change in behaviour between earlier and recent versions of
-          RabbitMQ.
+          back to the client asynchronously.
+        </p>
+        <p>
+          The situation is similar with <code>basic.return</code>s,
+          though note the slight change in behaviour between earlier
+          and recent versions of RabbitMQ. You will always receive
+          any <code>basic.return</code>s before
+          the <code>tx.commit-ok</code>.
         </p>
         <p>
           AMQP does not specify when the effects of transactions
@@ -159,7 +163,7 @@
           e.g. when published messages will appear in queues and can
           be consumed from other clients, when persistent messages
           will be written to disk, etc. In RabbitMQ
-          the <code>tx.confirm-ok</code> indicates that all
+          the <code>tx.commit-ok</code> indicates that all
           transaction effects are visible and that the broker has
           accepted responsibility for all the messages published in
           the transaction.
