@@ -1,4 +1,4 @@
-# Installing on Mac OS X
+# Installing on Mac OS X NOSYNTAX
 
 This guide will show you how to install and run RabbitMQ on your Mac
 without the need to compile Erlang (whether manually or by using some
