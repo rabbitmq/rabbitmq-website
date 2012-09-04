@@ -135,10 +135,7 @@
                 A post explaining how to send and consume messages on RabbitMQ with Akka
               </li>
               <li>
-                <a href="http://akka.io/docs/akka-modules/1.1.2/modules/amqp.html">Akka AMQP module documentation</a>
-              </li>
-              <li>
-                <a href="https://github.com/jboner/akka-modules/tree/master/akka-amqp/src">Akka AMQP module source code</a>
+                <a href="https://github.com/geidsvig/akka-amqp">Akka AMQP module source code</a>
               </li>
             </ul>
             <h4>Play! Framework</h4>
