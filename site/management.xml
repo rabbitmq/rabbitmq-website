@@ -103,7 +103,7 @@
           <doc:heading>Requirements</doc:heading>
           <p>
             rabbitmq-management uses
-            the <a href="http://github.com/mochi/mochiweb">Mochiweb</a>
+            the <a href="https://github.com/mochi/mochiweb">Mochiweb</a>
             web server which requires a newer Erlang version. At least
             R13B01 is required, but later versions are recommended.
           </p>
