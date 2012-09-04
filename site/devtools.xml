@@ -665,7 +665,7 @@
                 and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
               </li>
               <li>
-                <a href="http://github.com/ry/node-amqp">node-amqp</a>
+                <a href="https://github.com/postwait/node-amqp">node-amqp</a>
                 <br />
                 Node.js and RabbitMQ
               </li>
@@ -711,7 +711,7 @@
                 <a href="management-cli.html">rabbitmqadmin</a>, the RabbitMQ Management command line tool
               </li>
               <li>
-                <a href="http://github.com/dougbarth/amqp-utils/tree/v0.1.0">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
+                <a href="https://github.com/dougbarth/amqp-utils">amqp-utils</a>, command line utils for interacting with an AMQP based queue (in Ruby)
               </li>
               <li>
                 <a href="https://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
