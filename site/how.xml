@@ -230,11 +230,6 @@
       A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
-      <a href="https://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
-      An experimental RabbitMQ plugin to provide SNMP statistics, developed by Scott Brooks. It includes the ability
-      to trace message delivery to queues so that you can pull the total number of messages delivered.
-    </li>
-    <li>
       <a href="http://blog.thomasvandoren.com/2011/10/monitoring-rabbitmq-queues-with-zabbix/">Monitoring RabbitMQ with Zabbix</a><br/>
       A simple example of how to configure Zabbix (an open source monitoring and
       graphing tool) to monitor queue and exchange statistics in RabbitMQ.
@@ -378,12 +373,6 @@
       some advanced AMQP recipes for a variety of messaging use cases.
     </li>
     <li>
-      <a href="http://webcookies.org/blog/2009/09/10/rabbitmq-celery-and-django/">RabbitMQ, Celery and Django</a><br />
-      Robert Pogorzelski gives an excellent demonstration of how RabbitMQ and Celery
-      can be used with Python to build an asynchronous, distributed task
-      queue for your web application.
-    </li>
-    <li>
       <a href="http://mathematism.com/2010/feb/16/message-queues-django-and-celery-quick-start/">Message Queues, Django and Celery QuickStart</a><br />
       Rich Leland's quick start guide provides a great explanation of how to set up an asynchronous task queue with
       RabbitMQ, Celery and Python, all on a Mac.
@@ -451,7 +440,7 @@
       Stefan Norberg's presentation on use of RabbitMQ and Kaazing and Terracotta for European scale real time betting at Unibet.
     </li>
     <li>
-      <a href="http://nebula.nasa.gov/services">NASA's NEBULA Cloud Computing Platform</a><br />
+      <a href="http://nebula.nasa.gov">NASA's NEBULA Cloud Computing Platform</a><br />
       Overview of how NASA are using RabbitMQ in their Nebula SaaS platform. Please also see
       <a href="http://www.theregister.co.uk/2010/01/16/nasa_nebula/">this interview with The Register</a> and
       <a href="http://cloudseeding.googlegroups.com/web/NASA-%20Chris%20C.%20Kemp%20-%20OMG.pdf">these slides</a>
@@ -466,11 +455,6 @@
     <li>
       <a href="http://www.lshift.net/blog/2009/05/08/untangling-the-bbcs-data-feeds">Untangling the BBC's data feeds</a><br />
       More on the use of RabbitMQ at the BBC on Mike Bridgen's blog.
-    </li>
-    <li>
-      <a href="http://blog.smarkets.com/2009/07/03/smarkets-tech-talk-on-erlang/">RabbitMQ at Smarkets</a><br />
-      Video and slides of Hunter Morris' tech talk at Erlang Factory, London, July
-      2009 explaining how Smarkets use RabbitMQ in their backend stack.
     </li>
     <li>
       <a href="http://aws.typepad.com/aws/2008/12/running-everything-on-aws-soocialcom.html">Soocial.com run RabbitMQ on Amazon EC2</a><br />
@@ -567,8 +551,7 @@
      <doc:heading>Books and Print Articles</doc:heading>
       <ul>
         <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
-        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
-        is available to download.)</li>
+        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams.</li>
         <li><a href="http://manning.com/fisher/">Spring Integration in Action</a><br />
         Contains several chapters on AMQP and messaging with RabbitMQ.</li>
         <li><a href="http://manning.com/rathore/">Scaling Clojure through messaging</a><br />
