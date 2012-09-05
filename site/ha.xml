@@ -380,7 +380,8 @@
             <td>
               <pre>rabbitmqctl set_parameter policy ha-two \
                 '[{&lt;&lt;"prefix">>, &lt;&lt;"two.">>}, \
-                  {&lt;&lt;"policy">>, [{&lt;&lt;"ha-mode">>,&lt;&lt;"exactly">>}]}]'</pre>
+                  {&lt;&lt;"policy">>, [{&lt;&lt;"ha-mode">>,   &lt;&lt;"exactly">>},
+                                  {&lt;&lt;"ha-params">>, 2}]}]'</pre>
             </td>
           </tr>
           <tr>
