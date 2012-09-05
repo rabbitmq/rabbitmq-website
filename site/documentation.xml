@@ -42,26 +42,13 @@
         <h2>Clients</h2>
         <ul>
           <li>
-            Java client:
-            <a href="api-guide.html">Java Guide</a> |
-            <a href="&dir-current-javadoc;">Javadoc</a>
+            API docs:
+            <a href="&dir-current-javadoc;">Java</a> |
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a> |
+            <a href="&dir-current-edoc;">Erlang</a>
           </li>
-          <li>
-            .NET client:
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Guide</a> |
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET API</a>
-          </li>
-          <li>
-            Erlang client:
-            <a href="erlang-client-user-guide.html">Erlang Guide</a> |
-            <a href="&dir-current-edoc;">Erlang edoc</a>
-          </li>
-          <li>
-            <a href="uri-spec.html">AMQP URI spec</a>
-          </li>
-          <li>
-            See the <a href="devtools.html">developer tools</a> for community-contributed code.
-          </li>
+          <li>View all <a href="clients.html">client documentation</a> for
+          guides and additional content.</li>
         </ul>
       </div>
 
