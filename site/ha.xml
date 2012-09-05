@@ -90,15 +90,15 @@
             lost.</li>
 
             <li>The slave considers all previous consumers to have
-            been abruptly disconnected. As such, it requeues (at the
-            rear of the queue) all messages that have been delivered
-            to clients but are pending acknowledgement. This can
-            include messages for which a client has issued
-            acknowledgements: either the acknowledgement was lost on
-            the wire before reaching the master, or it was lost during
-            broadcast from the master to the slaves. In either case,
-            the new master has no choice but to requeue all messages
-            it thinks have not been acknowledged.</li>
+            been abruptly disconnected. As such, it requeues all
+            messages that have been delivered to clients but are
+            pending acknowledgement. This can include messages for
+            which a client has issued acknowledgements: either the
+            acknowledgement was lost on the wire before reaching the
+            master, or it was lost during broadcast from the master to
+            the slaves. In either case, the new master has no choice
+            but to requeue all messages it thinks have not been
+            acknowledged.</li>
 
             <li>Clients that were consuming from the mirrored-queue
             and support our <a
