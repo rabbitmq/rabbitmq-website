@@ -60,9 +60,9 @@
           stored on disc, the performance improvements will affect only
           resources management (e.g. adding/removing queues, exchanges, or
           vhosts), but not publishing or consuming speed. Because state is
-          replicated across all nodes in the cluster, it is sufficient to have
-          just one disk node within a cluster, to store the state of the cluster
-          safely.
+          replicated across all nodes in the cluster, it is sufficient (but not
+          reccomended) to have just one disk node within a cluster, to store the
+          state of the cluster safely.
         </p>
       </doc:section>
 
@@ -258,8 +258,8 @@ Turning rabbit@rabbit2 into a disc node ...
 Starting node rabbit@rabbit2 ...done.
 rabbit3$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl change_cluster_node_type</i>
-Turning rabbit@rabbit3 into a disc node ...
+rabbit3$ <i>rabbitmqctl change_cluster_node_type ram</i>
+Turning rabbit@rabbit3 into a ram node ...
 rabbit3$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit3 ...done.</pre>
         </doc:subsection>
@@ -336,17 +336,19 @@ Cluster status of node rabbit@rabbit3 ...
           </p>
           <ul>
             <li>
-              At least one disk node should be running at all times.  RabbitMQ
-              will prevent the creation of a RAM-only cluster in many
-              situations, but it still won't stop you from stopping and
-              forcefully resetting all the disc nodes, which will lead to a
-              RAM-only cluster. Doing this is not advisable and makes losing
-              data very easy.
+              At least one disk node should be running at all times to prevent
+              data loss.  RabbitMQ will prevent the creation of a RAM-only
+              cluster in many situations, but it still won't stop you from
+              stopping and forcefully resetting all the disc nodes, which will
+              lead to a RAM-only cluster. Doing this is not advisable and makes
+              losing data very easy.
             </li>
             <li>
               When the entire cluster is brought down, the last node to go down
-              must be the first node to be brought online. If the last node to
-              go offline cannot be brought back up, it can be removed from the
+              must be the first node to be brought online. If this doesn't
+              happen, the nodes will wait 30 seconds for the last disc node to
+              come back online, and fail afterwards.  If the last node to go
+              offline cannot be brought back up, it can be removed from the
               cluster using the <code>forget_cluster_node</code> command -
               consult the <code>rabbitmqctl</code> manpage for more information.
             </li>
@@ -457,6 +459,7 @@ Starting node rabbit@rabbit2 ...done.</pre>
         <doc:subsection name="auto-config">
           <doc:heading>Auto-configuration of a cluster</doc:heading>
           <p>
+            Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up via the
             RabbitMQ <code>.config</code> file; see the <a
             href="configure.html#configuration-file">configuration guide</a> for
@@ -473,8 +476,8 @@ Starting node rabbit@rabbit2 ...done.</pre>
             nodes are found, the node is left unclustered.
           </p>
           <p>
-            Note that the cluster configuration is applied only to virgin
-            nodes. A virgin nodes is a node which has just been reset or is
+            Note that the cluster configuration is applied only to fresh
+            nodes. A fresh nodes is a node which has just been reset or is
             being start for the first time. Thus, the automatic clustering won't
             take place after restarts of nodes. This means that any change to
             the clustering via <code>rabbitmqctl</code> will take precedence
@@ -491,7 +494,7 @@ Starting node rabbit@rabbit2 ...done.</pre>
             back into a single cluster, with <code>rabbit@rabbit1</code> and
             <code>rabbit@rabbit2</code> being the disk nodes of the
             cluster. First we reset and stop all nodes, to make sure that we're
-            working with virgin nodes:
+            working with fresh nodes:
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop_app</i>
