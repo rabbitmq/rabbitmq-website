@@ -37,7 +37,7 @@
       </ul>
     </div>
 
-    <div>
+    <div class="landing-box">
       <h2>Erlang Client</h2>
       <ul>
         <li><a href="&dir-current-edoc;">Erlang edoc</a></li>
