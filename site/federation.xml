@@ -296,14 +296,14 @@
           <th>rabbitmqctl</th>
           <td>
             <code>rabbitmqctl set_parameter policy federate-me \<br/>
-'[{&lt;&lt;"pattern">>,&lt;&lt;"^amq.">>},{&lt;&lt;"priority">>,1},{&lt;&lt;"policy">>,[{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</code>
+'[{&lt;&lt;"pattern">>,&lt;&lt;"^amq.">>},{&lt;&lt;"policy">>,[{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
             PUT <code>/api/parameters/policy/federate-me</code><br/>
-            <code>{"value":{"pattern":"^amq.","priority":1,"policy":{"federation-upstream-set":"all"}}}</code>
+            <code>{"value":{"pattern":"^amq.","policy":{"federation-upstream-set":"all"}}}</code>
           </td>
         </tr>
         <tr>
@@ -311,7 +311,7 @@
           <td>
             Navigate to Admin > Policies > Add / update a
             policy. Enter "federate-me" next to Name, "^amq." next to
-            Pattern, "1" next to Priority and "federation-upstream-set" = "all"
+            Regexp and "federation-upstream-set" = "all"
             in the first line next to Policy. Click Add policy.
           </td>
         </tr>
@@ -319,10 +319,10 @@
 
         <p>
           We tell the policy to federate all exchanges whose names
-          begin with "amq." (i.e. all the built in exchanges) with low
-          priority, and to federate them using the implicitly created
+          begin with "amq." (i.e. all the built in exchanges) with (implicit)
+          low priority, and to federate them using the implicitly created
           upstream set "all", which includes our newly-created upstream.
-          Any other matching policy with a priority greater than 1 will take
+          Any other matching policy with a priority greater than 0 will take
           precedence over this policy.
         </p>
 
