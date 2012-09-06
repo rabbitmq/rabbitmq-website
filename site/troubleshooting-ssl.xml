@@ -181,6 +181,7 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
         When an SSL-capable client connects on port 5679 this will display information about cipher and compression
         method advertisements from the server side and selections made by the client.
        </p>
+      </doc:subsection>
 
       <doc:subsection>
        <doc:heading>Log diagnostics</doc:heading>
