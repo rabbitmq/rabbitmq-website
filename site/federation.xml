@@ -428,6 +428,22 @@
             </p>
           </dd>
 
+          <dt><code>trust-user-id</code></dt>
+          <dd>
+            <p>
+              Determines how federation should interact with
+              the <a href="validated-user-id.html">validated
+              user-id</a> feature. If set to <code>true</code>,
+              federation will pass through any validated user-id from
+              the upstream, even though it cannot validate it
+              itself. If set to <code>false</code> or not set, it will
+              clear any validated user-id it encounters. You should
+              only set this to <code>true</code> if you trust the
+              upstream server (and by extension, all its upstreams)
+              not to forge user-ids.
+            </p>
+          </dd>
+
           <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
