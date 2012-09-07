@@ -52,6 +52,9 @@
                 A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
               </li>
               <li>
+                <a href="https://github.com/michaelklishin/langohr">langhor</a> a Clojure RabbitMQ client that follows RabbitMQ's implementation of AMQP 0-9-1
+              </li>
+              <li>
                 <a href="https://github.com/mefesto/wabbitmq">wabbitmq</a> a Clojure messaging library that wraps RabbitMQ's Java Client
               </li>
               <li>
