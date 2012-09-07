@@ -281,7 +281,7 @@
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/federation-upstream/my-upstream</code><br/>
+            PUT <code>/api/parameters/federation-upstream/%2f/my-upstream</code><br/>
             <code>{"value":{"uri":"amqp://server-name","expires":3600000}}</code>
           </td>
         </tr>
@@ -308,7 +308,7 @@
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/policy/federate-me</code><br/>
+            PUT <code>/api/parameters/policy/%2f/federate-me</code><br/>
             <code>{"value":{"prefix":"amq.","policy":{"federation-upstream-set":"all"}}}</code>
           </td>
         </tr>
