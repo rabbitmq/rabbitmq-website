@@ -32,13 +32,13 @@
       </p>
 
       <p>
-        The value of the <code>x-message-ttl</code> argument must be
-        a non-negative integer, describing the TTL period in
-        milliseconds. Thus a value of 1000 means that a message
-        added to the queue will live in the queue for 1 second or
-        until it is delivered to a consumer. The argument can be of
-        AMQP type short-short-int, short-int, long-int, or
-        long-long-int.
+        The value of the <code>x-message-ttl</code> argument must be a
+        non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1),
+        describing the TTL period in milliseconds. Thus a value of
+        1000 means that a message added to the queue will live in the
+        queue for 1 second or until it is delivered to a consumer. The
+        argument can be of AMQP type short-short-int, short-int,
+        long-int, or long-long-int.
       </p>
 
       <p>
@@ -92,12 +92,12 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
-        The value of the <code>x-expires</code> argument must be an
-        integer, greater than zero, describing the expiration period
-        in milliseconds. Thus a value of 1000 means a queue which is
-        unused for 1 second will be deleted. The argument can be of
-        AMQP type short-short-int, short-int, long-int, or
-        long-long-int.
+        The value of the <code>x-expires</code> argument must be a 32
+        bit integer greater than zero (0 &lt; n &lt;= 2^32-1),
+        describing the expiration period in milliseconds. Thus a value
+        of 1000 means a queue which is unused for 1 second will be
+        deleted. The argument can be of AMQP type short-short-int,
+        short-int, long-int, or long-long-int.
       </p>
 
       <p>
