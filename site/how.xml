@@ -30,7 +30,7 @@
       AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
     </li>
     <li>
-      <a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
+      <a href="http://www.youtube.com/user/SpringSourceDev/videos?query=rabbitmq+messaging+that+just+works">RabbitMQ: Messaging that just works</a><br/>
       A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
       are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
@@ -317,7 +317,7 @@
         for cloud and web applications), RabbitMQ and websockets.
       </li>
       <li>
-        <a href="http://blog.springsource.com/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
+        <a href="http://blog.springsource.org/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
         Designing a good routing topology for a highly-scalable system can be like mapping a graph. Helena Edelson explains the things you
         need to consider such as the problem domain, the constraints of the environment, the messaging implementation and performance strategies.
       </li>
