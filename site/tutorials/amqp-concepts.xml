@@ -342,11 +342,6 @@
               Not all scenarios and use cases mandate queues to be durable.
              </p>
              <p>
-              Note that only durable queues can be bound to
-              durable exchanges. This guarantees that it is
-              possible to restore bindings on broker restart.
-             </p>
-             <p>
               Durability of a queue does not make <em>messages</em> that
               are routed to that queue durable. If broker is taken down
               and then brought back up, durable queue will be re-declared
