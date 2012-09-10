@@ -54,6 +54,7 @@
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>
+         <x:page url="/parameters.html" text="Parameters"/>
        </x:page>
        <x:page url="/ssl.html" text="SSL Support">
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
@@ -97,7 +98,9 @@
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page url="/federation.html" text="Federation plugin"/>
+       <x:page url="/federation.html" text="Federation plugin">
+         <x:page url="/old-federation.html" text="Old federation"/>
+       </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
