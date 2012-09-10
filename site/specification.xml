@@ -23,7 +23,7 @@
   The RabbitMQ team is an active participant in the AMQP Working Group,
   which aims to deliver an implementable AMQP 1.0 draft this year.  A
   future version of RabbitMQ will implement AMQP 1.0.  Please
-  <a href="contact.html">contact us</a> for details.  You can also read about <a href="http://www.amqp.org/confluence/display/AMQP/AMQP%2B1-0%2BBusiness%2BRequirements">the 1.0 business requirements</a> or view a
+  <a href="contact.html">contact us</a> for details.  You can also view a
   <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
 1-0 Draft</a> (PDF).
 	</p>
@@ -63,6 +63,10 @@
 	  <tr>
         <td>.NET/C# client</td>
 	    <td> 0-9-1, 0-9 and 0-8 switchable at runtime </td>
+	  </tr>
+	  <tr>
+	    <td>Erlang client</td>
+	    <td> 0-9-1 </td>
 	  </tr>
 	</table>
 	<p>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Negative Acknowledgements</title>
+  </head>
+  <body>
+    <p>
+      The AMQP specification defines the <code>basic.reject</code>
+      method that allows clients to reject individual, delivered
+      messages, instructing the broker to either discard them or
+      requeue them. Unfortunately, <code>basic.reject</code>
+      provides no support for negatively acknowledging messages in
+      bulk.
+    </p>
+
+    <p>
+      To solve this, RabbitMQ supports the <code>basic.nack</code>
+      method that provides all the functionality of
+      <code>basic.reject</code> whilst also allowing for bulk
+      processing of messages.
+    </p>
+
+    <p>
+      To reject messages in bulk, clients set the
+      <code>multiple</code> flag of the <code>basic.nack</code>
+      method to <code>true</code>. The broker will then reject all
+      unacknowledged, delivered messages up to and including the
+      message specified in the <code>delivery_tag</code> field of
+      the <code>basic.nack</code> method. In this respect,
+      <code>basic.nack</code> complements the bulk acknowledgement
+      semantics of <code>basic.ack</code>.
+    </p>
+
+    <p>
+      This example rejects a single message, asking the broker to requeue it:
+    </p>
+    <pre class="sourcecode">
+GetResponse gr = channel.basicGet("some.queue", false);
+channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
+    <p>
+      This example rejects two messages with a single call to
+      the broker (the second argument on
+      <code>basicNack</code> is the <code>multiple</code> flag):
+    </p>
+    <pre class="sourcecode">
+GetResponse gr1 = channel.basicGet("some.queue", false);
+GetResponse gr2 = channel.basicGet("some.queue", false);
+channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);</pre>
+  </body>
+</html>

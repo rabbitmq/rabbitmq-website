@@ -6,13 +6,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Distributed Messaging</title>
+    <title>Distributed RabbitMQ brokers</title>
   </head>
   <body>
     <p class="intro">
-      There are three ways in which RabbitMQ brokers can be connected
-      on more than one machine: with clustering, with federation, and
-      using the shovel. This page explains the purpose of each approach.
+      AMQP and the other messaging protocols supported by RabbitMQ via
+      plug-ins (e.g. STOMP), are (of course) inherently distributed -
+      it is quite common for applications from multiple machines to
+      connect to a single broker, even across the internet.
+    </p>
+    <p class="intro">
+      Sometimes however it is necessary or desirable to make the
+      RabbitMQ broker itself distributed. There are three ways in
+      which to accomplish that: with clustering, with federation, and
+      using the shovel. This page explains the purpose of each
+      approach.
     </p>
     <p>
       Note that you do not need to pick a single approach - you can
@@ -43,7 +51,7 @@
 
     <h2>Federation</h2>
     <p>
-      <a href="http://hg.rabbitmq.com/rabbitmq-federation/file/&version-server-hg;/README">Federation</a>
+      <a href="federation.html">Federation</a>
       allows an exchange on one broker to receive messages published
       to an exchange on another (the brokers may be individual machines, or
       clusters). Communication is via AMQP (with optional SSL), so for
@@ -69,7 +77,7 @@
     <h2>The Shovel</h2>
     <p>
       Connecting brokers
-      with <a href="http://hg.rabbitmq.com/rabbitmq-shovel/file/&version-server-hg;/README">the
+      with <a href="shovel.html">the
       shovel</a> is conceptually similar to connecting them with
       federation. However, the shovel works at a lower level.
     </p>

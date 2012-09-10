@@ -192,7 +192,7 @@
     In case of an error, the above call returns {error, Error}.
   </p>
   <p>
-    An AMQP broker contains objects that organised into groups called
+    An AMQP broker contains objects organised into groups called
     virtual hosts. The concept of virtual hosts gives an administrator
     the facility to partition a broker resource into separate domains
     and restrict access to the objects contained within these
@@ -470,7 +470,7 @@
   <doc:heading>Subscribing To Queues</doc:heading>
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
-    queue can be a more efficient means of delivering messages than
+    queue can be a more efficient means of consuming messages than
     the polling mechanism. To subscribe to a queue, the
     #'basic.consume'{} command is used in one of two forms:
 

@@ -28,7 +28,7 @@
           <b>RabbitMQ clustering does not tolerate network partitions
           well</b>, so it should not be used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
-          <a href="plugins.html#rabbitmq_federation">federation</a>
+          <a href="federation.html">federation</a>
           plugins are better solutions for connecting brokers across a
           WAN.
         </p>
@@ -588,18 +588,18 @@ rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.</pre>
         <p>
           Note that, in order to remove a node from an auto-configured

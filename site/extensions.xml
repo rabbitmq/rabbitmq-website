@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
@@ -5,607 +6,94 @@
   <head>
     <title>Protocol Extensions</title>
   </head>
-  <body show-in-this-page="true">
+  <body>
       <p class="intro">
         The RabbitMQ Server implements a number of extensions of the
         <a href="specification.html">AMQP specification</a>, which we
-        are documenting here.
+        document here.
       </p>
-      <doc:section name="routing">
-        <doc:heading>Message Routing</doc:heading>
 
-        <doc:subsection name="exchange-bindings">
-          <doc:heading>Exchange to Exchange Bindings</doc:heading>
+    <div class="landing-box">
+      <h2>Publishing</h2>
+      <ul>
+        <li>
+          <a href="confirms.html">Confirms</a> (aka Publisher
+          Acknowledgements) are a lightweight way to know when
+          RabbitMQ has taken responsibility for messages.
+        </li>
+        <li>
+          The <a href="validated-user-id.html">User-ID</a> message
+          property is validated by the server.
+        </li>
+      </ul>
+    </div>
 
-          <p>
-            The <code>queue.bind</code> AMQP method binds a queue to an
-            exchange so that messages flow (subject to various criteria)
-            from the exchange (the <em>source</em>) to the queue (the
-            <em>destination</em>). We have introduced an
-            <code>exchange.bind</code> AMQP method which binds one
-            exchange to another exchange. The binding is semantically
-            identical to exchange-to-queue bindings: unidirectional,
-            binding keys and exchange types operate as normal, but both
-            endpoints (the source and destination) of the binding are
-            exchanges. This allows far richer routing topologies to be
-            created. Note the <code>source</code> and
-            <code>destination</code> fields in the
-            <code>exchange.bind</code> method reflect the flow of
-            messages: from the exchange at the source, and to the
-          exchange at the destination.
-          </p>
+    <div class="landing-box">
+      <h2>Consuming</h2>
+      <ul>
+        <li>
+          <a href="consumer-cancel.html">Consumer Cancellation
+          Notifications</a> let a consumer know if it has been
+          cancelled by the server.
+        </li>
+        <li>
+          <a href="nack.html"><code>basic.nack</code></a>
+          extends <code>basic.reject</code> to support rejecting
+          multiple messages at once.
+        </li>
+      </ul>
+    </div>
 
-          <p>
-            Just like with <code>queue.bind</code>, multiple distinct
-            bindings can be created between the same
-            binding-endpoints. We detect and eliminate cycles during
-            message delivery, and ensure that transitively, over any
-            routing topology, for every queue to which a given message
-            is routed, each queue will receive exactly one copy of that
-            message. Exchanges which are declared as
-            <code>auto-delete</code> will still be removed when all
-            their bindings are removed, regardless of whether those
-            bindings are to queues or exchanges. Note that an
-            auto-delete exchange will only be deleted when bindings for
-            which the exchange is the <em>source</em> are removed: if
-            you add exchange-to-exchange bindings for which the given
-            exchange is the <em>destination</em> then that exchange will
-            not be auto-deleted on removal of those bindings.
-          </p>
-        </doc:subsection>
+    <div class="landing-box">
+      <h2>Message Routing</h2>
 
-        <doc:subsection name="alternate-exchange">
-          <doc:heading>Alternate Exchanges</doc:heading>
-          <p>
-            It is sometimes desirable to let clients handle messages
-            that an exchange was unable to route (i.e. either because
-            there were no bound queues our no matching
-            bindings). Typical examples of this are
-            <ul>
-              <li>detecting when clients accidentally or maliciously
-                publish messages that cannot be routed</li>
-              <li>"or else" routing semantics where some messages are
-                handled specially and the rest by a generic handler</li>
-            </ul>
-          </p>
-          <p>
-            RabbitMQ's <em>Alternate Exchange</em> ("AE") feature
-            addresses these use cases.
-          </p>
+      <ul>
+        <li>
+          <a href="e2e.html">Exchange to Exchange Bindings</a> allow
+          messages to pass through multiple exchanges for more flexible
+          routing.
+        </li>
+        <li>
+          <a href="ae.html">Alternate Exchanges</a> route messages
+          that were otherwise unroutable.
+        </li>
+        <li>
+          <a href="sender-selected.html">Sender-selected
+          Distribution</a> allows a publisher to decide where messages
+          are routed directly.
+        </li>
+      </ul>
+    </div>
 
-          <h4>Configuration</h4>
-          <p>
-            When creating an exchange the name of an AE can be
-            optionally supplied in the <code>exchange.declare</code>
-            method's <code>arguments</code> table by specifying a key
-            of 'alternate-exchange' and a value of type 'S' (string)
-            containing the name.
-          </p>
-          <p>
-            When an AE has been specified, in addition to the usual
-            <em>configure</em> permissions on the declared exchange,
-            the user needs to have <em>read</em> permissions on that
-            exchange and <em>write</em> permissions on the AE.
-          </p>
-          <p>
-            For example:
-          </p>
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("alternate-exchange", "my-ae");
-channel.exchangeDeclare("my-direct", "direct", false, false, args);
-channel.exchangeDeclare("my-ae", "fanout");
-channel.queueDeclare("routed");
-channel.queueBind("routed", "my-direct", "key1");
-channel.queueDeclare("unrouted");
-channel.queueBind("unrouted", "my-ae", "");</pre>
-          <p>
-            In the above fragment of Java code we create a direct
-            exchange 'my-direct' that is configured with an AE called
-            'my-ae'. The latter is declared as a fanout exchange. We
-            bind one queue 'routed' to 'my-direct' with a binding key
-            of 'key1', and a queue 'unrouted' to 'my-ae'.
-          </p>
-          <p>
-            Whenever an exchange with a configured AE cannot route a
-            message to any queue (or the message was marked as
-            immediate and it cannot be delivered to any consumer) then
-            it publishes the message to the specified AE instead. If
-            that AE does not exist then a warning is logged. If an AE
-            cannot route a message, it in turn publishes the message
-            to its AE, if it has one configured. This process
-            continues until either the message is successfully routed,
-            the end of the chain of AEs is reached, or an AE is
-            encountered which has already attempted to route the
-            message.
-          </p>
-          <p>
-            For example if we publish a message to 'my-direct' with a
-            routing key of 'key1' then that message is routed to the
-            'routed' queue, in accordance with the standard AMQP
-            behaviour.  However, when publishing a message to
-            'my-direct' with a routing key of 'key2', rather than
-            being discarded the message is routed via our configured
-            AE to the 'unrouted' queue.
-          </p>
-          <p>
-            The behaviour of an AE purely pertains to routing. If a
-            message is routed via an AE it still counts as routed for
-            the purpose of the 'mandatory' and 'immediate' flags, and
-            the message is otherwise unchanged.
-          </p>
-        </doc:subsection>
+    <div class="landing-box">
+      <h2>Message Lifecycle</h2>
+      <ul>
+        <li>
+          <a href="ttl.html#per-queue-message-ttl">Per-Queue Message
+          TTL</a> determines how long an unconsumed message can live
+          before it is automatically deleted.
+        </li>
+        <li>
+          <a href="ttl.html#queue-ttl">Queue TTL</a> determines how
+          long an unused queue can live before it is automatically
+          deleted.
+        </li>
+        <li>
+          <a href="dlx.html">Dead Letter Exchanges</a> ensure messages
+          get re-routed when they are rejected or expire.
+        </li>
+      </ul>
+    </div>
 
-        <doc:subsection name="sender-selected-distribution">
-          <doc:heading>Sender-selected Distribution</doc:heading>
-          <p>
-            The routing logic in AMQP does not offer a way for message
-            publishers to select intended recipients. This is the
-            equivalent of entering multiple recipients in the "CC"
-            field of an email. The RabbitMQ broker treats two headers
-            in a special way to overcome this limitation.
-          </p>
-          <p>
-            The values associated with the "CC" and "BCC" header keys
-            will be added to the routing key if they are present. The
-            message will be routed to all destinations matching the
-            routing key supplied as a parameter to
-            the <code>basic.publish</code> method, as well as the
-            routes supplied in the "CC" and "BCC" headers. If the
-            header does not contain "CC" or "BCC" keys then this
-            extension has no effect.
-          </p>
-          <p>
-            The "BCC" key and value will be removed from the message
-            prior to delivery, offering some confidentiality among
-            consumers. This feature is a violation of the AMQP
-            specification which forbids any message modification,
-            including headers. This feature imposes a small
-            performance penalty.
-          </p>
-          <p>
-            This extension is independent of the client. Any AMQP
-            client with the ability to interoperate with RabbitMQ and
-            set header values can make use of this extension.
-          </p>
-        </doc:subsection>
-      </doc:section>
-
-      <doc:section name="lifetimes">
-        <doc:heading>Lifetimes</doc:heading>
-
-        <doc:subsection name="queue-ttl">
-          <doc:heading>Per-Queue Message TTL</doc:heading>
-
-          <p>
-            The <code>x-message-ttl</code> argument to
-            <code>queue.declare</code> controls for how long a message
-            published to a queue can live before it is discarded. A
-            message that has been in the queue for longer than the
-            configured TTL is said to be <em>dead</em>. Note that a
-            message routed to multiple queues can die at different
-            times, or not at all, in each queue in which it resides. The
-            death of a message in one queue has no impact on the life of
-            the same message in other queues.
-          </p>
-
-          <p>
-            The server guarantees that dead messages will not be
-            included in any <code>basic.get-ok</code> or
-            <code>basic.deliver</code> methods. Further, the server
-            guarantees to reap dead messages at an interval
-            corresponding to the configured TTL.
-          </p>
-
-          <p>
-            The value of the <code>x-message-ttl</code> argument must be
-            an integer, greater than zero, describing the TTL period in
-            milliseconds. Thus a value of 1000 means that a message
-            added to the queue will live in the queue for 1 second or
-            until it is delivered to a consumer. The argument can be of
-            AMQP type short-short-int, short-int, long-int, or
-            long-long-int.
-          </p>
-
-          <p>
-            This example in Java creates a queue in which messages may reside for at most 60 seconds:
-          </p>
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-message-ttl", 60000);
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
-          <p>
-            The original expiry time of a message is preserved if it
-            is requeued (for example due to the use of an AMQP method
-            that features a requeue parameter, or due to a channel
-            closure).
-          </p>
-        </doc:subsection>
-        <doc:subsection name="queue-leases">
-          <doc:heading>Queue Leases</doc:heading>
-
-          <p>
-            The <code>x-expires</code> argument to
-            <code>queue.declare</code> controls for how long a queue can
-            be unused before it is automatically
-            deleted. <em>Unused</em> means the queue has no consumers,
-            the queue has not been redeclared, and no consumer related
-            operations (<code>basic.get</code> or
-            <code>basic.cancel</code>) have occurred for a duration of
-            at least the expiration period. This can be used, for
-            example, for RPC-style reply queues, where many queues can
-            be created which may never be drained.
-          </p>
-
-          <p>
-            The server guarantees that the queue will be deleted, if
-            unused for at least the expiration period. No guarantee is
-            given as to how promptly the queue will be removed after the
-            expiration period has elapsed. Leases of durable queues
-            restart when the server restarts.
-          </p>
-
-          <p>
-            The value of the <code>x-expires</code> argument must be an
-            integer, greater than zero, describing the expiration period
-            in milliseconds. Thus a value of 1000 means a queue which is
-            unused for 1 second will be deleted. The argument can be of
-            AMQP type short-short-int, short-int, long-int, or
-            long-long-int.
-          </p>
-
-          <p>
-            This example in Java creates a queue which expires after
-            it has been unused for 30 minutes.
-          </p>
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-expires", 1800000);
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
-        </doc:subsection>
-      </doc:section>
-
-      <doc:section name="publishing">
-        <doc:heading>Publishing</doc:heading>
-
-        <doc:subsection name="confirms">
-          <doc:heading>Confirms (aka Publisher Acknowledgements)</doc:heading>
-
-          <p>
-            Using standard AMQP, the only way to guarantee that a
-            message isn't lost is by using transactions -- make the
-            channel transactional, publish the message, commit.  In this
-            case, transactions are unnecessarily heavyweight and
-            decrease throughput by a factor of 250.  To remedy this,
-            a confirmation mechanism was introduced.
-          </p>
-
-          <p>
-            To enable confirms, a client sends the
-            <code>confirm.select</code> method.  Depending on whether
-            <code>no-wait</code> was set or not, the broker may respond
-            with a <code>confirm.select-ok</code>.  Once the
-            <code>confirm.select</code> method is used on a channel, it
-            is said to be in confirm mode.  A transactional channel
-            cannot be put into confirm mode and once a channel is in
-            confirm mode, it cannot be made transactional.
-          </p>
-
-          <p>
-            Once a channel is in confirm mode, both the broker and the
-            client count messages (counting starts at 1 on the first
-            <code>confirm.select</code>).  The broker then confirms
-            messages as it handles them by sending a
-            <code>basic.ack</code> on the same channel. The
-            <code>delivery-tag</code> field contains the sequence number
-            of the confirmed message.  The broker may also set the
-            <code>multiple</code> field in <code>basic.ack</code> to
-            indicate that all messages up to and including the one with
-            the sequence number have been handled.
-          </p>
-
-          <p>
-            By confirming a message the broker assumes responsibility
-            for it and indicates that it has done something it deems
-            reasonable with it.  Unroutable mandatory or immediate
-            messages are confirmed right after the
-            <code>basic.return</code>.  Transient messages are
-            confirmed as soon as they arrive on all the queues they
-            were routed to.  Persistent messages are confirmed when
-            all queues have either delivered the message and received an
-            acknowledgement (if required), or persisted the message.
-          </p>
-
-          <p>
-            In exceptional cases when the broker is unable to handle
-            messages successfully, instead of a <code>basic.ack</code>,
-            the broker will send a <code>basic.nack</code>.  In this
-            context, fields of the <code>basic.nack</code> have the same
-            meaning as the corresponding ones in <code>basic.ack</code>
-            and the <code>requeue</code> field should be ignored.  By
-            nack'ing one or more messages, the broker indicates that it
-            was unable to process the messages and refuses responsibility
-            for them; at that point, the client may choose to re-publish
-            the messages.
-          </p>
-
-          <p>
-            After a channel is put into confirm mode, all subsequently
-            published messages will be confirmed or nack'd once.  No
-            guarantees are made as to how soon a message is confirmed.
-            No message will be both confirmed and nack'd.
-          </p>
-
-          <p>
-            An example in Java that publishes a large number of
-            messages to a channel in confirm mode and waits for the
-            acknowledgements can be found <a
-            href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
-          </p>
-
-          <h4>Notes</h4>
-
-          <p>
-            The broker loses persistent messages if it crashes before
-            said messages are written to disk.  Under certain
-            conditions, this causes the broker to behave in surprising
-            ways.
-          </p>
-
-          <p>
-            For instance, consider this scenario:
-            <ol>
-              <li>a client publishes a persistent message to a durable
-              queue</li>
-              <li>a client consumes the message from the queue (noting
-              that the message is persistent and the queue
-              durable), but doesn't yet ack it,</li>
-              <li>the broker dies and is restarted, and</li>
-              <li>the client reconnects and starts consuming messages.</li>
-            </ol>
-            At this point, the client could reasonably assume that the
-            message will be delivered again.  This is not the case:
-            the restart has caused the broker to lose the message.  In
-            order to guarantee persistence, a client should use
-            confirms.  If the publisher's channel had been in confirm
-            mode, the publisher would <em>not</em> have received an
-            ack for the lost message (since the consumer hadn't ack'd
-            it and it hadn't been written to disk).
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="validated-user-id">
-          <doc:heading>Validated User-ID</doc:heading>
-          <p>
-            In some scenarios it is useful for consumers to be able
-            to know the identity of the user who published a
-            message. We have therefore made sure that
-            the <code>user-id</code> message property is validated. If
-            this property is set by a publisher, its value must be equal
-            to the name of the user used to open the connection. If
-            the <code>user-id</code> property is not set, the
-            publisher's identity remains private.
-          </p>
-          <p>
-            For example (in Java):
-          </p>
-          <pre class="sourcecode">
-AMQP.BasicProperties properties = new AMQP.BasicProperties();
-properties.setUserId("guest");
-channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
-          <p>
-            This message will only be published successfully if the user
-            is "guest".
-          </p>
-          <p>
-            If security is a serious concern, you should probably
-            combine the use of this feature
-            with <a href="ssl.html">SSL</a> based connections.
-          </p>
-        </doc:subsection>
-      </doc:section>
-
-      <doc:section name="consuming">
-        <doc:heading>Consuming</doc:heading>
-        <doc:subsection name="negative-acknowledgements">
-          <doc:heading>Negative Acknowledgements</doc:heading>
-
-          <p>
-            The AMQP specification defines the <code>basic.reject</code>
-            method that allows clients to reject individual, delivered
-            messages, instructing the broker to either discard them or
-            requeue them. Unfortunately, <code>basic.reject</code>
-            provides no support for negatively acknowledging messages in
-            bulk.
-          </p>
-
-          <p>
-            To solve this, RabbitMQ supports the <code>basic.nack</code>
-            method that provides all the functionality of
-            <code>basic.reject</code> whilst also allowing for bulk
-            processing of messages.
-          </p>
-
-          <p>
-            To reject messages in bulk, clients set the
-            <code>multiple</code> flag of the <code>basic.nack</code>
-            method to <code>true</code>. The broker will then reject all
-            unacknowledged, delivered messages up to and including the
-            message specified in the <code>delivery_tag</code> field of
-            the <code>basic.nack</code> method. In this respect,
-            <code>basic.nack</code> complements the bulk acknowledgement
-            semantics of <code>basic.ack</code>.
-          </p>
-
-          <p>
-            This example rejects a single message, asking the broker to requeue it:
-          </p>
-          <pre class="sourcecode">
-GetResponse gr = channel.basicGet("some.queue", false);
-channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
-          <p>
-            This example rejects two messages with a single call to
-            the broker (the second argument on
-            <code>basicNack</code> is the <code>multiple</code> flag):
-          </p>
-          <pre class="sourcecode">
-GetResponse gr1 = channel.basicGet("some.queue", false);
-GetResponse gr2 = channel.basicGet("some.queue", false);
-channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);</pre>
-        </doc:subsection>
-
-        <doc:subsection name="consumer-cancel-notify">
-          <doc:heading>Consumer Cancellation Notifications</doc:heading>
-
-          <p>
-            When a channel is consuming from a queue, there are various
-            reasons which could cause the consumption to stop. One of
-            these is obviously if the client issues a
-            <code>basic.cancel</code> on the same channel, which will
-            cause the consumer to be cancelled and the server replies
-            with a <code>basic.cancel-ok</code>. Other events, such as
-            the queue being deleted, or in a clustered scenario, the
-            node on which the queue is located failing, will cause the
-            consumption to be cancelled, but the client channel will not
-            be informed, which is frequently unhelpful.
-          </p>
-
-          <p>
-            To solve this, we have introduced an extension in which the
-            broker will send to the client a <code>basic.cancel</code>
-            in the case of such unexpected consumer cancellations. This
-            is not sent in the case of the broker receiving a
-            <code>basic.cancel</code> from the client. AMQP 0-9-1
-            clients don't by default expect to receive
-            <code>basic.cancel</code> methods from the broker
-            asynchronously, and so in order to enable this behaviour,
-            the client must present a <code>capabilities</code> table in
-            its <code>client-properties</code> in which there is a key
-            <code>consumer_cancel_notify</code> and a boolean value
-            <code>true</code>. See the
-            <a href="#capabilities">capabilities</a> section for further
-            details on this.
-          </p>
-
-          <p>
-            Our supported clients present this capability by default to
-            the broker and thus will be sent the asynchronous
-            <code>basic.cancel</code> method by the broker, which they
-            present to the consumer callback. For example, in our Java
-            client, the <code>Consumer</code> interface has a
-            <code>handleCancel</code> callback, which can be overridden
-            by sub-classing the <code>QueueingConsumer</code> class:
-            <pre class="sourcecode">
-channel.queueDeclare(queue, false, true, false, null);
-Consumer consumer = new QueueingConsumer(channel) {
-    @Override
-    public void handleCancel(String consumerTag) throws IOException {
-        // consumer has been cancelled unexpectedly
-    }
-};
-channel.basicConsume(queue, consumer);</pre>
-            It is not an error for the client to issue a
-            <code>basic.cancel</code> for a consumer which has been
-            unexpectedly cancelled (e.g. due to queue deletion). By
-            definition, there is a race possible between a client
-            issuing a <code>basic.cancel</code>, and the broker sending
-            out the asynchronous notification. In such cases, the broker
-            does not error when it receives the
-            <code>basic.cancel</code> and replies with a
-            <code>basic.cancel-ok</code> as normal.
-          </p>
-        </doc:subsection>
-      </doc:section>
-
-      <doc:section name="capabilities">
-        <doc:heading>Client and Server Capabilities</doc:heading>
-
-        <p>
-          The AMQP 0-8 specification defined a
-          <code>capabilities</code> field as part of the
-          <code>connection.open</code> method. This field was
-          deprecated in the AMQP 0-9-1 specification and is not
-          inspected by the RabbitMQ broker. As specified in AMQP 0-8,
-          it also suffered from being a <code>shortstr</code>: a
-          string of no more than 256 characters.
-        </p>
-
-        <p>
-          There is good reason for both the client and the server
-          being able to present extensions and capabilities that they
-          support, thus we have introduced an alternative form of
-          capabilities. In the <code>server-properties</code> field of
-          <code>connection.start</code>, and in the
-          <code>client-properties</code> field of
-          <code>connection.start-ok</code>, the field value (a
-          <code>peer-properties</code> table) can optionally contain a
-          key named <code>capabilities</code> for which the value is
-          another table, in which the keys name the capabilities
-          supported. The values for these capability keys are
-          typically booleans, indicating whether or not the capability
-          is supported, but may vary based on the nature of the
-          capability.
-        </p>
-
-        <p>
-          For example, the <code>server-properties</code> presented by
-          the RabbitMQ broker to a client may look like:
-
-          <pre class="sourcecode">
-{ "product"      = (longstr) "RabbitMQ",
-  "platform"     = (longstr) "Erlang/OTP",
-  "information"  = (longstr) "Licensed under the MPL.  See http://www.rabbitmq.com/",
-  "copyright"    = (longstr) "Copyright (C) 2007-2011 VMware, Inc.",
-  "capabilities" = (table)   { "exchange_exchange_bindings" = (bool) true,
-                               "consumer_cancel_notify"     = (bool) true,
-                               "basic.nack"                 = (bool) true,
-                               "publisher_confirms"         = (bool) true },
-  "version"      = (longstr) "2.4.0" }</pre>
-        </p>
-
-        <p>
-          Note that it is optional for clients to present this
-          <code>capabilities</code> table as part of the
-          <code>client-properties</code> table: failure to present
-          such a table does not preclude the client from being able to
-          use extensions such as <a href="#exchange-bindings">exchange
-          to exchange bindings</a>. However, in some cases such as <a
-          href="#consumer-cancel-notify">consumer cancellation
-          notification</a>, the client must present the associated
-          capability otherwise the broker will have no way of knowing
-          that the client is capable of receiving the additional
-          notifications.
-        </p>
-      </doc:section>
-      <doc:section name="ha">
-        <doc:heading>High Availability (Mirrored) Queues</doc:heading>
-        <p>
-          We have developed active/active high availability for queues
-          that allows queues to be mirrored across multiple nodes in a
-          RabbitMQ <a href="clustering.html">cluster</a>.
-        </p>
-        <p>
-          Please see the <a href="ha.html">technical documentation</a> and
-          the <a href="blog/2011/10/25/high-availability-in-rabbitmq-solving-part-of-the-puzzle/">blog post</a>
-          that accompanied the release.
-        </p>
-      </doc:section>
-      <doc:section name="undeprecation">
-        <doc:heading>Undeprecated features</doc:heading>
-        <p>
-         In addition to extensions beyond the specification, RabbitMQ also undeprecates
-         some features that were removed from AMQP 0-9-1.
-        </p>
-        <ul>
-          <li><a href="amqp-0-9-1-reference.html#exchange.declare.auto-delete">Auto-delete exchanges</a></li>
-          <li><a href="amqp-0-9-1-reference.html#exchange.declare.internal">Internal exchanges</a></li>
-        </ul>
-        <p>
-         The access class was deprecated from AMQP 0-9-1. RabbitMQ implements the
-         <code>access.request</code> method from this class as a no-op in order to
-         maintain compatibility with older clients. This method will be removed in
-         the future and should not be relied upon.
-        </p>
-      </doc:section>
+    <div class="landing-box">
+      <h2>Undeprecated features</h2>
+      <ul>
+        <li>
+          Some features that were in AMQP 0-8 were deprecated in AMQP
+          0-9-1. We have <a href="undeprecated.html">undeprecated</a>
+          some of them.
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

@@ -42,7 +42,7 @@
         <p>
           <b>Note: </b> Releases prior to 2.7.0 did not include
           plugins with the server, and any plugins that were installed
-          were always activated; <b>rabbitmq-plugins</b> did not
+          were always activated; <code>rabbitmq-plugins</code> did not
           exist. You can download binary plugin files for older
           releases from <a href="/releases/plugins/">the
           archive</a>. Note further that we did not make binary
@@ -68,9 +68,15 @@
 
           <r:plugin name="rabbitmq_federation">
             Scalable publish / subscribe messaging across WANs and
-            administrative domains. See the
-            <r:readme-link repo="rabbitmq-federation"/> for more
-            information.
+            administrative domains. See <a href="federation.html">the
+            page on the federation plugin</a> for more information.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_federation_management">
+            Shows federation status in the management API and UI. Only
+            of use when using rabbitmq_federation in conjunction with
+            <code>rabbitmq_management</code>. In a heterogenous cluster this
+            should be installed on the same nodes as rabbitmq_management.
           </r:plugin>
 
           <r:plugin name="rabbitmq_management">
@@ -81,28 +87,30 @@
           </r:plugin>
 
           <r:plugin name="rabbitmq_management_agent">
-            When installing the management plugin on <b>some</b>
+            When installing the management plugin on <em>some</em>
             of the nodes in a cluster, you must install
-            <r:plugin-link name="rabbitmq_management_agent"/>
-            on <b>all</b> of the nodes in the cluster. You can install the
+            <code>rabbitmq_management_agent</code>
+            on <em>all</em> of the nodes in the cluster. You can install the
             full management plugin on as many of the nodes as you
             want.
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel">
-            A plug-in for RabbitMQ that shovels messages from a queue on one
-            broker to an exchange on another broker. Please see the
-            <r:readme-link repo="rabbitmq-shovel"/> for more information or
-            take a look
-            at <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
-              working Shovel configuration</a>.
+            A plug-in for RabbitMQ that shovels messages from a queue on
+            one broker to an exchange on another broker. Please see
+            <a href="shovel.html">the page on the shovel plugin</a> for
+            more information or take a look at
+            <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
+            working Shovel configuration</a>.
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel_management">
-            Shows shovel status in the management API and UI. Only
-            of use when using rabbitmq_shovel in conjunction with
-            <code>rabbitmq_management</code>. In a heterogenous cluster this
-            should be installed on the same nodes as rabbitmq_management.
+            Shows shovel status in the management API and UI. See the
+            plugin <r:readme-link repo="rabbitmq-shovel-management"/>.
+            Only of use when using <code>rabbitmq_shovel</code> in
+            conjunction with <code>rabbitmq_management</code>. In a
+            heterogenous cluster this should be installed on the same
+            nodes as <code>rabbitmq_management</code>.
           </r:plugin>
 
           <r:plugin name="rabbitmq_stomp">
@@ -199,7 +207,8 @@
         <tr>
           <th>Macports</th>
           <td>
-            <code>/opt/local/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
+            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
           </td>
         </tr>
         <tr>

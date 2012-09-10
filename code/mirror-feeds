@@ -21,5 +21,5 @@ mirror_feed () {
     rm -f "$tmpfile"
 }
 
-mirror_feed 'http://search.twitter.com/search.atom?q=rabbitmq%2Bexclude%3Aretweets&amp;result_type=popular' $feeds_dir/twitter.atom
-$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site index.xml
+mirror_feed 'http://search.twitter.com/search.atom?q=rabbitmq%2Bexclude%3Aretweets' $feeds_dir/twitter.atom
+$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site index.xml > /dev/null
