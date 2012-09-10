@@ -30,25 +30,27 @@ try{
 <body>
 <div xmlns="http://www.w3.org/1999/xhtml" id="outerContainer">
     <div id="rabbit-logo">
-      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
+      <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
-    <div class="s2-logo">
-      <a href="http://www.springsource.org"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    <div id="vmw-logo">
+      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
     </div>
-    <div id="search-box">
-      <form action="/search.html" method="get">
-        <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
-        <input type="submit" id="search-button" alt="Search" value="" />
-      </form>
+    <div id="nav-search">
+      <div id="search-box">
+        <form action="/search.html" method="get">
+          <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+          <input type="submit" id="search-button" alt="Search" value="" />
+        </form>
+      </div>
+      <ul class="mainNav">
+        <li><a href="/download.html">Installation</a></li>
+        <li><a href="/documentation.html">Documentation</a></li>
+        <li><a href="/getstarted.html">Get Started</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/contact.html">Community</a></li>
+        <li><a href="/blog/" class="selected">Blog</a></li>
+      </ul>
     </div>
-  <ul class="mainNav">
-    <li><a href="/download.html">Installation</a></li>
-    <li><a href="/documentation.html">Documentation</a></li>
-    <li><a href="/getstarted.html">Get Started</a></li>
-    <li><a href="/services.html">Services</a></li>
-    <li><a href="/contact.html">Community</a></li>
-    <li><a href="/blog/" class="selected">Blog</a></li>
-  </ul>
 
   <div class="nav-separator"/>
 
