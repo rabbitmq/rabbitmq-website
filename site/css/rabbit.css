@@ -53,7 +53,7 @@ h1, h2, h3  {
 #rabbit-logo {
 	margin: 10px 0 0 0;
 	float: left;
-	height: 42px;
+	height: 53px;
 }
 
 #vmw-logo {
@@ -62,8 +62,7 @@ h1, h2, h3  {
 }
 
 div#nav-search {
-    padding-top: 5px;
-    clear: both;
+	clear: both;
 }
 
 div#search-box {
@@ -72,7 +71,7 @@ div#search-box {
 	background: url('../img/search-box.png') no-repeat;
 	height: 26px;
 	width: 191px;
-	padding: 4px 10px 0px 10px;
+	padding: 4px 10px 4px 10px;	
 }
 
 input#search-query {
@@ -179,7 +178,7 @@ div.docRoadmapentryHeading {
 ul.mainNav {
 	text-align: left;
 	height: 21px;
-        padding-top: 8px;
+  padding-top: 8px;
 }
 
 .mainNav li {

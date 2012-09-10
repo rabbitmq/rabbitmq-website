@@ -65,7 +65,7 @@
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
-      <a href="/"><img src="/img/rabbitmqlogonostrap.png" alt="RabbitMQ" width="204" height="37"/></a>
+      <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
     <div id="vmw-logo">
       <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
