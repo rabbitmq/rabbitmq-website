@@ -13,7 +13,7 @@
     <doc:section name="message-ttl">
       <doc:heading>Message TTL</doc:heading>
       <p>
-        The message TTL of a message determines how long the message will live
+        The TTL of a message determines how long the message will live
         in a queue before it is discarded. Note that a message routed to
         multiple queues can die at different times, or not at all, in each queue
         in which it resides. The death of a message in one queue has no impact
