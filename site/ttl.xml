@@ -10,18 +10,15 @@
     <p class="intro">
       RabbitMQ allows you to set Time To Live for both messages and queues.
     </p>
-    <doc:section name="per-queue-message-ttl">
-      <doc:heading>Per-Queue Message TTL</doc:heading>
+    <doc:section name="message-ttl">
+      <doc:heading>Message TTL</doc:heading>
       <p>
-        The <code>x-message-ttl</code> argument to
-        <code>queue.declare</code> controls for how long a message
-        published to a queue can live before it is discarded. A
-        message that has been in the queue for longer than the
-        configured TTL is said to be <em>dead</em>. Note that a
-        message routed to multiple queues can die at different
-        times, or not at all, in each queue in which it resides. The
-        death of a message in one queue has no impact on the life of
-        the same message in other queues.
+        The message TTL of a message determines how long the message will live
+        in a queue before it is discarded. Note that a message routed to
+        multiple queues can die at different times, or not at all, in each queue
+        in which it resides. The death of a message in one queue has no impact
+        on the life of the same message in other queues. The TTL can be set for
+        a single message or for all the queue messages.
       </p>
 
       <p>
@@ -32,13 +29,33 @@
       </p>
 
       <p>
-        The value of the <code>x-message-ttl</code> argument must be a
-        non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1),
-        describing the TTL period in milliseconds. Thus a value of
-        1000 means that a message added to the queue will live in the
-        queue for 1 second or until it is delivered to a consumer. The
-        argument can be of AMQP type short-short-int, short-int,
-        long-int, or long-long-int.
+        To specify a per-message TTL the <code>expiration</code> field in the
+        <code>basic</code> AMQP class, when sending a
+        <code>basic.publish</code>.  The TTL value must be a non-negative 32 bit
+        integer (0 &lt;= n &lt;= 2^32-1), describing the TTL period in
+        milliseconds. Thus a value of 1000 means that a message added to the
+        queue will live in the queue for 1 second or until it is delivered to a
+        consumer. Since the <code>expiration</code> field must be a string, the
+        broker will accept the string representation of the number, and reject
+        the publish for invalid values of malformed strings.
+      </p>
+
+      <p>
+        This example in Java publishes a message which can reside in the queue
+        for at most 60 seconds:
+      </p>
+      <pre class="sourcecode">
+byte[] messageBodyBytes = "Hello, world!".getBytes();
+AMQP.BasicProperties properties = new AMQP.BasicProperties();
+properties.setExpiration("60000");
+channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
+
+      <p>
+        The <code>x-message-ttl</code> argument to <code>queue.declare</code>
+        can be used to set a per-queue TTL. The argument can be of AMQP type
+        short-short-int, short-int, long-int, or long-long-int. The same
+        constraints as the per-message TTL apply.  Please note that per-message
+        TTL always has priority on the per-queue settings.
       </p>
 
       <p>
@@ -49,6 +66,7 @@
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
       <p>
         The original expiry time of a message is preserved if it
         is requeued (for example due to the use of an AMQP method
@@ -57,7 +75,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
-        Setting <code>x-message-ttl</code> to 0 causes messages to
+        Setting TTL to 0 causes messages to
         be expired upon reaching a queue unless they can be
         delivered to a consumer immediately. Thus this provides an
         alternative to <code>basic.publish</code>'s
