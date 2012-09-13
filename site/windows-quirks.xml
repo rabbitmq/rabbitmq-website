@@ -82,12 +82,15 @@
     </p>
     <h3>Shutting down Windows</h3>
     <p>
-      Due to limitations in the underlying Erlang VM, the broker will
-      not go through the controlled shutdown sequence when Windows
-      shuts down. If RabbitMQ is installed as a service then you must
-      stop the service manually before shutting down Windows. Failure
-      to do so may cause the broker to spend longer on recovery when
-      started subsequently.
+      It is necessary to take precautions when shutting down Windows
+      and using versions of Erlang prior to R15B02. Due to limitations
+      in older versions of the underlying Erlang VM, the broker will
+      not go through a controlled shutdown sequence when Windows
+      shuts down. If RabbitMQ is installed as a service using an older
+      version of Erlang then you must stop the service manually before
+      shutting down Windows. Failure to do so may cause the broker to
+      spend longer on recovery when started subsequently. The use of
+      Erlang R15B02 or later is recommended to avoid this problem.
     </p>
   </body>
 </html>
