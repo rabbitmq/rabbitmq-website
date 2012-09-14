@@ -13,12 +13,14 @@
     <doc:section name="message-ttl">
       <doc:heading>Message TTL</doc:heading>
       <p>
-        The TTL of a message determines how long the message will live
-        in a queue before it is discarded. Note that a message routed to
-        multiple queues can die at different times, or not at all, in each queue
-        in which it resides. The death of a message in one queue has no impact
-        on the life of the same message in other queues. The TTL can be set for
-        a single message or for all the queue messages.
+        The TTL of a message determines how long the message will live in a
+        queue before it is discarded. Note that a message routed to multiple
+        queues can die at different times, or not at all, in each queue in which
+        it resides. The death of a message in one queue has no impact on the
+        life of the same message in other queues. The TTL can be set for a
+        single message or for all the queue messages. If a message is published
+        with a per-message TTL in a queue with a per-queue TTL, the lower TTL
+        will be used.
       </p>
 
       <p>
@@ -29,15 +31,45 @@
       </p>
 
       <p>
+        While consumers will never see messages that have been in the queue for
+        longer than the TTL, only the messages at the head of the queue will be
+        actually discarded, until a non-discardable message is encountered.
+        This means that messages with a TTL will queue up behind messages with
+        no TTL or higher TTL until given messages are consumed. This also means
+        that those messages will add up towards various queue-related figures
+        (e.g. the number of messages in the queue). For this reason, when using
+        a TTL to increase performance, a per-queue TTL is reccomended, since it
+        will ensure that all the messages will have the specified TTL or less.
+      </p>
+
+      <p>
+        The <code>x-message-ttl</code> argument to <code>queue.declare</code>
+        can be used to set a per-queue TTL. The argument can be of AMQP type
+        short-short-int, short-int, long-int, or long-long-int. The TTL value
+        must be a non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1),
+        describing the TTL period in milliseconds. Thus a value of 1000 means
+        that a message added to the queue will live in the queue for 1 second or
+        until it is delivered to a consumer.
+      </p>
+
+      <p>
+        This example in Java creates a queue in which messages may
+        reside for at most 60 seconds:
+      </p>
+      <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-message-ttl", 60000);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+      <p>
         To specify a per-message TTL the <code>expiration</code> field in the
         <code>basic</code> AMQP class, when sending a
-        <code>basic.publish</code>.  The TTL value must be a non-negative 32 bit
-        integer (0 &lt;= n &lt;= 2^32-1), describing the TTL period in
-        milliseconds. Thus a value of 1000 means that a message added to the
-        queue will live in the queue for 1 second or until it is delivered to a
-        consumer. Since the <code>expiration</code> field must be a string, the
+        <code>basic.publish</code>. The same constraints as the per-message TTL
+        apply. Since the <code>expiration</code> field must be a string, the
         broker will accept the string representation of the number, and reject
-        the publish for invalid values of malformed strings.
+        the publish for invalid values of malformed strings. The
+        <code>expiration</code> field will be ignored when used in anything but
+        <code>basic.publish</code>
       </p>
 
       <p>
@@ -49,23 +81,6 @@ byte[] messageBodyBytes = "Hello, world!".getBytes();
 AMQP.BasicProperties properties = new AMQP.BasicProperties();
 properties.setExpiration("60000");
 channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
-
-      <p>
-        The <code>x-message-ttl</code> argument to <code>queue.declare</code>
-        can be used to set a per-queue TTL. The argument can be of AMQP type
-        short-short-int, short-int, long-int, or long-long-int. The same
-        constraints as the per-message TTL apply.  Please note that per-message
-        TTL always has priority on the per-queue settings.
-      </p>
-
-      <p>
-        This example in Java creates a queue in which messages may
-        reside for at most 60 seconds:
-      </p>
-      <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-message-ttl", 60000);
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
       <p>
         The original expiry time of a message is preserved if it
