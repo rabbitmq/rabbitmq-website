@@ -188,7 +188,7 @@
             limits; global limits and prefetch size limits are not
             implemented.</notes>
           </method>
-	  <method name="basic.qos-ok"><status value="ok"/></method>
+	  <method name="basic.qos-ok"><status value="partial"/></method>
 	  <method name="basic.consume"><status value="partial"/>
             <notes>The no-local parameter is not implemented. The
             value of this parameter is ignored and no attempt is
