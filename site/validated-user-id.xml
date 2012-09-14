@@ -40,5 +40,15 @@ channel.basicPublish("amq.fanout", "", properties, "test".getBytes());</pre>
       this tag set. In particular, the <code>administrator</code> tag
       does not allow this.
     </p>
+    <p>
+      The <a href="federation.html">federation plugin</a> can deliver
+      messages from an upstream on which the <code>user-id</code>
+      property is set. By default it will clear this property (since
+      it has no way to know whether the upstream broker is
+      trustworthy). If the <code>trust-user-id</code> field is set,
+      then it will pass the <code>user-id</code> property through
+      from the upstream broker, assuming it to have been validated
+      there.
+    </p>
   </body>
 </html>
