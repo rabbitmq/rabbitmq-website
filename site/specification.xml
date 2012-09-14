@@ -188,8 +188,13 @@
             limits; global limits and prefetch size limits are not
             implemented.</notes>
           </method>
-	  <method name="basic.qos-ok"><status value="partial"/></method>
-	  <method name="basic.consume"><status value="ok"/></method>
+	  <method name="basic.qos-ok"><status value="ok"/></method>
+	  <method name="basic.consume"><status value="partial"/>
+            <notes>The no-local parameter is not implemented. The
+            value of this parameter is ignored and no attempt is
+            made to prevent a consumer from receiving messages that
+            were published on the same connection.</notes>
+          </method>
 	  <method name="basic.consume-ok"><status value="ok"/></method>
 	  <method name="basic.cancel"><status value="ok"/></method>
 	  <method name="basic.cancel-ok"><status value="ok"/></method>
