@@ -203,6 +203,12 @@
       <pre class="example">    rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
+        When using the management plugin, you will also want to
+        enable <code>rabbitmq_federation_management</code>:
+      </p>
+      <pre class="example">    rabbitmq-plugins enable rabbitmq_federation_management</pre>
+
+      <p>
         When using a federation in a cluster, all the nodes of the
         cluster must have the federation plugin installed. Any node
         can declare a federated exchange and its properties are shared
@@ -275,7 +281,7 @@
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/federation-upstream/my-upstream</code><br/>
+            PUT <code>/api/parameters/federation-upstream/%2f/my-upstream</code><br/>
             <code>{"value":{"uri":"amqp://server-name","expires":3600000}}</code>
           </td>
         </tr>
@@ -296,32 +302,34 @@
           <th>rabbitmqctl</th>
           <td>
             <code>rabbitmqctl set_parameter policy federate-me \<br/>
-'{"prefix":"amq.","policy":{"federation-upstream-set":"all"}}'</code>
+'{"pattern":"^amq.","policy":{"federation-upstream-set":"all"}}'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/policy/federate-me</code><br/>
-            <code>{"value":{"prefix":"amq.","policy":{"federation-upstream-set":"all"}}}</code>
+            PUT <code>/api/parameters/policy/%2f/federate-me</code><br/>
+            <code>{"value":{"pattern":"^amq.","policy":{"federation-upstream-set":"all"}}}</code>
           </td>
         </tr>
         <tr>
           <th>Web UI</th>
           <td>
             Navigate to Admin > Policies > Add / update a
-            policy. Enter "federate-me" next to Name, "amq." next to
-            Prefix, and "federation-upstream-set" = "all" in the
-            first line next to Policy. Click Add policy.
+            policy. Enter "federate-me" next to Name, "^amq." next to
+            Regexp and "federation-upstream-set" = "all"
+            in the first line next to Policy. Click Add policy.
           </td>
         </tr>
         </table>
 
         <p>
           We tell the policy to federate all exchanges whose names
-          begin with "amq." (i.e. all the built in exchanges), and to
-          federate them using the implicitly created upstream set
-          "all", which includes our newly-created upstream.
+          begin with "amq." (i.e. all the built in exchanges) with (implicit)
+          low priority, and to federate them using the implicitly created
+          upstream set "all", which includes our newly-created upstream.
+          Any other matching policy with a priority greater than 0 will take
+          precedence over this policy.
         </p>
 
         <p>
@@ -418,6 +426,22 @@
             <p>
               This value is used to set the <code>"x-message-ttl"</code>
               argument for the upstream queue.
+            </p>
+          </dd>
+
+          <dt><code>trust-user-id</code></dt>
+          <dd>
+            <p>
+              Determines how federation should interact with
+              the <a href="validated-user-id.html">validated
+              user-id</a> feature. If set to <code>true</code>,
+              federation will pass through any validated user-id from
+              the upstream, even though it cannot validate it
+              itself. If set to <code>false</code> or not set, it will
+              clear any validated user-id it encounters. You should
+              only set this to <code>true</code> if you trust the
+              upstream server (and by extension, all its upstreams)
+              not to forge user-ids.
             </p>
           </dd>
 

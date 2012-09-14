@@ -33,7 +33,7 @@ try{
       <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
     </div>
     <div class="s2-logo">
-      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+      <a href="http://www.springsource.org"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
     </div>
     <div id="search-box">
       <form action="/search.html" method="get">

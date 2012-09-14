@@ -94,7 +94,8 @@
         <th>rabbitmqctl</th>
         <td>
           <pre>rabbitmqctl set_parameter policy federate-me \
-  '[{&lt;&lt;"prefix">>, &lt;&lt;"amq.">>}, \
+  '[{&lt;&lt;"pattern">>, &lt;&lt;"^amq.">>}, \
+    {&lt;&lt;"priority">>, 1}, \
     {&lt;&lt;"policy">>, [{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</pre>
         </td>
       </tr>
@@ -102,7 +103,8 @@
         <th>HTTP API</th>
         <td>
           <pre>PUT /api/parameters/policy/%2f/federate-me
-{"value":{"prefix": "amq.",
+{"value":{"pattern": "^amq.",
+          "priority": 1,
           "policy": {"federation-upstream-set":"all"}}}</pre>
         </td>
       </tr>
@@ -116,14 +118,13 @@
     </p>
 
     <p>
-      The <code>"prefix"</code> argument is optional; if it is
-      omitted then the policy matches every name.
+      The <code>"pattern"</code> argument is a regular expression used
+      to match exchange or queue names.
     </p>
 
     <p>
       In the event that more than one policy can match a given
-      exchange or queue, the most specific policy (the one with the
-      longest prefix) is chosen.
+      exchange or queue, the policy with the greatest priority applies.
     </p>
   </body>
 </html>

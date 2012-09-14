@@ -25,6 +25,7 @@
      </x:page>
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
+     <x:page url="/install-mac.html" text="Install: Mac OS X"/>
      <x:page url="/install-macports.html" text="Install: MacPorts"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
      <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
@@ -42,7 +43,7 @@
        <x:related url="/api-guide.html"/>
      </x:page>
      <x:page url="/dotnet.html" text=".NET Client Downloads">
-       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
      </x:page>
      <x:page url="/erlang-client.html" text="Erlang Client Downloads">
        <x:related url="/erlang-client-user-guide.html"/>
@@ -88,9 +89,10 @@
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
-       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET API Guide (pdf)"/>
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
        <x:related url="/&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="/&dir-current-edoc;" text="Erlang edoc"/>
      </x:page>
      <x:page url="/plugins.html" text="Plugins">
        <x:page url="/management.html" text="Management plugin">

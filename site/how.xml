@@ -30,7 +30,7 @@
       AMQP 101 and an overview of RabbitMQ including its features and application to cloud messaging.
     </li>
     <li>
-      <a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">RabbitMQ: Messaging that just works</a><br/>
+      <a href="http://www.youtube.com/user/SpringSourceDev/videos?query=rabbitmq+messaging+that+just+works">RabbitMQ: Messaging that just works</a><br/>
       A recording of Emile's webinar that introduces messaging and RabbitMQ. Some prominent features introduced in recent releases
       are discussed and the webinar concludes with a Q&amp;A session with members of the audience.
     </li>
@@ -216,12 +216,12 @@
       Plugins for monitoring a RabbitMQ server with <a href="http://munin-monitoring.org">Munin</a>.
     </li>
     <li>
-      <a href="http://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
+      <a href="https://github.com/tnc/rac">RabbitMQ Administration Console </a><br />
       RAC is an administration console for RabbitMQ written in PHP. (See <a href="http://twitpic.com/1mvo8o">this screenshot</a>).
     </li>
     <li>
-      <a href="http://github.com/auser/alice/tree/master">Alice</a> and
-      <a href="http://github.com/auser/wonderland/tree/master">Wonderland</a><br />
+      <a href="https://github.com/auser/alice">Alice</a> and
+      <a href="https://github.com/auser/wonderland">Wonderland</a><br />
       Provide RESTful administration and monitoring of RabbitMQ nodes and a
       WebUI. Please read the <a href="http://willcodeforfoo.com/2009/07/13/announcing-alice">release notes</a> first.
     </li>
@@ -230,18 +230,13 @@
       A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
-      <a href="http://github.com/epicadvertising/rabbitmq_snmp_plugin">RabbitMQ SNMP Plugin</a><br />
-      An experimental RabbitMQ plugin to provide SNMP statistics, developed by Scott Brooks. It includes the ability
-      to trace message delivery to queues so that you can pull the total number of messages delivered.
-    </li>
-    <li>
       <a href="http://blog.thomasvandoren.com/2011/10/monitoring-rabbitmq-queues-with-zabbix/">Monitoring RabbitMQ with Zabbix</a><br/>
       A simple example of how to configure Zabbix (an open source monitoring and
       graphing tool) to monitor queue and exchange statistics in RabbitMQ.
     </li>
     <li>
-      <a href="http://github.com/paukul/humpty">Humpty</a><br />
-      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="http://github.com/auser/alice">alice</a>)
+      <a href="https://github.com/paukul/humpty">Humpty</a><br />
+      A Sinatra/Ruby application to administer RabbitMQ over REST (via <a href="https://github.com/auser/alice">alice</a>)
       and AMQP.
     </li>
     <li>
@@ -253,12 +248,12 @@
       A daemon for monitoring AMQP with <a href="http://community.zenoss.org/">Zenoss</a>
     </li>
     <li>
-      <a href="http://github.com/gmr/Cony/tree/master">Cony</a><br />
+      <a href="https://github.com/gmr/Cony">Cony</a><br />
       A HTTP based service written in Python for providing insight into running
       RabbitMQ processes.
     </li>
     <li>
-      <a href="http://github.com/aaronfeng/trixx/tree/master">Trixx</a><br />
+      <a href="https://github.com/aaronfeng/trixx">Trixx</a><br />
       An administration and monitoring tool written in Clojure so available for all
       languages that run on JVM.
     </li>
@@ -322,7 +317,7 @@
         for cloud and web applications), RabbitMQ and websockets.
       </li>
       <li>
-        <a href="http://blog.springsource.com/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
+        <a href="http://blog.springsource.org/2011/04/01/routing-topologies-for-performance-and-scalability-with-rabbitmq/">Routing Topologies for Performance and Scalability</a><br/>
         Designing a good routing topology for a highly-scalable system can be like mapping a graph. Helena Edelson explains the things you
         need to consider such as the problem domain, the constraints of the environment, the messaging implementation and performance strategies.
       </li>
@@ -352,7 +347,7 @@
       </li>
       <li>
       <a href="http://www.slideshare.net/bobtfish/real-time-systemperformancemon">Multiprotocol Asynchronous Job Server</a><br/>
-      Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="http://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
+      Tomas Doran builds an AMQP- and JSON-based job and event server with RabbitMQ (<a href="https://github.com/bobtfish/CatalystX-JobServer">code available on github</a>). The
       presentation contains an excellent introduction to AMQP and examples of why you might need messaging in your application.
       </li>
     <li>
@@ -376,12 +371,6 @@
       <a href="http://www.igvita.com/2009/10/08/advanced-messaging-routing-with-amqp/">Advanced Messaging &amp; Routing with AMQP</a><br />
       Ilya Grigorik explains how to get started with AMQP in Ruby and provides
       some advanced AMQP recipes for a variety of messaging use cases.
-    </li>
-    <li>
-      <a href="http://webcookies.org/blog/2009/09/10/rabbitmq-celery-and-django/">RabbitMQ, Celery and Django</a><br />
-      Robert Pogorzelski gives an excellent demonstration of how RabbitMQ and Celery
-      can be used with Python to build an asynchronous, distributed task
-      queue for your web application.
     </li>
     <li>
       <a href="http://mathematism.com/2010/feb/16/message-queues-django-and-celery-quick-start/">Message Queues, Django and Celery QuickStart</a><br />
@@ -451,7 +440,7 @@
       Stefan Norberg's presentation on use of RabbitMQ and Kaazing and Terracotta for European scale real time betting at Unibet.
     </li>
     <li>
-      <a href="http://nebula.nasa.gov/services">NASA's NEBULA Cloud Computing Platform</a><br />
+      <a href="http://nebula.nasa.gov">NASA's NEBULA Cloud Computing Platform</a><br />
       Overview of how NASA are using RabbitMQ in their Nebula SaaS platform. Please also see
       <a href="http://www.theregister.co.uk/2010/01/16/nasa_nebula/">this interview with The Register</a> and
       <a href="http://cloudseeding.googlegroups.com/web/NASA-%20Chris%20C.%20Kemp%20-%20OMG.pdf">these slides</a>
@@ -466,11 +455,6 @@
     <li>
       <a href="http://www.lshift.net/blog/2009/05/08/untangling-the-bbcs-data-feeds">Untangling the BBC's data feeds</a><br />
       More on the use of RabbitMQ at the BBC on Mike Bridgen's blog.
-    </li>
-    <li>
-      <a href="http://blog.smarkets.com/2009/07/03/smarkets-tech-talk-on-erlang/">RabbitMQ at Smarkets</a><br />
-      Video and slides of Hunter Morris' tech talk at Erlang Factory, London, July
-      2009 explaining how Smarkets use RabbitMQ in their backend stack.
     </li>
     <li>
       <a href="http://aws.typepad.com/aws/2008/12/running-everything-on-aws-soocialcom.html">Soocial.com run RabbitMQ on Amazon EC2</a><br />
@@ -488,7 +472,7 @@
       <doc:heading>Going Further</doc:heading>
       <ul>
     <li>
-      <a href="http://www.amqp.org/confluence/display/AMQP/Advanced+Message+Queuing+Protocol">Advanced Message Queuing Protocol</a><br />
+      <a href="http://www.amqp.org/about/what">Advanced Message Queuing Protocol</a><br />
       More information on the open standard from the AMQP working group.
     </li>
     <li>
@@ -567,8 +551,7 @@
      <doc:heading>Books and Print Articles</doc:heading>
       <ul>
         <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
-        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams. (A <a href="http://manning.com/videla/Videla_MEAPCH01.pdf">sample chapter</a>
-        is available to download.)</li>
+        A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams.</li>
         <li><a href="http://manning.com/fisher/">Spring Integration in Action</a><br />
         Contains several chapters on AMQP and messaging with RabbitMQ.</li>
         <li><a href="http://manning.com/rathore/">Scaling Clojure through messaging</a><br />
@@ -643,11 +626,7 @@
     <li>
       <a href="http://www.lshift.net/news/intelrabbit.html">A report of high performance tested by Intel in 2007</a><br />
       Report of load testing of RabbitMQ conducted with Intel and an
-      <a href="http://www.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team.
-    </li>
-    <li>
-      <a href="http://www.amqp.org/confluence/display/AMQP/User+SIG">AMQP 1.0 User’s Charter and Scope</a><br />
-      Details the requirements for AMQP 1.0 from the perspective of organisations investing in AMQP deployments.
+      <a href="http://old.nabble.com/rabbitmq-performance-td14103858.html">analysis</a> by one of our team.
     </li>
     </ul>
     </doc:section>

@@ -95,7 +95,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         before they are removed from the original queue.  In other
         words, the publishing queue will <em>not</em> remove
         messages before the dead-letter queues acknowledge
-        receiving them (see <a href="confirm.html">Confirms</a> for
+        receiving them (see <a href="confirms.html">Confirms</a> for
         details on the guarantees made).  Note that, in the event
         of an unclean broker shutdown, the same message may be
         duplicated on both the original queue and on the
