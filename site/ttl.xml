@@ -35,11 +35,12 @@
         longer than the TTL, only the messages at the head of the queue will be
         actually discarded, until a non-discardable message is encountered.
         This means that messages with a TTL will queue up behind messages with
-        no TTL or higher TTL until given messages are consumed. This also means
-        that those messages will add up towards various queue-related figures
-        (e.g. the number of messages in the queue). For this reason, when using
-        a TTL to increase performance, a per-queue TTL is reccomended, since it
-        will ensure that all the messages will have the specified TTL or less.
+        no TTL or higher TTL until given messages are consumed or expired. This
+        also means that those messages will add up towards various queue-related
+        figures (e.g. the number of messages in the queue). For this reason,
+        when using a TTL to increase performance, a per-queue TTL is
+        reccomended, since it will ensure that all the messages will have the
+        specified TTL or less.
       </p>
 
       <p>
