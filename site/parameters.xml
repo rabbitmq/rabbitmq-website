@@ -62,7 +62,7 @@
     <p>
       Currently parameters are only used by the federation plugin.
     </p>
-    <h2>Policies</h2>
+    <h2 id="policies">Policies</h2>
     <p>
       One type of parameter is a <i>policy</i>. Policies automatically
       match against exchanges and queues, and help determine how they
