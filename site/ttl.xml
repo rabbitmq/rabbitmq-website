@@ -96,18 +96,17 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
       <doc:subsection name="per-message-ttl-caveats">
         <doc:heading>Caveats</doc:heading>
         <p>
-          While consumers will never see messages that have been in the queue
-          for longer than the TTL, only the messages at the head of the queue
-          will be actually discarded, until a non-discardable message is
-          encountered.  When using a per-queue TTL this is not a problem, since
-          the messages to be expired will all be at the head of the
-          queue. However, when using a per-message TTL, messages with a TTL
-          specified can queue up behind messages with no TTL or higher TTL until
-          given messages are consumed or expired. This also means that those
-          messages will add up towards various queue-related figures (e.g. the
-          number of messages in the queue). For this reason, when using a TTL to
-          increase performance, a per-queue TTL is reccomended, since it will
-          ensure that all the messages will have the specified TTL or less.
+          While consumers will never see expired messages, only the expired
+          messages at the head of the queue will actually be discarded.  When
+          using a per-queue TTL this is not a problem, since expired messages
+          will always be at the head of the queue. However, when using a
+          per-message TTL, expired messages can queue up behind non-expired
+          messages until the non-expired messages are consumed or expired. This
+          means that resources used by the expired messages will not be freed,
+          and they will be counted in queue statistics (e.g. the number of
+          messages in the queue). For this reason, when using a TTL to increase
+          performance, a per-queue TTL is recommended, since it will ensure that
+          all the messages will have the specified TTL or less.
         </p>
       </doc:subsection>
     </doc:section>
