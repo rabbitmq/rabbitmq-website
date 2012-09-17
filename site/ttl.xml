@@ -10,17 +10,18 @@
     <p class="intro">
       RabbitMQ allows you to set Time To Live for both messages and queues.
     </p>
-    <doc:section name="message-ttl">
-      <doc:heading>Message TTL</doc:heading>
+    <doc:section name="per-queue-message-ttl">
+      <doc:heading>Per-Queue Message TTL</doc:heading>
       <p>
-        The TTL of a message determines how long the message will live in a
-        queue before it is discarded. Note that a message routed to multiple
-        queues can die at different times, or not at all, in each queue in which
-        it resides. The death of a message in one queue has no impact on the
-        life of the same message in other queues. The TTL can be set for a
-        single message or for all the queue messages. If a message is published
-        with a per-message TTL in a queue with a per-queue TTL, the lower TTL
-        will be used.
+        The <code>x-message-ttl</code> argument to
+        <code>queue.declare</code> controls for how long a message
+        published to a queue can live before it is discarded. A
+        message that has been in the queue for longer than the
+        configured TTL is said to be <em>dead</em>. Note that a
+        message routed to multiple queues can die at different
+        times, or not at all, in each queue in which it resides. The
+        death of a message in one queue has no impact on the life of
+        the same message in other queues.
       </p>
 
       <p>
@@ -31,26 +32,13 @@
       </p>
 
       <p>
-        While consumers will never see messages that have been in the queue for
-        longer than the TTL, only the messages at the head of the queue will be
-        actually discarded, until a non-discardable message is encountered.
-        This means that messages with a TTL will queue up behind messages with
-        no TTL or higher TTL until given messages are consumed or expired. This
-        also means that those messages will add up towards various queue-related
-        figures (e.g. the number of messages in the queue). For this reason,
-        when using a TTL to increase performance, a per-queue TTL is
-        reccomended, since it will ensure that all the messages will have the
-        specified TTL or less.
-      </p>
-
-      <p>
-        The <code>x-message-ttl</code> argument to <code>queue.declare</code>
-        can be used to set a per-queue TTL. The argument can be of AMQP type
-        short-short-int, short-int, long-int, or long-long-int. The TTL value
-        must be a non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1),
-        describing the TTL period in milliseconds. Thus a value of 1000 means
-        that a message added to the queue will live in the queue for 1 second or
-        until it is delivered to a consumer.
+        The value of the <code>x-message-ttl</code> argument must be
+        a non-negative integer, describing the TTL period in
+        milliseconds. Thus a value of 1000 means that a message
+        added to the queue will live in the queue for 1 second or
+        until it is delivered to a consumer. The argument can be of
+        AMQP type short-short-int, short-int, long-int, or
+        long-long-int.
       </p>
 
       <p>
@@ -61,16 +49,38 @@
 Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
 args.put("x-message-ttl", 60000);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
+      <p>
+        The original expiry time of a message is preserved if it
+        is requeued (for example due to the use of an AMQP method
+        that features a requeue parameter, or due to a channel
+        closure).
+      </p>
 
       <p>
-        To specify a per-message TTL the <code>expiration</code> field in the
-        <code>basic</code> AMQP class, when sending a
+        Setting <code>x-message-ttl</code> to 0 causes messages to
+        be expired upon reaching a queue unless they can be
+        delivered to a consumer immediately. Thus this provides an
+        alternative to <code>basic.publish</code>'s
+        <code>immediate</code> flag. Unlike the latter, no
+        <code>basic.return</code>s are issued, and if a dead
+        letter exchange is set then messages will be
+        dead-lettered. Performance is significantly better.
+      </p>
+
+    </doc:section>
+    <doc:section name="per-message-ttl">
+      <doc:heading>Per-Message TTL</doc:heading>
+      <p>
+        The TTL for a message can also be specified on a per-message basis. To
+        specify a per-message TTL the <code>expiration</code> field in the
+        <code>basic</code> AMQP class mus be set when sending a
         <code>basic.publish</code>. The same constraints as the per-message TTL
         apply. Since the <code>expiration</code> field must be a string, the
         broker will accept the string representation of the number, and reject
         the publish for invalid values of malformed strings. The
         <code>expiration</code> field will be ignored when used in anything but
-        <code>basic.publish</code>
+        <code>basic.publish</code>. When both a per-queue TTL and a per-message
+        TTL are specified, the lower value between the two will be chosen.
       </p>
 
       <p>
@@ -83,24 +93,23 @@ AMQP.BasicProperties properties = new AMQP.BasicProperties();
 properties.setExpiration("60000");
 channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
 
-      <p>
-        The original expiry time of a message is preserved if it
-        is requeued (for example due to the use of an AMQP method
-        that features a requeue parameter, or due to a channel
-        closure).
-      </p>
-
-      <p>
-        Setting TTL to 0 causes messages to
-        be expired upon reaching a queue unless they can be
-        delivered to a consumer immediately. Thus this provides an
-        alternative to <code>basic.publish</code>'s
-        <code>immediate</code> flag. Unlike the latter, no
-        <code>basic.return</code>s are issued, and if a dead
-        letter exchange is set then messages will be
-        dead-lettered. Performance is significantly better.
-      </p>
-
+      <doc:subsection name="per-message-ttl-caveats">
+        <doc:heading>Caveats</doc:heading>
+        <p>
+          While consumers will never see messages that have been in the queue
+          for longer than the TTL, only the messages at the head of the queue
+          will be actually discarded, until a non-discardable message is
+          encountered.  When using a per-queue TTL this is not a problem, since
+          the messages to be expired will all be at the head of the
+          queue. However, when using a per-message TTL, messages with a TTL
+          specified can queue up behind messages with no TTL or higher TTL until
+          given messages are consumed or expired. This also means that those
+          messages will add up towards various queue-related figures (e.g. the
+          number of messages in the queue). For this reason, when using a TTL to
+          increase performance, a per-queue TTL is reccomended, since it will
+          ensure that all the messages will have the specified TTL or less.
+        </p>
+      </doc:subsection>
     </doc:section>
     <doc:section name="queue-ttl">
       <doc:heading>Queue TTL</doc:heading>
@@ -126,12 +135,12 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
       </p>
 
       <p>
-        The value of the <code>x-expires</code> argument must be a 32
-        bit integer greater than zero (0 &lt; n &lt;= 2^32-1),
-        describing the expiration period in milliseconds. Thus a value
-        of 1000 means a queue which is unused for 1 second will be
-        deleted. The argument can be of AMQP type short-short-int,
-        short-int, long-int, or long-long-int.
+        The value of the <code>x-expires</code> argument must be an
+        integer, greater than zero, describing the expiration period
+        in milliseconds. Thus a value of 1000 means a queue which is
+        unused for 1 second will be deleted. The argument can be of
+        AMQP type short-short-int, short-int, long-int, or
+        long-long-int.
       </p>
 
       <p>
