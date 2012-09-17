@@ -71,8 +71,11 @@
         <li>
           <a href="ttl.html#per-queue-message-ttl">Per-Queue Message TTL</a>
           determines how long an unconsumed message can live in a queue before
-          it is automatically deleted.  The TTL can be specified on both a
-          per-message and per-queue basis.
+          it is automatically deleted.
+        </li>
+        <li>
+          <a href="ttl.html#per-message-ttl">Per-Message TTL</a>
+          determines the TTL on a per-message basis.
         </li>
         <li>
           <a href="ttl.html#queue-ttl">Queue TTL</a> determines how
