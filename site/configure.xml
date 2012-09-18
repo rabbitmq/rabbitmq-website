@@ -509,7 +509,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Set this to cause clustering to <a
               href="clustering.html#auto-config">happen automatically</a>.  The
               first element of the tuple is the nodes that the node will try to
-              cluster two.  The second element is either <code>disc</code> or
+              cluster to.  The second element is either <code>disc</code> or
               <code>ram</code> and determines the node type.
             </td>
           </tr>
