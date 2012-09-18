@@ -13,9 +13,11 @@
        <doc:subsection name="intro">
        <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
          The strategy is to test the required components with an alternative SSL
-         implementation in a process of elimination to  identify the fault.
-         (Bear in mind that this process is not guaranteed to identify the problem if
-         the interaction between two specific components is responsible for the problem.)
+         implementation in a process of elimination to identify the fault.
+       </p>
+       <p>
+         Bear in mind that this process is not guaranteed to identify the problem if
+         the interaction between two specific components is responsible for the problem.
        </p>
        </doc:subsection>
        <doc:subsection name="erlang-support">
