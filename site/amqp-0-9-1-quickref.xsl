@@ -316,7 +316,7 @@
       <x:amqp-extension />
     </x:decorate>
     <x:decorate target="method" name="confirm.select">
-      <x:url href="http://www.rabbitmq.com/confirm.html" label="RabbitMQ Documentation"/>
+      <x:url href="http://www.rabbitmq.com/confirms.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#confirmSelect()"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ConfirmSelect"/>
     </x:decorate>

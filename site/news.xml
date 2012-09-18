@@ -14,6 +14,40 @@
 	   will give you a suitable value.
       -->
     <doc:item>
+      <doc:date iso="2012-08-22T13:05:00+0100">22 August 2012</doc:date>
+      <doc:title>RabbitMQ 2.8.6 release</doc:title>
+      <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-August/000050.html</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is delighted to announce the release of RabbitMQ
+          2.8.6.
+        </p>
+        <p>
+          This release fixes a number of bugs, including one introduced in 2.8.5
+          that could cause an error during shutdown of mirrored queues.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+    <doc:item>
       <doc:date iso="2012-08-02T14:55:15+0100">2 July 2012</doc:date>
       <doc:title>RabbitMQ 2.8.5 release</doc:title>
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-August/000049.html</doc:link>
@@ -600,7 +634,7 @@
         <doc:text>
           <p>The RabbitMQ team and SpringSource are pleased to announce that the Spring AMQP Project (for Java) has reached RC1 status.</p>
           <p>For details see the <a href="https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10450&amp;version=11821">release notes</a>.</p>
-          <p>You can download the <a href="http://www.springsource.com/download/community?project=Spring%20AMQP">distribution zip file</a>. The
+          <p>You can download the <a href="http://www.springsource.org/download/community?project=Spring%20AMQP">distribution zip file</a>. The
              JARs are available in the <a href="http://shrub.appspot.com/maven.springframework.org/milestone/org/springframework/amqp/">SpringSource
              Milestone Maven repository</a>.</p>
           <p>To learn more about the project and provide welcome feedback, please visit the
@@ -706,15 +740,15 @@
       <doc:item>
         <doc:date iso="2010-12-13T00:00:00Z">13 December 2010</doc:date>
         <doc:title>RabbitMQ Webinar: Messaging that just works (update)</doc:title>
-        <doc:link>http://www.springsource.com/webinar/rabbitmq-messaging-just-works</doc:link>
+        <doc:link>http://www.youtube.com/user/SpringSourceDev/videos?query=rabbitmq+messaging+that+just+works</doc:link>
         <doc:text>
-          <p>A recording of the webinar is available to download from the <a href="http://www.springsource.com/webinar/rabbitmq-messaging-just-works">SpringSource website</a>.</p>
+          <p>A <a href="http://www.youtube.com/user/SpringSourceDev/videos?query=rabbitmq+messaging+that+just+works">recording</a> of the webinar is available.</p>
         </doc:text>
       </doc:item>
       <doc:item>
         <doc:date iso="2010-12-09T00:00:00Z">9 December 2010</doc:date>
         <doc:title>RabbitMQ Webinar: Messaging that just works</doc:title>
-        <doc:link>http://www.springsource.com/newsevents/webinars</doc:link>
+        <doc:link>http://www.springsource.org/news-events</doc:link>
         <doc:text>
           <p>We are pleased to announce that we will be hosting our first, live (and free)
           webinar today at 1500 GMT and repeated at 1300 EST / 1000 PST.</p>
@@ -724,7 +758,7 @@
           releases will be discussed with examples. Join us to find out how RabbitMQ
           can help to scale your application, whether it's on a device, the web, in
           the data centre, or the cloud.</p>
-          <p>To register, please visit the <a href="http://www.springsource.com/newsevents/webinars">SpringSource webinars page</a>.</p>
+          <p>To register, please visit the <a href="http://www.springsource.org/news-events">SpringSource events page</a>.</p>
         </doc:text>
       </doc:item>
       <doc:item>
@@ -1396,7 +1430,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 <p>
    We look forward to hearing more from Ubuntu users and would welcome
-   more feedback, bug requests and other contributions. Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (or see <a href="http://www.nabble.com/RabbitMQ-f25704.html">archived messages</a>).</p>
+   more feedback, bug requests and other contributions. Talk to us on irc.freenode.net #rabbitmq (see <a href="http://dev.rabbitmq.com/irclog/">logs</a>), or <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo">join our mailing list</a> (or see <a href="http://old.nabble.com/RabbitMQ-f25704.html">archived messages</a>).</p>
 
 	</doc:text>
       </doc:item>

@@ -16,7 +16,7 @@
           durable queues, but even then, due to buffering there is an
           amount of time between the message being sent and the
           message being written to disk and fsync'd. Using <a
-          href="confirm.html">publisher confirms</a> is
+          href="confirms.html">publisher confirms</a> is
           one means to ensure the client understands which messages
           have been written to disk, but even so, you may not wish to
           suffer the downtime and inconvenience of the unavailability
@@ -90,15 +90,15 @@
             lost.</li>
 
             <li>The slave considers all previous consumers to have
-            been abruptly disconnected. As such, it requeues (at the
-            rear of the queue) all messages that have been delivered
-            to clients but are pending acknowledgement. This can
-            include messages for which a client has issued
-            acknowledgements: either the acknowledgement was lost on
-            the wire before reaching the master, or it was lost during
-            broadcast from the master to the slaves. In either case,
-            the new master has no choice but to requeue all messages
-            it thinks have not been acknowledged.</li>
+            been abruptly disconnected. As such, it requeues all
+            messages that have been delivered to clients but are
+            pending acknowledgement. This can include messages for
+            which a client has issued acknowledgements: either the
+            acknowledgement was lost on the wire before reaching the
+            master, or it was lost during broadcast from the master to
+            the slaves. In either case, the new master has no choice
+            but to requeue all messages it thinks have not been
+            acknowledged.</li>
 
             <li>Clients that were consuming from the mirrored-queue
             and support our <a
@@ -134,7 +134,7 @@
         </p>
         <p>
           Similarly, messages published by clients using <a
-          href="confirm.html">publisher confirms</a> will
+          href="confirms.html">publisher confirms</a> will
           still be confirmed correctly even if the master (or any
           slaves) fail between the message being published and the
           message being able to be confirmed to the publisher. Thus
@@ -169,7 +169,7 @@
           <doc:heading>Publisher Confirms and Transactions</doc:heading>
           <p>
             Mirrored queues support both <a
-            href="confirm.html">Publisher Confirms</a> and
+            href="confirms.html">Publisher Confirms</a> and
             <a href="specification.html#tx">Transactions</a>. The
             semantics chosen are that in the case of both confirms and
             transactions, the action spans all mirrors of the

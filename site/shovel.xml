@@ -706,9 +706,16 @@
                         [ {brokers, [ "amqp://fred:secret@host1.domain/my_vhost"
                                     , "amqp://john:secret@host2.domain/my_vhost"
                                     ]}
-                        , {declarations, [ 'queue.declare'
+                        , {declarations, [ {'exchange.declare',
+                                              [ {exchange, &lt;&lt;"my_fanout"&gt;&gt;}
+                                              , {type, &lt;&lt;"fanout"&gt;&gt;}
+                                              , durable
+                                              ]}
+                                         , {'queue.declare',
+                                              [{arguments,
+                                                 [{&lt;&lt;"x-message-ttl"&gt;&gt;, long, 60000}]}]}
                                          , {'queue.bind',
-                                              [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
+                                              [ {exchange, &lt;&lt;"my_direct"&gt;&gt;}
                                               , {queue,    &lt;&lt;&gt;&gt;}
                                               ]}
                                          ]}
@@ -716,7 +723,7 @@
                     , {destinations,
                         [ {broker, "amqp://"}
                         , {declarations, [ {'exchange.declare',
-                                              [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
+                                              [ {exchange, &lt;&lt;"my_direct"&gt;&gt;}
                                               , {type, &lt;&lt;"direct"&gt;&gt;}
                                               , durable
                                               ]}
@@ -726,7 +733,7 @@
                     , {prefetch_count, 10}
                     , {ack_mode, on_confirm}
                     , {publish_properties, [ {delivery_mode, 2} ]}
-                    , {publish_fields, [ {exchange, &lt;&lt;"my_exchange"&gt;&gt;}
+                    , {publish_fields, [ {exchange, &lt;&lt;"my_direct"&gt;&gt;}
                                        , {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
                                        ]}
                     , {reconnect_delay, 5}
@@ -746,22 +753,20 @@
         seconds.
       </p>
       <p>
-        When connected to the source it will declare an anonymous queue
-        there, and bind it to the pre-existing exchange called
-        "<code>my_exchange</code>".
+        When connected to the source it will declare a a direct, fanout exchange
+        called "<code>my_fanout</code>", an anonymous queue with a <a
+        href="ttl.html#per-queue-message-ttl">per-queue message ttl</a>, and
+        bind the queue to the exchange.
       </p>
       <p>
-        When connected to the destination (the local broker) it will
-        declare a direct, durable exchange called
-        "<code>my_exchange</code>".
+        When connected to the destination (the local broker) it will declare a
+        durable, direct exchange called "<code>my_direct</code>".
       </p>
       <p>
-        This shovel will re-publish messages sent to the anonymous queue
-        on the source to the local exchange (also called
-        "<code>my_exchange</code>") with the fixed routing key
-        "<code>from_shovel</code>". The messages will be persistent and
-        only acknowledged after receiving a publish confirm from the
-        local broker.
+        This shovel will re-publish messages sent to the anonymous queue on the
+        source to the local exchange with the fixed routing key
+        "<code>from_shovel</code>". The messages will be persistent and only
+        acknowledged after receiving a publish confirm from the local broker.
       </p>
       <p>
         The shovel consumer will not be allowed to hold more than ten
