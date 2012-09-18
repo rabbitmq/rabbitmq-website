@@ -237,6 +237,7 @@
     <table>
       <tr><th>Parameter</th><th>Default Value</th></tr>
       <tr><td>username</td><td>guest</td></tr>
+      <tr><td>password</td><td>none</td></tr>
       <tr><td>virtual_host</td><td>/</td></tr>
       <tr><td>node</td><td>node()</td></tr>
       <tr><td>client_properties</td><td>[ ]</td></tr>
