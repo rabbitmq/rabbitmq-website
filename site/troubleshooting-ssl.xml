@@ -165,11 +165,20 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
       </doc:subsection>
 
       <doc:subsection>
+       <doc:heading>Connect client and broker</doc:heading>
+       <p>
+         If none of the previous steps produced errors then you can confidently connect the tested AMQPS
+         client to the AMQPS port of the broker, making sure to stop any running OpenSSL or stunnel
+         sessions first.
+       </p>
+      </doc:subsection>
+
+      <doc:subsection>
        <doc:heading>Log diagnostics</doc:heading>
         <p>
          New broker logfile entries will be generated during many of the preceding steps. These entries
          together with diagnostic output from commands on the console should help to identify the cause
-         of SSL errors. What follows is a list of the most common error entries.
+         of SSL errors. What follows is a list of the most common error entries:
         </p>
         <dl>
             <dt>
