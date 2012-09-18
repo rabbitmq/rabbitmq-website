@@ -10,10 +10,20 @@
     <title>SSL Troubleshooting</title>
   </head>
   <body>
+       <doc:subsection name="intro">
+       <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
+         The strategy is to test the required components with an alternative SSL
+         implementation in a process of elimination to  identify the fault.
+         (Bear in mind that this process is not guaranteed to identify the problem if
+         the interaction between two specific components is responsible for the problem.)
+       </p>
+       </doc:subsection>
        <doc:subsection name="erlang-support">
        <doc:heading>SSL support in Erlang</doc:heading>
        <p>
-         Confirm that your Erlang VM has support for SSL by running the
+         The first requirement for establishing SSL connections to the broker
+         is SSL support in the broker. Confirm that the Erlang VM has support
+         for SSL by running the
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
@@ -31,10 +41,13 @@
        <doc:subsection name="keys-and-certs">
        <doc:heading>Verify keys and certificates with OpenSSL</doc:heading>
        <p>
-         The certificates and keys specified in <code>rabbitmq.config</code> can be verified
-         separately using OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
+         We will now verify the certificates and keys specified in <code>rabbitmq.config</code> against
+         an alternative SSL implementation. This example uses OpenSSL
+         <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
          and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
-         For the examples that follow, we will assume you have the following:
+         We will confirm that the certificates and keys can be used to
+         establish a secure link by connecting two terminals. For the
+         examples that follow, we will assume you have the following:
        </p>
          <table>
           <tr>
@@ -83,7 +96,8 @@
        <doc:subsection name="broker-listens">
        <doc:heading>Broker listening</doc:heading>
        <p>
-         When you start the broker with a valid SSL configuration file, broker
+         This step checks that the broker is listening on the expected AMQPS port.
+         When you start the broker with a valid SSL configuration file, the broker
          will report the SSL listening address in the logfile. You should see an entry
          similar to this:<pre>=INFO REPORT==== 8-Aug-2011::11:51:47 ===
 started SSL Listener on 0.0.0.0:5671</pre>
@@ -100,6 +114,8 @@ started SSL Listener on 0.0.0.0:5671</pre>
        <p>
          Once you have a RabbitMQ broker listening on an SSL port you can again use
          the OpenSSL s_client to verify SSL connection establishment, this time against the broker.
+         This check establishes whether the broker is likely to be configured correctly,
+         without needing to configure an AMQPS client.
          The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
          SSL connections on localhost port 5671:
          <pre class="sourcecode">openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
@@ -119,49 +135,28 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
       </doc:subsection>
 
       <doc:subsection>
-       <doc:heading>stunnel (client mode)</doc:heading>
+       <doc:heading>Client connections via stunnel</doc:heading>
        <p>
-         Making use of an intermediary to provide SSL can help diagnosing SSL
-         errors by producing more verbose logging. <a href="http://www.stunnel.org/">stunnel</a>
-         is often used in this context, but any SSL-capable redirector (such as <a href="http://www.dest-unreach.org/socat/">socat</a>)
-         can be used.
+         The final check is to validate AMQPS clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
+         to provide SSL capability. In this configuration AMQPS clients will make a secure connection to stunnel,
+         which will pass the decrypted data through to the AMQP port of the broker. This provides some confidence
+         that the client SSL configuration is correct independently of the broker SSL configuration.
        </p>
        <p>
-         stunnel can be used as in client-mode and then typically runs on the same host as the client.
-         In this mode it can be used to help diagnose SSL errors in the broker. In the following example
-         we see stunnel connecting to the AMQP-over-SSL (AMQPS) port 5671 of a remote broker and making
-         an unencrypted AMQP port (5678) available to a local client.
-         <pre  class="sourcecode">stunnel -c -r brokerhost:5671 -d 5678 -f -D 7</pre>
-         Notice that stunnel is not providing any certificates. For this to succeed the broker must not
-         require verification:
-         <pre>    {ssl_options, [{verify, verify_none}, ...]}</pre>
-       </p>
-       <p>
-         Verbose diagnostics are obtained by supplying the <code>-D</code> flag.
-         Continuing with the example here, stunnel may log the following to the console as soon as a
-         connection is established to port 5678:
-         <pre>   Negotiated ciphers: AES256-SHA SSLv3 Kx=RSA Au=RSA Enc=AES(256) Mac=SHA1</pre>
-       </p>
-      </doc:subsection>
-
-      <doc:subsection>
-       <doc:heading>stunnel (daemon mode)</doc:heading>
-       <p>
-         stunnel can also be used in daemon (or server) mode, which is the default. In this case
-         stunnel typically runs on the same host as the broker. In the discussion that follows it is
+         stunnel will run in daemon mode on the same host as the broker. In the discussion that follows it is
          assumed that stunnel will only be used temporarily. It is of course possible to use stunnel to
          provide SSL capability more permanently, but the lack of integration with the broker
          means that management reporting features and authentication plugins that use SSL
          information will not be able to do so.
        </p>
        <p>
-         In this example, stunnel will connect to the unencrypted AMQP port of the broker and accept
+         In this example, stunnel will connect to the unencrypted AMQP port of the broker (5672) and accept
          AMQPS connections from SSL-capable clients on port 5679:
          <pre  class="sourcecode">cat client/key.pem client/cert.pem > client/key-cert.pem
 stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
-         In this case stunnel requires a certificate. The generated client certificate should be used.
-         stunnel requires that the key not require a password and precede the certificate, as shown
-         above with the <code>cat</code> command.
+         stunnel requires a certificate and corresponding key. The generated client certificate
+         and corresponding key should be used and concatenated as shown above with the <code>cat</code> command.
+         stunnel requires that the key not be password-protected.
        </p>
        <p>
          SSL-capable clients should now be able to connect to port 5679 and any SSL errors will appear
@@ -170,29 +165,20 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
       </doc:subsection>
 
       <doc:subsection>
-       <doc:heading>ssldump</doc:heading>
-       <p>
-        While not available on as many platforms as stunnel, <a href="http://www.rtfm.com/ssldump/">ssldump</a>
-        can be a valuable source of information where availability and permissions allow. It works in a similar
-        way to <a href="http://www.tcpdump.org/">tcpdump</a>, but includes support for inspecting SSL handshaking.
-        The following commandline can be used together with the previous example to inspect SSL connection
-        establishment:
-        <pre  class="sourcecode">$ ssldump -i lo port 5679  -k client/key.pem</pre>
-        When an SSL-capable client connects on port 5679 this will display information about cipher and compression
-        method advertisements from the server side and selections made by the client.
-       </p>
-      </doc:subsection>
-
-      <doc:subsection>
        <doc:heading>Log diagnostics</doc:heading>
+        <p>
+         New broker logfile entries will be generated during many of the preceding steps. These entries
+         together with diagnostic output from commands on the console should help to identify the cause
+         of SSL errors. What follows is a list of the most common error entries.
+        </p>
         <dl>
             <dt>
-               The broker log has entries that contain <code>{ssl_upgrade_error, ekeyfile}</code>
-               (or <code>{ssl_upgrade_error, ecertfile}</code>)
+               Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>
+               or <code>{ssl_upgrade_error, ecertfile}</code>
             </dt>
             <dd>
                <p>
-                 This means the broker keyfile (or certificate file) is invalid.
+                 This means the broker keyfile or certificate file is invalid.
                  Confirm that the keyfile matches the certificate and that both are in PEM format.
                  PEM format is a printable encoding with recognisable delimiters. The certificate
                  will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
@@ -201,7 +187,7 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
                  <code>-----END RSA PRIVATE KEY-----</code> respectively.
                </p>
             </dd>
-            <dt>The broker log has entries that contain <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
+            <dt>Entries containing <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
             <dd>
                <p>
                  This error is related to client verification. The client is presenting an invalid
@@ -211,7 +197,7 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
                  the client is presenting the correct certificate.
                </p>
             </dd>
-            <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ...}</code></dt>
+            <dt>Entries containing <code>{ssl_upgrade_error, ...}</code></dt>
             <dd>
                <p>
                  This is a generic error that could have many causes. Make sure you are
