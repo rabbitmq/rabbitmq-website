@@ -9,7 +9,7 @@
   <head>
     <title>SSL Troubleshooting</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
        <doc:subsection name="intro">
        <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
          The strategy is to test the required components with an alternative SSL
@@ -18,6 +18,10 @@
        <p>
          Bear in mind that this process is not guaranteed to identify the problem if
          the interaction between two specific components is responsible for the problem.
+       </p>
+       <p>
+         We also explain some of the most common <a href="#logs">error
+         messages</a> you may see in logs.
        </p>
        </doc:subsection>
        <doc:subsection name="erlang-support">
@@ -174,8 +178,8 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
          sessions first.
        </p>
       </doc:subsection>
-      <doc:section>
-       <doc:heading>Log diagnostics</doc:heading>
+      <doc:section name="logs">
+       <doc:heading>Understanding SSL logs</doc:heading>
         <p>
          New broker logfile entries will be generated during many of the preceding steps. These entries
          together with diagnostic output from commands on the console should help to identify the cause
