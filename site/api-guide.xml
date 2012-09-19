@@ -483,12 +483,13 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 	</doc:section>
 
 	<doc:section name="returning">
-	  <doc:heading>Handling unroutable or undelivered messages</doc:heading>
+	  <doc:heading>Handling unroutable messages</doc:heading>
 
 	  <p>
-	    If a message is published with the "mandatory" or "immediate" flags set, but cannot be 
-	    delivered, the broker will return it to the sending client 
-	    (via a <code>AMQP.Basic.Return</code> command).
+	    If a message is published with the "mandatory" flags set,
+	    but cannot be routed, the broker will return it to the
+	    sending client (via a <code>AMQP.Basic.Return</code>
+	    command).
 	  </p>
 	  <p>
 	    To be notified of such returns, clients can implement the <code>ReturnListener</code>

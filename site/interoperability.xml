@@ -185,7 +185,10 @@
               <status value="ok"/>
             </qpid-test>
             <qpid-test name="tests_0-8.broker.BrokerTests.test_basic_delivery_immediate">
-              <status value="ok"/>
+              <status value="failing"/>
+              <notes>
+                RabbitMQ does not support the <code>basic.publish</code> 'immediate' flag.
+              </notes>
             </qpid-test>
             <qpid-test name="tests_0-8.broker.BrokerTests.test_basic_delivery_queued">
               <status value="ok"/>
