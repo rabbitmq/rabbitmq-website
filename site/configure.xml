@@ -125,7 +125,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         <div>
           <table>
-            <th>Name</th><th>Default</th><th>Description</th>
+            <tr><th>Name</th><th>Default</th><th>Description</th></tr>
 
             <tr>
               <td>RABBITMQ_NODE_IP_ADDRESS</td>

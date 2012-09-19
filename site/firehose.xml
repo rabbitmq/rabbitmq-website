@@ -27,33 +27,28 @@
 	</p>
         <doc:subsection>
 	  <doc:heading>Enabling the firehose</doc:heading>
-	  <p>
-	    To enable the firehose:
-	  </p>
 	  <ol>
 	    <li>
 	      Decide which node, and which vhost, you want to enable
 	      it for. In the examples below, we assume the default
 	      vhost, "<code>/</code>", and the default node
-	      "<code>rabbit@(hostname)</code>". Use
-	      the <code>-n</code> argument to rabbitmqctl to specify
-	      another node, and the <code>-p</code> argument to specify
-	      another vhost.
+	      "<code>rabbit@(hostname)</code>". Use the
+	      <code>-n</code> argument to specify a node other than,
+	      and the <code>-p</code> argument to specify another
+	      vhost.
 	    </li>
 	    <li>
-	      Within your chosen vhost create queues, bind them to
-	      the exchange <code>amq.rabbitmq.trace</code>, and begin consuming.
+	      Within your chosen vhost create queues, bind them to the
+	      topic exchange <code>amq.rabbitmq.trace</code>, and
+	      begin consuming.
 	    </li>
 	    <li>
 	      Run <code>rabbitmqctl trace_on</code>.
-	    </li>
+            </li>
 	  </ol>
         </doc:subsection>
         <doc:subsection>
 	  <doc:heading>Disabling the firehose</doc:heading>
-	  <p>
-	    To disable the firehose:
-	  </p>
 	  <ol>
 	    <li>
 	      Run <code>rabbitmqctl trace_off</code>.
@@ -66,8 +61,8 @@
         <doc:subsection>
 	  <doc:heading>Firehose notification format</doc:heading>
 	  <p>
-	    When the firehose is enabled, you will start receiving
-	    messages to the exchange <code>amq.rabbitmq.trace</code>, with
+	    The firehose publishes messages to the topic exchange
+	    <code>amq.rabbitmq.trace</code> with
 	  </p>
 	  <ul>
 	    <li>
@@ -79,16 +74,43 @@
 	    </li>
 	    <li>
 	      headers containing metadata about the original message:
-	      all its headers, properties, and a few other things
+              <p>
+                <table>
+                  <tr><th>Header</th><th>Type</th><th>Description</th></tr>
+                  <tr>
+                    <td>exchange_name</td>
+                    <td>longstr</td>
+                    <td>
+                      name of the exchange to which the message was
+                      published
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>routing_keys</td>
+                    <td>array</td>
+                    <td>
+                      routing key plus contents of
+                      <a href="sender-selected.html"><code>CC</code> and
+                      <code>BCC</code> headers</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>properties</td>
+                    <td>table</td>
+                    <td><a href="amqp-0-9-1-reference.html#class.basic">content properties</a></td>
+                  </tr>
+                  <tr>
+                    <td>node</td>
+                    <td>longstr</td>
+                    <td>Erlang node on which the trace message was generated</td>
+                  </tr>
+                </table>
+              </p>
 	    </li>
 	    <li>
 	      body corresponding to the body of the original message
 	    </li>
 	  </ul>
-	  <p>
-	    The fields in the notification message body table describe
-	    the original message that was published or delivered.
-          </p>
         </doc:subsection>
       </doc:section>
   </body>
