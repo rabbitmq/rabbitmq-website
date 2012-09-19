@@ -34,6 +34,12 @@
               defines server component settings for permissions, limits and
               clusters, and also plugin settings.
           </dd>
+          <dt>
+              <a href="parameters.html">runtime parameters</a>
+          </dt>
+          <dd>
+              defines cluster-wide settings which can change at run time
+          </dd>
       </dl>
       </p>
 
@@ -437,6 +443,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               but will trigger a bug in some QPid clients. Setting a
               larger value may improve throughput; setting a smaller
               value may improve latency.
+            </td>
+          </tr>
+          <tr>
+            <td><code>heartbeat</code></td>
+            <td><code>600</code></td>
+            <td>
+              Value representing the heartbeat delay, in seconds, that the
+              server sends in the <code>connection.tune</code> frame. If set to
+              0, heartbeats are disabled. Clients might not follow the server
+              suggestion, see the <a
+              href="amqp-0-9-1-reference.html#connection.tune">AMQP
+              reference</a> for more details. Disabling heartbeats might improve
+              performance in situations with a great number of connections, but
+              might lead to connections dropping in the presence of network
+              devices that close inactive connections.
             </td>
           </tr>
           <tr>
