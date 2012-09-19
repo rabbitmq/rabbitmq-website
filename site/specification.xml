@@ -1456,7 +1456,6 @@
 
           <rule>
             <status value="ok"/>
-            <notes>Deprecation of internal exchanges in 0-9-1 voids the antecedent.</notes>
             <type>MUST</type>
             <xref>basic / publish / exchange / 02</xref>
             <type/>
