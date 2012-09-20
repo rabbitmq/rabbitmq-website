@@ -247,7 +247,7 @@
   <p>
     Instead of working the #amqp_params_* records directly, <a
     href="uri-spec.html">AMQP URIs</a> may be used.  The
-    amqp_uri:parse/1 function si provided for this purpose.  It parses
+    amqp_uri:parse/1 function is provided for this purpose.  It parses
     an URI and returns the equivalent #amqp_params_* record.
     Diverging from the spec, if the hostname is omitted, the
     connection is assumed to be direct and an #amqp_params_direct{}
