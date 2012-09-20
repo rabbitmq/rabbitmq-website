@@ -322,6 +322,42 @@
           policy.
         </p>
 
+        <h3>Warning - "nodes" policy and data loss</h3>
+
+        <p>
+          It is possible to lose data through careless use of
+          the <code>nodes</code> policy. If you have a cluster
+          containing nodes <code>[A B C D]</code>, and a queue
+          mirrored on <code>[A B]</code>, using the <code>nodes</code>
+          policy to mirror it to <code>[C D]</code> instead will cause
+          it to
+          <b>immediately fail over without synchronising first</b>,
+          and all messages in the queue will be lost.
+        </p>
+
+        <p>
+          If you wish to use the <code>nodes</code> policy to move
+          queues around in a cluster like this, you should instead:
+        </p>
+        <ul>
+          <li>
+            Add new nodes to the policy (in the above example, set
+            the <code>nodes</code> policy to <code>[A B C D]</code>)
+          </li>
+          <li>
+            Wait for the mirror(s) to become synchronised
+          </li>
+          <li>
+            Remove old nodes from the policy (in the above example, set
+            the <code>nodes</code> policy to <code>[C D]</code>)
+          </li>
+        </ul>
+
+        <p>
+          It is not possible to lose data in this way using
+          the <code>all</code> or <code>exactly</code> policies.
+        </p>
+
         <h3>Some examples</h3>
 
         <p>
