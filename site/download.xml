@@ -62,6 +62,14 @@
           <a href="changelog.html">Changelog</a>
         </li>
       </ul>
+      <h3>Nightly Builds</h3>
+      <ul>
+        <li>
+          <a href="/nightlies/rabbitmq-server/">Download</a> |
+          <a href="/debian-snapshot">Debian Repository</a> |
+          <a href="/nightlies/macports">Macports</a>
+        </li>
+      </ul>
     </div>
 
     <div class="landing-box">
@@ -81,7 +89,8 @@
           <a href="java-client.html">All Java client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-java-client/">Older versions</a>
+          <a href="/releases/rabbitmq-java-client/">Older versions</a> |
+          <a href="/nightlies/rabbitmq-java-client/">Nightly Builds</a>
         </li>
       </ul>
       <h3>.NET/C# Client</h3>
@@ -97,7 +106,8 @@
           <a href="dotnet.html">All .NET client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a>
+          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a> |
+          <a href="/nightlies/rabbitmq-dotnet-client/">Nightly Builds</a>
         </li>
       </ul>
 
@@ -112,7 +122,8 @@
           <a href="erlang-client.html">All Erlang client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-erlang-client/">Older versions</a>
+          <a href="/releases/rabbitmq-erlang-client/">Older versions</a> |
+          <a href="/nightlies/rabbitmq-erlang-client/">Nightly Builds</a>
         </li>
       </ul>
     </div>

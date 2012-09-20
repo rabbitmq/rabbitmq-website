@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+set -e
+
+BUILD_USER=rabbitmq
+BUILD_HOST=rabbit-build-master
+BUILD_SRC="/home/rabbitmq/extras/nightlies"
+DEST_DIR="/home/rabbitmq/extras/"
+
+mkdir -p "$DEST_DIR/nightlies"
+
+rsync -rpl "$BUILD_USER@$BUILD_HOST:$BUILD_SRC" "$DEST_DIR"
+
