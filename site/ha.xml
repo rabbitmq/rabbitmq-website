@@ -345,7 +345,7 @@
             the <code>nodes</code> policy to <code>[A B C D]</code>)
           </li>
           <li>
-            Wait for the mirror(s) to become synchronised
+            Wait for the queue(s) to become synchronised
           </li>
           <li>
             Remove old nodes from the policy (in the above example, set
