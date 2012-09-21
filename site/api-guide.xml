@@ -300,11 +300,10 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
 channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messageBodyBytes);</pre>
 
 	  <p>
-	    For fine control, you can use overloaded variants to specify the <code>mandatory</code> and <code>immediate</code>
-	    flags (<code>boolean</code>s), or send messages with pre-set message properties:
+	    For fine control, you can use overloaded variants to specify the <code>mandatory</code> flag, or send messages with pre-set message properties:
 	  </p>
 
-	  <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>mandatory</b>, <b>immediate</b>,
+	  <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>mandatory</b>,
                      MessageProperties.PERSISTENT_TEXT_PLAIN,
                      messageBodyBytes);</pre>
 
