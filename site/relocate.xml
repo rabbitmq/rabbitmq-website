@@ -43,15 +43,15 @@
         <td>RABBITMQ_MNESIA_BASE</td>
         <td>
           This base directory contains sub-directories for the RabbitMQ
-          server's Mnesia database files, one for each node, unless
-          <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
+          server's Mnesia database (and other) files, one for each node,
+          unless <b>RABBITMQ_MNESIA_DIR</b> is set explicitly.
         </td>
       </tr>
       <tr>
         <td>RABBITMQ_MNESIA_DIR</td>
         <td>
-          The directory where this RabbitMQ node's Mnesia database files
-          are placed.
+          The directory where this RabbitMQ node's Mnesia database
+          (and other) files are placed.
         </td>
       </tr>
 
