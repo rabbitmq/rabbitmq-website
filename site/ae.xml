@@ -79,7 +79,7 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
     <p>
       The behaviour of an AE purely pertains to routing. If a message
       is routed via an AE it still counts as routed for the purpose of
-      the 'mandatory' flags, and the message is otherwise unchanged.
+      the 'mandatory' flag, and the message is otherwise unchanged.
     </p>
   </body>
 </html>
