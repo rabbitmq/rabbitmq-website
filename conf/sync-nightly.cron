@@ -1,1 +1,0 @@
-0 * * * * @USER@ /srv/www.rabbitmq.com/code/sync-nightly

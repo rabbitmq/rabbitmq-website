@@ -54,5 +54,4 @@ if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
 fi
 
 sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
-sed "s|@USER@|$mirror_user|" <conf/sync-nightly.cron >/etc/cron.d/sync-nightly
 
