@@ -246,7 +246,7 @@ Disabling disk free space monitoring</pre>
       <p>
         The disk free space limit is configured with
         the <code>disk_free_limit</code> setting. By default 1GB is
-        required to be free on the database partition. (See the desciption of
+        required to be free on the database partition. (See the description of
         <a href="/relocate.html">file locations</a> for the default location).
         This configuration file sets the disk free space limit to 25Gb:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, 25000000000}]}].</pre>
