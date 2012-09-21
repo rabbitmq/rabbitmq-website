@@ -229,9 +229,10 @@
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
       amqp_connection:start/1 with the parameter set to
-      an #amqp_params_direct record. Providing a password is optional.
-      If a password is provided then it will be passed to the
-      authentication backend.
+      an #amqp_params_direct record. Providing a password is optional,
+      since the direct client is considered trusted anyway.  If a
+      password is provided then it will be checked and made available to
+      authentication backends.
     </p>
     <p>
       The #amqp_params_direct record sets the following default values:
