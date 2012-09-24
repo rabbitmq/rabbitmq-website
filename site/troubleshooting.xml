@@ -148,7 +148,7 @@
         </p>
         <p>
           For problems encountered in the handling of AMQP traffic,
-          the <a href="examples.html#tracer">AMQP capture and analysis
+          the <a href="api-guide.html#tracer">AMQP capture and analysis
           tool</a> may help in the analysis.
         </p>
         <p>

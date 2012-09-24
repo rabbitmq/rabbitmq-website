@@ -404,7 +404,7 @@ Setting the `persistent` header to `true` has the effect of making the message p
 
 Receipts for `SEND` frames with `persistent:true` are not sent until a
 confirm is received from the broker. The exact semantics for confirms
-on persistent messages can be found [here](extensions.html#confirms).
+on persistent messages can be found [here](confirms.html).
 
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.

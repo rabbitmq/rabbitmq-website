@@ -9,11 +9,27 @@
   <head>
     <title>SSL Troubleshooting</title>
   </head>
-  <body>
-       <doc:subsection name="erlang-support">
-       <doc:heading>SSL support in Erlang</doc:heading>
+  <body show-in-this-page="true">
+       <doc:subsection name="intro">
+       <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
+         The strategy is to test the required components with an alternative SSL
+         implementation in a process of elimination to identify the fault.
+       </p>
        <p>
-         Confirm that your Erlang VM has support for SSL by running the
+         Bear in mind that this process is not guaranteed to identify the problem if
+         the interaction between two specific components is responsible for the problem.
+       </p>
+       <p>
+         We also explain some of the most common <a href="#logs">error
+         messages</a> you may see in logs.
+       </p>
+       </doc:subsection>
+       <doc:subsection name="erlang-support">
+       <doc:heading>Check SSL support in Erlang</doc:heading>
+       <p>
+         The first requirement for establishing SSL connections to the broker
+         is SSL support in the broker. Confirm that the Erlang VM has support
+         for SSL by running the
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
@@ -30,12 +46,15 @@
        </doc:subsection>
 
        <doc:subsection name="keys-and-certs">
-       <doc:heading>Verify keys and certificates with OpenSSL</doc:heading>
+       <doc:heading>Check keys and certificates with OpenSSL</doc:heading>
        <p>
-         The certificates and keys specified in <code>rabbitmq.config</code> can be verified
-         separately using OpenSSL <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
+         We will now verify the certificates and keys specified in <code>rabbitmq.config</code> against
+         an alternative SSL implementation. This example uses OpenSSL
+         <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
          and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
-         For the examples that follow, we will assume you have the following:
+         We will confirm that the certificates and keys can be used to
+         establish a secure link by connecting two terminals. For the
+         examples that follow, we will assume you have the following:
        </p>
          <table>
           <tr>
@@ -82,9 +101,10 @@
        </doc:subsection>
 
        <doc:subsection name="broker-listens">
-       <doc:heading>Broker listening</doc:heading>
+       <doc:heading>Check broker is listening</doc:heading>
        <p>
-         When you start the broker with a valid SSL configuration file, broker
+         This step checks that the broker is listening on the expected AMQPS port.
+         When you start the broker with a valid SSL configuration file, the broker
          will report the SSL listening address in the logfile. You should see an entry
          similar to this:<pre>=INFO REPORT==== 8-Aug-2011::11:51:47 ===
 started SSL Listener on 0.0.0.0:5671</pre>
@@ -97,10 +117,12 @@ started SSL Listener on 0.0.0.0:5671</pre>
        </doc:subsection>
 
        <doc:subsection name="broker-listens-ssl">
-       <doc:heading>SSL connection to broker</doc:heading>
+       <doc:heading>Attempt SSL connection to broker</doc:heading>
        <p>
          Once you have a RabbitMQ broker listening on an SSL port you can again use
          the OpenSSL s_client to verify SSL connection establishment, this time against the broker.
+         This check establishes whether the broker is likely to be configured correctly,
+         without needing to configure an AMQPS client.
          The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
          SSL connections on localhost port 5671:
          <pre class="sourcecode">openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
@@ -119,22 +141,59 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        </p>
       </doc:subsection>
 
+      <doc:subsection>
+       <doc:heading>Validate client connections with stunnel</doc:heading>
        <p>
-         Attempting to establish a connection with an AMQP client that supports AMQP
-         should succeed if all the aforementioned checks pass, provided the client uses
-         the same certificate and key.
+         The final check is to validate AMQPS clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
+         to provide SSL capability. In this configuration AMQPS clients will make a secure connection to stunnel,
+         which will pass the decrypted data through to the AMQP port of the broker. This provides some confidence
+         that the client SSL configuration is correct independently of the broker SSL configuration.
        </p>
+       <p>
+         stunnel will run in daemon mode on the same host as the broker. In the discussion that follows it is
+         assumed that stunnel will only be used temporarily. It is of course possible to use stunnel to
+         provide SSL capability more permanently, but the lack of integration with the broker
+         means that management reporting features and authentication plugins that use SSL
+         information will not be able to do so.
+       </p>
+       <p>
+         In this example, stunnel will connect to the unencrypted AMQP port of the broker (5672) and accept
+         AMQPS connections from SSL-capable clients on port 5679:
+         <pre  class="sourcecode">cat client/key.pem client/cert.pem > client/key-cert.pem
+stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
+         stunnel requires a certificate and corresponding key. The generated client certificate
+         and corresponding key should be used and concatenated as shown above with the <code>cat</code> command.
+         stunnel requires that the key not be password-protected.
+       </p>
+       <p>
+         SSL-capable clients should now be able to connect to port 5679 and any SSL errors will appear
+         on the console where stunnel was started.
+       </p>
+      </doc:subsection>
 
       <doc:subsection>
-       <doc:heading>Diagnostics</doc:heading>
+       <doc:heading>Connect client and broker</doc:heading>
+       <p>
+         If none of the previous steps produced errors then you can confidently connect the tested AMQPS
+         client to the AMQPS port of the broker, making sure to stop any running OpenSSL or stunnel
+         sessions first.
+       </p>
+      </doc:subsection>
+      <doc:section name="logs">
+       <doc:heading>Understanding SSL logs</doc:heading>
+        <p>
+         New broker logfile entries will be generated during many of the preceding steps. These entries
+         together with diagnostic output from commands on the console should help to identify the cause
+         of SSL errors. What follows is a list of the most common error entries:
+        </p>
         <dl>
             <dt>
-               The broker log has entries that contain <code>{ssl_upgrade_error, ekeyfile}</code>
-               (or <code>{ssl_upgrade_error, ecertfile}</code>)
+               Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>
+               or <code>{ssl_upgrade_error, ecertfile}</code>
             </dt>
             <dd>
                <p>
-                 This means the broker keyfile (or certificate file) is invalid.
+                 This means the broker keyfile or certificate file is invalid.
                  Confirm that the keyfile matches the certificate and that both are in PEM format.
                  PEM format is a printable encoding with recognisable delimiters. The certificate
                  will start and end with <code>-----BEGIN CERTIFICATE-----</code> and
@@ -143,7 +202,17 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
                  <code>-----END RSA PRIVATE KEY-----</code> respectively.
                </p>
             </dd>
-            <dt>The broker log has entries that contain <code>{ssl_upgrade_error, ...}</code></dt>
+            <dt>Entries containing <code>{ssl_upgrade_failure, ... certify ...}</code></dt>
+            <dd>
+               <p>
+                 This error is related to client verification. The client is presenting an invalid
+                 certificate or no certificate. If the ssl_options has the <code>verify</code> option
+                 set to <code>verify_peer</code> then try using the value <code>verify_none</code>
+                 temporarily. Ensure that the client certificate has been generated correctly, and that
+                 the client is presenting the correct certificate.
+               </p>
+            </dd>
+            <dt>Entries containing <code>{ssl_upgrade_error, ...}</code></dt>
             <dd>
                <p>
                  This is a generic error that could have many causes. Make sure you are
@@ -151,7 +220,6 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
                </p>
             </dd>
         </dl>
-      </doc:subsection>
-
+      </doc:section>
   </body>
 </html>
