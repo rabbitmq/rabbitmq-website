@@ -43,15 +43,13 @@
         </li>
         <li>
             Mac OS X:
+            <a href="install-mac.html">Default</a> |
             <a href="install-macports.html">Macports</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
         <li>
             Cloud:
             <a href="ec2.html">EC2</a>
-        </li>
-        <li>
-          <a href="troubleshooting.html">Troubleshooting Installation</a>
         </li>
       </ul>
       <h3>Older Versions</h3>
@@ -124,5 +122,6 @@
         a variety of platforms and languages.
       </p>
     </div>
+
   </body>
 </html>

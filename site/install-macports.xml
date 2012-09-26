@@ -12,7 +12,7 @@
   <body>
     <p>
       Users of Mac OS X who do not use MacPorts or Homebrew can use
-      the <a href="install-generic-unix.html">Generic Unix</a>
+      the <a href="install-mac.html">Generic Mac OS X</a>
       installation instructions instead.
     </p>
     <p>
@@ -37,13 +37,29 @@
       updates - see <code>man port</code> for options).
     </p>
 
-    <h3>Install the Server</h3>
+    <h3>Install the Server</h3><a id="install"></a>
     <p>
       Installation of the version of the RabbitMQ server
       distributed with MacPorts is as simple as (<code>sudo port
         sync</code> followed by)
     </p>
     <pre class="sourcecode">sudo port install rabbitmq-server</pre>
+
+    <p>
+      <strong>Note:</strong> If you see messages like this:
+    </p>
+    <pre class="sourcecode">
+*WARNING* Undefined function ssl:connection_info/1</pre>
+    <p>
+      when you start the server (you may need to look in the startup log
+      to see these), it is probably because the Erlang port was installed
+      without SSL support. If this happens, re-install the Erlang port
+      with (for example):
+    </p>
+    <pre class="sourcecode">sudo port install erlang +ssl</pre>
+    <p>
+      You should not need to re-install RabbitMQ.
+    </p>
 
     <h3>Run RabbitMQ Server</h3>
     <p>
