@@ -504,11 +504,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>cluster_nodes</code></td>
-            <td><code>[]</code></td>
+            <td><code>{[], disc}</code></td>
             <td>
-              Set this to cause clustering
-              to <a href="clustering.html#auto-config">happen
-              automatically</a>.
+              Set this to cause clustering to <a
+              href="clustering.html#auto-config">happen automatically</a>.  The
+              first element of the tuple is the nodes that the node will try to
+              cluster to.  The second element is either <code>disc</code> or
+              <code>ram</code> and determines the node type.
             </td>
           </tr>
           <tr>

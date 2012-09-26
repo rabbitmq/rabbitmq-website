@@ -522,7 +522,7 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
   ...
   {rabbit, [
         ...
-        {cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], true}},
+        {cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], disc}},
         ...
   ]},
   ...
@@ -531,13 +531,13 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
             For instance, if this were the only field we needed to set, we would simply create the RabbitMQ config file with the contents:
           </p>
           <pre class="sourcecode">[{rabbit,
-  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], true}}]}].</pre>
+  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], disc}}]}].</pre>
           <p>
             Since we want <code>rabbit@rabbit3</code> to be a ram node, we need
             to specify that in its configuration file:
           </p>
           <pre class="sourcecode">[{rabbit,
-  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], false}}]}].</pre>
+  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], ram}}]}].</pre>
           <p>
             (Note for Erlang programmers and the curious: this is a
             standard Erlang configuration file.  For more details, see the
