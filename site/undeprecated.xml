@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Undeprecated Features</title>
+  </head>
+  <body>
+      <p>
+        In addition to extensions beyond the specification, RabbitMQ
+        also undeprecates some features that were removed from AMQP
+         0-9-1.
+      </p>
+      <ul>
+        <li><a href="amqp-0-9-1-reference.html#exchange.declare.auto-delete">Auto-delete exchanges</a></li>
+        <li><a href="amqp-0-9-1-reference.html#exchange.declare.internal">Internal exchanges</a></li>
+      </ul>
+      <p>
+        The access class was deprecated from AMQP 0-9-1. RabbitMQ
+        implements the
+        <code>access.request</code> method from this class as a no-op
+        in order to maintain compatibility with older clients. This
+        method will be removed in the future and should not be relied
+        upon.
+      </p>
+  </body>
+</html>

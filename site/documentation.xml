@@ -42,17 +42,13 @@
         <h2>Clients</h2>
         <ul>
           <li>
-            Quick links:
-            <a href="api-guide.html">Java Guide</a> |
-            <a href="&dir-current-javadoc;">Javadoc</a> |
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Guide</a> |
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET API</a> |
-            <a href="erlang-client-user-guide.html">Erlang Guide</a> |
-            <a href="&dir-current-edoc;">Erlang edoc</a>
+            API docs:
+            <a href="&dir-current-javadoc;">Java</a> |
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a> |
+            <a href="&dir-current-edoc;">Erlang</a>
           </li>
-          <li>
-            View all <a href="clients.html">client documentation</a>.
-          </li>
+          <li>View all <a href="clients.html">client documentation</a> for
+          guides and additional content.</li>
         </ul>
       </div>
 
@@ -88,6 +84,9 @@
           <li>
             How to <a href="build.html">build RabbitMQ</a> from source, or
             from <a href="mercurial.html">Mercurial</a>.
+          </li>
+          <li>
+            <a href="troubleshooting.html">Some troubleshooting tips</a>.
           </li>
         </ul>
       </div>

@@ -65,21 +65,23 @@
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
-      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
+      <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
-    <div class="s2-logo">
-      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    <div id="vmw-logo">
+      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
     </div>
-    <div id="search-box">
-      <form action="/search.html" method="get">
-        <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
-        <input type="submit" id="search-button" alt="Search" value="" />
-      </form>
+    <div id="nav-search">
+      <div id="search-box">
+        <form action="/search.html" method="get">
+          <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+          <input type="submit" id="search-button" alt="Search" value="" />
+        </form>
+      </div>
+      <ul class="mainNav">
+        <xsl:call-template name="main-nav"/>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
     </div>
-    <ul class="mainNav">
-      <xsl:call-template name="main-nav"/>
-      <li><a href="/blog/">Blog</a></li>
-    </ul>
     <div class="nav-separator"/>
   </xsl:template>
 

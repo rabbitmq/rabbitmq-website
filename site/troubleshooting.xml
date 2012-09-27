@@ -11,7 +11,7 @@
   </head>
   <body>
         <dl class="instructions">
-          <dt>Checking Broker Status</dt>
+          <dt><strong>Checking Broker Status</strong></dt>
           <dd>
             <p>
               You can use <code>rabbitmqctl status</code>
@@ -78,7 +78,7 @@
               isn't running. Check the broker logs for errors.
             </p>
           </dd>
-          <dt>Server Fails to Start</dt>
+          <dt><strong>Server Fails to Start</strong></dt>
           <dd>
             <p>
               When the server fails to start, usually a crash dump file
@@ -99,15 +99,17 @@
               Mnesia directory cannot be created.
             </p>
           </dd>
-          <dt>Windows Service fails to Install</dt>
+          <dt><strong>Windows Service fails to Install</strong></dt>
           <dd>
+            <p>
             If the service fails to install, check the service account has full access permission for
             <b>RABBITMQ_BASE</b>, <b>RABBITMQ_MNESIA_BASE</b> and
             <b>RABBITMQ_LOG_BASE</b> directories
             [<a href="http://www.microsoft.com/windowsxp/using/security/learnmore/accesscontrol.mspx">XP</a>,
                 <a href="http://windows.microsoft.com/en-US/windows-vista/Troubleshoot-access-denied-when-opening-files-or-folders">Vista</a>].
+            </p>
           </dd>
-          <dt>Windows Service fails to Start</dt>
+          <dt><strong>Windows Service fails to Start</strong></dt>
           <dd>
             <p>
             If the service fails to start, make sure the service has been
@@ -122,7 +124,7 @@
                 information.
             </p>
           </dd>
-          <dt>Plugin fails to activate</dt>
+          <dt><strong>Plugin fails to activate</strong></dt>
           <dd>
             <p>
             If a plugin fails to activate, check the output of
@@ -131,16 +133,22 @@
             when changing plugins.
             </p>
           </dd>
+          <dt><strong>Problems with SSL</strong></dt>
+          <dd>
+            <p>
+              See <a href="troubleshooting-ssl.html">SSL troubleshooting</a>.
+            </p>
+          </dd>
         </dl>
         <p>
           If the server is not behaving as expected during operation,
-          examine the log files and use the rabbitmqctl
+          examine the log files and use the <code>rabbitmqctl</code>
           commands from the <a href="admin-guide.html">admin guide</a>
           to obtain further information on the server status.
         </p>
         <p>
           For problems encountered in the handling of AMQP traffic,
-          the <a href="examples.html#tracer">AMQP capture and analysis
+          the <a href="api-guide.html#tracer">AMQP capture and analysis
           tool</a> may help in the analysis.
         </p>
         <p>
