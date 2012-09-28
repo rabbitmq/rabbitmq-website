@@ -19,7 +19,12 @@
 	  href="http://www.gnupg.org/">GnuPG</a> and <a
 	  href="rabbitmq-signing-key-public.asc">our public signing
 	  key</a>.
-	</p>
+    </p>
+    <p>
+      For nightly builds, we use the following
+      <a href="rabbit-nightly-signing-key-public.asc">
+          alternative public signing key</a>.
+    </p>
       </doc:section>
 
       <doc:section name="importing-gpg-key">
