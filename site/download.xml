@@ -62,14 +62,6 @@
           <a href="changelog.html">Changelog</a>
         </li>
       </ul>
-      <h3>Nightly Builds</h3>
-      <ul>
-        <li>
-          <a href="/nightlies/rabbitmq-server/">Download</a> |
-          <a href="/debian-snapshot">Debian Repository</a> |
-          <a href="/nightlies/macports">Macports</a>
-        </li>
-      </ul>
     </div>
 
     <div class="landing-box">
@@ -90,7 +82,6 @@
         </li>
         <li>
           <a href="/releases/rabbitmq-java-client/">Older versions</a> |
-          <a href="/nightlies/rabbitmq-java-client/">Nightly Builds</a>
         </li>
       </ul>
       <h3>.NET/C# Client</h3>
@@ -107,7 +98,6 @@
         </li>
         <li>
           <a href="/releases/rabbitmq-dotnet-client/">Older versions</a> |
-          <a href="/nightlies/rabbitmq-dotnet-client/">Nightly Builds</a>
         </li>
       </ul>
 
@@ -123,11 +113,18 @@
         </li>
         <li>
           <a href="/releases/rabbitmq-erlang-client/">Older versions</a> |
-          <a href="/nightlies/rabbitmq-erlang-client/">Nightly Builds</a>
         </li>
       </ul>
     </div>
-
+    <div class="landing-box">
+      <h2>Nightly Builds</h2>
+      <p>
+          We make nightly builds of the RabbitMQ broker and official clients
+          available to users who wish to experiment with the latest and
+          greatest features and bugfixes. For more details, head over to
+          the <a href="nightly-builds.html">nightly builds page</a>.
+      </p>
+    </div>
     <div class="landing-box">
       <h2>Clients for other languages</h2>
       <p>
