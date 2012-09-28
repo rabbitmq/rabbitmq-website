@@ -48,6 +48,7 @@
      <x:page url="/erlang-client.html" text="Erlang Client Downloads">
        <x:related url="/erlang-client-user-guide.html"/>
      </x:page>
+     <x:page url="/nightly-builds.html" text="Nightly Builds" />
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
      <x:page url="/features.html" text="Features"/>
