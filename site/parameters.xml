@@ -94,9 +94,9 @@
         <th>rabbitmqctl</th>
         <td>
           <pre>rabbitmqctl set_parameter policy federate-me \
-  '[{&lt;&lt;"pattern">>, &lt;&lt;"^amq.">>}, \
-    {&lt;&lt;"priority">>, 1}, \
-    {&lt;&lt;"policy">>, [{&lt;&lt;"federation-upstream-set">>,&lt;&lt;"all">>}]}]'</pre>
+  '{"pattern":"^amq.", \
+    "priority":1, \
+    "policy":{"federation-upstream-set":"all"}}'</pre>
         </td>
       </tr>
       <tr>
