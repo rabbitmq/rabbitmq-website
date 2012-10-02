@@ -448,8 +448,10 @@
           <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
-            <i>upstream queue</i> (see <code>expires</code>). Default is
-            <code>'none'</code>, meaning the queue is not HA.
+            <i>upstream queue</i> (see <code>expires</code>). This is
+            only of interest when connecting to old brokers which
+            determine queue HA mode using this argument. Default
+            is <code>'none'</code>, meaning the queue is not HA.
           </dd>
         </dl>
       </doc:subsection>
