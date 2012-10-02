@@ -101,7 +101,7 @@
     <h3>Other system memory</h3>
     <p>
       Other memory used by Erlang. One contributor to this value
-      is the number of avialable file descriptors.
+      is the number of available file descriptors.
     </p>
   </table>
 </body>
