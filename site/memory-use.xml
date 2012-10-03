@@ -23,11 +23,11 @@
       is split into the following categories (which do not overlap):
     </p>
 
-    <h3>Connections and Channels</h3>
+    <h3>Connections</h3>
     <p>
-      This includes memory used by incoming connections and
-      channels, and outgoing ones if the appropriate plugins are
-      loaded. It also includes memory used by the SSL system.
+      This includes memory used by incoming connections and channels,
+      and outgoing ones if the appropriate plugins are loaded. It also
+      includes memory used by the SSL system.
     </p>
 
     <h3>Queues</h3>
@@ -40,9 +40,11 @@
 
     <h3>Plugins</h3>
     <p>
-      Memory used by plugins (apart from the Erlang client which
-      is counted under Connections and channels, and the
-      management database which is counted separately).
+      Memory used by plugins (apart from the Erlang client which is
+      counted under Connections, and the management database which is
+      counted separately). Note that RabbitMQ will count some
+      per-connection memory here for protocol plugins such as STOMP
+      and MQTT.
     </p>
 
     <h3>Other process memory</h3>
@@ -103,6 +105,5 @@
       Other memory used by Erlang. One contributor to this value
       is the number of available file descriptors.
     </p>
-  </table>
 </body>
 </html>
