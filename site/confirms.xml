@@ -41,14 +41,13 @@
     </p>
 
     <p>
-      By confirming a message the broker assumes responsibility
-      for it and indicates that it has done something it deems
-      reasonable with it.  Unroutable mandatory or immediate
-      messages are confirmed right after the
-      <code>basic.return</code>.  Transient messages are
-      confirmed as soon as they arrive on all the queues they
-      were routed to.  Persistent messages are confirmed when
-      all queues have either delivered the message and received an
+      By confirming a message the broker assumes responsibility for it
+      and indicates that it has done something it deems reasonable
+      with it.  Unroutable mandatory messages are confirmed right
+      after the <code>basic.return</code>.  Transient messages are
+      confirmed as soon as they arrive on all the queues they were
+      routed to.  Persistent messages are confirmed when all queues
+      have either delivered the message and received an
       acknowledgement (if required), or persisted the message.
     </p>
 

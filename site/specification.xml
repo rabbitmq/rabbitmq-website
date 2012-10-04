@@ -1490,7 +1490,8 @@
           </rule>
 
           <rule>
-            <status value="ok">does</status>
+            <status value="failing">doesn't</status>
+            <notes>The server does not support the immediate flag. <a href="ttl.html">message TTLs</a> of 0 offer an alternative.</notes>
             <type>SHOULD</type>
             <xref>basic / publish / immediate / 01</xref>
             <type/>

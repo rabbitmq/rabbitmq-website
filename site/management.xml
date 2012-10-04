@@ -88,11 +88,6 @@
         </p>
         <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
-          Windows service users need to take
-          <a href="/plugins.html#windows-restart">additional steps</a> when
-          changing plugins.
-        </p>
-        <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
@@ -251,8 +246,8 @@
           <p>
             The management plugin lets you export a JSON file
             containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts and
-            permissions). In some scenarios it may be useful to ensure
+            exchanges, bindings, users, virtual hosts, permissions and
+            parameters). In some scenarios it may be useful to ensure
             the existence of these objects at every startup.
           </p>
           <p>

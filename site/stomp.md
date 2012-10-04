@@ -421,12 +421,15 @@ on `SUBSCRIBE` frames to the desired integer count.
 available when publishing messages. These headers are also set on
 `MESSAGE` frames sent to clients.
 
-The supported headers are:
+All non-deprecated AMQP properties (`content-type`,
+`content-encoding`, `headers`, `delivery-mode`, `priority`,
+`correlation-id`, `reply-to`, `expiration`, `message-id`, `timestamp`,
+`type`, `user-id` and `app-id`) are supported. The following special
+rules apply:
 
-* `amqp-message-id` -- sets the `message-id` property
-* `correlation-id` -- sets the `correlation-id` property
-* `content-encoding` -- sets the `content-encoding` property
-* `priority` -- sets the `priority` property
-* `reply-to` -- sets the `reply-to` property (see
-[Temp Queue Destinations](#d.tqd) above for a special meaning of this header)
-
+* `amqp-message-id` in STOMP is converted to `message-id` in AMQP, and
+  vice-versa.
+* The `reply-to` header causes temporary queues to be created (see
+  [Temp Queue Destinations](#d.tqd) above).
+* All unrecognised STOMP headers are inserted into the AMQP `headers`
+  property.
