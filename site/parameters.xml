@@ -64,11 +64,10 @@
     </p>
     <h2 id="policies">Policies</h2>
     <p>
-      One type of parameter is a <i>policy</i>. Policies automatically
-      match against exchanges and queues, and help determine how they
-      behave. Each exchange or queue will have at most one policy
-      matching, and each policy then maps a set of key-value pairs on
-      to the exchange or queue.
+      Policies automatically match against exchanges and queues, and help
+      determine how they behave. Each exchange or queue will have at most
+      one policy matching, and each policy then maps a set of key-value
+      pairs on to the exchange or queue.
     </p>
     <p>
       Policies therefore act somewhat like the arguments to
@@ -83,7 +82,8 @@
       not just when the policy is created.
     </p>
     <p>
-      Currently policies are only used by the federation plugin.
+      Currently policies are only used by the federation plugin and
+      mirrored queues.
     </p>
     <p>
       An example of defining a policy looks like:
@@ -93,7 +93,7 @@
       <tr>
         <th>rabbitmqctl</th>
         <td>
-          <pre>rabbitmqctl set_parameter policy federate-me \
+          <pre>rabbitmqctl set_policy federate-me \
   '{"pattern":"^amq.", \
     "priority":1, \
     "policy":{"federation-upstream-set":"all"}}'</pre>
