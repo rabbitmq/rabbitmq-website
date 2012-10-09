@@ -93,10 +93,7 @@
       <tr>
         <th>rabbitmqctl</th>
         <td>
-          <pre>rabbitmqctl set_policy federate-me \
-  '{"pattern":"^amq.", \
-    "priority":1, \
-    "policy":{"federation-upstream-set":"all"}}'</pre>
+          <pre>rabbitmqctl set_policy federate-me "^amq." '{"federation-upstream-set":"all"}' 1</pre>
         </td>
       </tr>
       <tr>
