@@ -20,6 +20,7 @@
   -->
 
    <x:page url="/download.html" text="Installation">
+   <x:modal mode="www">
      <x:page url="/install-windows.html" text="Install: Windows">
        <x:related url="/windows-quirks.html"/>
      </x:page>
@@ -49,6 +50,7 @@
        <x:related url="/erlang-client-user-guide.html"/>
      </x:page>
      <x:page url="/nightly-builds.html" text="Nightly Builds" />
+   </x:modal>
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
      <x:page url="/features.html" text="Features"/>

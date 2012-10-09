@@ -44,7 +44,7 @@ if [ -d ${releases_dir}/rabbitmq-server/current/ ]; then
     cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
 fi
 
-./code/compile $site_dir/site-src $site_dir/site
+./code/compile $site_dir/site-src $site_dir/site $mode
 
 chown $mirror_user:$mirror_group $site_dir/site/index.html
 
