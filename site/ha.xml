@@ -263,7 +263,7 @@
           vice versa). There is a difference between a non-mirrored
           queue and a mirrored queue which does not have any slaves -
           the former lacks the extra mirroring infrastructure and will
-          run considerably faster.
+          run faster.
         </p>
         <p>
           You should be aware of the behaviour
