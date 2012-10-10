@@ -302,7 +302,9 @@
               the cluster, the queue is mirrored to all nodes. If
               there are more than <i>count</i> nodes in the cluster,
               and a node containing a mirror goes down, then a new
-              mirror will be created on another node.
+              mirror will <b>not</b> be created on another node. (This
+              is to prevent queues migrating across a cluster as it is
+              brought down.)
             </td>
           </tr>
           <tr>
