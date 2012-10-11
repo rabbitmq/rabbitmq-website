@@ -100,9 +100,9 @@
         <th>HTTP API</th>
         <td>
           <pre>PUT /api/parameters/policy/%2f/federate-me
-{"value":{"pattern": "^amq.",
-          "priority": 1,
-          "policy": {"federation-upstream-set":"all"}}}</pre>
+{"pattern": "^amq.",
+ "definition": {"federation-upstream-set":"all"}
+ "priority": 1}</pre>
         </td>
       </tr>
     </table>
