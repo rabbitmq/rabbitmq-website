@@ -231,6 +231,21 @@ can do it by gently closing the connection.
     :::python
     connection.close()
 
+> #### Sending doesn't work!
+>
+> If this is your first time using RabbitMQ and you don't see the "Sent"
+> message then you may be left scratching your head wondering what could
+> be wrong. Maybe the broker was started without enough free disk space
+> (by default it needs at least 1Gb free) and is therefore refusing to
+> accept messages. Check the broker logfile to confirm and reduce the
+> limit if necessary. The <a
+> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> file documentation</a> will show you how to set <code>disk_free_limit</code>.
+>
+>      [
+>       {rabbit, [{disk_free_limit, 0}]}
+>      ].
+
 
 ### Receiving
 
