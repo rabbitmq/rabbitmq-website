@@ -369,16 +369,14 @@
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_parameter policy ha-all \
-   '{"pattern":"^ha.","policy":{"ha-mode":"all"}}'</pre>
+              <pre>rabbitmqctl set_policy ha-all "^ha." '{"ha-mode":"all"}'</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-all
-   {"value":{"pattern":"^ha.",
-             "policy":{"ha-mode":"all"}}}</pre>
+   {"pattern":"^ha.", "definition":{"ha-mode":"all"}}</pre>
             </td>
           </tr>
           <tr>
@@ -413,17 +411,15 @@
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_parameter policy ha-two \
-   '{"pattern":"^two.","policy":{"ha-mode":"exactly","ha-params":2}}'</pre>
+              <pre>rabbitmqctl set_policy ha-two "^two." \
+   '{"ha-mode":"exactly","ha-params":2}'</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-two
-   {"value":{"pattern":"^two.",
-             "policy":{"ha-mode":"exactly",
-                       "ha-params":2}}}</pre>
+   {"pattern":"^two.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
             </td>
           </tr>
           <tr>
