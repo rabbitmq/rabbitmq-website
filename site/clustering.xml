@@ -460,13 +460,15 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <doc:heading>Auto-configuration of a cluster</doc:heading>
           <p>
             Instead of configuring clusters "on the fly" using the
-            <code>cluster</code> command, clusters can also be set up via the
-            RabbitMQ <code>.config</code> file; see the <a
-            href="configure.html#configuration-file">configuration guide</a> for
-            details. The file should set the cluster_nodes field in the rabbit
-            application to a tuple contanining a list of rabbit nodes, and a
-            boolean indicating whether the node should join them as a disc node
-            or not.
+            <code>cluster</code> command, clusters can also be set up
+            via the <a
+            href="configure.html#configuration-file">RabbitMQ
+            configuration file</a>. The file should set the
+            <code>cluster_nodes</code> field in the rabbit application
+            to a tuple contanining a list of rabbit nodes, and an atom
+            - either <code>disc</code> or <code>ram</code> -
+            indicating whether the node should join them as a disc
+            node or not.
           </p>
           <p>
             If <code>cluster_nodes</code> is specified, RabbitMQ will try to
