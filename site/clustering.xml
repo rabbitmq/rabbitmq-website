@@ -33,12 +33,6 @@
           WAN.
         </p>
         <p>
-          The easiest way to set up a cluster is by auto configuration
-          using a default cluster config file. See the <a
-          href="#auto-config">clustering
-          transcripts</a> for an example.
-        </p>
-        <p>
           The composition of a cluster can be altered dynamically.
           All RabbitMQ brokers start out as running on a single
           node. These nodes can be joined into clusters, and
