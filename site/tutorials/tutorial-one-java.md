@@ -199,10 +199,6 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java)
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
->
->      [
->       {rabbit, [{disk_free_limit, 0}]}
->      ].
 
 
 ### Receiving

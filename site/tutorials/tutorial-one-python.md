@@ -241,10 +241,6 @@ can do it by gently closing the connection.
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
 > file documentation</a> will show you how to set <code>disk_free_limit</code>.
->
->      [
->       {rabbit, [{disk_free_limit, 0}]}
->      ].
 
 
 ### Receiving
