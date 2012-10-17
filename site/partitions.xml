@@ -28,10 +28,10 @@
     <h2>Detecting network partitions</h2>
     <p>
       Mnesia will typically determine that a node is down if another
-      node is unable to contact it other for a minute or so. If two
-      nodes come back into contact, both having thought the other is
-      down, Mnesia will determine that a partition has occured. This
-      will be written to the RabbitMQ log in a form like:
+      node is unable to contact it for a minute or so. If two nodes
+      come back into contact, both having thought the other is down,
+      Mnesia will determine that a partition has occured. This will be
+      written to the RabbitMQ log in a form like:
     </p>
     <pre>=ERROR REPORT==== 15-Oct-2012::18:02:30 ===
 Mnesia(rabbit@smacmullen): ** ERROR ** mnesia_event got
@@ -79,7 +79,8 @@ Cluster status of node rabbit@smacmullen ...
       be created or deleted separately. <a href="ha.html">Mirrored
       queues</a> which are split across the partition will end up with
       one master on each side of the partition, again with both sides
-      acting independently.
+      acting independently. Other undefined and weird behaviour may
+      occur.
     </p>
     <p>
       <b>It is important to understand that when network connectivity
@@ -96,9 +97,9 @@ Cluster status of node rabbit@smacmullen ...
       occured on other partitions will be lost.
     </p>
     <p>
-      Stop and start all nodes in the other partitions. When they
-      rejoin the cluster they will restore state from the trusted
-      partition.
+      Stop all nodes in the other partitions, then start them all up
+      again. When they rejoin the cluster they will restore state from
+      the trusted partition.
     </p>
     <p>
       Finally, you should also restart all the nodes in the trusted
