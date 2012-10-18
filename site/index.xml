@@ -1,9 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Messaging that just works</title>
   </head>
   <body suppress-rhs="true">
+    <x:modal mode="www">
     <div class="rgt-third">
       <h3>
 	<span class="subscribe">
@@ -85,5 +86,22 @@
         </li>        
       </ul>
     </div>
+    </x:modal>
+    <x:modal mode="next">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>next.rabbitmq.com</b>, exists to document the
+        features that will be available in the <b>next</b> feature
+        release of RabbitMQ, and that are available in
+        the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
+        builds</a>.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
   </body>
 </html>

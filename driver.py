@@ -9,6 +9,8 @@ import sys
 sys.path.insert(0, 'code')
 import render ## from the ./code/ subdirectory
 render.SITE_DIR = './site/'
+global site_mode
+site_mode = 'www'
 
 class StubReq:
     def __init__(self, uri, queryPos):
@@ -40,7 +42,7 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             if p[-1] == '/':
                 p = p + 'index.html'
             r = StubReq(p, queryPos)
-            render.handler(r)
+            render.handler(r, site_mode)
             self.send_response(r.status)
             self.send_header("Content-type", r.content_type)
             self.end_headers()
@@ -55,6 +57,8 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return result
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'next':
+        site_mode = 'next'
     addr = ('0.0.0.0', 8191)
     httpd = BaseHTTPServer.HTTPServer(addr, ReqHandler)
     print 'Serving on', addr
