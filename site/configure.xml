@@ -353,47 +353,48 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <table>
           <tr>
             <th>Key</th>
-            <th>Default value</th>
             <th>Documentation</th>
           </tr>
           <tr>
-            <td><code>tcp_listeners</code></td>
-            <td><code>[5672]</code></td>
+            <td>
+              <code>tcp_listeners</code>
+            </td>
             <td>
               List of ports on which to listen for AMQP connections
               (without SSL). Can contain integers (meaning "listen on
               all interfaces") or tuples such as <code>{"127.0.0.1",
               5672}</code> to listen on a single interface.
+
+              <p>Default: <code>[5672]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>ssl_listeners</code></td>
-            <td><code>[]</code></td>
             <td>
               As above, for SSL connections.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>ssl_options</code></td>
-            <td><code>[]</code></td>
             <td>
               SSL configuration. See the <a href="ssl.html#enabling-ssl">SSL
               documentation</a>.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>vm_memory_high_watermark</code></td>
-            <td><code>0.4</code></td>
             <td>
               Memory threshold at which the flow control is
               triggered. See
               the <a href="memory.html">memory-based flow
               control</a> documentation.
+              <p>Default: <code>0.4</code></p>
             </td>
           </tr>
           <tr>
             <td><code>disk_free_limit</code></td>
-            <td><code>1000000000</code></td>
             <td>
               Disk free space limit of the partition on which RabbitMQ
               is storing data. When available disk space falls below
@@ -404,11 +405,11 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               space must exceed 1GB. See
               the <a href="memory.html#diskfreesup">memory-based flow
               control</a> documentation.
+              <p>Default: <code>1000000000</code></p>
             </td>
           </tr>
           <tr>
             <td><code>log_levels</code></td>
-            <td><code>[{connection, info}]</code></td>
             <td>
               Controls the granularity of logging. The value is a list
               of log event category and log level pairs.
@@ -426,80 +427,80 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 connections. Other, currently uncategorised, events
                 are always logged.
               </p>
+              <p>Default: <code>[{connection, info}]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>frame_max</code></td>
-            <td><code>131072</code></td>
             <td>
               Maximum permissible size of a frame (in bytes) to
               negotiate with clients. Setting to 0 means "unlimited"
               but will trigger a bug in some QPid clients. Setting a
               larger value may improve throughput; setting a smaller
               value may improve latency.
+              <p>Default: <code>131072</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_vhost</code></td>
-            <td><code>&lt;&lt;"/"&gt;&gt;</code></td>
             <td>
               Virtual host to create when RabbitMQ creates a new
               database from scratch. The
               exchange <code>amq.rabbitmq.log</code> will exist in
               this virtual host.
+              <p>Default: <code>&lt;&lt;"/"&gt;&gt;</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_user</code></td>
-            <td><code>&lt;&lt;"guest"&gt;&gt;</code></td>
             <td>
               User name to create when RabbitMQ creates a new database
               from scratch.
+              <p>Default: <code>&lt;&lt;"guest"&gt;&gt;</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_pass</code></td>
-            <td><code>&lt;&lt;"guest"&gt;&gt;</code></td>
             <td>
               Password for the default user.
+              <p>Default: <code>&lt;&lt;"guest"&gt;&gt;</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_user_tags</code></td>
-            <td><code>[administrator]</code></td>
             <td>
               Tags for the default user.
+              <p>Default: <code>[administrator]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_permissions</code></td>
-            <td><code>
-                [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;]
-            </code></td>
             <td>
               <a href="access-control.html">Permissions</a>
               to assign to the default user when creating it.
+              <p>Default: <code>
+                  [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;]
+              </code></p>
             </td>
           </tr>
           <tr>
             <td><code>cluster_nodes</code></td>
-            <td><code>[]</code></td>
             <td>
               Set this to cause clustering
               to <a href="clustering.html#auto-config">happen
               automatically</a>.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>server_properties</code></td>
-            <td><code>[]</code></td>
             <td>
               List of key-value pairs to announce to clients on connection.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>collect_statistics</code></td>
-            <td><code>none</code></td>
             <td>
               Statistics collection mode. Primarily relevant for the
               management plugin. Options are:
@@ -509,70 +510,72 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 <li>fine (also emit per-message statistics)</li>
                 </ul>
               You probably don't want to change this yourself.
+              <p>Default: <code>none</code></p>
             </td>
           </tr>
           <tr>
             <td><code>collect_statistics_interval</code></td>
-            <td><code>5000</code></td>
             <td>
               Statistics collection interval in
               milliseconds. Primarily relevant for
               the <a href="management.html#statistics-interval">management
               plugin</a>.
+              <p>Default: <code>5000</code></p>
             </td>
           </tr>
           <tr>
             <td><code>auth_mechanisms</code></td>
-            <td><code>['PLAIN', 'AMQPLAIN']</code></td>
             <td>
               <a href="authentication.html">SASL authentication
               mechanisms</a> to offer to clients.
+              <p>Default: <code>['PLAIN', 'AMQPLAIN']</code></p>
             </td>
           </tr>
           <tr>
             <td><code>auth_backends</code></td>
-            <td><code>[rabbit_auth_backend_internal]</code></td>
             <td>
               List of authentication databases to use. Other databases
               than <code>rabbit_auth_backend_internal</code> are
               available through <a href="plugins.html">plugins</a>.
+              <p>Default: <code>[rabbit_auth_backend_internal]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>delegate_count</code></td>
-            <td><code>16</code></td>
             <td>
               Number of delegate processes to use for intra-cluster
               communication. On a machine which has a very large
               number of cores and is also part of a cluster, you may
               wish to increase this value.
+              <p>Default: <code>16</code></p>
             </td>
           </tr>
           <tr>
             <td><code>trace_vhosts</code></td>
-            <td><code>[]</code></td>
             <td>
               Used internally by
               the <a href="firehose.html">tracer</a>. You shouldn't
               change this.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
             <td><code>tcp_listen_options</code></td>
-            <td><pre>[binary, {packet,        raw},
+            <td>
+              Default socket options. You probably don't want to
+              change this.
+
+              <p>Default:
+                <pre>[binary, {packet,        raw},
          {reuseaddr,     true},
          {backlog,       128},
          {nodelay,       true},
          {exit_on_close, false}]</pre>
-            </td>
-            <td>
-              Default socket options. You probably don't want to
-              change this.
+              </p>
             </td>
           </tr>
           <tr>
             <td><code>hipe_compile</code></td>
-            <td><code>false</code></td>
             <td>
               Set to <code>true</code> to precompile parts of RabbitMQ
               with the High Performance Erlang compiler. This will
@@ -601,38 +604,40 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 considered <b>experimental</b>. If your Erlang VM
                 segfaults, disable this option again.
               </p>
+              <p>Default: <code>false</code></p>
             </td>
           </tr>
           <tr>
             <td><code>msg_store_index_module</code></td>
-            <td><code>rabbit_msg_store_ets_index</code></td>
             <td>
               Implementation module for queue indexing. You probably
               don't want to change this.
+              <p>Default: <code>rabbit_msg_store_ets_index</code></p>
             </td>
           </tr>
           <tr>
             <td><code>backing_queue_module</code></td>
-            <td><code>rabbit_variable_queue</code></td>
             <td>
               Implementation module for queue contents. You probably
               don't want to change this.
+              <p>Default: <code>rabbit_variable_queue</code></p>
             </td>
           </tr>
           <tr>
             <td><code>msg_store_file_size_limit</code></td>
-            <td><code>16777216</code></td>
             <td>
               Tunable value for the persister. You almost certainly
               should not change this.
+              <p>Default: <code>16777216</code></p>
             </td>
           </tr>
           <tr>
-            <td><code>queue_index_max_journal_entries</code></td>
-            <td><code>262144</code></td>
+            <td><code>queue_index_max_</code>
+              <code>journal_entries</code></td>
             <td>
               Tunable value for the persister. You almost certainly
               should not change this.
+              <p>Default: <code>262144</code></p>
             </td>
           </tr>
         </table>
