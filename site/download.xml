@@ -10,6 +10,7 @@
     <title>Downloading and Installing RabbitMQ</title>
   </head>
   <body>
+    <x:modal mode="www">
     <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
     <div class="landing-box">
       <h2>RabbitMQ Server</h2>
@@ -130,6 +131,24 @@
         a variety of platforms and languages.
       </p>
     </div>
-
+    </x:modal>
+    <x:modal mode="next">
+    <div class="landing-box">
+      <h2>Looking for RabbitMQ?</h2>
+      <p>
+        If you came to this site looking to install RabbitMQ, go
+        to <a href="http://www.rabbitmq.com/download.html">the main
+          RabbitMQ downloads page</a>.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>Nightly builds</h2>
+      <p>
+        If you are brave, you can
+        install <a href="http://www.rabbitmq.com/nightly-builds.html">the
+          nightly builds</a>.
+      </p>
+    </div>
+    </x:modal>
   </body>
 </html>

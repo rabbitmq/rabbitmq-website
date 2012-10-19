@@ -48,6 +48,12 @@
           <a href="rabbit-nightly-signing-key-public.asc">
               our nightly builds public signing key</a>.
       </p>
+      <p>
+        You can find documentation about any new features available in
+        our nightly builds
+        at <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+      </p>
+
     </doc:section>
     <doc:section name="downloads">
     <div class="landing-box">

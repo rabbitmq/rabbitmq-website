@@ -184,7 +184,7 @@ ul.mainNav {
 .mainNav li {
 	display: inline;
 	border: none;
-	background: white;
+	background: none;
         padding: 0 2em 0 0;
 	margin: 1px;
 	text-decoration: none;
