@@ -23,9 +23,9 @@
       </li>
       <li>
         A global mechanism that prevents any messages from being
-        published when the memory usage exceeds a configured
-        threshold or free disk space drops below a configured
-        threshold.
+        published when the <a href="memory-use.html">memory usage</a>
+        exceeds a configured threshold or free disk space drops
+        below a configured threshold.
       </li>
     </ul>
 

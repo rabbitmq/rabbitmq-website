@@ -90,13 +90,6 @@
             <td>on commit</td>
           </tr>
           <tr>
-            <td>sending of 'no_consumers' <code>basic.return</code></td>
-            <td>undefined</td>
-            <td>never</td>
-            <td>on commit</td>
-            <td>on commit</td>
-          </tr>
-          <tr>
             <td>effect visibility / responsibility transfer / durability</td>
             <td>undefined</td>
             <td>on commit</td>

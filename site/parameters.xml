@@ -1,0 +1,130 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Parameters</title>
+  </head>
+  <body>
+    <p>
+      While much of the configuration for RabbitMQ lives in
+      the <a href="configure.html">configuration file</a>, some things
+      do not mesh well with the use of a configuration file:
+    </p>
+    <ul>
+      <li>If they need to be the same across all nodes in a cluster</li>
+      <li>If they are likely to change at run time</li>
+    </ul>
+    <p>
+      RabbitMQ calls these items <i>parameters</i>. Parameters can be
+      set by
+      invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
+      or through <a href="management.html">the management plugin</a>'s HTTP API.
+    </p>
+    <p>
+      Parameters can be set, cleared and listed:
+    </p>
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <code>rabbitmqctl set_parameter {-p <i>vhost</i>} <i>component_name</i> <i>key</i> <i>value</i></code><br/>
+          <code>rabbitmqctl clear_parameter {-p <i>vhost</i>} <i>component_name</i> <i>key</i></code><br/>
+          <code>rabbitmqctl list_parameters {-p <i>vhost</i>}</code>
+        </td>
+      </tr>
+      <tr>
+        <th>HTTP API</th>
+        <td>
+          <code>PUT /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>key</i></code><br/>
+          <code>DELETE /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>key</i></code><br/>
+          <code>GET /api/parameters</code><br/>
+        </td>
+      </tr>
+    </table>
+
+
+    <p>
+      Note that the value of a parameter is an Erlang term when set
+      by <code>rabbitmqctl</code>, and a JSON document when set by the
+      management plugin.
+    </p>
+    <p>
+      Parameters reside in the database used by RabbitMQ for
+      definitions of virtual hosts, exchanges, queues, bindings, users
+      and permissions. Parameters are exported along with other object
+      definitions by the mananagement plugin's export feature.
+    </p>
+    <p>
+      Currently parameters are only used by the federation plugin.
+    </p>
+    <h2 id="policies">Policies</h2>
+    <p>
+      One type of parameter is a <i>policy</i>. Policies automatically
+      match against exchanges and queues, and help determine how they
+      behave. Each exchange or queue will have at most one policy
+      matching, and each policy then maps a set of key-value pairs on
+      to the exchange or queue.
+    </p>
+    <p>
+      Policies therefore act somewhat like the arguments to
+      exchange.declare and queue.declare, except that they are applied
+      automatically without the involvement of the client application,
+      and they can change at any time. Note that the set of features
+      which can be controlled by policy is not the same as the set of
+      features which can be controlled by arguments.
+    </p>
+    <p>
+      Policies are matched every time an exchange or queue is created,
+      not just when the policy is created.
+    </p>
+    <p>
+      Currently policies are only used by the federation plugin.
+    </p>
+    <p>
+      An example of defining a policy looks like:
+    </p>
+
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <pre>rabbitmqctl set_parameter policy federate-me \
+  '{"pattern":"^amq.", \
+    "priority":1, \
+    "policy":{"federation-upstream-set":"all"}}'</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>HTTP API</th>
+        <td>
+          <pre>PUT /api/parameters/policy/%2f/federate-me
+{"value":{"pattern": "^amq.",
+          "priority": 1,
+          "policy": {"federation-upstream-set":"all"}}}</pre>
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      This matches the value <code>"all"</code> with the key
+      <code>"federation-upstream-set"</code> for all exchanges and
+      queues with names beginning with <code>"amq."</code>, in the
+      virtual host <code>"/"</code>.
+    </p>
+
+    <p>
+      The <code>"pattern"</code> argument is a regular expression used
+      to match exchange or queue names.
+    </p>
+
+    <p>
+      In the event that more than one policy can match a given
+      exchange or queue, the policy with the greatest priority applies.
+    </p>
+  </body>
+</html>
