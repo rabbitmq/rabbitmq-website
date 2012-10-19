@@ -43,7 +43,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    applications, they can be stored only inside a _queue_. A _queue_
    is not bound by any limits, it can store as many messages as you
    like &#8210; it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
+   messages that go to one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
    <div class="diagram">
@@ -80,6 +80,8 @@ RabbitMQ, and messaging in general, uses some jargon.
      </div>
    </div>
 
+Note that the producer, consumer, and broker do not have to reside on
+the same machine; indeed in most applications they don't.
 
 Hello World!
 ------------
@@ -191,10 +193,14 @@ RabbitMQ server.
                    'localhost'))
     channel = connection.channel()
 
-We're connected now. Next, before sending we need to make sure the
-recipient queue exists. If we send a message to non-existing location,
-RabbitMQ will just trash the message. Let's create a queue to which
-the message will be delivered, let's name it _hello_:
+We're connected now, to a broker on the local machine - hence the
+_localhost_. If we wanted to connect to a broker on a different
+machine we'd simply specify its name or IP address here.
+
+Next, before sending we need to make sure the recipient queue
+exists. If we send a message to non-existing location, RabbitMQ will
+just trash the message. Let's create a queue to which the message will
+be delivered, let's name it _hello_:
 
     :::python
     channel.queue_declare(queue='hello')
@@ -224,6 +230,17 @@ can do it by gently closing the connection.
 
     :::python
     connection.close()
+
+> #### Sending doesn't work!
+>
+> If this is your first time using RabbitMQ and you don't see the "Sent"
+> message then you may be left scratching your head wondering what could
+> be wrong. Maybe the broker was started without enough free disk space
+> (by default it needs at least 1Gb free) and is therefore refusing to
+> accept messages. Check the broker logfile to confirm and reduce the
+> limit if necessary. The <a
+> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
 ### Receiving

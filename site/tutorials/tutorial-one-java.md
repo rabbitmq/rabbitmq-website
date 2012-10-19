@@ -36,10 +36,10 @@ RabbitMQ, and messaging in general, uses some jargon.
  * _A queue_ is the name for a mailbox. It lives inside
    RabbitMQ. Although messages flow through RabbitMQ and your
    applications, they can be stored only inside a _queue_. A _queue_
-   is not bound by any limits, it can store how many messages you
+   is not bound by any limits, it can store as many messages as you
    like - it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
-   receive data from one _queue_. A queue will be drawn as like that, with
+   messages that go to one queue - many _consumers_ can try to
+   receive data from one _queue_. A queue will be drawn like this, with
    its name above it:
    <div class="diagram">
      <img src="/img/tutorials/queue.png" height="90" />
@@ -75,6 +75,9 @@ RabbitMQ, and messaging in general, uses some jargon.
      </div>
    </div>
 
+Note that the producer, consumer, and  broker do not have to reside on
+the same machine; indeed in most applications they don't.
+
 ## "Hello World"
 ### (using the Java Client)
 
@@ -85,7 +88,7 @@ the Java API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
-box in the middle is a queue -- a message buffer that RabbitMQ keeps
+box in the middle is a queue - a message buffer that RabbitMQ keeps
 on behalf of the consumer.
 
 <div class="diagram">
@@ -156,7 +159,11 @@ then we can create a connection to the server:
         Channel channel = connection.createChannel();
 
 The connection abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us.
+protocol version negotiation and authentication and so on for us. Here
+we connect to a broker on the local machine - hence the
+_localhost_. If we wanted to connect to a broker on a different
+machine we'd simply specify its name or IP address here.
+
 Next we create a channel, which is where most of the API for getting
 things done resides.
 
@@ -169,8 +176,8 @@ to the queue:
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 
-Declaring a queue is idempotent; it will be created if it doesn't
-exist already. The message contents is a byte array, so you can encode
+Declaring a queue is idempotent - it will only be created if it doesn't
+exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 Lastly, we close the channel and the connection;
@@ -181,6 +188,18 @@ Lastly, we close the channel and the connection;
 
 [Here's the whole Send.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
+
+> #### Sending doesn't work!
+>
+> If this is your first time using RabbitMQ and you don't see the "Sent"
+> message then you may be left scratching your head wondering what could
+> be wrong. Maybe the broker was started without enough free disk space
+> (by default it needs at least 1Gb free) and is therefore refusing to
+> accept messages. Check the broker logfile to confirm and reduce the
+> limit if necessary. The <a
+> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> file documentation</a> will show you how to set <code>disk_free_limit</code>.
+
 
 ### Receiving
 
@@ -205,7 +224,7 @@ messages pushed to us by the server.
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
-Note this matches up with the queue `send` publishes to.
+Note this matches up with the queue that `send` publishes to.
 
     :::java
     public class Recv {
@@ -272,7 +291,7 @@ then, run the receiver:
     :::bash
     $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 
-Use a semicolon instead of a colon to separate items in the classpath on Windows.
+On Windows, use a semicolon instead of a colon to separate items in the classpath.
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running

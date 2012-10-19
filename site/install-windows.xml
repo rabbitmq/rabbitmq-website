@@ -21,6 +21,14 @@
         </r:download>
       </r:downloads>
       <doc:subsection name="install-windows">
+        <doc:heading>Uninstall previous version</doc:heading>
+        <p>
+          If you have an existing installation and are planning to upgrade
+          the Erlang VM from a 32bit to a 64bit version then you must uninstall
+          the broker before upgrading the VM. The installer will not be able to stop
+          or remove a service that was installed with an Erlang VM of a different
+          architecture.
+        </p>
         <doc:heading>Install the Server</doc:heading>
         <p>
           Firstly, download and run

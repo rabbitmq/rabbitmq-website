@@ -7,8 +7,8 @@ and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html)
 with some extensions and restrictions (described [here](#pear)).
 
 Announcements regarding the adapter are periodically made on the
-[RabbitMQ blog](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
-and [mailing list](http://www.rabbitmq.com/blog).
+[RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
+and [blog](http://www.rabbitmq.com/blog).
 
 ## <a id="ifb"/>Installing from binary
 
@@ -85,20 +85,52 @@ section to the `rabbitmq_stomp` application configuration. For example:
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
-### <a id="cta.ic"/>Implicit Connect
+### <a id="cta.ssl"/>Authentication with SSL client certificates
 
-If you configure a default user, you can also choose to allow clients
-to omit the `CONNECT` frame entirely. In this mode, if the first frame
-sent on a session is not a `CONNECT`, the client is automatically
-connected *as the default user*.
+The STOMP adapter can authenticate SSL-based connections by extracting
+a name from the client's SSL certificate, without using a password.
 
-To enable implicit connect, add `implicit_connect` to the
-`default_user` configuration section. For example:
+For safety the server must be configured with the SSL options
+`fail_if_no_peer_cert` set to `true` and `verify` set to `verify_peer`, to
+force all SSL clients to have a verifiable client certificate.
+
+To switch this feature on, set `ssl_cert_login` to `true` for the
+`rabbitmq_stomp` application. For example:
 
     [
-      {rabbitmq_stomp, [{default_user, [{login, "guest"},
-                                        {passcode, "guest"},
-                                        implicit_connect]}]}
+      {rabbitmq_stomp, [{ssl_cert_login, true}]}
+    ].
+
+By default this will set the username to an RFC4514-ish string form of
+the certificate's subject's Distinguished Name, similar to that
+produced by OpenSSL's "-nameopt RFC2253" option.
+
+To use the Common Name instead, add:
+
+    {rabbit, [{ssl_cert_login_from, common_name}]}
+
+to your configuration.
+
+Note that:
+
+* The authenticated user must exist in the configured authentication / authorisation backend(s).
+* Clients must **not** supply `login` and `passcode` headers.
+
+### <a id="cta.ic"/>Implicit Connect
+
+If you configure a default user or use SSL client certificate
+authentication, you can also choose to allow clients to omit the
+`CONNECT` frame entirely. In this mode, if the first frame sent on a
+session is not a `CONNECT`, the client is automatically connected as
+the default user or the user supplied in the SSL certificate.
+
+To enable implicit connect, set `implicit_connect` to `true` for the
+`rabbit_stomp` application. For example:
+
+    [
+      {rabbitmq_stomp, [{default_user,     [{login, "guest"},
+                                            {passcode, "guest"}]},
+                        {implicit_connect, true}]}
     ].
 
 Implicit connect is *not* enabled by default.
@@ -148,13 +180,31 @@ in `SEND` and `MESSAGE` frames is broker-specific. The RabbitMQ STOMP
 adapter supports a number of different destination types:
 
 * `/exchange` -- `SEND` to arbitrary routing keys and `SUBSCRIBE` to
-arbitrary binding patterns
+arbitrary binding patterns;
 * `/queue` -- `SEND` and `SUBSCRIBE` to queues managed by the STOMP
-gateway
+gateway;
 * `/amq/queue` -- `SEND` and `SUBSCRIBE` to queues created outside the
-STOMP gateway
-* `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics
-* `/temp-queue/` -- create temporary queues for use in `reply-to` headers
+STOMP gateway;
+* `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics;
+* `/temp-queue/` -- create temporary queues (in `reply-to` headers only).
+
+#### AMQP Semantics
+The `destination` header on a `MESSAGE` frame is set as though the
+message originated from a `SEND` frame:
+
+* messages published to the default exchange are given the destination
+`/queue/`*queuename*;
+* messages published to `amq.topic` are given the destination
+`/topic/`*routing_key*;
+* all other messages are given the destination
+`/exchange/`*exchange_name*[`/`*routing_key*].
+
+If `/`, `%` or non-ascii bytes are in the *queuename*, *exchange_name*
+or *routing_key*, they are each replaced with the sequence `%`*dd*,
+where *dd* is the hexadecimal code for the byte.
+
+Because of these rules the destination on a `MESSAGE` frame may not
+exactly match that on a `SEND` that published it.
 
 ### <a id="d.ed"/>Exchange Destinations
 
@@ -190,13 +240,14 @@ subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
 #### AMQP Semantics
-For both `SEND` and `SUBSCRIBE` frames, these destinations create
-a shared queue `<name>`.
-
-For `SEND` frames, the message is sent to the default exchange
-with the routing key `<name>`. For `SUBSCRIBE` frames, a subscription
-against the queue `<name>` is created for the current STOMP
+For `SUBSCRIBE` frames, these destinations create a shared queue `<name>`. A
+subscription against the queue `<name>` is created for the current STOMP
 session.
+
+For `SEND` frames, a shared queue `<name>` is created on the _first_ `SEND` to
+this destination in this session, but not subsequently. The message is sent to
+the default exchange with the routing key `<name>`.
+
 
 ### <a id="d.aqd"/>AMQ Queue Destinations
 
@@ -204,8 +255,8 @@ To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
 #### AMQP Semantics
-For both `SEND` and `SUBSCRIBE` frames, it is an error if the queue `<name>`
-doesn't already exist; no queue is created.
+For both `SEND` and `SUBSCRIBE` frames no queue is created.
+For `SUBSCRIBE` frames, it is an error if the queue does not exist.
 
 For `SEND` frames, the message is sent directly to the existing queue named
 `<name>` via the default exchange.
@@ -295,6 +346,14 @@ to the session and automatically subscribes to that queue.
 A different session that uses `reply-to:/temp-queue/foo` will have a new,
 distinct queue created.
 
+The internal subscription id is a concatenation of the string
+`/temp-queue/` and the temporary queue (so `/temp-queue/foo`
+in this example). The subscription id can be used to identify reply
+messages. Reply messages cannot be identified from the `destination`
+header, which will be different from the value in the `reply-to`
+header. The internal subscription uses auto-ack mode and it cannot be
+cancelled.
+
 The `/temp-queue/` destination is ***not*** the name of the destination
 that the receiving client uses when sending the reply. Instead, the
 receiving client can obtain the (real) reply destination queue name
@@ -319,10 +378,25 @@ reply queues.
 
 ## <a id="pear"/>Protocol Extensions and Restrictions
 
-The STOMP adapter supports a number of non-standard headers on certain
+The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
+and supports a number of non-standard headers on certain
 frames. These extra headers provide access to features that are not
 described in the STOMP specs. In addition, we prohibit some headers which
 are reserved for server use. The details are given below.
+
+### <a id="pear.c"/>Connect
+
+The `CONNECT` (or `STOMP`) frame in
+[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
+mandatory `host` header (to select the virtual host to use for the
+connection). The RabbitMQ adapter allows this to be optional.
+
+When omitted, the default virtual host (`/`) is presumed.
+
+If a `host` header is specified it must be one of the
+virtual hosts known to the RabbitMQ server, otherwise the connection is
+rejected. The `host` header is respected even if the STOMP 1.0 version is
+negotiated at the time of the connect.
 
 ### <a id="pear.mp"/>Message Persistence
 
@@ -332,7 +406,7 @@ Setting the `persistent` header to `true` has the effect of making the message p
 
 Receipts for `SEND` frames with `persistent:true` are not sent until a
 confirm is received from the broker. The exact semantics for confirms
-on persistent messages can be found here.
+on persistent messages can be found [here](confirms.html).
 
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.

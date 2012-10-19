@@ -41,6 +41,10 @@
         as a service is to upgrade to Windows 7 or downgrade to an earlier version of
         OpenSSL (v0.9.7e is known to work).</p>
 
+        <p>For Mac OS X users: The Erlang port should be installed with support for ssl.
+        See the <a href="install-macports.html#install">macports install
+        instructions</a>.</p>
+
         <p>For those compiling Erlang from source: Ensure <code>configure</code>
         finds OpenSSL and builds the crypto application.</p>
       </doc:section>
@@ -415,10 +419,10 @@ started SSL Listener on 0.0.0.0:5671</pre>
         factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
         factory.setPort(5671);
 
-        factory.useSslProtocol(); <I><FONT COLOR="#B22222">// Tells the library to setup the default Key and Trust managers for you
+        factory.useSslProtocol();
+        <I><FONT COLOR="#B22222">// Tells the library to setup the default Key and Trust managers for you</FONT></I>
+        <I><FONT COLOR="#B22222">// which do not do any form of remote server trust verification</FONT></I>
 
-</FONT></I>                                  <I><FONT COLOR="#B22222">// which do not do any form of remote server trust verification
-</FONT></I>
         Connection conn = factory.newConnection();
         Channel channel = conn.createChannel();
 
@@ -745,37 +749,39 @@ using RabbitMQ.Client;
 using RabbitMQ.Util;
 
 namespace RabbitMQ.Client.Examples {
-    public class TestSSL {
-        public static int Main(string[] args) {
-            ConnectionFactory cf = new ConnectionFactory();
-
-            cf.Ssl.ServerName = System.Net.Dns.GetHostName();
-            cf.Ssl.CertPath = "/path/to/client/keycert.p12";
-            cf.Ssl.CertPassphrase = "MySecretPassword";
-            cf.Ssl.Enabled = true;
-
-            using (IConnection conn = cf.CreateConnection()) {
-                using (IModel ch = conn.CreateModel()) {
-                    ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
-                    ch.BasicPublish("", "rabbitmq-dotnet-test", null, Encoding.UTF8.GetBytes("Hello, World"));
-                    BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
-                    if (result == null) {
-                        Console.WriteLine("No message received.");
-                    } else {
-                        Console.WriteLine("Received:");
-                        DebugUtil.DumpProperties(result, Console.Out, 0);
-                    }
-                    ch.QueueDelete("rabbitmq-dotnet-test");
-                }
-            }
-            return 0;
+  public class TestSSL {
+    public static int Main(string[] args) {
+      ConnectionFactory cf = new ConnectionFactory();
+      
+      cf.Ssl.ServerName = System.Net.Dns.GetHostName();
+      cf.Ssl.CertPath = "/path/to/client/keycert.p12";
+      cf.Ssl.CertPassphrase = "MySecretPassword";
+      cf.Ssl.Enabled = true;
+      
+      using (IConnection conn = cf.CreateConnection()) {
+        using (IModel ch = conn.CreateModel()) {
+          ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);
+          ch.BasicPublish("", "rabbitmq-dotnet-test", null,
+                          Encoding.UTF8.GetBytes("Hello, World"));
+          BasicGetResult result = ch.BasicGet("rabbitmq-dotnet-test", true);
+          if (result == null) {
+            Console.WriteLine("No message received.");
+          } else {
+            Console.WriteLine("Received:");
+            DebugUtil.DumpProperties(result, Console.Out, 0);
+          }
+          ch.QueueDelete("rabbitmq-dotnet-test");
         }
+      }
+      return 0;
     }
+  }
 }
 </pre>
           <p>Note that, on Windows XP, running the example may fail
-          with <code>CryptographicException: Key not valid for use in
-          specified state</code>.  In this case, you may be successful
+          with
+<pre>  CryptographicException: Key not valid for use in specified state.</pre>
+          In this case, you may be successful
           in loading the certificate from the certificate store and
           setting <code>ConnectionFactory</code>'s
           <code>Ssl.Certs</code> parameter directly.</p>

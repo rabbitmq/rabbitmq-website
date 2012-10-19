@@ -13,7 +13,7 @@
 
   <xsl:output method="html" indent="yes"/>
 
-  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.xml')"/>
+  <xsl:variable name="spec-doc" select="document('resources/specs/amqp0-9-1.extended.xml')"/>
   <xsl:variable name="specification" select="document('specification.xml')" />
   <xsl:key name="method-key" match="c:method" use="@name" />
   <xsl:variable name="decorations" select="document('')/xsl:stylesheet/x:decorations" />
@@ -28,13 +28,13 @@
       <p>
         This page provides a guide to RabbitMQ's implementation of AMQP 0-9-1. In addition to the classes
         and methods defined in the <a href="specification.html">AMQP specification</a>, RabbitMQ supports several
-        <a href="extensions.html">protocol extensions</a>, which are also listed here. The extended specification
-        can be <a href="resources/specs/amqp0-9-1.xml" type="text/xml">downloaded here</a>.
+        <a href="extensions.html">protocol extensions</a>, which are also listed here. The original and extended
+        specification downloads can be found on the <a href="protocol.html">protocol page</a>.
       </p>
       <p>
         For your convenience, links are provided from this guide to the relevant sections of the API guides
         for the RabbitMQ <a href="java-client.html">Java</a> and <a href="dotnet.html">.NET</a> clients. Full
-        details of each method and it's parameters are available in our <a href="amqp-0-9-1-reference.html">complete
+        details of each method and its parameters are available in our <a href="amqp-0-9-1-reference.html">complete
         AMQP 0-9-1 reference</a>.
       </p>
       <!-- switch context from source file to spec doc -->
@@ -271,7 +271,7 @@
     </x:decorate>
     <x:decorate target="method" name="basic.nack">
       <x:amqp-extension />
-      <x:url href="http://www.rabbitmq.com/extensions.html#negative-acknowledgements" label="RabbitMQ Documentation"/>
+      <x:url href="http://www.rabbitmq.com/nack.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#basicNack(long, boolean, boolean)"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicNack(System.UInt64,System.Boolean,System.Boolean)"/>
     </x:decorate>
@@ -316,13 +316,13 @@
       <x:amqp-extension />
     </x:decorate>
     <x:decorate target="method" name="confirm.select">
-      <x:url href="http://www.rabbitmq.com/extensions.html#confirms" label="RabbitMQ Documentation"/>
+      <x:url href="http://www.rabbitmq.com/confirms.html" label="RabbitMQ Documentation"/>
       <x:javadoc href="Channel.html#confirmSelect()"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ConfirmSelect"/>
     </x:decorate>
     <x:decorate target="method" name="exchange.bind">
       <x:amqp-extension />
-      <x:url href="http://www.rabbitmq.com/extensions.html#exchange-bindings" label="RabbitMQ Documentation"/>
+      <x:url href="http://www.rabbitmq.com/e2e.html" label="RabbitMQ Documentation"/>
       <x:url href="http://www.rabbitmq.com/blog/2010/10/19/exchange-to-exchange-bindings/" label="RabbitMQ blog post"/>
       <x:javadoc href="Channel.html#exchangeBind(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeBind(System.String,System.String,System.String,System.Boolean,System.Collections.IDictionary)"/>
@@ -338,7 +338,7 @@
           some messages are handled specifically and the remainder are processed by a generic handler.
         </p>
       </x:doc>
-      <x:url href="http://www.rabbitmq.com/extensions.html#alternate-exchange" label="AE documention" />
+      <x:url href="http://www.rabbitmq.com/ae.html" label="AE documention" />
       <x:javadoc href="Channel.html#exchangeDeclare(java.lang.String, java.lang.String, boolean, boolean, java.util.Map)" />
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />
     </x:decorate>
@@ -382,8 +382,8 @@
           <em>x-ha-policy</em> argument in the arguments parameter to this method.
         </p>
       </x:doc>
-      <x:url href="http://www.rabbitmq.com/extensions.html#queue-ttl" label="x-message-ttl documentation"/>
-      <x:url href="http://www.rabbitmq.com/extensions.html#queue-leases" label="x-expires documentation"/>
+      <x:url href="http://www.rabbitmq.com/ttl.html#per-queue-message-ttl" label="x-message-ttl documentation"/>
+      <x:url href="http://www.rabbitmq.com/ttl.html#queue-ttl" label="x-expires documentation"/>
       <x:url href="http://www.rabbitmq.com/ha.html#genesis" label="x-ha-policy documentation"/>
       <x:javadoc href="Channel.html#queueDeclare(java.lang.String, boolean, boolean, boolean, java.util.Map)" />
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.QueueDeclare(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.IDictionary)" />

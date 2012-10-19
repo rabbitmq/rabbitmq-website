@@ -69,7 +69,7 @@ Here's a tabular summary of the state of things:
   D     D       D            Decimal
         s                    Short string       (A2)
   S     S       S            Long string
-        A                    Nested Array       (C)
+        A       A            Array              (C)
   T     T       T            Timestamp (u64)
   F     F       F            Nested Table
   V     V       V            Void
@@ -91,7 +91,7 @@ Remarks:
  D: John [O'Hara]objected to this when he proposed his list. I believe it to
     be vital: byte arrays are not strings. Furthermore, Qpid and
     Rabbit already have code deployed that uses this type specifier.</pre>
-         <p>RabbitMQ continues to use the tags in the third column, and implements the field-array type in the broker and at least the "supported" clients.</p>
+         <p>RabbitMQ continues to use the tags in the third column.</p>
          <p>Other notes:</p>
          <ul class="plain">
             <li> Decimals encoding: "They are encoded as an octet representing the number of
@@ -274,7 +274,7 @@ this should presumably say "...deletes any exclusive queues owned...".</p>
          <p>Although basic.recover is introduced as a synchronous version of basic.recover-async, it is not marked as synchronous in the XML spec.</p>
 
          <doc:section name="section_29">
-            <doc:heading>29 Heartbeat frametype inconsitency</doc:heading>
+            <doc:heading>29 Heartbeat frametype inconsistency</doc:heading>
          </doc:section>
          <p>The PDF specifies the heartbeat frametype as 4. The XML specifies it as 8.</p>
    </body>

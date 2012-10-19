@@ -16,6 +16,7 @@
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 <xsl:param name="page-name"/>
+<xsl:param name="site-mode"/>
 
   <xsl:template match="html:head">
     <head>
@@ -25,6 +26,12 @@
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
       <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
+      <xsl:if test="$site-mode = 'next'">
+        <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
+      </xsl:if>
+      <xsl:comment><![CDATA[[if IE 6]>
+      <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
+      <![endif]]]></xsl:comment>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
       <script type="text/javascript" src="/js/site.js"/>
@@ -59,26 +66,34 @@
     </body>
   </xsl:template>
 
+  <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
-      <a href="/"><img border="0" src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="361" height="76"/></a>
+      <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
-    <div class="s2-logo">
-      <a href="http://www.springsource.com"><img border="0" src="/img/spring09_logo.png" alt="SpringSource" width="240" height="50"/></a>
+    <div id="vmw-logo">
+      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
     </div>
-    <div id="search-box">
-      <form action="/search.html" method="get">
-        <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
-        <input type="submit" id="search-button" alt="Search" value="" />
-      </form>
+    <div id="nav-search">
+      <xsl:if test="$site-mode = 'www'">
+      <div id="search-box">
+        <form action="/search.html" method="get">
+          <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
+          <input type="submit" id="search-button" alt="Search" value="" />
+        </form>
+      </div>
+      </xsl:if>
+      <ul class="mainNav">
+        <xsl:call-template name="main-nav"/>
+        <xsl:if test="$site-mode = 'www'">
+          <li><a href="/blog/">Blog</a></li>
+        </xsl:if>
+      </ul>
     </div>
-    <ul class="mainNav">
-      <xsl:call-template name="main-nav"/>
-      <li><a href="/blog/">Blog</a></li>
-    </ul>
     <div class="nav-separator"/>
   </xsl:template>
 
+  <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
@@ -86,7 +101,11 @@
         <a href="/sitemap.html">Sitemap</a> |
         <a href="/contact.html">Contact</a>
       </p>
-      <p>Copyright &#169; 2011 VMware, Inc. All rights reserved.</p>
+      <p id="copyright">
+        Copyright &#169; 2012 VMware, Inc. All rights reserved.
+        <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
+        <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+      </p>
     </div>
   </xsl:template>
 
@@ -299,10 +318,10 @@
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README{@extension}">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/default/README">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -455,7 +474,7 @@
       <xsl:for-each select="key('page-key', $page-name)">
         <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@url" />
         <xsl:for-each select="key('page-key', $section)">
-          <xsl:if test="count(x:page) &gt; 0">
+          <xsl:if test="count(x:modal[@mode=$site-mode]/x:page) &gt; 0 or count(x:page) &gt; 0">
             <div id="in-this-section">
               <h4>In This Section</h4>
               <ul>
@@ -488,6 +507,18 @@
         </xsl:otherwise>
       </xsl:choose>
     </li>
+  </xsl:template>
+
+  <xsl:template match="x:modal">
+    <xsl:if test="@mode = $site-mode">
+        <xsl:apply-templates />
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="x:modal" mode="pages">
+    <xsl:if test="@mode = $site-mode">
+        <xsl:apply-templates mode="pages"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="x:sitemap">

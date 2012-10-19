@@ -36,7 +36,10 @@
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="https://github.com/tnc/php-amqplib">tnc fork of php-amqplib</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="https://github.com/videlalvaro/php-amqplib">a fork of php-amqplib</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)

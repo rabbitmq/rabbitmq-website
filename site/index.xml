@@ -1,127 +1,107 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Messaging that just works</title>
   </head>
   <body suppress-rhs="true">
-
+    <x:modal mode="www">
     <div class="rgt-third">
-      <p class="button">
-        <a href="download.html">Download</a>
-        <a href="getstarted.html">Get Started</a>
-        <a href="contact.html">Get Involved</a>
-      </p>
-
       <h3>
-	    <span class="subscribe">
-	    <a href="news.atom">
-	      <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
-	    </a>
-	    </span>Latest News
+	<span class="subscribe">
+	  <a href="news.atom">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
+	  </a>
+	</span>Latest News
       </h3>
       <doc:homefeed src="news.atom" type="ournews" limit="3" />
 
-  	  <h3>
-  	    <span class="subscribe">
-	    <a href="http://search.twitter.com/search.atom?q=rabbitmq">
-	      <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
-	    </a>
-	    </span>Latest Community Chatter
-	  </h3>
-	  <doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="7"/>
+      <h3>
+	<span class="subscribe">
+	  <a href="/blog/feed/">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our blog posts" title="Subscribe to our blog posts" />
+	  </a>
+	</span>Latest Blog Posts
+      </h3>
+      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" />
+      <h3>
+  	<span class="subscribe">
+	  <a href="http://search.twitter.com/search.atom?q=rabbitmq">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
+	  </a>
+	</span>Latest Community Chatter
+      </h3>
+      <doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="4"/>
     </div>
 
     <div id="home-content">
-    <div>
-    <h3>What Is RabbitMQ?</h3>
-    <p>
-    RabbitMQ provides robust messaging for applications. It is easy to use, fit for purpose at
-    cloud scale and supported on all
-    <a href="platforms.html">major operating systems</a> and
-    <a href="devtools.html">developer platforms</a>. RabbitMQ is open sourced under the
-    <a href="mpl.html">Mozilla Public License</a>.
-    </p>
-    </div>
+      <h3>What is RabbitMQ?</h3>
+      <ul id="large-bullets">
+        <li>Robust <a href="features.html">messaging</a> for applications</li>
+        <li><a href="getstarted.html">Easy to use</a></li>
+        <li>Runs on all major <a href="platforms.html">operating systems</a></li>
+        <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
+        <li><a href="mpl.html">Open source</a> and <a href="services.html">commercially supported</a></li>
+      </ul>
 
-    <div>
-    <h3>Why Choose RabbitMQ?</h3>
-    <p>RabbitMQ is based on a proven platform and offers a
-	reliable, scalable and portable messaging system with predictable and consistent
-	throughput and latency.
-	</p>
-	<p>RabbitMQ is 100% open source and 100% based on open standard protocols freeing users from
-	dependency on proprietary vendor-supplied libraries.
-	</p>
-	<p>RabbitMQ is designed from the ground up to
-	<a href="interoperability.html">interoperate</a>
-	with other messaging systems: it is the leading
-	implementation of AMQP,
-	the open standard for business messaging, and, through
-	<a href="plugins.html">plug-ins</a>, supports
-	STOMP, HTTP for lightweight web messaging, and other protocols.
-	</p>
-	<p>RabbitMQ is supported by a
-	<a href="contact.html">thriving community</a> of active
-	contributors. A full range of
-	<a href="services.html">commercial support services</a>
-	are available through the SpringSource division of VMware.
-	</p>
-	</div>
-
-    <div>
-    <h3>How Do I Get Started?</h3>
-    <ul>
-      <li>I would like to follow the <a href="getstarted.html">RabbitMQ tutorials</a></li>
-      <li>I want to <a href="download.html">download, install</a> and <a href="configure.html">configure</a> RabbitMQ</li>
-      <li>I want to <a href="http://blog.cloudfoundry.com/post/8713844574/rabbitmq-cloud-foundry-cloud-messaging-that-just-works">run RabbitMQ on CloudFoundry</a></li>
-      <li>I am interested in <a href="services.html">RabbitMQ commercial services</a></li>
-    </ul>
-	</div>
-
-    <div>
-    <h3>Tutorials &amp; HowTo Articles</h3>
-    <ul class="twoColumns">
-      <li><a href="getstarted.html">Get Started with RabbitMQ</a></li>
-      <li><a href="how.html#quickstart">Overviews and Introductions</a></li>
-      <li><a href="how.html#cloud-configurations">Cloud Configurations</a></li>
-      <li><a href="how.html#management">Management and Monitoring</a></li>
-      <li><a href="how.html#messaging-patterns">Messaging Patterns and Scenarios</a></li>
-      <li><a href="how.html#specific-examples">Specific Use Cases and Examples</a></li>
-      <li><a href="how.html#going-further">Going Further</a></li>
-      <li><a href="how.html#blogs-and-forums">Blogs, Forums and Social</a></li>
-      <li><a href="how.html#in-print">Books and Print</a></li>
-      <li><a href="how.html#general-posts">General Posts</a></li>
-    </ul>
-    </div>
-
-    <div>
-    <h3>Clients &amp; Developer Tools</h3>
-    <ul class="threeColumns">
-      <li class="headedSublist">Languages
-        <ul class="plain">
-          <li><a href="devtools.html#java-dev">Java/JVM</a></li>
-          <li><a href="devtools.html#ruby-dev">Ruby</a></li>
-          <li><a href="devtools.html#python-dev">Python</a></li>
-          <li><a href="devtools.html">(more...)</a></li>
+      <div id="home-what-is">
+        <h3>Get Started</h3>
+        <ul id="buttons">
+          <li>
+            <a href="download.html">
+              <h4>Download</h4>
+              <p>Server and clients for various operating systems and languages</p>
+            </a>
+          </li>
+          <li>
+            <a href="documentation.html">
+              <h4>Documentation</h4>
+              <p>How to do almost anything with RabbitMQ</p>
+            </a>
+          </li>
+          <li>
+            <a href="getstarted.html">
+              <h4>Tutorials</h4>
+              <p>Teach yourself RabbitMQ in six easy lessons</p>
+            </a>
+          </li>
         </ul>
-      </li>
-      <li class="headedSublist">Cloud
-        <ul class="plain">
-          <li><a href="http://rabbitmq.cloudfoundry.com">Cloudfoundry</a></li>
-          <li><a href="devtools.html#ec2-dev">EC2</a></li>
-          <li><a href="devtools.html#web-messaging">Web Messaging</a></li>
-        </ul>
-      </li>
-      <li class="headedSublist">Miscellaneous
-        <ul class="plain">
-          <li><a href="devtools.html#stomp">STOMP</a></li>
-          <li><a href="devtools.html#nosql">NoSQL</a></li>
-          <li><a href="devtools.html#rabbitmq-cli">Command Line</a></li>
-        </ul>
-      </li>
-    </ul>
-    </div>
-    </div>
+      </div>
 
+      <h3>Read More</h3>
+      <ul>
+        <li>
+          Languages:
+          <a href="devtools.html#java-dev">Java</a> |
+          <a href="devtools.html#dotnet-dev">.NET</a> |
+          <a href="devtools.html#ruby-dev">Ruby</a> |
+          <a href="devtools.html#python-dev">Python</a> |
+          <a href="devtools.html#php-dev">PHP</a> |
+          <a href="devtools.html">more...</a>
+        </li>
+        <li>
+          Cloud:
+          <a href="http://rabbitmq.cloudfoundry.com">Cloud Foundry</a> |
+          <a href="devtools.html#ec2-dev">EC2</a> |
+          <a href="how.html#cloud-configurations">more...</a>
+        </li>        
+      </ul>
+    </div>
+    </x:modal>
+    <x:modal mode="next">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>next.rabbitmq.com</b>, exists to document the
+        features that will be available in the <b>next</b> feature
+        release of RabbitMQ, and that are available in
+        the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
+        builds</a>.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
   </body>
 </html>

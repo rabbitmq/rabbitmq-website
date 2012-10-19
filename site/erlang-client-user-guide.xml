@@ -1,4 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>Erlang AMQP Client library</title>
@@ -36,6 +40,10 @@
        <li>When no longer required, close the channel and the
        connection</li>
      </ol>
+   </p>
+   <p>
+     Obtain the library source and related materials from the
+     <a href="&dir-current-erlang-client;">download directory</a>.
    </p>
 
  </doc:section>
@@ -184,7 +192,7 @@
     In case of an error, the above call returns {error, Error}.
   </p>
   <p>
-    An AMQP broker contains objects that organised into groups called
+    An AMQP broker contains objects organised into groups called
     virtual hosts. The concept of virtual hosts gives an administrator
     the facility to partition a broker resource into separate domains
     and restrict access to the objects contained within these
@@ -239,7 +247,7 @@
   <p>
     Instead of working the #amqp_params_* records directly, <a
     href="uri-spec.html">AMQP URIs</a> may be used.  The
-    amqp_uri:parse/1 function si provided for this purpose.  It parses
+    amqp_uri:parse/1 function is provided for this purpose.  It parses
     an URI and returns the equivalent #amqp_params_* record.
     Diverging from the spec, if the hostname is omitted, the
     connection is assumed to be direct and an #amqp_params_direct{}
@@ -462,7 +470,7 @@
   <doc:heading>Subscribing To Queues</doc:heading>
   <p>
     As indicated in the "Receiving Messages" section, subscribing to a
-    queue can be a more efficient means of delivering messages than
+    queue can be a more efficient means of consuming messages than
     the polling mechanism. To subscribe to a queue, the
     #'basic.consume'{} command is used in one of two forms:
 

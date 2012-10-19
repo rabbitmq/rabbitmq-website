@@ -25,10 +25,10 @@
           (note that you will need a working cluster first).
         </p>
         <p>
-          <b>RabbitMQ clustering does not tolerate network partions
+          <b>RabbitMQ clustering does not tolerate network partitions
           well</b>, so it should not be used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
-          <a href="plugins.html#rabbitmq_federation">federation</a>
+          <a href="federation.html">federation</a>
           plugins are better solutions for connecting brokers across a
           WAN.
         </p>
@@ -49,8 +49,10 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          A node can be a <em>RAM node</em> or a <em>disk
-          node</em>. RAM nodes keep their state only in memory (with
+          A node can be a <em>RAM node</em> or a <em>disk node</em>.
+          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used interchangeably.
+          Configuration syntax or status messages normally use <i>disc</i>.)
+          RAM nodes keep their state only in memory (with
           the exception of the persistent contents of durable queues
           which are still stored safely on disc). Disk nodes keep
           state in memory and on disk. As RAM nodes don't have to
@@ -586,18 +588,18 @@ rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
- {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.</pre>
         <p>
           Note that, in order to remove a node from an auto-configured
@@ -734,6 +736,29 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listene
             for information on how to create and edit a configuration
             file.
           </p>
+      </doc:section>
+      <doc:section name="clients">
+        <doc:heading>Connecting to Clusters from Clients</doc:heading>
+        <p>
+          A client can connect as normal to any node within a
+          cluster. If that node should fail, and the rest of the
+          cluster survives, then the client should notice the closed
+          connection, and should be able to reconnect to some
+          surviving member of the cluster. Generally, it's not
+          advisable to bake in node hostnames or IP addresses into
+          client applications: this introduces inflexibility and will
+          require client applications to be edited, recompiled and
+          redeployed should the configuration of the cluster change or
+          the number of nodes in the cluster change. Instead, we
+          recommend a more abstracted approach: this could be a
+          dynamic DNS service which has a very short TTL
+          configuration, or a plain TCP load balancer, or some sort of
+          mobile IP achieved with pacemaker or similar
+          technologies. In general, this aspect of managing the
+          connection to nodes within a cluster is beyond the scope of
+          RabbitMQ itself, and we recommend the use of other
+          technologies designed specifically to solve these problems.
+        </p>
       </doc:section>
   </body>
 </html>

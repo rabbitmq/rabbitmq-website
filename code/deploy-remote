@@ -4,53 +4,69 @@ set -e
 cd `dirname $0`
 cd ..
 
-# Which user to mirror feeds as?  Default to the rabbitmq user, who by
-# convention owns the release deliverables dir.
-mirror_user=rabbitmq
-if ! id -u "$mirror_user" >/dev/null 2>&1 ; then
-    # Otherwise, try the user running sudo deploy
-    mirror_user="$SUDO_USER"
+mode=$1
+site=${mode}.rabbitmq.com
+site_dir=/srv/${site}
+
+if [ $mode = www ] ; then
+    releases_dir=/home/rabbitmq/extras/releases/
+
+    # Which user to mirror feeds as?  Default to the rabbitmq user, who by
+    # convention owns the release deliverables dir.
+    mirror_user=rabbitmq
     if ! id -u "$mirror_user" >/dev/null 2>&1 ; then
-        echo "Not sure which user to mirror feeds as" 1>&2
-        exit 1
+    # Otherwise, try the user running sudo deploy
+        mirror_user="$SUDO_USER"
+        if ! id -u "$mirror_user" >/dev/null 2>&1 ; then
+            echo "Not sure which user to mirror feeds as" 1>&2
+            exit 1
+        fi
     fi
+
+    echo "Feeds will be mirrored by the user $mirror_user" 1>&2
+
+    # Find the corresponding group
+    mirror_group=$(id -ng $mirror_user)
+
+    xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+else
+    releases_dir=/home/rabbitmq/extras/nightlies/
 fi
 
-echo "Feeds will be mirrored by the user $mirror_user" 1>&2
-
-# Find the corresponding group
-mirror_group=$(id -ng $mirror_user)
-
-xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
-
-site_dir=/srv/www.rabbitmq.com
 rm -rf $site_dir/site-src $site_dir/site $site_dir/code
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
 cp -r code $site_dir
 cp -r site $site_dir/site-src
 
-if [ -d /home/rabbitmq/extras/releases/rabbitmq-server/current/ ]; then
-    cp -r /home/rabbitmq/extras/releases/rabbitmq-server/current/man $site_dir/site-src/man
+# TODO that "current" link is not created for nightlies
+if [ -d ${releases_dir}/rabbitmq-server/current/ ]; then
+    cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
 fi
 
-./code/compile $site_dir/site-src $site_dir/site
+./code/compile $site_dir/site-src $site_dir/site $mode
 
 chown $mirror_user:$mirror_group $site_dir/site/index.html
 
-if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
-    rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
-    cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
+if [ $mode = www ] ; then
+    if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
+        rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
+        cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
+    fi
+else
+    cp conf/robots.txt-next $site_dir/site/robots.txt
 fi
 
 if [ -d /etc/apache2/sites-available/ ]; then
-    cp conf/www.rabbitmq.com conf/www.rabbitmq.com-ssl conf/www.rabbitmq.com-common  /etc/apache2/sites-available/
-    a2ensite www.rabbitmq.com
+    cp conf/${site}* /etc/apache2/sites-available/
+    a2ensite ${site}
     /etc/init.d/apache2 restart
 fi
 
-if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
-    echo "*** Note site www.rabbitmq.com-ssl is not enabled. Please enable manually if necessary. ***"
-fi
+if [ $mode = www ] ; then
+    if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then
+        echo "*** Note site www.rabbitmq.com-ssl is not enabled. Please enable manually if necessary. ***"
+    fi
 
-sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
+    sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
+fi

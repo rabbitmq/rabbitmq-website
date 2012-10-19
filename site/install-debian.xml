@@ -81,11 +81,12 @@
 	  <li>
 	    Add the following line to your <code>/etc/apt/sources.list</code>:
 	    <pre class="sourcecode">deb http://www.rabbitmq.com/debian/ testing main</pre>
-	    (Please note that the word <code>testing</code> in this line 
-	    refers to the state of our release of RabbitMQ, not any 
-            particular Debian distribution. You can use it with Debian 
-            stable, testing or unstable, as well as with Ubuntu. In the  
-            future we will have a stable release too.)
+	    (Please note that the word <code>testing</code> in this
+	    line refers to the state of our release of RabbitMQ, not
+	    any particular Debian distribution. You can use it with
+	    Debian stable, testing or unstable, as well as with
+	    Ubuntu. We describe the release as "testing" to emphasise
+	    that we release somewhat frequently.)
 	  </li>
 	  <li>
 	    (optional) To avoid warnings about unsigned packages, add
@@ -106,6 +107,25 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
 	</ol>
       </doc:subsection>
+
+      <doc:subsection name="debian-system-limits">
+        <doc:heading>Controlling system limits</doc:heading>
+        <p>
+          To adjust system limits (in particular the number of open
+          file handles), edit the file
+          <code>/etc/default/rabbitmq-server</code> to
+          invoke <code>ulimit</code> when the service is started, for
+          example:
+        </p>
+<pre class="sourcecode">
+  ulimit -n 1024
+</pre>
+        <p>
+          will set the maximum number of file open handles for the
+          service process to 1024 (the default).
+        </p>
+      </doc:subsection>
+
     </doc:section>
     <xi:include href="install-unix-manage.xml.inc"/>
   </body>
