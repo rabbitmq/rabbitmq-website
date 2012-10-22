@@ -115,20 +115,20 @@
       </ul>
     </div>
     <div class="landing-box">
+      <h2>Clients for other languages</h2>
+      <p>
+        The RabbitMQ community has created a large number of <a
+        href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
+      </p>
+    </div>
+    <div class="landing-box">
       <h2>Nightly Builds</h2>
       <p>
           We make nightly builds of the RabbitMQ broker and official clients
           available to users who wish to experiment with the latest and
           greatest features and bugfixes. For more details, head over to
           the <a href="nightly-builds.html">nightly builds page</a>.
-      </p>
-    </div>
-    <div class="landing-box">
-      <h2>Clients for other languages</h2>
-      <p>
-        The RabbitMQ community has created a large number of <a
-        href="devtools.html">clients and developer tools</a> covering
-        a variety of platforms and languages.
       </p>
     </div>
     </x:modal>
