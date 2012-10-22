@@ -79,7 +79,7 @@
           <a href="java-client.html">All Java client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-java-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-java-client/">Older versions</a>
         </li>
       </ul>
       <h3>.NET/C# Client</h3>
@@ -95,7 +95,7 @@
           <a href="dotnet.html">All .NET client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a>
         </li>
       </ul>
 
@@ -110,7 +110,7 @@
           <a href="erlang-client.html">All Erlang client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-erlang-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-erlang-client/">Older versions</a>
         </li>
       </ul>
     </div>
