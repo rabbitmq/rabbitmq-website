@@ -32,16 +32,16 @@
       <tr>
         <th>rabbitmqctl</th>
         <td>
-          <code>rabbitmqctl set_parameter {-p <i>vhost</i>} <i>component_name</i> <i>key</i> <i>value</i></code><br/>
-          <code>rabbitmqctl clear_parameter {-p <i>vhost</i>} <i>component_name</i> <i>key</i></code><br/>
+          <code>rabbitmqctl set_parameter {-p <i>vhost</i>} <i>component_name</i> <i>name</i> <i>value</i></code><br/>
+          <code>rabbitmqctl clear_parameter {-p <i>vhost</i>} <i>component_name</i> <i>name</i></code><br/>
           <code>rabbitmqctl list_parameters {-p <i>vhost</i>}</code>
         </td>
       </tr>
       <tr>
         <th>HTTP API</th>
         <td>
-          <code>PUT /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>key</i></code><br/>
-          <code>DELETE /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>key</i></code><br/>
+          <code>PUT /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>name</i></code><br/>
+          <code>DELETE /api/parameters/<i>component_name</i>/<i>vhost</i>/<i>name</i></code><br/>
           <code>GET /api/parameters</code><br/>
         </td>
       </tr>

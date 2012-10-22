@@ -388,7 +388,7 @@
                   policy.
                 </li>
                 <li>
-                  Enter "ha-all" next to Name, "^ha." next to Rexexp,
+                  Enter "ha-all" next to Name, "^ha." next to Pattern,
                   and "ha-mode" = "all" in the first line next to
                   Policy.
                 </li>
@@ -432,7 +432,7 @@
                 </li>
                 <li>
                   Enter "ha-two" next to Name and "^two." next to
-                  Regexp.
+                  Pattern.
                 </li>
                 <li>
                   Enter "ha-mode" = "exactly" in the first line
