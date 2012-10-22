@@ -286,7 +286,7 @@
           </tr>
           <tr>
             <td><code>all</code></td>
-            <td>(ignored)</td>
+            <td>(absent)</td>
             <td>
               Queue is mirrored across all nodes in the
               cluster. When a new node is added to the cluster, the
