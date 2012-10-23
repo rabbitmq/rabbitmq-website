@@ -182,6 +182,11 @@
             and a basic canvas-based collaboration tool.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_mqtt">
+            An adapter implementing the MQTT 3.1 protocol. See the
+            <r:readme-link repo="rabbitmq-mqtt" extension=".md"/> for more details.
+          </r:plugin>
+
         </table>
       </doc:section>
 

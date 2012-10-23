@@ -286,7 +286,7 @@
           </tr>
           <tr>
             <td><code>all</code></td>
-            <td>(ignored)</td>
+            <td>(absent)</td>
             <td>
               Queue is mirrored across all nodes in the
               cluster. When a new node is added to the cluster, the
@@ -371,16 +371,14 @@
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_parameter policy ha-all \
-   '{"pattern":"^ha.","policy":{"ha-mode":"all"}}'</pre>
+              <pre>rabbitmqctl set_policy ha-all "^ha." '{"ha-mode":"all"}'</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-all
-   {"value":{"pattern":"^ha.",
-             "policy":{"ha-mode":"all"}}}</pre>
+   {"pattern":"^ha.", "definition":{"ha-mode":"all"}}</pre>
             </td>
           </tr>
           <tr>
@@ -392,7 +390,7 @@
                   policy.
                 </li>
                 <li>
-                  Enter "ha-all" next to Name, "^ha." next to Rexexp,
+                  Enter "ha-all" next to Name, "^ha." next to Pattern,
                   and "ha-mode" = "all" in the first line next to
                   Policy.
                 </li>
@@ -415,17 +413,15 @@
           <tr>
             <th>rabbitmqctl</th>
             <td>
-              <pre>rabbitmqctl set_parameter policy ha-two \
-   '{"pattern":"^two.","policy":{"ha-mode":"exactly","ha-params":2}}'</pre>
+              <pre>rabbitmqctl set_policy ha-two "^two." \
+   '{"ha-mode":"exactly","ha-params":2}'</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-two
-   {"value":{"pattern":"^two.",
-             "policy":{"ha-mode":"exactly",
-                       "ha-params":2}}}</pre>
+   {"pattern":"^two.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
             </td>
           </tr>
           <tr>
@@ -438,7 +434,7 @@
                 </li>
                 <li>
                   Enter "ha-two" next to Name and "^two." next to
-                  Regexp.
+                  Pattern.
                 </li>
                 <li>
                   Enter "ha-mode" = "exactly" in the first line

@@ -16,6 +16,7 @@
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 <xsl:param name="page-name"/>
+<xsl:param name="site-mode"/>
 
   <xsl:template match="html:head">
     <head>
@@ -25,6 +26,9 @@
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
       <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
+      <xsl:if test="$site-mode = 'next'">
+        <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
+      </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
       <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
       <![endif]]]></xsl:comment>
@@ -71,15 +75,19 @@
       <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
     </div>
     <div id="nav-search">
+      <xsl:if test="$site-mode = 'www'">
       <div id="search-box">
         <form action="/search.html" method="get">
           <input type="text" name="q" size="25" id="search-query" value="Search RabbitMQ" onfocus="handle_SearchBoxFocus();" onblur="handle_SearchBoxBlur();" />
           <input type="submit" id="search-button" alt="Search" value="" />
         </form>
       </div>
+      </xsl:if>
       <ul class="mainNav">
         <xsl:call-template name="main-nav"/>
-        <li><a href="/blog/">Blog</a></li>
+        <xsl:if test="$site-mode = 'www'">
+          <li><a href="/blog/">Blog</a></li>
+        </xsl:if>
       </ul>
     </div>
     <div class="nav-separator"/>
@@ -466,7 +474,7 @@
       <xsl:for-each select="key('page-key', $page-name)">
         <xsl:variable name="section" select="ancestor-or-self::x:page[parent::x:pages]/@url" />
         <xsl:for-each select="key('page-key', $section)">
-          <xsl:if test="count(x:page) &gt; 0">
+          <xsl:if test="count(x:modal[@mode=$site-mode]/x:page) &gt; 0 or count(x:page) &gt; 0">
             <div id="in-this-section">
               <h4>In This Section</h4>
               <ul>
@@ -499,6 +507,18 @@
         </xsl:otherwise>
       </xsl:choose>
     </li>
+  </xsl:template>
+
+  <xsl:template match="x:modal">
+    <xsl:if test="@mode = $site-mode">
+        <xsl:apply-templates />
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="x:modal" mode="pages">
+    <xsl:if test="@mode = $site-mode">
+        <xsl:apply-templates mode="pages"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="x:sitemap">

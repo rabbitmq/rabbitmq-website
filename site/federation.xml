@@ -245,15 +245,15 @@
       </p>
 
       <p>
-        Upstreams, upstream sets and policies are all instances
-        of <i>parameters</i>.  Like exchanges and queues, each virtual
-        host has its own distinct set of parameters. For more generic
-        information on parameters, <a href="parameters.html">see the
+        Upstreams and upstream sets are both instances of <i>parameters</i>.
+        Like exchanges and queues, each virtual host has its own distinct
+        set of parameters and policies. For more generic information on
+        parameters and policies, <a href="parameters.html">see the
         documentation</a>.
       </p>
 
       <p>
-        Every parameter can be set in one of three ways - either with
+        Parameters and policies can be set in three ways - either with
         an invocation of <code>rabbitmqctl</code>, a call to the
         management HTTP API, or (usually) through the web UI presented
         by <code>rabbitmq_federation_management</code>. (The web UI
@@ -301,15 +301,14 @@
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_parameter policy federate-me \<br/>
-'{"pattern":"^amq.","policy":{"federation-upstream-set":"all"}}'</code>
+            <code>rabbitmqctl set_policy federate-me "^amq." '{"federation-upstream-set":"all"}'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
-            PUT <code>/api/parameters/policy/%2f/federate-me</code><br/>
-            <code>{"value":{"pattern":"^amq.","policy":{"federation-upstream-set":"all"}}}</code>
+            PUT <code>/api/policies/%2f/federate-me</code><br/>
+            <code>{"pattern":"^amq.", "definition":{"federation-upstream-set":"all"}}</code>
           </td>
         </tr>
         <tr>
