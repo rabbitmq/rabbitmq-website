@@ -93,11 +93,6 @@
             want.
           </r:plugin>
 
-          <r:plugin name="rabbitmq_mqtt">
-            An adapter implementing the MQTT 3.1 protocol. See the
-            <r:readme-link repo="rabbitmq-mqtt" extension=".md"/> for more details.
-          </r:plugin>
-
           <r:plugin name="rabbitmq_shovel">
             A plug-in for RabbitMQ that shovels messages from a queue on
             one broker to an exchange on another broker. Please see
@@ -185,6 +180,11 @@
             Adds some basic examples to
             <code>rabbitmq_web_stomp</code>: a simple "echo" service
             and a basic canvas-based collaboration tool.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_mqtt">
+            An adapter implementing the MQTT 3.1 protocol. See the
+            <r:readme-link repo="rabbitmq-mqtt" extension=".md"/> for more details.
           </r:plugin>
 
         </table>
