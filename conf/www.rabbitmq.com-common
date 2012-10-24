@@ -53,7 +53,7 @@
     </Directory>
     <Directory /home/rabbitmq/extras/releases>
         Options +Indexes
-        IndexOptions SuppressHTMLPreamble SuppressLastModified SuppressIcon SuppressSize VersionSort IgnoreClient SuppressDescription SuppressRules XHTML
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
         HeaderName /templates/index-header.html
         ReadmeName /templates/index-footer.html
     </Directory>
