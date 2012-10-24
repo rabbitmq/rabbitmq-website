@@ -301,21 +301,21 @@
         <tr>
           <th>rabbitmqctl</th>
           <td>
-            <code>rabbitmqctl set_policy federate-me "^amq." '{"federation-upstream-set":"all"}'</code>
+            <code>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}'</code>
           </td>
         </tr>
         <tr>
           <th>HTTP API</th>
           <td>
             PUT <code>/api/policies/%2f/federate-me</code><br/>
-            <code>{"pattern":"^amq.", "definition":{"federation-upstream-set":"all"}}</code>
+            <code>{"pattern":"^amq\.", "definition":{"federation-upstream-set":"all"}}</code>
           </td>
         </tr>
         <tr>
           <th>Web UI</th>
           <td>
             Navigate to Admin > Policies > Add / update a
-            policy. Enter "federate-me" next to Name, "^amq." next to
+            policy. Enter "federate-me" next to Name, "^amq\." next to
             Regexp and "federation-upstream-set" = "all"
             in the first line next to Policy. Click Add policy.
           </td>
