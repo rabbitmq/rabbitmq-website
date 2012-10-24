@@ -17,7 +17,7 @@
       then you probably don't need any configuration at all.
       </p>
       <p>
-          If you have other constraints, RabbitMQ provides four general ways to
+          If you have other constraints, RabbitMQ provides three general ways to
           customise the server:
       <dl>
           <dt>
@@ -39,12 +39,6 @@
           </dt>
           <dd>
               defines cluster-wide settings which can change at run time
-          </dd>
-          <dt>
-              <a href="parameters.html#policies">policies</a>
-          </dt>
-          <dd>
-              a set of rules that can change the behaviour of queues and exchanges
           </dd>
       </dl>
       </p>
