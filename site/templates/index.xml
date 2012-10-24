@@ -4,7 +4,9 @@
     <title>Released Artifacts</title>
   </head>
   <body suppress-rhs="true">
-  <h1>Released Artifacts</h1>
-  <header-footer-horizon/>
+    <div class="auto-index">
+      <h1>Released Artifacts</h1>
+      <header-footer-horizon/>
+    </div>
   </body>
 </html>
