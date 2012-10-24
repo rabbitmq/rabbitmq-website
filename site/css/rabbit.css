@@ -315,6 +315,8 @@ th, td {
 	padding: 2px 0.5em 2px 0.5em;
 }
 
+div.auto-index table, div.auto-index th, div.auto-index td { border: none; }
+
 tr {
 	vertical-align: top;
 }

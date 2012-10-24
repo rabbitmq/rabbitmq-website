@@ -51,6 +51,12 @@
     <Directory /srv/www.rabbitmq.com/site>
         Options -Indexes
     </Directory>
+    <Directory /home/rabbitmq/extras/releases>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
 
     Alias /blog /usr/share/wordpress
 
