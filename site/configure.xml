@@ -35,7 +35,7 @@
               clusters, and also plugin settings.
           </dd>
           <dt>
-              <a href="parameters.html">runtime parameters</a>
+              <a href="parameters.html">runtime parameters and policies</a>
           </dt>
           <dd>
               defines cluster-wide settings which can change at run time
