@@ -313,7 +313,10 @@
             <td>
               Queue is mirrored to the nodes listed in <i>node
               names</i>. If any of those node names are not a part of
-              the cluster, this does not constitute an error.
+              the cluster, this does not constitute an error. If none
+              of the nodes in the list are online at the time when the
+              queue is declared then the queue will be created on the
+              node that the declaring client is connected to.
             </td>
           </tr>
         </table>
