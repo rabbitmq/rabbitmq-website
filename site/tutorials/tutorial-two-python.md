@@ -91,7 +91,7 @@ messages from the queue and perform the task, so let's call it `worker.py`:
 Round-robin dispatching
 -----------------------
 
-One of the advantages of using Task Queue is the ability to easily
+One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 

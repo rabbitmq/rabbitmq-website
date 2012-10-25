@@ -43,7 +43,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    applications, they can be stored only inside a _queue_. A _queue_
    is not bound by any limits, it can store as many messages as you
    like &#8210; it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
+   messages that go to one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
    <div class="diagram">
