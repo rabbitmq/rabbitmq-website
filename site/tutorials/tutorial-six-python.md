@@ -185,7 +185,7 @@ Our RPC will work like this:
   * For an RPC request, the Client sends a message with two properties:
     `reply_to`, which is set to the callback queue and `correlation_id`,
     which is set to a unique value for every request.
-  * The request is send to an `rpc_queue` queue.
+  * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `reply_to` field.

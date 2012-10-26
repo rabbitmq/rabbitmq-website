@@ -79,7 +79,7 @@
           <a href="java-client.html">All Java client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-java-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-java-client/">Older versions</a>
         </li>
       </ul>
       <h3>.NET/C# Client</h3>
@@ -95,7 +95,7 @@
           <a href="dotnet.html">All .NET client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-dotnet-client/">Older versions</a>
         </li>
       </ul>
 
@@ -110,9 +110,17 @@
           <a href="erlang-client.html">All Erlang client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-erlang-client/">Older versions</a> |
+          <a href="/releases/rabbitmq-erlang-client/">Older versions</a>
         </li>
       </ul>
+    </div>
+    <div class="landing-box">
+      <h2>Clients for other languages</h2>
+      <p>
+        The RabbitMQ community has created a large number of <a
+        href="devtools.html">clients and developer tools</a> covering
+        a variety of platforms and languages.
+      </p>
     </div>
     <div class="landing-box">
       <h2>Nightly Builds</h2>
@@ -121,14 +129,6 @@
           available to users who wish to experiment with the latest and
           greatest features and bugfixes. For more details, head over to
           the <a href="nightly-builds.html">nightly builds page</a>.
-      </p>
-    </div>
-    <div class="landing-box">
-      <h2>Clients for other languages</h2>
-      <p>
-        The RabbitMQ community has created a large number of <a
-        href="devtools.html">clients and developer tools</a> covering
-        a variety of platforms and languages.
       </p>
     </div>
     </x:modal>

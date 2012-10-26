@@ -46,6 +46,11 @@ fi
 
 ./code/compile $site_dir/site-src $site_dir/site $mode
 
+csplit -s -f part $site_dir/site/templates/index.html /header-footer-horizon/
+mv part00 $site_dir/site/templates/index-header.html
+tail -n +2 part01 > $site_dir/site/templates/index-footer.html
+rm $site_dir/site/templates/index.html part*
+
 chown $mirror_user:$mirror_group $site_dir/site/index.html
 
 if [ $mode = www ] ; then
