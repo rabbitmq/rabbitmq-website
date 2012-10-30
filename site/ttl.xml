@@ -104,9 +104,7 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
           messages until the non-expired messages are consumed or expired. This
           means that resources used by the expired messages will not be freed,
           and they will be counted in queue statistics (e.g. the number of
-          messages in the queue). For this reason, when using a TTL to increase
-          performance, a per-queue TTL is recommended, since it will ensure that
-          all the messages will have the specified TTL or less.
+          messages in the queue).
         </p>
       </doc:subsection>
     </doc:section>
