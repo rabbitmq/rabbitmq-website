@@ -331,13 +331,13 @@
           <doc:heading>HTTP interfaces</doc:heading>
           <p>
             It is possible to configure rabbitmq-mochiweb to serve the
-            management plugin on a different port or TCP/IP
-            interface. To do so, you should configure a listener
-            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+            management plugin on a different port or network
+            interface, with SSL, etc. To do so, you should configure the
+            <code>listener</code> configuration item:
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
 ].</pre>
           <p>
