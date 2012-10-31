@@ -18,7 +18,10 @@ Use `ip` to specify an interface for mochiweb to bind to (giving an IP
 address as a string or tuple). For example:
 
     [{rabbitmq_management,
-      [{port, 55672}, {ip, "127.0.0.1"}]}
+      [{listener, [{port, 55672},
+                   {ip, "127.0.0.1"}
+                  ]}
+      ]}
     ]..
 
 ## SSL
