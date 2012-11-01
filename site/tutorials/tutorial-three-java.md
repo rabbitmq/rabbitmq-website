@@ -143,7 +143,7 @@ ones. To solve that we need two things.
 
 Firstly, whenever we connect to Rabbit we need a fresh, empty queue.
 To do this we could create a queue with a random name, or,
-even better - let the server choose a random queue name for us. 
+even better - let the server choose a random queue name for us.
 
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
@@ -248,24 +248,24 @@ value is ignored for `fanout` exchanges. Here goes the code for
     import com.rabbitmq.client.Channel;
 
     public class EmitLog {
-    
+
         private static final String EXCHANGE_NAME = "logs";
-    
-        public static void main(String[] argv) 
+
+        public static void main(String[] argv)
                       throws java.io.IOException {
-    
+
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-    
+
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-    
+
             String message = getMessage(argv);
-    
+
             channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
-    
+
             channel.close();
             connection.close();
         }
@@ -289,34 +289,34 @@ The code for `ReceiveLogs.java`:
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
     import com.rabbitmq.client.QueueingConsumer;
-      
+
     public class ReceiveLogs {
-    
+
         private static final String EXCHANGE_NAME = "logs";
-  
+
         public static void main(String[] argv)
                       throws java.io.IOException,
                       java.lang.InterruptedException {
-    
+
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-    
+
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
             String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, EXCHANGE_NAME, "");
-        
+
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
+
             QueueingConsumer consumer = new QueueingConsumer(channel);
             channel.basicConsume(queueName, true, consumer);
-    
+
             while (true) {
                 QueueingConsumer.Delivery delivery = consumer.nextDelivery();
                 String message = new String(delivery.getBody());
-    
-                System.out.println(" [x] Received '" + message + "'");   
+
+                System.out.println(" [x] Received '" + message + "'");
             }
         }
     }
@@ -361,7 +361,7 @@ The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
-To find out how to listen for a subset of messages, let's move on to 
+To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-java.html)
 
 </div>

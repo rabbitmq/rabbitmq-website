@@ -129,8 +129,8 @@ Now, we can publish to our named exchange instead:
     :::python
     channel.basic_publish(exchange='logs',
                           routing_key='',
-                          body=message)    
-    
+                          body=message)
+
 Temporary queues
 ----------------
 
@@ -338,7 +338,7 @@ The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
-To find out how to listen for a subset of messages, let's move on to 
+To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-python.html)
 
 </div>
