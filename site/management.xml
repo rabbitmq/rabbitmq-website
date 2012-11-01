@@ -110,17 +110,17 @@
         <ul>
           <li>
             The web UI is located at:
-            http://<i>server-name</i>:55672/mgmt/
+            http://<i>server-name</i>:15672/
           </li>
           <li>
             The HTTP API and its documentation are both located at:
-            http://<i>server-name</i>:55672/api/ (or view
+            http://<i>server-name</i>:15672/api/ (or view
             our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
-            at: http://<i>server-name</i>:55672/cli/
+            at: http://<i>server-name</i>:15672/cli/
           </li>
         </ul>
         <p>
@@ -367,7 +367,7 @@
         <doc:heading>HTTP API</doc:heading>
         <p>
           By default the management plugin will create an HTTP-based API at
-          http://<i>server-name</i>:55672/api/. Browse to that
+          http://<i>server-name</i>:15672/api/. Browse to that
           location for more information on the API.
           For convenience you can read the
           <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
@@ -381,12 +381,12 @@
           It is possible to make the web UI available via any proxy that
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
-          conformance. It assumes a management web UI on the default port of 55672:
+          conformance. It assumes a management web UI on the default port of 15672:
           <pre class="example">
 AllowEncodedSlashes On
-ProxyPass        /api http://localhost:55672/api nocanon
-ProxyPass        /    http://localhost:55672/
-ProxyPassReverse /    http://localhost:55672/</pre>
+ProxyPass        /api http://localhost:15672/api nocanon
+ProxyPass        /    http://localhost:15672/
+ProxyPassReverse /    http://localhost:15672/</pre>
         </p>
       </doc:section>
   </body>

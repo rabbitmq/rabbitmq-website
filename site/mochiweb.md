@@ -25,7 +25,7 @@ Use `ip` to specify an interface for mochiweb to bind to (giving an IP
 address as a string or tuple). For example:
 
     [{rabbitmq_management,
-      [{listener, [{port, 55672},
+      [{listener, [{port, 15672},
                    {ip, "127.0.0.1"}
                   ]}
       ]}
@@ -46,7 +46,7 @@ verification, specify `ssl_opts` explicitly.
 For example:
 
     [{rabbitmq_management,
-      [{listener, [{port,     55672},
+      [{listener, [{port,     15672},
                    {ssl,      true},
                    {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
                                {certfile,   "/path/to/cert.pem"},
