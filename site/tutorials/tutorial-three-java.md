@@ -95,15 +95,20 @@ queues it knows. And that's exactly what we need for our logger.
 >
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
->     logs      fanout
+>             direct
 >     amq.direct      direct
->     amq.topic       topic
 >     amq.fanout      fanout
 >     amq.headers     headers
+>     amq.match       headers
+>     amq.rabbitmq.log        topic
+>     amq.rabbitmq.trace      topic
+>     amq.topic       topic
+>     logs    fanout
 >     ...done.
 >
-> In this list there are some `amq.*` exchanges. These are created by default, but
-> it is unlikely you'll need to use them at the moment.
+> In this list there are some `amq.*` exchanges and the default (unnamed)
+> exchange. These are created by default, but it is unlikely you'll need to
+> use them at the moment.
 
 
 > #### Nameless exchange
@@ -155,7 +160,7 @@ we create a non-durable, exclusive, autodelete queue with a generated name:
     String queueName = channel.queueDeclare().getQueue();
 
 At that point `queueName` contains a random queue name. For example
-it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
+it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 
 
 Bindings
@@ -352,9 +357,8 @@ programs running you should see something like:
     :::bash
     $ sudo rabbitmqctl list_bindings
     Listing bindings ...
-     ...
-    logs    amq.gen-TJWkez28YpImbWdRKMa8sg==                []
-    logs    amq.gen-x0kymA4yPzAT6BoC/YP+zw==                []
+    logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
+    logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
     ...done.
 
 The interpretation of the result is straightforward: data from
