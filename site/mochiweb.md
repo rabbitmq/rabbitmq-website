@@ -22,19 +22,19 @@ address as a string or tuple). For example:
                    {ip, "127.0.0.1"}
                   ]}
       ]}
-    ]..
+    ].
 
 ## SSL
 
-Set `ssl` to `true` to switch on SSL for a listener. Use `ssl_opts` to
+Set `ssl` to `true` to turn on SSL for a listener. Use `ssl_opts` to
 specify SSL options. These are the standard Erlang SSL options - [see
 the main page on SSL for more information](ssl.html).
 
 For convenience, if you do not specify `ssl_opts` then
 rabbitmq-mochiweb will use the same options as the main RabbitMQ
 server does for AMQP over SSL, <b>but with client certificate
-verification switched off</b>. If you wish to use client certificate
-verification, specify it explicitly.
+verification turned off</b>. If you wish to use client certificate
+verification, specify `ssl_opts` explicitly.
 
 For example:
 
