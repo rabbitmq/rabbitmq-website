@@ -12,6 +12,13 @@ page we will give examples for the `rabbitmq_management` application,
 but the same configuration can be applied to `rabbitmq_jsonrpc` and
 `rabbitmq_web_stomp_examples`.
 
+The `listener` configuration item can contain the following keys:
+
+* `port` (mandatory)
+* `ip` (to listen on only one interface)
+* `ssl` (to enable SSL)
+* `ssl_opts` (to configure SSL)
+
 ## Listening on a single interface
 
 Use `ip` to specify an interface for mochiweb to bind to (giving an IP
