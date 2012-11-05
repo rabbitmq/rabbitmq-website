@@ -71,16 +71,16 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
     <doc:section name="per-message-ttl">
       <doc:heading>Per-Message TTL</doc:heading>
       <p>
-        The TTL for a message can also be specified on a per-message basis. To
-        specify a per-message TTL the <code>expiration</code> field in the
-        <code>basic</code> AMQP class mus be set when sending a
-        <code>basic.publish</code>. The same constraints as the per-queue TTL
-        apply. Since the <code>expiration</code> field must be a string, the
-        broker will accept the string representation of the number, and reject
-        the publish for invalid values of malformed strings. The
-        <code>expiration</code> field will be ignored when used in anything but
-        <code>basic.publish</code>. When both a per-queue TTL and a per-message
-        TTL are specified, the lower value between the two will be chosen.
+        TTL can also be specified on a per-message basis, by setting the
+        <code>expiration</code> field in the <code>basic</code> AMQP class when
+        sending a <code>basic.publish</code>. The same constraints as
+        per-queue TTL apply. Since the <code>expiration</code> field must be a
+        string, the broker will accept the string representation of the number,
+        and reject publishes containing invalid values or malformed strings.
+        The <code>expiration</code> field will be ignored when used in any
+        AMQP method except <code>basic.publish</code>. When both a per-queue
+        and a per-message TTL are specified, the lower value between the two
+        will be chosen.
       </p>
 
       <p>
