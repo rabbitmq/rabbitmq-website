@@ -33,9 +33,9 @@
 
       <p>
         The value of the <code>x-message-ttl</code> argument must be
-        a non-negative integer, describing the TTL period in
-        milliseconds. Thus a value of 1000 means that a message
-        added to the queue will live in the queue for 1 second or
+        a non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1), describing
+        the TTL period in milliseconds. Thus a value of 1000 means that a
+        message added to the queue will live in the queue for 1 second or
         until it is delivered to a consumer. The argument can be of
         AMQP type short-short-int, short-int, long-int, or
         long-long-int.
@@ -74,7 +74,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         The TTL for a message can also be specified on a per-message basis. To
         specify a per-message TTL the <code>expiration</code> field in the
         <code>basic</code> AMQP class mus be set when sending a
-        <code>basic.publish</code>. The same constraints as the per-message TTL
+        <code>basic.publish</code>. The same constraints as the per-queue TTL
         apply. Since the <code>expiration</code> field must be a string, the
         broker will accept the string representation of the number, and reject
         the publish for invalid values of malformed strings. The
