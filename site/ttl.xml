@@ -78,7 +78,7 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         </href> AMQP class when sending a
         <href a="amqp-0-9-1-reference.html#class.basic.publish">
             <code>basic.publish</code>
-        </href>. The same constraints as per-queue TTL apply.
+        </href>. The same constraints as <code>x-message-ttl</code> apply.
         Since the <code>expiration</code> field must be a string, the broker
         will accept the string representation of the number, and reject
         publishes containing invalid values or malformed strings.
@@ -136,12 +136,10 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
       </p>
 
       <p>
-        The value of the <code>x-expires</code> argument must be an
-        integer, greater than zero, describing the expiration period
-        in milliseconds. Thus a value of 1000 means a queue which is
-        unused for 1 second will be deleted. The argument can be of
-        AMQP type short-short-int, short-int, long-int, or
-        long-long-int.
+        The value of the <code>x-expires</code> argument describes
+        the expiration period in milliseconds and is subject to the same
+        constraints as <code>x-message-ttl</code>. Thus a value of 1000 means
+        a queue which is unused for 1 second will be deleted.
       </p>
 
       <p>
