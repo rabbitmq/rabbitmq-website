@@ -57,6 +57,12 @@
         HeaderName /templates/index-header.html
         ReadmeName /templates/index-footer.html
     </Directory>
+    <Directory /home/rabbitmq/extras/nightlies>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
 
     Alias /blog /usr/share/wordpress
 
