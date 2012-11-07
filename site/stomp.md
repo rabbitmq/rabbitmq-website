@@ -2,8 +2,9 @@
 
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
-both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)
-and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html)
+[STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html),
+[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) and
+[STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
 with some extensions and restrictions (described [here](#pear)).
 
 Announcements regarding the adapter are periodically made on the
