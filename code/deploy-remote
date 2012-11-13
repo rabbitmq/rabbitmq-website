@@ -65,7 +65,7 @@ fi
 if [ -d /etc/apache2/sites-available/ ]; then
     cp conf/${site}* /etc/apache2/sites-available/
     a2ensite ${site}
-    /etc/init.d/apache2 restart
+    /etc/init.d/apache2 reload
 fi
 
 if [ $mode = www ] ; then
