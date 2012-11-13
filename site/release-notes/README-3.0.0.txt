@@ -40,7 +40,7 @@ enhancements
 25227 provide information if a network partition has occurred
 19376 support per-message TTL
 24792 improve plugin startup procedure:
-      - "rabbitmqctl wait" returns after plugins have started
+      - "rabbitmqctl wait" will not return until plugins have started
       - Windows service users no longer need to reinstall service after
         enabling plugins
 24719 ensure broker starts and rabbitmq-plugins works when plugin
