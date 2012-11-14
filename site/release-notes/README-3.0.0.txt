@@ -142,6 +142,7 @@ STOMP plugin
 bug fixes
 25045 don't drop subscriptions on consumer cancellation notification
 25067 prevent header without colon from breaking all subsequent headers
+24623 allow ACK to be sent after UNSUBSCRIBE
 
 enhancements
 25196 set AMQP reply-to header sensibly when using temporary queues
@@ -204,6 +205,7 @@ bug fixes
 25255 ensure BaseConnection#Dispose does not hang
 
 enhancements
+23747 allow configuration of the underlying socket (thanks to Tomasz Zuber)
 25092 set first failed connection as the inner exception to
       BrokerUnreachableException, thus improving exception display
 
