@@ -18,6 +18,10 @@
     Alias /releases /home/rabbitmq/extras/releases
     Alias /debian /home/rabbitmq/extras/releases/debian
 
+    # These directories are created/managed by the sync-nightly infrastructure
+    Alias /nightlies /home/rabbitmq/extras/nightlies
+    Alias /debian-snapshot /home/rabbitmq/extras/nightlies/debian
+
     Alias /wp-uploads /srv/www/wp-uploads/rabbit-web.eng.vmware.com
 
     # /how appeared on some printed materials
@@ -46,6 +50,18 @@
     ServerSignature On
     <Directory /srv/www.rabbitmq.com/site>
         Options -Indexes
+    </Directory>
+    <Directory /home/rabbitmq/extras/releases>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
+    <Directory /home/rabbitmq/extras/nightlies>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
     </Directory>
 
     Alias /blog /usr/share/wordpress

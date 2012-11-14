@@ -9,14 +9,15 @@ import os.path
 import shutil
 
 def main():
-    if len(sys.argv) < 3 or len(sys.argv) > 4:
-        print "Usage: compile <in-dir> <out-dir> [<file>]"
+    if len(sys.argv) < 4 or len(sys.argv) > 5:
+        print "Usage: compile <in-dir> <out-dir> <mode> [<file>]"
         exit(1)
     in_dir = sys.argv[1]
     render.SITE_DIR = in_dir
     out_dir = sys.argv[2]
-    if len(sys.argv) == 4:
-        f = sys.argv[3]
+    site_mode = sys.argv[3]
+    if len(sys.argv) == 5:
+        f = sys.argv[4]
         handle_file(in_dir, f, os.path.join(out_dir, f))
     else:
         for in_path, dirs, files in os.walk(in_dir):
@@ -27,13 +28,14 @@ def main():
                 for f in files:
                     handle_file(in_dir,
                                 os.path.normpath(os.path.join(path, f)),
-                                os.path.join(out_path, f))
+                                os.path.join(out_path, f),
+                                site_mode)
     print ""
 
-def handle_file(in_dir, in_f, out_f):
+def handle_file(in_dir, in_f, out_f, site_mode):
     ext = os.path.splitext(in_f)[1].lower()
     if (ext == '.xml' and not blacklist(in_f)) or ext == '.md':
-        render_file(in_f, out_f)
+        render_file(in_f, out_f, site_mode)
     elif ext == '.xsl' or ext.endswith('~'):
         pass
     else:
@@ -43,8 +45,8 @@ def handle_file(in_dir, in_f, out_f):
 def blacklist(f):
     return f.startswith('resources/specs/')
 
-def render_file(in_f, out_f):
-    rendered = render.render_page('/' + html_ext(in_f))
+def render_file(in_f, out_f, site_mode):
+    rendered = render.render_page('/' + html_ext(in_f), site_mode)
     with open(html_ext(out_f), 'w') as f:
         f.write(rendered)
     sys.stdout.write("#")

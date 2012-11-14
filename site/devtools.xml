@@ -463,7 +463,10 @@
                 An <a href="https://github.com/dg1sbg/RabbitMQ_C_VS_Unix">ANSI C compliant library</a> providing a C language interface to RabbitMQ
               </li>
               <li>
-                <a href="https://github.com/akalend/amqpcpp">amqpcpp</a> a C++ message library for RabbitMQ
+                <a href="https://github.com/akalend/amqpcpp">amqpcpp</a>, a C++ message library for RabbitMQ
+              </li>
+              <li>
+                <a href="https://github.com/fuCtor/QAMQP">QAMQP</a>, a pure Qt 4 implementation of AMQP 0-9-1 without other dependencies
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>

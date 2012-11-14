@@ -88,11 +88,6 @@
         </p>
         <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
-          Windows service users need to take
-          <a href="/plugins.html#windows-restart">additional steps</a> when
-          changing plugins.
-        </p>
-        <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
@@ -115,17 +110,17 @@
         <ul>
           <li>
             The web UI is located at:
-            http://<i>server-name</i>:55672/mgmt/
+            http://<i>server-name</i>:15672/
           </li>
           <li>
             The HTTP API and its documentation are both located at:
-            http://<i>server-name</i>:55672/api/ (or view
+            http://<i>server-name</i>:15672/api/ (or view
             our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
-            at: http://<i>server-name</i>:55672/cli/
+            at: http://<i>server-name</i>:15672/cli/
           </li>
         </ul>
         <p>
@@ -251,8 +246,8 @@
           <p>
             The management plugin lets you export a JSON file
             containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts and
-            permissions). In some scenarios it may be useful to ensure
+            exchanges, bindings, users, virtual hosts, permissions and
+            parameters). In some scenarios it may be useful to ensure
             the existence of these objects at every startup.
           </p>
           <p>
@@ -336,13 +331,13 @@
           <doc:heading>HTTP interfaces</doc:heading>
           <p>
             It is possible to configure rabbitmq-mochiweb to serve the
-            management plugin on a different port or TCP/IP
-            interface. To do so, you should configure a listener
-            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+            management plugin on a different port or network
+            interface, with SSL, etc. To do so, you should configure the
+            <code>listener</code> configuration item:
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
 ].</pre>
           <p>
@@ -372,7 +367,7 @@
         <doc:heading>HTTP API</doc:heading>
         <p>
           By default the management plugin will create an HTTP-based API at
-          http://<i>server-name</i>:55672/api/. Browse to that
+          http://<i>server-name</i>:15672/api/. Browse to that
           location for more information on the API.
           For convenience you can read the
           <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
@@ -386,12 +381,12 @@
           It is possible to make the web UI available via any proxy that
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
-          conformance. It assumes a management web UI on the default port of 55672:
+          conformance. It assumes a management web UI on the default port of 15672:
           <pre class="example">
 AllowEncodedSlashes On
-ProxyPass        /api http://localhost:55672/api nocanon
-ProxyPass        /    http://localhost:55672/
-ProxyPassReverse /    http://localhost:55672/</pre>
+ProxyPass        /api http://localhost:15672/api nocanon
+ProxyPass        /    http://localhost:15672/
+ProxyPassReverse /    http://localhost:15672/</pre>
         </p>
       </doc:section>
   </body>

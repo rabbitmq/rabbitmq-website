@@ -76,7 +76,7 @@ class Error404(Exception):
 class Error500(Exception):
     pass
 
-def render_page(page_name):
+def render_page(page_name, site_mode):
     """
     look for the xml file with this name. if found,
     look inside the xml file for a stylesheet processing
@@ -111,7 +111,9 @@ def render_page(page_name):
                     "UTF-8",
                     libxml2.XML_PARSE_NOENT)
                 xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(xml_doc, {'page-name': "'/%s.html'" % page_name})
+                html_doc = xslt_trans.applyStylesheet(
+                    xml_doc, {'page-name': "'/%s.html'" % page_name,
+                              'site-mode': "'%s'" % site_mode})
                 result = xslt_trans.saveResultToString(html_doc)
                 return result
     raise Error500
@@ -134,19 +136,19 @@ def find_parse_file(page_name):
     xml_doc.xincludeProcess()
     return xml_doc
 
-def handler(req):
+def handler(req, site_mode):
     req.content_type = "text/html; charset=utf-8"
 
     uri = getattr(req, "path", req.uri)
 
     try:
-        req.write(render_page(uri))
+        req.write(render_page(uri, site_mode))
 
     except Error404:
         req.status = apache.HTTP_NOT_FOUND
-        req.write(render_page('/404'))
+        req.write(render_page('/404', site_mode))
     except Error500:
         req.status = apache.HTTP_INTERNAL_SERVER_ERROR
-        req.write(render_page('/500'))
+        req.write(render_page('/500', site_mode))
 
     return apache.OK

@@ -32,13 +32,13 @@
       </p>
 
       <p>
-        The value of the <code>x-message-ttl</code> argument must be
-        a non-negative integer, describing the TTL period in
-        milliseconds. Thus a value of 1000 means that a message
-        added to the queue will live in the queue for 1 second or
-        until it is delivered to a consumer. The argument can be of
-        AMQP type short-short-int, short-int, long-int, or
-        long-long-int.
+        The value of the <code>x-message-ttl</code> argument must be a
+        non-negative 32 bit integer (0 &lt;= n &lt;= 2^32-1),
+        describing the TTL period in milliseconds. Thus a value of
+        1000 means that a message added to the queue will live in the
+        queue for 1 second or until it is delivered to a consumer. The
+        argument can be of AMQP type short-short-int, short-int,
+        long-int, or long-long-int.
       </p>
 
       <p>
@@ -57,16 +57,63 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
-        Setting <code>x-message-ttl</code> to 0 causes messages to
-        be expired upon reaching a queue unless they can be
-        delivered to a consumer immediately. Thus this provides an
-        alternative to <code>basic.publish</code>'s
-        <code>immediate</code> flag. Unlike the latter, no
-        <code>basic.return</code>s are issued, and if a dead
-        letter exchange is set then messages will be
-        dead-lettered. Performance is significantly better.
+        Setting <code>x-message-ttl</code> to 0 causes messages to be
+        expired upon reaching a queue unless they can be delivered to
+        a consumer immediately. Thus this provides an alternative to
+        <code>basic.publish</code>'s <code>immediate</code> flag,
+        which the RabbitMQ server does not support. Unlike that flag,
+        no <code>basic.return</code>s are issued, and if a dead letter
+        exchange is set then messages will be dead-lettered.
       </p>
 
+    </doc:section>
+    <doc:section name="per-message-ttl">
+      <doc:heading>Per-Message TTL</doc:heading>
+      <p>
+        A TTL can be specified on a per-message basis, by setting the
+        <code>expiration</code> field in the
+        <a href="amqp-0-9-1-reference.html#class.basic">
+          <code>basic</code></a> AMQP class when sending a
+        <a href="amqp-0-9-1-reference.html#basic.publish">
+          <code>basic.publish</code></a>.
+      </p>
+      <p>
+        The value of the <code>expiration</code> field describes the
+        TTL period in milliseconds. The same constraints as for
+        <code>x-message-ttl</code> apply. Since the
+        <code>expiration</code> field must be a string, the broker
+        will (only) accept the string representation of the number.
+      </p>
+      <p>
+        When both a per-queue and a per-message TTL are specified, the
+        lower value between the two will be chosen.
+      </p>
+
+      <p>
+        This example in Java publishes a message which can reside in the queue
+        for at most 60 seconds:
+      </p>
+      <pre class="sourcecode">
+byte[] messageBodyBytes = "Hello, world!".getBytes();
+AMQP.BasicProperties properties = new AMQP.BasicProperties();
+properties.setExpiration("60000");
+channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
+
+      <doc:subsection name="per-message-ttl-caveats">
+        <doc:heading>Caveats</doc:heading>
+        <p>
+          While consumers never see expired messages, only when
+          expired messages reach the head of a queue will they
+          actually be discarded.  When setting a per-queue TTL this is
+          not a problem, since expired messages are always at the head
+          of the queue. When setting per-message TTL however, expired
+          messages can queue up behind non-expired ones until the
+          latter are consumed or expired. Hence resources used by such
+          expired messages will not be freed, and they will be counted
+          in queue statistics (e.g. the number of messages in the
+          queue).
+        </p>
+      </doc:subsection>
     </doc:section>
     <doc:section name="queue-ttl">
       <doc:heading>Queue TTL</doc:heading>
@@ -92,12 +139,11 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
-        The value of the <code>x-expires</code> argument must be an
-        integer, greater than zero, describing the expiration period
-        in milliseconds. Thus a value of 1000 means a queue which is
-        unused for 1 second will be deleted. The argument can be of
-        AMQP type short-short-int, short-int, long-int, or
-        long-long-int.
+        The value of the <code>x-expires</code> argument describes the
+        expiration period in milliseconds and is subject to the same
+        constraints as <code>x-message-ttl</code> and cannot be
+        zero. Thus a value of 1000 means a queue which is unused for 1
+        second will be deleted.
       </p>
 
       <p>

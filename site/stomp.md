@@ -3,7 +3,8 @@
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
 both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)
-and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html).
+and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html)
+with some extensions and restrictions (described [here](#pear)).
 
 Announcements regarding the adapter are periodically made on the
 [RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
@@ -375,14 +376,15 @@ Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
 reply queues.
 
-## <a id="pe"/>Protocol Extensions
+## <a id="pear"/>Protocol Extensions and Restrictions
 
 The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
 and supports a number of non-standard headers on certain
 frames. These extra headers provide access to features that are not
-described in the STOMP specs.
+described in the STOMP specs. In addition, we prohibit some headers which
+are reserved for server use. The details are given below.
 
-### <a id="pe.c"/>Connect
+### <a id="pear.c"/>Connect
 
 The `CONNECT` (or `STOMP`) frame in
 [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
@@ -396,7 +398,7 @@ virtual hosts known to the RabbitMQ server, otherwise the connection is
 rejected. The `host` header is respected even if the STOMP 1.0 version is
 negotiated at the time of the connect.
 
-### <a id="pe.mp"/>Message Persistence
+### <a id="pear.mp"/>Message Persistence
 
 On the `SEND` frame, the STOMP adapter supports the inclusion of a `persistent` header.
 
@@ -409,24 +411,33 @@ on persistent messages can be found [here](confirms.html).
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
-### <a id="pe.p"/>Prefetch
+### <a id="pear.p"/>Prefetch
 
 The prefetch count for all subscriptions is set to unlimited by
 default. This can be controlled by setting the `prefetch-count` header
 on `SUBSCRIBE` frames to the desired integer count.
 
-### <a id="pe.ap"/>AMQP Properties
+### <a id="pear.hpos"/>Header prohibited on `SEND`
 
-`SEND` frames also allow headers corresponding to the AMQP properties
+It is not permitted to set a `message-id` header on a `SEND` frame.
+The header and its value is set by the server on a `MESSAGE` frame sent
+to a client.
+
+### <a id="pear.ap"/>AMQP Properties
+
+`SEND` frames also allow headers corresponding to the *AMQP properties*
 available when publishing messages. These headers are also set on
 `MESSAGE` frames sent to clients.
 
-The supported headers are:
+All non-deprecated AMQP properties (`content-type`,
+`content-encoding`, `headers`, `delivery-mode`, `priority`,
+`correlation-id`, `reply-to`, `expiration`, `message-id`, `timestamp`,
+`type`, `user-id` and `app-id`) are supported. The following special
+rules apply:
 
-* `amqp-message-id` -- sets the `message-id` property
-* `correlation-id` -- sets the `correlation-id` property
-* `content-encoding` -- sets the `content-encoding` property
-* `priority` -- sets the `priority` property
-* `reply-to` -- sets the `reply-to` property (see
-[Temp Queue Destinations](#d.tqd) above for a special meaning of this header)
-
+* `amqp-message-id` in STOMP is converted to `message-id` in AMQP, and
+  vice-versa.
+* The `reply-to` header causes temporary queues to be created (see
+  [Temp Queue Destinations](#d.tqd) above).
+* All unrecognised STOMP headers are inserted into the AMQP `headers`
+  property.

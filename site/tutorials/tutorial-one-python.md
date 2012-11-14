@@ -43,7 +43,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    applications, they can be stored only inside a _queue_. A _queue_
    is not bound by any limits, it can store as many messages as you
    like &#8210; it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
+   messages that go to one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
    <div class="diagram">
@@ -230,6 +230,17 @@ can do it by gently closing the connection.
 
     :::python
     connection.close()
+
+> #### Sending doesn't work!
+>
+> If this is your first time using RabbitMQ and you don't see the "Sent"
+> message then you may be left scratching your head wondering what could
+> be wrong. Maybe the broker was started without enough free disk space
+> (by default it needs at least 1Gb free) and is therefore refusing to
+> accept messages. Check the broker logfile to confirm and reduce the
+> limit if necessary. The <a
+> href="http://www.rabbitmq.com/configure.html#config-items">configuration
+> file documentation</a> will show you how to set <code>disk_free_limit</code>.
 
 
 ### Receiving

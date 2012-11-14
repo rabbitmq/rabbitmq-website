@@ -184,7 +184,7 @@ ul.mainNav {
 .mainNav li {
 	display: inline;
 	border: none;
-	background: white;
+	background: none;
         padding: 0 2em 0 0;
 	margin: 1px;
 	text-decoration: none;
@@ -314,6 +314,8 @@ th, td {
 	text-align: left;
 	padding: 2px 0.5em 2px 0.5em;
 }
+
+div.auto-index table, div.auto-index th, div.auto-index td { border: none; }
 
 tr {
 	vertical-align: top;

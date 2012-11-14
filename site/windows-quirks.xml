@@ -33,11 +33,12 @@
       </li>
     </ul>
 
-    <h3>rabbitmqctl shows non-ASCII characters incorrectly in list commands</h3>
+    <h3>rabbitmqctl shows / parses non-ASCII characters incorrectly</h3>
     <p>
-      Similarly, <code>rabbitmqctl</code> will return strings as
-      UTF-8, which will then be interpreted incorrectly by the console
-      in some country-specific encoding.
+      Similarly, <code>rabbitmqctl</code> will expect command line
+      parameters to be encoded in UTF-8, and display strings as
+      UTF-8. The console will instead provide and expect some
+      country-specific encoding.
     </p>
     <strong>Workarounds:</strong>
     <ul>
@@ -73,13 +74,6 @@
         <code>%HOMEDRIVE%</code><code>%HOMEPATH%</code>.
       </li>
     </ul>
-
-    <h3>Service must be reinstalled when activating / deactivating plugins</h3>
-    <p>
-      When activating or deactivating plugins and running RabbitMQ as
-      a service you must <a href="plugins.html#windows-restart">reinstall
-      the service</a> for changes to take effect.
-    </p>
     <h3>Shutting down Windows</h3>
     <p>
       It is necessary to take precautions when shutting down Windows
