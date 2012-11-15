@@ -39,6 +39,7 @@ enhancements
       - "rabbitmqctl wait" will not return until plugins have started
       - Windows service users no longer need to reinstall service
         after enabling plugins
+24971 enable heartbeats by default
 24719 ensure broker starts and rabbitmq-plugins works when plugin
       dependencies are missing
 25164 give better error message when attempting to use a queue which
@@ -96,7 +97,7 @@ enhancements
 24932 improve responsiveness of the statistics database on a heavily
       loaded broker
 25148 clearer error message when the management port is in use at startup
-24971 web UI help texts link to the website for more information
+24967 web UI help texts link to the website for more information
 24983 clearer error message when rabbitmqadmin is run against
       an incompatible Python version
 25209 make rabbitmqadmin work when passed through 2to3 (thanks to Alan
