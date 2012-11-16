@@ -18,6 +18,8 @@ bug fixes
 25000 don't write a PID file when -detached is specified as it will
       not be right
 25263 fix channel number in error message if rabbit_writer crashes
+25295, 25297 fix a couple of small memory leaks in rabbit_channel when
+      one channel sees many queues deleted
 
 enhancements
 24991 correctly enforce AMQP frame_max. Note that some buggy clients
