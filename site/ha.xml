@@ -157,7 +157,7 @@
           a mirrored-queue, should the master die, messages that are
           in-flight on their way to <i>noAck=true</i> consumers may
           never be received by those clients, and will not be requeued
-          by the new master. Because of the possibility the the
+          by the new master. Because of the possibility that the
           consuming client is connected to a node that survives, the
           <a href="consumer-cancel.html">Consumer
           Cancellation Notification</a> is useful in identifying when
