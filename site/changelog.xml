@@ -13,6 +13,19 @@
       </tr>
 
       <tr>
+        <td><a href="release-notes/README-3.0.0.txt">3.0.0</a></td>
+        <td>19 November 2012</td>
+        <td>
+          <ul>
+            <li>Policy-based mirroring and federation</li>
+            <li>Revamped clustering commands</li>
+            <li>Web-STOMP and MQTT</li>
+            <li>Per-message TTL</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
         <td><a href="release-notes/README-2.8.7.txt">2.8.7</a></td>
         <td>27 September 2012</td>
         <td>
