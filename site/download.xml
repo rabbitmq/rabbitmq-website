@@ -44,7 +44,7 @@
         </li>
         <li>
             Mac OS X:
-            <a href="install-mac.html">Default</a> |
+            <a href="install-standalone-mac.html">Default</a> |
             <a href="install-macports.html">Macports</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
