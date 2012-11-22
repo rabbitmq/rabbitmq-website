@@ -86,7 +86,7 @@
           distribution.  To enable it, use <a
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
-        <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
+        <pre class="example">rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
