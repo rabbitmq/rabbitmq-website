@@ -97,6 +97,12 @@
         </td>
       </tr>
       <tr>
+        <th>rabbitmqctl (Windows)</th>
+        <td>
+          <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" 1</pre>
+        </td>
+      </tr>
+      <tr>
         <th>HTTP API</th>
         <td>
           <pre>PUT /api/parameters/policy/%2f/federate-me

@@ -355,6 +355,12 @@
             </td>
           </tr>
           <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+            </td>
+          </tr>
+          <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/parameters/policy/%2f/ha-all
@@ -395,6 +401,13 @@
             <td>
               <pre>rabbitmqctl set_policy ha-two "^two\." \
    '{"ha-mode":"exactly","ha-params":2}'</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2}"</pre>
             </td>
           </tr>
           <tr>

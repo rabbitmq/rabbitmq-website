@@ -279,6 +279,12 @@
           </td>
         </tr>
         <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <code>rabbitmqctl set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://server-name"",""expires"":3600000}"</code>
+          </td>
+        </tr>
+        <tr>
           <th>HTTP API</th>
           <td>
             PUT <code>/api/parameters/federation-upstream/%2f/my-upstream</code><br/>
@@ -302,6 +308,12 @@
           <th>rabbitmqctl</th>
           <td>
             <code>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}'</code>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <code>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}"</code>
           </td>
         </tr>
         <tr>
