@@ -47,6 +47,15 @@
       </tr>
     </table>
     <p>
+      Since a parameter value is a JSON document, you will usually
+      need to quote it when creating one on the command line
+      with <code>rabbitmqctl</code>. On Unix it is usually easiest to
+      quote the whole document with single quotes, and use double
+      quotes within it. On Windows you will have to escape every
+      double quote. We give examples for both Unix and Windows for
+      this reason.
+    </p>
+    <p>
       Parameters reside in the database used by RabbitMQ for
       definitions of virtual hosts, exchanges, queues, bindings, users
       and permissions. Parameters are exported along with other object
@@ -87,6 +96,12 @@
         <th>rabbitmqctl</th>
         <td>
           <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' 1</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>rabbitmqctl (Windows)</th>
+        <td>
+          <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" 1</pre>
         </td>
       </tr>
       <tr>
