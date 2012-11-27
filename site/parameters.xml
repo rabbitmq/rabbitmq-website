@@ -92,7 +92,7 @@
       <tr>
         <th>HTTP API</th>
         <td>
-          <pre>PUT /api/parameters/policy/%2f/federate-me
+          <pre>PUT /api/policies/%2f/federate-me
 {"pattern": "^amq\.",
  "definition": {"federation-upstream-set":"all"}
  "priority": 1}</pre>
