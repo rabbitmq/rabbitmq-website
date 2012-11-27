@@ -46,13 +46,6 @@
         </td>
       </tr>
     </table>
-
-
-    <p>
-      Note that the value of a parameter is an Erlang term when set
-      by <code>rabbitmqctl</code>, and a JSON document when set by the
-      management plugin.
-    </p>
     <p>
       Parameters reside in the database used by RabbitMQ for
       definitions of virtual hosts, exchanges, queues, bindings, users
