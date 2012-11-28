@@ -124,6 +124,9 @@
           </li>
         </ul>
         <p>
+          NB: The port for RabbitMQ versions prior to 3.0 is 55672.
+        </p>
+        <p>
           To use the web UI you will need to authenticate as a
           RabbitMQ user (on a fresh installation the user "guest" is
           created with password "guest"). From here you can manage
