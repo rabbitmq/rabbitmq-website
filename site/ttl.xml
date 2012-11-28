@@ -104,14 +104,14 @@ channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes)
         <p>
           While consumers never see expired messages, only when
           expired messages reach the head of a queue will they
-          actually be discarded.  When setting a per-queue TTL this is
-          not a problem, since expired messages are always at the head
-          of the queue. When setting per-message TTL however, expired
-          messages can queue up behind non-expired ones until the
-          latter are consumed or expired. Hence resources used by such
-          expired messages will not be freed, and they will be counted
-          in queue statistics (e.g. the number of messages in the
-          queue).
+          actually be discarded (or dead-lettered).  When setting a
+          per-queue TTL this is not a problem, since expired messages
+          are always at the head of the queue. When setting
+          per-message TTL however, expired messages can queue up
+          behind non-expired ones until the latter are consumed or
+          expired. Hence resources used by such expired messages will
+          not be freed, and they will be counted in queue statistics
+          (e.g. the number of messages in the queue).
         </p>
       </doc:subsection>
     </doc:section>
