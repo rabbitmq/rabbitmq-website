@@ -59,7 +59,7 @@ if [ $mode = www ] ; then
         cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
     fi
 else
-    cp conf/robots.txt-next $site_dir/site/robots.txt
+    cp conf/robots.txt-$mode $site_dir/site/robots.txt
 fi
 
 if [ -d /etc/apache2/sites-available/ ]; then
