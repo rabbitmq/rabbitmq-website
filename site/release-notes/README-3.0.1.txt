@@ -16,8 +16,10 @@ enhancements
 management plugin
 -----------------
 bug fixes
+25348 fix web UI breakage for users with "management" tag
 25300 fix JSON encoding error listing non-AMQP connections
 25325 fix web UI links when filtering by virtual host
+25346 fix parameter and policy names missing from definitions export
 25326 [MSIE] fix policies listing page when more than 1 vhost exists
 25304 [MSIE] fix "Add policy" and "Add upstream" buttons
 25320 fix misleading error message when administrator has no permissions
