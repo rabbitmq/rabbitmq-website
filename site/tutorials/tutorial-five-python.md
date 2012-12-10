@@ -8,7 +8,7 @@
 
 
 ## Topics
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
 <xi:include href="tutorials-help.xml.inc"/>
 
