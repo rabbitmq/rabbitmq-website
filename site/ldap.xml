@@ -1,0 +1,162 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>LDAP Plugin</title>
+  </head>
+  <body show-in-this-page="true">
+    <doc:section name="overview">
+      <p>
+        The LDAP plugin provides the ability for your RabbitMQ server to
+        perform authentication (determining who can log in) and
+        authorisation (determining what permissions they have) by deferring
+        to an external LDAP server. To use this plugin, some editing of the
+        RabbitMQ configuration file is required. You must enable the plugin,
+        and then configure it. You are advised to read this entire page
+        before starting.
+      </p>
+
+      <p>
+        The LDAP plugin is included in the RabbitMQ distribution. To
+        enable it, use
+        <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+      </p>
+      <pre class="example">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
+      <p>
+        You will then need to set the value of the <code>auth_backends</code>
+        configuration item for the <code>rabbit</code> application to include
+        <code>rabbit_auth_backend_ldap</code>.  <code>auth_backends</code> is
+        a list of authentication providers to try in order.
+      </p>
+    </doc:section>
+
+    <doc:section name="basic">
+      <doc:heading>Basic configuration</doc:heading>
+      <p>
+        You must then configure the plugin. This plugin has quite a few
+        configuration options, but most have sensible defaults.
+      </p>
+
+      <p>
+        The most complex part of configuring the plugin pertains to
+        authorisation (i.e. granting permissions to your users via LDAP). This
+        is documented separately below.
+      </p>
+      <p>
+        The default configuration allows all users to access all objects in
+        all vhosts, but does not make them administrators. If you're happy
+        with that, there is no need to read the documentation on authorisation.
+      </p>
+      <p>
+        The options not directly related to authorisation are:
+      </p>
+
+      <dl>
+        <dt><code>servers</code></dt>
+        <dd>
+          List of LDAP servers to attempt to bind to, in order. You almost
+          certainly want to change this. Default: <code>["ldap"]</code>
+        </dd>
+        <dt><code>user_dn_pattern</code></dt>
+        <dd>
+          <p>
+            There are two ways to convert a username as provided through AMQP to
+            a Distinguished Name. The simplest way is via string substitution
+            with <code>user_dn_pattern</code>. To do this, set
+            <code>user_dn_pattern</code> to a string containing exactly one
+            instance of <code>${username}</code>.
+          </p>
+          <p>
+            For example, setting user_dn_pattern to:
+            <code>"cn=${username},ou=People,dc=example,dc=com"</code>
+          </p>
+          <p>
+            would cause the username <code>simon</code> to be converted to the
+            DN <code>cn=simon,ou=People,dc=example,dc=com</code>
+          </p>
+          <p>
+            Default: <code>"${username}"</code>
+          </p>
+        </dd>
+        <dt><code>dn_lookup_attribute</code> and <code>dn_lookup_base</code></dt>
+        <dd>
+          <p>
+            The other way to convert a username to a Distinguished Name is via
+            an LDAP lookup after binding. In order for this to work your LDAP
+            server needs to be configured to allow binding with the unadorned
+            username (Microsoft Active Directory typically does this).
+          </p>
+          <p>
+            To do this, set dn_lookup_attribute to the name of the attribute the
+            represents the user name, and dn_lookup_base to the base DN for the
+            query.
+          </p>
+          <p>
+            For example, if I set
+          </p>
+          <pre>{dn_lookup_attribute,   "userPrincipalName"},
+{dn_lookup_base,        "DC=vmware,DC=com"}</pre>
+          <p>
+            I can authenticate as <code>smacmullen@vmware.com</code> and have my
+            local Active Directory server return my real DN.
+          </p>
+          <p>
+            Default: <code>'none'</code> and <code>'none'</code>
+          </p>
+        </dd>
+        <dt><code>other_bind</code></dt>
+        <dd>
+          <p>
+            For authentication this plugin binds to the LDAP server as the
+            user it is trying to authenticate. This option controls how to
+            bind for authorisation queries, and to retrieve the details of a
+            user who is logging in without presenting a password (e.g. SASL
+            EXTERNAL).
+          </p>
+          <p>
+            This option must either be one of the atoms '<code>as_user</code> or
+            <code>anon</code>, or a tuple <code>{UserDN,
+            Password}</code>. <code>as_user</code> means to bind as the
+            authenticated user.
+          </p>
+          <p>
+            Default: <code>as_user</code>
+          </p>
+        </dd>
+        <dt><code>use_ssl</code></dt>
+        <dd>
+          Whether to use LDAP over SSL. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Default:
+          <code>false</code>
+        </dd>
+        <dt><code>port</code></dt>
+        <dd>
+          Port on which to connect to the LDAP servers. Default:
+          <code>389</code>.
+        </dd>
+        <dt><code>log</code></dt>
+        <dd>
+          <p>
+            Select <code>true</code> for verbose logging of the logic used by
+            the LDAP plugin to make decisions. This is typically useful for
+            debugging.
+          </p>
+          <p>
+            Select <code>network</code> to <b>additionally</b> cause LDAP
+            network traffic to be logged at a somewhat lower level. This will
+            typically cause passwords to be written to the logs; exercise
+            caution.
+          </p>
+          <p>
+            Default: <code>false</code>
+          </p>
+        </dd>
+      </dl>
+    </doc:section>
+  </body>
+</html>
