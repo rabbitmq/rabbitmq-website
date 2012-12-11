@@ -30,7 +30,7 @@
       <p>
         You will then need to set the value of the <code>auth_backends</code>
         configuration item for the <code>rabbit</code> application to include
-        <code>rabbit_auth_backend_ldap</code>.  <code>auth_backends</code> is
+        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
         a list of authentication providers to try in order.
       </p>
     </doc:section>
@@ -302,11 +302,11 @@
         </p>
         <p>Example:</p>
         <pre>{vhost_access_query,
- {in_group, "cn=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
+ {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to virtual hosts when the user is listed
-          as a <code>member</code> attribute of an object (such as
-          a <code>groupOfNames</code>)
+          as a <code>member</code> attribute of an appropriately named
+          object (such as a <code>groupOfNames</code>)
           within <code>ou=vhosts,dc=example,dc=com</code>.
         </p>
       </doc:subsection>
@@ -372,7 +372,7 @@
       </doc:subsection>
 
       <doc:subsection>
-        <doc:heading>String sub-query</doc:heading>
+        <doc:heading>String Sub-query</doc:heading>
         <pre>{string, Pattern}</pre>
         <p>
           Just substitutes arguments into a string. As this returns a
@@ -382,7 +382,7 @@
       </doc:subsection>
 
       <doc:subsection>
-        <doc:heading>Attribute Query</doc:heading>
+        <doc:heading>Attribute Sub-query</doc:heading>
         <pre>{attribute, DNPattern, AttributeName}</pre>
         <p>
           Returns the value of an attribute of an object retrieved from LDAP. As
@@ -393,36 +393,39 @@
     </doc:section>
     <doc:section name="example">
       <doc:heading>Example configuration</doc:heading>
+      <p>
+        Bringing it all together, here's a sample configuration. This
+        makes all users able to access the management plugin, but
+        makes none of them administrators. Access to virtual hosts is
+        controlled by membership of a group per virtual host. Only
+        members of <code>rabbitmq-admin</code> can declare, delete or
+        bind exchanges and queues, but all users can publish to
+        exchanges and declare from queues.
+      </p>
 <pre>[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,
    [ {servers,               ["my-ldap-server"]},
      {user_dn_pattern,       "cn=${username},ou=People,dc=example,dc=com"},
-     {vhost_access_query,    {exists,
-                              "ou=${vhost},ou=vhosts,dc=example,dc=com"}},
+     {vhost_access_query,    {in_group,
+                              "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
      {resource_access_query,
-      {for, [{resource, exchange,
-              {for, [
-                     %% Only allow "wheel" group to create exchanges
-                     {permission, configure,
-                      {in_group, "cn=wheel,ou=groups,dc=example,dc=com"}
-                     },
-
-                     %% Only allow publishing for people with surnames beginning
-                     %% with "Mac"
-                     {permission, write,
-                      {match, {attribute, "${user_dn}", "sn"}, {string, "^Mac.*"}}
-                     },
-
-                     %% Anyone can bind to exchanges
-                     {permission, read,  {constant, true}}
-                    ]}},
-             %% Anyone can do anything with queues
-             {resource, queue, {constant, true}} ]}},
-     {tag_queries,           [{administrator, {constant, false}}]},
+      {for, [{permission, configure, {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+             {permission, write,
+              {for, [{resource, queue,    {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+                     {resource, exchange, {constant, true}}]}},
+             {permission, read,
+              {for, [{resource, exchange, {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+                     {resource, queue,    {constant, true}}]}}
+            ]
+      }},
+     {tag_queries,           [{administrator, {constant, false}},
+                              {management,    {constant, true}}]},
      {use_ssl,               false},
      {port,                  389},
-     {log,                   false} ] }
+     {log,                   false}
+   ]
+  }
 ].</pre>
     </doc:section>
   </body>
