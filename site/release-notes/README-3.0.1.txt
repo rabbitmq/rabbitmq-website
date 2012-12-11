@@ -23,6 +23,8 @@ bug fixes
 25346 fix parameter and policy names missing from definitions export
 25326 [MSIE] fix policies listing page when more than 1 vhost exists
 25304 [MSIE] fix "Add policy" and "Add upstream" buttons
+25352 [MSIE] fix "Add user" and "Update user" buttons when a tag link has
+      been clicked
 25320 fix misleading error message when administrator has no permissions
 25321 fix invisible update of queue policy changes that had no effect
 
