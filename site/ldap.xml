@@ -418,6 +418,9 @@
   {rabbitmq_auth_backend_ldap,
    [ {servers,               ["my-ldap-server"]},
      {user_dn_pattern,       "cn=${username},ou=People,dc=example,dc=com"},
+     {use_ssl,               false},
+     {port,                  389},
+     {log,                   false},
      {vhost_access_query,    {in_group,
                               "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
      {resource_access_query,
@@ -431,10 +434,7 @@
             ]
       }},
      {tag_queries,           [{administrator, {constant, false}},
-                              {management,    {constant, true}}]},
-     {use_ssl,               false},
-     {port,                  389},
-     {log,                   false}
+                              {management,    {constant, true}}]}
    ]
   }
 ].</pre>
