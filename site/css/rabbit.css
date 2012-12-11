@@ -114,10 +114,12 @@ h3 {
 	}
 
 ul {
-	margin: 0;
+	margin: 10px 0;
 	padding: 0;
 	}
-	
+
+div#right-nav ul { margin: 0; }
+
 li {
 	list-style-type: none; 
 	background: url(../img/li.gif) no-repeat 1px 9px;

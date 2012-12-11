@@ -9,8 +9,15 @@
   </head>
   <body>
       <p class="intro">
-        This page summarises the available RabbitMQ documentation.
+        This page summarises the available RabbitMQ documentation for the current release, &version-server;. Also available are:
       </p>
+
+      <ul>
+        <li><a href="http://previous.rabbitmq.com/documentation.html">
+Documentation for the previous stable release (&version-server-previous;)
+</a></li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a></li>
+      </ul>
 
       <div class="landing-box">
         <h2>Get Started</h2>

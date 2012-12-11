@@ -96,7 +96,7 @@
 SYS_PREFIX=${RABBITMQ_HOME}
 </pre>
             in the <code>sbin/rabbitmq-defaults</code> script and
-            change this change this line to:
+            change this line to:
 <pre class="sourcecode">
 SYS_PREFIX=
 </pre>
