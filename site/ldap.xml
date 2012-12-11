@@ -31,8 +31,23 @@
         You will then need to set the value of the <code>auth_backends</code>
         configuration item for the <code>rabbit</code> application to include
         <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
-        a list of authentication providers to try in order.
+        a list of authentication providers to try in order. So:
       </p>
+      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
+      <p>
+        will configure RabbitMQ to <b>only</b> check LDAP for users,
+        and ignore the internal database, while:
+      </p>
+      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
+      <p>
+        will check LDAP first, and then fall back to the internal
+        database if the user cannot be authenticated through LDAP and:
+      </p>
+      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
+      <p>
+        will do the same but check the internal database first.
+      </p>
+
     </doc:section>
 
     <doc:section name="basic">
