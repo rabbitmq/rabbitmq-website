@@ -8,6 +8,7 @@ bug fixes
 25340 fix performance degradation when using small numbers of outstanding
       confirms with mirrored queues
 25301 fix messages with per-message TTL not expiring under some circumstances
+25351 increase robustness when calculating memory use by plugins
 
 enhancements
 25335, 25330 allow mixed patch versions of RabbitMQ in a cluster
@@ -42,3 +43,9 @@ tracing plugin
 --------------
 bug fixes
 25341 fix failure of rabbitmqctl status when tracing plugin enabled
+
+
+web-stomp plugin
+----------------
+bug fixes
+25347 fix hang in rabbitmqctl status when web-stomp-examples plugin enabled
