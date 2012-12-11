@@ -342,7 +342,7 @@
         </p>
 <pre class="example">{resource_access_query,
  {for, [{resource, exchange, {for, [{permission, configure,
-                                     {in_group, "cn=wheel,ou=groups,dc=example,dc=com"}
+                                     {in_group, "cn=wheel,dc=example,dc=com"}
                                     },
                                     {permission, write, {constant, true}},
                                     {permission, read,  {constant, true}}
@@ -409,7 +409,7 @@
         makes all users able to access the management plugin, but
         makes none of them administrators. Access to virtual hosts is
         controlled by membership of a group per virtual host. Only
-        members of <code>rabbitmq-admin</code> can declare, delete or
+        members of <code>admin</code> can declare, delete or
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
@@ -421,12 +421,12 @@
      {vhost_access_query,    {in_group,
                               "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
      {resource_access_query,
-      {for, [{permission, configure, {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+      {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
              {permission, write,
-              {for, [{resource, queue,    {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+              {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
                      {resource, exchange, {constant, true}}]}},
              {permission, read,
-              {for, [{resource, exchange, {in_group, "cn=rabbitmq-admin,ou=groups,dc=example,dc=com"}},
+              {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
