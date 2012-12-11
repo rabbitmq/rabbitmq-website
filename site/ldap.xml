@@ -33,17 +33,17 @@
         <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
         a list of authentication providers to try in order. So:
       </p>
-      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
       <p>
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database, while:
       </p>
-      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
       <p>
         will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP and:
       </p>
-      <pre>{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
       <p>
         will do the same but check the internal database first.
       </p>
@@ -279,7 +279,7 @@
           or denying access.
         </p>
         <p>Example:</p>
-        <pre>{tag_queries, [{administrator, {constant, false}},
+        <pre class="example">{tag_queries, [{administrator, {constant, false}},
                {management,    {constant, true}}]}</pre>
         <p>
           This grants all users the ability to use the management
@@ -295,8 +295,7 @@
           there exists an object with the resulting DN.
         </p>
         <p>Example:</p>
-        <pre>{vhost_access_query,
- {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="example">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to all virtual hosts which exist as
           organisational units
@@ -316,8 +315,7 @@
           attribute, or any named attribute.
         </p>
         <p>Example:</p>
-        <pre>{vhost_access_query,
- {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
+        <pre class="example">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
         <p>
           This grants access to virtual hosts when the user is listed
           as a <code>member</code> attribute of an appropriately named
@@ -342,16 +340,14 @@
         <p>
           Example:
         </p>
-
-<pre>{resource_access_query,
- {for, [{resource, exchange,
-         {for, [{permission, configure,
-                 { in_group, "cn=wheel,ou=groups,dc=example,dc=com" }
-                },
-                {permission, write, {constant, true}},
-                {permission, read,  {constant, true}}
-               ]}},
-        {resource, queue, {constant, true}} ]}}</pre>
+<pre class="example">{resource_access_query,
+ {for, [{resource, exchange, {for, [{permission, configure,
+                                     {in_group, "cn=wheel,ou=groups,dc=example,dc=com"}
+                                    },
+                                    {permission, write, {constant, true}},
+                                    {permission, read,  {constant, true}}
+                                   ]}},
+        {resource, queue,    {constant, true}}]}}</pre>
 
         <p>
           This allows members of the <code>wheel</code> group to declare and
@@ -368,7 +364,7 @@
           both subqueries (of the types below) in turn.
         </p>
         <p>Example:</p>
-        <pre>{resource_access_query,
+        <pre class="example">{resource_access_query,
  {for, [{permission, configure, {match, {attribute, "${user_dn}", "description"},
                                         {string, "can-declare-${resource}s"}
                                 }
@@ -417,7 +413,7 @@
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
-<pre>[
+<pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,
    [ {servers,               ["my-ldap-server"]},
