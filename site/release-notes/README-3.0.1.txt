@@ -47,12 +47,6 @@ bug fixes
 25341 fix failure of rabbitmqctl status when tracing plugin enabled
 
 
-web-stomp plugin
-----------------
-bug fixes
-25347 fix hang in rabbitmqctl status when web-stomp-examples plugin enabled
-
-
 Upgrading
 =========
 To upgrade a non-clustered RabbitMQ from release 2.1.1 or later, simply install
