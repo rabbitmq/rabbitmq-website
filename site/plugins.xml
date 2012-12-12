@@ -52,9 +52,9 @@
         <doc:heading>Maintained Plugins</doc:heading>
         <table>
           <r:plugin name="rabbitmq_auth_backend_ldap">
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
-            for more information.
+            Authentication / authorisation plugin using an external
+            LDAP server. See the <a href="ldap.html">the page on the
+            LDAP plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
