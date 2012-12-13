@@ -121,6 +121,12 @@
             local Active Directory server return my real DN.
           </p>
           <p>
+            If you set both <code>dn_lookup_attribute</code>
+            and <code>user_dn_pattern</code> then the approaches are
+            combined: the plugin fills out the template and then
+            searches for the DN.
+          </p>
+          <p>
             Default: <code>'none'</code> and <code>'none'</code>
           </p>
         </dd>
