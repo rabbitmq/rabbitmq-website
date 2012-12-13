@@ -134,10 +134,11 @@
             EXTERNAL).
           </p>
           <p>
-            This option must either be one of the atoms '<code>as_user</code> or
-            <code>anon</code>, or a tuple <code>{UserDN,
-            Password}</code>. <code>as_user</code> means to bind as the
-            authenticated user.
+            This option must either be one of the
+            atoms <code>as_user</code> (to bind as the authenticated
+            user) or <code>anon</code> (to bind anonymously), or a
+            tuple <code>{UserDN, Password}</code> (to bind with a
+            specified username and password).
           </p>
           <p>
             Default: <code>as_user</code>
