@@ -14,9 +14,9 @@
       dead-lettered when any of the following events occur:
       <ul>
         <li>The message is rejected (<code>basic.reject</code> or
-          <code>basic.nack</code>) with <code>requeue=false</code>;
-          or</li>
-        <li>The TTL for the message expires.</li>
+          <code>basic.nack</code>) with <code>requeue=false</code>,</li>
+        <li>The TTL for the message expires; or</li>
+        <li>The queue depth limit is exceeded.</li>
       </ul>
     </p>
     <doc:section>
@@ -153,10 +153,12 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         message was dead-lettered and is one of the following:
 
         <ul>
+          <li><code>rejected</code> - the message was rejected
+            with <code>requeue=false</code>,</li>
           <li><code>expired</code> - the TTL of the message
             expired; or</li>
-          <li><code>rejected</code> - the message was rejected
-            with <code>requeue=false</code>.</li>
+          <li><code>maxdepth</code> - the maximum allowed queue
+            depth was exceeded.</li>
         </ul>
       </p>
       <p>
