@@ -222,14 +222,20 @@
         </p>
         <p>
           You can determine which slaves have synchronised with the
-          following rabbitmqctl invocation, or through the management
-          plugin:
+          following rabbitmqctl invocation:
         </p>
         <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
         <p>
           You can explicitly synchronise a queue with:
         </p>
         <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <p>
+          And you can cancel synchronisation with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <p>
+          These features are also available through the management plugin.
+        </p>
       </doc:section>
 
       <doc:section name="start-stop">
