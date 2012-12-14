@@ -109,6 +109,7 @@
        </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
+       <x:page url="/ldap.html" text="LDAP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
