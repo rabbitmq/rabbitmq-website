@@ -134,6 +134,7 @@
        <x:page url="/sender-selected.html" text="Sender Routing"/>
        <x:page url="/ttl.html" text="TTL"/>
        <x:page url="/dlx.html" text="Dead Lettering"/>
+       <x:page url="/maxdepth.html" text="Depth Limit"/>
        <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">

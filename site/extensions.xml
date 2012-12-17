@@ -90,6 +90,20 @@
     </div>
 
     <div class="landing-box">
+      <h2>Queues</h2>
+      <ul>
+        <li>
+          <a href="ha.html">Mirrored Queues</a>
+          implement high availability.
+        </li>
+        <li>
+          <a href="maxdepth.html">Depth Limit</a>
+          allows the maximum depth of a queue to be set.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
       <h2>Undeprecated features</h2>
       <ul>
         <li>
