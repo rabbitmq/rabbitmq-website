@@ -644,7 +644,7 @@ $ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 $ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 $ rabbitmqctl -n hare stop_app
 $ rabbitmqctl -n hare reset
-$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
 $ rabbitmqctl -n hare start_app</pre>
           <p>
             will set up a two node cluster with one disc node and one
