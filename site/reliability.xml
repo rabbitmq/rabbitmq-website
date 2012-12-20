@@ -1,0 +1,137 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Reliability Guide</title>
+  </head>
+  <body show-in-this-page="true">
+      <doc:section name="overview">
+        <div class="landing-box">
+          <p>
+            Learn how the different levels of message delivery guarantee
+            in RabbitMQ work, the trade-offs to choose from and how they
+            can affect the system. This guide also covers working with
+            unreliable networks and dealing reliably and safely with
+            situations that can arise in client code. 
+          </p>
+          <ul>
+            <li>
+              <a href="#background-info">
+                Pre-requisites and recommended reading.
+              </a>
+            </li>
+            <li>
+              A <a href="#methodology">Method</a> for understanding and
+              building reliable messaging solutions with RabbitMQ.
+            </li>
+            <li>
+              <a href="#network-issues">Working with unreliable networks.</a>
+            </li>
+            <li>
+              <a href="#durability">Durability and Persistence.</a>
+            </li>
+            <li>
+              <a href="#reliable-clients">Writing reliable client code.</a>
+              <!-- <ul>
+                <li>
+                  <a href="#error-conditions">Handling Failures.</a>.
+                </li>
+                <li>
+                  <a href="#error-conditions">Robust data flow management.</a>.
+                </li>
+              </ul> -->
+            </li>
+            <li>
+              <a href="#federating">Federated RabbitMQ: Availability and
+                Partition Tolerence Guarantees.</a>
+            </li>
+          </ul>
+        </div>
+      </doc:section>
+      <doc:section name="background-info">
+        <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
+        <p>
+          This guide is likely to be <i>far</i> more useful to you if you
+          already have a solid grasp of AMQP concepts and constructs. If you need
+          to build this up, or would like a quick refresher, then it is highly
+          recommended that you read the
+          <a href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">
+            RabbitMQ Guide to AMQP Concepts
+          </a> and the
+          <a href="http://www.rabbitmq.com/how.html">How To</a> pages before diving
+          deeply into this guide. We assume a working knowledge of AMQP throughout.
+          The reader should also take the time to work through the
+          <a href="/getstarted.html">RabbitMQ Tutorials</a>.
+        </p>
+        <p>
+          We discuss clustering and High Availability queues and whilst this guide
+          is not explicitly about clustering or HA, some background knowledge is
+          assumed. More information about RabbitMQ clusters and HA is available
+          on the website, where links to specific items are available via the
+          <a href="admin-guide.html">Admin Guide</a>.
+        </p>
+        <p>
+          Readers should be familiar with the various ways in which RabbitMQ brokers
+          can be <a href="/distributed.html">run in a distributed environment</a>.
+          In particular it is helpful to understand RabbitMQ federation and
+          reading the <a href="/federation.html">Federation Plugin Guide</a> is
+          recommended.
+        </p>
+        <p>
+          We present <a href="#example">examples</a> throughout, using the official
+          <a href="/java-client.html">Java</a>, <a href="/dotnet.html">C#/.NET</a>
+          and <a href="/erlang-client.html">Erlang</a> client libraries.
+        </p>
+      </doc:section>
+      <doc:section name="methodology">
+        <doc:heading>Transfer of Responsibility</doc:heading>
+        <p>
+          Throughout this guide, we propose a method for analysing, designing and
+          building reliable messaging solutions by applying a simple principle;
+          Transfer of Responsibility allows us to determine that, at a given point,
+          a participant in the system has accepted responsibility for some data.
+          Once we <i>know</i> which part of the system is responsible for data,
+          we can identify which levels of safety can be applied therein and to what
+          extent.
+        </p>
+        <p>
+          Messaging oriented systems typically involved interactions between three
+          broad classes of citizen: producers, consumers and brokers.
+          It is entirely possible that application data reside with one
+          <i>or more</i> parties whilst the system is in use. Messages sent to a
+          broker may or may not be subsequently discarded by producers and the
+          broker may (in some circumstances) still hold on to messages it has already
+          successfully delivered to consumers. At any given time however, only
+          one such participant should be deemed <em>responsible</em> for the data.
+          AMQP and (in particular) RabbitMQ, provides tools that help us identify
+          the responsible party at a given time, and we use these to design for
+          reliability.
+        </p>
+        <p>
+          In order to understand the level of reliability a given design will
+          provide, we follow a simple pattern. First, we determine which
+          participant is initially (or currently) the responsibile party. Then
+          we examine <em>how</em> they will discharge their responsibility,
+          thus transferring it to another party. Finally, we consider the
+          potential impact if the responsible party fails. We will follow this
+          pattern closely throughout this guide, seeing how to apply it to the
+          design decisions we make when configuring and using RabbitMQ.
+          Consider the transfer of responsibility from a producer application
+          to the broker. Once a messsage is sent, how can we be certain that
+          the broker has received it? If we see corresponding errors in the
+          channel this is easy to answer, but if we do not then how can we
+          be certain that broker has accepted the message and therefore our
+          responsibility for it is discharged? Even if we do deterimine this,
+          now that the broker is responsible for the message what will happen
+          to the message if the broker crashes? This guide aims to answer
+          these kinds of question for a wide range of scenarios, but it will
+          never be possible to describe <i>all</i> the potential situations.
+          By understanding this <i>Transfer of Responsibility</i> principle,
+          it should be possible to use your knowledge of RabbitMQ's features
+          to meet the specific needs of your own applications.
+        </p>
+      </doc:section>
+  </body>
+</html>
+
