@@ -211,14 +211,13 @@
           Thus a newly added slave provides no additional form of
           redundancy or availability of the queue's contents until the
           contents of the queue that existed before the slave was
-          added have been removed. It is possible to explicitly tell a
-          queue to synchronise itself, but while this process is
-          occuring the queue will be unresponsive. It is also not
-          possible to explicitly synchronise a queue if it has
-          unacknowledged messages outstanding. It is therefore likely
-          to be better to allow active queues from which messages are
-          being drained to synchronise naturally, and only explicitly
-          synchronise inactive queues.
+          added have been removed or the queue has been explicitly
+          synchronised (see below). The latter is only possible if the
+          queue has no messages pending acknowledgement. Furthermore,
+          the queue becomes unresponsive while synchronisation is
+          occurring. It is therefore preferable to allow active queues
+          from which messages are being drained to synchronise
+          naturally, and only explicitly synchronise inactive queues.
         </p>
         <p>
           You can determine which slaves have synchronised with the
