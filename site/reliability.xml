@@ -242,7 +242,7 @@
           </p>
           <h4>Handling Server Errors</h4>
           <p>
-            If a <code>{queue,exchange}.declare</code> is rejected by the server,
+            If a <code>{queue|exchange}.declare</code> is rejected by the server,
             a channel error will be raised. Client libraries will represent this
             using whichever mechanism makes sense for the target language/platform.
             Clients should be prepared to handle server errors, though the
@@ -253,16 +253,72 @@
             must deal with this accordinaly.
           </p>
           <p>
-            TODO: passive declarations
+            TODO: <em>passive declarations</em>
           </p>
           <h4>Handling Connection Failures</h4>
           <p>
             Connectivity between the client and server can fail at any time. We
             do not find out about failures immediately, unless the client is
-            put into a blocking receive pending a response from the server.
+            put into a blocking receive pending a response from the server. Even
+            then, the timing of connection error notifications is not guaranteed,
+            as we will see later on. If the client library does not implement
+            <code>{queue|exchange}.declare</code> synchronously, it is sensible
+            to wait for the relevant <code>declare-ok</code> reply before
+            proceeding to use an object.
+          </p>
+          <p>
+            Detecting connection failures in a timely fashion can help enourmously
+            here: the <a href="connectivity">section on unreliable networks</a>
+            later on will cover this in detail.
           </p>
           <h4>Persistent Messages: Transfer of Responsibility</h4>
-          <p></p>
+          <p>
+            When messages are marked as persistent, the broker is responsible
+            for ensuring that they are safely held in stable storage once fully
+            received. As an optimisation, the broker <em>might not persist
+            a message if it can be delivered immediately</em> to a consumer,
+            however messages will not be discarded even in this case, until
+            an acknowledgement has been received.
+          </p>
+          <p>
+            From the producer's perspective, the only way to guarantee that a
+            message isn't lost is by using transactions. Failure of the broker
+            after publication but before the message is persisted to disk and
+            the file system synchronised can cause message loss. Transactions
+            eliminate the risk of this happening, because the commit-ok reply
+            is only sent to the client once those steps have been completed.
+            Transactions however, are quite heavy for this purpose and come
+            with a significant cost to performance. To address this, RabbitMQ
+            added an extension to the AMQP standard called confirms (aka
+            publisher or producer confirms). Confirms are a lightweight
+            alternative to transactions, which ensure the same guarantees
+            with regards message publication, but offer far superiour performance.
+            Confirms are enabled by sending <code>confirm-select</code> on an
+            open channel. Once the broker responds with <code>confirm-ok</code>
+            then the channel is said to be <i>in confirm mode</i>. A transactional
+            channel cannot be set to confirm mode, nor can a channel on which
+            confirms are enabled be made transactional - the two options are
+            mutually exclusive.
+          </p>
+          <p>
+            How then, do confirms enable producers to transfer responsibility for
+            messages to the broker? Once a message is sent to the
+            broker, the producer will receive a <code>basic.ack</code> once one
+            of the following conditions holds:
+            <ul>
+              <li>an un-routable mandatory message is confirmed
+              right after the <code>basic.return</code> is sent</li>
+              <li>a transient message is confirmed the moment it is enqueued</li>
+              <li>a persistent message is confirmed when it is persisted to disk
+              or when it is consumed on every queue</li>
+            </ul>
+            Once the <code>basic.ack</code> arrives, the message is <em>confirmed</em>
+            and the publisher can be assured that the broker has taken full
+            responsibility for it. In particular, for a persistent message, the
+            broker ensures that a full fsync of the filesystem takes place
+            before sending the <code>basic.ack</code>, ensuring that all I/O
+            buffers have been flushed to disk properly.
+          </p>
         </doc:subsection>
         <doc:subsection name="reliable-clients">
           <doc:heading>Writing reliable client code.</doc:heading>
