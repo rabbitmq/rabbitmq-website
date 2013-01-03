@@ -40,9 +40,9 @@ version](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv/st
 of this library is provided as part of RabbitMQ-Web-Stomp-Examples.
 
 By default the Web-Stomp plugin exposes a SockJS endpoint on port
-55674 with `/stomp` prefix:
+15674 with `/stomp` prefix:
 
-    http://127.0.0.1:55674/stomp
+    http://127.0.0.1:15674/stomp
 
 In order to establish connection from the browser using SockJS you may
 use code like:
@@ -52,20 +52,20 @@ use code like:
     <script>
         Stomp.WebSocketClass = SockJS;
 
-        var client = Stomp.client('http://127.0.0.1:55674/stomp');
+        var client = Stomp.client('http://127.0.0.1:15674/stomp');
         [...]
 
 Alternatively, you may skip the SockJS layer and use
 native WebSockets as provided by the browser. SockJS provides a
 pure [RFC 6455](http://www.rfc-editor.org/rfc/rfc6455.txt) endpoint url:
 
-    ws://127.0.0.1:55674/stomp/websocket
+    ws://127.0.0.1:15674/stomp/websocket
     
 To use it:
 
     <script src="stomp.js"></script>
     <script>
-        var client = Stomp.client('ws://127.0.0.1:55674/stomp/websocket');
+        var client = Stomp.client('ws://127.0.0.1:15674/stomp/websocket');
         [...]
 
 Once you have the `client` object you can follow API's exposed by
@@ -95,7 +95,7 @@ and enable the plugin:
 To apply the changes you need to restart the RabbitMQ broker.
 
 The examples will be available under
-[http://127.0.0.1:55670/](http://127.0.0.1:55670/) url. You will see two examples:
+[http://127.0.0.1:15670/](http://127.0.0.1:15670/) url. You will see two examples:
 
  * "echo" - shows how to use STOMP to do simple message broadcasting
  * "bunny" - example of a simple collaboration canvas painting app
@@ -105,7 +105,7 @@ We encourage you to take a look [at the source code](http://hg.rabbitmq.com/rabb
 ## <a id="config"/>Configuration
 
 When no configuration is specified the Web-Stomp plugin will listen on
-all interfaces on port 55674 and have a default user login/passcode of
+all interfaces on port 15674 and have a default user login/passcode of
 `guest`/`guest`.
 
 To change this, edit your

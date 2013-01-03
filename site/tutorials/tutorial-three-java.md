@@ -95,15 +95,20 @@ queues it knows. And that's exactly what we need for our logger.
 >
 >     $ sudo rabbitmqctl list_exchanges
 >     Listing exchanges ...
->     logs      fanout
+>             direct
 >     amq.direct      direct
->     amq.topic       topic
 >     amq.fanout      fanout
 >     amq.headers     headers
+>     amq.match       headers
+>     amq.rabbitmq.log        topic
+>     amq.rabbitmq.trace      topic
+>     amq.topic       topic
+>     logs    fanout
 >     ...done.
 >
-> In this list there are some `amq.*` exchanges. These are created by default, but
-> it is unlikely you'll need to use them at the moment.
+> In this list there are some `amq.*` exchanges and the default (unnamed)
+> exchange. These are created by default, but it is unlikely you'll need to
+> use them at the moment.
 
 
 > #### Nameless exchange
@@ -143,7 +148,7 @@ ones. To solve that we need two things.
 
 Firstly, whenever we connect to Rabbit we need a fresh, empty queue.
 To do this we could create a queue with a random name, or,
-even better - let the server choose a random queue name for us. 
+even better - let the server choose a random queue name for us.
 
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
@@ -155,7 +160,7 @@ we create a non-durable, exclusive, autodelete queue with a generated name:
     String queueName = channel.queueDeclare().getQueue();
 
 At that point `queueName` contains a random queue name. For example
-it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
+it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 
 
 Bindings
@@ -248,24 +253,24 @@ value is ignored for `fanout` exchanges. Here goes the code for
     import com.rabbitmq.client.Channel;
 
     public class EmitLog {
-    
+
         private static final String EXCHANGE_NAME = "logs";
-    
-        public static void main(String[] argv) 
+
+        public static void main(String[] argv)
                       throws java.io.IOException {
-    
+
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-    
+
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-    
+
             String message = getMessage(argv);
-    
+
             channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
-    
+
             channel.close();
             connection.close();
         }
@@ -289,34 +294,34 @@ The code for `ReceiveLogs.java`:
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
     import com.rabbitmq.client.QueueingConsumer;
-      
+
     public class ReceiveLogs {
-    
+
         private static final String EXCHANGE_NAME = "logs";
-  
+
         public static void main(String[] argv)
                       throws java.io.IOException,
                       java.lang.InterruptedException {
-    
+
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-    
+
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
             String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, EXCHANGE_NAME, "");
-        
+
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
+
             QueueingConsumer consumer = new QueueingConsumer(channel);
             channel.basicConsume(queueName, true, consumer);
-    
+
             while (true) {
                 QueueingConsumer.Delivery delivery = consumer.nextDelivery();
                 String message = new String(delivery.getBody());
-    
-                System.out.println(" [x] Received '" + message + "'");   
+
+                System.out.println(" [x] Received '" + message + "'");
             }
         }
     }
@@ -352,16 +357,15 @@ programs running you should see something like:
     :::bash
     $ sudo rabbitmqctl list_bindings
     Listing bindings ...
-     ...
-    logs    amq.gen-TJWkez28YpImbWdRKMa8sg==                []
-    logs    amq.gen-x0kymA4yPzAT6BoC/YP+zw==                []
+    logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
+    logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
     ...done.
 
 The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
-To find out how to listen for a subset of messages, let's move on to 
+To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-java.html)
 
 </div>

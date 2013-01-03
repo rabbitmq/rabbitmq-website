@@ -18,7 +18,7 @@ def main():
     site_mode = sys.argv[3]
     if len(sys.argv) == 5:
         f = sys.argv[4]
-        handle_file(in_dir, f, os.path.join(out_dir, f))
+        handle_file(in_dir, f, os.path.join(out_dir, f), site_mode)
     else:
         for in_path, dirs, files in os.walk(in_dir):
             path = relpath(in_path, in_dir)

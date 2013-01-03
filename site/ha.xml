@@ -157,7 +157,7 @@
           a mirrored-queue, should the master die, messages that are
           in-flight on their way to <i>noAck=true</i> consumers may
           never be received by those clients, and will not be requeued
-          by the new master. Because of the possibility the the
+          by the new master. Because of the possibility that the
           consuming client is connected to a node that survives, the
           <a href="consumer-cancel.html">Consumer
           Cancellation Notification</a> is useful in identifying when
@@ -355,10 +355,15 @@
             </td>
           </tr>
           <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+            </td>
+          </tr>
+          <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/parameters/policy/%2f/ha-all
-   {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
+              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
             </td>
           </tr>
           <tr>
@@ -398,10 +403,16 @@
             </td>
           </tr>
           <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2}"</pre>
+            </td>
+          </tr>
+          <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/parameters/policy/%2f/ha-two
-   {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
+              <pre>PUT /api/policies/%2f/ha-two {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
             </td>
           </tr>
           <tr>

@@ -581,21 +581,25 @@ Cluster status of node rabbit@rabbit3 ...
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
           <p>
-            When upgrading from one version of RabbitMQ to another,
-            RabbitMQ will automatically update its persistent data
-            structures if necessary. In a cluster, this task is
-            performed by the first disc node to be started (the
-            "upgrader" node). Therefore when upgrading a RabbitMQ
-            cluster, you should not attempt to start any RAM nodes
-            first; any RAM nodes started will emit an error message
-            and fail to start up.
+            When upgrading from one major or minor version of RabbitMQ
+            to another (i.e. from 3.0.x to 3.1.x, or from 2.x.x to
+            3.x.x), or when upgrading Erlang, the whole cluster must
+            be taken down for the upgrade (since clusters cannot run
+            mixed versions like this). This will not be the case when
+            upgrading from one patch version to another (i.e. from
+            3.0.x to 3.0.y); these versions can be mixed in a cluster
+            (with the exception that 3.0.0 cannot be mixed with later
+            versions from the 3.0.x series).
           </p>
           <p>
-            All nodes in a cluster must be running the same versions
-            of Erlang and RabbitMQ, although they may have different
-            plugins installed. Therefore it is necessary to stop all
-            nodes in the cluster, then start all nodes when performing
-            an upgrade.
+            RabbitMQ will automatically update its persistent data
+            structures if necessary when upgrading between major /
+            minor versions. In a cluster, this task is performed by
+            the first disc node to be started (the "upgrader"
+            node). Therefore when upgrading a RabbitMQ cluster, you
+            should not attempt to start any RAM nodes first; any RAM
+            nodes started will emit an error message and fail to start
+            up.
           </p>
           <p>
             While not strictly necessary, it is a good idea to decide
@@ -639,8 +643,7 @@ Cluster status of node rabbit@rabbit3 ...
 $ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 $ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 $ rabbitmqctl -n hare stop_app
-$ rabbitmqctl -n hare reset
-$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
 $ rabbitmqctl -n hare start_app</pre>
           <p>
             will set up a two node cluster with one disc node and one

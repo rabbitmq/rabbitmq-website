@@ -200,13 +200,13 @@
         enable it, use
         <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
       </p>
-      <pre class="example">    rabbitmq-plugins enable rabbitmq_federation</pre>
+      <pre class="example">rabbitmq-plugins enable rabbitmq_federation</pre>
 
       <p>
         When using the management plugin, you will also want to
         enable <code>rabbitmq_federation_management</code>:
       </p>
-      <pre class="example">    rabbitmq-plugins enable rabbitmq_federation_management</pre>
+      <pre class="example">rabbitmq-plugins enable rabbitmq_federation_management</pre>
 
       <p>
         When using a federation in a cluster, all the nodes of the
@@ -279,6 +279,12 @@
           </td>
         </tr>
         <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <code>rabbitmqctl set_parameter federation-upstream my-upstream ^<br/>"{""uri"":""amqp://server-name"",""expires"":3600000}"</code>
+          </td>
+        </tr>
+        <tr>
           <th>HTTP API</th>
           <td>
             PUT <code>/api/parameters/federation-upstream/%2f/my-upstream</code><br/>
@@ -302,6 +308,12 @@
           <th>rabbitmqctl</th>
           <td>
             <code>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}'</code>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <code>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}"</code>
           </td>
         </tr>
         <tr>
@@ -364,7 +376,7 @@
           to connect to a broker. It takes the form:
         </p>
 <pre class="example">
-  rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
+rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 </pre>
         <p>
           The <code><i>json-object</i></code> can contain the following keys:
@@ -602,7 +614,7 @@
       <doc:heading>Link Status Reporting</doc:heading>
       <p>Invoke:</p>
 
-      <pre class="example">    $ rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
+      <pre class="example">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
 
       <p>
         This will return a list of federation links; that is a
@@ -643,7 +655,7 @@
       </dl>
       <p>Example:</p>
 
-      <pre class="example">$ ./scripts/rabbitmqctl eval 'rabbit_federation_status:status().'
+      <pre class="example"># rabbitmqctl eval 'rabbit_federation_status:status().'
 [[{exchange,&lt;&lt;"my-exchange">>},
   {vhost,&lt;&lt;"/">>},
   {connection,&lt;&lt;"upstream-server">>},

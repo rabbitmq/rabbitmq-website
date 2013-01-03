@@ -1,0 +1,450 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>LDAP Plugin</title>
+  </head>
+  <body show-in-this-page="true">
+    <doc:section name="overview">
+      <p>
+        The LDAP plugin provides the ability for your RabbitMQ server to
+        perform authentication (determining who can log in) and
+        authorisation (determining what permissions they have) by deferring
+        to an external LDAP server. To use this plugin, some editing of the
+        RabbitMQ configuration file is required. You must enable the plugin,
+        and then configure it. You are advised to read this entire page
+        before starting.
+      </p>
+
+      <p>
+        The LDAP plugin is included in the RabbitMQ distribution. To
+        enable it, use
+        <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
+      </p>
+      <pre class="example">rabbitmq-plugins enable rabbitmq_auth_backend_ldap</pre>
+      <p>
+        You will then need to set the value of the <code>auth_backends</code>
+        configuration item for the <code>rabbit</code> application to include
+        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
+        a list of authentication providers to try in order. So:
+      </p>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
+      <p>
+        will configure RabbitMQ to <b>only</b> check LDAP for users,
+        and ignore the internal database, while:
+      </p>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
+      <p>
+        will check LDAP first, and then fall back to the internal
+        database if the user cannot be authenticated through LDAP and:
+      </p>
+      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
+      <p>
+        will do the same but check the internal database first.
+      </p>
+
+    </doc:section>
+
+    <doc:section name="basic">
+      <doc:heading>Basic configuration</doc:heading>
+      <p>
+        You must then configure the plugin. This plugin has quite a few
+        configuration options, but most have sensible defaults.
+      </p>
+
+      <p>
+        The most complex part of configuring the plugin pertains to
+        authorisation (i.e. granting permissions to your users via LDAP). This
+        is documented separately below.
+      </p>
+      <p>
+        The default configuration allows all users to access all objects in
+        all vhosts, but does not make them administrators. If you're happy
+        with that, there is no need to read the documentation on authorisation.
+      </p>
+      <p>
+        The options not directly related to authorisation are:
+      </p>
+
+      <dl>
+        <dt><code>servers</code></dt>
+        <dd>
+          List of LDAP servers to attempt to bind to, in order. You almost
+          certainly want to change this. Default: <code>["ldap"]</code>
+        </dd>
+        <dt><code>user_dn_pattern</code></dt>
+        <dd>
+          <p>
+            There are two ways to convert a username as provided through AMQP to
+            a Distinguished Name. The simplest way is via string substitution
+            with <code>user_dn_pattern</code>. To do this, set
+            <code>user_dn_pattern</code> to a string containing exactly one
+            instance of <code>${username}</code>.
+          </p>
+          <p>
+            For example, setting user_dn_pattern to:
+            <code>"cn=${username},ou=People,dc=example,dc=com"</code>
+          </p>
+          <p>
+            would cause the username <code>simon</code> to be converted to the
+            DN <code>cn=simon,ou=People,dc=example,dc=com</code>
+          </p>
+          <p>
+            Default: <code>"${username}"</code>
+          </p>
+        </dd>
+        <dt><code>dn_lookup_attribute</code> and <code>dn_lookup_base</code></dt>
+        <dd>
+          <p>
+            The other way to convert a username to a Distinguished Name is via
+            an LDAP lookup after binding. In order for this to work your LDAP
+            server needs to be configured to allow binding with the unadorned
+            username (Microsoft Active Directory typically does this).
+          </p>
+          <p>
+            To do this, set dn_lookup_attribute to the name of the attribute the
+            represents the user name, and dn_lookup_base to the base DN for the
+            query.
+          </p>
+          <p>
+            For example, if I set
+          </p>
+          <pre>{dn_lookup_attribute,   "userPrincipalName"},
+{dn_lookup_base,        "DC=vmware,DC=com"}</pre>
+          <p>
+            I can authenticate as <code>smacmullen@vmware.com</code> and have my
+            local Active Directory server return my real DN.
+          </p>
+          <p>
+            If you set both <code>dn_lookup_attribute</code>
+            and <code>user_dn_pattern</code> then the approaches are
+            combined: the plugin fills out the template and then
+            searches for the DN.
+          </p>
+          <p>
+            Default: <code>'none'</code> and <code>'none'</code>
+          </p>
+        </dd>
+        <dt><code>other_bind</code></dt>
+        <dd>
+          <p>
+            For authentication this plugin binds to the LDAP server as the
+            user it is trying to authenticate. This option controls how to
+            bind for authorisation queries, and to retrieve the details of a
+            user who is logging in without presenting a password (e.g. SASL
+            EXTERNAL).
+          </p>
+          <p>
+            This option must either be one of the
+            atoms <code>as_user</code> (to bind as the authenticated
+            user) or <code>anon</code> (to bind anonymously), or a
+            tuple <code>{UserDN, Password}</code> (to bind with a
+            specified username and password).
+          </p>
+          <p>
+            Default: <code>as_user</code>
+          </p>
+        </dd>
+        <dt><code>use_ssl</code></dt>
+        <dd>
+          Whether to use LDAP over SSL. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Default:
+          <code>false</code>
+        </dd>
+        <dt><code>port</code></dt>
+        <dd>
+          Port on which to connect to the LDAP servers. Default:
+          <code>389</code>.
+        </dd>
+        <dt><code>log</code></dt>
+        <dd>
+          <p>
+            Select <code>true</code> for verbose logging of the logic used by
+            the LDAP plugin to make decisions. This is typically useful for
+            debugging.
+          </p>
+          <p>
+            Select <code>network</code> to <b>additionally</b> cause LDAP
+            network traffic to be logged at a somewhat lower level. This will
+            typically cause passwords to be written to the logs; exercise
+            caution.
+          </p>
+          <p>
+            Default: <code>false</code>
+          </p>
+        </dd>
+      </dl>
+    </doc:section>
+
+    <doc:section name="authorisation">
+      <doc:heading>Configuring authorisation</doc:heading>
+      <p>
+        Since LDAP has a view of the world which is rather different
+        from that of RabbitMQ, we need to be able to configure the
+        LDAP plugin to execute various queries against the LDAP
+        database to determine whether the user is authorised to do
+        various things. Authorisation is therefore controlled by
+        three configuration options:
+      </p>
+
+      <ul>
+        <li><code>vhost_access_query</code></li>
+        <li><code>resource_access_query</code></li>
+        <li><code>tag_queries</code></li>
+      </ul>
+
+      <p>
+        Note that in order for a user to be able to access a virtual
+        host, it must have been created within RabbitMQ; unlike users
+        and permissions, virtual hosts cannot live entirely within
+        LDAP.
+      </p>
+
+      <p>
+        Each defines a query that will determine whether a user has
+        access to a vhost, whether they have access to a resource
+        (e.g. exchange, queue, binding) and
+        which <a href="management.html#permissions">tags</a> they
+        have.
+      </p>
+
+      <p>
+        The default values for these queries are <code>{constant,
+        true}</code>, <code>{constant, true}</code>
+        and <code>[{administrator, {constant, false}}]</code>
+        respectively, granting all users access to all objects in all
+        vhosts, but not making them administrators.
+      </p>
+
+      <p>
+        A query can be of one of several types, defined below. Since
+        you are likely to write several queries, and since queries can
+        be nested, it can be helpful to switch on the <code>log</code>
+        configuration parameter documented above. This will cause the
+        LDAP plugin to write fairly verbose descriptions of the
+        queries it executes and the decisions it therefore makes to
+        the RabbitMQ log.
+      </p>
+
+      <p>
+        All of the query types which take strings support string
+        substitution, where variables pertaining to the query being
+        made can be substituted in. Each of the three queries allow
+        different substitutions:
+      </p>
+
+      <p><code>vhost_access_query</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+        <li><code>${vhost}</code> - the virtual host for which we are querying access</li>
+      </ul>
+
+      <p><code>resource_access_query</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+        <li><code>${resource}</code> - one of "exchange" or "queue" for the type of resource</li>
+        <li><code>${name}</code> - the name of the resource</li>
+        <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
+      </ul>
+
+      <p>
+        The terms configure, write and read for resource access have the
+        same meanings that they do for the built-in RabbitMQ permissions
+        system, see http://www.rabbitmq.com/access-control.html
+      </p>
+
+      <p><code>tag_queries</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+      </ul>
+
+      <p>
+        Note that tag_queries consists of a proplist, mapping the name
+        of a tag to a query to perform to determine whether or not the
+        user has that tag. You must list queries for all tags that you
+        want your users to be able to have.
+      </p>
+    </doc:section>
+
+    <doc:section name="query-reference">
+      <doc:heading>Authorisation query reference</doc:heading>
+
+      <doc:subsection>
+        <doc:heading>Constant Query</doc:heading>
+        <pre>{constant, Bool}</pre>
+        <p>
+          This will always return either true or false, unconditionally granting
+          or denying access.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{tag_queries, [{administrator, {constant, false}},
+               {management,    {constant, true}}]}</pre>
+        <p>
+          This grants all users the ability to use the management
+          plugin, but makes none of them administrators.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Exists Query</doc:heading>
+        <pre>{exists, Pattern}</pre>
+        <p>
+          This will substitute variables into the pattern, and return true if
+          there exists an object with the resulting DN.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{vhost_access_query, {exists, "ou=${vhost},ou=vhosts,dc=example,dc=com"}}</pre>
+        <p>
+          This grants access to all virtual hosts which exist as
+          organisational units
+          within <code>ou=vhosts,dc=example,dc=com</code> to all
+          users.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>In Group Query</doc:heading>
+        <pre>{in_group, Pattern}</pre>
+        <pre>{in_group, Pattern, AttributeName}</pre>
+        <p>
+          Like the Exists Query, substitutes arguments into a pattern to look
+          for an object. However, this query returns true if the logged in
+          user is a member; checking either against the <code>member</code>
+          attribute, or any named attribute.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{vhost_access_query, {in_group, "cn=${vhost}-users,ou=vhosts,dc=example,dc=com"}}</pre>
+        <p>
+          This grants access to virtual hosts when the user is listed
+          as a <code>member</code> attribute of an appropriately named
+          object (such as a <code>groupOfNames</code>)
+          within <code>ou=vhosts,dc=example,dc=com</code>.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>For Query</doc:heading>
+        <pre>{for, [{Name, Value, SubQuery}, ...]}</pre>
+        <p>
+          This allows you to split up a query and handle different cases with
+          different subqueries.
+        </p>
+        <p>
+          Options should be a list of three-tuples, with each tuple containing
+          a name, value and subquery. The name is the name of a variable
+          (i.e. something that would go into a <code>${}</code>
+          substitution). The value is a possible value for that variable.
+        </p>
+        <p>
+          Example:
+        </p>
+<pre class="example">{resource_access_query,
+ {for, [{resource, exchange, {for, [{permission, configure,
+                                     {in_group, "cn=wheel,dc=example,dc=com"}
+                                    },
+                                    {permission, write, {constant, true}},
+                                    {permission, read,  {constant, true}}
+                                   ]}},
+        {resource, queue,    {constant, true}}]}}</pre>
+
+        <p>
+          This allows members of the <code>wheel</code> group to declare and
+          delete exchanges, and allow all users to do everything else.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Match Query</doc:heading>
+        <pre>{match, StringSubQuery, RESubQuery}</pre>
+        <p>
+          Takes a string and a regular expression, and checks that the one
+          matches the other. Note that the string and the regular expression are
+          both subqueries (of the types below) in turn.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{resource_access_query,
+ {for, [{permission, configure, {match, {attribute, "${user_dn}", "description"},
+                                        {string, "can-declare-${resource}s"}
+                                }
+        },
+        {permission, write, {constant, true}},
+        {permission, read,  {constant, true}}
+       ]
+ }</pre>
+        <p>
+          This grants permissions to declare and delete exchanges and
+          queues based on the presence of the strings
+          "can-declare-exchanges" and "can-declare-queues" in the
+          user's description field, and grants permission to write and
+          read exchanges to everyone.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>String Sub-query</doc:heading>
+        <pre>{string, Pattern}</pre>
+        <p>
+          Just substitutes arguments into a string. As this returns a
+          string rather than a boolean it should be used within
+          a <code>match</code> query. See above for example.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Attribute Sub-query</doc:heading>
+        <pre>{attribute, DNPattern, AttributeName}</pre>
+        <p>
+          Returns the value of an attribute of an object retrieved from LDAP. As
+          this returns a string rather than a boolean it should be used within a
+          <code>match</code> query. See above for example.
+        </p>
+      </doc:subsection>
+    </doc:section>
+    <doc:section name="example">
+      <doc:heading>Example configuration</doc:heading>
+      <p>
+        Bringing it all together, here's a sample configuration. This
+        makes all users able to access the management plugin, but
+        makes none of them administrators. Access to virtual hosts is
+        controlled by membership of a group per virtual host. Only
+        members of <code>admin</code> can declare, delete or
+        bind exchanges and queues, but all users can publish to
+        exchanges and declare from queues.
+      </p>
+<pre class="example">[
+  {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
+  {rabbitmq_auth_backend_ldap,
+   [ {servers,               ["my-ldap-server"]},
+     {user_dn_pattern,       "cn=${username},ou=People,dc=example,dc=com"},
+     {use_ssl,               false},
+     {port,                  389},
+     {log,                   false},
+     {vhost_access_query,    {in_group,
+                              "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
+     {resource_access_query,
+      {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
+             {permission, write,
+              {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, exchange, {constant, true}}]}},
+             {permission, read,
+              {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, queue,    {constant, true}}]}}
+            ]
+      }},
+     {tag_queries,           [{administrator, {constant, false}},
+                              {management,    {constant, true}}]}
+   ]
+  }
+].</pre>
+    </doc:section>
+  </body>
+</html>

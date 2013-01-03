@@ -334,7 +334,8 @@ Temp queues are managed by the broker and their identities are private to
 each session -- there is no need to choose distinct names for
 temporary queues in distinct sessions.
 
-To use a temp queue, put the `reply-to` header on a `SEND` frame. For example:
+To use a temp queue, put the `reply-to` header on a `SEND` frame and
+use a header value starting with `/temp-queue/`. For example:
 
     SEND
     destination:/queue/reply-test

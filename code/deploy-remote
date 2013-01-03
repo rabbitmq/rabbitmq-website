@@ -29,6 +29,8 @@ if [ $mode = www ] ; then
     mirror_group=$(id -ng $mirror_user)
 
     xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+elif [ $mode = previous ] ; then
+    releases_dir=/home/rabbitmq/extras/releases/
 else
     releases_dir=/home/rabbitmq/extras/nightlies/
 fi
@@ -40,8 +42,14 @@ cp -r code $site_dir
 cp -r site $site_dir/site-src
 
 # TODO that "current" link is not created for nightlies
-if [ -d ${releases_dir}/rabbitmq-server/current/ ]; then
-    cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
+if [ $mode = www ] ; then
+    if [ -d ${releases_dir}/rabbitmq-server/current/ ]; then
+        cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
+    fi
+elif [ $mode = previous ] ; then
+    if [ -d ${releases_dir}/rabbitmq-server/previous/ ]; then
+        cp -r ${releases_dir}/rabbitmq-server/previous/man $site_dir/site-src/man
+    fi
 fi
 
 ./code/compile $site_dir/site-src $site_dir/site $mode
@@ -58,14 +66,14 @@ if [ $mode = www ] ; then
         rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
         cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
     fi
-else
-    cp conf/robots.txt-next $site_dir/site/robots.txt
 fi
+
+cp conf/robots.txt-$mode $site_dir/site/robots.txt
 
 if [ -d /etc/apache2/sites-available/ ]; then
     cp conf/${site}* /etc/apache2/sites-available/
     a2ensite ${site}
-    /etc/init.d/apache2 restart
+    /etc/init.d/apache2 reload
 fi
 
 if [ $mode = www ] ; then

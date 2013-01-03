@@ -22,11 +22,11 @@
           the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
           tool:
         </p>
-        <pre class="example">    rabbitmq-plugins enable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins enable <i>plugin-name</i></pre>
         <p>And to disable plugins again, use:</p>
-        <pre class="example">    rabbitmq-plugins disable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins disable <i>plugin-name</i></pre>
         <p>You can see a list of which plugins are enabled with:</p>
-        <pre class="example">    rabbitmq-plugins list</pre>
+        <pre class="example">rabbitmq-plugins list</pre>
         <p>
           Enabling or disabling plugins has no effect on a running RabbitMQ
           server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
@@ -52,9 +52,9 @@
         <doc:heading>Maintained Plugins</doc:heading>
         <table>
           <r:plugin name="rabbitmq_auth_backend_ldap">
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
-            for more information.
+            Authentication / authorisation plugin using an external
+            LDAP server. See the <a href="ldap.html">the page on the
+            LDAP plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
