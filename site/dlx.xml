@@ -16,7 +16,7 @@
         <li>The message is rejected (<code>basic.reject</code> or
           <code>basic.nack</code>) with <code>requeue=false</code>,</li>
         <li>The TTL for the message expires; or</li>
-        <li>The queue depth limit is exceeded.</li>
+        <li>The queue length limit is exceeded.</li>
       </ul>
     </p>
     <doc:section>
@@ -157,8 +157,8 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             with <code>requeue=false</code>,</li>
           <li><code>expired</code> - the TTL of the message
             expired; or</li>
-          <li><code>maxdepth</code> - the maximum allowed queue
-            depth was exceeded.</li>
+          <li><code>maxlen</code> - the maximum allowed queue
+            length was exceeded.</li>
         </ul>
       </p>
       <p>
