@@ -9,12 +9,13 @@
   <body>
     <p>
       The maximum length of a queue can be limited to a set number
-      of messages by setting the <code>x-max-length</code> argument
-      to a non-negative integer value. The queue length is a measure
-      that takes into account ready messages, ignoring unacknowledged
-      messages and messages size. The oldest messages will be dropped
-      or dead-lettered from the head of the queue to make room once
-      the limit is reached, unless the limit is set to 0.
+      of messages by supplying the <code>x-max-length</code> queue
+      declaration argument with a non-negative integer value. Queue
+      length is a measure that takes into account ready messages,
+      ignoring unacknowledged messages and message size. Messages
+      will be dropped or dead-lettered from the front of the queue
+      to make room for new messages once the limit is reached (unless
+      the limit is set to 0).
     </p>
     <p>
       This example in Java declares a queue with a maximum length
