@@ -97,8 +97,8 @@
           implement high availability.
         </li>
         <li>
-          <a href="maxdepth.html">Depth Limit</a>
-          allows the maximum depth of a queue to be set.
+          <a href="maxdepth.html">Length Limit</a>
+          allows the maximum length of a queue to be set.
         </li>
       </ul>
     </div>
