@@ -360,6 +360,7 @@
             - re-sending
             - delays and timeouts
           </p>
+          TODO: reconnection logic and rabbitmq-ha-client (on github) as an example
         </doc:subsection>
         <doc:subsection name="reliable-clients">
           <doc:heading>Writing reliable client code</doc:heading>
@@ -369,6 +370,12 @@
             client and server, each of which requires special handling by the
             application developer.
           </p>
+          TODO: waitForConfirms and batching
+          TODO: storing and sequencing in producer code
+          TODO: handling duplicates in consumer code
+          TODO: handling errors with ShutdownListener (+ non-java examples?)
+          TODO: dealing with reject
+          TODO: consumer-cancel
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
           <doc:heading>Failover and Recovery</doc:heading>
@@ -401,10 +408,19 @@
             any time, therefore if we want to avoid data loss in this scenario
             we must ensure that the queue is also <code>durable</code>.
           </p>
+          <p>
+            Because exchanges do not store messages, 
+          </p>
         </doc:subsection>
       </doc:section>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
+        TODO: when you've federated the same exchange on two upstreams 
+             which are clustered and made the federation (internal) queues
+             (on the two upstreams) HA/mirrored - Rather than having an upstream
+             set containing connection definitions for both upstream nodes,
+             have just one connection definition, to an upstream load balancer
+             otherwise the order of messages cannot be preserved.
       </doc:section>
   </body>
 </html>
