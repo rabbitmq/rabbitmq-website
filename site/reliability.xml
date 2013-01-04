@@ -162,10 +162,10 @@
               <a href="#durability">Durability and Persistence</a>
             </li>
             <li>
-              <a href="#reliable-clients">Writing reliable client code</a>
+              <a href="#connectivity">Working with unreliable networks</a>
             </li>
             <li>
-              <a href="#connectivity">Working with unreliable networks</a>
+              <a href="#reliable-clients">Writing reliable client code</a>
             </li>
             <li>
               <a href="#failover-and-recovery">Failover and Recovery</a>
@@ -320,24 +320,88 @@
             buffers have been flushed to disk properly.
           </p>
         </doc:subsection>
-        <doc:subsection name="reliable-clients">
-          <doc:heading>Writing reliable client code.</doc:heading>
-        </doc:subsection>
         <doc:subsection name="connectivity">
           <doc:heading>Working with unreliable networks.</doc:heading>
+          <p>
+            <a href="http://en.wikipedia.org/wiki/Murphy%27s_law">Murphy's Law</a>
+            is in full effect whenever communication between networked computers
+            happens. Modern networking infrastructure is incredibly complex and
+            yet intermittent delays and even complete failures are not at all
+            uncommon. Network problems are complex and varied, therefore we will
+            not manage to cover all the posibilities here. Instead we will focus
+            on the two most common classes of error that are seen in practise:
+            connection failures and unexpected delays.
+          </p>
+          <p>
+            Connection failure can occur at any time. Whenever a RabbitMQ node
+            is terminated for example, all client connections will be shut down.
+            If the shutdown is graceful then the client will recieve a
+            <code>connection.close</code> message from the broker. If not, then
+            the connection may be abbruptly terminated once the operating system
+            on which the client appliation is running, notices that the peer
+            socket is non-responsive. Certain classes of server error can also
+            lead to a <code>connection-error</code>. Errors on a connection
+            (where the error code is in the >500 range) will cause the broker
+            to close the connection.
+          </p>
+          <p>
+            Clients are responsible for maintaining their connection to the broker
+            at all times. If the connection terminates for <i>any</i> reason,
+            then it is up to the client to re-establish a connection in order to
+            continue sending or receiving messages. It is important to understand
+            that, once a connection is torn down, all its channels are removed
+            also and therefore any client code relying on them must create new
+            channels once another connection has been established.
+
+            TODO: cover these points
+
+            - channel errors
+            - reconnecting 
+            - re-sending
+            - delays and timeouts
+          </p>
+        </doc:subsection>
+        <doc:subsection name="reliable-clients">
+          <doc:heading>Writing reliable client code</doc:heading>
+          <p>
+            Clients, both producing and consumer, need to handle various error
+            conditions at runtime. Failures can occur at various points between
+            client and server, each of which requires special handling by the
+            application developer.
+          </p>
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
-          <doc:heading>Failover and Recovery.</doc:heading>
+          <doc:heading>Failover and Recovery</doc:heading>
         </doc:subsection>
       </doc:section>
       <doc:section name="robust-data-flow">
         <doc:heading>Robust Data Flow</doc:heading>
         <div>
           <ul>
-            <li><a href="producer-to-broker">From Producer to Broker</a></li>
-            <li><a href="broker-to-consumer">From Broker to Consumer</a></li>
+            <li><a href="#producer-to-broker">From Producer to Broker</a></li>
+            <li><a href="#broker-to-consumer">From Broker to Consumer</a></li>
           </ul>          
         </div>
+        <doc:subsection name="producer-to-broker">
+          <doc:heading>Transferring Responsibility from Producer to Broker</doc:heading>
+          <p>
+            How can a producer application ensure that all operations are
+            safely transferred to the broker in the face of server errors,
+            connection failure, missing or incorrect object definitions,
+            application logic errors and potential client failures?
+          </p>
+          <h4>The role of Durable Entities</h4>
+          <p>
+            When a queue is declared as <code>exclusive</code>, it can only be
+            accessed by the connection with which it was declared. Since we
+            know that the connection could break at any time, if the loss of
+            a queue (and the messages it contains) is unacceptable, then we
+            should avoid making it <code>exclusive</code>. We also know that the
+            computer on which the broker is running could potentially crash at
+            any time, therefore if we want to avoid data loss in this scenario
+            we must ensure that the queue is also <code>durable</code>.
+          </p>
+        </doc:subsection>
       </doc:section>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
