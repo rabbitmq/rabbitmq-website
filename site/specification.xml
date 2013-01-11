@@ -20,13 +20,12 @@
   specification.
   </p>
   <p>
-  The RabbitMQ team is an active participant in the AMQP Working Group,
-  which aims to deliver an implementable AMQP 1.0 draft this year.  A
-  future version of RabbitMQ will implement AMQP 1.0.  Please
-  <a href="contact.html">contact us</a> for details.  You can also view a
-  <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
-1-0 Draft</a> (PDF).
-	</p>
+    A future version of RabbitMQ will implement AMQP 1.0. Note that it
+    is the view of the RabbitMQ team that AMQP 1.0 is not a suitable
+    replacement for AMQP 0-9-1; RabbitMQ will therefore continue to
+    support AMQP 0-9-1 (and its close relatives 0-9 and 0-8)
+    indefinitely. RabbitMQ is unlikely ever to support AMQP 0-10.
+  </p>
         <p>
           The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
