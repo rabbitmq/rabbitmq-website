@@ -51,12 +51,12 @@
           contents, which can reside on disc if the queue is persistent or too
           big to fit in memory). Disk nodes keep state in memory and on disk. As
           RAM nodes don't have to write to disk as much as disk nodes, they can
-          perform better. However, not that since the queue data is always
+          perform better. However, note that since the queue data is always
           stored on disc, the performance improvements will affect only
           resources management (e.g. adding/removing queues, exchanges, or
           vhosts), but not publishing or consuming speed. Because state is
           replicated across all nodes in the cluster, it is sufficient (but not
-          reccomended) to have just one disk node within a cluster, to store the
+          recommended) to have just one disk node within a cluster, to store the
           state of the cluster safely.
         </p>
       </doc:section>
