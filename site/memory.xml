@@ -241,7 +241,7 @@ Disk free limit set to 953MB</pre>
 Disabling disk free space monitoring</pre>
       </p>
 
-    <doc:subsection name="memsup-usage">
+    <doc:subsection name="diskfreesup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
         The disk free space limit is configured with
