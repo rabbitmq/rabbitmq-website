@@ -105,7 +105,7 @@
           </p>
           <p>
             From the producer's perspective, the only way to guarantee that a
-            message isn't lost is by using transactions. Failure of the broker
+            message isn't lost is by using transactions. A broker failure
             after publication but before the message is persisted to disk and
             the file system synchronised can cause message loss. Transactions
             eliminate the risk of this happening, because the commit-ok reply
