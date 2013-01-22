@@ -13,32 +13,6 @@
           affect the system.
         </p>
       </doc:section>
-      <doc:section name="page-toc">
-        <div class="landing-box">
-          <ul>
-            <li>
-              <a href="#background-info">Pre-requisites and recommended reading</a>
-            </li>
-            <li><a href="#method">How to use this guide</a></li>
-            <li><a href="#concepts">Reliable Systems: Concepts and Architecture</a>
-            </li>
-            <li>
-              <a href="#robust-data-flow">Robust Data Flow</a>
-            </li>
-            <li>
-              <a href="#distributed">Distributed RabbitMQ</a>
-              <ul>
-                <li>
-                  <a href="#distributed-guarantees">
-                    Availability and Partition Tolerence Guarantees
-                  </a>
-                </li>
-                <li><a href="federated-clusters">Federated Clusters</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </doc:section>
       <doc:section name="background-info">
         <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
         <p>
