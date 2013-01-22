@@ -10,12 +10,7 @@
         <p>
           Learn how the different levels of message delivery guarantee
           in RabbitMQ work, the trade-offs available and how they can
-          affect the system. This guide also covers working with
-          unreliable networks and dealing reliably and safely with
-          situations that can arise in client code. Please take the time
-          to check the pre-requisites (see <a href="#toc">the table of
-          contents</a> below) and make sure you have a solid grounding
-          in the necessary concepts before you get started.
+          affect the system.
         </p>
       </doc:section>
       <doc:section name="page-toc">
