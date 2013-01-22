@@ -16,36 +16,14 @@
       <doc:section name="background-info">
         <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
         <p>
-          This guide will be much easier to follow if you already have a solid
-          grasp of AMQP concepts and constructs. If you need to build this up,
-          or would like a quick refresher, then it is highly recommended that
-          you read the
+          We assume a solid grounding in AMQP concepts and constructs.
+          If you're new to AMQP then we recommended you read the
           <a href="/tutorials/amqp-concepts.html">
             RabbitMQ Guide to AMQP Concepts
-          </a> and the
-          <a href="http://www.rabbitmq.com/how.html">How To</a> pages before diving
-          deeply into this guide. We assume a working knowledge of AMQP throughout.
-          The reader should also take the time to work through the
+          </a>,
+          <a href="http://www.rabbitmq.com/how.html">How To</a> pages
+          and take the time to work through the
           <a href="/getstarted.html">RabbitMQ Tutorials</a>.
-        </p>
-        <p>
-          We discuss the message delivery guarantees availble when using RabbitMQ
-          clustering and Highly Availabile queues; A basic working knowledge of
-          RabbitMQ clustering is assumed. More information about RabbitMQ
-          clusters and HA is available on the website, where links to specific
-          items are available via the <a href="admin-guide.html">Admin Guide</a>.
-        </p>
-        <p>
-          Readers should be familiar with the various ways in which RabbitMQ brokers
-          can be <a href="/distributed.html">run in a distributed environment</a>.
-          In particular it is helpful to understand RabbitMQ federation and
-          reading the <a href="/federation.html">Federation Plugin Guide</a> is
-          recommended.
-        </p>
-        <p>
-          We present <a href="#example">examples</a> throughout, using official
-          <a href="/java-client.html">Java</a>, <a href="/dotnet.html">C#/.NET</a>
-          and <a href="/erlang-client.html">Erlang</a> client libraries.
         </p>
       </doc:section>
       <doc:section name="method">
