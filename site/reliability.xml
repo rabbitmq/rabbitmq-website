@@ -30,15 +30,8 @@
         <doc:subsection name="durability">
           <doc:heading>Durability and Persistence</doc:heading>
           <p>
-            Handling server restarts without data loss is a pre-requisite for
-            reliable systems, and RabbitMQ implements a number of features to
-            assist in this. These features are important for solutions built on
-            an individual broker node in addition to distributed designs that
-            utilse federation and clustering. Proper use of durable entities
-            underpins many of the message delivery guarantees we outline
-            later on.
-          </p>
-          <p>
+            RabbitMQ implements a number of features to handle server restarts
+            without data loss.
             The AMQP standard has a notion of durability (or persistence) for
             Exchanges, Queues and Messages. In essense this attribute has the
             same meaning for each: that the specified object will survive a
@@ -61,28 +54,14 @@
             persistence can be found in the
             <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
           </p>
-          <h4>Durable Entities: Transfer of Responsibility</h4>
-          <p>
-            When a client declares queues, exchanges and bindings, it is asking
-            the broker to take responsibility for creating these objects. Once
-            created, the broker is responsible for maintaining them and, if the
-            <code>durable</code> flag is set, for ensuring that they survive a
-            restart.
-          </p>
           <p>
             Due to the primarily asynchronous nature of AMQP, whilst a
             <code>{queue,exchange}.declare</code> command is on the wire,
             there is no way of knowing if the server has fulfilled the request
             until a <code>declare-ok</code> reply is received. Once this has
-            arrived at the client however, we can be certain that the object
-            exists and will be maintained by the broker accordingly. Until
-            we have received the reply, we should assume that the client is
-            <i>still in the position of responsibility</i>.
-          </p>
-          <p>
-            How should a client act until the server has indicated that it has
-            taken responsibility for an object then? The AMQP declare method for
-            both the exchange and queue classes is, as its name suggests, a
+            arrived at the client, we can then be certain that the object
+            exists and will be maintained by the broker accordingly.
+            The AMQP declare method for both the exchange and queue classes is a
             declarative command. If the queue/exchange already exists, then we
             still receive <code>declare-ok</code> providing that the arguments
             given for subsequent invocations of this method are the same. As the
@@ -100,12 +79,6 @@
             If a <code>{queue|exchange}.declare</code> is rejected by the server,
             a channel error will be raised. Client libraries will represent this
             using whichever mechanism makes sense for the target language/platform.
-            Clients should be prepared to handle server errors, though the
-            presense of errors for queue and exchange declaration could indicate
-            an error in the client code itself. For example, if the server
-            raises a channel error with precondition-failed (because some invalid
-            value was presented or an equivalence check failed) then the client
-            must deal with this accordinaly.
           </p>
           <p>
             TODO: <em>passive declarations</em>
@@ -121,12 +94,7 @@
             to wait for the relevant <code>declare-ok</code> reply before
             proceeding to use an object.
           </p>
-          <p>
-            Detecting connection failures in a timely fashion can help enourmously
-            here: the <a href="connectivity">section on unreliable networks</a>
-            later on will cover this in detail.
-          </p>
-          <h4>Persistent Messages: Transfer of Responsibility</h4>
+          <h4>Persistent Messages</h4>
           <p>
             When messages are marked as persistent, the broker is responsible
             for ensuring that they are safely held in stable storage once fully
