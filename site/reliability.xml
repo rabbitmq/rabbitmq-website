@@ -79,20 +79,11 @@
             If a <code>{queue|exchange}.declare</code> is rejected by the server,
             a channel error will be raised. Client libraries will represent this
             using whichever mechanism makes sense for the target language/platform.
-          </p>
-          <p>
+            If the client library does not implement <code>{queue|exchange}.declare</code>
+            synchronously, it is sensible  to wait for the relevant
+            <code>declare-ok</code> reply before proceeding to use an object.
+
             TODO: <em>passive declarations</em>
-          </p>
-          <h4>Handling Connection Failures</h4>
-          <p>
-            Connectivity between the client and server can fail at any time. We
-            do not find out about failures immediately, unless the client is
-            put into a blocking receive pending a response from the server. Even
-            then, the timing of connection error notifications is not guaranteed,
-            as we will see later on. If the client library does not implement
-            <code>{queue|exchange}.declare</code> synchronously, it is sensible
-            to wait for the relevant <code>declare-ok</code> reply before
-            proceeding to use an object.
           </p>
           <h4>Persistent Messages</h4>
           <p>
@@ -146,16 +137,6 @@
         <doc:subsection name="connectivity">
           <doc:heading>Working with unreliable networks.</doc:heading>
           <p>
-            <a href="http://en.wikipedia.org/wiki/Murphy%27s_law">Murphy's Law</a>
-            is in full effect whenever communication between networked computers
-            happens. Modern networking infrastructure is incredibly complex and
-            yet intermittent delays and even complete failures are not at all
-            uncommon. Network problems are complex and varied, therefore we will
-            not manage to cover all the posibilities here. Instead we will focus
-            on the two most common classes of error that are seen in practise:
-            connection failures and unexpected delays.
-          </p>
-          <p>
             Connection failure can occur at any time. Whenever a RabbitMQ node
             is terminated for example, all client connections will be shut down.
             If the shutdown is graceful then the client will recieve a
@@ -175,9 +156,16 @@
             that, once a connection is torn down, all its channels are removed
             also and therefore any client code relying on them must create new
             channels once another connection has been established.
-
-            TODO: cover these points
-
+          </p>  
+          <p>
+            Client libraries may take various approaches to signalling channel and
+            connection errors. The official Java client provides methods for adding
+            a <code>ShutdownListener</code> callback on both, and the .NET client
+            provides the <code>IConnection.ConnectionShutdown</code> and
+            <code>IModel.ModelShutdown</code> events for detecting connection
+            and channel errors respectively.
+          </p>
+          <p>
             - channel errors
             - reconnecting 
             - re-sending
@@ -186,6 +174,7 @@
           TODO: reconnection logic and rabbitmq-ha-client (on github) as an example
         </doc:subsection>
         <doc:subsection name="reliable-clients">
+          <!-- TODO: move this into the xr from broker to consumer section -->
           <doc:heading>Writing reliable client code</doc:heading>
           <p>
             Clients, both producing and consumer, need to handle various error
@@ -199,20 +188,15 @@
           TODO: handling errors with ShutdownListener (+ non-java examples?)
           TODO: dealing with reject
           TODO: consumer-cancel
+          <p>
+            Consumer cancel notifications
+          </p>
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
           <doc:heading>Failover and Recovery</doc:heading>
         </doc:subsection>
       </doc:section>
       <doc:section name="robust-data-flow">
-        <doc:heading>Robust Data Flow</doc:heading>
-        <div>
-          <ul>
-            <li><a href="#producer-to-broker">From Producer to Broker</a></li>
-            <li><a href="#broker-to-consumer">From Broker to Consumer</a></li>
-          </ul>          
-        </div>
-        <doc:subsection name="producer-to-broker">
           <doc:heading>Transferring Responsibility from Producer to Broker</doc:heading>
           <p>
             How can a producer application ensure that all operations are
@@ -226,15 +210,15 @@
             accessed by the connection with which it was declared. Since we
             know that the connection could break at any time, if the loss of
             a queue (and the messages it contains) is unacceptable, then we
-            should avoid making it <code>exclusive</code>. We also know that the
-            computer on which the broker is running could potentially crash at
-            any time, therefore if we want to avoid data loss in this scenario
-            we must ensure that the queue is also <code>durable</code>.
+            should avoid making it <code>exclusive</code>. Since the computer
+            on which the broker is running could potentially crash at any time,
+            to avoid data loss we must also ensure that the queue is
+            <code>durable</code>.
           </p>
+          <h4>The role of acknowledgements</h4>
           <p>
-            Because exchanges do not store messages, 
+            
           </p>
-        </doc:subsection>
       </doc:section>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
