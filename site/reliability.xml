@@ -130,29 +130,6 @@
             - re-sending
             - delays and timeouts
           </p>
-          TODO: reconnection logic and rabbitmq-ha-client (on github) as an example
-        </doc:subsection>
-        <doc:subsection name="reliable-clients">
-          <!-- TODO: move this into the xr from broker to consumer section -->
-          <doc:heading>Writing reliable client code</doc:heading>
-          <p>
-            Clients, both producing and consumer, need to handle various error
-            conditions at runtime. Failures can occur at various points between
-            client and server, each of which requires special handling by the
-            application developer.
-          </p>
-          TODO: waitForConfirms and batching
-          TODO: storing and sequencing in producer code
-          TODO: handling duplicates in consumer code
-          TODO: handling errors with ShutdownListener (+ non-java examples?)
-          TODO: dealing with reject
-          TODO: consumer-cancel
-          <p>
-            Consumer cancel notifications
-          </p>
-        </doc:subsection>
-        <doc:subsection name="failover-and-recovery">
-          <doc:heading>Failover and Recovery</doc:heading>
         </doc:subsection>
       </doc:section>
       <doc:section name="robust-data-flow">
@@ -163,7 +140,7 @@
             connection failure, missing or incorrect object definitions,
             application logic errors and potential client failures?
           </p>
-          <h4>The role of Durable Entities</h4>
+          <h4>Durable Entities</h4>
           <p>
             When a queue is declared as <code>exclusive</code>, it can only be
             accessed by the connection with which it was declared. Since we
@@ -174,7 +151,7 @@
             to avoid data loss we must also ensure that the queue is
             <code>durable</code>.
           </p>
-          <h4>The role of acknowledgements</h4>
+          <h4>Acknowledgements</h4>
           <p>
             From the producer's perspective, the only way to guarantee that a
             message isn't lost is by using transactions. A broker failure
@@ -211,7 +188,47 @@
             before sending the <code>basic.ack</code>, ensuring that all I/O
             buffers have been flushed to disk properly.
           </p>
+          <h4>Handling Lost ACKs</h4>
+          <p>
+            Whilst producer confirms provide stronger guarantees, it is still possible
+            for a network failure to introduce failures when using producer confirms.
+            Say one or more messages are sent and the producer is waiting for ACKs
+            from the broker. A network error occurs and the connection is broken, forcing
+            the producer to re-connect. Having not seen an ACK for these messages, we must
+            re-transmit them, however it is <em>possible</em> that the broker did receive
+            them <b>and</b> sent ACKs for some (or all), but all those ACKs en-route to the
+            producer were lost due to the network failure. The producer has no choice but to
+            re-transmit the messages, and it will be necessary for consumers to handle
+            potential duplicates somehow. The application can utilise the AMQP Basic
+            <code>message-id</code> field to assist with this, or use a custom header
+            if the <code>shortstr</code> data type is not suitable for thier application's
+            purposes.
+          </p>
       </doc:section>
+      <doc:section name="broker-2-consumer">
+        <doc:subsection name="reliable-clients">
+          <!-- TODO: move this into the xr from broker to consumer section -->
+          <doc:heading>Transfered Responsibility from Broker to Consumer</doc:heading>
+          <p>
+            Clients, both producing and consumer, need to handle various error
+            conditions at runtime. Failures can occur at various points between
+            client and server, each of which requires special handling by the
+            application developer.
+          </p>
+          TODO: waitForConfirms and batching
+          TODO: storing and sequencing in producer code
+          TODO: handling duplicates in consumer code
+          TODO: handling errors with ShutdownListener (+ non-java examples?)
+          TODO: dealing with reject
+          TODO: consumer-cancel
+          <p>
+            Consumer cancel notifications
+          </p>
+        </doc:subsection>
+        <doc:subsection name="failover-and-recovery">
+          <doc:heading>Failover and Recovery</doc:heading>
+        </doc:subsection>
+      </doc:secion>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
         TODO: when you've federated the same exchange on two upstreams 
