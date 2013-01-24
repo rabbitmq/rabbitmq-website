@@ -110,24 +110,22 @@
             to close the connection.
           </p>
           <p>
-            Clients are responsible for maintaining their connection to the broker
-            at all times. If the connection terminates for <i>any</i> reason,
-            then it is up to the client to re-establish a connection in order to
-            continue sending or receiving messages. It is important to understand
-            that, once a connection is torn down, all its channels are removed
-            also and therefore any client code relying on them must create new
-            channels once another connection has been established.
+            If the connection terminates for <i>any</i> reason, then it is up to
+            the client to re-establish a connection in order to continue sending
+            or receiving messages. Remember, once a connection is torn down, all
+            its channels will disappear: any client code relying on these channels
+            will need to create new channels once a new connection is established.
           </p>  
           <p>
             Client libraries may take various approaches to signalling channel and
             connection errors. The official Java client provides methods for adding
-            a <code>ShutdownListener</code> callback on both, and the .NET client
-            provides the <code>IConnection.ConnectionShutdown</code> and
-            <code>IModel.ModelShutdown</code> events for detecting connection
-            and channel errors respectively.
+            a <code>ShutdownListener</code> callback on both connection and channel
+            objects, and the .NET client provides the
+            <code>IConnection.ConnectionShutdown</code> and
+            <code>IModel.ModelShutdown</code> events for detecting connection and
+            channel errors respectively.
           </p>
           <p>
-            - channel errors
             - reconnecting 
             - re-sending
             - delays and timeouts
