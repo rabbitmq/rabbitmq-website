@@ -57,8 +57,8 @@ class ReqHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return result
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'next':
-        site_mode = 'next'
+    if len(sys.argv) > 1:
+        site_mode = sys.argv[1]
     addr = ('0.0.0.0', 8191)
     httpd = BaseHTTPServer.HTTPServer(addr, ReqHandler)
     print 'Serving on', addr

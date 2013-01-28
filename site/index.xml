@@ -1,4 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Messaging that just works</title>
@@ -96,6 +100,19 @@
         release of RabbitMQ, and that are available in
         the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
         builds</a>.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
+    <x:modal mode="previous">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>previous.rabbitmq.com</b>, exists to document the
+        <b>previous</b> feature release of RabbitMQ (&version-server;).
       </p>
       <ul id="large-bullets">
         <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
