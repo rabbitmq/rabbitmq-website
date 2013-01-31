@@ -5,6 +5,7 @@ server
 bug fixes
 25422 fix race causing queues to crash when stopping mirroring
 25353 fix issue preventing idle queues from hibernating sometimes
+25431 fix compilation on Erlang R16A
 25420 fix issue causing crash at startup if another node reports Mnesia
       starting or stopping
 25360 fix race allowing channel commands to be sent after connection.close-ok
