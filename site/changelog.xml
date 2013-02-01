@@ -13,6 +13,16 @@
       </tr>
 
       <tr>
+        <td><a href="release-notes/README-3.0.2.txt">3.0.2</a></td>
+        <td>31 January 2013</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
         <td><a href="release-notes/README-3.0.1.txt">3.0.1</a></td>
         <td>11 December 2012</td>
         <td>
