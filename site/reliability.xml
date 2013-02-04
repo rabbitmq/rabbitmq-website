@@ -56,7 +56,7 @@
           </p>
           <p>
             Due to the primarily asynchronous nature of AMQP, whilst a
-            <code>{queue,exchange}.declare</code> command is on the wire,
+            <code>{queue|exchange}.declare</code> command is on the wire,
             there is no way of knowing if the server has fulfilled the request
             until a <code>declare-ok</code> reply is received. Once this has
             arrived at the client, we can then be certain that the object
@@ -96,7 +96,7 @@
           </p>
         </doc:subsection>
         <doc:subsection name="connectivity">
-          <doc:heading>Working with unreliable networks.</doc:heading>
+          <doc:heading>Connectivity.</doc:heading>
           <p>
             Connection failure can occur at any time. Whenever a RabbitMQ node
             is terminated for example, all client connections will be shut down.
@@ -124,6 +124,13 @@
             <code>IConnection.ConnectionShutdown</code> and
             <code>IModel.ModelShutdown</code> events for detecting connection and
             channel errors respectively.
+          </p>
+          <p>
+            Because of the declarative nature of queue and exchange creation, after
+            a connection to the broker is re-established, it is quite safe to issue
+            <code>{queue|exchange}.declare</code> for objects your application expects
+            to be working with, as long as the parameters passed with the declaration
+            have not changed since they were first supplied.
           </p>
           <p>
             - reconnecting 
@@ -200,7 +207,17 @@
             potential duplicates somehow. The application can utilise the AMQP Basic
             <code>message-id</code> field to assist with this, or use a custom header
             if the <code>shortstr</code> data type is not suitable for thier application's
-            purposes.
+            purposes. Responsibility for de-duplicating messages with the same application
+            specific message-id belongs with the consumer, i.e., you will have to write this
+            logic yourself, based on your application's requirements.
+          </p>
+          <h4>Handling un-routable messages</h4>
+          <p>
+            AMQP provides a neat recipe for detecting situations in which a published
+            message cannot be routed. When the <code>mandatory</code> flag is set on a
+            <code>basic.publish</code>, the server will send back a <code>basic.return</code>,
+            which contains a reply code and text providing information about why the message
+            was undeliverable.
           </p>
       </doc:section>
       <doc:section name="broker-2-consumer">
