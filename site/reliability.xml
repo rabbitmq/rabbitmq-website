@@ -82,7 +82,6 @@
             If the client library does not implement <code>{queue|exchange}.declare</code>
             synchronously, it is sensible  to wait for the relevant
             <code>declare-ok</code> reply before proceeding to use an object.
-
             TODO: <em>passive declarations</em>
           </p>
           <h4>Persistent Messages</h4>
@@ -96,7 +95,7 @@
           </p>
         </doc:subsection>
         <doc:subsection name="connectivity">
-          <doc:heading>Connectivity.</doc:heading>
+          <doc:heading>Connectivity</doc:heading>
           <p>
             Connection failure can occur at any time. Whenever a RabbitMQ node
             is terminated for example, all client connections will be shut down.
@@ -149,6 +148,20 @@
             the connection factory with the desired heartbeat interval. As with any other
             connection failure, the client may attempt to re-connect and re-establish new
             channels at any time.
+          </p>
+          <h4>Consumer Cancel Notifications</h4>
+          <p>
+            A RabbitMQ extension to the AMQP spec, consumer cancel notifications enable
+            clients to detect error conditions that would otherwise go unnoticed. Whilst
+            this class of errors are not directly related to <em>network connectivity</em>
+            between client and server, they do represent a break in the usefulness of a
+            client's subscription on the current channel.
+          </p>
+          <p>
+            For clients that support this extension, a <code>basic.cancel</code> will be
+            sent if a queue from which the client is consuming is deleted, or in a clustered
+            scenario, if the node on which the queue is located fails. This notification is
+            particularly useful when consuming mirrored queues, which is covered later on.
           </p>
         </doc:subsection>
       </doc:section>
