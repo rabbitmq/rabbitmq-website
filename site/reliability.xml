@@ -132,10 +132,21 @@
             to be working with, as long as the parameters passed with the declaration
             have not changed since they were first supplied.
           </p>
+          <h4>Using Heartbeats</h4>
           <p>
-            - reconnecting 
-            - re-sending
-            - delays and timeouts
+            When the network does fail, it can take an Operating System a fairly long
+            time to notice and pass this information on to listening applications.
+            For example, on Linux based systems, the default kernel parameters yield
+            a timeout of around 15 minutes after the first retransmission timeout.
+            To disuade an application from waiting quite so long, we can enable AMQP
+            heartbeats and set a lower threshold for connection timeouts. This has an
+            added advantage over straight TCP keep-alives, in that both the broker and
+            the client become aware of the connection failure, allow both to reclaim
+            valuable operating system resources.
+          </p>
+          <p>
+            In both the official Java and .NET clients, heartbeats are enabled by configuring
+            the connection factory with the desired heartbeat interval.
           </p>
         </doc:subsection>
       </doc:section>
