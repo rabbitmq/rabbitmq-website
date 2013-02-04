@@ -170,10 +170,8 @@
             then the channel is said to be <i>in confirm mode</i>.
           </p>
           <p>
-            How then, do confirms enable producers to transfer responsibility for
-            messages to the broker? Once a message is sent to the
-            broker, the producer will receive a <code>basic.ack</code> once one
-            of the following conditions holds:
+            Once a message is sent to the broker, the producer will receive a
+            <code>basic.ack</code> once one of the following conditions holds:
             <ul>
               <li>an un-routable mandatory message is confirmed
               right after the <code>basic.return</code> is sent</li>
@@ -181,10 +179,10 @@
               <li>a persistent message is confirmed when it is persisted to disk
               or when it is consumed on every queue</li>
             </ul>
-            Once the <code>basic.ack</code> arrives, the message is <em>confirmed</em>
+            Once a <code>basic.ack</code> arrives, the message is <em>confirmed</em>
             and the publisher can be assured that the broker has taken full
             responsibility for it. In particular, for a persistent message, the
-            broker ensures that a full fsync of the filesystem takes place
+            broker ensures that a full fsync to the filesystem takes place
             before sending the <code>basic.ack</code>, ensuring that all I/O
             buffers have been flushed to disk properly.
           </p>
