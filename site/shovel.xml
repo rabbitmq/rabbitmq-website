@@ -426,6 +426,12 @@
                 the <code>rabbitmq_auth_mechanism_ssl</code> plugin.
               </p>
               <p>
+                It is also possible to
+                specify <em>&amp;auth_mechanism=external</em> to use
+                the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/&version-server-hg;/README">SASL
+                EXTERNAL</a> authentication mechanism.
+              </p>
+              <p>
                 <strong>Note</strong>: If the broker list consists of a
                 single connection URI, the variant form:
               </p>
