@@ -203,8 +203,9 @@
             then the channel is said to be <i>in confirm mode</i>.
           </p>
           <p>
-            Once a message is sent to the broker, the producer will receive a
-            <code>basic.ack</code> once one of the following conditions holds:
+            With confirms enabled, once a message is sent to the broker, the producer
+            will receive a <code>basic.ack</code> once one of the following conditions
+            holds:
             <ul>
               <li>an un-routable mandatory message is confirmed
               right after the <code>basic.return</code> is sent</li>
@@ -256,13 +257,36 @@
           <!-- TODO: move this into the xr from broker to consumer section -->
           <doc:heading>Transfered Responsibility from Broker to Consumer</doc:heading>
           <p>
-            Clients, both producing and consumer, need to handle various error
+            Clients, both producers and consumers, need to handle various error
             conditions at runtime. Failures can occur at various points between
             client and server, each of which requires special handling by the
             application developer.
           </p>
           <p>
-            Consumers should 
+            Consumers should be particularly aware of the effect that ACKs have on
+            message consuption. Once an ACK is sent, the broker will remove the message
+            from the queue, and the consumer (which ACKed the message) is not <em>fully</em>
+            responsible for it. If the consumer crashes before sending an ACK, the message
+            will be redelivered to another consumer as one becomes available. If the
+            <code>basic.qos</code> prefetch count is set, then however many unacknowledged
+            message the consumer holds, these will all be subject to the same treatment.
+          </p>
+          <h4>Handling lost ACKs and requesting re-delivery</h4>
+          <p>
+            Consumers should always be ready to handle duplicate messages, even those for
+            which they have sent acknowledgements. It's possible for a consumer to send a
+            <code>basic.ack</code> and the network to fail such that the ACK is not delivered.
+            It is also possible for ACKs to be lost in a clustered HA configuration, when the
+            node on which a queue is located fails. In this case, a promoted slave will
+            requeues all messages which it considers to be pending acknowledgements, which can include
+            messages for which a client has issued an ACK if the acknowledgement was lost on the wire
+            before reaching the master or lost during broadcast from the master to the slaves.
+          </p>
+          <p>
+            When a network failure occurs, connections and channels will close and clients
+            will need to re-connect and re-establish a channel. Clients must be aware that
+            attempting to acknowledge a message on a different channel from the one it was
+            received on will fail.
           </p>
           TODO: waitForConfirms and batching
           TODO: storing and sequencing in producer code
@@ -270,9 +294,7 @@
           TODO: handling errors with ShutdownListener (+ non-java examples?)
           TODO: dealing with reject
           TODO: consumer-cancel
-          <p>
-            Consumer cancel notifications
-          </p>
+
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
           <doc:heading>Failover and Recovery</doc:heading>
@@ -280,6 +302,17 @@
       </doc:secion>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
+        <h4>Working with HA/Mirrored Queues</h4>
+        <p>
+          Considerations:
+          - possibility of message loss (un-synchronised slaves)
+          - promoted slave considers all previous consumers to have been abruptly disconnected
+            - requeues all messages that are still pending ACKs
+            - can include messages for which a client has issued acknowledgements!
+              - either the acknowledgement was lost on the wire before reaching the master
+              - or it was lost during broadcast from the master to the slaves
+            - clients using CCN extension will receive a notification that their subscription to the mirrored-queue has been abruptly cancelled
+        </p>
         TODO: when you've federated the same exchange on two upstreams 
              which are clustered and made the federation (internal) queues
              (on the two upstreams) HA/mirrored - Rather than having an upstream
