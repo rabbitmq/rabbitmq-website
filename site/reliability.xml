@@ -240,9 +240,9 @@
           <p>
             AMQP provides a neat recipe for detecting situations in which a published
             message cannot be routed. When the <code>mandatory</code> flag is set on a
-            <code>basic.publish</code>, the server will send back a <code>basic.return</code>,
-            which contains a reply code and text providing information about why the message
-            was undeliverable.
+            <code>basic.publish</code> which cannot be routed by the broker, a
+            <code>basic.return</code>, containing a reply code and textual explanation
+            will be sent back to the client.
           </p>
       </doc:section>
       <doc:section name="broker-2-consumer">
@@ -330,6 +330,12 @@
           been abruptly cancelled.
         </p>
         <h4>Federated RabbitMQ</h4>
+        <p>
+          When consuming from a queue bound to a federated exchange, message loss will not
+          occur providing the configuration is not using <code>noAck</code> mode. Downstream
+          nodes can still fail of course. If the downstream node is part of a cluster, then
+          links to upstream exchanges will be recreated on a surviving node.
+        </p>
         <p>
           If you've federated the same exchange on two upstreams which are clustered and
           made the federation (internal) queues (on the two upstreams) HA/mirrored, then
