@@ -31,23 +31,19 @@
           <doc:heading>Durability and Persistence</doc:heading>
           <p>
             RabbitMQ implements a number of features to handle server restarts
-            without data loss.
-            The AMQP standard has a notion of durability (or persistence) for
-            Exchanges, Queues and Messages. In essense this attribute has the
-            same meaning for each: that the specified object will survive a
-            restart of the broker. Whether a broker restart was deliberate (e.g.,
-            a controlled restart issued via <code>rabbitmqctl stop</code> or some
-            operating system supplied interface to the broker) or due to a node
-            failure; The outcome is intended to be the same regardless of the
-            reason the node fails. For queues and exchanges, when the
-            <code>durable</code> flag is set upon sending the initial
+            without data loss. The AMQP standard has a notion of durability
+            (or persistence) for Exchanges, Queues and Messages. In essense, this
+            attribute has the same meaning for each: that the specified object
+            will survive a restart of the broker. Whether a broker restart was
+            deliberate or due to a node failure; The outcome is intended to be the
+            same regardless of the reason the node fails. For queues and exchanges,
+            when the <code>durable</code> flag is set upon sending the initial
             <code>queue.declare</code> or <code>exchange.declare</code> method to
             the server, the standard requires that these objects continue to
-            be available after a server restart. For messages sent with the
-            <code>delivery-mode</code> set to <i>persistent</i>, the standard
-            requires the broker to
-            "<i>make a best-effort to hold persistent basic messages on
-            a reliable storage mechanism</i>."
+            exist after a server restart. For messages sent with the <code>delivery-mode</code>
+            set to <i>persistent</i>, the standard requires the broker to
+            "<i>make a best-effort to hold persistent basic messages on a reliable
+            storage mechanism</i>."
           </p>
           <p>
             More details about specific flags pertaining to durability and
@@ -66,10 +62,10 @@
             still receive <code>declare-ok</code> providing that the arguments
             given for subsequent invocations of this method are the same. As the
             spec puts it, this method will "verify the exchange exists, create
-            if needed." The obvious solution to writing clients is, therefore,
-            to declare exchanges/queues when the applications first connects to
-            the broker. This operation will only fail if the object declaration
-            fails the equivalence check; See the
+            if needed." When writing clients it is, therefore, reasonable to declare
+            exchanges/queues when the applications first connects to the broker.
+            This operation will only fail if the object declaration fails the
+            equivalence check; See the
             <a href="/amqp-0-9-1-reference.html">AMQP Reference</a> and RabbitMQ's
             <a href="/amqp-0-9-1-errata.html">list of AMQP 0-9-1 errata</a> for
             more details.
@@ -82,7 +78,6 @@
             If the client library does not implement <code>{queue|exchange}.declare</code>
             synchronously, it is sensible  to wait for the relevant
             <code>declare-ok</code> reply before proceeding to use an object.
-            TODO: <em>passive declarations</em>
           </p>
           <h4>Persistent Messages</h4>
           <p>
@@ -97,20 +92,17 @@
         <doc:subsection name="connectivity">
           <doc:heading>Connectivity</doc:heading>
           <p>
-            Connection failure can occur at any time. Whenever a RabbitMQ node
-            is terminated for example, all client connections will be shut down.
-            If the shutdown is graceful then the client will recieve a
-            <code>connection.close</code> message from the broker. If not, then
-            the connection may be abbruptly terminated once the operating system
-            on which the client appliation is running, notices that the peer
-            socket is non-responsive. Certain classes of server error can also
-            lead to a <code>connection-error</code>. Errors on a connection
-            (where the error code is in the >500 range) will cause the broker
-            to close the connection.
+            Connection failures can occur at any time. When a graceful shutdown occurs,
+            clients will recieve a <code>connection.close</code> message from the broker.
+            Under other circumstances, the connection may be abbruptly terminated once
+            the operating system networking stack detects that the peer socket is non-responsive.
+            Certain classes of server error can also lead to a <code>connection-error</code>.
+            Errors on a connection (where the error code is in the >500 range) will cause
+            the broker to close the connection.
           </p>
           <p>
-            If the connection terminates for <i>any</i> reason, then it is up to
-            the client to re-establish a connection in order to continue sending
+            If a connection terminates for <i>any</i> reason, then it is up to
+            the client to re-establish connectivity in order to continue sending
             or receiving messages. Remember, once a connection is torn down, all
             its channels will disappear: any client code relying on these channels
             will need to create new channels once a new connection is established.
@@ -133,15 +125,15 @@
           </p>
           <h4>Using Heartbeats</h4>
           <p>
-            When the network does fail, it can take an Operating System a fairly long
-            time to notice and pass this information on to listening applications.
+            When the network does fail, it can take the Operating System a fairly long
+            time to notice and pass this information on to running applications.
             For example, on Linux based systems, the default kernel parameters yield
-            a timeout of around 15 minutes after the first retransmission timeout.
+            a potential delay of around 15 minutes after the first retransmission timeout.
             To disuade an application from waiting quite so long, we can enable AMQP
             heartbeats and set a lower threshold for connection timeouts. This has an
             added advantage over straight TCP keep-alives, in that both the broker and
-            the client become aware of the connection failure, allow both to reclaim
-            valuable operating system resources.
+            the client become aware of the connection failure, allowing both to reclaim
+            valuable operating system resources in a timely fashion.
           </p>
           <p>
             In both the official Java and .NET clients, heartbeats are enabled by configuring
@@ -228,12 +220,13 @@
           <h4>Handling Lost ACKs</h4>
           <p>
             Whilst producer confirms provide stronger guarantees, it is still possible
-            for a network failure to cause problems when using producer confirms.
-            Say one or more messages have been sent and the producer is waiting for ACKs
-            (i.e., confirms) from the broker. A network error occurs and the connection is
-            broken, forcing the producer to re-connect. Having not seen an ACK for these
-            messages, we must re-transmit them, however it is <em>possible</em> that the
-            broker did receive them <b>and</b> sent ACKs for some (or all), but all those
+            for a network failure to cause clients difficulties, sometimes even resulting
+            in message loss.
+            If one or more messages have been sent and the producer is waiting for ACKs
+            (i.e., confirms) from the broker and a network error occurs, upon which the
+            connection is broken, forcing the producer to re-connect. Having not seen an 
+            ACK for these messages, we must re-transmit them, however it is <em>possible</em>
+            that the broker did receive them <b>and</b> sent ACKs for some (or all), but all those
             ACKs en-route to the producer were lost due to the network failure. The producer
             has no choice but to re-transmit the messages, and it will be necessary for
             consumers to handle potential duplicates somehow. The application can utilise
@@ -254,13 +247,11 @@
       </doc:section>
       <doc:section name="broker-2-consumer">
         <doc:subsection name="reliable-clients">
-          <!-- TODO: move this into the xr from broker to consumer section -->
           <doc:heading>Transfered Responsibility from Broker to Consumer</doc:heading>
           <p>
-            Clients, both producers and consumers, need to handle various error
-            conditions at runtime. Failures can occur at various points between
-            client and server, each of which requires special handling by the
-            application developer.
+            All clients need to be prepared to handle error conditions at runtime.
+            Failures can occur at various points between client and server, each of which
+            requires special handling by the application developer.
           </p>
           <p>
             Consumers should be particularly aware of the effect that ACKs have on
@@ -278,13 +269,24 @@
             <code>basic.ack</code> and the network to fail such that the ACK is not delivered.
             It is also possible for ACKs to be lost in a clustered HA configuration, when the
             node on which a queue is located fails. In this case, a promoted slave will
-            requeues all messages which it considers to be pending acknowledgements, which can include
-            messages for which a client has issued an ACK if the acknowledgement was lost on the wire
-            before reaching the master or lost during broadcast from the master to the slaves.
+            requeues all messages which it considers to be pending acknowledgements, which can
+            include messages for which a client has issued an ACK if the acknowledgement was
+            lost on the wire before reaching the master or lost during broadcast from the master
+            to the slaves.
           </p>
           <p>
-            When a network failure occurs, connections and channels will close and clients
-            will need to re-connect and re-establish a channel. Clients must be aware that
+            When network failures occur, clients will need to re-connect and re-establish channels.
+            The same is true for clients connected to a failed node in a clustered configuration,
+            who will need to connect to a surviving node in the cluster. Once connections and
+            channels are re-established, if consuming from the same queue (or an HA queue that has
+            failed over to a slave node), it's quite possible you will subsequently receive messages
+            that have been seen previously due to lost ACKs.
+          </p>
+          <h4>Client Recovery</h4>
+          <p>
+            <code>basic.recover</code>
+            
+            Clients must be aware that
             attempting to acknowledge a message on a different channel from the one it was
             received on will fail.
           </p>
@@ -304,21 +306,42 @@
         <doc:heading>Distributed RabbitMQ</doc:heading>
         <h4>Working with HA/Mirrored Queues</h4>
         <p>
-          Considerations:
-          - possibility of message loss (un-synchronised slaves)
-          - promoted slave considers all previous consumers to have been abruptly disconnected
-            - requeues all messages that are still pending ACKs
-            - can include messages for which a client has issued acknowledgements!
-              - either the acknowledgement was lost on the wire before reaching the master
-              - or it was lost during broadcast from the master to the slaves
-            - clients using CCN extension will receive a notification that their subscription to the mirrored-queue has been abruptly cancelled
+          Utilising RabbitMQ's robust HA/Mirrored queues, we can tolerate node failures
+          without message loss in most circumstances. As long as producers use channels
+          in confirm mode and persistent messages, data integrity is <em>very</em> high.
+          One area where message loss can occur however, is when a master fails and the
+          eldest slave is not fully synchronised. There's little to be done about this.
+
+          If you are consuming from a mirrored-queue with noAck=true then messages can
+          always be lost, regardless of enabling HA.
+
+          TODO: erm, is that all we say about this!? Is there anything else!? Should we
+          offer ideas about ensuring slaves are sync-ed up? In the face of policy driven
+          HA, that probably makes no sense.
         </p>
-        TODO: when you've federated the same exchange on two upstreams 
-             which are clustered and made the federation (internal) queues
-             (on the two upstreams) HA/mirrored - Rather than having an upstream
-             set containing connection definitions for both upstream nodes,
-             have just one connection definition, to an upstream load balancer
-             otherwise the order of messages cannot be preserved.
+        <p>
+          Consumers must still be ready to handle duplicate messages when using HA queues,
+          despite the fact that clustering/HA shoots for consistency and availability from
+          the CAP theorem.
+          In the case where a master fails, the promoted slave considers all previous consumers
+          to have been abruptly disconnected and summarily requeues all messages that are
+          still pending ACKs. Clients using Rabbit's Consumer Cancel Notification extension
+          will receive a notification that their subscription to the mirrored-queue has
+          been abruptly cancelled.
+        </p>
+        <h4>Federated RabbitMQ</h4>
+        <p>
+          If you've federated the same exchange on two upstreams which are clustered and
+          made the federation (internal) queues (on the two upstreams) HA/mirrored, then
+          rather than having an upstream set containing connection definitions for both
+          upstream nodes, you should aim for just one connection (perhaps to an upstream
+          load balancer) otherwise the order of messages cannot be preserved!
+        </p>
+        <p>
+          TODO: the docs say: " If a node fails, links to upstream exchanges will be recreated on a surviving node. "
+          clarify that - which node, how is it chosen?
+          
+        </p>
       </doc:section>
   </body>
 </html>
