@@ -83,15 +83,16 @@
             Under other circumstances, the connection may be abbruptly terminated once
             the operating system networking stack detects that the peer socket is non-responsive.
             Certain classes of server error can also lead to a <code>connection-error</code>.
-            Errors on a connection (where the error code is in the >500 range) will cause
-            the broker to close the connection.
+            Errors on a connection will cause the broker to close the connection. Errors on
+            a channel however, invalidate only the channel itself and not the
+            connection on which it was created.
           </p>
           <p>
-            If a connection terminates for <i>any</i> reason, then it is up to
-            the client to re-establish connectivity in order to continue sending
-            or receiving messages. Remember, once a connection is torn down, all
-            its channels will disappear: any client code relying on these channels
-            will need to create new channels once a new connection is established.
+            If a connection or channel terminates for <i>any</i> reason, then it is up to
+            the client to re-establish it in order to continue sending or receiving messages.
+            Remember, once a connection is torn down, all its channels will disappear:
+            any client code relying on these channels will now need to create new channels
+            as well, once the new connection is established.
           </p>  
           <p>
             Client libraries may take various approaches to signalling channel and
@@ -140,6 +141,12 @@
             sent if a queue from which the client is consuming is deleted, or in a clustered
             scenario, if the node on which the queue is located fails. This notification is
             particularly useful when consuming mirrored queues, which is covered later on.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="error-handling">
+          <doc:heading>Error Handling</doc:heading>
+          <p>
+            
           </p>
         </doc:subsection>
       </doc:section>
