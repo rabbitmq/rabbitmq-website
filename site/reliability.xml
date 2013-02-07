@@ -50,6 +50,7 @@
             persistence can be found in the
             <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
           </p>
+          <!-- TODO: MOVE ME -->
           <p>
             The AMQP declare method for both the exchange and queue classes is a
             declarative command. If the queue/exchange already exists, then we
@@ -63,15 +64,6 @@
             <a href="/amqp-0-9-1-reference.html">AMQP Reference</a> and RabbitMQ's
             <a href="/amqp-0-9-1-errata.html">list of AMQP 0-9-1 errata</a> for
             more details.
-          </p>
-          <h4>Handling Server Errors</h4>
-          <p>
-            If a <code>{queue|exchange}.declare</code> is rejected by the server,
-            a channel error will be raised. Client libraries will represent this
-            using whichever mechanism makes sense for the target language/platform.
-            If the client library does not implement <code>{queue|exchange}.declare</code>
-            synchronously, it is sensible  to wait for the relevant
-            <code>declare-ok</code> reply before proceeding to use an object.
           </p>
           <h4>Persistent Messages</h4>
           <p>
