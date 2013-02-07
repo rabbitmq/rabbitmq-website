@@ -103,13 +103,6 @@
             <code>IModel.ModelShutdown</code> events for detecting connection and
             channel errors respectively.
           </p>
-          <p>
-            Because of the declarative nature of queue and exchange creation, after
-            a connection to the broker is re-established, it is quite safe to issue
-            <code>{queue|exchange}.declare</code> for objects your application expects
-            to be working with, as long as the parameters passed with the declaration
-            have not changed since they were first supplied.
-          </p>
           <h4>Using Heartbeats</h4>
           <p>
             When the network does fail, it can take the Operating System a fairly long
