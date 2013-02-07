@@ -9,8 +9,7 @@
       <doc:section name="overview">
         <p>
           Learn how the different levels of message delivery guarantee
-          in RabbitMQ work, the trade-offs available and how they can
-          affect the system.
+          in RabbitMQ work and the various trade-offs available.
         </p>
       </doc:section>
       <doc:section name="background-info">
@@ -28,7 +27,8 @@
       </doc:section>
       <doc:section name="concepts">
         <doc:subsection name="durability">
-          <doc:heading>Durability and Persistence</doc:heading>
+          <doc:heading>General Concepts</doc:heading>
+          <h4>Durability and Persistence</h4>
           <p>
             RabbitMQ implements a number of features to handle server restarts
             without data loss. The AMQP standard has a notion of durability
@@ -51,12 +51,6 @@
             <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
           </p>
           <p>
-            Due to the primarily asynchronous nature of AMQP, whilst a
-            <code>{queue|exchange}.declare</code> command is on the wire,
-            there is no way of knowing if the server has fulfilled the request
-            until a <code>declare-ok</code> reply is received. Once this has
-            arrived at the client, we can then be certain that the object
-            exists and will be maintained by the broker accordingly.
             The AMQP declare method for both the exchange and queue classes is a
             declarative command. If the queue/exchange already exists, then we
             still receive <code>declare-ok</code> providing that the arguments
