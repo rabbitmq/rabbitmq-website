@@ -64,6 +64,12 @@
             information.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_consistent_hash_exchange">
+            Consistent hash exchange type. Please see the
+            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
+            for more information.
+          </r:plugin>
+
           <r:plugin name="rabbitmq_federation">
             Scalable publish / subscribe messaging across WANs and
             administrative domains. See <a href="federation.html">the
@@ -142,12 +148,6 @@
             the management web interface, which then flexibly and
             interactively displays channels, queues and exchanges, and
             the links between them.
-          </r:plugin>
-
-          <r:plugin name="rabbitmq_consistent_hash_exchange">
-            Consistent hash exchange type. Please see the
-            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
-            for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_tracing">
