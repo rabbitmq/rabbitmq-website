@@ -398,7 +398,9 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
               strings. If more than one string is provided, the federation
               plugin will randomly pick <b>one</b> URI from the list. This can
               be used to connect to an upstream cluster and ensure the link
-              will eventually find another node in the event that one fails.
+              will eventually find another node in the event that one
+              fails. It's probably not a great idea to use multiple URIs that
+              do <b>not</b> point to the same cluster.
             </p>
             <p>
               To connect to multiple URIs simultaneously use multiple
