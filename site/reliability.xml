@@ -256,9 +256,8 @@
           </p>
           <h4>Handling Lost ACKs</h4>
           <p>
-            Whilst producer confirms provide stronger guarantees, it is still possible
-            for a network failure to cause clients difficulties, sometimes even resulting
-            in message loss.
+            Whilst correct use of producer confirms guarantees against message loss, it
+            is still possible for a network failure to cause message duplication.
             If one or more messages have been sent and the producer is waiting for ACKs
             (i.e., confirms) from the broker and a network error occurs, upon which the
             connection is broken, forcing the producer to re-connect. Having not seen an 
