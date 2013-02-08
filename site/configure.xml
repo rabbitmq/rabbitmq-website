@@ -78,7 +78,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
               <pre class="sourcecode">
 #example rabbitmq-env.conf file entries
 #Rename the node
-NODENAME=bunny
+NODENAME=bunny@myhost
 #Config file location and new filename bunnies.config
 CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               More <a href="man/rabbitmq-env.conf.5.man.html">info on using rabbitmq-env.conf</a>
