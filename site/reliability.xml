@@ -162,16 +162,40 @@
             which carries a cost that will reduce the throughput producers are able
             to achieve.
           </p>
-          <h4>Acknowledgements</h4>
+          <h4>Acknowledgements, Confirms and Transactions</h4>
           <p>
-            A broker failure after publication but before a message is persisted
-            to disk (and the file system synchronised) can cause message loss.
-            Transactions eliminate the risk of this happening, because the commit-ok
-            reply is only sent to the client once those steps have been completed.
-            Transactions however, are quite heavy for this purpose and come
-            with a significant cost to performance. To address this, RabbitMQ
-            added an extension to the AMQP standard called confirms (aka
-            publisher or producer confirms). Confirms are a lightweight
+            Unless acknowledgements are in use (i.e., <code>no-ack=false</code>) the
+            broker will <em>assume</em> success and dequeue messages immediately after
+            they are delivered. This can result in message loss if, for example, the
+            consumer dies (or the connection is severed) before the message can be
+            fully recieved or processed. With acknowledgements enabled, the broker will
+            never dequeue a message until it has seen an ACK for it, which provides a
+            strong guarantee against message loss at the cost of reduced throughput
+            in the consumer - which will see no further messages until previously
+            delivered ones are acknowledged - and increased network traffic between
+            the broker and consumers. Acknowledgements can be batched by setting the
+            prefetch count using <code>basic.qos</code>, which enables clients to receive
+            a number of messages (up to the prefetch count before it must send an ACK).
+            Whether acknowledgements are batched or not, the broker will never dequeue
+            a message until it has been acked, as long as <code>no-ack=false</code>.
+          </p>
+          <p>
+            Transactional consumers - client's that have set <code>tx.select</code> on
+            an open channel - can optionally abandon acknowledgements already sent
+            to the broker, by rolling back the transaction. In this case, consumed
+            messages are <em>not</em> requeued and the client can still ack/reject
+            these messages in subsequent transactions. Unacked message are not automatically
+            redelivered on rollback either; to have the broker resend these, the
+            consumer must use <code>basic.recover</code>.
+          </p>
+          <p>
+            From the producer's perspective, a broker failure after publication but
+            before a message is persisted to disk (and the file system synchronised) can
+            cause message loss. Transactions eliminate the risk of this happening, because
+            a <code>commit-ok</code> reply is only sent to the client once those steps
+            have been completed. Transactions however, come with a significant cost to performance.
+            To address this, RabbitMQ added an extension to the AMQP standard called
+            confirms (aka publisher or producer confirms). Confirms are a lightweight
             alternative to transactions, which ensure the same guarantees
             with regards message publication, but offer far superiour performance.
             Confirms are enabled by sending <code>confirm-select</code> on an
@@ -194,12 +218,24 @@
             responsibility for it. In particular, for a persistent message, the
             broker ensures that a full fsync to the filesystem takes place
             before sending the <code>basic.ack</code>, ensuring that all I/O
-            buffers have been flushed to disk properly.
+            buffers have been flushed to disk properly. If a <code>basic.nack</code>
+            is received on a producer channel set to confirms mode, the broker is
+            indicating that it could not handle the message. In this case, the
+            producer should retransmit the message.
           </p>
           <p>
-            If a <code>basic.nack</code> is received on a producer channel set to
-            confirms mode, the broker is indicating that it could not handle the
-            message. In this case, the producer should retransmit the message.
+            Despite confirms exhibiting better performance characteristics than
+            transactions, there is still a cost associated with forcing an
+            <code>fsync</code> to the disk, which will reduce throughput. Network
+            latency also plays a role here, as the client waits for <code>confirm-ok</code>
+            to be sent back by the broker. These costs can be reduced by batching
+            confirms (i.e., only waiting for confirms after a batch of publishes).
+          </p>
+          <p>
+            Note that if a disk has write caching enabled, even calling <code>fsync</code>
+            cannot guarantee that data has actually made it to permanent storage,
+            in which case there is a posibility of message loss in case of server
+            (e.g., hardware) failure.
           </p>
           <h4>Handling Lost ACKs</h4>
           <p>
