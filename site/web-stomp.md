@@ -35,37 +35,24 @@ In order to use STOMP in a web-browser context, a JavaScript STOMP
 library is required. We've tested a
 [stomp-websocket](https://github.com/jmesnil/stomp-websocket/) library
 by [Jeff Mesnil](https://github.com/jmesnil) and
-[Jeff Lindsay](https://github.com/progrium). A [slightly modified
-version](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv/stomp.js)
-of this library is provided as part of RabbitMQ-Web-Stomp-Examples.
+[Jeff Lindsay](https://github.com/progrium).
+[This library](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv/stomp.js)
+is included as part of RabbitMQ-Web-Stomp-Examples.
 
 By default the Web-Stomp plugin exposes a SockJS endpoint on port
 15674 with `/stomp` prefix:
 
     http://127.0.0.1:15674/stomp
 
-In order to establish connection from the browser using SockJS you may
+In order to establish connection from the browser you may
 use code like:
 
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script src="stomp.js"></script>
     <script>
-        Stomp.WebSocketClass = SockJS;
 
-        var client = Stomp.client('http://127.0.0.1:15674/stomp');
-        [...]
-
-Alternatively, you may skip the SockJS layer and use
-native WebSockets as provided by the browser. SockJS provides a
-pure [RFC 6455](http://www.rfc-editor.org/rfc/rfc6455.txt) endpoint url:
-
-    ws://127.0.0.1:15674/stomp/websocket
-    
-To use it:
-
-    <script src="stomp.js"></script>
-    <script>
-        var client = Stomp.client('ws://127.0.0.1:15674/stomp/websocket');
+        var ws = new SockJS('http://127.0.0.1:15674/stomp');
+        var client = Stomp.over(ws);
         [...]
 
 Once you have the `client` object you can follow API's exposed by
@@ -124,4 +111,4 @@ port to 12345 would look like:
 
 RabbitMQ-Web-Stomp is fully compatible with the
 [RabbitMQ-STOMP](/stomp.html) plugin, with the exception of STOMP
-heartbeats. STOMP heartbeats won't work with the Web-Stomp plugin.
+heartbeats. STOMP heartbeats won't work with SockJS.

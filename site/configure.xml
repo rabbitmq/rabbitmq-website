@@ -660,7 +660,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Tunable value for the persister. You almost certainly
               should not change this.
-              <p>Default: <code>262144</code></p>
+              <p>Default: <code>65536</code></p>
             </td>
           </tr>
         </table>
