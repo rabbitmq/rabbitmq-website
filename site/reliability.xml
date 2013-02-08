@@ -109,17 +109,17 @@
             time to notice and pass this information on to running applications.
             For example, on Linux based systems, the default kernel parameters yield
             a potential delay of around 15 minutes after the first retransmission timeout.
-            To disuade an application from waiting quite so long, we can enable AMQP
-            heartbeats and set a lower threshold for connection timeouts. This has an
-            added advantage over straight TCP keep-alives, in that both the broker and
-            the client become aware of the connection failure, allowing both to reclaim
-            valuable operating system resources in a timely fashion.
+            Firewalls can also interfere with connectivity, by closing connections that
+            have been idle for a short while for example. Heartbeats ensure that disrupted
+            tcp connections get detected promptly. They also keep connections alive in the
+            presence of firewalls.
           </p>
           <p>
             In both the official Java and .NET clients, heartbeats are enabled by configuring
             the connection factory with the desired heartbeat interval. As with any other
             connection failure, the client may attempt to re-connect and re-establish new
-            channels at any time.
+            channels at any time. In RabbitMQ version 3.0 and upwards, the broker will attempt
+            to negotiate heartbeats by default, though the client can veto them.
           </p>
           <h4>Consumer Cancel Notifications</h4>
           <p>
@@ -164,12 +164,10 @@
           </p>
           <h4>Acknowledgements</h4>
           <p>
-            From the producer's perspective, the only way to guarantee that a
-            message isn't lost is by using transactions. A broker failure
-            after publication but before the message is persisted to disk and
-            the file system synchronised can cause message loss. Transactions
-            eliminate the risk of this happening, because the commit-ok reply
-            is only sent to the client once those steps have been completed.
+            A broker failure after publication but before a message is persisted
+            to disk (and the file system synchronised) can cause message loss.
+            Transactions eliminate the risk of this happening, because the commit-ok
+            reply is only sent to the client once those steps have been completed.
             Transactions however, are quite heavy for this purpose and come
             with a significant cost to performance. To address this, RabbitMQ
             added an extension to the AMQP standard called confirms (aka
