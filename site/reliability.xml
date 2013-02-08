@@ -186,26 +186,43 @@
             messages are <em>not</em> requeued and the client can still ack/reject
             these messages in subsequent transactions. Unacked message are not automatically
             redelivered on rollback either; to have the broker resend these, the
-            consumer must use <code>basic.recover</code>.
+            consumer must use <code>basic.recover</code>, at which point all unacked
+            messages will be redelivered.
           </p>
           <p>
-            From the producer's perspective, a broker failure after publication but
-            before a message is persisted to disk (and the file system synchronised) can
-            cause message loss. Transactions eliminate the risk of this happening, because
-            a <code>commit-ok</code> reply is only sent to the client once those steps
-            have been completed. Transactions however, come with a significant cost to performance.
-            To address this, RabbitMQ added an extension to the AMQP standard called
-            confirms (aka publisher or producer confirms). Confirms are a lightweight
-            alternative to transactions, which ensure the same guarantees
-            with regards message publication, but offer far superiour performance.
+            From the producer's perspective, even with persistent messages, a broker failure
+            after publication can occur before a message is persisted to disk (and the file
+            system synchronised), which will cause messages to be lost. Transactions eliminate
+            the risk of this happening, because a <code>commit-ok</code> reply is only sent to
+            the client once those steps have been completed. In the event of a failure such as
+            this, the producer must assume that unless a <code>commit-ok</code> has been seen, 
+            none of the messages published during the transaction have been accepted by the
+            broker and will require retransmission.
+          </p>
+          <p>
+            AMQP transactions are intended to provide atomicity only in a single queue,
+            however in RabbitMQ, transactions are <em>not</em> atomic even in a single queue.
+            A fault during <code>tx.commit</code> can result in a sub-set of the publishes
+            appearing in the queue after a broker restart. If the <code>common-ok</code> is
+            received however, Rabbit guarantees that all messages have been either placed
+            in a queue, or a <code>basic.return</code> will have been issued for them
+            already. With persistent messages, the broker guarantees that the messages
+            have hit the disk and <code>fsync</code> has been invoked to synchronise with the
+            file system.
+          </p>
+          <p>
+            Transactions also come with a significant cost to performance. RabbitMQ added
+            an extension to the AMQP standard called confirms (aka publisher or producer
+            confirms), which offer a lightweight alternative to transactions, ensure the
+            same guarantees with regards message publication, but offer far superiour performance.
             Confirms are enabled by sending <code>confirm-select</code> on an
             open channel. Once the broker responds with <code>confirm-ok</code>
             then the channel is said to be <i>in confirm mode</i>.
           </p>
           <p>
-            With confirms enabled, once a message is sent to the broker, the producer
-            will receive a <code>basic.ack</code> once one of the following conditions
-            holds:
+            With confirms enabled on a channel, once a message is sent to the broker,
+            the producer will receive a <code>basic.ack</code> once one of the following
+            conditions holds:
             <ul>
               <li>an un-routable mandatory message is confirmed
               right after the <code>basic.return</code> is sent</li>
