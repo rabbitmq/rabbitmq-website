@@ -50,7 +50,6 @@
             persistence can be found in the
             <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
           </p>
-          <!-- TODO: MOVE ME -->
           <p>
             The AMQP declare method for both the exchange and queue classes is a
             declarative command. If the queue/exchange already exists, then we
@@ -76,7 +75,7 @@
           </p>
         </doc:subsection>
         <doc:subsection name="connectivity">
-          <doc:heading>Connectivity</doc:heading>
+          <doc:heading>Connectivity, Connection and Channel errors</doc:heading>
           <p>
             Connection failures can occur at any time. When a graceful shutdown occurs,
             clients will recieve a <code>connection.close</code> message from the broker.
@@ -92,7 +91,7 @@
             the client to re-establish it in order to continue sending or receiving messages.
             Remember, once a connection is torn down, all its channels will disappear:
             any client code relying on these channels will now need to create new channels
-            as well, once the new connection is established.
+            once the new connection is established.
           </p>  
           <p>
             Client libraries may take various approaches to signalling channel and
@@ -118,28 +117,17 @@
             In both the official Java and .NET clients, heartbeats are enabled by configuring
             the connection factory with the desired heartbeat interval. As with any other
             connection failure, the client may attempt to re-connect and re-establish new
-            channels at any time. In RabbitMQ version 3.0 and upwards, the broker will attempt
-            to negotiate heartbeats by default, though the client can veto them.
+            channels at any time. In RabbitMQ versions 3.0 and higher, the broker will
+            attempt to negotiate heartbeats by default, though the client can veto them.
           </p>
           <h4>Consumer Cancel Notifications</h4>
           <p>
             A RabbitMQ extension to the AMQP spec, consumer cancel notifications enable
-            clients to detect error conditions that would otherwise go unnoticed. Whilst
-            this class of errors are not directly related to <em>network connectivity</em>
-            between client and server, they do represent a break in the usefulness of a
-            client's subscription on the current channel.
-          </p>
-          <p>
+            clients to detect error conditions that would otherwise go unnoticed.
             For clients that support this extension, a <code>basic.cancel</code> will be
             sent if a queue from which the client is consuming is deleted, or in a clustered
             scenario, if the node on which the queue is located fails. This notification is
             particularly useful when consuming mirrored queues, which is covered later on.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="error-handling">
-          <doc:heading>Error Handling</doc:heading>
-          <p>
-            
           </p>
         </doc:subsection>
       </doc:section>
@@ -151,16 +139,28 @@
             connection failure, missing or incorrect object definitions,
             application logic errors and potential client failures?
           </p>
-          <h4>Durable Entities</h4>
+          <h4>Durable Entities, Exclusivity and Auto-Delete</h4>
           <p>
+            An <code>auto-delete</code> queue will be deleted automatically
+            when all consumers have finished using it. For exchanges, the concept
+            is the same, with the exchange being deleted when all queues have
+            finished using it.
             When a queue is declared as <code>exclusive</code>, it can only be
             accessed by the connection with which it was declared. Since we
             know that the connection could break at any time, if the loss of
             a queue (and the messages it contains) is unacceptable, then we
-            should avoid making it <code>exclusive</code>. Since the computer
-            on which the broker is running could potentially crash at any time,
-            to avoid data loss we must also ensure that the queue is
-            <code>durable</code>.
+            should avoid making it <code>exclusive</code> or setting it to
+            <code>auto-detele</code>, since we might loose the queue unintentionally.
+            As the computer on which the broker is running could potentially crash
+            at any time, to fully avoid data loss we must also ensure that the
+            queue is marked as <code>durable</code> and the messages placed in it
+            marked as <code>persistent</code>.
+          </p>
+          <p>
+            The trade off here is that we avoid data loss at a cost to the overall
+            performance of the system. Persistent messages must be written to disk,
+            which carries a cost that will reduce the throughput producers are able
+            to achieve.
           </p>
           <h4>Acknowledgements</h4>
           <p>
