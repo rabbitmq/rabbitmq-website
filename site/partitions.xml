@@ -111,7 +111,7 @@ Cluster status of node rabbit@smacmullen ...
       if so make sure that the <b>first</b> node you start is from the
       trusted partition.
     </p>
-    <h2>net_ticktime</h2>
+    <h2 id="net_ticktime">net_ticktime</h2>
     <p>
       The initial determination that a node is down is made by the
       Erlang virtual machine. This is controlled by
