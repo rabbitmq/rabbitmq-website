@@ -385,12 +385,27 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <dl>
           <dt><code>uri</code></dt>
           <dd>
-            The AMQP URI for the upstream. Mandatory. See
-            the <a href="uri-spec.html">AMQP URI reference</a> for
-            information on how RabbitMQ treats AMQP URIs in general,
-            and the <a href="shovel.html#uris">shovel reference</a> for
-            some extensions for SSL and SASL, which are also supported
-            by federation.
+            <p>
+              The AMQP URI(s) for the upstream. Mandatory. See
+              the <a href="uri-spec.html">AMQP URI reference</a> for
+              information on how RabbitMQ treats AMQP URIs in general,
+              and the <a href="shovel.html#uris">shovel reference</a> for
+              some extensions for SSL and SASL, which are also supported
+              by federation.
+            </p>
+            <p>
+              Note that this field can either be a string, or a list of
+              strings. If more than one string is provided, the federation
+              plugin will randomly pick <b>one</b> URI from the list. This can
+              be used to connect to an upstream cluster and ensure the link
+              will eventually find another node in the event that one
+              fails. It's probably not a great idea to use multiple URIs that
+              do <b>not</b> point to the same cluster.
+            </p>
+            <p>
+              To connect to multiple URIs simultaneously use multiple
+              upstreams.
+            </p>
           </dd>
 
           <dt><code>prefetch-count</code></dt>
