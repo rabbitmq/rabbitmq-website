@@ -355,7 +355,8 @@
           using the <code>rabbitmqctl forget_cluster_node</code> command. Cluster upgrades force
           you to take all the nodes offline if migrating to a new major version (e.g., from
           3.0.3 to 3.1.0). When performing this upgrade, ensure that the last node to stop was
-          a disc node and ensure you start it first to prevent any configuration 
+          a disc node and ensure you start it first to prevent any configuration changes being
+          lost.
         </p>
         <h4>Working with HA/Mirrored Queues</h4>
         <p>
@@ -364,9 +365,8 @@
           in confirm mode and persistent messages, data integrity is <em>very</em> high.
           One area where message loss can occur however, is when a master fails and the
           eldest slave is not fully synchronised. There's little to be done about this.
-
-          If you are consuming from a mirrored-queue with noAck=true then messages can
-          always be lost, regardless of enabling HA.
+          Another consideration is that consuming from a mirrored-queue with noAck=true
+          can always lead to message loss, regardless of enabling HA.
         </p>
         <p>
           Consumers must still be ready to handle duplicate messages when using HA queues,
@@ -374,28 +374,25 @@
           the CAP theorem.
           In the case where a master fails, the promoted slave considers all previous consumers
           to have been abruptly disconnected and summarily requeues all messages that are
-          still pending ACKs. Clients using Rabbit's Consumer Cancel Notification extension
-          will receive a notification that their subscription to the mirrored-queue has
-          been abruptly cancelled.
+          still pending ACKs. Clients connected to a surviving node which are using Rabbit's
+          Consumer Cancel Notification extension will receive a notification that their
+          subscription to the mirrored-queue has been abruptly cancelled, at which point
+          they should be prepared to handle duplicate messages if necessary.
         </p>
         <h4>Federated RabbitMQ</h4>
         <p>
           When consuming from a queue bound to a federated exchange, message loss will not
           occur providing the configuration is not using <code>noAck</code> mode. Downstream
           nodes can still fail of course. If the downstream node is part of a cluster, then
-          links to upstream exchanges will be recreated on a surviving node.
+          links to upstream exchanges will be recreated on a surviving node, which is
+          picked at random.
         </p>
         <p>
-          If you've federated the same exchange on two upstreams which are clustered and
-          made the federation (internal) queues (on the two upstreams) HA/mirrored, then
-          rather than having an upstream set containing connection definitions for both
-          upstream nodes, you should aim for just one connection (perhaps to an upstream
-          load balancer) otherwise the order of messages cannot be preserved!
-        </p>
-        <p>
-          TODO: the docs say: " If a node fails, links to upstream exchanges will be recreated on a surviving node. "
-          clarify that - which node, how is it chosen? A: At Random
-          
+          Federating clusters requires special attention if you've federated the same exchange
+          on two upstreams which are clustered and made the federation (internal) queues (on
+          the two upstreams) HA/mirrored. Rather than having an upstream set containing connection
+          definitions for both upstream nodes, you should aim for just one connection (perhaps to
+          an upstream load balancer) otherwise the message ordering cannot be preserved!
         </p>
       </doc:section>
   </body>
