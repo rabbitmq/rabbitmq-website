@@ -340,14 +340,23 @@
         <h3>"nodes" policy and migrating masters</h3>
 
         <p>
-          Note that setting or modifying a "nodes" policy will never
-          cause an existing master to go away, even if you ask it
-          to. For example, if a queue is on <code>[A]</code>, and
-          you give it a <code>nodes</code> policy telling it to be on
-          <code>[B C]</code>, it will end up on <code>[A B
-          C]</code>. If node <code>A</code> then fails or is shut
-          down, the mirror on that node will not come back and the
-          queue will stay on <code>[B C]</code>.
+          Note that setting or modifying a "nodes" policy can cause
+          the existing master to go away if it is not listed in the
+          new policy. In order to prevent message loss, RabbitMQ will
+          keep the existing master around until at least one other
+          slave has synchronised (even if this is a long
+          time). However, once synchronisation has occured things will
+          proceed just as if the node had failed: consumers will be
+          disconnected from the master and will need to reconnect.
+        </p>
+        <p>
+          For example, if a queue is on <code>[A B]</code>
+          (with <code>A</code> the master), and you give it
+          a <code>nodes</code> policy telling it to be on
+          <code>[C D]</code>, it will initially end up on <code>[A C
+          D]</code>. As soon as the queue synchronises on its new
+          mirrors <code>[C D]</code>, the master on <code>A</code>
+          will shut down.
         </p>
 
         <h3>Some examples</h3>
