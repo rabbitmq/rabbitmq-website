@@ -141,26 +141,16 @@
           </p>
           <h4>Durable Entities, Exclusivity and Auto-Delete</h4>
           <p>
-            An <code>auto-delete</code> queue will be deleted automatically
-            when all consumers have finished using it. For exchanges, the concept
-            is the same, with the exchange being deleted when all queues have
-            finished using it.
-            When a queue is declared as <code>exclusive</code>, it can only be
-            accessed by the connection with which it was declared. Since we
-            know that the connection could break at any time, if the loss of
-            a queue (and the messages it contains) is unacceptable, then we
-            should avoid making it <code>exclusive</code> or setting it to
-            <code>auto-detele</code>, since we might loose the queue unintentionally.
             As the computer on which the broker is running could potentially crash
             at any time, to fully avoid data loss we must also ensure that the
             queue is marked as <code>durable</code> and the messages placed in it
-            marked as <code>persistent</code>.
-          </p>
-          <p>
+            marked as <code>persistent</code>. It's obviously a good idea to avoid
+            using <code>exclusive</code> or <code>auto-delete</code> queues if you
+            wish to keep messages around until they've been consumed.
             The trade off here is that we avoid data loss at a cost to the overall
             performance of the system. Persistent messages must be written to disk,
             which carries a cost that will reduce the throughput producers are able
-            to achieve.
+            to achieve. Declaration of durable entities has a certain overhead too.
           </p>
           <h4>Acknowledgements, Confirms and Transactions</h4>
           <p>
