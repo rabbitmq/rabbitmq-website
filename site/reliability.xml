@@ -68,20 +68,17 @@
           <doc:heading>Connectivity, Connection and Channel errors</doc:heading>
           <p>
             Connection failures can occur at any time. When a graceful shutdown occurs,
-            clients will recieve a <code>connection.close</code> message from the broker.
+            clients should recieve a <code>connection.close</code> message from the broker.
             Under other circumstances, the connection may be abbruptly terminated once
-            the operating system networking stack detects that the peer socket is non-responsive.
+            the operating system networking stack detects that a socket is non-responsive.
             Certain classes of server error can also lead to a <code>connection-error</code>.
             Errors on a connection will cause the broker to close the connection. Errors on
-            a channel however, invalidate only the channel itself and not the
-            connection on which it was created.
-          </p>
-          <p>
+            a channel invalidate only the channel itself (and not the connection on which
+            it was created).
             If a connection or channel terminates for <i>any</i> reason, then it is up to
-            the client to re-establish it in order to continue sending or receiving messages.
-            Remember, once a connection is torn down, all its channels will disappear:
-            any client code relying on these channels will now need to create new channels
-            once the new connection is established.
+            the client to re-establish it. Remember that once a connection is torn down,
+            all its channels will disappear: any client code relying on these channels
+            will now need to create new channels once the new connection is established.
           </p>  
           <p>
             Client libraries may take various approaches to signalling channel and
