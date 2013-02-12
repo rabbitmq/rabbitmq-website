@@ -91,30 +91,21 @@
           </p>
           <h4>Using Heartbeats</h4>
           <p>
-            When the network does fail, it can take the Operating System a fairly long
+            When the network does fail, it can take an Operating System a fairly long
             time to notice and pass this information on to running applications.
             For example, on Linux based systems, the default kernel parameters yield
             a potential delay of around 15 minutes after the first retransmission timeout.
-            Firewalls can also interfere with connectivity, by closing connections that
-            have been idle for a short while for example. Heartbeats ensure that disrupted
-            tcp connections get detected promptly. They also keep connections alive in the
-            presence of firewalls.
+            Even if your network is stable, firewalls can interfere with connectivity, by
+            closing connections that have been idle for a short while for example. Heartbeats
+            ensure that disrupted tcp connections get detected promptly. They also keep
+            connections alive in the presence of firewalls.
           </p>
           <p>
             In both the official Java and .NET clients, heartbeats are enabled by configuring
             the connection factory with the desired heartbeat interval. As with any other
             connection failure, the client may attempt to re-connect and re-establish new
             channels at any time. In RabbitMQ versions 3.0 and higher, the broker will
-            attempt to negotiate heartbeats by default, though the client can veto them.
-          </p>
-          <h4>Consumer Cancel Notifications</h4>
-          <p>
-            A RabbitMQ extension to the AMQP spec, consumer cancel notifications enable
-            clients to detect error conditions that would otherwise go unnoticed.
-            For clients that support this extension, a <code>basic.cancel</code> will be
-            sent if a queue from which the client is consuming is deleted, or in a clustered
-            scenario, if the node on which the queue is located fails. This notification is
-            particularly useful when consuming mirrored queues, which is covered later on.
+            attempt to negotiate heartbeats by default, though the client can still veto them.
           </p>
         </doc:subsection>
       </doc:section>
@@ -303,6 +294,15 @@
             opened channel, it will <em>not</em> be able to ACK them. Instead, the client should
             use <code>basic.recover</code> to request that all unacked message are resent on the
             current channel, at which point they can be acknowledged properly.
+          </p>
+          <h4>Consumer Cancel Notifications</h4>
+          <p>
+            A RabbitMQ extension to the AMQP spec, consumer cancel notifications enable
+            clients to detect error conditions that would otherwise go unnoticed.
+            For clients that support this extension, a <code>basic.cancel</code> will be
+            sent if a queue from which the client is consuming is deleted, or in a clustered
+            scenario, if the node on which the queue is located fails. This notification is
+            particularly useful when consuming mirrored queues, which is covered later on.
           </p>
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
