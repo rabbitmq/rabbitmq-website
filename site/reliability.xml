@@ -186,7 +186,7 @@
             messages are <em>not</em> requeued and the client can still ack/reject
             these messages in subsequent transactions. Unacked message are not automatically
             redelivered on rollback either; to have the broker resend these, the
-            consumer must use <code>basic.recover</code>, at which point all unacked
+            consumer must send <code>basic.recover</code>, at which point all unacked
             messages will be redelivered.
           </p>
           <p>
@@ -320,11 +320,12 @@
           </p>
           <h4>Client Recovery</h4>
           <p>
-            <code>basic.recover</code>
-            
-            Clients must be aware that
+            Whilst recovering from a channel or connection error, clients must be aware that
             attempting to acknowledge a message on a different channel from the one it was
-            received on will fail.
+            received on will fail. If the client is holding messages received on a previously
+            opened channel, it will <em>not</em> be able to ACK them. Instead, the client should
+            use <code>basic.recover</code> to request that all unacked message are resent on the
+            current channel, at which point they can be acknowledged properly.
           </p>
         </doc:subsection>
         <doc:subsection name="failover-and-recovery">
