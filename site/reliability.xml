@@ -36,11 +36,13 @@
             attribute has the same meaning for each: that the specified object
             will survive a restart of the broker. For queues and exchanges,
             the <code>durable</code> flag indicates that these objects will continue
-            to exist after a server restart. For messages sent with the
-            <code>delivery-mode</code> set to <i>persistent</i>, the broker will
-            <i>make a best-effort to hold persistent basic messages on a reliable
-            storage mechanism</i>. That guarantee can be strengthened by publishing
-            on a channel that uses <i>confirms</i> - as described below.
+            to exist after a server restart.
+            When messages are marked as persistent, the broker is responsible
+            for ensuring that they are safely held in stable storage once fully
+            received. As an optimisation, the broker <em>might not persist
+            a message if it can be delivered immediately</em> to a consumer,
+            however messages will not be discarded even in this case, until
+            an acknowledgement has been received.
           </p>
           <p>
             More details about specific flags pertaining to durability and
@@ -60,15 +62,6 @@
             <a href="/amqp-0-9-1-reference.html">AMQP Reference</a> and RabbitMQ's
             <a href="/amqp-0-9-1-errata.html">list of AMQP 0-9-1 errata</a> for
             more details.
-          </p>
-          <h4>Persistent Messages</h4>
-          <p>
-            When messages are marked as persistent, the broker is responsible
-            for ensuring that they are safely held in stable storage once fully
-            received. As an optimisation, the broker <em>might not persist
-            a message if it can be delivered immediately</em> to a consumer,
-            however messages will not be discarded even in this case, until
-            an acknowledgement has been received.
           </p>
         </doc:subsection>
         <doc:subsection name="connectivity">
