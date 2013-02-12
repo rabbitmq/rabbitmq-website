@@ -34,16 +34,13 @@
             without data loss. The AMQP standard has a notion of durability
             (or persistence) for Exchanges, Queues and Messages. In essense, this
             attribute has the same meaning for each: that the specified object
-            will survive a restart of the broker. Whether a broker restart was
-            deliberate or due to a node failure; The outcome is intended to be the
-            same regardless of the reason the node fails. For queues and exchanges,
-            when the <code>durable</code> flag is set upon sending the initial
-            <code>queue.declare</code> or <code>exchange.declare</code> method to
-            the server, the standard requires that these objects continue to
-            exist after a server restart. For messages sent with the <code>delivery-mode</code>
-            set to <i>persistent</i>, the standard requires the broker to
-            "<i>make a best-effort to hold persistent basic messages on a reliable
-            storage mechanism</i>."
+            will survive a restart of the broker. For queues and exchanges,
+            the <code>durable</code> flag indicates that these objects will continue
+            to exist after a server restart. For messages sent with the
+            <code>delivery-mode</code> set to <i>persistent</i>, the broker will
+            <i>make a best-effort to hold persistent basic messages on a reliable
+            storage mechanism</i>. That guarantee can be strengthened by publishing
+            on a channel that uses <i>confirms</i> - as described below.
           </p>
           <p>
             More details about specific flags pertaining to durability and
@@ -159,15 +156,15 @@
             they are delivered. This can result in message loss if, for example, the
             consumer dies (or the connection is severed) before the message can be
             fully recieved or processed. With acknowledgements enabled, the broker will
-            never dequeue a message until it has seen an ACK for it, which provides a
+            never dequeue a message until it has seen an acknowledgement, which provides a
             strong guarantee against message loss at the cost of reduced throughput
             in the consumer - which will see no further messages until previously
             delivered ones are acknowledged - and increased network traffic between
             the broker and consumers. Acknowledgements can be batched by setting the
             prefetch count using <code>basic.qos</code>, which enables clients to receive
-            a number of messages (up to the prefetch count before it must send an ACK).
-            Whether acknowledgements are batched or not, the broker will never dequeue
-            a message until it has been acked, as long as <code>no-ack=false</code>.
+            a batch of messages up to the prefetch count before it must send an ACK.
+            Whether acknowledgements are batched or not, the broker will never delete
+            a message until it has been acked (as long as <code>no-ack=false</code>).
           </p>
           <p>
             Transactional consumers - client's that have set <code>tx.select</code> on
@@ -175,7 +172,7 @@
             to the broker, by rolling back the transaction. In this case, consumed
             messages are <em>not</em> requeued and the client can still ack/reject
             these messages in subsequent transactions. Unacked message are not automatically
-            redelivered on rollback either; to have the broker resend these, the
+            redelivered on rollback; to have the broker resend these, the
             consumer must send <code>basic.recover</code>, at which point all unacked
             messages will be redelivered.
           </p>
