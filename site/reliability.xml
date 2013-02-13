@@ -7,17 +7,19 @@
   </head>
   <body show-in-this-page="true">
       <doc:section name="background-info">
-        <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
-        <p>
-          We assume a solid grounding in AMQP concepts and constructs.
-          If you're new to AMQP then we recommended you read the
-          <a href="/tutorials/amqp-concepts.html">
-            RabbitMQ Guide to AMQP Concepts
-          </a>,
-          <a href="http://www.rabbitmq.com/how.html">How To</a> pages
-          and take the time to work through the
-          <a href="/getstarted.html">RabbitMQ Tutorials</a>.
-        </p>
+        <doc:subsection name="pre-reqs">
+          <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
+          <p>
+            We assume a solid grounding in AMQP concepts and constructs.
+            If you're new to AMQP then we recommended you read the
+            <a href="/tutorials/amqp-concepts.html">
+              RabbitMQ Guide to AMQP Concepts
+            </a>,
+            <a href="http://www.rabbitmq.com/how.html">How To</a> pages
+            and take the time to work through the
+            <a href="/getstarted.html">RabbitMQ Tutorials</a>.
+          </p>
+        </doc:subsection>
       </doc:section>
       <doc:section name="failure-classes">
         <doc:heading>Types of failure</doc:heading>
@@ -174,7 +176,32 @@
           a disc node and ensure you start it first to prevent any configuration changes being
           lost.
         </p>
+        <h4>Working with HA/Mirrored Queues</h4>
+        <p>
+          Mirrored queues replicate queue contents across all configured slave nodes,
+          tolerating node failures seamlessly and without message loss in most circumstances.
+          As long as producers use channels in confirm mode and persistent messages, data
+          integrity is <em>very</em> high.
+          One area where message loss can occur however, is when a master fails and the
+          eldest slave is not fully synchronised.
+          Another consideration is that consuming from a mirrored-queue with noAck=true
+          can always lead to message loss, regardless of enabling HA.
+        </p>
       </doc:section>
+
+        <p>
+          Consumers must still be ready to handle duplicate messages when using HA queues,
+          despite the fact that clustering/HA shoots for consistency and availability from
+          the CAP theorem.
+          In the case where a master fails, the promoted slave considers all previous consumers
+          to have been abruptly disconnected and summarily requeues all messages that are
+          still pending ACKs. Clients connected to a surviving node which are using Rabbit's
+          Consumer Cancel Notification extension will receive a notification that their
+          subscription to the mirrored-queue has been abruptly cancelled, at which point
+          they should be prepared to handle duplicate messages if necessary.
+        </p>
+
+
       <doc:section name="at-the-broker">
         <doc:subsection name="connectivity">
           <doc:heading>Connectivity, Connection and Channel errors</doc:heading>
@@ -306,28 +333,6 @@
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
         <h4>Clustering</h4>
-
-        <h4>Working with HA/Mirrored Queues</h4>
-        <p>
-          Utilising RabbitMQ's robust HA/Mirrored queues, we can tolerate node failures
-          without message loss in most circumstances. As long as producers use channels
-          in confirm mode and persistent messages, data integrity is <em>very</em> high.
-          One area where message loss can occur however, is when a master fails and the
-          eldest slave is not fully synchronised. There's little to be done about this.
-          Another consideration is that consuming from a mirrored-queue with noAck=true
-          can always lead to message loss, regardless of enabling HA.
-        </p>
-        <p>
-          Consumers must still be ready to handle duplicate messages when using HA queues,
-          despite the fact that clustering/HA shoots for consistency and availability from
-          the CAP theorem.
-          In the case where a master fails, the promoted slave considers all previous consumers
-          to have been abruptly disconnected and summarily requeues all messages that are
-          still pending ACKs. Clients connected to a surviving node which are using Rabbit's
-          Consumer Cancel Notification extension will receive a notification that their
-          subscription to the mirrored-queue has been abruptly cancelled, at which point
-          they should be prepared to handle duplicate messages if necessary.
-        </p>
         <h4>Federated RabbitMQ</h4>
         <p>
           When consuming from a queue bound to a federated exchange, message loss will not
