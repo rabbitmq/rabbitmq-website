@@ -32,7 +32,7 @@
           In addition to connectivity failures, the broker and producing/consuming
           client applications can crash at any time. Even if client applications
           are able to keep running, logic errors (e.g., queue/exchange objects missing
-          on the server, equivalence checks failure during queue/exchange declare)
+          on the server, equivalence checks failing during queue/exchange declare, etc)
           can cause channel and/or connection errors which force the client to
           establish a new connection/channel and recover from the problem.
         </p>
@@ -63,13 +63,10 @@
         <p>
           Heartbeats ensure that disrupted tcp connections get detected promptly.
           They also keep connections alive in the presence of firewalls.
-        </p>
-        <p>
           In both the official Java and .NET clients, heartbeats are enabled by configuring
-          the connection factory with the desired heartbeat interval. As with any other
-          connection failure, the client may attempt to re-connect and re-establish new
-          channels at any time. In RabbitMQ versions 3.0 and higher, the broker will
-          attempt to negotiate heartbeats by default, though the client can still veto them.
+          the connection factory with the desired heartbeat interval. In RabbitMQ versions 3.0
+          and higher, the broker will attempt to negotiate heartbeats by default, though the
+          client can still veto them.
         </p>
         <h4>Acknowledgements</h4>
         <p>
