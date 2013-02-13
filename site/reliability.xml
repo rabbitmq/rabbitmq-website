@@ -200,6 +200,33 @@
           to the client.
         </p>
       </doc:section>
+      <doc:section name="consumer-connectivity-failures">
+        <doc:heading>Consumer Connectivity Failures and Unhandled Messages</doc:heading>
+        <p>
+          In the event of a network failure (or a node crashing), consumers must be able to
+          code with duplicated messages - RabbitMQ guarantees <em>at-least-once</em> delivery,
+          not <em>exactly-once</em>. The client may utilise the <code>redelivered</code> flag
+          if it is set on <code>basic.deliver</code>, but should not rely solely on this to
+          determine whether or not it has seen a message before. Instead, clients are encouraged
+          to utilise application specific identifiers (passed either in the <code>message-id</code>
+          or some other custom header) to identify duplicates.
+          Some clients may prefer to make message handling idempotent rather than explicitly deal
+          with de-duplicating inbound messages.
+        </p>
+        <h4>Consumer Cancel Notifications</h4>
+        <p>
+          A RabbitMQ extension to AMQP, consumer cancel notifications enable clients to detect
+          error conditions that would otherwise go unnoticed.
+          For clients that support the extension, a <code>basic.cancel</code> will be
+          sent if a queue from which the client is consuming is deleted, or in a clustered
+          scenario, if the node on which the queue is located fails. In the case where a master
+          fails, the promoted slave considers all previous consumers to have been abruptly disconnected
+          and summarily requeues all messages that are still pending ACKs. Clients connected to a surviving
+          node which are using Consumer Cancel Notifications should treat the notification that their
+          subscription to the mirrored-queue has been abruptly cancelled as a signal that they should
+          be prepared to handle duplicate messages if necessary.
+        </p>
+      </doc:section>
   </body>
 </html>
 
