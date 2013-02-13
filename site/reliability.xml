@@ -166,16 +166,6 @@
           At least one disk node should be running at all times to prevent data loss. If you
           stop and forcefully resetting all disc nodes in a cluster, data loss is quite likely. 
         </p>
-        <p>
-          The last node in a cluster to go down (i.e., stop) must be the first node to be brought
-          back online, otherwise the other nodes will wait 30 seconds for it to come back online,
-          then fail. If the last node to go offline cannot be brought back up, you can remove it
-          using the <code>rabbitmqctl forget_cluster_node</code> command. Cluster upgrades force
-          you to take all the nodes offline if migrating to a new major version (e.g., from
-          3.0.3 to 3.1.0). When performing this upgrade, ensure that the last node to stop was
-          a disc node and ensure you start it first to prevent any configuration changes being
-          lost.
-        </p>
         <h4>Working with HA/Mirrored Queues</h4>
         <p>
           Mirrored queues replicate queue contents across all configured slave nodes,
@@ -183,176 +173,31 @@
           As long as producers use channels in confirm mode and persistent messages, data
           integrity is <em>very</em> high.
           One area where message loss can occur however, is when a master fails and the
-          eldest slave is not fully synchronised.
+          eldest slave is not fully synchronised. Since RabbitMQ 3.1 it is possible to
+          use <em>eager synchronisation</em> to guard against this possibility.
           Another consideration is that consuming from a mirrored-queue with noAck=true
           can always lead to message loss, regardless of enabling HA.
         </p>
       </doc:section>
-
+      <doc:section name="producer-connectivity-failures">
+        <doc:heading>Producer Connectivity Failures and Un-routable Messages</doc:heading>
         <p>
-          Consumers must still be ready to handle duplicate messages when using HA queues,
-          despite the fact that clustering/HA shoots for consistency and availability from
-          the CAP theorem.
-          In the case where a master fails, the promoted slave considers all previous consumers
-          to have been abruptly disconnected and summarily requeues all messages that are
-          still pending ACKs. Clients connected to a surviving node which are using Rabbit's
-          Consumer Cancel Notification extension will receive a notification that their
-          subscription to the mirrored-queue has been abruptly cancelled, at which point
-          they should be prepared to handle duplicate messages if necessary.
+          With a channel set to <code>confirm</code> mode, a producer can handle connection
+          failures by retransmitting any messages that have no been confirmed by the broker.
+          It is possible that messages will be duplicated when doing so, because the broker
+          might have sent a confirmation that never reached the producer (due to network
+          failures, etc). Consumer applications will need to handle de-duplicating in this
+          case; The <code>message-id</code> property can be used to convey an application
+          specific unique identifier if required.
         </p>
-
-
-      <doc:section name="at-the-broker">
-        <doc:subsection name="connectivity">
-          <doc:heading>Connectivity, Connection and Channel errors</doc:heading>
-          <p>
-            Connection failures can occur at any time. When a graceful shutdown occurs,
-            clients should recieve a <code>connection.close</code> message from the broker.
-            Under other circumstances, the connection may be abbruptly terminated once
-            the operating system networking stack detects that a socket is non-responsive.
-            Certain classes of server error can also lead to a <code>connection-error</code>.
-            Errors on a connection will cause the broker to close the connection. Errors on
-            a channel invalidate only the channel itself (and not the connection on which
-            it was created).
-            If a connection or channel terminates for <i>any</i> reason, then it is up to
-            the client to re-establish it. Remember that once a connection is torn down,
-            all its channels will disappear: any client code relying on these channels
-            will now need to create new channels once the new connection is established.
-          </p>  
-        </doc:subsection>
-      </doc:section>
-      <doc:section name="robust-data-flow">
-          <doc:heading>Transferring Responsibility from Producer to Broker</doc:heading>
-          <p>
-            How can a producer application ensure that all operations are
-            safely transferred to the broker in the face of server errors,
-            connection failure, missing or incorrect object definitions,
-            application logic errors and potential client failures?
-          </p>
-          <h4>Durable Entities, Exclusivity and Auto-Delete</h4>
-          <p>
-            As the computer on which the broker is running could potentially crash
-            at any time, to fully avoid data loss we must also ensure that the
-            queue is marked as <code>durable</code> and the messages placed in it
-            marked as <code>persistent</code>. It's obviously a good idea to avoid
-            using <code>exclusive</code> or <code>auto-delete</code> queues if you
-            wish to keep messages around until they've been consumed.
-            The trade off here is that we avoid data loss at a cost to the overall
-            performance of the system. Persistent messages must be written to disk,
-            which carries a cost that will reduce the throughput producers are able
-            to achieve. Declaration of durable entities has a certain overhead too.
-          </p>
-
-          <h4>Handling Lost ACKs</h4>
-          <p>
-            Whilst correct use of producer confirms guarantees against message loss, it
-            is still possible for a network failure to cause message duplication.
-            If one or more messages have been sent and the producer is waiting for ACKs
-            (i.e., confirms) from the broker and a network error occurs, upon which the
-            connection is broken, forcing the producer to re-connect. Having not seen an 
-            ACK for these messages, we must re-transmit them, however it is <em>possible</em>
-            that the broker did receive them <b>and</b> sent ACKs for some (or all), but all those
-            ACKs en-route to the producer were lost due to the network failure. The producer
-            has no choice but to re-transmit the messages, and it will be necessary for
-            consumers to handle potential duplicates somehow. The application can utilise
-            the AMQP Basic <code>message-id</code> field to assist with this, or use a custom
-            header if the <code>shortstr</code> data type is not suitable for the application's
-            purposes. Responsibility for de-duplicating messages with the same application
-            specific message-id belongs with the consumer, i.e., you will have to write this
-            logic yourself, based on your application's requirements.
-          </p>
-          <h4>Handling un-routable messages</h4>
-          <p>
-            AMQP provides a neat recipe for detecting situations in which a published
-            message cannot be routed. When the <code>mandatory</code> flag is set on a
-            <code>basic.publish</code> which cannot be routed by the broker, a
-            <code>basic.return</code>, containing a reply code and textual explanation
-            will be sent back to the client.
-          </p>
-      </doc:section>
-      <doc:section name="broker-2-consumer">
-        <doc:subsection name="reliable-clients">
-          <doc:heading>Transfered Responsibility from Broker to Consumer</doc:heading>
-          <p>
-            All clients need to be prepared to handle error conditions at runtime.
-            Failures can occur at various points between client and server, each of which
-            requires special handling by the application developer.
-          </p>
-          <p>
-            Consumers should be particularly aware of the effect that ACKs have on
-            message consuption. Once an ACK is sent, the broker will remove the message
-            from the queue, and the consumer (which ACKed the message) is not <em>fully</em>
-            responsible for it. If the consumer crashes before sending an ACK, the message
-            will be redelivered to another consumer as one becomes available. If the
-            <code>basic.qos</code> prefetch count is set, then however many unacknowledged
-            message the consumer holds, these will all be subject to the same treatment.
-          </p>
-          <h4>Handling lost ACKs and requesting re-delivery</h4>
-          <p>
-            Consumers should always be ready to handle duplicate messages, even those for
-            which they have sent acknowledgements. It's possible for a consumer to send a
-            <code>basic.ack</code> and the network to fail such that the ACK is not delivered.
-            It is also possible for ACKs to be lost in a clustered HA configuration, when the
-            node on which a queue is located fails. In this case, a promoted slave will
-            requeues all messages which it considers to be pending acknowledgements, which can
-            include messages for which a client has issued an ACK if the acknowledgement was
-            lost on the wire before reaching the master or lost during broadcast from the master
-            to the slaves.
-          </p>
-          <p>
-            When network failures occur, clients will need to re-connect and re-establish channels.
-            The same is true for clients connected to a failed node in a clustered configuration,
-            who will need to connect to a surviving node in the cluster. Once connections and
-            channels are re-established, if consuming from the same queue (or an HA queue that has
-            failed over to a slave node), it's quite possible you will subsequently receive messages
-            that have been seen previously due to lost ACKs.
-          </p>
-          <h4>Client Recovery</h4>
-          <p>
-            Whilst recovering from a channel or connection error, clients must be aware that
-            attempting to acknowledge a message on a different channel from the one it was
-            received on will fail. If the client is holding messages received on a previously
-            opened channel, it will <em>not</em> be able to ACK them. Instead, the client should
-            use <code>basic.recover</code> to request that all unacked message are resent on the
-            current channel, at which point they can be acknowledged properly.
-          </p>
-          <h4>Consumer Cancel Notifications</h4>
-          <p>
-            A RabbitMQ extension to the AMQP spec, consumer cancel notifications enable
-            clients to detect error conditions that would otherwise go unnoticed.
-            For clients that support this extension, a <code>basic.cancel</code> will be
-            sent if a queue from which the client is consuming is deleted, or in a clustered
-            scenario, if the node on which the queue is located fails. This notification is
-            particularly useful when consuming mirrored queues, which is covered later on.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="failover-and-recovery">
-          <doc:heading>Failover and Recovery</doc:heading>
-        </doc:subsection>
-      </doc:section>
-      <doc:section name="distributed">
-        <doc:heading>Distributed RabbitMQ</doc:heading>
-        <h4>Clustering</h4>
-        <h4>Federated RabbitMQ</h4>
+        <h4>Handling un-routable messages</h4>
         <p>
-          When consuming from a queue bound to a federated exchange, message loss will not
-          occur providing the configuration is not using <code>noAck</code> mode. Downstream
-          nodes can still fail of course. If the downstream node is part of a cluster, then
-          links to upstream exchanges will be recreated on a surviving node, which is
-          picked at random.
-        </p>
-        <p>
-          Federating clusters requires special attention if you've federated the same exchange
-          on two upstreams which are clustered and made the federation (internal) queues (on
-          the two upstreams) HA/mirrored. Rather than having an upstream set containing connection
-          definitions for both upstream nodes, you should aim for just one connection (perhaps to
-          an upstream load balancer) otherwise the message ordering cannot be preserved!
-          The proxy (e.g., load balancer) is entirely responsible for maintaining a <i>sticky</i>
-          session, as you want the link to consume from just one node as long as that node stays
-          online. Only if the node dies should the proxy switch to another node.
-          RabbitMQ Federation versions >= 3.1 provide explicit support for setting multiple
-          upstream URIs, which aleviates the need to proxy the upstream cluster as the federation
-          links will handle the failover automatically.
+          A simple solution to avoiding un-routable messages is to delcare the queue in the
+          producer. When this is not possible, AMQP provides a neat recipe for detecting situations
+          in which a published message cannot be routed. When the <code>mandatory</code> flag is
+          set on a <code>basic.publish</code> which cannot be routed by the broker, a
+          <code>basic.return</code>, containing a reply code and textual explanation will be sent back
+          to the client.
         </p>
       </doc:section>
   </body>
