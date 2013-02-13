@@ -139,46 +139,19 @@
           (e.g., hardware) failure.
         </p>
       </doc:section>
-      
       <doc:section name="at-the-broker">
-        <doc:subsection name="durability">
-          <doc:heading>General Concepts</doc:heading>
-          <h4>Durability and Persistence</h4>
-          <p>
-            RabbitMQ implements a number of features to handle server restarts
-            without data loss. The AMQP standard has a notion of durability
-            (or persistence) for Exchanges, Queues and Messages. In essense, this
-            attribute has the same meaning for each: that the specified object
-            will survive a restart of the broker. For queues and exchanges,
-            the <code>durable</code> flag indicates that these objects will continue
-            to exist after a server restart.
-            When messages are marked as persistent, the broker is responsible
-            for ensuring that they are safely held in stable storage once fully
-            received. As an optimisation, the broker <em>might not persist
-            a message if it can be delivered immediately</em> to a consumer,
-            however messages will not be discarded even in this case, until
-            an acknowledgement has been received.
-          </p>
-          <p>
-            More details about specific flags pertaining to durability and
-            persistence can be found in the
-            <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
-          </p>
-          <p>
-            The AMQP declare method for both the exchange and queue classes is a
-            declarative command. If the queue/exchange already exists, then we
-            still receive <code>declare-ok</code> providing that the arguments
-            given for subsequent invocations of this method are the same. As the
-            spec puts it, this method will "verify the exchange exists, create
-            if needed." When writing clients it is, therefore, reasonable to declare
-            exchanges/queues when the applications first connects to the broker.
-            This operation will only fail if the object declaration fails the
-            equivalence check; See the
-            <a href="/amqp-0-9-1-reference.html">AMQP Reference</a> and RabbitMQ's
-            <a href="/amqp-0-9-1-errata.html">list of AMQP 0-9-1 errata</a> for
-            more details.
-          </p>
-        </doc:subsection>
+        <doc:heading>The Broker Perspective</doc:heading>
+        <p>
+          RabbitMQ implements a number of features to handle server restarts
+          without data loss. The AMQP standard has a notion of durability
+          (or persistence) for Exchanges, Queues and Messages: for each, this
+          implies the specified object will survive a restart.
+          More details about specific flags pertaining to durability and
+          persistence can be found in the
+          <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
+        </p>
+      </doc:section>
+      <doc:section name="at-the-broker">
         <doc:subsection name="connectivity">
           <doc:heading>Connectivity, Connection and Channel errors</doc:heading>
           <p>
