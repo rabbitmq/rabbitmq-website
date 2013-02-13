@@ -46,6 +46,9 @@
             <li>closed due to broker shut down</li>
             <li>closed due to <i>connection errors</i></li>
           </ul>
+          In any case, the client will need to establish a new connection to the
+          broker. Any channels opened on the previous connection will have been
+          automatically closed and these will need re-opening too.
         </p>
       </doc:section>
       <doc:section name="concepts">
@@ -153,7 +156,7 @@
             which carries a cost that will reduce the throughput producers are able
             to achieve. Declaration of durable entities has a certain overhead too.
           </p>
-          <h4>Acknowledgements, Confirms and Transactions</h4>
+          <h4>Confirms and Transactions</h4>
           <p>
             Unless acknowledgements are in use (i.e., <code>no-ack=false</code>) the
             broker will <em>assume</em> success and dequeue messages immediately after
