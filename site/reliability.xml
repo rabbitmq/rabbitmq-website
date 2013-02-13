@@ -371,6 +371,12 @@
           the two upstreams) HA/mirrored. Rather than having an upstream set containing connection
           definitions for both upstream nodes, you should aim for just one connection (perhaps to
           an upstream load balancer) otherwise the message ordering cannot be preserved!
+          The proxy (e.g., load balancer) is entirely responsible for maintaining a <i>sticky</i>
+          session, as you want the link to consume from just one node as long as that node stays
+          online. Only if the node dies should the proxy switch to another node.
+          RabbitMQ Federation versions >= 3.1 provide explicit support for setting multiple
+          upstream URIs, which aleviates the need to proxy the upstream cluster as the federation
+          links will handle the failover automatically.
         </p>
       </doc:section>
   </body>
