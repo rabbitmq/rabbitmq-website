@@ -69,7 +69,15 @@
         <p>
           A <code>basic.ack</code> indicates not only the sender's reciept of a message,
           but a transfer of ownership wherein the acknowledging party assumes full
-          responsibility for it.
+          responsibility for it. With acknowledgements enabled, the broker will never
+          dequeue a message until it has seen a consumers acknowledgement, providing a
+          strong guarantee against message loss at the cost of reduced throughput
+          in the consumer - which will see no further messages until previously
+          delivered ones are acknowledged - and increased network traffic between the two.         
+        </p>
+        <h4>Transactions and Producer Confirms</h4>
+        <p>
+          
         </p>
       </doc:section>
       <doc:section name="concepts">
@@ -175,12 +183,7 @@
             broker will <em>assume</em> success and dequeue messages immediately after
             they are delivered. This can result in message loss if, for example, the
             consumer dies (or the connection is severed) before the message can be
-            fully recieved or processed. With acknowledgements enabled, the broker will
-            never dequeue a message until it has seen an acknowledgement, which provides a
-            strong guarantee against message loss at the cost of reduced throughput
-            in the consumer - which will see no further messages until previously
-            delivered ones are acknowledged - and increased network traffic between
-            the broker and consumers. Acknowledgements can be batched by setting the
+            fully recieved or processed.  Acknowledgements can be batched by setting the
             prefetch count using <code>basic.qos</code>, which enables clients to receive
             a batch of messages up to the prefetch count before it must send an ACK.
             Whether acknowledgements are batched or not, the broker will never delete
