@@ -6,12 +6,6 @@
     <title>Reliability Guide</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="overview">
-        <p>
-          Learn how the different levels of message delivery guarantee
-          in RabbitMQ work and the various trade-offs available.
-        </p>
-      </doc:section>
       <doc:section name="background-info">
         <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
         <p>
@@ -23,6 +17,35 @@
           <a href="http://www.rabbitmq.com/how.html">How To</a> pages
           and take the time to work through the
           <a href="/getstarted.html">RabbitMQ Tutorials</a>.
+        </p>
+      </doc:section>
+      <doc:section name="failure-classes">
+        <doc:heading>Types of failure</doc:heading>
+        <p>
+          Network problems are the most common class of failure that users
+          have to cope with. Not only do network connections fail, firewalls
+          can interrupt <i>stable</i> connections that have been idle for some
+          time, and connection failures are not always detected immediately by
+          applications.
+          For example, on Linux based systems, the default kernel parameters yield
+          a potential delay of around 15 minutes after the first retransmission timeout.
+          In addition to connectivity failures, the broker and producing/consuming
+          client applications can crash at any time. Even if client applications
+          are able to keep running, logic errors (e.g., queue/exchange objects missing
+          on the server, equivalence checks failure during queue/exchange declare)
+          can cause channel and/or connection errors which force the client to
+          establish a new connection/channel and recover from the problem.
+        </p>
+      </doc:section>
+      <doc:section name="reliable-clients">
+        <doc:heading>Writing Reliable Client Code</doc:heading>
+        <p>
+          Connection failures come in three varieties:
+          <ul>
+            <li>broken network connections (not always detected immediately)</li>
+            <li>closed due to broker shut down</li>
+            <li>closed due to <i>connection errors</i></li>
+          </ul>
         </p>
       </doc:section>
       <doc:section name="concepts">
