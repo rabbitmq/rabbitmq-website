@@ -572,9 +572,10 @@ Cluster status of node rabbit@rabbit3 ...
 ...done.</pre>
         <p>
           Note that, in order to remove a node from an auto-configured
-          cluster, it must first be removed from the rabbitmq.config
-          files of the other nodes in the cluster.  Only then, can it
-          be reset safely.
+          cluster, it must first be removed from the <a
+          href="configure.html#configuration-file">RabbitMQ
+          configuration file</a> files of the other nodes in the
+          cluster.  Only then, can it be reset safely.
         </p>
         </doc:subsection>
       </doc:section>

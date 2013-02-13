@@ -48,10 +48,13 @@
        <doc:subsection name="keys-and-certs">
        <doc:heading>Check keys and certificates with OpenSSL</doc:heading>
        <p>
-         We will now verify the certificates and keys specified in <code>rabbitmq.config</code> against
-         an alternative SSL implementation. This example uses OpenSSL
-         <a href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
-         and <a href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
+         We will now verify the certificates and keys specified in the
+         <a href="configure.html#configuration-file"> configuration
+         file</a> against an alternative SSL implementation. This
+         example uses OpenSSL <a
+         href="http://www.openssl.org/docs/apps/s_client.html">s_client</a>
+         and <a
+         href="http://www.openssl.org/docs/apps/s_server.html">s_server</a>.
          We will confirm that the certificates and keys can be used to
          establish a secure link by connecting two terminals. For the
          examples that follow, we will assume you have the following:
