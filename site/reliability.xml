@@ -50,6 +50,27 @@
           broker. Any channels opened on the previous connection will have been
           automatically closed and these will need re-opening too.
         </p>
+        <p>
+          Client libraries may take various approaches to signalling channel and
+          connection errors. The official Java client provides methods for adding
+          a <code>ShutdownListener</code> callback on both connection and channel
+          objects, and the .NET client provides the
+          <code>IConnection.ConnectionShutdown</code> and
+          <code>IModel.ModelShutdown</code> events for detecting connection and
+          channel errors respectively.
+        </p>
+        <h4>Acknowledgements</h4>
+        <p>
+          Both producer and consumer clients can take advantage of <code>basic.ack</code>
+          to guarantee <i>at-least-once</i> delivery. Without the use of <code>basic.ack</code>
+          message loss is possible during publish and consume operations and the broker
+          guarantees only <i>at-most-once</i> delivery.
+        </p>
+        <p>
+          A <code>basic.ack</code> indicates not only the sender's reciept of a message,
+          but a transfer of ownership wherein the acknowledging party assumes full
+          responsibility for it.
+        </p>
       </doc:section>
       <doc:section name="concepts">
         <doc:subsection name="durability">
@@ -106,15 +127,7 @@
             all its channels will disappear: any client code relying on these channels
             will now need to create new channels once the new connection is established.
           </p>  
-          <p>
-            Client libraries may take various approaches to signalling channel and
-            connection errors. The official Java client provides methods for adding
-            a <code>ShutdownListener</code> callback on both connection and channel
-            objects, and the .NET client provides the
-            <code>IConnection.ConnectionShutdown</code> and
-            <code>IModel.ModelShutdown</code> events for detecting connection and
-            channel errors respectively.
-          </p>
+
           <h4>Using Heartbeats</h4>
           <p>
             When the network does fail, it can take an Operating System a fairly long
