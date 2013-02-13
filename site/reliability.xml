@@ -331,7 +331,7 @@
         <doc:subsection name="failover-and-recovery">
           <doc:heading>Failover and Recovery</doc:heading>
         </doc:subsection>
-      </doc:secion>
+      </doc:section>
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
         <h4>Clustering</h4>
