@@ -177,18 +177,6 @@
             which carries a cost that will reduce the throughput producers are able
             to achieve. Declaration of durable entities has a certain overhead too.
           </p>
-          <h4>Confirms and Transactions</h4>
-          <p>
-            Unless acknowledgements are in use (i.e., <code>no-ack=false</code>) the
-            broker will <em>assume</em> success and dequeue messages immediately after
-            they are delivered. This can result in message loss if, for example, the
-            consumer dies (or the connection is severed) before the message can be
-            fully recieved or processed.  Acknowledgements can be batched by setting the
-            prefetch count using <code>basic.qos</code>, which enables clients to receive
-            a batch of messages up to the prefetch count before it must send an ACK.
-            Whether acknowledgements are batched or not, the broker will never delete
-            a message until it has been acked (as long as <code>no-ack=false</code>).
-          </p>
           <p>
             Transactional consumers - client's that have set <code>tx.select</code> on
             an open channel - can optionally abandon acknowledgements already sent
