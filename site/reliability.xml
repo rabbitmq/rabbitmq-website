@@ -140,7 +140,7 @@
         </p>
       </doc:section>
       <doc:section name="at-the-broker">
-        <doc:heading>The Broker Perspective</doc:heading>
+        <doc:heading>Durability and Persistence</doc:heading>
         <p>
           RabbitMQ implements a number of features to handle server restarts
           without data loss. The AMQP standard has a notion of durability
@@ -149,6 +149,30 @@
           More details about specific flags pertaining to durability and
           persistence can be found in the
           <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
+        </p>
+      </doc:section>
+      <doc:section name="clustering-and-ha">
+        <doc:heading>Clustering and High Availability</doc:heading>
+        <p>
+          In a RabbitMQ cluster, all definitions (of queues, exchanges, bindings, users, etc)
+          are mirrored across the entire cluster with full atomic guarantees.
+          Queues behave a little diferently from other objects, residing only on the node that
+          creates them, though they remain visible and reachable from all nodes.
+          Nodes can join and leave a cluster dynamically at runtime and can opt
+          to maintain thier state in memory only, or to store it additionally on the disc as
+          well. A RAM only node will loose all its state after a restart (or failure).
+          At least one disk node should be running at all times to prevent data loss. If you
+          stop and forcefully resetting all disc nodes in a cluster, data loss is quite likely. 
+        </p>
+        <p>
+          The last node in a cluster to go down (i.e., stop) must be the first node to be brought
+          back online, otherwise the other nodes will wait 30 seconds for it to come back online,
+          then fail. If the last node to go offline cannot be brought back up, you can remove it
+          using the <code>rabbitmqctl forget_cluster_node</code> command. Cluster upgrades force
+          you to take all the nodes offline if migrating to a new major version (e.g., from
+          3.0.3 to 3.1.0). When performing this upgrade, ensure that the last node to stop was
+          a disc node and ensure you start it first to prevent any configuration changes being
+          lost.
         </p>
       </doc:section>
       <doc:section name="at-the-broker">
@@ -168,8 +192,6 @@
             all its channels will disappear: any client code relying on these channels
             will now need to create new channels once the new connection is established.
           </p>  
-
-
         </doc:subsection>
       </doc:section>
       <doc:section name="robust-data-flow">
@@ -284,30 +306,7 @@
       <doc:section name="distributed">
         <doc:heading>Distributed RabbitMQ</doc:heading>
         <h4>Clustering</h4>
-        <p>
-          In a RabbitMQ cluster, state required for broker operation is replicated across all
-          nodes in the cluster. Queues behave a little diferently from other objects, residing
-          only on the node that creates them, though they remain visible and reachable from all
-          nodes. Queues can be replicated across a cluster using the HA/Mirrored queue policy,
-          which is covered below.
-        </p>
-        <p>
-          Nodes can join and leave a cluster dynamically at runtime. Clustered nodes can opt
-          to maintain thier state in memory only, or to store it additionally on the disc as
-          well. A RAM only node will loose all its state after a restart (or failure).
-          At least one disk node should be running at all times to prevent data loss. If you
-          stop and forcefully resetting all disc nodes in a cluster, data loss is quite likely. 
-        </p>
-        <p>
-          The last node in a cluster to go down (i.e., stop) must be the first node to be brought
-          back online, otherwise the other nodes will wait 30 seconds for it to come back online,
-          then fail. If the last node to go offline cannot be brought back up, you can remove it
-          using the <code>rabbitmqctl forget_cluster_node</code> command. Cluster upgrades force
-          you to take all the nodes offline if migrating to a new major version (e.g., from
-          3.0.3 to 3.1.0). When performing this upgrade, ensure that the last node to stop was
-          a disc node and ensure you start it first to prevent any configuration changes being
-          lost.
-        </p>
+
         <h4>Working with HA/Mirrored Queues</h4>
         <p>
           Utilising RabbitMQ's robust HA/Mirrored queues, we can tolerate node failures
