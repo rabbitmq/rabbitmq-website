@@ -37,8 +37,8 @@
           establish a new connection/channel and recover from the problem.
         </p>
       </doc:section>
-      <doc:section name="reliable-clients">
-        <doc:heading>Writing Reliable Client Code</doc:heading>
+      <doc:section name="connection-failures">
+        <doc:heading>Handling Connection Failures</doc:heading>
         <p>
           Connection failures come in three varieties:
           <ul>
@@ -68,7 +68,9 @@
           and higher, the broker will attempt to negotiate heartbeats by default, though the
           client can still veto them.
         </p>
-        <h4>Acknowledgements</h4>
+      </doc:section>
+      <doc:section name="acknowledgements">
+        <doc:heading>Acknowledgements</doc:heading>
         <p>
           Both producer and consumer clients can take advantage of <code>basic.ack</code>
           to guarantee <i>at-least-once</i> delivery. Without the use of <code>basic.ack</code>
@@ -84,58 +86,61 @@
           in the consumer - which will see no further messages until previously
           delivered ones are acknowledged - and increased network traffic between the two.         
         </p>
-        <h4>Transactions and Producer Confirms</h4>
-          <p>
-            Even with persistent messages, broker failure can occur between receipt of the
-            message and writing to the disk. Transactions eliminate this risk, sending a
-            <code>commit-ok</code> to the client only once all steps have been completed.
-            AMQP transactions are intended to provide atomicity only in a single queue,
-            however in RabbitMQ, transactions are <em>not</em> atomic even in a single queue.
-            A fault during <code>tx.commit</code> can result in a sub-set of the publishes
-            appearing in the queue after a broker restart. If the <code>tx.commit-ok</code> is
-            received however, Rabbit guarantees that all messages have been either placed
-            in a queue, or a <code>basic.return</code> will have been issued for them
-            already. With persistent messages, the broker guarantees that the messages
-            have hit the disk and <code>fsync</code> has been invoked to synchronise with the
-            file system.
-          </p>
-          <p>
-            Transactions have a significant impact on performance. Producer/publisher confirms
-            offer a lightweight alternative to transactions and ensure the same guarantee of
-            <i>at-least-once</i> delivery, but offer far superiour performance.
-            With confirms enabled on a channel, once a message is sent to the broker,
-            the producer will receive a <code>basic.ack</code> once one of the following
-            conditions holds:
-            <ul>
-              <li>an un-routable mandatory message is confirmed
-              right after the <code>basic.return</code> is sent</li>
-              <li>a transient message is confirmed the moment it is enqueued</li>
-              <li>a persistent message is confirmed when it is persisted to disk
-              or when it is consumed on every queue</li>
-            </ul>
-            Once a <code>basic.ack</code> arrives, the message is <em>confirmed</em>
-            and the publisher can be assured that the broker has taken full
-            responsibility for it. In particular, for a persistent message, the
-            broker ensures that a full fsync to the filesystem takes place
-            before sending the <code>basic.ack</code>, ensuring that all I/O
-            buffers have been flushed to disk properly.
-          </p>
-          <p>
-            Despite confirms exhibiting better performance characteristics than
-            transactions, there is still a cost associated with forcing an
-            <code>fsync</code> to the disk, which will reduce throughput. Network
-            latency also plays a role here, as the client waits for <code>confirm-ok</code>
-            to be sent back by the broker. These costs can be reduced by batching
-            confirms (i.e., only waiting for confirms after a batch of publishes).
-          </p>
-          <p>
-            Note that if a disk has write caching enabled, even calling <code>fsync</code>
-            cannot guarantee that data has actually made it to permanent storage,
-            in which case there is a posibility of message loss in case of server
-            (e.g., hardware) failure.
-          </p>
       </doc:section>
-      <doc:section name="concepts">
+      <doc:section name="tx-and-confirms">
+        <doc:heading>Transactions and Producer Confirms</doc:heading>
+        <p>
+          Even with persistent messages, broker failure can occur between receipt of the
+          message and writing to the disk. Transactions eliminate this risk, sending a
+          <code>commit-ok</code> to the client only once all steps have been completed.
+          AMQP transactions are intended to provide atomicity only in a single queue,
+          however in RabbitMQ, transactions are <em>not</em> atomic even in a single queue.
+          A fault during <code>tx.commit</code> can result in a sub-set of the publishes
+          appearing in the queue after a broker restart. If the <code>tx.commit-ok</code> is
+          received however, Rabbit guarantees that all messages have been either placed
+          in a queue, or a <code>basic.return</code> will have been issued for them
+          already. With persistent messages, the broker guarantees that the messages
+          have hit the disk and <code>fsync</code> has been invoked to synchronise with the
+          file system.
+        </p>
+        <p>
+          Transactions have a significant impact on performance. Producer/publisher confirms
+          offer a lightweight alternative to transactions and ensure the same guarantee of
+          <i>at-least-once</i> delivery, but offer far superiour performance.
+          With confirms enabled on a channel, once a message is sent to the broker,
+          the producer will receive a <code>basic.ack</code> once one of the following
+          conditions holds:
+          <ul>
+            <li>an un-routable mandatory message is confirmed
+              right after the <code>basic.return</code> is sent</li>
+            <li>a transient message is confirmed the moment it is enqueued</li>
+            <li>a persistent message is confirmed when it is persisted to disk
+              or when it is consumed on every queue</li>
+          </ul>
+          Once a <code>basic.ack</code> arrives, the message is <em>confirmed</em>
+          and the publisher can be assured that the broker has taken full
+          responsibility for it. In particular, for a persistent message, the
+          broker ensures that a full fsync to the filesystem takes place
+          before sending the <code>basic.ack</code>, ensuring that all I/O
+          buffers have been flushed to disk properly.
+        </p>
+        <p>
+          Despite confirms exhibiting better performance characteristics than
+          transactions, there is still a cost associated with forcing an
+          <code>fsync</code> to the disk, which will reduce throughput. Network
+          latency also plays a role here, as the client waits for <code>confirm-ok</code>
+          to be sent back by the broker. These costs can be reduced by batching
+          confirms (i.e., only waiting for confirms after a batch of publishes).
+        </p>
+        <p>
+          Note that if a disk has write caching enabled, even calling <code>fsync</code>
+          cannot guarantee that data has actually made it to permanent storage,
+          in which case there is a posibility of message loss in case of server
+          (e.g., hardware) failure.
+        </p>
+      </doc:section>
+      
+      <doc:section name="at-the-broker">
         <doc:subsection name="durability">
           <doc:heading>General Concepts</doc:heading>
           <h4>Durability and Persistence</h4>
