@@ -25,15 +25,16 @@
         <doc:heading>Types of failure</doc:heading>
         <p>
           Network problems are probably the most common class of failure.
-          Not only do networks fail, firewalls can interrupt <i>stable but idle</i>
-          connections, and network failures are not always detected immediately,
-          sometimes taking 15 minutes or more to signal the application.
-          In addition to connectivity failures, the broker and producing/consuming
-          client applications can crash at any time. Even if client applications
-          are able to keep running, logic errors (e.g., queue/exchange objects missing
-          on the server, equivalence checks failing during queue/exchange declare, etc)
-          can cause channel and/or connection errors which force the client to
-          establish a new connection/channel and recover from the problem.
+          Not only do networks fail, firewalls can interrupt <i>stable but
+          idle</i> connections, and network failures are not always detected
+          immediately, sometimes taking 15 minutes or more to signal the
+          application. In addition to connectivity failures, the broker and
+          producing/consuming client applications can crash at any time.
+          Even if client applications are able to keep running, logic errors
+          (e.g., queue/exchange objects missing on the server, equivalence
+          checks failing during queue/exchange declare, etc) can cause channel
+          and/or connection errors which force the client to establish a new
+          connection/channel and recover from the problem.
         </p>
       </doc:section>
       <doc:section name="connection-failures">
@@ -45,24 +46,26 @@
             <li>closed due to broker shut down</li>
             <li>closed due to <i>connection errors</i></li>
           </ul>
-          The client will need to establish a new connection to the broker. Any channels
-          opened on the previous connection will have been automatically closed and
-          these will need re-opening too.
+          The client will need to establish a new connection to the broker.
+          Any channels opened on the previous connection will have been
+          automatically closed and these will need re-opening too.
         </p>
         <p>
-          The official Java client provides methods for adding a <code>ShutdownListener</code>
-          callback on both connection and channel objects, and the .NET client provides the
+          The official Java client provides methods for adding a
+          <code>ShutdownListener</code> callback on both connection and channel
+          objects, and the .NET client provides the
           <code>IConnection.ConnectionShutdown</code> and
           <code>IModel.ModelShutdown</code> events for the same purpose.
         </p>
         <h4>Using Heartbeats</h4>
         <p>
           Heartbeats can ensure that disrupted tcp connections get detected
-          promptly. They also keep connections alive in the presence of firewalls.
-          In both the official Java and .NET clients, heartbeats are enabled by configuring
-          the connection factory with the desired heartbeat interval. In RabbitMQ versions 3.0
-          and higher, the broker will attempt to negotiate heartbeats by default, though the
-          client can still veto them.
+          promptly. They also keep connections alive in the presence of
+          firewalls. In both the official Java and .NET clients, heartbeats
+          are enabled by configuring the connection factory with the desired
+          heartbeat interval. In RabbitMQ versions 3.0 and higher, the broker
+          will attempt to negotiate heartbeats by default, though the client
+          can still veto them.
         </p>
       </doc:section>
       <doc:section name="acknowledgements">
@@ -70,36 +73,39 @@
         <p>
           Producers and consumers can take advantage of <code>basic.ack</code>
           to guarantee <i>at-least-once</i> delivery. Without acknowledgements,
-          message loss is possible during publish and consume operations and the broker
-          guarantees only <i>at-most-once</i> delivery to consumers.
+          message loss is possible during publish and consume operations and
+          the broker guarantees only <i>at-most-once</i> delivery to consumers.
         </p>
         <p>
           A <code>basic.ack</code> signals both the reciept of a message,
-          and a transfer of ownership wherein the acknowledging party assumes full
-          responsibility for it. With acknowledgements enabled, the broker will never
-          dequeue a message until it has seen a <code>basic.ack</code>, providing a
-          strong guarantee against message loss.         
+          and a transfer of ownership wherein the acknowledging party assumes
+          full responsibility for it. With acknowledgements enabled, the broker
+          will never dequeue a message until it has seen a
+          <code>basic.ack</code>, providing a strong guarantee against message
+          loss.
         </p>
       </doc:section>
       <doc:section name="tx-and-confirms">
         <doc:heading>Transactions and Producer Confirms</doc:heading>
         <p>
-          Transactional channels guarantee that on commit, the broker will assume full
-          responsibility for all received messages before sending <code>commit-ok</code>
-          to the client.
-          AMQP transactions provide atomicity only in a single queue, however in RabbitMQ,
-          transactions are <em>not</em> atomic even in a single queue.
-          A fault during <code>tx.commit</code> can result in a sub-set of publishes
-          appearing in the queue after a restart. If the <code>tx.commit-ok</code> is
-          received however, Rabbit guarantees that all messages were either placed
-          in a queue, or a <code>basic.return</code> was issued for them already. With
-          persistent messages, the broker guarantees the messages are on disk and <code>fsync</code>
-          has been invoked to synchronise the file system.
+          Transactional channels guarantee that on commit, the broker has
+          assumed full responsibility for all received messages before sending
+          <code>commit-ok</code> to the client. AMQP transactions provide
+          atomicity only in a single queue, however in RabbitMQ, transactions
+          are <em>not</em> atomic even in a single queue. A fault during
+          <code>tx.commit</code> can result in a sub-set of publishes appearing
+          in the queue after a restart. If the <code>tx.commit-ok</code> is
+          received however, Rabbit guarantees that all messages were either
+          placed in a queue, or a <code>basic.return</code> was issued for them
+          already. With persistent messages, the broker guarantees the messages
+          are on disk and <code>fsync</code> has been invoked to synchronise
+          the file system.
         </p>
         <p>
-          Transactions have a significant impact on performance. Producer/publisher confirms
-          offer a lightweight alternative that guarantees <i>at-least-once</i> delivery, but
-          with far superiour performance. With confirms enabled on a channel, the producer will
+          Transactions have a significant impact on performance.
+          Producer/publisher confirms offer a lightweight alternative that
+          guarantees <i>at-least-once</i> delivery, but with far superiour
+          performance. With confirms enabled on a channel, the producer will
           receive a <code>basic.ack</code> once one of the following holds:
           <ul>
             <li>an un-routable mandatory message is confirmed
@@ -109,102 +115,117 @@
               or when it is consumed on every queue</li>
           </ul>
           Once a <code>basic.ack</code> arrives, the broker has taken full
-          responsibility for the message(s). In particular, for a persistent message,
-          Rabbit guarantees that a full fsync to the filesystem takes place
-          before sending the <code>basic.ack</code>, ensuring that all I/O
-          buffers have been flushed to disk properly. When queues are mirrored, the
-          broker guarnatees all mirrors have seen the message before sending the
-          acknowledgement.
+          responsibility for the message(s). In particular, for a persistent
+          message, Rabbit guarantees that a full fsync to the filesystem takes
+          place before sending the <code>basic.ack</code>, ensuring that all I/O
+          buffers have been flushed to disk properly. When queues are mirrored,
+          the broker guarnatees all mirrors have seen the message before sending
+          the acknowledgement.
         </p>
         <p>
-          Note that if a disk has write caching enabled, even calling <code>fsync</code>
-          cannot guarantee data has reached permanent storage, in which case there is still
-          a posibility of message loss in case of server (e.g., hardware) failure.
+          Note that if a disk has write caching enabled, even calling
+          <code>fsync</code> cannot guarantee data has reached permanent
+          storage, in which case there is still a posibility of message loss in
+          case of server (e.g., hardware) failure.
         </p>
       </doc:section>
       <doc:section name="at-the-broker">
         <doc:heading>Durability and Persistence</doc:heading>
         <p>
           Broker restarts can be performed without data loss. The AMQP standard
-          has a notion of durability for Exchanges, Queues and of persistent Messages:
-          for each, this implies the specified object will survive a restart.
-          More details about specific flags pertaining to durability and
-          persistence can be found in the
+          has a notion of durability for Exchanges, Queues and of persistent
+          Messages, requiring that a durable/persistent object will survive a
+          restart. More details about specific flags pertaining to durability
+          and persistence can be found in the
           <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
         </p>
       </doc:section>
       <doc:section name="clustering-and-ha">
         <doc:heading>Clustering and High Availability</doc:heading>
         <p>
-          In a RabbitMQ cluster, all definitions (of queues, exchanges, bindings, users, etc)
-          are mirrored across the entire cluster with full atomic guarantees.
-          Queues behave a little diferently, residing only on the node that
-          creates them, though they remain visible and reachable from all nodes.
-          Nodes can join and leave the cluster dynamically at runtime and may opt
-          to maintain thier state just in memory, or to store it additionally on disc.
-          A RAM only node will loose all its state after a restart (or failure).
-          At least one disk node should be running at all times to prevent data loss. If you
-          stop and forcefully reset all disc nodes in a cluster, data loss is quite likely. 
+          In a RabbitMQ cluster, all definitions (of queues, exchanges,
+          bindings, users, etc) are mirrored across the entire cluster with
+          full atomic guarantees. Queues behave a little diferently, residing
+          only on the node that creates them, though they remain visible and
+          reachable from all nodes. Nodes can join and leave the cluster
+          dynamically at runtime and may opt to maintain thier state just in
+          memory, or to store it additionally on disc. A RAM only node will
+          loose all its state after a restart (or failure). At least one disk
+          node should be running at all times to prevent data loss. If you
+          stop and forcefully reset all disc nodes in a cluster, data loss
+          is quite likely.
         </p>
         <h4>Working with HA/Mirrored Queues</h4>
         <p>
-          Mirrored queues replicate queue contents across all configured slave nodes,
-          tolerating node failures seamlessly and without message loss in most circumstances.
-          As long as producers use channels in confirm mode and persistent messages, data
-          integrity is <em>very</em> high.
-          One area where message loss can occur, is when a master fails and the
-          eldest slave is not fully synchronised. Since RabbitMQ 3.1 it is possible to
-          use <em>eager synchronisation</em> to guard against this possibility.
-          Obviously consuming from a mirrored-queue with noAck=true can always lead to message
-          loss, regardless of enabling HA.
+          Mirrored queues replicate queue contents across all configured
+          slave nodes, tolerating node failures seamlessly and without message
+          loss in most circumstances. As long as producers use channels in
+          confirm mode and persistent messages, data integrity is <em>very</em>
+          high. One area where message loss can occur, is when a master fails
+          and the eldest slave is not fully synchronised. Since RabbitMQ 3.1 it
+          is possible to use <em>eager synchronisation</em> to guard against
+          this possibility. Obviously consuming from a mirrored-queue with
+          <code>noAck=true</code> can always lead to message loss, regardless of
+          enabling HA.
         </p>
       </doc:section>
       <doc:section name="producer-connectivity-failures">
-        <doc:heading>Producer Connectivity Failures and Un-routable Messages</doc:heading>
+        <doc:heading>
+          Producer Connectivity Failures and Un-routable Messages
+        </doc:heading>
         <p>
-          When using confirms, producers recovering from a channel or connection failure
-          can simply re-transmit any messages for which a <code>basic.ack</code> has not been
-          recieved from the broker.
-          There is a small possibility of message duplication here, because the broker
-          might have sent a confirmation that never reached the producer (due to network
-          failures, etc). If this happens, consumer applications will need to handle
-          de-duplication or handle incoming messages idempotently.
+          When using confirms, producers recovering from a channel or connection
+          failure can simply re-transmit any messages for which a
+          <code>basic.ack</code> has not been recieved from the broker.
+          There is a small possibility of message duplication here, because the
+          broker might have sent a confirmation that never reached the producer
+          (due to network failures, etc). If this happens, consumer applications
+          will need to perform de-duplication or handle incoming messages
+          idempotently.
         </p>
         <h4>Handling un-routable messages</h4>
         <p>
-          The simple solution for routing problems is to delcare a destination queue
-          in the producer. When this is not possible, AMQP provides a neat recipe for detecting
-          un-routable messages. Setting the <code>mandatory</code> flag on a <code>basic.publish</code>
-          ensures a <code>basic.return</code> (containing a reply code and textual explanation) will
-          be sent back to the client if routing wasn't possible.
+          The simple solution for routing problems is to delcare a destination
+          queue in the producer. When this is not possible, AMQP provides a neat
+          recipe for detecting un-routable messages. Setting the
+          <code>mandatory</code> flag on a <code>basic.publish</code> ensures a
+          <code>basic.return</code> (containing a reply code and textual
+          explanation) will be sent back to the client if routing wasn't
+          possible.
         </p>
       </doc:section>
       <doc:section name="consumer-connectivity-failures">
-        <doc:heading>Consumer Connectivity Failures and Unhandled Messages</doc:heading>
+        <doc:heading>
+          Consumer Connectivity Failures and Unhandled Messages
+        </doc:heading>
         <p>
-          In the event of network failure (or a node crashing), consumers must be prepared to
-          handle duplicated messages - RabbitMQ guarantees <em>at-least-once</em> delivery,
-          not <em>exactly-once</em>. The client may utilise the <code>redelivered</code> flag
-          if it is set on <code>basic.deliver</code>, but should not rely solely on this to
-          determine whether or not it has seen a message before. Instead, clients are encouraged
-          to utilise application specific identifiers (passed either in the <code>message-id</code>
-          or some other custom header) to identify duplicates. Some clients may prefer to make
-          message handling idempotent rather than explicitly deal with de-duplicating inbound messages.
+          In the event of network failure (or a node crashing), consumers must
+          be prepared to handle duplicated messages - RabbitMQ guarantees
+          <em>at-least-once</em> delivery,not <em>exactly-once</em>. The client
+          may utilise the <code>redelivered</code> flag if it is set on
+          <code>basic.deliver</code>, but should not rely solely on this to
+          determine whether or not it has seen a message before. Instead,
+          clients are encouraged to utilise application specific identifiers
+          (passed either in the <code>message-id</code> or some other custom
+          header) to identify duplicates. Some clients may prefer to make
+          message handling idempotent rather than explicitly deal with
+          de-duplicating inbound messages.
         </p>
         <h4>Consumer Cancel Notifications</h4>
         <p>
-          A RabbitMQ extension to AMQP, consumer cancel notifications enable clients to detect
-          error conditions that would otherwise go unnoticed.
-          For clients that support the extension, a <code>basic.cancel</code> will be
-          sent if a queue from which the client is consuming is deleted, or in a clustered
-          scenario, if the node on which the queue is located fails. In the case where a master
-          fails, the promoted slave considers all previous consumers to have been abruptly disconnected
-          and summarily requeues all messages that are still pending ACKs. Clients connected to a surviving
-          node which are using Consumer Cancel Notifications should treat the notification that their
-          subscription to the mirrored-queue has been abruptly cancelled as a signal that they should
-          be prepared to handle duplicate messages if necessary.
+          A RabbitMQ extension to AMQP, consumer cancel notifications enable
+          clients to detect error conditions that would otherwise go unnoticed.
+          For clients that support the extension, a <code>basic.cancel</code>
+          will be sent if a queue from which the client is consuming is deleted,
+          or in a clustered scenario, if the node on which the queue is located
+          fails. When a master fails, the promoted slave considers all previous
+          consumers to have been abruptly disconnected and summarily requeues
+          all messages that are still pending ACKs. Clients connected to a
+          surviving node which are using Consumer Cancel Notifications should
+          treat the notification that their subscription to the mirrored-queue
+          has been abruptly cancelled as a signal that they should be prepared
+          to handle duplicate messages if necessary.
         </p>
       </doc:section>
   </body>
 </html>
-
