@@ -84,18 +84,17 @@
       <doc:section name="tx-and-confirms">
         <doc:heading>Transactions and Producer Confirms</doc:heading>
         <p>
-          Even with persistent messages, broker failure can occur between receipt of the
-          message and writing to the disk. Transactions eliminate this risk, sending a
-          <code>commit-ok</code> to the client only once all steps have been completed.
-          AMQP transactions are intended to provide atomicity only in a single queue,
-          however in RabbitMQ, transactions are <em>not</em> atomic even in a single queue.
-          A fault during <code>tx.commit</code> can result in a sub-set of the publishes
-          appearing in the queue after a broker restart. If the <code>tx.commit-ok</code> is
-          received however, Rabbit guarantees that all messages have been either placed
-          in a queue, or a <code>basic.return</code> will have been issued for them
-          already. With persistent messages, the broker guarantees that the messages
-          have hit the disk and <code>fsync</code> has been invoked to synchronise with the
-          file system.
+          Transactional channels guarantee that on commit, the broker will assume full
+          responsibility for all received messages before sending <code>commit-ok</code>
+          to the client.
+          AMQP transactions provide atomicity only in a single queue, however in RabbitMQ,
+          transactions are <em>not</em> atomic even in a single queue.
+          A fault during <code>tx.commit</code> can result in a sub-set of publishes
+          appearing in the queue after a restart. If the <code>tx.commit-ok</code> is
+          received however, Rabbit guarantees that all messages were either placed
+          in a queue, or a <code>basic.return</code> was issued for them already. With
+          persistent messages, the broker guarantees the messages are on disk and <code>fsync</code>
+          has been invoked to synchronise the file system.
         </p>
         <p>
           Transactions have a significant impact on performance. Producer/publisher confirms
