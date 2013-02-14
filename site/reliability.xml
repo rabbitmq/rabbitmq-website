@@ -57,8 +57,8 @@
         </p>
         <h4>Using Heartbeats</h4>
         <p>
-          Heartbeats can ensure that disrupted tcp connections get detected promptly.
-          They also keep connections alive in the presence of firewalls.
+          Heartbeats can ensure that disrupted tcp connections get detected
+          promptly. They also keep connections alive in the presence of firewalls.
           In both the official Java and .NET clients, heartbeats are enabled by configuring
           the connection factory with the desired heartbeat interval. In RabbitMQ versions 3.0
           and higher, the broker will attempt to negotiate heartbeats by default, though the
@@ -162,36 +162,34 @@
       <doc:section name="producer-connectivity-failures">
         <doc:heading>Producer Connectivity Failures and Un-routable Messages</doc:heading>
         <p>
-          With a channel set to <code>confirm</code> mode, a producer can handle connection
-          failures by retransmitting any messages that have no been confirmed by the broker.
-          It is possible that messages will be duplicated when doing so, because the broker
+          When using confirms, producers recovering from a channel or connection failure
+          can simply re-transmit any messages for which a <code>basic.ack</code> has not been
+          recieved from the broker.
+          There is a small possibility of message duplication here, because the broker
           might have sent a confirmation that never reached the producer (due to network
-          failures, etc). Consumer applications will need to handle de-duplicating in this
-          case; The <code>message-id</code> property can be used to convey an application
-          specific unique identifier if required.
+          failures, etc). If this happens, consumer applications will need to handle
+          de-duplication or handle incoming messages idempotently.
         </p>
         <h4>Handling un-routable messages</h4>
         <p>
-          A simple solution to avoiding un-routable messages is to delcare the queue in the
-          producer. When this is not possible, AMQP provides a neat recipe for detecting situations
-          in which a published message cannot be routed. When the <code>mandatory</code> flag is
-          set on a <code>basic.publish</code> which cannot be routed by the broker, a
-          <code>basic.return</code>, containing a reply code and textual explanation will be sent back
-          to the client.
+          The simple solution for routing problems is to delcare a destination queue
+          in the producer. When this is not possible, AMQP provides a neat recipe for detecting
+          un-routable messages. Setting the <code>mandatory</code> flag on a <code>basic.publish</code>
+          ensures a <code>basic.return</code> (containing a reply code and textual explanation) will
+          be sent back to the client if routing wasn't possible.
         </p>
       </doc:section>
       <doc:section name="consumer-connectivity-failures">
         <doc:heading>Consumer Connectivity Failures and Unhandled Messages</doc:heading>
         <p>
-          In the event of a network failure (or a node crashing), consumers must be able to
-          code with duplicated messages - RabbitMQ guarantees <em>at-least-once</em> delivery,
+          In the event of network failure (or a node crashing), consumers must be prepared to
+          handle duplicated messages - RabbitMQ guarantees <em>at-least-once</em> delivery,
           not <em>exactly-once</em>. The client may utilise the <code>redelivered</code> flag
           if it is set on <code>basic.deliver</code>, but should not rely solely on this to
           determine whether or not it has seen a message before. Instead, clients are encouraged
           to utilise application specific identifiers (passed either in the <code>message-id</code>
-          or some other custom header) to identify duplicates.
-          Some clients may prefer to make message handling idempotent rather than explicitly deal
-          with de-duplicating inbound messages.
+          or some other custom header) to identify duplicates. Some clients may prefer to make
+          message handling idempotent rather than explicitly deal with de-duplicating inbound messages.
         </p>
         <h4>Consumer Cancel Notifications</h4>
         <p>
