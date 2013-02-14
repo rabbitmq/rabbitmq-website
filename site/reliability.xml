@@ -8,7 +8,7 @@
   <body show-in-this-page="true">
       <doc:section name="background-info">
         <doc:subsection name="pre-reqs">
-          <doc:heading>Pre-requisites and Recommended Reading</doc:heading>
+          <doc:heading>Prerequisites and Recommended Reading</doc:heading>
           <p>
             We assume a solid grounding in AMQP concepts and constructs.
             If you're new to AMQP then we recommended you read the
@@ -77,7 +77,7 @@
           the broker guarantees only <i>at-most-once</i> delivery to consumers.
         </p>
         <p>
-          A <code>basic.ack</code> signals both the reciept of a message,
+          A <code>basic.ack</code> signals both the receipt of a message,
           and a transfer of ownership wherein the acknowledging party assumes
           full responsibility for it. With acknowledgements enabled, the broker
           will never dequeue a message until it has seen a
@@ -104,11 +104,11 @@
         <p>
           Transactions have a significant impact on performance.
           Producer/publisher confirms offer a lightweight alternative that
-          guarantees <i>at-least-once</i> delivery, but with far superiour
+          guarantees <i>at-least-once</i> delivery, but with far superior
           performance. With confirms enabled on a channel, the producer will
           receive a <code>basic.ack</code> once one of the following holds:
           <ul>
-            <li>an un-routable mandatory message is confirmed
+            <li>an unroutable mandatory message is confirmed
               right after the <code>basic.return</code> is sent</li>
             <li>a transient message is confirmed the moment it is enqueued</li>
             <li>a persistent message is confirmed when it is persisted to disk
@@ -119,13 +119,13 @@
           message, Rabbit guarantees that a full fsync to the filesystem takes
           place before sending the <code>basic.ack</code>, ensuring that all I/O
           buffers have been flushed to disk properly. When queues are mirrored,
-          the broker guarnatees all mirrors have seen the message before sending
+          the broker guarantees all mirrors have seen the message before sending
           the acknowledgement.
         </p>
         <p>
           Note that if a disk has write caching enabled, even calling
           <code>fsync</code> cannot guarantee data has reached permanent
-          storage, in which case there is still a posibility of message loss in
+          storage, in which case there is still a possibility of message loss in
           case of server (e.g., hardware) failure.
         </p>
       </doc:section>
@@ -145,10 +145,10 @@
         <p>
           In a RabbitMQ cluster, all definitions (of queues, exchanges,
           bindings, users, etc) are mirrored across the entire cluster with
-          full atomic guarantees. Queues behave a little diferently, residing
+          full atomic guarantees. Queues behave a little differently, residing
           only on the node that creates them, though they remain visible and
           reachable from all nodes. Nodes can join and leave the cluster
-          dynamically at runtime and may opt to maintain thier state just in
+          dynamically at runtime and may opt to maintain their state just in
           memory, or to store it additionally on disc. A RAM only node will
           loose all its state after a restart (or failure). At least one disk
           node should be running at all times to prevent data loss. If you
@@ -171,23 +171,23 @@
       </doc:section>
       <doc:section name="producer-connectivity-failures">
         <doc:heading>
-          Producer Connectivity Failures and Un-routable Messages
+          Producer Connectivity Failures and Unroutable Messages
         </doc:heading>
         <p>
           When using confirms, producers recovering from a channel or connection
           failure can simply re-transmit any messages for which a
-          <code>basic.ack</code> has not been recieved from the broker.
+          <code>basic.ack</code> has not been received from the broker.
           There is a small possibility of message duplication here, because the
           broker might have sent a confirmation that never reached the producer
           (due to network failures, etc). If this happens, consumer applications
-          will need to perform de-duplication or handle incoming messages
-          idempotently.
+          will need to perform deduplication or handle incoming messages
+          in an idempotent manner.
         </p>
-        <h4>Handling un-routable messages</h4>
+        <h4>Handling unroutable messages</h4>
         <p>
-          The simple solution for routing problems is to delcare a destination
+          The simple solution for routing problems is to declare a destination
           queue in the producer. When this is not possible, AMQP provides a neat
-          recipe for detecting un-routable messages. Setting the
+          recipe for detecting unroutable messages. Setting the
           <code>mandatory</code> flag on a <code>basic.publish</code> ensures
           a <code>basic.return</code> (containing a reply code and some
           textual explanation) will be sent back to the client if routing
@@ -209,7 +209,7 @@
           (passed either in the <code>message-id</code> or some other custom
           header) to identify duplicates. Some clients may prefer to make
           message handling idempotent rather than explicitly deal with
-          de-duplicating inbound messages.
+          deduplicating inbound messages.
         </p>
         <h4>Consumer Cancel Notifications</h4>
         <p>
@@ -238,7 +238,7 @@
         </p>
         <p>
           When using federation, downstream nodes can still fail of course.
-          If the downstream node is part of a cluster, thenlinks to upstream
+          If the downstream node is part of a cluster, then links to upstream
           exchanges will be recreated on a surviving node (which node is picked
           at random).
         </p>
@@ -251,7 +251,7 @@
           (perhaps to an upstream load balancer) otherwise the message ordering
           cannot be preserved!
           RabbitMQ Federation versions >= 3.1 provide explicit support for
-          setting multiple upstream URIs, which aleviates the need to proxy the
+          setting multiple upstream URIs, which alleviates the need to proxy the
           upstream cluster as the federation links will handle the failover
           automatically.
         </p>
