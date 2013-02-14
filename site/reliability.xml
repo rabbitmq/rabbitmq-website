@@ -6,129 +6,123 @@
     <title>Reliability Guide</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="background-info">
-        <doc:subsection name="pre-reqs">
-          <doc:heading>Prerequisites and Recommended Reading</doc:heading>
-          <p>
-            We assume a solid grounding in AMQP concepts and constructs.
-            If you're new to AMQP then we recommended you read the
-            <a href="/tutorials/amqp-concepts.html">
-              RabbitMQ Guide to AMQP Concepts
-            </a>,
-            <a href="http://www.rabbitmq.com/how.html">How To</a> pages
-            and take the time to work through the
-            <a href="/getstarted.html">RabbitMQ Tutorials</a>.
-          </p>
-        </doc:subsection>
-      </doc:section>
-      <doc:section name="failure-classes">
-        <doc:heading>Types of failure</doc:heading>
-        <p>
-          Network problems are probably the most common class of failure.
-          Not only do networks fail, firewalls can interrupt <i>stable but
-          idle</i> connections, and network failures are not always detected
-          immediately, sometimes taking 15 minutes or more to signal the
-          application. In addition to connectivity failures, the broker and
-          producing/consuming client applications can crash at any time.
-          Even if client applications are able to keep running, logic errors
-          (e.g., queue/exchange objects missing on the server, equivalence
-          checks failing during queue/exchange declare, etc) can cause channel
-          and/or connection errors which force the client to establish a new
-          connection/channel and recover from the problem.
-        </p>
-      </doc:section>
-      <doc:section name="connection-failures">
-        <doc:heading>Handling Connection Failures</doc:heading>
-        <p>
-          Connection failures come in three varieties:
-          <ul>
-            <li>broken network connections (not always detected immediately)</li>
-            <li>closed due to broker shut down</li>
-            <li>closed due to <i>connection errors</i></li>
-          </ul>
-          The client will need to establish a new connection to the broker.
-          Any channels opened on the previous connection will have been
-          automatically closed and these will need re-opening too.
-        </p>
-        <p>
-          The official Java client provides methods for adding a
-          <code>ShutdownListener</code> callback on both connection and channel
-          objects, and the .NET client provides the
-          <code>IConnection.ConnectionShutdown</code> and
-          <code>IModel.ModelShutdown</code> events for the same purpose.
-        </p>
-        <h4>Using Heartbeats</h4>
-        <p>
-          Heartbeats can ensure that disrupted tcp connections get detected
-          promptly. They also keep connections alive in the presence of
-          firewalls. In both the official Java and .NET clients, heartbeats
-          are enabled by configuring the connection factory with the desired
-          heartbeat interval. In RabbitMQ versions 3.0 and higher, the broker
-          will attempt to negotiate heartbeats by default, though the client
-          can still veto them.
-        </p>
-      </doc:section>
-      <doc:section name="acknowledgements">
-        <doc:heading>Acknowledgements</doc:heading>
-        <p>
-          Producers and consumers can take advantage of <code>basic.ack</code>
-          to guarantee <i>at-least-once</i> delivery. Without acknowledgements,
-          message loss is possible during publish and consume operations and
-          the broker guarantees only <i>at-most-once</i> delivery to consumers.
-        </p>
-        <p>
-          A <code>basic.ack</code> signals both the receipt of a message,
-          and a transfer of ownership wherein the acknowledging party assumes
-          full responsibility for it. With acknowledgements enabled, the broker
-          will never dequeue a message until it has seen a
-          <code>basic.ack</code>, providing a strong guarantee against message
-          loss.
-        </p>
-      </doc:section>
-      <doc:section name="tx-and-confirms">
-        <doc:heading>Transactions and Producer Confirms</doc:heading>
-        <p>
-          Transactional channels guarantee that on commit, the broker has
-          assumed full responsibility for all received messages before sending
-          <code>commit-ok</code> to the client. AMQP transactions provide
-          atomicity only in a single queue, however in RabbitMQ, transactions
-          are <em>not</em> atomic even in a single queue. A fault during
-          <code>tx.commit</code> can result in a sub-set of publishes appearing
-          in the queue after a restart. If the <code>tx.commit-ok</code> is
-          received however, Rabbit guarantees that all messages were either
-          placed in a queue, or a <code>basic.return</code> was issued for them
-          already. With persistent messages, the broker guarantees the messages
-          are on disk and <code>fsync</code> has been invoked to synchronise
-          the file system.
-        </p>
-        <p>
-          Transactions have a significant impact on performance.
-          Producer/publisher confirms offer a lightweight alternative that
-          guarantees <i>at-least-once</i> delivery, but with far superior
-          performance. With confirms enabled on a channel, the producer will
-          receive a <code>basic.ack</code> once one of the following holds:
-          <ul>
-            <li>an unroutable mandatory message is confirmed
-              right after the <code>basic.return</code> is sent</li>
-            <li>a transient message is confirmed the moment it is enqueued</li>
-            <li>a persistent message is confirmed when it is persisted to disk
-              or when it is consumed on every queue</li>
-          </ul>
-          Once a <code>basic.ack</code> arrives, the broker has taken full
-          responsibility for the message(s). In particular, for a persistent
-          message, Rabbit guarantees that a full fsync to the filesystem takes
-          place before sending the <code>basic.ack</code>, ensuring that all I/O
-          buffers have been flushed to disk properly. When queues are mirrored,
-          the broker guarantees all mirrors have seen the message before sending
-          the acknowledgement.
-        </p>
-        <p>
-          Note that if a disk has write caching enabled, even calling
-          <code>fsync</code> cannot guarantee data has reached permanent
-          storage, in which case there is still a possibility of message loss in
-          case of server (e.g., hardware) failure.
-        </p>
-      </doc:section>
+    <doc:section name="background-info">
+      <p class="intro">
+        This page explains how to use the various features of AMQP
+        and RabbitMQ to achieve <i>reliable delivery</i> - to ensure
+        that messages are always delivered, even in the face of
+        failure of any part of your system.
+      </p>
+    </doc:section>
+    <doc:section name="what-can-fail">
+      <doc:heading>What Can Fail?</doc:heading>
+      <p>
+        Network problems are probably the most common class of failure.  Not
+        only can networks fail, firewalls can interrupt idle connections,
+        and network failures are not always detected immediately.
+      </p>
+      <p>
+        In addition to connectivity failures, the broker and client
+        applications can experience hardware failure (or software can crash)
+        at any time. Additionally, even if client applications keep running,
+        logic errors can cause channel or connection errors which force the
+        client to establish a new channel or connection and recover from the
+        problem.
+      </p>
+    </doc:section>
+    <doc:section name="connection-failures">
+      <doc:heading>Connection Failures</doc:heading>
+      <p>
+        In the event of a connection failure, the client will need to
+        establish a new connection to the broker.  Any channels opened on the
+        previous connection will have been automatically closed and these will
+        need re-opening too.
+      </p>
+      <p>
+        The official Java client provides methods for adding a
+        <code>ShutdownListener</code> callback on both connection and channel
+        objects, and the .NET client provides the
+        <code>IConnection.ConnectionShutdown</code> and
+        <code>IModel.ModelShutdown</code> events for the same purpose.
+        <!-- TODO what is this telling us? -->
+      </p>
+      <h3>Acknowledgements and confirms</h3>
+      <p>
+        When a connection fails, messages may be in transit between client and
+        server - they may be in the middle of being parsed or generated, in OS
+        buffers, or on the wire. Messages in transit will be lost - they will
+        need to be retransmitted. <i>Acknowledgements</i> let the server and
+        clients know when to do this.
+      </p>
+      <p>
+        Acknowledgements can be used in both directions - to allow a consumer
+        to indicate to the server that it has received / processed a message
+        and to allow the server to indicate the same thing to the
+        producer. RabbitMQ refers to the latter case as a "confirm".
+      </p>
+      <p>
+        Of course, TCP ensures that packets have been received, and will
+        retransmit until they are - but that's just the network
+        layer. Acknowledgements and confirms indicate that messages have been
+        received <i>and acted upon</i>. An acknowledgement signals both the
+        receipt of a message, and a transfer of ownership where the receiver
+        assumes full responsibility for it.
+      </p>
+
+      <p>
+        Acknowledgements therefore have semantics - a consuming application
+        should not acknowledge messages until it has done whatever it needs to
+        do with them - recorded them in a database, forwarded them on, printed
+        them onto paper or anything else. Once it does so, the broker is free
+        to forget about the message.
+      </p>
+
+      <p>
+        Similarly, the broker will confirm messages once:
+      </p>
+
+      <!-- TODO this duplicates confirms.html (but is maybe a bit
+      clearer). Move it there. -->
+      <ul>
+        <li>
+          it decides a message will not be routed to queues<br/>
+          (if the <code>mandatory</code> flag is set then
+          the <code>basic.return</code> is sent first) <b>or</b>
+        </li>
+        <li>
+          a transient message has reached all its queues (and mirrors) <b>or</b>
+        </li>
+        <li>
+          a persistent message has reached all its queues (and mirrors)
+          and been persisted to disk (and <code>fsync</code>ed) <b>or</b>
+        </li>
+        <li>
+          a persistent message has been consumed (and if necessary
+          acknowledged) from all its queues
+        </li>
+      </ul>
+
+      <p>
+        Use of acknowledgements guarantees <i>at-least-once</i>
+        delivery. Without acknowledgements, message loss is possible
+        during publish and consume operations and
+        only <i>at-most-once</i> delivery is guaranteed.
+      </p>
+
+      <h3>Heartbeats</h3>
+      <p>
+        In some types of network failure, packet loss can mean that disrupted
+        TCP connections take some time to be detected by the operating
+        system. AMQP offers a <i>heartbeat</i> feature to ensure that the
+        application layer promptly finds out about disrupted connections (and
+        also completely unresponsive peers). Heartbeats also defend against
+        certain network equipment which may terminate "idle" TCP
+        connections. In RabbitMQ versions 3.0 and higher, the broker will
+        attempt to negotiate heartbeats by default (although the client can
+        still veto them). Using earlier versions the client must be configured
+        to request heartbeats.
+      </p>
+    </doc:section>
       <doc:section name="at-the-broker">
         <doc:heading>Durability and Persistence</doc:heading>
         <p>
