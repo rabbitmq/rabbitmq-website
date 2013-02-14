@@ -117,14 +117,6 @@
           acknowledgement.
         </p>
         <p>
-          Despite confirms exhibiting better performance characteristics than
-          transactions, there is still a cost associated with forcing an
-          <code>fsync</code> to the disk, which will reduce throughput. Network
-          latency also plays a role here, as the client waits for <code>confirm-ok</code>
-          to be sent back by the broker. These costs can be reduced by batching
-          confirms (i.e., only waiting for confirms after a batch of publishes).
-        </p>
-        <p>
           Note that if a disk has write caching enabled, even calling <code>fsync</code>
           cannot guarantee that data has actually made it to permanent storage,
           in which case there is a posibility of message loss in case of server
