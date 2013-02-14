@@ -45,22 +45,19 @@
             <li>closed due to broker shut down</li>
             <li>closed due to <i>connection errors</i></li>
           </ul>
-          In any case, the client will need to establish a new connection to the
-          broker. Any channels opened on the previous connection will have been
-          automatically closed and these will need re-opening too.
+          The client will need to establish a new connection to the broker. Any channels
+          opened on the previous connection will have been automatically closed and
+          these will need re-opening too.
         </p>
         <p>
-          Client libraries may take various approaches to signalling channel and
-          connection errors. The official Java client provides methods for adding
-          a <code>ShutdownListener</code> callback on both connection and channel
-          objects, and the .NET client provides the
+          The official Java client provides methods for adding a <code>ShutdownListener</code>
+          callback on both connection and channel objects, and the .NET client provides the
           <code>IConnection.ConnectionShutdown</code> and
-          <code>IModel.ModelShutdown</code> events for detecting connection and
-          channel errors respectively.
+          <code>IModel.ModelShutdown</code> events for the same purpose.
         </p>
         <h4>Using Heartbeats</h4>
         <p>
-          Heartbeats ensure that disrupted tcp connections get detected promptly.
+          Heartbeats can ensure that disrupted tcp connections get detected promptly.
           They also keep connections alive in the presence of firewalls.
           In both the official Java and .NET clients, heartbeats are enabled by configuring
           the connection factory with the desired heartbeat interval. In RabbitMQ versions 3.0
@@ -71,19 +68,17 @@
       <doc:section name="acknowledgements">
         <doc:heading>Acknowledgements</doc:heading>
         <p>
-          Both producer and consumer clients can take advantage of <code>basic.ack</code>
-          to guarantee <i>at-least-once</i> delivery. Without the use of <code>basic.ack</code>
+          Producers and consumers can take advantage of <code>basic.ack</code>
+          to guarantee <i>at-least-once</i> delivery. Without acknowledgements,
           message loss is possible during publish and consume operations and the broker
-          guarantees only <i>at-most-once</i> delivery.
+          guarantees only <i>at-most-once</i> delivery to consumers.
         </p>
         <p>
-          A <code>basic.ack</code> indicates not only the sender's reciept of a message,
-          but a transfer of ownership wherein the acknowledging party assumes full
+          A <code>basic.ack</code> signals both the reciept of a message,
+          and a transfer of ownership wherein the acknowledging party assumes full
           responsibility for it. With acknowledgements enabled, the broker will never
-          dequeue a message until it has seen a consumers acknowledgement, providing a
-          strong guarantee against message loss at the cost of reduced throughput
-          in the consumer - which will see no further messages until previously
-          delivered ones are acknowledged - and increased network traffic between the two.         
+          dequeue a message until it has seen a <code>basic.ack</code>, providing a
+          strong guarantee against message loss.         
         </p>
       </doc:section>
       <doc:section name="tx-and-confirms">
