@@ -188,10 +188,10 @@
           The simple solution for routing problems is to delcare a destination
           queue in the producer. When this is not possible, AMQP provides a neat
           recipe for detecting un-routable messages. Setting the
-          <code>mandatory</code> flag on a <code>basic.publish</code> ensures a
-          <code>basic.return</code> (containing a reply code and textual
-          explanation) will be sent back to the client if routing wasn't
-          possible.
+          <code>mandatory</code> flag on a <code>basic.publish</code> ensures
+          a <code>basic.return</code> (containing a reply code and some
+          textual explanation) will be sent back to the client if routing
+          wasn't possible.
         </p>
       </doc:section>
       <doc:section name="consumer-connectivity-failures">
@@ -225,6 +225,35 @@
           treat the notification that their subscription to the mirrored-queue
           has been abruptly cancelled as a signal that they should be prepared
           to handle duplicate messages if necessary.
+        </p>
+      </doc:section>
+      <doc:section name="ap-distribution">
+        <doc:heading>Available, Partition Tolerant Distribution</doc:heading>
+        <p>
+          Rabbit provides two plugins to assist with distributing nodes over
+          unreliable networks: <em>Federation</em> and the <em>Shovel</em>.
+          Both are implemented as AMQP clients, so if you configure them to
+          use confirms (and avoid <code>noAck</code> mode), they will retransmit
+          when necessary.
+        </p>
+        <p>
+          When using federation, downstream nodes can still fail of course.
+          If the downstream node is part of a cluster, thenlinks to upstream
+          exchanges will be recreated on a surviving node (which node is picked
+          at random).
+        </p>
+        <p>
+          Federating clusters requires special attention if you've federated
+          the same exchange on two upstreams which are clustered and made the
+          federation (internal) queues (on the two upstreams) HA/mirrored.
+          Rather than having an upstream set containing connection definitions
+          for both upstream nodes, you should aim for just one connection
+          (perhaps to an upstream load balancer) otherwise the message ordering
+          cannot be preserved!
+          RabbitMQ Federation versions >= 3.1 provide explicit support for
+          setting multiple upstream URIs, which aleviates the need to proxy the
+          upstream cluster as the federation links will handle the failover
+          automatically.
         </p>
       </doc:section>
   </body>
