@@ -24,13 +24,10 @@
       <doc:section name="failure-classes">
         <doc:heading>Types of failure</doc:heading>
         <p>
-          Network problems are the most common class of failure that users
-          have to cope with. Not only do network connections fail, firewalls
-          can interrupt <i>stable</i> connections that have been idle for some
-          time, and connection failures are not always detected immediately by
-          applications.
-          For example, on Linux based systems, the default kernel parameters yield
-          a potential delay of around 15 minutes after the first retransmission timeout.
+          Network problems are probably the most common class of failure.
+          Not only do networks fail, firewalls can interrupt <i>stable but idle</i>
+          connections, and network failures are not always detected immediately,
+          sometimes taking 15 minutes or more to signal the application.
           In addition to connectivity failures, the broker and producing/consuming
           client applications can crash at any time. Even if client applications
           are able to keep running, logic errors (e.g., queue/exchange objects missing
