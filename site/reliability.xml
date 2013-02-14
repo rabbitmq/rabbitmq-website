@@ -152,11 +152,11 @@
           tolerating node failures seamlessly and without message loss in most circumstances.
           As long as producers use channels in confirm mode and persistent messages, data
           integrity is <em>very</em> high.
-          One area where message loss can occur however, is when a master fails and the
+          One area where message loss can occur, is when a master fails and the
           eldest slave is not fully synchronised. Since RabbitMQ 3.1 it is possible to
           use <em>eager synchronisation</em> to guard against this possibility.
-          Another consideration is that consuming from a mirrored-queue with noAck=true
-          can always lead to message loss, regardless of enabling HA.
+          Obviously consuming from a mirrored-queue with noAck=true can always lead to message
+          loss, regardless of enabling HA.
         </p>
       </doc:section>
       <doc:section name="producer-connectivity-failures">
