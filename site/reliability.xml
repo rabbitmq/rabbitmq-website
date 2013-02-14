@@ -124,7 +124,7 @@
       </p>
     </doc:section>
       <doc:section name="at-the-broker">
-        <doc:heading>Durability and Persistence</doc:heading>
+        <doc:heading>At the Broker</doc:heading>
         <p>
           Broker restarts can be performed without data loss. The AMQP standard
           has a notion of durability for Exchanges, Queues and of persistent
@@ -133,9 +133,7 @@
           and persistence can be found in the
           <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
         </p>
-      </doc:section>
-      <doc:section name="clustering-and-ha">
-        <doc:heading>Clustering and High Availability</doc:heading>
+        <h3>Clustering and High Availability</h3>
         <p>
           In a RabbitMQ cluster, all definitions (of queues, exchanges,
           bindings, users, etc) are mirrored across the entire cluster with
@@ -163,10 +161,8 @@
           enabling HA.
         </p>
       </doc:section>
-      <doc:section name="producer-connectivity-failures">
-        <doc:heading>
-          Producer Connectivity Failures and Unroutable Messages
-        </doc:heading>
+      <doc:section name="producer">
+        <doc:heading>At the Producer</doc:heading>
         <p>
           When using confirms, producers recovering from a channel or connection
           failure can simply re-transmit any messages for which a
@@ -189,9 +185,7 @@
         </p>
       </doc:section>
       <doc:section name="consumer-connectivity-failures">
-        <doc:heading>
-          Consumer Connectivity Failures and Unhandled Messages
-        </doc:heading>
+        <doc:heading>At the Consumer</doc:heading>
         <p>
           In the event of network failure (or a node crashing), consumers must
           be prepared to handle duplicated messages - RabbitMQ guarantees
@@ -222,7 +216,7 @@
         </p>
       </doc:section>
       <doc:section name="ap-distribution">
-        <doc:heading>Available, Partition Tolerant Distribution</doc:heading>
+        <doc:heading>Distributed RabbitMQ</doc:heading>
         <p>
           Rabbit provides two plugins to assist with distributing nodes over
           unreliable networks: <em>Federation</em> and the <em>Shovel</em>.
