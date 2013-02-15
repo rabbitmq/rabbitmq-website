@@ -175,8 +175,8 @@
       <h3>Ensuring messages are routed</h3>
       <p>
         In some circumstances it can be important for producers to ensure that
-        their messages are being routed queues (although not always - in the
-        case of a pub-sub system producers will just publish and if no
+        their messages are being routed to queues (although not always - in
+        the case of a pub-sub system producers will just publish and if no
         consumers are interested it is correct for messages to be dropped).
       </p>
       <p>
