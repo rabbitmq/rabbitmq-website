@@ -123,67 +123,74 @@
         to request heartbeats.
       </p>
     </doc:section>
-      <doc:section name="at-the-broker">
-        <doc:heading>At the Broker</doc:heading>
-        <p>
-          Broker restarts can be performed without data loss. The AMQP standard
-          has a notion of durability for Exchanges, Queues and of persistent
-          Messages, requiring that a durable/persistent object will survive a
-          restart. More details about specific flags pertaining to durability
-          and persistence can be found in the
-          <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
-        </p>
-        <h3>Clustering and High Availability</h3>
-        <p>
-          In a RabbitMQ cluster, all definitions (of queues, exchanges,
-          bindings, users, etc) are mirrored across the entire cluster with
-          full atomic guarantees. Queues behave a little differently, residing
-          only on the node that creates them, though they remain visible and
-          reachable from all nodes. Nodes can join and leave the cluster
-          dynamically at runtime and may opt to maintain their state just in
-          memory, or to store it additionally on disc. A RAM only node will
-          loose all its state after a restart (or failure). At least one disk
-          node should be running at all times to prevent data loss. If you
-          stop and forcefully reset all disc nodes in a cluster, data loss
-          is quite likely.
-        </p>
-        <h4>Working with HA/Mirrored Queues</h4>
-        <p>
-          Mirrored queues replicate queue contents across all configured
-          slave nodes, tolerating node failures seamlessly and without message
-          loss in most circumstances. As long as producers use channels in
-          confirm mode and persistent messages, data integrity is <em>very</em>
-          high. One area where message loss can occur, is when a master fails
-          and the eldest slave is not fully synchronised. Since RabbitMQ 3.1 it
-          is possible to use <em>eager synchronisation</em> to guard against
-          this possibility. Obviously consuming from a mirrored-queue with
-          <code>noAck=true</code> can always lead to message loss, regardless of
-          enabling HA.
-        </p>
-      </doc:section>
-      <doc:section name="producer">
-        <doc:heading>At the Producer</doc:heading>
-        <p>
-          When using confirms, producers recovering from a channel or connection
-          failure can simply re-transmit any messages for which a
-          <code>basic.ack</code> has not been received from the broker.
-          There is a small possibility of message duplication here, because the
-          broker might have sent a confirmation that never reached the producer
-          (due to network failures, etc). If this happens, consumer applications
-          will need to perform deduplication or handle incoming messages
-          in an idempotent manner.
-        </p>
-        <h4>Handling unroutable messages</h4>
-        <p>
-          The simple solution for routing problems is to declare a destination
-          queue in the producer. When this is not possible, AMQP provides a neat
-          recipe for detecting unroutable messages. Setting the
-          <code>mandatory</code> flag on a <code>basic.publish</code> ensures
-          a <code>basic.return</code> (containing a reply code and some
-          textual explanation) will be sent back to the client if routing
-          wasn't possible.
-        </p>
-      </doc:section>
+
+    <doc:section name="at-the-broker">
+      <doc:heading>At the Broker</doc:heading>
+      <p>
+        In order to avoid losing messages in the broker we need to cope with
+        broker restarts, broker hardware failure and <i>in extremis</i> even
+        broker crashes.
+      </p>
+      <p>
+        To ensure that messages and broker definitions survive restarts, we
+        need to ensure that they are on disk. The AMQP standard has a concept
+        of durability for exchanges, queues and of persistent messages,
+        requiring that a durable object or persistent message will survive a
+        restart. More details about specific flags pertaining to durability
+        and persistence can be found in the
+        <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
+      </p>
+      <h3>Clustering and High Availability</h3>
+      <p>
+        If we need to ensure that our broker survives hardware failure, we can
+        use RabbitMQ's clustering. In a RabbitMQ cluster, all definitions (of
+        exchanges, bindings, users, etc) are mirrored across the entire
+        cluster. Queues behave differently, by default residing only on a
+        single node, but optionally being mirrored across several or all
+        nodes. Queues remain visible and reachable from all nodes regardless
+        of where they are located.
+      </p>
+      <p>
+        Mirrored queues replicate their contents across all configured cluster
+        nodes, tolerating node failures seamlessly and without message loss
+        (although see <a href="ha.html#unsynchronised-slaves">this note on
+        unsynchronised slaves</a>). However, consuming applications need to be
+        aware that when queues fail their consumers will be cancelled and they
+        will need to reconsume - see <a href="ha.html#behaviour">the
+        documentation</a> for more details.
+      </p>
+    </doc:section>
+
+    <doc:section name="producer">
+      <doc:heading>At the Producer</doc:heading>
+      <p>
+        When using confirms, producers recovering from a channel or connection
+        failure should retransmit any messages for which an acknowledgement
+        has not been received from the broker. There is a possibility of
+        message duplication here, because the broker might have sent a
+        confirmation that never reached the producer (due to network failures,
+        etc). Therefore consumer applications will need to perform
+        deduplication or handle incoming messages in an idempotent manner.
+      </p>
+      <h3>Ensuring messages are routed</h3>
+      <p>
+        In some circumstances it can be important for producers to ensure that
+        their messages are being routed queues (although not always - in the
+        case of a pub-sub system producers will just publish and if no
+        consumers are interested it is correct for messages to be dropped).
+      </p>
+      <p>
+        To ensure messages are routed to a single known queue, the producer
+        can just declare a destination queue and publish directly to it. If
+        messages may be routed in more complex ways but the producer still
+        needs to know if they reached at least one queue, it can set the
+        <code>mandatory</code> flag on a <code>basic.publish</code>, ensuring
+        that a <code>basic.return</code> (containing a reply code and some
+        textual explanation) will be sent back to the client if no queues were
+        appropriately bound.
+      </p>
+    </doc:section>
+
       <doc:section name="consumer-connectivity-failures">
         <doc:heading>At the Consumer</doc:heading>
         <p>
