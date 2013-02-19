@@ -119,6 +119,7 @@ ul {
 	}
 
 div#right-nav ul { margin: 0; }
+table#changelog ul { margin: 0 0 10px 0; }
 
 li {
 	list-style-type: none; 
