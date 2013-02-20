@@ -48,11 +48,10 @@
           <dt>Start the Server</dt>
           <dd>
             <p>
-              Invoke the <code>sbin/rabbitmq-server</code> shell script.
-              This displays a banner message, and reports on progress in
-              the startup sequence, concluding with the message "broker
-              running", indicating that the RabbitMQ broker has been
-              started successfully.
+              Invoke the <code>sbin/rabbitmq-server</code> shell script. This
+              displays a short banner message, concluding with the message
+              "completed with <i>[n]</i> plugins.", indicating that the
+              RabbitMQ broker has been started successfully.
             </p>
             <p>
               You can also start the server in "detached" mode with
@@ -62,13 +61,16 @@
           </dd>
           <dt>Configure the Server</dt>
           <dd>
-            The configuration file <code><span
-            class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</code>
-            is used to override environment variables. You can <a
+            You can <a
             href="configure.html#customise-general-unix-environment">customise
-            the RabbitMQ environment</a> by altering this file. Components may
-            be <a href="configure.html#configuration-file">configured</a>, too,
-            in the <code>rabbitmq.config</code> file.
+            the RabbitMQ environment</a> by setting environment
+            variables in <code><span
+            class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</code>. Server
+            components may be configured, too, in the <a
+            href="configure.html#configuration-file">RabbitMQ configuration
+            file</a> located at <code><span
+            class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq.config</code>.
+            Neither of these files exist after installation.
           </dd>
         </dl>
       </doc:subsection>

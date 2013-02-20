@@ -45,15 +45,16 @@
   </p>
 
   <h3>Troubleshooting When Running as a Service</h3>
-  
+
   <p>
     In the event that the erlang VM crashes whilst RabbitMQ is running
     as a service, rather than writing the crash dump to the current
     directory (which doesn't make sense for a service) it is written
     to an <code>erl_crash.dump</code> file in the base directory of
     the RabbitMQ server (set by the <b>RABBITMQ_BASE</b> environment
-    variable, defaulting to <code>%APPDATA%\RabbitMQ</code>
-    otherwise).
+    variable, defaulting
+    to <code>%APPDATA%\%RABBITMQ_SERVICENAME%</code> -
+    typically <code>%APPDATA%\RabbitMQ</code> otherwise).
   </p>
 
 </doc:section>
