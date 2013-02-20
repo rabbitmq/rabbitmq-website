@@ -120,6 +120,8 @@ ul {
 
 div#right-nav ul { margin: 0; }
 table#changelog ul { margin: 0 0 10px 0; }
+table#changelog .centre { text-align: center; white-space: nowrap; }
+table#changelog .centre a { font-size: 80%; }
 
 li {
 	list-style-type: none; 
