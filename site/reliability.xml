@@ -46,7 +46,7 @@
         <code>IModel.ModelShutdown</code> events for the same purpose.
         <!-- TODO what is this telling us? -->
       </p>
-      <h3>Acknowledgements and confirms</h3>
+      <h3>Acknowledgements and Confirms</h3>
       <p>
         When a connection fails, messages may be in transit between client and
         server - they may be in the middle of being parsed or generated, in OS
@@ -172,7 +172,7 @@
         etc). Therefore consumer applications will need to perform
         deduplication or handle incoming messages in an idempotent manner.
       </p>
-      <h3>Ensuring messages are routed</h3>
+      <h3>Ensuring Messages are Routed</h3>
       <p>
         In some circumstances it can be important for producers to ensure that
         their messages are being routed to queues (although not always - in
@@ -191,65 +191,78 @@
       </p>
     </doc:section>
 
-      <doc:section name="consumer-connectivity-failures">
-        <doc:heading>At the Consumer</doc:heading>
-        <p>
-          In the event of network failure (or a node crashing), consumers must
-          be prepared to handle duplicated messages - RabbitMQ guarantees
-          <em>at-least-once</em> delivery,not <em>exactly-once</em>. The client
-          may utilise the <code>redelivered</code> flag if it is set on
-          <code>basic.deliver</code>, but should not rely solely on this to
-          determine whether or not it has seen a message before. Instead,
-          clients are encouraged to utilise application specific identifiers
-          (passed either in the <code>message-id</code> or some other custom
-          header) to identify duplicates. Some clients may prefer to make
-          message handling idempotent rather than explicitly deal with
-          deduplicating inbound messages.
-        </p>
-        <h4>Consumer Cancel Notifications</h4>
-        <p>
-          A RabbitMQ extension to AMQP, consumer cancel notifications enable
-          clients to detect error conditions that would otherwise go unnoticed.
-          For clients that support the extension, a <code>basic.cancel</code>
-          will be sent if a queue from which the client is consuming is deleted,
-          or in a clustered scenario, if the node on which the queue is located
-          fails. When a master fails, the promoted slave considers all previous
-          consumers to have been abruptly disconnected and summarily requeues
-          all messages that are still pending ACKs. Clients connected to a
-          surviving node which are using Consumer Cancel Notifications should
-          treat the notification that their subscription to the mirrored-queue
-          has been abruptly cancelled as a signal that they should be prepared
-          to handle duplicate messages if necessary.
-        </p>
-      </doc:section>
-      <doc:section name="ap-distribution">
-        <doc:heading>Distributed RabbitMQ</doc:heading>
-        <p>
-          Rabbit provides two plugins to assist with distributing nodes over
-          unreliable networks: <em>Federation</em> and the <em>Shovel</em>.
-          Both are implemented as AMQP clients, so if you configure them to
-          use confirms (and avoid <code>noAck</code> mode), they will retransmit
-          when necessary.
-        </p>
-        <p>
-          When using federation, downstream nodes can still fail of course.
-          If the downstream node is part of a cluster, then links to upstream
-          exchanges will be recreated on a surviving node (which node is picked
-          at random).
-        </p>
-        <p>
-          Federating clusters requires special attention if you've federated
-          the same exchange on two upstreams which are clustered and made the
-          federation (internal) queues (on the two upstreams) HA/mirrored.
-          Rather than having an upstream set containing connection definitions
-          for both upstream nodes, you should aim for just one connection
-          (perhaps to an upstream load balancer) otherwise the message ordering
-          cannot be preserved!
-          RabbitMQ Federation versions >= 3.1 provide explicit support for
-          setting multiple upstream URIs, which alleviates the need to proxy the
-          upstream cluster as the federation links will handle the failover
-          automatically.
-        </p>
-      </doc:section>
+    <doc:section name="consumer">
+      <doc:heading>At the Consumer</doc:heading>
+      <p>
+        In the event of network failure (or a node crashing), messages can be
+        duplicated, and consumers must be prepared to handle them. If
+        possible, the simplest way to handle this is to ensure that your
+        consumers handle messages in an idempotent way rather than explicitly
+        deal with deduplication.
+      </p>
+      <p>
+        If a message is delivered to a consumer and then requeued (because it
+        was not acknowledged before the consumer connection dropped, for
+        example) then RabbitMQ will set the <code>redelivered</code> flag on
+        it when it is delivered again (whether to the same consumer or a
+        different one). This is a hint that a consumer <i>may</i> have seen
+        this message before (although that's not guaranteed, the message may
+        have made it out of the broker but not into a consumer before the
+        connection dropped). Conversely if the <code>redelivered</code> flag
+        is not set then it is guaranteed that the message has not been seen
+        before. Therefore if a consumer finds it more expensive to deduplicate
+        messages or process them in an idempotent manner, it can do this only
+        for messages with the <code>redelivered</code> flag set.
+      </p>
+      <h3>Consumer Cancel Notification</h3>
+      <p>
+        Under some circumstances the server needs to be able to cancel a
+        consumer - since the queue it was consuming from has been deleted, or
+        has <a href="ha.html#behaviour">failed over</a>. In this case the
+        consumer should consume again but be aware that it may see messages
+        again which it has already seen.
+      </p>
+      <p>
+        Note that consumer cancel notification is a RabbitMQ extension to
+        AMQP, and as such may not be supported by all clients.
+      </p>
+      <h3>Messages That Cannot Be Processed</h3>
+      <p>
+        If a consumer determines that it cannot handle a message then it
+        can <i>reject</i> it using <code>basic.reject</code>
+        (or <code>basic.nack</code>), either asking the server to requeue it,
+        or not (in which case the server might be configured
+        to <a href="dlx.html">dead-letter</a> it instead.
+      </p>
+    </doc:section>
+
+    <doc:section name="distribution">
+      <doc:heading>Distributed RabbitMQ</doc:heading>
+      <p>
+        Rabbit provides two plugins to assist with distributing nodes over
+        unreliable networks: <a href="federation.html">federation</a> and
+        the <a href="shovel.html">shovel</a>. Both are implemented as AMQP
+        clients, so if you configure them to use confirms and
+        acknowledgements, they will retransmit when necessary. Both will use
+        confirms and acknowledgements by default.
+      </p>
+      <p>
+        When connecting clusters with federation or the shovel, it is
+        desirable to ensure that the federation links and shovels tolerate
+        node failures. Federation will automatically distribute links across
+        the downstream cluster and fail them over on failure of a downstream
+        node. Currently in order to connect to a new upstream when an upstream
+        node fails it is necessary to connect via a TCP load balancer. A
+        future release of RabbitMQ will allow specification of multiple
+        redundant URIs for an upstream.
+      </p>
+      <p>
+        When using the shovel, it is possible to specify redundant brokers in
+        a source or destination clause; however it is not currently possible
+        to make the shovel itself redundant. We hope to improve this situation
+        in the future; in the mean time a new node can be brought up manually
+        to run a shovel if the node it was originally running on fails.
+      </p>
+    </doc:section>
   </body>
 </html>
