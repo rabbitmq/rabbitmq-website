@@ -148,12 +148,17 @@ Cluster status of node rabbit@smacmullen ...
     <p>
       An alternative approach is to tell RabbitMQ to use cluster CP
       mode. In this mode RabbitMQ will choose partition tolerance over
-      availability from the CAP theorem, by automatically shutting
-      down cluster nodes which determine themselves to be in a
-      minority after seeing other nodes go down. This ensures that in
-      the event of a network partition, at most the nodes in a single
-      partition will continue to run (if no majority exists all nodes
-      will shut down).
+      availability from the CAP theorem, by automatically pausing
+      cluster nodes which determine themselves to be in a minority
+      after seeing other nodes go down. This ensures that in the event
+      of a network partition, at most the nodes in a single partition
+      will continue to run.
+    </p>
+    <p>
+      The Erlang VM on the paused nodes will continue running but the
+      nodes will not listen on any ports or do any other work. They
+      will check once per second to see if the rest of the cluster has
+      reappeared, and start up again if it has.
     </p>
     <p>
       You can enable cluster CP mode by setting the configuration
@@ -163,11 +168,11 @@ Cluster status of node rabbit@smacmullen ...
       file</a>.
     </p>
     <p>
-      Note that RabbitMQ will shut down nodes which are not in
+      Note that RabbitMQ will pause nodes which are not in
       a <i>strict</i> majority of the cluster - i.e. greater than
       50%. It is therefore not a good idea to enable cluster CP mode
       on a cluster of two nodes since in the event of a network
-      partition or node failure, both nodes will shut down.
+      partition <b>or node failure</b>, both nodes will pause.
     </p>
   </body>
 </html>
