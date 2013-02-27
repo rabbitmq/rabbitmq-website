@@ -80,29 +80,10 @@
       </p>
 
       <p>
-        Similarly, the broker will confirm messages once:
+        Similarly, the broker will confirm messages once it has taken
+        responsibility for them (see <a href="confirms.html#when">here</a> for
+        what that means).
       </p>
-
-      <!-- TODO this duplicates confirms.html (but is maybe a bit
-      clearer). Move it there. -->
-      <ul>
-        <li>
-          it decides a message will not be routed to queues<br/>
-          (if the <code>mandatory</code> flag is set then
-          the <code>basic.return</code> is sent first) <b>or</b>
-        </li>
-        <li>
-          a transient message has reached all its queues (and mirrors) <b>or</b>
-        </li>
-        <li>
-          a persistent message has reached all its queues (and mirrors)
-          and been persisted to disk (and <code>fsync</code>ed) <b>or</b>
-        </li>
-        <li>
-          a persistent message has been consumed (and if necessary
-          acknowledged) from all its queues
-        </li>
-      </ul>
 
       <p>
         Use of acknowledgements guarantees <i>at-least-once</i>
