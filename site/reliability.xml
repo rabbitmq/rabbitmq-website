@@ -39,12 +39,14 @@
         need re-opening too.
       </p>
       <p>
-        The official Java client provides methods for adding a
-        <code>ShutdownListener</code> callback on both connection and channel
-        objects, and the .NET client provides the
-        <code>IConnection.ConnectionShutdown</code> and
+        In general when connections fail, the client will be informed by the
+        connection throwing an exception (or similar language construct). The
+        official Java and .NET clients additionally provide callback methods
+        to let you hear about connection failures in other contexts - Java
+        provides the <code>ShutdownListener</code> callback on
+        both <code>Connection</code> and <code>Channel</code> classes, and
+        .NET client provides <code>IConnection.ConnectionShutdown</code> and
         <code>IModel.ModelShutdown</code> events for the same purpose.
-        <!-- TODO what is this telling us? -->
       </p>
       <h3>Acknowledgements and Confirms</h3>
       <p>
