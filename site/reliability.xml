@@ -234,10 +234,9 @@
         desirable to ensure that the federation links and shovels tolerate
         node failures. Federation will automatically distribute links across
         the downstream cluster and fail them over on failure of a downstream
-        node. Currently in order to connect to a new upstream when an upstream
-        node fails it is necessary to connect via a TCP load balancer. A
-        future release of RabbitMQ will allow specification of multiple
-        redundant URIs for an upstream.
+        node. In order to connect to a new upstream when an upstream
+        node fails you can specify multiple redundant URIs for an upstream,
+        or connect via a TCP load balancer.
       </p>
       <p>
         When using the shovel, it is possible to specify redundant brokers in
