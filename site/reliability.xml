@@ -10,8 +10,8 @@
       <p class="intro">
         This page explains how to use the various features of AMQP
         and RabbitMQ to achieve <i>reliable delivery</i> - to ensure
-        that messages are always delivered, even in the face of
-        failure of any part of your system.
+        that messages are always delivered, even encountering
+        failure in any part of your system.
       </p>
     </doc:section>
     <doc:section name="what-can-fail">
