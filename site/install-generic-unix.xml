@@ -48,11 +48,10 @@
           <dt>Start the Server</dt>
           <dd>
             <p>
-              Invoke the <code>sbin/rabbitmq-server</code> shell script.
-              This displays a banner message, and reports on progress in
-              the startup sequence, concluding with the message "broker
-              running", indicating that the RabbitMQ broker has been
-              started successfully.
+              Invoke the <code>sbin/rabbitmq-server</code> shell script. This
+              displays a short banner message, concluding with the message
+              "completed with <i>[n]</i> plugins.", indicating that the
+              RabbitMQ broker has been started successfully.
             </p>
             <p>
               You can also start the server in "detached" mode with

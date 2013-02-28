@@ -385,12 +385,27 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <dl>
           <dt><code>uri</code></dt>
           <dd>
-            The AMQP URI for the upstream. Mandatory. See
-            the <a href="uri-spec.html">AMQP URI reference</a> for
-            information on how RabbitMQ treats AMQP URIs in general,
-            and the <a href="shovel.html#uris">shovel reference</a> for
-            some extensions for SSL and SASL, which are also supported
-            by federation.
+            <p>
+              The AMQP URI(s) for the upstream. Mandatory. See
+              the <a href="uri-spec.html">AMQP URI reference</a> for
+              information on how RabbitMQ treats AMQP URIs in general,
+              and the <a href="shovel.html#uris">shovel reference</a> for
+              some extensions for SSL and SASL, which are also supported
+              by federation.
+            </p>
+            <p>
+              Note that this field can either be a string, or a list of
+              strings. If more than one string is provided, the federation
+              plugin will randomly pick <b>one</b> URI from the list. This can
+              be used to connect to an upstream cluster and ensure the link
+              will eventually find another node in the event that one
+              fails. It's probably not a great idea to use multiple URIs that
+              do <b>not</b> point to the same cluster.
+            </p>
+            <p>
+              To connect to multiple URIs simultaneously use multiple
+              upstreams.
+            </p>
           </dd>
 
           <dt><code>prefetch-count</code></dt>
@@ -441,6 +456,28 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             <p>
               This value is used to set the <code>"x-message-ttl"</code>
               argument for the upstream queue.
+            </p>
+          </dd>
+
+          <dt><code>ack-mode</code></dt>
+          <dd>
+            <p>
+              Determines how the link should acknowledge messages. If set
+              to <code>on-confirm</code> (the default), messages are
+              acknowledged to the upstream broker after they have been
+              confirmed downstream. This handles network errors and broker
+              failures without losing messages, and is the slowest option.
+            </p>
+            <p>
+              If set to <code>on-publish</code>, messages are acknowledged to
+              the upstream broker after they have been published
+              downstream. This handles network errors without losing messages,
+              but may lose messages in the event of broker failures.
+            </p>
+            <p>
+              If set to <code>no-ack</code>, message acknowledgements are not
+              used. This is the fastest option, but may lose messages in the
+              event of network or broker failures.
             </p>
           </dd>
 

@@ -173,7 +173,13 @@
 	  <method name="exchange.delete"><status value="ok"/></method>
 	  <method name="exchange.delete-ok"><status value="ok"/></method>
 	  <method name="queue.declare"><status value="ok"/></method>
-	  <method name="queue.declare-ok"><status value="ok"/></method>
+	  <method name="queue.declare-ok">
+            <status value="ok"/>
+              <notes>The consumer-count parameter is the count of all
+              consumers, rather than only active consumers, as
+              mandated by the specification. The former is more useful
+              to applications.</notes>
+          </method>
 	  <method name="queue.bind"><status value="ok"/></method>
 	  <method name="queue.bind-ok"><status value="ok"/></method>
 	  <method name="queue.unbind"><status value="ok"/></method>
