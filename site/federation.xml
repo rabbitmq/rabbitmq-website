@@ -385,8 +385,12 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <dl>
           <dt><code>uri</code></dt>
           <dd>
-            The <a href="uri-spec.html">AMQP URI</a> for the
-            upstream. Mandatory.
+            The AMQP URI for the upstream. Mandatory. See
+            the <a href="uri-spec.html">AMQP URI reference</a> for
+            information on how RabbitMQ treats AMQP URIs in general,
+            and the <a href="shovel.html#uris">shovel reference</a> for
+            some extensions for SSL and SASL, which are also supported
+            by federation.
           </dd>
 
           <dt><code>prefetch-count</code></dt>

@@ -228,13 +228,13 @@ server testca
             i.e. <code>erl -man new_ssl</code>, but the most important are <code>cacertfile</code>, <code>certfile</code> and <code>keyfile</code>.</p></li>
           </ul>
 
-          <p>The simplest way to set these options, is to edit
-          the <code>rabbitmq.config</code> file (in the
-          appropriate location for your platform, as discussed in
-          the <a href="configure.html#configuration-file">configuration
-          guide</a>).  An example of the config file is below, which
-          will start one ssl_listener on port 5671 on all interfaces
-          on this hostname:</p>
+          <p>
+            The simplest way to set these options, is to edit the <a
+            href="configure.html#configuration-file">configuration
+            file</a>.  An example of the config file is below, which
+            will start one ssl_listener on port 5671 on all interfaces
+            on this hostname:
+          </p>
           
 <pre class="sourcecode">
 [

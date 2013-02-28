@@ -360,8 +360,8 @@
               Q has to be <em>bound</em> to E. Bindings may have an optional
               <em>routing key</em> attribute used by some exchange types. The
               purpose of the routing key is to select certain messages published
-              to an exchange to be routed the bound queue. In other words, the routing
-              key acts like a filter.
+              to an exchange to be routed to the bound queue. In other words,
+              the routing key acts like a filter.
             </p>
             <p>
               To draw an analogy:
@@ -528,15 +528,15 @@
               communicate this information,  but this is by convention only.
             </p>
             <p>
-              Messages may be published as persistent, which makes AMQP broker
-              persist them to disk. If the server is restarted the
+              Messages may be published as persistent, which makes the AMQP
+              broker persist them to disk. If the server is restarted the
               system ensures that received persistent messages are not
-              lost. Simply publishing message to a durable exchange or
-              the fact that queue(s) they are routed to is durable doesn't
-              make messages persistent: it all depends on persistence mode
-              of the messages itself. Publishing messages as persistent
-              affects performance (just like with data stores, durability
-              comes at a certain cost in performance).
+              lost. Simply publishing a message to a durable exchange or the
+              fact that the queue(s) it is routed to are durable doesn't make
+              a message persistent: it all depends on persistence mode of the
+              message itself. Publishing messages as persistent affects
+              performance (just like with data stores, durability comes at a
+              certain cost in performance).
             </p>
             </doc:section>
 
@@ -556,8 +556,8 @@
               feature called <em>message acknowledgements</em> (sometimes
               referred to as <em>acks</em>) that consumers use to confirm
               message delivery and/or processing. If an application crashes
-              (AMQP broker notices this when connection is closed), if an
-              acknowledgement for a message was expected but not received
+              (the AMQP broker notices this when the connection is closed), if
+              an acknowledgement for a message was expected but not received
               by the AMQP broker, the message is re-queued (and possibly
               immediately delivered to another consumer, if any exists).
             </p>

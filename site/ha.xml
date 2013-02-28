@@ -363,8 +363,7 @@
           <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/parameters/policy/%2f/ha-all
-   {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
+              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
             </td>
           </tr>
           <tr>
@@ -413,8 +412,7 @@
           <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/parameters/policy/%2f/ha-two
-   {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
+              <pre>PUT /api/policies/%2f/ha-two {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
             </td>
           </tr>
           <tr>

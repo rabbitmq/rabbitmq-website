@@ -7,24 +7,37 @@
   <body>
     <table id="changelog">
       <tr>
-        <th>Version</th>
-        <th>Release Date</th>
+        <th class="centre">Version</th>
+        <th class="centre">Release Date</th>
         <th>Highlights</th>
+        <th class="centre">Changes</th>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-3.0.1.txt">3.0.1</a></td>
-        <td>11 December 2012</td>
+        <td class="centre">3.0.2</td>
+        <td class="centre">31 January 2013</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-3.0.2.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-3.0.0.txt">3.0.0</a></td>
-        <td>19 November 2012</td>
+        <td class="centre">3.0.1</td>
+        <td class="centre">11 December 2012</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.0.1.txt">(changes)</a></td>
+      </tr>
+
+      <tr>
+        <td class="centre">3.0.0</td>
+        <td class="centre">19 November 2012</td>
         <td>
           <ul>
             <li><a href="parameters.html#policies">Policy-based</a> configuration of <a href="ha.html#genesis">mirroring</a> and <a href="federation.html#configuration">federation</a></li>
@@ -33,84 +46,92 @@
             <li><a href="ttl.html#per-message-ttl">Per-message TTL</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-3.0.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.7.txt">2.8.7</a></td>
-        <td>27 September 2012</td>
+        <td class="centre">2.8.7</td>
+        <td class="centre">27 September 2012</td>
         <td>
           <ul>
             <li>Miscellaneous bugfixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.7.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.6.txt">2.8.6</a></td>
-        <td>22 August 2012</td>
+        <td class="centre">2.8.6</td>
+        <td class="centre">22 August 2012</td>
         <td>
           <ul>
             <li>Sundry bugfixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.6.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.5.txt">2.8.5</a></td>
-        <td>2 August 2012</td>
+        <td class="centre">2.8.5</td>
+        <td class="centre">2 August 2012</td>
         <td>
           <ul>
             <li>Assorted bugfixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.5.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.4.txt">2.8.4</a></td>
-        <td>22 June 2012</td>
+        <td class="centre">2.8.4</td>
+        <td class="centre">22 June 2012</td>
         <td>
           <ul>
             <li>Fixes a serious bug in 2.8.3 that could cause log
             files to grow in size infinitely when being rotated</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.4.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.3.txt">2.8.3</a></td>
-        <td>21 June 2012</td>
+        <td class="centre">2.8.3</td>
+        <td class="centre">21 June 2012</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.3.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.2.txt">2.8.2</a></td>
-        <td>30 April 2012</td>
+        <td class="centre">2.8.2</td>
+        <td class="centre">30 April 2012</td>
         <td>
           <ul>
             <li>Performance improvements</li>
             <li><a href="memory.html#diskfreesup">Disc space monitoring</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.2.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.1.txt">2.8.1</a></td>
-        <td>22 March 2012</td>
+        <td class="centre">2.8.1</td>
+        <td class="centre">22 March 2012</td>
         <td>
           <ul>
             <li>Fixes a bug in 2.8.0 which prevented RAM nodes from
             being upgraded</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.8.0.txt">2.8.0</a></td>
-        <td>19 March 2012</td>
+        <td class="centre">2.8.0</td>
+        <td class="centre">19 March 2012</td>
         <td>
           <ul>
             <li><a href="dlx.html">Dead lettering</a></li>
@@ -118,11 +139,12 @@
             control</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.8.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.7.1.txt">2.7.1</a></td>
-        <td>20 December 2011</td>
+        <td class="centre">2.7.1</td>
+        <td class="centre">20 December 2011</td>
         <td>
           <ul>
             <li>Important fixes to High Availability</li>
@@ -130,11 +152,12 @@
             <li>Bug fixes and performance improvements</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.7.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.7.0.txt">2.7.0</a></td>
-        <td>9 November 2011</td>
+        <td class="centre">2.7.0</td>
+        <td class="centre">9 November 2011</td>
         <td>
           <ul>
             <li><a href="semantics.html#ordering">Order
@@ -144,22 +167,24 @@
             <li>Performance improvements</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.7.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.6.1.txt">2.6.1</a></td>
-        <td>12 September 2011</td>
+        <td class="centre">2.6.1</td>
+        <td class="centre">12 September 2011</td>
         <td>
           <ul>
             <li>Fixes a bug in 2.6.0 that caused the broker to fail to
             restart on reboot on some operating systems</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.6.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.6.0.txt">2.6.0</a></td>
-        <td>31 August 2011</td>
+        <td class="centre">2.6.0</td>
+        <td class="centre">31 August 2011</td>
         <td>
           <ul>
             <li><a href="ha.html">Active-active HA</a></li>
@@ -168,21 +193,23 @@
             <li><a href="federation.html">Federation plugin</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.6.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.5.1.txt">2.5.1</a></td>
-        <td>27 June 2011</td>
+        <td class="centre">2.5.1</td>
+        <td class="centre">27 June 2011</td>
         <td>
           <ul>
             <li>Fixes upgrading from RabbitMQ 2.1.1 and 2.2.0</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.5.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.5.0.txt">2.5.0</a></td>
-        <td>14 June 2011</td>
+        <td class="centre">2.5.0</td>
+        <td class="centre">14 June 2011</td>
         <td>
           <ul>
             <li>Numerous performance improvements</li>
@@ -190,22 +217,24 @@
             <li>New rabbitmqctl commands</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.5.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.4.1.txt">2.4.1</a></td>
-        <td>7 April 2011</td>
+        <td class="centre">2.4.1</td>
+        <td class="centre">7 April 2011</td>
         <td>
           <ul>
             <li>Fixes a bug in 2.4.0 that would break upgrades<br/> in certain circumstances</li>
             <li><a href="clustering.html#upgrading">Cluster upgrades</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.4.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.4.0.txt">2.4.0</a></td>
-        <td>23 March 2011</td>
+        <td class="centre">2.4.0</td>
+        <td class="centre">23 March 2011</td>
         <td>
           <ul>
             <li><a href="sender-selected.html">Sender selected distribution</a></li>
@@ -213,22 +242,24 @@
             <li>Fast topic routing</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.4.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.3.1.txt">2.3.1</a></td>
-        <td>3 February 2011</td>
+        <td class="centre">2.3.1</td>
+        <td class="centre">3 February 2011</td>
         <td>
           <ul>
             <li>Fixes a serious bug in 2.3.0 that could cause queues
             to crash</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.3.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.3.0.txt">2.3.0</a></td>
-        <td>2 February 2011</td>
+        <td class="centre">2.3.0</td>
+        <td class="centre">2 February 2011</td>
         <td>
           <ul>
             <li><a href="confirms.html">Confirm mode</a></li>
@@ -236,42 +267,46 @@
             <li>IPv6 support</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.3.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.2.0.txt">2.2.0</a></td>
-        <td>30 November 2010</td>
+        <td class="centre">2.2.0</td>
+        <td class="centre">30 November 2010</td>
         <td>
           <ul>
             <li><a href="ttl.html#per-queue-message-ttl">Per-queue message TTL</a></li>
             <li>Automatic upgrades</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.2.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.1.1.txt">2.1.1</a></td>
-        <td>20 October 2010</td>
+        <td class="centre">2.1.1</td>
+        <td class="centre">20 October 2010</td>
         <td>
           <ul>
             <li><a href="e2e.html">Exchange to exchange bindings</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.1.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.1.0.txt">2.1.0</a></td>
-        <td>15 September 2010</td>
+        <td class="centre">2.1.0</td>
+        <td class="centre">15 September 2010</td>
         <td>
           <ul>
             <li><a href="management.html">Management plugin</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.1.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-2.0.0.txt">2.0.0</a></td>
-        <td>25 August 2010</td>
+        <td class="centre">2.0.0</td>
+        <td class="centre">25 August 2010</td>
         <td>
           <ul>
             <li>New persister</li>
@@ -280,21 +315,23 @@
             <li>Binary Plugin releases</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-2.0.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.8.1.txt">1.8.1</a></td>
-        <td>15 July 2010</td>
+        <td class="centre">1.8.1</td>
+        <td class="centre">15 July 2010</td>
         <td>
           <ul>
             <li>Synchronous basic.recover</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.8.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.8.0.txt">1.8.0</a></td>
-        <td>16 June 2010</td>
+        <td class="centre">1.8.0</td>
+        <td class="centre">16 June 2010</td>
         <td>
           <ul>
             <li>AMQP 0-9-1 semantics</li>
@@ -302,35 +339,38 @@
             <li>Backing store plugins</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.8.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td colspan="3"><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-April/000024.html">RabbitMQ acquired by SpringSource</a></td>
+        <td colspan="4"><a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-April/000024.html">RabbitMQ acquired by SpringSource</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.7.2.txt">1.7.2</a></td>
-        <td>16 February 2010</td>
+        <td class="centre">1.7.2</td>
+        <td class="centre">16 February 2010</td>
         <td>
           <ul>
             <li>Enhanced rabbitmqctl</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.7.2.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.7.1.txt">1.7.1</a></td>
-        <td>25 January 2010</td>
+        <td class="centre">1.7.1</td>
+        <td class="centre">25 January 2010</td>
         <td>
           <ul>
             <li>Improved <a href="memory.html">producer throttling</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.7.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.7.0.txt">1.7.0</a></td>
-        <td>7 October 2009</td>
+        <td class="centre">1.7.0</td>
+        <td class="centre">7 October 2009</td>
         <td>
           <ul>
             <li><a href="ssl.html">Native SSL support</a></li>
@@ -338,11 +378,12 @@
             <li>Configuration file</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.7.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.6.0.txt">1.6.0</a></td>
-        <td>17 June 2009</td>
+        <td class="centre">1.6.0</td>
+        <td class="centre">17 June 2009</td>
         <td>
           <ul>
             <li>Prefetch count</li>
@@ -351,54 +392,59 @@
             <li><a href="ae.html">Alternate exchanges</a></li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.6.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.5.5.txt">1.5.5</a></td>
-        <td>30 May 2009</td>
+        <td class="centre">1.5.5</td>
+        <td class="centre">30 May 2009</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.5.5.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.5.4.txt">1.5.4</a></td>
-        <td>6 April 2009</td>
+        <td class="centre">1.5.4</td>
+        <td class="centre">6 April 2009</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.5.4.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.5.3.txt">1.5.3</a></td>
-        <td>24 February 2009</td>
+        <td class="centre">1.5.3</td>
+        <td class="centre">24 February 2009</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.5.3.txt">(changes)</a></td>
       </tr>
 
       <!-- There was no 1.5.2. -->
 
       <tr>
-        <td><a href="release-notes/README-1.5.1.txt">1.5.1</a></td>
-        <td>21 January 2009</td>
+        <td class="centre">1.5.1</td>
+        <td class="centre">21 January 2009</td>
         <td>
           <ul>
             <li>Bug fixes</li>
             <li>First release with "final" status</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.5.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.5.0.txt">1.5.0</a></td>
-        <td>18 December 2008</td>
+        <td class="centre">1.5.0</td>
+        <td class="centre">18 December 2008</td>
         <td>
           <ul>
             <li>Informational rabbitmqctl commands</li>
@@ -406,68 +452,75 @@
             <li>Producer throttling</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.5.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.4.0.txt">1.4.0</a></td>
-        <td>30 July 2008</td>
+        <td class="centre">1.4.0</td>
+        <td class="centre">30 July 2008</td>
         <td>
           <ul>
             <li>Performance enhancements</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.4.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.3.0.txt">1.3.0</a></td>
-        <td>1 April 2008</td>
+        <td class="centre">1.3.0</td>
+        <td class="centre">1 April 2008</td>
         <td>
           <ul>
             <li>Performance enhancements</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.3.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.2.0.txt">1.2.0</a></td>
-        <td>27 September 2007</td>
+        <td class="centre">1.2.0</td>
+        <td class="centre">27 September 2007</td>
         <td>
           <ul>
             <li>Simplified cluster configuration</li>
             <li>Internal flow control</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.2.0.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.1.1.txt">1.1.1</a></td>
-        <td>29 August 2007</td>
+        <td class="centre">1.1.1</td>
+        <td class="centre">29 August 2007</td>
         <td>
           <ul>
             <li>Improved interoperability</li>
             <li>First release with "beta" status</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.1.1.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="release-notes/README-1.1.0.txt">1.1.0-alpha</a></td>
-        <td>1 August 2007</td>
+        <td class="centre">1.1.0-alpha</td>
+        <td class="centre">1 August 2007</td>
         <td>
           <ul>
             <li>Bug fixes</li>
           </ul>
         </td>
+        <td class="centre"><a href="release-notes/README-1.1.0-alpha.txt">(changes)</a></td>
       </tr>
 
       <tr>
-        <td><a href="/resources/RabbitMQ_PressRelease_080207.pdf">1.0.0-alpha</a> [PDF]</td>
-        <td>8 February 2007</td>
+        <td class="centre">1.0.0-alpha</td>
+        <td class="centre">8 February 2007</td>
         <td>
           <ul>
             <li>Initial release</li>
           </ul>
         </td>
+        <td class="centre"><a href="/resources/RabbitMQ_PressRelease_080207.pdf">(changes)</a><br/>(pdf)</td>
       </tr>
     </table>
   </body>

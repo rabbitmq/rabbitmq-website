@@ -355,7 +355,7 @@
             <code>brokers</code> clause is mandatory and the
             <code>declarations</code> clause optional.
           </p>
-          <dl>
+          <dl id="uris">
             <dt><strong>brokers</strong></dt>
             <dd>
               <p>
@@ -417,6 +417,13 @@
                 details of SSL in RabbitMQ in general and specifically
                 the <a href="ssl.html#configure-erlang">Erlang
                 client</a> section.
+              </p>
+              <p>
+                It is also possible to control the SASL mechanism used to
+                authenticate, using the <code>auth_mechanism</code>
+                parameter. The most common use for this is
+                with <code>auth_mechanism=external</code> to trigger use of
+                the <code>rabbitmq_auth_mechanism_ssl</code> plugin.
               </p>
               <p>
                 <strong>Note</strong>: If the broker list consists of a
