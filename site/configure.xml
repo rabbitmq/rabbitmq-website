@@ -631,6 +631,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>cluster_partition_handling</code></td>
+            <td>
+              How to handle network partitions. One
+              of <code>ignore</code>
+              or <code>pause_minority</code>. See
+              the <a href="partitions.html#pause-minority">documentation
+              on partitions</a> for more information.
+              <p>Default: <code>ignore</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You probably
