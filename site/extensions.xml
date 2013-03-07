@@ -86,16 +86,6 @@
           <a href="dlx.html">Dead Letter Exchanges</a> ensure messages
           get re-routed when they are rejected or expire.
         </li>
-      </ul>
-    </div>
-
-    <div class="landing-box">
-      <h2>Queues</h2>
-      <ul>
-        <li>
-          <a href="ha.html">Mirrored Queues</a>
-          implement high availability.
-        </li>
         <li>
           <a href="maxdepth.html">Length Limit</a>
           allows the maximum length of a queue to be set.
