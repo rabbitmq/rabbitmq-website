@@ -143,5 +143,48 @@ Cluster status of node rabbit@smacmullen ...
       the <code>net_ticktime</code> is <b>not</b> a general solution
       to the problem of network partitions.
     </p>
+
+    <h2 id="pause-minority">Pause-minority mode</h2>
+    <p>
+      An alternative approach is to tell RabbitMQ to use pause-minority
+      mode. In this mode RabbitMQ will choose partition tolerance over
+      availability from the CAP theorem, by automatically pausing
+      cluster nodes which determine themselves to be in a minority
+      after seeing other nodes go down. This ensures that in the event
+      of a network partition, at most the nodes in a single partition
+      will continue to run.
+    </p>
+    <p>
+      The Erlang VM on the paused nodes will continue running but the
+      nodes will not listen on any ports or do any other work. They
+      will check once per second to see if the rest of the cluster has
+      reappeared, and start up again if it has.
+    </p>
+    <p>
+      Note that nodes will not enter the paused state at startup, even
+      if they are in a minority then. It is expected that any such
+      minority at startup is due to the rest of the cluster not having
+      been started yet.
+    </p>
+    <p>
+      You can enable pause-minority mode by setting the configuration
+      parameter <code>cluster_partition_handling</code>
+      to <code>pause_minority</code> for the <code>rabbit</code>
+      application in
+      your <a href="configure.html#configuration-file">configuration
+      file</a>.
+    </p>
+    <p>
+      Note that RabbitMQ will pause nodes which are not in
+      a <i>strict</i> majority of the cluster - i.e. greater than
+      50%. It is therefore not a good idea to enable pause-minority
+      mode on a cluster of two nodes since in the event of a network
+      partition <b>or node failure</b>, both nodes will
+      pause. However, <code>pause_minority</code> mode is likely to be
+      safer than <code>ignore</code> mode for clusters of more than
+      two nodes, especially if the most likely form of network
+      partition is that a single minority of nodes drops off the
+      network.
+    </p>
   </body>
 </html>
