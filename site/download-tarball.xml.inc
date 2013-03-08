@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<!DOCTYPE p [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
         <p>
           Contained in the tarball is a directory named
           <code>rabbitmq_server-&version-server;</code>. You should

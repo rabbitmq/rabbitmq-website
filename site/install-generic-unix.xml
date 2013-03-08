@@ -35,7 +35,12 @@
         </p>
         <xi:include href="download-tarball.xml.inc"/>
       </doc:subsection>
-
-      <xi:include href="run-tarball.xml.inc"/>
+      
+      <xi:include href="running-generic-unix.xml.inc"/>
+      <xi:include href="file-locations.xml.inc"/>
+    
+    </doc:section>
+    
+    <xi:include href="managing-the-broker.xml.inc"/>
   </body>
 </html>
