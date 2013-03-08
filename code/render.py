@@ -96,7 +96,6 @@ def render_page(page_name, site_mode):
         page_name = 'index'
 
     xml_doc = read_file(page_name)
-    print xml_doc
     xml_doc.xinclude()
     query = '/processing-instruction(\'xml-stylesheet\')'
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
