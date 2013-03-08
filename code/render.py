@@ -1,5 +1,4 @@
-import libxml2
-import libxslt
+from lxml import etree
 import re
 import os
 import markdown
@@ -64,10 +63,9 @@ def preprocess_markdown(fpath):
     # Unfortunately we can't stop markdown escaping entities. Unescape them.
     processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
 
-    whole = pre + head + processed + post
-    return libxml2.createMemoryParserCtxt(whole, len(whole))
+    return etree.fromstring(pre + head + processed + post).getroottree()
 
-MARKUPS={'.xml': libxml2.createFileParserCtxt,
+MARKUPS={'.xml': etree.parse,
          '.md':  preprocess_markdown}
 
 class Error404(Exception):
@@ -97,44 +95,25 @@ def render_page(page_name, site_mode):
     if page_name == '':
         page_name = 'index'
 
-    xml_doc = find_parse_file(page_name)
+    xml_doc = read_file(page_name)
+    print xml_doc
+    xml_doc.xinclude()
+    query = '/processing-instruction(\'xml-stylesheet\')'
+    xslt_file_name = xml_doc.xpath(query)[0].get('href')
+    xslt_doc = etree.parse(os.path.join(SITE_DIR, xslt_file_name))
+    params = {'page-name': "'/%s.html'" % page_name,
+              'site-mode': "'%s'" % site_mode}
+    transform = etree.XSLT(xslt_doc)
+    return transform(xml_doc, **params)
 
-    for child in xml_doc.children:
-        if child.name == 'xml-stylesheet':
-            match = re.compile('.*href="(.*)"').match(child.getContent())
-            if match:
-                xslt_file_name = match.group(1)
-                # PARSE_NOENT means "substitute entities". This is needed by
-                # the XSL for the plugins page.
-                xslt_doc = libxml2.readFile(
-                    os.path.join(SITE_DIR, xslt_file_name),
-                    "UTF-8",
-                    libxml2.XML_PARSE_NOENT)
-                xslt_trans = libxslt.parseStylesheetDoc(xslt_doc)
-                html_doc = xslt_trans.applyStylesheet(
-                    xml_doc, {'page-name': "'/%s.html'" % page_name,
-                              'site-mode': "'%s'" % site_mode})
-                result = xslt_trans.saveResultToString(html_doc)
-                return result
-    raise Error500
-
-def create_xml_context(page_name):
+def read_file(page_name):
     for ext in MARKUPS:
-        ctxt_maker = MARKUPS[ext]
+        preprocess = MARKUPS[ext]
         file_name = page_name + ext
         fpath = os.path.join(SITE_DIR, file_name)
         if os.path.exists(fpath):
-            return (fpath, ctxt_maker(fpath))
+            return preprocess(fpath)
     raise Error404, page_name
-
-def find_parse_file(page_name):
-    (path, xml_ctxt) = create_xml_context(page_name)
-    xml_ctxt.ctxtUseOptions(libxml2.XML_PARSE_NOENT)
-    xml_ctxt.parseDocument()
-    xml_doc = xml_ctxt.doc()
-    xml_doc.setBase(path)
-    xml_doc.xincludeProcess()
-    return xml_doc
 
 def handler(req, site_mode):
     req.content_type = "text/html; charset=utf-8"
