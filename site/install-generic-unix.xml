@@ -37,7 +37,7 @@
       </doc:subsection>
 
       <xi:include href="running-generic-unix.xml.inc"/>
-      <xi:include href="file-locations.xml.inc"/>
+      <xi:include href="generic-unix-file-locations.xml.inc"/>
 
     </doc:section>
 
