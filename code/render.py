@@ -118,7 +118,7 @@ def render_page(page_name, site_mode):
     params = {'page-name': "'/%s.html'" % page_name,
               'site-mode': "'%s'" % site_mode}
     transform = etree.XSLT(xslt_doc)
-    return transform(xml_doc, **params)
+    return str(transform(xml_doc, **params))
 
 def read_file(page_name):
     for ext in MARKUPS:
