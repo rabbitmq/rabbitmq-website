@@ -9,28 +9,31 @@
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Installing on Generic Unix</title>
+    <title>Installing on Mac</title>
   </head>
   <body>
-    <doc:section name="generic-unix">
+    <doc:section name="standalone-mac">
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
-        <r:download downloadfile="rabbitmq-server-generic-unix-&version-server;.tar.gz"
+        <r:download downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.gz"
 		    downloadpath="&dir-server;">
-	  Packaged for generic Unix systems (tar.gz)
+	  Packaged for Mac systems (tar.gz)
         </r:download>
       </r:downloads>
 
-      <doc:heading>Generic Unix or Linux (BSD, Mac OS X)</doc:heading>
+      <doc:heading>Standalone Mac</doc:heading>
 
-      <doc:subsection name="install-generic-unix">
+      <doc:subsection name="install-standalone">
         <doc:heading>Install the Server</doc:heading>
         <p>
-          Install a recent version of Erlang.
+          This build of RabbitMQ includes an Erlang runtime. That means you
+          don't need to install Erlang to run RabbitMQ.
+          If you are curious about how this works you can read more
+          <a href="http://www.erlang.org/doc/design_principles/release_structure.html">here</a>.
         </p>
         <p>
           Download
-          <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
+          <code>rabbitmq-server-mac-standalone-&version-server;.tar.gz</code>
           from the <a href="download.html">download page</a>.
         </p>
         <xi:include href="download-tarball.xml.inc"/>
@@ -38,9 +41,9 @@
       
       <xi:include href="running-generic-unix.xml.inc"/>
       <xi:include href="file-locations.xml.inc"/>
-    
+
     </doc:section>
-    
+      
     <xi:include href="managing-the-broker.xml.inc"/>
   </body>
 </html>
