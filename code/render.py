@@ -65,7 +65,12 @@ def preprocess_markdown(fpath):
 
     return etree.fromstring(pre + head + processed + post).getroottree()
 
-MARKUPS={'.xml': etree.parse,
+
+def parse(fpath):
+    parser = etree.XMLParser(ns_clean=True)
+    return etree.parse(fpath, parser)
+
+MARKUPS={'.xml': parse,
          '.md':  preprocess_markdown}
 
 class Error404(Exception):
@@ -99,7 +104,7 @@ def render_page(page_name, site_mode):
     xml_doc.xinclude()
     query = '/processing-instruction(\'xml-stylesheet\')'
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
-    xslt_doc = etree.parse(os.path.join(SITE_DIR, xslt_file_name))
+    xslt_doc = parse(os.path.join(SITE_DIR, xslt_file_name))
     params = {'page-name': "'/%s.html'" % page_name,
               'site-mode': "'%s'" % site_mode}
     transform = etree.XSLT(xslt_doc)
