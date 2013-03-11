@@ -21,14 +21,10 @@
     </p>
     <p>
         Find the line:
-        <pre class="sourcecode">
-            SYS_PREFIX=${RABBITMQ_HOME}
-        </pre>
+        <pre class="sourcecode">SYS_PREFIX=${RABBITMQ_HOME}</pre>
         in the <code>sbin/rabbitmq-defaults</code> script and
         change this line to:
-        <pre class="sourcecode">
-            SYS_PREFIX=
-        </pre>
+        <pre class="sourcecode">SYS_PREFIX=</pre>
         but do not modify any other line in this script.
     </p>
     <p>
