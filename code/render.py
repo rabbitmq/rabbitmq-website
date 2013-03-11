@@ -1,6 +1,7 @@
 from lxml import etree
 import re
 import os
+import os.path
 import markdown
 
 try:
@@ -67,7 +68,16 @@ def preprocess_markdown(fpath):
 
 
 def parse(fpath):
-    parser = etree.XMLParser(ns_clean=True)
+    class MissingFeedResolver(etree.Resolver):
+        def resolve(self, url, id, context):
+            if not '://' in url and not os.path.exists(url):
+                print "Ignoring missing file ", url
+                return self.resolve_empty(context)
+            return None # Defer to other resolvers
+
+    # TODO cache the blog feed and revert to no_network = True
+    parser = etree.XMLParser(ns_clean = True, no_network = False)
+    parser.resolvers.add(MissingFeedResolver())
     return etree.parse(fpath, parser)
 
 MARKUPS={'.xml': parse,
