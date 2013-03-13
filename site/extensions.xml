@@ -86,6 +86,10 @@
           <a href="dlx.html">Dead Letter Exchanges</a> ensure messages
           get re-routed when they are rejected or expire.
         </li>
+        <li>
+          <a href="maxdepth.html">Length Limit</a>
+          allows the maximum length of a queue to be set.
+        </li>
       </ul>
     </div>
 
