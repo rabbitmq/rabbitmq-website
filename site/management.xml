@@ -348,6 +348,40 @@
             guide for more details.
           </p>
         </doc:subsection>
+
+        <doc:subsection name="sample-retention">
+          <doc:heading>Sample retention policies</doc:heading>
+          <p>
+            The management plugin will retain samples of some data
+            such as message rates and queue lengths. You can
+            configure how long such data is retained.
+          </p>
+          <pre class="example">[
+  ...
+  {rabbitmq_management, [{sample_retention_policies,
+                          [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
+                           {basic,    [{60, 5}, {3600, 60}]},
+                           {detailed, [{10, 5}]}]}
+                        ]},
+  ...
+].</pre>
+          <p>
+            There are three policies:
+            <ul>
+              <li><code>global</code> - how long to retain data for the overview and virtual host pages</li>
+              <li><code>basic</code> - how long to retain data for individual connections, channels, exchanges and queues</li>
+              <li><code>detailed</code> - how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
+            </ul>
+
+            This configuration (which is the default) retains global
+            data at a 5 second resolution for 1 minute, then at a 1
+            minute resolution for 1 hour, then at a 20 minute
+            resolution for 1 day. It retains basic data at a 5 second
+            resolution for 1 minute, then at a 1 minute resolution for
+            1 hour, and detailed data only for 10 seconds.
+          </p>
+        </doc:subsection>
+
       </doc:section>
 
       <doc:section name="clustering">
