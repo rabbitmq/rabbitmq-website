@@ -20,12 +20,12 @@
   specification.
   </p>
   <p>
-    A future version of RabbitMQ will implement AMQP 1.0. However,
-    AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and
-    hence not a suitable replacement for the latter.  RabbitMQ will
-    therefore continue to support AMQP 0-9-1 (and its close relatives
-    0-9 and 0-8) indefinitely. RabbitMQ is unlikely ever to support
-    AMQP 0-10.
+    RabbitMQ implements AMQP 1.0 via an experimental <a
+    href="plugins.html">plugin</a>. However, AMQP 1.0 is a completely
+    different protocol than AMQP 0-9-1 and hence not a suitable
+    replacement for the latter.  RabbitMQ will therefore continue to
+    support AMQP 0-9-1 (and its close relatives 0-9 and 0-8)
+    indefinitely. RabbitMQ is unlikely ever to support AMQP 0-10.
   </p>
         <p>
           The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
