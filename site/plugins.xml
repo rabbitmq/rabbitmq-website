@@ -177,6 +177,10 @@
             <r:readme-link repo="rabbitmq-mqtt" extension=".md"/> for more details.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_amqp1_0">
+            An implementation of the AMQP 1.0 protocol. See the
+            <r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/> for more details.
+          </r:plugin>
         </table>
       </doc:section>
 
