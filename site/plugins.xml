@@ -36,16 +36,6 @@
           consult <a href="man/rabbitmq-plugins.1.man.html">the manual
           page</a>.
         </p>
-        <!-- TODO: remove this after a suitable transition period -->
-        <p>
-          <b>Note: </b> Releases prior to 2.7.0 did not include
-          plugins with the server, and any plugins that were installed
-          were always activated; <code>rabbitmq-plugins</code> did not
-          exist. You can download binary plugin files for older
-          releases from <a href="/releases/plugins/">the
-          archive</a>. Note further that we did not make binary
-          plugins available prior to release 2.0.0.
-        </p>
       </doc:section>
 
       <doc:section name="maintained">
