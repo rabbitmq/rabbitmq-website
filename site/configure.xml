@@ -630,9 +630,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>cluster_partition_handling</code></td>
             <td>
               How to handle network partitions. One
-              of <code>ignore</code>
-              or <code>pause_minority</code>. See
-              the <a href="partitions.html#pause-minority">documentation
+              of <code>ignore</code>,
+              <code>pause_minority</code>
+              or <code>autoheal</code>. See
+              the <a href="partitions.html#automatic-handling">documentation
               on partitions</a> for more information.
               <p>Default: <code>ignore</code></p>
             </td>
