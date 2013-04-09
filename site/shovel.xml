@@ -167,13 +167,13 @@
 
       <p>
         When using shovel in a cluster, any nodes of the cluster may
-		have the shovel plugin installed. If two or more nodes both define
-		a shovel with the same name, the shovel worker will be started
-		on just one of them, however if that node fails then the shovel
-		will be recreated on a surviving node. It is important that if two
-		or more nodes <em>do</em> define a shovel with the same name, then
-		the configuration given for that shovel should be identical for all
-		of them.
+        have the shovel plugin installed. If two or more nodes both define
+        a shovel with the same name, the shovel worker will be started
+        on just one of them, however if that node fails then the shovel
+        will be recreated on a surviving node. It is important that if two
+        or more nodes <em>do</em> define a shovel with the same name, then
+        the configuration given for that shovel should be identical for all
+        of them.
       </p>
 
     </doc:section>
