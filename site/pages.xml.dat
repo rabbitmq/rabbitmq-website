@@ -98,8 +98,8 @@
        <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
-       <x:related url="/&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
-       <x:related url="/&dir-current-edoc;" text="Erlang edoc"/>
+       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
      </x:page>
      <x:page url="/plugins.html" text="Plugins">
        <x:page url="/management.html" text="Management plugin">
