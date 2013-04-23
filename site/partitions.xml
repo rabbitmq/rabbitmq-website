@@ -144,16 +144,67 @@ Cluster status of node rabbit@smacmullen ...
       to the problem of network partitions.
     </p>
 
-    <h2 id="pause-minority">Pause-minority mode</h2>
+    <h2 id="automatic-handling">Automatically handling partitions</h2>
     <p>
-      An alternative approach is to tell RabbitMQ to use pause-minority
-      mode. In this mode RabbitMQ will choose partition tolerance over
-      availability from the CAP theorem, by automatically pausing
-      cluster nodes which determine themselves to be in a minority
-      after seeing other nodes go down. This ensures that in the event
-      of a network partition, at most the nodes in a single partition
-      will continue to run.
+      RabbitMQ also offers two ways to deal with network partitions
+      automatically: <i>pause-minority</i> mode and <i>autoheal</i>
+      mode. (The default behaviour is referred to as <i>ignore</i>
+      mode).
     </p>
+
+    <p>
+      In pause-minority mode RabbitMQ will automatically pause cluster
+      nodes which determine themselves to be in a minority after
+      seeing other nodes go down. It therefore chooses partition
+      tolerance over availability from the CAP theorem. This ensures
+      that in the event of a network partition, at most the nodes in a
+      single partition will continue to run.
+    </p>
+
+    <p>
+      In autoheal mode RabbitMQ will automatically decide on a winning
+      partition if a partition is deemed to have occurred. It will
+      restart all nodes that are not in the winning partition. The
+      winning partition is the one which has the most clients
+      connected (or if this produces a draw, the one with the most
+      nodes).
+    </p>
+
+    <p>
+      You can enable either mode by setting the configuration
+      parameter <code>cluster_partition_handling</code> for
+      the <code>rabbit</code> application in
+      your <a href="configure.html#configuration-file">configuration
+      file</a> to either <code>pause_minority</code>
+      or <code>autoheal</code>.
+    </p>
+
+    <h3>Which mode should I pick?</h3>
+
+    <ul>
+      <li>
+        <code>ignore</code> - Your network really is reliable. All
+        your nodes are in a rack, connected with a switch, and that
+        switch is also the route to the outside world. You don't want
+        to run any risk of any of your cluster shutting down if any
+        other part of it fails (or you have a two node cluster).
+      </li>
+      <li>
+        <code>pause_minority</code> - Your network is maybe less
+        reliable. You have clustered across 3 AZs in EC2, and you
+        assume that only one AZ will fail at once. In that scenario
+        you want the remaining two AZs to continue working and the
+        nodes from the failed AZ to rejoin automatically and without
+        fuss when the AZ comes back.
+      </li>
+      <li>
+        <code>autoheal</code> - Your network may not be reliable. You
+        are more concerned with continuity of service than with data
+        integrity. You may have a two node cluster.
+      </li>
+    </ul>
+
+    <h3 id="pause-minority">More about pause-minority mode</h3>
     <p>
       The Erlang VM on the paused nodes will continue running but the
       nodes will not listen on any ports or do any other work. They
@@ -167,15 +218,7 @@ Cluster status of node rabbit@smacmullen ...
       been started yet.
     </p>
     <p>
-      You can enable pause-minority mode by setting the configuration
-      parameter <code>cluster_partition_handling</code>
-      to <code>pause_minority</code> for the <code>rabbit</code>
-      application in
-      your <a href="configure.html#configuration-file">configuration
-      file</a>.
-    </p>
-    <p>
-      Note that RabbitMQ will pause nodes which are not in
+      Also note that RabbitMQ will pause nodes which are not in
       a <i>strict</i> majority of the cluster - i.e. greater than
       50%. It is therefore not a good idea to enable pause-minority
       mode on a cluster of two nodes since in the event of a network
