@@ -52,7 +52,7 @@ enhancements
 24114 ignore incoming statistics if the statistics database is overwhelmed
 23625 performance improvements when listing many queues
 23382 filter lists in the web UI
-25408 allow soecification of arguments when declaring with rabbitmqadmin
+25408 allow specification of arguments when declaring with rabbitmqadmin
 23438 allow admin to specify a reason when closing a connection
 25322 add "--version" support to rabbitmqadmin
 
