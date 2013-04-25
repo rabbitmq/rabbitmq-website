@@ -107,7 +107,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         messages to the default exchange without specifiying a
         dead-letter routing key.  Messages in such cycles (i.e.
         messages that reach the same queue twice) will be
-        <em>dropped</em>.
+        dropped <em>if the entire cycle is due to message expiry</em>.
       </p>
     </doc:section>
     <doc:section>
