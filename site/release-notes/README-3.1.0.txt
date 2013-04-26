@@ -3,40 +3,42 @@ Release: RabbitMQ 3.1.0
 server
 ------
 bug fixes
-25385 check equivalence for dead-lettering related arguments
-25463 fix logging of authentication mechanism on login failure
 25518 fix handling of certain ASN.1 fields in SSL certificates
-
-enhancements
-24407 manual eager synchronisation of slaves
-25418 automatic eager synchronisation of slaves by policy
-25488 allow exchange types plugins to validate bindings
-25514 performance improvements in message store garbage collection
-25504 25327 performance improvements in dead lettering
-25517 more cross-cluster compatibility checks at startup
-25302 performance improvements in slaves when consuming
-25311 performance improvements requeuing persistent messages
-25367 throttle in a more timely manner when reading large messages and
-      resource alarm goes off
-25373 memory-use improvement while fetching messages
-25415 count total consumers queue.declare-ok, not "active" ones
-25428 memory-use improvement in queue index
-24980 cut down size of stdout banner, ensure everything goes to logs
-25247 allow "nodes" policy to change queue master
-25358 cluster "pause minority" mode to prefer partition tolerance over
-      availability
-25358 cluster "autoheal" mode to automatically choose nodes to restart
-      when a partition has occurred
-25474 ensure partitions warning clears without needing to stop the
-      winning partition
 25486 ensure we handle cross cluster resource alarms after a partition
 25490 limit frequency with which the server invokes "df" or "dir" to
       measure disc use
 25491 ensure we detect partitions in an idle cluster
-25513 support debugging for heavyweight gen_server2 state
+25367 throttle in a more timely manner when reading large messages and
+      resource alarm goes off
+25463 fix logging of authentication mechanism on login failure
+25385 check equivalence for dead-lettering related arguments
+
+enhancements
+24407 manual eager synchronisation of slaves
+25418 automatic eager synchronisation of slaves by policy
+25358 cluster "autoheal" mode to automatically choose nodes to restart
+      when a partition has occurred
+25358 cluster "pause minority" mode to prefer partition tolerance over
+      availability
 19375 add x-max-length argument for queue length limits
+25247 allow "nodes" policy to change queue master
+25415 return total number of consumers in queue.declare-ok, not "active" ones
+24980 cut down size of stdout banner, ensure everything goes to logs
+25474 ensure partitions warning clears without needing to stop the
+      winning partition
+25488 allow exchange types plugins to validate bindings
+25517 more cross-cluster compatibility checks at startup
+25513 support debugging for heavyweight gen_server2 state
+
+performance improvements
+25514 performance improvements in message store garbage collection
+25302 performance improvements in slaves when consuming
+25311 performance improvements requeuing persistent messages
+25373 memory-use improvement while fetching messages
+25428 memory-use improvement in queue index
+25504 25327 performance improvements in dead lettering
 25363 25364 25365 25366 25368 25369 25371 25386 25388 25429
-      various performance improvements
+      various minor performance improvements
 
 
 management plugin
@@ -60,10 +62,10 @@ enhancements
 federation plugin
 -----------------
 bug fixes
-24223 support basic.nack
+24223 handle basic.nack if sent by the server
 
 enhancements
-25406 allow an upstream to specify multiple URLs for failover
+25406 allow specification of multiple URLs in an upstream for failover
 25433 allow choice of acknowledgement mode, permitting faster but less
       reliable delivery
 
@@ -88,20 +90,20 @@ enhancements
 
 AMQP 1.0 plugin
 ---------------
-25381 new plugin: support AMQP 1.0
+25381 new plugin: initial support for AMQP 1.0
 
 
 STOMP plugin
 -----------
 bug fixes
-25464 Handle connection abort while opening more gracefully
+25464 More graceful handling of connection abort while opening
 25466 Don't crash when SENDing to /temp-queue
 
 
 MQTT plugin
 -----------
 bug fixes
-25464 Handle connection abort while opening more gracefully
+25464 More graceful handling of connection abort while opening
 25487 Do not break "rabbitmqctl status" if MQTT plugin is enabled
 
 
