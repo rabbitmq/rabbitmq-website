@@ -3,6 +3,8 @@ Release: RabbitMQ 3.1.0
 server
 ------
 bug fixes
+25524 fix memory leak in mirror queue slave with many short-lived publishing
+      channels
 25518 fix handling of certain ASN.1 fields in SSL certificates
 25486 ensure we handle cross cluster resource alarms after a partition
 25490 limit frequency with which the server invokes "df" or "dir" to
@@ -22,11 +24,13 @@ enhancements
       availability
 19375 add x-max-length argument for queue length limits
 25247 allow "nodes" policy to change queue master
+25107 permit dead-letter cycles
 25415 return total number of consumers in queue.declare-ok, not "active" ones
 24980 cut down size of stdout banner, ensure everything goes to logs
 25474 ensure partitions warning clears without needing to stop the
       winning partition
 25488 allow exchange types plugins to validate bindings
+25512 improve robustness and correctness of memory use detail reporting
 25517 more cross-cluster compatibility checks at startup
 25513 support debugging for heavyweight gen_server2 state
 
@@ -137,6 +141,10 @@ enhancements
 
 erlang client
 -------------
+bug fixes
+25502 fail reasonably when attempting to connect to a server that does not
+      speak AMQP 0-9-1
+
 enhancements
 25377 remove "there is no confirm handler" warnings
 25503 don't allow client to negotiate frame sizes > 64Mb since it does not
