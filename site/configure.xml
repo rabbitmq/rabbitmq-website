@@ -46,18 +46,14 @@
       <doc:subsection name="verify-configuration">
       <doc:heading>Verify Configuration</doc:heading>
          <p>
-             The active configuration can be verified in the startup banner, e.g. the active configuration file:
-             <pre  class="sourcecode">
+           The active configuration can be verified in the broker log,
+           e.g. the active configuration file:
+         </p>
+           <pre class="sourcecode">
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
-             This may appear on the console or in a file, depending on how the broker was started:
-             <ul>
-             <li>Linux (when running as a service): see the <code>startup_log</code> file in the log directory;</li>
-             <li>MacOSX (Macports): see the <code>startupitem.log</code> file in the log directory;</li>
-             <li>Started as <code>rabbitmq-server</code> (without the -detached option): see console output;</li>
-             <li>Windows Service: enable <span class="envvar">RABBITMQ_CONSOLE_LOG</span> and check the <code>.debug</code> file.</li>
-             </ul>
-             The startup banner is not available if the broker is started in detached mode.
-        </p>
+         <p>
+           will show up in the <a href="relocate.html">log file</a>.
+         </p>
       </doc:subsection>
       </doc:section>
 
@@ -631,6 +627,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>cluster_partition_handling</code></td>
+            <td>
+              How to handle network partitions. One
+              of <code>ignore</code>,
+              <code>pause_minority</code>
+              or <code>autoheal</code>. See
+              the <a href="partitions.html#automatic-handling">documentation
+              on partitions</a> for more information.
+              <p>Default: <code>ignore</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You probably
@@ -660,7 +668,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Tunable value for the persister. You almost certainly
               should not change this.
-              <p>Default: <code>262144</code></p>
+              <p>Default: <code>65536</code></p>
             </td>
           </tr>
         </table>

@@ -113,8 +113,8 @@
 started SSL Listener on 0.0.0.0:5671</pre>
          If you included an "ssl_listeners" configuration directive and you don't see
          this message, it is possible that your configuration file was not read by
-         the broker. Confirm that the configuration file quoted in the broker startup
-         banner contain SSL configuration options. See the
+         the broker. Confirm that the configuration file quoted in the broker log
+         contains SSL configuration options. See the
          <a href="/configure.html#introduction">configuration page</a> for details.
        </p>
        </doc:subsection>

@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-three">
-   <xi:include href="tutorials-menu.xml.inc"/>
+   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>
 
 <div id="tutorial">
@@ -9,7 +9,7 @@
 ## Publish/Subscribe
 ### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-two-python.html) we created a work
 queue. The assumption behind a work queue is that each task is

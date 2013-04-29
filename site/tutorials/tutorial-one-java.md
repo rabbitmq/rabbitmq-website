@@ -1,14 +1,14 @@
 # RabbitMQ tutorial - "Hello World!" SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-one">
-  <xi:include href="tutorials-menu.xml.inc"/>
+  <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>
 
 <div id="tutorial">
 
 ## Introduction
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 RabbitMQ is a message broker. In essence, it accepts messages from
 _producers_, and delivers them to _consumers_. In-between, it can

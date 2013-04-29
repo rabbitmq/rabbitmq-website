@@ -194,8 +194,7 @@
           configuration of a queue, when a node joins a cluster,
           queues may add a slave on the new node. At this point, the
           new slave will be empty: it will not contain any existing
-          contents of the queue, and currently, there is no
-          synchronisation protocol. Such a slave will receive new
+          contents of the queue. Such a slave will receive new
           messages published to the queue, and thus over time will
           accurately represent the tail of the mirrored-queue. As
           messages are drained from the mirrored-queue, the size of
@@ -211,18 +210,19 @@
           Thus a newly added slave provides no additional form of
           redundancy or availability of the queue's contents until the
           contents of the queue that existed before the slave was
-          added have been removed.  As a result of this, it is
-          preferable to bring up all nodes on which slaves will exist
-          prior to creating mirrored queues, or even better to ensure
-          that your use of messaging generally results in very short
-          or empty queues that rapidly drain.
+          added have been removed or the queue has been explicitly
+          synchronised (see below). Since the queue becomes
+          unresponsive while synchronisation is occurring, it is
+          preferable to allow active queues from which messages are
+          being drained to synchronise naturally, and only explicitly
+          synchronise inactive queues.
         </p>
         <p>
-          You can determine which slaves have synchronised with the
-          following rabbitmqctl invocation, or through the management
-          plugin:
+          Explicit synchronisation can be triggered in two ways: manually or
+          automatically. If a queue is set to automatically synchronise it
+          will synchronise whenever a new slave joins - becoming unresponsive
+          until it has done so.
         </p>
-        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
       </doc:section>
 
       <doc:section name="start-stop">
@@ -340,6 +340,32 @@
           queue will stay on <code>[B C]</code>.
         </p>
 
+        <h3>Synchronising Queues</h3>
+        <p>
+          Queues can be set to automatically synchronise by setting
+          the <code>ha-sync-mode</code> policy key
+          to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
+          to <code>manual</code>. If it is not set then <code>manual</code> is
+          assumed.
+        </p>
+
+        <p>
+          You can determine which slaves are synchronised with the
+          following rabbitmqctl invocation:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <p>
+          You can manually synchronise a queue with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <p>
+          And you can cancel synchronisation with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <p>
+          These features are also available through the management plugin.
+        </p>
+
         <h3>Some examples</h3>
 
         <p>
@@ -391,7 +417,7 @@
         <p>
           Policy where queues whose names begin with
           "<code>two.</code>" are mirrored to any two nodes in the
-          cluster:
+          cluster, with automatic synchronisation:
         </p>
 
         <table>
@@ -399,20 +425,21 @@
             <th>rabbitmqctl</th>
             <td>
               <pre>rabbitmqctl set_policy ha-two "^two\." \
-   '{"ha-mode":"exactly","ha-params":2}'</pre>
+   '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'</pre>
             </td>
           </tr>
           <tr>
             <th>rabbitmqctl (Windows)</th>
             <td>
               <pre>rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2}"</pre>
+   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/policies/%2f/ha-two {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
+              <pre>PUT /api/policies/%2f/ha-two
+{"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2,"ha-sync-mode":"automatic"}}</pre>
             </td>
           </tr>
           <tr>
@@ -429,7 +456,8 @@
                 </li>
                 <li>
                   Enter "ha-mode" = "exactly" in the first line
-                  next to Policy, then "ha-params" = 2 in the second line,
+                  next to Policy, then "ha-params" = 2 in the second
+                  line, then "ha-sync-mode" = "automatic" in the third,
                   and set the type on the second line to "Number".
                 </li>
                 <li>
@@ -439,7 +467,6 @@
             </td>
           </tr>
         </table>
-
       </doc:section>
   </body>
 </html>
