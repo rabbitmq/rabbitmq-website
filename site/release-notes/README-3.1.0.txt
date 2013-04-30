@@ -103,15 +103,15 @@ AMQP 1.0 plugin
 STOMP plugin
 -----------
 bug fixes
-25464 More graceful handling of connection abort while opening
-25466 Don't crash when SENDing to /temp-queue
+25464 more graceful handling of connection abort while opening
+25466 don't crash when SENDing to /temp-queue
 
 
 MQTT plugin
 -----------
 bug fixes
-25464 More graceful handling of connection abort while opening
-25487 Do not break "rabbitmqctl status" if MQTT plugin is enabled
+25464 more graceful handling of connection abort while opening
+25487 do not break "rabbitmqctl status" if MQTT plugin is enabled
 
 
 consistent hash exchange
