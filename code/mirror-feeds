@@ -22,4 +22,4 @@ mirror_feed () {
 }
 
 mirror_feed 'http://search.twitter.com/search.atom?q=rabbitmq%2Bexclude%3Aretweets' $feeds_dir/twitter.atom
-$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site index.xml > /dev/null
+$SRV_DIR/code/compile $SRV_DIR/site-src $SRV_DIR/site www index.xml > /dev/null

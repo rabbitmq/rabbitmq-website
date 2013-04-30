@@ -22,16 +22,14 @@
           the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
           tool:
         </p>
-        <pre class="example">    rabbitmq-plugins enable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins enable <i>plugin-name</i></pre>
         <p>And to disable plugins again, use:</p>
-        <pre class="example">    rabbitmq-plugins disable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins disable <i>plugin-name</i></pre>
         <p>You can see a list of which plugins are enabled with:</p>
-        <pre class="example">    rabbitmq-plugins list</pre>
+        <pre class="example">rabbitmq-plugins list</pre>
         <p>
           Enabling or disabling plugins has no effect on a running RabbitMQ
           server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
-          If you are running RabbitMQ as a Windows service,
-          <a href="#windows-restart">see below</a>.
         </p>
         <p>
           For more information on <code>rabbitmq-plugins</code>,
@@ -54,9 +52,9 @@
         <doc:heading>Maintained Plugins</doc:heading>
         <table>
           <r:plugin name="rabbitmq_auth_backend_ldap">
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
-            for more information.
+            Authentication / authorisation plugin using an external
+            LDAP server. See the <a href="ldap.html">the page on the
+            LDAP plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
@@ -64,6 +62,12 @@
             using SSL client certificates. See the
             <r:readme-link repo="rabbitmq-auth-mechanism-ssl"/> for more
             information.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_consistent_hash_exchange">
+            Consistent hash exchange type. Please see the
+            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
+            for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_federation">
@@ -146,12 +150,6 @@
             the links between them.
           </r:plugin>
 
-          <r:plugin name="rabbitmq_consistent_hash_exchange">
-            Consistent hash exchange type. Please see the
-            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
-            for more information.
-          </r:plugin>
-
           <r:plugin name="rabbitmq_tracing">
             Adds message tracing to the management plugin. Logs
             messages from the <a href="firehose.html">firehose</a> in
@@ -168,6 +166,27 @@
             to <code>rabbitmq_jsonrpc_channel</code>: a shared
             whiteboard, a chat application, and some tests.
           </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp">
+            A bridge exposing <code>rabbitmq_stomp</code> to web
+            browsers using WebSockets, using the WebSockets emulation
+            / compatibility
+            layer <a href="http://sockjs.org">SockJS</a>. Please see
+            the page on <a href="web-stomp.html">the web-stomp
+            plugin</a>.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
+            Adds some basic examples to
+            <code>rabbitmq_web_stomp</code>: a simple "echo" service
+            and a basic canvas-based collaboration tool.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_mqtt">
+            An adapter implementing the MQTT 3.1 protocol. See the
+            <r:readme-link repo="rabbitmq-mqtt" extension=".md"/> for more details.
+          </r:plugin>
+
         </table>
       </doc:section>
 
@@ -245,22 +264,6 @@
           plugins at this point.
         </p>
       </doc:section>
-      <doc:section name="windows-restart">
-        <doc:heading>Restarting RabbitMQ Windows Service</doc:heading>
-        <p>
-          If you enable or disable plugins, you must run the
-          following commands to ensure that the service configuration
-          is updated and the server restarted with the new collection of
-          enabled plugins:
-<pre class="code">
-rabbitmq-service.bat stop
-rabbitmq-service.bat install
-rabbitmq-service.bat start
-</pre>
-         This only applies if you are running RabbitMQ as a Windows service.
-        </p>
-      </doc:section>
-
       <doc:section name="building">
         <doc:heading>Building Plugins</doc:heading>
         <p>

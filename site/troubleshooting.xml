@@ -124,13 +124,21 @@
                 information.
             </p>
           </dd>
+          <dt><strong>You receive an error message reading "The handle is invalid" after upgrading the Windows Service</strong></dt>
+          <dd>
+            <p>
+            The solution is to uninstall RabbitMQ and Erlang.
+            Then remove all registry keys under <code>HKLM/SOFTWARE/Ericsson/Erlang/ErlSrv</code>,
+            and then install Erlang and RabbitMQ (in that order).
+            </p>
+            <p>
+            </p>
+          </dd>
           <dt><strong>Plugin fails to activate</strong></dt>
           <dd>
             <p>
             If a plugin fails to activate, check the output of
-            <code>rabbitmq-plugins list</code>. Windows service users need
-            to take <a href="/plugins.html#windows-restart">additional steps</a>
-            when changing plugins.
+            <code>rabbitmq-plugins list</code>.
             </p>
           </dd>
           <dt><strong>Problems with SSL</strong></dt>

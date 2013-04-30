@@ -17,7 +17,7 @@
       then you probably don't need any configuration at all.
       </p>
       <p>
-          If you have other constraints, RabbitMQ provides two general ways to
+          If you have other constraints, RabbitMQ provides three general ways to
           customise the server:
       <dl>
           <dt>
@@ -33,6 +33,12 @@
           <dd>
               defines server component settings for permissions, limits and
               clusters, and also plugin settings.
+          </dd>
+          <dt>
+              <a href="parameters.html">runtime parameters and policies</a>
+          </dt>
+          <dd>
+              defines cluster-wide settings which can change at run time
           </dd>
       </dl>
       </p>
@@ -72,7 +78,7 @@ config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
               <pre class="sourcecode">
 #example rabbitmq-env.conf file entries
 #Rename the node
-NODENAME=bunny
+NODENAME=bunny@myhost
 #Config file location and new filename bunnies.config
 CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               More <a href="man/rabbitmq-env.conf.5.man.html">info on using rabbitmq-env.conf</a>
@@ -442,6 +448,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>heartbeat</code></td>
+            <td>
+              Value representing the heartbeat delay, in seconds, that the
+              server sends in the <code>connection.tune</code> frame. If set to
+              0, heartbeats are disabled. Clients might not follow the server
+              suggestion, see the <a
+              href="amqp-0-9-1-reference.html#connection.tune">AMQP
+              reference</a> for more details. Disabling heartbeats might improve
+              performance in situations with a great number of connections, but
+              might lead to connections dropping in the presence of network
+              devices that close inactive connections.
+              <p>Default: <code>600</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>default_vhost</code></td>
             <td>
               Virtual host to create when RabbitMQ creates a new
@@ -486,10 +507,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>cluster_nodes</code></td>
             <td>
-              Set this to cause clustering
-              to <a href="clustering.html#auto-config">happen
-              automatically</a>.
-              <p>Default: <code>[]</code></p>
+              Set this to cause clustering to <a
+              href="clustering.html#auto-config">happen automatically</a>.  The
+              first element of the tuple is the nodes that the node will try to
+              cluster to.  The second element is either <code>disc</code> or
+              <code>ram</code> and determines the node type.
+              <p>Default: <code>{[], disc}</code></p>
             </td>
           </tr>
           <tr>
@@ -653,7 +676,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <li><a href="mochiweb.html">rabbitmq_mochiweb</a></li>
           <li><a href="stomp.html">rabbitmq_stomp</a></li>
           <li><a href="shovel.html">rabbitmq_shovel</a></li>
-          <li><a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README">rabbitmq_auth_backend_ldap</a> (<a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README-authorisation">authorisation</a>)</li>
+          <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
         </ul>
         </doc:subsection>
       </doc:section>

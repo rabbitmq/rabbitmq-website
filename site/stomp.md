@@ -2,8 +2,9 @@
 
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
-both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)
-and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html)
+[STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html),
+[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) and
+[STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
 with some extensions and restrictions (described [here](#pear)).
 
 Announcements regarding the adapter are periodically made on the
@@ -333,7 +334,8 @@ Temp queues are managed by the broker and their identities are private to
 each session -- there is no need to choose distinct names for
 temporary queues in distinct sessions.
 
-To use a temp queue, put the `reply-to` header on a `SEND` frame. For example:
+To use a temp queue, put the `reply-to` header on a `SEND` frame and
+use a header value starting with `/temp-queue/`. For example:
 
     SEND
     destination:/queue/reply-test
@@ -429,12 +431,15 @@ to a client.
 available when publishing messages. These headers are also set on
 `MESSAGE` frames sent to clients.
 
-The supported headers are:
+All non-deprecated AMQP properties (`content-type`,
+`content-encoding`, `headers`, `delivery-mode`, `priority`,
+`correlation-id`, `reply-to`, `expiration`, `message-id`, `timestamp`,
+`type`, `user-id` and `app-id`) are supported. The following special
+rules apply:
 
-* `amqp-message-id` -- sets the `message-id` property; this is *not* the
-same as the `message-id` header
-* `correlation-id` -- sets the `correlation-id` property
-* `content-encoding` -- sets the `content-encoding` property
-* `priority` -- sets the `priority` property
-* `reply-to` -- sets the `reply-to` property; see
-[Temp Queue Destinations](#d.tqd)
+* `amqp-message-id` in STOMP is converted to `message-id` in AMQP, and
+  vice-versa.
+* The `reply-to` header causes temporary queues to be created (see
+  [Temp Queue Destinations](#d.tqd) above).
+* All unrecognised STOMP headers are inserted into the AMQP `headers`
+  property.

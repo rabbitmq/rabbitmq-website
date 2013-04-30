@@ -14,6 +14,177 @@
 	   will give you a suitable value.
       -->
     <doc:item>
+      <doc:date iso="2013-03-12T15:51:06+0000">12 March 2013</doc:date>
+      <doc:title>RabbitMQ 3.0.4 release</doc:title>
+      <doc:link>release-notes/README-3.0.4.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.0.4.
+        </p>
+        <p>
+          This release fixes a bug in the federation plugin where upstream
+          credentials were leaked in the x-received-from header. This bug had
+          been in the federation plugin since RabbitMQ 3.0.0. There are no
+          other changes from RabbitMQ 3.0.3.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2013-03-06T10:56:22+0000">6 March 2013</doc:date>
+      <doc:title>RabbitMQ 3.0.3 release</doc:title>
+      <doc:link>release-notes/README-3.0.3.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.0.3.
+        </p>
+        <p>
+          This release fixes a small number of bugs in 3.0.2 and earlier
+          versions.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2013-01-31T13:35:25+0000">31 January 2013</doc:date>
+      <doc:title>RabbitMQ 3.0.2 release</doc:title>
+      <doc:link>release-notes/README-3.0.2.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.0.2.
+        </p>
+        <p>
+          This release fixes a number of bugs in 3.0.1 and earlier
+          versions.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2012-12-11T12:47:59+0000">11 December 2012</doc:date>
+      <doc:title>RabbitMQ 3.0.1 release</doc:title>
+      <doc:link>release-notes/README-3.0.1.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.0.1.
+        </p>
+        <p>
+          This release fixes a number of bugs in 3.0.0 and earlier
+          versions.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+
+    <doc:item>
+      <doc:date iso="2012-11-19T11:46:06+0000">19 November 2012</doc:date>
+      <doc:title>RabbitMQ 3.0.0 release</doc:title>
+      <doc:link>release-notes/README-3.0.0.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.0.0.
+        </p>
+        <p>
+          This release introduces dynamic, policy-based control of
+          mirroring and federation, improves the user friendliness of
+          clustering, adds support for per-message TTL, introduces
+          plugins for web-STOMP and MQTT, and adds many smaller new
+          features and bug fixes.
+        </p>
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2012-09-27T16:05:00+0100">27 September 2012</doc:date>
       <doc:title>RabbitMQ 2.8.7 release</doc:title>
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2012-September/000051.html</doc:link>

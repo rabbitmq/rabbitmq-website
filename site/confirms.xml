@@ -41,18 +41,6 @@
     </p>
 
     <p>
-      By confirming a message the broker assumes responsibility
-      for it and indicates that it has done something it deems
-      reasonable with it.  Unroutable mandatory or immediate
-      messages are confirmed right after the
-      <code>basic.return</code>.  Transient messages are
-      confirmed as soon as they arrive on all the queues they
-      were routed to.  Persistent messages are confirmed when
-      all queues have either delivered the message and received an
-      acknowledgement (if required), or persisted the message.
-    </p>
-
-    <p>
       In exceptional cases when the broker is unable to handle
       messages successfully, instead of a <code>basic.ack</code>,
       the broker will send a <code>basic.nack</code>.  In this
@@ -79,7 +67,32 @@
                                        href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
     </p>
 
-    <h4>Notes</h4>
+    <h3 id="when">When will messages be confirmed?</h3>
+
+    <p>
+      The broker will confirm messages once:
+    </p>
+
+    <ul>
+      <li>
+        it decides a message will not be routed to queues<br/>
+        (if the <code>mandatory</code> flag is set then
+        the <code>basic.return</code> is sent first) <b>or</b>
+      </li>
+      <li>
+        a transient message has reached all its queues (and mirrors) <b>or</b>
+      </li>
+      <li>
+        a persistent message has reached all its queues (and mirrors)
+        and been persisted to disk (and <code>fsync</code>ed) <b>or</b>
+      </li>
+      <li>
+        a persistent message has been consumed (and if necessary
+        acknowledged) from all its queues
+      </li>
+    </ul>
+
+    <h3>Notes</h3>
 
     <p>
       The broker loses persistent messages if it crashes before

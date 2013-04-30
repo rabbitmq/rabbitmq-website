@@ -25,18 +25,13 @@
           (note that you will need a working cluster first).
         </p>
         <p>
-          <b>RabbitMQ clustering does not tolerate network partitions
-          well</b>, so it should not be used over a WAN.
+          <a href="partitions.html">RabbitMQ clustering does not
+          tolerate network partitions well</a>, so it should not be
+          used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
           <a href="federation.html">federation</a>
           plugins are better solutions for connecting brokers across a
           WAN.
-        </p>
-        <p>
-          The easiest way to set up a cluster is by auto configuration
-          using a default cluster config file. See the <a
-          href="#auto-config">clustering
-          transcripts</a> for an example.
         </p>
         <p>
           The composition of a cluster can be altered dynamically.
@@ -49,21 +44,20 @@
           nodes. Nodes can be started and stopped at will.
         </p>
         <p>
-          A node can be a <em>RAM node</em> or a <em>disk node</em>.
+          A node can be a <em>disk node</em> or a <em>RAM node</em>.
           (<b>Note:</b> <i>disk</i> and <i>disc</i> are used interchangeably.
           Configuration syntax or status messages normally use <i>disc</i>.)
-          RAM nodes keep their state only in memory (with
-          the exception of the persistent contents of durable queues
-          which are still stored safely on disc). Disk nodes keep
-          state in memory and on disk. As RAM nodes don't have to
-          write to disk as much as disk nodes, they can perform
-          better. Because state is replicated across all nodes in the
-          cluster, it is sufficient to have just one disk node within
-          a cluster, to store the state of the cluster safely. Beware,
-          however, that RabbitMQ will not stop you from creating a
-          cluster with only RAM nodes. Should you do this, and suffer
-          a power failure to the entire cluster, the entire state of
-          the cluster, including all messages, will be lost.
+          RAM nodes keep their state only in memory (with the exception of queue
+          contents, which can reside on disc if the queue is persistent or too
+          big to fit in memory). Disk nodes keep state in memory and on disk. As
+          RAM nodes don't have to write to disk as much as disk nodes, they can
+          perform better. However, note that since the queue data is always
+          stored on disc, the performance improvements will affect only
+          resources management (e.g. adding/removing queues, exchanges, or
+          vhosts), but not publishing or consuming speed. Because state is
+          replicated across all nodes in the cluster, it is sufficient (but not
+          recommended) to have just one disk node within a cluster, to store the
+          state of the cluster safely.
         </p>
       </doc:section>
 
@@ -165,19 +159,18 @@ Cluster status of node rabbit@rabbit3 ...
             third, say <code>rabbit@rabbit1</code>.
           </p>
           <p>
-            We first join <code>rabbit@rabbit2</code> as a ram node in
-            a cluster with <code>rabbit@rabbit1</code> in a
-            cluster. To do that, on <code>rabbit@rabbit2</code> we
-            stop the RabbitMQ application, reset the node, join the
-            <code>rabbit@rabbit1</code> cluster, and restart the
-            RabbitMQ application.
+            We first join <code>rabbit@rabbit2</code> as a ram node in a cluster
+            with <code>rabbit@rabbit1</code> in a cluster. To do that, on
+            <code>rabbit@rabbit2</code> we stop the RabbitMQ application and
+            join the <code>rabbit@rabbit1</code> cluster enabling the
+            <code>--ram</code> flag, and restart the RabbitMQ application. Note
+            that joining a cluster implicitly resets the node, thus removing all
+            resources and data that were previously present on that node.
           </p>
           <pre class="sourcecode">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl reset</i>
-Resetting node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl cluster rabbit@rabbit1</i>
+rabbit2$ <i>rabbitmqctl join_cluster --ram rabbit@rabbit1</i>
 Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
@@ -198,26 +191,22 @@ Cluster status of node rabbit@rabbit2 ...
 ...done.
 </pre>
           <p>
-            Now we join <code>rabbit@rabbit3</code> as a disk node to
-            the same cluster. The steps are identical to the ones
-            above, except that we list <code>rabbit@rabbit3</code> as
-            a node in the <i>cluster</i> command in order to turn it
-            into a disk rather than ram node.
+            Now we join <code>rabbit@rabbit3</code> as a disk node to the same
+            cluster. The steps are identical to the ones above, except that we
+            omit the <code>--ram</code> flag in order to turn it into a disk
+            rather than ram node. This time we'll cluster to
+            <code>rabbit2</code> to demonstrate that the node chosen to cluster
+            to does not matter - it is enough to provide one online node and the
+            node will be clustered to the cluster that the specified node
+            belongs to.
           </p>
           <pre class="sourcecode">
 rabbit3$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl reset</i>
-Resetting node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl cluster rabbit@rabbit1 rabbit@rabbit3</i>
-Clustering node rabbit@rabbit3 with [rabbit@rabbit1, rabbit@rabbit3] ...done.
+rabbit3$ <i>rabbitmqctl join_cluster rabbit@rabbit2</i>
+Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
 rabbit3$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit3 ...done.</pre>
-          <p>
-            When joining a cluster it is ok to specify nodes which are
-            currently down; it is sufficient for <i>one</i> node to be
-            up for the command to succeed.
-          </p>
           <p>
             We can see that the three nodes are joined in a cluster by
             running the <i>cluster_status</i> command on any of the nodes:
@@ -242,13 +231,6 @@ Cluster status of node rabbit@rabbit3 ...
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
           </p>
-          <p>
-            <strong>Note</strong> For the <code>rabbitmqctl
-            cluster</code> command to succeed, the target nodes need
-            to be active.  It is possible to cluster with offline
-            nodes; for this purpose, use the <code>rabbitmqctl
-            force_cluster</code> command.
-          </p>
         </doc:subsection>
 
         <doc:subsection name="change-type">
@@ -256,37 +238,25 @@ Cluster status of node rabbit@rabbit3 ...
           <p>
             We can change the type of a node from ram to disk and vice
             versa. Say we wanted to reverse the types of
-            <code>rabbit@rabbit2</code> and
-            <code>rabbit@rabbit3</code>, turning the former from a ram
-            node into a disk node and the latter from a disk node into
-            a ram node. To do that we simply stop the RabbitMQ
-            application, change the type with an appropriate
-            <i>cluster</i> command, and restart the application.
+            <code>rabbit@rabbit2</code> and <code>rabbit@rabbit3</code>, turning
+            the former from a ram node into a disk node and the latter from a
+            disk node into a ram node. To do that we can use the
+            <code>change_cluster_node_type</code> command. The node must be
+            stopped first.
           </p>
           <pre class="sourcecode">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl cluster rabbit@rabbit1 rabbit@rabbit2</i>
-Clustering node rabbit@rabbit2 with [rabbit@rabbit1, rabbit@rabbit2] ...done.
-rabbit2$ <i>rabbitmqctl start_app</i>
+rabbit2$ <i>rabbitmqctl change_cluster_node_type disc</i>
+Turning rabbit@rabbit2 into a disc node ...
+...done.
 Starting node rabbit@rabbit2 ...done.
 rabbit3$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl cluster rabbit@rabbit1 rabbit@rabbit2</i>
-Clustering node rabbit@rabbit3 with [rabbit@rabbit1, rabbit@rabbit2] ...done.
+rabbit3$ <i>rabbitmqctl change_cluster_node_type ram</i>
+Turning rabbit@rabbit3 into a ram node ...
 rabbit3$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit3 ...done.</pre>
-          <p>
-            The significance of specifying both
-            <code>rabbit@rabbit1</code> and
-            <code>rabbit@rabbit2</code> as the cluster nodes for
-            <code>rabbit@rabbit3</code> is that in case of failure of
-            either of them, <code>rabbit@rabbit3</code> can still
-            connect to the cluster when it starts, and operate
-            normally. This is only important for ram nodes; disk nodes
-            automatically keep track of the cluster
-            configuration.
-          </p>
         </doc:subsection>
 
         <doc:subsection name="restarting">
@@ -361,42 +331,34 @@ Cluster status of node rabbit@rabbit3 ...
           </p>
           <ul>
             <li>
-              All disk nodes must be running for certain operations,
-              most notably leaving a cluster, to succeed.
+              At least one disk node should be running at all times to prevent
+              data loss.  RabbitMQ will prevent the creation of a RAM-only
+              cluster in many situations, but it still won't stop you from
+              stopping and forcefully resetting all the disc nodes, which will
+              lead to a RAM-only cluster. Doing this is not advisable and makes
+              losing data very easy.
             </li>
             <li>
-              At least one disk node should be running at all times.
-            </li>
-            <li>
-              When all nodes in a cluster have been shut down,
-              restarting any node will suspend for up to 30 seconds
-              and then fail if the last disk node that was shut down
-              has not been restarted yet. Since the nodes do not know
-              what happened to that last node, they have to assume
-              that it holds a more up-to-date version of the broker
-              state. Hence, in order to preserve data integrity, they
-              cannot resume operation until that node is restarted.
+              When the entire cluster is brought down, the last node to go down
+              must be the first node to be brought online. If this doesn't
+              happen, the nodes will wait 30 seconds for the last disc node to
+              come back online, and fail afterwards.  If the last node to go
+              offline cannot be brought back up, it can be removed from the
+              cluster using the <code>forget_cluster_node</code> command -
+              consult the <code>rabbitmqctl</code> manpage for more information.
             </li>
           </ul>
         </doc:subsection>
 
         <doc:subsection name="breakup">
           <doc:heading>Breaking up a cluster</doc:heading>
-
           <p>
-            Nodes need to be removed explicitly from a cluster when
-            they are no longer meant to be part of it. This is
-            particularly important in case of disk nodes since, as
-            noted above, certain operations require all disk nodes to
-            be up.
-          </p>
-
-          <p>
-            We first remove <code>rabbit@rabbit3</code> from the
-            cluster, returning it to independent operation. To do
-            that, on <code>rabbit@rabbit3</code> we stop the RabbitMQ
-            application, reset the node, and restart the RabbitMQ
-            application.
+            Nodes need to be removed explicitly from a cluster when they are no
+            longer meant to be part of it. We first remove
+            <code>rabbit@rabbit3</code> from the cluster, returning it to
+            independent operation. To do that, on <code>rabbit@rabbit3</code> we
+            stop the RabbitMQ application, reset the node, and restart the
+            RabbitMQ application.
           </p>
           <pre class="sourcecode">
 rabbit3$ <i>rabbitmqctl stop_app</i>
@@ -431,16 +393,30 @@ Cluster status of node rabbit@rabbit3 ...
 ...done.
 </pre>
           <p>
-            Now we remove <code>rabbit@rabbit1</code> from the
-            cluster. The steps are identical to the ones above.
+            We can also remove nodes remotely. This is useful, for example, when
+            having to deal with an unresponsive node. We can for example remove
+            <code>rabbit@rabbi1</code> from <code>rabbit@rabbit2</code>.
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit1 ...done.
+rabbit2$ <i>rabbitmqctl forget_cluster_node rabbit@rabbit1</i>
+Removing node rabbit@rabbit1 from cluster ...
+...done.</pre>
+          <p>
+            Note that <code>rabbit1</code> still thinks its clustered with
+            <code>rabbit2</code>, and trying to start it will result in an
+            error. We will need to reset it to be able to start it again.
+          </p>
+          <pre class="sourcecode">
+rabbit1$ <i>rabbitmqctl start_app</i>
+Starting node rabbit@rabbit1 ...
+Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
 rabbit1$ <i>rabbitmqctl reset</i>
 Resetting node rabbit@rabbit1 ...done.
 rabbit1$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit1 ...done.</pre>
+Starting node rabbit@mcnulty ...
+...done.</pre>
           <p>
             The <i>cluster_status</i> command now shows all three nodes
             operating as independent RabbitMQ brokers:
@@ -469,30 +445,10 @@ Cluster status of node rabbit@rabbit3 ...
           <pre class="sourcecode">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl force_reset</i>
+rabbit2$ <i>rabbitmqctl reset</i>
 Resetting node rabbit@rabbit2 ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
-          <p>
-            Note that we used <em>force_reset</em> here. The reason is
-            that removing a node from a cluster updates only the
-            node-local configuration of the cluster, and that
-            calling <em>reset</em> gets the node to connect to any of
-            the other nodes that it believes are in the cluster, to
-            perform some house-keeping that is necessary when leaving
-            a cluster. However, at this point, there are no other
-            nodes in the cluster, but <code>rabbit@rabbit2</code>
-            doesn't know this. As a result, calling <em>reset</em>
-            would fail, as it can't connect
-            to <code>rabbit@rabbit1</code>
-            or <code>rabbit@rabbit3</code>, hence the use
-            of <em>force_reset</em>, in
-            which <code>rabbit@rabbit2</code> does not attempt to
-            contact any other nodes in the cluster. This situation
-            only arises when resetting the last remaining node of a
-            cluster.
-          </p>
-
         </doc:subsection>
 
         <doc:subsection name="auto-config">
@@ -500,34 +456,42 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             Instead of configuring clusters "on the fly" using the
             <code>cluster</code> command, clusters can also be set up
-            via the RabbitMQ <code>.config</code> file; see the
-            <a href="configure.html#configuration-file">configuration guide</a>
-            for details. The file should set the cluster_nodes field in
-            the rabbit application to a list of cluster nodes.
+            via the <a
+            href="configure.html#configuration-file">RabbitMQ
+            configuration file</a>. The file should set the
+            <code>cluster_nodes</code> field in the rabbit application
+            to a tuple contanining a list of rabbit nodes, and an atom
+            - either <code>disc</code> or <code>ram</code> -
+            indicating whether the node should join them as a disc
+            node or not.
           </p>
           <p>
-            Listing cluster nodes this way has the same effect as
-            using the <code>cluster</code> command. However, the
-            latter takes precedence over the former, i.e. the default
-            cluster configuration is ignored subsequent to any
-            successful invocation of the <code>cluster</code> command,
-            until the node is <code>reset</code>.
+            If <code>cluster_nodes</code> is specified, RabbitMQ will try to
+            cluster to each node provided, and stop after it can cluster with
+            one of them. RabbitMQ will try cluster to any node which is online
+            that has the same version of Erlang and RabbitMQ. If no suitable
+            nodes are found, the node is left unclustered.
           </p>
           <p>
-            A common use of cluster configuration via the RabbitMQ
-            config file is to automatically configure nodes to join a
-            common cluster. For this purpose the same configuration
-            can be set on all nodes, thus specifing the potential disk
-            nodes for the cluster.
+            Note that the cluster configuration is applied only to fresh
+            nodes. A fresh nodes is a node which has just been reset or is
+            being start for the first time. Thus, the automatic clustering won't
+            take place after restarts of nodes. This means that any change to
+            the clustering via <code>rabbitmqctl</code> will take precedence
+            over the automatic clustering configuration.
           </p>
           <p>
-            Say we want to join our three separate nodes of our
-            running example back into a single cluster, with
-            <code>rabbit@rabbit1</code> and
+            A common use of cluster configuration via the RabbitMQ config file
+            is to automatically configure nodes to join a common cluster. For
+            this purpose the same cluster nodes can be specified on all cluster,
+            plus the boolean to determine disc nodes.
+          </p>
+          <p>
+            Say we want to join our three separate nodes of our running example
+            back into a single cluster, with <code>rabbit@rabbit1</code> and
             <code>rabbit@rabbit2</code> being the disk nodes of the
-            cluster. First we reset and stop all nodes - NB: this step
-            would not be necessary if this was a fresh installation of
-            RabbitMQ.
+            cluster. First we reset and stop all nodes, to make sure that we're
+            working with fresh nodes:
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop_app</i>
@@ -555,7 +519,7 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
   ...
   {rabbit, [
         ...
-  	{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']},
+        {cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], disc}},
         ...
   ]},
   ...
@@ -563,7 +527,14 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <p>
             For instance, if this were the only field we needed to set, we would simply create the RabbitMQ config file with the contents:
           </p>
-          <pre class="sourcecode">[{rabbit, [{cluster_nodes, ['rabbit@rabbit1', 'rabbit@rabbit2']}]}].</pre>
+          <pre class="sourcecode">[{rabbit,
+  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], disc}}]}].</pre>
+          <p>
+            Since we want <code>rabbit@rabbit3</code> to be a ram node, we need
+            to specify that in its configuration file:
+          </p>
+          <pre class="sourcecode">[{rabbit,
+  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], ram}}]}].</pre>
           <p>
             (Note for Erlang programmers and the curious: this is a
             standard Erlang configuration file.  For more details, see the
@@ -572,10 +543,8 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
             <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.)
           </p>
           <p>
-            We set this field in the config file on all machines.  For
-            example, on a Unix system the file would typically have
-            the path <code>/etc/rabbitmq/rabbitmq.config</code>. Now
-            we simply start the nodes.
+            Once we have the configuration files in place, we simply start the
+            nodes:
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmq-server -detached</i>
@@ -603,30 +572,35 @@ Cluster status of node rabbit@rabbit3 ...
 ...done.</pre>
         <p>
           Note that, in order to remove a node from an auto-configured
-          cluster, it must first be removed from the rabbitmq.config
-          files of the other nodes in the cluster.  Only then, can it
-          be reset safely.
+          cluster, it must first be removed from the <a
+          href="configure.html#configuration-file">RabbitMQ
+          configuration file</a> files of the other nodes in the
+          cluster.  Only then, can it be reset safely.
         </p>
         </doc:subsection>
       </doc:section>
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
           <p>
-            When upgrading from one version of RabbitMQ to another,
-            RabbitMQ will automatically update its persistent data
-            structures if necessary. In a cluster, this task is
-            performed by the first disc node to be started (the
-            "upgrader" node). Therefore when upgrading a RabbitMQ
-            cluster, you should not attempt to start any RAM nodes
-            first; any RAM nodes started will emit an error message
-            and fail to start up.
+            When upgrading from one major or minor version of RabbitMQ
+            to another (i.e. from 3.0.x to 3.1.x, or from 2.x.x to
+            3.x.x), or when upgrading Erlang, the whole cluster must
+            be taken down for the upgrade (since clusters cannot run
+            mixed versions like this). This will not be the case when
+            upgrading from one patch version to another (i.e. from
+            3.0.x to 3.0.y); these versions can be mixed in a cluster
+            (with the exception that 3.0.0 cannot be mixed with later
+            versions from the 3.0.x series).
           </p>
           <p>
-            All nodes in a cluster must be running the same versions
-            of Erlang and RabbitMQ, although they may have different
-            plugins installed. Therefore it is necessary to stop all
-            nodes in the cluster, then start all nodes when performing
-            an upgrade.
+            RabbitMQ will automatically update its persistent data
+            structures if necessary when upgrading between major /
+            minor versions. In a cluster, this task is performed by
+            the first disc node to be started (the "upgrader"
+            node). Therefore when upgrading a RabbitMQ cluster, you
+            should not attempt to start any RAM nodes first; any RAM
+            nodes started will emit an error message and fail to start
+            up.
           </p>
           <p>
             While not strictly necessary, it is a good idea to decide
@@ -670,8 +644,7 @@ Cluster status of node rabbit@rabbit3 ...
 $ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 $ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 $ rabbitmqctl -n hare stop_app
-$ rabbitmqctl -n hare reset
-$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
 $ rabbitmqctl -n hare start_app</pre>
           <p>
             will set up a two node cluster with one disc node and one
@@ -680,8 +653,8 @@ $ rabbitmqctl -n hare start_app</pre>
             not to clash as well - for example:
           </p>
           <pre class="sourcecode">
-$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15672}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.

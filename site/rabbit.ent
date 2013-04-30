@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!ENTITY version-java-client "2.8.7">
-<!ENTITY version-dotnet-client "2.8.7">
-<!ENTITY version-server "2.8.7">
-<!ENTITY version-erlang-client "2.8.7">
-<!ENTITY version-server-hg "rabbitmq_v2_8_7">
+<!ENTITY version-java-client "3.0.4">
+<!ENTITY version-dotnet-client "3.0.4">
+<!ENTITY version-server "3.0.4">
+<!ENTITY version-erlang-client "3.0.4">
+<!ENTITY version-server-hg "rabbitmq_v3_0_4">
+
+<!ENTITY version-server-previous "2.8.7">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
@@ -11,7 +13,7 @@
 
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
 <!ENTITY nameVersion-dotnet-client "rabbitmq-dotnet-client-&version-dotnet-client;">
-<!ENTITY dir-current-dotnet-apidoc "releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html">
+<!ENTITY dir-current-dotnet-apidoc "/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">

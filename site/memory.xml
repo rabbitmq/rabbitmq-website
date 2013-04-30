@@ -23,9 +23,9 @@
       </li>
       <li>
         A global mechanism that prevents any messages from being
-        published when the memory usage exceeds a configured
-        threshold or free disk space drops below a configured
-        threshold.
+        published when the <a href="memory-use.html">memory usage</a>
+        exceeds a configured threshold or free disk space drops
+        below a configured threshold.
       </li>
     </ul>
 
@@ -113,11 +113,10 @@
         <doc:heading>Configuring the Memory Threshold</doc:heading>
 
         <p>
-          The memory threshold at which the flow control is
-          triggered can be adjusted by editing the <code>rabbitmq.config</code>
-          file (in the appropriate location for your platform, as discussed in the
-          <a href="configure.html#configuration-file">configuration guide</a>).
-          The example below sets the threshold to the
+          The memory threshold at which the flow control is triggered
+          can be adjusted by editing the <a
+          href="configure.html#configuration-file">configuration
+          file</a>.  The example below sets the threshold to the
           default value of 0.4:
           <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
         </p>
@@ -241,7 +240,7 @@ Disk free limit set to 953MB</pre>
 Disabling disk free space monitoring</pre>
       </p>
 
-    <doc:subsection name="memsup-usage">
+    <doc:subsection name="diskfreesup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
         The disk free space limit is configured with

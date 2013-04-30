@@ -254,73 +254,192 @@
       </doc:section>
 
       <doc:section name="genesis">
-        <doc:heading>Creating a Mirrored Queue</doc:heading>
+        <doc:heading>Configuring Mirroring</doc:heading>
         <p>
-          A mirrored-queue must be created as a mirrored-queue. It is
-          not possible to convert a non-mirrored-queue to a
-          mirrored-queue at some later point. It is perfectly
-          acceptable to create a mirrored-queue with no slaves
-          initially, though be aware of the behaviour of <a
-          href="#unsynchronised-slaves">adding nodes to a cluster</a>.
+          Queues have mirroring enabled
+          via <a href="parameters.html#policies">policy</a>. Policies
+          can change at any time; it is valid to create a non-mirrored
+          queue, and then make it mirrored at some later point (and
+          vice versa). There is a difference between a non-mirrored
+          queue and a mirrored queue which does not have any slaves -
+          the former lacks the extra mirroring infrastructure and will
+          run faster.
         </p>
         <p>
-          To create a mirrored-queue, you provide an
-          <code>x-ha-policy</code> entry in the argument table
-          presented to <code>queue.declare</code>. The value of this
-          entry is a <code>long string</code> which gives the name of
-          the policy you wish to use for this queue. There are
-          currently two policies available:
+          You should be aware of the behaviour
+          of <a href="#unsynchronised-slaves">adding mirrors to a
+          queue</a>.
         </p>
-        <ul>
-          <li><code>all</code>: This policy ensures that a mirror of
-          the queue will exist on every node in the cluster. When a
-          new node joins the cluster, a mirror of the queue will be
-          created on the new node. The queue's initial master will be
-          on the node to which the client issuing the queue declare is
-          connected.</li>
-
-          <li><code>nodes</code>: This policy allows you to specify
-          the exact nodes on which you wish mirrors to exist. To do
-          this, you provide an additional entry in the arguments
-          table, with a key of <code>x-ha-policy-params</code>, and a
-          value which is an array of <code>long strings</code>, each
-          of which is a <i>node name</i>. The queue's initial master
-          will be the first node in the list (and thus this node
-          <b>must</b> exist and be reachable, even if it is not the
-          node to which the client is connected), and slaves are
-          created on the remaining nodes in the list. With this
-          policy, you may declare a mirrored-queue with mirrors on a
-          subset of the nodes in a cluster. You may also declare a
-          mirrored-queue with slaves on nodes which are not currently
-          members of the cluster: when such nodes join the cluster, a
-          slave will automatically be created of the queue on that
-          node. Note however that the mirror on the newly joined node
-          will <a href="#unsynchronised-slaves">behave as a new
-          slave</a>.  Also note that it is the <i>node-names</i> that
-          must provided, not host-name or IP address. It is an error
-          to supply an empty array as the value of the
-          <code>x-ha-policy-params</code> entry: the array must
-          contain at least one element.</li>
-
-        </ul>
-        <p>Some examples:
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-ha-policy", "all");
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
-
-          This declares a queue <code>myqueue</code> which has a mirror on every node that is in the cluster or joins the cluster.
-
-          <pre class="sourcecode">
-Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
-args.put("x-ha-policy", "nodes");
-args.put("x-ha-policy-params", Arrays.asList("node1@rabbit", "node2@rabbit", "node4@rabbit"));
-channel.queueDeclare("myqueue", false, false, false, args);</pre>
-
-          This declares a queue <code>myqueue</code> which has a
-          mirror on each of the nodes <code>node1@rabbit</code>,
-          <code>node2@rabbit</code> and <code>node4@rabbit</code>.
+        <p>
+          To cause queues to become mirrored, you should create a
+          policy which matches them and sets policy
+          keys <code>ha-mode</code> and
+          (optionally) <code>ha-params</code>. The following table
+          explains the options for these keys:
         </p>
+
+        <table>
+          <tr>
+            <th><code>ha-mode</code></th>
+            <th><code>ha-params</code></th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td><code>all</code></td>
+            <td>(absent)</td>
+            <td>
+              Queue is mirrored across all nodes in the
+              cluster. When a new node is added to the cluster, the
+              queue will be mirrored to that node.
+            </td>
+          </tr>
+          <tr>
+            <td><code>exactly</code></td>
+            <td><i>count</i></td>
+            <td>
+              Queue is mirrored to <i>count</i> nodes in the
+              cluster. If there are less than <i>count</i> nodes in
+              the cluster, the queue is mirrored to all nodes. If
+              there are more than <i>count</i> nodes in the cluster,
+              and a node containing a mirror goes down, then a new
+              mirror will <b>not</b> be created on another node. (This
+              is to prevent queues migrating across a cluster as it is
+              brought down.)
+            </td>
+          </tr>
+          <tr>
+            <td><code>nodes</code></td>
+            <td><i>node names</i></td>
+            <td>
+              Queue is mirrored to the nodes listed in <i>node
+              names</i>. If any of those node names are not a part of
+              the cluster, this does not constitute an error. If none
+              of the nodes in the list are online at the time when the
+              queue is declared then the queue will be created on the
+              node that the declaring client is connected to.
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          Whenever the HA policy for a queue changes it will endeavour
+          to keep its existing mirrors as far as this fits with the new
+          policy.
+        </p>
+
+        <h3>"nodes" policy and migrating masters</h3>
+
+        <p>
+          Note that setting or modifying a "nodes" policy will never
+          cause an existing master to go away, even if you ask it
+          to. For example, if a queue is on <code>[A]</code>, and
+          you give it a <code>nodes</code> policy telling it to be on
+          <code>[B C]</code>, it will end up on <code>[A B
+          C]</code>. If node <code>A</code> then fails or is shut
+          down, the mirror on that node will not come back and the
+          queue will stay on <code>[B C]</code>.
+        </p>
+
+        <h3>Some examples</h3>
+
+        <p>
+          Policy where queues whose names begin with
+          "<code>ha.</code>" are mirrored to all nodes in the cluster:
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." '{"ha-mode":"all"}'</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-all "^ha\." "{""ha-mode"":""all""}"</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>HTTP API</th>
+            <td>
+              <pre>PUT /api/policies/%2f/ha-all {"pattern":"^ha\.", "definition":{"ha-mode":"all"}}</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>Web UI</th>
+            <td>
+              <ul>
+                <li>
+                  Navigate to Admin > Policies > Add / update a
+                  policy.
+                </li>
+                <li>
+                  Enter "ha-all" next to Name, "^ha\." next to Pattern,
+                  and "ha-mode" = "all" in the first line next to
+                  Policy.
+                </li>
+                <li>
+                  Click Add policy.
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+
+
+        <p>
+          Policy where queues whose names begin with
+          "<code>two.</code>" are mirrored to any two nodes in the
+          cluster:
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-two "^two\." \
+   '{"ha-mode":"exactly","ha-params":2}'</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-two "^two\." ^
+   "{""ha-mode"":""exactly"",""ha-params"":2}"</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>HTTP API</th>
+            <td>
+              <pre>PUT /api/policies/%2f/ha-two {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>Web UI</th>
+            <td>
+              <ul>
+                <li>
+                  Navigate to Admin > Policies > Add / update a
+                  policy.
+                </li>
+                <li>
+                  Enter "ha-two" next to Name and "^two\." next to
+                  Pattern.
+                </li>
+                <li>
+                  Enter "ha-mode" = "exactly" in the first line
+                  next to Policy, then "ha-params" = 2 in the second line,
+                  and set the type on the second line to "Number".
+                </li>
+                <li>
+                  Click Add policy.
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+
       </doc:section>
   </body>
 </html>

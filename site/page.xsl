@@ -29,6 +29,9 @@
       <xsl:if test="$site-mode = 'next'">
         <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
       </xsl:if>
+      <xsl:if test="$site-mode = 'previous'">
+        <link rel="stylesheet" href="/css/rabbit-previous.css" type="text/css"/>
+      </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
       <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
       <![endif]]]></xsl:comment>
@@ -102,7 +105,7 @@
         <a href="/contact.html">Contact</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2012 VMware, Inc. All rights reserved.
+        Copyright &#169; 2013 VMware, Inc. All rights reserved.
         <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
         <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
       </p>
