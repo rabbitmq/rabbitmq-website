@@ -12,6 +12,8 @@ bug fixes
 25491 ensure we detect partitions in an idle cluster
 25367 throttle in a more timely manner when reading large messages and
       resource alarm goes off
+25535 correctly report failure when user with no password attempts
+      password-based login
 25463 fix logging of authentication mechanism on login failure
 25385 check equivalence for dead-lettering related arguments
 
@@ -31,6 +33,7 @@ enhancements
       winning partition
 25488 allow exchange types plugins to validate bindings
 25512 improve robustness and correctness of memory use detail reporting
+25501 allow plugins to implement new ha-modes
 25517 more cross-cluster compatibility checks at startup
 25513 support debugging for heavyweight gen_server2 state
 
