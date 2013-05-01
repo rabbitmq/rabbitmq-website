@@ -21,6 +21,7 @@
             <li><a href="ha.html#eager-synchronisation">Eager synchronisation</a> of mirror queue slaves</li>
             <li>Automatic <a href="partitions.html#automatic-handling">cluster partition healing</a></li>
             <li>Charts in the <a href="management.html">management plugin</a></li>
+            <li><a href="maxlength.html">Queue length limits</a></li>
           </ul>
         </td>
         <td class="centre"><a href="release-notes/README-3.1.0.txt">(changes)</a></td>
