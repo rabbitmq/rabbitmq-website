@@ -228,11 +228,11 @@
     <tr>
       <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
-        <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
-            <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+            <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
          </td>
       </xsl:if>
     </tr>

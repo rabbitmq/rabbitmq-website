@@ -347,7 +347,7 @@
                 A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
               </li>
               <li>
-                <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
+                <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
               </li>
               <li>
                 <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a>
