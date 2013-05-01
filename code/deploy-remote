@@ -1,10 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 cd `dirname $0`
 cd ..
 
-mode=$1
+mode_version=$1
+mode=${mode_version%%_*}
+if [[ "$mode_version" == *_* ]] ; then
+    version=${mode_version#*_}
+else
+    version=""
+fi
+version_path=${version}/
 site=${mode}.rabbitmq.com
 site_dir=/srv/${site}
 
@@ -35,7 +42,14 @@ else
     releases_dir=/home/rabbitmq/extras/nightlies/
 fi
 
-rm -rf $site_dir/site-src $site_dir/site $site_dir/code
+rm -rf $site_dir/site-src $site_dir/code
+if [ $mode = previous ] ; then
+    rm -rf $site_dir/site/youngest
+    rm -rf $site_dir/site/${version_path}
+else
+    rm -rf $site_dir/site
+fi
+
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
 cp -r code $site_dir
@@ -47,17 +61,25 @@ if [ $mode = www ] ; then
         cp -r ${releases_dir}/rabbitmq-server/current/man $site_dir/site-src/man
     fi
 elif [ $mode = previous ] ; then
-    if [ -d ${releases_dir}/rabbitmq-server/previous/ ]; then
-        cp -r ${releases_dir}/rabbitmq-server/previous/man $site_dir/site-src/man
+    version_pattern=${version/_/\.}
+    version_pattern=${version_pattern%_*}*
+    youngest_match=$(ls -d1v ${releases_dir}/rabbitmq-server/$version_pattern | tail -n 1)
+    if [ -d $youngest_match ]; then
+        cp -r $youngest_match/man $site_dir/site-src/man
     fi
 fi
 
-./code/compile $site_dir/site-src $site_dir/site $mode
+./code/compile $site_dir/site-src $site_dir/site/$version $mode_version
 
-csplit -s -f part $site_dir/site/templates/index.html /header-footer-horizon/
-mv part00 $site_dir/site/templates/index-header.html
-tail -n +2 part01 > $site_dir/site/templates/index-footer.html
-rm $site_dir/site/templates/index.html part*
+csplit -s -f part $site_dir/site/${version_path}templates/index.html /header-footer-horizon/
+mv part00 $site_dir/site/${version_path}templates/index-header.html
+tail -n +2 part01 > $site_dir/site/${version_path}templates/index-footer.html
+rm $site_dir/site/${version_path}templates/index.html part*
+
+if [ $mode = previous ] ; then
+    youngest_dir=$(ls -d1v $site_dir/site/v* | tail -n 1)
+    ln -sf $site_dir/site/$(basename ${youngest_dir}) $site_dir/site/youngest
+fi
 
 chown $mirror_user:$mirror_group $site_dir/site/index.html
 

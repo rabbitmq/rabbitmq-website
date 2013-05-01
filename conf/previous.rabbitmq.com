@@ -22,8 +22,18 @@
 
     ServerSignature On
     <Directory /srv/previous.rabbitmq.com/site>
-        Options -Indexes
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /youngest/templates/index-header.html
+        ReadmeName /youngest/templates/index-footer.html
     </Directory>
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI}  !^/v[0-9]+_[0-9]+_x/
+    RewriteCond %{REQUEST_URI}  !^/youngest/
+    RewriteCond %{REQUEST_URI}  !^/icons/
+    RewriteCond %{REQUEST_URI}  !^/$
+    RewriteRule ^(.*)$          /youngest$1 [R]
 
     # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
     #

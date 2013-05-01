@@ -5,8 +5,6 @@
 <!ENTITY version-erlang-client "3.0.4">
 <!ENTITY version-server-hg "rabbitmq_v3_0_4">
 
-<!ENTITY version-server-previous "2.8.7">
-
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">

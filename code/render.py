@@ -89,7 +89,7 @@ class Error404(Exception):
 class Error500(Exception):
     pass
 
-def render_page(page_name, site_mode):
+def render_page(page_name, site_mode_version):
     """
     look for the xml file with this name. if found,
     look inside the xml file for a stylesheet processing
@@ -112,13 +112,29 @@ def render_page(page_name, site_mode):
 
     xml_doc = read_file(page_name)
     xml_doc.xinclude()
+
+    if site_mode_version.startswith('previous_'):
+        components = site_mode_version.split('_', 1)
+        site_mode = components[0]
+        version = components[1]
+    else:
+        site_mode = site_mode_version
+
     query = '/processing-instruction(\'xml-stylesheet\')'
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
     xslt_doc = parse(os.path.join(SITE_DIR, xslt_file_name))
     params = {'page-name': "'/%s.html'" % page_name,
               'site-mode': "'%s'" % site_mode}
     transform = etree.XSLT(xslt_doc)
-    return str(transform(xml_doc, **params))
+    xhtml_doc = transform(xml_doc, **params)
+    if site_mode == 'previous':
+        xslt_rebase = parse(os.path.join(SITE_DIR, 'rebase.xsl'))
+        param = {'link-prefix': "'%s'" % version}
+        transform = etree.XSLT(xslt_rebase)
+        result = transform(xhtml_doc, **param)
+    else:
+        result = xhtml_doc
+    return str(result)
 
 def read_file(page_name):
     for ext in MARKUPS:
