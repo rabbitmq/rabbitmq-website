@@ -12,9 +12,9 @@
     ErrorLog /var/log/apache2/error-previous.rabbitmq.com.log
 
     # Send 404 and 500s to the appropriate pages.  403 is permission denied.
-    ErrorDocument 403 /404.html
-    ErrorDocument 404 /404.html
-    ErrorDocument 500 /500.html
+    ErrorDocument 403 http://www.rabbitmq.com/404.html
+    ErrorDocument 404 http://www.rabbitmq.com/404.html
+    ErrorDocument 500 http://www.rabbitmq.com/500.html
 
     <Directory /home/rabbitmq/extras/nightlies/rabbitmq-server>
         Options +FollowSymLinks
@@ -22,18 +22,8 @@
 
     ServerSignature On
     <Directory /srv/previous.rabbitmq.com/site>
-        Options +Indexes
-        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
-        HeaderName /youngest/templates/index-header.html
-        ReadmeName /youngest/templates/index-footer.html
+        Options -Indexes
     </Directory>
-
-    RewriteEngine On
-    RewriteCond %{REQUEST_URI}  !^/v[0-9]+_[0-9]+_x/
-    RewriteCond %{REQUEST_URI}  !^/youngest/
-    RewriteCond %{REQUEST_URI}  !^/icons/
-    RewriteCond %{REQUEST_URI}  !^/$
-    RewriteRule ^(.*)$          /youngest$1 [R]
 
     # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
     #

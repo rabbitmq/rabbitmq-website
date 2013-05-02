@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:html="http://www.w3.org/1999/xhtml"
+                xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
                 version="1.0">
 
 <!--
@@ -31,6 +32,21 @@
         </xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="doc:style">
+    <style>
+      <xsl:apply-templates select="*" />
+    </style>
+  </xsl:template>
+  <xsl:template match="doc:body">
+    body { <xsl:apply-templates select="*" /> }
+  </xsl:template>
+  <xsl:template match="doc:background">
+    background: <xsl:apply-templates select="*" />
+  </xsl:template>
+  <xsl:template match="doc:url">
+    url(/<xsl:value-of select="$link-prefix" /><xsl:value-of select="text()" />);
   </xsl:template>
 
   <xsl:template match="*|@*">
