@@ -57,9 +57,12 @@ if [ $mode = www ] ; then
     fi
 elif [ $mode = previous ] ; then
     version_pattern=${version/_/\.}
-    version_pattern=${version_pattern%_*}*
-    youngest_match=$(ls -d1v ${releases_dir}/rabbitmq-server/$version_pattern | tail -n 1)
-    if [ -d $youngest_match ]; then
+    version_pattern=${version_pattern%_*}
+    version_pattern=${version_pattern//./\\.}\\.[0-9]
+    youngest_match=$(find ${releases_dir}/rabbitmq-server -maxdepth 1 -type d -name "$version_pattern" | sort -V | tail -n 1)
+    if [ x$youngest_match = x ] ; then
+        echo "*** Note manpages not found. Please copy manually if necessary. ***"
+    else
         cp -r $youngest_match/man $site_dir/site-src/man
     fi
 fi
@@ -71,12 +74,9 @@ mv part00 $site_dir/site/${version_path}templates/index-header.html
 tail -n +2 part01 > $site_dir/site/${version_path}templates/index-footer.html
 rm $site_dir/site/${version_path}templates/index.html part*
 
-if [ $mode = previous ] ; then
-    youngest_dir=$(ls -d1v $site_dir/site/v* | tail -n 1)
-    ln -sf $site_dir/site/$(basename ${youngest_dir}) $site_dir/site/youngest
+if [ $mode != previous ] ; then
+    chown $mirror_user:$mirror_group $site_dir/site/index.html
 fi
-
-chown $mirror_user:$mirror_group $site_dir/site/index.html
 
 if [ $mode = www ] ; then
     if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then

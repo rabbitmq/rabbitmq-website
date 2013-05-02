@@ -30,7 +30,13 @@
         <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
       </xsl:if>
       <xsl:if test="$site-mode = 'previous'">
-        <link rel="stylesheet" href="/css/rabbit-previous.css" type="text/css"/>
+        <doc:style>
+          <doc:body>
+            <doc:background>
+              <doc:url>/img/previous-bg.png</doc:url>
+            </doc:background>
+          </doc:body>
+        </doc:style>
       </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
       <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />

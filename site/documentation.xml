@@ -13,7 +13,7 @@
       </p>
 
       <ul>
-        <li><a href="http://previous.rabbitmq.com/">Documentation for previous stable releases </a></li>
+        <li><a href="previous.html">Documentation for previous stable releases</a></li>
         <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a></li>
       </ul>
 
