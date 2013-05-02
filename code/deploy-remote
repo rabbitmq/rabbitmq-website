@@ -4,13 +4,8 @@ set -e
 cd `dirname $0`
 cd ..
 
-mode_version=$1
-mode=${mode_version%%_*}
-if [[ "$mode_version" == *_* ]] ; then
-    version=${mode_version#*_}
-else
-    version=""
-fi
+mode=$1
+version=$2
 version_path=${version}/
 site=${mode}.rabbitmq.com
 site_dir=/srv/${site}
@@ -69,7 +64,7 @@ elif [ $mode = previous ] ; then
     fi
 fi
 
-./code/compile $site_dir/site-src $site_dir/site/$version $mode_version
+./code/compile $site_dir/site-src $site_dir/site/$version $mode $version
 
 csplit -s -f part $site_dir/site/${version_path}templates/index.html /header-footer-horizon/
 mv part00 $site_dir/site/${version_path}templates/index-header.html
