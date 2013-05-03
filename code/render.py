@@ -112,7 +112,6 @@ def render_page(page_name, site_mode, version = None):
 
     xml_doc = read_file(page_name)
     xml_doc.xinclude()
-
     query = '/processing-instruction(\'xml-stylesheet\')'
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
     xslt_doc = parse(os.path.join(SITE_DIR, xslt_file_name))
