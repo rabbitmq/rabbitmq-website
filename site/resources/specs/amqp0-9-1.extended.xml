@@ -12,7 +12,7 @@
      the un-deprecation of exchange.declare{auto-delete} and exchange.declare{internal}
 
      Modifications are (c) 2010-2013 Pivotal and may be distributed under
-     the BSD license.
+     the same BSD license as the stripped spec.
 -->
 
 <!--
