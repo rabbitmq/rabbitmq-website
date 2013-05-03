@@ -39,7 +39,6 @@ fi
 
 rm -rf $site_dir/site-src $site_dir/code
 if [ $mode = previous ] ; then
-    rm -rf $site_dir/site/youngest
     rm -rf $site_dir/site/${version_path}
 else
     rm -rf $site_dir/site
