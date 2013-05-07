@@ -340,7 +340,7 @@
           queue will stay on <code>[B C]</code>.
         </p>
 
-        <h3>Synchronising Queues</h3>
+        <h3 id="eager-synchronisation">Synchronising Queues</h3>
         <p>
           Queues can be set to automatically synchronise by setting
           the <code>ha-sync-mode</code> policy key
