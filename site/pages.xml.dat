@@ -146,7 +146,7 @@
        <x:related url="/plugin-development.html"/>
      </x:page>
      <x:modal mode="www">
-       <x:page url="/previous.html" text="Web archive"/>
+       <x:page url="/previous.html" text="Previous Releases"/>
      </x:modal>
      <x:page url="/mpl.html" text="License"/>
    </x:page>
