@@ -26,7 +26,7 @@
       <h2>.Net Client</h2>
       <ul>
         <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide (pdf)</a>
+            <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide (pdf)</a>
           </li>
           <li>
             <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation (htmldoc)</a>
