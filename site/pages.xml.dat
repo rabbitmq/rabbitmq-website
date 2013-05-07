@@ -145,6 +145,9 @@
        <x:page url="/mercurial.html" text="Our use of Mercurial"/>
        <x:related url="/plugin-development.html"/>
      </x:page>
+     <x:modal mode="www">
+       <x:page url="/previous.html" text="Web archive"/>
+     </x:modal>
      <x:page url="/mpl.html" text="License"/>
    </x:page>
    <x:page url="/getstarted.html" text="Tutorials">
