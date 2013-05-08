@@ -8,12 +8,12 @@
   </head>
   <body>
     <p>
-        Here you will find links to historical versions of the website
-        that correspond with the final release of historical stable branches.
-        <ol>
-            <li><a href="http://previous.rabbitmq.com/v3_0_x/">3.0.4</a></li>
-            <li><a href="http://previous.rabbitmq.com/v2_8_x/">2.8.7</a></li>
-        </ol>
+      Here you will find links to historical versions of the website
+      that correspond with the final release of historical stable branches.
+      <ul>
+        <li><a href="http://previous.rabbitmq.com/v3_0_x/documentation.html">RabbitMQ 3.0.x</a></li>
+        <li><a href="http://previous.rabbitmq.com/v2_8_x/documentation.html">RabbitMQ 2.8.x</a></li>
+      </ul>
     </p>
   </body>
 </html>
