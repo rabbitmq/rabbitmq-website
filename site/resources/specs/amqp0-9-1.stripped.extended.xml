@@ -11,7 +11,7 @@
       basic.cancel to the client, and
      the un-deprecation of exchange.declare{auto-delete} and exchange.declare{internal}
 
-     Modifications are (c) 2010-2013 Pivotal and may be distributed
+     Modifications are (c) 2010-2013 VMware and may be distributed
      under the same BSD license as below.
 -->
 
