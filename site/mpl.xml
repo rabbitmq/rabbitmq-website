@@ -5,12 +5,12 @@
   </head>
   <body>
       <p class="intro">
-	This page contains the complete license text as used in the
-	RabbitMQ <a href="download.html">distributions</a>.
+  This page contains the complete license text as used in the
+  RabbitMQ <a href="download.html">distributions</a>.
       </p>
 
       <doc:section name="mpl-1.1">
-	<pre>                          MOZILLA PUBLIC LICENSE
+  <pre>                          MOZILLA PUBLIC LICENSE
                                 Version 1.1
 
                               ---------------
@@ -458,8 +458,8 @@ EXHIBIT A - Mozilla Public License.
 
      The Original Code is RabbitMQ.
 
-     The Initial Developer of the Original Code is VMware, Ltd.
-     Copyright (c) 2007-2012 VMware, Inc.  All Rights Reserved.''
+     The Initial Developer of the Original Code is Pivotal, Inc.
+     Copyright (c) 2007-2013 Pivotal, Inc.  All Rights Reserved.''
 
      [NOTE: The text of this Exhibit A may differ slightly from the text of
      the notices in the Source Code files of the Original Code. You should

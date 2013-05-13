@@ -15,12 +15,12 @@
     <h3>Download the Server</h3>
     <r:downloads signature="yes">
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for Fedora / RHEL / CentOS Linux
+      downloadpath="&dir-server;">
+  Packaged as RPM for Fedora / RHEL / CentOS Linux
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		  downloadpath="&dir-server;">
-	Packaged as RPM for openSUSE Linux
+      downloadpath="&dir-server;">
+  Packaged as RPM for openSUSE Linux
       </r:download>
     </r:downloads>
     <p>
@@ -53,7 +53,7 @@
         large numbers of dependencies.
       </li>
       <li>
-        <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">VMware</a>
+        <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">Pivotal</a>
         produces a package stripped down to only provide those components
         needed to run RabbitMQ. It may not be as up to date as Erlang
         Solutions' packages.
@@ -121,11 +121,11 @@
       </li>
     </ol>
 
-    <h3>Install Erlang from VMware</h3>
+    <h3>Install Erlang from Pivotal</h3>
     <ol class="plain">
       <li>
         Download and install the appropriate RPM
-        from <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">VMware</a>.
+        from <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">Pivotal (via vmware.com)</a>.
       </li>
     </ol>
 

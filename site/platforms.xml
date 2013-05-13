@@ -72,7 +72,7 @@
 
     <h2 id="commercial">Commercially Supported Platforms</h2>
     <p id="vfabric-rabbit-supported">
-      RabbitMQ is part of VMware's <a href="http://www.vmware.com/products/application-platform/">
+      RabbitMQ is part of Pivotal's <a href="http://www.vmware.com/products/application-platform/">
       vFabric&#8482; Cloud Application Platform</a>. You can <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/buy.html">
       purchase support</a> for vFabric RabbitMQ under <a href="http://www.vmware.com/download/eula/vfabric_app-platform_eula.html">
       commercial license terms</a>, both as part of the

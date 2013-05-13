@@ -5,13 +5,13 @@
   </head>
   <body suppress-rhs="true">
     <p class="intro">
-      VMware provides a full range of commercial support and services for
+      Pivotal provides a full range of commercial support and services for
       RabbitMQ.
     </p>
     <h3>Support, Training and Consulting</h3>
     <p>
       You can purchase <strong>commercial support agreements</strong> for the
-      most recent open source release RabbitMQ. Alternatively, VMware includes
+      most recent open source release RabbitMQ. Alternatively, Pivotal includes
       RabbitMQ as part of the <em>vFabric&#8482; Suite Advanced</em> for which
       commercial licenses and support are available. In both cases a range of
       SLAs are available.
