@@ -14,6 +14,45 @@
 	   will give you a suitable value.
       -->
     <doc:item>
+      <doc:date iso="2013-05-14T10:18:42+0100">14 May 2013</doc:date>
+      <doc:title>Proudly part of Pivotal</doc:title>
+      <doc:text>
+        <p>
+          RabbitMQ v3.1.0 is significant because it introduces an important
+          <a href="https://www.rabbitmq.com/blog/2013/05/01/rabbitmq-3-1-0-in-images/">set of
+          new features</a>, making Rabbit easier to use and manage.
+        </p>
+        <ul>
+          <li>Eager synchronisation of mirror queue slaves</li>
+          <li>Automatic cluster partition healing</li>
+          <li>Improved statistics</li>
+        </ul>
+        <p>
+          V3.1.0 has significance for another reason: it is the first release made
+          under the banner of our new sponsor company, <a href="http://gopivotal.com/">Pivotal</a>.
+          Pivotal launched earlier this year as a joint venture between VMware, EMC and with a
+          strategic partnership with General Electric Global Software. Billed as "A New Platform
+          for a New Era", the Pivotal platform will unite data, application, and cloud
+          fabrics. The Rabbit team members are excited to be part of this bold new
+          initiative driving open source innovation and collaboration.
+        </p>
+        <p>
+          RabbitMQ will continue to be available under the open source
+          <a href="http://www.rabbitmq.com/mpl.html">Mozilla Public License</a>
+          or commercial terms. Commercial support, consulting and both self-paced and
+          instructor-led training courses are still available worldwide.
+          The <a href="http://www.rabbitmq.com/contact.html">rabbitmq-discuss mailing list</a>
+          will continue to be the primary channel of communication about open-source RabbitMQ.
+          The release cycle is not expected to change as a result of the change of ownership.
+        </p>
+        <p>
+          We invite all customers to continue with us on the journey to become the most
+          reliable, scalable and portable messaging system.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2013-05-01T15:47:16+0100">1 May 2013</doc:date>
       <doc:title>RabbitMQ 3.1.0 release</doc:title>
       <doc:link>release-notes/README-3.1.0.txt</doc:link>
