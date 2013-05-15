@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-four">
-   <xi:include href="tutorials-menu.xml.inc"/>
+   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>
 
 <div id="tutorial">
@@ -9,7 +9,7 @@
 ## Routing
 ### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-three-python.html) we built a
 simple logging system. We were able to broadcast log messages to many

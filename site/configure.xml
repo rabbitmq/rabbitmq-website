@@ -46,18 +46,14 @@
       <doc:subsection name="verify-configuration">
       <doc:heading>Verify Configuration</doc:heading>
          <p>
-             The active configuration can be verified in the startup banner, e.g. the active configuration file:
-             <pre  class="sourcecode">
+           The active configuration can be verified in the broker log,
+           e.g. the active configuration file:
+         </p>
+           <pre class="sourcecode">
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
-             This may appear on the console or in a file, depending on how the broker was started:
-             <ul>
-             <li>Linux (when running as a service): see the <code>startup_log</code> file in the log directory;</li>
-             <li>MacOSX (Macports): see the <code>startupitem.log</code> file in the log directory;</li>
-             <li>Started as <code>rabbitmq-server</code> (without the -detached option): see console output;</li>
-             <li>Windows Service: enable <span class="envvar">RABBITMQ_CONSOLE_LOG</span> and check the <code>.debug</code> file.</li>
-             </ul>
-             The startup banner is not available if the broker is started in detached mode.
-        </p>
+         <p>
+           will show up in the <a href="relocate.html">log file</a>.
+         </p>
       </doc:subsection>
       </doc:section>
 
@@ -631,6 +627,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>cluster_partition_handling</code></td>
+            <td>
+              How to handle network partitions. One
+              of <code>ignore</code>,
+              <code>pause_minority</code>
+              or <code>autoheal</code>. See
+              the <a href="partitions.html#automatic-handling">documentation
+              on partitions</a> for more information.
+              <p>Default: <code>ignore</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You probably
@@ -676,7 +684,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <li><a href="mochiweb.html">rabbitmq_mochiweb</a></li>
           <li><a href="stomp.html">rabbitmq_stomp</a></li>
           <li><a href="shovel.html">rabbitmq_shovel</a></li>
-          <li><a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README">rabbitmq_auth_backend_ldap</a> (<a href="http://hg.rabbitmq.com/rabbitmq-auth-backend-ldap/file/&version-server-hg;/README-authorisation">authorisation</a>)</li>
+          <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
         </ul>
         </doc:subsection>
       </doc:section>

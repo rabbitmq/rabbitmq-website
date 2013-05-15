@@ -111,8 +111,10 @@
      <div id="home-content">
       <h3>What is this website?</h3>
       <p>
-        This website, <b>previous.rabbitmq.com</b>, exists to document the
-        <b>previous</b> feature release of RabbitMQ (&version-server;).
+        This website, <b>previous.rabbitmq.com</b>, exists to document
+        a historical feature release of RabbitMQ (&version-server;).
+        Visit the <a href="http://previous.rabbitmq.com/">release index page</a>
+        for documentation of other historical releases.
       </p>
       <ul id="large-bullets">
         <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>

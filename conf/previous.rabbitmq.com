@@ -11,19 +11,11 @@
     CustomLog /var/log/apache2/access-previous.rabbitmq.com.log combined
     ErrorLog /var/log/apache2/error-previous.rabbitmq.com.log
 
-    # Send 404 and 500s to the appropriate pages.  403 is permission denied.
-    ErrorDocument 403 /404.html
-    ErrorDocument 404 /404.html
-    ErrorDocument 500 /500.html
-
     <Directory /home/rabbitmq/extras/nightlies/rabbitmq-server>
         Options +FollowSymLinks
     </Directory>
 
     ServerSignature On
-    <Directory /srv/previous.rabbitmq.com/site>
-        Options -Indexes
-    </Directory>
 
     # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
     #

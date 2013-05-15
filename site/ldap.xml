@@ -115,9 +115,9 @@
             For example, if I set
           </p>
           <pre>{dn_lookup_attribute,   "userPrincipalName"},
-{dn_lookup_base,        "DC=vmware,DC=com"}</pre>
+{dn_lookup_base,        "DC=gopivotal,DC=com"}</pre>
           <p>
-            I can authenticate as <code>smacmullen@vmware.com</code> and have my
+            I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
             local Active Directory server return my real DN.
           </p>
           <p>

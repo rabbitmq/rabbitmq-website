@@ -143,7 +143,9 @@
           theorem</a>.
         </td>
         <td>
-          Chooses Consistency and Availability from the CAP theorem.
+          Chooses Consistency and Availability (or
+          optionally <a href="partitions.html#cp-mode">Consistency and
+          Partition Tolerance</a>) from the CAP theorem.
         </td>
       </tr>
       <tr>

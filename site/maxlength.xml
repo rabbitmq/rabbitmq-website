@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Queue Length Limit</title>
+  </head>
+  <body>
+    <p>
+      The maximum length of a queue can be limited to a set number
+      of messages by supplying the <code>x-max-length</code> queue
+      declaration argument with a non-negative integer value. Queue
+      length is a measure that takes into account ready messages,
+      ignoring unacknowledged messages and message size. Messages
+      will be dropped or dead-lettered from the front of the queue
+      to make room for new messages once the limit is reached.
+    </p>
+    <p>
+      This example in Java declares a queue with a maximum length
+      of 10 messages:
+    </p>
+    <pre class="sourcecode">
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-max-length", 10);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+  </body>
+</html>

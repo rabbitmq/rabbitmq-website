@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-two">
-   <xi:include href="tutorials-menu.xml.inc"/>
+   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>
 
 <div id="tutorial">
@@ -9,7 +9,7 @@
 ## Work Queues 
 ### (using the Java Client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />

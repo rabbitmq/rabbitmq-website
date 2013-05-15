@@ -8,9 +8,8 @@
           <a href="/contact.html">Contact</a>
         </p>
         <p id="copyright">
-          Copyright &#169; 2013 VMware, Inc. All rights reserved.
-          <a href="http://www.vmware.com/help/legal.html">Terms of Use</a>,
-          <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+          Copyright &#169; 2013 GoPivotal, Inc. All rights reserved
+          |&#160;<a href="http://www.gopivotal.com/privacy-policy">Privacy Policy</a>
         </p>
       </div>
     </div>

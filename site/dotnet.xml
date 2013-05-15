@@ -82,7 +82,7 @@
     <h3>The documentation</h3>
 
     <p>
-      <a href="releases/&dir-dotnet-client;/">This directory</a>
+      <a href="/releases/&dir-dotnet-client;/">This directory</a>
       contains all the available documentation. You can
       also browse <a href="&dir-current-dotnet-apidoc;/index.html">an online-browsable copy</a>
       of the generated HTML API guide documentation.

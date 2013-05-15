@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 <div id="sidebar" class="tutorial-six">
-   <xi:include href="tutorials-menu.xml.inc"/>
+   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
 </div>
 
 <div id="tutorial">
@@ -9,7 +9,7 @@
 ## Remote procedure call (RPC)
 ### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
 In the [second tutorial](tutorial-two-python.html) we learned how to

@@ -218,20 +218,10 @@
           synchronise inactive queues.
         </p>
         <p>
-          You can determine which slaves have synchronised with the
-          following rabbitmqctl invocation:
-        </p>
-        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
-        <p>
-          You can explicitly synchronise a queue with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
-        <p>
-          And you can cancel synchronisation with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
-        <p>
-          These features are also available through the management plugin.
+          Explicit synchronisation can be triggered in two ways: manually or
+          automatically. If a queue is set to automatically synchronise it
+          will synchronise whenever a new slave joins - becoming unresponsive
+          until it has done so.
         </p>
       </doc:section>
 
@@ -359,6 +349,32 @@
           will shut down.
         </p>
 
+        <h3 id="eager-synchronisation">Synchronising Queues</h3>
+        <p>
+          Queues can be set to automatically synchronise by setting
+          the <code>ha-sync-mode</code> policy key
+          to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
+          to <code>manual</code>. If it is not set then <code>manual</code> is
+          assumed.
+        </p>
+
+        <p>
+          You can determine which slaves are synchronised with the
+          following rabbitmqctl invocation:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <p>
+          You can manually synchronise a queue with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <p>
+          And you can cancel synchronisation with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <p>
+          These features are also available through the management plugin.
+        </p>
+
         <h3>Some examples</h3>
 
         <p>
@@ -410,7 +426,7 @@
         <p>
           Policy where queues whose names begin with
           "<code>two.</code>" are mirrored to any two nodes in the
-          cluster:
+          cluster, with automatic synchronisation:
         </p>
 
         <table>
@@ -418,20 +434,21 @@
             <th>rabbitmqctl</th>
             <td>
               <pre>rabbitmqctl set_policy ha-two "^two\." \
-   '{"ha-mode":"exactly","ha-params":2}'</pre>
+   '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'</pre>
             </td>
           </tr>
           <tr>
             <th>rabbitmqctl (Windows)</th>
             <td>
               <pre>rabbitmqctl set_policy ha-two "^two\." ^
-   "{""ha-mode"":""exactly"",""ha-params"":2}"</pre>
+   "{""ha-mode"":""exactly"",""ha-params"":2,"ha-sync-mode":"automatic"}"</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
-              <pre>PUT /api/policies/%2f/ha-two {"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2}}</pre>
+              <pre>PUT /api/policies/%2f/ha-two
+{"pattern":"^two\.", "definition":{"ha-mode":"exactly", "ha-params":2,"ha-sync-mode":"automatic"}}</pre>
             </td>
           </tr>
           <tr>
@@ -448,7 +465,8 @@
                 </li>
                 <li>
                   Enter "ha-mode" = "exactly" in the first line
-                  next to Policy, then "ha-params" = 2 in the second line,
+                  next to Policy, then "ha-params" = 2 in the second
+                  line, then "ha-sync-mode" = "automatic" in the third,
                   and set the type on the second line to "Number".
                 </li>
                 <li>
@@ -458,7 +476,6 @@
             </td>
           </tr>
         </table>
-
       </doc:section>
   </body>
 </html>

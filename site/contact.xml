@@ -39,8 +39,8 @@
       RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
       <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
       The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
-	  You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
-	</p>
+    You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
+  </p>
     <h3>Facebook</h3>
     <p>
       RabbitMQ is <a href="http://www.facebook.com/pages/RabbitMQ/202623286424686">on Facebook</a>.
@@ -50,7 +50,7 @@
     <h3 id="location">Location</h3>
     <address>
       RabbitMQ<br/>
-      c/o VMware UK<br/>
+      12th Floor<br/>
       Bluefin Building<br/>
       110, Southwark Street<br/>
       London SE1 0TA<br/>

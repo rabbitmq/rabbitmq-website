@@ -30,7 +30,13 @@
         <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
       </xsl:if>
       <xsl:if test="$site-mode = 'previous'">
-        <link rel="stylesheet" href="/css/rabbit-previous.css" type="text/css"/>
+        <doc:style>
+          <doc:body>
+            <doc:background>
+              <doc:url>/img/previous-bg.png</doc:url>
+            </doc:background>
+          </doc:body>
+        </doc:style>
       </xsl:if>
       <xsl:comment><![CDATA[[if IE 6]>
       <link rel="stylesheet" href="/css/rabbit-ie6.css" type="text/css" />
@@ -74,8 +80,8 @@
     <div id="rabbit-logo">
       <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
-    <div id="vmw-logo">
-      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
+    <div id="pivotal-logo">
+      <a href="http://www.gopivotal.com/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
     </div>
     <div id="nav-search">
       <xsl:if test="$site-mode = 'www'">
@@ -105,9 +111,8 @@
         <a href="/contact.html">Contact</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2013 VMware, Inc. All rights reserved.
-        <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
-        <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+        Copyright &#169; 2013 GoPivotal, Inc. All rights reserved
+        |&#160;<a href="http://www.gopivotal.com/privacy-policy">Privacy Policy</a>
       </p>
     </div>
   </xsl:template>
@@ -228,11 +233,11 @@
     <tr>
       <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
-        <a class="adownload" href="releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
       </td>
       <xsl:if test="../@signature = 'yes'">
          <td class="signature">
-            <a href="releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+            <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
          </td>
       </xsl:if>
     </tr>
