@@ -73,20 +73,18 @@ an SSL listener on port 61614.
 ### <a id="cta.du"/>Default User
 
 The RabbitMQ STOMP adapter allows `CONNECT` frames to omit the `login`
-and `passcode` headers if a default is configured. A default `host` header
-may also be provided.
+and `passcode` headers if a default is configured.
 
 To configure a default login and passcode, add a `default_user`
 section to the `rabbitmq_stomp` application configuration. For example:
 
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
-                                        {passcode, "guest"},
-                                        {host, <<"/">>}]}]}
+                                        {passcode, "guest"}]}]}
     ].
 
 The configuration example above makes `guest`/`guest` the default
-login/passcode pair and sets the default host to `/`.
+login/passcode pair.
 
 ### <a id="cta.ssl"/>Authentication with SSL client certificates
 
@@ -395,8 +393,13 @@ The `CONNECT` (or `STOMP`) frame in
 mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 
-When omitted, the host configured in the `default_user` section is used.
-The broker default virtual host is used if no such host configuration is found.
+When omitted, the default virtual host (`/`) is presumed.
+To configure a different default virtual host, add a `default_vhost`
+section to the `rabbitmq_stomp` application configuration, e.g.
+
+    [
+      {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
+    ].
 
 If a `host` header is specified it must be one of the
 virtual hosts known to the RabbitMQ server, otherwise the connection is
