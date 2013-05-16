@@ -6,15 +6,14 @@ Release Highlights
 server
 ------
 bug fixes
-25545 revert to treating missing x-match headers as "all" and
-      relax validation for compatibility with brokers < 3.1.0
-25546 fix bug where setting a prefetch count multiple times on the0
-      same channel while there are active consumers, could lead
-      to an internal error and crash report in the logs
+25545 relax validation of x-match binding to headers exchange for
+      compatibility with brokers < 3.1.0
+25546 fix crash when setting a prefetch count multiple times on the
+      same channel
 25548 fix vhost validation when setting policies and/or parameters
 25549 fix x-expires handling after last consumer disconnects
-25555 fail validation of ha-params and ha-sync-mode unless ha-mode
-      is enabled
+25555 tighten up validation of HA-related policies
+
 
 shovel plugin
 -------------
@@ -26,6 +25,7 @@ management plugin
 -----------------
 bug fixes
 25536 set auth header correctly when downloading definitions
+
 
 federation-management-plugin
 ----------------------------
