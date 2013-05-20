@@ -8,6 +8,10 @@ server
 bug fixes
 25545 relax validation of x-match binding to headers exchange for
       compatibility with brokers < 3.1.0
+25561 fix bug in ack handling for transactional channels that could
+      cause queues to crash
+25560 fix race condition in cluster autoheal that could lead to nodes
+      failing to re-join the cluster
 25546 fix crash when setting a prefetch count multiple times on the
       same channel
 25548 fix vhost validation when setting policies and/or parameters
@@ -25,6 +29,7 @@ management plugin
 -----------------
 bug fixes
 25536 set auth header correctly when downloading definitions
+25543 set message_stats to the correct value when empty
 
 
 federation-management-plugin
@@ -32,6 +37,11 @@ federation-management-plugin
 bug fixes
 25556 allow multiple URIs to be specified against an upstream
 
+.NET client
+-------------
+bug fixes
+25558 fix a bug that could lead to duplicate channel IDs being allocated,
+      causing a connection failure
 
 Upgrading
 =========
