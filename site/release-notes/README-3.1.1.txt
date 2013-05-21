@@ -37,11 +37,13 @@ federation-management-plugin
 bug fixes
 25556 allow multiple URIs to be specified against an upstream
 
+
 .NET client
 -------------
 bug fixes
 25558 fix a bug that could lead to duplicate channel IDs being allocated,
       causing a connection failure
+
 
 Upgrading
 =========
