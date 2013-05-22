@@ -147,6 +147,15 @@
             specified username and password).
           </p>
           <p>
+            Note that it is not possible to use the
+            default <code>as_user</code> configuration when users connect
+            without passwords. An error
+            mentioning <code>as_user_no_password</code> will be logged in this
+            case. You must set <code>other_bind</code> to <code>anon</code>,
+            or <code>{UserDN, Password}</code> for users to log in without
+            passwords.
+          </p>
+          <p>
             Default: <code>as_user</code>
           </p>
         </dd>
