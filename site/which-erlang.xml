@@ -21,7 +21,7 @@
     <table>
       <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
       <tr>
-        <td>run <a href="download.html">RabbitMQ</a> server and most plugins</td>
+        <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
         <td>R13B03</td>
         <td></td>
       </tr>
