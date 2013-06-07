@@ -162,24 +162,13 @@ Memory limit set to 2048MB.</pre>
           the threshhold, due to the fact that the total amount of system
           RAM is queried.
         </p>
-
-        <p>
-          Versions of Erlang prior to R13B had a bug that meant they
-          do not reliably detect the amount of memory installed on
-          Windows platforms. If RabbitMQ is running under Windows on
-          a version of Erlang prior to R13B, then it does not
-          attempt to automatically set a threshold. Instead, it
-          behaves as if it's unable to recognise the platform: see
-          below.
-        </p>
       </doc:subsection>
 
       <doc:subsection name="memsup-unrecognised-platforms">
         <doc:heading>Unrecognised platforms</doc:heading>
         <p>
           If the RabbitMQ server is unable to recognise your system,
-          or if you're using Windows and a version of Erlang prior
-          to R13B, it will append a warning to the
+          it will append a warning to the
           <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
           1GB of RAM is installed:
           <pre class="sourcecode">
