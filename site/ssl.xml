@@ -11,16 +11,8 @@
   </head>
   <body show-in-this-page="true">
       <doc:section name="intro">
-        <p class="intro">As of version 1.7.0, RabbitMQ has inbuilt support for SSL.</p>
-        <p>SSL/TLS support in the RabbitMQ server requires
-          the <code>new_ssl</code> Erlang/OTP
-          application. For everything to work correctly, ensure the
-          following minimum configuration: </p>
-        <ul class="plain">
-          <li> Erlang Distribution - R13B</li>
-          <li> Erlang SSL - 3.10</li>
-        </ul>
-        <p>The recommended distribution is R14B (SSL 4.0.1) or later. This should be
+        <p class="intro">RabbitMQ has inbuilt support for SSL.</p>
+        <p>The recommended Erlang distribution is R14B (SSL 4.0.1) or later. This should be
         considered the minimum configuration for Java and Erlang clients
         due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
 
