@@ -13,8 +13,9 @@
     </p>
     <p>
       The minimum version of <a href="http://www.erlang.org">Erlang</a>
-      required to run the RabbitMQ server is R13B03.
-      Certain RabbitMQ configurations require more
+      required to run the RabbitMQ server is R13B03. If you absolutely must
+      use an older version of Erlang, RabbitMQ 3.1.x is the newest version
+      compatible with R12B-3. Certain RabbitMQ configurations require more
       <a href="http://www.erlang.org/download.html">recent versions</a>:
     </p>
     <p>
