@@ -164,6 +164,36 @@ Memory limit set to 2048MB.</pre>
         </p>
       </doc:subsection>
 
+      <doc:subsection name="memsup-paging">
+        <doc:heading>Configuring the Paging Threshold</doc:heading>
+        <p>
+          Before the broker hits the high watermark and blocks
+          publishers, it will attempt to free up memory by instructing
+          queues to page their contents out to disc. Both persistent
+          and transient messages will be paged out (the persistent
+          messages will already be on disc but will be evicted from
+          memory).
+        </p>
+        <p>
+          By default this starts to happen when 20% of memory is
+          used. To change this value, modify
+          the <code>vm_memory_paging_watermark</code> configuration
+          from its default value of <code>0.2</code>. For example:
+        </p>
+        <pre class="sourcecode">[{rabbit, [{vm_memory_paging_watermark, 0.4},
+           {vm_memory_high_watermark, 0.6}]}].</pre>
+        <p>
+          The above configuration starts paging at 40% of memory used, and
+          blocks publishers at 60%.
+        </p>
+        <p>
+          It is possible to
+          set <code>vm_memory_paging_watermark</code> to a higher
+          value than <code>vm_memory_high_watermark</code>. In this
+          case queues will not page their contents to disc.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="memsup-unrecognised-platforms">
         <doc:heading>Unrecognised platforms</doc:heading>
         <p>
