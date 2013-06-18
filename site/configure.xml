@@ -396,13 +396,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>vm_memory_paging_watermark</code></td>
+            <td><code>vm_memory_high_watermark_paging_ratio</code></td>
             <td>
-              Memory threshold at which queues start to page messages
-              out to disc to free up memory. See
-              the <a href="memory.html">memory-based flow control</a>
-              documentation.
-              <p>Default: <code>0.2</code></p>
+              Fraction of the high watermark limit at which queues
+              start to page messages out to disc to free up
+              memory. See the <a href="memory.html">memory-based flow
+              control</a> documentation.
+              <p>Default: <code>0.5</code></p>
             </td>
           </tr>
           <tr>

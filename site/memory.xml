@@ -175,22 +175,25 @@ Memory limit set to 2048MB.</pre>
           memory).
         </p>
         <p>
-          By default this starts to happen when 20% of memory is
-          used. To change this value, modify
-          the <code>vm_memory_paging_watermark</code> configuration
-          from its default value of <code>0.2</code>. For example:
+          By default this starts to happen when the broker is 50% of
+          the way to the high watermark (i.e. with a default high
+          watermark of 0.4, this is when 20% of memory is used). To
+          change this value, modify
+          the <code>vm_memory_high_watermark_paging_ratio</code>
+          configuration from its default value
+          of <code>0.5</code>. For example:
         </p>
-        <pre class="sourcecode">[{rabbit, [{vm_memory_paging_watermark, 0.4},
-           {vm_memory_high_watermark, 0.6}]}].</pre>
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
+           {vm_memory_high_watermark, 0.4}]}].</pre>
         <p>
-          The above configuration starts paging at 40% of memory used, and
-          blocks publishers at 60%.
+          The above configuration starts paging at 30% of memory used, and
+          blocks publishers at 40%.
         </p>
         <p>
           It is possible to
-          set <code>vm_memory_paging_watermark</code> to a higher
-          value than <code>vm_memory_high_watermark</code>. In this
-          case queues will not page their contents to disc.
+          set <code>vm_memory_high_watermark_paging_ratio</code> to a
+          greater value than <code>1.0</code>. In this case queues
+          will not page their contents to disc.
         </p>
       </doc:subsection>
 
