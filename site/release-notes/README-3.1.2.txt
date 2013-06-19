@@ -7,44 +7,53 @@ server
 ------
 bug fixes
 
-25571 fix potential deadlock application shutdown handling
-25567 fix bug in handling re-queued, un-acked messages residing
-      in memory could cause the queue to crash
-25599 fix bug preventing exclusive durable queues from being redeclared
-      after forceful shutdown, which could additionally lead to leaking
-      the durable queue entries in mnesia
-25576 fix bug in queue index, where a broker crash between segment
-      deletion and journal truncation could prevent recovery
+25571 fix potential deadlock in application shutdown handling (since 2.1.0)
+25567 fix queue crash requeuing in-memory messages (since 2.7.0)
+25599 fix queue record leak of exclusive durable queues after forceful
+      shutdown (since 3.0.1)
+25576 fix bug in queue index where a broker crash between segment
+      deletion and journal truncation could prevent the broker from
+      subsequently starting (since 2.0.0)
 25588 ensure per-message-TTL is removed when messages are dead-lettered
-25575 fix bug in handling empty rabbit serial that lead to startup errors
+      (since 3.0.0)
+25575 fix bug handling empty rabbit_serial leading to startup failure
+      (since 1.7.0)
 25611 improve stack traces when message store crash occurs
-25612 fix bug in shutdown sequence that could lead to crashing processes
-      when the stopping node is part of a cluster
-25573 fix bug in access control causing LDAP auth plugin to fail
-      when the broker is compiled against Erlang/OTP R12B-5
+25612 fix crashing processes when stopping node as part of a cluster
+      (since 2.4.0)
 
 
 stomp plugin
 -------------
 bug fixes
 25564 fix handling of reply-to for non-temporary queue destinations
-25566 allow unescaped colons in header values
+      (since 3.1.0)
+25566 allow unescaped colons in header values for STOMP 1.0 compatibility
+      (since 3.0.0)
 
 
 management plugin
 -----------------
 bug fixes
-25592 fix bug allowing users to see stats for all vhosts
-25600 fix consumer record leak in the management database
+25592 fix bug allowing unprivileged users to see stats for all vhosts
+      (since 3.1.0)
+25600 fix consumer record leak in the management database (since 2.2.0)
 25580 fix bug preventing definitions file from loading if it contained
-      a policy from a non default vhost
+      a policy from a non default vhost (since 3.1.1)
+
+
+LDAP plugin
+-----------
+bug fixes
+25573 fix garbled login failure errors (since 2.3.0)
 
 
 Erlang client
 -------------
 bug fixes
-25521 fix negotiated frame-max handling, which was being ignored
+25521 fix negotiated frame-max handling, which was being ignored (since 2.0.0)
 25489 fix rpc client/server to ensure correlation-ids are valid UTF-8 strings
+      (since 2.0.0) (thanks to Daniel White)
 
 
 Upgrading
