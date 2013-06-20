@@ -38,8 +38,8 @@ bug fixes
 25592 fix bug allowing unprivileged users to see stats for all vhosts
       (since 3.1.0)
 25600 fix consumer record leak in the management database (since 2.2.0)
-25629 fix leak that could cause explosion of fine stats over the lifetime
-      of a single channel (since 3.1.0)
+25629 fix memory leak in the presence of long-lived channels and
+      short-lived queues (since 3.1.0)
 25580 fix bug preventing definitions file from loading if it contained
       a policy from a non default vhost (since 3.1.1)
 
