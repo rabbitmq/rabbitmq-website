@@ -7,6 +7,7 @@ server
 ------
 bug fixes
 
+25636 fix startup failure when using SSL with Erlang/OTP R16B01
 25571 fix potential deadlock in application shutdown handling (since 2.1.0)
 25567 fix queue crash requeuing in-memory messages (since 2.7.0)
 25599 fix queue record leak of exclusive durable queues after forceful
