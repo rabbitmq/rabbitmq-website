@@ -15,10 +15,15 @@ bug fixes
 25576 fix bug in queue index where a broker crash between segment
       deletion and journal truncation could prevent the broker from
       subsequently starting (since 2.0.0)
+25615 fix bug that could lead to duplicate mirror queues slaves starting
+      on a single node and crashing a queue process (since 2.6.0)
 25588 ensure per-message-TTL is removed when messages are dead-lettered
       (since 3.0.0)
 25575 fix bug handling empty rabbit_serial leading to startup failure
       (since 1.7.0)
+25640 fix bug in limiter, where a race between basic.ack and basic.cancel
+      with prefetch >= 1 could lead to a channel crashing (since 3.1.0)
+25638 fix leak (in gm) affecting HA/mirrored queues (since 3.0.0)
 25611 improve stack traces when message store crash occurs
 25612 fix crashing processes when stopping node as part of a cluster
       (since 2.4.0)
