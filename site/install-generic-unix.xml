@@ -31,7 +31,7 @@
         <p>
           Download
           <code>rabbitmq-server-generic-unix-&version-server;.tar.gz</code>
-          from the <a href="download.html">download page</a>.
+          from the link above.
         </p>
         <xi:include href="download-tarball.xml.inc"/>
       </doc:subsection>
