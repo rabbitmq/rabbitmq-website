@@ -26,6 +26,9 @@
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
               </li>
               <li>
+                <a href="http://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.rabbitmq.3.0/jms-client/overview.html">RabbitMQ JMS client</a> (commercial)
+              </li>
+              <li>
                 <a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a>
               </li>
               <li>
