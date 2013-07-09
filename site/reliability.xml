@@ -172,6 +172,14 @@
         textual explanation) will be sent back to the client if no queues were
         appropriately bound.
       </p>
+      <p>
+        Producers should also be aware that when publishing to a clustered node,
+        if one or more destination queues that are bound to the exchange have
+        mirrors in the cluster, it's possible to incur delays in the face of
+        network failures between nodes, due to flow control between replicas
+        and the master queue process. See <a href="nettick.html">here</a> for
+        more details.
+      </p>
     </doc:section>
 
     <doc:section name="consumer">
