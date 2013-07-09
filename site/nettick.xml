@@ -5,60 +5,61 @@
   <head>
     <title>Net Tick Times</title>
   </head>
-  <body show-in-this-page="true">
+  <body show-in-this-page="false">
     <doc:section name="background-info">
       <p class="intro">
         This page explains how Erlang's
-        <code>net_ticktime</code> configuration parameter works, as well as
+        <code>net_ticktime</code> configuration parameter works, and
         the potential effects of changing it.
       </p>
     </doc:section>
     <doc:section name="net-tick-overview">
       <doc:heading>Overview</doc:heading>
       <p>
-        Nodes in an distributed Erlang system are connected via TCP/IP, with
-        one connection for each pair of nodes. Each node maintains a connection
-        to all its peers, with the nodes forming a fully connected network.
-        Since TCP/IP communication failure can go unnoticed for long periods of
+        Nodes in a distributed Erlang system are connected (usually via TCP/IP)
+        by a pair of connections per pair of nodes.
+        Since communication failures can go unnoticed for long periods of
         time (depending on operating system configuration), Erlang's runtime
-        system implements an application-level <i>heartbeat</i> mechanism to
-        counter connectivity problems, periodically writing <i>keep-alive</i>
-        messages in each direction, on each connection.
+        system implements a user-land <i>keep-alive</i> mechanism to
+        counter connectivity problems, periodically sending <i>keep-alive</i>
+        messages in both directions.
+      </p>
+    </doc:section>
+    <doc:section name="net-tick-details">
+      <doc:heading>Net Tick Time</doc:heading>
+      <p>
+        All nodes in a distributed Erlang system, periodically check that some
+        communication has taken place for each peer within an allotted time span,
+        marking peer nodes as down (i.e., unresponsive) otherwise.
       </p>
       <p>
-        All nodes check that some communication has taken place for each peer
-        within an alloted time period, marking peers as down (i.e., disconnected)
-        if no data is received within that time frame.
-      </p>
-      <p>
-        Erlang exposes the time delay used to identify unresponsive peers
-        in the <code>net_ticktime</code> parameter, given to the
-        <code>kernel</code> application, which is documented
+        Erlang exposes the minimum period within which peers are expected to
+        respond via the <code>net_ticktime</code> parameter to the
+        <code>kernel</code> application, documented
         <a href="http://erlang.org/doc/man/kernel_app.html">here</a>.
         Very briefly, the runtime system will send a <i>tick</i> at intervals
         of <code>net_ticktime / 4</code> seconds, and will consider a node to
-        be down if no data is received over the TCP/IP connection within four
+        be down if no data is received over that node's connection within four
         ticks (i.e., within approximately <code>net_ticktime</code> seconds).
       </p>
     </doc:section>
-    <doc:section name="net-tick-overview">
+    <doc:section name="changing-net-tick">
       <doc:heading>Changing net_ticktime</doc:heading>
       <p>
         It is possible to change the value of <code>net_ticktime</code>, however
         this should be done with the utmost caution. Whilst setting a higher
-        value might cover up short-lived network outages, you will also
-        increase the length of time that RabbitMQ may be unresponsive, while
-        waiting for replies from other nodes which might have gone down or lost
-        connectivity. Conversely, decreasing the ticktime will reduce detection
-        latency, but might also result in nodes being marked as down/dead, when
-        in fact they are still alive and reachable but aren't responding in a
-        timely fashion.
+        value might cover up short-lived network outages, this increases the
+        length of time RabbitMQ may be unresponsive while waiting for replies
+        from peers. Conversely, decreasing the tick time will reduce
+        detection latency, but may result in nodes being marked as
+        down/unresponsive, when in fact they are still alive and reachable but
+        aren't responding quickly enough.
       </p>
       <p>
         Adjusting the <code>net_ticktime</code> then, is not a panacea for
-        dealing with connectivity problems. If you decide to do this, the
-        following configuration setting will affect the change (with this
-        example setting a higher tick time of 120 seconds):
+        dealing with connectivity problems. If you decide to set
+        <code>net_ticktime</code> anyway, you can use the following configuration
+        setting (with this example setting a higher tick time of 120 seconds):
       </p>
       <p>
         <code>[{kernel, [{net_ticktime, 120}]}].</code>

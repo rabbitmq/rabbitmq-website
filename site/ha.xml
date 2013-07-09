@@ -76,11 +76,10 @@
           Should a slave fail, there is little to be done other than
           some bookkeeping: the master remains the master and no
           client need take any action or be informed of the failure.
-          Note however that slave failures may not be detected
-          instantaneously, and therefore publication can be subject
-          to delays during the course of normal flow control whilst
-          slave's remaing unresponsible (and unable to issue credit).
-          The precice details are outlined <a href="nettick.html">here</a>.
+          Note that slave failures may not be detected immediately and
+          the interruption of the per-connection flow control mechanism
+          can delay message publication. The details are described
+          <a href="nettick.html">here</a>.
         </p>
         <p>
           If the master fails, then one of the slaves must be
@@ -483,23 +482,17 @@
         </table>
       </doc:section>
       <doc:section name="partitions-flow-control-and-ha-slaves">
-        <doc:heading>Partitions, flow control and mirror queue slaves.</doc:heading>
+        <doc:heading>Partitions, flow control and mirror queue slaves</doc:heading>
         <p>
-          RabbitMQ uses a credit based algorithm to implement server side flow
+          RabbitMQ uses a credit-based algorithm to implement server-side flow
           control (i.e., rate limiting) of message publication.
           When publishing to a mirrored queue, a channel will wait for credit
-          to be issued by all the queue's slaves during the course of normal
-          flow control. If a slave becomes disconnected whilst the channel is in
-          this state, producers will remain blocked until the runtime system
-          detects that the node has gone away, which as we previously noted could
-          take up to 60 seconds when the default <code>net_ticktime</code> is in
-          use (see below). This is another good reason to avoid using clustering
-          and mirrored queues in an environment susceptible to network partitions.
-        </p>
-        <p>
-          The Erlang VM detects network partitions using a simple <i>keep-alive</i>
-          algorithm, the timing of which is configurable during startup. For more
-          details, see the <code>net_ticktime</code> guide
+          to be issued by all slaves during the course of flow control.
+          If a slave becomes disconnected whilst the channel is in this state,
+          producers will remain blocked until the runtime system detects that the
+          node is unresponsive. The Erlang VM detects such network partitions using
+          a simple <i>keep-alive</i> algorithm, the timing of which is configurable
+          during startup. For more details, see the <code>net_ticktime</code> guide
           <a href="nettick.xml">here</a>. The documentation
           <a href="memory.html">here</a> provides further information about flow
           control.
