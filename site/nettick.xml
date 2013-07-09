@@ -50,10 +50,10 @@
         this should be done with the utmost caution. Whilst setting a higher
         value might cover up short-lived network outages, this increases the
         length of time RabbitMQ may be unresponsive while waiting for replies
-        from peers. Conversely, decreasing the tick time will reduce
-        detection latency, but may result in nodes being marked as
-        down/unresponsive, when in fact they are still alive and reachable but
-        aren't responding quickly enough.
+        from peers. Conversely, decreasing the tick time may reduce
+        detection latency yet result in nodes being marked as down/unresponsive
+        (though in fact they're still alive and reachable), because incoming
+        traffic from them is not being detected quickly enough.
       </p>
       <p>
         Adjusting the <code>net_ticktime</code> then, is not a panacea for
