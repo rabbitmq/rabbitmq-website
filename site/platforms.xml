@@ -73,7 +73,7 @@
     <h2 id="commercial">Commercially Supported Platforms</h2>
     <p>A list of platforms for which you can purchase commercial support for
        RabbitMQ is available in the
-       <a href="http://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.rabbitmq.3.0/suppconfigsrabbit/about.html">
+       <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">
          RabbitMQ commercial documentation</a>.
     </p>
     <h2 id="unsupported">Unsupported Platforms</h2>
