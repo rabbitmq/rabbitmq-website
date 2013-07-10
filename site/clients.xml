@@ -20,7 +20,7 @@
           <a href="&dir-current-javadoc;">Javadoc documentation</a>
         </li>
         <li>
-          <a href="http://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.rabbitmq.3.0/jms-client/overview.html">JMS client</a> (commercial)
+          <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">JMS client</a> (commercial)
         </li>
       </ul>
     </div>
