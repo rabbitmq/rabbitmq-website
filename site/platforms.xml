@@ -42,9 +42,9 @@
 
     <h3 id="windows">Windows</h3>
     <p>
-      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7,
-      Server 2008). It should be possible to run on Windows NT and Windows 2000
-      as well although this has not been tested.
+      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7, Windows 8,
+      Server 2008 and Server 2012). It should be possible to run on Windows NT and
+      Windows 2000 as well although this has not been tested.
     </p>
     <p>
       The Windows Erlang VM is available as 32bit (all available versions) and 64bit
