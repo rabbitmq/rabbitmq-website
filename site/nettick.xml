@@ -3,66 +3,55 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Net Tick Times</title>
+    <title>Net Tick Time</title>
   </head>
-  <body show-in-this-page="false">
+  <body>
     <doc:section name="background-info">
       <p class="intro">
-        This page explains how Erlang's
-        <code>net_ticktime</code> configuration parameter works, and
-        the potential effects of changing it.
+        This page explains the Erlang <code>net_ticktime</code> configuration
+        setting. See the <a href="http://erlang.org/doc/man/kernel_app.html">Erlang kernel
+        documentation</a> for more details.
       </p>
     </doc:section>
     <doc:section name="net-tick-overview">
       <doc:heading>Overview</doc:heading>
       <p>
-        Nodes in a distributed Erlang system are connected (usually via TCP/IP)
-        by a pair of connections per pair of nodes.
-        Since communication failures can go unnoticed for long periods of
-        time (depending on operating system configuration), Erlang's runtime
-        system implements a user-land <i>keep-alive</i> mechanism to
-        counter connectivity problems, periodically sending <i>keep-alive</i>
-        messages in both directions.
+        Each pair of nodes in a cluster are connected by the transport layer.
+        Periodic tick messages are exchanged between all pairs of nodes to
+        maintain the connections and to detect disconnections.
+        Network interruptions could otherwise go undetected for a period
+        determined by the transport parameters.
       </p>
     </doc:section>
-    <doc:section name="net-tick-details">
-      <doc:heading>Net Tick Time</doc:heading>
+    <doc:section name="net-tick-frequency">
+      <doc:heading>Tick Frequency</doc:heading>
       <p>
-        All nodes in a distributed Erlang system, periodically check that some
-        communication has taken place for each peer within an allotted time span,
-        marking peer nodes as down (i.e., unresponsive) otherwise.
+        The frequency of both tick messages and detection of failures is controlled
+        by the <code>net_ticktime</code> configuration setting. Normally four ticks
+        are exchanged between a pair of nodes every <code>net_ticktime</code> seconds.
+        If no communication is received from a node within <code>net_ticktime</code>
+        (&#177; 25%) seconds then the node is considered down and no longer a member
+        of the cluster.
       </p>
       <p>
-        Erlang exposes the minimum period within which peers are expected to
-        respond via the <code>net_ticktime</code> parameter to the
-        <code>kernel</code> application, documented
-        <a href="http://erlang.org/doc/man/kernel_app.html">here</a>.
-        Very briefly, the runtime system will send a <i>tick</i> at intervals
-        of <code>net_ticktime / 4</code> seconds, and will consider a node to
-        be down if no data is received over that node's connection within four
-        ticks (i.e., within approximately <code>net_ticktime</code> seconds).
-      </p>
-    </doc:section>
-    <doc:section name="changing-net-tick">
-      <doc:heading>Changing net_ticktime</doc:heading>
-      <p>
-        It is possible to change the value of <code>net_ticktime</code>, however
-        this should be done with the utmost caution. Whilst setting a higher
-        value might cover up short-lived network outages, this increases the
-        length of time RabbitMQ may be unresponsive while waiting for replies
-        from peers. Conversely, decreasing the tick time may reduce
-        detection latency yet result in nodes being marked as down/unresponsive
-        (though in fact they're still alive and reachable), because incoming
-        traffic from them is not being detected quickly enough.
+        Increasing the <code>net_ticktime</code> across all nodes in a cluster will
+        make the cluster more resilient to short network outtages, but it will take
+        longer for remaing nodes to detect failures. Conversely, reducing the
+        <code>net_ticktime</code> across all nodes in a cluster will reduce detection
+        latency, but increases the risk of detecting spurious
+        <a href="partitions.html">partitions</a>.
       </p>
       <p>
-        Adjusting the <code>net_ticktime</code> then, is not a panacea for
-        dealing with connectivity problems. If you decide to set
-        <code>net_ticktime</code> anyway, you can use the following configuration
-        setting (with this example setting a higher tick time of 120 seconds):
+        The impact of changing the default <code>net_ticktime</code> should be
+        carefully considered. All nodes in a cluster must use the same
+        <code>net_ticktime</code>. The following sample configuration demonstrates
+        doubling the default <code>net_ticktime</code> from 60 to 120 seconds:
       </p>
       <p>
-        <code>[{kernel, [{net_ticktime, 120}]}].</code>
+<pre>    [
+        {rabbit, [{tcp_listeners, [5672]}]},
+        {kernel, [{net_ticktime,  120}]}.
+    ].</pre>
       </p>
     </doc:section>
   </body>

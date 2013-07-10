@@ -484,18 +484,18 @@
       <doc:section name="partitions-flow-control-and-ha-slaves">
         <doc:heading>Partitions, flow control and mirror queue slaves</doc:heading>
         <p>
-          RabbitMQ uses a credit-based algorithm to implement server-side flow
-          control (i.e., rate limiting) of message publication.
-          When publishing to a mirrored queue, a channel will wait for credit
-          to be issued by all slaves during the course of flow control.
-          If a slave becomes disconnected whilst the channel is in this state,
-          producers will remain blocked until the runtime system detects that the
-          node is unresponsive. The Erlang VM detects such network partitions using
-          a simple <i>keep-alive</i> algorithm, the timing of which is configurable
-          during startup. For more details, see the <code>net_ticktime</code> guide
-          <a href="nettick.xml">here</a>. The documentation
-          <a href="memory.html">here</a> provides further information about flow
-          control.
+          RabbitMQ uses a credit-based algorithm to <a
+          href="memory.html#per-connection">limit the rate of message
+          publication</a>.  Publishers are permitted to publish
+          when they receive credit from all mirrors of a queue.
+          Credit in this context means permission to publish.
+          Slaves that fail to issue credit can cause publishers
+          to stall.  Publishers will remain stalled until all slaves
+          issue credit or until the remaining nodes consider the
+          slave to be disconnected from the cluster.  Erlang detects
+          such disconnections by periodically sending a tick to all
+          nodes. The tick interval can be controlled with the <a
+          href="nettick.html">net_ticktime</a> configuration setting.
         </p>
       </doc:section>
   </body>
