@@ -189,6 +189,24 @@
             that similarly are routed to multiple queues.
           </p>
         </doc:subsection>
+        <doc:subsection name="flow-control">
+          <doc:heading>Flow Control</doc:heading>
+          <p>
+            RabbitMQ uses a credit-based algorithm to <a
+            href="memory.html#per-connection">limit the rate of
+            message publication</a>.  Publishers are permitted to
+            publish when they receive credit from all mirrors of a
+            queue.  Credit in this context means permission to
+            publish.  Slaves that fail to issue credit can cause
+            publishers to stall.  Publishers will remain stalled until
+            all slaves issue credit or until the remaining nodes
+            consider the slave to be disconnected from the cluster.
+            Erlang detects such disconnections by periodically sending
+            a tick to all nodes. The tick interval can be controlled
+            with the <a href="nettick.html">net_ticktime</a>
+            configuration setting.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="unsynchronised-slaves">
@@ -480,23 +498,6 @@
             </td>
           </tr>
         </table>
-      </doc:section>
-      <doc:section name="partitions-flow-control-and-ha-slaves">
-        <doc:heading>Partitions, flow control and mirror queue slaves</doc:heading>
-        <p>
-          RabbitMQ uses a credit-based algorithm to <a
-          href="memory.html#per-connection">limit the rate of message
-          publication</a>.  Publishers are permitted to publish
-          when they receive credit from all mirrors of a queue.
-          Credit in this context means permission to publish.
-          Slaves that fail to issue credit can cause publishers
-          to stall.  Publishers will remain stalled until all slaves
-          issue credit or until the remaining nodes consider the
-          slave to be disconnected from the cluster.  Erlang detects
-          such disconnections by periodically sending a tick to all
-          nodes. The tick interval can be controlled with the <a
-          href="nettick.html">net_ticktime</a> configuration setting.
-        </p>
       </doc:section>
   </body>
 </html>
