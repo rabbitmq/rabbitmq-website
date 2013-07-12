@@ -496,6 +496,24 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="node-dev">
+            <doc:heading>Node.js</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
+                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                these installation instructions</a> for rabbit.js on Ubuntu.
+              </li>
+              <li>
+                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
+                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
+              </li>
+              <li>
+                <a href="https://github.com/postwait/node-amqp">node-amqp</a>
+                RabbitMQ Node.js client
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="lisp-dev">
             <doc:heading>Lisp</doc:heading>
             <ul class="plain">
@@ -599,12 +617,6 @@
             <doc:heading>Web Messaging</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                <br />
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
-                these installation instructions</a> for rabbit.js on Ubuntu.
-              </li>
-              <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-chat">rabbitmq-chat</a>
                 <br />
                 A web chat room implemented with RabbitMQ and Websockets
@@ -669,11 +681,6 @@
               <li>
                 We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
                 and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
-              </li>
-              <li>
-                <a href="https://github.com/postwait/node-amqp">node-amqp</a>
-                <br />
-                Node.js and RabbitMQ
               </li>
               <li>
                 <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
