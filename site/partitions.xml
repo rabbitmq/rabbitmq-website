@@ -28,8 +28,8 @@
     <h2>Detecting network partitions</h2>
     <p>
       Mnesia will typically determine that a node is down if another
-      node is unable to contact it for a minute or so (see the section
-      on <code>net_ticktime</code> below). If two nodes come back into
+      node is unable to contact it for a minute or so (see the page
+      on <a href="nettick.html">net_ticktime</a>). If two nodes come back into
       contact, both having thought the other is down, Mnesia will
       determine that a partition has occured. This will be written to
       the RabbitMQ log in a form like:
@@ -111,39 +111,6 @@ Cluster status of node rabbit@smacmullen ...
       if so make sure that the <b>first</b> node you start is from the
       trusted partition.
     </p>
-    <h2 id="net_ticktime">net_ticktime</h2>
-    <p>
-      The initial determination that a node is down is made by the
-      Erlang virtual machine. This is controlled by
-      the <code>net_ticktime</code> parameter to
-      the <code>kernel</code> application,
-      documented <a href="http://erlang.org/doc/man/kernel_app.html">here</a>.
-    </p>
-    <p>
-      It is possible that you may want to increase
-      the <code>net_ticktime</code> value to cover up short-lived
-      network outages. You could do so with a configuration file
-      looking like:
-    </p>
-    <pre>[{kernel, [{net_ticktime, 120}]}].</pre>
-    <p>
-      which would increase the ticktime from 60 seconds to 120 seconds.
-    </p>
-    <p>
-      Conversely, you may wish to decrease the value in order to
-      detect network outages more promptly.
-    </p>
-    <p>
-      But be aware that there is no free lunch here: by increasing the
-      ticktime you also increase the length of time that RabbitMQ may
-      be unresponsive, waiting for a reply from a cluster node which
-      has gone down or lost connectivity. Conversely, decreasing the
-      ticktime can result in nodes being detected as dead when in fact
-      they are still alive and reachable but perhaps busy. Adjusting
-      the <code>net_ticktime</code> is <b>not</b> a general solution
-      to the problem of network partitions.
-    </p>
-
     <h2 id="automatic-handling">Automatically handling partitions</h2>
     <p>
       RabbitMQ also offers two ways to deal with network partitions
