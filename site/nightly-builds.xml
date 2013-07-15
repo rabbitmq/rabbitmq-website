@@ -35,11 +35,11 @@
       </doc:section>
       <doc:section name="packaging-repositories">
         <p>
-          We publish both debian and macports repositories containing the
-          nighty build artefacts, so that you can install them using the
-          relevant package manager for your system. You should be aware that
-          these repositories are overwritten each night, so you can <i>only</i>
-          use the latest version when installing in this manner.
+          We publish a debian repository containing the nighty build artefacts,
+          so that you can install them using the relevant package manager for
+          your system. You should be aware that this repository will be
+          overwritten each night, so you can <i>only</i> use the latest version
+          when installing in this manner.
       </p>
       <p>
           As with our published live releases, we continue to digitally
@@ -63,7 +63,6 @@
         <li>
           <a href="/nightlies/rabbitmq-server/">Download</a> |
           <a href="/debian-snapshot">Debian Repository</a> |
-          <a href="/nightlies/macports">Macports</a>
         </li>
       </ul>
       <h3>Official Clients</h3>
