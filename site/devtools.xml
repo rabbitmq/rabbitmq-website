@@ -152,6 +152,13 @@
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
+            <h4>JRuby</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://hotbunnies.info">HotBunnies, a JRuby RabbitMQ client</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
           </doc:section>
           <doc:section name="ruby-dev">
             <doc:heading>Ruby</doc:heading>
