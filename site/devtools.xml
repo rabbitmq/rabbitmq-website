@@ -142,21 +142,18 @@
             <ul class="plain">
               <li>
                 <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
             <h4>Clojure</h4>
             <ul class="plain">
               <li>
                 <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
             <h4>JRuby</h4>
             <ul class="plain">
               <li>
                 <a href="http://hotbunnies.info">HotBunnies, a JRuby RabbitMQ client</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -253,7 +250,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -306,7 +302,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -359,7 +354,6 @@
             <ul class="plain">
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -392,7 +386,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -416,7 +409,6 @@
               </li>
               <li>
                 <a href="https://github.com/fuCtor/QAMQP">QAMQP</a>, a pure Qt 4 implementation of AMQP 0-9-1 without other dependencies
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -438,7 +430,6 @@
               <li>
                 <a href="https://github.com/noblesamurai/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
                 based on the <a href="http://www.rabbitmq.com/erlang-client-user-guide.html">rabbit-erlang-client</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -465,7 +456,6 @@
             <ul class="plain">
               <li>
                 <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -480,7 +470,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -492,7 +481,6 @@
               </li>
               <li>
                 <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -501,7 +489,6 @@
             <ul class="plain">
               <li>
                 <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -522,7 +509,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -540,7 +526,6 @@
               </li>
               <li>
                 The <a href="http://rabbitmqonopenvs.blogspot.com/">RabbitMQ on OpenVMS blog</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -555,7 +540,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+ec2">RabbitMQ and EC2  on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -632,7 +616,6 @@
                 <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
                 <br />
                 Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Javascript
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -641,7 +624,6 @@
             <ul class="plain">
               <li>
                 <a href="http://simonwdixon.wordpress.com/2011/06/03/getting-started-with-rabbitmq-on-android-part-1/">Get Started with RabbitMQ on Android</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -659,7 +641,6 @@
               </li>
               <li>
                 <a href="http://stomp.github.com">STOMP specification</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -674,7 +655,6 @@
               </li>
               <li>
                 <a href="https://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -698,7 +678,6 @@
               </li>
               <li>
                 <a href="http://www.delicious.com/alexisrichardson/rabbitmq+nosql">RabbitMQ and NoSQL on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -804,7 +783,6 @@
               </li>
               <li>
                 <a href="http://del.icio.us/alexisrichardson/rabbitmq+client">RabbitMQ Clients on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
