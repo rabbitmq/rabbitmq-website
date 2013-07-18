@@ -460,6 +460,15 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="go-dev">
+            <doc:heading>Go</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="lisp-dev">
             <doc:heading>Lisp</doc:heading>
             <ul class="plain">
@@ -492,15 +501,6 @@
             <ul class="plain">
               <li>
                 <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
-                <a class="top" href="#top">(back to top)</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="go-dev">
-            <doc:heading>Go</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
