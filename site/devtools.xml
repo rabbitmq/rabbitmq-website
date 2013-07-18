@@ -165,6 +165,9 @@
                 <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
               </li>
               <li>
+                <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
+              </li>
+              <li>
                 <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
               </li>
               <li>
