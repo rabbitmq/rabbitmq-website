@@ -55,12 +55,6 @@
                 A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
               </li>
               <li>
-                <a href="https://github.com/michaelklishin/langohr">langhor</a> a Clojure RabbitMQ client that follows RabbitMQ's implementation of AMQP 0-9-1
-              </li>
-              <li>
-                <a href="https://github.com/mefesto/wabbitmq">wabbitmq</a> a Clojure messaging library that wraps RabbitMQ's Java Client
-              </li>
-              <li>
                 <a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a>
                 <br/>
                 A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
@@ -148,6 +142,13 @@
             <ul class="plain">
               <li>
                 <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
+                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+            <h4>Clojure</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
                 <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
