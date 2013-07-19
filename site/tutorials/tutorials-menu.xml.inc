@@ -11,6 +11,8 @@
           <a href="/tutorials/tutorial-one-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-one-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-one-ruby.html">Ruby</a>
           </p>
         </li>
 
