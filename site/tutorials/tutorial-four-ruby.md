@@ -40,7 +40,7 @@ confusion with a `Bunny::Exchange#publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
     :::ruby
-    q.bind(EXCHANGE_NAME, :routing_key => "black");
+    q.bind(exchange_name, :routing_key => "black");
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
