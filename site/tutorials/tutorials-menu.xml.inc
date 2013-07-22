@@ -56,6 +56,8 @@
           <a href="/tutorials/tutorial-four-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-four-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-four-ruby.html">Ruby</a>
           </p>
         </li>
 
