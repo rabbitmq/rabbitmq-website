@@ -26,6 +26,8 @@
           <a href="/tutorials/tutorial-two-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-two-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-two-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -39,6 +41,8 @@
           <a href="/tutorials/tutorial-three-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-three-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-three-ruby.html">Ruby</a>
           </p>
         </li>
 
