@@ -262,4 +262,5 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 Hello World!
 
 Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
+
 </div>
