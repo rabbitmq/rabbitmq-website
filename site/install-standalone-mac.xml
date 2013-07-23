@@ -17,7 +17,7 @@
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.gz"
 		    downloadpath="&dir-server;">
-	  Packaged for Mac systems (tar.gz)
+	  Packaged for Mac systems (tar.gz) shipping Erlang &standalone-otp-version;
         </r:download>
       </r:downloads>
 
