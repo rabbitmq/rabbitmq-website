@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-      <ul id="tutorials">
+      <ul id="tutorials" xmlns="http://www.w3.org/1999/xhtml">
 
         <li id="tutorial-one">
           <h2><span class="tute-num">1</span> <a href="/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
