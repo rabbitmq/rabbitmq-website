@@ -13,7 +13,9 @@
     <p>
       Users of Mac OS X who do not use MacPorts or Homebrew can use
       the <a href="install-standalone-mac.html">Standalone Mac OS X</a>
-      installation instructions instead.
+      installation instructions instead. Officially released MacPorts
+      packages may not always contain the lastest released version of
+      RabbitMQ.
     </p>
     <p>
       A portfile for the RabbitMQ server is included
@@ -27,15 +29,6 @@
       based open-source software on the Mac OS X operating
       system.
     </blockquote>
-    <p>
-      RabbitMQ maintains a dedicated
-      <a href="macports.html">MacPorts repository</a>, which you
-      should use to install the latest RabbitMQ server version via
-      MacPorts, as officially released MacPorts packaging may not
-      always contain the lastest released version of RabbitMQ.<br/>
-      (NB It can take a very long time to install other macport
-      updates - see <code>man port</code> for options).
-    </p>
 
     <h3>Install the Server</h3><a id="install"></a>
     <p>

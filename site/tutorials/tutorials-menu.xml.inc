@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-      <ul id="tutorials">
+      <ul id="tutorials" xmlns="http://www.w3.org/1999/xhtml">
 
         <li id="tutorial-one">
           <h2><span class="tute-num">1</span> <a href="/tutorials/tutorial-one-python.html">"Hello World!"</a></h2>
@@ -11,6 +11,8 @@
           <a href="/tutorials/tutorial-one-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-one-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-one-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -24,6 +26,8 @@
           <a href="/tutorials/tutorial-two-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-two-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-two-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -37,6 +41,8 @@
           <a href="/tutorials/tutorial-three-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-three-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-three-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -50,6 +56,8 @@
           <a href="/tutorials/tutorial-four-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-four-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-four-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -63,6 +71,8 @@
           <a href="/tutorials/tutorial-five-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-five-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-five-ruby.html">Ruby</a>
           </p>
         </li>
 
@@ -76,6 +86,8 @@
           <a href="/tutorials/tutorial-six-python.html">Python</a>
           |
           <a href="/tutorials/tutorial-six-java.html">Java</a>
+          |
+          <a href="/tutorials/tutorial-six-ruby.html">Ruby</a>
           </p>
         </li>
       </ul>

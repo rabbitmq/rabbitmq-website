@@ -55,12 +55,6 @@
                 A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
               </li>
               <li>
-                <a href="https://github.com/michaelklishin/langohr">langhor</a> a Clojure RabbitMQ client that follows RabbitMQ's implementation of AMQP 0-9-1
-              </li>
-              <li>
-                <a href="https://github.com/mefesto/wabbitmq">wabbitmq</a> a Clojure messaging library that wraps RabbitMQ's Java Client
-              </li>
-              <li>
                 <a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a>
                 <br/>
                 A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
@@ -148,7 +142,18 @@
             <ul class="plain">
               <li>
                 <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
-                <a class="top" href="#top">(back to top)</a>
+              </li>
+            </ul>
+            <h4>Clojure</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://clojurerabbitmq.info">Langohr, a Clojure RabbitMQ client</a>
+              </li>
+            </ul>
+            <h4>JRuby</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://hotbunnies.info">HotBunnies, a JRuby RabbitMQ client</a>
               </li>
             </ul>
           </doc:section>
@@ -156,87 +161,25 @@
             <doc:heading>Ruby</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/ruby-amqp/amqp">Ruby/EM AMQP client</a>
+                <a href="http://rubybunny.info">Bunny</a>, a dead easy to use RabbitMQ Ruby client
               </li>
               <li>
-                <a href="https://github.com/ruby-amqp/amq-client">AMQ Client</a>, a low-level AMQP client with support for blocking socket connection as well as for reactor implementations like EventMachine and Cool.IO
+                <a href="http://hotbunnies.info">HotBunnies</a>, a JRuby RabbitMQ client
               </li>
               <li>
-                <a href="https://github.com/ivanvanderbyl/cloudist">Cloudist</a>, a highly scalable job queue for Ruby
+                <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
               </li>
               <li>
-                <a href="https://github.com/jerryluk/rabbitmq-jruby-client">JRuby client</a>
+                <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
               </li>
               <li>
-                <a href="http://rubygems.org/gems/euston-rabbitmq">euston-rabbitmq</a>, JRuby bindings for RabbitMQ
-                (see also <a href="http://rubygems.org/gems/euston-daemons">euston-daemons</a>)
+                <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
               </li>
               <li>
-                <a href="https://github.com/ruby-amqp/bunny">Bunny</a>, a synchronous AMQP client and this <a href="https://github.com/DRMacIver/bunny">fork of bunny</a>
-              </li>
-              <li>
-                <a href="https://github.com/rudionrails/cottontail">Cottontail</a>, a Sinatra-inspired wrapper around Bunny
-              </li>
-              <li>
-                <a href="https://github.com/famoseagle/carrot">Carrot</a>, a synchronous AMQP client
-              </li>
-              <li>
-                <a href="https://github.com/bmizerany/lizzy/">Lizzy</a>, a lightweight agent system using RabbitMQ from Ruby
-              </li>
-              <li>
-                <a href="http://groups.google.com/group/ruby-amqp/">Google ruby-amqp group</a>
-              </li>
-              <li>
-                <a href="https://github.com/ezmobius/nanite">Nanite</a> self assembling fabric of ruby daemons
-              </li>
-              <li>
-                <a href="https://github.com/orionz/minion">Minion</a> a super-simple job queue over AMQP
-              </li>
-              <li>
-                <a href="https://github.com/PlasticLizard/bunnicula">Bunnicula</a> a simple AMQP relay implemented as a ruby daemon (similar in intent to <a href="http://www.lshift.net/blog/2010/02/01/rabbitmq-shovel-message-relocation-equipment">shovel</a>)
-              </li>
-              <li>
-                <a href="http://somic.org/2008/12/18/introducing-rabbitbal/">Rabbitbal</a> a reverse proxy for Rails (as well as other web frameworks, not necessarily limited to Ruby)
-              </li>
-              <li>
-                <a href="http://www.rubyflow.com/items/1159">Workling</a> now supports RabbitMQ
-              </li>
-              <li>
-                <a href="http://vladexologija.blogspot.com/2011/09/using-rabbitmq-with-jruby-and-workling.html">Using RabbitMQ with JRuby and Workling</a>
-              </li>
-              <li>
-                <a href="https://github.com/crafterm/rabbit-mq-talk">Rails and RubyCocoa demo application</a> shown as part of a presentation about Messaging/RabbitMQ at the Melbourne Ruby group
-              </li>
-              <li>
-                <a href="http://37signals.com/svn/posts/1433-ta-da-list-on-rails-22-passenger-and-ec2">El Conejo Mensajero (The Rabbit Messenger)</a>
-                <br/>
-                A presentation (in English) by Joshua Sierles of <strong>37signals</strong> giving an overview of
-                RabbitMQ and listing lots of uses cases, mostly in Ruby
-              </li>
-              <li>
-                <a href="http://www.softdevtube.com/2009/12/09/bits-bytes-and-blobs/">Bits, Bytes and Bobs</a>
-                <br />
-                A video introduction and review of best practices for dealing with binary data in Ruby with Memcached and RabbitMQ
-              </li>
-              <li>
-                <a href="http://video2010.scottishrubyconference.com/show_video/1/1">Denormalizing Your Rails Application</a>
-                <br />
-                A video presentation and slides from the Scottish Ruby Conference 2010 by Daniel Lucraft and Matt Wynne
-              </li>
-              <li>
-                <a href="http://rubyreflector.com/RabbitMQ">RabbitMQ on Ruby Reflector</a>
-                <br />
-                Posts about RabbitMQ on the Ruby social news website
-              </li>
-              <li>
-                <a href="http://www.ioncannon.net/programming/941/using-daemon-kit-and-robustthread-to-build-ruby-daemons">Assembling an event driven daemon with RabbitMQ</a>
+                <a href="http://twitter.com/rubyamqp">Ruby RabbitMQ clients Twitter account</a>
               </li>
               <li>
                 <a href="http://www.rabbitmq.com/blog/tag/ruby">Ruby-tagged RabbitMQ blog posts</a>
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+ruby">RabbitMQ Ruby development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -248,7 +191,7 @@
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (the <a href="https://github.com/pika/pika">source code</a> is on github; the 
+                (the <a href="https://github.com/pika/pika">source code</a> is on github; the
                 <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
               </li>
               <li>
@@ -266,7 +209,7 @@
                 <a href="https://github.com/majek/puka">puka</a>,an opinionated Python client for library for RabbitMQ
               </li>
               <li>
-                <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent 
+                <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
                 (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
               </li>
               <li>
@@ -307,7 +250,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -328,7 +270,7 @@
                 Enterprise and distributed architecture topics covered using RabbitMQ and C#
               </li>
               <li>
-                <a href="http://simonwdixon.wordpress.com/2011/05/08/getting-started-with-rabbitmq-in-dotnet/">Getting Started with RabbitMQ in .NET Part 1</a>, 
+                <a href="http://simonwdixon.wordpress.com/2011/05/08/getting-started-with-rabbitmq-in-dotnet/">Getting Started with RabbitMQ in .NET Part 1</a>,
                 <a href="http://simonwdixon.wordpress.com/2011/05/10/getting-started-with-rabbitmq-in-net-part-2/">Part 2</a> and
                 <a href="http://simonwdixon.wordpress.com/2011/05/19/getting-started-with-rabbitmq-in-net-%E2%80%93-part-3/">Part 3</a>
               </li>
@@ -360,7 +302,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -375,7 +316,7 @@
               <li>
                 <a href="http://www.youtube.com/watch?v=YO9AtlJ3JMc">Scaling web apps with RabbitMQ</a>
                 <br />
-                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing 
+                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing
                 website reliability and scalability. (March 11, 2011.)
               </li>
               <li>
@@ -412,8 +353,7 @@
             <h4>Symfony2 Framework</h4>
             <ul class="plain">
               <li>
-                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework 
-                <a class="top" href="#top">(back to top)</a>
+                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
               </li>
             </ul>
           </doc:section>
@@ -446,7 +386,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+perl">RabbitMQ Perl development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -470,7 +409,6 @@
               </li>
               <li>
                 <a href="https://github.com/fuCtor/QAMQP">QAMQP</a>, a pure Qt 4 implementation of AMQP 0-9-1 without other dependencies
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -492,7 +430,6 @@
               <li>
                 <a href="https://github.com/noblesamurai/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
                 based on the <a href="http://www.rabbitmq.com/erlang-client-user-guide.html">rabbit-erlang-client</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -514,6 +451,14 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="go-dev">
+            <doc:heading>Go</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="lisp-dev">
             <doc:heading>Lisp</doc:heading>
             <ul class="plain">
@@ -525,7 +470,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -537,7 +481,6 @@
               </li>
               <li>
                 <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -546,16 +489,6 @@
             <ul class="plain">
               <li>
                 <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
-                <a class="top" href="#top">(back to top)</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="go-dev">
-            <doc:heading>Go</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -576,7 +509,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -594,7 +526,6 @@
               </li>
               <li>
                 The <a href="http://rabbitmqonopenvs.blogspot.com/">RabbitMQ on OpenVMS blog</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -609,7 +540,6 @@
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+ec2">RabbitMQ and EC2  on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -686,7 +616,6 @@
                 <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
                 <br />
                 Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Javascript
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -695,7 +624,6 @@
             <ul class="plain">
               <li>
                 <a href="http://simonwdixon.wordpress.com/2011/06/03/getting-started-with-rabbitmq-on-android-part-1/">Get Started with RabbitMQ on Android</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -713,7 +641,6 @@
               </li>
               <li>
                 <a href="http://stomp.github.com">STOMP specification</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -728,7 +655,6 @@
               </li>
               <li>
                 <a href="https://github.com/rmt/amqptools">amqptools</a>, command line AMQP clients (in C)
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -752,7 +678,6 @@
               </li>
               <li>
                 <a href="http://www.delicious.com/alexisrichardson/rabbitmq+nosql">RabbitMQ and NoSQL on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
@@ -762,14 +687,14 @@
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-global-fanout-exchange">RabbitMQ Global Fanout Exchange</a>
                 <br />
-                A custom exchange type that fans out messages to every queue in the broker no matter what the bindings or vhosts. 
-              </li>            
+                A custom exchange type that fans out messages to every queue in the broker no matter what the bindings or vhosts.
+              </li>
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">RabbitMQ Recent History Exchange</a>
                 <br />
                 A custom exchange type that keeps track of the last 20 messages that have passed through
                 such that newly bound queues receive a recent message history.
-              </li>            
+              </li>
               <li>
                 <a href="https://github.com/jbrisbin/random-exchange">RabbitMQ Random Exchange</a>
                 <br />
@@ -858,7 +783,6 @@
               </li>
               <li>
                 <a href="http://del.icio.us/alexisrichardson/rabbitmq+client">RabbitMQ Clients on del.icio.us</a>
-                <a class="top" href="#top">(back to top)</a>
               </li>
             </ul>
           </doc:section>
