@@ -266,7 +266,6 @@ value is ignored for `fanout` exchanges. Here goes the code for
     x.publish(msg)
     puts " [x] Sent #{msg}"
 
-    sleep 0.5
     conn.close
 
 [(emit_log.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log.rb)

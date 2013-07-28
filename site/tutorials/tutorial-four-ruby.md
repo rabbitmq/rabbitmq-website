@@ -261,7 +261,6 @@ The code for `emit_logs_direct.rb` class:
     x.publish(msg, :routing_key => severity)
     puts " [x] Sent '#{msg}'"
 
-    sleep 0.5
     conn.close
 
 
