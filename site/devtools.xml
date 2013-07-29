@@ -298,7 +298,7 @@
                 <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a>
               </li>
               <li>
-                <a href="https://github.com/machine/machine.mta">.NET NServiceBus client</a>
+                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
               </li>
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a>
