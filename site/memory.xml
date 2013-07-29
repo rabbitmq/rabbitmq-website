@@ -162,15 +162,38 @@ Memory limit set to 2048MB.</pre>
           the threshhold, due to the fact that the total amount of system
           RAM is queried.
         </p>
+      </doc:subsection>
 
+      <doc:subsection name="memsup-paging">
+        <doc:heading>Configuring the Paging Threshold</doc:heading>
         <p>
-          Versions of Erlang prior to R13B had a bug that meant they
-          do not reliably detect the amount of memory installed on
-          Windows platforms. If RabbitMQ is running under Windows on
-          a version of Erlang prior to R13B, then it does not
-          attempt to automatically set a threshold. Instead, it
-          behaves as if it's unable to recognise the platform: see
-          below.
+          Before the broker hits the high watermark and blocks
+          publishers, it will attempt to free up memory by instructing
+          queues to page their contents out to disc. Both persistent
+          and transient messages will be paged out (the persistent
+          messages will already be on disc but will be evicted from
+          memory).
+        </p>
+        <p>
+          By default this starts to happen when the broker is 50% of
+          the way to the high watermark (i.e. with a default high
+          watermark of 0.4, this is when 20% of memory is used). To
+          change this value, modify
+          the <code>vm_memory_high_watermark_paging_ratio</code>
+          configuration from its default value
+          of <code>0.5</code>. For example:
+        </p>
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
+           {vm_memory_high_watermark, 0.4}]}].</pre>
+        <p>
+          The above configuration starts paging at 30% of memory used, and
+          blocks publishers at 40%.
+        </p>
+        <p>
+          It is possible to
+          set <code>vm_memory_high_watermark_paging_ratio</code> to a
+          greater value than <code>1.0</code>. In this case queues
+          will not page their contents to disc.
         </p>
       </doc:subsection>
 
@@ -178,8 +201,7 @@ Memory limit set to 2048MB.</pre>
         <doc:heading>Unrecognised platforms</doc:heading>
         <p>
           If the RabbitMQ server is unable to recognise your system,
-          or if you're using Windows and a version of Erlang prior
-          to R13B, it will append a warning to the
+          it will append a warning to the
           <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
           1GB of RAM is installed:
           <pre class="sourcecode">

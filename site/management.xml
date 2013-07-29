@@ -94,15 +94,6 @@
           page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
-        <doc:subsection name="erlang">
-          <doc:heading>Requirements</doc:heading>
-          <p>
-            rabbitmq-management uses
-            the <a href="https://github.com/mochi/mochiweb">Mochiweb</a>
-            web server which requires a newer Erlang version. At least
-            R13B01 is required, but later versions are recommended.
-          </p>
-        </doc:subsection>
       </doc:section>
 
       <doc:section name="getting-started">

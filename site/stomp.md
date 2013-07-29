@@ -394,6 +394,12 @@ mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 
 When omitted, the default virtual host (`/`) is presumed.
+To configure a different default virtual host, add a `default_vhost`
+section to the `rabbitmq_stomp` application configuration, e.g.
+
+    [
+      {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
+    ].
 
 If a `host` header is specified it must be one of the
 virtual hosts known to the RabbitMQ server, otherwise the connection is
