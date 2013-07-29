@@ -164,7 +164,6 @@ The code for `emit_log_topic.rb`:
     x.publish(msg, :routing_key => severity)
     puts " [x] Sent #{severity}:#{msg}"
 
-    sleep 0.5
     conn.close
 
 

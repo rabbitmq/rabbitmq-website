@@ -80,15 +80,11 @@
         the <code>basic.return</code> is sent first) <b>or</b>
       </li>
       <li>
-        a transient message has reached all its queues (and mirrors) <b>or</b>
-      </li>
-      <li>
-        a persistent message has reached all its queues (and mirrors)
-        and been persisted to disk (and <code>fsync</code>ed) <b>or</b>
-      </li>
-      <li>
-        a persistent message has been consumed (and if necessary
-        acknowledged) from all its queues
+        a message has reached all of the queues (and their mirrors) it
+        was routed to, and, if it requires persistence (i.e. the
+        message has been marked as persistent and the queue is
+        durable), either a) has been persisted to disk, or b) has been
+        consumed and, if necessary, acknowledged.
       </li>
     </ul>
 
