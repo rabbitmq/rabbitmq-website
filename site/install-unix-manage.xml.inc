@@ -3,14 +3,14 @@
              name="managing-unix">
   <doc:heading>Managing the Broker</doc:heading>
   <p>
-    To stop the server or check its status, etc., you can use
+    To stop the server or check its status, etc., you can invoke
     <code>rabbitmqctl</code> (as an administrator). It should be
     available on the path. All <code>rabbitmqctl</code> commands will
     report the node absence if no broker is running.
   </p>
   <ul>
-    <li>Use <code>rabbitmqctl stop</code> to stop the server.</li>
-    <li>Use <code>rabbitmqctl status</code> to check whether it is
+    <li>Invoke <code>rabbitmqctl stop</code> to stop the server.</li>
+    <li>Invoke <code>rabbitmqctl status</code> to check whether it is
       running.</li>
   </ul>
   <p>

@@ -2,14 +2,14 @@
 <doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <doc:heading>Managing the Broker</doc:heading>
   <p>
-    To stop the server or check its status, etc., you can use
-    <code>rabbitmqctl</code> (as the user running
+    To stop the server or check its status, etc., you can invoke
+    <code>sbin/rabbitmqctl</code> (as the user running
     <code>rabbitmq-server</code>). All <code>rabbitmqctl</code>
     commands will report the node absence if no broker is running.
   </p>
   <ul>
-    <li>Use <code>rabbitmqctl stop</code> to stop the server.</li>
-    <li>Use <code>rabbitmqctl status</code> to check whether it is
+    <li>Invoke <code>rabbitmqctl stop</code> to stop the server.</li>
+    <li>Invoke <code>rabbitmqctl status</code> to check whether it is
       running.</li>
   </ul>
   <p>
