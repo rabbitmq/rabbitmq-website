@@ -89,7 +89,7 @@
       and some common messaging patterns, including pubsub.
     </li>
     <li>
-      <a href="http://crad.tumblr.com/post/196979154/the-attention-deficit-disorder-guide-to-rabbitmq">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
+      <a href="http://gavinroy.com/posts/the-attention-deficit-disorder-guide-to-rabbi.html">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
       Blog post for those who want to get started with RabbitMQ quickly and
       easily. Assumes you know the basics about messaging and AMQP.
     </li>
