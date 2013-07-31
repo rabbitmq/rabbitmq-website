@@ -56,6 +56,15 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         <pre class="sourcecode">
 args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       </p>
+
+      <p>
+        When a dead letter exchange has been specified, in addition to
+        the usual configure permissions on the declared queue, the user
+        needs to have read permissions on that queue and write
+        permissions on the dead letter exchange. Permissions are
+        verified at the time of queue declaration.
+      </p>
+
     </doc:section>
     <doc:section>
       <doc:heading>Routing Dead-Lettered Messages</doc:heading>
