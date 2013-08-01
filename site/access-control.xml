@@ -43,45 +43,52 @@
           <table>
             <tr>
               <th>AMQP command</th>
+              <th></th>
               <th>configure</th>
               <th>write</th>
               <th>read</th>
             </tr>
             <tr>
-              <td>exchange.declare (passive=false)</td><td>exchange</td><td/><td/>
+              <td>exchange.declare</td><td>(passive=false)</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
-              <td>exchange.delete</td><td>exchange</td><td/><td/>
+              <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
             </tr>
             <tr>
-              <td>queue.declare (passive=false)</td><td>queue</td><td/><td/>
+              <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
             </tr>
             <tr>
-              <td>queue.delete</td><td>queue</td><td/><td/>
+              <td>queue.declare</td><td>(passive=false)</td><td>queue</td><td/><td/>
             </tr>
             <tr>
-              <td>exchange.bind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
+              <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
             </tr>
             <tr>
-              <td>exchange.unbind</td><td/><td>exchange (destination)</td><td>exchange (source)</td>
+              <td>queue.delete</td><td/><td>queue</td><td/><td/>
             </tr>
             <tr>
-              <td>queue.bind</td><td/><td>queue</td><td>exchange</td>
+              <td>exchange.bind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
             </tr>
             <tr>
-              <td>queue.unbind</td><td/><td>queue</td><td>exchange</td>
+              <td>exchange.unbind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
             </tr>
             <tr>
-              <td>basic.publish</td><td/><td>exchange</td><td/>
+              <td>queue.bind</td><td/><td/><td>queue</td><td>exchange</td>
             </tr>
             <tr>
-              <td>basic.get</td><td/><td/><td>queue</td>
+              <td>queue.unbind</td><td/><td/><td>queue</td><td>exchange</td>
             </tr>
             <tr>
-              <td>basic.consume</td><td/><td/><td>queue</td>
+              <td>basic.publish</td><td/><td/><td>exchange</td><td/>
             </tr>
             <tr>
-              <td>queue.purge</td><td/><td/><td>queue</td>
+              <td>basic.get</td><td/><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>basic.consume</td><td/><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>queue.purge</td><td/><td/><td/><td>queue</td>
             </tr>
           </table>
         </p>
