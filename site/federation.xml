@@ -721,5 +721,28 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <code>GET /api/federation-links</code>.
       </p>
     </doc:section>
+    <doc:section name="clustering">
+      <doc:heading>Federating clusters</doc:heading>
+      <p>
+        Clusters can be linked together with federation just as single brokers
+        can. To summarise how clustering and federation interact:
+      </p>
+      <ul>
+        <li>
+          You can define policies and parameters on any node in the downstream
+          cluster; once defined on one node they will apply on all nodes.
+        </li>
+        <li>
+          Federation links will start on any node in the downstream
+          cluster. They will fail over to other nodes if the node they are
+          running on crashes or stops.
+        </li>
+        <li>
+          To connect to an upstream cluster, you can specify multiple URIs in
+          a single upstream. The federation link process will choose one of
+          these URIs at random each time it attempts to connect.
+        </li>
+      </ul>
+    </doc:section>
   </body>
 </html>
