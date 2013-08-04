@@ -55,7 +55,7 @@ In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex
 tasks. We don't have a real-world task, like images to be resized or
 pdf files to be rendered, so let's fake it by just pretending we're
-busy - by using the `Thread.sleep()` function. We'll take the number of dots
+busy - by using the `Kernel#sleep` method. We'll take the number of dots
 in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
@@ -79,7 +79,7 @@ messages from the queue and perform the task, so let's call it `worker.rb`:
     q.subscribe(:ack => true, :block => true) do |delivery_info, properties, body|
       puts " [x] Received #{body}"
       # imitate some work
-      sleep 1.0
+      sleep body.count(".").to_i
       puts " [x] Done"
 
       ch.ack(delivery_info.delivery_tag)
