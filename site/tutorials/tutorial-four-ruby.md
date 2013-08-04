@@ -242,7 +242,7 @@ Putting it all together
 </div>
 
 
-The code for `emit_logs_direct.rb` class:
+The code for `emit_log_direct.rb` class:
 
     :::ruby
     #!/usr/bin/env ruby
