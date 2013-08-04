@@ -197,7 +197,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basicAck`. It's an easy error,
+> It's a common mistake to miss the `ack`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -302,8 +302,8 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to defeat that we can use the `basicQos` method with the
-`prefetchCount` = `1` setting. This tells RabbitMQ not to give more than
+In order to defeat that we can use the `prefetch` method with the
+value of `1`. This tells RabbitMQ not to give more than
 one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
