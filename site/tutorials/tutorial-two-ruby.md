@@ -113,7 +113,7 @@ script. These consoles will be our two consumers - C1 and C2.
 <div></div>
 
     :::bash
-    shell2$ shell1$ ruby -rubygems worker.rb
+    shell2$ ruby -rubygems worker.rb
      [*] Waiting for messages. To exit press CTRL+C
 
 In the third one we'll publish new tasks. Once you've started
