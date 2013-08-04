@@ -138,7 +138,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    ruby -rubygems worker.rb
+    shell2$ ruby -rubygems worker.rb
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
