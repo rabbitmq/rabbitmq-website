@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Blocked Connection Notifications</title>
+  </head>
+  <body>
+    <p>
+      It is often necessary that when a connection is blocked by <a
+      href="memory.html">flow control</a>, clients are notified about
+      this.
+
+      Unfortunately, the AMQP 0-9-1 specification does not provide a protocol method for that.
+    </p>
+
+    <p>
+      To solve this, we have introduced an extension in which the
+      broker will send to the client a <code>connection.blocked</code>
+      in the case of a blocked connection. <code>connection.unblocked</code>
+      will be sent when a connection is unblocked.
+    </p>
+    <p>
+      The client must present a <code>capabilities</code> table in
+      its <code>client-properties</code> in which there is a key
+      <code>connection.blocked</code> and a boolean value
+      <code>true</code>. See the
+      <a href="#capabilities">capabilities</a> section for further
+      details on this.
+    </p>
+    <p>
+      Our supported clients indicate this capability by default and provide a way to register
+      handlers for <code>connection.blocked</code> and <code>connection.unblocked</code> methods.
+    </p>
+
+    <doc:section>
+      <doc:heading>Using Blocked Connection Notifications with Java Client</doc:heading>
+
+      <p>With the official Java client, blocked connection
+      notifications are handled by <code>BlockedListener</code>
+      interface implementations. They can be registered on a
+      <code>Connection</code> using the
+      <code>Connection.addBlockedListener</code> method:</p>
+
+      <pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+Connection connection = factory.newConnection();
+connection.addBlockedListener(new BlockedListener() {
+    public void handleBlocked(String reason) throws IOException {
+        // Connection is now blocked.
+        // Note that it may be triggered more than once before
+        // the connection unblocks!
+    }
+
+    public void handleUnblocked() throws IOException {
+        // Connection is now unblocked
+    }
+});
+      </pre>
+    </doc:section>
+
+
+
+    <doc:section>
+      <doc:heading>Using Blocked Connection Notifications with .NET Client</doc:heading>
+
+      <p>With the official .NET client, blocked connection
+      notifications are handled by the
+      <code>RabbitMQ.Client.Events.ConnectionBlockedEventHandler</code>
+      delegate. <code>IConnection</code> provides
+      <code>IConnection.ConnectionBlocked</code> and
+      <code>IConnection.ConnectionUnblocked</code> events:</p>
+
+      <pre class="sourcecode">
+        public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
+        {
+            // Connection is now blocked.
+            // Note that it may be triggered more than once before
+            // the connection unblocks!
+        }
+
+        public void HandleUnblocked(IConnection sender)
+        {
+            // Connection is now unblocked
+        }
+
+Conn.ConnectionBlocked   += HandleBlocked;
+Conn.ConnectionUnblocked += HandleUnblocked;
+      </pre>
+    </doc:section>
+
+    <doc:section>
+      <doc:heading>When Notifications are Sent</doc:heading>
+      <p>
+        A new <code>connection.blocked</code> notification will be sent every time
+        RabbitMQ is low on a resource. For example, if a RabbitMQ node detects that it is
+        low on RAM, it will send <code>connection.blocked</code> to the clients that support it.
+        If before the connections are unblocked the node also starts running low on disk space,
+        another <code>connection.blocked</code> will be sent out.
+      </p>
+      <p>
+        A <code>connection.unblocked</code> will be sent to the clients that support it
+        when <em>all</em> resource alarms have cleared and connection is fully unblocked.
+      </p>
+    </doc:section>
+  </body>
+</html>
