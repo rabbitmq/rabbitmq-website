@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - "Hello World!" SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-one">
-  <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Introduction
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
@@ -263,4 +257,3 @@ Hello World!
 
 Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
 
-</div>
