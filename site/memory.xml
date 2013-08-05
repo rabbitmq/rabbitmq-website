@@ -279,5 +279,12 @@ Disabling disk free space monitoring</pre>
     </doc:subsection>
     </doc:section>
 
+    <doc:section name="client-notifications">
+      <doc:heading>Client Notifications</doc:heading>
+      <p>
+        RabbitMQ provides an extension to AMQP 0-9-1 that allows
+        clients to be <a href="connection_blocked.html">notified when a connection is blocked</a>.
+      </p>
+    </doc:section>
   </body>
 </html>
