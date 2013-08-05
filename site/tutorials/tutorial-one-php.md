@@ -112,7 +112,7 @@ on behalf of the consumer.
 >         }
 >     }
 >
->     Provided you have [composer](http://getcomposer.org) installed, you can run the following:
+>Provided you have [composer](http://getcomposer.org) installed, you can run the following:
 >
 >     :::bash
 >     $ composer.phar install
