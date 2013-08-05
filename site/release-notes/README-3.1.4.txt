@@ -10,7 +10,7 @@ bug fixes
 25624 fix bug in HA/mirrored queue handling of discarded messages
       (since 2.0.0)
 25615 fix bug in HA/mirrored queue recovery when multiple nodes restart
-      simulataneously
+      simultaneously
 25649 fix hipe compilation on R16B01 (reported by Thomas Riccardi)
 25659 allow offline cluster node removal with a node which is not second
       from last (since 3.0.0)
@@ -19,11 +19,9 @@ bug fixes
 25645 fix bug causing HA/mirrored queue sync to fail in the presence of
       un-acked messages which are not at the head of the queue
       (since 3.1.0)
-25640 fix race condition that could lead to crashes with channels using a
-      low prefetch count successfively send basic.consume and basic.cancel
+25640 fix race condition that could lead to crashes when channels using a
+      low prefetch count successively send basic.consume and basic.cancel
       (since 3.1.0) (reported by Morgan Nelson)
-25677 fix bug leading to a crash when reconsuming with same consumer tag
-      and nowait = true (since 2.6.0)
 25625 fix resource leak in HA/mirrored queue master handling of discarded
       messages (since 2.6.0)
 25638 fix resource leak when whole clusters stop and the last node to go
@@ -54,6 +52,7 @@ bug fixes
 
 build and packaging
 -------------------
+bug fixes
 
 25668 add ssl support to OS-X standalone package (reported by Alan Antonuk)
 25584 ensure that VERSION is set correctly when building src packages
