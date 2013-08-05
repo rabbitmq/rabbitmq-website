@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-six">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Remote procedure call (RPC)
 ### (using [php-amqplib](https://github.com/videlalvaro/php-amqplib))
 
@@ -363,5 +357,3 @@ complex (but important) problems, like:
 >
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
 >
-
-</div>
