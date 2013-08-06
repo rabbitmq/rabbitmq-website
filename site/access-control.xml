@@ -52,6 +52,9 @@
               <td>exchange.declare</td><td>(passive=false)</td><td>exchange</td><td/><td/>
             </tr>
             <tr>
+              <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
+            </tr>
+            <tr>
               <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
             </tr>
             <tr>
@@ -59,6 +62,9 @@
             </tr>
             <tr>
               <td>queue.declare</td><td>(passive=false)</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
             </tr>
             <tr>
               <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
