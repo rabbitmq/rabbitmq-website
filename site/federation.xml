@@ -653,14 +653,21 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
     </doc:section>
     <doc:section name="status">
       <doc:heading>Link Status Reporting</doc:heading>
+      <p>
+        Each combination of federated exchange and upstream needs a link to
+        run. This is the process that retrieves messages from upstream and
+        republishes them downstream. You can monitor the status of federation
+        links using <code>rabbitmqctl</code> and the management plugin.
+      </p>
+      <h3>Using rabbitmqctl</h3>
       <p>Invoke:</p>
 
       <pre class="example">rabbitmqctl eval 'rabbit_federation_status:status().'</pre>
 
       <p>
-        This will return a list of federation links; that is a
-        combination of a federated exchange and an upstream. It
-        contains the following keys:
+        This will return a list of federation links running on the node you
+        are connecting to (i.e. not cluster-wide). It contains the following
+        keys:
       </p>
 
       <dl>
@@ -670,7 +677,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         </dd>
         <dt><code>upstream_exchange</code></dt>
         <dd>
-          the name of the federated exchange
+          the name of the upstream exchange
         </dd>
         <dt><code>vhost</code></dt>
         <dd>
@@ -704,6 +711,38 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
   {status,{running,&lt;&lt;"&lt;rabbit@my-server.1.281.0>">>}},
   {timestamp,{{2012,3,1},{12,3,28}}}]]
 ...done.</pre>
+
+      <h3>Using the management plugin</h3>
+
+      <p>
+        Install the <code>rabbitmq_federation_management</code> plugin. You
+        will now be able to see all federation links in the cluster by
+        clicking on Admin > Federation Status, or making an HTTP request to
+        <code>GET /api/federation-links</code>.
+      </p>
+    </doc:section>
+    <doc:section name="clustering">
+      <doc:heading>Federating clusters</doc:heading>
+      <p>
+        Clusters can be linked together with federation just as single brokers
+        can. To summarise how clustering and federation interact:
+      </p>
+      <ul>
+        <li>
+          You can define policies and parameters on any node in the downstream
+          cluster; once defined on one node they will apply on all nodes.
+        </li>
+        <li>
+          Federation links will start on any node in the downstream
+          cluster. They will fail over to other nodes if the node they are
+          running on crashes or stops.
+        </li>
+        <li>
+          To connect to an upstream cluster, you can specify multiple URIs in
+          a single upstream. The federation link process will choose one of
+          these URIs at random each time it attempts to connect.
+        </li>
+      </ul>
     </doc:section>
   </body>
 </html>

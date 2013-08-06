@@ -270,8 +270,8 @@ The server code is rather straightforward:
     the queue.
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
-    `prefetchCount` setting in channel.basicQos.
-  * We use `basicConsume` to access the queue. Then we enter the while loop in which
+    `prefetch` setting on channel.
+  * We use `Bunny::Queue#subscribe` to consume messages from the queue. Then we enter the while loop in which
     we wait for request messages, do the work and send the response back.
 
 
@@ -361,7 +361,7 @@ service, but it has some important advantages:
  * If the RPC server is too slow, you can scale up by just running
    another one. Try running a second `rpc_server.rb` in a new console.
  * On the client side, the RPC requires sending and
-   receiving only one message. No synchronous calls like `queueDeclare`
+   receiving only one message. No synchronous calls like `Bunny::Channel#queue`
    are required. As a result the RPC client needs only one network
    round trip for a single RPC request.
 

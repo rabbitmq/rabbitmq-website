@@ -55,7 +55,7 @@ In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex
 tasks. We don't have a real-world task, like images to be resized or
 pdf files to be rendered, so let's fake it by just pretending we're
-busy - by using the `Thread.sleep()` function. We'll take the number of dots
+busy - by using the `Kernel#sleep` method. We'll take the number of dots
 in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
@@ -79,7 +79,7 @@ messages from the queue and perform the task, so let's call it `worker.rb`:
     q.subscribe(:ack => true, :block => true) do |delivery_info, properties, body|
       puts " [x] Received #{body}"
       # imitate some work
-      sleep 1.0
+      sleep body.count(".").to_i
       puts " [x] Done"
 
       ch.ack(delivery_info.delivery_tag)
@@ -113,18 +113,18 @@ script. These consoles will be our two consumers - C1 and C2.
 <div></div>
 
     :::bash
-    shell2$ shell1$ ruby -rubygems worker.rb
+    shell2$ ruby -rubygems worker.rb
      [*] Waiting for messages. To exit press CTRL+C
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
     :::bash
-    shell3$ ruby -rubygems new_task First message.
-    shell3$ ruby -rubygems new_task Second message..
-    shell3$ ruby -rubygems new_task Third message...
-    shell3$ ruby -rubygems new_task Fourth message....
-    shell3$ ruby -rubygems new_task Fifth message.....
+    shell3$ ruby -rubygems new_task.rb First message.
+    shell3$ ruby -rubygems new_task.rb Second message..
+    shell3$ ruby -rubygems new_task.rb Third message...
+    shell3$ ruby -rubygems new_task.rb Fourth message....
+    shell3$ ruby -rubygems new_task.rb Fifth message.....
 
 Let's see what is delivered to our workers:
 
@@ -138,7 +138,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    ruby -rubygems worker.rb
+    shell2$ ruby -rubygems worker.rb
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
@@ -197,7 +197,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basicAck`. It's an easy error,
+> It's a common mistake to miss the `ack`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -302,8 +302,8 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to defeat that we can use the `basicQos` method with the
-`prefetchCount` = `1` setting. This tells RabbitMQ not to give more than
+In order to defeat that we can use the `prefetch` method with the
+value of `1`. This tells RabbitMQ not to give more than
 one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
