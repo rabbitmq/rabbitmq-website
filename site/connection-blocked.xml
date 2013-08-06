@@ -91,13 +91,14 @@ Conn.ConnectionUnblocked += HandleUnblocked;
     <doc:section>
       <doc:heading>When Notifications are Sent</doc:heading>
       <p>
-        A <code>connection.blocked</code> notification is sent every
-        time RabbitMQ is low on a resource. For example, when a
-        RabbitMQ node detects that it is low on RAM, it sends
-        <code>connection.blocked</code> to all connected clients
-        supporting this feature.  If before the connections are
-        unblocked the node also starts running low on disk space, then
-        another <code>connection.blocked</code> is sent out.
+        A <code>connection.blocked</code> notification is sent to
+        publishing connections every time RabbitMQ is low on a
+        resource. For example, when a RabbitMQ node detects that it
+        is low on RAM, it sends
+        <code>connection.blocked</code> to all connected publishing
+        clients supporting this feature.  If before the connections
+        are unblocked the node also starts running low on disk space,
+        then another <code>connection.blocked</code> is sent out.
       </p>
       <p>
         A <code>connection.unblocked</code> is sent when <em>all</em>
