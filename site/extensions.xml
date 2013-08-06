@@ -27,7 +27,7 @@
         </li>
 
         <li>
-          <a href="connection_blocked.html">Blocked Connection Notifications</a>
+          <a href="connection-blocked.html">Blocked Connection Notifications</a>
           allows clients to be notified when a connection is blocked and unblocked.
         </li>
       </ul>
