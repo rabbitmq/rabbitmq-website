@@ -10,8 +10,7 @@
     <p>
       It is sometimes desirable for clients to receive a notification
       when their connection gets <a href="memory.html">blocked</a>
-      blocked due to the broker running low on resources (memory or
-      disk).
+      due to the broker running low on resources (memory or disk).
     </p>
 
     <p>
