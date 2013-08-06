@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-six">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Remote procedure call (RPC)
 ### (using the pika 0.9.8 Python client)
 
@@ -358,5 +352,4 @@ complex (but important) problems, like:
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
-</div>
 

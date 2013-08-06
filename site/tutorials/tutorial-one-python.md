@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - "Hello world!" SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-one">
-  <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Introduction
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
@@ -408,4 +402,4 @@ We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _work queue_.
 
-</div>
+

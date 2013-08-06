@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-four">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Routing
 ### (using the Bunny client)
 
@@ -325,4 +319,3 @@ and [(receive_logs_direct.rb source)](https://github.com/rabbitmq/rabbitmq-tutor
 Move on to [tutorial 5](tutorial-five-ruby.html) to find out how to listen
 for messages based on a pattern.
 
-</div>
