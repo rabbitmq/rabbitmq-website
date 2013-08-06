@@ -5,7 +5,7 @@ Security Fixes
 
 server
 ------
-25686 dead-lettering messages bypasses publish permissions checks
+25686 ensure DLX declaration checks for publish permission
 
 
 management plugin
