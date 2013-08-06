@@ -8,30 +8,29 @@
   </head>
   <body>
     <p>
-      It is often necessary that when a connection is blocked by <a
-      href="memory.html">flow control</a>, clients are notified about
-      this.
-
-      Unfortunately, the AMQP 0-9-1 specification does not provide a protocol method for that.
+      It is sometimes desirable for clients to receive a notification
+      when their connection gets <a href="memory.html">blocked</a>
+      blocked due to the broker running low on resources (memory or
+      disk).
     </p>
 
     <p>
-      To solve this, we have introduced an extension in which the
-      broker will send to the client a <code>connection.blocked</code>
-      in the case of a blocked connection. <code>connection.unblocked</code>
-      will be sent when a connection is unblocked.
+      We have introduced an AMQP protocol extension in which the
+      broker sends to the client a <code>connection.blocked</code>
+      method when the connection gets blocked, and
+      <code>connection.unblocked</code> when it is unblocked.
     </p>
     <p>
-      The client must present a <code>capabilities</code> table in
-      its <code>client-properties</code> in which there is a key
+      To receive these notifications, the client must present a
+      <code>capabilities</code> table in its
+      <code>client-properties</code> in which there is a key
       <code>connection.blocked</code> and a boolean value
-      <code>true</code>. See the
-      <a href="#capabilities">capabilities</a> section for further
-      details on this.
-    </p>
-    <p>
-      Our supported clients indicate this capability by default and provide a way to register
-      handlers for <code>connection.blocked</code> and <code>connection.unblocked</code> methods.
+      <code>true</code>. See the <a
+      href="#capabilities">capabilities</a> section for further
+      details on this. Our supported clients indicate this capability
+      by default and provide a way to register handlers for the
+      <code>connection.blocked</code> and
+      <code>connection.unblocked</code> methods.
     </p>
 
     <doc:section>
@@ -93,15 +92,18 @@ Conn.ConnectionUnblocked += HandleUnblocked;
     <doc:section>
       <doc:heading>When Notifications are Sent</doc:heading>
       <p>
-        A new <code>connection.blocked</code> notification will be sent every time
-        RabbitMQ is low on a resource. For example, if a RabbitMQ node detects that it is
-        low on RAM, it will send <code>connection.blocked</code> to the clients that support it.
-        If before the connections are unblocked the node also starts running low on disk space,
-        another <code>connection.blocked</code> will be sent out.
+        A <code>connection.blocked</code> notification is sent every
+        time RabbitMQ is low on a resource. For example, when a
+        RabbitMQ node detects that it is low on RAM, it sends
+        <code>connection.blocked</code> to all connected clients
+        supporting this feature.  If before the connections are
+        unblocked the node also starts running low on disk space, then
+        another <code>connection.blocked</code> is sent out.
       </p>
       <p>
-        A <code>connection.unblocked</code> will be sent to the clients that support it
-        when <em>all</em> resource alarms have cleared and connection is fully unblocked.
+        A <code>connection.unblocked</code> is sent when <em>all</em>
+        resource alarms have cleared and the connection is fully
+        unblocked.
       </p>
     </doc:section>
   </body>
