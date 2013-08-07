@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-three">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Publish/Subscribe
 ### (using the Bunny Client)
 
@@ -343,4 +337,3 @@ that's exactly what we intended.
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-ruby.html)
 
-</div>

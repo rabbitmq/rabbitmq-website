@@ -1,12 +1,5 @@
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-five">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
-
 ## Topics
 ### (using the Bunny client)
 
@@ -268,4 +261,3 @@ and [receive_logs_topic.rb](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-ruby.html)
 
-</div>

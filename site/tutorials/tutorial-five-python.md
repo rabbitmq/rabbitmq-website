@@ -1,12 +1,5 @@
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-five">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
-
 ## Topics
 ### (using the pika 0.9.8 Python client)
 
@@ -268,4 +261,3 @@ and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 
 Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
 
-</div>

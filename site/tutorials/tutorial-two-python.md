@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-two">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Work Queues
 ### (using the pika 0.9.8 Python client)
 
@@ -379,6 +373,4 @@ RabbitMQ is restarted.
 
 Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
-
-</div>
 

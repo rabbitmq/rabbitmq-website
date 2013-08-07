@@ -64,6 +64,15 @@ def preprocess_markdown(fpath):
     # Unfortunately we can't stop markdown escaping entities. Unescape them.
     processed = re.sub(r'&amp;([a-z0-9-_.:]+);', r'&\1;', processed)
 
+    tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*.md$', fpath)
+    if tutorial is not None:
+        tutorial_head = """<div id="sidebar" class="{0}">
+   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
+</div>
+
+<div id="tutorial">""".format(tutorial.group(1))
+        processed = tutorial_head + processed + '</div>'
+
     return etree.fromstring(pre + head + processed + post).getroottree()
 
 

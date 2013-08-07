@@ -1,11 +1,5 @@
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-four">
-   <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Routing
 ### (using the pika 0.9.8 Python client)
 
@@ -337,5 +331,3 @@ And, for example, to emit an `error` log message just type:
 Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
 for messages based on a pattern.
 
-
-</div>
