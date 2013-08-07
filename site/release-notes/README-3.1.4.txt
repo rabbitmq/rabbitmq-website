@@ -5,13 +5,13 @@ Security Fixes
 
 server
 ------
-25686 ensure DLX declaration checks for publish permission
+25686 ensure DLX declaration checks for publish permission (since 2.8.0)
 
 
 management plugin
 -----------------
 24803 update to a later version of Mochiweb that fixes a directory traversal
-      vulnerability allowing arbitrary file access on Windows
+      vulnerability allowing arbitrary file access on Windows (since 2.1.0)
 
 
 Release Highlights
