@@ -22,7 +22,7 @@
       <div>
       <h3>Clients in other languages</h3>
       <p>
-        The tutorials here use Python, Java and Ruby, however, code
+        The tutorials here use Python, Java, Ruby and PHP, however, code
         samples are available in a variety of languages:
 
         <ul>
@@ -37,9 +37,6 @@
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="https://github.com/videlalvaro/php-amqplib">a fork of php-amqplib</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)

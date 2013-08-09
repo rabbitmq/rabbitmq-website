@@ -13,6 +13,8 @@
           <a href="/tutorials/tutorial-one-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-one-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-one-php.html">PHP</a>
           </p>
         </li>
 
@@ -28,6 +30,8 @@
           <a href="/tutorials/tutorial-two-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-two-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-two-php.html">PHP</a>
           </p>
         </li>
 
@@ -43,6 +47,8 @@
           <a href="/tutorials/tutorial-three-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-three-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-three-php.html">PHP</a>
           </p>
         </li>
 
@@ -58,6 +64,8 @@
           <a href="/tutorials/tutorial-four-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-four-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-four-php.html">PHP</a>
           </p>
         </li>
 
@@ -73,6 +81,8 @@
           <a href="/tutorials/tutorial-five-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-five-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-five-php.html">PHP</a>
           </p>
         </li>
 
@@ -88,6 +98,8 @@
           <a href="/tutorials/tutorial-six-java.html">Java</a>
           |
           <a href="/tutorials/tutorial-six-ruby.html">Ruby</a>
+          |
+          <a href="/tutorials/tutorial-six-php.html">PHP</a>
           </p>
         </li>
       </ul>
