@@ -372,17 +372,57 @@
       </doc:subsection>
 
       <doc:subsection>
-        <doc:heading>Match Query</doc:heading>
-        <pre>{match, StringSubQuery, RESubQuery}</pre>
+        <doc:heading>Boolean Queries</doc:heading>
+        <pre>{'not', SubQuery}</pre>
+        <pre>{'and', SubQuery1, SubQuery2}</pre>
+        <pre>{'and', [SubQuery1, SubQuery2, SubQuery3, ...]}</pre>
+        <pre>{'or', SubQuery1, SubQuery2}</pre>
+        <pre>{'or', [SubQuery1, SubQuery2, SubQuery3, ...]}</pre>
         <p>
-          Takes a string and a regular expression, and checks that the one
-          matches the other. Note that the string and the regular expression are
-          both subqueries (of the types below) in turn.
+          These can be used to combine subqueries with boolean logic. The
+          'and' and 'or' queries have two variants each, one taking two
+          subqueries, and the other taking an arbitrarily long list of
+          subqueries (returning true if all or any subqueries evaluate to true
+          respectively).
+        </p>
+        <p>
+          Note that 'and', 'or' and 'not' are reserved words in Erlang,
+          therefore the keywords need to be quoted with single quotes in the
+          configuration file, as above.
         </p>
         <p>Example:</p>
         <pre class="example">{resource_access_query,
- {for, [{permission, configure, {match, {attribute, "${user_dn}", "description"},
-                                        {string, "can-declare-${resource}s"}
+ {'or',
+  [{'and',
+    {equals, "${name}", "test1"},
+    {equals, "${username}", "user1"}},
+   {'and',
+    {equals, "${name}", "test2"},
+    {'not', {equals, "${username}", "user1"}}}
+  ]}}</pre>
+        <p>
+          This example gives full access to objects called "test1" to "user1",
+          and access to "test2" to everyone but "user1".
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
+        <doc:heading>Equals Query</doc:heading>
+        <pre>{equals, StringSubQuery1, StringSubQuery2}</pre>
+        <p>
+          Takes two strings, and checks that the one matches the
+          other. Note that both strings are subqueries (of the types
+          below) in turn.
+        </p>
+        <p>
+          This can be useful in order to compare the value of one of
+          the string substitution variables with a constant, or with
+          an attribute value, etc.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{resource_access_query,
+ {for, [{permission, configure, {equals, {attribute, "${user_dn}", "description"},
+                                         {string, "can-declare-${resource}s"}
                                 }
         },
         {permission, write, {constant, true}},
@@ -399,12 +439,33 @@
       </doc:subsection>
 
       <doc:subsection>
+        <doc:heading>Match Query</doc:heading>
+        <pre>{match, StringSubQuery, RESubQuery}</pre>
+        <p>
+          Takes a string and a regular expression, and checks that the one
+          matches the other. Note that the string and the regular expression are
+          both subqueries (of the types below) in turn.
+        </p>
+        <p>Example:</p>
+        <pre class="example">{resource_access_query, {match, {string, "${name}"},
+                                {string, "^${username}-.*$"}}
+}</pre>
+        <p>
+          This allows users to configure, read and write any object whose name
+          begins with their own username followed by a hyphen.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection>
         <doc:heading>String Sub-query</doc:heading>
         <pre>{string, Pattern}</pre>
         <p>
-          Just substitutes arguments into a string. As this returns a
-          string rather than a boolean it should be used within
-          a <code>match</code> query. See above for example.
+          Just substitutes arguments into a string. As this returns a string
+          rather than a boolean it should be used within a <code>match</code>
+          or <code>equals</code> query. See above for example. As a shorthand
+          you can use a plain string instead of <code>{string,
+          Pattern}</code>.
+
         </p>
       </doc:subsection>
 
@@ -412,9 +473,10 @@
         <doc:heading>Attribute Sub-query</doc:heading>
         <pre>{attribute, DNPattern, AttributeName}</pre>
         <p>
-          Returns the value of an attribute of an object retrieved from LDAP. As
-          this returns a string rather than a boolean it should be used within a
-          <code>match</code> query. See above for example.
+          Returns the value of an attribute of an object retrieved from
+          LDAP. As this returns a string rather than a boolean it should be
+          used within a <code>match</code> or <code>equals</code> query. See
+          above for example.
         </p>
       </doc:subsection>
     </doc:section>
