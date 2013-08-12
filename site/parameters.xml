@@ -134,9 +134,10 @@
     </p>
 
     <p>
-      The "apply-to" argument can be "exchanges", "queues" or
-      "all". "apply-to" and "priority" are optional, in which case the
-      defaults are "all" and "0".
+      The <code>"apply-to"</code> argument can be <code>"exchanges"</code>,
+      <code>"queues"</code> or <code>"all"</code>. The <code>"apply-to"</code>
+      and <code>"priority"</code> settings are optional, in which case the
+      defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
   </body>
 </html>
