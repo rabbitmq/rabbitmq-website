@@ -448,6 +448,9 @@
               <li>
                 <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
               </li>
+              <li>
+                <a href="https://github.com/gocardless/amqpc">amqpc</a>, a load testing tool for RabbitMQ clusters
+              </li>
             </ul>
           </doc:section>
           <doc:section name="lisp-dev">
