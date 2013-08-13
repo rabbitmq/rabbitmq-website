@@ -374,16 +374,13 @@
       <doc:subsection>
         <doc:heading>Boolean Queries</doc:heading>
         <pre>{'not', SubQuery}</pre>
-        <pre>{'and', SubQuery1, SubQuery2}</pre>
         <pre>{'and', [SubQuery1, SubQuery2, SubQuery3, ...]}</pre>
-        <pre>{'or', SubQuery1, SubQuery2}</pre>
         <pre>{'or', [SubQuery1, SubQuery2, SubQuery3, ...]}</pre>
         <p>
           These can be used to combine subqueries with boolean logic. The
-          'and' and 'or' queries have two variants each, one taking two
-          subqueries, and the other taking an arbitrarily long list of
-          subqueries (returning true if all or any subqueries evaluate to true
-          respectively).
+          'and' and 'or' queries each take an arbitrarily long list of
+          subqueries, returning true if all or any subqueries evaluate to true
+          respectively.
         </p>
         <p>
           Note that 'and', 'or' and 'not' are reserved words in Erlang,
@@ -394,11 +391,11 @@
         <pre class="example">{resource_access_query,
  {'or',
   [{'and',
-    {equals, "${name}", "test1"},
-    {equals, "${username}", "user1"}},
+    [{equals, "${name}", "test1"},
+     {equals, "${username}", "user1"}]},
    {'and',
-    {equals, "${name}", "test2"},
-    {'not', {equals, "${username}", "user1"}}}
+    [{equals, "${name}", "test2"},
+     {'not', {equals, "${username}", "user1"}}]}
   ]}}</pre>
         <p>
           This example gives full access to objects called "test1" to "user1",
