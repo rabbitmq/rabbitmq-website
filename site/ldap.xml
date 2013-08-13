@@ -408,8 +408,9 @@
         <pre>{equals, StringSubQuery1, StringSubQuery2}</pre>
         <p>
           Takes two strings, and checks that the one matches the
-          other. Note that both strings are subqueries (of the types
-          below) in turn.
+          other. Note that both strings are subqueries (of the
+          <code>string</code> and <code>attribute</code> types below)
+          in turn.
         </p>
         <p>
           This can be useful in order to compare the value of one of
@@ -441,7 +442,8 @@
         <p>
           Takes a string and a regular expression, and checks that the one
           matches the other. Note that the string and the regular expression are
-          both subqueries (of the types below) in turn.
+          both subqueries (of the <code>string</code> and <code>attribute</code>
+          types below) in turn.
         </p>
         <p>Example:</p>
         <pre class="example">{resource_access_query, {match, {string, "${name}"},
