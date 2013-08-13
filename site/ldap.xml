@@ -447,7 +447,7 @@
         </p>
         <p>Example:</p>
         <pre class="example">{resource_access_query, {match, {string, "${name}"},
-                                {string, "^${username}-.*$"}}
+                                {string, "^${username}-"}}
 }</pre>
         <p>
           This allows users to configure, read and write any object whose name
