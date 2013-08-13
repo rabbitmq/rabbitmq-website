@@ -51,7 +51,7 @@
       <p>
 <pre>    [
         {rabbit, [{tcp_listeners, [5672]}]},
-        {kernel, [{net_ticktime,  120}]}.
+        {kernel, [{net_ticktime,  120}]}
     ].</pre>
       </p>
     </doc:section>
