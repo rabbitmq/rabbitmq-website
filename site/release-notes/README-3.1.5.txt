@@ -6,16 +6,18 @@ Release Highlights
 server
 ------
 bug fixes
-25713 fix crash in the delegate mechanism leaading to various failures
+25713 fix crash in the delegate mechanism leading to various crashes, and
+      intra-cluster incompatibility between RabbitMQ 3.1.4 and other members
+      of the 3.1.x series (since 3.1.4)
 25700 25710 prevent (harmless) errors being logged when pausing in
-      pause_minority mode
+      pause_minority mode (since 3.1.0)
 
 
 LDAP plugin
 -----------
 bug fixes
 25703 prevent channel crash when attempting to retrieve LDAP attribute that
-      does not exist
+      does not exist (since 2.7.0)
 
 
 Upgrading
