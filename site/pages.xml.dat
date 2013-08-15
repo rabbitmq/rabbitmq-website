@@ -129,6 +129,7 @@
        <x:page url="/confirms.html" text="Confirms"/>
        <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>
        <x:page url="/e2e.html" text="e2e bindings"/>
        <x:page url="/ae.html" text="Alternate Exchanges"/>

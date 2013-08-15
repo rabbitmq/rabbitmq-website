@@ -715,9 +715,9 @@
 
     <pre class="sourcecode">
       $ ERL_LIBS=deps erl -pa ebin
-      Erlang R13B01 (erts-5.7.2) [source] [64-bit] [smp:4:4] [rq:4] [async-threads:0] [kernel-poll:false]
+      Erlang R16B (erts-5.10.1) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
 
-      Eshell V5.7.2  (abort with ^G)
+      Eshell V5.10.1  (abort with ^G)
       1> amqp_example:test().
       ok
       2>
