@@ -83,8 +83,7 @@
         a message has reached all of the queues (and their mirrors) it
         was routed to, and, if it requires persistence (i.e. the
         message has been marked as persistent and the queue is
-        durable), either a) has been persisted to disk, or b) has been
-        consumed and, if necessary, acknowledged.
+        durable) has been persisted to disk.
       </li>
     </ul>
 
@@ -109,13 +108,12 @@
         <li>the client reconnects and starts consuming messages.</li>
       </ol>
       At this point, the client could reasonably assume that the
-      message will be delivered again.  This is not the case:
-      the restart has caused the broker to lose the message.  In
-      order to guarantee persistence, a client should use
-      confirms.  If the publisher's channel had been in confirm
-      mode, the publisher would <em>not</em> have received an
-      ack for the lost message (since the consumer hadn't ack'd
-      it and it hadn't been written to disk).
+      message will be delivered again.  This is not the case: the
+      restart has caused the broker to lose the message.  In order to
+      guarantee persistence, a client should use confirms.  If the
+      publisher's channel had been in confirm mode, the publisher
+      would <em>not</em> have received an ack for the lost message
+      (since the message hadn't been written to disk yet).
     </p>
   </body>
 </html>
