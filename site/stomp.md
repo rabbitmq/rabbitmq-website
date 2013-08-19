@@ -18,12 +18,6 @@ it, use [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_stomp
 
-Binary packages for previous versions of the STOMP adapter can be
-found on the [plugins page](/plugins.html).
-
-Instructions for installing binary plugins can also be found in the
-[plugins page](/plugins.html#installing-plugins).
-
 ## <a id="caifs"/>Compiling and installing from source
 
 To build the STOMP adapter from source, follow the instructions for
