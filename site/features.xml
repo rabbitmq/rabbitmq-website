@@ -72,14 +72,11 @@
           hardware failure your messages are safe.
         </p>
 
-        <!--
         <h3>Multi-protocol</h3>
         <p>
-          RabbitMQ supports messaging
-          over <a href="protocol.html">AMQP</a>, <a href="stomp.html">STOMP</a>
-          and TODO.
+          RabbitMQ supports messaging over <a href="protocols.html">a
+          variety of messaging protocols</a>.
         </p>
-        -->
 
         <h3>Many Clients</h3>
         <p>
