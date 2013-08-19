@@ -260,6 +260,9 @@
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
               </li>
               <li>
+                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+              </li>
+              <li>
                 <a href="http://lostechies.com/derekgreer/tag/rabbitmq/">RabbitMQ for Windows</a>
                 <br/>
                 An eight-part blog series covering RabbitMQ on Windows
@@ -279,9 +282,6 @@
               </li>
               <li>
                 <a href="http://freshbrewedcode.com/derekgreer/tag/rabbitmq/">RabbitBus</a>, a fluent interface to the RabbitMQ .NET API
-              </li>
-              <li>
-                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
               </li>
               <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
