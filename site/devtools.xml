@@ -260,7 +260,7 @@
                 <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
               </li>
               <li>
-                <a href="http://mikehadlow.blogspot.com/2011/05/easynetq-simple-net-api-for-rabbitmq.html">EasyNetQ</a>, a simple .NET API for RabbitMQ
+                <a href="http://easynetq.com">EasyNetQ</a>, a simple .NET API for RabbitMQ
               </li>
               <li>
                 <a href="http://lostechies.com/derekgreer/tag/rabbitmq/">RabbitMQ for Windows</a>
