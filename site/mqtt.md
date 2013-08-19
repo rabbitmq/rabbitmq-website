@@ -1,14 +1,14 @@
 # RabbitMQ MQTT Adapter NOSYNTAX
 
 This is a protocol adapter that allows MQTT-capable clients to
-connect to a RabbitMQ broker. The adapter translates MQTT
+connect to a RabbitMQ broker. The adapter translates MQTT 3.1
 methods into their AMQP equivalents and back.
 
 Announcements regarding the adapter are periodically made on the
 [RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
 and [blog](http://www.rabbitmq.com/blog).
 
-## <a id="smf"/> Supported MQTT features
+## <a id="smf"/> Supported MQTT 3.1 features
 
 * QoS0 and QoS1 publish & consume
 * Last Will and Testament (LWT)
@@ -31,27 +31,6 @@ building the umbrella repository contained in the
 You need to install the `rabbitmq_mqtt.ez` and `amqp_client.ez` packages.
 
 ## <a id="config"/> Configuration
-
-The main RabbitMQ configuration file also specifies the MQTT
-configuration. For details see the [broker configuration documentation](http://www.rabbitmq.com/configure.html).
-It is an Erlang-syntax file of the form:
-
-    [{section1, [section1-config]},
-     {section2, [section2-config]},
-     ...
-     {sectionN, [sectionN-config]}
-    ].
-
-thus a list of tuples, where the left element of each tuple names the
-applications being configured. Don't forget the last element of the
-list doesn't have a trailing comma, and don't forget the full-stop is
-needed after closing the list. Hence if you configure RabbitMQ-server
-and the MQTT adapter, then the configuration file may have a
-structure like this:
-
-    [{rabbit,        [configuration-for-RabbitMQ-server]},
-     {rabbitmq_mqtt, [configuration-for-RabbitMQ-mqtt-adapter]}
-    ].
 
 Here is a sample configuration that sets every MQTT option:
 
@@ -100,32 +79,3 @@ details.
 The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
 as the corresponding options in the `rabbit` section, as explained in the
 [broker configuration documentation](http://www.rabbitmq.com/configure.html).
-
-## AMQP mapping
-
-This is an outline of the mapping between the MQTT and AMQP
-methods involved in each of the message flows supported by
-the adapter. It is not necessary to know this in order
-to use the adapter.
-
-              (MQTT)    ADAPTER    (AMQP)
-
-*    QOS0 flow publish
-
-             PUBLISH   ------>    basic.publish
-
-*    QOS0 flow receive
-
-             PUBLISH   <------    basic.deliver
-
-*    QOS1 flow publish (tracked in state.unacked\_pub)
-
-             PUBLISH   ------>    basic.publish  --+
-                                                   |
-             PUBACK    <------    basic.ack     <--+
-
-*   QOS1 flow receive (tracked in state.awaiting\_ack)
-
-        +--  PUBLISH   <------    basic.deliver
-        |
-        +--> PUBACK    ------>    basic.ack
