@@ -265,6 +265,9 @@
                 An eight-part blog series covering RabbitMQ on Windows
               </li>
               <li>
+                <a href="https://github.com/kzhen/SSISRabbitMQ">RabbitMQ component for SQL Server Integration Services (SSIS)</a>
+              </li>
+              <li>
                 <a href="http://www.yourenterprisearchitect.com//p/distributed-systems-mist.html">Distributed Systems &amp; AMQP</a>
                 <br />
                 Enterprise and distributed architecture topics covered using RabbitMQ and C#
