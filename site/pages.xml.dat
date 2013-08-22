@@ -106,7 +106,10 @@
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page url="/federation.html" text="Federation plugin"/>
+       <x:page url="/federation.html" text="Federation plugin">
+         <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federation-reference.html" text="Reference"/>
+       </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
