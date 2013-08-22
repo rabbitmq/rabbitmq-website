@@ -27,7 +27,7 @@
       The above paragraphs refer to consumers as being <i>active</i>
       or <i>blocked</i>. At any moment, any given consumer is either
       one or the other. An active consumer is one which could receive
-      a message <i>right now</i>. A consumer becomes blocked if it
+      a message without waiting. A consumer becomes blocked if it
       cannot receive messages - because its channel has reached the
       maximum number of unacknowledged messages after issuing
       <code>basic.qos</code>, because its channel has issued
@@ -54,12 +54,12 @@
 
     <p>
       When consumer priorities are in use, you can expect your highest
-      priority consumers to receive all the messages until they are
-      unable to keep up, at which point lower priority consumers will
-      start to receive some. It's important to understand that
-      RabbitMQ will still prioritise delivering messages - it will not
-      wait for a high priority blocked consumer to become unblocked if
-      there is an active lower priority consumer ready.
+      priority consumers to receive all the messages until they become
+      blocked, at which point lower priority consumers will start to
+      receive some. It's important to understand that RabbitMQ will
+      still prioritise delivering messages - it will not wait for a
+      high priority blocked consumer to become unblocked if there is
+      an active lower priority consumer ready.
     </p>
 
     <h3>Using consumer priorities</h3>
