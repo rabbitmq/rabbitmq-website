@@ -108,6 +108,7 @@
        </x:page>
        <x:page url="/federation.html" text="Federation plugin">
          <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federated-queues.html" text="Queues"/>
          <x:page url="/federation-reference.html" text="Reference"/>
        </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>

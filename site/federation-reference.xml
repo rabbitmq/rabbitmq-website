@@ -71,8 +71,11 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 
           <dt><code>max-hops</code></dt>
           <dd>
-            The maximum number of federation links that a message can
-            traverse before it is discarded. Default is 1.
+            The maximum number of federation links that a message
+            published to a federated exchange can traverse before it
+            is discarded. This does not apply to federated queues;
+            they can move messages between brokers an arbitrary number
+            of times. Default is 1.
           </dd>
 
           <dt><code>expires</code></dt>
@@ -80,10 +83,10 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             <p>
               The expiry time (in milliseconds) after which an <a
               href="federated-exchanges.html#details"><i>upstream
-              queue</i></a> may be deleted, if a connection to the
-              upstream broker is lost. The default is
-              <code>'none'</code>, meaning the queue should never
-              expire.
+              queue</i></a> for a federated exchange may be deleted,
+              if a connection to the upstream broker is lost. The
+              default is <code>'none'</code>, meaning the queue should
+              never expire. This does not apply to federated queues.
             </p>
             <p>
               This setting controls how long the upstream queue will
@@ -101,7 +104,8 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             <p>
               The expiry time for messages in the <i>upstream queue</i> (see
               <code>expires</code>), in milliseconds. Default is
-              <code>'none'</code>, meaning messages should never expire.
+              <code>'none'</code>, meaning messages should never expire. This
+              does not apply to federated queues.
             </p>
             <p>
               This value is used to set the <code>"x-message-ttl"</code>
@@ -150,10 +154,10 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
-            <i>upstream queue</i> (see <code>expires</code>). This is
-            only of interest when connecting to old brokers which
-            determine queue HA mode using this argument. Default
-            is <code>'none'</code>, meaning the queue is not HA.
+            <i>upstream queue</i> (see <code>expires</code>). This is only of
+            interest when connecting to old brokers which determine queue HA
+            mode using this argument. Default is <code>'none'</code>, meaning
+            the queue is not HA. This does not apply to federated queues.
           </dd>
         </dl>
       </doc:subsection>
@@ -162,8 +166,7 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       <doc:subsection name="upstream-sets">
         <doc:heading>Upstream sets</doc:heading>
         <p>
-          Each <code>upstream-set</code> list is a mapping from
-          a name to a list of upstream exchanges. They look like:
+          Each <code>upstream-set</code> list is a set of upstreams.
         </p>
 <pre class="example">rabbitmqctl set_parameter federation-upstream-set <i>name</i> '[<i>json-object</i>, <i>json-object</i>, ...]'
 </pre>
@@ -179,8 +182,15 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
 
           <dt><code>exchange</code></dt>
           <dd>
-            The name of the upstream exchange. Default is to use the same name
-            as the federated exchange.
+            The name of the upstream exchange (when federating an
+            exchange). Default is to use the same name as the federated
+            exchange.
+          </dd>
+
+          <dt><code>queue</code></dt>
+          <dd>
+            The name of the upstream queue (when federating a queue). Default
+            is to use the same name as the federated queue.
           </dd>
         </dl>
 
@@ -230,10 +240,11 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
     <doc:section name="status">
       <doc:heading>Link status reporting</doc:heading>
       <p>
-        Each combination of federated exchange and upstream needs a link to
-        run. This is the process that retrieves messages from upstream and
-        republishes them downstream. You can monitor the status of federation
-        links using <code>rabbitmqctl</code> and the management plugin.
+        Each combination of federated exchange or queue and upstream needs a
+        link to run. This is the process that retrieves messages from upstream
+        and republishes them downstream. You can monitor the status of
+        federation links using <code>rabbitmqctl</code> and the management
+        plugin.
       </p>
       <h3>Using rabbitmqctl</h3>
       <p>Invoke:</p>
@@ -247,17 +258,22 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       </p>
 
       <dl>
-        <dt><code>exchange</code></dt>
+        <dt><code>type</code></dt>
         <dd>
-          the name of the federated exchange
+          <code>exchange</code> or <code>queue</code> depending on what type
+          of federated object this link relates to
         </dd>
-        <dt><code>upstream_exchange</code></dt>
+        <dt><code>name</code></dt>
         <dd>
-          the name of the upstream exchange
+          the name of the federated exchange or queue
+        </dd>
+        <dt><code>upstream_name</code></dt>
+        <dd>
+          the name of the upstream exchange or queue
         </dd>
         <dt><code>vhost</code></dt>
         <dd>
-          the virtual host containing the federated exchange
+          the virtual host containing the federated exchange or queue
         </dd>
         <dt><code>connection</code></dt>
         <dd>
@@ -280,10 +296,11 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       <p>Example:</p>
 
       <pre class="example"># rabbitmqctl eval 'rabbit_federation_status:status().'
-[[{exchange,&lt;&lt;"my-exchange">>},
+[[{type,&lt;&lt;"exchange">>},
+  {name,&lt;&lt;"my-exchange">>},
   {vhost,&lt;&lt;"/">>},
   {connection,&lt;&lt;"upstream-server">>},
-  {upstream_exchange,&lt;&lt;"my-upstream-x">>},
+  {upstream_name,&lt;&lt;"my-upstream-x">>},
   {status,{running,&lt;&lt;"&lt;rabbit@my-server.1.281.0>">>}},
   {timestamp,{{2012,3,1},{12,3,28}}}]]
 ...done.</pre>

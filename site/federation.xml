@@ -48,20 +48,24 @@
       </dd>
     </dl>
 
-    <p>
-      For the time being, federation is primarily useful in pub/sub scenarios.
-    </p>
-
     <doc:section name="what-does-it-do">
       <doc:heading>What does it do?</doc:heading>
-
       <p>
-        The federation plugin allows you to make exchanges
-        <i>federated</i>. For more details on what this means, see the
-        documentation on <a href="federated-exchanges.html">federated
-        exchanges</a>.
+        The federation plugin allows you to make exchanges and queues
+        <i>federated</i>. A federated exchange or queue can receive
+        messages from one or more <i>upstreams</i> (remote exchanges
+        and queues on other brokers). A federated exchange can route
+        messages published upstream to a local queue. A federated
+        queue lets a local consumer receive messages from an upstream
+        queue.
       </p>
 
+      <p>
+        For more details, see the
+        documentation on <a href="federated-exchanges.html">federated
+        exchanges</a> and <a href="federated-queues.html">federated
+        queues</a>.
+      </p>
     </doc:section>
 
     <doc:section name="getting-started">
@@ -82,10 +86,7 @@
 
       <p>
         When using a federation in a cluster, all the nodes of the
-        cluster must have the federation plugin installed. Any node
-        can declare a federated exchange and its properties are shared
-        in the cluster as usual. If a node fails, links to upstream
-        exchanges will be recreated on a surviving node.
+        cluster should have the federation plugin installed.
       </p>
 
       <p>
@@ -101,11 +102,12 @@
         </li>
         <li>
           <b>Upstream sets</b> - each upstream set groups together a
-          set of upstreams for exchanges to use for federation.
+          set of upstreams to use for federation.
         </li>
         <li>
           <b>Policies</b> - each policy selects a set of exchanges,
-          and applies an upstream set to those exchanges.
+          queues or both, and applies an upstream set to those
+          objects.
         </li>
       </ul>
 
@@ -257,9 +259,16 @@
           cluster; once defined on one node they will apply on all nodes.
         </li>
         <li>
-          Federation links will start on any node in the downstream
-          cluster. They will fail over to other nodes if the node they are
-          running on crashes or stops.
+          Exchange federation links will start on any node in the
+          downstream cluster. They will fail over to other nodes if
+          the node they are running on crashes or stops.
+        </li>
+        <li>
+          Queue federation links will start on the same node as the
+          downstream queue. If the downstream queue is mirrored, they
+          will start on the same node as the master, and will be
+          recreated on the same node as the new master if the node the
+          existing master is running on crashes or stops.
         </li>
         <li>
           To connect to an upstream cluster, you can specify multiple URIs in

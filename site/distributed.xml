@@ -51,9 +51,9 @@
 
     <h2>Federation</h2>
     <p>
-      <a href="federation.html">Federation</a>
-      allows an exchange on one broker to receive messages published
-      to an exchange on another (the brokers may be individual machines, or
+      <a href="federation.html">Federation</a> allows an exchange or
+      queue on one broker to receive messages published to an exchange
+      or queue on another (the brokers may be individual machines, or
       clusters). Communication is via AMQP (with optional SSL), so for
       two exchanges to federate they must be granted appropriate users
       and permissions.
@@ -62,16 +62,19 @@
       Federated exchanges are connected with one way point-to-point
       links. By default, messages will only be forwarded over a
       federation link once, but this can be increased to allow for
-      more complex routing topologies.
+      more complex routing topologies. Some messages may not be
+      forwarded over the link; if a message would not be routed to a
+      queue after reaching the federated exchange, it will not be
+      forwarded in the first place.
     </p>
     <p>
-      Some messages may not be forwarded over the link;
-      if a message would not be routed to a queue after reaching the
-      federated exchange, it will not be forwarded in the first place.
+      Federated queues are similarly connected with one way
+      point-to-point links. Messages will be moved between federated
+      queues an arbitrary number of times to follow the consumers.
     </p>
     <p>
       Typically you would use federation to link brokers across the
-      internet for pub/sub messaging.
+      internet for pub/sub messaging and work queueing.
     </p>
 
     <h2>The Shovel</h2>
@@ -82,10 +85,9 @@
       federation. However, the shovel works at a lower level.
     </p>
     <p>
-      Whereas federation aims to mirror messages from one exchange to
-      another (with optimisations to ensure that messages are not
-      forwarded unless needed), the shovel simply consumes messages
-      from a queue on one broker, and forwards them to an exchange on
+      Whereas federation aims to provide opinionated distribution of
+      exchanges and queues, the shovel simply consumes messages from a
+      queue on one broker, and forwards them to an exchange on
       another.
     </p>
     <p>
