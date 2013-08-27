@@ -170,7 +170,14 @@
 	  <method name="channel.close-ok"><status value="ok"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
-	  <method name="exchange.delete"><status value="ok"/></method>
+	  <method name="exchange.delete">
+            <status value="partial"/>
+            <notes>
+              We have made exchange.delete into an idempotent assertion that
+              the exchange must not exist, in the same way that
+              exchange.declare asserts that it must.
+            </notes>
+          </method>
 	  <method name="exchange.delete-ok"><status value="ok"/></method>
 	  <method name="queue.declare"><status value="ok"/></method>
 	  <method name="queue.declare-ok">
@@ -182,11 +189,25 @@
           </method>
 	  <method name="queue.bind"><status value="ok"/></method>
 	  <method name="queue.bind-ok"><status value="ok"/></method>
-	  <method name="queue.unbind"><status value="ok"/></method>
+	  <method name="queue.unbind">
+            <status value="partial"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
+          </method>
 	  <method name="queue.unbind-ok"><status value="ok"/></method>
 	  <method name="queue.purge"><status value="ok"/></method>
 	  <method name="queue.purge-ok"><status value="ok"/></method>
-	  <method name="queue.delete"><status value="ok"/></method>
+	  <method name="queue.delete">
+            <status value="partial"/>
+            <notes>
+              We have made queue.delete into an idempotent assertion that the
+              queue must not exist, in the same way that queue.declare asserts
+              that it must.
+            </notes>
+          </method>
 	  <method name="queue.delete-ok"><status value="ok"/></method>
 	  <method name="basic.qos">
             <status value="partial"/>
@@ -772,7 +793,12 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="failing"/>
+            <notes>
+              We have made exchange.delete into an idempotent assertion that
+              the exchange must not exist, in the same way that
+              exchange.declare asserts that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>exchange / delete / exchange / exists</xref>
             <type/>
@@ -1020,7 +1046,7 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="ok"/>
             <type>MUST NOT</type>
             <xref>queue / bind / queue / must-exist</xref>
             <type/>
@@ -1087,26 +1113,36 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / unbind / queue / must-exist</xref>
             <type/>
             <actor>server</actor>
             <text>
-                    The client MUST NOT attempt to unbind a queue that does not exist.
-                  </text>
+              The client MUST NOT attempt to unbind a queue that does not exist.
+            </text>
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / unbind / exchange / must-exist</xref>
             <type/>
             <actor>server</actor>
             <text>
-                    The client MUST NOT attempt to unbind a queue from an exchange that
-                    does not exist.
-                  </text>
+              The client MUST NOT attempt to unbind a queue from an exchange that
+              does not exist.
+            </text>
           </rule>
 
           <rule>
@@ -1195,7 +1231,12 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.delete into an idempotent assertion that the
+              queue must not exist, in the same way that queue.declare asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / delete / queue / must-exist</xref>
             <type/>
