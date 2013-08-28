@@ -219,7 +219,11 @@
             message, i.e. the message is always delivered in full to
             the client.</notes>
           </method>
-	  <method name="basic.recover"><status value="ok"/></method>
+	  <method name="basic.recover"><status value="partial"/>
+            <notes>Recovery without requeue is not supported.
+            It is not possible to prevent redelivery to the same client.
+            </notes>
+          </method>
 	  <method name="tx.select"><status value="ok"/></method>
 	  <method name="tx.select-ok"><status value="ok"/></method>
 	  <method name="tx.commit"><status value="ok"/></method>
