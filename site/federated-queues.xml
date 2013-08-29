@@ -64,7 +64,7 @@
             the same journey between nodes. In some cases messages which were
             adjacent when published may take different routes to the same node
             to be consumed; therefore messages can be reordered in the
-            opresence of queue federation.
+            presence of queue federation.
           </p>
         </dd>
 
