@@ -11,7 +11,6 @@
   </head>
   <body show-in-this-page="true">
     <doc:section name="what-does-it-do">
-      <doc:heading>What do they do?</doc:heading>
       <dl>
         <dt>
           <b>What does a federated queue do?</b>
@@ -60,7 +59,12 @@
         </dt>
         <dd>
           <p>
-            TODO.
+            If messages are forwarded from one queue to another then message
+            ordering is only preserved for messages which have made exactly
+            the same journey between nodes. In some cases messages which were
+            adjacent when published may take different routes to the same node
+            to be consumed; therefore messages can be reordered in the
+            opresence of queue federation.
           </p>
         </dd>
 
@@ -95,8 +99,23 @@
           </p>
         </dd>
       </dl>
+      </doc:section>
 
-      <doc:subsection name="details">
+      <doc:section name="details">
+        <doc:heading>Use with federated exchanges</doc:heading>
+        <p>
+          Nothing will stop you from binding a federated exchange to a
+          federated queue. However, the results may or may not be what you
+          expect. Since a federated exchange will retrieve messages from its
+          upstream that match its bindings, any message published to a
+          federated exchange will be copied to any nodes that matching
+          bindings. A federated queue will then move these messages around
+          between nodes, and it is therefore possible to end up with multiple
+          copies of the same message on the same node.
+        </p>
+      </doc:section>
+
+      <doc:section name="details">
         <doc:heading>Implementation</doc:heading>
           <p>
             Inter-broker communication is implemented using AMQP (optionally
@@ -122,7 +141,6 @@
             the spare consuming capacity is - so if the spare consuming
             capacity keeps moving around then so will the messages.
           </p>
-      </doc:subsection>
     </doc:section>
   </body>
 </html>

@@ -11,7 +11,6 @@
   </head>
   <body show-in-this-page="true">
     <doc:section name="what-does-it-do">
-      <doc:heading>What do they do?</doc:heading>
       <dl>
         <dt>
           <b>What does a federated exchange do?</b>
@@ -107,8 +106,9 @@
           </p>
         </dd>
       </dl>
+    </doc:section>
 
-      <doc:subsection name="details">
+      <doc:section name="details">
         <doc:heading>Implementation</doc:heading>
           <p>
             Inter-broker communication is implemented using AMQP (optionally
@@ -143,8 +143,6 @@
             exchange cannot be received by queues bound to the upstream
             exchange.
           </p>
-      </doc:subsection>
-
     </doc:section>
 
     <doc:section name="topology-diagrams">
