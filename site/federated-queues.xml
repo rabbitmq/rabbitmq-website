@@ -104,8 +104,8 @@
       <doc:section name="details">
         <doc:heading>Use with federated exchanges</doc:heading>
         <p>
-          Nothing will stop you from binding a federated exchange to a
-          federated queue. However, the results may or may not be what you
+          Nothing will stop you from binding a federated queue to a federated
+          exchange. However, the results may or may not be what you
           expect. Since a federated exchange will retrieve messages from its
           upstream that match its bindings, any message published to a
           federated exchange will be copied to any nodes that matching
