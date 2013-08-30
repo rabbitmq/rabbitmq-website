@@ -212,7 +212,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                   <li><b>Unix*:</b>
                     <span class="sourcecode">"+K true +A30 +P 1048576 -kernel inet_default_connect_options [{nodelay,true}]"</span>
                   </li>
-                  <li><b>Windows:</b> Not configurable</li>
+                  <li><b>Windows:</b> None</li>
                 </ul>
               </td>
               <td>
