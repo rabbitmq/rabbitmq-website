@@ -80,7 +80,13 @@
             multiply-connected arrangements are allowed.
           </p>
           <p>
-            However, TODO.
+            However, federated queues cannot currently cause messages to
+            traverse multiple hops between brokers based solely on need for
+            messages in one place. For example, if you federate queues on
+            nodes A, B and C, with A and B connected and B and C connected,
+            but not A and C, then if messages are available at A and consumers
+            waiting at C then messages will not be transferred from A to C via
+            B unless there is also a consumer at B.
           </p>
         </dd>
 
@@ -89,13 +95,18 @@
         </dt>
         <dd>
           <p>
-            One typical use would be to have the same "logical" queue
+            The typical use would be to have the same "logical" queue
             distributed over many brokers. Each broker would declare a federated
             queue with all the other federated queues upstream. (The links
             would form a complete bi-directional graph on <i>n</i> queues.)
           </p>
           <p>
-            TODO bipartite graph example
+            Such a logical distributed queue is capable of having rather
+            higher capacity than a single queue. It will perform best when
+            there is some degree of locality; i.e. as many messages as
+            possible are consumed from the same queue as they were published
+            to, and the federation mechanism only needs to move messages
+            around in order to perform load balancing.
           </p>
         </dd>
       </dl>
