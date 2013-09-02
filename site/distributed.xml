@@ -55,8 +55,8 @@
       queue on one broker to receive messages published to an exchange
       or queue on another (the brokers may be individual machines, or
       clusters). Communication is via AMQP (with optional SSL), so for
-      two exchanges to federate they must be granted appropriate users
-      and permissions.
+      two exchanges or queues to federate they must be granted
+      appropriate users and permissions.
     </p>
     <p>
       Federated exchanges are connected with one way point-to-point

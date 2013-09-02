@@ -11,7 +11,7 @@
   </head>
   <body show-in-this-page="true">
     <p>
-      The high level goal of the federation plugin is to transmit messages
+      The high-level goal of the federation plugin is to transmit messages
       between brokers without requiring clustering. This is useful for various
       reasons:
     </p>
@@ -42,7 +42,7 @@
       </dd>
       <dt><b>Scalability</b></dt>
       <dd>
-        Federation does not require <i>n</i><sup>2</sup> connections between
+        Federation does not require O(n<sup>2</sup>) connections between
         <i>n</i> brokers (although this is the easiest way to set
         things up), which should mean it scales better.
       </dd>
@@ -112,7 +112,7 @@
       </ul>
 
       <p>
-        In practice for simple use cases you can almost ignore the
+        In practice, for simple use cases you can almost ignore the
         existence of upstream sets, since there is an
         implicitly-defined upstream set called <code>all</code> to
         which all upstreams are added.

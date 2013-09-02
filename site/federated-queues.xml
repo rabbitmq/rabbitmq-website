@@ -152,6 +152,13 @@
             the spare consuming capacity is - so if the spare consuming
             capacity keeps moving around then so will the messages.
           </p>
+
+          <p>
+            Brokers running different versions of RabbitMQ can be connected
+            using federation. However, since queue federation requires
+            consumer priorities, it is not possible to federate a queue with a
+            broker running a RabbitMQ version prior to 3.2.0.
+          </p>
     </doc:section>
   </body>
 </html>

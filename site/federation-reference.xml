@@ -102,7 +102,8 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dt><code>message-ttl</code></dt>
           <dd>
             <p>
-              The expiry time for messages in the <i>upstream queue</i> (see
+              The expiry time for messages in the <i>upstream
+              queue</i> for a federated exchange (see
               <code>expires</code>), in milliseconds. Default is
               <code>'none'</code>, meaning messages should never expire. This
               does not apply to federated queues.
@@ -154,10 +155,12 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
-            <i>upstream queue</i> (see <code>expires</code>). This is only of
-            interest when connecting to old brokers which determine queue HA
-            mode using this argument. Default is <code>'none'</code>, meaning
-            the queue is not HA. This does not apply to federated queues.
+            <i>upstream queue</i> for a federated exchange
+            (see <code>expires</code>). This is only of interest when
+            connecting to old brokers which determine queue HA mode
+            using this argument. Default is <code>'none'</code>,
+            meaning the queue is not HA. This does not apply to
+            federated queues.
           </dd>
         </dl>
       </doc:subsection>
