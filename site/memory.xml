@@ -239,11 +239,11 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         running out of disk space can cause the server to crash. By
         default RabbitMQ will block producers, and prevent
         memory-based messages from being paged to disk, when free disk
-        space drops below 50MB. This will reduce but not completely
-        eliminate the likelihood of a crash due to disk space being
-        exhausted. In particular, if messages are being paged out
-        rapidly it is possible to run out of disk space and crash in
-        the time between two runs of the disk space monitor. A more
+        space drops below 50MB. This will reduce but not eliminate the
+        likelihood of a crash due to disk space being exhausted. In
+        particular, if messages are being paged out rapidly it is
+        possible to run out of disk space and crash in the time
+        between two runs of the disk space monitor. A more
         conservative approach would therefore be to set the limit to
         the same as the amount of memory installed on the system (see
         below).
@@ -273,7 +273,7 @@ Disabling disk free space monitoring</pre>
         the <code>disk_free_limit</code> setting. By default 50MB is
         required to be free on the database partition. (See the description of
         <a href="/relocate.html">file locations</a> for the default location).
-        This configuration file sets the disk free space limit to 1Gb:
+        This configuration file sets the disk free space limit to 1GB:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
         It is also possible to set a free space limit relative to the RAM in the machine.
         This configuration file sets the disk free space limit to the same
