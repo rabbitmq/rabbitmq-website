@@ -167,13 +167,7 @@
 
       <p>
         When using shovel in a cluster, any nodes of the cluster may
-        have the shovel plugin installed. If two or more nodes both define
-        a shovel with the same name, the shovel worker will be started
-        on just one of them, however if that node fails then the shovel
-        will be recreated on a surviving node. It is important that if two
-        or more nodes <em>do</em> define a shovel with the same name, then
-        the configuration given for that shovel should be identical for all
-        of them.
+        have the shovel plugin installed.
       </p>
 
     </doc:section>
@@ -351,6 +345,26 @@
       </p>
 
       <dl>
+        <dt><a id="shovel_name"/><em>shovel_name</em></dt>
+        <dd>
+          <p>
+            The name of the shovel (an Erlang atom). Note that Erlang
+            atoms should be enclosed in single quotes (') if they do
+            not begin with a lower-case letter or if they contain
+            other characters than alphanumeric characters, underscore
+            (_), or @.
+          </p>
+          <p>
+            When using the shovel with clustering, if two or more
+            nodes both define a shovel with the same name, the shovel
+            worker will be started on just one of them. However if
+            that node fails then the shovel will be recreated on a
+            surviving node. It is important that if two or more nodes
+            <em>do</em> define a shovel with the same name, then the
+            configuration given for that shovel should be identical
+            for all of them.
+          </p>
+        </dd>
         <dt><a id="sources"/><strong>sources</strong></dt>
         <dt><a id="destinations"/><strong>destinations</strong></dt>
         <dd>
