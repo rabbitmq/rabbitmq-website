@@ -84,11 +84,13 @@
       not just when the policy is created.
     </p>
     <p>
-      Currently policies are used by
+      Policies can be used to configure
       the <a href="federation.html">federation
       plugin</a>, <a href="ha.html">mirrored
       queues</a>, <a href="ae.html">alternate exchanges</a>,
-      and <a href="dlx.html">dead lettering</a>.
+      <a href="dlx.html">dead lettering</a>,
+      <a href="ttl.html">per-queue TTLs</a>, and
+      <a href="maxlength.html">maximum queue length</a>.
     </p>
     <p>
       An example of defining a policy looks like:
