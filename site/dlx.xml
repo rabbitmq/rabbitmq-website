@@ -9,8 +9,7 @@
   <body>
     <p>
       Messages from a queue can be 'dead-lettered'; that is, republished to
-      another exchange on their deletion. A message is dead-lettered
-      when any of the following events occur:
+      another exchange when any of the following events occur:
       <ul>
         <li>The message is rejected (<code>basic.reject</code> or
           <code>basic.nack</code>) with <code>requeue=false</code>,</li>
