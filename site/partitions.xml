@@ -121,11 +121,12 @@ Cluster status of node rabbit@smacmullen ...
 
     <p>
       In pause-minority mode RabbitMQ will automatically pause cluster
-      nodes which determine themselves to be in a minority after
-      seeing other nodes go down. It therefore chooses partition
-      tolerance over availability from the CAP theorem. This ensures
-      that in the event of a network partition, at most the nodes in a
-      single partition will continue to run.
+      nodes which determine themselves to be in a minority (i.e. fewer
+      or equal than half the total number of nodes) after seeing other
+      nodes go down. It therefore chooses partition tolerance over
+      availability from the CAP theorem. This ensures that in the
+      event of a network partition, at most the nodes in a single
+      partition will continue to run.
     </p>
 
     <p>
@@ -134,7 +135,8 @@ Cluster status of node rabbit@smacmullen ...
       restart all nodes that are not in the winning partition. The
       winning partition is the one which has the most clients
       connected (or if this produces a draw, the one with the most
-      nodes).
+      nodes; and if that still produces a draw then one of the
+      partitions is chosen in an unspecified way).
     </p>
 
     <p>
@@ -185,16 +187,16 @@ Cluster status of node rabbit@smacmullen ...
       been started yet.
     </p>
     <p>
-      Also note that RabbitMQ will pause nodes which are not in
-      a <i>strict</i> majority of the cluster - i.e. greater than
-      50%. It is therefore not a good idea to enable pause-minority
-      mode on a cluster of two nodes since in the event of a network
-      partition <b>or node failure</b>, both nodes will
-      pause. However, <code>pause_minority</code> mode is likely to be
-      safer than <code>ignore</code> mode for clusters of more than
-      two nodes, especially if the most likely form of network
-      partition is that a single minority of nodes drops off the
-      network.
+      Also note that RabbitMQ will pause nodes which are not in a
+      <i>strict</i> majority of the cluster - i.e. containing more
+      than half of all nodes. It is therefore not a good idea to
+      enable pause-minority mode on a cluster of two nodes since in
+      the event of any network partition <b>or node failure</b>, both
+      nodes will pause. However, <code>pause_minority</code> mode is
+      likely to be safer than <code>ignore</code> mode for clusters of
+      more than two nodes, especially if the most likely form of
+      network partition is that a single minority of nodes drops off
+      the network.
     </p>
   </body>
 </html>
