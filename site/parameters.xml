@@ -95,13 +95,13 @@
       <tr>
         <th>rabbitmqctl</th>
         <td>
-          <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' 1</pre>
+          <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' --priority 1 --apply-to exchanges</pre>
         </td>
       </tr>
       <tr>
         <th>rabbitmqctl (Windows)</th>
         <td>
-          <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" 1</pre>
+          <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
         </td>
       </tr>
       <tr>
@@ -109,8 +109,9 @@
         <td>
           <pre>PUT /api/policies/%2f/federate-me
 {"pattern": "^amq\.",
- "definition": {"federation-upstream-set":"all"}
- "priority": 1}</pre>
+ "definition": {"federation-upstream-set":"all"},
+ "priority": 1,
+ "apply-to": "exchanges"}</pre>
         </td>
       </tr>
     </table>
@@ -118,7 +119,7 @@
     <p>
       This matches the value <code>"all"</code> with the key
       <code>"federation-upstream-set"</code> for all exchanges and
-      queues with names beginning with <code>"amq."</code>, in the
+      with names beginning with <code>"amq."</code>, in the
       virtual host <code>"/"</code>.
     </p>
 
@@ -130,6 +131,13 @@
     <p>
       In the event that more than one policy can match a given
       exchange or queue, the policy with the greatest priority applies.
+    </p>
+
+    <p>
+      The <code>"apply-to"</code> argument can be <code>"exchanges"</code>,
+      <code>"queues"</code> or <code>"all"</code>. The <code>"apply-to"</code>
+      and <code>"priority"</code> settings are optional, in which case the
+      defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
   </body>
 </html>

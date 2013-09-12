@@ -108,7 +108,11 @@
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page url="/federation.html" text="Federation plugin"/>
+       <x:page url="/federation.html" text="Federation plugin">
+         <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federated-queues.html" text="Queues"/>
+         <x:page url="/federation-reference.html" text="Reference"/>
+       </x:page>
        <x:page url="/shovel.html" text="Shovel plugin"/>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
@@ -132,6 +136,8 @@
        <x:page url="/confirms.html" text="Confirms"/>
        <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
+       <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>
        <x:page url="/e2e.html" text="e2e bindings"/>
        <x:page url="/ae.html" text="Alternate Exchanges"/>
