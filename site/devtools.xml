@@ -47,7 +47,7 @@
                 <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a>
               </li>
               <li>
-                <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an experimental Apache Camel component for interacting with RabbitMQ
+                <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
               </li>
               <li>
                 <a href="https://github.com/slider/amqp-relay">amqp-relay</a>
@@ -153,7 +153,7 @@
             <h4>JRuby</h4>
             <ul class="plain">
               <li>
-                <a href="http://hotbunnies.info">HotBunnies, a JRuby RabbitMQ client</a>
+                <a href="http://rubymarchhare.info">March Hare, a JRuby RabbitMQ client</a>
               </li>
             </ul>
           </doc:section>
@@ -164,8 +164,12 @@
                 <a href="http://rubybunny.info">Bunny</a>, a dead easy to use RabbitMQ Ruby client
               </li>
               <li>
-                <a href="http://hotbunnies.info">HotBunnies</a>, a JRuby RabbitMQ client
+                <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
               </li>
+	      <li>
+		<a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby)
+		services that communicate over RabbitMQ.
+	      </li>
               <li>
                 <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
               </li>

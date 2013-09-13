@@ -277,5 +277,10 @@ this should presumably say "...deletes any exclusive queues owned...".</p>
             <doc:heading>29 Heartbeat frametype inconsistency</doc:heading>
          </doc:section>
          <p>The PDF specifies the heartbeat frametype as 4. The XML specifies it as 8.</p>
+
+         <doc:section name="section_30">
+            <doc:heading>30 durable vs exclusive</doc:heading>
+         </doc:section>
+         <p>The spec does not define what happens if a client tries to declare a queue which is both durable and exclusive. RabbitMQ will treat a request to declare such a queue as a request for an exclusive transient queue.</p>
    </body>
 </html>

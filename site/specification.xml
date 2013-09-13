@@ -240,7 +240,9 @@
             message, i.e. the message is always delivered in full to
             the client.</notes>
           </method>
-	  <method name="basic.recover"><status value="ok"/></method>
+	  <method name="basic.recover"><status value="partial"/>
+            <notes>Recovery with requeue=false is not supported.</notes>
+          </method>
 	  <method name="tx.select"><status value="ok"/></method>
 	  <method name="tx.select-ok"><status value="ok"/></method>
 	  <method name="tx.commit"><status value="ok"/></method>
