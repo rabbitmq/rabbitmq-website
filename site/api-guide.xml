@@ -19,6 +19,11 @@
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
+      <p class="intro">
+        The Java client also ships with
+        some <a href="java-tools.html">command line tools</a>.
+      </p>
+
     <p>
        The client API is closely modelled on the AMQP protocol specification,
        with additional abstractions for ease of use.
@@ -731,43 +736,5 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 }</pre>
           </doc:subsection>
     </doc:section>
-
-      <doc:section name="bundled">
-	<doc:heading>Bundled examples</doc:heading>
-	<p>
-	  The Java client library distribution is shipped with a
-	  <code>rabbitmq-client-tests.jar</code>, containing several
-	  small example programs for exercising the functionality of
-	  the RabbitMQ server.  The source code for these examples is
-	  in the <code>test/src</code> folder in the source
-	  distribution.
-        </p>
-        <p>
-          The script <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> runs Java with
-          the class path correctly configured for the examples, e.g.
-          <code>runjava.sh com.rabbitmq.examples.TestMain</code> runs
-          the <code>TestMain</code> functional tests.
-        </p>
-      </doc:section>
-
-      <doc:section name="tracer">
-	<doc:heading>AMQP Protocol Capture/Analysis Tool</doc:heading>
-	<p>
-	  There's a very basic, very simple AMQP protocol analyzer in
-	  class <code>com.rabbitmq.tools.Tracer</code>. Invoke it with
-	</p>
-	<pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
-	<p>
-	  <dl>
-	    <dt>listenPort</dt>
-	    <dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
-	    <dt>connectHost</dt>
-	    <dd>hostname to use when making an outbound connection in response to an incoming connection - defaults to localhost.</dd>
-	    <dt>connectPort</dt>
-	    <dd>port number to use when making an outbound connection - defaults to 5672.</dd>
-	  </dl>
-	</p>
-      </doc:section>
-
   </body>
 </html>

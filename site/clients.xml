@@ -22,6 +22,9 @@
         <li>
           <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">JMS client</a> (commercial)
         </li>
+        <li>
+          <a href="java-tools.html">Command line tools</a>
+        </li>
       </ul>
     </div>
 

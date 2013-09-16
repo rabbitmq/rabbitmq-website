@@ -95,6 +95,7 @@
      </x:page>
      <x:page url="/clients.html" text="Client Documentation">
        <x:page url="/api-guide.html" text="Java Client Guide">
+         <x:page url="/java-tools.html" text="Java Client Tools"/>
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
