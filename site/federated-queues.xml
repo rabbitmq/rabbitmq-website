@@ -100,6 +100,11 @@
             nodes to retrieve more messages - which wouldn't sit well with
             federation's available / partition tolerant approach.
           </p>
+          <p>
+            So basic.get is ignored by the federation mechanism. It will still
+            work, but it will not cause any messages to be moved to the node
+            where it was invoked.
+          </p>
         </dd>
 
         <dt>
