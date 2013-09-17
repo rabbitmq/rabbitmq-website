@@ -31,6 +31,8 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           The <code><i>json-object</i></code> can contain the following keys:
         </p>
 
+        <h4>Applying to federated exchanges and federated queues</h4>
+
         <dl>
           <dt><code>uri</code></dt>
           <dd>
@@ -67,51 +69,6 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dd>
             The duration (in seconds) to wait before reconnecting to the broker
             after being disconnected. Default is 1.
-          </dd>
-
-          <dt><code>max-hops</code></dt>
-          <dd>
-            The maximum number of federation links that a message
-            published to a federated exchange can traverse before it
-            is discarded. This does not apply to federated queues;
-            they can move messages between brokers an arbitrary number
-            of times. Default is 1.
-          </dd>
-
-          <dt><code>expires</code></dt>
-          <dd>
-            <p>
-              The expiry time (in milliseconds) after which an <a
-              href="federated-exchanges.html#details"><i>upstream
-              queue</i></a> for a federated exchange may be deleted,
-              if a connection to the upstream broker is lost. The
-              default is <code>'none'</code>, meaning the queue should
-              never expire. This does not apply to federated queues.
-            </p>
-            <p>
-              This setting controls how long the upstream queue will
-              last before it is eligible for deletion if the connection
-              is lost.
-            </p>
-            <p>
-              This value is used to set the <code>"x-expires"</code> argument
-              for the upstream queue.
-            </p>
-          </dd>
-
-          <dt><code>message-ttl</code></dt>
-          <dd>
-            <p>
-              The expiry time for messages in the <i>upstream
-              queue</i> for a federated exchange (see
-              <code>expires</code>), in milliseconds. Default is
-              <code>'none'</code>, meaning messages should never expire. This
-              does not apply to federated queues.
-            </p>
-            <p>
-              This value is used to set the <code>"x-message-ttl"</code>
-              argument for the upstream queue.
-            </p>
           </dd>
 
           <dt><code>ack-mode</code></dt>
@@ -151,6 +108,53 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
               not to forge user-ids.
             </p>
           </dd>
+        </dl>
+
+        <h4>Applying to federated exchanges only</h4>
+
+        <dl>
+          <dt><code>max-hops</code></dt>
+          <dd>
+            The maximum number of federation links that a message
+            published to a federated exchange can traverse before it
+            is discarded. Default is 1.
+          </dd>
+
+          <dt><code>expires</code></dt>
+          <dd>
+            <p>
+              The expiry time (in milliseconds) after which an <a
+              href="federated-exchanges.html#details"><i>upstream
+              queue</i></a> for a federated exchange may be deleted,
+              if a connection to the upstream broker is lost. The
+              default is <code>'none'</code>, meaning the queue should
+              never expire.
+            </p>
+            <p>
+              This setting controls how long the upstream queue will
+              last before it is eligible for deletion if the connection
+              is lost.
+            </p>
+            <p>
+              This value is used to set the <code>"x-expires"</code> argument
+              for the upstream queue.
+            </p>
+          </dd>
+
+          <dt><code>message-ttl</code></dt>
+          <dd>
+            <p>
+              The expiry time for messages in the <i>upstream
+              queue</i> for a federated exchange (see
+              <code>expires</code>), in milliseconds. Default is
+              <code>'none'</code>, meaning messages should never expire. This
+              does not apply to federated queues.
+            </p>
+            <p>
+              This value is used to set the <code>"x-message-ttl"</code>
+              argument for the upstream queue.
+            </p>
+          </dd>
 
           <dt><code>ha-policy</code></dt>
           <dd>
@@ -159,12 +163,10 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             (see <code>expires</code>). This is only of interest when
             connecting to old brokers which determine queue HA mode
             using this argument. Default is <code>'none'</code>,
-            meaning the queue is not HA. This does not apply to
-            federated queues.
+            meaning the queue is not HA.
           </dd>
         </dl>
       </doc:subsection>
-
 
       <doc:subsection name="upstream-sets">
         <doc:heading>Upstream sets</doc:heading>
