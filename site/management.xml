@@ -191,10 +191,6 @@
                   List all virtual hosts, including ones they could
                   not log in to via AMQP
                 </li>
-                <li>
-                  View all queues, exchanges and bindings in all
-                  virtual hosts
-                </li>
                 <li>View other users's connections and channels</li>
                 <li>View node-level data such as memory use and clustering</li>
                 <li>View truly global statistics for all virtual hosts</li>
