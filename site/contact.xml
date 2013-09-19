@@ -25,8 +25,13 @@
     </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
-      For enquiries about commercial licensing, support, training,
-      and consulting, please contact us by email on <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      For enquiries about commercial licensing, support, training, and
+      consulting, please contact us by email
+      on <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      Alternatively, if you want to phone us and speak to a Pivotal
+      sales representative please see
+      the <a href="http://www.gopivotal.com/about-pivotal/support">Pivotal
+      support page</a>.
     </p>
     <h2 id="socialmedia">Social Media</h2>
     <h3 id="microblog">Twitter</h3>
@@ -55,8 +60,6 @@
       110, Southwark Street<br/>
       London SE1 0TA<br/>
       United Kingdom<br/>
-      T: +44 (0) 20 7654 8816<br />
-      F: +44 (0) 20 7654 8801<br />
     </address>
     <div id="map_canvas"></div>
     <h3 class="clear">Journey Planner</h3>

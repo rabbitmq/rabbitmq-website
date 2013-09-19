@@ -150,6 +150,21 @@ Cluster status of node rabbit@smacmullen ...
 
     <h3>Which mode should I pick?</h3>
 
+    <p>
+      It's important to understand that allowing RabbitMQ to deal with
+      network partitions automatically does not make them less of a
+      problem. Network partitions will always cause problems for
+      RabbitMQ clusters; you just get some degree of choice over what
+      kind of problems you get. As stated in the introduction, if you
+      want to connect RabbitMQ clusters over generally unreliable
+      links, you should use federation or the shovel.
+    </p>
+
+    <p>
+      With that said, you might wish to pick a recovery mode as
+      follows:
+    </p>
+
     <ul>
       <li>
         <code>ignore</code> - Your network really is reliable. All
