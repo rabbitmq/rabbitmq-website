@@ -213,10 +213,6 @@
                 <li>View, create and delete users</li>
                 <li>View, create and delete permissions</li>
                 <li>Close other users's connections</li>
-                <li>
-                  View, create and delete policies and parameters for all
-                  virtual hosts
-                </li>
               </ul>
             </td>
           </tr>
