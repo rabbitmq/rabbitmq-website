@@ -131,6 +131,19 @@
         </dd>
 
         <dt>
+          <b>Can I federate any exchange?</b>
+        </dt>
+        <dd>
+          <p>
+            Nearly. You can't federate the default exchange (named ''), since
+            that is really just a way to directly address queues. You also
+            can't federate exchanges that are marked as internal (since
+            exchanges federate messages that are published directly to them,
+            and you can't publish directly to an internal exchange).
+          </p>
+        </dd>
+
+        <dt>
           <b>What are typical uses for federated exchanges?</b>
         </dt>
         <dd>
@@ -265,9 +278,10 @@
         <doc:heading>A simple example</doc:heading>
 
         <p>
-          Here we will federate all the built-in exchanges, with a
-          single upstream. The upstream will be defined to buffer
-          messages when disconnected for up to one hour (3600000ms).
+          Here we will federate all the built-in exchanges except for
+          the default exchange, with a single upstream. The upstream
+          will be defined to buffer messages when disconnected for up
+          to one hour (3600000ms).
         </p>
 
         <p><b>Define an upstream:</b></p>
@@ -336,10 +350,11 @@
 
         <p>
           We tell the policy to federate all exchanges whose names
-          begin with "amq." (i.e. all the built in exchanges) with (implicit)
-          low priority, and to federate them using the implicitly created
-          upstream set "all", which includes our newly-created upstream.
-          Any other matching policy with a priority greater than 0 will take
+          begin with "amq." (i.e. all the built in exchanges except
+          for the default exchange) with (implicit) low priority, and
+          to federate them using the implicitly created upstream set
+          "all", which includes our newly-created upstream.  Any other
+          matching policy with a priority greater than 0 will take
           precedence over this policy.
         </p>
 
