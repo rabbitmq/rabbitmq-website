@@ -25,6 +25,11 @@
           The <a href="validated-user-id.html">User-ID</a> message
           property is validated by the server.
         </li>
+
+        <li>
+          <a href="connection-blocked.html">Blocked Connection Notifications</a>
+          allows clients to be notified when a connection is blocked and unblocked.
+        </li>
       </ul>
     </div>
 
@@ -40,6 +45,10 @@
           <a href="nack.html"><code>basic.nack</code></a>
           extends <code>basic.reject</code> to support rejecting
           multiple messages at once.
+        </li>
+        <li>
+          <a href="consumer-priority.html">Consumer Priorities</a> allow you
+          to send messages to higher priority consumers first.
         </li>
       </ul>
     </div>

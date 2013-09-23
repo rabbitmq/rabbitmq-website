@@ -24,7 +24,15 @@
       addresses these use cases.
     </p>
 
-    <h4>Configuration</h4>
+    <p>
+      For any given exchange, an AE can be defined by clients using
+      the exchange's arguments, or in the server
+      using <a href="parameters.html#policies">policies</a>. In the
+      case where both policy and arguments specify an AE, the one
+      specified in arguments overrules the one specified in policy.
+    </p>
+
+    <h2>Configuration using arguments</h2>
     <p>
       When creating an exchange the name of an AE can be
       optionally supplied in the <code>exchange.declare</code>
@@ -57,6 +65,38 @@ channel.queueBind("unrouted", "my-ae", "");</pre>
       bind one queue 'routed' to 'my-direct' with a binding key
       of 'key1', and a queue 'unrouted' to 'my-ae'.
     </p>
+
+    <h2>Configuration using policy</h2>
+
+    <p>
+      To specify an AE using policy, add the key 'alternate-exchange'
+      to a policy definition. For example:
+    </p>
+
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <pre>rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}'</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>rabbitmqctl (Windows)</th>
+        <td>
+          <pre>rabbitmqctl set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}"</pre>
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      This will apply an AE of "my-ae" to the exchange called
+       "my-direct". Policies can also be defined using the management
+       plugin, see the <a href="parameters.html#policies">policy
+       documentation</a> for more details.
+    </p>
+
+    <h2>Alternate exchange logic</h2>
+
     <p>
       Whenever an exchange with a configured AE cannot route a message
       to any queue, it publishes the message to the specified AE
