@@ -17,7 +17,7 @@
 	  </a>
 	</span>Latest News
       </h3>
-      <doc:homefeed src="news.atom" type="ournews" limit="3" />
+      <doc:homefeed src="news.atom" type="ournews" limit="5" />
 
       <h3>
 	<span class="subscribe">
@@ -26,7 +26,7 @@
 	  </a>
 	</span>Latest Blog Posts
       </h3>
-      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" />
+      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="5" />
     </div>
 
     <div id="home-content">
