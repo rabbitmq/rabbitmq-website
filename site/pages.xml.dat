@@ -98,7 +98,9 @@
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
-       <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec">
+         <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
+       </x:page>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
        <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
@@ -111,9 +113,15 @@
        <x:page url="/federation.html" text="Federation plugin">
          <x:page url="/federated-exchanges.html" text="Exchanges"/>
          <x:page url="/federated-queues.html" text="Queues"/>
-         <x:page url="/federation-reference.html" text="Reference"/>
+         <x:page url="/federation-reference.html" text="Reference">
+           <x:related url="/uri-spec.html"/>
+           <x:related url="/uri-query-parameters.html"/>
+         </x:page>
        </x:page>
-       <x:page url="/shovel.html" text="Shovel plugin"/>
+       <x:page url="/shovel.html" text="Shovel plugin">
+         <x:related url="/uri-spec.html"/>
+         <x:related url="/uri-query-parameters.html"/>
+       </x:page>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>

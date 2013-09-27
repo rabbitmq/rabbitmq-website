@@ -86,7 +86,7 @@
           href="http://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
       </p>
 
-<pre>amqp_URI       = "amqp://" amqp_authority [ "/" vhost ]
+<pre>amqp_URI       = "amqp://" amqp_authority [ "/" vhost ] [ "?" query ]
 
 amqp_authority = [ amqp_userinfo "@" ] host [ ":" port ]
 
@@ -207,8 +207,8 @@ vhost          = segment</pre>
       <h3>3. Handling of absent components</h3>
 
       <p>
-          Certain URI components (the port, username, password and
-          vhost) may be absent from a URI.  The host may not be
+          Certain URI components (the port, username, password,
+          vhost and query) may be absent from a URI.  The host may not be
           absent, but may be zero-length; for the purposes of this
           section, a zero-length host is treated as absent.
       </p>
@@ -296,7 +296,23 @@ vhost          = segment</pre>
           used.</li>
       </ul>
 
-      <h3>5. Security Considerations</h3>
+      <h3>5. Query parameters</h3>
+
+      <p>
+        AMQP clients may require further parameterization to define how
+        they should connect to servers. The standard URI query syntax
+        may be used to provide additional information to the client.
+      </p>
+
+      <p>
+        Query parameters may be more implementation-specific than other
+        URI parts; as such this document will not attempt to prescribe
+        how they should be used. However, we have documented how our
+        clients read URI query parameters <a
+        href="uri-query-parameters.html">here</a>.
+      </p>
+
+      <h3>6. Security Considerations</h3>
 
       <p>
           As discussed in the section 2.3 above, AMQP URIs will often

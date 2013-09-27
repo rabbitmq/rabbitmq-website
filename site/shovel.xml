@@ -406,56 +406,13 @@
                 avoids using the network stack.
               </p>
               <p>
-                The syntax is extended to include a query part to permit
-                the configuration of additional connection parameters.
-                <em>heartbeat</em>, <em>channel_max</em>, and
-                <em>frame_max</em> can be specified, in any order.
-                Omitted fields assume default values. For example:
-<pre class="example">
-  "amqp://myhost?heartbeat=5&amp;frame_max=8192"
-</pre>
-                specifies a (non-encrypted) network connection to the
-                host <code>myhost</code>, using default username,
-                password, port, vhost and channel_max. The heartbeat
-                interval is set to 5 seconds, and the maximum frame size
-                to 8192 bytes.
-              </p>
-              <p>
-                It is possible to specify an encrypted SSL connection,
-                the general form of which is:
-<pre class="example">
-  "amqps://username:password@host:port/vhost?
-      cacertfile=/path/to/cacert.pem
-     &amp;certfile=/path/to/certfile.pem
-     &amp;keyfile=/path/to/keyfile.pem
-     &amp;verify=verifyOption
-     &amp;fail_if_no_peer_cert=failOption"
-</pre>
-                (This URI has been split across several lines only for
-                readbility. There must be no white-space in the URI.)
-              </p>
-              <p>
-                All five parameters (3 paths: <em>cacertfile</em>,
-                <em>certfile</em> and <em>keyfile</em>; and 2 options:
-                <em>verify</em>, <em>fail_if_no_peer_cert</em>) must be
-                specified as well as the <code>amqps</code> scheme.
-                See the <a href="ssl.html">SSL guide</a> for
-                details of SSL in RabbitMQ in general and specifically
-                the <a href="ssl.html#configure-erlang">Erlang
-                client</a> section.
-              </p>
-              <p>
-                It is also possible to control the SASL mechanism used to
-                authenticate, using the <code>auth_mechanism</code>
-                parameter. The most common use for this is
-                with <code>auth_mechanism=external</code> to trigger use of
-                the <code>rabbitmq_auth_mechanism_ssl</code> plugin.
-              </p>
-              <p>
-                It is also possible to
-                specify <em>&amp;auth_mechanism=external</em> to use
-                the <a href="http://hg.rabbitmq.com/rabbitmq-auth-mechanism-ssl/file/&version-server-hg;/README">SASL
-                EXTERNAL</a> authentication mechanism.
+                The syntax is extended to include a query part to
+                permit the configuration of additional connection
+                parameters. See the <a
+                href="uri-query-parameters.html">query parameter
+                reference</a> for the Erlang client's extensions
+                (including those for SSL and SASL) which are available
+                to the shovel.
               </p>
               <p>
                 <strong>Note</strong>: If the broker list consists of a

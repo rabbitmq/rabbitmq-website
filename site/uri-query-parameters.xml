@@ -1,0 +1,108 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>URI query parameters</title>
+  </head>
+  <body>
+    <p class="intro">
+      This page is a less-formal companion to the <a
+      href="uri-spec.html">URI specification</a>, documenting how our
+      clients interpret URI parameters. Currently only the Erlang
+      client does so.
+    </p>
+
+    <p>
+      The <a href="federation-reference.html#upstreams">federation</a>
+      and <a href="shovel.html#uris">shovel</a> plugins specify
+      connections to other brokers using URIs, and are implemented
+      using the Erlang client; so they take all the parameters
+      described here for it.
+    </p>
+
+    <p>
+      Any of these parameters can be omitted; the client will pick
+      sensible defaults when they are.
+    </p>
+
+    <!-- 
+         TODO when another client supports some of these, split them
+         out into standardised and client-specific. For example,
+         auth_mechanism and heartbeat seem fairly standard, but the
+         SSL bits are quite tied to the Erlang SSL implementation.
+    -->
+
+    <table>
+      <tr>
+        <th>Parameter name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>
+          <code>cacertfile</code><br/>
+          <code>certfile</code><br/>
+          <code>keyfile</code>
+        </td>
+        <td>
+          Paths to files to use in order to present a client-side SSL
+          certificate to the server. Only of use for the
+          <code>amqps</code> scheme.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>verify</code><br/>
+          <code>fail_if_no_peer_cert</code>
+        </td>
+        <td>
+          Use to configure verification of the server's SSL
+          certificate. See the <a href="ssl.html">SSL guide</a> for
+          details of SSL in RabbitMQ in general and specifically the
+          <a href="ssl.html#configure-erlang">Erlang client</a>
+          section. Only of use for the <code>amqps</code> scheme.
+        </td>
+      </tr>
+      <tr>
+        <td><code>auth_mechanism</code></td>
+        <td>
+          SASL authentication mechanisms to consider when negotiating
+          a mechanism with the server. This parameter can be specified
+          multiple times,
+          e.g. <code>?sasl_mechanism=plain&amp;sasl_mechanism=amqplain</code>,
+          to specify multiple mechanisms.
+        </td>
+      </tr>
+      <tr>
+        <td><code>heartbeat</code></td>
+        <td>
+          Heartbeat value (in seconds) to negotiate withe the server.
+        </td>
+      </tr>
+      <tr>
+        <td><code>connection_timeout</code></td>
+        <td>
+          Time (in seconds) to wait while establishing a connection
+          before giving up.
+        </td>
+      </tr>
+      <tr>
+        <td><code>channel_max</code></td>
+        <td>
+          Maximum number of channels to permit on this connection.
+        </td>
+      </tr>
+      <tr>
+        <td><code>frame_max</code></td>
+        <td>
+          Maximum frame size (in bytes) to permit on this connection.
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>
