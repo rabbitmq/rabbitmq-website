@@ -296,23 +296,7 @@ vhost          = segment</pre>
           used.</li>
       </ul>
 
-      <h3>5. Query parameters</h3>
-
-      <p>
-        AMQP clients may require further parameterization to define how
-        they should connect to servers. The standard URI query syntax
-        may be used to provide additional information to the client.
-      </p>
-
-      <p>
-        Query parameters may be more implementation-specific than other
-        URI parts; as such this document will not attempt to prescribe
-        how they should be used. However, we have documented how our
-        clients read URI query parameters <a
-        href="uri-query-parameters.html">here</a>.
-      </p>
-
-      <h3>6. Security Considerations</h3>
+      <h3>5. Security Considerations</h3>
 
       <p>
           As discussed in the section 2.3 above, AMQP URIs will often
@@ -467,7 +451,23 @@ vhost          = segment</pre>
           </tr>
       </table>
 
-      <h3>Appendix B: Other proposals for an "amqp" URI scheme</h3>
+      <h3>Appendix B: Query parameters</h3>
+
+      <p>
+        AMQP clients may require further parameterisation to define how
+        they should connect to servers. The standard URI query syntax
+        may be used to provide additional information to the client.
+      </p>
+
+      <p>
+        Query parameters may be more implementation-specific than other
+        URI parts; as such this document will not attempt to prescribe
+        how they should be used. However, we have documented how the
+        officially supported clients read URI query parameters <a
+        href="uri-query-parameters.html">here</a>.
+      </p>
+
+      <h3>Appendix C: Other proposals for an "amqp" URI scheme</h3>
 
       <p>
           This specification is not the first proposal for an "amqp"

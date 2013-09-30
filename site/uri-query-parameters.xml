@@ -12,22 +12,36 @@
   <body>
     <p class="intro">
       This page is a less-formal companion to the <a
-      href="uri-spec.html">URI specification</a>, documenting how our
-      clients interpret URI parameters. Currently only the Erlang
-      client does so.
+      href="uri-spec.html">URI specification</a>, documenting how the
+      officially-supported clients interpret URI parameters. Currently
+      only the Erlang client does so.
     </p>
 
     <p>
       The <a href="federation-reference.html#upstreams">federation</a>
       and <a href="shovel.html#uris">shovel</a> plugins specify
       connections to other brokers using URIs, and are implemented
-      using the Erlang client; so they take all the parameters
+      using the Erlang client, so they take all the parameters
       described here for it.
     </p>
 
     <p>
-      Any of these parameters can be omitted; the client will pick
-      sensible defaults when they are.
+      Query parameters are added to the URI in the usual way. Any of
+      parameter can be omitted. The client will pick sensible defaults
+      when they are.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <pre>amqp://myhost?heartbeat=5&amp;frame_max=8192</pre>
+
+    <p>
+      This specifies a (non-encrypted) network connection to the host
+      <code>myhost</code>. The heartbeat interval is set to 5 seconds,
+      and the maximum frame size to 8192 bytes. Other parameters are
+      set to their default values.
     </p>
 
     <!-- 
