@@ -30,11 +30,12 @@
     <doc:section name="perftest">
       <doc:heading>PerfTest</doc:heading>
       <p>
-        <code>PerfTest</code> is a performance testing tool. It
-        starts up zero or more producers and consumers and reports
-        the rate at which messages are sent and received, along with
-        the latency (i.e. time taken for messages to pass through
-        the broker).
+        <code>PerfTest</code> (formerly known
+        as <code>MulticastMain</code>) is a performance testing tool. It
+        starts up zero or more producers and consumers and reports the
+        rate at which messages are sent and received, along with the
+        latency (i.e. time taken for messages to pass through the
+        broker).
       </p>
 
       <p>
