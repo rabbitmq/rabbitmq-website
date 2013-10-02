@@ -266,6 +266,17 @@ Disk free limit set to 953MB</pre>
 Disabling disk free space monitoring</pre>
       </p>
 
+      <p>
+        RabbitMQ will periodically check the amount of free disk
+        space. The frequency with which disk space is checked is related
+        to the amount of space at the last check (in order to ensure
+        that the disk alarm goes off in a timely manner when space is
+        exhausted). Normally disk space is checked every 10 seconds, but
+        as the limit is approached the frequency increases. When very
+        near the limit RabbitMQ will check as frequently as 10 times per
+        second. This may have some effect on system load.
+      </p>
+
     <doc:subsection name="diskfreesup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
