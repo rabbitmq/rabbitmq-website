@@ -142,7 +142,6 @@
      </x:page>
      <x:page url="/extensions.html" text="Our Extensions">
        <x:page url="/confirms.html" text="Confirms"/>
-       <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
        <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
        <x:page url="/connection-blocked.html" text="Blocked Connections"/>
@@ -153,6 +152,8 @@
        <x:page url="/ttl.html" text="TTL"/>
        <x:page url="/dlx.html" text="Dead Lettering"/>
        <x:page url="/maxlength.html" text="Length Limit"/>
+       <x:page url="/validated-user-id.html" text="Validated User ID"/>
+       <x:page url="/auth-notification.html" text="Authentication notification"/>
        <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">
