@@ -153,7 +153,7 @@
        <x:page url="/dlx.html" text="Dead Lettering"/>
        <x:page url="/maxlength.html" text="Length Limit"/>
        <x:page url="/validated-user-id.html" text="Validated User ID"/>
-       <x:page url="/auth-notification.html" text="Authentication notification"/>
+       <x:page url="/auth-notification.html" text="Auth Failure"/>
        <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">
