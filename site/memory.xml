@@ -193,7 +193,8 @@ Memory limit set to 2048MB.</pre>
           It is possible to
           set <code>vm_memory_high_watermark_paging_ratio</code> to a
           greater value than <code>1.0</code>. In this case queues
-          will not page their contents to disc.
+          will not page their contents to disc. If this causes the memory alarm 
+          to go off, then producers will be blocked as explained above.
         </p>
       </doc:subsection>
 
