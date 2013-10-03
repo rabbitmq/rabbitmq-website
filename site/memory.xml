@@ -162,15 +162,38 @@ Memory limit set to 2048MB.</pre>
           the threshhold, due to the fact that the total amount of system
           RAM is queried.
         </p>
+      </doc:subsection>
 
+      <doc:subsection name="memsup-paging">
+        <doc:heading>Configuring the Paging Threshold</doc:heading>
         <p>
-          Versions of Erlang prior to R13B had a bug that meant they
-          do not reliably detect the amount of memory installed on
-          Windows platforms. If RabbitMQ is running under Windows on
-          a version of Erlang prior to R13B, then it does not
-          attempt to automatically set a threshold. Instead, it
-          behaves as if it's unable to recognise the platform: see
-          below.
+          Before the broker hits the high watermark and blocks
+          publishers, it will attempt to free up memory by instructing
+          queues to page their contents out to disc. Both persistent
+          and transient messages will be paged out (the persistent
+          messages will already be on disc but will be evicted from
+          memory).
+        </p>
+        <p>
+          By default this starts to happen when the broker is 50% of
+          the way to the high watermark (i.e. with a default high
+          watermark of 0.4, this is when 20% of memory is used). To
+          change this value, modify
+          the <code>vm_memory_high_watermark_paging_ratio</code>
+          configuration from its default value
+          of <code>0.5</code>. For example:
+        </p>
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
+           {vm_memory_high_watermark, 0.4}]}].</pre>
+        <p>
+          The above configuration starts paging at 30% of memory used, and
+          blocks publishers at 40%.
+        </p>
+        <p>
+          It is possible to
+          set <code>vm_memory_high_watermark_paging_ratio</code> to a
+          greater value than <code>1.0</code>. In this case queues
+          will not page their contents to disc.
         </p>
       </doc:subsection>
 
@@ -178,8 +201,7 @@ Memory limit set to 2048MB.</pre>
         <doc:heading>Unrecognised platforms</doc:heading>
         <p>
           If the RabbitMQ server is unable to recognise your system,
-          or if you're using Windows and a version of Erlang prior
-          to R13B, it will append a warning to the
+          it will append a warning to the
           <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
           1GB of RAM is installed:
           <pre class="sourcecode">
@@ -215,11 +237,15 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
         below a certain limit. This is a good idea since even
         transient messages can be paged to disk at any time, and
         running out of disk space can cause the server to crash. By
-        default RabbitMQ will block producers when free disk space
-        drops below 1GB. This will reduce but not completely eliminate
-        the likelihood of a crash due to disk space being exhausted. A
-        more conservative approach would be to set the limit to the
-        same as the amount of memory installed on the system (see
+        default RabbitMQ will block producers, and prevent
+        memory-based messages from being paged to disk, when free disk
+        space drops below 50MB. This will reduce but not eliminate the
+        likelihood of a crash due to disk space being exhausted. In
+        particular, if messages are being paged out rapidly it is
+        possible to run out of disk space and crash in the time
+        between two runs of the disk space monitor. A more
+        conservative approach would therefore be to set the limit to
+        the same as the amount of memory installed on the system (see
         below).
       </p>
 
@@ -240,15 +266,26 @@ Disk free limit set to 953MB</pre>
 Disabling disk free space monitoring</pre>
       </p>
 
+      <p>
+        RabbitMQ will periodically check the amount of free disk
+        space. The frequency with which disk space is checked is related
+        to the amount of space at the last check (in order to ensure
+        that the disk alarm goes off in a timely manner when space is
+        exhausted). Normally disk space is checked every 10 seconds, but
+        as the limit is approached the frequency increases. When very
+        near the limit RabbitMQ will check as frequently as 10 times per
+        second. This may have some effect on system load.
+      </p>
+
     <doc:subsection name="diskfreesup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
         The disk free space limit is configured with
-        the <code>disk_free_limit</code> setting. By default 1GB is
+        the <code>disk_free_limit</code> setting. By default 50MB is
         required to be free on the database partition. (See the description of
         <a href="/relocate.html">file locations</a> for the default location).
-        This configuration file sets the disk free space limit to 25Gb:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 25000000000}]}].</pre>
+        This configuration file sets the disk free space limit to 1GB:
+        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
         It is also possible to set a free space limit relative to the RAM in the machine.
         This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
@@ -257,5 +294,12 @@ Disabling disk free space monitoring</pre>
     </doc:subsection>
     </doc:section>
 
+    <doc:section name="client-notifications">
+      <doc:heading>Client Notifications</doc:heading>
+      <p>
+        RabbitMQ provides an extension to AMQP 0-9-1 that allows
+        clients to be <a href="connection_blocked.html">notified when a connection is blocked</a>.
+      </p>
+    </doc:section>
   </body>
 </html>

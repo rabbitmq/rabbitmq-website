@@ -94,15 +94,6 @@
           page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
-        <doc:subsection name="erlang">
-          <doc:heading>Requirements</doc:heading>
-          <p>
-            rabbitmq-management uses
-            the <a href="https://github.com/mochi/mochiweb">Mochiweb</a>
-            web server which requires a newer Erlang version. At least
-            R13B01 is required, but later versions are recommended.
-          </p>
-        </doc:subsection>
       </doc:section>
 
       <doc:section name="getting-started">
@@ -145,12 +136,12 @@
       <doc:section name="permissions">
         <doc:heading>Permissions</doc:heading>
         <p>
-          The management plugin extends the
-          existing <a href="access-control.html">permissions
-          model</a> somewhat. Users can be given arbitrary tags within
-          RabbitMQ. The management plugin makes use of tags called
-          "management", "monitoring" and "administrator". The following
-          table shows what the different types of user can do:
+          The management plugin extends the existing <a
+          href="access-control.html">permissions model</a> somewhat. Users can
+          be given arbitrary tags within RabbitMQ. The management plugin makes
+          use of tags called "management", "policymaker", "monitoring" and
+          "administrator". The following table shows what the different types
+          of user can do:
         </p>
         <table>
           <tr>
@@ -183,6 +174,18 @@
             </td>
           </tr>
           <tr>
+            <td>policymaker</td>
+            <td>
+              Everything "management" can plus:
+              <ul>
+                <li>
+                  View, create and delete policies and parameters for virtual
+                  hosts to which they can log in via AMQP
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
             <td>monitoring</td>
             <td>
               Everything "management" can plus:
@@ -190,10 +193,6 @@
                 <li>
                   List all virtual hosts, including ones they could
                   not log in to via AMQP
-                </li>
-                <li>
-                  View all queues, exchanges and bindings in all
-                  virtual hosts
                 </li>
                 <li>View other users's connections and channels</li>
                 <li>View node-level data such as memory use and clustering</li>
@@ -204,7 +203,7 @@
           <tr>
             <td>administrator</td>
             <td>
-              Everything "monitoring" can plus:
+              Everything "policymaker" and "monitoring" can plus:
               <ul>
                 <li>Create and delete virtual hosts</li>
                 <li>View, create and delete users</li>
@@ -217,7 +216,7 @@
         <p>
           Note that since "administrator" does everything "monitoring"
           does, and "monitoring" does everything "management" does,
-          you only need to give each user a maximum of one tag.
+          you frequently only need to give each user a maximum of one tag.
         </p>
         <p>
           Normal RabbitMQ permissions still apply to monitors and

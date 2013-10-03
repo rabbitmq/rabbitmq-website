@@ -78,15 +78,11 @@
         </p>
         <p>
           Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
-          the EPEL package update policy</a>, EPEL 5 contains a relatively
-          old version of Erlang, R12B-5. Although <code>rabbitmq-server</code>
-          supports R12B-5, performance may be lower than for more
-          recent Erlang versions and certain non-core features are unsupported,
-          such as SSL and HTTP-based plugins including
-          the <a href="management.html">management plugin</a>.
+          the EPEL package update policy</a>, EPEL 5 contains a very
+          old version of Erlang, R12B-5; with which <b>RabbitMQ is not compatible</b>.
         </p>
         <p>
-          To install a more recent version of Erlang you need to enable a more
+          Therefore to use EPEL on RHEL 5 you must enable a more
           up-to-date package repository that is provided by the owner of the
           Erlang package. To do this, issue the following command as 'root':
         </p>

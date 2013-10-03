@@ -99,7 +99,9 @@
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
-       <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec">
+         <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
+       </x:page>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
        <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
@@ -109,8 +111,18 @@
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
-       <x:page url="/federation.html" text="Federation plugin"/>
-       <x:page url="/shovel.html" text="Shovel plugin"/>
+       <x:page url="/federation.html" text="Federation plugin">
+         <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federated-queues.html" text="Queues"/>
+         <x:page url="/federation-reference.html" text="Reference">
+           <x:related url="/uri-spec.html"/>
+           <x:related url="/uri-query-parameters.html"/>
+         </x:page>
+       </x:page>
+       <x:page url="/shovel.html" text="Shovel plugin">
+         <x:related url="/uri-spec.html"/>
+         <x:related url="/uri-query-parameters.html"/>
+       </x:page>
        <x:page url="/stomp.html" text="STOMP plugin"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>
@@ -131,8 +143,9 @@
      </x:page>
      <x:page url="/extensions.html" text="Our Extensions">
        <x:page url="/confirms.html" text="Confirms"/>
-       <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
+       <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>
        <x:page url="/e2e.html" text="e2e bindings"/>
        <x:page url="/ae.html" text="Alternate Exchanges"/>
@@ -140,6 +153,8 @@
        <x:page url="/ttl.html" text="TTL"/>
        <x:page url="/dlx.html" text="Dead Lettering"/>
        <x:page url="/maxlength.html" text="Length Limit"/>
+       <x:page url="/validated-user-id.html" text="Validated User ID"/>
+       <x:page url="/auth-notification.html" text="Auth Failure"/>
        <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">
