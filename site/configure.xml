@@ -414,10 +414,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               set relative to the total amount of RAM (e.g.
               <code>{mem_relative, 1.0}</code>). The value may also be
               set to an integer number of bytes. By default free disk
-              space must exceed 1GB. See
+              space must exceed 50MB. See
               the <a href="memory.html#diskfreesup">memory-based flow
               control</a> documentation.
-              <p>Default: <code>1000000000</code></p>
+              <p>Default: <code>50000000</code></p>
             </td>
           </tr>
           <tr>
