@@ -106,8 +106,8 @@
         </li>
         <li>
           <b>Policies</b> - each policy selects a set of exchanges,
-          queues or both, and applies an upstream set to those
-          objects.
+          queues or both, and applies a single upstream or an upstream
+          set to those objects.
         </li>
       </ul>
 

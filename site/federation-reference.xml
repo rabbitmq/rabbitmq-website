@@ -18,6 +18,42 @@
     <doc:section name="configuration">
       <doc:heading>Configuration reference</doc:heading>
 
+      <doc:subsection name="policies">
+        <doc:heading>Policies</doc:heading>
+        <p>
+          A policy can apply an upstream set (including the
+          implicitly-defined upstream set "all") or a single upstream
+          to a set of exchanges and / or queues.
+        </p>
+        <p>
+          To apply all upstreams:
+        </p>
+<pre class="example">
+rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"all"}'
+</pre>
+        <p>
+          To apply a named set of upstreams:
+        </p>
+<pre class="example">
+rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream-set":"my-set"}'
+</pre>
+        <p>
+          To apply a single upstream:
+        </p>
+<pre class="example">
+rabbitmqctl set_policy federate-me '^amq\.' '{"federation-upstream":"my-upstream"}'
+</pre>
+        <p>
+          Note that you cannot use
+          the <code>federation-upstream</code>
+          and <code>federation-upstream-set</code> keys together in a
+          policy. For more detail on policies, see
+          the <a href="parameters.html#policies">policy</a>
+          documentation.
+        </p>
+
+      </doc:subsection>
+
       <doc:subsection name="upstreams">
         <doc:heading>Upstreams</doc:heading>
         <p>
