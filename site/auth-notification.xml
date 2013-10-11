@@ -20,7 +20,7 @@
       <code>authentication_failure_close</code> <a href="consumer-cancel.html#capabilities">capability</a>.
       If this capability is absent then authentication failures are reported
       in the legacy fashion: by abruptly closing the network connection. If this
-      capability is present then the broker will send a <code>basic.close</code>
+      capability is present then the broker will send a <code>connection.close</code>
       command to the client indicating ACCESS_REFUSED as the reason. The broker
       will create a log entry for the authentication failure in either case.
     </p>
