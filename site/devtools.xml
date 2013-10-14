@@ -467,7 +467,7 @@
             </ul>
           </doc:section>
           <doc:section name="lisp-dev">
-            <doc:heading>Lisp</doc:heading>
+            <doc:heading>Common Lisp</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/lisp/de.setf.amqp">de.setf.amqp</a> a Common Lisp client library for AMQP
