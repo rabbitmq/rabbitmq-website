@@ -484,7 +484,7 @@
             <doc:heading>Haskell</doc:heading>
             <ul class="plain">
               <li>
-                An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a>
+                An <a href="https://github.com/hreinhardt/amqp">RabbitMQ client for Haskell</a>
               </li>
               <li>
                 <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
