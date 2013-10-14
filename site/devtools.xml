@@ -459,7 +459,7 @@
             <doc:heading>Go</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
+                <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>
               </li>
               <li>
                 <a href="https://github.com/gocardless/amqpc">amqpc</a>, a load testing tool for RabbitMQ clusters
