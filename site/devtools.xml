@@ -174,6 +174,9 @@
                 <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
               </li>
               <li>
+                <a href="https://github.com/ruby-amqp/rabbitmq_http_api_client">Ruby RabbitMQ HTTP API client</a>
+              </li>
+              <li>
                 <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
               </li>
               <li>
@@ -191,12 +194,18 @@
             <doc:heading>Python</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens: An Introduction</a>
-              </li>
-              <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
                 (the <a href="https://github.com/pika/pika">source code</a> is on github; the
                 <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
+              </li>
+              <li>
+                <a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python
+              </li>
+              <li>
+                <a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)
+              </li>
+              <li>
+                <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens: An Introduction</a>
               </li>
               <li>
                 <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a>, an AMQP 0-8 client library
@@ -230,12 +239,6 @@
               </li>
               <li>
                 <a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python
-              </li>
-              <li>
-                <a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)
-              </li>
-              <li>
-                <a href="http://ask.github.com/celery/">Celery</a>, a distributed task queue for Django and pure Python
               </li>
               <li>
                 <a href="https://github.com/cenkalti/kuyruk">Kuyruk</a>, a task queue
@@ -438,11 +441,6 @@
             <doc:heading>Node.js</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
-                these installation instructions</a> for rabbit.js on Ubuntu.
-              </li>
-              <li>
                 <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
                 RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
               </li>
@@ -450,13 +448,18 @@
                 <a href="https://github.com/postwait/node-amqp">node-amqp</a>
                 RabbitMQ Node.js client
               </li>
+              <li>
+                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
+                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                these installation instructions</a> for rabbit.js on Ubuntu.
+              </li>
             </ul>
           </doc:section>
           <doc:section name="go-dev">
             <doc:heading>Go</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/streadway/amqp">Go language client</a> for AMQP 0-9-1
+                <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>
               </li>
               <li>
                 <a href="https://github.com/gocardless/amqpc">amqpc</a>, a load testing tool for RabbitMQ clusters
@@ -464,7 +467,7 @@
             </ul>
           </doc:section>
           <doc:section name="lisp-dev">
-            <doc:heading>Lisp</doc:heading>
+            <doc:heading>Common Lisp</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/lisp/de.setf.amqp">de.setf.amqp</a> a Common Lisp client library for AMQP
@@ -481,7 +484,7 @@
             <doc:heading>Haskell</doc:heading>
             <ul class="plain">
               <li>
-                An <a href="http://hackage.haskell.org/packages/archive/amqp/">AMQP client for Haskell</a>
+                An <a href="https://github.com/hreinhardt/amqp">RabbitMQ client for Haskell</a>
               </li>
               <li>
                 <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
