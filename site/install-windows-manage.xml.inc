@@ -47,7 +47,7 @@
   <h3>Troubleshooting When Running as a Service</h3>
 
   <p>
-    In the event that the erlang VM crashes whilst RabbitMQ is running
+    In the event that the Erlang VM crashes whilst RabbitMQ is running
     as a service, rather than writing the crash dump to the current
     directory (which doesn't make sense for a service) it is written
     to an <code>erl_crash.dump</code> file in the base directory of
