@@ -94,5 +94,5 @@ if [ $mode = www ] ; then
         echo "*** Note site www.rabbitmq.com-ssl is not enabled. Please enable manually if necessary. ***"
     fi
 
-    sed "s|@USER@|$mirror_user|" <conf/mirror-rabbit-feeds.cron >/etc/cron.d/mirror-rabbit-feeds
+    sed "s|@USER@|$mirror_user|" <conf/refresh-site.cron >/etc/cron.d/refresh-site
 fi
