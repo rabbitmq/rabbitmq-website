@@ -70,10 +70,16 @@
         a pattern that queue names are matched against. Matching queues will
         be federated.
       </p>
+      <p>
+        A federated queue can belong to only one policy. If more than one
+        policy matches queue name, <i>policy priority</i> acts as a tie breaker.
+        When two policies have the same priority, the matching one is chosen
+        non-deterministically.
+      </p>
 
       <img src="/img/federated_queues01.png"
            width="700"
-           alt="Overview of federated queues" />
+           alt="Federated queue policies" />
 
       <h3>How It Works</h3>
       <p>
@@ -164,7 +170,7 @@
     <doc:section name="implementation">
       <doc:heading>Implementation</doc:heading>
       <p>
-        Inter-broker communication is implemented using AMQP (optionally
+        Inter-broker communication is implemented using AMQP 0-9-1 (optionally
         secured with SSL). When a federated queue is empty and has active
         consumers with a <a href="consumer-priority.html">priority</a> of
         0 or greater, it consumes from all upstream queues. As soon as it
@@ -188,6 +194,7 @@
         capacity keeps moving around then so will the messages.
       </p>
 
+      <h3>RabbitMQ Version Requirements</h3>
       <p>
         Brokers running different versions of RabbitMQ can be connected
         using federation. However, since queue federation requires
