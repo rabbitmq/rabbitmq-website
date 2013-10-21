@@ -3,47 +3,47 @@ Release: RabbitMQ 3.2.0
 server
 ------
 bug fixes
-25276 ensure queues declared as exclusive are not durable or mirrored
-      (since 2.6.0)
-25390 tolerate corrupt queue index files with trailing zeroes during boot
-      (since 2.0.0)
-25404 prevent potential deadlocks during shutdown
-25602 fix race condition that could caused queues to crash during promotion
-      (since 2.6.0)
-25685 prevent race that leads to a masterless queue when a slave and
-      previous master start simultaneously (since 2.6.0)
-25704 remove possibility of "incompatible Erlang bytecode" failure in cluster
-      startup (since 3.1.0)
-25721 fix logging of config file location (since 3.1.0)
+25602 fix race condition that could cause mirrored queues to corruprt state
+      during promotion (since 2.6.0)
 25745 prevent HA queue from becoming masterless if multiple nodes shutdown in
       quick succession (since 2.6.0)
-25757 prevent error being logged when an exclusive queue owner disconnects
-      during declaration (since 3.0.0)
-25780 stop ram nodes from becoming disc nodes when started in isolation
-      (since 3.0.0)
+25685 prevent race that leads to a masterless queue when a slave and
+      previous master start simultaneously (since 2.6.0)
 25815 ensure that persistent messages with expiration property timeout
       correctly after broker restarts (since 3.0.0)
+25780 stop ram nodes from becoming disc nodes when started in isolation
+      (since 3.0.0)
+25404 prevent potential deadlocks during shutdown
 25822 prevent crash at startup when starting a clustered node hosting a
       durable non-HA queue which had been bound to a transient exchange which
       was deleted when the node was down (since 2.5.0)
+25390 tolerate corrupt queue index files with trailing zeroes during boot
+      (since 2.0.0)
+25704 remove possibility of "incompatible Erlang bytecode" failure in cluster
+      startup (since 3.1.0)
+25721 fix logging of config file location (since 3.1.0)
+25276 ensure queues declared as exclusive are not durable or mirrored
+      (since 2.6.0)
+25757 prevent error being logged when an exclusive queue owner disconnects
+      during declaration (since 3.0.0)
 25675 prevent crash when sending OTP status query to writer or heartbeater
       processes (since 1.0.0)
 
 enhancements
-25553 federated queues
-25725 consumer priorities
-23958 backport OTP process supervision infrastructure improvements
+25553 support for federated queues
+25749 allow alternate and dead-letter exchanges, queue max length, expiry and
+      message TTL to be controlled by policy as well as AMQP arguments
 24094 report client authentication errors during connection establishment
       explicitly using basic.close
 25191 inform clients when memory or disk alarms are set or cleared
 25572 allow policies to target queues or exchanges or both
+25726 make it harder to trigger the disk space alarm with default settings
 25597 offer greater control over threshold at which messages are paged to disk
 25716 allow missing exchanges & queues to be deleted and unbound without
       generating an AMQP error
-25726 make it harder to trigger the disk space alarm with default settings
+25725 implement consumer priorities
+23958 backport OTP process supervision infrastructure improvements
 25733 relax type constraints of header exchanges
-25749 allow alternate and dead-letter exchanges, queue max length, expiry and
-      message TTL to be controlled by policy as well as AMQP arguments
 25809 add support for specifying a SSL verify_fun name in the config file
 
 
@@ -51,6 +51,8 @@ building & packaging
 --------------------
 enhancements
 20384 add sample configuration file
+
+dependency change
 25581 require at least Erlang version R13B03 for broker and plugins
 
 feature removal
@@ -63,20 +65,20 @@ bug fixes
 25601 report on queue lengths and data rates in a more timely fashion
       (since 3.1.0)
 25676 display chart times in the local time zone rather than UTC (since 3.1.0)
-25770 improved caching behaviour of web interface (since 2.1.0)
+25770 prevent over-enthusiastic caching of web UI templates (since 2.1.0)
 
 enhancements
 25063 support arrays in web interface for arguments, policies and headers
 25598 display queue paging information
-25616 more readable number formatting in graph labels
-25641 permit turning tracing on/off using the HTTP API
 25711 improve handling of defaults in config file by rabbitmqadmin (thanks to
       Simon Lundström)
 25747 de-emphasise internal federation queues and exchanges
 25778 introduce 'policymaker' tag, permitting policy & parameter operations
       without being full administrator
-25792 optimise monitoring of file descriptors on OS X
+25616 more readable number formatting in graph labels
+25641 permit turning tracing on/off using the HTTP API
 25811 add support for web UI authentication via the initial URI
+25792 optimise monitoring of file descriptors on OS X
 
 
 LDAP plugin
