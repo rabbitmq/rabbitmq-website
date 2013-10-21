@@ -26,6 +26,8 @@ bug fixes
 25815 ensure that persistent messages timeout correctly after broker restarts
 25822 prevent error when restarting a clustered node hosting a durable non-HA
       queue with a binding from a transient exchange
+25675 prevent crash when sending OTP status query to writer or heartbeater
+      processes (since 1.0.0)
 
 enhancements
 25553 federated queues
@@ -36,8 +38,6 @@ enhancements
 25191 inform publishers with the required capability of alarms status changes
 25572 policies now target queues or exchanges explicitly
 25597 offer greater control over threshold at which messages are paged to disk
-25675 writer and heartbeater processes now answer to OTP status queries
-      (since 1.0.0)
 25716 allow missing exchanges & queues to be deleted and unbound without
       generating an error (since 1.0.0)
 25726 make it harder to trigger the disk space alarm
@@ -61,18 +61,18 @@ management plugin
 -----------------
 bug fixes
 25719 fix theoretical cross-cluster version incompatibility
+25601 report on queue lengths and data rates in a more timely fashion
+      (since 3.1.0)
+25676 display chart times in the local time zone rather than UTC (since 3.1.0)
+25770 improved caching behaviour of web interface (since 2.1.0)
 
 enhancements
 25063 support arrays in web interface for arguments, policies and headers
 25598 display queue paging information
-25601 report on queue lengths and data rates in a more timely fashion
-      (since 3.1.0)
 25616 more readable number formatting in graph labels
 25641 permit turning tracing on/off using the HTTP API
-25676 dispplay chart times in the local rather that UTC (since 3.1.0)
 25711 improve handling of parameters by commandline tool
 25747 hide internal federation queues and exchanges
-25770 improved caching behaviour of web interface (since 2.1.0)
 25778 permit policy & parameter operations without being administrator
 25792 optimise monitoring of file descriptors
 25811 add support for re-authentication via the initial URI
