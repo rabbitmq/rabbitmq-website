@@ -22,10 +22,12 @@ bug fixes
       quick succession (since 2.6.0)
 25757 prevent error when an exclusive queue owner disconnects during declaration
       (since 3.0.0)
-25780 stop ram nodes from becoming a disc node when started in isolation
-25815 ensure that persistent messages timeout correctly after broker restarts
+25780 stop ram nodes from becoming disc nodes when started in isolation
+      (since 3.0.0)
+25815 ensure that persistent messages with expiration property timeout
+      correctly after broker restarts (since 3.0.0)
 25822 prevent error when restarting a clustered node hosting a durable non-HA
-      queue with a binding from a transient exchange
+      queue with a binding from a transient exchange (since 2.5.0)
 25675 prevent crash when sending OTP status query to writer or heartbeater
       processes (since 1.0.0)
 
@@ -39,7 +41,7 @@ enhancements
 25572 policies now target queues or exchanges explicitly
 25597 offer greater control over threshold at which messages are paged to disk
 25716 allow missing exchanges & queues to be deleted and unbound without
-      generating an error (since 1.0.0)
+      generating an error
 25726 make it harder to trigger the disk space alarm
 25733 relax type constraints of header exchanges
 25749 grant policy control over alternate and dead-letter exchanges;
@@ -60,7 +62,6 @@ feature removal
 management plugin
 -----------------
 bug fixes
-25719 fix theoretical cross-cluster version incompatibility
 25601 report on queue lengths and data rates in a more timely fashion
       (since 3.1.0)
 25676 display chart times in the local time zone rather than UTC (since 3.1.0)
@@ -90,7 +91,6 @@ federation plugin
 bug fixes
 25707 prevent upstream queues from being deleted, thus preventing deletion
       upon policy change (since 3.0.0)
-25807 correct process supervision hierarchy
 
 enhancements
 25554 simplify upstream sets, making them optional
@@ -109,13 +109,13 @@ enhancement
 25539 make the default virtual host configurable
 
 bug fixes
-25404 prevent potential deadlocks during shutdown
+25404 prevent potential deadlocks during shutdown (since 3.1.0)
 
 
 STOMP plugin
 -----------
 bug fixes
-25692 prevent potential deadlocks during shutdown
+25692 prevent potential deadlocks during shutdown (since 2.3.0)
 25789 prevent incomplete TCP connection attempts from leaking processes
       (since 2.3.0)
 
@@ -133,7 +133,7 @@ bug fixes
 jsonrpc-channel plugin
 ----------------------
 bug fixes
-25776 fix dependencies that preventing plugin from running
+25776 fix dependencies that preventing plugin from running (since 3.1.4)
 
 
 java client
