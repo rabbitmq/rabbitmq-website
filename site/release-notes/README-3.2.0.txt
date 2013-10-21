@@ -3,7 +3,7 @@ Release: RabbitMQ 3.2.0
 server
 ------
 bug fixes
-25602 fix race condition that could cause mirrored queues to corruprt state
+25602 fix race condition that could cause mirrored queues to corrupt state
       during promotion (since 2.6.0)
 25745 prevent HA queue from becoming masterless if multiple nodes shutdown in
       quick succession (since 2.6.0)
