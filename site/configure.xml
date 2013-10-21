@@ -90,8 +90,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
              </p>
              <p>
                Create or edit the system variable name and value.
-               For environment changes to take effect, open a new Command Prompt,
-               then restart the broker or re-install the service.
+               For environment changes to take effect the service must be
+               re-installed.
             </p>
         </doc:subsection>
       </doc:section>
@@ -340,8 +340,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           value of this variable.
         </p>
         <p>
-          Restart the server after changes. Windows service users need to take
-          <a href="/plugins.html#windows-restart">additional steps</a> when changing plugins.
+          Restart the server after changes. Windows service users will need to re-install the
+          service after adding or removing a configuration file. Windows service users will also
+          need to take <a href="/plugins.html#windows-restart">additional steps</a> when changing plugins.
         </p>
         </doc:subsection>
 
