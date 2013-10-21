@@ -48,7 +48,7 @@ enhancements
 
 
 building & packaging
----------
+--------------------
 enhancements
 20384 add sample configuration file
 25581 require at least Erlang version R13B03 for broker and plugins
@@ -106,15 +106,15 @@ enhancements
 
 AMQP 1.0 plugin
 ---------------
-enhancement
-25539 make the default virtual host configurable
-
 bug fixes
 25404 prevent potential deadlocks during shutdown (since 3.1.0)
 
+enhancements
+25539 make the default virtual host configurable
+
 
 STOMP plugin
------------
+------------
 bug fixes
 25692 prevent potential deadlocks during shutdown (since 2.3.0)
 25789 prevent incomplete TCP connection attempts from leaking processes
@@ -149,7 +149,7 @@ enhancements
 
 
 .net client
--------------
+-----------
 enhancements
 25552 make better use of generic types
 25595 consumer cancellation is now exposed as an event
