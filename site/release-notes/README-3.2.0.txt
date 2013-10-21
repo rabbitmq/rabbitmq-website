@@ -3,31 +3,29 @@ Release: RabbitMQ 3.2.0
 server
 ------
 bug fixes
-25276 prohibit the combination of exclusive durable queues, ignore the durable
-      flag and prevent mirroring when both are set (since 2.6.0)
+25276 ensure queues declared as exclusive are not durable or mirrored
+      (since 2.6.0)
 25390 tolerate corrupt queue index files with trailing zeroes during boot
       (since 2.0.0)
 25404 prevent potential deadlocks during shutdown
-25563 prevent possible failure when upgrading secondary cluster nodes
-      (since 2.1.0)
 25602 fix race condition that could caused queues to crash during promotion
       (since 2.6.0)
-25677 prevent crash when reconsuming asynchronously with the same tag
-      (since 2.6.0)
-25685 prevent race that leads to a possible policy violation when a slave and
+25685 prevent race that leads to a masterless queue when a slave and
       previous master start simultaneously (since 2.6.0)
-25704 fix cross-cluster version compatibility checks (since 3.1.0)
-25721 display the location of active config file unconditionally (since 3.1.0)
+25704 remove possibility of "incompatible Erlang bytecode" failure in cluster
+      startup (since 3.1.0)
+25721 fix logging of config file location (since 3.1.0)
 25745 prevent HA queue from becoming masterless if multiple nodes shutdown in
       quick succession (since 2.6.0)
-25757 prevent error when an exclusive queue owner disconnects during declaration
-      (since 3.0.0)
+25757 prevent error being logged when an exclusive queue owner disconnects
+      during declaration (since 3.0.0)
 25780 stop ram nodes from becoming disc nodes when started in isolation
       (since 3.0.0)
 25815 ensure that persistent messages with expiration property timeout
       correctly after broker restarts (since 3.0.0)
-25822 prevent error when restarting a clustered node hosting a durable non-HA
-      queue with a binding from a transient exchange (since 2.5.0)
+25822 prevent crash at startup when starting a clustered node hosting a
+      durable non-HA queue which had been bound to a transient exchange which
+      was deleted when the node was down (since 2.5.0)
 25675 prevent crash when sending OTP status query to writer or heartbeater
       processes (since 1.0.0)
 
@@ -37,26 +35,26 @@ enhancements
 23958 backport OTP process supervision infrastructure improvements
 24094 report client authentication errors during connection establishment
       explicitly using basic.close
-25191 inform publishers with the required capability of alarms status changes
-25572 policies now target queues or exchanges explicitly
+25191 inform clients when memory or disk alarms are set or cleared
+25572 allow policies to target queues or exchanges or both
 25597 offer greater control over threshold at which messages are paged to disk
 25716 allow missing exchanges & queues to be deleted and unbound without
-      generating an error
-25726 make it harder to trigger the disk space alarm
+      generating an AMQP error
+25726 make it harder to trigger the disk space alarm with default settings
 25733 relax type constraints of header exchanges
-25749 grant policy control over alternate and dead-letter exchanges;
-      queue max length and TTL; and message TTL
+25749 allow alternate and dead-letter exchanges, queue max length, expiry and
+      message TTL to be controlled by policy as well as AMQP arguments
 25809 add support for specifying a SSL verify_fun name in the config file
 
 
 building & packaging
 ---------
 enhancements
-20384 added sample configuration file
+20384 add sample configuration file
 25581 require at least Erlang version R13B03 for broker and plugins
 
 feature removal
-25455 removed MacPorts repository
+25455 remove RabbitMQ-maintained MacPorts repository
 
 
 management plugin
@@ -72,11 +70,13 @@ enhancements
 25598 display queue paging information
 25616 more readable number formatting in graph labels
 25641 permit turning tracing on/off using the HTTP API
-25711 improve handling of parameters by commandline tool
-25747 hide internal federation queues and exchanges
-25778 permit policy & parameter operations without being administrator
-25792 optimise monitoring of file descriptors
-25811 add support for re-authentication via the initial URI
+25711 improve handling of defaults in config file by rabbitmqadmin (thanks to
+      Simon Lundström)
+25747 de-emphasise internal federation queues and exchanges
+25778 introduce 'policymaker' tag, permitting policy & parameter operations
+      without being full administrator
+25792 optimise monitoring of file descriptors on OS X
+25811 add support for web UI authentication via the initial URI
 
 
 LDAP plugin
@@ -93,7 +93,8 @@ bug fixes
       upon policy change (since 3.0.0)
 
 enhancements
-25554 simplify upstream sets, making them optional
+25554 allow federation policy to specify a single upstream instead of an
+      upstream-set
 25797 various performance enhancements
 
 
@@ -126,7 +127,7 @@ enhancements
 MQTT plugin
 -----------
 bug fixes
-25577 resumed subscriptions become active immediately after reconnecting
+25577 ensure resumed subscriptions become active immediately after reconnecting
 25744 correct client shutdown sequence in the event of failed startup
 
 
@@ -161,10 +162,11 @@ bug fixes
 25743 prevent failures due to connection string lookup errors in the direct
       client (since 2.8.1)
 25794 prevent startup error when using SSL on versions of Erlang from R16B01
+25677 prevent crash when reconsuming asynchronously with the same tag
+      (since 2.6.0)
 
 enhancements
-25520 optimise network reading performance
-25804 optimise network writing performance
+25520, 25804 optimise network performance (thanks to Jesper Louis Andersen)
 25782 support connection_timeout in AMQP URI
 
 
