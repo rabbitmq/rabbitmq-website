@@ -161,8 +161,8 @@ erlang client
 -------------
 bug fixes
 25682 prevent potential deadlocks during shutdown
-25743 prevent failures due to connection string lookup errors in the direct
-      client (since 2.8.1)
+25743 prevent failures due to connection string lookup errors in protocols
+      other than AMQP 0-9-1 / 0-8 (since 2.8.1)
 25794 prevent startup error when using SSL on versions of Erlang from R16B01
 25677 prevent crash when reconsuming asynchronously with the same tag
       (since 2.6.0)
