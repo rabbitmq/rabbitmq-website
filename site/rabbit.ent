@@ -4,7 +4,7 @@
 <!ENTITY version-server "3.2.0">
 <!ENTITY version-erlang-client "3.2.0">
 <!ENTITY version-server-hg "rabbitmq_v3.2.0">
-<!ENTITY standalone-otp-version "R16B01">
+<!ENTITY standalone-otp-version "R16B02">
 
 <!ENTITY serverDebMinorVersion "1">
 <!ENTITY serverRPMMinorVersion "1">
