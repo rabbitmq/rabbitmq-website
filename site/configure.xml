@@ -306,8 +306,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <p>
            This configuration file is not the same as
           <code>rabbitmq-env.conf</code>, which can be used to set environment
-          variables on non-windows systems. A future release of RabbitMQ will unify the two configuration
-          mechanisms.
+          variables on non-windows systems.
         </p>
         </doc:subsection>
 
@@ -344,6 +343,29 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           service after adding or removing a configuration file. Windows service users will also
           need to take <a href="/plugins.html#windows-restart">additional steps</a> when changing plugins.
         </p>
+        </doc:subsection>
+
+        <doc:subsection name="example-config">
+          <doc:heading>Example rabbitmq.config file</doc:heading>
+          <p>
+            We ship an example configuration file with the RabbitMQ
+            server, named <code>rabbitmq.config.example</code>. This
+            example file contains an example of most of the
+            configuration items you might want to set (with some very
+            obscure ones omitted) along with documentation for those
+            settings. All configuration items are commented out in the
+            example, so you can uncomment what you need.
+          </p>
+
+          <p>
+            In most distributions we place this example file in the
+            same location as the real file should be placed (see
+            above). However, for the Debian and RPM distributions
+            policy forbids doing so; instead you can find it
+            in <code>/usr/share/doc/rabbitmq-server/</code>
+            or <code>/usr/share/doc/rabbitmq-server-&version-server;/</code>
+            respectively.
+          </p>
         </doc:subsection>
 
         <doc:subsection name="config-items">
