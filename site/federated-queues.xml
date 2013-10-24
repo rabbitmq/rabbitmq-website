@@ -14,10 +14,8 @@
       <h3>Overview</h3>
       <p>
         In addition to <a href="">federated exchanges</a>, RabbitMQ
-        supports federated queues. This feature can be used for
-        asynchronous replication, as a network split tolerant
-        alternative to clustering, as a way of balancing the load
-        of a single queue across nodes, and more.
+        supports federated queues. This feature provides a way of
+        balancing the load of a single queue across nodes or clusters.
       </p>
 
       <p>
