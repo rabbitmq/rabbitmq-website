@@ -14,6 +14,21 @@
       </tr>
 
       <tr>
+        <td class="centre">3.2.0</td>
+        <td class="centre">23 October 2013</td>
+        <td>
+          <ul>
+            <li><a href="federated-queues.html">Federated queues</a></li>
+            <li><a href="parameters.html#policies">Enhanced policies</a></li>
+            <li><a href="consumer-priority.html">Consumer priorities</a></li>
+            <li><a href="connection-blocked.html">Blocked connection notifications</a></li>
+            <li><a href="auth-notification.html">Authentication failure notifications</a></li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.2.0.txt">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.1.5</td>
         <td class="centre">15 August 2013</td>
         <td>

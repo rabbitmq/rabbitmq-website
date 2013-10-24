@@ -35,18 +35,20 @@
         </dt>
         <dd>
           <p>
-            The typical use would be to have the same "logical" queue
-            distributed over many brokers. Each broker would declare a federated
-            queue with all the other federated queues upstream. (The links
-            would form a complete bi-directional graph on <i>n</i> queues.)
+            The typical use would be to have a single logical work
+            queue distributed over a WAN. This would have a higher
+            capacity than a single queue. Messages can be produced and
+            consumed everywhere; the federation mechanism will try to
+            ensure that messages are consumed locally as much as
+            possible, but will move messages around in order to
+            perform load balancing.
           </p>
           <p>
-            Such a logical distributed queue is capable of having rather
-            higher capacity than a single queue. It will perform best when
-            there is some degree of locality; i.e. as many messages as
-            possible are consumed from the same queue as they were published
-            to, and the federation mechanism only needs to move messages
-            around in order to perform load balancing.
+            Each broker would declare a federated queue with all the
+            other federated queues upstream. (The links would form a
+            complete bi-directional graph on <i>n</i> queues.)
+          </p>
+          <p>
           </p>
         </dd>
 
@@ -99,6 +101,11 @@
             synchronous, we'd have to block while we contacted all the other
             nodes to retrieve more messages - which wouldn't sit well with
             federation's available / partition tolerant approach.
+          </p>
+          <p>
+            So basic.get is ignored by the federation mechanism. It will still
+            work, but it will not cause any messages to be moved to the node
+            where it was invoked.
           </p>
         </dd>
 
