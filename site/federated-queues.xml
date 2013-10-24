@@ -82,7 +82,7 @@
       <h3>How It Works</h3>
       <p>
         The federated queue will connect to all its upstream queues using
-        AMQP 0-9-1. When declaring or configuring the federated queue each
+        AMQP. When declaring or configuring the federated queue each
         upstream queue is listed with the connection properties to be used
         to establish the link.
       </p>
@@ -168,7 +168,7 @@
     <doc:section name="implementation">
       <doc:heading>Implementation</doc:heading>
       <p>
-        Inter-broker communication is implemented using AMQP 0-9-1 (optionally
+        Inter-broker communication is implemented using AMQP (optionally
         secured with SSL). When a federated queue is empty and has active
         consumers with a <a href="consumer-priority.html">priority</a> of
         0 or greater, it consumes from all upstream queues. As soon as it
