@@ -182,9 +182,9 @@
           </p>
           <p>
             If you start by double-clicking, a Command Prompt window opens,
-            displays a banner message, reports on progress in the startup sequence,
-            and concludes with "broker running".
-            This shows that the RabbitMQ broker has been started successfully.
+            displays a short banner message, concluding with the message
+            "completed with <i>[n]</i> plugins.", indicating that the RabbitMQ
+            broker has been started successfully.
           </p>
           <p>
             If you started without the <code>-detached</code> option,

@@ -19,6 +19,12 @@
         <li>
           <a href="&dir-current-javadoc;">Javadoc documentation</a>
         </li>
+        <li>
+          <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">JMS client</a> (commercial)
+        </li>
+        <li>
+          <a href="java-tools.html">Command line tools</a>
+        </li>
       </ul>
     </div>
 
@@ -26,7 +32,7 @@
       <h2>.Net Client</h2>
       <ul>
         <li>
-            <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide (pdf)</a>
+            <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide (pdf)</a>
           </li>
           <li>
             <a href="&dir-current-dotnet-apidoc;/index.html">.NET Client API documentation (htmldoc)</a>

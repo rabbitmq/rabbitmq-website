@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-four">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Routing
 ### (using the Java client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-three-java.html) we built a
 simple logging system. We were able to broadcast log messages to many
@@ -343,5 +337,3 @@ and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutor
 
 Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
 for messages based on a pattern.
-
-</div>

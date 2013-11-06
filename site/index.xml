@@ -1,4 +1,8 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
     <title>Messaging that just works</title>
@@ -13,7 +17,7 @@
 	  </a>
 	</span>Latest News
       </h3>
-      <doc:homefeed src="news.atom" type="ournews" limit="3" />
+      <doc:homefeed src="news.atom" type="ournews" limit="5" />
 
       <h3>
 	<span class="subscribe">
@@ -22,15 +26,7 @@
 	  </a>
 	</span>Latest Blog Posts
       </h3>
-      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="3" />
-      <h3>
-  	<span class="subscribe">
-	  <a href="http://search.twitter.com/search.atom?q=rabbitmq">
-	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to a RabbitMQ feed from Twitter" title="Subscribe to a RabbitMQ feed from Twitter" />
-	  </a>
-	</span>Latest Community Chatter
-      </h3>
-      <doc:homefeed src="../feeds/twitter.atom" type="twitter" limit="4"/>
+      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="5" />
     </div>
 
     <div id="home-content">
@@ -96,6 +92,21 @@
         release of RabbitMQ, and that are available in
         the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
         builds</a>.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
+    <x:modal mode="previous">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>previous.rabbitmq.com</b>, exists to document
+        a historical feature release of RabbitMQ (&version-server;).
+        Visit the <a href="http://previous.rabbitmq.com/">release index page</a>
+        for documentation of other historical releases.
       </p>
       <ul id="large-bullets">
         <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>

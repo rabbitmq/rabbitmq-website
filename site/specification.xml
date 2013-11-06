@@ -20,13 +20,13 @@
   specification.
   </p>
   <p>
-  The RabbitMQ team is an active participant in the AMQP Working Group,
-  which aims to deliver an implementable AMQP 1.0 draft this year.  A
-  future version of RabbitMQ will implement AMQP 1.0.  Please
-  <a href="contact.html">contact us</a> for details.  You can also view a
-  <a href="/resources/f2f-overview12.ppt">1-0 public review presentation</a> (PPT) or an <a href="/resources/AMQPF2FPresentation.pdf">introduction to the
-1-0 Draft</a> (PDF).
-	</p>
+    RabbitMQ implements AMQP 1.0 via an experimental <a
+    href="plugins.html">plugin</a>. However, AMQP 1.0 is a completely
+    different protocol than AMQP 0-9-1 and hence not a suitable
+    replacement for the latter.  RabbitMQ will therefore continue to
+    support AMQP 0-9-1 (and its close relatives 0-9 and 0-8)
+    indefinitely. RabbitMQ is unlikely ever to support AMQP 0-10.
+  </p>
         <p>
           The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
           your convenience.  We recommend reading them if you want to
@@ -170,17 +170,44 @@
 	  <method name="channel.close-ok"><status value="ok"/></method>
 	  <method name="exchange.declare"><status value="ok"/></method>
 	  <method name="exchange.declare-ok"><status value="ok"/></method>
-	  <method name="exchange.delete"><status value="ok"/></method>
+	  <method name="exchange.delete">
+            <status value="partial"/>
+            <notes>
+              We have made exchange.delete into an idempotent assertion that
+              the exchange must not exist, in the same way that
+              exchange.declare asserts that it must.
+            </notes>
+          </method>
 	  <method name="exchange.delete-ok"><status value="ok"/></method>
 	  <method name="queue.declare"><status value="ok"/></method>
-	  <method name="queue.declare-ok"><status value="ok"/></method>
+	  <method name="queue.declare-ok">
+            <status value="ok"/>
+              <notes>The consumer-count parameter is the count of all
+              consumers, rather than only active consumers, as
+              mandated by the specification. The former is more useful
+              to applications.</notes>
+          </method>
 	  <method name="queue.bind"><status value="ok"/></method>
 	  <method name="queue.bind-ok"><status value="ok"/></method>
-	  <method name="queue.unbind"><status value="ok"/></method>
+	  <method name="queue.unbind">
+            <status value="partial"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
+          </method>
 	  <method name="queue.unbind-ok"><status value="ok"/></method>
 	  <method name="queue.purge"><status value="ok"/></method>
 	  <method name="queue.purge-ok"><status value="ok"/></method>
-	  <method name="queue.delete"><status value="ok"/></method>
+	  <method name="queue.delete">
+            <status value="partial"/>
+            <notes>
+              We have made queue.delete into an idempotent assertion that the
+              queue must not exist, in the same way that queue.declare asserts
+              that it must.
+            </notes>
+          </method>
 	  <method name="queue.delete-ok"><status value="ok"/></method>
 	  <method name="basic.qos">
             <status value="partial"/>
@@ -213,7 +240,9 @@
             message, i.e. the message is always delivered in full to
             the client.</notes>
           </method>
-	  <method name="basic.recover"><status value="ok"/></method>
+	  <method name="basic.recover"><status value="partial"/>
+            <notes>Recovery with requeue=false is not supported.</notes>
+          </method>
 	  <method name="tx.select"><status value="ok"/></method>
 	  <method name="tx.select-ok"><status value="ok"/></method>
 	  <method name="tx.commit"><status value="ok"/></method>
@@ -766,7 +795,12 @@
           </rule>
 
           <rule>
-            <status value="ok"/>
+            <status value="failing"/>
+            <notes>
+              We have made exchange.delete into an idempotent assertion that
+              the exchange must not exist, in the same way that
+              exchange.declare asserts that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>exchange / delete / exchange / exists</xref>
             <type/>
@@ -1014,7 +1048,7 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="ok"/>
             <type>MUST NOT</type>
             <xref>queue / bind / queue / must-exist</xref>
             <type/>
@@ -1081,26 +1115,36 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / unbind / queue / must-exist</xref>
             <type/>
             <actor>server</actor>
             <text>
-                    The client MUST NOT attempt to unbind a queue that does not exist.
-                  </text>
+              The client MUST NOT attempt to unbind a queue that does not exist.
+            </text>
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.unbind into an idempotent assertion that the
+              binding must not exist, in the same way that queue.bind asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / unbind / exchange / must-exist</xref>
             <type/>
             <actor>server</actor>
             <text>
-                    The client MUST NOT attempt to unbind a queue from an exchange that
-                    does not exist.
-                  </text>
+              The client MUST NOT attempt to unbind a queue from an exchange that
+              does not exist.
+            </text>
           </rule>
 
           <rule>
@@ -1189,7 +1233,12 @@
           </rule>
 
           <rule>
-            <status value="ok">ok</status>
+            <status value="failing"/>
+            <notes>
+              We have made queue.delete into an idempotent assertion that the
+              queue must not exist, in the same way that queue.declare asserts
+              that it must.
+            </notes>
             <type>MUST NOT</type>
             <xref>queue / delete / queue / must-exist</xref>
             <type/>

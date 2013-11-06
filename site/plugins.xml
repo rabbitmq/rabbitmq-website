@@ -22,11 +22,11 @@
           the <a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>
           tool:
         </p>
-        <pre class="example">    rabbitmq-plugins enable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins enable <i>plugin-name</i></pre>
         <p>And to disable plugins again, use:</p>
-        <pre class="example">    rabbitmq-plugins disable <i>plugin-name</i></pre>
+        <pre class="example">rabbitmq-plugins disable <i>plugin-name</i></pre>
         <p>You can see a list of which plugins are enabled with:</p>
-        <pre class="example">    rabbitmq-plugins list</pre>
+        <pre class="example">rabbitmq-plugins list</pre>
         <p>
           Enabling or disabling plugins has no effect on a running RabbitMQ
           server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
@@ -36,25 +36,15 @@
           consult <a href="man/rabbitmq-plugins.1.man.html">the manual
           page</a>.
         </p>
-        <!-- TODO: remove this after a suitable transition period -->
-        <p>
-          <b>Note: </b> Releases prior to 2.7.0 did not include
-          plugins with the server, and any plugins that were installed
-          were always activated; <code>rabbitmq-plugins</code> did not
-          exist. You can download binary plugin files for older
-          releases from <a href="/releases/plugins/">the
-          archive</a>. Note further that we did not make binary
-          plugins available prior to release 2.0.0.
-        </p>
       </doc:section>
 
       <doc:section name="maintained">
         <doc:heading>Maintained Plugins</doc:heading>
         <table>
           <r:plugin name="rabbitmq_auth_backend_ldap">
-            Authentication / authorisation plugin using an external LDAP
-            server. See the <r:readme-link repo="rabbitmq-auth-backend-ldap"/>
-            for more information.
+            Authentication / authorisation plugin using an external
+            LDAP server. See the <a href="ldap.html">the page on the
+            LDAP plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
@@ -64,10 +54,16 @@
             information.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_consistent_hash_exchange">
+            Consistent hash exchange type. Please see the
+            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
+            for more information.
+          </r:plugin>
+
           <r:plugin name="rabbitmq_federation">
-            Scalable publish / subscribe messaging across WANs and
-            administrative domains. See <a href="federation.html">the
-            page on the federation plugin</a> for more information.
+            Scalable messaging across WANs and administrative
+            domains. See <a href="federation.html">the page on the
+            federation plugin</a> for more information.
           </r:plugin>
 
           <r:plugin name="rabbitmq_federation_management">
@@ -91,6 +87,13 @@
             on <em>all</em> of the nodes in the cluster. You can install the
             full management plugin on as many of the nodes as you
             want.
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_mqtt">
+            An adapter implementing the MQTT 3.1 protocol. Please see the 
+            <a href="mqtt.html">documentation</a> and
+            our <a href="http://www.rabbitmq.com/blog/2012/09/12/mqtt-adapter/">blog</a> 
+            for more information on using it.
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel">
@@ -144,12 +147,6 @@
             the links between them.
           </r:plugin>
 
-          <r:plugin name="rabbitmq_consistent_hash_exchange">
-            Consistent hash exchange type. Please see the
-            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
-            for more information.
-          </r:plugin>
-
           <r:plugin name="rabbitmq_tracing">
             Adds message tracing to the management plugin. Logs
             messages from the <a href="firehose.html">firehose</a> in
@@ -182,6 +179,10 @@
             and a basic canvas-based collaboration tool.
           </r:plugin>
 
+          <r:plugin name="rabbitmq_amqp1_0">
+            An implementation of the AMQP 1.0 protocol. See the
+            <r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/> for more details.
+          </r:plugin>
         </table>
       </doc:section>
 

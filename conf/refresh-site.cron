@@ -1,0 +1,1 @@
+*/10 * * * * @USER@ /srv/www.rabbitmq.com/code/refresh-site

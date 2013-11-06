@@ -1,16 +1,9 @@
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-five">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
-
 ## Topics
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-four-python.html) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
@@ -268,4 +261,3 @@ and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 
 Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
 
-</div>

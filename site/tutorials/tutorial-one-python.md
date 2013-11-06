@@ -1,14 +1,8 @@
 # RabbitMQ tutorial - "Hello world!" SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-one">
-  <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Introduction
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 RabbitMQ is a message broker. The principal idea is pretty simple: it accepts
 and forwards messages. You can think about it as a post office: when you send
@@ -43,7 +37,7 @@ RabbitMQ, and messaging in general, uses some jargon.
    applications, they can be stored only inside a _queue_. A _queue_
    is not bound by any limits, it can store as many messages as you
    like &#8210; it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to the one queue, many _consumers_ can try to
+   messages that go to one queue, many _consumers_ can try to
    receive data from one _queue_. A queue will be drawn as like that, with
    its name above it:
    <div class="diagram">
@@ -85,7 +79,7 @@ the same machine; indeed in most applications they don't.
 
 Hello World!
 ------------
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -134,7 +128,7 @@ messages from that queue.
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     :::bash
->     $ sudo pip install pika==0.9.5
+>     $ sudo pip install pika==0.9.8
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them first.
@@ -155,7 +149,7 @@ messages from that queue.
 >
 >         :::bash
 >         > easy_install pip
->         > pip install pika==0.9.5
+>         > pip install pika==0.9.8
 >
 
 ### Sending
@@ -408,4 +402,4 @@ We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _work queue_.
 
-</div>
+

@@ -22,12 +22,15 @@
       <div>
       <h3>Clients in other languages</h3>
       <p>
-        The tutorials here are using Python and Java, however, code
+        The tutorials here use Python, Java, Ruby and PHP, however, code
         samples are available in a variety of languages:
 
         <ul>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/dotnet">C#</a> (using <a href="http://www.rabbitmq.com/dotnet.html">.net/c# client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/default">erlang client</a>)
@@ -39,16 +42,16 @@
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/php">php</a> (using <a href="https://github.com/videlalvaro/php-amqplib">a fork of php-amqplib</a>)
-          </li>
-          <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python-puka">python-puka</a> (using <a href="https://github.com/majek/puka/">puka</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="https://github.com/ruby-amqp/amqp/">amqp gem</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby-amqp">ruby</a> (using <a href="http://rubyamqp.info">amqp gem</a>)
           </li>
         </ul>
       </p>

@@ -25,13 +25,18 @@
     </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
-      For enquiries about commercial licensing, support, training,
-      and consulting, please contact us by email on <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      For enquiries about commercial licensing, support, training, and
+      consulting, please contact us by email
+      on <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      Alternatively, if you want to phone us and speak to a Pivotal
+      sales representative please see
+      the <a href="http://www.gopivotal.com/about-pivotal/support">Pivotal
+      support page</a>.
     </p>
     <h2 id="socialmedia">Social Media</h2>
     <h3 id="microblog">Twitter</h3>
     <p>
-      RabbitMQ is on twitter. <a href="http://twitter.com/#!/rabbitmq">Follow us</a> or <a href="http://twitter.com/search?q=rabbitmq">search realtime</a> results.
+      <a href="http://twitter.com/#!/rabbitmq">RabbitMQ</a> is on twitter.
       If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
     </p>
     <h3 id="irc">IRC</h3>
@@ -39,8 +44,8 @@
       RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
       <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
       The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
-	  You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
-	</p>
+    You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
+  </p>
     <h3>Facebook</h3>
     <p>
       RabbitMQ is <a href="http://www.facebook.com/pages/RabbitMQ/202623286424686">on Facebook</a>.
@@ -50,13 +55,11 @@
     <h3 id="location">Location</h3>
     <address>
       RabbitMQ<br/>
-      c/o VMware UK<br/>
+      12th Floor<br/>
       Bluefin Building<br/>
       110, Southwark Street<br/>
       London SE1 0TA<br/>
       United Kingdom<br/>
-      T: +44 (0) 20 7654 8816<br />
-      F: +44 (0) 20 7654 8801<br />
     </address>
     <div id="map_canvas"></div>
     <h3 class="clear">Journey Planner</h3>

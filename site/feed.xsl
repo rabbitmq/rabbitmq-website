@@ -64,17 +64,6 @@
       <xsl:for-each select="(item|rss1:item|atom:entry)[position() &lt;= $limit]">
         <li>
           <xsl:choose>
-            <xsl:when test="$type = 'twitter'">
-              <xsl:value-of select="description|description|atom:content"  disable-output-escaping="yes"/>
-              <br/>
-              <xsl:variable name="published" select="pubDate|rss1:pubDate|atom:published"/>
-              <xsl:variable name="pub-date">
-                <xsl:call-template name="date-format">
-                  <xsl:with-param name="date" select="substring($published, 0, 11)"/>
-                </xsl:call-template>
-              </xsl:variable>
-              [<a href="{atom:author/atom:uri}" title="{$pub-date}"><xsl:value-of select="atom:author/atom:name"/></a>]
-            </xsl:when>
 
             <xsl:when test="$type = 'ournews'">
               <xsl:variable name="itemdate" select="pubDate|rss1:pubDate|atom:updated"/>

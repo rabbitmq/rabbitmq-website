@@ -104,6 +104,14 @@
                     <td>longstr</td>
                     <td>Erlang node on which the trace message was generated</td>
                   </tr>
+                  <tr>
+                    <td>redelivered</td>
+                    <td>signedint</td>
+                    <td>
+                      whether the message has its redelivered flag set
+                      (messages leaving the broker only)
+                    </td>
+                  </tr>
                 </table>
               </p>
 	    </li>

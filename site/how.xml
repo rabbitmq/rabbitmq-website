@@ -89,7 +89,7 @@
       and some common messaging patterns, including pubsub.
     </li>
     <li>
-      <a href="http://crad.tumblr.com/post/196979154/the-attention-deficit-disorder-guide-to-rabbitmq">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
+      <a href="http://gavinroy.com/posts/the-attention-deficit-disorder-guide-to-rabbi.html">The Attention Deficit Disorder Guide to RabbitMQ</a><br />
       Blog post for those who want to get started with RabbitMQ quickly and
       easily. Assumes you know the basics about messaging and AMQP.
     </li>
@@ -378,7 +378,7 @@
       RabbitMQ, Celery and Python, all on a Mac.
     </li>
     <li>
-      <a href="releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
+      <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">Common Messaging Patterns (.NET Client Library User Guide)</a><br />
       Whether or not you use .NET, section 3 of this guide describes ways
       of working with AMQP and a number common messaging patterns and
       interaction styles.

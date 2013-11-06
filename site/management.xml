@@ -86,7 +86,7 @@
           distribution.  To enable it, use <a
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
-        <pre class="example">    rabbitmq-plugins enable rabbitmq_management</pre>
+        <pre class="example">rabbitmq-plugins enable rabbitmq_management</pre>
         <p>
           If you wish to build the plugin from source, it can be built
           like any other. See
@@ -94,15 +94,6 @@
           page for more information, but be aware that it seems to be
           problematic to build rabbitmq-mochiweb on Windows.
         </p>
-        <doc:subsection name="erlang">
-          <doc:heading>Requirements</doc:heading>
-          <p>
-            rabbitmq-management uses
-            the <a href="https://github.com/mochi/mochiweb">Mochiweb</a>
-            web server which requires a newer Erlang version. At least
-            R13B01 is required, but later versions are recommended.
-          </p>
-        </doc:subsection>
       </doc:section>
 
       <doc:section name="getting-started">
@@ -110,19 +101,22 @@
         <ul>
           <li>
             The web UI is located at:
-            http://<i>server-name</i>:55672/mgmt/
+            http://<i>server-name</i>:15672/
           </li>
           <li>
             The HTTP API and its documentation are both located at:
-            http://<i>server-name</i>:55672/api/ (or view
+            http://<i>server-name</i>:15672/api/ (or view
             our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
           <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
-            at: http://<i>server-name</i>:55672/cli/
+            at: http://<i>server-name</i>:15672/cli/
           </li>
         </ul>
+        <p>
+          NB: The port for RabbitMQ versions prior to 3.0 is 55672.
+        </p>
         <p>
           To use the web UI you will need to authenticate as a
           RabbitMQ user (on a fresh installation the user "guest" is
@@ -142,12 +136,12 @@
       <doc:section name="permissions">
         <doc:heading>Permissions</doc:heading>
         <p>
-          The management plugin extends the
-          existing <a href="access-control.html">permissions
-          model</a> somewhat. Users can be given arbitrary tags within
-          RabbitMQ. The management plugin makes use of tags called
-          "management", "monitoring" and "administrator". The following
-          table shows what the different types of user can do:
+          The management plugin extends the existing <a
+          href="access-control.html">permissions model</a> somewhat. Users can
+          be given arbitrary tags within RabbitMQ. The management plugin makes
+          use of tags called "management", "policymaker", "monitoring" and
+          "administrator". The following table shows what the different types
+          of user can do:
         </p>
         <table>
           <tr>
@@ -180,6 +174,18 @@
             </td>
           </tr>
           <tr>
+            <td>policymaker</td>
+            <td>
+              Everything "management" can plus:
+              <ul>
+                <li>
+                  View, create and delete policies and parameters for virtual
+                  hosts to which they can log in via AMQP
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
             <td>monitoring</td>
             <td>
               Everything "management" can plus:
@@ -197,7 +203,7 @@
           <tr>
             <td>administrator</td>
             <td>
-              Everything "monitoring" can plus:
+              Everything "policymaker" and "monitoring" can plus:
               <ul>
                 <li>Create and delete virtual hosts</li>
                 <li>View, create and delete users</li>
@@ -210,7 +216,7 @@
         <p>
           Note that since "administrator" does everything "monitoring"
           does, and "monitoring" does everything "management" does,
-          you only need to give each user a maximum of one tag.
+          you frequently only need to give each user a maximum of one tag.
         </p>
         <p>
           Normal RabbitMQ permissions still apply to monitors and
@@ -331,13 +337,13 @@
           <doc:heading>HTTP interfaces</doc:heading>
           <p>
             It is possible to configure rabbitmq-mochiweb to serve the
-            management plugin on a different port or TCP/IP
-            interface. To do so, you should configure a listener
-            named <code>mgmt</code> for <code>rabbitmq_mochiweb</code>:
+            management plugin on a different port or network
+            interface, with SSL, etc. To do so, you should configure the
+            <code>listener</code> configuration item:
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, 55555}]}]}]},
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
 ].</pre>
           <p>
@@ -345,6 +351,40 @@
             guide for more details.
           </p>
         </doc:subsection>
+
+        <doc:subsection name="sample-retention">
+          <doc:heading>Sample retention policies</doc:heading>
+          <p>
+            The management plugin will retain samples of some data
+            such as message rates and queue lengths. You can
+            configure how long such data is retained.
+          </p>
+          <pre class="example">[
+  ...
+  {rabbitmq_management, [{sample_retention_policies,
+                          [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
+                           {basic,    [{60, 5}, {3600, 60}]},
+                           {detailed, [{10, 5}]}]}
+                        ]},
+  ...
+].</pre>
+          <p>
+            There are three policies:
+            <ul>
+              <li><code>global</code> - how long to retain data for the overview and virtual host pages</li>
+              <li><code>basic</code> - how long to retain data for individual connections, channels, exchanges and queues</li>
+              <li><code>detailed</code> - how long to retain data for message rates between pairs of connections, channels, exchanges and queues (as shown under "Message rates breakdown")</li>
+            </ul>
+
+            This configuration (which is the default) retains global
+            data at a 5 second resolution for 1 minute, then at a 1
+            minute resolution for 1 hour, then at a 20 minute
+            resolution for 1 day. It retains basic data at a 5 second
+            resolution for 1 minute, then at a 1 minute resolution for
+            1 hour, and detailed data only for 10 seconds.
+          </p>
+        </doc:subsection>
+
       </doc:section>
 
       <doc:section name="clustering">
@@ -367,7 +407,7 @@
         <doc:heading>HTTP API</doc:heading>
         <p>
           By default the management plugin will create an HTTP-based API at
-          http://<i>server-name</i>:55672/api/. Browse to that
+          http://<i>server-name</i>:15672/api/. Browse to that
           location for more information on the API.
           For convenience you can read the
           <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
@@ -381,12 +421,12 @@
           It is possible to make the web UI available via any proxy that
           conforms with RFC 1738. The following sample Apache configuration
           illustrates the minimum necessary directives to coax Apache into
-          conformance. It assumes a management web UI on the default port of 55672:
+          conformance. It assumes a management web UI on the default port of 15672:
           <pre class="example">
 AllowEncodedSlashes On
-ProxyPass        /api http://localhost:55672/api nocanon
-ProxyPass        /    http://localhost:55672/
-ProxyPassReverse /    http://localhost:55672/</pre>
+ProxyPass        /api http://localhost:15672/api nocanon
+ProxyPass        /    http://localhost:15672/
+ProxyPassReverse /    http://localhost:15672/</pre>
         </p>
       </doc:section>
   </body>

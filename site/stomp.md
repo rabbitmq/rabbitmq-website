@@ -2,8 +2,10 @@
 
 The [STOMP](http://stomp.github.com) plugin adds support for the STOMP
 protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
-both [STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html)
-and [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html).
+[STOMP 1.0](http://stomp.github.com/stomp-specification-1.0.html),
+[STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) and
+[STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
+with some extensions and restrictions (described [here](#pear)).
 
 Announcements regarding the adapter are periodically made on the
 [RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
@@ -15,12 +17,6 @@ The STOMP adapter is included in the RabbitMQ distribution.  To enable
 it, use [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_stomp
-
-Binary packages for previous versions of the STOMP adapter can be
-found on the [plugins page](/plugins.html).
-
-Instructions for installing binary plugins can also be found in the
-[plugins page](/plugins.html#installing-plugins).
 
 ## <a id="caifs"/>Compiling and installing from source
 
@@ -332,7 +328,8 @@ Temp queues are managed by the broker and their identities are private to
 each session -- there is no need to choose distinct names for
 temporary queues in distinct sessions.
 
-To use a temp queue, put the `reply-to` header on a `SEND` frame. For example:
+To use a temp queue, put the `reply-to` header on a `SEND` frame and
+use a header value starting with `/temp-queue/`. For example:
 
     SEND
     destination:/queue/reply-test
@@ -375,14 +372,15 @@ Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
 reply queues.
 
-## <a id="pe"/>Protocol Extensions
+## <a id="pear"/>Protocol Extensions and Restrictions
 
 The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
 and supports a number of non-standard headers on certain
 frames. These extra headers provide access to features that are not
-described in the STOMP specs.
+described in the STOMP specs. In addition, we prohibit some headers which
+are reserved for server use. The details are given below.
 
-### <a id="pe.c"/>Connect
+### <a id="pear.c"/>Connect
 
 The `CONNECT` (or `STOMP`) frame in
 [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
@@ -390,13 +388,19 @@ mandatory `host` header (to select the virtual host to use for the
 connection). The RabbitMQ adapter allows this to be optional.
 
 When omitted, the default virtual host (`/`) is presumed.
+To configure a different default virtual host, add a `default_vhost`
+section to the `rabbitmq_stomp` application configuration, e.g.
+
+    [
+      {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
+    ].
 
 If a `host` header is specified it must be one of the
 virtual hosts known to the RabbitMQ server, otherwise the connection is
 rejected. The `host` header is respected even if the STOMP 1.0 version is
 negotiated at the time of the connect.
 
-### <a id="pe.mp"/>Message Persistence
+### <a id="pear.mp"/>Message Persistence
 
 On the `SEND` frame, the STOMP adapter supports the inclusion of a `persistent` header.
 
@@ -409,15 +413,21 @@ on persistent messages can be found [here](confirms.html).
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
-### <a id="pe.p"/>Prefetch
+### <a id="pear.p"/>Prefetch
 
 The prefetch count for all subscriptions is set to unlimited by
 default. This can be controlled by setting the `prefetch-count` header
 on `SUBSCRIBE` frames to the desired integer count.
 
-### <a id="pe.ap"/>AMQP Properties
+### <a id="pear.hpos"/>Header prohibited on `SEND`
 
-`SEND` frames also allow headers corresponding to the AMQP properties
+It is not permitted to set a `message-id` header on a `SEND` frame.
+The header and its value is set by the server on a `MESSAGE` frame sent
+to a client.
+
+### <a id="pear.ap"/>AMQP Properties
+
+`SEND` frames also allow headers corresponding to the *AMQP properties*
 available when publishing messages. These headers are also set on
 `MESSAGE` frames sent to clients.
 

@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-two">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Work Queues
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -91,7 +85,7 @@ messages from the queue and perform the task, so let's call it `worker.py`:
 Round-robin dispatching
 -----------------------
 
-One of the advantages of using Task Queue is the ability to easily
+One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
@@ -379,6 +373,4 @@ RabbitMQ is restarted.
 
 Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
-
-</div>
 

@@ -19,6 +19,12 @@
      as the url attribute.
   -->
 
+   <x:page url="/features.html" text="Features">
+     <x:modal mode="www">
+       <x:page url="/protocols.html" text="Supported Protocols"/>
+     </x:modal>
+   </x:page>
+
    <x:page url="/download.html" text="Installation">
    <x:modal mode="www">
      <x:page url="/install-windows.html" text="Install: Windows">
@@ -26,7 +32,7 @@
      </x:page>
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
-     <x:page url="/install-mac.html" text="Install: Mac OS X"/>
+     <x:page url="/install-standalone-mac.html" text="Install: Mac OS X"/>
      <x:page url="/install-macports.html" text="Install: MacPorts"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
      <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
@@ -53,7 +59,6 @@
    </x:modal>
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
-     <x:page url="/features.html" text="Features"/>
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>
@@ -63,7 +68,11 @@
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
-       <x:page url="/clustering.html" text="Clustering"/>
+       <x:page url="/reliability.html" text="Reliable Delivery"/>
+       <x:page url="/clustering.html" text="Clustering">
+         <x:page url="/partitions.html" text="Network Partitions"/>
+         <x:page url="/nettick.html" text="Net Tick Time"/>
+       </x:page>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control"/>
@@ -89,24 +98,37 @@
      </x:page>
      <x:page url="/clients.html" text="Client Documentation">
        <x:page url="/api-guide.html" text="Java Client Guide">
+         <x:page url="/java-tools.html" text="Java Client Tools"/>
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
-       <x:page url="/uri-spec.html" text="AMQP URI Spec"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec">
+         <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
+       </x:page>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
-       <x:related url="/&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
-       <x:related url="/&dir-current-edoc;" text="Erlang edoc"/>
+       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
      </x:page>
      <x:page url="/plugins.html" text="Plugins">
        <x:page url="/management.html" text="Management plugin">
          <x:page url="/management-cli.html" text="Management CLI"/>
        </x:page>
        <x:page url="/federation.html" text="Federation plugin">
-         <x:page url="/old-federation.html" text="Old federation"/>
+         <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federated-queues.html" text="Queues"/>
+         <x:page url="/federation-reference.html" text="Reference">
+           <x:related url="/uri-spec.html"/>
+           <x:related url="/uri-query-parameters.html"/>
+         </x:page>
        </x:page>
-       <x:page url="/shovel.html" text="Shovel plugin"/>
+       <x:page url="/shovel.html" text="Shovel plugin">
+         <x:related url="/uri-spec.html"/>
+         <x:related url="/uri-query-parameters.html"/>
+       </x:page>
        <x:page url="/stomp.html" text="STOMP plugin"/>
+       <x:page url="/mqtt.html" text="MQTT plugin"/>
+       <x:page url="/ldap.html" text="LDAP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
@@ -124,14 +146,18 @@
      </x:page>
      <x:page url="/extensions.html" text="Our Extensions">
        <x:page url="/confirms.html" text="Confirms"/>
-       <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
+       <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>
        <x:page url="/e2e.html" text="e2e bindings"/>
        <x:page url="/ae.html" text="Alternate Exchanges"/>
        <x:page url="/sender-selected.html" text="Sender Routing"/>
        <x:page url="/ttl.html" text="TTL"/>
        <x:page url="/dlx.html" text="Dead Lettering"/>
+       <x:page url="/maxlength.html" text="Length Limit"/>
+       <x:page url="/validated-user-id.html" text="Validated User ID"/>
+       <x:page url="/auth-notification.html" text="Auth Failure"/>
        <x:page url="/undeprecated.html" text="Undeprecation"/>
      </x:page>
      <x:page url="/build.html" text="Building">
@@ -142,6 +168,9 @@
        <x:page url="/mercurial.html" text="Our use of Mercurial"/>
        <x:related url="/plugin-development.html"/>
      </x:page>
+     <x:modal mode="www">
+       <x:page url="/previous.html" text="Previous Releases"/>
+     </x:modal>
      <x:page url="/mpl.html" text="License"/>
    </x:page>
    <x:page url="/getstarted.html" text="Tutorials">

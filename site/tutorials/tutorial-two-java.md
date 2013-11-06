@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-two">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Work Queues 
 ### (using the Java Client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 <div class="diagram">
   <img src="/img/tutorials/python-two.png" height="110" />
@@ -122,7 +116,7 @@ Compile them as in tutorial one (with the jar files in the working directory):
 Round-robin dispatching
 -----------------------
 
-One of the advantages of using Task Queue is the ability to easily
+One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
@@ -459,4 +453,3 @@ For more information on `Channel` methods and `MessageProperties`, you can brows
 Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
 to deliver the same message to many consumers.
 
-</div>

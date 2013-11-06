@@ -21,8 +21,8 @@
         <li>Linux</li>
         <li>MacOSX</li>
         <li>TRU64</li>
-        <li>Windows NT/2000/XP/Vista/Windows 7</li>
-        <li>Windows Server 2003/2008</li>
+        <li>Windows NT/2000/XP/Vista/Windows 7/Windows 8</li>
+        <li>Windows Server 2003/2008/2012</li>
         <li>Windows 95, 98</li>
         <li>VxWorks</li>
       </ul>
@@ -42,9 +42,9 @@
 
     <h3 id="windows">Windows</h3>
     <p>
-      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7,
-      Server 2008). It should be possible to run on Windows NT and Windows 2000
-      as well although this has not been tested.
+      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7, Windows 8,
+      Server 2008 and Server 2012). It should be possible to run on Windows NT and
+      Windows 2000 as well although this has not been tested.
     </p>
     <p>
       The Windows Erlang VM is available as 32bit (all available versions) and 64bit
@@ -71,28 +71,11 @@
     </p>
 
     <h2 id="commercial">Commercially Supported Platforms</h2>
-    <p id="vfabric-rabbit-supported">
-      RabbitMQ is part of VMware's <a href="http://www.vmware.com/products/application-platform/">
-      vFabric&#8482; Cloud Application Platform</a>. You can <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/buy.html">
-      purchase support</a> for vFabric RabbitMQ under <a href="http://www.vmware.com/download/eula/vfabric_app-platform_eula.html">
-      commercial license terms</a>, both as part of the
-      <a href="http://www.vmware.com/products/application-platform/vfabric/overview.html">
-      vFabric Suite Advanced</a> and as a standalone edition.
-      <a href="http://www.vmware.com/products/datacenter-virtualization/vfabric-rabbitmq/overview.html">
-      vFabric RabbitMQ</a> is supported on the following platforms:</p>
-    <ul class="compact">
-      <li>RHEL 5 (32 and 64 bit)</li>
-      <li>RHEL 6 (64 bit)</li>
-      <li>Windows 2008 (32 and 64 bit)</li>
-    </ul>
-    <p><a href="http://www.vmware.com/support/services/vfabric-developer.html">
-      vFabric developer support</a> is available additionally for:</p>
-    <ul class="compact">
-      <li>Mac OS X (10.6+ 64 bit)</li>
-      <li>Windows XP and 7 (64 bit)</li>
-      <li>Ubuntu 10.x / 11.x (64 bit)</li>
-    </ul>
-
+    <p>A list of platforms for which you can purchase commercial support for
+       RabbitMQ is available in the
+       <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">
+         RabbitMQ commercial documentation</a>.
+    </p>
     <h2 id="unsupported">Unsupported Platforms</h2>
     <p>
       Some platforms are not supported and probably never will be:

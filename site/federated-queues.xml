@@ -1,0 +1,201 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Federated Queues</title>
+  </head>
+  <body show-in-this-page="true">
+    <doc:section name="what-does-it-do">
+      <dl>
+        <dt>
+          <b>What does a federated queue do?</b>
+        </dt>
+        <dd>
+          <p>
+            A federated queue links to other queues (called <i>upstream</i>
+            queues). It will retrieve messages from upstream queues in order
+            to satisfy demand for messages from local consumers.  The upstream
+            queues do not need to be reconfigured and they do not have to be
+            on the same broker or in the same cluster.
+          </p>
+          <p>
+            All of the configuration needed to establish the upstream links
+            and the federated queue is in the broker with the federated queue.
+          </p>
+        </dd>
+
+
+        <dt>
+          <b>What are typical uses for federated queues?</b>
+        </dt>
+        <dd>
+          <p>
+            The typical use would be to have a single logical work
+            queue distributed over a WAN. This would have a higher
+            capacity than a single queue. Messages can be produced and
+            consumed everywhere; the federation mechanism will try to
+            ensure that messages are consumed locally as much as
+            possible, but will move messages around in order to
+            perform load balancing.
+          </p>
+          <p>
+            Each broker would declare a federated queue with all the
+            other federated queues upstream. (The links would form a
+            complete bi-directional graph on <i>n</i> queues.)
+          </p>
+          <p>
+          </p>
+        </dd>
+
+        <dt>
+          <b>When will it retrieve messages from the upstream queue?</b>
+        </dt>
+        <dd>
+          <p>
+            The federated queue will only retrieve messages when it has run
+            out of messages locally, it has consumers that need messages, and
+            the upstream queue has "spare" messages that are not being
+            consumed. The intent is to ensure that messages are only
+            transferred between federated queues when needed.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does a federated queue link to its upstream queues?</b>
+        </dt>
+        <dd>
+          <p>
+            The federated queue will connect to all its upstream queues using
+            AMQP. When declaring or configuring the federated queue each
+            upstream queue is listed with the connection properties to be used
+            to establish the link.
+          </p>
+        </dd>
+
+        <dt>
+          <b>What does this mean for message ordering?</b>
+        </dt>
+        <dd>
+          <p>
+            If messages are forwarded from one queue to another then message
+            ordering is only preserved for messages which have made exactly
+            the same journey between nodes. In some cases messages which were
+            adjacent when published may take different routes to the same node
+            to be consumed; therefore messages can be reordered in the
+            presence of queue federation.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does this interact with basic.get?</b>
+        </dt>
+        <dd>
+          <p>
+            Unfortunately we can't sensibly make basic.get retrieve messages
+            over federation if there aren't any local ones. Since basic.get is
+            synchronous, we'd have to block while we contacted all the other
+            nodes to retrieve more messages - which wouldn't sit well with
+            federation's available / partition tolerant approach.
+          </p>
+          <p>
+            So basic.get is ignored by the federation mechanism. It will still
+            work, but it will not cause any messages to be moved to the node
+            where it was invoked.
+          </p>
+        </dd>
+
+        <dt>
+          <b>How does this interact with queue arguments?</b>
+        </dt>
+        <dd>
+          <p>
+            In general each individual queue applies its arguments separately;
+            for example if you set <code>x-max-length</code> on a federated
+            queue then that queue will have its length limited (possibly
+            discarding messages when it gets full) but other queues that are
+            federated with it will not be affected. Note in particular that
+            when <a href="ttl.html">per-queue or per-message TTL</a> is in
+            use, a message will have its timer reset when it is transferred to
+            another queue.
+          </p>
+        </dd>
+
+        <dt>
+          <b>Can I federate a federated queue?</b>
+        </dt>
+        <dd>
+          <p>
+            There is nothing to prevent a federated queue being 'upstream'
+            from another federated queue. One can even form 'loops', for
+            example, queue A declares queue B to be upstream from it, and
+            queue B declares queue A to be upstream from it. More complex
+            multiply-connected arrangements are allowed.
+          </p>
+          <p>
+            However, federated queues cannot currently cause messages to
+            traverse multiple hops between brokers based solely on need for
+            messages in one place. For example, if you federate queues on
+            nodes A, B and C, with A and B connected and B and C connected,
+            but not A and C, then if messages are available at A and consumers
+            waiting at C then messages will not be transferred from A to C via
+            B unless there is also a consumer at B.
+          </p>
+        </dd>
+      </dl>
+      </doc:section>
+
+      <doc:section name="details">
+        <doc:heading>Use with federated exchanges</doc:heading>
+        <p>
+          Nothing will stop you from binding a federated queue to a federated
+          exchange. However, the results may or may not be what you
+          expect. Since a federated exchange will retrieve messages from its
+          upstream that match its bindings, any message published to a
+          federated exchange will be copied to any nodes that matching
+          bindings. A federated queue will then move these messages around
+          between nodes, and it is therefore possible to end up with multiple
+          copies of the same message on the same node.
+        </p>
+      </doc:section>
+
+      <doc:section name="details">
+        <doc:heading>Implementation</doc:heading>
+          <p>
+            Inter-broker communication is implemented using AMQP (optionally
+            secured with SSL). When a federated queue is empty and has active
+            consumers with a <a href="consumer-priority.html">priority</a> of
+            0 or greater, it consumes from all upstream queues. As soon as it
+            is non-empty, or its consumers are no longer active, it stops
+            consuming.
+          </p>
+
+          <p>
+            Since it consumes from the upstreams with a priority of -1, each
+            upstream is able to prioritise delivering messages to its "own"
+            consumers before delivering to another queue. We therefore ensure
+            that messages are not forwarded between federated queues
+            needlessly.
+          </p>
+
+          <p>
+            However, unlike with federated exchanges, there is no limit to how
+            many times a message can be forwarded between federated queues. In
+            a set of mutually-federated queues, messages will move to where
+            the spare consuming capacity is - so if the spare consuming
+            capacity keeps moving around then so will the messages.
+          </p>
+
+          <p>
+            Brokers running different versions of RabbitMQ can be connected
+            using federation. However, since queue federation requires
+            consumer priorities, it is not possible to federate a queue with a
+            broker running a RabbitMQ version prior to 3.2.0.
+          </p>
+    </doc:section>
+  </body>
+</html>

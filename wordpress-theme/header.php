@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
-  
+
 <head>
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> &raquo; Blog Archive <?php } ?> <?php wp_title(); ?> - Messaging that just works</title>
   <meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"></meta>
@@ -32,8 +32,8 @@ try{
     <div id="rabbit-logo">
       <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
-    <div id="vmw-logo">
-      <a href="http://www.vmware.com/"><img src="/img/vmw_logo_09q3.png" alt="VMware" width="118" height="18"/></a>
+    <div id="pivotal-logo">
+      <a href="http://www.gopivotal.com/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
     </div>
     <div id="nav-search">
       <div id="search-box">
@@ -43,6 +43,7 @@ try{
         </form>
       </div>
       <ul class="mainNav">
+        <li><a href="/features.html">Features</a></li>
         <li><a href="/download.html">Installation</a></li>
         <li><a href="/documentation.html">Documentation</a></li>
         <li><a href="/getstarted.html">Get Started</a></li>

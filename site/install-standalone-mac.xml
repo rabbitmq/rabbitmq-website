@@ -1,0 +1,49 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Installing on Mac</title>
+  </head>
+  <body>
+    <doc:section name="standalone-mac">
+      <h3>Download the Server</h3>
+      <r:downloads signature="yes">
+        <r:download downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.gz"
+		    downloadpath="&dir-server;">
+	  Packaged for Mac systems (tar.gz) shipping Erlang &standalone-otp-version;
+        </r:download>
+      </r:downloads>
+
+      <doc:heading>Standalone Mac</doc:heading>
+
+      <doc:subsection name="install-standalone">
+        <doc:heading>Install the Server</doc:heading>
+        <p>
+          This build of RabbitMQ includes an Erlang runtime. That means you
+          don't need to install Erlang to run RabbitMQ.
+          If you are curious about how this works you can read more
+          <a href="http://www.erlang.org/doc/design_principles/release_structure.html">here</a>.
+        </p>
+        <p>
+          Download
+          <code>rabbitmq-server-mac-standalone-&version-server;.tar.gz</code>
+          from the link above.
+        </p>
+        <xi:include href="download-tarball.xml.inc"/>
+      </doc:subsection>
+
+      <xi:include href="running-generic-unix.xml.inc"/>
+      <xi:include href="generic-unix-file-locations.xml.inc"/>
+
+    </doc:section>
+
+    <xi:include href="managing-the-broker.xml.inc"/>
+  </body>
+</html>

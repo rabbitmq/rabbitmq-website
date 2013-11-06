@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-six">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Remote procedure call (RPC)
 ### (using the Java client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
 In the [second tutorial](tutorial-two-java.html) we learned how to
@@ -393,4 +387,3 @@ complex (but important) problems, like:
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
 >
 
-</div>

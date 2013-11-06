@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-three">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Publish/Subscribe
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-two-python.html) we created a work
 queue. The assumption behind a work queue is that each task is
@@ -103,8 +97,9 @@ queues it knows. And that's exactly what we need for our logger.
 >     amq.headers     headers
 >     ...done.
 >
-> In this list there are some `amq.*` exchanges. These are created by default, but
-> it is unlikely you'll need to use them at the moment.
+> In this list there are some `amq.*` exchanges and the default (unnamed)
+> exchange. These are created by default, but it is unlikely you'll need to
+> use them at the moment.
 
 
 > #### Nameless exchange
@@ -129,8 +124,8 @@ Now, we can publish to our named exchange instead:
     :::python
     channel.basic_publish(exchange='logs',
                           routing_key='',
-                          body=message)    
-    
+                          body=message)
+
 Temporary queues
 ----------------
 
@@ -154,7 +149,7 @@ supplying the `queue` parameter to `queue_declare`:
     result = channel.queue_declare()
 
 At this point `result.method.queue` contains a random queue name. For example
-it may look like `amq.gen-U0srCoW8TsaXjNh73pnVAw==`.
+it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
 
 Secondly, once we disconnect the consumer the queue should be
 deleted. There's an `exclusive` flag for that:
@@ -329,16 +324,14 @@ programs running you should see something like:
     :::bash
     $ sudo rabbitmqctl list_bindings
     Listing bindings ...
-     ...
-    logs    amq.gen-TJWkez28YpImbWdRKMa8sg==                []
-    logs    amq.gen-x0kymA4yPzAT6BoC/YP+zw==                []
+    logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
+    logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
     ...done.
 
 The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And
 that's exactly what we intended.
 
-To find out how to listen for a subset of messages, let's move on to 
+To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-python.html)
 
-</div>

@@ -164,6 +164,12 @@
         <code>rabbitmq_shovel_management</code> plugin (see
         <a href="#management-status">below</a>).
       </p>
+
+      <p>
+        When using shovel in a cluster, any nodes of the cluster may
+        have the shovel plugin installed.
+      </p>
+
     </doc:section>
 
     <doc:section name="status">
@@ -339,6 +345,26 @@
       </p>
 
       <dl>
+        <dt><a id="shovel_name"/><em>shovel_name</em></dt>
+        <dd>
+          <p>
+            The name of the shovel (an Erlang atom). Note that Erlang
+            atoms should be enclosed in single quotes (') if they do
+            not begin with a lower-case letter or if they contain
+            other characters than alphanumeric characters, underscore
+            (_), or @.
+          </p>
+          <p>
+            When using the shovel with clustering, if two or more
+            nodes both define a shovel with the same name, the shovel
+            worker will be started on just one of them. However if
+            that node fails then the shovel will be recreated on a
+            surviving node. It is important that if two or more nodes
+            <em>do</em> define a shovel with the same name, then the
+            configuration given for that shovel should be identical
+            for all of them.
+          </p>
+        </dd>
         <dt><a id="sources"/><strong>sources</strong></dt>
         <dt><a id="destinations"/><strong>destinations</strong></dt>
         <dd>
@@ -355,7 +381,7 @@
             <code>brokers</code> clause is mandatory and the
             <code>declarations</code> clause optional.
           </p>
-          <dl>
+          <dl id="uris">
             <dt><strong>brokers</strong></dt>
             <dd>
               <p>
@@ -380,43 +406,13 @@
                 avoids using the network stack.
               </p>
               <p>
-                The syntax is extended to include a query part to permit
-                the configuration of additional connection parameters.
-                <em>heartbeat</em>, <em>channel_max</em>, and
-                <em>frame_max</em> can be specified, in any order.
-                Omitted fields assume default values. For example:
-<pre class="example">
-  "amqp://myhost?heartbeat=5&amp;frame_max=8192"
-</pre>
-                specifies a (non-encrypted) network connection to the
-                host <code>myhost</code>, using default username,
-                password, port, vhost and channel_max. The heartbeat
-                interval is set to 5 seconds, and the maximum frame size
-                to 8192 bytes.
-              </p>
-              <p>
-                It is possible to specify an encrypted SSL connection,
-                the general form of which is:
-<pre class="example">
-  "amqps://username:password@host:port/vhost?
-      cacertfile=/path/to/cacert.pem
-     &amp;certfile=/path/to/certfile.pem
-     &amp;keyfile=/path/to/keyfile.pem
-     &amp;verify=verifyOption
-     &amp;fail_if_no_peer_cert=failOption"
-</pre>
-                (This URI has been split across several lines only for
-                readbility. There must be no white-space in the URI.)
-              </p>
-              <p>
-                All five parameters (3 paths: <em>cacertfile</em>,
-                <em>certfile</em> and <em>keyfile</em>; and 2 options:
-                <em>verify</em>, <em>fail_if_no_peer_cert</em>) must be
-                specified as well as the <code>amqps</code> scheme.
-                See the <a href="ssl.html">SSL guide</a> for
-                details of SSL in RabbitMQ in general and specifically
-                the <a href="ssl.html#configure-erlang">Erlang
-                client</a> section.
+                The syntax is extended to include a query part to
+                permit the configuration of additional connection
+                parameters. See the <a
+                href="uri-query-parameters.html">query parameter
+                reference</a> for the Erlang client's extensions
+                (including those for SSL and SASL) which are available
+                to the shovel.
               </p>
               <p>
                 <strong>Note</strong>: If the broker list consists of a

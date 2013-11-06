@@ -1,15 +1,9 @@
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-six">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
 ## Remote procedure call (RPC)
-### (using the pika 0.9.5 Python client)
+### (using the pika 0.9.8 Python client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 
 In the [second tutorial](tutorial-two-python.html) we learned how to
@@ -185,7 +179,7 @@ Our RPC will work like this:
   * For an RPC request, the Client sends a message with two properties:
     `reply_to`, which is set to the callback queue and `correlation_id`,
     which is set to a unique value for every request.
-  * The request is send to an `rpc_queue` queue.
+  * The request is sent to an `rpc_queue` queue.
   * The RPC worker (aka: server) is waiting for requests on that queue.
     When a request appears, it does the job and sends a message with the
     result back to the Client, using the queue from the `reply_to` field.
@@ -358,5 +352,4 @@ complex (but important) problems, like:
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
 
-</div>
 

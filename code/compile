@@ -8,18 +8,27 @@ import os
 import os.path
 import shutil
 
+def usage():
+    print "Usage: compile <in-dir> <out-dir> <mode> <version> [<file>]"
+    exit(1)
+
 def main():
-    if len(sys.argv) < 4 or len(sys.argv) > 5:
-        print "Usage: compile <in-dir> <out-dir> <mode> [<file>]"
-        exit(1)
+    if len(sys.argv) < 4:
+        usage()
     in_dir = sys.argv[1]
     render.SITE_DIR = in_dir
     out_dir = sys.argv[2]
     site_mode = sys.argv[3]
-    if len(sys.argv) == 5:
-        f = sys.argv[4]
-        handle_file(in_dir, f, os.path.join(out_dir, f))
+    if site_mode == 'previous':
+        version = sys.argv[4]
+        rest = sys.argv[5:]
     else:
+        version = None
+        rest = sys.argv[4:]
+    if len(rest) == 1:
+        f = rest[0]
+        handle_file(in_dir, f, os.path.join(out_dir, f), site_mode, version)
+    elif len(rest) == 0:
         for in_path, dirs, files in os.walk(in_dir):
             path = relpath(in_path, in_dir)
             out_path = os.path.join(out_dir, path)
@@ -29,13 +38,15 @@ def main():
                     handle_file(in_dir,
                                 os.path.normpath(os.path.join(path, f)),
                                 os.path.join(out_path, f),
-                                site_mode)
+                                site_mode, version)
+    else:
+        usage()
     print ""
 
-def handle_file(in_dir, in_f, out_f, site_mode):
+def handle_file(in_dir, in_f, out_f, site_mode, version):
     ext = os.path.splitext(in_f)[1].lower()
     if (ext == '.xml' and not blacklist(in_f)) or ext == '.md':
-        render_file(in_f, out_f, site_mode)
+        render_file(in_f, out_f, site_mode, version)
     elif ext == '.xsl' or ext.endswith('~'):
         pass
     else:
@@ -45,8 +56,8 @@ def handle_file(in_dir, in_f, out_f, site_mode):
 def blacklist(f):
     return f.startswith('resources/specs/')
 
-def render_file(in_f, out_f, site_mode):
-    rendered = render.render_page('/' + html_ext(in_f), site_mode)
+def render_file(in_f, out_f, site_mode, version):
+    rendered = render.render_page('/' + html_ext(in_f), site_mode, version)
     with open(html_ext(out_f), 'w') as f:
         f.write(rendered)
     sys.stdout.write("#")

@@ -25,8 +25,9 @@
           (note that you will need a working cluster first).
         </p>
         <p>
-          <b>RabbitMQ clustering does not tolerate network partitions
-          well</b>, so it should not be used over a WAN.
+          <a href="partitions.html">RabbitMQ clustering does not
+          tolerate network partitions well</a>, so it should not be
+          used over a WAN.
           The <a href="plugins.html#rabbitmq_shovel">shovel</a> or
           <a href="federation.html">federation</a>
           plugins are better solutions for connecting brokers across a
@@ -50,12 +51,12 @@
           contents, which can reside on disc if the queue is persistent or too
           big to fit in memory). Disk nodes keep state in memory and on disk. As
           RAM nodes don't have to write to disk as much as disk nodes, they can
-          perform better. However, not that since the queue data is always
+          perform better. However, note that since the queue data is always
           stored on disc, the performance improvements will affect only
           resources management (e.g. adding/removing queues, exchanges, or
           vhosts), but not publishing or consuming speed. Because state is
           replicated across all nodes in the cluster, it is sufficient (but not
-          reccomended) to have just one disk node within a cluster, to store the
+          recommended) to have just one disk node within a cluster, to store the
           state of the cluster safely.
         </p>
       </doc:section>
@@ -571,30 +572,35 @@ Cluster status of node rabbit@rabbit3 ...
 ...done.</pre>
         <p>
           Note that, in order to remove a node from an auto-configured
-          cluster, it must first be removed from the rabbitmq.config
-          files of the other nodes in the cluster.  Only then, can it
-          be reset safely.
+          cluster, it must first be removed from the <a
+          href="configure.html#configuration-file">RabbitMQ
+          configuration file</a> files of the other nodes in the
+          cluster.  Only then, can it be reset safely.
         </p>
         </doc:subsection>
       </doc:section>
       <doc:section name="upgrading">
           <doc:heading>Upgrading clusters</doc:heading>
           <p>
-            When upgrading from one version of RabbitMQ to another,
-            RabbitMQ will automatically update its persistent data
-            structures if necessary. In a cluster, this task is
-            performed by the first disc node to be started (the
-            "upgrader" node). Therefore when upgrading a RabbitMQ
-            cluster, you should not attempt to start any RAM nodes
-            first; any RAM nodes started will emit an error message
-            and fail to start up.
+            When upgrading from one major or minor version of RabbitMQ
+            to another (i.e. from 3.0.x to 3.1.x, or from 2.x.x to
+            3.x.x), or when upgrading Erlang, the whole cluster must
+            be taken down for the upgrade (since clusters cannot run
+            mixed versions like this). This will not be the case when
+            upgrading from one patch version to another (i.e. from
+            3.0.x to 3.0.y); these versions can be mixed in a cluster
+            (with the exception that 3.0.0 cannot be mixed with later
+            versions from the 3.0.x series).
           </p>
           <p>
-            All nodes in a cluster must be running the same versions
-            of Erlang and RabbitMQ, although they may have different
-            plugins installed. Therefore it is necessary to stop all
-            nodes in the cluster, then start all nodes when performing
-            an upgrade.
+            RabbitMQ will automatically update its persistent data
+            structures if necessary when upgrading between major /
+            minor versions. In a cluster, this task is performed by
+            the first disc node to be started (the "upgrader"
+            node). Therefore when upgrading a RabbitMQ cluster, you
+            should not attempt to start any RAM nodes first; any RAM
+            nodes started will emit an error message and fail to start
+            up.
           </p>
           <p>
             While not strictly necessary, it is a good idea to decide
@@ -638,18 +644,17 @@ Cluster status of node rabbit@rabbit3 ...
 $ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
 $ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
 $ rabbitmqctl -n hare stop_app
-$ rabbitmqctl -n hare reset
-$ rabbitmqctl -n hare cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
 $ rabbitmqctl -n hare start_app</pre>
           <p>
-            will set up a two node cluster with one disc node and one
-            ram node. Note that if you have RabbitMQ opening any ports
+            will set up a two node cluster, both nodes as disc nodes.
+            Note that if you have RabbitMQ opening any ports
             other than AMQP, you'll need to configure those
             not to clash as well - for example:
           </p>
           <pre class="sourcecode">
-$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55672}]}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
-$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_mochiweb listeners [{mgmt,[{port,55673}]}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
+$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15672}]" RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached</pre>
           <p>
             will start two nodes (which can then be clustered) when
             the management plugin is installed.

@@ -22,8 +22,8 @@
           RabbitMQ has taken responsibility for messages.
         </li>
         <li>
-          The <a href="validated-user-id.html">User-ID</a> message
-          property is validated by the server.
+          <a href="connection-blocked.html">Blocked Connection Notifications</a>
+          allows clients to be notified when a connection is blocked and unblocked.
         </li>
       </ul>
     </div>
@@ -40,6 +40,10 @@
           <a href="nack.html"><code>basic.nack</code></a>
           extends <code>basic.reject</code> to support rejecting
           multiple messages at once.
+        </li>
+        <li>
+          <a href="consumer-priority.html">Consumer Priorities</a> allow you
+          to send messages to higher priority consumers first.
         </li>
       </ul>
     </div>
@@ -69,9 +73,13 @@
       <h2>Message Lifecycle</h2>
       <ul>
         <li>
-          <a href="ttl.html#per-queue-message-ttl">Per-Queue Message
-          TTL</a> determines how long an unconsumed message can live
-          before it is automatically deleted.
+          <a href="ttl.html#per-queue-message-ttl">Per-Queue Message TTL</a>
+          determines how long an unconsumed message can live in a queue before
+          it is automatically deleted.
+        </li>
+        <li>
+          <a href="ttl.html#per-message-ttl">Per-Message TTL</a>
+          determines the TTL on a per-message basis.
         </li>
         <li>
           <a href="ttl.html#queue-ttl">Queue TTL</a> determines how
@@ -82,11 +90,31 @@
           <a href="dlx.html">Dead Letter Exchanges</a> ensure messages
           get re-routed when they are rejected or expire.
         </li>
+        <li>
+          <a href="maxlength.html">Length Limit</a>
+          allows the maximum length of a queue to be set.
+        </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>Undeprecated features</h2>
+      <h2>Authentication and Identity</h2>
+      <ul>
+        <li>
+          The <a href="validated-user-id.html">User-ID</a> message
+          property is validated by the server.
+        </li>
+
+        <li>
+          Clients that advertise the appropriate capability may receive
+          explicit <a href="auth-notification.html">authentication failure notifications</a>
+          from the broker.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Undeprecated Features</h2>
       <ul>
         <li>
           Some features that were in AMQP 0-8 were deprecated in AMQP

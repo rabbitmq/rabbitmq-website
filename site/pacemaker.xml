@@ -421,8 +421,9 @@ ha-node-2:~#
         IP address. Thus clients can be completely oblivious as to
         which node is the active node, and which is the passive
         node. You could also indicate to Rabbit the IP address to use
-        by editing the <code>/etc/rabbitmq/rabbitmq.config</code> file
-        and providing an entry for
+        by editing the <a
+        href="configure.html#configuration-file">RabbitMQ
+        configuration file</a> and providing an entry for
         <code>tcp_listeners</code>. However, that would then spread
         the configuration across multiple systems, and would require
         you to both synchronise the configuration across all the HA

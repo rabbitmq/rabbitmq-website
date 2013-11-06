@@ -8,24 +8,31 @@
   </head>
   <body>
     <p>
-      The <code>x-dead-letter-exchange</code> argument to
-      <code>queue.declare</code> controls the exchange to which
-      messages from that queue are 'dead-lettered'. A message is
-      dead-lettered when any of the following events occur:
+      Messages from a queue can be 'dead-lettered'; that is, republished to
+      another exchange when any of the following events occur:
       <ul>
         <li>The message is rejected (<code>basic.reject</code> or
-          <code>basic.nack</code>) with <code>requeue=false</code>;
-          or</li>
-        <li>The TTL for the message expires.</li>
+          <code>basic.nack</code>) with <code>requeue=false</code>,</li>
+        <li>The TTL for the message expires; or</li>
+        <li>The queue length limit is exceeded.</li>
       </ul>
     </p>
-    <doc:section>
-      <doc:heading>Using Dead Letter Exchanges</doc:heading>
-      <p>
-        Dead letter exchanges are normal exchanges.  They can be
-        any of the usual types and are declared as usual.
-      </p>
 
+    <p>
+      Dead letter exchanges (DLXs) are normal exchanges.  They can be
+      any of the usual types and are declared as usual.
+    </p>
+
+    <p>
+      For any given queue, a DLX can be defined by clients using the
+      queue's arguments, or in the server
+      using <a href="parameters.html#policies">policies</a>. In the
+      case where both policy and arguments specify a DLX, the one
+      specified in arguments overrules the one specified in policy.
+    </p>
+
+    <doc:section>
+      <doc:heading>Configuration using arguments</doc:heading>
       <p>
         To set the dead letter exchange for a queue, set
         the <code>x-dead-letter-exchange</code> argument to the
@@ -56,7 +63,55 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         <pre class="sourcecode">
 args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       </p>
+
+      <p>
+        When a dead letter exchange has been specified, in addition to
+        the usual configure permissions on the declared queue, the user
+        needs to have read permissions on that queue and write
+        permissions on the dead letter exchange. Permissions are
+        verified at the time of queue declaration.
+      </p>
     </doc:section>
+
+    <doc:section>
+      <doc:heading>Configuration using policy</doc:heading>
+
+      <p>
+        To specify a DLX using policy, add the key "dead-letter-exchange"
+        to a policy definition. For example:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues</pre>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        This applies the DLX "my-dlx" to all queues.
+      </p>
+
+      <p>
+        Similarly, an explicit routing key can be specified by adding
+        the key "dead-letter-routing-key" to the policy.
+      </p>
+
+      <p>
+        Policies can also be defined using the management plugin, see
+        the <a href="parameters.html#policies">policy
+        documentation</a> for more details.
+      </p>
+    </doc:section>
+
     <doc:section>
       <doc:heading>Routing Dead-Lettered Messages</doc:heading>
       <p>
@@ -107,7 +162,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         messages to the default exchange without specifiying a
         dead-letter routing key.  Messages in such cycles (i.e.
         messages that reach the same queue twice) will be
-        <em>dropped</em>.
+        dropped <em>if the entire cycle is due to message expiry</em>.
       </p>
     </doc:section>
     <doc:section>
@@ -153,10 +208,12 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         message was dead-lettered and is one of the following:
 
         <ul>
+          <li><code>rejected</code> - the message was rejected
+            with <code>requeue=false</code>,</li>
           <li><code>expired</code> - the TTL of the message
             expired; or</li>
-          <li><code>rejected</code> - the message was rejected
-            with <code>requeue=false</code>.</li>
+          <li><code>maxlen</code> - the maximum allowed queue
+            length was exceeded.</li>
         </ul>
       </p>
       <p>

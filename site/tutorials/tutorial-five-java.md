@@ -1,16 +1,9 @@
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
-<div id="sidebar" class="tutorial-five">
-   <xi:include href="tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">
-
-
 ## Topics
 ### (using the Java client)
 
-<xi:include href="tutorials-help.xml.inc"/>
+<xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
 In the [previous tutorial](tutorial-four-java.html) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
@@ -283,4 +276,3 @@ and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-java.html)
 
-</div>

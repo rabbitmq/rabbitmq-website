@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Queue Length Limit</title>
+  </head>
+  <body>
+    <p>
+      The maximum length of a queue can be limited to a set number
+      of messages.
+    </p>
+
+    <p>
+      For any given queue, the maximum length can be defined by
+      clients using the queue's arguments, or in the server using <a
+      href="parameters.html#policies">policies</a>. In the case where
+      both policy and arguments specify a maximum length, the minimum
+      of the two values is applied.
+    </p>
+
+    <h3>Configuration using arguments</h3>
+    <p>
+      Maximum length can be set by supplying the
+      <code>x-max-length</code> queue declaration argument with a
+      non-negative integer value. Queue length is a measure that takes
+      into account ready messages, ignoring unacknowledged messages
+      and message size. Messages will be dropped or dead-lettered from
+      the front of the queue to make room for new messages once the
+      limit is reached.
+    </p>
+    <p>
+      This example in Java declares a queue with a maximum length
+      of 10 messages:
+    </p>
+    <pre class="sourcecode">
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-max-length", 10);
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+      <h3>Configuration using policy</h3>
+
+      <p>
+        To specify a maximum length using policy, add the key
+        "max-length" to a policy definition. For example:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy Ten "^short$" '{"max-length":10}' --apply-to queues</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy Ten "^short$" "{""max-length"":10}" --apply-to queues</pre>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        This applies a maximum length of 10 to the queue called <code>short</code>.
+      </p>
+
+      <p>
+        Policies can also be defined using the management plugin, see
+        the <a href="parameters.html#policies">policy
+        documentation</a> for more details.
+      </p>
+  </body>
+</html>

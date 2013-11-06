@@ -5,16 +5,23 @@
   </head>
   <body suppress-rhs="true">
     <p class="intro">
-      VMware provides a full range of commercial support and services for
-      RabbitMQ.
+      Pivotal provides a <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/buy.html">
+      full range of commercial support and services</a> for RabbitMQ.
     </p>
-    <h3>Support, Training and Consulting</h3>
+    <h3>Commercial Licensing, Support, Training and Consulting</h3>
     <p>
-      You can purchase <strong>commercial support agreements</strong> for the
-      most recent open source release RabbitMQ. Alternatively, VMware includes
-      RabbitMQ as part of the <em>vFabric&#8482; Suite Advanced</em> for which
-      commercial licenses and support are available. In both cases a range of
-      SLAs are available.
+      Pivotal offers <a href="https://www.vmware.com/support/policies/opensource.html">
+      commercial support agreements</a> for the most recent
+      <a href="download.html">open source release of RabbitMQ.</a>
+    </p>
+    <p>
+      We also produce a <a href="http://www.vmware.com/download/eula/vfabric_app-platform_eula.html">
+      commercially licensed</a> release of RabbitMQ under the
+      <em>vFabric&#8482;</em> brand. This includes all of the features of the
+      open source version and contains additional commercially focussed
+      components. Support agreements are also available from Pivotal for
+      <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/overview.html">
+      vFabric RabbitMQ</a>.
     </p>
     <p>
       We offer on-line and instructor-led <strong>training courses</strong>
@@ -27,9 +34,7 @@
       deployment planning, project delivery and other value-adding services
       tailored to suit your needs.</p>
     <p>
-      <a href="contact.html#email">Contact us</a> for more information or visit
-      the <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/overview.html">
-      vFabric RabbitMQ</a> pages at vmware.com.
+      Please <a href="contact.html#email">contact us</a> for more information.
     </p>
   </body>
 </html>

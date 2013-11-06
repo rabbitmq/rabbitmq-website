@@ -41,17 +41,6 @@
     </p>
 
     <p>
-      By confirming a message the broker assumes responsibility for it
-      and indicates that it has done something it deems reasonable
-      with it.  Unroutable mandatory messages are confirmed right
-      after the <code>basic.return</code>.  Transient messages are
-      confirmed as soon as they arrive on all the queues they were
-      routed to.  Persistent messages are confirmed when all queues
-      have either delivered the message and received an
-      acknowledgement (if required), or persisted the message.
-    </p>
-
-    <p>
       In exceptional cases when the broker is unable to handle
       messages successfully, instead of a <code>basic.ack</code>,
       the broker will send a <code>basic.nack</code>.  In this
@@ -78,7 +67,27 @@
                                        href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
     </p>
 
-    <h4>Notes</h4>
+    <h3 id="when">When will messages be confirmed?</h3>
+
+    <p>
+      The broker will confirm messages once:
+    </p>
+
+    <ul>
+      <li>
+        it decides a message will not be routed to queues<br/>
+        (if the <code>mandatory</code> flag is set then
+        the <code>basic.return</code> is sent first) <b>or</b>
+      </li>
+      <li>
+        a message has reached all of the queues (and their mirrors) it
+        was routed to, and, if it requires persistence (i.e. the
+        message has been marked as persistent and the queue is
+        durable) has been persisted to disk.
+      </li>
+    </ul>
+
+    <h3>Notes</h3>
 
     <p>
       The broker loses persistent messages if it crashes before
@@ -99,13 +108,12 @@
         <li>the client reconnects and starts consuming messages.</li>
       </ol>
       At this point, the client could reasonably assume that the
-      message will be delivered again.  This is not the case:
-      the restart has caused the broker to lose the message.  In
-      order to guarantee persistence, a client should use
-      confirms.  If the publisher's channel had been in confirm
-      mode, the publisher would <em>not</em> have received an
-      ack for the lost message (since the consumer hadn't ack'd
-      it and it hadn't been written to disk).
+      message will be delivered again.  This is not the case: the
+      restart has caused the broker to lose the message.  In order to
+      guarantee persistence, a client should use confirms.  If the
+      publisher's channel had been in confirm mode, the publisher
+      would <em>not</em> have received an ack for the lost message
+      (since the message hadn't been written to disk yet).
     </p>
   </body>
 </html>
