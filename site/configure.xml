@@ -595,13 +595,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </tr>
           <tr>
             <td><code>reverse_dns_lookups</code></td>
-            <td><code>false</code>
-            </td>
             <td>
               Set to <code>true</code> to have RabbitMQ perform a
               reverse DNS lookup on client connections, and present
               that information through <code>rabbitmqctl</code> and
-              the manegement plugin.
+              the management plugin.
+              <p>Default: <code>false</code></p>
             </td>
           </tr>
           <tr>
