@@ -19,6 +19,12 @@
      as the url attribute.
   -->
 
+   <x:page url="/features.html" text="Features">
+     <x:modal mode="www">
+       <x:page url="/protocols.html" text="Supported Protocols"/>
+     </x:modal>
+   </x:page>
+
    <x:page url="/download.html" text="Installation">
    <x:modal mode="www">
      <x:page url="/install-windows.html" text="Install: Windows">
@@ -53,9 +59,6 @@
    </x:modal>
    </x:page>
    <x:page url="/documentation.html" text="Documentation">
-     <x:page url="/features.html" text="Features">
-       <x:page url="/protocols.html" text="Protocols"/>
-     </x:page>
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>

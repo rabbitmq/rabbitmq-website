@@ -34,7 +34,7 @@ enhancements
 25749 allow alternate and dead-letter exchanges, queue max length, expiry and
       message TTL to be controlled by policy as well as AMQP arguments
 24094 report client authentication errors during connection establishment
-      explicitly using basic.close
+      explicitly using connection.close
 25191 inform clients when memory or disk alarms are set or cleared
 25572 allow policies to target queues or exchanges or both
 25726 make it harder to trigger the disk space alarm with default settings
