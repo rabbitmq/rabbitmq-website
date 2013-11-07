@@ -43,6 +43,7 @@ try{
         </form>
       </div>
       <ul class="mainNav">
+        <li><a href="/features.html">Features</a></li>
         <li><a href="/download.html">Installation</a></li>
         <li><a href="/documentation.html">Documentation</a></li>
         <li><a href="/getstarted.html">Get Started</a></li>

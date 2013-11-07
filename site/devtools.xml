@@ -35,6 +35,11 @@
                 <a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a>
               </li>
               <li>
+                <a href="https://github.com/jhalterman/lyra">Lyra, High Availability RabbitMQ client</a>
+                <br />
+                Lyra is a RabbitMQ client that helps you achieve high availability in your services by embracing failure, allowing for AMQP resources such as connections, channels and consumers to be automatically recovered when server or network failures occur.
+              </li>
+              <li>
                 <a href="https://github.com/joshdevins/rabbitmq-ha-client">RabbitMQ HA Client</a>
                 <br />
                 An implementation of ConnectionFactory that supports automatic connection recovery and message redelivery,
