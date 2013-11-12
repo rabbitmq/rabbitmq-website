@@ -159,9 +159,14 @@
         </dd>
         <dt><code>use_ssl</code></dt>
         <dd>
-          Whether to use LDAP over SSL. Uses the same <a href="ssl.html">SSL
-          configuration</a> as elsewhere in RabbitMQ. Default:
+          Whether to use LDAP over SSL. Default:
           <code>false</code>
+        </dd>
+        <dt><code>ssl_options</code></dt>
+        <dd>
+          SSL options. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Default:
+          <code>[]</code>
         </dd>
         <dt><code>port</code></dt>
         <dd>
