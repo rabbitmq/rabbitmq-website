@@ -150,6 +150,12 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
         <h4>Applying to federated exchanges only</h4>
 
         <dl>
+          <dt><code>exchange</code></dt>
+          <dd>
+            The name of the upstream exchange. Default is to use the
+            same name as the federated exchange.
+          </dd>
+
           <dt><code>max-hops</code></dt>
           <dd>
             The maximum number of federation links that a message
@@ -193,19 +199,6 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             </p>
           </dd>
 
-          <dt><code>exchange</code></dt>
-          <dd>
-            The name of the upstream exchange (when federating an
-            exchange). Default is to use the same name as the federated
-            exchange.
-          </dd>
-
-          <dt><code>queue</code></dt>
-          <dd>
-            The name of the upstream queue (when federating a queue). Default
-            is to use the same name as the federated queue.
-          </dd>
-
           <dt><code>ha-policy</code></dt>
           <dd>
             Determines the <code>"x-ha-policy"</code> argument for the
@@ -214,6 +207,15 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
             connecting to old brokers which determine queue HA mode
             using this argument. Default is <code>'none'</code>,
             meaning the queue is not HA.
+          </dd>
+        </dl>
+
+        <h4>Applying to federated queues only</h4>
+        <dl>
+          <dt><code>queue</code></dt>
+          <dd>
+            The name of the upstream queue. Default is to use the same
+            name as the federated queue.
           </dd>
         </dl>
       </doc:subsection>
