@@ -83,7 +83,14 @@
         Policies can be configured manually using RabbitMQ management UI,
         programmatically with <i>rabbitmqctl</i> or over HTTP API.
       </p>
-      
+
+      <p>
+        A federated queue can be 'upstream'
+        from another federated queue. One can even form 'loops', for
+        example, queue A declares queue B to be upstream from it, and
+        queue B declares queue A to be upstream from it. More complex
+        multiply-connected arrangements are allowed.
+      </p>
 
       <h2>How It Works</h2>
       <p>
@@ -154,13 +161,6 @@
 
     <doc:section name="advanced">
       <doc:heading>Pitfalls</doc:heading>
-      <p>
-        A federated queue can be 'upstream'
-        from another federated queue. One can even form 'loops', for
-        example, queue A declares queue B to be upstream from it, and
-        queue B declares queue A to be upstream from it. More complex
-        multiply-connected arrangements are allowed.
-      </p>
       <p>
         However, federated queues cannot currently cause messages to
         traverse multiple hops between brokers based solely on need for
