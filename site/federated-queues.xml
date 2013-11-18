@@ -177,7 +177,7 @@
     </doc:section>
 
     <doc:section name="advanced">
-      <doc:heading>Advanced Usage</doc:heading>
+      <doc:heading>Pitfalls</doc:heading>
       <p>
         A federated queue can be 'upstream'
         from another federated queue. One can even form 'loops', for
