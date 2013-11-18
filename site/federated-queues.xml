@@ -55,25 +55,6 @@
         to, and the federation mechanism only needs to move messages
         around in order to perform load balancing.
       </p>
-      <p>
-        Federated queues are particularly useful for <strong>scalable logging
-        (event streaming)</strong>. Publishers publish to one or more nodes
-        with upstream queues, consumers consume from both upstream and
-        downstream nodes. To add publisher capacity, add more
-        upstream nodes. To add consumer capacity, add more downstream
-        nodes and more consumers. Consuming from upstream nodes
-        improves data locality (reduces intra-node traffic).
-
-        One topology that allows horizontal scaling of consumers and
-        publishers is <a href="http://en.wikipedia.org/wiki/Bipartite_graph">bipartite graph</a>:
-
-        <img src="/img/federated_queues03.png"
-             width="700"
-             alt="Bipartite graph topology with federated queues" />
-
-        In the figure above, upstream nodes form a cluster to make it possible
-        for publishing applications to work with any node.
-      </p>
     </doc:section>
 
     <doc:section name="usage">
