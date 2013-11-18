@@ -87,10 +87,11 @@
 
       <h2>How It Works</h2>
       <p>
-        The federated queue will connect to all its upstream queues using
-        AMQP. When declaring or configuring the federated queue each
-        upstream queue is listed with the connection properties to be used
-        to establish the link.
+        The federated queue will connect to all its upstream queues
+        using AMQP (optionally <a href="ssl.html">secured with
+        SSL</a>). When declaring or configuring the federated queue
+        each upstream queue is listed with the connection properties
+        to be used to establish the link.
       </p>
 
       <p>
@@ -98,7 +99,8 @@
         out of messages locally, it has consumers that need messages, and
         the upstream queue has "spare" messages that are not being
         consumed. The intent is to ensure that messages are only
-        transferred between federated queues when needed.
+        transferred between federated queues when needed. This is
+        implemented using <a href="consumer-priority.html">consumer priorities</a>.
       </p>
 
       <p>
@@ -120,33 +122,9 @@
         use, a message will have its timer reset when it is transferred to
         another queue.
       </p>
-    </doc:section>
-
-
-    <doc:section name="Data Locality">
-      <doc:heading>Data Locality</doc:heading>
-      <p>
-        Inter-broker communication is implemented using AMQP (optionally
-        <a href="ssl.html">secured with SSL</a>). 
-
-        To improve data locality, consumers on a federated queue use
-        <a href="consumer-priority.html">consumer priorities</a>.
-
-        When a federated queue is empty and has active consumers with
-        a <a href="consumer-priority.html">priority</a> of 0 or
-        greater, it consumes from all upstream queues. As soon as it
-        is non-empty, or its consumers are no longer active, it stops
-        consuming.
-
-        Since a federated queue consumes from the upstreams with a
-        priority of -1, each upstream is able to prioritise delivering
-        messages to its "own" consumers before delivering to another
-        queue. We therefore ensure that messages are not forwarded
-        between federated queues needlessly.
-      </p>
 
       <p>
-        However, unlike with federated exchanges, there is no limit to how
+        Unlike with federated exchanges, there is no limit to how
         many times a message can be forwarded between federated queues. In
         a set of mutually-federated queues, messages will move to where
         the spare consuming capacity is - so if the spare consuming
