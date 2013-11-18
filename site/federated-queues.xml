@@ -11,7 +11,6 @@
   </head>
   <body show-in-this-page="true">
     <doc:section name="overview">
-      <doc:heading>Overview</doc:heading>
       <p>
         In addition to <a href="">federated exchanges</a>, RabbitMQ
         supports federated queues. This feature provides a way of
@@ -59,7 +58,6 @@
 
     <doc:section name="usage">
       <doc:heading>Using Federated Queues</doc:heading>
-      <h3>Configuration</h3>
       <p>
         Federated queues are declared just like any other queue, by applications.
         In order for RabbitMQ to recognize that a queue needs to be federated,
