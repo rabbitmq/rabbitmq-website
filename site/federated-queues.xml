@@ -162,7 +162,7 @@
     <doc:section name="advanced">
       <doc:heading>Pitfalls</doc:heading>
       <p>
-        However, federated queues cannot currently cause messages to
+        Federated queues cannot currently cause messages to
         traverse multiple hops between brokers based solely on need for
         messages in one place. For example, if you federate queues on
         nodes A, B and C, with A and B connected and B and C connected,
