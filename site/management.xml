@@ -104,12 +104,6 @@
             http://<i>server-name</i>:15672/
           </li>
           <li>
-            The HTTP API and its documentation are both located at:
-            http://<i>server-name</i>:15672/api/ (or view
-            our <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
-            latest HTTP API documentation here</a>).
-          </li>
-          <li>
             Download <a href="management-cli.html">rabbitmqadmin</a>
             at: http://<i>server-name</i>:15672/cli/
           </li>
@@ -236,6 +230,22 @@
           to create a non-administrator user and <a
           href="/man/rabbitmqctl.1.man.html#set_user_tags">rabbitmqctl
           set_user_tags</a> to promote a user to administrator.
+        </p>
+      </doc:section>
+
+
+      <doc:section name="http-api">
+        <doc:heading>HTTP API</doc:heading>
+        <p>
+          The management plugin also provides HTTP API. It is primarily useful for monitoring and accessing server metrics.
+          It is available at http://<i>server-address</i>:15672/api and uses Basic HTTP Auth for authentication.
+        </p>
+
+        <p>
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">RabbitMQ HTTP API documentation</a>
+        can also be accessed locally at http://<i>server-address</i>:15672/api.
+
+          For HTTP API clients in several languages, see <a href="/devtools.html">Developer Tools</a>.
         </p>
       </doc:section>
 
