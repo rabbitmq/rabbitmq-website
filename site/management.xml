@@ -243,15 +243,16 @@
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
-          The management plugin also provides HTTP API. It is primarily useful for monitoring and accessing server metrics.
-          It is available at http://<i>server-address</i>:15672/api and uses Basic HTTP Auth for authentication.
+          The management plugin will create an HTTP-based API at
+          http://<i>server-name</i>:15672/api/. Browse to that
+          location for more information on the API.
+          For convenience you can read the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+          latest HTTP API documentation</a> on our Mercurial server.
         </p>
-
         <p>
-          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">RabbitMQ HTTP API documentation</a>
-        can also be accessed locally at http://<i>server-address</i>:15672/api.
-
-          For HTTP API clients in several languages, see <a href="/devtools.html">Developer Tools</a>.
+          For HTTP API clients in several languages,
+          see <a href="/devtools.html">Developer Tools</a>.
         </p>
       </doc:section>
 
