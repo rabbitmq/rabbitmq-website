@@ -9,7 +9,7 @@
   <head>
     <title>Management Plugin</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="features">
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
@@ -239,6 +239,23 @@
         </p>
       </doc:section>
 
+
+      <doc:section name="http-api">
+        <doc:heading>HTTP API</doc:heading>
+        <p>
+          The management plugin will create an HTTP-based API at
+          http://<i>server-name</i>:15672/api/. Browse to that
+          location for more information on the API.
+          For convenience you can read the
+          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
+          latest HTTP API documentation</a> on our Mercurial server.
+        </p>
+        <p>
+          For HTTP API clients in several languages,
+          see <a href="/devtools.html">Developer Tools</a>.
+        </p>
+      </doc:section>
+
       <doc:section name="configuration">
         <doc:heading>Configuration</doc:heading>
         <p>
@@ -400,18 +417,6 @@
           full management plugin enabled, you will still need to
           enable the <code>rabbitmq-management-agent</code> plugin on
           each node.
-        </p>
-      </doc:section>
-
-      <doc:section name="http-api">
-        <doc:heading>HTTP API</doc:heading>
-        <p>
-          By default the management plugin will create an HTTP-based API at
-          http://<i>server-name</i>:15672/api/. Browse to that
-          location for more information on the API.
-          For convenience you can read the
-          <a href="http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/priv/www/api/index.html">
-          latest HTTP API documentation</a> on our Mercurial server.
         </p>
       </doc:section>
 
