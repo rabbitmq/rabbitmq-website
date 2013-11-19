@@ -79,8 +79,9 @@
         </doc:subsection>
       </doc:section>
 
-      <doc:section name="installation">
-        <doc:heading>Installation</doc:heading>
+      <doc:section name="getting-started">
+        <doc:heading>Getting started</doc:heading>
+
         <p>
           The management plugin is included in the RabbitMQ
           distribution.  To enable it, use <a
@@ -91,13 +92,9 @@
           If you wish to build the plugin from source, it can be built
           like any other. See
           the <a href="plugin-development.html">plugin development</a>
-          page for more information, but be aware that it seems to be
-          problematic to build rabbitmq-mochiweb on Windows.
+          page for more information.
         </p>
-      </doc:section>
 
-      <doc:section name="getting-started">
-        <doc:heading>Getting started</doc:heading>
         <ul>
           <li>
             The web UI is located at:
