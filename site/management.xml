@@ -9,7 +9,7 @@
   <head>
     <title>Management Plugin</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="features">
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
