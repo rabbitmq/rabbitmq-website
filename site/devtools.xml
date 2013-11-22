@@ -29,6 +29,9 @@
                 <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">RabbitMQ JMS client</a> (commercial)
               </li>
               <li>
+                Lyra, <a href="https://github.com/jhalterman/lyra">highly available RabbitMQ Java client</a>
+              </li>
+              <li>
                 <a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a>
               </li>
               <li>
