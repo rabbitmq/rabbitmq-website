@@ -504,6 +504,14 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="cobol-dev">
+            <doc:heading>COBOL</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
+              </li>
+            </ul>
+          </doc:heading>
           <doc:section name="macosx-dev">
             <doc:heading>MacOSX</doc:heading>
             <ul class="plain">
