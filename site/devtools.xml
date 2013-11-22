@@ -185,6 +185,9 @@
                 <a href="https://github.com/ruby-amqp/rabbitmq_http_api_client">Ruby RabbitMQ HTTP API client</a>
               </li>
               <li>
+                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
+              </li>
+              <li>
                 <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
               </li>
               <li>
