@@ -520,7 +520,13 @@
                 <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
               </li>
             </ul>
-          </doc:heading>
+          </doc:section>
+          <doc:section name="as400-dev">
+            <doc:heading>AS/400</doc:heading>
+            <ul class="plain">
+              <li><a href="http://jbrisbin.wordpress.com/2010/04/13/exposing-as400-service-programs-via-rabbitmq-and-java/">Exposing AS/400 Service Programs via RabbitMQ and Java</a></li>
+            </ul>
+          </doc:section>
           <doc:section name="macosx-dev">
             <doc:heading>MacOSX</doc:heading>
             <ul class="plain">
