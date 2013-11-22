@@ -467,6 +467,9 @@
                 <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>
               </li>
               <li>
+                Rabbit Hole, <a href="https://github.com/michaelklishin/rabbit-hole">RabbitMQ HTTP API client for Go</a>
+              </li>
+              <li>
                 <a href="https://github.com/gocardless/amqpc">amqpc</a>, a load testing tool for RabbitMQ clusters
               </li>
             </ul>
