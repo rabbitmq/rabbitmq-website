@@ -477,6 +477,15 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>channel_max</code></td>
+            <td>
+              Maximum permissible number of channels to
+              negotiate with clients. Setting to 0 means "unlimited".
+              Using more channels increases memory footprint of the broker.
+              <p>Default: <code>0</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>heartbeat</code></td>
             <td>
               Value representing the heartbeat delay, in seconds, that the
