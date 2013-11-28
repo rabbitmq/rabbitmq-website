@@ -154,10 +154,9 @@
       </p>
 
       <p>
-        When using shovel in a cluster, any nodes of the cluster may
-        have the shovel plugin installed. There is also no requirement
-        to run the shovel on the same broker (or cluster) as its
-        source or destination; the shovel can be entirely separate.
+        There is no requirement to run the shovel on the same broker
+        (or cluster) as its source or destination; the shovel can be
+        entirely separate.
       </p>
 
       <p>
@@ -200,6 +199,35 @@
       </tr>
     </table>
 
+    </doc:section>
+
+    <doc:section name="clustering">
+      <doc:heading>Shovels between clusters</doc:heading>
+      <p>
+        It's normally desirable to ensure that shovels are resilient
+        to failure of any node in the source or destination clusters,
+        or the cluster hosting the shovel.
+      </p>
+
+      <p>
+        You can ensure that shovels can fail over to different nodes
+        in the source or destination clusters by specifying multiple
+        source and/or destination URIs for each shovel.
+      </p>
+
+      <p>
+        Dynamic shovels are automatically defined on all nodes of the
+        hosting cluster on which the shovel plugin is enabled. Each
+        shovel will only start on one node (arbitrarily), but will
+        fail over to another node if that one goes down.
+      </p>
+
+      <p>
+        Static shovels should be defined in the configuration file for
+        all nodes of the hosting cluster on which the shovel plugin is
+        enabled. Again each shovel will only start on one node and
+        fail over when needed.
+      </p>
     </doc:section>
 
     <doc:section name="status">
