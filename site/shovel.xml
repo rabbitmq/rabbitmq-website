@@ -246,8 +246,8 @@
           <li>
             The shovel is running normally:
 <pre class="example">
-  { 'running' | 'blocked', {'source', <em>Source</em>},
-                           {'destination', <em>Destination</em>}}:
+  { 'running', {'source', <em>Source</em>},
+               {'destination', <em>Destination</em>}}:
 </pre>
             <p>
               where <code><em>Source</em></code> and
@@ -266,33 +266,6 @@
               </p>
             </li>
           </ul>
-          <p>
-            The first term of a normal status can be <code>'running'</code> or
-            <code>'blocked'</code>:
-            <ul class="plain">
-              <li>
-                <code><strong>'running'</strong></code>: the shovel
-                is up and running, shovelling messages;
-              </li>
-              <li>
-                <code><strong>'blocked'</strong></code>: the
-                destination has raised <code>channel.flow</code>,
-                preventing the shovel from sending messages to the
-                destination.
-              </li>
-            </ul>
-          </p>
-          <p>
-            When <code><strong>'blocked'</strong></code>, the
-            shovel will raise <code>channel.flow</code> to the
-            source, asking the source to stop sending further
-            messages to the shovel. Any messages that are received
-            by the shovel before the source observes the
-            <code>channel.flow</code> are correctly buffered and
-            maintained in order, and are published to the
-            destination as soon as the destination drops the
-            <code>channel.flow</code> block.
-          </p>
       </doc:subsection>
 
     </doc:section>
