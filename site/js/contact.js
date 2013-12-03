@@ -3,9 +3,9 @@
 registerOnLoadHandler(function() { setTimeout(initialise, 100); }); /* requires site.js */
 
 function initialise() {
-  var latlng = new google.maps.LatLng(51.506312, -0.099871);
+  var latlng = new google.maps.LatLng(51.525455, -0.08884);
   var myOptions = {
-    zoom: 15,
+    zoom: 16,
     center: latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false
