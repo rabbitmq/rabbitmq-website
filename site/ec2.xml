@@ -143,6 +143,19 @@ hostname -F /etc/hostname</pre>
       Whenever the hostname changes you should restart RabbitMQ:
       <pre class="ec2_sourcecode">$ /etc/init.d/rabbitmq-server restart</pre>
     </p>
+    <p>
+      A similar effect can be achieved by using <code>rabbit@localhost</code>
+      as the broker nodename.
+    </p>
+    <p>
+      The impact of this solution is that clustering will not work, because
+      the chosen hostname will not resolve to a routable address from remote
+      hosts. The <code>rabbitmqctl</code> command will similarly fail when
+      invoked from a remote host. A more sophisticated solution that does not
+      suffer from this weakness is to make use of a name resolution service
+      that provides stable hostnames, e.g.
+      <a href="http://aws.amazon.com/route53/">Amazon Route 53</a>
+    </p>
   </doc:subsection>
 </doc:section>
 
