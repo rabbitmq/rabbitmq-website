@@ -6,13 +6,13 @@ Release Highlights
 server
 ------
 bug fixes
-25867 automatic synchronisation could previously result in slaves being
-      unsynchronised when started soon after a policy-initiated master shutdown
+25873 prevent possibility of deadlock when slaves start up
+25867 ensure automatic synchronisation does not fail when policy change
+      causes new slaves to start and the master to change simultaneously
 25870 prevent the worker pool from running out of processes due to processes
       crashing
-25873 prevent possibility of deadlock when slaves start up
-25899 prevent possible failure during cluster upgrade, after second node is
-      started
+25899 prevent race leading to cluster upgrade failure when multiple nodes
+      attempt secondary upgrade simultaneously
 25912 correct reporting of flow control when connections become idle
 
 enhancements
@@ -22,15 +22,14 @@ enhancements
 LDAP plugin
 -----------
 bug fixes
-25863 prevent possibility of channels crashing during broker shutdown
+25863 prevent channels crashing during broker shutdown
 
 
 management plugin
 -----------------
 bug fixes
-25872 prevent empty idle queues from disappearing from the management view
-25889 GET /api/overview previously used different data types depending on
-      whether server was idle
+25872 prevent empty queues from showing length as '?' after going idle
+25889 ensure GET /api/overview uses consistent data types when server is idle
 25920 prevent rabbitmqadmin failure when no home directory is set
 
 
