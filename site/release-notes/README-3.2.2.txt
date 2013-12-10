@@ -15,9 +15,6 @@ bug fixes
       attempt secondary upgrade simultaneously
 25912 correct reporting of flow control when connections become idle
 
-enhancements
-25901 cluster upgrade failures can now produce an exception instead of halt
-
 
 LDAP plugin
 -----------
@@ -31,12 +28,6 @@ bug fixes
 25872 prevent empty queues from showing length as '?' after going idle
 25889 ensure GET /api/overview uses consistent data types when server is idle
 25920 prevent rabbitmqadmin failure when no home directory is set
-
-
-Erlang client
------------------
-bug fixes
-25881 prevent race condition if client and server both close the channel
 
 
 MQTT plugin
