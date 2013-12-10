@@ -6,28 +6,32 @@ Release Highlights
 server
 ------
 bug fixes
-25873 prevent possibility of deadlock when slaves start up
+25873 prevent possibility of deadlock when slaves start up (since 2.6.0)
 25867 ensure automatic synchronisation does not fail when policy change
       causes new slaves to start and the master to change simultaneously
+      (since 3.1.0)
 25870 prevent the worker pool from running out of processes due to processes
-      crashing
+      crashing (since 1.8.0)
 25899 prevent race leading to cluster upgrade failure when multiple nodes
-      attempt secondary upgrade simultaneously
+      attempt secondary upgrade simultaneously (since 2.4.1)
 25912 correct reporting of flow control when connections become idle
+      (since 2.8.0)
 
 
 LDAP plugin
 -----------
 bug fixes
-25863 prevent channels crashing during broker shutdown
+25863 prevent channels crashing during broker shutdown (since 2.3.0)
 
 
 management plugin
 -----------------
 bug fixes
 25872 prevent empty queues from showing length as '?' after going idle
+      (since 3.1.0)
 25889 ensure GET /api/overview uses consistent data types when server is idle
-25920 prevent rabbitmqadmin failure when no home directory is set
+      (since 2.1.0)
+25920 prevent rabbitmqadmin failure when no home directory is set (since 3.2.0)
 
 
 MQTT plugin
