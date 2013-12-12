@@ -123,6 +123,8 @@
          </x:page>
        </x:page>
        <x:page url="/shovel.html" text="Shovel plugin">
+         <x:page url="/shovel-static.html" text="Static Shovels"/>
+         <x:page url="/shovel-dynamic.html" text="Dynamic Shovels"/>
          <x:related url="/uri-spec.html"/>
          <x:related url="/uri-query-parameters.html"/>
        </x:page>
