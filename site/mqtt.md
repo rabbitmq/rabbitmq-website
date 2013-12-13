@@ -55,10 +55,15 @@ The `default_user` and `default_pass` options are used to authenticate
 the adapter in case MQTT clients provide no login credentials. If the
 `allow_anonymous` option is set to `false` then clients MUST provide credentials.
 The presence of client-supplied credentials over the network overrides
-the `allow_anonymous` option.
+the `allow_anonymous` option. Colons may not appear in usernames.
 
-The `vhost` option controls which RabbitMQ vhost the adapter connects to and the
-`exchange` option determines which exchange messages from MQTT clients are published
+The `vhost` option controls which RabbitMQ vhost the adapter connects to. The `vhost`
+configuration is only consulted if no vhost is provided during connection establishment.
+You can optionally specify a vhost while connecting, by prepending the vhost
+to the username and separating with a colon. For example, connecting with `/:guest` is
+equivalent to the default vhost and username.
+
+The `exchange` option determines which exchange messages from MQTT clients are published
 to. If a non-default exchange is chosen then it must be created before clients
 publish any messages. The exchange is expected to be an AMQP topic exchange.
 
