@@ -1,27 +1,24 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Commercial Services</title>
   </head>
   <body suppress-rhs="true">
     <p class="intro">
-      Pivotal provides a <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/buy.html">
-      full range of commercial support and services</a> for RabbitMQ.
+      Pivotal provides a <strong>full range of commercial support and services for
+      RabbitMQ</strong>.
     </p>
     <h3>Commercial Licensing, Support, Training and Consulting</h3>
     <p>
-      Pivotal offers <a href="https://www.vmware.com/support/policies/opensource.html">
-      commercial support agreements</a> for the most recent
-      <a href="download.html">open source release of RabbitMQ.</a>
+      Pivotal offers <strong>commercial support agreements</strong> for the most
+      recent open source release of RabbitMQ.
     </p>
     <p>
-      We also produce a <a href="http://www.vmware.com/download/eula/vfabric_app-platform_eula.html">
-      commercially licensed</a> release of RabbitMQ under the
-      <em>vFabric&#8482;</em> brand. This includes all of the features of the
-      open source version and contains additional commercially focussed
+      We also produce a <strong>commercially licensed</strong> release of RabbitMQ
+      under the <em>vFabric&#8482;</em> brand. This includes all of the features
+      of the open source version and contains additional commercially focussed
       components. Support agreements are also available from Pivotal for
-      <a href="http://www.vmware.com/products/application-platform/vfabric-rabbitmq/overview.html">
-      vFabric RabbitMQ</a>.
+      vFabric RabbitMQ.
     </p>
     <p>
       We offer on-line and instructor-led <strong>training courses</strong>
