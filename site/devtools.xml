@@ -174,10 +174,9 @@
               <li>
                 <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
               </li>
-	      <li>
-		<a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby)
-		services that communicate over RabbitMQ.
-	      </li>
+              <li>
+                <a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
+              </li>
               <li>
                 <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
               </li>
@@ -509,7 +508,7 @@
             <doc:heading>Ocaml</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://oss.wink.com/netamqp">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
+                <a href="http://projects.camlcity.org/projects/netamqp.html">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
               </li>
             </ul>
           </doc:section>
