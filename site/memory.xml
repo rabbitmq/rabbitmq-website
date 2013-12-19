@@ -106,14 +106,12 @@
       </p>
 
       <p>
-        32-bit architectures impose a per process memory limit of
-        4GB, though under Windows, this is frequently further
-        reduced to 2GB. Common implementations of 64-bit
-        architectures (i.e. AMD64 and Intel EM64T) permit only a
-        paltry 256TB per process. 64-bit Windows again further
-        limits this to 8TB. However, note that even under 64-bit
-        Windows, a 32-bit process frequently only has a maximum
-        address space of 2GB.
+        32-bit architectures tend to impose a per process memory limit
+        of 2GB. Common implementations of 64-bit architectures
+        (i.e. AMD64 and Intel EM64T) permit only a paltry 256TB per
+        process. 64-bit Windows further limits this to 8TB. However,
+        note that even under 64-bit OSes, a 32-bit process frequently
+        only has a maximum address space of 2GB.
       </p>
       <doc:subsection name="memsup-usage">
         <doc:heading>Configuring the Memory Threshold</doc:heading>
@@ -128,12 +126,12 @@
         </p>
 
         <p>
-          The default value of 0.4 stands for 40% of installed RAM
-          or 40% of available virtual address space, whichever is
-          smaller. E.g. on a 32-bit Windows platform, if you have
-          4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
-          Windows normally limits processes to 2GB, so the threshold
-          is actually to 40% of 2GB (which is 820MB).
+          The default value of 0.4 stands for 40% of installed RAM or
+          40% of available virtual address space, whichever is
+          smaller. E.g. on a 32-bit platform, if you have 4GB of RAM
+          installed, 40% of 4GB is 1.6GB, but 32-bit Windows normally
+          limits processes to 2GB, so the threshold is actually to 40%
+          of 2GB (which is 820MB).
         </p>
 
         <p>
