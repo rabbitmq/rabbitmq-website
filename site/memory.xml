@@ -170,6 +170,32 @@ Memory limit set to 2048MB.</pre>
         </p>
       </doc:subsection>
 
+      <doc:subsection name="address-space">
+        <doc:heading>Limited Address Space</doc:heading>
+        <p>
+          When running RabbitMQ inside a 32 bit Erlang VM in a 64 bit
+          OS, the addressable memory is limited. The server will
+          detect this and log a message like:
+        </p>
+
+        <pre>=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
+Only 2048MB of 12037MB memory usable due to limited address space.</pre>
+
+        <p>
+          The memory alarm system is not perfect. While stopping publishing
+          will usually prevent any further memory from being used, it is quite
+          possible for other things to continue to increase memory
+          use. Normally when this happens and the physical memory is exhausted
+          the OS will start to swap. But when running with a limited address
+          space, running over the limit will cause the VM to crash.
+        </p>
+
+        <p>
+          It is therefore strongly recommended that when running on a 64 bit
+          OS you use a 64 bit Erlang VM.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="memsup-paging">
         <doc:heading>Configuring the Paging Threshold</doc:heading>
         <p>
