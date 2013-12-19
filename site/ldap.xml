@@ -149,11 +149,9 @@
           <p>
             Note that it is not possible to use the
             default <code>as_user</code> configuration when users connect
-            without passwords. An error
-            mentioning <code>as_user_no_password</code> will be logged in this
-            case. You must set <code>other_bind</code> to <code>anon</code>,
-            or <code>{UserDN, Password}</code> for users to log in without
-            passwords.
+            without passwords. You must set <code>other_bind</code>
+            to <code>anon</code>, or <code>{UserDN, Password}</code> for users
+            to log in without passwords.
           </p>
           <p>
             Default: <code>as_user</code>
@@ -161,9 +159,14 @@
         </dd>
         <dt><code>use_ssl</code></dt>
         <dd>
-          Whether to use LDAP over SSL. Uses the same <a href="ssl.html">SSL
-          configuration</a> as elsewhere in RabbitMQ. Default:
+          Whether to use LDAP over SSL. Default:
           <code>false</code>
+        </dd>
+        <dt><code>ssl_options</code></dt>
+        <dd>
+          SSL options. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Default:
+          <code>[]</code>
         </dd>
         <dt><code>port</code></dt>
         <dd>
