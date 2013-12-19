@@ -255,9 +255,7 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
 
         <p>
           It is advised you do not set the threshold above 50% of your
-          installed RAM, and to note that under Windows with a 32-bit
-          Erlang VM, it is commonly the case that a maximum of 2GB
-          memory is available to RabbitMQ.
+          installed RAM.
         </p>
       </doc:subsection>
     </doc:section>
