@@ -178,7 +178,7 @@ Memory limit set to 2048MB.</pre>
           detect this and log a message like:
         </p>
 
-        <pre>=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
+        <pre class="sourcecode">=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
 Only 2048MB of 12037MB memory usable due to limited address space.</pre>
 
         <p>
