@@ -746,7 +746,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           RabbitMQ Java client supports automatic recovery of connections
           and topology (queues, exchanges, bindings, and consumers).
 
-          The automatic recovery process for many applications follows a simple scheme:
+          The automatic recovery process for many applications follows the following steps:
           <ol>
             <li>Reconnect</li>
             <li>Restore connection shutdown hooks</li>
