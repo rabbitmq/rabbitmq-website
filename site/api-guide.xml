@@ -754,7 +754,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
             <li>Restore channel shutdown hooks</li>
           </ol>
 
-          and, optionally, for every channel
+          Topology recovery includes the following actions, performed for every channel
 
           <ol>
             <li>Re-declare exchanges (except for predefined ones)</li>
