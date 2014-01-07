@@ -413,6 +413,9 @@
                 <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
               </li>
               <li>
+                <a href="https://github.com/CopernicaMarketingSoftware/AMQP-CPP">AMQP-CPP</a>, a C++ RabbitMQ client
+              </li>
+              <li>
                 You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="https://github.com/selivanovm/rabbitmq-d">port of this client to d</a>
               </li>
               <li>
