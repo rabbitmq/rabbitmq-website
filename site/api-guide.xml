@@ -802,6 +802,30 @@ c.disableAutomaticTopologyRecovery();
           </pre>
         </p>
         </doc:subsection>
+
+      <doc:subsection name="recovery-and-acknowledgements">
+        <doc:heading>Manual Acknowledgements and Automatic Recovery</doc:heading>
+        <p>
+          When manual acknowledgements are used, it is possible that
+          network connection to RabbitMQ node fails between message
+          delivery and acknowledgement. After connection recovery,
+          RabbitMQ will reset delivery tags on all channels.
+
+          This means that <i>basic.ack</i>, <i>basic.nack</i>, and <i>basic.reject</i>
+          with old delivery tags will cause a channel exception. To avoid this,
+          RabbitMQ Java client keeps track of and updates delivery tags to make them monotonically
+          growing between recoveries.
+
+          <code>Channel.basicAck</code>,
+          <code>Channel.basicNack</code>, and
+          <code>Channel.basicReject</code> then translate adjusted
+          delivery tags into those used by RabbitMQ.
+
+          <b>Acknowledgements with stale delivery tags will not be sent</b>. Applications
+          that use manual acknowledgements and automatic recovery must
+          be capable of handling redeliveries.
+        </p>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
