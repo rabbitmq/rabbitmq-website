@@ -103,7 +103,7 @@ add more workers and that way, scale easily.
 First, let's try to run two `worker.php` scripts at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the `worker.rb`
+You need three consoles open. Two will run the `worker.php`
 script. These consoles will be our two consumers - C1 and C2.
 
     :::bash
