@@ -366,7 +366,7 @@
           </p>
           <pre class="example">
 [{rabbitmq_management,
-  [{listener, [{port,     15672},
+  [{listener, [{port,     15671},
                {ssl,      true},
                {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
                            {certfile,   "/path/to/cert.pem"},
