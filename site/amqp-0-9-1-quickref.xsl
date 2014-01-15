@@ -304,10 +304,6 @@
       <x:javadoc href="Channel.html#close(int, java.lang.String)"/>
       <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.Close(System.UInt16,System.String)"/>
     </x:decorate>
-    <x:decorate target="method" name="channel.flow">
-      <x:javadoc href="Channel.html#flow(boolean)"/>
-      <x:dotnetdoc href="type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.ChannelFlow(System.Boolean)"/>
-    </x:decorate>
     <x:decorate target="method" name="channel.open">
       <!-- x:javadoc ***not impl*** -->
       <!-- x:dotnetdoc ***not impl*** -->
