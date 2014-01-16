@@ -826,6 +826,16 @@ c.disableAutomaticTopologyRecovery();
           be capable of handling redeliveries.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="publishers">
+        <doc:heading>Effects on Publishing</doc:heading>
+        <p>
+          Messages that are published using <code>Channel.basicPublish</code> when connection is down
+          will be lost. The client does not enqueue them for delivery after connection has recovered.
+          To ensure that published messages reach RabbitMQ applications need to use <a href="confirms.html">Publisher Confirms</a>
+          and account for connection failures.
+        </p>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
