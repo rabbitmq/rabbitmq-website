@@ -149,6 +149,7 @@
      <x:page url="/extensions.html" text="Our Extensions">
        <x:page url="/confirms.html" text="Confirms"/>
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/consumer-prefetch.html" text="Consumer Prefetch"/>
        <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
        <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>

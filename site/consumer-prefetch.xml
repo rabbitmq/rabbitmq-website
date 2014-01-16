@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Consumer Prefetch</title>
+  </head>
+  <body>
+    <p class="intro">
+      A more natural and efficient way to limit unacknowledged
+      messages.
+    </p>
+
+    <p>
+      AMQP has the <code>basic.qos</code> method to allow you to limit
+      the number of unacknowledged messages (aka "prefetch count") on
+      a channel when consuming. Unfortunately the channel is not the
+      ideal scope for this - since a single channel may consume from
+      multiple queues, the channel and the queue(s) need to coordinate
+      with each other for every message sent. This is slow on a single
+      machine, and very slow in a cluster. Furthermore for many users
+      it is simply more natural to specify a prefetch count for each
+      consumer separately.
+    </p>
+
+    <p>
+      Therefore RabbitMQ allows you to specify a prefetch count for a
+      consumer at the time it is created. Once a consumer is created
+      with a prefetch count, only at most that number of
+      unacknowledged messages will be delivered to the client.
+    </p>
+
+    <p>
+      Per-consumer prefetch can be used at the same time as the
+      per-channel prefetch defined by <code>basic.qos</code>; in which
+      case the two prefetch limits are enforced independently of each
+      other; the consumer will only receive new messages when both
+      limits on unacknowledged messages are met.
+    </p>
+
+    <h3>Using per-consumer prefetch</h3>
+
+    <p>
+      Set the <code>x-prefetch</code> argument
+      to <code>basic.consume</code>. The argument must be a
+      non-negative integer, with 0 interpreted to mean "no limit"
+      (i.e. the <code>x-prefetch</code> argument has no effect). The
+      prefetch count of a consumer never changes until the consumer is
+      destroyed with <code>basic.cancel</code>.
+    </p>
+
+    <p>
+      For example (in Java):
+    </p>
+
+      <pre class="sourcecode">
+Channel channel = ...;
+Consumer consumer = ...;
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-prefetch", 100);
+channel.basicConsume("my-queue", false, args, consumer);</pre>
+
+    <p>
+      This creates a new consumer with at most 100 unacknowledged messages.
+    </p>
+  </body>
+</html>
