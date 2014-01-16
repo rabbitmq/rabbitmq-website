@@ -14,14 +14,18 @@
 
     <p>
       AMQP has the <code>basic.qos</code> method to allow you to limit
-      the number of unacknowledged messages (aka "prefetch count") on
-      a channel when consuming. Unfortunately the channel is not the
-      ideal scope for this - since a single channel may consume from
-      multiple queues, the channel and the queue(s) need to coordinate
-      with each other for every message sent. This is slow on a single
-      machine, and very slow in a cluster. Furthermore for many users
-      it is simply more natural to specify a prefetch count for each
-      consumer separately.
+      the number of unacknowledged messages on a channel when
+      consuming (aka "prefetch count"). Unfortunately the channel is
+      not the ideal scope for this - since a single channel may
+      consume from multiple queues, the channel and the queue(s) need
+      to coordinate with each other for every message sent. This is
+      slow on a single machine, and very slow when consuming across a
+      cluster.
+    </p>
+
+    <p>
+      Furthermore for many users it is simply more natural to specify
+      a prefetch count for each consumer separately.
     </p>
 
     <p>
@@ -62,7 +66,8 @@ args.put("x-prefetch", 100);
 channel.basicConsume("my-queue", false, args, consumer);</pre>
 
     <p>
-      This creates a new consumer with at most 100 unacknowledged messages.
+      This creates a new consumer which will receive at most 100
+      unacknowledged messages.
     </p>
   </body>
 </html>
