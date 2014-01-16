@@ -46,9 +46,7 @@ ConnectionFactory factory = new ConnectionFactory();
 Connection connection = factory.newConnection();
 connection.addBlockedListener(new BlockedListener() {
     public void handleBlocked(String reason) throws IOException {
-        // Connection is now blocked.
-        // Note that it may be triggered more than once before
-        // the connection unblocks!
+        // Connection is now blocked
     }
 
     public void handleUnblocked() throws IOException {
@@ -73,9 +71,7 @@ connection.addBlockedListener(new BlockedListener() {
       <pre class="sourcecode">
         public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
         {
-            // Connection is now blocked.
-            // Note that it may be triggered more than once before
-            // the connection unblocks!
+            // Connection is now blocked
         }
 
         public void HandleUnblocked(IConnection sender)
