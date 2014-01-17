@@ -15,6 +15,8 @@
           <a href="/tutorials/tutorial-one-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-one-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-one-dotnet.html">C#</a>
           </p>
         </li>
 
