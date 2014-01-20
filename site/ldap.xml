@@ -30,22 +30,36 @@
       <p>
         You will then need to set the value of the <code>auth_backends</code>
         configuration item for the <code>rabbit</code> application to include
-        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
-        a list of authentication providers to try in order. So:
+        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is a
+        list of authentication / authoriation providers to try in order.  The
+        list can contain names of modules (in which case the same module is
+        used for both authentication and authorisation), or 2-tuples
+        like <code>{ModN, ModZ}</code> in which case <code>ModN</code> is used
+        for authentication and <code>ModZ</code> is used for authorisation.
+      </p>
+
+      <p>
+        So for example:
       </p>
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
       <p>
-        will configure RabbitMQ to <b>only</b> check LDAP for users,
-        and ignore the internal database, while:
+        This will configure RabbitMQ to <b>only</b> check LDAP for users,
+        and ignore the internal database.
       </p>
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
       <p>
-        will check LDAP first, and then fall back to the internal
-        database if the user cannot be authenticated through LDAP and:
+        This will check LDAP first, and then fall back to the internal
+        database if the user cannot be authenticated through LDAP.
       </p>
-      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
+      <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
+                          rabbit_auth_backend_internal]}]}</pre>
       <p>
-        will do the same but check the internal database first.
+        This will check LDAP first. If the user is found in LDAP then the
+        password will be checked against LDAP and subsequent authorisation
+        checks will be performed against the internal database (therefore
+        users in LDAP must exist in the internal database as well, but do not
+        need a password there). If the user is not found in LDAP then a second
+        attempt is made using only the internal database.
       </p>
 
     </doc:section>
@@ -60,7 +74,8 @@
       <p>
         The most complex part of configuring the plugin pertains to
         authorisation (i.e. granting permissions to your users via LDAP). This
-        is documented separately below.
+        is documented separately below and can be skipped if only using the
+        plugin for authentication.
       </p>
       <p>
         The default configuration allows all users to access all objects in
