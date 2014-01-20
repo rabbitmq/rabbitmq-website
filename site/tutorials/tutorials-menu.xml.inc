@@ -34,6 +34,8 @@
           <a href="/tutorials/tutorial-two-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-two-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-two-dotnet.html">C#</a>
           </p>
         </li>
 
