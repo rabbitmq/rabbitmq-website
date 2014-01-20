@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 ## Work Queues
-### (using the Java Client)
+### (using the .NET Client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
