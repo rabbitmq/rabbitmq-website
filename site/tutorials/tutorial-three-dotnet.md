@@ -273,7 +273,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     }
 
 
-[(EmitLog.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.cs)
+[(EmitLog.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLog.cs)
 
 As you see, after establishing the connection we declared the
 exchange. This step is neccesary as publishing to a non-existing
@@ -323,7 +323,7 @@ The code for `ReceiveLogs.cs`:
     }
 
 
-[(ReceiveLogs.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.cs)
+[(ReceiveLogs.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogs.cs)
 
 
 Compile as before and we're done.
