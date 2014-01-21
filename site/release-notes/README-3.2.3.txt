@@ -10,10 +10,10 @@ bug fixes
 25928 fixed cosmetic error when sending connection.close-ok after client
       already closed the connection
 25965 limit messages to ~2GB to prevent "Absurdly large distribution output
-      data buffer" crash
+      data buffer" VM crash
 24927 avoid broker being overwhelmed while logging benign messages starting with
       "Discarding messages"
-25952 prevent "Absurdly large distribution output data buffer" crash when
+25952 prevent "Absurdly large distribution output data buffer" VM crash when
       sending many/large messages to a mirrored queue
 25925 removed extraneous service parameters when installing on windows
 
