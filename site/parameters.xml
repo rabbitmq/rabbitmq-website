@@ -59,7 +59,7 @@
       Parameters reside in the database used by RabbitMQ for
       definitions of virtual hosts, exchanges, queues, bindings, users
       and permissions. Parameters are exported along with other object
-      definitions by the mananagement plugin's export feature.
+      definitions by the management plugin's export feature.
     </p>
     <p>
       Currently parameters are only used by the federation plugin.
