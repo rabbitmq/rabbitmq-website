@@ -28,11 +28,13 @@ bug fixes
       (since 3.2.0)
 25949 prevent unnecessary CPU use when ACKs are not in use (since 2.6.0)
 
+
 shovel plugin
 -----------------
 bug fixes
 25934 remove ordering constraint on configuration items (since 2.0.0)
 25949 prevent unnecessary CPU use when ACKs are not in use (since 2.0.0)
+
 
 LDAP plugin
 -----------
