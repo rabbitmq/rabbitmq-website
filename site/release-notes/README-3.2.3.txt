@@ -6,22 +6,24 @@ Release Highlights
 server
 ------
 bug fixes
-25945 fixed queue federation error when channels close or crash without
-      cancellation from consumers
 25936 stemmed leak when queues with active consumers terminate
-25928 fixed error when sending connection.close-ok after client already closed
-      the connection
-25965 prevent large messages from causing a crash in clusters by limiting to 2Gb
+25928 fixed cosmetic error when sending connection.close-ok after client
+      already closed the connection
+25965 limit messages to ~2GB to prevent "Absurdly large distribution output
+      data buffer" crash
 24927 avoid broker being overwhelmed while logging benign messages starting with
       "Discarding messages"
-25952 prevent VM panic when sending many/large messages on a very fast network
+25952 prevent "Absurdly large distribution output data buffer" crash when
+      sending many/large messages to a mirrored queue
 25925 removed extraneous service parameters when installing on windows
 
 
 federation plugin
 -----------------
 bug fixes
-25956 prevent federation of internal exchanges
+25945 ensure federated queues correctly stop federating messages when channels
+      close or crash without cancellation from consumers
+25956 prevent federation of the queues used internally by federated exchanges
 25949 prevent unnecessary CPU use when ACKs are not in use
 
 
@@ -35,7 +37,7 @@ bug fixes
 LDAP plugin
 -----------
 bug fixes
-25914 fix error caused by post-bind lookup of distinguishedName on OpenLDAP
+25914 fix use of dn_lookup_attribute configuration on OpenLDAP
 
 
 Upgrading
