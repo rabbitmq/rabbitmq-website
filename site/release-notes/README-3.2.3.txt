@@ -6,8 +6,8 @@ Release Highlights
 server
 ------
 bug fixes
-25936 stemmed leak when queues with active consumers terminate
-25928 fixed cosmetic error when sending connection.close-ok after client
+25936 stem leak when queues with active consumers terminate
+25928 fix cosmetic error when sending connection.close-ok after client
       already closed the connection
 25965 limit messages to ~2GB to prevent "Absurdly large distribution output
       data buffer" VM crash
@@ -15,7 +15,7 @@ bug fixes
       "Discarding messages"
 25952 prevent "Absurdly large distribution output data buffer" VM crash when
       sending many/large messages to a mirrored queue
-25925 removed extraneous service parameters when installing on windows
+25925 remove extraneous service parameters when installing on windows
 
 
 federation plugin
