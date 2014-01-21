@@ -6,38 +6,38 @@ Release Highlights
 server
 ------
 bug fixes
-25936 stem leak when queues with active consumers terminate
+25936 stem leak when queues with active consumers terminate (since 3.2.0)
 25928 fix cosmetic error when sending connection.close-ok after client
-      already closed the connection
+      already closed the connection (since 1.0.0)
 25965 limit messages to ~2GB to prevent "Absurdly large distribution output
-      data buffer" VM crash
+      data buffer" VM crash (since 1.0.0)
 24927 avoid broker being overwhelmed while logging benign messages starting with
-      "Discarding messages"
+      "Discarding messages" (since 1.0.0)
 25952 prevent "Absurdly large distribution output data buffer" VM crash when
-      sending many/large messages to a mirrored queue
+      sending many/large messages to a mirrored queue (since 2.6.0)
 25925 remove extraneous service parameters when installing on windows
+      (since 1.5.0)
 
 
 federation plugin
 -----------------
 bug fixes
 25945 ensure federated queues correctly stop federating messages when channels
-      close or crash without cancellation from consumers
+      close or crash without cancellation from consumers (since 3.2.0)
 25956 prevent federation of the queues used internally by federated exchanges
-25949 prevent unnecessary CPU use when ACKs are not in use
-
+      (since 3.2.0)
+25949 prevent unnecessary CPU use when ACKs are not in use (since 2.6.0)
 
 shovel plugin
 -----------------
 bug fixes
-25934 remove ordering constraint on configuration items
-25949 prevent unnecessary CPU use when ACKs are not in use
-
+25934 remove ordering constraint on configuration items (since 2.0.0)
+25949 prevent unnecessary CPU use when ACKs are not in use (since 2.0.0)
 
 LDAP plugin
 -----------
 bug fixes
-25914 fix use of dn_lookup_attribute configuration on OpenLDAP
+25914 fix use of dn_lookup_attribute configuration on OpenLDAP (since 2.8.0)
 
 
 Upgrading
