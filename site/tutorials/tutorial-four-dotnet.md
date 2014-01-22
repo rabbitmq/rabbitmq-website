@@ -326,7 +326,7 @@ The code for `ReceiveLogsDirect.cs`:
 
 
 Compile as usual (see [tutorial one](tutorial-one-dotnet.html) for
-compilation and classpath advice).
+compilation advice).
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
