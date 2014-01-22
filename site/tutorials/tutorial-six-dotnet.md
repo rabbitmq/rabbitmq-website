@@ -389,7 +389,7 @@ Now is a good time to take a look at our full example source code (which include
 [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient.cs) and [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer.cs).
 
 
-Compile and set up the classpath as usual (see [tutorial one](tutorial-one-dotnet.html)):
+Compile as usual (see [tutorial one](tutorial-one-dotnet.html)):
 
     :::bash
     $ csc /r:"RabbitMQ.Client.dll" RPCClient.cs
