@@ -120,7 +120,7 @@ We'll call our message sender `Send` and our message receiver
 then exit.
 
 In
-[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs),
+[`Send.cs`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs),
 we need to use some namespaces:
 
     :::csharp

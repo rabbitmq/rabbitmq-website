@@ -284,7 +284,7 @@ Some teasers:
        ./EmitLogTopic "a.b"
    </div>
 
-(Full source code for [EmitLogTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogTopic.cs)
-and [ReceiveLogsTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsTopic.cs))
+(Full source code for [EmitLogTopic.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogTopic.cs)
+and [ReceiveLogsTopic.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsTopic.cs))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-dotnet.html)
