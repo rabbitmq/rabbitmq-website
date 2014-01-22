@@ -301,8 +301,8 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.
 
 ### Putting it all together
 
-You can compile both of these with just the RabbitMQ .NET client on
-the classpath. We're using the command line (`cmd.exe` and `csc`) to
+You can compile both of these by referencing the RabbitMQ .NET client
+assembly. We're using the command line (`cmd.exe` and `csc`) to
 compile and run the code. Alternatively you could use Visual Studio.
 
     :::bash
