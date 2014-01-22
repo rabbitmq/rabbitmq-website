@@ -60,8 +60,7 @@ which sends an RPC request and blocks until the answer is received:
 In general doing RPC over RabbitMQ is easy. A client sends a request
 message and a server replies with a response message. In order to
 receive a response we need to send a 'callback' queue address with the
-request. We can use a server-named exclusive queue.
-Let's try it:
+request:
 
     :::csharp
     var corrId = Guid.NewGuid().ToString();
