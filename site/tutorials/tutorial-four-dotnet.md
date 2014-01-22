@@ -23,7 +23,7 @@ In previous examples we were already creating bindings. You may recall
 code like:
 
     :::csharp
-    channel.QueueBind(queueName, EXCHANGE_NAME, "");
+    channel.QueueBind(queueName, "direct_logs", "");
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -34,7 +34,7 @@ confusion with a `BasicPublish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
     :::csharp
-    channel.QueueBind(queueName, EXCHANGE_NAME, "black");
+    channel.QueueBind(queueName, "direct_logs", "black");
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -165,7 +165,7 @@ first.
 As always, we need to create an exchange first:
 
     :::csharp
-    channel.ExchangeDeclare(EXCHANGE_NAME, "direct");
+    channel.ExchangeDeclare("direct_logs", "direct");
 
 And we're ready to send a message:
 
