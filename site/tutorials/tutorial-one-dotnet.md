@@ -194,7 +194,7 @@ exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
 When the code above finishes running, the channel and the connection
-will be closed.
+will be disposed.
 
 [Here's the whole Send.cs
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs).
