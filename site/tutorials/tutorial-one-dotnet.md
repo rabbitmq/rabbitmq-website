@@ -135,9 +135,10 @@ Set up the class:
     {
         public static void Main()
         {
+            ...
         }
     }
-    
+
 then we can create a connection to the server:
 
     :::csharp
@@ -149,7 +150,8 @@ then we can create a connection to the server:
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
-                {                    
+                {
+                    ...
                 }
             }
         }
@@ -178,10 +180,10 @@ to the queue:
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare("hello", false, false, false, null);
-    
+
                     string message = "Hello World!";
                     var body = Encoding.UTF8.GetBytes(message);
-    
+
                     channel.BasicPublish("", "hello", null, body);
                     Console.WriteLine(" [x] Sent {0}", message);
                 }
@@ -271,16 +273,16 @@ we're ready to use them. That is what `QueueingBasicConsumer` does.
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare("hello", false, false, false, null);
-    
+
                     var consumer = new QueueingBasicConsumer(channel);
                     channel.BasicConsume("hello", true, consumer);
-    
+
                     Console.WriteLine(" [*] Waiting for messages." +
                                              "To exit press CTRL+C");
                     while (true)
                     {
                         var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-    
+
                         var body = ea.Body;
                         var message = Encoding.UTF8.GetString(body);
                         Console.WriteLine(" [x] Received {0}", message);
