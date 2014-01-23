@@ -17,6 +17,8 @@ bug fixes
       sending many/large messages to a mirrored queue (since 2.6.0)
 25925 remove extraneous service parameters when installing on windows
       (since 1.5.0)
+25929 prevent error being logged when connection is closed while it is still
+      being opened (since 1.0.0)
 
 
 federation plugin
@@ -24,6 +26,7 @@ federation plugin
 bug fixes
 25945 ensure federated queues correctly stop federating messages when channels
       close or crash without cancellation from consumers (since 3.2.0)
+25971 prevent crash of federated mirrored queues on deletion (since 3.2.0)
 25956 prevent federation of the queues used internally by federated exchanges
       (since 3.2.0)
 25949 prevent unnecessary CPU use when ACKs are not in use (since 2.6.0)
