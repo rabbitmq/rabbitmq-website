@@ -140,11 +140,8 @@ The code is almost the same as in the
 
 The code for `EmitLogTopic.cs`:
 
-    using System;
-    using System.Linq;
-    using RabbitMQ.Client;
-    using System.Text;
-    
+
+    :::csharp
     class EmitLogTopic
     {
         public static void Main(string[] args)
@@ -157,9 +154,9 @@ The code for `EmitLogTopic.cs`:
                     channel.ExchangeDeclare("topic_logs", "topic");
     
                     var routingKey = (args.Length > 0) ? args[0] : "anonymous.info";
-                    var message = (args.Length > 1) ? string.Join(" ", args.Skip(1)
-                                                                                      .ToArray())
-                                                                   : "Hello World!";
+                    var message = (args.Length > 1)
+                                     ? string.Join(" ", args.Skip(1).ToArray())
+                                     : "Hello World!";
                     var body = Encoding.UTF8.GetBytes(message);
                     channel.BasicPublish("topic_logs", routingKey, null, body);
                     Console.WriteLine(" [x] Sent '{0}':'{1}'", routingKey, message);
@@ -171,11 +168,7 @@ The code for `EmitLogTopic.cs`:
 
 The code for `ReceiveLogsTopic.cs`:
 
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-
+    :::csharp
     class ReceiveLogsTopic
     {
         public static void Main(string[] args)

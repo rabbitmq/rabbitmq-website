@@ -66,7 +66,7 @@ program will schedule tasks to our work queue, so let's name it
     var properties = channel.CreateBasicProperties();
     properties.DeliveryMode = 2;
 
-    channel.BasicPublish("", "task_queue", properties, body);
+    channel.BasicPublish("", "hello", properties, body);
 
 Some help to get the message from the command line argument:
 
@@ -82,7 +82,7 @@ messages from the queue and perform the task, so let's call it `Worker.cs`:
 
     :::csharp
     var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("task_queue", true, consumer);
+    channel.BasicConsume("hello", true, consumer);
 
     Console.WriteLine(" [*] Waiting for messages. " +
                       "To exit press CTRL+C");
@@ -107,7 +107,7 @@ Our fake task to simulate execution time:
     int dots = message.Split('.').Length - 1;
     Thread.Sleep(dots * 1000);
 
-Compile them as in tutorial one (with the client DDL file in the working directory):
+Compile them as in tutorial one (with the client assembly in the working directory):
 
     :::bash
     $ csc /r:"RabbitMQ.Client.dll" NewTask.cs
@@ -160,7 +160,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    Worker.exe
+    shell2$ Worker.exe
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
@@ -206,7 +206,14 @@ from the worker, once we're done with a task.
 
     :::csharp
     var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("task_queue", false, consumer);
+    channel.BasicConsume("hello", false, consumer);
+
+        while (true)
+        {
+            var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+            //...
+            channel.BasicAck(ea.DeliveryTag, false);
+        }
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -214,7 +221,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basicAck`. It's an easy error,
+> It's a common mistake to miss the `BasicAck`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -246,7 +253,7 @@ queue. In order to do so, we need to declare it as _durable_:
 
     :::csharp
     bool durable = true;
-    channel.QueueDeclare("tasks", durable, false, false, null);
+    channel.QueueDeclare("hello", durable, false, false, null);
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -264,7 +271,7 @@ and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `IBasicProperties#SetPersistent` to `true`.
+- by setting `IBasicProperties.SetPersistent` to `true`.
 
     :::csharp
     var properties = channel.CreateBasicProperties();

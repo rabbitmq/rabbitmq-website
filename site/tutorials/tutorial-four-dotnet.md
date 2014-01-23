@@ -241,11 +241,6 @@ Putting it all together
 The code for `EmitLogDirect.cs` class:
 
     :::csharp
-    using System;
-    using System.Linq;
-    using RabbitMQ.Client;
-    using System.Text;
-    
     class EmitLogDirect
     {
         public static void Main(string[] args)
@@ -258,9 +253,9 @@ The code for `EmitLogDirect.cs` class:
                     channel.ExchangeDeclare("direct_logs", "direct");
     
                     var severity = (args.Length > 0) ? args[0] : "info";
-                    var message = (args.Length > 1) ? string.Join(" ", args.Skip(1)
-                                                                                          .ToArray())
-                                                                       : "Hello World!";
+                    var message = (args.Length > 1)
+                                    ? string.Join(" ", args.Skip(1).ToArray())
+                                    : "Hello World!";
                     var body = Encoding.UTF8.GetBytes(message);
                     channel.BasicPublish("direct_logs", severity, null, body);
                     Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
@@ -272,11 +267,6 @@ The code for `EmitLogDirect.cs` class:
 The code for `ReceiveLogsDirect.cs`:
 
     :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-    
     class ReceiveLogsDirect
     {
         public static void Main(string[] args)

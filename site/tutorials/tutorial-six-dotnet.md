@@ -212,11 +212,6 @@ The code for our RPC server [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-t
 
 
     :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-
     class RPCServer
     {
         public static void Main()
@@ -290,11 +285,6 @@ The server code is rather straightforward:
 The code for our RPC client [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient.cs):
 
     :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-
     class RPCClient
     {
         private IConnection connection;
