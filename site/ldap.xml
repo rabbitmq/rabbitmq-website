@@ -121,7 +121,7 @@
           </p>
           <p>
             To do this, set <code>dn_lookup_attribute</code> to the
-            name of the attribute the represents the user name,
+            name of the attribute that represents the user name,
             and <code>dn_lookup_base</code> to the base DN for the
             query.
           </p>
