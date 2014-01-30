@@ -15,6 +15,8 @@
           <a href="/tutorials/tutorial-one-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-one-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-one-dotnet.html">C#</a>
           </p>
         </li>
 
@@ -32,6 +34,8 @@
           <a href="/tutorials/tutorial-two-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-two-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-two-dotnet.html">C#</a>
           </p>
         </li>
 
@@ -49,6 +53,8 @@
           <a href="/tutorials/tutorial-three-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-three-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-three-dotnet.html">C#</a>
           </p>
         </li>
 
@@ -66,6 +72,8 @@
           <a href="/tutorials/tutorial-four-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-four-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-four-dotnet.html">C#</a>
           </p>
         </li>
 
@@ -83,6 +91,8 @@
           <a href="/tutorials/tutorial-five-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-five-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-five-dotnet.html">C#</a>
           </p>
         </li>
 
@@ -100,6 +110,8 @@
           <a href="/tutorials/tutorial-six-ruby.html">Ruby</a>
           |
           <a href="/tutorials/tutorial-six-php.html">PHP</a>
+          |
+          <a href="/tutorials/tutorial-six-dotnet.html">C#</a>
           </p>
         </li>
       </ul>
