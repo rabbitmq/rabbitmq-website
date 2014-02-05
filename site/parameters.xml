@@ -167,12 +167,13 @@
       defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
 
-    <h2>Mixing several polices</h2>
+    <h2>Combining policy definitions</h2>
     <p>
-      In some cases we might want to apply more than one policy to a resource.
-      For example we might need a queue to be federated and mirrored, but since
-      at most one policy will apply to a resource at any given time, we need a
-      way to be able to mix two policies.
+      In some cases we might want to apply more than one policy
+      definition to a resource.  For example we might need a queue to
+      be federated and mirrored. At most one policy will apply to a
+      resource at any given time, but we can apply multiple
+      definitions in that policy.
     </p>
     <p>
       We can achieve that by defining a policy like this:
@@ -229,10 +230,10 @@
         </td>
       </tr>
     </table>
-    
+
     <p>
       By doing that all the queues matched by the pattern "^hf\." will have the <code>"federation-upstream-set"</code>
-      and the <code>"ha-mode"</code> policies applied to them.
+      and the <code>"ha-mode"</code> definitions applied to them.
     </p>
 
   </body>
