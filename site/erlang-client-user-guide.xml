@@ -228,18 +228,25 @@
       If a client wishes to run inside the same Erlang cluster as the
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
-      amqp_connection:start/1 with the parameter set to
-      an #amqp_params_direct record. Providing a password is optional,
-      since the direct client is considered trusted anyway.  If a
-      password is provided then it will be checked and made available to
-      authentication backends.
+      amqp_connection:start/1 with the parameter set to an
+      #amqp_params_direct record.
+    </p>
+    <p>
+      Providing a username and password is optional, since the direct
+      client is considered trusted anyway. If a username is provided
+      then a password must be provided too. If a username and password
+      are provided then they will be checked and made available to
+      authentication backends. If no username and password are
+      provided then the connection will be considered to be from a
+      "dummy" user which can connect to any virtual host and issue any
+      AMQP command.
     </p>
     <p>
       The #amqp_params_direct record sets the following default values:
     </p>
     <table>
       <tr><th>Parameter</th><th>Default Value</th></tr>
-      <tr><td>username</td><td>guest</td></tr>
+      <tr><td>username</td><td>none</td></tr>
       <tr><td>password</td><td>none</td></tr>
       <tr><td>virtual_host</td><td>/</td></tr>
       <tr><td>node</td><td>node()</td></tr>
