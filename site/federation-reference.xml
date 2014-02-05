@@ -160,7 +160,12 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dd>
             The maximum number of federation links that a message
             published to a federated exchange can traverse before it
-            is discarded. Default is 1.
+            is discarded. Default is 1. Note that even if
+            <code>max-hops</code> is set to a value greater than 1,
+            messages will never visit the same node twice due to
+            travelling in a loop. However, messages may still be
+            duplicated if it is possible for them to travel from the
+            source to the destination via multiple routes.
           </dd>
 
           <dt><code>expires</code></dt>
