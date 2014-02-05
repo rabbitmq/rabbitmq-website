@@ -113,18 +113,37 @@
             Default: <code>"${username}"</code>
           </p>
         </dd>
-        <dt><code>dn_lookup_attribute</code> and <code>dn_lookup_base</code></dt>
+        <dt><code>dn_lookup_attribute</code>, <code>dn_lookup_base</code> and <code>dn_lookup_bind</code></dt>
         <dd>
           <p>
-            The other way to convert a username to a Distinguished Name is via
-            an LDAP lookup after binding. In order for this to work your LDAP
-            server needs to be configured to allow binding with the unadorned
+            The other way to convert a username to a Distinguished
+            Name is via an LDAP lookup.
+          </p>
+          <p>
+            To do this, set <code>dn_lookup_attribute</code> to the
+            name of the attribute that represents the user name,
+            and <code>dn_lookup_base</code> to the base DN for the
+            query.
+          </p>
+          <p>
+            The lookup can be done at one of two times, either before
+            attempting to bind as the user in question, or afterwards.
+          </p>
+          <p>
+            If you want to do the lookup after binding, you can leave
+            <code>dn_lookup_bind</code> set to its default
+            of <code>as_user</code>. The LDAP plugin will then bind
+            with the user's unadorned username to do the login, then
+            look up its DN. In order for this to work your LDAP server
+            needs to be configured to allow binding with the unadorned
             username (Microsoft Active Directory typically does this).
           </p>
           <p>
-            To do this, set dn_lookup_attribute to the name of the attribute the
-            represents the user name, and dn_lookup_base to the base DN for the
-            query.
+            If you want to do the lookup before binding, you must
+            set <code>dn_lookup_bind</code> to a tuple <code>{UserDN,
+            Password}</code>. The LDAP plugin will then bind with
+            these credentials first to do the lookup, then bind with
+            the user's DN and password to do the login.
           </p>
           <p>
             For example, if I set
@@ -142,7 +161,7 @@
             searches for the DN.
           </p>
           <p>
-            Default: <code>'none'</code> and <code>'none'</code>
+            Default: <code>'none'</code>, <code>'none'</code> and <code>'as_user'</code>
           </p>
         </dd>
         <dt><code>other_bind</code></dt>
