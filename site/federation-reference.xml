@@ -257,7 +257,8 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           The federation plugin uses the cluster name defined within
           the server to identify itself to other nodes in the
           federation graph. (The default is constructed from the
-          Erlang node and the machine's fully-qualified domain name.)
+          Erlang node and the fully-qualified domain name of the first
+          node to form the cluster.)
         </p>
         <p>
           This can be changed with <code>rabbitmqctl
