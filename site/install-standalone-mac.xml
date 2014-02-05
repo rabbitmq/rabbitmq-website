@@ -27,7 +27,8 @@
         <doc:heading>Install the Server</doc:heading>
         <p>
           This build of RabbitMQ includes an Erlang runtime. That means you
-          don't need to install Erlang to run RabbitMQ.
+          don't need to install Erlang to run RabbitMQ. The build is known to work
+          with <strong>OS X</strong> versions <strong>10.6.4</strong> and above.
           If you are curious about how this works you can read more
           <a href="http://www.erlang.org/doc/design_principles/release_structure.html">here</a>.
         </p>
