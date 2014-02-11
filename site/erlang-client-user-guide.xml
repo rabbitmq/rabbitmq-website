@@ -233,13 +233,14 @@
     </p>
     <p>
       Providing a username and password is optional, since the direct
-      client is considered trusted anyway. If a username is provided
-      then a password must be provided too. If a username and password
+      client is considered trusted anyway. If a username and password
       are provided then they will be checked and made available to
-      authentication backends. If no username and password are
-      provided then the connection will be considered to be from a
-      "dummy" user which can connect to any virtual host and issue any
-      AMQP command.
+      authentication backends. If a username is supplied, but no
+      password, then the user is considered trusted and logged in
+      unconditionally. If neither username nor password are provided
+      then the connection will be considered to be from a "dummy" user
+      which can connect to any virtual host and issue any AMQP
+      command.
     </p>
     <p>
       The #amqp_params_direct record sets the following default values:
