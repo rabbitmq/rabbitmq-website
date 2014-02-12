@@ -749,9 +749,10 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           The automatic recovery process for many applications follows the following steps:
           <ol>
             <li>Reconnect</li>
-            <li>Restore connection shutdown hooks</li>
+            <li>Restore connection listeners</li>
             <li>Re-open channels</li>
-            <li>Restore channel shutdown hooks</li>
+            <li>Restore channel listeners</li>
+            <li>Restore channel <pre>basic.qos</pre>, publisher confirms and transaction settings</li>
           </ol>
 
           Topology recovery includes the following actions, performed for every channel
