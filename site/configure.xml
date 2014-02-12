@@ -477,6 +477,15 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>channel_max</code></td>
+            <td>
+              Maximum permissible number of channels to
+              negotiate with clients. Setting to 0 means "unlimited".
+              Using more channels increases memory footprint of the broker.
+              <p>Default: <code>0</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>heartbeat</code></td>
             <td>
               Value representing the heartbeat delay, in seconds, that the
@@ -587,9 +596,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>auth_backends</code></td>
             <td>
-              List of authentication databases to use. Other databases
-              than <code>rabbit_auth_backend_internal</code> are
-              available through <a href="plugins.html">plugins</a>.
+              <p>
+                List of authentication / authorisation databases to
+                use. This list can contain names of modules (in which
+                case the same module is used for both authentication
+                and authorisation), or 2-tuples like <code>{ModN,
+                ModZ}</code> in which case <code>ModN</code> is used
+                for authentication and <code>ModZ</code> is used for
+                authorisation.
+              </p>
+              <p>
+                Other databases
+                than <code>rabbit_auth_backend_internal</code> are
+                available through <a href="plugins.html">plugins</a>.
+              </p>
               <p>Default: <code>[rabbit_auth_backend_internal]</code></p>
             </td>
           </tr>

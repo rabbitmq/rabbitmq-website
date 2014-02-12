@@ -62,7 +62,7 @@
       definitions by the management plugin's export feature.
     </p>
     <p>
-      Currently parameters are only used by the federation plugin.
+      Parameters are used by the federation and shovel plugins.
     </p>
     <h2 id="policies">Policies</h2>
     <p>
