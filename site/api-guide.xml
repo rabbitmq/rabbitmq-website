@@ -765,7 +765,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           </ol>
 
           To enable automatic connection recovery, use
-          <code>factory.newRecoveringConnection()</code>:
+          <code>factory.setAutomaticRecovery(true)</code>:
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 factory.setUsername(<b>userName</b>);
@@ -773,8 +773,9 @@ factory.setPassword(<b>password</b>);
 factory.setVirtualHost(<b>virtualHost</b>);
 factory.setHost(<b>hostName</b>);
 factory.setPort(<b>portNumber</b>);
+factory.setAutomaticRecovery(true)
 // connection that will recover automatically
-Connection conn = factory.newRecoveringConnection();
+Connection conn = factory.newConnection();
           </pre>
 
           If recovery fails due to an exception (e.g. RabbitMQ node is
@@ -808,8 +809,8 @@ factory.setNetworkRecoveryInterval(10000);
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
-RecoveringConnection conn = (RecoveringConnection)factory.newRecoveringConnection();
-c.disableAutomaticTopologyRecovery();
+Connection conn = factory.newConnection();
+factory.setAutomaticRecovery(true)
           </pre>
         </p>
         </doc:subsection>
