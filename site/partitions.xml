@@ -25,7 +25,7 @@
       related to Mnesia's behaviour.
     </p>
 
-    <h2>Detecting network partitions</h2>
+    <h2 id="detecting">Detecting network partitions</h2>
     <p>
       Mnesia will typically determine that a node is down if another
       node is unable to contact it for a minute or so (see the page
@@ -72,7 +72,7 @@ Cluster status of node rabbit@smacmullen ...
       occured.
     </p>
 
-    <h2>During a network partition</h2>
+    <h2 id="during">During a network partition</h2>
     <p>
       While a network partition is in place, the two (or more!) sides
       of the cluster can evolve independently, with both sides
@@ -90,7 +90,7 @@ Cluster status of node rabbit@smacmullen ...
       fix it.</b>
     </p>
 
-    <h2>Recovering from a network partition</h2>
+    <h2 id="recovering">Recovering from a network partition</h2>
     <p>
       To recover from a network partition, first choose one partition
       which you trust the most. This partition will become the
@@ -148,7 +148,7 @@ Cluster status of node rabbit@smacmullen ...
       or <code>autoheal</code>.
     </p>
 
-    <h3>Which mode should I pick?</h3>
+    <h3 id="which-mode">Which mode should I pick?</h3>
 
     <p>
       It's important to understand that allowing RabbitMQ to deal with
