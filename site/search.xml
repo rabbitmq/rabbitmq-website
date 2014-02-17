@@ -20,7 +20,8 @@
       s.parentNode.insertBefore(gcse, s);
     })();
   </script>
-  <gcse:search></gcse:search>
+  <gcse:searchbox enableAutoComplete="true" queryParameterName="q" autoSearchOnLoad="true" noResultsString="no results"/>
+  <gcse:searchresults></gcse:searchresults>
 </div>
 </body>
 </html>
