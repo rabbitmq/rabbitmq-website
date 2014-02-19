@@ -240,13 +240,6 @@
           </td>
         </tr>
       </table>
-      <p>
-        The variable's meaning has changed in 2.7.0: whereas it
-        previously referred to the directory of installed plugins, it
-        now refers to the directory with all available plugins.  The
-        <code>rabbitmq-plugins</code> tool can only enable plugins
-        found in this directory.
-      </p>
       </doc:section>
       <doc:section name="upgrades">
         <doc:heading>Plugins and Upgrades</doc:heading>
