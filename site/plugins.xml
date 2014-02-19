@@ -153,16 +153,6 @@
             a couple of formats.
           </r:plugin>
 
-          <r:plugin name="rabbitmq_jsonrpc_channel">
-            An AMQP-over-HTTP protocol binding for RabbitMQ and some
-            Javascript libraries for interacting with RabbitMQ over HTTP.
-          </r:plugin>
-          <r:plugin name="rabbitmq_jsonrpc_channel_examples" optional="true">
-            Adds some example web applications
-            to <code>rabbitmq_jsonrpc_channel</code>: a shared
-            whiteboard, a chat application, and some tests.
-          </r:plugin>
-
           <r:plugin name="rabbitmq_web_stomp">
             A bridge exposing <code>rabbitmq_stomp</code> to web
             browsers using WebSockets, using the WebSockets emulation
