@@ -775,8 +775,7 @@ factory.setHost(<b>hostName</b>);
 factory.setPort(<b>portNumber</b>);
 factory.setAutomaticRecovery(true)
 // connection that will recover automatically
-Connection conn = factory.newConnection();
-          </pre>
+Connection conn = factory.newConnection();</pre>
 
           If recovery fails due to an exception (e.g. RabbitMQ node is
           still not reachable), it will be retried after a fixed time interval (default
@@ -785,8 +784,7 @@ Connection conn = factory.newConnection();
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 // attempt recovery every 10 seconds
-factory.setNetworkRecoveryInterval(10000);
-          </pre>
+factory.setNetworkRecoveryInterval(10000);</pre>
 
           When a list of addresses is provided, a random one will be picked
           during recovery:
@@ -795,8 +793,7 @@ factory.setNetworkRecoveryInterval(10000);
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
 Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
-factory.newConnection(addresses);
-          </pre>
+factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
 
@@ -820,8 +817,7 @@ factory.newConnection(addresses);
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
 Connection conn = factory.newConnection();
-factory.setAutomaticRecovery(true)
-          </pre>
+factory.setAutomaticRecovery(true)</pre>
         </p>
         </doc:subsection>
 
