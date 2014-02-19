@@ -157,7 +157,6 @@
             An AMQP-over-HTTP protocol binding for RabbitMQ and some
             Javascript libraries for interacting with RabbitMQ over HTTP.
           </r:plugin>
-
           <r:plugin name="rabbitmq_jsonrpc_channel_examples" optional="true">
             Adds some example web applications
             to <code>rabbitmq_jsonrpc_channel</code>: a shared
