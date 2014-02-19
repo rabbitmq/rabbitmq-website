@@ -752,7 +752,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
             <li>Restore connection listeners</li>
             <li>Re-open channels</li>
             <li>Restore channel listeners</li>
-            <li>Restore channel <pre>basic.qos</pre>, publisher confirms and transaction settings</li>
+            <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
           </ol>
 
           Topology recovery includes the following actions, performed for every channel
@@ -779,13 +779,23 @@ Connection conn = factory.newConnection();
           </pre>
 
           If recovery fails due to an exception (e.g. RabbitMQ node is
-          still not reachable), it will be retried after a fixed time interval.
-          The interval can be configured:
+          still not reachable), it will be retried after a fixed time interval (default
+          is 5 seconds). The interval can be configured:
 
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 // attempt recovery every 10 seconds
 factory.setNetworkRecoveryInterval(10000);
+          </pre>
+
+          When a list of addresses is provided, a random one will be picked
+          during recovery:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
+factory.newConnection(addresses);
           </pre>
         </p>
       </doc:subsection>
