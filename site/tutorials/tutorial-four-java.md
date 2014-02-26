@@ -45,8 +45,8 @@ Direct exchange
 
 Our logging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
-based on their severity. For example we may want the script which is
-writing log messages to the disk to only receive critical errors, and
+based on their severity. For example we may want a program which
+writes log messages to the disk to only receive critical errors, and
 not waste disk space on warning or info log messages.
 
 We were using a `fanout` exchange, which doesn't give us much
@@ -158,7 +158,7 @@ Emitting logs
 
 We'll use this model for our logging system. Instead of `fanout` we'll
 send messages to a `direct` exchange. We will supply the log severity as
-a `routing key`. That way the receiving script will be able to select
+a `routing key`. That way the receiving program will be able to select
 the severity it wants to receive. Let's focus on emitting logs
 first.
 
