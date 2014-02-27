@@ -457,11 +457,28 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </p>
 
               <p>
-                At present there is just one category defined -
-                'connection', for all events relating to network
-                connections. Other, currently uncategorised, events
-                are always logged.
+                At present there are three categories defined. Other,
+                currently uncategorised, events are always logged.
               </p>
+
+              <p>
+                The categories are:
+              </p>
+
+              <ul>
+                <li>
+                  <code>connection</code> - for all events relating to
+                  network connections
+                </li>
+                <li>
+                  <code>mirroring</code> - for all events relating to
+                  <a href="ha.html">mirrored queues</a>
+                </li>
+                <li>
+                  <code>federation</code> - for all events relating to
+                  <a href="federation.html">federation</a>
+                </li>
+              </ul>
               <p>Default: <code>[{connection, info}]</code></p>
             </td>
           </tr>
