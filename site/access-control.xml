@@ -34,6 +34,32 @@
         </p>
       </doc:section>
 
+      <doc:section name="loopback-users">
+        <doc:heading>"guest" user can only connect via localhost</doc:heading>
+        <p>
+          By default, the <code>guest</code> user is prohibited from
+          connecting to the broker remotely; it can only connect over
+          a loopback interface (i.e. <code>localhost</code>). This
+          applies both to AMQP and to any other protocols enabled via
+          plugins. Any other users you create will not (by default) be
+          restricted in this way.
+        </p>
+        <p>
+          This is configured via the <code>loopback_users</code> item
+          in the <a href="configure.html#configuration-file">
+          configuration file</a>.
+        </p>
+        <p>
+          If you wish to allow the <code>guest</code> user to connect
+          from a remote host, you should set the
+          <code>loopback_users</code> configuration item to
+          <code>[]</code>. A complete <code>rabbitmq.config</code>
+          which does this would look like:
+        </p>
+        <pre class="sourcecode">
+[{rabbit, [{loopback_users, []}]}].</pre>
+      </doc:section>
+
       <doc:section name="access-control">
         <doc:heading>How permissions work</doc:heading>
         <p>
