@@ -59,7 +59,7 @@
       Parameters reside in the database used by RabbitMQ for
       definitions of virtual hosts, exchanges, queues, bindings, users
       and permissions. Parameters are exported along with other object
-      definitions by the mananagement plugin's export feature.
+      definitions by the management plugin's export feature.
     </p>
     <p>
       Currently parameters are only used by the federation plugin.
@@ -166,5 +166,83 @@
       and <code>"priority"</code> settings are optional, in which case the
       defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
+
+    <h2>Combining policy definitions</h2>
+    <p>
+      In some cases we might want to apply more than one policy
+      definition to a resource.  For example we might need a queue to
+      be federated and mirrored. At most one policy will apply to a
+      resource at any given time, but we can apply multiple
+      definitions in that policy.
+    </p>
+    <p>
+      A federation policy definition would require an <em>upstream set</em> 
+      to be specified, so we would need the <code>federation-upstream-set</code> 
+      key in our definition. On the other hand to define some queues as mirrored, 
+      we would need the <code>ha-mode</code> key to be defined as well for the 
+      policy. Since the policy definition is just a JSON object, we can have both 
+      keys in the same policy definition.
+    </p>
+    <p>
+      Here's an example:
+    </p>
+
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <pre>rabbitmqctl set_policy ha-fed "^hf\." '{"federation-upstream-set":"all","ha-mode":"all"}' \
+--priority 1 --apply-to queues</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>rabbitmqctl (Windows)</th>
+        <td>
+          <pre>rabbitmqctl set_policy ha-fed "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""all""}" ^
+--priority 1 --apply-to queues</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>HTTP API</th>
+        <td>
+          <pre>PUT /api/policies/%2f/ha-fed
+{"pattern": "^hf\.",
+ "definition": {"federation-upstream-set":"all", "ha-mode": "all"},
+ "priority": 1,
+ "apply-to": "queues"}</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>Web UI</th>
+        <td>
+          <ul>
+            <li>
+              Navigate to Admin > Policies > Add / update a
+              policy.
+            </li>
+            <li>
+              Enter "ha-fed" next to Name, "^hf\." next to
+              Pattern, and select "Queues" next to Apply to.
+            </li>
+            <li>
+              Enter "federation-upstream-set" = "all" in the first line next to
+              Policy.
+            </li>
+            <li>
+              Enter "ha-mode" = "all" on the next line.
+            </li>
+            <li>
+              Click Add policy.
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      By doing that all the queues matched by the pattern "^hf\." will have the <code>"federation-upstream-set"</code>
+      and the <code>"ha-mode"</code> definitions applied to them.
+    </p>
+
   </body>
 </html>

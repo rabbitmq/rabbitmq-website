@@ -1,14 +1,27 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:gcse="custard">
   <head>
     <title>Search This Site</title>
     <link rel="stylesheet" href="./css/search.css" type="text/css" />
   </head>
   <body>
 <p>Use the form below to search using our RabbitMQ customised search engine.</p>
-
-<div id="cse" style="width: 100%;">Loading</div>
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script src="/js/search.js" type="text/javascript"></script>
+<div id="cse" style="width: 100%;">
+  <script>
+    (function() {
+      var cx = '017944451049936139762:gjhquebpm60';
+      var gcse = document.createElement('script');
+      gcse.type = 'text/javascript';
+      gcse.async = true;
+      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+          '//www.google.com/cse/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(gcse, s);
+    })();
+  </script>
+  <gcse:searchbox enableAutoComplete="true" queryParameterName="q" autoSearchOnLoad="true" noResultsString="no results"/>
+  <gcse:searchresults></gcse:searchresults>
+</div>
 </body>
 </html>

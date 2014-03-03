@@ -12,9 +12,10 @@
   <body show-in-this-page="true">
     <doc:section name="overview">
       <p>
-        In addition to <a href="">federated exchanges</a>, RabbitMQ
-        supports federated queues. This feature provides a way of
-        balancing the load of a single queue across nodes or clusters.
+        In addition to <a href="federated-exchanges.html">federated
+        exchanges</a>, RabbitMQ supports federated queues. This
+        feature provides a way of balancing the load of a single queue
+        across nodes or clusters.
       </p>
 
       <p>

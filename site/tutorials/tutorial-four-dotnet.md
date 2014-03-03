@@ -1,11 +1,11 @@
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using the Java client)
+### (using the .NET client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-three-java.html) we built a
+In the [previous tutorial](tutorial-three-dotnet.html) we built a
 simple logging system. We were able to broadcast log messages to many
 receivers.
 
@@ -22,19 +22,19 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::java
-    channel.queueBind(queueName, EXCHANGE_NAME, "");
+    :::csharp
+    channel.QueueBind(queueName, "direct_logs", "");
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
 exchange.
 
 Bindings can take an extra `routingKey` parameter. To avoid the
-confusion with a `basic_publish` parameter we're going to call it a
+confusion with a `BasicPublish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::java
-    channel.queueBind(queueName, EXCHANGE_NAME, "black");
+    :::csharp
+    channel.QueueBind(queueName, "direct_logs", "black");
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -45,8 +45,8 @@ Direct exchange
 
 Our logging system from the previous tutorial broadcasts all messages
 to all consumers. We want to extend that to allow filtering messages
-based on their severity. For example we may want a program which
-writes log messages to the disk to only receive critical errors, and
+based on their severity. For example we may want the script which is
+writing log messages to the disk to only receive critical errors, and
 not waste disk space on warning or info log messages.
 
 We were using a `fanout` exchange, which doesn't give us much
@@ -158,19 +158,20 @@ Emitting logs
 
 We'll use this model for our logging system. Instead of `fanout` we'll
 send messages to a `direct` exchange. We will supply the log severity as
-a `routing key`. That way the receiving program will be able to select
+a `routing key`. That way the receiving script will be able to select
 the severity it wants to receive. Let's focus on emitting logs
 first.
 
 As always, we need to create an exchange first:
 
-    :::java
-    channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+    :::csharp
+    channel.ExchangeDeclare("direct_logs", "direct");
 
 And we're ready to send a message:
 
-    :::java
-    channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+    :::csharp
+    var body = Encoding.UTF8.GetBytes(message);
+    channel.BasicPublish("direct_logs", severity, null, body);
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -184,11 +185,12 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-    :::java
-    String queueName = channel.queueDeclare().getQueue();
+    :::csharp
+    var queueName = channel.QueueDeclare();
 
-    for(String severity : argv){    
-      channel.queueBind(queueName, EXCHANGE_NAME, severity);
+    foreach (var severity in args)
+    {
+        channel.QueueBind(queueName, "direct_logs", severity);
     }
 
 Putting it all together
@@ -236,104 +238,108 @@ Putting it all together
 </div>
 
 
-The code for `EmitLogDirect.java` class:
+The code for `EmitLogDirect.cs` class:
 
-    #!java
-    public class EmitLogDirect {
+    :::csharp
+    class EmitLogDirect
+    {
+        public static void Main(string[] args)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare("direct_logs", "direct");
     
-        private static final String EXCHANGE_NAME = "direct_logs";
-    
-        public static void main(String[] argv)
-                      throws java.io.IOException {
-    
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-    
-            channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-    
-            String severity = getSeverity(argv);
-            String message = getMessage(argv);
-    
-            channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
-            System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
-    
-            channel.close();
-            connection.close();
-        }
-        //..
-    }
-
-The code for `ReceiveLogsDirect.java`:
-
-    #!java
-    public class ReceiveLogsDirect {
-    
-        private static final String EXCHANGE_NAME = "direct_logs";
-    
-        public static void main(String[] argv)
-                      throws java.io.IOException,
-                      java.lang.InterruptedException {
-        
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-    
-            channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-            String queueName = channel.queueDeclare().getQueue();
-    
-            if (argv.length < 1){
-                System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
-                System.exit(1);
-            }
-    
-            for(String severity : argv){
-                channel.queueBind(queueName, EXCHANGE_NAME, severity);
-            }
-    
-            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
-            QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(queueName, true, consumer);
-    
-            while (true) {
-                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                String message = new String(delivery.getBody());
-                String routingKey = delivery.getEnvelope().getRoutingKey();
-    
-                System.out.println(" [x] Received '" + routingKey + "':'" + message + "'");
+                    var severity = (args.Length > 0) ? args[0] : "info";
+                    var message = (args.Length > 1)
+                                    ? string.Join(" ", args.Skip(1).ToArray())
+                                    : "Hello World!";
+                    var body = Encoding.UTF8.GetBytes(message);
+                    channel.BasicPublish("direct_logs", severity, null, body);
+                    Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
+                }
             }
         }
     }
 
-Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
-For convenience we'll now use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
+The code for `ReceiveLogsDirect.cs`:
 
+    :::csharp
+    class ReceiveLogsDirect
+    {
+        public static void Main(string[] args)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare("direct_logs", "direct");
+                    var queueName = channel.QueueDeclare();
+    
+                    if (args.Length < 1)
+                    {
+                        Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
+                                                Environment.GetCommandLineArgs()[0]);
+                        Environment.ExitCode = 1;
+                        return;
+                    }
+    
+                    foreach (var severity in args)
+                    {
+                        channel.QueueBind(queueName, "direct_logs", severity);
+                    }
+    
+                    Console.WriteLine(" [*] Waiting for messages. " +
+                                      "To exit press CTRL+C");
+    
+                    var consumer = new QueueingBasicConsumer(channel);
+                    channel.BasicConsume(queueName, true, consumer);
+    
+                    while (true)
+                    {
+                        var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+    
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        var routingKey = ea.RoutingKey;
+                        Console.WriteLine(" [x] Received '{0}':'{1}'",
+                                          routingKey, message);
+                    }
+                }
+            }
+        }
+    }
+
+
+
+Compile as usual (see [tutorial one](tutorial-one-dotnet.html) for
+compilation advice).
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
     :::bash
-    $ java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
+    $ ReceiveLogsDirect.exe warning error > logs_from_rabbit.log
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
     :::bash
-    $ java -cp $CP ReceiveLogsDirect info warning error
+    $ ReceiveLogsDirect.exe info warning error
      [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
     :::bash
-    $ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
+    $ EmitLogDirect.exe error "Run. Run. Or it will explode."
      [x] Sent 'error':'Run. Run. Or it will explode.'
 
 
-(Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
-and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))
+(Full source code for [(EmitLogDirect.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogDirect.cs)
+and [(ReceiveLogsDirect.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsDirect.cs))
 
-Move on to [tutorial 5](tutorial-five-java.html) to find out how to listen
+Move on to [tutorial 5](tutorial-five-dotnet.html) to find out how to listen
 for messages based on a pattern.

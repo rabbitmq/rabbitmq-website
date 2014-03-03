@@ -111,7 +111,7 @@
         <a href="/contact.html">Contact</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2013 Pivotal Software, Inc. All rights reserved
+        Copyright &#169; 2014 Pivotal Software, Inc. All rights reserved
         |&#160;<a href="http://www.gopivotal.com/privacy-policy">Privacy Policy</a>
       </p>
     </div>

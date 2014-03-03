@@ -73,12 +73,12 @@ Note that the producer, consumer, and  broker do not have to reside on
 the same machine; indeed in most applications they don't.
 
 ## "Hello World"
-### (using the php-amqplib Client)
+### (using the .NET/C# Client)
 
-In this part of the tutorial we'll write two programs in PHP; a
+In this part of the tutorial we'll write two programs in C#; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [php-amqplib](https://github.com/videlalvaro/php-amqplib) API, concentrating on this very simple thing just to get
+the .NET API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -89,30 +89,24 @@ on behalf of the consumer.
   <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
-> #### The php-amqplib client library
+> #### The .NET client library
 >
 > RabbitMQ speaks [AMQP](http://amqp.org/), which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for AMQP in [many different
 > languages](http://rabbitmq.com/devtools.html). We'll
-> use the php-amqplib in this tutorial.
+> use the .NET client provided by RabbitMQ.
 >
-> Add a composer.json file to your project:
+> Download the [client library
+> package](http://www.rabbitmq.com/dotnet.html), and check its
+> signature as described. Extract it and copy "RabbitMQ.Client.dll" to your working folder.
 >
->     :::javascript
->     {
->         "require": {
->             "videlalvaro/php-amqplib": "v2.1.0"
->         }
->     }
->
->Provided you have [composer](http://getcomposer.org) installed, you can run the following:
->
->     :::bash
->     $ composer.phar install
+> You also need to ensure your system can find the C# compiler `csc.exe`,
+> you may need to add `;C:\WINDOWS\Microsoft.NET\Framework\v3.5` (change .NET version
+> to fit your installation) to your Path.
 >
 
-Now we have the php-amqplib installed, we can write some
+Now we have the .NET client binary, we can write some
 code.
 
 ### Sending
@@ -121,24 +115,47 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.php` and our message receiver
-`receive.php`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message sender `Send` and our message receiver
+`Receive.cs`.  The sender will connect to RabbitMQ, send a single message,
 then exit.
 
 In
-[`send.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php),
-we need to include the library and `use` the necessary classes:
+[`Send.cs`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs),
+we need to use some namespaces:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+    :::csharp
+    using System;
+    using RabbitMQ.Client;
+    using System.Text;
+
+Set up the class:
+
+    :::csharp
+    class Send
+    {
+        public static void Main()
+        {
+            ...
+        }
+    }
 
 then we can create a connection to the server:
 
-    :::php
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+    :::csharp
+    class Send
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    ...
+                }
+            }
+        }
+    }
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -152,33 +169,44 @@ things done resides.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::php
-    $channel->queue_declare('hello', false, false, false, false);
+    :::csharp
+    class Send
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("hello", false, false, false, null);
 
-    $msg = new AMQPMessage('Hello World!');
-    $channel->basic_publish($msg, '', 'hello');
+                    string message = "Hello World!";
+                    var body = Encoding.UTF8.GetBytes(message);
 
-    echo " [x] Sent 'Hello World!'\n";
+                    channel.BasicPublish("", "hello", null, body);
+                    Console.WriteLine(" [x] Sent {0}", message);
+                }
+            }
+        }
+    }
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the channel and the connection;
+When the code above finishes running, the channel and the connection
+will be disposed.
 
-    :::php
-    $channel->close();
-    $connection->close();
-
-[Here's the whole send.php
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
+[Here's the whole Send.cs
+class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs).
 
 > #### Sending doesn't work!
 >
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 50 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -195,62 +223,101 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)) has almost the same
-`include` and `use`s as `send`:
+The code (in [`Receive.cs`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.cs)) has almost the same `using` statements as `Send`:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    :::csharp
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using System;
+    using System.Text;
+
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::php
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
-
-    $channel->queue_declare('hello', false, false, false, false);
-
-    echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+    :::csharp
+    class Receive
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("hello", false, false, false, null);
+                    ...
+                }
+            }
+        }
+    }
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. We will define a [PHP callable](http://www.php.net/manual/en/language.types.callable.php)
-that will receive the messages sent by the server. Keep in mind
-that messages are sent asynchronously from the server to the clients.
+queue. Since it will push us messages asynchronously, we provide a
+callback in the form of an object that will buffer the messages until
+we're ready to use them. That is what `QueueingBasicConsumer` does.
 
-    :::php
+    :::csharp
+    class Receive
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("hello", false, false, false, null);
 
-    $callback = function($msg) {
-      echo " [x] Received ", $msg->body, "\n";
-    };
+                    var consumer = new QueueingBasicConsumer(channel);
+                    channel.BasicConsume("hello", true, consumer);
 
-    $channel->basic_consume('hello', '', false, true, false, false, $callback);
+                    Console.WriteLine(" [*] Waiting for messages." +
+                                             "To exit press CTRL+C");
+                    while (true)
+                    {
+                        var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        Console.WriteLine(" [x] Received {0}", message);
+                    }
+                }
+            }
+        }
     }
 
-Our code will block while our `$channel` has callbacks. Whenever we receive a
-message our `$callback` function will be passed the received message.
 
-[Here's the whole receive.php class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)
+`QueueingBasicConsumer.Queue.Dequeue()` blocks until another message has
+been delivered from the server.
+
+[Here's the whole Receive.cs
+class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.cs).
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
+You can compile both of these by referencing the RabbitMQ .NET client
+assembly. We're using the command line (`cmd.exe` and `csc`) to
+compile and run the code. Alternatively you could use Visual Studio.
 
     :::bash
-    $ php send.php
+    $ csc /r:"RabbitMQ.Client.dll" Send.cs
+    $ csc /r:"RabbitMQ.Client.dll" Receive.cs
+
+Then run the executable
+
+    :::bash
+    $ Send.exe
 
 then, run the receiver:
 
     :::bash
-    $ php receive.php
+    $ Receive.exe
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
@@ -260,4 +327,4 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
 
-Time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
+Time to move on to [part 2](tutorial-two-dotnet.html) and build a simple _work queue_.
