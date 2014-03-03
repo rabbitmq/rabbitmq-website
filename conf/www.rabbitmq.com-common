@@ -1,5 +1,5 @@
     ServerName www.rabbitmq.com
-    ServerAlias *.eng.vmware.com
+    ServerAlias *.lon.pivotallabs.com
     ServerAdmin postmaster@rabbitmq.com
 
     DocumentRoot /srv/www.rabbitmq.com/site/
