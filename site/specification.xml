@@ -213,8 +213,11 @@
 	  <method name="queue.delete-ok"><status value="ok"/></method>
 	  <method name="basic.qos">
             <status value="partial"/>
-            <notes>The server supports non-global prefetch count
-            limits; global limits and prefetch size limits are not
+            <notes>The server supports per-consumer and per-channel
+            limits. The <code>global</code> flag is given different
+            semantics from those in the specification. See <a
+            href="consumer-prefetch.html">consumer prefetch</a> for
+            more information. Prefetch size limits are not
             implemented.</notes>
           </method>
 	  <method name="basic.qos-ok"><status value="ok"/></method>

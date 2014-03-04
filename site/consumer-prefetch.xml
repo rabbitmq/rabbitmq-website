@@ -13,61 +13,109 @@
     </p>
 
     <p>
-      AMQP has the <code>basic.qos</code> method to allow you to limit
-      the number of unacknowledged messages on a channel when
-      consuming (aka "prefetch count"). Unfortunately the channel is
-      not the ideal scope for this - since a single channel may
-      consume from multiple queues, the channel and the queue(s) need
-      to coordinate with each other for every message sent. This is
-      slow on a single machine, and very slow when consuming across a
-      cluster.
+      AMQP specifies the <code>basic.qos</code> method to allow you to
+      limit the number of unacknowledged messages on a channel (or
+      connection) when consuming (aka "prefetch count"). Unfortunately
+      the channel is not the ideal scope for this - since a single
+      channel may consume from multiple queues, the channel and the
+      queue(s) need to coordinate with each other for every message
+      sent to ensure they don't go over the limit. This is slow on a
+      single machine, and very slow when consuming across a cluster.
     </p>
 
     <p>
-      Furthermore for many users it is simply more natural to specify
-      a prefetch count for each consumer separately.
+      Furthermore for many uses it is simply more natural to specify
+      a prefetch count that applies to each consumer.
     </p>
 
     <p>
-      Therefore RabbitMQ allows you to specify a prefetch count for a
-      consumer at the time it is created. Once a consumer is created
-      with a prefetch count, only at most that number of
-      unacknowledged messages will be delivered to the client.
+      Therefore RabbitMQ redefines the meaning of the
+      <code>global</code> flag in the <code>basic.qos</code> method:
     </p>
 
+    <table class="styled-table">
+      <tr>
+        <th><code>global</code></th>
+        <th>Meaning of <code>prefetch_count</code> in AMQP 0-9-1</th>
+        <th>Meaning of <code>prefetch_count</code> in RabbitMQ</th>
+      </tr>
+      <tr>
+        <th>false</th>
+        <td>shared across all consumers on the channel</td>
+        <td>applied separately to each new consumer on the channel</td>
+      </tr>
+      <tr>
+        <th>true</th>
+        <td>shared across all consumers on the connection</td>
+        <td>shared across all consumers on the channel</td>
+      </tr>
+    </table>
+
     <p>
-      Per-consumer prefetch can be used at the same time as the
-      per-channel prefetch defined by <code>basic.qos</code>; in which
-      case the two prefetch limits are enforced independently of each
-      other; the consumer will only receive new messages when both
-      limits on unacknowledged messages are met.
+      Note that the default value for the <code>global</code> flag is
+      <code>false</code> in most APIs.
     </p>
 
-    <h3>Using per-consumer prefetch</h3>
+    <h3>Example - single consumer</h3>
 
     <p>
-      Set the <code>x-prefetch</code> argument
-      to <code>basic.consume</code>. The argument must be a
-      non-negative integer, with 0 interpreted to mean "no limit"
-      (i.e. the <code>x-prefetch</code> argument has no effect). The
-      prefetch count of a consumer never changes until the consumer is
-      destroyed with <code>basic.cancel</code>.
-    </p>
-
-    <p>
-      For example (in Java):
+      The following basic (Java) example will receive a maximum of 10
+      unacknowledged messages at once:
     </p>
 
       <pre class="sourcecode">
 Channel channel = ...;
 Consumer consumer = ...;
-Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-args.put("x-prefetch", 100);
-channel.basicConsume("my-queue", false, args, consumer);</pre>
+channel.basicQos(10); // Per consumer limit
+channel.basicConsume("my-queue", false, consumer);</pre>
+
+    <h3>Example - multiple independent consumers</h3>
 
     <p>
-      This creates a new consumer which will receive at most 100
-      unacknowledged messages.
+      This example starts two consumers on the same channel, each of
+      which will independently receive a maximum of 10 unacknowledged
+      messages at once:
     </p>
+
+      <pre class="sourcecode">
+Channel channel = ...;
+Consumer consumer1 = ...;
+Consumer consumer2 = ...;
+channel.basicQos(10); // Per consumer limit
+channel.basicConsume("my-queue1", false, consumer1);
+channel.basicConsume("my-queue2", false, consumer2);</pre>
+
+    <h3>Example - multiple consumers sharing the limit</h3>
+
+    <p>
+      The AMQP specification does not explain what happens if you
+      invoke <code>basic.qos</code> multiple times with different
+      <code>global</code> values. RabbitMQ interprets this as meaning
+      that the two prefetch limits should be enforced independently of
+      each other; consumers will only receive new messages when both
+      limits on unacknowledged messages are met.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+      <pre class="sourcecode">
+Channel channel = ...;
+Consumer consumer1 = ...;
+Consumer consumer2 = ...;
+channel.basicQos(10, false); // Per consumer limit
+channel.basicQos(15, true);  // Per channel limit
+channel.basicConsume("my-queue1", false, consumer1);
+channel.basicConsume("my-queue2", false, consumer2);</pre>
+
+    <p>
+      These two consumers will only ever have 15 unacknowledged
+      messages between them, with a maximum of 10 messages for each
+      consumer. This will be slower than the above examples, due to
+      the additional overhead of coordinating between the channel and
+      the queues to enforce the global limit.
+    </p>
+
   </body>
 </html>
