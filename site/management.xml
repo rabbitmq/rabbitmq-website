@@ -348,17 +348,32 @@
 ].</pre>
         </doc:subsection>
         <doc:subsection name="mochiweb-config">
-          <doc:heading>HTTP interfaces</doc:heading>
+          <doc:heading>Configuring the HTTP listener</doc:heading>
           <p>
             It is possible to configure rabbitmq-mochiweb to serve the
             management plugin on a different port or network
             interface, with SSL, etc. To do so, you should configure the
-            <code>listener</code> configuration item:
+            <code>listener</code> configuration item; for example to
+            change the port:
           </p>
           <pre class="example">[
   ...
   {rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
+].</pre>
+
+          <p>
+            or to make the management plugin use HTTPS:
+          </p>
+          <pre class="example">
+[{rabbitmq_management,
+  [{listener, [{port,     15671},
+               {ssl,      true},
+               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                           {certfile,   "/path/to/cert.pem"},
+                           {keyfile,    "/path/to/key.pem"}]}
+              ]}
+  ]}
 ].</pre>
           <p>
             See the <a href="mochiweb.html">rabbitmq-mochiweb</a>

@@ -1,7 +1,7 @@
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
-## Work Queues 
-### (using the Java Client)
+## Work Queues
+### (using the .NET Client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -26,7 +26,7 @@
 </div>
 
 
-In the [first tutorial](tutorial-one-java.html) we
+In the [first tutorial](tutorial-one-dotnet.html) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -54,64 +54,64 @@ in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
-We will slightly modify the _Send.java_ code from our previous example,
+We will slightly modify the _Send.cs_ code from our previous example,
 to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
-`NewTask.java`:
+`NewTask.cs`:
 
-    :::java
-    String message = getMessage(argv);
+    :::csharp
+    var message = GetMessage(args);
+    var body = Encoding.UTF8.GetBytes(message);
 
-    channel.basicPublish("", "hello", null, message.getBytes());
-    System.out.println(" [x] Sent '" + message + "'");
+    var properties = channel.CreateBasicProperties();
+    properties.DeliveryMode = 2;
 
+    channel.BasicPublish("", "hello", properties, body);
 
 Some help to get the message from the command line argument:
 
-    :::java
-    private static String getMessage(String[] strings){
-        if (strings.length < 1)
-            return "Hello World!";
-        return joinStrings(strings, " ");
-    }  
-  
-    private static String joinStrings(String[] strings, String delimiter) {
-        int length = strings.length;
-        if (length == 0) return "";
-        StringBuilder words = new StringBuilder(strings[0]);
-        for (int i = 1; i < length; i++) {
-            words.append(delimiter).append(strings[i]);
-        }
-        return words.toString();
+    :::csharp
+    private static string GetMessage(string[] args)
+    {
+      return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
     }
 
-Our old _Recv.java_ program also requires some changes: it needs to
+Our old _Receive.cs_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
-messages from the queue and perform the task, so let's call it `Worker.java`:
+messages from the queue and perform the task, so let's call it `Worker.cs`:
 
-    :::java
-    while (true) {
-        QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-        String message = new String(delivery.getBody());
-        
-        System.out.println(" [x] Received '" + message + "'");        
-        doWork(message);
-        System.out.println(" [x] Done");
+    :::csharp
+    var consumer = new QueueingBasicConsumer(channel);
+    channel.BasicConsume("hello", true, consumer);
+
+    Console.WriteLine(" [*] Waiting for messages. " +
+                      "To exit press CTRL+C");
+    while (true)
+    {
+        var ea =
+            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+
+        var body = ea.Body;
+        var message = Encoding.UTF8.GetString(body);
+        Console.WriteLine(" [x] Received {0}", message);
+
+        int dots = message.Split('.').Length - 1;
+        Thread.Sleep(dots * 1000);
+
+        Console.WriteLine(" [x] Done");
     }
 
 Our fake task to simulate execution time:
 
-    :::java
-    private static void doWork(String task) throws InterruptedException {
-        for (char ch: task.toCharArray()) {
-            if (ch == '.') Thread.sleep(1000);
-        }
-    }    
+    :::csharp
+    int dots = message.Split('.').Length - 1;
+    Thread.Sleep(dots * 1000);
 
-Compile them as in tutorial one (with the jar files in the working directory):
+Compile them as in tutorial one (with the client assembly in the working directory):
 
     :::bash
-    $ javac -cp rabbitmq-client.jar NewTask.java Worker.java
+    $ csc /r:"RabbitMQ.Client.dll" NewTask.cs
+    $ csc /r:"RabbitMQ.Client.dll" Worker.cs
 
 Round-robin dispatching
 -----------------------
@@ -120,21 +120,21 @@ One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
-First, let's try to run two worker instances at the same time. They
+First, let's try to run two `Worker.cs` scripts at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the worker
-program. These consoles will be our two consumers - C1 and C2.
+You need three consoles open. Two will run the `Worker.cs`
+script. These consoles will be our two consumers - C1 and C2.
 
     :::bash
-    shell1$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+    shell1$ Worker.exe
     Worker
      [*] Waiting for messages. To exit press CTRL+C
 
 <div></div>
 
     :::bash
-    shell2$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+    shell2$ Worker.exe
     Worker
      [*] Waiting for messages. To exit press CTRL+C
 
@@ -142,22 +142,16 @@ In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
     :::bash
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask First message.
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Second message..
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Third message...
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Fourth message....
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Fifth message.....
+    shell3$ NewTask.exe First message.
+    shell3$ NewTask.exe Second message..
+    shell3$ NewTask.exe Third message...
+    shell3$ NewTask.exe Fourth message....
+    shell3$ NewTask.exe Fifth message.....
 
 Let's see what is delivered to our workers:
 
     :::bash
-    shell1$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell1$ Worker.exe
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'First message.'
      [x] Received 'Third message...'
@@ -166,8 +160,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell2$ Worker.exe
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
@@ -207,21 +200,20 @@ only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
 Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off via the `autoAck=true`
+examples we explicitly turned them off via the `noAck=true`
 flag. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::java
-    QueueingConsumer consumer = new QueueingConsumer(channel);
-    boolean autoAck = false;
-    channel.basicConsume("hello", autoAck, consumer);
+    :::csharp
+    var consumer = new QueueingBasicConsumer(channel);
+    channel.BasicConsume("hello", false, consumer);
 
-    while (true) {
-      QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-      //...      
-      channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-    }
-
+        while (true)
+        {
+            var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+            //...
+            channel.BasicAck(ea.DeliveryTag, false);
+        }
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -229,7 +221,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basicAck`. It's an easy error,
+> It's a common mistake to miss the `BasicAck`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -256,12 +248,12 @@ unless you tell it not to. Two things are required to make sure that
 messages aren't lost: we need to mark both the queue and messages as
 durable.
 
-First, we need to make sure that RabbitMQ will never lose our 
+First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::java
-    boolean durable = true;
-    channel.queueDeclare("hello", durable, false, false, null);
+    :::csharp
+    bool durable = true;
+    channel.QueueDeclare("hello", durable, false, false, null);
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -270,8 +262,8 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::java
-    boolean durable = true;
+    :::csharp
+    bool durable = true;
     channel.queueDeclare("task_queue", durable, false, false, null);
 
 This `queueDeclare` change needs to be applied to both the producer
@@ -279,15 +271,11 @@ and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `MessageProperties` (which implements `BasicProperties`) 
-to the value `PERSISTENT_TEXT_PLAIN`.
+- by setting `IBasicProperties.SetPersistent` to `true`.
 
-    :::java
-    import com.rabbitmq.client.MessageProperties;
-        
-    channel.basicPublish("", "task_queue", 
-                MessageProperties.PERSISTENT_TEXT_PLAIN,
-                message.getBytes());
+    :::csharp
+    var properties = channel.CreateBasicProperties();
+    properties.SetPersistent(true);
 
 > #### Note on message persistence
 >
@@ -347,9 +335,8 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::java
-    int prefetchCount = 1;
-    channel.basicQos(prefetchCount);
+    :::csharp
+    channel.BasicQos(0, 1, false);
 
 > #### Note about queue size
 >
@@ -359,97 +346,101 @@ previous one. Instead, it will dispatch it to the next worker that is not still 
 Putting it all together
 -----------------------
 
-Final code of our `NewTask.java` class:
+Final code of our `NewTask.cs` class:
 
-    :::java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.MessageProperties;
+    :::csharp
+    using System;
+    using RabbitMQ.Client;
+    using System.Text;
     
-    public class NewTask {
+    class NewTask
+    {
+        public static void Main(string[] args)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("task_queue", true, false, false, null);
     
-      private static final String TASK_QUEUE_NAME = "task_queue";
+                    var message = GetMessage(args);
+                    var body = Encoding.UTF8.GetBytes(message);
     
-      public static void main(String[] argv) 
-                          throws java.io.IOException {
+                    var properties = channel.CreateBasicProperties();
+                    properties.SetPersistent(true);
     
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-        
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
-        
-        String message = getMessage(argv);
-    
-        channel.basicPublish( "", TASK_QUEUE_NAME, 
-                MessageProperties.PERSISTENT_TEXT_PLAIN,
-                message.getBytes());
-        System.out.println(" [x] Sent '" + message + "'");
-        
-        channel.close();
-        connection.close();
-      }      
-      //...
-    }
-
-[(NewTask.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/NewTask.java)
-
-And our `Worker.java`:
-
-    :::java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-      
-    public class Worker {
-    
-      private static final String TASK_QUEUE_NAME = "task_queue";
-    
-      public static void main(String[] argv)
-                          throws java.io.IOException,
-                          java.lang.InterruptedException {
-      
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-    
-        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
-        channel.basicQos(1);
-    
-        QueueingConsumer consumer = new QueueingConsumer(channel);
-        channel.basicConsume(TASK_QUEUE_NAME, false, consumer);
-    
-        while (true) {
-          QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-          String message = new String(delivery.getBody());
-          
-          System.out.println(" [x] Received '" + message + "'");   
-          doWork(message); 
-          System.out.println(" [x] Done" );
-    
-          channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+                    channel.BasicPublish("", "task_queue", properties, body);
+                    Console.WriteLine(" [x] Sent {0}", message);
+                }
+            }
         }
+    
+      private static string GetMessage(string[] args)
+      {
+        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
       }
-      //...
     }
 
-[(Worker.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Worker.java)
 
-Using message acknowledgments and `prefetchCount` you can set up a
+[(NewTask.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask.cs)
+
+And our `Worker.cs`:
+
+    :::csharp
+    using System;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using System.Text;
+    using System.Threading;
+    
+    class Worker
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("task_queue", true, false, false, null);
+    
+                    channel.BasicQos(0, 1, false);
+                    var consumer = new QueueingBasicConsumer(channel);
+                    channel.BasicConsume("task_queue", false, consumer);
+    
+                    Console.WriteLine(" [*] Waiting for messages. " +
+                                      "To exit press CTRL+C");
+                    while (true)
+                    {
+                        var ea =
+                            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+    
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        Console.WriteLine(" [x] Received {0}", message);
+    
+                        int dots = message.Split('.').Length - 1;
+                        Thread.Sleep(dots * 1000);
+    
+                        Console.WriteLine(" [x] Done");
+    
+                        channel.BasicAck(ea.DeliveryTag, false);
+                    }
+                }
+            }
+        }
+    }
+
+
+[(Worker.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Worker.cs)
+
+Using message acknowledgments and `BasicQos` you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
-For more information on `Channel` methods and `MessageProperties`, you can browse the
-[javadocs online](http://www.rabbitmq.com/releases/rabbitmq-java-client/current-javadoc/).
+For more information on `IModel` methods and `IBasicProperties`, you can browse the
+[RabbitMQ .NET client API reference online](http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.2.2/rabbitmq-dotnet-client-3.2.2-client-htmldoc/html/index.html).
 
-Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
+Now we can move on to [tutorial 3](tutorial-three-dotnet.html) and learn how
 to deliver the same message to many consumers.
-

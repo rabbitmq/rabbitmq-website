@@ -217,6 +217,29 @@
             event of network or broker failures.
           </p>
         </dd>
+        <dt><code>delete-after</code></dt>
+        <dd>
+          <p>
+            Determines when (if ever) the shovel should delete
+            itself. This can be useful if the shovel is being treated
+            as more of a move operation - i.e. being used to move
+            messages from one queue to another on an ad hoc basis.
+          </p>
+          <p>
+            The default is <code>never</code>, meaning the
+            shovel should never delete itself.
+          </p>
+          <p>
+            If set to <code>queue-length</code> then the shovel will
+            measure the length of the source queue when starting up,
+            and delete itself after it has transfered that many
+            messages.
+          </p>
+          <p>
+            If set to an integer, then the shovel will transfer that
+            number of messages before deleting itself.
+          </p>
+        </dd>
       </dl>
 
     </doc:section>
