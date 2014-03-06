@@ -560,6 +560,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>loopback_users</code></td>
+            <td>
+              List of users which are only permitted to connect to the
+              broker via a loopback interface
+              (i.e. <code>localhost</code>).
+
+              <p>
+                If you wish to allow the default <code>guest</code>
+                user to connect remotely, you need to change this to
+                <code>[]</code>.
+              </p>
+              <p>Default: <code> [&lt;&lt;"guest"&gt;&gt;] </code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>cluster_nodes</code></td>
             <td>
               Set this to cause clustering
