@@ -397,6 +397,23 @@
           These features are also available through the management plugin.
         </p>
 
+        <h3>Exclusive queues</h3>
+
+        <p>
+          Exclusive queues will be deleted when the connection that
+          declared them is closed. For this reason, it is not useful
+          for an exclusive queue to be mirrored (or durable for that
+          matter) since when the node hosting it goes down, the
+          connection will close and the queue will need to be deleted
+          anyway.
+        </p>
+
+        <p>
+          For this reason, exclusive queues are never mirrored (even
+          if they match a policy stating that they should be). They
+          are also never durable (even if declared as such).
+        </p>
+
         <h3>Some examples</h3>
 
         <p>
