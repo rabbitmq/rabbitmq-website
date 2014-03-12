@@ -146,6 +146,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_DIST_PORT</td>
+              <td>RABBITMQ_NODE_PORT + 20000</td>
+              <td>
+                Port to use for clustering. Ignored if your config
+                file sets <code>inet_dist_listen_min</code> or
+                <code>inet_dist_listen_max</code>
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_NODENAME</td>
               <td>
                 <ul>
