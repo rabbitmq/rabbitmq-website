@@ -79,7 +79,7 @@ Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-priority", 10);
-channel.basicConsume("my-queue", false, "", false, false, args, consumer);</pre>
+channel.basicConsume("my-queue", false, args, consumer);</pre>
 
     <p>
       This creates a new consumer with priority 10.

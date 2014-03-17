@@ -710,7 +710,13 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 	      methods to analyze the reason of the shutdown. By
 	      calling the <code>isHardError()</code> method we get
 	      information whether it was a connection or a channel
-	      error.
+	      error, and <code>getReason()</code> returns information
+	      about the cause, in the form an AMQP method - either
+	      <code>AMQP.Channel.Close</code> or
+	      <code>AMQP.Connection.Close</code> (or null if the cause
+	      was some exception in the library, such as a network
+	      communication failure, in which case that exception can
+	      be retrieved with <code>getCause()</code>).
 	    </p>
             <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
 {
@@ -719,7 +725,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     Connection conn = (Connection)cause.getReference();
     <b>if</b> (!cause.isInitiatedByApplication())
     {
-      Object reason = cause.getReason();
+      Method reason = cause.getReason();
       ...
     }
     ...
@@ -795,7 +801,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
             <li>Restore connection listeners</li>
             <li>Re-open channels</li>
             <li>Restore channel listeners</li>
-            <li>Restore channel <pre>basic.qos</pre>, publisher confirms and transaction settings</li>
+            <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
           </ol>
 
           Topology recovery includes the following actions, performed for every channel
@@ -818,18 +824,25 @@ factory.setHost(<b>hostName</b>);
 factory.setPort(<b>portNumber</b>);
 factory.setAutomaticRecovery(true)
 // connection that will recover automatically
-Connection conn = factory.newConnection();
-          </pre>
+Connection conn = factory.newConnection();</pre>
 
           If recovery fails due to an exception (e.g. RabbitMQ node is
-          still not reachable), it will be retried after a fixed time interval.
-          The interval can be configured:
+          still not reachable), it will be retried after a fixed time interval (default
+          is 5 seconds). The interval can be configured:
 
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 // attempt recovery every 10 seconds
-factory.setNetworkRecoveryInterval(10000);
-          </pre>
+factory.setNetworkRecoveryInterval(10000);</pre>
+
+          When a list of addresses is provided, a random one will be picked
+          during recovery:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
+factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
 
@@ -853,8 +866,7 @@ factory.setNetworkRecoveryInterval(10000);
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
 Connection conn = factory.newConnection();
-factory.setAutomaticRecovery(true)
-          </pre>
+factory.setAutomaticRecovery(true)</pre>
         </p>
         </doc:subsection>
 

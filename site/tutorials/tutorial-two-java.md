@@ -85,7 +85,7 @@ Some help to get the message from the command line argument:
         return words.toString();
     }
 
-Our old _Recv.java_ script also requires some changes: it needs to
+Our old _Recv.java_ program also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `Worker.java`:
 
@@ -120,11 +120,11 @@ One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
-First, let's try to run two `Worker.java` scripts at the same time. They
+First, let's try to run two worker instances at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the `Worker.java`
-script. These consoles will be our two consumers - C1 and C2.
+You need three consoles open. Two will run the worker
+program. These consoles will be our two consumers - C1 and C2.
 
     :::bash
     shell1$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar

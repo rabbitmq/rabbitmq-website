@@ -94,7 +94,7 @@ on behalf of the consumer.
 > RabbitMQ speaks [AMQP](http://amqp.org/), which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for AMQP in [many different
-> languages](http://www.delicious.com/alexisrichardson/rabbitmq+client). We'll
+> languages](http://rabbitmq.com/devtools.html). We'll
 > use the php-amqplib in this tutorial.
 >
 > Add a composer.json file to your project:
@@ -219,9 +219,9 @@ the receiver before the sender, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. Since it will push us messages asynchronously, we provide a
-callback in the form of an object that will buffer the messages until
-we're ready to use them. That is what `QueueingConsumer` does.
+queue. We will define a [PHP callable](http://www.php.net/manual/en/language.types.callable.php)
+that will receive the messages sent by the server. Keep in mind
+that messages are sent asynchronously from the server to the clients.
 
     :::php
 

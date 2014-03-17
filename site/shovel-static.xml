@@ -252,7 +252,7 @@
   {prefetch_count, 1}
 </pre>
           <p>
-            If this number is zero (the default), there is no limit.
+            If this number is zero there is no limit. The default is <code>1000</code>.
           </p>
         </dd>
 

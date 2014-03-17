@@ -207,6 +207,12 @@
           Port on which to connect to the LDAP servers. Default:
           <code>389</code>.
         </dd>
+        <dt><code>timeout</code></dt>
+        <dd>
+          LDAP connection timeout in milliseconds, or 'infinity' for
+          no timeout. Default:
+          <code>infinity</code>.
+        </dd>
         <dt><code>log</code></dt>
         <dd>
           <p>
