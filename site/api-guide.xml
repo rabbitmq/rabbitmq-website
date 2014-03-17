@@ -242,26 +242,10 @@ Connection conn = factory.newConnection(addrArr);
       </p>
       <p>
 <pre class="sourcecode">
-package com.rabbitmq.examples;
-
 import com.google.appengine.api.ThreadManager;
-import java.util.concurrent.ThreadFactory;
 
-/**
- * {@link java.util.concurrent.ThreadFactory} implementation that uses
- * Google App Engine's {@link com.google.appengine.api.ThreadManager} to instantiate
- * new threads independent from request lifecycle.
- */
-public class GAEThreadFactory implements ThreadFactory {
-    @Override
-    public Thread newThread(Runnable r) {
-        return ThreadManager.createBackgroundThread(r);
-    }
-}
-</pre>
-<pre class="sourcecode">
 ConnectionFactory cf = new ConnectionFactory();
-cf.setThreadFactory(new GAEThreadFactory());
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
 </pre>
       </p>
     </doc:subsection>
