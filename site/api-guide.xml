@@ -227,6 +227,28 @@ Connection conn = factory.newConnection(addrArr);
           associated with the (first) successful connection.
         </p>
     </doc:subsection>
+
+
+    <doc:subsection name="thread-factories">
+      <doc:heading><i>Custom Thread Factories</i></doc:heading>
+      <p>
+        Environments such as Google App Engine (GAE) can <a
+        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+        it's necessary to configure a custom <code>ThreadFactory</code> that uses
+        GAE's <code>ThreadManager</code> to create threads.
+
+        Below is an example for Google App Engine.
+      </p>
+      <p>
+<pre class="sourcecode">
+import com.google.appengine.api.ThreadManager;
+
+ConnectionFactory cf = new ConnectionFactory();
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+</pre>
+      </p>
+    </doc:subsection>
 </doc:section>
 
 	<doc:section name="declaring">
@@ -667,7 +689,13 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 	      methods to analyze the reason of the shutdown. By
 	      calling the <code>isHardError()</code> method we get
 	      information whether it was a connection or a channel
-	      error.
+	      error, and <code>getReason()</code> returns information
+	      about the cause, in the form an AMQP method - either
+	      <code>AMQP.Channel.Close</code> or
+	      <code>AMQP.Connection.Close</code> (or null if the cause
+	      was some exception in the library, such as a network
+	      communication failure, in which case that exception can
+	      be retrieved with <code>getCause()</code>).
 	    </p>
             <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
 {
@@ -676,7 +704,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     Connection conn = (Connection)cause.getReference();
     <b>if</b> (!cause.isInitiatedByApplication())
     {
-      Object reason = cause.getReason();
+      Method reason = cause.getReason();
       ...
     }
     ...
@@ -844,6 +872,21 @@ factory.setAutomaticRecovery(true)</pre>
           be capable of handling redeliveries.
         </p>
       </doc:subsection>
+    </doc:section>
+
+    <doc:section name="gae-pitfalls">
+      <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
+      <p>
+        Using RabbitMQ Java client on Google App Engine (GAE) requires using a custom
+        thread factory that instantiates thread using GAE's <pre>ThreadManager</pre> (see above).
+        In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
+        into the low <pre>InputStream</pre> read timeouts on GAE:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setRequestedHeartbeat(5);
+        </pre>
+      </p>
     </doc:section>
   </body>
 </html>
