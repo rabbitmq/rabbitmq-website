@@ -687,8 +687,11 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management liste
             via epmd, other nodes will attempt to communicate directly
             with that address using the Erlang distributed node
             protocol. The default port for this traffic in RabbitMQ is
-            25672. For further details see <a
-            href="configure.html">the configuration guide</a>.
+            20000 higher than <span
+            class="envvar">RABBITMQ_NODE_PORT</span> (i.e. 25672 by
+            default). This can be explicitly configured using the
+            <span class="envvar">RABBITMQ_DIST_PORT</span> variable -
+            see <a href="configure.html">the configuration guide</a>.
           </p>
       </doc:section>
       <doc:section name="clients">
