@@ -41,6 +41,7 @@
 
     </doc:section>
 
+    <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="managing-the-broker.xml.inc"/>
   </body>
 </html>
