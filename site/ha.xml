@@ -104,22 +104,8 @@
             but to requeue all messages it thinks have not been
             acknowledged.</li>
 
-            <li>Clients that were consuming from the mirrored-queue
-            and support our <a
-            href="consumer-cancel.html">Consumer
-            Cancellation Notifications</a> extension will receive a
-            notification that their subscription to the mirrored-queue
-            has been abruptly cancelled. At this point they should
-            re-consume from the queue, which will pick up the new
-            master. The reason for sending this notification is that
-            informing clients of the loss of the master is essential:
-            otherwise the client may continue to issue
-            acknowledgements for messages they were sent by the old,
-            failed master, and not expect that they might be about to
-            see the same messages again, this time sent by the new
-            master. Of course, clients that were connected to the
-            failed node will find their connections failed, and will
-            need to reconnect to a surviving node of the cluster.</li>
+            <li>Clients that have requested it are cancelled (see <a
+            href="#cancellation">below</a>).</li>
 
             <li><i>As a result of the requeuing, clients that
             re-consume from the queue <b>must</b> be aware that they
@@ -144,11 +130,7 @@
           message being able to be confirmed to the publisher. Thus
           from the point of view of the publisher, publishing to a
           mirrored-queue is no different from publishing to any other
-          sort of queue. It is only consumers that need to be aware of
-          the possibility of needing to re-consume from a
-          mirrored-queue upon receipt of a <a
-          href="consumer-cancel.html">Consumer
-          Cancellation Notification</a>.
+          sort of queue.
         </p>
         <p>
           If you are consuming from a mirrored-queue with
@@ -163,7 +145,7 @@
           never be received by those clients, and will not be requeued
           by the new master. Because of the possibility that the
           consuming client is connected to a node that survives, the
-          <a href="consumer-cancel.html">Consumer
+          <a href="#cancellation">Consumer
           Cancellation Notification</a> is useful in identifying when
           such events may have occurred. Of course, in practise, if
           you care about not losing messages then you are advised to
@@ -207,6 +189,29 @@
             configuration setting.
           </p>
         </doc:subsection>
+        <doc:subsection name="cancellation">
+          <doc:heading>Consumer Cancellation</doc:heading>
+          <p>
+            Clients that are consuming from a mirrored queue may wish
+            to know that the queue from which they have been consuming
+            has failed over. When a mirrored queue fails over,
+            knowledge of which messages have been sent to which
+            consumer is lost, and therefore all unacknowledged
+            messages are redelivered with the <code>redelivered</code>
+            flag set. Consumers may wish to know this is going to
+            happen.
+          </p>
+          <p>
+            If so, they can consume with the argument
+            <code>cancel-on-ha-failover</code> set to true. Their
+            consuming will then be cancelled on failover and a <a
+            href="consumer-cancel.html">consumer cancellation
+            notification</a> sent. It is then the consumer's
+            responsibility to reissue <code>basic.consume</code> to
+            start consuming again.
+          </p>
+        </doc:subsection>
+
       </doc:section>
 
       <doc:section name="unsynchronised-slaves">
