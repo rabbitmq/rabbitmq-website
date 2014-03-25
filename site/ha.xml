@@ -203,23 +203,23 @@
           </p>
           <p>
             If so, they can consume with the argument
-            <code>x-cancel-on-ha-failover</code> set to true. Their
-            consuming will then be cancelled on failover and a <a
-            href="consumer-cancel.html">consumer cancellation
-            notification</a> sent. It is then the consumer's
-            responsibility to reissue <code>basic.consume</code> to
-            start consuming again.
+            <code>x-cancel-on-ha-failover</code> set to
+            <code>true</code>. Their consuming will then be cancelled
+            on failover and a <a href="consumer-cancel.html">consumer
+            cancellation notification</a> sent. It is then the
+            consumer's responsibility to reissue
+            <code>basic.consume</code> to start consuming again.
           </p>
           <p>
             For example (in Java):
           </p>
 
           <pre class="sourcecode">
-            Channel channel = ...;
-            Consumer consumer = ...;
-            Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-            args.put("x-cancel-on-ha-failover", true);
-          channel.basicConsume("my-queue", false, args, consumer);</pre>
+Channel channel = ...;
+Consumer consumer = ...;
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-cancel-on-ha-failover", true);
+channel.basicConsume("my-queue", false, args, consumer);</pre>
 
           <p>
             This creates a new consumer with the argument set.
