@@ -340,8 +340,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         <p>
           Restart the server after changes. Windows service users will need to re-install the
-          service after adding or removing a configuration file. Windows service users will also
-          need to take <a href="/plugins.html#windows-restart">additional steps</a> when changing plugins.
+          service after adding or removing a configuration file.
         </p>
         </doc:subsection>
 
