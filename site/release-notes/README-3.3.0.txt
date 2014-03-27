@@ -21,8 +21,8 @@ Release Highlights
 server
 ------
 bug fixes
-25374 interpret AMQP field type 'b' as signed byte rather than unsigned, for
-      compatibility with our errata, and the majority of clients (since 1.0.0)
+26069 ensure that memory use is bounded when logging crash of large
+      processes (since 1.0.0)
 25589 ensure that a queue which needs to reduce its RAM usage but is not
       receiving any publishes still pages out messages quickly (since 2.0.0)
 25991 fix topic routing in the face of multiple bindings that differ only
@@ -32,46 +32,48 @@ bug fixes
 26043 ensure autoheal does not crash if multiple autoheal requests occur
       in quick succession and the leader make different decisions for each
       (since 3.1.0)
+25374 interpret AMQP field type 'b' as signed byte rather than unsigned, for
+      compatibility with our errata, and the majority of clients (since 1.0.0)
 26058 prevent inaccurate (sometimes negative) report of memory use by
       plugins (since 3.1.0)
 26063 prevent spurious rabbit_node_monitor error messages when pausing in
       pause_minority mode (since 3.2.4)
-26069 ensure that memory use is bounded when logging crash of large
-      processes (since 1.0.0)
 
 enhancements
-26039 ensure rabbitmqctl's formatting of process IDs is more shell-script
-      friendly
-25827,25853 substantially improve performance stopping and starting brokers
-      with many durable queues
-25817 allow plugins to rewrite AMQP methods
-26001 improve performance of persistent confirmed messages on spinning disks
-24408 improve performance of mandatory publication (very substantially when
-      publishing across clusters)
-25654 allow use of separate modules for authentication and authorisation
-25722 explicitly set Erlang distribution port in all circumstances
-25836 prevent deletion of amq.* built-in exchanges, and mark appropriate ones
-      as internal
-25860 enforce the rule that object names must be valid UTF-8 strings
-25882 provide 'consumer utilisation' metric to help determine if consumers
-      are being held back by low prefetch counts
 25888 give busy queues a bias towards delivering more messages than they
       accept, ensuring they tend to become empty rather than huge
+26070 automatically reconsume when mirrored queues fail over (and
+      introduce x-cancel-on-ha-failover argument for the old behaviour)
+25882 provide 'consumer utilisation' metric to help determine if consumers
+      are being held back by low prefetch counts
+26039 ensure rabbitmqctl's formatting of process IDs is more shell-script
+      friendly
+25654 allow use of separate modules for authentication and authorisation
+25722 explicitly set Erlang distribution port in all circumstances
 25910 add process identification information to process dictionary to aid in
       debugging
 25922 log reason why a node considered another node to be down
-25957 change semantics of basic.qos global flag in order to allow for
-      greatly enhanced prefetch performance
-      (see http://www.rabbitmq.com/consumer-prefetch.html)
+25860 enforce the rule that object names must be valid UTF-8 strings
+25836 prevent deletion of amq.* built-in exchanges, and mark appropriate ones
+      as internal
+25817 allow plugins to rewrite AMQP methods
 25979 announce cluster-id when clients connect
 26042 allow log_levels config item to silence mirrored queue events
 26065 ensure config file location is logged even if config file is absent
-26070 automatically reconsume when mirrored queues fail over (and
-      introduce x-cancel-on-ha-failover argument for the old behaviour)
-25939,25942,25943 improve performance reading and writing AMQP (especially
-      reading large messages)
 22525 allow server-wide configuration of channel_max
 25627 show current alarms in 'rabbitmqctl status'
+
+performance improvements
+25957 change semantics of basic.qos global flag in order to allow for
+      greatly enhanced prefetch performance
+      (see http://www.rabbitmq.com/consumer-prefetch.html)
+25827,25853 substantially improve performance stopping and starting brokers
+      with many durable queues
+26001 improve performance of persistent confirmed messages on spinning disks
+24408 improve performance of mandatory publication (very substantially when
+      publishing across clusters)
+25939,25942,25943 improve performance reading and writing AMQP (especially
+      reading large messages)
 
 feature removal
 25962 remove support for client-sent channel.flow method; basic.qos is
@@ -108,12 +110,12 @@ federation plugin
 -----------------
 enhancements
 23906 implement cycle detection for messages forwarded over federation
+25985 remove requirement to configure local-username
+26042 allow log_levels config item to silence federation events
+25979 replace local-nodename with (non-federation-specific) cluster-id
 25902 preserve original routing key when forwarding messages via
       queue federation
 25904 tidy up nomenclature in federation status / management
-25979 replace local-nodename with (non-federation-specific) cluster-id
-25985 remove requirement to configure local-username
-26042 allow log_levels config item to silence federation events
 
 
 shovel plugin
@@ -132,10 +134,10 @@ LDAP plugin
 -----------
 enhancements
 25785 add 'dn_lookup_bind' to allow lookup of a user's DN before binding
-25570 replace 'as_user_no_password' error with something which makes more sense
 25839 allow specification of SSL options for (e.g.) presenting client
       certificates when connecting to an LDAP server
 26022 support timeouts when connecting to an LDAP server
+25570 replace 'as_user_no_password' error with something which makes more sense
 
 
 STOMP plugin
@@ -150,8 +152,8 @@ bug fixes
 25941 ensure keepalives are implemented completely (since xxx)
 
 enhancements
-25877 support specifying vhost at the time of connection
 26067 initial support for MQTT 3.1.1 draft
+25877 support specifying vhost at the time of connection
 
 
 Web-STOMP plugin
@@ -176,10 +178,10 @@ enhancements
 14587 support automatically reconnecting to server(s) if connection is
       interrupted
 26008 make it easier to start a Connection with a custom ExceptionHandler
+25833 allow specifying a per-ConnectionFactory ExecutorService
 25999 handle running in a security-restricted context (e.g. Google App engine) 
 25663 improve type safety of ShutdownSignalException "reason" property
 26068 improve clarity of AlreadyClosedException reason
-25833 allow specifying a per-ConnectionFactory ExecutorService
 26015 make Envelope.toString() do something useful
 
 
