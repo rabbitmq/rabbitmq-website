@@ -27,13 +27,13 @@
              <doc:subsection name="brokers-role">
              <doc:heading>Brokers and Their Role</doc:heading>
                  <p>
-                   Messaging brokers receive messages from <em>producers</em>
-                   (applications that publish them) and route them to
+                   Messaging brokers receive messages from <em>publishers</em>
+                   (applications that publish them, also known as producers) and route them to
                    <em>consumers</em> (applications
                    that process them).
                  </p>
                  <p>
-                   Since AMQP is a network protocol, the producers,
+                   Since AMQP is a network protocol, the publishers,
                    consumers and the broker can all reside on
                    different machines.
                  </p>
@@ -42,7 +42,7 @@
              <doc:heading>AMQP 0-9-1 Model in Brief</doc:heading>
                  <p>
                    The AMQP 0-9-1 Model has the following view of the world:
-                   messages are published by producers to <em>exchanges</em>,
+                   messages are published to <em>exchanges</em>,
                    which are often compared to post offices or mailboxes. Exchanges then
                    distribute message copies to <em>queues</em> using rules called
                    <em>bindings</em>. Then AMQP brokers either deliver messages to
@@ -55,7 +55,7 @@
                              exchange and queue" />
                  </p>
                  <p>
-                   When publishing a message, producers may specify various
+                   When publishing a message, publishers may specify various
                    <em>message attributes</em> (message meta-data). Some of this
                    meta-data may be used by the broker, however, the rest of it
                    is completely opaque to the broker and is only used by
@@ -74,9 +74,9 @@
                  </p>
                  <p>
                    In certain situations, for example, when a message cannot
-                   be routed, messages may be <em>returned</em> to producers,
+                   be routed, messages may be <em>returned</em> to publishers,
                    dropped, or, if the broker implements an extension,
-                   placed into a so-called "dead letter queue". Producers choose
+                   placed into a so-called "dead letter queue". Publishers choose
                    how to handle situations like this by publishing messages
                    using certain parameters.
                  </p>
@@ -507,7 +507,7 @@
               <li>Message priority</li>
               <li>Message publishing timestamp</li>
               <li>Expiration period</li>
-              <li>Producer application id</li>
+              <li>Publisher application id</li>
             </ul>
             <p>
               Some attributes are used by AMQP brokers, but most are open

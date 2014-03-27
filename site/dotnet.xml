@@ -33,7 +33,7 @@
     </p>
 
     <p>
-      The NET/C# AMQP client library should be used in preference to the
+      The .NET/C# AMQP client library should be used in preference to the
       WCF binding where possible. The WCF binding suffers from a number
       of limitations and no further development is planned for it.
       The limitations are described in the WCF Service Model documentation.

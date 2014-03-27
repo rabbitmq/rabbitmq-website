@@ -80,6 +80,7 @@
         </dl>
       </doc:subsection>
     </doc:section>
+    <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-windows-manage.xml.inc"/>
   </body>
 </html>

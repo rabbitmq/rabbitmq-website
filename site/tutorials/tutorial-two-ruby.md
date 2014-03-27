@@ -171,7 +171,7 @@ There aren't any message timeouts; RabbitMQ will redeliver the message
 only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
-Message acknowledgments are turned on off.
+Message acknowledgments are turned off by default.
 It's time to turn them on using the `:manual_ack` option and send a proper acknowledgment
 from the worker, once we're done with a task.
 

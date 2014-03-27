@@ -6,7 +6,6 @@ cd ..
 
 mode=$1
 version=$2
-version_path=${version}/
 site=${mode}.rabbitmq.com
 site_dir=/srv/${site}
 
@@ -37,12 +36,10 @@ else
     releases_dir=/home/rabbitmq/extras/nightlies/
 fi
 
-rm -rf $site_dir/site-src $site_dir/code
-if [ $mode = previous ] ; then
-    rm -rf $site_dir/site/${version_path}
-else
-    rm -rf $site_dir/site
-fi
+old_dir=`mktemp -d`
+build_dir=`mktemp -d`
+
+rm -rf $site_dir/site-src $site_dir/code ${build_dir}
 
 mkdir -p $site_dir $site_dir/feeds
 chown -R $mirror_user.$mirror_group $site_dir/feeds
@@ -66,28 +63,41 @@ elif [ $mode = previous ] ; then
     fi
 fi
 
-./code/compile $site_dir/site-src $site_dir/site/$version $mode $version
+./code/compile $site_dir/site-src ${build_dir} $mode $version
 
-csplit -s -f part $site_dir/site/${version_path}templates/index.html /header-footer-horizon/
-mv part00 $site_dir/site/${version_path}templates/index-header.html
-tail -n +2 part01 > $site_dir/site/${version_path}templates/index-footer.html
-rm $site_dir/site/${version_path}templates/index.html part*
+csplit -s -f part ${build_dir}/templates/index.html /header-footer-horizon/
+mv part00 ${build_dir}/templates/index-header.html
+tail -n +2 part01 > ${build_dir}/templates/index-footer.html
+rm ${build_dir}/templates/index.html part*
 
 if [ $mode = www ] ; then
-    chown $mirror_user:$mirror_group $site_dir/site/index.html
+    chown $mirror_user:$mirror_group ${build_dir}/index.html
     if [ -d /usr/share/wordpress/wp-content/themes/rabbitmq ]; then
         rm -rf /usr/share/wordpress/wp-content/themes/rabbitmq
         cp -r wordpress-theme /usr/share/wordpress/wp-content/themes/rabbitmq
     fi
 fi
 
-cp conf/robots.txt-$mode $site_dir/site/robots.txt
+cp conf/robots.txt-${mode} ${build_dir}/robots.txt
+
+if [ -d ${site_dir}/site/${version} ] ; then
+    mv ${site_dir}/site/${version} ${old_dir}
+fi
+
+if [ ${mode} = previous ] ; then
+    mkdir -p ${site_dir}/site
+    mv ${build_dir} ${site_dir}/site/${version}
+else
+    mv ${build_dir} ${site_dir}/site
+fi
 
 if [ -d /etc/apache2/sites-available/ ]; then
     cp conf/${site}* /etc/apache2/sites-available/
     a2ensite ${site}
     /etc/init.d/apache2 reload
 fi
+
+rm -rf ${old_dir}
 
 if [ $mode = www ] ; then
     if [ ! -e /etc/apache2/sites-enabled/www.rabbitmq.com-ssl ]; then

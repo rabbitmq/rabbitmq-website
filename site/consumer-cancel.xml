@@ -65,6 +65,16 @@ channel.basicConsume(queue, consumer);</pre>
       <code>basic.cancel-ok</code> as normal.
     </p>
 
+    <h3>Consumer Cancellation and HA failover</h3>
+    <p>
+      Clients supporting consumer cancel notification will always be
+      informed when a queue is deleted or becomes
+      unavailable. Consumers <em>may</em> request that they should be cancelled
+      when a mirrored queue fails over (see the page on <a
+      href="ha.html">mirrored queues</a> for why and how this can be
+      done).
+    </p>
+
       <doc:section name="capabilities">
         <doc:heading>Client and Server Capabilities</doc:heading>
 
@@ -116,13 +126,12 @@ channel.basicConsume(queue, consumer);</pre>
           <code>capabilities</code> table as part of the
           <code>client-properties</code> table: failure to present
           such a table does not preclude the client from being able to
-          use extensions such as <a href="e2e.html">exchange
-          to exchange bindings</a>. However, in some cases such as <a
-          href="consumer-cancel.html">consumer cancellation
-          notification</a>, the client must present the associated
-          capability otherwise the broker will have no way of knowing
-          that the client is capable of receiving the additional
-          notifications.
+          use extensions such as <a href="e2e.html">exchange to
+          exchange bindings</a>. However, in some cases such as
+          consumer cancellation notification, the client must present
+          the associated capability otherwise the broker will have no
+          way of knowing that the client is capable of receiving the
+          additional notifications.
         </p>
       </doc:section>
   </body>

@@ -190,6 +190,12 @@
             The duration (in seconds) to wait before reconnecting to the
             brokers after being disconnected at either end. Default is 1.
         </dd>
+        <dt><code>add-forward-headers</code></dt>
+        <dd>
+          Whether to add <code>x-shovelled</code> headers to the
+          shovelled messages indicating where they have been shovelled
+          from and to. Default is false.
+        </dd>
         <dt><code>ack-mode</code></dt>
         <dd>
           <p>
@@ -209,6 +215,29 @@
             If set to <code>no-ack</code>, message acknowledgements are not
             used. This is the fastest option, but may lose messages in the
             event of network or broker failures.
+          </p>
+        </dd>
+        <dt><code>delete-after</code></dt>
+        <dd>
+          <p>
+            Determines when (if ever) the shovel should delete
+            itself. This can be useful if the shovel is being treated
+            as more of a move operation - i.e. being used to move
+            messages from one queue to another on an ad hoc basis.
+          </p>
+          <p>
+            The default is <code>never</code>, meaning the
+            shovel should never delete itself.
+          </p>
+          <p>
+            If set to <code>queue-length</code> then the shovel will
+            measure the length of the source queue when starting up,
+            and delete itself after it has transfered that many
+            messages.
+          </p>
+          <p>
+            If set to an integer, then the shovel will transfer that
+            number of messages before deleting itself.
           </p>
         </dd>
       </dl>

@@ -160,7 +160,12 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
           <dd>
             The maximum number of federation links that a message
             published to a federated exchange can traverse before it
-            is discarded. Default is 1.
+            is discarded. Default is 1. Note that even if
+            <code>max-hops</code> is set to a value greater than 1,
+            messages will never visit the same node twice due to
+            travelling in a loop. However, messages may still be
+            duplicated if it is possible for them to travel from the
+            source to the destination via multiple routes.
           </dd>
 
           <dt><code>expires</code></dt>
@@ -252,34 +257,27 @@ rabbitmqctl set_parameter federation-upstream <i>name</i> '<i>json-object</i>'
       </doc:subsection>
 
       <doc:subsection name="other-config">
-        <doc:heading>local-username</doc:heading>
+        <doc:heading>cluster name</doc:heading>
         <p>
-          The <code>local-username</code> parameter specifies the user
-          under which to publish messages to the (local) federated
-          exchanges. The default is
-          <code>"guest"</code>. This user will need the appropriate permissions
-          to publish messages to these exchanges. Example:
-        </p>
-
-        <pre class="example">rabbitmqctl set_parameter federation local-username '"guest"'</pre>
-
-        <doc:heading>local-nodename</doc:heading>
-        <p>
-          The <code>local-nodename</code> parameter specifies the name
-          this node should use to identify itself to other nodes in
-          the federation graph. (The default is constructed from the
-          Erlang node and the machine's fully-qualified domain name.)
+          The federation plugin uses the cluster name defined within
+          the server to identify itself to other nodes in the
+          federation graph. (The default is constructed from the
+          Erlang node and the fully-qualified domain name of the first
+          node to form the cluster.)
         </p>
         <p>
-          It is important to specify it explicitly if your DNS will
+          This can be changed with <code>rabbitmqctl
+          set_cluster_name</code> or via the management plugin.
+        </p>
+        <p>
+          It is important to specify this explicitly if your DNS will
           not give machines distinct names.
         </p>
         <p>
           Example:
         </p>
 
-        <pre class="example">rabbitmqctl set_parameter federation local-nodename '"my-node"'</pre>
-
+        <pre class="example">rabbitmqctl set_cluster_name '"my-name"'</pre>
       </doc:subsection>
     </doc:section>
 

@@ -103,7 +103,7 @@ add more workers and that way, scale easily.
 First, let's try to run two `worker.php` scripts at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the `worker.rb`
+You need three consoles open. Two will run the `worker.php`
 script. These consoles will be our two consumers - C1 and C2.
 
     :::bash
@@ -177,8 +177,9 @@ There aren't any message timeouts; RabbitMQ will redeliver the message
 only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
-Message acknowledgments are turned on off.
-It's time to turn them on by setting the second flag to `basic_consume` to `false` (true means _no ack_) and send a proper acknowledgment
+Message acknowledgments are turned off by default.
+It's time to turn them on by setting the fourth parameter to `basic_consume` to `false` 
+(true means _no ack_) and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::php
@@ -226,7 +227,7 @@ durable.
 
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_.
-To do so we pass the second flag to `queue_declare` as `true`:
+To do so we pass the third parameter to `queue_declare` as `true`:
 
     :::php
     $channel->queue_declare('hello', false, true, false, false);

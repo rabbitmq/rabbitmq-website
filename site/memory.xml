@@ -106,14 +106,12 @@
       </p>
 
       <p>
-        32-bit architectures impose a per process memory limit of
-        4GB, though under Windows, this is frequently further
-        reduced to 2GB. Common implementations of 64-bit
-        architectures (i.e. AMD64 and Intel EM64T) permit only a
-        paltry 256TB per process. 64-bit Windows again further
-        limits this to 8TB. However, note that even under 64-bit
-        Windows, a 32-bit process frequently only has a maximum
-        address space of 2GB.
+        32-bit architectures tend to impose a per process memory limit
+        of 2GB. Common implementations of 64-bit architectures
+        (i.e. AMD64 and Intel EM64T) permit only a paltry 256TB per
+        process. 64-bit Windows further limits this to 8TB. However,
+        note that even under 64-bit OSes, a 32-bit process frequently
+        only has a maximum address space of 2GB.
       </p>
       <doc:subsection name="memsup-usage">
         <doc:heading>Configuring the Memory Threshold</doc:heading>
@@ -128,12 +126,12 @@
         </p>
 
         <p>
-          The default value of 0.4 stands for 40% of installed RAM
-          or 40% of available virtual address space, whichever is
-          smaller. E.g. on a 32-bit Windows platform, if you have
-          4GB of RAM installed, 40% of 4GB is 1.6GB, but 32-bit
-          Windows normally limits processes to 2GB, so the threshold
-          is actually to 40% of 2GB (which is 820MB).
+          The default value of 0.4 stands for 40% of installed RAM or
+          40% of available virtual address space, whichever is
+          smaller. E.g. on a 32-bit platform, if you have 4GB of RAM
+          installed, 40% of 4GB is 1.6GB, but 32-bit Windows normally
+          limits processes to 2GB, so the threshold is actually to 40%
+          of 2GB (which is 820MB).
         </p>
 
         <p>
@@ -167,6 +165,34 @@ Memory limit set to 2048MB.</pre>
           hot-swappable RAM when this command is executed without altering
           the threshhold, due to the fact that the total amount of system
           RAM is queried.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="address-space">
+        <doc:heading>Limited Address Space</doc:heading>
+        <p>
+          When running RabbitMQ inside a 32 bit Erlang VM in a 64 bit
+          OS, the addressable memory is limited. The server will
+          detect this and log a message like:
+        </p>
+
+        <pre class="sourcecode">=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
+Only 2048MB of 12037MB memory usable due to limited address space.
+Crashes due to memory exhaustion are possible - see
+http://www.rabbitmq.com/memory.html#address-space</pre>
+
+        <p>
+          The memory alarm system is not perfect. While stopping publishing
+          will usually prevent any further memory from being used, it is quite
+          possible for other things to continue to increase memory
+          use. Normally when this happens and the physical memory is exhausted
+          the OS will start to swap. But when running with a limited address
+          space, running over the limit will cause the VM to crash.
+        </p>
+
+        <p>
+          It is therefore strongly recommended that when running on a 64 bit
+          OS you use a 64 bit Erlang VM.
         </p>
       </doc:subsection>
 
@@ -231,9 +257,7 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
 
         <p>
           It is advised you do not set the threshold above 50% of your
-          installed RAM, and to note that under Windows with a 32-bit
-          Erlang VM, it is commonly the case that a maximum of 2GB
-          memory is available to RabbitMQ.
+          installed RAM.
         </p>
       </doc:subsection>
     </doc:section>
