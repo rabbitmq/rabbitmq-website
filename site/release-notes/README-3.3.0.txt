@@ -146,18 +146,22 @@ bug fixes
 
 MQTT plugin
 -----------
-enhancements
-25877 support specifying vhost at the time of connection
-
 bug fixes
 25941 ensure keepalives are implemented completely (since xxx)
+
+enhancements
+25877 support specifying vhost at the time of connection
+26067 initial support for MQTT 3.1.1 draft
 
 
 Web-STOMP plugin
 ----------------
+bug fixes
+25896 ensure examples set content-type (since 3.0.0)
+
 enhancements
 25828 upgrade cowboy to get sec-websocket-protocol support	
-25896 ensure examples set content-type (since 3.0.0)
+25913 support SSL (with thanks to James Shiell)
 
 
 JSON-RPC channel plugin
@@ -192,6 +196,8 @@ bug fixes
       ProtocolVersionMismatchException (since 2.0.0)
 26071 ensure attempted use of a closed channel leads to
       AlreadyClosedException (since 1.0.0)
+26079 prevent spurious SocketException being thrown sometimes when shutting
+      down (since 1.0.0)
 
 enhancements
 25895 support for SSL cert selection and validation callbacks (thanks to
