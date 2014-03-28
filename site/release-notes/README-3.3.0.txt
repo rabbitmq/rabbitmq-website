@@ -78,6 +78,7 @@ performance improvements
 feature removal
 25962 remove support for client-sent channel.flow method; basic.qos is
       superior in all cases
+25985 remove support for 'impersonator' tag
 
 
 building & packaging
