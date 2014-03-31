@@ -161,6 +161,15 @@
           accepted responsibility for all the messages published in
           the transaction.
         </p>
+        <p>
+          For acknowledgements, the receipt of a
+          <code>tx.commit-ok</code> is an indicator that the
+          acknowledgements have been received by the server,
+          <em>not</em> that they have been processed, persisted,
+          etc. Consequently it is possible for a subsequent
+          server-side failure to "resurrect" the acknowledged
+          messages, and for consuming clients to receive them again.
+        </p>
       </doc:section>
       <doc:section name="ordering">
         <doc:heading>Message ordering guarantees</doc:heading>
