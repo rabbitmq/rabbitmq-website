@@ -146,6 +146,16 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_DIST_PORT</td>
+              <td>RABBITMQ_NODE_PORT + 20000</td>
+              <td>
+                Port to use for clustering. Ignored if your config
+                file sets <code>inet_dist_listen_min</code> or
+                <code>inet_dist_listen_max</code>
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_NODENAME</td>
               <td>
                 <ul>
@@ -456,11 +466,28 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </p>
 
               <p>
-                At present there is just one category defined -
-                'connection', for all events relating to network
-                connections. Other, currently uncategorised, events
-                are always logged.
+                At present there are three categories defined. Other,
+                currently uncategorised, events are always logged.
               </p>
+
+              <p>
+                The categories are:
+              </p>
+
+              <ul>
+                <li>
+                  <code>connection</code> - for all events relating to
+                  network connections
+                </li>
+                <li>
+                  <code>mirroring</code> - for all events relating to
+                  <a href="ha.html">mirrored queues</a>
+                </li>
+                <li>
+                  <code>federation</code> - for all events relating to
+                  <a href="federation.html">federation</a>
+                </li>
+              </ul>
               <p>Default: <code>[{connection, info}]</code></p>
             </td>
           </tr>
@@ -473,6 +500,15 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               larger value may improve throughput; setting a smaller
               value may improve latency.
               <p>Default: <code>131072</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>channel_max</code></td>
+            <td>
+              Maximum permissible number of channels to
+              negotiate with clients. Setting to 0 means "unlimited".
+              Using more channels increases memory footprint of the broker.
+              <p>Default: <code>0</code></p>
             </td>
           </tr>
           <tr>
@@ -533,6 +569,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>loopback_users</code></td>
+            <td>
+              List of users which are only permitted to connect to the
+              broker via a loopback interface
+              (i.e. <code>localhost</code>).
+
+              <p>
+                If you wish to allow the default <code>guest</code>
+                user to connect remotely, you need to change this to
+                <code>[]</code>.
+              </p>
+              <p>Default: <code> [&lt;&lt;"guest"&gt;&gt;] </code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>cluster_nodes</code></td>
             <td>
               Set this to cause clustering
@@ -586,9 +637,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>auth_backends</code></td>
             <td>
-              List of authentication databases to use. Other databases
-              than <code>rabbit_auth_backend_internal</code> are
-              available through <a href="plugins.html">plugins</a>.
+              <p>
+                List of authentication / authorisation databases to
+                use. This list can contain names of modules (in which
+                case the same module is used for both authentication
+                and authorisation), or 2-tuples like <code>{ModN,
+                ModZ}</code> in which case <code>ModN</code> is used
+                for authentication and <code>ModZ</code> is used for
+                authorisation.
+              </p>
+              <p>
+                Other databases
+                than <code>rabbit_auth_backend_internal</code> are
+                available through <a href="plugins.html">plugins</a>.
+              </p>
               <p>Default: <code>[rabbit_auth_backend_internal]</code></p>
             </td>
           </tr>

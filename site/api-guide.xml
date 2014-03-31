@@ -9,10 +9,10 @@
   </head>
   <body show-in-this-page="true">
       <p class="intro">
-	This page gives an overview of the RabbitMQ Java client	API. 
+	This page gives an overview of the RabbitMQ Java client	API.
       </p>
       <p class="intro">
-	The code samples given here demonstrate connecting to AMQP brokers and 
+	The code samples given here demonstrate connecting to AMQP brokers and
 	using RPC services exposed via AMQP.
       </p>
       <p class="intro">
@@ -92,8 +92,8 @@ AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build()
 
 	<p>
 	  The core API classes are <code>Connection</code>
-	  and <code>Channel</code>, representing an AMQP connection and an 
-	  AMQP data channel, respectively: 
+	  and <code>Channel</code>, representing an AMQP connection and an
+	  AMQP data channel, respectively:
 	</p>
 	<pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
 <b>import</b> com.rabbitmq.client.Channel;</pre>
@@ -135,10 +135,10 @@ Connection conn = factory.newConnection();
 	  <p>
 	    The <code>Connection</code> interface can then be used to open a channel:
 	  </p>
-	  
+
 <pre class="sourcecode">
 Channel channel = conn.createChannel();
-</pre>	  
+</pre>
 	  <p>
 	    The channel can now be used to send and receive messages, as described in subsequent sections.
 	  </p>
@@ -205,7 +205,7 @@ Connection conn = factory.newConnection(<b>es</b>);
         <p>
           It is possible to pass an <code>Address</code> array
           to <code>newConnection()</code>.
-          An <code>Address</code> is simply a convenience class 
+          An <code>Address</code> is simply a convenience class
           (in the <code>com.rabbitmq.client</code> package) with <i>host</i>
           and <i>port</i> components.
           For example:
@@ -223,9 +223,31 @@ Connection conn = factory.newConnection(addrArr);
         </p>
         <p>
           If an <code>ExecutorService</code> is provided as well (using the
-          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is 
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
           associated with the (first) successful connection.
         </p>
+    </doc:subsection>
+
+
+    <doc:subsection name="thread-factories">
+      <doc:heading><i>Custom Thread Factories</i></doc:heading>
+      <p>
+        Environments such as Google App Engine (GAE) can <a
+        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+        it's necessary to configure a custom <code>ThreadFactory</code> that uses
+        GAE's <code>ThreadManager</code> to create threads.
+
+        Below is an example for Google App Engine.
+      </p>
+      <p>
+<pre class="sourcecode">
+import com.google.appengine.api.ThreadManager;
+
+ConnectionFactory cf = new ConnectionFactory();
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+</pre>
+      </p>
     </doc:subsection>
 </doc:section>
 
@@ -237,9 +259,9 @@ Connection conn = factory.newConnection(addrArr);
 	   These must be "declared" before they can be used. Declaring either type of object
 	   simply ensures that one of that name exists, creating it if necessary.
 	  </p>
-	  
+
 	  <p>
-	   Continuing the previous example, the following code declares an exchange and a queue, 
+	   Continuing the previous example, the following code declares an exchange and a queue,
 	   then binds them together.
 	  </p>
 
@@ -285,9 +307,9 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
 
 	  <p>
 	    Note that all of these <code>Channel</code> API methods are overloaded.
-	    These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code> 
+	    These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code>
 	    use sensible defaults. There are also longer forms with more parameters, to let you override these defaults
-	    as necessary, giving full control where needed. 
+	    as necessary, giving full control where needed.
 	  </p>
 	  <p>
 	    This "short form, long form" pattern is used throughout the client API uses.
@@ -497,7 +519,7 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
 	  </p>
 	  <p>
 	    To be notified of such returns, clients can implement the <code>ReturnListener</code>
-	    interface and call <code>Channel.setReturnListener</code>. 
+	    interface and call <code>Channel.setReturnListener</code>.
 	    If the client has not configured a return listener for a particular channel,
         then the associated returned messages will be silently dropped.
 	  </p>
@@ -530,7 +552,7 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
 	</p>
 	<p>
 	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
-	  It simply provides a mechanism for sending a message to a given exchange with a particular 
+	  It simply provides a mechanism for sending a message to a given exchange with a particular
 	  routing key, and waiting for a response on a reply queue.
 	</p>
 
@@ -540,8 +562,8 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
 RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
 
 	<p>
-	  (The implementation details of how this class uses AMQP are as follows: request messages are sent with the 
-	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance, 
+	  (The implementation details of how this class uses AMQP are as follows: request messages are sent with the
+	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
 	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
 	</p>
 
@@ -570,7 +592,7 @@ Map mapCall(Object[] keyValuePairs)</pre>
 	</p>
 
 	<p>
-	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a 
+	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
 	  transport mechanism, and just provide a wrapping layer on top of it.
 	</p>
       </doc:section>
@@ -667,7 +689,13 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
 	      methods to analyze the reason of the shutdown. By
 	      calling the <code>isHardError()</code> method we get
 	      information whether it was a connection or a channel
-	      error.
+	      error, and <code>getReason()</code> returns information
+	      about the cause, in the form an AMQP method - either
+	      <code>AMQP.Channel.Close</code> or
+	      <code>AMQP.Connection.Close</code> (or null if the cause
+	      was some exception in the library, such as a network
+	      communication failure, in which case that exception can
+	      be retrieved with <code>getCause()</code>).
 	    </p>
             <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
 {
@@ -676,7 +704,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     Connection conn = (Connection)cause.getReference();
     <b>if</b> (!cause.isInitiatedByApplication())
     {
-      Object reason = cause.getReason();
+      Method reason = cause.getReason();
       ...
     }
     ...
@@ -732,9 +760,133 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
     } <b>catch</b> (IOException ioe) {
         // check why connection was closed
         ...
-    } 
+    }
 }</pre>
           </doc:subsection>
+    </doc:section>
+
+    <doc:section name="recovery">
+      <doc:heading>Automatic Recovery From Network Failures</doc:heading>
+      <doc:subsection name="connection-recovery">
+        <doc:heading>Connection Recovery</doc:heading>
+        <p>
+          Network connection between clients and RabbitMQ nodes can fail.
+          RabbitMQ Java client supports automatic recovery of connections
+          and topology (queues, exchanges, bindings, and consumers).
+
+          The automatic recovery process for many applications follows the following steps:
+          <ol>
+            <li>Reconnect</li>
+            <li>Restore connection listeners</li>
+            <li>Re-open channels</li>
+            <li>Restore channel listeners</li>
+            <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
+          </ol>
+
+          Topology recovery includes the following actions, performed for every channel
+
+          <ol>
+            <li>Re-declare exchanges (except for predefined ones)</li>
+            <li>Re-declare queues</li>
+            <li>Recover all bindings</li>
+            <li>Recover all consumers</li>
+          </ol>
+
+          To enable automatic connection recovery, use
+          <code>factory.setAutomaticRecovery(true)</code>:
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUsername(<b>userName</b>);
+factory.setPassword(<b>password</b>);
+factory.setVirtualHost(<b>virtualHost</b>);
+factory.setHost(<b>hostName</b>);
+factory.setPort(<b>portNumber</b>);
+factory.setAutomaticRecovery(true)
+// connection that will recover automatically
+Connection conn = factory.newConnection();</pre>
+
+          If recovery fails due to an exception (e.g. RabbitMQ node is
+          still not reachable), it will be retried after a fixed time interval (default
+          is 5 seconds). The interval can be configured:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+// attempt recovery every 10 seconds
+factory.setNetworkRecoveryInterval(10000);</pre>
+
+          When a list of addresses is provided, a random one will be picked
+          during recovery:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
+factory.newConnection(addresses);</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="publishers">
+        <doc:heading>Effects on Publishing</doc:heading>
+        <p>
+          Messages that are published using <code>Channel.basicPublish</code> when connection is down
+          will be lost. The client does not enqueue them for delivery after connection has recovered.
+          To ensure that published messages reach RabbitMQ applications need to use <a href="confirms.html">Publisher Confirms</a>
+          and account for connection failures.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="topology-recovery">
+        <doc:heading>Topology Recovery</doc:heading>
+        <p>
+          Topology recovery involves recovery of exchanges, queues, bindings
+          and consumers. It is enabled by default but can be disabled:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Connection conn = factory.newConnection();
+factory.setAutomaticRecovery(true)</pre>
+        </p>
+        </doc:subsection>
+
+      <doc:subsection name="recovery-and-acknowledgements">
+        <doc:heading>Manual Acknowledgements and Automatic Recovery</doc:heading>
+        <p>
+          When manual acknowledgements are used, it is possible that
+          network connection to RabbitMQ node fails between message
+          delivery and acknowledgement. After connection recovery,
+          RabbitMQ will reset delivery tags on all channels.
+
+          This means that <i>basic.ack</i>, <i>basic.nack</i>, and <i>basic.reject</i>
+          with old delivery tags will cause a channel exception. To avoid this,
+          RabbitMQ Java client keeps track of and updates delivery tags to make them monotonically
+          growing between recoveries.
+
+          <code>Channel.basicAck</code>,
+          <code>Channel.basicNack</code>, and
+          <code>Channel.basicReject</code> then translate adjusted
+          delivery tags into those used by RabbitMQ.
+
+          <b>Acknowledgements with stale delivery tags will not be sent</b>. Applications
+          that use manual acknowledgements and automatic recovery must
+          be capable of handling redeliveries.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="gae-pitfalls">
+      <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
+      <p>
+        Using RabbitMQ Java client on Google App Engine (GAE) requires using a custom
+        thread factory that instantiates thread using GAE's <pre>ThreadManager</pre> (see above).
+        In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
+        into the low <pre>InputStream</pre> read timeouts on GAE:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setRequestedHeartbeat(5);
+        </pre>
+      </p>
     </doc:section>
   </body>
 </html>

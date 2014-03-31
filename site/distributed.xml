@@ -94,6 +94,11 @@
       Typically you would use the shovel to link brokers across the
       internet when you need more control than federation provides.
     </p>
+    <p>
+      <a href="shovel-dynamic.html">Dynamic shovels</a> can also be
+      useful for moving messages around in an ad-hoc manner on a
+      single broker.
+    </p>
 
     <h2>Summary</h2>
     <table>

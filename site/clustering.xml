@@ -669,45 +669,29 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management liste
             when network links between nodes are unreliable.
           </p>
           <p>
-            If different nodes of a cluster are in the same data center,
-            but behind firewalls then additional configuration will be
-            necessary to ensure inter-node communication. Erlang makes
-            use of a Port Mapper Daemon (epmd) for resolution of node
-            names in a cluster. Nodes must be able to reach each other
-            and the port mapper daemon for clustering to work.
+            In the most common configuration you will need to open
+            ports 4369 and 25672 for clustering to work.
           </p>
           <p>
-            The default epmd port is 4369, but this can be changed
-            using the <span class="envvar">ERL_EPMD_PORT</span>
-            environment variable. All nodes must use the same port.
-            Firewalls must permit traffic on this port to pass between
-            clustered nodes. For further details see the
-            <a href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+            Erlang makes use of a Port Mapper Daemon (epmd) for
+            resolution of node names in a cluster. The default epmd
+            port is 4369, but this can be changed using the <span
+            class="envvar">ERL_EPMD_PORT</span> environment
+            variable. All nodes must use the same port. For further
+            details see the <a
+            href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
             manpage</a>.
           </p>
           <p>
-            Once a distributed Erlang node address has been resolved via epmd,
-            other nodes will attempt to communicate directly with that address
-            using the Erlang distributed node protocol. The port range for this
-            communication can be configured with two parameters for the Erlang
-            kernel application:
-          </p>
-          <ul>
-            <li>inet_dist_listen_min</li>
-            <li>inet_dist_listen_max</li>
-          </ul>
-          <p>
-            Firewalls must permit traffic in this range to pass between
-            clustered nodes (assuming all nodes use the same port range).
-            The default port range is unrestricted.
-          </p>
-          <p>
-            The <a href="http://www.erlang.org/doc/man/kernel_app.html">
-            Erlang kernel_app manpage</a> contains more details on the
-            port range that distributed Erlang nodes listen on.
-            See the <a href="configure.html">configuration</a> page
-            for information on how to create and edit a configuration
-            file.
+            Once a distributed Erlang node address has been resolved
+            via epmd, other nodes will attempt to communicate directly
+            with that address using the Erlang distributed node
+            protocol. The default port for this traffic in RabbitMQ is
+            20000 higher than <span
+            class="envvar">RABBITMQ_NODE_PORT</span> (i.e. 25672 by
+            default). This can be explicitly configured using the
+            <span class="envvar">RABBITMQ_DIST_PORT</span> variable -
+            see <a href="configure.html">the configuration guide</a>.
           </p>
       </doc:section>
       <doc:section name="clients">

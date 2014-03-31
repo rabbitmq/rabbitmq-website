@@ -5,7 +5,8 @@
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
     <title>Amazon EC2</title>
   </head>
@@ -158,6 +159,8 @@ hostname -F /etc/hostname</pre>
     </p>
   </doc:subsection>
 </doc:section>
+
+<xi:include href="install-guest-localhost.xml.inc"/>
 
 <doc:section name="testing">
   <doc:heading>Testing RabbitMQ</doc:heading>

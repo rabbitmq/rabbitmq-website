@@ -30,22 +30,36 @@
       <p>
         You will then need to set the value of the <code>auth_backends</code>
         configuration item for the <code>rabbit</code> application to include
-        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is
-        a list of authentication providers to try in order. So:
+        <code>rabbit_auth_backend_ldap</code>. <code>auth_backends</code> is a
+        list of authentication / authoriation providers to try in order.  The
+        list can contain names of modules (in which case the same module is
+        used for both authentication and authorisation), or 2-tuples
+        like <code>{ModN, ModZ}</code> in which case <code>ModN</code> is used
+        for authentication and <code>ModZ</code> is used for authorisation.
+      </p>
+
+      <p>
+        So for example:
       </p>
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
       <p>
-        will configure RabbitMQ to <b>only</b> check LDAP for users,
-        and ignore the internal database, while:
+        This will configure RabbitMQ to <b>only</b> check LDAP for users,
+        and ignore the internal database.
       </p>
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
       <p>
-        will check LDAP first, and then fall back to the internal
-        database if the user cannot be authenticated through LDAP and:
+        This will check LDAP first, and then fall back to the internal
+        database if the user cannot be authenticated through LDAP.
       </p>
-      <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_internal, rabbit_auth_backend_ldap]}]}</pre>
+      <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
+                          rabbit_auth_backend_internal]}]}</pre>
       <p>
-        will do the same but check the internal database first.
+        This will check LDAP first. If the user is found in LDAP then the
+        password will be checked against LDAP and subsequent authorisation
+        checks will be performed against the internal database (therefore
+        users in LDAP must exist in the internal database as well, but do not
+        need a password there). If the user is not found in LDAP then a second
+        attempt is made using only the internal database.
       </p>
 
     </doc:section>
@@ -60,7 +74,8 @@
       <p>
         The most complex part of configuring the plugin pertains to
         authorisation (i.e. granting permissions to your users via LDAP). This
-        is documented separately below.
+        is documented separately below and can be skipped if only using the
+        plugin for authentication.
       </p>
       <p>
         The default configuration allows all users to access all objects in
@@ -98,18 +113,37 @@
             Default: <code>"${username}"</code>
           </p>
         </dd>
-        <dt><code>dn_lookup_attribute</code> and <code>dn_lookup_base</code></dt>
+        <dt><code>dn_lookup_attribute</code>, <code>dn_lookup_base</code> and <code>dn_lookup_bind</code></dt>
         <dd>
           <p>
-            The other way to convert a username to a Distinguished Name is via
-            an LDAP lookup after binding. In order for this to work your LDAP
-            server needs to be configured to allow binding with the unadorned
+            The other way to convert a username to a Distinguished
+            Name is via an LDAP lookup.
+          </p>
+          <p>
+            To do this, set <code>dn_lookup_attribute</code> to the
+            name of the attribute that represents the user name,
+            and <code>dn_lookup_base</code> to the base DN for the
+            query.
+          </p>
+          <p>
+            The lookup can be done at one of two times, either before
+            attempting to bind as the user in question, or afterwards.
+          </p>
+          <p>
+            If you want to do the lookup after binding, you can leave
+            <code>dn_lookup_bind</code> set to its default
+            of <code>as_user</code>. The LDAP plugin will then bind
+            with the user's unadorned username to do the login, then
+            look up its DN. In order for this to work your LDAP server
+            needs to be configured to allow binding with the unadorned
             username (Microsoft Active Directory typically does this).
           </p>
           <p>
-            To do this, set dn_lookup_attribute to the name of the attribute the
-            represents the user name, and dn_lookup_base to the base DN for the
-            query.
+            If you want to do the lookup before binding, you must
+            set <code>dn_lookup_bind</code> to a tuple <code>{UserDN,
+            Password}</code>. The LDAP plugin will then bind with
+            these credentials first to do the lookup, then bind with
+            the user's DN and password to do the login.
           </p>
           <p>
             For example, if I set
@@ -127,7 +161,7 @@
             searches for the DN.
           </p>
           <p>
-            Default: <code>'none'</code> and <code>'none'</code>
+            Default: <code>'none'</code>, <code>'none'</code> and <code>'as_user'</code>
           </p>
         </dd>
         <dt><code>other_bind</code></dt>
@@ -149,11 +183,9 @@
           <p>
             Note that it is not possible to use the
             default <code>as_user</code> configuration when users connect
-            without passwords. An error
-            mentioning <code>as_user_no_password</code> will be logged in this
-            case. You must set <code>other_bind</code> to <code>anon</code>,
-            or <code>{UserDN, Password}</code> for users to log in without
-            passwords.
+            without passwords. You must set <code>other_bind</code>
+            to <code>anon</code>, or <code>{UserDN, Password}</code> for users
+            to log in without passwords.
           </p>
           <p>
             Default: <code>as_user</code>
@@ -161,14 +193,25 @@
         </dd>
         <dt><code>use_ssl</code></dt>
         <dd>
-          Whether to use LDAP over SSL. Uses the same <a href="ssl.html">SSL
-          configuration</a> as elsewhere in RabbitMQ. Default:
+          Whether to use LDAP over SSL. Default:
           <code>false</code>
+        </dd>
+        <dt><code>ssl_options</code></dt>
+        <dd>
+          SSL options. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Default:
+          <code>[]</code>
         </dd>
         <dt><code>port</code></dt>
         <dd>
           Port on which to connect to the LDAP servers. Default:
           <code>389</code>.
+        </dd>
+        <dt><code>timeout</code></dt>
+        <dd>
+          LDAP connection timeout in milliseconds, or 'infinity' for
+          no timeout. Default:
+          <code>infinity</code>.
         </dd>
         <dt><code>log</code></dt>
         <dd>
