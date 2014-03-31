@@ -32,6 +32,8 @@ bug fixes
 26043 ensure autoheal does not crash if multiple autoheal requests occur
       in quick succession and the leader make different decisions for each
       (since 3.1.0)
+26088 fix failure to delete virtual host if a queue in the virtual host is
+      deleted concurrently (since 1.0.0) (incorrectly reported fixed in 3.2.4)
 25374 interpret AMQP field type 'b' as signed byte rather than unsigned, for
       compatibility with our errata, and the majority of clients (since 1.0.0)
 26058 prevent inaccurate (sometimes negative) report of memory use by
@@ -201,6 +203,7 @@ bug fixes
       AlreadyClosedException (since 1.0.0)
 26079 prevent spurious SocketException being thrown sometimes when shutting
       down (since 1.0.0)
+25082 ensure EventingConsumer sets supertype model field (since 1.0.0)
 
 enhancements
 25895 support for SSL cert selection and validation callbacks (thanks to
