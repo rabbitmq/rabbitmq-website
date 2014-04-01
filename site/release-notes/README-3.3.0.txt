@@ -201,8 +201,6 @@ bug fixes
       ProtocolVersionMismatchException (since 2.0.0)
 26071 ensure attempted use of a closed channel leads to
       AlreadyClosedException (since 1.0.0)
-26079 prevent spurious SocketException being thrown sometimes when shutting
-      down (since 1.0.0)
 25082 ensure EventingConsumer sets supertype model field (since 1.0.0)
 
 enhancements
