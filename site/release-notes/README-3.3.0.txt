@@ -165,7 +165,7 @@ bug fixes
 25896 ensure examples set content-type (since 3.0.0)
 
 enhancements
-25828 upgrade cowboy to get sec-websocket-protocol support	
+25828 upgrade cowboy to get sec-websocket-protocol support
 25913 support SSL (with thanks to James Shiell)
 
 
@@ -182,7 +182,7 @@ enhancements
       interrupted
 26008 make it easier to start a Connection with a custom ExceptionHandler
 25833 allow specifying a per-ConnectionFactory ExecutorService
-25999 handle running in a security-restricted context (e.g. Google App engine) 
+25999 handle running in a security-restricted context (e.g. Google App engine)
 25663 improve type safety of ShutdownSignalException "reason" property
 26068 improve clarity of AlreadyClosedException reason
 26015 make Envelope.toString() do something useful
@@ -201,7 +201,7 @@ bug fixes
       ProtocolVersionMismatchException (since 2.0.0)
 26071 ensure attempted use of a closed channel leads to
       AlreadyClosedException (since 1.0.0)
-25082 ensure EventingConsumer sets supertype model field (since 1.0.0)
+t25082 ensure EventingConsumer sets supertype model field (since 1.0.0)
 
 enhancements
 25895 support for SSL cert selection and validation callbacks (thanks to
