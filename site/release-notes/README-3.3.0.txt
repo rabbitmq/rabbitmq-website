@@ -107,7 +107,7 @@ bug fixes
 enhancements
 24829 provide information about flow control status of internal components,
       to help find bottlenecks
-25876 provide regex option when filtering lists
+25876 provide regex option when filtering lists (with thanks to Joseph Weeks)
 
 feature removal
 25720 remove the redirect from 2.x-era port 55672 to 15672
