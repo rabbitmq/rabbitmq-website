@@ -89,6 +89,10 @@ bug fixes
 25989 put the example config file in the correct directory for generic
       Unix and standalone Mac, and put a copy in the AppData directory
       on Windows (since 3.2.0).
+26093 Debian: remove obsolete DM-Upload-Allowed field (thanks to Thomas
+      Goirand)
+26094 Debian: ensure package can be built multiple times and remove
+      files from debdiff that should not be there (thanks to Thomas Goirand)
 
 enhancements
 25844 switch standalone Mac release to 64 bit architecture
