@@ -878,9 +878,9 @@ factory.setAutomaticRecovery(true)</pre>
       <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
       <p>
         Using RabbitMQ Java client on Google App Engine (GAE) requires using a custom
-        thread factory that instantiates thread using GAE's <pre>ThreadManager</pre> (see above).
+        thread factory that instantiates thread using GAE's <code>ThreadManager</code> (see above).
         In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
-        into the low <pre>InputStream</pre> read timeouts on GAE:
+        into the low <code>InputStream</code> read timeouts on GAE:
 
         <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
