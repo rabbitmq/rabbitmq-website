@@ -1,0 +1,197 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Community Plugins</title>
+  </head>
+  <body show-in-this-page="true">
+      <doc:section name="overview">
+        <p>
+          For your convenience, we offer binary downloads of plugins
+          which have been contributed by authors in the
+          community. These plugins do not ship with the RabbitMQ
+          server itself; you can download them from
+          the <a href="/community-plugins/">community plugins
+          archive</a>.
+        </p>
+        <p>
+          The plugins are available compiled against various releases
+          of RabbitMQ.
+        </p>
+        <p>
+          Of course, we offer no guarantee that these will even work
+          against a given release of RabbitMQ. We build them at
+          release time, and also when requested to by a plugin
+          author. If multiple versions of a plugin exist for a given
+          version of RabbitMQ in the archive, we suggest you download
+          the latest version.
+        </p>
+        <p>
+          The plugins we build are as follows:
+        </p>
+
+        <h3>rabbit_udp_exchange</h3>
+        <p>
+          Extends RabbitMQ Server with support for a new experimental
+          exchange type, <code>x-udp</code>.
+        </p>
+        <p>
+          Each created <code>x-udp</code> exchange listens on a
+          specified UDP port for incoming messages, and relays them on
+          to the queues bound to the exchange. It also takes messages
+          published to the exchange and relays them on to a specified
+          IP address and UDP port.
+        </p>
+        <p>
+          Author: <b>Tony Garnock-Jones</b>
+          (<a href="https://github.com/tonyg/udp-exchange">Homepage</a>)
+        </p>
+
+        <h3>rabbit_presence_exchange</h3>
+        <p>
+          Extends RabbitMQ Server with support for a new experimental
+          exchange type, <code>x-presence</code>. An exchange of
+          type <code>x-presence</code> notifies queues that are bound
+          to it when other bindings appear and disappear.
+        </p>
+        <p>
+          Messages are sent out from an <code>x-presence</code>
+          exchange to queues attached with a binding key of the empty
+          string when a new binding appears or an existing binding
+          disappears.
+        </p>
+        <p>
+          Author: <b>Tony Garnock-Jones</b>
+          (<a href="https://github.com/tonyg/presence-exchange">Homepage</a>)
+        </p>
+
+        <h3>rabbitmq_auth_backend_http</h3>
+        <p>
+
+        </p>
+        <p>
+          This plugin provides the ability for your RabbitMQ server to
+          perform authentication (determining who can log in) and
+          authorisation (determining what permissions they have) by
+          making requests to an HTTP server.
+        </p>
+        <p>
+          Author: <b>Simon MacMullen</b>
+          (<a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-http">Homepage</a>)
+        </p>
+
+        <h3>rabbitmq_lvc</h3>
+        <p>
+          This is a pretty simple implementation of a last value cache
+          using RabbitMQ's pluggable exchange types feature.
+        </p>
+        <p>
+          The last value cache is intended to solve problems like the
+          following: say I am using messaging to send notifications of
+          some changing values to clients; now, when a new client
+          connects, it won't know the value until it changes.
+        </p>
+        <p>
+          The last value exchange acts like a direct exchange (binding
+          keys are compared for equality with routing keys); but, it
+          also keeps track of the last value that was published with
+          each routing key, and when a queue is bound, it
+          automatically enqueues the last value for the binding key.
+        </p>
+        <p>
+          Maintainer: <b>Simon MacMullen</b>
+          (<a href="https://github.com/simonmacmullen/rabbitmq-lvc-plugin">Homepage</a>)
+        </p>
+      </doc:section>
+
+      <doc:section name="installing-plugins">
+      <doc:heading>Installing Community Plugins</doc:heading>
+      <p>
+        Any plugins that do not ship with the server will need to be
+        installed as .ez archives by copying them to the plugins
+        directory. Once they have been copied to the correct
+        directory, they will show up in <code>rabbitmq-plugins
+        list</code> and can be enabled with <code>rabbitmq-plugins
+        enable <i>plugin-name</i></code>.
+      </p>
+      <p>
+        The plugins directory location is determined by the
+        <b>RABBITMQ_PLUGINS_DIR</b> variable.  Its default value
+        depends on how you installed RabbitMQ. Some common values are:
+      </p>
+      <table>
+        <tr><th>Installation method</th><th>Plugins directory</th></tr>
+        <tr>
+          <th>Debian/RPM packages</th>
+          <td>
+            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Windows</th>
+          <td>
+            Typically <code>C:\Program
+              Files\RabbitMQ\rabbitmq_server-</code><i>version</i><code>\plugins</code>
+            (depending on where it was installed)
+          </td>
+        </tr>
+        <tr>
+          <th>Macports</th>
+          <td>
+            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
+            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
+          </td>
+        </tr>
+        <tr>
+          <th>Homebrew</th>
+          <td>
+            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Generic&#160;Unix</th>
+          <td>
+            <code>rabbitmq_server-</code><i>version</i><code>/plugins</code>
+            (depending on where it was installed)
+          </td>
+        </tr>
+      </table>
+      </doc:section>
+      <doc:section name="upgrades">
+        <doc:heading>Plugins and Upgrades</doc:heading>
+        <p>
+          The enabled plugins configuration is preserved between
+          upgrades, so there is no need to re-enable plugins after an
+          upgrade, but because the plugins directory changes between
+          versions, any third party plugins will need to be copied to
+          the new directory. It's very possible that due to API
+          changes you may need to check for updates to third party
+          plugins at this point.
+        </p>
+      </doc:section>
+      <doc:section name="building">
+        <doc:heading>Building Plugins</doc:heading>
+        <p>
+          You can also build RabbitMQ plugins from source.  The sources for a
+          particular version of the plugins is distributed in the same
+          archive as the broker with that version.  The source code
+          repositories can all be found on our <a
+          href="http://hg.rabbitmq.com/">Mercurial server</a>. See the
+          <a href="plugin-development.html">plugin development</a>
+          guide for more information on building plugins from source.
+        </p>
+        <p>
+          Note that plugins tend to be strongly bound to a particular
+          version of <code>rabbitmq-server</code>. For example, if you are
+          running RabbitMQ &version-server;, you should check out all plugins
+          with the Mercurial tag <code>&version-server-hg;</code>.
+        </p>
+      </doc:section>
+  </body>
+</html>

@@ -10,12 +10,11 @@
   <head>
     <title>Plugins</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="overview">
         <p>
           RabbitMQ supports a variety of plugins. This page documents
-          the plugins that ship with RabbitMQ
-          &version-server;.
+          the plugins that ship with RabbitMQ &version-server;.
         </p>
         <p>
           To enable plugins, use
@@ -39,7 +38,7 @@
       </doc:section>
 
       <doc:section name="maintained">
-        <doc:heading>Maintained Plugins</doc:heading>
+        <doc:heading>Supported Plugins</doc:heading>
         <table>
           <r:plugin name="rabbitmq_auth_backend_ldap">
             Authentication / authorisation plugin using an external
@@ -175,89 +174,15 @@
         </table>
       </doc:section>
 
-      <doc:section name="installing-plugins">
-      <doc:heading>Installing Additional Plugins</doc:heading>
-      <p>
-        Some plugins are also available from third party
-        sources. Plugins will generally be available in two forms. The
-        expected form for a packaged plugin will be a .ez erlang
-        archive. Alternatively, more developmental plugins may be
-        distributed directly from source control, in which case
-        see <a href="#building">Building Plugins</a> below. Once you
-        have one or more .ez archives for your plugins, you need to
-        copy them to the plugins directiory.
-      </p>
-      <p>
-        The plugins directory location is determined by the
-        <b>RABBITMQ_PLUGINS_DIR</b> variable.  Its default value
-        depends on how you installed RabbitMQ. Some common values are:
-      </p>
-      <table>
-        <tr><th>Installation method</th><th>Plugins directory</th></tr>
-        <tr>
-          <th>Debian/RPM packages</th>
-          <td>
-            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
-          </td>
-        </tr>
-        <tr>
-          <th>Windows</th>
-          <td>
-            Typically <code>C:\Program
-              Files\RabbitMQ\rabbitmq_server-</code><i>version</i><code>\plugins</code>
-            (depending on where it was installed)
-          </td>
-        </tr>
-        <tr>
-          <th>Macports</th>
-          <td>
-            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
-          </td>
-        </tr>
-        <tr>
-          <th>Homebrew</th>
-          <td>
-            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
-          </td>
-        </tr>
-        <tr>
-          <th>Generic&#160;Unix</th>
-          <td>
-            <code>rabbitmq_server-</code><i>version</i><code>/plugins</code>
-            (depending on where it was installed)
-          </td>
-        </tr>
-      </table>
-      </doc:section>
-      <doc:section name="upgrades">
-        <doc:heading>Plugins and Upgrades</doc:heading>
+      <doc:section name="community">
+        <doc:heading>Community Plugins</doc:heading>
         <p>
-          The enabled plugins configuration is preserved between
-          upgrades, so there is no need to re-enable plugins after an
-          upgrade, but because the plugins directory changes between
-          versions, any third party plugins will need to be copied to
-          the new directory. It's very possible that due to API
-          changes you may need to check for updates to third party
-          plugins at this point.
-        </p>
-      </doc:section>
-      <doc:section name="building">
-        <doc:heading>Building Plugins</doc:heading>
-        <p>
-          You can also build RabbitMQ plugins from source.  The sources for a
-          particular version of the plugins is distributed in the same
-          archive as the broker with that version.  The source code
-          repositories can all be found on our <a
-          href="http://hg.rabbitmq.com/">Mercurial server</a>. See the
-          <a href="plugin-development.html">plugin development</a>
-          guide for more information on building plugins from source.
-        </p>
-        <p>
-          Note that plugins tend to be strongly bound to a particular
-          version of <code>rabbitmq-server</code>. For example, if you are
-          running RabbitMQ &version-server;, you should check out all plugins
-          with the Mercurial tag <code>&version-server-hg;</code>.
+          In addition, we also offer binary downloads of plugins which
+          have been contributed by authors in the community. These
+          plugins do not ship with the RabbitMQ server itself. See
+          the <a href="community-plugins.html">community plugins
+          page</a> for more detail on which plugins are available and
+          how to install them.
         </p>
       </doc:section>
   </body>
