@@ -94,7 +94,7 @@ on behalf of the consumer.
 > RabbitMQ speaks [AMQP](http://amqp.org/), which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for AMQP in [many different
-> languages](http://www.delicious.com/alexisrichardson/rabbitmq+client). We'll
+> languages](http://rabbitmq.com/devtools.html). We'll
 > use the Java client provided by RabbitMQ.
 >
 > Download the [client library

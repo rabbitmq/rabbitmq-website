@@ -30,9 +30,7 @@
       a message without waiting. A consumer becomes blocked if it
       cannot receive messages - because its channel has reached the
       maximum number of unacknowledged messages after issuing
-      <code>basic.qos</code>, because its channel has issued
-      <code>channel.flow</code>, or simply because of network
-      congestion.
+      <code>basic.qos</code>, or simply because of network congestion.
     </p>
 
     <p>
@@ -81,7 +79,7 @@ Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-priority", 10);
-channel.basicConsume("my-queue", false, "", false, false, args, consumer);</pre>
+channel.basicConsume("my-queue", false, args, consumer);</pre>
 
     <p>
       This creates a new consumer with priority 10.

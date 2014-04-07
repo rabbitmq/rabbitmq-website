@@ -121,5 +121,15 @@
 	  </ul>
         </doc:subsection>
       </doc:section>
+      <doc:section>
+        <doc:heading>Tracing plugin</doc:heading>
+        <p>
+          The <code>rabbitmq_tracing</code> <a
+          href="plugins.html">plugin</a> builds on top of the tracer
+          and provides a GUI to capture traced messages and log them
+          in text or JSON format files.
+        </p>
+      </doc:section>
+
   </body>
 </html>

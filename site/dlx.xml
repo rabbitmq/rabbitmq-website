@@ -201,6 +201,13 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             (including <code>CC</code> keys but excluding
             <code>BCC</code> ones) the message was published
             with.</li>
+          <li><code>original-expiration</code> (if the message was
+            dead-letterered due to <a
+            href="ttl.html#per-message-ttl">per-message TTL</a>) - the
+            original <code>expiration</code> property of the message.
+            The <code>expiration</code> property is removed from the
+            message on dead-lettering in order to prevent it from
+            expiring again in any queues it is routed to.</li>
         </ul>
       </p>
       <p>

@@ -238,7 +238,7 @@ different from the previous tutorial. The most important change is that
 we now want to publish messages to our `logs` exchange instead of the
 nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
-`EmitLog.java` script:
+`EmitLog.java` program:
 
     #!java
     import java.io.IOException;

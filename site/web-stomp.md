@@ -106,6 +106,21 @@ port to 12345 would look like:
       {rabbitmq_web_stomp, [{port, 12345}]}
     ].
 
+In addition, encrypted connections are supported if SSL configuration parameters are
+provided in the `ssl_config` section:
+
+    [
+      {rabbitmq_web_stomp,
+          [{ssl_config, [{port,       15671},
+                         {backlog,    1024},
+                         {certfile,   "path/to/certs/client/cert.pem"},
+                         {keyfile,    "path/to/certs/client/key.pem"},
+                         {cacertfile, "path/to/certs/testca/cacert.pem"},
+                         {password,   "changeme"}]}]}
+    ].
+
+See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
+for details about accepted parameters.
 
 ## <a id="missing"/>Missing features
 
