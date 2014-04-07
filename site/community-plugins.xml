@@ -35,6 +35,11 @@
           <li><a href="/community-plugins">Download community plugins</a></li>
           <li><a href="installing-plugins.html">Installing additional plugins</a></li>
         </ul>
+
+        <p>
+          If you are the author of a plugin and would like it listed
+          here, please <a href="contact.html">get in touch</a>!
+        </p>
       </doc:section>
       <doc:section name="routing">
         <doc:heading>Routing</doc:heading>
