@@ -61,6 +61,33 @@
               </p>
             </td>
           </tr>
+          <tr>
+            <th>rabbitmq_rtopic_exchange</th>
+          </tr>
+          <tr>
+            <td>
+              Adds a reverse topic exchange which lets you provide
+              routing patterns at publishing time, instead of at
+              binding time.
+              <p>
+                Author: <b>Alvaro Videla</b><br/>
+                Github: <a href="https://github.com/videlalvaro/rabbitmq-rtopic-exchange">videlalvaro/rabbitmq-rtopic-exchange</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmq_recent_history_exchange</th>
+          </tr>
+          <tr>
+            <td>
+              A plugin that caches the last N messages that passed through an
+              exchange and delivers them to newly bound queues.
+              <p>
+                Author: <b>Alvaro Videla</b><br/>
+                Github: <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">videlalvaro/rabbitmq-recent-history-exchange</a>
+              </p>
+            </td>
+          </tr>
 <!--
           <tr>
             <th>rabbit_presence_exchange</th>
@@ -122,7 +149,7 @@
           </tr>
           <tr>
             <td>
-              This plugin adds a "top" like view of busy processes to the
+              Adds a "top" like view of busy processes to the
               management plugin.
               <p>
                 Author: <b>Simon MacMullen</b><br/>
@@ -135,8 +162,8 @@
           </tr>
           <tr>
             <td>
-              This plugin adds an exchange type which allows you to
-              connect to the management API using AMQP rather than HTTP.
+              Adds an exchange type which allows you to connect to the
+              management API using AMQP rather than HTTP.
               <p>
                 Author: <b>Simon MacMullen</b><br/>
                 Github: <a href="https://github.com/simonmacmullen/rabbitmq-management-exchange">simonmacmullen/rabbitmq-management-exchange</a>
@@ -148,12 +175,30 @@
           </tr>
           <tr>
             <td>
-              This plugin adds an exchange <code>amq.rabbitmq.event</code>
-              which allows you to hear when queues, exchanges, bindings,
+              Adds an exchange <code>amq.rabbitmq.event</code> which
+              allows you to hear when queues, exchanges, bindings,
               users, connections and so on are created and deleted.
               <p>
                 Author: <b>Simon MacMullen</b><br/>
                 Github: <a href="https://github.com/simonmacmullen/rabbitmq-event-exchange">simonmacmullen/rabbitmq-event-exchange</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </doc:section>
+
+      <doc:section name="distribution">
+        <doc:heading>Distribution</doc:heading>
+        <table class="community-plugins">
+          <tr>
+            <th>rabbitmq_sharding</th>
+          </tr>
+          <tr>
+            <td>
+              Sharded Queues and Message Partitioning for RabbitMQ.
+              <p>
+                Author: <b>Alvaro Videla</b><br/>
+                Github: <a href="https://github.com/rabbitmq/rabbitmq-sharding">rabbitmq/rabbitmq-sharding</a>
               </p>
             </td>
           </tr>
