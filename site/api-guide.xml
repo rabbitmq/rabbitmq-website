@@ -793,7 +793,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           </ol>
 
           To enable automatic connection recovery, use
-          <code>factory.setAutomaticRecovery(true)</code>:
+          <code>factory.setAutomaticRecoveryEnabled(true)</code>:
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 factory.setUsername(<b>userName</b>);
@@ -801,7 +801,7 @@ factory.setPassword(<b>password</b>);
 factory.setVirtualHost(<b>virtualHost</b>);
 factory.setHost(<b>hostName</b>);
 factory.setPort(<b>portNumber</b>);
-factory.setAutomaticRecovery(true)
+factory.setAutomaticRecoveryEnabled(true);
 // connection that will recover automatically
 Connection conn = factory.newConnection();</pre>
 
@@ -845,7 +845,9 @@ factory.newConnection(addresses);</pre>
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
 Connection conn = factory.newConnection();
-factory.setAutomaticRecovery(true)</pre>
+factory.setAutomaticRecoveryEnabled(true);
+factory.setTopologyRecoveryEnabled(false);
+          </pre>
         </p>
         </doc:subsection>
 
