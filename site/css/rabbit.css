@@ -474,8 +474,8 @@ p.warning a {
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
 
-table.community-plugins th { border-bottom: none; }
-table.community-plugins td { border-top: none; padding-left: 5em;}
+table.plugins th { border-bottom: none; }
+table.plugins td { border-top: none; padding-left: 5em; }
 
 #home-content { width: 68%; }
 
