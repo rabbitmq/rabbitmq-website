@@ -124,6 +124,21 @@
       </p>
     </div>
     <div class="landing-box">
+      <h2>Community plugins</h2>
+      <p>
+        For your convenience, we offer binary downloads of various
+        plugins developed by the community.
+      </p>
+      <ul>
+        <li>
+          <a href="community-plugins.html">Description of available plugins</a>
+        </li>
+        <li>
+          <a href="/community-plugins">Plugin downloads</a>
+        </li>
+      </ul>
+    </div>
+    <div class="landing-box">
       <h2>Nightly Builds</h2>
       <p>
           We make nightly builds of the RabbitMQ broker and official clients
