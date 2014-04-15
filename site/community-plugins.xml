@@ -193,6 +193,21 @@
               <li>Authors: <b>The RabbitMQ Team</b></li>
             </ul>
           </r:plugin>
+          <r:plugin name="pgsql_listen_exchange">
+            Translates PostgreSQL NOTIFY messages to AMQP messages and
+            publishes them to bound queues. The PostgreSQL NOTIFY
+            message channel is used as the routing key for the message
+            using direct exchange style routing mechanics.
+            <p>Note that two plugin files are required:</p>
+            <ul>
+              <li><code>epgsql</code></li>
+              <li><code>pgsql_listen_exchange</code></li>
+            </ul>
+            <ul>
+              <li>Author: <b>Gavin M. Roy</b></li>
+              <li>Github: <a href="https://github.com/aweber/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
   </body>
