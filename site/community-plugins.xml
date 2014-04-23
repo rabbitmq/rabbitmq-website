@@ -149,6 +149,20 @@
         </table>
       </doc:section>
 
+      <doc:section name="logging">
+        <doc:heading>Logging</doc:heading>
+        <table class="plugins">
+          <r:plugin name="lager">
+            Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
+            <ul>
+              <li>Author: <b>Basho Technologies</b></li>
+              <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
+              <li>Github (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
       <doc:section name="distribution">
         <doc:heading>Distribution</doc:heading>
         <table class="plugins">
