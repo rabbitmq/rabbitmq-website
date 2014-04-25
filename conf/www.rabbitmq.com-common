@@ -4,7 +4,11 @@
 
     DocumentRoot /srv/www.rabbitmq.com/site/
 
-    CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined
+    # rogue apt clients flood the log making the disk
+    # run out of space
+    SetEnvIf Request_URI "^/debian/dists" dontlog
+
+    CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined env=!dontlog
     ErrorLog /var/log/apache2/error-www.rabbitmq.com.log
 
     # Send 404 and 500s to the appropriate pages.  403 is permission denied.
