@@ -26,7 +26,7 @@ bug fixes
       (since 3.2.0)
 26117 prevent slave being incorrectly considered dead when added at the same
       time as another slave dies (since 3.2.0)
-26125 prevent possible deadlock when slave becomes synchronised 
+26125 prevent possible deadlock when slave becomes synchronised
       simultaneously with another slave starting (since 3.1.0)
 26123 ensure worker pool state does not become corrupt if a worker process
       crashes while idle (since 1.8.0)
