@@ -26,26 +26,25 @@ bug fixes
       (since 3.2.0)
 26117 prevent slave being incorrectly considered dead when added at the same
       time as another slave dies (since 3.2.0)
+26118 prevent slave queue crash if a queue hibernates before it has fully
+      started (since 3.2.2)
 26125 prevent possible deadlock when slave becomes synchronised
       simultaneously with another slave starting (since 3.1.0)
+26103 ensure dead-letter cycle detection works when dead-lettering messages due
+      to exceeding the queue's max-length (since 3.1.0)
 26123 ensure worker pool state does not become corrupt if a worker process
       crashes while idle (since 1.8.0)
 25855 ensure disk monitor does not crash the broker on platforms where
       intermediate OS processes may be killed such as Google Compute Engine
       (since 2.8.2)
-26096 clarify rabbitmqctl diagnostic messages when an error occurs after
-      successfully connecting to the node (since 3.3.0)
+26096 clarify rabbitmqctl diagnostic messages (since 3.3.0)
 26102 prevent cosmetic GM crash on clean shutdown (since 2.8.7)
-26103 ensure dead-letter cycle detection works when dead-lettering messages due
-      to exceeding the queue's max-length (since 3.1.0)
 26104 fix format of queue synchronisation log messages (since 3.3.0)
 26114 ensure crash report shrinking does not shrink reports too much
       (since 3.3.0)
-26118 prevent slave queue crash if a queue hibernates before it has fully
-      started (since 3.2.2)
 
 enhancements
-26098 bring back 'impersonator' tag (removed in 3.3.0)
+26098 bring back 'impersonator' tag removed in 3.3.0
 26113 add a capability to allow clients to detect the new qos semantics
       introduced in 3.3.0 without requiring an explicit version check
 
@@ -76,7 +75,7 @@ bug fixes
 STOMP plugin
 ------------
 bug fixes
-26061 reject publishes to desination "", rather than creating a server-named
+26061 reject publishes to destination "", rather than creating a server-named
       queue (since 2.0.0)
 
 
