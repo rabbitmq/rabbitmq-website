@@ -92,8 +92,8 @@ channel.basicConsume("my-queue2", false, consumer2);</pre>
       invoke <code>basic.qos</code> multiple times with different
       <code>global</code> values. RabbitMQ interprets this as meaning
       that the two prefetch limits should be enforced independently of
-      each other; consumers will only receive new messages when both
-      limits on unacknowledged messages are met.
+      each other; consumers will only receive new messages when neither
+      limit on unacknowledged messages has been reached.
     </p>
 
     <p>

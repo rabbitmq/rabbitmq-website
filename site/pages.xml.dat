@@ -132,6 +132,8 @@
        <x:page url="/mqtt.html" text="MQTT plugin"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
+       <x:page url="/community-plugins.html" text="Community plugins"/>
+       <x:page url="/installing-plugins.html" text="Installing plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
      </x:page>
      <x:page url="/news.html" text="News"/>
