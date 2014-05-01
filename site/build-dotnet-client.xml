@@ -33,11 +33,10 @@
 
 	<ul class="compact">
 	  <li>
-		Microsoft's .NET 1.1, 2.0, 3.0 or 3.5 (versions older
-		than 3.0 do not support WCF)
+		Microsoft's .NET 3.0 or later
 	  </li>
 	  <li>
-        Microsoft Visual Studio® 2005 or later (optional)
+        Microsoft Visual Studio® 2008 or later (optional)
       </li>
     </ul>    
     </doc:section>
@@ -77,16 +76,14 @@
       <p>
         To build the source without Visual Studio you first need to make sure
         you have the .NET's framework directory in your path, which is usually
-        <code>DRIVE:\Windows\Microsoft.NET\Framework\v2.0.50727</code>
-        for .NET 2.0 or <code>DRIVE:\Windows\Microsoft.NET\Framework\v3.0</code>
+        <code>DRIVE:\Windows\Microsoft.NET\Framework\v3.0</code>
         for .NET 3.0.
       </p>
       <ul class="compact">
         <li>
           Copy <code>Local.props.example</code> to <code>Local.props</code> and
           edit the <code>&lt;PropTargetFramework&gt;</code> value to the
-          desired target framework version. If this is v3.0 or newer, the WCF
-          bindings will also be built.
+          desired target framework version.
         </li>
         <li>
           Open the command prompt in the client directory, and type
@@ -99,8 +96,7 @@
       <doc:heading>On Linux</doc:heading>
       <p>
         The library can be built on Linux with Mono, but only with
-        Mono version 2.6 and later.  2.4.x versions, as included with
-        most current Linux distributions, are not sufficient.  You can
+        Mono version 2.10 and later. You can
         obtain the latest versions of Mono at <a
         href="http://mono-project.com/">mono-project.com</a>
       </p>

@@ -297,28 +297,11 @@
 
   <!-- ############################################################ -->
 
-  <xsl:template match="r:plugin-index">
-    <div class="docToc">
-      <ul>
-        <xsl:for-each select="//r:plugin-group">
-          <li>
-            <a href="#{@id}"><xsl:value-of select="@name"/></a>
-            <ul>
-              <xsl:for-each select="r:plugin">
-                <li>
-                  <a href="#{@name}"><xsl:value-of select="@name"/></a>
-                </li>
-              </xsl:for-each>
-            </ul>
-          </li>
-        </xsl:for-each>
-      </ul>
-    </div>
-  </xsl:template>
-
   <xsl:template match="r:plugin">
     <tr>
-      <th><code><xsl:value-of select="@name"/></code></th>
+      <th><xsl:value-of select="@name"/></th>
+    </tr>
+    <tr>
       <td><xsl:apply-templates/></td>
     </tr>
   </xsl:template>
@@ -326,10 +309,10 @@
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README for this plugin</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README for this plugin</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

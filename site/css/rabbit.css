@@ -474,6 +474,9 @@ p.warning a {
 
 #changelog td, table.styled-table td { background-color: #f7f7f7; }
 
+table.plugins th { border-bottom: none; }
+table.plugins td { border-top: none; padding-left: 5em; }
+
 #home-content { width: 68%; }
 
 #home-content h3, .rgt-third h3 { background-color: #ffebde; color: #444; padding: 3px 5px; font-size: 1em; border-bottom: 1px solid #f93; }

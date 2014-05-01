@@ -10,12 +10,11 @@
   <head>
     <title>Plugins</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
       <doc:section name="overview">
         <p>
           RabbitMQ supports a variety of plugins. This page documents
-          the plugins that ship with RabbitMQ
-          &version-server;.
+          the plugins that ship with RabbitMQ &version-server;.
         </p>
         <p>
           To enable plugins, use
@@ -39,31 +38,39 @@
       </doc:section>
 
       <doc:section name="maintained">
-        <doc:heading>Maintained Plugins</doc:heading>
-        <table>
+        <doc:heading>Supported Plugins</doc:heading>
+        <table class="plugins">
           <r:plugin name="rabbitmq_auth_backend_ldap">
             Authentication / authorisation plugin using an external
-            LDAP server. See the <a href="ldap.html">the page on the
-            LDAP plugin</a> for more information.
+            LDAP server.
+            <ul>
+              <li><a href="ldap.html">Documentation for the LDAP
+              plugin</a></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_auth_mechanism_ssl">
             Authentication mechanism plugin using SASL EXTERNAL to authenticate
-            using SSL client certificates. See the
-            <r:readme-link repo="rabbitmq-auth-mechanism-ssl"/> for more
-            information.
+            using SSL client certificates.
+            <ul>
+              <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl"/></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_consistent_hash_exchange">
-            Consistent hash exchange type. Please see the
-            <r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/>
-            for more information.
+            Consistent hash exchange type.
+            <ul>
+              <li><r:readme-link repo="rabbitmq-consistent-hash-exchange" extension=".md"/></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_federation">
             Scalable messaging across WANs and administrative
-            domains. See <a href="federation.html">the page on the
-            federation plugin</a> for more information.
+            domains.
+            <ul>
+              <li><a href="federation.html">Documentation for the
+              federation plugin</a></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_federation_management">
@@ -75,9 +82,11 @@
 
           <r:plugin name="rabbitmq_management">
             A management / monitoring API over HTTP, along with a
-            browser-based UI. For more information,
-            see <a href="management.html">the page on the management
-            plugin</a>.
+            browser-based UI.
+            <ul>
+              <li><a href="management.html">Documentation for the
+              management plugin</a></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_management_agent">
@@ -90,19 +99,20 @@
           </r:plugin>
 
           <r:plugin name="rabbitmq_mqtt">
-            An adapter implementing the MQTT 3.1 protocol. Please see the 
-            <a href="mqtt.html">documentation</a> and
-            our <a href="http://www.rabbitmq.com/blog/2012/09/12/mqtt-adapter/">blog</a> 
-            for more information on using it.
+            An adapter implementing the MQTT 3.1 protocol.
+            <ul>
+              <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
+              <li><a href="http://www.rabbitmq.com/blog/2012/09/12/mqtt-adapter/">Blog post on the plugin</a></li>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel">
             A plug-in for RabbitMQ that shovels messages from a queue on
-            one broker to an exchange on another broker. Please see
-            <a href="shovel.html">the page on the shovel plugin</a> for
-            more information or take a look at
-            <a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">a
-            working Shovel configuration</a>.
+            one broker to an exchange on another broker.
+            <p>
+              <li><a href="shovel.html">Documentation for the shovel plugin</a></li>
+              <li><a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">A working Shovel configuration</a></li>
+            </p>
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel_management">
@@ -117,14 +127,10 @@
           <r:plugin name="rabbitmq_stomp">
             A gateway for exposing AMQP functionality via
             the <a href="http://stomp.github.com">STOMP protocol</a>.
-            (Some clients and servers supporting STOMP are
-            listed <a href="http://stomp.github.com/implementations.html">
-            here</a>.)
-              Please see the <a href="stomp.html">documentation</a> and
-              various
-              <a href="http://www.lshift.net/blog/index.php?s=stomp">blog
-                articles</a> about the adapter for more information on
-              compiling and configuring it.
+            <ul>
+              <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
+              <li><a href="http://stomp.github.com/implementations.html">Details on clients and servers supporting STOMP</a></li>
+            </ul>
           </r:plugin>
         </table>
       </doc:section>
@@ -138,7 +144,7 @@
           development.
         </p>
 
-        <table>
+        <table class="plugins">
           <r:plugin name="rabbitmq_management_visualiser">
             Broker topology visualiser plugin which is itself a plugin
             to the management plugin. Adds a <i>Visualiser</i> tab to
@@ -157,10 +163,12 @@
             A bridge exposing <code>rabbitmq_stomp</code> to web
             browsers using WebSockets, using the WebSockets emulation
             / compatibility
-            layer <a href="http://sockjs.org">SockJS</a>. Please see
-            the page on <a href="web-stomp.html">the web-stomp
-            plugin</a>.
-          </r:plugin>
+            layer <a href="http://sockjs.org">SockJS</a>.
+            <ul>
+              <li><a href="web-stomp.html">Documentation for the
+              web-stomp plugin</a></li>
+            </ul>
+           </r:plugin>
 
           <r:plugin name="rabbitmq_web_stomp_examples" optional="true">
             Adds some basic examples to
@@ -169,95 +177,23 @@
           </r:plugin>
 
           <r:plugin name="rabbitmq_amqp1_0">
-            An implementation of the AMQP 1.0 protocol. See the
-            <r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/> for more details.
+            An implementation of the AMQP 1.0 protocol.
+            <ul>
+              <li><r:readme-link repo="rabbitmq-amqp1.0" extension=".md"/></li>
+            </ul>
           </r:plugin>
         </table>
       </doc:section>
 
-      <doc:section name="installing-plugins">
-      <doc:heading>Installing Additional Plugins</doc:heading>
-      <p>
-        Some plugins are also available from third party
-        sources. Plugins will generally be available in two forms. The
-        expected form for a packaged plugin will be a .ez erlang
-        archive. Alternatively, more developmental plugins may be
-        distributed directly from source control, in which case
-        see <a href="#building">Building Plugins</a> below. Once you
-        have one or more .ez archives for your plugins, you need to
-        copy them to the plugins directiory.
-      </p>
-      <p>
-        The plugins directory location is determined by the
-        <b>RABBITMQ_PLUGINS_DIR</b> variable.  Its default value
-        depends on how you installed RabbitMQ. Some common values are:
-      </p>
-      <table>
-        <tr><th>Installation method</th><th>Plugins directory</th></tr>
-        <tr>
-          <th>Debian/RPM packages</th>
-          <td>
-            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
-          </td>
-        </tr>
-        <tr>
-          <th>Windows</th>
-          <td>
-            Typically <code>C:\Program
-              Files\RabbitMQ\rabbitmq_server-</code><i>version</i><code>\plugins</code>
-            (depending on where it was installed)
-          </td>
-        </tr>
-        <tr>
-          <th>Macports</th>
-          <td>
-            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
-          </td>
-        </tr>
-        <tr>
-          <th>Homebrew</th>
-          <td>
-            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
-          </td>
-        </tr>
-        <tr>
-          <th>Generic&#160;Unix</th>
-          <td>
-            <code>rabbitmq_server-</code><i>version</i><code>/plugins</code>
-            (depending on where it was installed)
-          </td>
-        </tr>
-      </table>
-      </doc:section>
-      <doc:section name="upgrades">
-        <doc:heading>Plugins and Upgrades</doc:heading>
+      <doc:section name="community">
+        <doc:heading>Community Plugins</doc:heading>
         <p>
-          The enabled plugins configuration is preserved between
-          upgrades, so there is no need to re-enable plugins after an
-          upgrade, but because the plugins directory changes between
-          versions, any third party plugins will need to be copied to
-          the new directory. It's very possible that due to API
-          changes you may need to check for updates to third party
-          plugins at this point.
-        </p>
-      </doc:section>
-      <doc:section name="building">
-        <doc:heading>Building Plugins</doc:heading>
-        <p>
-          You can also build RabbitMQ plugins from source.  The sources for a
-          particular version of the plugins is distributed in the same
-          archive as the broker with that version.  The source code
-          repositories can all be found on our <a
-          href="http://hg.rabbitmq.com/">Mercurial server</a>. See the
-          <a href="plugin-development.html">plugin development</a>
-          guide for more information on building plugins from source.
-        </p>
-        <p>
-          Note that plugins tend to be strongly bound to a particular
-          version of <code>rabbitmq-server</code>. For example, if you are
-          running RabbitMQ &version-server;, you should check out all plugins
-          with the Mercurial tag <code>&version-server-hg;</code>.
+          In addition, we also offer binary downloads of plugins which
+          have been contributed by authors in the community. These
+          plugins do not ship with the RabbitMQ server itself. See
+          the <a href="community-plugins.html">community plugins
+          page</a> for more detail on which plugins are available and
+          how to install them.
         </p>
       </doc:section>
   </body>
