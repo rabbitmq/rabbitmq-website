@@ -40,6 +40,9 @@
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)
           </li>
           <li>
+            <a href="https://github.com/squaremo/amqp.node/tree/master/examples/tutorials">javascript/node.js</a> (using <a href="https://github.com/squaremo/amqp.node">amqp.node</a>)
+          </li>
+          <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
           </li>
           <li>
