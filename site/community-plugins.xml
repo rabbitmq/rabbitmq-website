@@ -163,8 +163,17 @@
         </table>
       </doc:section>
 
-      <doc:section name="distribution">
-        <doc:heading>Distribution</doc:heading>
+      <doc:section name="queues">
+        <doc:heading>Queues</doc:heading>
+        <table class="plugins">
+          <r:plugin name="rabbitmq_priority_queue">
+            Priority Queues for RabbitMQ.
+            <ul>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-priority-queue">rabbitmq/rabbitmq-priority-queue</a></li>
+            </ul>
+          </r:plugin>
+        </table>
         <table class="plugins">
           <r:plugin name="rabbitmq_sharding">
             Sharded Queues and Message Partitioning for RabbitMQ.
