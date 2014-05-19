@@ -76,58 +76,58 @@
           directory we've just created:</p>
 
 <pre class="sourcecode">
-[ ca ]                                                     
-default_ca = testca                                        
+[ ca ]
+default_ca = testca
 
-[ testca ]                                                 
-dir = .                                                    
-certificate = $dir/cacert.pem                              
-database = $dir/index.txt                                  
-new_certs_dir = $dir/certs                                 
-private_key = $dir/private/cakey.pem                       
-serial = $dir/serial                                       
+[ testca ]
+dir = .
+certificate = $dir/cacert.pem
+database = $dir/index.txt
+new_certs_dir = $dir/certs
+private_key = $dir/private/cakey.pem
+serial = $dir/serial
 
-default_crl_days = 7                                       
-default_days = 365                                         
-default_md = sha1                                          
+default_crl_days = 7
+default_days = 365
+default_md = sha1
 
-policy = testca_policy                                     
-x509_extensions = certificate_extensions                   
+policy = testca_policy
+x509_extensions = certificate_extensions
 
-[ testca_policy ]                                          
-commonName = supplied                                      
-stateOrProvinceName = optional                             
-countryName = optional                                     
-emailAddress = optional                                    
-organizationName = optional                                
-organizationalUnitName = optional                          
+[ testca_policy ]
+commonName = supplied
+stateOrProvinceName = optional
+countryName = optional
+emailAddress = optional
+organizationName = optional
+organizationalUnitName = optional
 
-[ certificate_extensions ]                                 
-basicConstraints = CA:false                                
+[ certificate_extensions ]
+basicConstraints = CA:false
 
-[ req ]                                                    
-default_bits = 2048                                        
-default_keyfile = ./private/cakey.pem                      
-default_md = sha1                                          
-prompt = yes                                               
-distinguished_name = root_ca_distinguished_name            
-x509_extensions = root_ca_extensions                       
+[ req ]
+default_bits = 2048
+default_keyfile = ./private/cakey.pem
+default_md = sha1
+prompt = yes
+distinguished_name = root_ca_distinguished_name
+x509_extensions = root_ca_extensions
 
-[ root_ca_distinguished_name ]                             
-commonName = hostname                                      
+[ root_ca_distinguished_name ]
+commonName = hostname
 
-[ root_ca_extensions ]                                     
-basicConstraints = CA:true                                 
-keyUsage = keyCertSign, cRLSign                            
+[ root_ca_extensions ]
+basicConstraints = CA:true
+keyUsage = keyCertSign, cRLSign
 
-[ client_ca_extensions ]                                   
-basicConstraints = CA:false                                
-keyUsage = digitalSignature                                
-extendedKeyUsage = 1.3.6.1.5.5.7.3.2                       
+[ client_ca_extensions ]
+basicConstraints = CA:false
+keyUsage = digitalSignature
+extendedKeyUsage = 1.3.6.1.5.5.7.3.2
 
-[ server_ca_extensions ]                                   
-basicConstraints = CA:false                                
-keyUsage = keyEncipherment                                 
+[ server_ca_extensions ]
+basicConstraints = CA:false
+keyUsage = keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
           <p>Now we can generate the key and certificates that our test
@@ -227,7 +227,7 @@ server testca
             will start one ssl_listener on port 5671 on all interfaces
             on this hostname:
           </p>
-          
+
 <pre class="sourcecode">
 [
   {rabbit, [
@@ -315,8 +315,8 @@ started SSL Listener on 0.0.0.0:5671</pre>
             certificates with RabbitMQ, we recommend R14B or later.</p>
         </doc:subsection>
       </doc:section>
-      
-      
+
+
       <doc:section name="trust-levels">
         <doc:heading>Levels of Trust</doc:heading>
           <p>When setting up an SSL connection there are two important stages in
@@ -331,10 +331,10 @@ started SSL Listener on 0.0.0.0:5671</pre>
           certificates were exchanged, the public/private keys will be used in
           the key negotiation.</p>
           <p>Thus you can create an encrypted SSL connection <em class="">without</em> having to
-          verify certificates. The Java client supports both modes of operation.</p>        
-        
-      
-      
+          verify certificates. The Java client supports both modes of operation.</p>
+
+
+
         <doc:subsection name="managers-and-stores">
           <doc:heading>Key Managers, Trust Managers and Stores</doc:heading>
             <p>There are three components to be aware of in the Java security
@@ -405,8 +405,8 @@ started SSL Listener on 0.0.0.0:5671</pre>
             an exclusive, non-durable, auto-delete queue so we don't have to worry
             about manually cleaning up after ourselves.</p>
         </doc:subsection>
-        
-      
+
+
         <doc:subsection name="validating-cerficates">
           <doc:heading>Presenting and validating certificates</doc:heading>
             <p>First, we set-up our Key Store. We'll assume that we have the
@@ -446,7 +446,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(<B><FONT COLOR="#BC8F8F">&quot;SunX509&quot;</FONT></B>);
         kmf.init(ks, passphrase);
 
-        <B><FONT COLOR="#A020F0">char</FONT></B>[] trustPassphrase = <B><FONT COLOR="#BC8F8F">&quot;rabbitstore&quot;</FONT></B>.toCharArray();  
+        <B><FONT COLOR="#A020F0">char</FONT></B>[] trustPassphrase = <B><FONT COLOR="#BC8F8F">&quot;rabbitstore&quot;</FONT></B>.toCharArray();
         KeyStore tks = KeyStore.getInstance(<B><FONT COLOR="#BC8F8F">&quot;JKS&quot;</FONT></B>);
         tks.load(<B><FONT COLOR="#A020F0">new</FONT></B> FileInputStream(<B><FONT COLOR="#BC8F8F">&quot;/path/to/trustStore&quot;</FONT></B>), trustPassphrase);
 
@@ -487,7 +487,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           into the key store and watch the verification exceptions decorate your
           screen.</p>
         </doc:subsection>
-        
+
       </doc:section>
       <doc:section name="configuring-dotnet">
         <doc:heading>Configuring the .Net client</doc:heading>
@@ -503,10 +503,10 @@ started SSL Listener on 0.0.0.0:5671</pre>
 </pre>
           <p>PEM is a base64 encoding of this DER format, enclosed within
           delimiters. This encoding is usually done to make it easier to
-          transfer the data over 7-bit limited protocols, such as email (SMTP).</p>        
-      
-      
-        <doc:subsection name="managers-and-stores">
+          transfer the data over 7-bit limited protocols, such as email (SMTP).</p>
+
+
+        <doc:subsection name="mono">
           <doc:heading>RFC 5280, Certificate Key Usage and Mono</doc:heading>
           <p>As mentioned above, Mono is rather more stringent than is normal about
           enforcing that certificates are only used for the purposes indicated
@@ -554,9 +554,9 @@ Checking for KeyUsageExtension (2.5.29.15)... Ok
 Checking if KeyEncipherment flag is set... Ok
 This certificate CAN be used by Mono for Server validation
 </pre>
-        </doc:subsection>    
-      
-        
+        </doc:subsection>
+
+
         <doc:subsection name="who">
           <doc:heading>Who do you say you are?</doc:heading>
             <p>On the .NET platform, by default the <em class="">hostname</em> of the server
@@ -656,28 +656,28 @@ Certificate removed from store.</pre>
 
           <p>With these simple steps we can go ahead and add/delete/list our root
           certificates to the client side store.</p>
-        </doc:subsubsection>                
+        </doc:subsubsection>
 
 
-        <doc:subsection name="who">
+        <doc:subsection name="create-conn">
           <doc:heading>Creating The Connection</doc:heading>
             <p>To create an SSL connection to RabbitMQ, we need to set some new
-            fields in the ConnectionFactory's Parameters field. 
+            fields in the ConnectionFactory's Parameters field.
             To make things
             easier, there is a new Field Parameters.Ssl that acts like a namespace
             for all the other fields that we need to set. The fields are:</p>
             <ul class="plain">
-              <li> <code>Ssl.CertPath</code>: 
+              <li> <code>Ssl.CertPath</code>:
               This is the path to the client's certificate in
               PKCS#12 format if your server expects client side verification. This
               is optional.</li>
-              <li> <code>Ssl.CertPassphrase</code>: 
+              <li> <code>Ssl.CertPassphrase</code>:
               If you are using a client certificate in PKCS#12
               format then it'll probably have a password, which you specify in
               this field.</li>
               <li> <code>Ssl.Enabled</code>: This is a boolean field that turns SSL support on or
               off. It is off by default.</li>
-              <li> <code>Ssl.ServerName</code>: 
+              <li> <code>Ssl.ServerName</code>:
               Remember that .Net expects this to match the CN on
               the certificate that the server sends over.</li>
             </ul>
@@ -707,12 +707,12 @@ namespace RabbitMQ.Client.Examples {
   public class TestSSL {
     public static int Main(string[] args) {
       ConnectionFactory cf = new ConnectionFactory();
-      
+
       cf.Ssl.ServerName = System.Net.Dns.GetHostName();
       cf.Ssl.CertPath = "/path/to/client/keycert.p12";
       cf.Ssl.CertPassphrase = "MySecretPassword";
       cf.Ssl.Enabled = true;
-      
+
       using (IConnection conn = cf.CreateConnection()) {
         using (IModel ch = conn.CreateModel()) {
           ch.QueueDeclare("rabbitmq-dotnet-test", false, false, false, null);

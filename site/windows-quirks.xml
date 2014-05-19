@@ -20,7 +20,7 @@
       expects input in UTF-8, but the console will typically use some
       other encoding.
     </p>
-    <strong>Workarounds:</strong>
+    <p><strong>Workarounds:</strong></p>
     <ul>
       <li>
         Install to a path containing only ASCII characters <em>or</em>
@@ -40,7 +40,7 @@
       UTF-8. The console will instead provide and expect some
       country-specific encoding.
     </p>
-    <strong>Workarounds:</strong>
+    <p><strong>Workarounds:</strong></p>
     <ul>
       <li>
         On recent versions of Windows, issue the command "<code>chcp
@@ -63,7 +63,7 @@
     <p>
       This makes it impossible to use <code>rabbitmqctl</code>.
     </p>
-    <strong>Workarounds:</strong>
+    <p><strong>Workarounds:</strong></p>
     <ul>
       <li>
         Run the installer as an administrator <em>or</em>
