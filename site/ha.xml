@@ -273,14 +273,13 @@
         </p>
         <p>
           Thus a newly added slave provides no additional form of
-          redundancy or availability of the queue's contents until the
-          contents of the queue that existed before the slave was
-          added have been removed or the queue has been explicitly
-          synchronised. Since the queue becomes unresponsive while
-          explicit synchronisation is occurring, it is preferable to allow
-          active queues from which messages are being drained to
-          synchronise naturally, and only explicitly synchronise
-          inactive queues.
+          redundancy or availability of the queue's contents that
+          existed before the slave was added, unless the queue has
+          been explicitly synchronised. Since the queue becomes
+          unresponsive while explicit synchronisation is occurring, it
+          is preferable to allow active queues from which messages are
+          being drained to synchronise naturally, and only explicitly
+          synchronise inactive queues.
         </p>
 
         <h3 id="eager-synchronisation">Configuring explicit synchronisation</h3>
