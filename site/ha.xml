@@ -273,14 +273,13 @@
         </p>
         <p>
           Thus a newly added slave provides no additional form of
-          redundancy or availability of the queue's contents until the
-          contents of the queue that existed before the slave was
-          added have been removed or the queue has been explicitly
-          synchronised. Since the queue becomes unresponsive while
-          explicit synchronisation is occurring, it is preferable to allow
-          active queues from which messages are being drained to
-          synchronise naturally, and only explicitly synchronise
-          inactive queues.
+          redundancy or availability of the queue's contents that
+          existed before the slave was added, unless the queue has
+          been explicitly synchronised. Since the queue becomes
+          unresponsive while explicit synchronisation is occurring, it
+          is preferable to allow active queues from which messages are
+          being drained to synchronise naturally, and only explicitly
+          synchronise inactive queues.
         </p>
 
         <h3 id="eager-synchronisation">Configuring explicit synchronisation</h3>
@@ -352,8 +351,8 @@
             It's possible that when you shut down a master node that
             all available slaves are unsynchronised. A common
             situation in which this can occur is rolling cluster
-            upgrades. By default, RabbitMQ will not fail over to an
-            unsynchronised slave on controlled master shutdown
+            upgrades. By default, RabbitMQ will refuse to fail over to
+            an unsynchronised slave on controlled master shutdown
             (i.e. explicit stop of the RabbitMQ service or shutdown of
             the OS) in order to avoid message loss; instead the entire
             queue will shut down as if the unsynchronised slaves were
