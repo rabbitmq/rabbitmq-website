@@ -306,7 +306,7 @@
           </p>
           <p>
             The message rate mode is controlled by the
-            <code>message_rates</code> configuration variable in
+            <code>rates_mode</code> configuration variable in
             <code>rabbitmq_management</code>. This can be one of
             <code>basic</code> (the default), <code>detailed</code> or
             <code>none</code>.
