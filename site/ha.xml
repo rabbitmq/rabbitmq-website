@@ -321,7 +321,8 @@
           <p>
             If you stop a RabbitMQ node which contains the master of a
             mirrored queue, some slave on some other node will be
-            promoted to the master (assuming there is one). If you
+            promoted to the master (assuming there is a synchronised slave;
+            see <a href="#cluster-shutdown">below</a>). If you
             continue to stop nodes then you will reach a point where a
             mirrored queue has no more slaves: it exists only on one
             node, which is now its master.  If the mirrored queue was
@@ -342,6 +343,33 @@
             href="#unsynchronised-slaves">new node joining the
             cluster</a>.
           </p>
+        </doc:subsection>
+
+        <doc:subsection name="cluster-shutdown">
+          <doc:heading>Stopping master nodes with only unsynchronised slaves</doc:heading>
+          <p>
+            It's possible that when you shut down a master node that
+            all available slaves are unsynchronised. A common
+            situation in which this can occur is rolling cluster
+            upgrades. By default, RabbitMQ will refuse to fail over to
+            an unsynchronised slave on controlled master shutdown
+            (i.e. explicit stop of the RabbitMQ service or shutdown of
+            the OS) in order to avoid message loss; instead the entire
+            queue will shut down as if the unsynchronised slaves were
+            not there. An uncontrolled master shutdown (i.e. server or
+            node crash, or network outage) will still trigger a
+            failover even to an unsynchronised slave.
+          </p>
+          <p>
+            If you would prefer to have master nodes fail over to
+            unsynchronised slaves in all circumstances (i.e. you would
+            choose availability of the queue over avoiding message
+            loss) then you can set the
+            <code>ha-promote-on-shutdown</code> policy key to
+            <code>always</code> rather than its default value of
+            <code>when-synced</code>.
+          </p>
+
         </doc:subsection>
       </doc:section>
 
