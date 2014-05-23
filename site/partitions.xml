@@ -126,14 +126,20 @@ Cluster status of node rabbit@smacmullen ...
       nodes go down. It therefore chooses partition tolerance over
       availability from the CAP theorem. This ensures that in the
       event of a network partition, at most the nodes in a single
-      partition will continue to run.
+      partition will continue to run. The minority nodes will pause as
+      soon as a partition starts, and will start again when the
+      partition ends.
     </p>
 
     <p>
       In autoheal mode RabbitMQ will automatically decide on a winning
-      partition if a partition is deemed to have occurred. It will
-      restart all nodes that are not in the winning partition. The
-      winning partition is the one which has the most clients
+      partition if a partition is deemed to have occurred, and will
+      restart all nodes that are not in the winning partition. Unlike
+      pause_minority mode it therefore takes effect when a partition
+      ends, rather than when one starts.
+    </p>
+    <p>
+      The winning partition is the one which has the most clients
       connected (or if this produces a draw, the one with the most
       nodes; and if that still produces a draw then one of the
       partitions is chosen in an unspecified way).
