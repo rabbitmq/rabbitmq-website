@@ -155,7 +155,7 @@ In the .NET client, when we supply no parameters to `queueDeclare()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
     :::csharp
-    var queueName = channel.QueueDeclare();
+    var queueName = channel.QueueDeclare().QueueName;
 
 At that point `queueName` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
@@ -301,7 +301,7 @@ The code for `ReceiveLogs.cs`:
                 {
                     channel.ExchangeDeclare("logs", "fanout");
     
-                    var queueName = channel.QueueDeclare();
+                    var queueName = channel.QueueDeclare().QueueName;
     
                     channel.QueueBind(queueName, "logs", "");
                     var consumer = new QueueingBasicConsumer(channel);
