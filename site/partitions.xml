@@ -90,6 +90,29 @@ Cluster status of node rabbit@smacmullen ...
       fix it.</b>
     </p>
 
+    <h2 id="suspend">Partitions caused by suspend / resume</h2>
+    <p>
+      While we refer to "network" partitions, really a partition is
+      any case in which the different nodes of a cluster can have
+      communication interrupted without any node failing. In addition
+      to network failures, suspending and resuming an entire OS can
+      also cause partitions when used against running cluster nodes -
+      as the suspended node will not consider itself to have failed, or
+      even stopped, but the other nodes in the cluster will consider
+      it to have done so.
+    </p>
+
+    <p>
+      While you could suspend a cluster node by running it on a laptop
+      and closing the lid, the most common reason for this to happen
+      is for a virtual machine to have been suspended by the
+      hypervisor. While it's fine to run RabbitMQ clusters in
+      virtualised environments, you should make sure that VMs are not
+      suspended while running. Note that some virtualisation features
+      such as migration of a VM from one host to another will tend to
+      involve the VM being suspended.
+    </p>
+
     <h2 id="recovering">Recovering from a network partition</h2>
     <p>
       To recover from a network partition, first choose one partition
@@ -218,6 +241,14 @@ Cluster status of node rabbit@smacmullen ...
       more than two nodes, especially if the most likely form of
       network partition is that a single minority of nodes drops off
       the network.
+    </p>
+    <p>
+      Finally, note that <code>pause_minority</code> mode will do
+      nothing to defend against partitions caused by cluster nodes
+      being <a href="#suspend">suspended</a>. This is because
+      the suspended node will never see the rest of the cluster
+      vanish, so will have no trigger to disconnect itself from the
+      cluster.
     </p>
   </body>
 </html>
