@@ -123,6 +123,12 @@
                 <code>RABBITMQ_BASE</code> may also contain useful diagnostic
                 information.
             </p>
+            <p>
+              If <code>RABBITMQ_BASE</code> path contains non-ASCII characters, RabbitMQ service may fail to start
+              with the error "<code>RabbitMQ: Erlang machine stopped instantly (distribution name conflict?)</code>". If this is the case,
+              override <code>RABBITMQ_BASE</code> to point to a directory that only has ASCII characters and <em>re-install</em> the service
+              (restarting will not be sufficient).
+            </p>
           </dd>
           <dt><strong>You receive an error message reading "The handle is invalid" after upgrading the Windows Service</strong></dt>
           <dd>
