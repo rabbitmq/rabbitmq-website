@@ -186,7 +186,7 @@ we're interested in.
 
 
     :::csharp
-    var queueName = channel.QueueDeclare();
+    var queueName = channel.QueueDeclare().QueueName;
 
     foreach (var severity in args)
     {
@@ -277,7 +277,7 @@ The code for `ReceiveLogsDirect.cs`:
                 using (var channel = connection.CreateModel())
                 {
                     channel.ExchangeDeclare("direct_logs", "direct");
-                    var queueName = channel.QueueDeclare();
+                    var queueName = channel.QueueDeclare().QueueName;
     
                     if (args.Length < 1)
                     {

@@ -150,10 +150,10 @@
           <a href="/resources/SkillsMatterCloudAndGridExchange2010RabbitMQCloudMessagingUseCases.pdf">PDF of the slides</a>, 3.2MB).
     </li>
     <li>
-	  <a href="http://helenaedelson.com/?p=685">Why RabbitMQ for Cloud?</a><br/>
-	  Holly Edelson explains why RabbitMQ is ideal for implementing a cloud messaging solution.
-	</li>
-	<li>
+    <a href="http://helenaedelson.com/?p=685">Why RabbitMQ for Cloud?</a><br/>
+    Holly Edelson explains why RabbitMQ is ideal for implementing a cloud messaging solution.
+  </li>
+  <li>
     <a href="http://www.redmonk.com/jgovernor/2010/04/16/springsource-buys-rabbit-for-world-made-of-messages/">A World Made of Messages</a><br/>
     James Governor discusses how messaging in the cloud, specifically with RabbitMQ, is changing the way applications are architected. The slides on
     that page (by Matt Biddulph) are definitely worth a look.
@@ -550,6 +550,9 @@
    <doc:section name="in-print">
      <doc:heading>Books and Print Articles</doc:heading>
       <ul>
+        <li><a href="http://www.packtpub.com/rabbitmq-cookbook/book">RabbitMQ Cookbook</a></li>
+        <li><a href="http://www.packtpub.com/rabbitmq-essentials/book">RabbitMQ Essentials</a></li>
+        <li><a href="http://www.packtpub.com/rabbitmq-messaging-application-development/book">Instant RabbitMQ Messaging Application Development</a></li>
         <li><a href="http://manning.com/videla/">RabbitMQ in Action</a><br />
         A complete guide to building applications with RabbitMQ by Alvaro Videla and Jason J.W. Williams.</li>
         <li><a href="http://manning.com/fisher/">Spring Integration in Action</a><br />

@@ -24,7 +24,7 @@
         </p>
 
         <p>
-          This release fixes a number of bugs in 3.3.1 and earlier
+          This release fixes a number of bugs in 3.3.0 and earlier
           versions, including security bugs in the MQTT and shovel
           plugins.
         </p>

@@ -8,289 +8,31 @@
   <body show-in-this-page="true">
       <doc:section name="overview">
         <p>
-          If your RabbitMQ broker consists of a single node, then a
-          failure of that node will cause downtime, temporary
-          unavailability of service, and potentially loss of messages
-          (especially non-persistent messages held by non-durable
-          queues). You could publish all messages persistent, to
-          durable queues, but even then, due to buffering there is an
-          amount of time between the message being sent and the
-          message being written to disk and fsync'd. Using <a
-          href="confirms.html">publisher confirms</a> is
-          one means to ensure the client understands which messages
-          have been written to disk, but even so, you may not wish to
-          suffer the downtime and inconvenience of the unavailability
-          of service caused by a node failure, or the performance
-          degradation of having to write every message to disk.
+          By default, queues within a RabbitMQ cluster are located on
+          a single node (the node on which they were first
+          declared). This is in contrast to exchanges and bindings,
+          which can always be considered to be on all nodes. Queues
+          can optionally be made <i>mirrored</i> across multiple
+          nodes. Each mirrored queue consists of one <i>master</i> and
+          one or more <i>slaves</i>, with the oldest slave being
+          promoted to the new master if the old master disappears for
+          any reason.
         </p>
         <p>
-          You could use a <a href="clustering.html">cluster</a> of
-          RabbitMQ nodes to construct your RabbitMQ broker. This will
-          be resilient to the loss of individual nodes in terms of the
-          overall availability of service, but some important caveats
-          apply: whilst exchanges and bindings survive the loss of
-          individual nodes, queues and their messages do not. This is
-          because a queue and its contents reside on exactly one node,
-          thus the loss of a node will render its queues unavailable.
+          Messages published to the queue are replicated to all
+          slaves. Consumers are connected to the master regardless of
+          which node they connect to, with slaves dropping messages
+          that have been acknowledged at the master. Queue mirroring
+          therefore enhances availability, but does not distribute
+          load across nodes (all participating nodes each do all the
+          work).
         </p>
         <p>
-          You could use an <a href="pacemaker.html">active/passive</a>
-          pair of nodes such that should one node fail, the passive
-          node will be able to come up and take over from the failed
-          node. This can even be combined with clustering. Whilst this
-          approach ensures that failures are quickly detected and
-          recovered from, there can be reasons why the passive node
-          can take a long time to start up, or potentially even fail
-          to start. This can cause at best, temporary unavailability
-          of queues which were located on the failed node.
-        </p>
-        <p>
-          To solve these various problems, we have developed
-          active/active high availability for queues. This works by
-          allowing queues to be <i>mirrored</i> on other nodes within
-          a RabbitMQ cluster. The result is that should one node of a
-          cluster fail, the queue can automatically switch to one of
-          the mirrors and continue to operate, with no unavailability
-          of service. This solution still requires a RabbitMQ cluster,
-          which means that it will not cope seamlessly with network
-          partitions within the cluster and, for that reason, is not
-          recommended for use across a WAN (though of course, clients
-          can still connect from as near and as far as needed).
-        </p>
-      </doc:section>
-
-      <doc:section name="behaviour">
-        <doc:heading>Mirrored Queue Behaviour</doc:heading>
-        <p>
-          In normal operation, for each mirrored-queue, there is one
-          <i>master</i> and several <i>slaves</i>, each on a
-          different node. The slaves apply the operations that occur
-          to the master in exactly the same order as the master and
-          thus maintain the same state. All actions other than
-          publishes go only to the master, and the master then
-          broadcasts the effect of the actions to the slaves. Thus
-          clients consuming from a mirrored queue are in fact
-          consuming from the master.
-        </p>
-        <p>
-          Should a slave fail, there is little to be done other than
-          some bookkeeping: the master remains the master and no
-          client need take any action or be informed of the failure.
-          Note that slave failures may not be detected immediately and
-          the interruption of the per-connection flow control mechanism
-          can delay message publication. The details are described
-          <a href="nettick.html">here</a>.
-        </p>
-        <p>
-          If the master fails, then one of the slaves must be
-          promoted. At this point, the following happens:
-          <ol>
-            <li>A slave is promoted to become the new master. The
-            slave chosen for promotion is the eldest slave. As such,
-            it has the best chance of being synchronised with the
-            master. However, note that should there be no slave that
-            is <a href="#unsynchronised-slaves">synchronised</a> with
-            the master, messages that only the master held will be
-            lost.</li>
-
-            <li>The slave considers all previous consumers to have
-            been abruptly disconnected. As such, it requeues all
-            messages that have been delivered to clients but are
-            pending acknowledgement. This can include messages for
-            which a client has issued acknowledgements: either the
-            acknowledgement was lost on the wire before reaching the
-            master, or it was lost during broadcast from the master to
-            the slaves. In either case, the new master has no choice
-            but to requeue all messages it thinks have not been
-            acknowledged.</li>
-
-            <li>Clients that have requested it are cancelled (see <a
-            href="#cancellation">below</a>).</li>
-
-            <li><i>As a result of the requeuing, clients that
-            re-consume from the queue <b>must</b> be aware that they
-            are likely to subsequently receive messages that they have
-            seen previously.</i></li>
-          </ol>
-        </p>
-        <p>
-          As the chosen slave becomes the master, no messages that are
-          published to the mirrored-queue during this time will be
-          lost: messages published to a mirrored-queue are always
-          published directly to the master and all slaves. Thus should
-          the master fail, the messages continue to be sent to the
-          slaves and will be added to the queue once the promotion of
-          a slave to the master completes.
-        </p>
-        <p>
-          Similarly, messages published by clients using <a
-          href="confirms.html">publisher confirms</a> will
-          still be confirmed correctly even if the master (or any
-          slaves) fail between the message being published and the
-          message being able to be confirmed to the publisher. Thus
-          from the point of view of the publisher, publishing to a
-          mirrored-queue is no different from publishing to any other
-          sort of queue.
-        </p>
-        <p>
-          If you are consuming from a mirrored-queue with
-          <i>noAck=true</i> (i.e. the client is not sending message
-          acknowledgements) then messages can be lost. This is no
-          different from the norm of course: the broker considers a
-          message <i>acknowledged</i> as soon as it has been sent to a
-          <i>noAck=true</i> consumer, and should the client disconnect
-          abruptly, the message may never be received. In the case of
-          a mirrored-queue, should the master die, messages that are
-          in-flight on their way to <i>noAck=true</i> consumers may
-          never be received by those clients, and will not be requeued
-          by the new master. Because of the possibility that the
-          consuming client is connected to a node that survives, the
-          <a href="#cancellation">Consumer
-          Cancellation Notification</a> is useful in identifying when
-          such events may have occurred. Of course, in practise, if
-          you care about not losing messages then you are advised to
-          consume with <i>noAck=false</i>.
-        </p>
-        <doc:subsection name="confirms-transactions">
-          <doc:heading>Publisher Confirms and Transactions</doc:heading>
-          <p>
-            Mirrored queues support both <a
-            href="confirms.html">Publisher Confirms</a> and
-            <a href="specification.html#tx">Transactions</a>. The
-            semantics chosen are that in the case of both confirms and
-            transactions, the action spans all mirrors of the
-            queue. So in the case of a transaction, a
-            <code>tx.commit-ok</code> will only be returned to a
-            client when the transaction has been applied across all
-            mirrors of the queue. Equally, in the case of publisher
-            confirms, a message will only be confirmed to the
-            publisher when it has been accepted by all of the
-            mirrors. It is correct to think of the semantics as being
-            the same as a message being routed to multiple normal
-            queues, and of a transaction with publications within
-            that similarly are routed to multiple queues.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="flow-control">
-          <doc:heading>Flow Control</doc:heading>
-          <p>
-            RabbitMQ uses a credit-based algorithm to <a
-            href="memory.html#per-connection">limit the rate of
-            message publication</a>.  Publishers are permitted to
-            publish when they receive credit from all mirrors of a
-            queue.  Credit in this context means permission to
-            publish.  Slaves that fail to issue credit can cause
-            publishers to stall.  Publishers will remain stalled until
-            all slaves issue credit or until the remaining nodes
-            consider the slave to be disconnected from the cluster.
-            Erlang detects such disconnections by periodically sending
-            a tick to all nodes. The tick interval can be controlled
-            with the <a href="nettick.html">net_ticktime</a>
-            configuration setting.
-          </p>
-        </doc:subsection>
-        <doc:subsection name="cancellation">
-          <doc:heading>Consumer Cancellation</doc:heading>
-          <p>
-            Clients that are consuming from a mirrored queue may wish
-            to know that the queue from which they have been consuming
-            has failed over. When a mirrored queue fails over,
-            knowledge of which messages have been sent to which
-            consumer is lost, and therefore all unacknowledged
-            messages are redelivered with the <code>redelivered</code>
-            flag set. Consumers may wish to know this is going to
-            happen.
-          </p>
-          <p>
-            If so, they can consume with the argument
-            <code>x-cancel-on-ha-failover</code> set to
-            <code>true</code>. Their consuming will then be cancelled
-            on failover and a <a href="consumer-cancel.html">consumer
-            cancellation notification</a> sent. It is then the
-            consumer's responsibility to reissue
-            <code>basic.consume</code> to start consuming again.
-          </p>
-          <p>
-            For example (in Java):
-          </p>
-
-          <pre class="sourcecode">
-Channel channel = ...;
-Consumer consumer = ...;
-Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-args.put("x-cancel-on-ha-failover", true);
-channel.basicConsume("my-queue", false, args, consumer);</pre>
-
-          <p>
-            This creates a new consumer with the argument set.
-          </p>
-        </doc:subsection>
-
-      </doc:section>
-
-      <doc:section name="unsynchronised-slaves">
-        <doc:heading>Unsynchronised Slaves</doc:heading>
-        <p>
-          A node may join a cluster at any time. Depending on the
-          configuration of a queue, when a node joins a cluster,
-          queues may add a slave on the new node. At this point, the
-          new slave will be empty: it will not contain any existing
-          contents of the queue. Such a slave will receive new
-          messages published to the queue, and thus over time will
-          accurately represent the tail of the mirrored-queue. As
-          messages are drained from the mirrored-queue, the size of
-          the head of the queue for which the new slave is missing
-          messages, will shrink until eventually the slave's contents
-          precisely match the master's contents. At this point, the
-          slave can be considered fully synchronised, but it is
-          important to note that this has occured because of actions
-          of clients in terms of draining the pre-existing head of the
-          queue.
-        </p>
-        <p>
-          Thus a newly added slave provides no additional form of
-          redundancy or availability of the queue's contents until the
-          contents of the queue that existed before the slave was
-          added have been removed or the queue has been explicitly
-          synchronised (see below). Since the queue becomes
-          unresponsive while synchronisation is occurring, it is
-          preferable to allow active queues from which messages are
-          being drained to synchronise naturally, and only explicitly
-          synchronise inactive queues.
-        </p>
-        <p>
-          Explicit synchronisation can be triggered in two ways: manually or
-          automatically. If a queue is set to automatically synchronise it
-          will synchronise whenever a new slave joins - becoming unresponsive
-          until it has done so.
-        </p>
-      </doc:section>
-
-      <doc:section name="start-stop">
-        <doc:heading>Starting and Stopping Nodes</doc:heading>
-        <p>
-          If you stop a RabbitMQ node which contains the master of a
-          mirrored-queue, some slave on some other node will be
-          promoted to the master (assuming there is one). If you
-          continue to stop nodes then you will reach a point where a
-          mirrored-queue has no more slaves: it exists only on one
-          node, which is now its master.  If the mirrored-queue was
-          declared <i>durable</i> then, if its last remaining node is
-          shutdown, durable messages in the queue will survive the
-          restart of that node. In general, as you restart other
-          nodes, if they were previously part of a mirrored-queue then
-          they will rejoin the mirrored queue.
-        </p>
-        <p>
-          However, there is currently no way for a slave to know
-          whether or not its queue contents have diverged from the
-          master to which it is rejoining (this could happen during a
-          network partition, for example). As such, when a slave
-          rejoins a mirrored-queue, it throws away any durable local
-          contents it already has and starts empty. Its behaviour is
-          at this point the same as if it were a <a
-          href="#unsynchronised-slaves">new node joining the
-          cluster</a>.
+          This solution requires a RabbitMQ cluster, which means that
+          it will not cope seamlessly with network partitions within
+          the cluster and, for that reason, is not recommended for use
+          across a WAN (though of course, clients can still connect
+          from as near and as far as needed).
         </p>
       </doc:section>
 
@@ -390,32 +132,6 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           will shut down.
         </p>
 
-        <h3 id="eager-synchronisation">Synchronising Queues</h3>
-        <p>
-          Queues can be set to automatically synchronise by setting
-          the <code>ha-sync-mode</code> policy key
-          to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
-          to <code>manual</code>. If it is not set then <code>manual</code> is
-          assumed.
-        </p>
-
-        <p>
-          You can determine which slaves are synchronised with the
-          following rabbitmqctl invocation:
-        </p>
-        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
-        <p>
-          You can manually synchronise a queue with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
-        <p>
-          And you can cancel synchronisation with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
-        <p>
-          These features are also available through the management plugin.
-        </p>
-
         <h3>Exclusive queues</h3>
 
         <p>
@@ -480,11 +196,11 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           </tr>
         </table>
 
-
         <p>
           Policy where queues whose names begin with
           "<code>two.</code>" are mirrored to any two nodes in the
-          cluster, with automatic synchronisation:
+          cluster, with <a href="#eager-synchronisation">automatic
+          synchronisation</a>:
         </p>
 
         <table>
@@ -534,6 +250,268 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
             </td>
           </tr>
         </table>
+      </doc:section>
+
+      <doc:section name="unsynchronised-slaves">
+        <doc:heading>Unsynchronised Slaves</doc:heading>
+        <p>
+          A node may join a cluster at any time. Depending on the
+          configuration of a queue, when a node joins a cluster,
+          queues may add a slave on the new node. At this point, the
+          new slave will be empty: it will not contain any existing
+          contents of the queue. Such a slave will receive new
+          messages published to the queue, and thus over time will
+          accurately represent the tail of the mirrored queue. As
+          messages are drained from the mirrored queue, the size of
+          the head of the queue for which the new slave is missing
+          messages, will shrink until eventually the slave's contents
+          precisely match the master's contents. At this point, the
+          slave can be considered fully synchronised, but it is
+          important to note that this has occured because of actions
+          of clients in terms of draining the pre-existing head of the
+          queue.
+        </p>
+        <p>
+          Thus a newly added slave provides no additional form of
+          redundancy or availability of the queue's contents that
+          existed before the slave was added, unless the queue has
+          been explicitly synchronised. Since the queue becomes
+          unresponsive while explicit synchronisation is occurring, it
+          is preferable to allow active queues from which messages are
+          being drained to synchronise naturally, and only explicitly
+          synchronise inactive queues.
+        </p>
+
+        <h3 id="eager-synchronisation">Configuring explicit synchronisation</h3>
+
+        <p>
+          Explicit synchronisation can be triggered in two ways: manually or
+          automatically. If a queue is set to automatically synchronise it
+          will synchronise whenever a new slave joins - becoming unresponsive
+          until it has done so.
+        </p>
+
+        <p>
+          Queues can be set to automatically synchronise by setting
+          the <code>ha-sync-mode</code> policy key
+          to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
+          to <code>manual</code>. If it is not set then <code>manual</code> is
+          assumed.
+        </p>
+
+        <p>
+          You can determine which slaves are synchronised with the
+          following rabbitmqctl invocation:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <p>
+          You can manually synchronise a queue with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <p>
+          And you can cancel synchronisation with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <p>
+          These features are also available through the management plugin.
+        </p>
+
+        <doc:subsection name="start-stop">
+          <doc:heading>Stopping nodes and synchronisation</doc:heading>
+          <p>
+            If you stop a RabbitMQ node which contains the master of a
+            mirrored queue, some slave on some other node will be
+            promoted to the master (assuming there is one). If you
+            continue to stop nodes then you will reach a point where a
+            mirrored queue has no more slaves: it exists only on one
+            node, which is now its master.  If the mirrored queue was
+            declared <i>durable</i> then, if its last remaining node is
+            shutdown, durable messages in the queue will survive the
+            restart of that node. In general, as you restart other
+            nodes, if they were previously part of a mirrored queue then
+            they will rejoin the mirrored queue.
+          </p>
+          <p>
+            However, there is currently no way for a slave to know
+            whether or not its queue contents have diverged from the
+            master to which it is rejoining (this could happen during a
+            network partition, for example). As such, when a slave
+            rejoins a mirrored queue, it throws away any durable local
+            contents it already has and starts empty. Its behaviour is
+            at this point the same as if it were a <a
+            href="#unsynchronised-slaves">new node joining the
+            cluster</a>.
+          </p>
+        </doc:subsection>
+      </doc:section>
+
+      <doc:section name="behaviour">
+        <doc:heading>Mirrored queue implementation and semantics</doc:heading>
+        <p>
+          As discussed, for each mirrored queue there is one
+          <i>master</i> and several <i>slaves</i>, each on a
+          different node. The slaves apply the operations that occur
+          to the master in exactly the same order as the master and
+          thus maintain the same state. All actions other than
+          publishes go only to the master, and the master then
+          broadcasts the effect of the actions to the slaves. Thus
+          clients consuming from a mirrored queue are in fact
+          consuming from the master.
+        </p>
+        <p>
+          Should a slave fail, there is little to be done other than
+          some bookkeeping: the master remains the master and no
+          client need take any action or be informed of the failure.
+          Note that slave failures may not be detected immediately and
+          the interruption of the per-connection flow control mechanism
+          can delay message publication. The details are described
+          <a href="nettick.html">here</a>.
+        </p>
+        <p>
+          If the master fails, then one of the slaves must be
+          promoted. At this point, the following happens:
+          <ol>
+            <li>A slave is promoted to become the new master. The
+            slave chosen for promotion is the eldest slave. As such,
+            it has the best chance of being synchronised with the
+            master. However, note that should there be no slave that
+            is <a href="#unsynchronised-slaves">synchronised</a> with
+            the master, messages that only the master held will be
+            lost.</li>
+
+            <li>The slave considers all previous consumers to have
+            been abruptly disconnected. As such, it requeues all
+            messages that have been delivered to clients but are
+            pending acknowledgement. This can include messages for
+            which a client has issued acknowledgements: either the
+            acknowledgement was lost on the wire before reaching the
+            master, or it was lost during broadcast from the master to
+            the slaves. In either case, the new master has no choice
+            but to requeue all messages it thinks have not been
+            acknowledged.</li>
+
+            <li>Clients that have requested it are cancelled (see <a
+            href="#cancellation">below</a>).</li>
+
+            <li><i>As a result of the requeuing, clients that
+            re-consume from the queue <b>must</b> be aware that they
+            are likely to subsequently receive messages that they have
+            seen previously.</i></li>
+          </ol>
+        </p>
+        <p>
+          As the chosen slave becomes the master, no messages that are
+          published to the mirrored queue during this time will be
+          lost: messages published to a mirrored queue are always
+          published directly to the master and all slaves. Thus should
+          the master fail, the messages continue to be sent to the
+          slaves and will be added to the queue once the promotion of
+          a slave to the master completes.
+        </p>
+        <p>
+          Similarly, messages published by clients using <a
+          href="confirms.html">publisher confirms</a> will
+          still be confirmed correctly even if the master (or any
+          slaves) fail between the message being published and the
+          message being able to be confirmed to the publisher. Thus
+          from the point of view of the publisher, publishing to a
+          mirrored queue is no different from publishing to any other
+          sort of queue.
+        </p>
+        <p>
+          If you are consuming from a mirrored queue with
+          <i>noAck=true</i> (i.e. the client is not sending message
+          acknowledgements) then messages can be lost. This is no
+          different from the norm of course: the broker considers a
+          message <i>acknowledged</i> as soon as it has been sent to a
+          <i>noAck=true</i> consumer, and should the client disconnect
+          abruptly, the message may never be received. In the case of
+          a mirrored queue, should the master die, messages that are
+          in-flight on their way to <i>noAck=true</i> consumers may
+          never be received by those clients, and will not be requeued
+          by the new master. Because of the possibility that the
+          consuming client is connected to a node that survives, the
+          <a href="#cancellation">Consumer
+          Cancellation Notification</a> is useful in identifying when
+          such events may have occurred. Of course, in practise, if
+          you care about not losing messages then you are advised to
+          consume with <i>noAck=false</i>.
+        </p>
+        <doc:subsection name="confirms-transactions">
+          <doc:heading>Publisher Confirms and Transactions</doc:heading>
+          <p>
+            Mirrored queues support both <a
+            href="confirms.html">Publisher Confirms</a> and
+            <a href="specification.html#tx">Transactions</a>. The
+            semantics chosen are that in the case of both confirms and
+            transactions, the action spans all mirrors of the
+            queue. So in the case of a transaction, a
+            <code>tx.commit-ok</code> will only be returned to a
+            client when the transaction has been applied across all
+            mirrors of the queue. Equally, in the case of publisher
+            confirms, a message will only be confirmed to the
+            publisher when it has been accepted by all of the
+            mirrors. It is correct to think of the semantics as being
+            the same as a message being routed to multiple normal
+            queues, and of a transaction with publications within
+            that similarly are routed to multiple queues.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="flow-control">
+          <doc:heading>Flow Control</doc:heading>
+          <p>
+            RabbitMQ uses a credit-based algorithm to <a
+            href="memory.html#per-connection">limit the rate of
+            message publication</a>.  Publishers are permitted to
+            publish when they receive credit from all mirrors of a
+            queue.  Credit in this context means permission to
+            publish.  Slaves that fail to issue credit can cause
+            publishers to stall.  Publishers will remain stalled until
+            all slaves issue credit or until the remaining nodes
+            consider the slave to be disconnected from the cluster.
+            Erlang detects such disconnections by periodically sending
+            a tick to all nodes. The tick interval can be controlled
+            with the <a href="nettick.html">net_ticktime</a>
+            configuration setting.
+          </p>
+        </doc:subsection>
+        <doc:subsection name="cancellation">
+          <doc:heading>Consumer Cancellation</doc:heading>
+          <p>
+            Clients that are consuming from a mirrored queue may wish
+            to know that the queue from which they have been consuming
+            has failed over. When a mirrored queue fails over,
+            knowledge of which messages have been sent to which
+            consumer is lost, and therefore all unacknowledged
+            messages are redelivered with the <code>redelivered</code>
+            flag set. Consumers may wish to know this is going to
+            happen.
+          </p>
+          <p>
+            If so, they can consume with the argument
+            <code>x-cancel-on-ha-failover</code> set to
+            <code>true</code>. Their consuming will then be cancelled
+            on failover and a <a href="consumer-cancel.html">consumer
+            cancellation notification</a> sent. It is then the
+            consumer's responsibility to reissue
+            <code>basic.consume</code> to start consuming again.
+          </p>
+          <p>
+            For example (in Java):
+          </p>
+
+          <pre class="sourcecode">
+Channel channel = ...;
+Consumer consumer = ...;
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-cancel-on-ha-failover", true);
+channel.basicConsume("my-queue", false, args, consumer);</pre>
+
+          <p>
+            This creates a new consumer with the argument set.
+          </p>
+        </doc:subsection>
+
       </doc:section>
   </body>
 </html>

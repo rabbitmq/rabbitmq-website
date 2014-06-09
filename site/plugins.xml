@@ -109,10 +109,10 @@
           <r:plugin name="rabbitmq_shovel">
             A plug-in for RabbitMQ that shovels messages from a queue on
             one broker to an exchange on another broker.
-            <p>
+            <ul>
               <li><a href="shovel.html">Documentation for the shovel plugin</a></li>
               <li><a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">A working Shovel configuration</a></li>
-            </p>
+            </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_shovel_management">
