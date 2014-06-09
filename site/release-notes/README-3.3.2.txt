@@ -6,13 +6,14 @@ Release Highlights
 server
 ------
 bug fixes
-26180 prevent certain operations (including queue creation and deletion) blocking
-      until a connection closes when the socket limit is reached (since 2.7.0)
-26227 fix incorrect log message about config file location when running as a Windows
-      service, changing RABBITMQ_CONFIG_FILE and not reinstalling the service
-      (since 3.3.0)
-26172 ensure slave queue does not hang if the GM process crashes at queue startup
-      (since 2.6.0)
+26180 prevent certain operations (including queue creation and deletion)
+      blocking until a connection closes when the socket limit is reached
+      (since 2.7.0)
+26227 fix incorrect log message about config file location when running as
+      a Windows service, changing RABBITMQ_CONFIG_FILE and not reinstalling
+      the service (since 3.3.0)
+26172 ensure slave queue does not hang if the GM process crashes at queue
+      startup (since 2.6.0)
 26178 prevent error logger crash in rare circumstances (since 3.3.0)
 26184 prevent small log messages being needlessly truncated (since 3.3.0)
 26226 ensure rabbitmqctl status does not crash if invoked while Mnesia is
@@ -35,17 +36,17 @@ enhancements
 shovel plugin
 -------------
 bug fixes
-26219 fix creation of dynamic shovels using direct connection URLs through rabbitmqctl
-      (since 3.3.1)
-26176 prevent deadlock deleting virtual host with active dynamic shovel on single
-      core machine (since 3.3.0)
+26219 fix creation of dynamic shovels using direct connection URLs through
+      rabbitmqctl (since 3.3.1)
+26176 prevent deadlock deleting virtual host with active dynamic shovel on
+      single core machine (since 3.3.0)
 
 
 federation plugin
 -----------------
 bug fixes
-26176 prevent deadlock deleting virtual host with active federation link on single
-      core machine (since 3.0.0)
+26176 prevent deadlock deleting virtual host with active federation link on
+      single core machine (since 3.0.0)
 
 
 shovel-management plugin
@@ -63,8 +64,8 @@ bug fixes
 auth-mechanism-ssl plugin
 -------------------------
 bug fixes
-25550 allow use of both certificate and password based authentication at the same
-      time (since 2.3.0)
+25550 allow use of both certificate and password based authentication at the
+      same time (since 2.3.0)
 
 
 MQTT plugin
@@ -79,8 +80,8 @@ bug fixes
 STOMP plugin
 ------------
 bug fixes
-25550 allow use of both certificate and password based authentication at the same
-      time (since 2.3.0)
+25550 allow use of both certificate and password based authentication at the
+      same time (since 2.3.0)
 
 
 Java client
