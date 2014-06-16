@@ -225,6 +225,11 @@
       overridden to match the actual deployment scenario.
     </p>
     <p>
+      SSL options can also be specified globally using the <code>ssl_config</code>
+      environment key for <code>amqp_client</code> application. They will be
+      merged with SSL parameters from URI (the latter will take precedence).
+    </p>
+    <p>
       If a client wishes to run inside the same Erlang cluster as the
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
