@@ -418,6 +418,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>ssl_handshake_timeout</code></td>
+            <td>
+              SSL handshake timeout, in milliseconds.
+              <p>Default: <code>5000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>vm_memory_high_watermark</code></td>
             <td>
               Memory threshold at which the flow control is
