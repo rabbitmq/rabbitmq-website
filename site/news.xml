@@ -14,6 +14,43 @@
 	   will give you a suitable value.
       -->
     <doc:item>
+      <doc:date iso="2014-06-17T11:23:38+0100">17 June 2014</doc:date>
+      <doc:title>RabbitMQ 3.3.3 release</doc:title>
+      <doc:link>release-notes/README-3.3.3.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.3.3.
+        </p>
+
+        <p>
+          This release fixes a small number of bugs in 3.3.2 and
+          earlier versions. In particular it fixes a bug introduced in
+          3.3.2 which could cause logging to stop under some
+          circumstances.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Mail us on the RabbitMQ discussion
+          list (signup
+          <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
+          and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;).
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2014-06-09T11:44:04+0100">9 June 2014</doc:date>
       <doc:title>RabbitMQ 3.3.2 release</doc:title>
       <doc:link>release-notes/README-3.3.2.txt</doc:link>

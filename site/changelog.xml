@@ -14,6 +14,17 @@
       </tr>
 
       <tr>
+        <td class="centre">3.3.3</td>
+        <td class="centre">17 June 2014</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.3.3.txt">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.3.2</td>
         <td class="centre">9 June 2014</td>
         <td>
