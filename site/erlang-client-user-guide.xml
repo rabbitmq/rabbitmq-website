@@ -225,9 +225,11 @@
       overridden to match the actual deployment scenario.
     </p>
     <p>
-      SSL options can also be specified globally using the <code>ssl_config</code>
-      environment key for <code>amqp_client</code> application. They will be
-      merged with SSL parameters from URI (the latter will take precedence).
+      SSL options can also be specified globally using the
+      <code>ssl_config</code> environment key for the
+      <code>amqp_client</code> application. They will be merged with
+      the SSL parameters from the URI (the latter will take
+      precedence).
     </p>
     <p>
       If a client wishes to run inside the same Erlang cluster as the
