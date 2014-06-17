@@ -768,6 +768,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>mnesia_table_loading_timeout</code>
+            <td>
+              Timeout used when waiting for Mnesia tables in a cluster to
+              become available.
+              <p>Default: <code>30000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>queue_index_max_</code>
               <code>journal_entries</code></td>
             <td>
