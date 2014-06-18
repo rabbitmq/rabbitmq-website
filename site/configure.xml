@@ -403,6 +403,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>handshake_timeout</code></td>
+            <td>
+              Complete connection handshake timeout, in milliseconds.
+              <p>Default: <code>10000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>ssl_listeners</code></td>
             <td>
               As above, for SSL connections.
