@@ -405,7 +405,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>handshake_timeout</code></td>
             <td>
-              Complete connection handshake timeout, in milliseconds.
+              Complete AMQP 0-9-1 connection handshake timeout, in milliseconds.
               <p>Default: <code>10000</code></p>
             </td>
           </tr>
