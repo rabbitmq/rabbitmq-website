@@ -388,7 +388,9 @@
             forget_cluster_node</code>, RabbitMQ will attempt to find
             a currently stopped slave for each queue which has its
             master on the node we are forgetting, and "promote" that
-            slave to be the new master when it starts up again.
+            slave to be the new master when it starts up again. If
+            there is more than one candidate, the most recently
+            stopped slave will be chosen.
           </p>
 
           <p>
