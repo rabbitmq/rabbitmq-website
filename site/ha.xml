@@ -371,6 +371,38 @@
           </p>
 
         </doc:subsection>
+
+        <doc:subsection name="promotion-while-down">
+          <doc:heading>Loss of a master while all slaves are stopped</doc:heading>
+          <p>
+            It is possible to lose the master for a queue while all
+            slaves for the queue are shut down. In normal operation
+            the last node for a queue to shut down will become the
+            master, and we want that node to still be the master when
+            it starts again (since it may have received messages that
+            no other slave saw).
+          </p>
+
+          <p>
+            However, when you invoke <code>rabbitmqctl
+            forget_cluster_node</code>, RabbitMQ will attempt to find
+            a currently stopped slave for each queue which has its
+            master on the node we are forgetting, and "promote" that
+            slave to be the new master when it starts up again.
+          </p>
+
+          <p>
+            It's important to understand that RabbitMQ can only
+            promote <b>stopped</b> slaves during
+            <code>forget_cluster_node</code>, since any slaves that
+            are started again will clear out their contents as
+            described at "<a href="#start-stop">stopping nodes and
+            synchronisation</a>" above. Therefore when removing a lost
+            master in a stopped cluster, you must invoke
+            <code>rabbitmqctl forget_cluster_node</code> <i>before</i>
+            starting slaves again.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="behaviour">
