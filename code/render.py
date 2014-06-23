@@ -87,7 +87,11 @@ def parse(fpath):
     # TODO cache the blog feed and revert to no_network = True
     parser = etree.XMLParser(ns_clean = True, no_network = False)
     parser.resolvers.add(MissingFeedResolver())
-    return etree.parse(fpath, parser)
+    try:
+        return etree.parse(fpath, parser)
+    except Exception as e:
+        print "\n\nException rendering {0}".format(fpath)
+        raise e
 
 MARKUPS={'.xml': parse,
          '.md':  preprocess_markdown}
