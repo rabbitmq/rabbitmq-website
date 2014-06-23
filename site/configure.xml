@@ -405,7 +405,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>handshake_timeout</code></td>
             <td>
-              Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket  connection
+              Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket connection
               and SSL handshake), in milliseconds.
               <p>Default: <code>10000</code></p>
             </td>
