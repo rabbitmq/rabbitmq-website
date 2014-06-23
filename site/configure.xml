@@ -419,6 +419,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>handshake_timeout</code></td>
+            <td>
+              Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket connection
+              and SSL handshake), in milliseconds.
+              <p>Default: <code>10000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>ssl_listeners</code></td>
             <td>
               As above, for SSL connections.
@@ -431,6 +439,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               SSL configuration. See the <a href="ssl.html#enabling-ssl">SSL
               documentation</a>.
               <p>Default: <code>[]</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>ssl_handshake_timeout</code></td>
+            <td>
+              SSL handshake timeout, in milliseconds.
+              <p>Default: <code>5000</code></p>
             </td>
           </tr>
           <tr>
@@ -784,7 +799,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>mnesia_table_loading_timeout</code>
+            <td><code>mnesia_table_loading_timeout</code></td>
             <td>
               Timeout used when waiting for Mnesia tables in a cluster to
               become available.
