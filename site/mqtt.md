@@ -15,22 +15,55 @@ and [blog](http://www.rabbitmq.com/blog).
 * SSL
 * Session stickiness
 
-## <a id="ifb"/>Installing from binary
+## <a id="ifb"/>Enabling the Plugin
 
-The MQTT adapter is included in the RabbitMQ distribution.  To enable
+The MQTT adapter is included in the RabbitMQ distribution. To enable
 it, use [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_mqtt
 
-## <a id="caifs"/>Compiling and installing from source
+After the plugin has been enabled, RabbitMQ needs restarting.
 
-To build the MQTT adapter from source, follow the instructions for
-building the umbrella repository contained in the
-[Plugin Development Guide](/plugin-development.html).
+## <a id="overview"/> How it Works
 
-You need to install the `rabbitmq_mqtt.ez` and `amqp_client.ez` packages.
+RabbitMQ MQTT plugin targets MQTT 3.1 and supports a broad range
+of MQTT clients. It also makes it possible for MQTT clients to interoperate
+with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
 
-## <a id="config"/> Configuration
+The plugin builds on top of RabbitMQ exchanges and queues. Messages published
+to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
+RabbitMQ queues bound to the topic exchange. This both enables interoperability
+with other protocols and makes it possible to use the [Management plugin](/management.html)
+to inspect queue sizes, message rates, and so on.
+
+
+### <a id="durability"/> Subscription Durability
+
+MQTT 3.1 assumes two primary usage scenarios:
+
+ * Transient clients that use transient (non-persistent) messages
+ * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
+
+This section briefly covers how these scenarios map to RabbitMQ queue durability and persistence
+features.
+
+Transient (QoS0) subscription use non-durable, auto-delete queues
+that will be deleted when the client disconnects.
+
+Durable (QoS1) subscriptions use durable queues. Whether the queues are
+auto-deleted is controlled by the client's clean session flag. Clients with
+clean sessions use auto-deleted queues, others use non-auto-deleted ones.
+
+For transient (QoS0) publishes, the plugin will publish messages as transient
+(non-persistent). Naturally, for durable (QoS1) publishes, persistent
+messages will be used internally.
+
+Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
+one per subscription QoS level. The queues will have [queue TTL](/ttl.html) depending
+on MQTT plugin configuration.
+
+
+## <a id="config"/> Plugin Configuration
 
 Here is a sample configuration that sets every MQTT option:
 
@@ -51,6 +84,8 @@ Here is a sample configuration that sets every MQTT option:
                                             {nodelay,   true}]}]}
     ].
 
+### <a id="authentication"/> Authentication
+
 The `default_user` and `default_pass` options are used to authenticate
 the adapter in case MQTT clients provide no login credentials. If the
 `allow_anonymous` option is set to `false` then clients MUST provide credentials.
@@ -63,9 +98,21 @@ You can optionally specify a vhost while connecting, by prepending the vhost
 to the username and separating with a colon. For example, connecting with `/:guest` is
 equivalent to the default vhost and username.
 
-The `exchange` option determines which exchange messages from MQTT clients are published
-to. If a non-default exchange is chosen then it must be created before clients
-publish any messages. The exchange is expected to be an AMQP topic exchange.
+### Host and Port
+
+The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
+as the corresponding options in the `rabbit` section, as explained in the
+[broker configuration documentation](http://www.rabbitmq.com/configure.html).
+
+### TLS/SSL
+
+The `ssl_listeners` option controls the endpoint (if any) that the adapter accepts
+SSL connections on. The default MQTT SSL port is 8883. If this option is non-empty
+then the `rabbit` section of the configuration file must contain an `ssl_options`
+entry. See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for
+details.
+
+### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions)
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
@@ -75,12 +122,18 @@ The `prefetch` option controls the maximum number of unacknowledged messages tha
 will be delivered. This option is interpreted in the same way as the [AMQP prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
 field, so a value of `0` means "no limit".
 
-The `ssl_listeners` option controls the endpoint (if any) that the adapter accepts
-SSL connections on. The default MQTT SSL port is 8883. If this option is non-empty
-then the `rabbit` section of the configuration file must contain an `ssl_options`
-entry. See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for
-details.
+### Custom Exchanges
 
-The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
-as the corresponding options in the `rabbit` section, as explained in the
-[broker configuration documentation](http://www.rabbitmq.com/configure.html).
+The `exchange` option determines which exchange messages from MQTT clients are published
+to. If a non-default exchange is chosen then it must be created before clients
+publish any messages. The exchange is expected to be an AMQP topic exchange.
+
+
+## <a id="limitations"/> Limitations
+
+### Overlapping Subscriptions
+
+Overlapping subscriptions from the same client
+(e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
+duplicate messages being delivered. Applications
+need to account for this.
