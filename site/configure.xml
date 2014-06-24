@@ -90,8 +90,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
              </p>
              <p>
                Create or edit the system variable name and value.
-               For environment changes to take effect the service must be
-               re-installed.
+               <em>For environment changes to take effect on Windows, the service must be
+               re-installed</em>. It is <em>not sufficient</em> to restart the service.
             </p>
         </doc:subsection>
       </doc:section>

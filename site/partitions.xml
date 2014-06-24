@@ -6,7 +6,7 @@
   <head>
     <title>Clustering and Network Partitions</title>
   </head>
-  <body>
+  <body show-in-this-page="true">
     <p>
       RabbitMQ clusters do not tolerate network partitions well. If
       you are thinking of clustering across a WAN, don't. You should
@@ -25,7 +25,8 @@
       related to Mnesia's behaviour.
     </p>
 
-    <h2 id="detecting">Detecting network partitions</h2>
+    <doc:section name="detecting">
+    <doc:heading>Detecting network partitions</doc:heading>
     <p>
       Mnesia will typically determine that a node is down if another
       node is unable to contact it for a minute or so (see the page
@@ -71,8 +72,10 @@ Cluster status of node rabbit@smacmullen ...
       large red warning on the overview page if a partition has
       occured.
     </p>
+    </doc:section>
 
-    <h2 id="during">During a network partition</h2>
+    <doc:section name="during">
+    <doc:heading>During a network partition</doc:heading>
     <p>
       While a network partition is in place, the two (or more!) sides
       of the cluster can evolve independently, with both sides
@@ -89,8 +92,43 @@ Cluster status of node rabbit@smacmullen ...
       will continue to act in this way until you take action to
       fix it.</b>
     </p>
+    </doc:section>
 
-    <h2 id="recovering">Recovering from a network partition</h2>
+    <doc:section name="suspend">
+    <doc:heading>Partitions caused by suspend / resume</doc:heading>
+    <p>
+      While we refer to "network" partitions, really a partition is
+      any case in which the different nodes of a cluster can have
+      communication interrupted without any node failing. In addition
+      to network failures, suspending and resuming an entire OS can
+      also cause partitions when used against running cluster nodes -
+      as the suspended node will not consider itself to have failed, or
+      even stopped, but the other nodes in the cluster will consider
+      it to have done so.
+    </p>
+
+    <p>
+      While you could suspend a cluster node by running it on a laptop
+      and closing the lid, the most common reason for this to happen
+      is for a virtual machine to have been suspended by the
+      hypervisor. While it's fine to run RabbitMQ clusters in
+      virtualised environments, you should make sure that VMs are not
+      suspended while running. Note that some virtualisation features
+      such as migration of a VM from one host to another will tend to
+      involve the VM being suspended.
+    </p>
+
+    <p>
+      Partitions caused by suspend and resume will tend to be
+      asymmetrical - the suspended node will not necessarily see the
+      other nodes as having gone down, but will be seen as down by the
+      rest of the cluster. This has particular implications for <a
+      href="#pause-minority">pause_minority</a> mode.
+    </p>
+    </doc:section>
+
+    <doc:section name="recovering">
+    <doc:heading>Recovering from a network partition</doc:heading>
     <p>
       To recover from a network partition, first choose one partition
       which you trust the most. This partition will become the
@@ -111,7 +149,10 @@ Cluster status of node rabbit@smacmullen ...
       if so make sure that the <b>first</b> node you start is from the
       trusted partition.
     </p>
-    <h2 id="automatic-handling">Automatically handling partitions</h2>
+    </doc:section>
+
+    <doc:section name="automatic-handling">
+    <doc:heading>Automatically handling partitions</doc:heading>
     <p>
       RabbitMQ also offers two ways to deal with network partitions
       automatically: <i>pause-minority</i> mode and <i>autoheal</i>
@@ -219,5 +260,14 @@ Cluster status of node rabbit@smacmullen ...
       network partition is that a single minority of nodes drops off
       the network.
     </p>
+    <p>
+      Finally, note that <code>pause_minority</code> mode will do
+      nothing to defend against partitions caused by cluster nodes
+      being <a href="#suspend">suspended</a>. This is because
+      the suspended node will never see the rest of the cluster
+      vanish, so will have no trigger to disconnect itself from the
+      cluster.
+    </p>
+    </doc:section>
   </body>
 </html>
