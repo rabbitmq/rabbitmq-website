@@ -127,8 +127,8 @@
     </p>
 
     <pre class="example">
-%% the maximum number of non-self-issued intermediate certificates that may
-%% follow the peer certificate in a valid certification path.
+%% Configures the maximum number of non-self-issued intermediate certificates
+%% that may follow the peer certificate in a valid certification path.
 %%
 %% Will have effect on all plugins that use RabbitMQ Erlang client, e.g.
 %% Shovel and Federation.
