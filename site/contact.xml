@@ -8,20 +8,25 @@
   <body>
     <h2 id="mailing-list">Mailing List</h2>
     <p>
-      We host the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a> list for
-      discussions about RabbitMQ. Once you join you can get help with technical issues, ask questions and share your experiences with RabbitMQ.
+      <a href="https://groups.google.com/forum/#!members/rabbitmq-users">rabbitmq-users</a> is the list for
+      discussions about RabbitMQ. Once you join you can get help with technical issues,
+      ask questions and share your experiences with RabbitMQ. RabbitMQ team members are on this list.
+    </p>
+    <h2 id="legacy-mailing-list">Legacy Mailing List</h2>
+    <p>
+      <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a>
+      is our legacy mailing list. It is hosted by the RabbitMQ team and is still active but will be discontinued
+      eventually.
     </p>
     <ul>
-      <li>Sign up to <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a></li>
       <li>Read the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">list archive</a></li>
       <li>You can also access the list through
         <a href="http://dir.gmane.org/gmane.comp.networking.rabbitmq.general">gmane</a>,
-        <a href="http://groups.google.com/group/rabbitmq-discuss">google-groups</a>,
-        <a href="http://old.nabble.com/RabbitMQ-f25704.html">nabble</a>, and
-        <a href="http://rabbitmq.markmail.org/">MarkMail</a></li>
+        <a href="http://old.nabble.com/RabbitMQ-f25704.html">nabble</a>
     </ul>
     <p>
-      If you want to be notified of new releases and other important RabbitMQ announcements please sign up to the <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-announce">rabbitmq-announce</a> list.
+      If you want to be notified of new releases and other important RabbitMQ announcements
+      please sign up to the <a href="https://groups.google.com/forum/#!forum/rabbitmq-announce">rabbitmq-announce</a> list.
     </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
