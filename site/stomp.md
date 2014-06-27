@@ -7,9 +7,6 @@ protocol to [RabbitMQ](http://www.rabbitmq.com). The adapter supports
 [STOMP 1.2](http://stomp.github.com/stomp-specification-1.2.html).
 with some extensions and restrictions (described [here](#pear)).
 
-Announcements regarding the adapter are periodically made on the
-[RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
-and [blog](http://www.rabbitmq.com/blog).
 
 ## <a id="ifb"/>Installing from binary
 
@@ -50,6 +47,8 @@ both IPv4 and IPv6) would look like:
       {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
                                          {"::1",       61613}]}]}
     ].
+
+## TLS/SSL Support
 
 To use SSL for STOMP connections, [SSL must be configured](/ssl.html) in the broker. To enable
 STOMP SSL connections, add a listener configuration to the
