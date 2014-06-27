@@ -51,12 +51,17 @@ both IPv4 and IPv6) would look like:
                                          {"::1",       61613}]}]}
     ].
 
-To use SSL for STOMP connections, SSL must be configured in the broker
-as described [here](/ssl.html). To enable
+To use SSL for STOMP connections, [SSL must be configured](/ssl.html) in the broker. To enable
 STOMP SSL connections, add a listener configuration to the
 `ssl_listeners` variable for the `rabbitmq_stomp` application. For example:
 
-    [
+    [{rabbit,          [
+                        {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
+                                       {certfile,   "/path/to/tls/server/cert.pem"},
+                                       {keyfile,    "/path/to/tls/server/key.pem"},
+                                       {verify,     verify_peer},
+                                       {fail_if_no_peer_cert, true}]}
+                       ]},
       {rabbitmq_stomp, [{tcp_listeners, [61613]},
                         {ssl_listeners, [61614]}]}
     ].
