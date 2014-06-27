@@ -106,11 +106,11 @@ as the corresponding options in the `rabbit` section, as explained in the
 
 ### TLS/SSL
 
-The `ssl_listeners` option controls the endpoint (if any) that the adapter accepts
-SSL connections on. The default MQTT SSL port is 8883. If this option is non-empty
-then the `rabbit` section of the configuration file must contain an `ssl_options`
-entry. See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for
-details.
+The `ssl_listeners` option in the plugin configuration controls the
+endpoint (if any) that the adapter accepts SSL connections on. The
+default MQTT SSL port is 8883. If this option is non-empty then the
+`rabbit` section of the configuration file must contain an
+`ssl_options` entry. See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
 
 ### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions)
 
