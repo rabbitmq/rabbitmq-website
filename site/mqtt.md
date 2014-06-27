@@ -112,7 +112,22 @@ The `ssl_listeners` option in the `rabbitmq_mqtt` config section controls the
 endpoint (if any) that the adapter accepts SSL connections on. The
 default MQTT SSL port is 8883. If this option is non-empty then the
 `rabbit` section of the configuration file must contain an
-`ssl_options` entry. See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
+`ssl_options` entry:
+
+    [{rabbit,        [
+                      {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
+                                     {certfile,   "/path/to/tls/server/cert.pem"},
+                                     {keyfile,    "/path/to/tls/server/key.pem"},
+                                     {verify,     verify_peer},
+                                     {fail_if_no_peer_cert, true}]}
+                     ]},
+     {rabbitmq_mqtt, [
+                      {ssl_listeners,    [8883]}
+                      {tcp_listeners,    [1883]}
+                      ]}
+    ].
+
+See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
 
 ### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions)
 
