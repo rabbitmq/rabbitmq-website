@@ -196,10 +196,20 @@
           Whether to use LDAP over SSL. Default:
           <code>false</code>
         </dd>
+        <dt><code>use_starttls</code></dt>
+        <dd>
+          Whether to use LDAP secured with StartTLS. Requires Erlang
+          R16B03 or later. Default:
+          <code>false</code>
+          <p>Only one of <code>use_ssl</code> and
+          <code>use_starttls</code> can be <code>true</code>.</p>
+        </dd>
         <dt><code>ssl_options</code></dt>
         <dd>
-          SSL options. Uses the same <a href="ssl.html">SSL
-          configuration</a> as elsewhere in RabbitMQ. Default:
+          SSL client options to use with <code>use_ssl</code> or
+          <code>use_starttls</code>. Uses the same <a href="ssl.html">SSL
+          configuration</a> as elsewhere in RabbitMQ. Requires Erlang
+          R16A or later. Default:
           <code>[]</code>
         </dd>
         <dt><code>port</code></dt>
