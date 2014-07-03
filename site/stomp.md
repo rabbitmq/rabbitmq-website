@@ -393,7 +393,7 @@ All server-named queues created by the STOMP plugin are prefixed with `stomp-`
 which makes it easy to match the queues in a policy. For example, to limit
 STOMP queue length to 1000 messages, create the following policy:
 
-<pre>rabbitmqctl set_policy stomp-queues "^stomp$" '{"max-length":1000}' --apply-to queues</pre>
+<pre>rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues</pre>
 
 Note that only one policy is applied to a queue at a time, so to specify
 multiple arguments (e.g. queue length limit and dead lettering) one
