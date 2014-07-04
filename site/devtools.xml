@@ -663,6 +663,9 @@
             <doc:heading>Mobile</doc:heading>
             <ul class="plain">
               <li>
+                <a href="https://github.com/profmaad/librabbitmq-objc">Objective-C wrapper for librabbitmq-c</a>
+              </li>
+              <li>
                 <a href="http://simonwdixon.wordpress.com/2011/06/03/getting-started-with-rabbitmq-on-android-part-1/">Get Started with RabbitMQ on Android</a>
               </li>
             </ul>
