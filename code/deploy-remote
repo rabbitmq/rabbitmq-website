@@ -10,6 +10,7 @@ site=${mode}.rabbitmq.com
 site_dir=/srv/${site}
 
 if [ $mode = www ] ; then
+    community_plugins_dir=/home/rabbitmq/extras/community-plugins/
     releases_dir=/home/rabbitmq/extras/releases/
 
     # Which user to mirror feeds as?  Default to the rabbitmq user, who by
@@ -30,6 +31,8 @@ if [ $mode = www ] ; then
     mirror_group=$(id -ng $mirror_user)
 
     xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+
+    ./code/find-community-plugins ${community_plugins_dir} $site_dir/site-src
 elif [ $mode = previous ] ; then
     releases_dir=/home/rabbitmq/extras/releases/
 else

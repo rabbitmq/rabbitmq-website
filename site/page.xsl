@@ -306,6 +306,14 @@
     </tr>
   </xsl:template>
 
+  <xsl:template match="r:community-plugin-link">
+    <xsl:variable name="plugins" select="document('community-plugins.xml.dat')" />
+    <xsl:variable name="plugin" select="ancestor::r:plugin/@name" />
+    <xsl:variable name="release" select="$plugins/plugins/@version" />
+    <xsl:variable name="version" select="$plugins/plugins/plugin[@name = $plugin]/@latest" />
+    Download: <a href="/community-plugins/{$release}/{$plugin}-{$version}.ez"><xsl:value-of select="$plugin"/>-<xsl:value-of select="$version"/>.ez</a>
+  </xsl:template>
+
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">

@@ -27,14 +27,17 @@
           Of course, we offer no guarantee that these will even work
           against a given release of RabbitMQ. We build them at
           release time, and also when requested to by a plugin
-          author. If multiple versions of a plugin exist for a given
-          version of RabbitMQ in the archive, we suggest you download
-          the latest version.
+          author.
         </p>
-        <ul>
-          <li><a href="/community-plugins">Download community plugins</a></li>
-          <li><a href="installing-plugins.html">Installing additional plugins</a></li>
-        </ul>
+        <p>
+          The download links on this page let you download the latest
+          build of the plugin, compiled against the latest feature
+          release of RabbitMQ. Bugfix releases do not affect plugin
+          compatibility. For older versions of plugins or RabbitMQ,
+          see <a href="/community-plugins">the archive</a>. See also
+          <a href="installing-plugins.html">how to install additional
+          plugins</a>
+        </p>
 
         <p>
           If you are the author of a plugin and would like it listed
@@ -52,6 +55,7 @@
             each routing key, and when a queue is bound, it
             automatically enqueues the last value for the binding key.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Maintainer: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-lvc-plugin">simonmacmullen/rabbitmq-lvc-plugin</a></li>
             </ul>
@@ -62,6 +66,7 @@
             routing patterns at publishing time, instead of at
             binding time.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-rtopic-exchange">videlalvaro/rabbitmq-rtopic-exchange</a></li>
             </ul>
@@ -71,6 +76,7 @@
             A plugin that caches the last N messages that passed through an
             exchange and delivers them to newly bound queues.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">videlalvaro/rabbitmq-recent-history-exchange</a></li>
             </ul>
@@ -82,6 +88,7 @@
             bound to it when other bindings appear and disappear.
 
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Maintainer: <b>Tony Garnock-Jones</b></li>
               <li>Github: <a href="https://github.com/tonyg/presence-exchange">tonyg/presence-exchange</a></li>
             </ul>
@@ -100,6 +107,7 @@
             authorisation (determining what permissions they have)
             by making requests to an HTTP server.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-http">simonmacmullen/rabbitmq-auth-backend-http</a></li>
             </ul>
@@ -109,6 +117,7 @@
             Provides the ability for your RabbitMQ server to perform
             authentication and authorisation over AMQP itself.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-amqp">simonmacmullen/rabbitmq-auth-backend-amqp</a></li>
             </ul>
@@ -123,6 +132,7 @@
             Adds a "top" like view of busy processes to the
             management plugin.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-top">simonmacmullen/rabbitmq-top</a></li>
             </ul>
@@ -132,6 +142,7 @@
             Adds an exchange type which allows you to connect to the
             management API using AMQP rather than HTTP.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-management-exchange">simonmacmullen/rabbitmq-management-exchange</a></li>
             </ul>
@@ -142,6 +153,7 @@
             allows you to hear when queues, exchanges, bindings,
             users, connections and so on are created and deleted.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-event-exchange">simonmacmullen/rabbitmq-event-exchange</a></li>
             </ul>
@@ -155,6 +167,7 @@
           <r:plugin name="lager">
             Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Basho Technologies</b></li>
               <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
               <li>Github (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
@@ -169,6 +182,7 @@
           <r:plugin name="rabbitmq_priority_queue">
             Priority Queues for RabbitMQ.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-priority-queue">rabbitmq/rabbitmq-priority-queue</a></li>
             </ul>
@@ -178,6 +192,7 @@
           <r:plugin name="rabbitmq_sharding">
             Sharded Queues and Message Partitioning for RabbitMQ.
             <ul>
+              <li><r:community-plugin-link/></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-sharding">rabbitmq/rabbitmq-sharding</a></li>
             </ul>
@@ -196,6 +211,7 @@
               published to the exchange and relays them on to a specified
               IP address and UDP port.
               <ul>
+                <li><r:community-plugin-link/></li>
                 <li>Author: <b>Tony Garnock-Jones</b></li>
                 <li>Github: <a href="https://github.com/tonyg/udp-exchange">tonyg/udp-exchange</a></li>
               </ul>

@@ -1,0 +1,4 @@
+<!-- This file will be overwritten on deploy, but we have an empty doc
+     here so that driver.py still works. -->
+
+<plugins version="unknown"/>
