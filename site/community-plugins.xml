@@ -223,10 +223,10 @@
             to emulate AMQP channels in a web browser. Note that
             this functionality is split across various plugins:
             <ul>
-              <li><code>rfc4627_jsonrpc</code></li>
-              <li><code>rabbitmq_jsonrpc</code></li>
-              <li><code>rabbitmq_jsonrpc_channel</code></li>
-              <li><code>rabbitmq_jsonrpc_channel_examples</code> <i>(to see example code)</i></li>
+              <li><r:community-plugin-link name="rfc4627_jsonrpc"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel_examples"/> <i>(to see example code)</i></li>
             </ul>
             <ul>
               <li>Authors: <b>The RabbitMQ Team</b></li>
@@ -239,8 +239,8 @@
             using direct exchange style routing mechanics.
             <p>Note that two plugin files are required:</p>
             <ul>
-              <li><code>epgsql</code></li>
-              <li><code>pgsql_listen_exchange</code></li>
+              <li><r:community-plugin-link name="epgsql"/></li>
+              <li><r:community-plugin-link name="pgsql_listen_exchange"/></li>
             </ul>
             <ul>
               <li>Author: <b>Gavin M. Roy</b></li>
