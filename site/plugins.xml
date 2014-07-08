@@ -35,6 +35,15 @@
           consult <a href="man/rabbitmq-plugins.1.man.html">the manual
           page</a>.
         </p>
+
+        <p>
+          In addition to the plugins bundled with the server, we also
+          offer binary downloads of plugins which have been
+          contributed by authors in the community. See the <a
+          href="community-plugins.html">community plugins page</a> for
+          more detail on which plugins are available and how to
+          install them.
+        </p>
       </doc:section>
 
       <doc:section name="maintained">
@@ -183,18 +192,6 @@
             </ul>
           </r:plugin>
         </table>
-      </doc:section>
-
-      <doc:section name="community">
-        <doc:heading>Community Plugins</doc:heading>
-        <p>
-          In addition, we also offer binary downloads of plugins which
-          have been contributed by authors in the community. These
-          plugins do not ship with the RabbitMQ server itself. See
-          the <a href="community-plugins.html">community plugins
-          page</a> for more detail on which plugins are available and
-          how to install them.
-        </p>
       </doc:section>
   </body>
 </html>

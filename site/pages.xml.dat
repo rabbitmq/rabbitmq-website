@@ -51,9 +51,10 @@
      <x:page url="/dotnet.html" text=".NET Client Downloads">
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
      </x:page>
-     <x:page url="/erlang-client.html" text="Erlang Client Downloads" gap-after="true">
+     <x:page url="/erlang-client.html" text="Erlang Client Downloads">
        <x:related url="/erlang-client-user-guide.html"/>
      </x:page>
+     <x:page url="/community-plugins.html" text="Community Plugins" gap-after="true"/>
      <x:page url="/nightly-builds.html" text="Nightly Builds" />
      <x:related url="/troubleshooting.html" text="Troubleshooting"/>
    </x:modal>
@@ -132,9 +133,9 @@
        <x:page url="/mqtt.html" text="MQTT plugin"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>
        <x:page url="/mochiweb.html" text="Configuring web plugins"/>
-       <x:page url="/community-plugins.html" text="Community plugins"/>
        <x:page url="/installing-plugins.html" text="Installing plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
+       <x:related url="/community-plugins.html"/>
      </x:page>
      <x:page url="/news.html" text="News"/>
      <x:page url="/protocol.html" text="Protocol">
