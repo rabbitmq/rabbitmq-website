@@ -190,7 +190,7 @@
             The duration (in seconds) to wait before reconnecting to the
             brokers after being disconnected at either end. Default is 1.
         </dd>
-        <dt><code>set-properties</code></dt>
+        <dt><code>publish-properties</code></dt>
         <dd>
            Properties to overwrite when shovelling messages. Setting
            headers this way is not currently supported. Default is {}.
