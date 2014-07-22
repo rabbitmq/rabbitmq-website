@@ -876,6 +876,31 @@ factory.setTopologyRecoveryEnabled(false);
       </doc:subsection>
     </doc:section>
 
+    <doc:section name="unhandled-exceptions">
+      <doc:heading>Unhandled Exceptions</doc:heading>
+      <p>
+        Unhandled exceptions related to connection, channel, recovery,
+        and consumer lifecycle are delegated to the exception
+        handler. Exception handler is any object that implements the
+        <code>ExceptionHandler</code> interface.  By default, an
+        instance of <code>DefaultExceptionHandler</code> is used. It
+        prints exception details to the standard output.
+      </p>
+
+      <p>
+        It is possible to override the handler using
+        <code>ConnectionFactory#setExceptionHandler</code>. It will be
+        used for all connections created by the factory:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setExceptionHandler(customHandler);
+        </pre>
+
+        Exception handlers should be used for exception logging.
+      </p>
+    </doc:section>
+
     <doc:section name="gae-pitfalls">
       <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
       <p>
