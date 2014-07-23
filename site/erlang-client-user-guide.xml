@@ -226,7 +226,7 @@
     </p>
     <p>
       SSL options can also be specified globally using the
-      <code>ssl_config</code> environment key for the
+      <code>ssl_options</code> environment key for the
       <code>amqp_client</code> application. They will be merged with
       the SSL parameters from the URI (the latter will take
       precedence).
