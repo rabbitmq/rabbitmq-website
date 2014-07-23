@@ -136,6 +136,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </td>
               <td>
                 Change this if you only want to bind to one network interface.
+                To bind to two or more interfaces, use the <code>tcp_listeners</code>
+                key in <code>rabbitmq.config</code>.
               </td>
             </tr>
 
@@ -397,7 +399,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               List of ports on which to listen for AMQP connections
               (without SSL). Can contain integers (meaning "listen on
               all interfaces") or tuples such as <code>{"127.0.0.1",
-              5672}</code> to listen on a single interface.
+              5672}</code> to listen on one or more interfaces.
 
               <p>Default: <code>[5672]</code></p>
             </td>
