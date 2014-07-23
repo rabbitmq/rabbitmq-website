@@ -526,6 +526,19 @@
               </li>
             </ul>
           </doc:section>
+
+          <doc:section name="devops-tools">
+            <doc:heading>Provisioning (Chef, Puppet, etc)</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/kennonkwok/rabbitmq">Chef RabbitMQ Cookbook</a>
+              </li>
+              <li>
+                <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet RabbitMQ Module</a>
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="as400-dev">
             <doc:heading>AS/400</doc:heading>
             <ul class="plain">
