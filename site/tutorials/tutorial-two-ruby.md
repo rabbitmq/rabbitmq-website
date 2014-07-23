@@ -63,7 +63,7 @@ program will schedule tasks to our work queue, so let's name it
     msg  = ARGV.empty? ? "Hello World!" : ARGV.join(" ")
 
     q.publish(msg, :persistent => true)
-    puts " [x] Published #{msg}"
+    puts " [x] Sent #{msg}"
 
 Our old _receive.rb_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
