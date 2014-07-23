@@ -351,6 +351,15 @@ Cluster status of node rabbit@rabbit3 ...
               cluster using the <code>forget_cluster_node</code> command -
               consult the <code>rabbitmqctl</code> manpage for more information.
             </li>
+            <li>
+              If all cluster nodes stop in a simultaneous and
+              uncontrolled manner (for example with a power cut) you
+              can be left with a situation in which all nodes think
+              that some other node stopped after them. In this case
+              you can use the <code>force_boot</code> command on one
+              node to make it bootable again - consult the
+              <code>rabbitmqctl</code> manpage for more information.
+            </li>
           </ul>
         </doc:subsection>
 

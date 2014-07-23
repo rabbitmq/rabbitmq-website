@@ -339,6 +339,24 @@
           </p>
         </dd>
 
+        <dt><strong>add_forward_headers</strong></dt>
+        <dd>
+          <p>
+            This clause is optional. It takes the form:
+          </p>
+<pre class="example">
+  {add_forward_headers, <em>boolean</em>}
+</pre>
+          <p>
+            If <code>add_forward_headers</code> is set to true, an
+            <code>x-shovelled</code> header is added or appended to
+            the message before it is re-published.
+          </p>
+          <p>
+            The default is not to add such a header.
+          </p>
+        </dd>
+
         <dt><strong>publish_fields</strong></dt>
         <dd>
           <p>
@@ -440,6 +458,7 @@
                     , {prefetch_count, 10}
                     , {ack_mode, on_confirm}
                     , {publish_properties, [ {delivery_mode, 2} ]}
+                    , {add_forward_headers, true}
                     , {publish_fields, [ {exchange, &lt;&lt;"my_direct"&gt;&gt;}
                                        , {routing_key, &lt;&lt;"from_shovel"&gt;&gt;}
                                        ]}
