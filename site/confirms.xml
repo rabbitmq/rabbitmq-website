@@ -7,8 +7,6 @@
     <title>Confirms (aka Publisher Acknowledgements)</title>
   </head>
   <body>
-    <h3>What are Publisher Confirms</h3>
-
     <p>
       Using standard AMQP 0-9-1, the only way to guarantee that a
       message isn't lost is by using transactions -- make the
@@ -43,6 +41,14 @@
     </p>
 
     <p>
+      An example in Java that publishes a large number of
+      messages to a channel in confirm mode and waits for the
+      acknowledgements can be found <a
+                                       href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+    </p>
+
+    <h3>Negative Acknowledgment</h3>
+    <p>
       In exceptional cases when the broker is unable to handle
       messages successfully, instead of a <code>basic.ack</code>,
       the broker will send a <code>basic.nack</code>.  In this
@@ -63,10 +69,8 @@
     </p>
 
     <p>
-      An example in Java that publishes a large number of
-      messages to a channel in confirm mode and waits for the
-      acknowledgements can be found <a
-                                       href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+      <code>basic.nack</code> will only be delivered if an internal
+      error occurs in the Erlang process responsible for a queue.
     </p>
 
     <h3 id="when">When will messages be confirmed?</h3>
@@ -85,11 +89,6 @@
       messages routed to durable queues, this <strong>means persisting
       to disk</strong>. For mirrored queues, this means that all
       mirrors have accepted the message.
-    </p>
-
-    <p>
-      <code>basic.nack</code> will only be delivered if an internal
-      error occurs in the Erlang process responsible for a queue.
     </p>
 
     <h3 id="latency">Ack Latency for Persistent Messages</h3>
