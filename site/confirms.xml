@@ -7,8 +7,10 @@
     <title>Confirms (aka Publisher Acknowledgements)</title>
   </head>
   <body>
+    <h3>What are Publisher Confirms</h3>
+
     <p>
-      Using standard AMQP, the only way to guarantee that a
+      Using standard AMQP 0-9-1, the only way to guarantee that a
       message isn't lost is by using transactions -- make the
       channel transactional, publish the message, commit.  In this
       case, transactions are unnecessarily heavyweight and
@@ -70,24 +72,39 @@
     <h3 id="when">When will messages be confirmed?</h3>
 
     <p>
-      The broker will confirm messages once:
+      For unroutable messages, the broker will issue a confirm
+      once the exchange verifies a message won't route to any queue
+      (returns an empty list of queues). If the message is also
+      published as mandatory, the <code>basic.return</code> is sent
+      to the client before <code>basic.ack</code>.
     </p>
 
-    <ul>
-      <li>
-        it decides a message will not be routed to queues<br/>
-        (if the <code>mandatory</code> flag is set then
-        the <code>basic.return</code> is sent first) <b>or</b>
-      </li>
-      <li>
-        a message has reached all of the queues (and their mirrors) it
-        was routed to, and, if it requires persistence (i.e. the
-        message has been marked as persistent and the queue is
-        durable) has been persisted to disk.
-      </li>
-    </ul>
+    <p>
+      For routable messages, the <code>basic.ack</code> is sent
+      when a message has reached all of the queues. For persistent
+      messages routed to durable queues, this <strong>means persisting to disk</strong>.
+      For mirrorered queues, also delivery the message to all mirrors.
+    </p>
 
-    <h3>Notes</h3>
+    <p>Normally, <code>basic.nack</code> will only be delivered if an internal
+    error occurs in the Erlang process responsible for a queue.</p>
+
+    <h3 id="latency">Ack Latency for Persistent Messages</h3>
+    <p>
+      <code>basic.ack</code> for a persistent message routed to a durable
+      queue will be sent after persisting the message to disk. RabbitMQ message
+      store persists messages to disk in batches after an interfal (a few hundreds milliseconds)
+      to minimise the number of fsync(2) calls, or when a queue is idle.
+
+      This means that under a constant load, latency for
+      <code>basic.ack</code> can reach a few hundreds milliseconds. To
+      improve throughput, applicatications are advised to process
+      acknowledgements asynchronously (as a stream) or publish batches
+      of messages and wait for outstanding confirms. The exact API for
+      this varies between client libraries.
+    </p>
+
+    <h3>Confirms and Guaranteed Delivery</h3>
 
     <p>
       The broker loses persistent messages if it crashes before
