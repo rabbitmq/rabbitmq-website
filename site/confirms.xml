@@ -87,8 +87,10 @@
       mirrors have accepted the message.
     </p>
 
-    <p>Normally, <code>basic.nack</code> will only be delivered if an internal
-    error occurs in the Erlang process responsible for a queue.</p>
+    <p>
+      <code>basic.nack</code> will only be delivered if an internal
+      error occurs in the Erlang process responsible for a queue.
+    </p>
 
     <h3 id="latency">Ack Latency for Persistent Messages</h3>
     <p>
