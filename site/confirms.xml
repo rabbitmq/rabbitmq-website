@@ -80,10 +80,11 @@
     </p>
 
     <p>
-      For routable messages, the <code>basic.ack</code> is sent
-      when a message has reached all of the queues. For persistent
-      messages routed to durable queues, this <strong>means persisting to disk</strong>.
-      For mirrorered queues, also delivery the message to all mirrors.
+      For routable messages, the <code>basic.ack</code> is sent when a
+      message has been accepted by all the queues. For persistent
+      messages routed to durable queues, this <strong>means persisting
+      to disk</strong>. For mirrored queues, this means that all
+      mirrors have accepted the message.
     </p>
 
     <p>Normally, <code>basic.nack</code> will only be delivered if an internal
@@ -91,17 +92,18 @@
 
     <h3 id="latency">Ack Latency for Persistent Messages</h3>
     <p>
-      <code>basic.ack</code> for a persistent message routed to a durable
-      queue will be sent after persisting the message to disk. RabbitMQ message
-      store persists messages to disk in batches after an interfal (a few hundreds milliseconds)
-      to minimise the number of fsync(2) calls, or when a queue is idle.
+      <code>basic.ack</code> for a persistent message routed to a
+      durable queue will be sent after persisting the message to
+      disk. The RabbitMQ message store persists messages to disk in
+      batches after an interval (a few hundred milliseconds) to
+      minimise the number of fsync(2) calls, or when a queue is idle.
 
       This means that under a constant load, latency for
-      <code>basic.ack</code> can reach a few hundreds milliseconds. To
-      improve throughput, applicatications are advised to process
-      acknowledgements asynchronously (as a stream) or publish batches
-      of messages and wait for outstanding confirms. The exact API for
-      this varies between client libraries.
+      <code>basic.ack</code> can reach a few hundred milliseconds. To
+      improve throughput, applications are strongly advised to
+      process acknowledgements asynchronously (as a stream) or publish
+      batches of messages and wait for outstanding confirms. The exact
+      API for this varies between client libraries.
     </p>
 
     <h3>Confirms and Guaranteed Delivery</h3>
