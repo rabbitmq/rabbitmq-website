@@ -537,6 +537,7 @@
           </doc:section>
 
           <doc:section name="database-integration">
+            <doc:heading>Database Integration</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/pmq/rabbitmq-oracle-stored-procedures">Oracle Stored Procedures for RabbitMQ</a> integration.
