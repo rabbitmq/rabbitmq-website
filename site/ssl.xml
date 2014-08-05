@@ -12,9 +12,8 @@
   <body show-in-this-page="true">
       <doc:section name="intro">
         <p class="intro">RabbitMQ has inbuilt support for SSL.</p>
-        <p>The recommended Erlang distribution is R14B (SSL 4.0.1) or later. This should be
-        considered the minimum configuration for Java and Erlang clients
-        due to an incorrect RC4 implementation in earlier versions of Erlang.</p>
+        <p>The recommended Erlang distribution is R16B01 or later. Versions
+        between R14B and R16B01 may work for some certificates but have limitations.</p>
 
         <p>The Erlang crypto application must be installed and working. This may
         be an issue for Windows users and those who compile Erlang from source.</p>

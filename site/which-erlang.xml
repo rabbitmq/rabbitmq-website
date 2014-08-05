@@ -28,8 +28,8 @@
       </tr>
       <tr>
         <td>use <a href="ssl.html">SSL</a> reliably</td>
-        <td>R14B (SSL 4.0.1)</td>
-        <td>Earlier versions do not support <a href="ssl.html">SSL</a> well.</td>
+        <td>R16B01</td>
+        <td>Covers most common signature algorithms.</td>
       </tr>
       <tr>
         <td>use <a href="web-stomp.html">web STOMP</a></td>
