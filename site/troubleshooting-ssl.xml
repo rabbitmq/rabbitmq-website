@@ -43,6 +43,14 @@
          <code>erlang-ssl</code> package, and on Mac OS you may need
          to <code>port install erlang +ssl</code>.
        </p>
+       <p>
+         Certificates using <strong>SHA256 with RSA encryption</strong> for signature algorithm
+         require Erlang/OTP R16B01 or later version.
+
+         To check what signature algorithm is used by a certificate, use
+         <pre class="sourcecode">openssl x509 -in /path/to/certificate.pem -text -noout</pre>
+         and look for <code>Signature Algorithm</code>.
+       </p>
        </doc:subsection>
 
        <doc:subsection name="keys-and-certs">
