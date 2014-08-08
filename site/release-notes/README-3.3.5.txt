@@ -6,17 +6,17 @@ Release Highlights
 server
 ------
 bug fixes
-26159 prevent failure to start if memory monitor cannot determine total
-      system memory (since 1.7.1)
-26290 correctly read /proc/meminfo on Linux even if rows do not contain
-      colons (issue with certain vendor kernels) (since 1.7.1)
-26313 do not allow clients to override server-configured channel_max
-      (since 3.3.0)
 25921 prevent long delays in publishing after a node goes down and network
       connections to it time out (since 2.8.3)
 26225 26293 greatly reduce the length of time between pause_minority mode
       detecting a minority and refusing to accept further publishes
       (since 3.1.0)
+26313 do not allow clients to override server-configured channel_max
+      (since 3.3.0)
+26159 prevent failure to start if memory monitor cannot determine total
+      system memory (since 1.7.1)
+26290 correctly read /proc/meminfo on Linux even if rows do not contain
+      colons (issue with certain vendor kernels) (since 1.7.1)
 
 enhancements
 26311 provide a mechanism for diagnosing stuck processes
@@ -56,10 +56,10 @@ bug fixes
 shovel plugin
 -------------
 bug fixes
-26292 ensure that shovel workers apply the defined reconnect delay under
-      all circumstances (since 2.0.0)
 26318 prevent dynamic shovel crash using add-forwarding-headers=true
       without setting dest-queue or dest-exchange-key (since 3.3.0)
+26292 ensure that shovel workers apply the defined reconnect delay under
+      all circumstances (since 2.0.0)
 26328 prevent dynamic shovels from failing over to the new node whenever
       a node comes up in a cluster (since 3.3.0)
 
@@ -67,8 +67,8 @@ bug fixes
 MQTT plugin
 -----------
 bug fixes
-26281 log cleanly closed MQTT connections as we do for AMQP (since 3.0.0)
 26270 improve error messages on TLS/TCP connection failure (since 3.0.0)
+26281 log cleanly closed MQTT connections as we do for AMQP (since 3.0.0)
 
 
 AMQP 1.0 plugin
