@@ -13,6 +13,8 @@ def usage():
 
 def find_files(plugins_dir):
     versions = os.listdir(plugins_dir)
+    if len(versions) == 0:
+        return None
     versions.sort()
     release = versions[-1:][0]
     plugins = {}
@@ -46,8 +48,9 @@ def main():
     plugins_dir = sys.argv[1]
     src_dir = sys.argv[2]
     xml = find_files(plugins_dir)
-    with open(os.path.join(src_dir, 'community-plugins.xml.dat'), 'w') as f:
-        f.write(ET.tostring(xml))
+    if xml != None:
+        with open(os.path.join(src_dir, 'community-plugins.xml.dat'), 'w') as f:
+            f.write(ET.tostring(xml))
 
 if __name__ == "__main__":
     main()

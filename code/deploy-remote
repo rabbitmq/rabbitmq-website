@@ -32,6 +32,7 @@ if [ $mode = www ] ; then
 
     xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
 
+    mkdir -p ${community_plugins_dir}
     ./code/find-community-plugins ${community_plugins_dir} site
 elif [ $mode = previous ] ; then
     releases_dir=/home/rabbitmq/extras/releases/
