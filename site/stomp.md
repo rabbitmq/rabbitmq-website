@@ -417,6 +417,18 @@ on persistent messages can be found [here](confirms.html).
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
 
+### <a id="ack-nack">ACK and NACK</a>
+
+RabbitMQ STOMP plugin supports `auto`, `client`, and `client-individual`
+subscription headers that affect how `ACK` on `NACK` operations work.
+
+The `auto` mode uses automatic acknowledgements. The `client` mode is manual
+(client-driven) acknowledgements of multiple messages at once. The `client-individual`
+is for message-by-message manual acknowledgement.
+
+`NACK` frames can optionally carry the `requeue` header which controls whether
+the message will be requeued or discarded/dead lettered. Default value is `true`.
+
 ### <a id="pear.p"/>Prefetch
 
 The prefetch count for all subscriptions is set to unlimited by
