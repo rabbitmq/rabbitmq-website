@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Direct reply-to</title>
+  </head>
+  <body>
+    <p class="intro">
+      Improving performance and simplicity of RPC clients by sending
+      replies direct to a waiting channel.
+    </p>
+    <h3>Motivation</h3>
+    <p>
+      RPC is a popular pattern to implement with a messaging broker
+      like RabbitMQ. The typical way to do this is for RPC clients to
+      send requests to a long lived server queue. The RPC server(s)
+      read requests from this queue and then send replies to each client
+      using the queue named by the client in the <code>reply-to</code>
+      header.
+    </p>
+
+    <p>
+      But where does the client's queue come from? The client can
+      declare a single-use queue for each request-response pair. But
+      this is inefficient; even a transient unmirrored queue can be
+      expensive to declare compared with the cost of sending a
+      message. So alternatively the client can create a long-lived
+      queue for its replies. But this can be fiddly to manage,
+      especially if the client itself is not long-lived.
+    </p>
+
+    <p>
+      The direct reply-to feature allows RPC clients to receive
+      replies directly from their RPC server, without going through a
+      reply queue. ("Directly" here still means going through AMQP and
+      the RabbitMQ server; there is no separate network connection
+      between RPC client and RPC server.)
+    </p>
+
+    <h2>Use</h2>
+    <p>
+      To use direct reply-to, an RPC client should:
+    </p>
+    <ul>
+      <li>
+        Consume from the "queue" <code>amq.rabbitmq.reply-to</code>
+        in no-ack mode.
+      </li>
+      <li>
+        Set the <code>reply-to</code> property in their request message to
+        <code>amq.rabbitmq.reply-to</code>.
+      </li>
+    </ul>
+    <p>
+      The RPC server will then see a <code>reply-to</code> property
+      with a generated name. It should publish to the default exchange
+      ("") with the routing key set to this value (i.e. just as if
+      it were sending to a reply queue as usual). The message will
+      then be sent straight to the client consumer.
+    </p>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>
+        The RPC client must consume in no-ack mode. This is because
+        there is no queue for the reply message to be returned to if the
+        client disconnects or rejects the reply message.
+      </li>
+      <li>
+        Reply messages sent using this mechanism are in general not
+        fault-tolerant; they will be confirmed immediately (if
+        published in confirm mode) but they will be discarded if the
+        client that published the original request subsequently
+        disconnects. The assumption is that an RPC client will
+        reconnect and submit another request in this case.
+      </li>
+      <li>
+        The name <code>amq.rabbitmq.reply-to</code> is used in
+        <code>basic.consume</code> and the <code>reply-to</code>
+        property as if it were a queue; however it is not. It cannot
+        be declared or deleted, and does not appear in the management
+        plugin or <code>rabbitmqctl list_queues</code>.
+      </li>
+    </ul>
+
+    <h2>Performance</h2>
+    <p>
+      TODO add performance figures here.
+    </p>
+
+  </body>
+</html>
