@@ -60,6 +60,16 @@
       it were sending to a reply queue as usual). The message will
       then be sent straight to the client consumer.
     </p>
+    <p>
+      If the RPC server is going to perform some expensive computation
+      it might be worth checking if the client has gone away. To do
+      this the server can declare the generated reply name first on a
+      disposable channel in order to determine whether it still
+      exists. Note that even if you declare the "queue" with
+      <code>passive=false</code> there is no way to create it; the
+      declare will just succeed (with 0 messages ready and 1 consumer)
+      or fail.
+    </p>
 
     <h2>Notes</h2>
     <ul>
@@ -80,8 +90,8 @@
         The name <code>amq.rabbitmq.reply-to</code> is used in
         <code>basic.consume</code> and the <code>reply-to</code>
         property as if it were a queue; however it is not. It cannot
-        be declared or deleted, and does not appear in the management
-        plugin or <code>rabbitmqctl list_queues</code>.
+        be deleted, and does not appear in the management plugin or
+        <code>rabbitmqctl list_queues</code>.
       </li>
       <li>
         If the RPC server publishes with the mandatory flag set or
