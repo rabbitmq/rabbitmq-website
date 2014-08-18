@@ -11,11 +11,9 @@
   </head>
   <body>
     <div class="landing-box">
-      <h2>How To...</h2>
+      <h2>Mailing list</h2>
       <p>
-        The <a href="how.html">How To</a> page showcases some of our favourite
-        content on this site and the web that will help you get started
-        with messaging and RabbitMQ.
+        Join rabbitmq-users, the official <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a> to ask questions and report issues.
       </p>
     </div>
     <div class="landing-box">
@@ -23,6 +21,14 @@
       <p>
         Details of official and unofficial
         <a href="devtools.html">clients, adaptors and tools</a>.
+      </p>
+    </div>
+    <div class="landing-box">
+      <h2>How To...</h2>
+      <p>
+        The <a href="how.html">How To</a> page showcases some of our favourite
+        content on this site and the web that will help you get started
+        with messaging and RabbitMQ.
       </p>
     </div>
     <div class="landing-box">
