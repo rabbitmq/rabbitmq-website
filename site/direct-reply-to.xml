@@ -25,10 +25,10 @@
       But where does the client's queue come from? The client can
       declare a single-use queue for each request-response pair. But
       this is inefficient; even a transient unmirrored queue can be
-      expensive to declare compared with the cost of sending a
-      message. So alternatively the client can create a long-lived
-      queue for its replies. But this can be fiddly to manage,
-      especially if the client itself is not long-lived.
+      expensive to create and then delete compared with the cost of
+      sending a message. So alternatively the client can create a
+      long-lived queue for its replies. But this can be fiddly to
+      manage, especially if the client itself is not long-lived.
     </p>
 
     <p>
@@ -82,6 +82,15 @@
         property as if it were a queue; however it is not. It cannot
         be declared or deleted, and does not appear in the management
         plugin or <code>rabbitmqctl list_queues</code>.
+      </li>
+      <li>
+        If the RPC server publishes with the mandatory flag set or
+        confirms in use then <code>amq.rabbitmq.reply-to.*</code> is
+        treated as <b>not</b> a queue; i.e. if the server only publishes
+        to this name then the message will be considered "not routed"; a
+        <code>basic.return</code> will be sent (if the mandatory flag
+        was set) and a confirm will be sent immediately (if in confirm
+        mode).
       </li>
     </ul>
 
