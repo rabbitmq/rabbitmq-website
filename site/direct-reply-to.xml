@@ -8,7 +8,7 @@
   </head>
   <body>
     <p class="intro">
-      Improving performance and simplicity of RPC clients by sending
+      Improve performance and simplicity of RPC clients by sending
       replies direct to a waiting channel.
     </p>
     <h3>Motivation</h3>
@@ -25,10 +25,16 @@
       But where does the client's queue come from? The client can
       declare a single-use queue for each request-response pair. But
       this is inefficient; even a transient unmirrored queue can be
-      expensive to create and then delete compared with the cost of
-      sending a message. So alternatively the client can create a
-      long-lived queue for its replies. But this can be fiddly to
-      manage, especially if the client itself is not long-lived.
+      expensive to create and then delete (compared with the cost of
+      sending a message). This is especially true in a cluster as all
+      cluster nodes need to agree that the queue has been created,
+      even if it is unmirrored.
+    </p>
+
+    <p>
+      So alternatively the client can create a long-lived queue for
+      its replies. But this can be fiddly to manage, especially if the
+      client itself is not long-lived.
     </p>
 
     <p>
@@ -45,8 +51,10 @@
     </p>
     <ul>
       <li>
-        Consume from the "queue" <code>amq.rabbitmq.reply-to</code>
-        in no-ack mode.
+        Consume from the pseudo-queue
+        <code>amq.rabbitmq.reply-to</code> in no-ack mode. There is no
+        need to declare this "queue" first, although the client can do
+        so if it wants.
       </li>
       <li>
         Set the <code>reply-to</code> property in their request message to
@@ -62,8 +70,8 @@
     </p>
     <p>
       If the RPC server is going to perform some expensive computation
-      it might be worth checking if the client has gone away. To do
-      this the server can declare the generated reply name first on a
+      it might wish to check if the client has gone away. To do this
+      the server can declare the generated reply name first on a
       disposable channel in order to determine whether it still
       exists. Note that even if you declare the "queue" with
       <code>passive=false</code> there is no way to create it; the
@@ -103,11 +111,5 @@
         mode).
       </li>
     </ul>
-
-    <h2>Performance</h2>
-    <p>
-      TODO add performance figures here.
-    </p>
-
   </body>
 </html>
