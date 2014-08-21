@@ -97,8 +97,17 @@ the `allow_anonymous` option. Colons may not appear in usernames.
 The `vhost` option controls which RabbitMQ vhost the adapter connects to. The `vhost`
 configuration is only consulted if no vhost is provided during connection establishment.
 You can optionally specify a vhost while connecting, by prepending the vhost
-to the username and separating with a colon. For example, connecting with `/:guest` is
-equivalent to the default vhost and username.
+to the username and separating with a colon.
+
+For example, connecting with
+
+    /:guest
+
+is equivalent to the default vhost and username.
+
+    mqtt-vhost:mqtt-username
+
+means connecting to the vhost `mqtt-host` with username `mqtt-user`.
 
 ### Host and Port
 
