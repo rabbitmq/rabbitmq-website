@@ -297,8 +297,8 @@ to the value `PERSISTENT_TEXT_PLAIN`.
 > hasn't saved it yet. Also, RabbitMQ doesn't do `fsync(2)` for every
 > message -- it may be just saved to cache and not really written to the
 > disk. The persistence guarantees aren't strong, but it's more than enough
-> for our simple task queue. If you need a stronger guarantee you can wrap the
-> publishing code in a _transaction_.
+> for our simple task queue. If you need a stronger guarantee then you can use
+> [publisher confirms](https://www.rabbitmq.com/confirms.html).
 
 
 Fair dispatch
