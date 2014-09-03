@@ -58,7 +58,7 @@
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
-        Binary, compiled for .NET 2.0 (Windows installer) - includes
+        Binary, compiled for .NET 3.0 (Windows installer) - includes
         documentation and example code
       </r:download>
     </r:downloads>
@@ -71,10 +71,6 @@
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-2.0.zip"
-		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET 2.0 (zip) - includes example code
-      </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.0.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Binary, compiled for .NET 3.0 and newer (zip) - includes
