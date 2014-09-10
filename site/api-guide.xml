@@ -16,6 +16,15 @@
 	performing several common operations with the client.
       </p>
       <p class="intro">
+	The client is triple-licensed under
+
+        <ul>
+          <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+          <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+          <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+        </ul>
+      </p>
+      <p class="intro">
 	For more details, please see the relevant Javadoc <a
 	href="&dir-current-javadoc;">documentation</a>.
       </p>
