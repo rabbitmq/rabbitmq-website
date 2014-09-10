@@ -12,8 +12,8 @@
 	This page gives an overview of the RabbitMQ Java client	API.
       </p>
       <p class="intro">
-	The code samples given here demonstrate connecting to AMQP brokers and
-	using RPC services exposed via AMQP.
+	The code samples given here demonstrate connecting to RabbitMQ and
+	performing several common operations with the client.
       </p>
       <p class="intro">
 	For more details, please see the relevant Javadoc <a
@@ -25,7 +25,7 @@
       </p>
 
     <p>
-       The client API is closely modelled on the AMQP protocol specification,
+       The client API is closely modelled on the AMQP 0-9-1 protocol specification,
        with additional abstractions for ease of use.
     </p>
 
