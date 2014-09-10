@@ -107,7 +107,7 @@ is equivalent to the default vhost and username.
 
     mqtt-vhost:mqtt-username
 
-means connecting to the vhost `mqtt-host` with username `mqtt-user`.
+means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 
 ### Host and Port
 
