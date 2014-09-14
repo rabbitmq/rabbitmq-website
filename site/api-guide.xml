@@ -899,5 +899,31 @@ cf.setRequestedHeartbeat(5);
         </pre>
       </p>
     </doc:section>
+
+    <doc:section name="cache-pitfalls">
+      <doc:heading>Caveats and Limitations</doc:heading>
+      <p>
+        To make topology recovery possible, RabbitMQ Java client maintains a cache
+        of declared queues, exchanges, and bindings. The cache is per-connection. Certain
+        RabbitMQ features make it impossible for clients to observe some topology changes,
+        e.g. when a queue is deleted due to TTL. RabbitMQ Java client tries to invalidate
+        cache entries in the most common cases:
+
+        <ul>
+          <li>When queue is deleted.</li>
+          <li>When exchange is deleted.</li>
+          <li>When binding is deleted.</li>
+          <li>When consumer is cancelled on an auto-deleted queue.</li>
+          <li>When queue or exchange is is unbound from an auto-deleted exchange.</li>
+        </ul>
+
+        However, the client cannot track these topology changes beyond a single connection.
+        Applications that rely on auto-delete queues or exchanges, as well as queue TTL (note: not message TTL!),
+        and use automatic connection recovery, should explicitly delete entities know to be unused
+        or deleted, to purge client-side topology cache. This is facilitated by <code>Channel#queueDelete</code>,
+        <code>Channel#exchangeDelete</code>, <code>Channel#queueUnbind</code>, and <code>Channel#exchangeUnbind</code>
+        being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
+      </p>
+    </doc:section>
   </body>
 </html>
