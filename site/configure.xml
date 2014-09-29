@@ -775,6 +775,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>cluster_keepalive_interval</code></td>
+            <td>
+              How frequently nodes should send keepalive messages to
+              other nodes (in milliseconds). Note that this is not the
+              same thing as <a
+              href="nettick.html"><code>net_ticktime</code></a>;
+              missed keepalive messages will not cause nodes to be
+              considered down.
+              <p>Default: <code>10000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You probably
