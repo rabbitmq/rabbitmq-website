@@ -14,7 +14,8 @@
 
     <h3>Cannot install to a path with non-ASCII characters</h3>
     <p>
-      RabbitMQ will fail to start when installed to a path with
+      RabbitMQ will fail to start with the error "<code>RabbitMQ: Erlang machine stopped instantly (distribution name conflict?)</code>"
+      when installed to a path with
       non-ASCII characters in it. This is because we need to pass the
       location of the compiled Erlang files to the Erlang VM. It
       expects input in UTF-8, but the console will typically use some
@@ -23,7 +24,9 @@
     <p><strong>Workarounds:</strong></p>
     <ul>
       <li>
-        Install to a path containing only ASCII characters <em>or</em>
+        Override <code>RABBITMQ_BASE</code> to point to a directory
+        that only has ASCII characters and <em>re-install</em> the
+        service.
       </li>
       <li>
         Edit the file <code>rabbitmq-server.bat</code> and change the
