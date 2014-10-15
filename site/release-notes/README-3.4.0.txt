@@ -22,6 +22,8 @@ bug fixes
       rabbit_recovery_terms (since 3.3.0)
 26171 prevent crash in rare conditions in gm:find_member_or_blank/2 during
       slave startup (since 2.6.0)
+26368 prevent autoheal from hanging when loser shuts down before the winner
+      learns it is the winner (since 3.1.0)
 25850 prevent excessive binary memory use when accepting or delivering
       large messages at high speed (since 1.0.0)
 26230 ensure exchanges and queues are federated appropriately when
@@ -203,6 +205,8 @@ bug fixes
       common case (since 3.3.0)
 26374 limit size of WorkPool queues, thus prevent slow consumer with no
       prefetch limit from consuming unbounded memory (since 2.7.0)
+26413 prevent duplicate connection recovery listeners from being
+      registered (since 3.3.0)
 
 dependency change
 26095 drop support for Java 1.5
