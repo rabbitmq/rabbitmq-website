@@ -53,25 +53,24 @@
     <doc:section name="per-connection">
       <doc:heading>Per-Connection Flow Control</doc:heading>
       <p>
-        RabbitMQ will block connections which are publishing too
-        quickly for queues to keep up. No configuration is required.
+        RabbitMQ will reduce the speed of connections which are
+        publishing too quickly for queues to keep up. No configuration
+        is required.
       </p>
       <p>
-        A blocked connection will show a <code>state</code>
-        of <code>blocked</code> in <code>rabbitmqctl</code> and the
-        management plugin HTTP API. Typically such fast-publishing
-        connections will be blocked and unblocked several times per
-        second, so inspecting a connection's <code>state</code> may
-        not show per-connection flow control happening
-        clearly. The <code>last_blocked_by</code>
-        and <code>last_blocked_age</code> fields
-        in <code>rabbitmqctl</code> and the management API can be
-        inspected to determine whether flow control is taking place.
+        A flow-controlled connection will show a <code>state</code> of
+        <code>flow</code> in <code>rabbitmqctl</code> and the
+        management plugin HTTP API. This means the connection is being
+        blocked and unblocked several times per second, in order to
+        keep the rate of message ingress at one that the rest of the
+        server can handle.
       </p>
       <p>
-        The management plugin web UI unifies this information into a
-        single field, showing <code>flow</code> for connections which
-        have recently been in flow control.
+        Other components than connections can be in the
+        <code>flow</code> state. <a
+        href="http://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">This
+        blog post</a> goes into more detail in how to use this
+        information to find bottlenecks in your server.
       </p>
     </doc:section>
 
