@@ -1,5 +1,13 @@
 Release: RabbitMQ 3.4.0
 
+Security Fixes
+==============
+
+management plugin
+-----------------
+26414 do not trust X-Forwarded-For header when enforcing 'loopback_users'
+
+
 Release Highlights
 ==================
 
