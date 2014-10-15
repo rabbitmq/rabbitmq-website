@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Using standard AMQP, the only way to guarantee that a
+      Using standard AMQP 0-9-1, the only way to guarantee that a
       message isn't lost is by using transactions -- make the
       channel transactional, publish the message, commit.  In this
       case, transactions are unnecessarily heavyweight and
@@ -41,6 +41,14 @@
     </p>
 
     <p>
+      An example in Java that publishes a large number of
+      messages to a channel in confirm mode and waits for the
+      acknowledgements can be found <a
+                                       href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+    </p>
+
+    <h3>Negative Acknowledgment</h3>
+    <p>
       In exceptional cases when the broker is unable to handle
       messages successfully, instead of a <code>basic.ack</code>,
       the broker will send a <code>basic.nack</code>.  In this
@@ -61,33 +69,45 @@
     </p>
 
     <p>
-      An example in Java that publishes a large number of
-      messages to a channel in confirm mode and waits for the
-      acknowledgements can be found <a
-                                       href="http://hg.rabbitmq.com/rabbitmq-java-client/file/default/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+      <code>basic.nack</code> will only be delivered if an internal
+      error occurs in the Erlang process responsible for a queue.
     </p>
 
     <h3 id="when">When will messages be confirmed?</h3>
 
     <p>
-      The broker will confirm messages once:
+      For unroutable messages, the broker will issue a confirm
+      once the exchange verifies a message won't route to any queue
+      (returns an empty list of queues). If the message is also
+      published as mandatory, the <code>basic.return</code> is sent
+      to the client before <code>basic.ack</code>.
     </p>
 
-    <ul>
-      <li>
-        it decides a message will not be routed to queues<br/>
-        (if the <code>mandatory</code> flag is set then
-        the <code>basic.return</code> is sent first) <b>or</b>
-      </li>
-      <li>
-        a message has reached all of the queues (and their mirrors) it
-        was routed to, and, if it requires persistence (i.e. the
-        message has been marked as persistent and the queue is
-        durable) has been persisted to disk.
-      </li>
-    </ul>
+    <p>
+      For routable messages, the <code>basic.ack</code> is sent when a
+      message has been accepted by all the queues. For persistent
+      messages routed to durable queues, this <strong>means persisting
+      to disk</strong>. For mirrored queues, this means that all
+      mirrors have accepted the message.
+    </p>
 
-    <h3>Notes</h3>
+    <h3 id="latency">Ack Latency for Persistent Messages</h3>
+    <p>
+      <code>basic.ack</code> for a persistent message routed to a
+      durable queue will be sent after persisting the message to
+      disk. The RabbitMQ message store persists messages to disk in
+      batches after an interval (a few hundred milliseconds) to
+      minimise the number of fsync(2) calls, or when a queue is idle.
+
+      This means that under a constant load, latency for
+      <code>basic.ack</code> can reach a few hundred milliseconds. To
+      improve throughput, applications are strongly advised to
+      process acknowledgements asynchronously (as a stream) or publish
+      batches of messages and wait for outstanding confirms. The exact
+      API for this varies between client libraries.
+    </p>
+
+    <h3>Confirms and Guaranteed Delivery</h3>
 
     <p>
       The broker loses persistent messages if it crashes before

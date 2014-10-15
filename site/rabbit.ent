@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!ENTITY version-java-client "3.3.4">
-<!ENTITY version-dotnet-client "3.3.4">
-<!ENTITY version-server "3.3.4">
-<!ENTITY version-erlang-client "3.3.4">
+<!ENTITY version-java-client "3.3.5">
+<!ENTITY version-dotnet-client "3.3.5">
+<!ENTITY version-server "3.3.5">
+<!ENTITY version-erlang-client "3.3.5">
 <!--
   Note, the following entity should contain underscores not dots, like
   rabbitmq_vX_Y_Z for version X.Y.Z.
 -->
-<!ENTITY version-server-hg "rabbitmq_v3_3_4">
+<!ENTITY version-server-hg "rabbitmq_v3_3_5">
 <!ENTITY standalone-otp-version "R16B02">
 
 <!ENTITY serverDebMinorVersion "1">

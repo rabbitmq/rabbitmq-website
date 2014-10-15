@@ -12,8 +12,17 @@
 	This page gives an overview of the RabbitMQ Java client	API.
       </p>
       <p class="intro">
-	The code samples given here demonstrate connecting to AMQP brokers and
-	using RPC services exposed via AMQP.
+	The code samples given here demonstrate connecting to RabbitMQ and
+	performing several common operations with the client.
+      </p>
+      <p class="intro">
+	The client is triple-licensed under
+
+        <ul>
+          <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+          <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+          <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+        </ul>
       </p>
       <p class="intro">
 	For more details, please see the relevant Javadoc <a
@@ -25,7 +34,7 @@
       </p>
 
     <p>
-       The client API is closely modelled on the AMQP protocol specification,
+       The client API is closely modelled on the AMQP 0-9-1 protocol specification,
        with additional abstractions for ease of use.
     </p>
 
@@ -874,6 +883,31 @@ factory.setTopologyRecoveryEnabled(false);
           be capable of handling redeliveries.
         </p>
       </doc:subsection>
+    </doc:section>
+
+    <doc:section name="unhandled-exceptions">
+      <doc:heading>Unhandled Exceptions</doc:heading>
+      <p>
+        Unhandled exceptions related to connection, channel, recovery,
+        and consumer lifecycle are delegated to the exception
+        handler. Exception handler is any object that implements the
+        <code>ExceptionHandler</code> interface.  By default, an
+        instance of <code>DefaultExceptionHandler</code> is used. It
+        prints exception details to the standard output.
+      </p>
+
+      <p>
+        It is possible to override the handler using
+        <code>ConnectionFactory#setExceptionHandler</code>. It will be
+        used for all connections created by the factory:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setExceptionHandler(customHandler);
+        </pre>
+
+        Exception handlers should be used for exception logging.
+      </p>
     </doc:section>
 
     <doc:section name="gae-pitfalls">

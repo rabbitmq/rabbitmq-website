@@ -288,9 +288,6 @@
                 An eight-part blog series covering RabbitMQ on Windows
               </li>
               <li>
-                <a href="https://github.com/kzhen/SSISRabbitMQ">RabbitMQ component for SQL Server Integration Services (SSIS)</a>
-              </li>
-              <li>
                 <a href="http://www.yourenterprisearchitect.com//p/distributed-systems-mist.html">Distributed Systems &amp; AMQP</a>
                 <br />
                 Enterprise and distributed architecture topics covered using RabbitMQ and C#
@@ -535,6 +532,21 @@
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet RabbitMQ Module</a>
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="database-integration">
+            <doc:heading>Database Integration</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/pmq/rabbitmq-oracle-stored-procedures">Oracle Stored Procedures for RabbitMQ</a> integration.
+              </li>
+              <li>
+                <a href="https://github.com/kzhen/SSISRabbitMQ">RabbitMQ component for SQL Server Integration Services (SSIS)</a>.
+              </li>
+              <li>
+                <a href="https://github.com/aweber/pgsql-listen-exchange">RabbitMQ integration with PostgreSQL</a>'s LISTEN notifications.
               </li>
             </ul>
           </doc:section>

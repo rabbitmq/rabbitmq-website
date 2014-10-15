@@ -488,14 +488,16 @@
 
     <pre class="sourcecode">
       Sub = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, Sub, Consumer)
+      #'basic.consume_ok'{consumer_tag = Tag} =
+        amqp_channel:subscribe(Channel, Sub, Consumer)
     </pre>
 
     or
 
     <pre class="sourcecode">
       Sub = #'basic.consume'{queue = Q},
-      #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:call(Channel, Sub) %% the caller is the subscriber
+      #'basic.consume_ok'{consumer_tag = Tag} =
+        amqp_channel:call(Channel, Sub) %% the caller is the subscriber
     </pre>
   </p>
   <p>

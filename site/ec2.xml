@@ -14,9 +14,11 @@
 <doc:section name="ec2">
   <p>
     Using RabbitMQ on EC2 is no more complex than running it on other
-    platforms. Although we don't support our own AMI images, we make
+    platforms. Although we don't provide our own AMI images, we make
     sure that RabbitMQ does work on current Ubuntu AMIs.
   </p>
+
+  <p>This guide is mean to be used together with the general <a href="/clustering.html">clustering guide</a>.</p>
 
   <doc:subsection name="instance_type">
     <doc:heading>Choose instance type</doc:heading>
@@ -37,7 +39,7 @@
       </li>
       <li>
 	In some cases RabbitMQ requires substantial amounts of memory.
-	Make sure that your host does have enough RAM and always have
+	Make sure that your host does have <a href="/memory.html">enough RAM</a> and always have
 	at least a few gigabytes of swap space enabled.
       </li>
     </ul>
@@ -127,40 +129,12 @@ apt-get -qy install rabbitmq-server</pre>
       <pre class="ec2_sourcecode">$ /etc/init.d/rabbitmq-server stop</pre>
     </p>
   </doc:subsection>
-
-
-  <doc:subsection name="issues-hostname">
-    <doc:heading>Issues with hostname</doc:heading>
-    <p>
-      RabbitMQ names the database directory using the
-      current hostname of the system. If the hostname
-      changes, a new empty database is created. To avoid data loss it's
-      crucial to set up a fixed and resolvable hostname. For example:
-
-      <pre class="ec2_sourcecode">sudo -s # become root
-echo "rabbit" > /etc/hostname
-echo "127.0.0.1 rabbit" >> /etc/hosts
-hostname -F /etc/hostname</pre>
-      Whenever the hostname changes you should restart RabbitMQ:
-      <pre class="ec2_sourcecode">$ /etc/init.d/rabbitmq-server restart</pre>
-    </p>
-    <p>
-      A similar effect can be achieved by using <code>rabbit@localhost</code>
-      as the broker nodename.
-    </p>
-    <p>
-      The impact of this solution is that clustering will not work, because
-      the chosen hostname will not resolve to a routable address from remote
-      hosts. The <code>rabbitmqctl</code> command will similarly fail when
-      invoked from a remote host. A more sophisticated solution that does not
-      suffer from this weakness is to make use of a name resolution service
-      that provides stable hostnames, e.g.
-      <a href="http://aws.amazon.com/route53/">Amazon Route 53</a>
-    </p>
-  </doc:subsection>
 </doc:section>
 
 <xi:include href="install-guest-localhost.xml.inc"/>
+<xi:include href="clustering-hostname-issues.xml.inc"/>
+<xi:include href="clustering-firewalled-nodes.xml.inc"/>
+<xi:include href="clustering-erlang-version.xml.inc"/>
 
 <doc:section name="testing">
   <doc:heading>Testing RabbitMQ</doc:heading>

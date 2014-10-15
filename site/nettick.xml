@@ -22,7 +22,26 @@
         Network interruptions could otherwise go undetected for a period
         that depends on the transport.
       </p>
+
+      <p>
+        When one RabbitMQ node determines that another node has gone
+        down it will log a message giving the other node's name and
+        the reason, like:
+      </p>
+
+      <pre class="sourcecode">=INFO REPORT==== 23-Sep-2014::16:21:22 ===
+node rabbit@cordelia down: net_tick_timeout
+      </pre>
+
+      <p>
+        In this case the <code>net_tick_timeout</code> tells us that
+        the other node was detected as down due to the net ticktime
+        being exceeded. Another common reason is
+        <code>connection_closed</code>, meaning that the connection
+        was explicitly closed at the TCP level.
+      </p>
     </doc:section>
+
     <doc:section name="net-tick-frequency">
       <doc:heading>Tick Frequency</doc:heading>
       <p>
