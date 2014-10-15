@@ -1,0 +1,44 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Flow Control</title>
+  </head>
+  <body>
+    <p>
+      TODO explain in flow ctx
+      The intent here is to introduce a flow control mechanism
+      that throttles producers but lets consumers continue
+      unaffected. However, since AMQP permits producers and
+      consumers to operate on the same channel, and on different
+      channels of a single connection, this logic is necessarily
+      imperfect. In practice that does not pose any problems for
+      most applications since the throttling is observable merely
+      as a delay. Nevertheless, other design considerations
+      permitting, it is advisable to only use individual AMQP
+      connections for either producing or consuming.
+    </p>
+
+    <p>
+      RabbitMQ will reduce the speed of connections which are
+      publishing too quickly for queues to keep up. No configuration
+      is required.
+    </p>
+    <p>
+      A flow-controlled connection will show a <code>state</code> of
+      <code>flow</code> in <code>rabbitmqctl</code> and the
+      management plugin HTTP API. This means the connection is being
+      blocked and unblocked several times per second, in order to
+      keep the rate of message ingress at one that the rest of the
+      server can handle.
+    </p>
+    <p>
+      Other components than connections can be in the
+      <code>flow</code> state. <a
+      href="http://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">This
+      blog post</a> goes into more detail in how to use this
+      information to find bottlenecks in your server.
+    </p>
+  </body>
+</html>

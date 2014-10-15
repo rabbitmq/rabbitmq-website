@@ -78,7 +78,11 @@
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control"/>
        <x:page url="/authentication.html" text="SASL Authentication"/>
-       <x:page url="/memory.html" text="Flow Control"/>
+       <x:page url="/alarms.html" text="Alarms">
+         <x:page url="/memory.html" text="Memory Alarms"/>
+         <x:page url="/disk-alarms.html" text="Disk Alarms"/>
+         <x:page url="/flow-control.html" text="Flow Control"/>
+       </x:page>
        <x:page url="/memory-use.html" text="Memory Use"/>
        <x:page url="/firehose.html" text="Firehose / Tracing"/>
        <x:page url="/manpages.html" text="Manual Pages">

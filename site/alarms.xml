@@ -1,0 +1,52 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Memory and Disk Alarms</title>
+  </head>
+  <body>
+    <p>
+      There are two flow control mechanisms in RabbitMQ. Both work by
+      exerting TCP backpressure on connections that are publishing too
+      fast. They are:
+    </p>
+    <ul>
+      <li>
+        A global mechanism that prevents any messages from being
+        published when the <a href="memory-use.html">memory usage</a>
+        exceeds a configured threshold or free disk space drops
+        below a configured threshold.
+      </li>
+    </ul>
+
+    <p>
+      Both mechanisms will temporarily <em>block</em> connections -
+      the server will pause reading from the sockets of connected
+      clients which send content-bearing methods (such
+      as <code>basic.publish</code>) which have been
+      blocked. Connection heartbeat monitoring will be disabled too.
+    </p>
+
+    <p>
+      The intent here is to introduce a flow control mechanism
+      that throttles producers but lets consumers continue
+      unaffected. However, since AMQP permits producers and
+      consumers to operate on the same channel, and on different
+      channels of a single connection, this logic is necessarily
+      imperfect. In practice that does not pose any problems for
+      most applications since the throttling is observable merely
+      as a delay. Nevertheless, other design considerations
+      permitting, it is advisable to only use individual AMQP
+      connections for either producing or consuming.
+    </p>
+
+    <doc:section name="client-notifications">
+      <doc:heading>Client Notifications</doc:heading>
+      <p>
+        RabbitMQ provides an extension to AMQP 0-9-1 that allows
+        clients to be <a href="connection-blocked.html">notified when a connection is blocked</a>.
+      </p>
+    </doc:section>
+  </body>
+</html>
