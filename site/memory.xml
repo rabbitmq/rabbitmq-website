@@ -74,14 +74,14 @@ Memory limit set to 2048MB.</pre>
       </p>
 
       <p>
-        The threshhold can be changed while the broker is running
+        The threshold can be changed while the broker is running
         using the <code>rabbitmqctl set_vm_memory_high_watermark
         <em>fraction</em></code> command. This command will take effect
         until the broker shuts down. The corresponding configuration
         setting should also be changed when the effects should survive
         a broker restart. The memory limit may change on systems with
         hot-swappable RAM when this command is executed without altering
-        the threshhold, due to the fact that the total amount of system
+        the threshold, due to the fact that the total amount of system
         RAM is queried.
       </p>
 
