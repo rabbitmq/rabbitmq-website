@@ -63,16 +63,6 @@
       </p>
 
       <p>
-        A value of <code>0</code> makes the memory alarm go off
-        immediately and thus disables all publishing (this may be
-        useful if you wish to disable publishing globally;
-        use <code>rabbitmqctl set_vm_memory_high_watermark
-        0</code>). To prevent the memory alarm from going off at all,
-        set some high multiplier such as
-        <code>100</code>.
-      </p>
-
-      <p>
         The memory limit is appended to the
         <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
         starts:
@@ -93,6 +83,15 @@ Memory limit set to 2048MB.</pre>
         hot-swappable RAM when this command is executed without altering
         the threshhold, due to the fact that the total amount of system
         RAM is queried.
+      </p>
+
+      <h3>Disabling all publishing</h3>
+      <p>
+        A value of <code>0</code> makes the memory alarm go off
+        immediately and thus disables all publishing (this may be
+        useful if you wish to disable publishing globally);
+        use <code>rabbitmqctl set_vm_memory_high_watermark
+        0</code>.
       </p>
     </doc:section>
 

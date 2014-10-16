@@ -20,17 +20,18 @@
       possible to run out of disk space and crash in the time
       between two runs of the disk space monitor. A more
       conservative approach would therefore be to set the limit to
-      the same as the amount of memory installed on the system (see
-      below).
+      the same as the amount of memory installed on the system
+      (see the configuration <a href="#diskfreesup-usage">below</a>).
     </p>
 
     <p>
       Global flow control will be triggered if the amount of free disk
-      space drops below a configured limit. The free space of the drive or
-      partition that the broker database uses will be monitored every
-      minute to determine whether the alarm should be raised or cleared.
-      Monitoring will start as soon as the broker starts up, causing an entry
-      in the broker logfile:
+      space drops below a configured limit. The free space of the
+      drive or partition that the broker database uses will be
+      monitored at least every 10 seconds to determine whether the
+      alarm should be raised or cleared.  Monitoring will start as
+      soon as the broker starts up, causing an entry in the broker
+      logfile:
       <pre class="sourcecode">
 =INFO REPORT==== 23-Jun-2012::14:52:41 ===
 Disk free limit set to 953MB</pre>

@@ -24,8 +24,7 @@
     <p>
       In both circumstances the server will temporarily <em>block</em>
       connections - the server will pause reading from the sockets of
-      connected clients which send content-bearing methods (such as
-      <code>basic.publish</code>) which have been blocked. Connection
+      connected clients which publish messages. Connection
       heartbeat monitoring will be disabled too. All network
       connections will show in <code>rabbitmqctl</code> and the
       management plugin as either <code>blocking</code>, meaning they
