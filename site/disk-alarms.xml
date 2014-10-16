@@ -8,7 +8,7 @@
   <body>
 
     <p>
-      RabbitMQ can also block producers when free disk space drops
+      RabbitMQ will block producers when free disk space drops
       below a certain limit. This is a good idea since even
       transient messages can be paged to disk at any time, and
       running out of disk space can cause the server to crash. By

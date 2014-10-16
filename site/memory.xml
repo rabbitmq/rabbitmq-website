@@ -24,12 +24,6 @@
     </p>
 
     <p>
-      When running RabbitMQ in a cluster, the memory alarm is
-      cluster-wide; if one node goes over the limit then all nodes
-      will block connections.
-    </p>
-
-    <p>
       The default memory threshold is set to 40% of installed
       RAM. Note that this does not prevent the RabbitMQ server
       from using more than 40%, it is merely the point at which
