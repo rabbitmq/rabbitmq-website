@@ -58,7 +58,7 @@
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
-        Binary, compiled for .NET 3.0 (Windows installer) - includes
+        Binary, compiled for .NET 3.5 (Windows installer) - includes
         documentation and example code
       </r:download>
     </r:downloads>
@@ -73,7 +73,7 @@
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.0.zip"
 		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET 3.0 and newer (zip) - includes
+	Binary, compiled for .NET 3.5 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
       </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
