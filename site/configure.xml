@@ -178,6 +178,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_USE_LONGNAME</td>
+              <td></td>
+              <td>
+                When set to <code>true</code> this will cause RabbitMQ
+                to use fully qualified names to identify nodes. This
+                may prove useful on EC2. Note that it is not possible
+                to switch between using short and long names without
+                resetting the node.
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_SERVICENAME</td>
               <td><b>Windows Service:</b>
                 RabbitMQ</td>
