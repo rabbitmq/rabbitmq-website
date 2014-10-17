@@ -220,7 +220,9 @@
           to federate them using the implicitly created upstream set
           "all", which includes our newly-created upstream.  Any other
           matching policy with a priority greater than 0 will take
-          precedence over this policy.
+          precedence over this policy. Keep in mind that <code>federate-me</code>
+          is just a name we used for this example, you can use any
+          string you want there.
         </p>
 
         <p>
