@@ -1,0 +1,86 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Memory and Disk Alarms</title>
+  </head>
+  <body>
+    <p>
+      There are two circumstances under which RabbitMQ will stop
+      reading from client network sockets, in order to prevent
+      crashes. They are:
+    </p>
+    <ul>
+      <li>
+        When <a href="memory-use.html">memory use</a> goes above the
+        configured limit.
+      </li>
+      <li>
+        When disk space drops below the configured limit.
+      </li>
+    </ul>
+
+    <p>
+      In both circumstances the server will temporarily <em>block</em>
+      connections - the server will pause reading from the sockets of
+      connected clients which publish messages. Connection
+      heartbeat monitoring will be disabled too. All network
+      connections will show in <code>rabbitmqctl</code> and the
+      management plugin as either <code>blocking</code>, meaning they
+      have not attempted to publish and can thus continue or
+      <code>blocked</code>, meaning they have published and are now
+      paused.
+    </p>
+
+    <p>
+      When running RabbitMQ in a cluster, the memory and disk alarms
+      are cluster-wide; if one node goes over the limit then all nodes
+      will block connections.
+    </p>
+
+    <p>
+      The intent here is to stop producers but let consumers continue
+      unaffected. However, since AMQP permits producers and consumers
+      to operate on the same channel, and on different channels of a
+      single connection, this logic is necessarily imperfect. In
+      practice that does not pose any problems for most applications
+      since the throttling is observable merely as a
+      delay. Nevertheless, other design considerations permitting, it
+      is advisable to only use individual AMQP connections for either
+      producing or consuming.
+    </p>
+
+    <div class="landing-box">
+      <h2>Read more</h2>
+      <ul>
+        <li>
+          <a href="memory.html">How the memory limit works</a>
+        </li>
+        <li>
+          <a href="disk-alarms.html">How the disk limit works</a>
+        </li>
+
+        <li>
+          <a href="connection-blocked.html">How clients can determine if they are blocked</a>
+        </li>
+      </ul>
+    </div>
+
+    <doc:section name="related">
+      <doc:heading>Related concepts</doc:heading>
+      <ul>
+        <li>
+          When the server is close to using all the file descriptors
+          that the OS has made available to it, it will refuse client
+          connections altogether.
+        </li>
+        <li>
+          When clients attempt to publish faster than the server can
+          accept their messages, they go into <a
+          href="flow-control.html">flow control</a>.
+        </li>
+      </ul>
+    </doc:section>
+  </body>
+</html>
