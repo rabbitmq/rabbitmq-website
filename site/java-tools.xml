@@ -69,6 +69,18 @@
       </dl>
     </doc:section>
 
+    <doc:section name="html-performance-tools">
+      <doc:heading>HTML Performance Tools</doc:heading>
+      <p>
+        The <code>HTML Performance Tools</code> are a set of tools
+        that can help you run automated benchmarks by wrapping around the
+        <code>PerfTest</code> benchmarking framework. You can provide
+        benchmark specs, and the tool will take care of running the benchmark,
+        collecting results and displaying them in an HTML page. Learn more
+        <a href="https://github.com/rabbitmq/rabbitmq-perf-html">here</a>
+      </p>
+    </doc:section>
+
     <doc:section name="tracer">
       <doc:heading>Tracer</doc:heading>
       <p>

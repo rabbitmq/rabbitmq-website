@@ -178,6 +178,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_USE_LONGNAME</td>
+              <td></td>
+              <td>
+                When set to <code>true</code> this will cause RabbitMQ
+                to use fully qualified names to identify nodes. This
+                may prove useful on EC2. Note that it is not possible
+                to switch between using short and long names without
+                resetting the node.
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_SERVICENAME</td>
               <td><b>Windows Service:</b>
                 RabbitMQ</td>
@@ -772,6 +784,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               the <a href="partitions.html#automatic-handling">documentation
               on partitions</a> for more information.
               <p>Default: <code>ignore</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>cluster_keepalive_interval</code></td>
+            <td>
+              How frequently nodes should send keepalive messages to
+              other nodes (in milliseconds). Note that this is not the
+              same thing as <a
+              href="nettick.html"><code>net_ticktime</code></a>;
+              missed keepalive messages will not cause nodes to be
+              considered down.
+              <p>Default: <code>10000</code></p>
             </td>
           </tr>
           <tr>
