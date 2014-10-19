@@ -245,7 +245,7 @@ Connection conn = factory.newConnection(addrArr);
         href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
         direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
         it's necessary to configure a custom <code>ThreadFactory</code> that uses
-        GAE's <code>ThreadManager</code> to create threads.
+        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
 
         Below is an example for Google App Engine.
       </p>
