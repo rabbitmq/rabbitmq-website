@@ -770,6 +770,8 @@ namespace RabbitMQ.Client.Examples {
           vulnerabilities. To do so, use the <code>versions</code> option in the <code>ssl</code>
           app as well as <code>ssl_options</code> in <code>rabbit</code>.
         </p>
+        <p>The following example demonstrates how to only enable TLS 1.0 through 1.2
+        (which is done by default as of RabbitMQ 3.4.0 to mitigate the <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE attack</a>).</p>
 <pre class="sourcecode">
 [
   {ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]},
