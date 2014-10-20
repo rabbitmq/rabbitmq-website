@@ -762,6 +762,30 @@ namespace RabbitMQ.Client.Examples {
 
       </doc:section>
 
+      <doc:section name="tls_versions">
+        <doc:heading>Enabling and Disabling TLS Versions</doc:heading>
+        <p>
+          It is possible to provide a list of TLS/SSL versions enabled explicitly.
+          This can be useful, for example, to disable older versions that have known
+          vulnerabilities. To do so, use the <code>versions</code> option in the <code>ssl</code>
+          app as well as <code>ssl_options</code> in <code>rabbit</code>.
+        </p>
+<pre class="sourcecode">
+[
+  {ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]},
+  {rabbit, [
+     {ssl_listeners, [5671]},
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {verify,verify_peer},
+                    {fail_if_no_peer_cert,false},
+                    {versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}
+   ]}
+].
+</pre>
+      </doc:section>
+
       <doc:section name="configure-erlang">
         <doc:heading>Configuring the Erlang client</doc:heading>
           <p>Enabling SSL in the RabbitMQ Erlang client is rather
@@ -782,7 +806,7 @@ namespace RabbitMQ.Client.Examples {
             <p>As with RabbitMQ itself,
             the <code>verify</code>
             and <code>fail_if_no_peer_cert</code> options are
-            used in Erlang R13 and onwards to specify what action to
+            used to specify what action to
             take if the server doesn't present a certificate or if
             we're unable to establish a chain of trust to the server's
             certificate.</p>
