@@ -190,6 +190,11 @@
             The duration (in seconds) to wait before reconnecting to the
             brokers after being disconnected at either end. Default is 1.
         </dd>
+        <dt><code>publish-properties</code></dt>
+        <dd>
+           Properties to overwrite when shovelling messages. Setting
+           headers this way is not currently supported. Default is {}.
+        </dd>
         <dt><code>add-forward-headers</code></dt>
         <dd>
           Whether to add <code>x-shovelled</code> headers to the

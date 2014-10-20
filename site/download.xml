@@ -87,9 +87,7 @@
       <ul>
         <li>
           Quick download:
-          <!-- TODO are these the most interesting? -->
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-3.0.zip">Binary (.NET 3.0+)</a> |
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-2.0.zip">Binary (.NET 2.0)</a> |
+          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-3.5.zip">Binary (.NET 3.5+)</a> |
           <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;.zip">Source</a>
         </li>
         <li>

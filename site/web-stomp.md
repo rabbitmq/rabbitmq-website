@@ -27,8 +27,6 @@ To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_web_stomp
 
-To apply the changes you need to restart the RabbitMQ broker.
-
 ## <a id="usage"/>Usage
 
 In order to use STOMP in a web-browser context, a JavaScript STOMP
