@@ -27,8 +27,12 @@
         <p>You can see a list of which plugins are enabled with:</p>
         <pre class="example">rabbitmq-plugins list</pre>
         <p>
-          Enabling or disabling plugins has no effect on a running RabbitMQ
-          server. You will need to (re)start RabbitMQ for the enabled plugins to be activated.
+          The <code>rabbitmq-plugins</code> comand will enable or
+          disable plugins by updating the plugin configuration
+          file. It will then contact the running server to tell it to
+          start or stop plugins as needed. You can use the
+          <code>-n</code> option to specify a different node, or use
+          <code>--offline</code> to only change the file.
         </p>
         <p>
           For more information on <code>rabbitmq-plugins</code>,

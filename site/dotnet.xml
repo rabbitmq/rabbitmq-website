@@ -58,7 +58,7 @@
     <r:downloads signature="no">
       <r:download downloadfile="&nameVersion-dotnet-client;.msi"
           downloadpath="&dir-dotnet-client;">
-        Binary, compiled for .NET 3.0 (Windows installer) - includes
+        Binary, compiled for .NET 3.5 (Windows installer) - includes
         documentation and example code
       </r:download>
     </r:downloads>
@@ -71,9 +71,9 @@
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.0.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.5.zip"
 		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET 3.0 and newer (zip) - includes
+	Binary, compiled for .NET 3.5 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
       </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
@@ -103,7 +103,7 @@
     </r:downloads>
 
     <p>
-      The .NET AMQP client library API Guide, generated from the source code using <a
+      The .NET RabbitMQ client library API Guide, generated from the source code using <a
       href="http://www.lshift.net/~tonyg/ndocproc/doc/index.html">NDocProc</a>,
       is also available:
     </p>
@@ -122,7 +122,7 @@
     </r:downloads>
 
     <h2>Mercurial repository</h2>
-    <p>The .NET/C# AMQP client library, WCF binding, and example programs. Please
+    <p>The .NET/C# RabbitMQ client library, WCF binding, and example programs. Please
       see the <a href="build-dotnet-client.html">build page</a> for
       instructions on compiling from source-code.</p>
 
