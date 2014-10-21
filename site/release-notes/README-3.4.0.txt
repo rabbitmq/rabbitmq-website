@@ -7,6 +7,10 @@ management plugin
 -----------------
 26414 do not trust X-Forwarded-For header when enforcing 'loopback_users'
 
+various
+-------
+26419 disable SSLv3 by default to prevent the POODLE attack
+
 
 Release Highlights
 ==================
@@ -87,6 +91,7 @@ enhancements
       in the memory summary
 26192 improve usability of "rabbitmqctl remove_cluster_node --offline" by
       not requiring the user to start a node with RABBITMQ_NODE_ONLY
+18626 add RABBITMQ_USE_LONGNAME (with thanks to Marcos Diez)
 26204 allow message TTL and queue expiry times above (2^32)-1 milliseconds
 26211 fix use of type specifications deprecated in Erlang 17
 26366 improve error messages when queue / exchange equivalence checks fail
@@ -108,6 +113,7 @@ enhancements
       (since 3.3.0)
 26154 switch standalone OS X build to use Erlang 17.1
 26040 add missing BuildRequires to RPM spec (since 1.8.0)
+26411 fix warning on Debian build clean due to deleted files
 
 
 management plugin
@@ -218,6 +224,7 @@ licencing change
 .net client
 -----------
 enhancements
+26130 automatic connection recovery similar to that of the Java client
 26208 add APIs to make methods easier to use in nowait mode
 26324 introduce an interface for ConnectionFactory
 26334 set up stream timeouts as early as possible (thanks to John Oliver)
@@ -237,6 +244,8 @@ enhancements
 26166 allow default ssl options to be provided in the configuration file
 
 bug fixes
+26418 ensure writer death is detected in direct connections (since 3.2.0)
+      (with thanks to Christopher Faulet)
 26346 ensure amqp_rpc_client uses exclusive, autodelete response
       queues (since 1.3.0)
 
