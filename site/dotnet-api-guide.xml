@@ -1,0 +1,164 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+    <head>
+        <title>.NET/C# Client API Guide</title>
+    </head>
+    <body show-in-this-page="true">
+        <p class="intro">
+            This page gives an overview of the RabbitMQ .NET/C# client API.
+        </p>
+        <p class="intro">
+            The code samples given here demonstrate connecting to RabbitMQ and
+            performing several common operations with the client.
+        </p>
+
+        <p class="intro">
+            The library is open-source, and is dual-licensed under <a
+            href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+            License v2</a> and <a href="mpl.html">the Mozilla Public License
+            v1.1</a>.
+        </p>
+
+        <p class="intro">
+            The client is dual-licensed under
+
+            <ul>
+                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+            </ul>
+        </p>
+
+        <p>
+          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+          with additional abstractions for ease of use.
+        </p>
+
+        <p>
+          This section gives an overview of the RabbitMQ .NET client API.
+
+          Only the basics of using the library are covered: for full detail,
+          please see the javadoc-like API documentation generated from the
+          source code.
+        </p>
+
+        <doc:section name="classoverview">
+          <doc:heading>Major namespaces, interfaces and classes</doc:heading>
+          <p>
+            The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+
+<pre class="sourcecode">
+    using RabbitMQ.Client;
+</pre>
+
+            The core API interfaces and classes are
+
+            <ul>
+              <li><code>IModel</code>: represents an AMQP 0-9-1 data channel, and provides most
+              of the operations (protocol methods).</li>
+
+              <li><code>IConnection</code>: represents an AMQP connection</li>
+
+              <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
+            </ul>
+
+            Other useful interfaces and classes include:
+
+            <ul>
+              <li><code>QueueingBasicConsumer</code> receives messages delivered from the server</li>
+            </ul>
+
+            Public namespaces other than <code>RabbitMQ.Client</code> include:
+
+            <ul>
+              <li>
+                <code>RabbitMQ.Client.Events</code>: various events and event handlers
+                nthat are part of the client library.
+              </li>
+              <li>
+                <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user
+                of the AMQP client library.
+              </li>
+            </ul>
+          </p>
+
+          <p>
+            All other namespaces are reserved for private implementation detail of
+            the library, although members of private namespaces are usually made
+            available to applications using the library in order to permit
+            developers to implement workarounds for faults or design mistakes they
+            discover in the library implementation. Applications cannot rely on
+            any classes, interfaces, member variables etc. that appear within
+            private namespaces remaining stable across releases of the library.
+          </p>
+        </doc:section>
+
+
+        <doc:section name="Connecting to a Broker">
+          <p>
+            The following two code snippets connect to an AMQP broker:
+
+<pre>
+ConnectionFactory factory = new ConnectionFactory();
+factory.UserName = user;
+factory.Password = pass;
+factory.VirtualHost = vhost;
+factory.HostName = hostName;
+factory.Port = AmqpTcpEndpoint.UseDefaultPort;
+
+IConnection conn = factory.CreateConnection();
+</pre>
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+factory.Uri = "amqp://user:pass@hostName:port/vhost";
+
+IConnection conn = factory.CreateConnection();
+</pre>
+          </p>
+
+          <p>
+            Since the .NET client uses a stricter interpretation of the AMQP 0-9-1 URI
+            spec than the other clients, care must be taken when using URIs.  In
+            particular, the host part must not be omitted and virtual hosts with
+            empty names are not addressable.
+
+            All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
+
+            <dl>
+              <dt>Username</dt>
+              <dd><code>"guest"</code></dd>
+
+              <dt>Password</dt>
+              <dd><code>"guest"</code></dd>
+
+              <dt>Virtual host</dt>
+              <dd><code>"/"</code></dd>
+
+              <dt>Hostname</dt>
+              <dd><code>"localhost"</code></dd>
+
+              <dt>port</dt>
+              <dd>
+                <code>5672</code> for regular connections,
+                <code>5671</code> for connections that use TLS
+              </dd>
+            </dl>
+          </p>
+
+          <p>
+            The <code>IConnection</code> interface can then be used to open a channel:
+
+<pre class="sourcecode">
+IModel channel = conn.CreateModel();
+</pre>
+
+            The channel can now be used to send and receive messages,
+            as described in subsequent sections.
+          </p>
+        </doc:section>
+    </body>
+</html>
