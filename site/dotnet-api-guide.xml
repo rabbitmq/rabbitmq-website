@@ -445,6 +445,7 @@ lock (ch) {
                     one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run
                     simultaneously).
                   </li>
+                </ul>
               </p>
             </doc:subsection>
             </p>
@@ -553,6 +554,49 @@ ConnectionFactory factory = new ConnectionFactory();
 // attempt recovery every 10 seconds
 factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
 </pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="topology-recovery">
+            <doc:heading>Topology Recovery</doc:heading>
+
+            <p>
+              Topology recovery involves recovery of exchanges, queues, bindings
+              and consumers. It is enabled by default but can be disabled:
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+
+Connection conn = factory.CreateConnection();
+factory.AutomaticRecoveryEnabled = true;
+factory.TopologyRecoveryEnabled  = false;
+</pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="basic-ack-and-recovery">
+            <doc:heading>Manual Acknowledgements and Automatic Recovery</doc:heading>
+
+            <p>
+              When manual acknowledgements are used, it is possible that
+              network connection to RabbitMQ node fails between message
+              delivery and acknowledgement. After connection recovery,
+              RabbitMQ will reset delivery tags on all channels.
+
+              This means that <code>basic.ack</code>, <code>basic.nack</code>, and <code>basic.reject</code>
+              with old delivery tags will cause a channel exception. To avoid this,
+              RabbitMQ .NET client keeps track of and updates delivery tags to make them monotonically
+              growing between recoveries.
+
+              <code>IModel.BasicAck</code>,
+              <code>IModel.BasicNack</code>, and
+              <code>IModel.BasicReject</code> then translate adjusted
+              delivery tags into those used by RabbitMQ.
+
+              Acknowledgements with stale delivery tags will not be
+              sent. Applications that use manual acknowledgements and automatic
+              recovery must be capable of handling redeliveries.
+
             </p>
           </doc:subsection>
         </doc:section>
