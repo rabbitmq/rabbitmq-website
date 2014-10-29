@@ -5,9 +5,9 @@ Security Fixes
 
 management plugin
 -----------------
-26433 fix response-splitting vulnerability in /api/downloads (since 2.1.0)
 26437 prevent /api/* from returning text/html error messages which could
       act as an XSS vector (since 2.1.0)
+26433 fix response-splitting vulnerability in /api/downloads (since 2.1.0)
 (thanks to Atholl Stewart for finding the above)
 
 
