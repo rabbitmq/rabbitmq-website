@@ -320,7 +320,15 @@
     </xsl:variable>
     <xsl:variable name="release" select="$plugins/plugins/@version" />
     <xsl:variable name="version" select="$plugins/plugins/plugin[@name = $plugin]/@latest" />
-    Download: <a href="/community-plugins/{$release}/{$plugin}-{$version}.ez"><xsl:value-of select="$plugin"/>-<xsl:value-of select="$version"/>.ez</a>
+    Download:
+    <xsl:choose>
+      <xsl:when test="$version">
+        <a href="/community-plugins/{$release}/{$plugin}-{$version}.ez"><xsl:value-of select="$plugin"/>-<xsl:value-of select="$version"/>.ez</a>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$plugin"/> has not yet been built for <xsl:value-of select="$release"/>.
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="r:readme-link">

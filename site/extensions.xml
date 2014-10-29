@@ -45,6 +45,11 @@
           <a href="consumer-priority.html">Consumer Priorities</a> allow you
           to send messages to higher priority consumers first.
         </li>
+        <li>
+          <a href="direct-reply-to.html">Fast reply-to</a> allows RPC
+          clients to receive replies to their queries without needing
+          to declare a temporary queue.
+        </li>
       </ul>
     </div>
 

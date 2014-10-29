@@ -1,0 +1,37 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Flow Control</title>
+  </head>
+  <body>
+    <p>
+      RabbitMQ will reduce the speed of connections which are
+      publishing too quickly for queues to keep up. No configuration
+      is required.
+    </p>
+    <p>
+      A flow-controlled connection will show a state of
+      <code>flow</code> in <code>rabbitmqctl</code> and the management
+      plugin HTTP API. This means the connection is being blocked and
+      unblocked several times per second, in order to keep the rate of
+      message ingress at one that the rest of the server can handle.
+    </p>
+    <p>
+      In general, a connection which is in flow control should not see
+      any difference from normal running; the <code>flow</code> state
+      is there to inform the sysadmin that the publishing rate is
+      restricted, but from the client's perspective it should just
+      look like the network bandwidth to the server is lower than it
+      actually is.
+    </p>
+    <p>
+      Other components than connections can be in the
+      <code>flow</code> state. <a
+      href="http://www.rabbitmq.com/blog/2014/04/14/finding-bottlenecks-with-rabbitmq-3-3/">This
+      blog post</a> goes into more detail in how to use this
+      information to find bottlenecks in your server.
+    </p>
+  </body>
+</html>

@@ -225,6 +225,13 @@
       overridden to match the actual deployment scenario.
     </p>
     <p>
+      SSL options can also be specified globally using the
+      <code>ssl_options</code> environment key for the
+      <code>amqp_client</code> application. They will be merged with
+      the SSL parameters from the URI (the latter will take
+      precedence).
+    </p>
+    <p>
       If a client wishes to run inside the same Erlang cluster as the
       RabbitMQ broker, it can start a direct connection that optimises
       away the AMQP codec. To start a direct connection, use
@@ -739,7 +746,7 @@
 <!-- ..................................................................... -->
 
 <doc:section name="flow">
-  <doc:heading>Egress Flow Control</doc:heading>
+  <doc:heading>Delivery Flow Control</doc:heading>
   <p>
     By default, there is no flow control within a channel other than
     normal TCP back-pressure. A consumer can set the size of the
@@ -751,55 +758,30 @@
       amqp_channel:call(Channel, #'basic.qos'{prefetch_count = Prefetch})
     </pre>
 
-    Applications typically set the prefetch count to 1, which means
-    the processing speed of the consumer exerts complete back-pressure
+    Applications typically should set the prefetch count, which means
+    the processing speed of the consumer will exert back-pressure
     on the flow of messages in that channel.
-
   </p>
 </doc:section>
 
 <!-- ..................................................................... -->
 
-<doc:section name="flow">
-  <doc:heading>Ingress Flow Control</doc:heading>
-
+<doc:section name="blocked">
+  <doc:heading>Blocked Connections</doc:heading>
   <p>
     When an AMQP broker is running low on resources, for example by
-    hitting a memory high watermark, it may choose to throttle
-    producers by sending a #'channel.flow'{} command to connected
-    clients. This is a reverse RPC method, i.e. the server sends a
-    command to the client and expects a response. The client library
-    handles this on behalf of the application and make sure that no
-    further messages be sent until the server signals that messaging
-    can resume. In order for the application to be aware that
-    throttling has taken place, it is necessary for the application to
-    register a callback process:
-
-    <pre class="sourcecode">
-      amqp_channel:register_flow_handler(Channel, FlowHandler)
-    </pre>
-
-    The flow handling process will receive the following message in
-    its mailbox when the server throttles ingress:
-
-    <pre class="sourcecode">
-      receive
-          #'channel.flow'{active = false} -> %% Throttle the application
-      end
-    </pre>
-
-    When the broker decides that messaging can resume, the flow
-    handler will receive this message:
-
-    <pre class="sourcecode">
-      receive
-          #'channel.flow'{active = true} -> %% Resume message sending
-      end
-    </pre>
-
-   </p>
+    hitting a memory high watermark, it may <a
+    href="alarms.html">choose to stop reading from publishers' network
+    sockets</a>.
+  </p>
+  <p>
+    RabbitMQ introduces <a href="connection-blocked.html">a mechanism
+    to allow clients to be told this has taken place</a> - invoke
+    <code>amqp_connection:register_blocked_handler/2</code> giving the
+    pid of a process to which <code>#'connection.blocked'{}</code> and
+    <code>#'connection.unblocked'{}</code> messages may be sent.
+  </p>
 </doc:section>
-
 
 <!-- ..................................................................... -->
 

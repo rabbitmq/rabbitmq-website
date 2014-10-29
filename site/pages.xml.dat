@@ -79,7 +79,11 @@
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control"/>
        <x:page url="/authentication.html" text="SASL Authentication"/>
-       <x:page url="/memory.html" text="Flow Control"/>
+       <x:page url="/alarms.html" text="Alarms">
+         <x:page url="/memory.html" text="Memory Alarms"/>
+         <x:page url="/disk-alarms.html" text="Disk Alarms"/>
+         <x:page url="/flow-control.html" text="Flow Control"/>
+       </x:page>
        <x:page url="/memory-use.html" text="Memory Use"/>
        <x:page url="/firehose.html" text="Firehose / Tracing"/>
        <x:page url="/manpages.html" text="Manual Pages">
@@ -155,6 +159,7 @@
        <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
        <x:page url="/consumer-prefetch.html" text="Consumer Prefetch"/>
        <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
+       <x:page url="/direct-reply-to.html" text="Direct reply-to"/>
        <x:page url="/connection-blocked.html" text="Blocked Connections"/>
        <x:page url="/nack.html" text="basic.nack"/>
        <x:page url="/e2e.html" text="e2e bindings"/>

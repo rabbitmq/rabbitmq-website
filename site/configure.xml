@@ -136,6 +136,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </td>
               <td>
                 Change this if you only want to bind to one network interface.
+                To bind to two or more interfaces, use the <code>tcp_listeners</code>
+                key in <code>rabbitmq.config</code>.
               </td>
             </tr>
 
@@ -174,6 +176,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 erlang-node-and-machine combination. To run multiple nodes,
                 see the
                 <a href="clustering.html">clustering guide</a>.
+              </td>
+            </tr>
+
+            <tr>
+              <td>RABBITMQ_USE_LONGNAME</td>
+              <td></td>
+              <td>
+                When set to <code>true</code> this will cause RabbitMQ
+                to use fully qualified names to identify nodes. This
+                may prove useful on EC2. Note that it is not possible
+                to switch between using short and long names without
+                resetting the node.
               </td>
             </tr>
 
@@ -228,7 +242,23 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <td>
                 Standard parameters for the <code>erl</code> command used when
                 invoking the RabbitMQ Server. This should be overridden for
-                debugging purposes only.
+                debugging purposes only. Overriding this variable
+                <em>replaces</em> the default value.
+              </td>
+            </tr>
+
+            <tr>
+              <td>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</td>
+              <td>
+                <ul>
+                  <li><b>Unix*:</b> None</li>
+                  <li><b>Windows:</b> None</li>
+                </ul>
+              </td>
+              <td>
+                Additional parameters for the <code>erl</code> command used when
+                invoking the RabbitMQ Server. The value of this variable
+                is <em>appended</em> the default list of arguments (<b>RABBITMQ_SERVER_ERL_ARGS</b>).
               </td>
             </tr>
 
@@ -397,9 +427,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               List of ports on which to listen for AMQP connections
               (without SSL). Can contain integers (meaning "listen on
               all interfaces") or tuples such as <code>{"127.0.0.1",
-              5672}</code> to listen on a single interface.
+              5672}</code> to listen on one or more interfaces.
 
               <p>Default: <code>[5672]</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>handshake_timeout</code></td>
+            <td>
+              Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket connection
+              and SSL handshake), in milliseconds.
+              <p>Default: <code>10000</code></p>
             </td>
           </tr>
           <tr>
@@ -415,6 +453,13 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               SSL configuration. See the <a href="ssl.html#enabling-ssl">SSL
               documentation</a>.
               <p>Default: <code>[]</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>ssl_handshake_timeout</code></td>
+            <td>
+              SSL handshake timeout, in milliseconds.
+              <p>Default: <code>5000</code></p>
             </td>
           </tr>
           <tr>
@@ -744,6 +789,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>cluster_keepalive_interval</code></td>
+            <td>
+              How frequently nodes should send keepalive messages to
+              other nodes (in milliseconds). Note that this is not the
+              same thing as <a
+              href="nettick.html"><code>net_ticktime</code></a>;
+              missed keepalive messages will not cause nodes to be
+              considered down.
+              <p>Default: <code>10000</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You probably
@@ -765,6 +822,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Tunable value for the persister. You almost certainly
               should not change this.
               <p>Default: <code>16777216</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>mnesia_table_loading_timeout</code></td>
+            <td>
+              Timeout used when waiting for Mnesia tables in a cluster to
+              become available.
+              <p>Default: <code>30000</code></p>
             </td>
           </tr>
           <tr>

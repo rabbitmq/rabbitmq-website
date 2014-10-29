@@ -125,12 +125,11 @@ $ cd rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-shovel
 $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
-          The plugin will be activated when the server is restarted.
+          The plugin will be activated immediately.
         </p>
         <p>
           Conversely, to deactivate a plugin, simply remove the symlink,
-          run <code>rabbitmq-plugins disable plugin-name</code>, and
-          restart the broker instance.
+          and <code>rabbitmq-plugins disable plugin-name</code>.
         </p>
       </doc:section>
 
@@ -238,7 +237,7 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
 $ cd ../rabbitmq-server/plugins
 $ ln -s ../../rabbitmq-erlang-client
 $ ln -s ../../rabbitmq-metronome
-$ ../scripts/rabbitmq-plugins enable rabbitmq_metronome
+$ ../scripts/rabbitmq-plugins --offline enable rabbitmq_metronome
 $ cd ..</pre>
           </li>
           <li>

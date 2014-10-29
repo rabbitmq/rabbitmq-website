@@ -245,7 +245,7 @@ Connection conn = factory.newConnection(addrArr);
         href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
         direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
         it's necessary to configure a custom <code>ThreadFactory</code> that uses
-        GAE's <code>ThreadManager</code> to create threads.
+        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
 
         Below is an example for Google App Engine.
       </p>
@@ -885,6 +885,31 @@ factory.setTopologyRecoveryEnabled(false);
       </doc:subsection>
     </doc:section>
 
+    <doc:section name="unhandled-exceptions">
+      <doc:heading>Unhandled Exceptions</doc:heading>
+      <p>
+        Unhandled exceptions related to connection, channel, recovery,
+        and consumer lifecycle are delegated to the exception
+        handler. Exception handler is any object that implements the
+        <code>ExceptionHandler</code> interface.  By default, an
+        instance of <code>DefaultExceptionHandler</code> is used. It
+        prints exception details to the standard output.
+      </p>
+
+      <p>
+        It is possible to override the handler using
+        <code>ConnectionFactory#setExceptionHandler</code>. It will be
+        used for all connections created by the factory:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setExceptionHandler(customHandler);
+        </pre>
+
+        Exception handlers should be used for exception logging.
+      </p>
+    </doc:section>
+
     <doc:section name="gae-pitfalls">
       <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
       <p>
@@ -897,6 +922,32 @@ factory.setTopologyRecoveryEnabled(false);
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 cf.setRequestedHeartbeat(5);
         </pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="cache-pitfalls">
+      <doc:heading>Caveats and Limitations</doc:heading>
+      <p>
+        To make topology recovery possible, RabbitMQ Java client maintains a cache
+        of declared queues, exchanges, and bindings. The cache is per-connection. Certain
+        RabbitMQ features make it impossible for clients to observe some topology changes,
+        e.g. when a queue is deleted due to TTL. RabbitMQ Java client tries to invalidate
+        cache entries in the most common cases:
+
+        <ul>
+          <li>When queue is deleted.</li>
+          <li>When exchange is deleted.</li>
+          <li>When binding is deleted.</li>
+          <li>When consumer is cancelled on an auto-deleted queue.</li>
+          <li>When queue or exchange is is unbound from an auto-deleted exchange.</li>
+        </ul>
+
+        However, the client cannot track these topology changes beyond a single connection.
+        Applications that rely on auto-delete queues or exchanges, as well as queue TTL (note: not message TTL!),
+        and use automatic connection recovery, should explicitly delete entities know to be unused
+        or deleted, to purge client-side topology cache. This is facilitated by <code>Channel#queueDelete</code>,
+        <code>Channel#exchangeDelete</code>, <code>Channel#queueUnbind</code>, and <code>Channel#exchangeUnbind</code>
+        being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
       </p>
     </doc:section>
   </body>

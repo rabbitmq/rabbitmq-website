@@ -376,6 +376,30 @@ Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
 reply queues.
 
+## Using Policies with STOMP
+
+RabbitMQ [policies](https://www.rabbitmq.com/parameters.html#policies) allow for flexible,
+centralised attribute configuration of queues and exchanges. Policies can
+be used with queues used by the STOMP plugin.
+
+Policies make it possible to use more RabbitMQ features with STOMP:
+
+ * [Mirrored queues](/ha.html)
+ * [Dead lettering](/dlx.html)
+ * [Queue leases and per-queue message TTL](/ttl.html)
+ * [Queue length limits](/maxlength.html)
+
+All server-named queues created by the STOMP plugin are prefixed with `stomp-`
+which makes it easy to match the queues in a policy. For example, to limit
+STOMP queue length to 1000 messages, create the following policy:
+
+<pre>rabbitmqctl set_policy stomp-queues "^stomp-" '{"max-length":1000}' --apply-to queues</pre>
+
+Note that only one policy is applied to a queue at a time, so to specify
+multiple arguments (e.g. queue length limit and dead lettering) one
+needs to put them into a single policy.
+
+
 ## <a id="pear"/>Protocol Extensions and Restrictions
 
 The RabbitMQ STOMP adapter relaxes the protocol on `CONNECT`
@@ -416,6 +440,18 @@ on persistent messages can be found [here](confirms.html).
 
 `MESSAGE` frames for persistent messages will contain a `persistent:true`
 header.
+
+### <a id="ack-nack">ACK and NACK</a>
+
+RabbitMQ STOMP plugin supports `auto`, `client`, and `client-individual`
+subscription headers that affect how `ACK` on `NACK` operations work.
+
+The `auto` mode uses automatic acknowledgements. The `client` mode is manual
+(client-driven) acknowledgements of multiple messages at once. The `client-individual`
+is for message-by-message manual acknowledgement.
+
+`NACK` frames can optionally carry the `requeue` header which controls whether
+the message will be requeued or discarded/dead lettered. Default value is `true`.
 
 ### <a id="pear.p"/>Prefetch
 
