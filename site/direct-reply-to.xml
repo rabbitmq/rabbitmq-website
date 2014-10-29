@@ -88,11 +88,10 @@
       </li>
       <li>
         Reply messages sent using this mechanism are in general not
-        fault-tolerant; they will be confirmed immediately (if
-        published in confirm mode) but they will be discarded if the
-        client that published the original request subsequently
-        disconnects. The assumption is that an RPC client will
-        reconnect and submit another request in this case.
+        fault-tolerant; they will be discarded if the client that
+        published the original request subsequently disconnects. The
+        assumption is that an RPC client will reconnect and submit
+        another request in this case.
       </li>
       <li>
         The name <code>amq.rabbitmq.reply-to</code> is used in
@@ -102,13 +101,12 @@
         <code>rabbitmqctl list_queues</code>.
       </li>
       <li>
-        If the RPC server publishes with the mandatory flag set or
-        confirms in use then <code>amq.rabbitmq.reply-to.*</code> is
-        treated as <b>not</b> a queue; i.e. if the server only publishes
-        to this name then the message will be considered "not routed"; a
-        <code>basic.return</code> will be sent (if the mandatory flag
-        was set) and a confirm will be sent immediately (if in confirm
-        mode).
+        If the RPC server publishes with the mandatory flag set then
+        <code>amq.rabbitmq.reply-to.*</code> is treated as <b>not</b>
+        a queue; i.e. if the server only publishes to this name then
+        the message will be considered "not routed"; a
+        <code>basic.return</code> will be sent if the mandatory flag
+        was set.
       </li>
     </ul>
   </body>
