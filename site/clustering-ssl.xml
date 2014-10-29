@@ -7,7 +7,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Internode Communication using SSL</title>
+    <title>Clustering Communication using SSL</title>
   </head>
   <body show-in-this-page="true">
       <doc:section name="intro">
