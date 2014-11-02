@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-             name="managing-windows">
+             name="default-user-access">
   <doc:heading>Default user access</doc:heading>
   <p>
     The broker creates a user <code>guest</code> with password
