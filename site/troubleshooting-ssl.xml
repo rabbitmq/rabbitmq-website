@@ -47,8 +47,7 @@
        <p>
          If you receive an error instead, confirm that Erlang was built
          with OpenSSL. On Debian-based systems you may need to install the
-         <code>erlang-ssl</code> package, and on Mac OS you may need
-         to <code>port install erlang +ssl</code>.
+         <code>erlang-ssl</code> package.
        </p>
        </doc:subsection>
 
