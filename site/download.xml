@@ -46,8 +46,9 @@
             Mac OS X:
             <a href="install-standalone-mac.html">Standalone</a> |
             <a href="install-generic-unix.html">Generic Unix</a> |
-            <a href="install-macports.html">Macports</a> |
-            <a href="install-homebrew.html">Homebrew</a>
+            <a href="install-homebrew.html">Homebrew</a> |
+            <a href="install-macports.html">Macports</a>
+
         </li>
         <li>
             Cloud:
