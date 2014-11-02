@@ -38,9 +38,9 @@
 
       <xi:include href="running-generic-unix.xml.inc"/>
       <xi:include href="generic-unix-file-locations.xml.inc"/>
-
     </doc:section>
 
+    <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="managing-the-broker.xml.inc"/>
   </body>
