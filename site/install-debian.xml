@@ -125,8 +125,9 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
           service process to 1024 (the default).
         </p>
       </doc:subsection>
-
     </doc:section>
+
+    <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
   </body>

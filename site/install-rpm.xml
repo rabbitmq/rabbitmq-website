@@ -152,6 +152,8 @@
         </p>
       </dd>
     </dl>
+
+    <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
   </body>
