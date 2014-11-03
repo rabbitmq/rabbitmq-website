@@ -250,6 +250,60 @@
             </td>
           </tr>
         </table>
+
+        <p>
+          Policy where queues whose names begin with
+          "<code>nodes.</code>" are mirrored to specific nodes in the
+          cluster:
+        </p>
+
+        <table>
+          <tr>
+            <th>rabbitmqctl</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-nodes "^nodes\." \
+   '{"ha-mode":"nodes","ha-params":["nodeA", "nodeB"]}'</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>rabbitmqctl (Windows)</th>
+            <td>
+              <pre>rabbitmqctl set_policy ha-nodes "^nodes\." ^
+   "{""ha-mode"":""nodes"",""ha-params"":[""nodeA"", ""nodeB""]}"</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>HTTP API</th>
+            <td>
+              <pre>PUT /api/policies/%2f/ha-nodes
+{"pattern":"^nodes\.", "definition":{"ha-mode":"nodes", "ha-params":["nodeA", "nodeB"]}</pre>
+            </td>
+          </tr>
+          <tr>
+            <th>Web UI</th>
+            <td>
+              <ul>
+                <li>
+                  Navigate to Admin > Policies > Add / update a
+                  policy.
+                </li>
+                <li>
+                  Enter "ha-nodes" next to Name and "^nodes\." next to
+                  Pattern.
+                </li>
+                <li>
+                  Enter "ha-mode" = "nodes" in the first line next to
+                  Policy, then "ha-params" in the second line, set the
+                  second line's type to "List", and then enter "nodeA"
+                  and "nodeB" in the sublist which appears.
+                </li>
+                <li>
+                  Click Add policy.
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
       </doc:section>
 
       <doc:section name="unsynchronised-slaves">

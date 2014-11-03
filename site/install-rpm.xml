@@ -47,59 +47,46 @@
         are not always up to date.
       </li>
       <li>
-        <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang
-        Solutions</a> produces packages that are usually up to date. They are
-        not split up, and include all of Erlang - which can mean they require
-        large numbers of dependencies.
+        <a
+        href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang
+        Solutions</a> produces packages that are usually up to
+        date. They produce two sets of packages - ones which are split
+        up and are more convenient to use if you can add a yum
+        repository, and a monolithic package which might be easier if
+        you have to download manually.
       </li>
       <li>
         <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">VMware</a>
         produces a package stripped down to only provide those components
         needed to run RabbitMQ. It may not be as up to date as Erlang
-        Solutions' packages.
+        Solutions' packages, but it might be easiest to use if installing
+        Erlang's dependencies is proving difficult.
       </li>
     </ul>
 
-    <h3>Install Erlang from EPEL <i>or</i></h3>
-    <p>
-      <strong>Note: the steps you need to take vary, depending on which version of
-      RHEL you are on.</strong>
-    </p>
+    <h3>Install Erlang from the EPEL repository <i>or</i></h3>
     <ol class="plain">
-      <li>Enable <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> (all versions)<br/>
-        <p>
-          Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL
-          FAQ</a> to enable EPEL on your machine.
-        </p>
+      <li>
+        Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
       </li>
-      <li>Enable Erlang repository (RHEL 5 and derived, including Fedora 6 and CentOS 5)<br/>
-        <p>
-          <strong>If you are on a later version of RHEL (or derived) you should skip this step.</strong>
-        </p>
-        <p>
-          Due to <a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">
-          the EPEL package update policy</a>, EPEL 5 contains a very
-          old version of Erlang, R12B-5; with which <b>RabbitMQ is not compatible</b>.
-        </p>
-        <p>
-          Therefore to use EPEL on RHEL 5 you must enable a more
-          up-to-date package repository that is provided by the owner of the
-          Erlang package. To do this, issue the following command as 'root':
-        </p>
-        <pre>wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo</pre>
-      </li>
-      <li>Install (or update) Erlang (all versions)<br/>
-        <p>
-          Issue the following command as 'root':
-        </p>
+      <li>
+        Issue the following command as 'root':
         <pre>yum install erlang</pre>
       </li>
     </ol>
 
-    <h3>Install Erlang from Erlang Solutions <i>or</i></h3>
+    <h3>Install Erlang from the Erlang Solutions repository <i>or</i></h3>
     <ol class="plain">
       <li>
-        Download and install the appropriate RPM
+        Follow the instructions under "Installation using repository"
+        at <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang Solutions</a>.
+      </li>
+    </ol>
+
+    <h3>Install monolithic Erlang from Erlang Solutions <i>or</i></h3>
+    <ol class="plain">
+      <li>
+        Download and install the appropriate <code>esl-erlang</code> RPM
         from <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang Solutions</a>.
       </li>
       <li>
@@ -110,14 +97,14 @@
         download</a>) produced by <a href="https://github.com/jasonmcintosh/">Jason
         McIntosh</a>.
         <p>
-          This is needed since Erlang Solutions' packages provide
+          This is needed since Erlang Solutions' monolithic packages provide
           "esl-erlang"; this package just requires "esl-erlang" and provides
           "erlang".
         </p>
       </li>
     </ol>
 
-    <h3>Install Erlang from VMware</h3>
+    <h3>Install monolithic Erlang from VMware</h3>
     <ol class="plain">
       <li>
         Download and install the appropriate RPM
@@ -165,6 +152,8 @@
         </p>
       </dd>
     </dl>
+
+    <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
   </body>

@@ -12,22 +12,6 @@
       discussions about RabbitMQ. Once you join you can get help with technical issues,
       ask questions and share your experiences with RabbitMQ. RabbitMQ team members are on this list.
     </p>
-    <h2 id="legacy-mailing-list">Legacy Mailing List</h2>
-    <p>
-      <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">rabbitmq-discuss</a>
-      is our legacy mailing list. It is hosted by the RabbitMQ team and is still active but will be discontinued
-      eventually.
-    </p>
-    <ul>
-      <li>Read the <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">list archive</a></li>
-      <li>You can also access the list through
-        <a href="http://dir.gmane.org/gmane.comp.networking.rabbitmq.general">gmane</a>,
-        <a href="http://old.nabble.com/RabbitMQ-f25704.html">nabble</a></li>
-    </ul>
-    <p>
-      If you want to be notified of new releases and other important RabbitMQ announcements
-      please sign up to the <a href="https://groups.google.com/forum/#!forum/rabbitmq-announce">rabbitmq-announce</a> list.
-    </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
       For enquiries about commercial licensing, support, training, and
@@ -37,6 +21,17 @@
       with Pivotal, please see the
       <a href="http://www.gopivotal.com/about-pivotal/support">Pivotal
       support page</a>.
+    </p>
+    <h2 id="email">Private Enquiries</h2>
+    <p>
+      To contact the team privately, please email on <a
+      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.  Please
+      note that this should <b>only</b> be used for things that need
+      to be discussed in private such as security vulnerabilities; if
+      you want to ask a question about how to use RabbitMQ please use
+      <a
+      href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+      instead.
     </p>
     <h2 id="socialmedia">Social Media</h2>
     <h3 id="microblog">Twitter</h3>
