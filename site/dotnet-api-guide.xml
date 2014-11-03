@@ -1,0 +1,604 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+    <head>
+        <title>.NET/C# Client API Guide</title>
+    </head>
+    <body show-in-this-page="true">
+        <p class="intro">
+            This page gives an overview of the RabbitMQ .NET/C# client API.
+        </p>
+        <p class="intro">
+            The code samples given here demonstrate connecting to RabbitMQ and
+            performing several common operations with the client.
+        </p>
+
+        <p class="intro">
+            The library is open-source, and is dual-licensed under <a
+            href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+            License v2</a> and <a href="mpl.html">the Mozilla Public License
+            v1.1</a>.
+        </p>
+
+        <p class="intro">
+            The client is dual-licensed under
+
+            <ul>
+                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+            </ul>
+        </p>
+
+        <p>
+          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+          with additional abstractions for ease of use.
+        </p>
+
+        <p>
+          This section gives an overview of the RabbitMQ .NET client API.
+
+          Only the basics of using the library are covered: for full detail,
+          please see the javadoc-like API documentation generated from the
+          source code.
+        </p>
+
+        <doc:section name="classoverview">
+          <doc:heading>Major namespaces, interfaces and classes</doc:heading>
+          <p>
+            The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+
+<pre class="sourcecode">
+    using RabbitMQ.Client;
+</pre>
+
+            The core API interfaces and classes are
+
+            <ul>
+              <li><code>IModel</code>: represents an AMQP 0-9-1 data channel, and provides most
+              of the operations (protocol methods).</li>
+
+              <li><code>IConnection</code>: represents an AMQP connection</li>
+
+              <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
+            </ul>
+
+            Other useful interfaces and classes include:
+
+            <ul>
+              <li><code>QueueingBasicConsumer</code> receives messages delivered from the server</li>
+            </ul>
+
+            Public namespaces other than <code>RabbitMQ.Client</code> include:
+
+            <ul>
+              <li>
+                <code>RabbitMQ.Client.Events</code>: various events and event handlers
+                nthat are part of the client library.
+              </li>
+              <li>
+                <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user
+                of the AMQP client library.
+              </li>
+            </ul>
+          </p>
+
+          <p>
+            All other namespaces are reserved for private implementation detail of
+            the library, although members of private namespaces are usually made
+            available to applications using the library in order to permit
+            developers to implement workarounds for faults or design mistakes they
+            discover in the library implementation. Applications cannot rely on
+            any classes, interfaces, member variables etc. that appear within
+            private namespaces remaining stable across releases of the library.
+          </p>
+        </doc:section>
+
+
+        <doc:section name="connecting">
+          <doc:heading>Connecting to a Broker</doc:heading>
+          <p>
+            The following two code snippets connect to an AMQP broker:
+
+<pre>
+ConnectionFactory factory = new ConnectionFactory();
+factory.UserName = user;
+factory.Password = pass;
+factory.VirtualHost = vhost;
+factory.HostName = hostName;
+
+IConnection conn = factory.CreateConnection();
+</pre>
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+factory.Uri = "amqp://user:pass@hostName:port/vhost";
+
+IConnection conn = factory.CreateConnection();
+</pre>
+          </p>
+
+          <p>
+            Since the .NET client uses a stricter interpretation of the AMQP 0-9-1 URI
+            spec than the other clients, care must be taken when using URIs.  In
+            particular, the host part must not be omitted and virtual hosts with
+            empty names are not addressable.
+
+            All factory properties have default values. The default value for a property will be used if the property remains unassigned prior to creating a connection:
+
+            <dl>
+              <dt>Username</dt>
+              <dd><code>"guest"</code></dd>
+
+              <dt>Password</dt>
+              <dd><code>"guest"</code></dd>
+
+              <dt>Virtual host</dt>
+              <dd><code>"/"</code></dd>
+
+              <dt>Hostname</dt>
+              <dd><code>"localhost"</code></dd>
+
+              <dt>port</dt>
+              <dd>
+                <code>5672</code> for regular connections,
+                <code>5671</code> for connections that use TLS
+              </dd>
+            </dl>
+          </p>
+
+          <p>
+            The <code>IConnection</code> interface can then be used to open a channel:
+
+<pre class="sourcecode">
+IModel channel = conn.CreateModel();
+</pre>
+
+            The channel can now be used to send and receive messages,
+            as described in subsequent sections.
+          </p>
+        </doc:section>
+
+        <doc:section name="using-exchanges-and-queues">
+          <doc:heading>Using Exchanges and Queues</doc:heading>
+
+          <p>
+            Client applications work with exchanges and queues, the high-level
+            building blocks of AMQP 0-9-1. These must be "declared" before they can be
+            used. Declaring either type of object simply ensures that one of that
+            name exists, creating it if necessary.
+
+            Continuing the previous example, the following code declares an
+            exchange and a queue, then binds them together.
+
+<pre class="sourcecode">
+model.ExchangeDeclare(exchangeName, ExchangeType.Direct);
+model.QueueDeclare(queueName, false, false, false, null);
+model.QueueBind(queueName, exchangeName, routingKey, null);
+</pre>
+
+            This will actively declare the following objects:
+
+            <ul>
+              <li>a non-durable, non-autodelete exchange of "direct" type</li>
+              <li>a non-durable, non-exclusive, non-autodelete queue</li>
+            </ul>
+
+            The exchange can be customised by using additional parameters.
+            The above code then binds the queue to the exchange with the given
+            routing key.
+
+            Note that many Channel API methods are overloaded. The convenient
+            short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
+            also longer forms with more parameters, to let you override these
+            defaults as necessary, giving full control where needed.
+
+            This "short version, long version" pattern is used throughout the API.
+          </p>
+        </doc:section>
+
+        <doc:section name="publishing">
+          <doc:heading>Publishing Messages</doc:heading>
+
+          <p>
+            To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
+            follows:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+</pre>
+
+            For fine control, you can use overloaded variants to specify the
+            mandatory flag, or send messages with basic-class header properties:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+IBasicProperties props = model.CreateBasicProperties();
+props.ContentType = "text/plain";
+props.DeliveryMode = 2;
+mode.BasicPublish(exchangeName,
+                     routingKey, props,
+                     messageBodyBytes);
+</pre>
+
+            This sends a message with delivery mode 2 (persistent) and
+            content-type "text/plain". See the definition of the <code>
+            IBasicProperties</code> interface for more information about the available
+            header properties.
+          </p>
+        </doc:section>
+
+        <doc:section name="basic-get">
+          <doc:heading>Retrieving Individual Messages</doc:heading>
+
+          <p>
+            To retrieve individual messages, use <code>IModel.BasicGet</code>. The
+            returned value is an instance of BasicGetResult, from which the header
+            information (properties) and message body can be extracted:
+
+<pre class="sourcecode">
+bool noAck = false;
+BasicGetResult result = channel.BasicGet(queueName, noAck);
+if (result == null) {
+    // No message available at this time.
+} else {
+    IBasicProperties props = result.BasicProperties;
+    byte[] body = result.Body;
+    ...
+</pre>
+
+            Since <code>noAck = false</code> above, you must also call <code>
+            IModel.BasicAck</code> to acknowledge that you have successfully received
+            and processed the message:
+
+<pre class="sourcecode">
+    ...
+    // acknowledge receipt of the message
+    channel.BasicAck(result.DeliveryTag, false);
+}
+</pre>
+          </p>
+        </doc:section>
+
+
+        <doc:section name="basic-consume">
+          <doc:heading>Retrieving Messages By Subscription</doc:heading>
+
+          <p>
+            Another way to receive messages is to set up a subscription using the
+            <code>IBasicConsumer</code> interface. The messages will then be delivered
+            automatically as they arrive, rather than having to be requested
+            proactively.
+
+            The easiest and safest way to implement a consumer is to use the
+            convenience class <code>QueueingBasicConsumer</code>, and retrieve
+            deliveries from the <code>SharedQueue</code> instance contained therein:
+
+@code java
+ QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
+ String consumerTag = channel.BasicConsume(queueName, false, consumer);
+ while (true) {
+     try {
+         RabbitMQ.Client.Events.BasicDeliverEventArgs e =
+           (RabbitMQ.Client.Events.BasicDeliverEventArgs)
+           consumer.Queue.Dequeue();
+         IBasicProperties props = e.BasicProperties;
+         byte[] body = e.Body;
+         // ... process the message
+         channel.BasicAck(e.DeliveryTag, false);
+     } catch (OperationInterruptedException ex) {
+         // The consumer was removed, either through
+         // channel or connection closure, or through the
+         // action of IModel.BasicCancel().
+         break;
+     }
+ }
+
+Another alternative is to subclass <code>DefaultBasicConsumer</code>,
+overriding methods as necessary, or implement <code>IBasicConsumer</code>
+directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
+
+More sophisticated consumers will need to implement further
+methods. In particular, <code>HandleModelShutdown</code> traps
+channel/connection closure. Consumers can also implement <code>
+HandleBasicCancelOk</code> to be notified of cancellations.
+
+The <code>ConsumerTag</code> property of <code>DefaultBasicConsumer</code> can be
+used to retrieve the server-generated consumer tag, in cases where
+none was supplied to the original <code>IModel.BasicConsume</code> call.
+
+You can cancel an active consumer with <code>IModel.BasicCancel</code>:
+
+@code java
+ channel.BasicCancel(consumerTag);
+
+When calling the API methods, you always refer to consumers by their
+consumer tags, which can be either client- or server-generated as
+explained in the AMQP 0-9-1 specification document.
+          </p>
+        </doc:section>
+
+
+        <doc:section name="disconnecting">
+          <doc:heading>Disconnecting from a Broker</doc:heading>
+
+          <p>
+            To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
+            follows:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+</pre>
+
+            For fine control, you can use overloaded variants to specify the
+            mandatory flag, or send messages with basic-class header properties:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+IBasicProperties props = channel.CreateBasicProperties();
+props.ContentType = "text/plain";
+props.DeliveryMode = 2;
+model.BasicPublish(exchangeName,
+                   routingKey, props,
+                   messageBodyBytes);
+</pre>
+
+            This sends a message with delivery mode 2 (persistent) and
+            content-type "text/plain". See the definition of the <code>
+            IBasicProperties</code> interface for more information about the available
+            header properties.
+          </p>
+        </doc:section>
+
+
+        <doc:section name="concurrency">
+          <doc:heading>Concurrency Consideration for consumers</doc:heading>
+
+          <p>
+            Each <code>IConnection</code> instance is, in the current implementation,
+            backed by a single background thread that reads from the socket and
+            dispatches the resulting events to the application.
+            Additionally there are two threads responsible for <code>Heartbeat</code> support,
+            if connection negotiation turned it on.
+
+            Usually, therefore, there will be four threads active in an application
+            using this library:
+
+             - the application thread: contains the application logic, and makes
+               calls on <code>IModel</code> methods to perform AMQP operations.
+
+             - the connection thread: hidden away and completely managed by the
+               <code>IConnection</code> instance.
+
+             - the heartbeat read thread: continuously checking if <code>IConnection</code>
+               instance has not missed too many <code>Heartbeat</code> frames from the broker
+
+             - the heartbeat write thread: continuosuly checking if <code>IConnection</code>
+               instance should send <code>Heartbeat</code> frame to the broker
+
+            The one place where the nature of the threading model is visible to
+            the application is in any callback the application registers with the
+            library. Such callbacks include:
+
+             - any <code>IBasicConsumer</code> method
+
+             - the <code>BasicReturn</code> event on <code>IModel</code>
+
+             - any of the various shutdown events on <code>IConnection</code>, <code>
+               IModel</code> etc.
+
+            Application callback handlers [b must not] invoke blocking AMQP
+            operations (such as <code>IModel.QueueDeclare</code>, <code>
+            IModel.BasicCancel</code> or <code>IModel.BasicPublish</code>). If they do, the
+            channel will deadlock[footnote The underlying implementation reason
+            is that the <code>IBasicConsumer</code> callbacks are invoked in the connection's
+            thread rather than in the application's thread.].
+
+            Only asynchronous AMQP operations without content are safe for use
+            within callbacks, such as <code>IModel.BasicAck</code>. It is not safe to
+            use <code>IModel.BasicPublish</code> in callbacks, because channel flow
+            could block publication.
+
+            For this reason, <code>QueueingBasicConsumer</code> is the safest way of
+            subscribing to a queue, because its implementation uses <code>
+            RabbitMQ.Util.SharedQueue</code> to pass deliveries over to the application
+            thread, where all processing of received deliveries is done, and where
+            any AMQP <code>IModel</code> operation is safe.
+
+            <doc:subsection name="model-sharing">
+              <doc:heading></doc:heading>
+
+              <p>
+                In general, <code>IModel</code> instances should not be used by more than
+                one thread simultaneously: application code should maintain a clear
+                notion of thread ownership for <code>IModel</code> instances.
+
+                If more than one thread needs to access a particular <code>IModel</code>
+                instances, the application should enforce mutual exclusion itself. One
+                way of achieving this is for all users of an <code>IModel</code> to <code>
+                lock</code> the instance itself:
+
+<pre class="sourcecode">
+IModel ch = RetrieveSomeSharedIModelInstance();
+lock (ch) {
+  ch.BasicPublish(...);
+}
+</pre>
+
+                Symptoms of incorrect serialisation of <code>IModel</code> operations
+                include, but are not limited to,
+
+                <ul>
+                  <li>invalid frame sequences being sent on the wire (which occurs, for
+                  example, if more than one <code>BasicPublish</code> operation is run
+                  simultaneously), and/or
+                  </li>
+
+                  <li>
+                    <code>NotSupportedException</code>s being thrown from a method in class
+                    <code>RpcContinuationQueue</code> complaining about <code>"Pipelining of
+                    requests forbidden"</code> (which occurs in situations where more than
+                    one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run
+                    simultaneously).
+                  </li>
+                </ul>
+              </p>
+            </doc:subsection>
+            </p>
+          </doc:section>
+
+
+        <doc:section name="basic-return">
+          <doc:heading>Handling Unroutable Messages</doc:heading>
+          <p>
+            If a message is published with the "mandatory" flag
+            set, but cannot be delivered, the broker will return it to the sending
+            client (via a <code>basic.return</code> AMQP 0-9-1 command).
+
+            To be notified of such returns, clients can subscribe to the <code>
+            IModel.BasicReturn</code> event. If there are no listeners attached to the
+            event, then returned messages will be silently dropped.
+
+<pre class="sourcecode">
+model.BasicReturn +=
+  new RabbitMQ.Client.Events.BasicReturnEventHandler(...);
+</pre>
+
+            The <code>BasicReturn</code> event will fire, for example, if the client
+            publishes a message with the "mandatory" flag set to an exchange of
+            "direct" type which is not bound to a queue.
+          </p>
+        </doc:section>
+
+        <doc:section name="disconnecting">
+          <doc:heading>Disconnecting from a Broker</doc:heading>
+          <p>
+            To disconnect, simply close the channel and the connection:
+
+<pre class="sourcecode">
+ channel.Close(200, "Goodbye");
+ conn.Close();
+</pre>
+
+            Note that closing the channel is considered good practice, but isn't
+            strictly necessary - it will be done automatically anyway when the
+            underlying connection is closed.
+
+            In some situations, you may want the connection to close automatically
+            once the last open channel on the connection closes. To achieve this,
+            set the <code>IConnection.AutoClose</code> property to true, but only
+            <strong>after</strong> creating the first channel:
+
+<pre class="sourcecode">
+IConnection conn = factory.CreateConnection(...);
+IModel channel = conn.CreateModel();
+conn.AutoClose = true;
+</pre>
+
+            When <code>AutoClose</code> is true, the last channel to close will also
+            cause the connection to close. If it is set to true before any
+            channel is created, the connection will close then and there.
+          </p>
+        </doc:section>
+
+        <doc:section name="connection-recovery">
+          <doc:heading>Automatic Recovery From Network Failures</doc:heading>
+
+          <doc:subsection name="connection-recovery">
+            <doc:heading>Connection Recovery</doc:heading>
+
+            <p>
+              Network connection between clients and RabbitMQ nodes can fail.
+              RabbitMQ Java client supports automatic recovery of connections
+              and topology (queues, exchanges, bindings, and consumers).
+
+              The automatic recovery process for many applications follows the following steps:
+
+              <ol>
+                <li>Reconnect</li>
+                <li>Restore connection listeners</li>
+                <li>Re-open channels</li>
+                <li>Restore channel listeners</li>
+                <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
+              </ol>
+
+              Topology recovery includes the following actions, performed for every channel
+
+              <ol>
+                <li>Re-declare exchanges (except for predefined ones)</li>
+                <li>Re-declare queues</li>
+                <li>Recover all bindings</li>
+                <li>Recover all consumers</li>
+              </ol>
+
+              To enable automatic connection recovery, set
+              <code>ConnectionFactory.AutomaticRecoveryEnabled</code> to true:
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+factory.AutomaticRecoveryEnabled = true;
+// connection that will recover automatically
+IConnection conn = factory.CreateConnection();
+</pre>
+
+              If recovery fails due to an exception (e.g. RabbitMQ node is
+              still not reachable), it will be retried after a fixed time interval (default
+              is 5 seconds). The interval can be configured:
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+// attempt recovery every 10 seconds
+factory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
+</pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="topology-recovery">
+            <doc:heading>Topology Recovery</doc:heading>
+
+            <p>
+              Topology recovery involves recovery of exchanges, queues, bindings
+              and consumers. It is enabled by default but can be disabled:
+
+<pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+
+Connection conn = factory.CreateConnection();
+factory.AutomaticRecoveryEnabled = true;
+factory.TopologyRecoveryEnabled  = false;
+</pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="basic-ack-and-recovery">
+            <doc:heading>Manual Acknowledgements and Automatic Recovery</doc:heading>
+
+            <p>
+              When manual acknowledgements are used, it is possible that
+              network connection to RabbitMQ node fails between message
+              delivery and acknowledgement. After connection recovery,
+              RabbitMQ will reset delivery tags on all channels.
+
+              This means that <code>basic.ack</code>, <code>basic.nack</code>, and <code>basic.reject</code>
+              with old delivery tags will cause a channel exception. To avoid this,
+              RabbitMQ .NET client keeps track of and updates delivery tags to make them monotonically
+              growing between recoveries.
+
+              <code>IModel.BasicAck</code>,
+              <code>IModel.BasicNack</code>, and
+              <code>IModel.BasicReject</code> then translate adjusted
+              delivery tags into those used by RabbitMQ.
+
+              Acknowledgements with stale delivery tags will not be
+              sent. Applications that use manual acknowledgements and automatic
+              recovery must be capable of handling redeliveries.
+
+            </p>
+          </doc:subsection>
+        </doc:section>
+    </body>
+</html>
