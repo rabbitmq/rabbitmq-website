@@ -257,3 +257,25 @@ Hello World!
 
 Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
 
+## Configuration Reference
+
+### Config File
+
+It is recommended to use a separate config file, unless you use URIs for connection (see below).
+
+Known configuration parameters are:
+
+ * `mq_host`: RabbitMQ hostname (default: `localhost`)
+ * `mq_port`: RabbitMQ port (default: `5672`)
+ * `mq_vhost`: vhost to use (default: `/`)
+ * `mq_username`: username to use (default: `guest`, only can connect from localhost as of RabbitMQ 3.3.0)
+ * `mq_password`: password to use (default: `guest`)
+ * `mq_tls`: should TLS be used? (default: `false`)
+ * `mq_tls_cert`: path to client TLS certificate (public key)
+ * `mq_tls_key`: path to client TLS private key
+ * `require_paths`: array of paths to require
+ * `autoload_rails`: should Hutch command line runner try to automatically load Rails environment files?
+ * `daemonise`: should Hutch runner process daemonise?
+ * `pidfile`: path to PID file the runner should use
+ * `channel_prefetch`: basic.qos prefetch value to use (default: `0`, no limit). See Bunny and RabbitMQ documentation.
+ * `mq_exchange`: exchange to use for publishing (default: `hutch`)
