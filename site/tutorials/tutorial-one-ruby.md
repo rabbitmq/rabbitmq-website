@@ -100,7 +100,7 @@ on behalf of the consumer.
 > First, install Bunny using [Rubygems](http://rubygems.org):
 >
 >     :::bash
->     $ gem install bunny --version ">= 0.9.1"
+>     $ gem install bunny --version ">= 1.6.0"
 >
 
 Now we have Bunny installed, we can write some
