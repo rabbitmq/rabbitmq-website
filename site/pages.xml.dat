@@ -67,6 +67,7 @@
        </x:page>
        <x:page url="/ssl.html" text="SSL Support">
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
+         <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
        <x:page url="/reliability.html" text="Reliable Delivery"/>
