@@ -816,7 +816,7 @@ namespace RabbitMQ.Client.Examples {
           The depth is the maximum number of non-self-issued intermediate certificates that
           may follow the peer certificate in a valid certification path.
           So if depth is 0 the peer (e.g. client) certificate must be signed by the trusted CA directly,
-          if 1 the path can be "peer, CA, trusted CA", if it is 2 "peer, CA, CA, truested CA", and so on.
+          if 1 the path can be "peer, CA, trusted CA", if it is 2 "peer, CA, CA, trusted CA", and so on.
 
           The following example demonstrates how to configure certificate validation depth for
           RabbitMQ server:
