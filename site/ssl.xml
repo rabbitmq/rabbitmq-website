@@ -792,6 +792,12 @@ namespace RabbitMQ.Client.Examples {
           you can set the <code>ssl_allow_poodle_attack</code>
           <code>rabbit</code> config item to <code>true</code>.
         </p>
+        <p>
+          <code>ssl_allow_poodle_attack</code> is a global setting;
+          setting it in the <code>rabbit</code> application will
+          control the behaviour of all SSL listeners (AMQP,
+          management, STOMP, etc).
+        </p>
         <p>The following example demonstrates this:</p>
 <pre class="sourcecode">[
   {rabbit, [
