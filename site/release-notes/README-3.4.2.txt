@@ -8,6 +8,7 @@ server
 bug fixes
 25788 prevent HA queue synchronisation from taking quadratic time when
       there are many messages on disk (since 3.1.0)
+26474 prevent false positive detection of partial partitions (since 3.4.0)
 26460 prevent badarg in rabbit_diagnostics:looks_stuck/1 (since 3.3.5)
 26417 ensure rabbitmqctl does not get falsely disconnected from the
       broker when net_ticktime has been reduced (since 1.0.0)
