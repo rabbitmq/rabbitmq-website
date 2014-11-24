@@ -12,6 +12,17 @@
         <th>Highlights</th>
         <th class="centre">Changes</th>
       </tr>
+      <tr>
+        <td class="centre">3.4.1</td>
+        <td class="centre">29 October 2014</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Security fixes to the management plugin</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.4.1.txt">(changes)</a></td>
+      </tr>
 
       <tr>
         <td class="centre">3.4.0</td>

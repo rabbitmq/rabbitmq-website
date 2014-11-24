@@ -4,13 +4,15 @@
 %entities;
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+    xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>SSL Troubleshooting</title>
+    <title>TLS/SSL Troubleshooting</title>
   </head>
   <body show-in-this-page="true">
-       <doc:subsection name="intro">
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+       <doc:subsection>
        <p class="intro">This page collects some tips to aid the diagnosis of SSL errors.
          The strategy is to test the required components with an alternative SSL
          implementation in a process of elimination to identify the fault.
@@ -24,6 +26,9 @@
          messages</a> you may see in logs.
        </p>
        </doc:subsection>
+    </doc:section>
+
+    <doc:section name="troubleshooting">
        <doc:subsection name="erlang-support">
        <doc:heading>Check SSL support in Erlang</doc:heading>
        <p>
@@ -33,15 +38,16 @@
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
          entering <pre class="sourcecode">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
-         <pre>[{ssl_app,"5.0"},
- {supported,[tlsv1,sslv3]},
- {available,[tlsv1,sslv3]}]</pre>
+<pre>
+[{ssl_app,"5.3.6"},
+ {supported,['tlsv1.2','tlsv1.1',tlsv1]},
+ {available,['tlsv1.2','tlsv1.1',tlsv1]}]
+</pre>
        </p>
        <p>
          If you receive an error instead, confirm that Erlang was built
          with OpenSSL. On Debian-based systems you may need to install the
-         <code>erlang-ssl</code> package, and on Mac OS you may need
-         to <code>port install erlang +ssl</code>.
+         <code>erlang-ssl</code> package.
        </p>
        </doc:subsection>
 
@@ -144,7 +150,7 @@ accepting AMQP connection &lt;0.223.0> (127.0.0.1:58954 -> 127.0.0.1:5671)</pre>
        </p>
       </doc:subsection>
 
-      <doc:subsection>
+      <doc:subsection name="validate-with-stunnel">
        <doc:heading>Validate client connections with stunnel</doc:heading>
        <p>
          The final check is to validate AMQPS clients. We will use  <a href="http://www.stunnel.org/">stunnel</a>
@@ -182,6 +188,21 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
          sessions first.
        </p>
       </doc:subsection>
+
+      <doc:subsection name="certificate-chains">
+        <doc:heading>Certificate Chains and Verification Depth</doc:heading>
+        <p>
+          When using a client certificate signed by an intermediate CA, it may be necessary
+          to configure RabbitMQ server to use a higher verification depth.
+
+          The depth is the maximum number of non-self-issued intermediate certificates that
+          may follow the peer certificate in a valid certification path.
+        </p>
+        <p>Refer to the <a href="./ssl.html">TLS/SSL guide</a> to learn how to configure verification depth.</p>
+      </doc:subsection>      
+    </doc:section>
+
+
       <doc:section name="logs">
        <doc:heading>Understanding SSL logs</doc:heading>
         <p>

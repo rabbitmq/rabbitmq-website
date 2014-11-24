@@ -1,3 +1,4 @@
+
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
@@ -791,6 +792,12 @@ namespace RabbitMQ.Client.Examples {
           you can set the <code>ssl_allow_poodle_attack</code>
           <code>rabbit</code> config item to <code>true</code>.
         </p>
+        <p>
+          <code>ssl_allow_poodle_attack</code> is a global setting;
+          setting it in the <code>rabbit</code> application will
+          control the behaviour of all SSL listeners (AMQP,
+          management, STOMP, etc).
+        </p>
         <p>The following example demonstrates this:</p>
 <pre class="sourcecode">[
   {rabbit, [
@@ -804,6 +811,36 @@ namespace RabbitMQ.Client.Examples {
    ]}
 ].
 </pre>
+      </doc:section>
+
+      <doc:section name="certificate-chains">
+        <doc:heading>Certificate Chains and Verification Depth</doc:heading>
+        <p>
+          When using a client certificate signed by an intermediate CA, it may be necessary
+          to configure RabbitMQ server to use a higher verification depth.
+
+          The depth is the maximum number of non-self-issued intermediate certificates that
+          may follow the peer certificate in a valid certification path.
+          So if depth is 0 the peer (e.g. client) certificate must be signed by the trusted CA directly,
+          if 1 the path can be "peer, CA, trusted CA", if it is 2 "peer, CA, CA, trusted CA", and so on.
+
+          The following example demonstrates how to configure certificate validation depth for
+          RabbitMQ server:
+<pre class="sourcecode">[
+  {rabbit, [
+     {ssl_listeners, [5671]},
+     {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
+                    {certfile,"/path/to/server/cert.pem"},
+                    {keyfile,"/path/to/server/key.pem"},
+                    {depth, 2},
+                    {verify,verify_peer},
+                    {fail_if_no_peer_cert,false}]}
+   ]}
+].
+</pre>
+        </p>
+        <p>When using RabbitMQ plugins such as federation or shovel with TLS, it may be necessary
+        to configure verification depth for the Erlang client, as explained below.</p>
       </doc:section>
 
       <doc:section name="configure-erlang">
@@ -829,7 +866,8 @@ namespace RabbitMQ.Client.Examples {
             used to specify what action to
             take if the server doesn't present a certificate or if
             we're unable to establish a chain of trust to the server's
-            certificate.</p>
+            certificate. <code>depth</code> configures certificate verification depth
+            (see above).</p>
         </doc:subsection>
 
         <doc:subsection name="code">
@@ -839,6 +877,8 @@ Params = #amqp_params_network { port = 5671,
                                 ssl_options = [{cacertfile, &quot;/path/to/testca/cacert.pem&quot;},
                                                {certfile, &quot;/path/to/client/cert.pem&quot;},
                                                {keyfile, &quot;/path/to/client/key.pem&quot;},
+                                               %% only necessary with intermediate CAs
+                                               %% {depth, 2},
                                                {verify, verify_peer},
                                                {fail_if_no_peer_cert, true}] },
 {ok, Conn} = amqp_connection:start(Params),
