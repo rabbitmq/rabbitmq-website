@@ -17,7 +17,8 @@ bug fixes
       forget_cluster_node --offline" (since 3.4.0)
 26470 improve reliability of promotion of slave mirrors as part of
       "rabbitmqctl forget_cluster_node --offline" (since 3.4.0)
-
+26367 ensure dead letter exchange arguments are checked for equivalence
+      on queue declaration (since 3.1.4)
 
 building and packaging
 ----------------------
