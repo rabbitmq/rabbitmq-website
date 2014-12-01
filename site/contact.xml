@@ -8,15 +8,22 @@
   <body>
     <h2 id="mailing-list">Mailing List</h2>
     <p>
-      <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a> is the list for
+      <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a> is the group for
       discussions about RabbitMQ. Once you join you can get help with technical issues,
-      ask questions and share your experiences with RabbitMQ. RabbitMQ team members are on this list.
+      ask questions and share your experiences with RabbitMQ. RabbitMQ team members are on this group.
     </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
       For enquiries about commercial licensing, support, training, and
-      consulting, please contact us by email
-      on <a href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>.
+      consulting, please contact us by email on <a
+      href="mailto:support@rabbitmq.com">support@rabbitmq.com</a>. Please
+      note that this address is for commercial enquiries only; if you
+      have questions about how to use RabbitMQ and do not want to
+      purchase a support contract please use the <a
+      href="https://groups.google.com/forum/#!forum/rabbitmq-users">group</a>
+      instead.
+    </p>
+    <p>
       Alternatively, if you already have a support contract established
       with Pivotal, please see the
       <a href="http://www.gopivotal.com/about-pivotal/support">Pivotal
