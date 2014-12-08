@@ -368,46 +368,59 @@ model.BasicPublish(exchangeName,
             Usually, therefore, there will be four threads active in an application
             using this library:
 
-             - the application thread: contains the application logic, and makes
-               calls on <code>IModel</code> methods to perform AMQP operations.
+            <dl>
+              <dt>the application thread</dt>
+              <dd>
+                contains the application logic, and makes
+                calls on <code>IModel</code> methods to perform protocol operations.
+              </dd>
 
-             - the connection thread: hidden away and completely managed by the
+              <dt>the connection thread</dt>
+              <dd>
+                hidden away and completely managed by the
                <code>IConnection</code> instance.
+              </dd>
 
-             - the heartbeat read thread: continuously checking if <code>IConnection</code>
+              <dt>the heartbeat read thread</dt>
+              <dd>
+               continuously checking if <code>IConnection</code>
                instance has not missed too many <code>Heartbeat</code> frames from the broker
+              </dd>
 
-             - the heartbeat write thread: continuosuly checking if <code>IConnection</code>
+              <dt>the heartbeat write thread</dt>
+              <dd>
+               continuosuly checking if <code>IConnection</code>
                instance should send <code>Heartbeat</code> frame to the broker
+              </dd>
+            </dl>
 
             The one place where the nature of the threading model is visible to
             the application is in any callback the application registers with the
             library. Such callbacks include:
 
-             - any <code>IBasicConsumer</code> method
+            <ul>
+             <li>any <code>IBasicConsumer</code> method</li>
+             <li>the <code>BasicReturn</code> event on <code>IModel</code></li>
+             <li>any of the various shutdown events on <code>IConnection</code>, <code>IModel</code> etc.</li>
+            </ul>
 
-             - the <code>BasicReturn</code> event on <code>IModel</code>
-
-             - any of the various shutdown events on <code>IConnection</code>, <code>
-               IModel</code> etc.
-
-            Application callback handlers [b must not] invoke blocking AMQP
-            operations (such as <code>IModel.QueueDeclare</code>, <code>
-            IModel.BasicCancel</code> or <code>IModel.BasicPublish</code>). If they do, the
-            channel will deadlock[footnote The underlying implementation reason
+            Application callback handlers <strong>must not</strong> invoke blocking
+            operations (such as <code>IModel.QueueDeclare</code> or <code>
+            IModel.BasicCancel</code>). If they do, the
+            channel will deadlock. The underlying implementation reason
             is that the <code>IBasicConsumer</code> callbacks are invoked in the connection's
-            thread rather than in the application's thread.].
+            thread rather than in the application's thread.
 
-            Only asynchronous AMQP operations without content are safe for use
+            Only asynchronous operations without content are safe for use
             within callbacks, such as <code>IModel.BasicAck</code>. It is not safe to
-            use <code>IModel.BasicPublish</code> in callbacks, because channel flow
+            use <code>IModel.BasicPublish</code> in callbacks, because flow control
             could block publication.
 
             For this reason, <code>QueueingBasicConsumer</code> is the safest way of
             subscribing to a queue, because its implementation uses <code>
             RabbitMQ.Util.SharedQueue</code> to pass deliveries over to the application
             thread, where all processing of received deliveries is done, and where
-            any AMQP <code>IModel</code> operation is safe.
+            any <code>IModel</code> operation is safe.
 
             <doc:subsection name="model-sharing">
               <doc:heading></doc:heading>
@@ -601,48 +614,63 @@ factory.TopologyRecoveryEnabled  = false;
           </doc:subsection>
         </doc:section>
 
-        <doc:subsection name="">
+        <doc:subsection name="common-patterns">
           <doc:heading>Common ways of working with AMQP 0-9-1</doc:heading>
 
           <p>
-When building distributed systems with AMQP, there are a number of
-different messaging patterns that crop up over and over again. In this
-section, we cover some of the most common coding patterns and
-interaction styles:
+            When building distributed systems with RabbitMQ, there are a number of
+            different messaging patterns that crop up over and over again. In this
+            section, we cover some of the most common coding patterns and
+            interaction styles:
 
- - Point-to-point messaging: both remote procedure call (RPC), and
-   asynchronous messages directed toward a particular receiver
+            <ul>
+              <li>Point-to-point messaging: both remote procedure call (RPC), and
+              asynchronous messages directed toward a particular receiver.
+              </li>
 
- - Event broadcasting: one-to-many interactions; transmission of
-   messages directed implicitly to a set of interested receivers, with
-   collection of zero or more possible responses
+              <li>
+                Event broadcasting: one-to-many interactions; transmission of
+                messages directed implicitly to a set of interested receivers, with
+                collection of zero or more possible responses.
+              </li>
 
- - Responsibility transfer: choosing which piece of the network is
-   responsible for any given message
+              <li>
+                Responsibility transfer: choosing which piece of the network is
+                responsible for any given message.
+              </li>
 
- - Reliable message transfer: at-least-once, at-most-once and
-   exactly-once message delivery guarantees
+              <li>
+                Reliable message transfer: at-least-once and at-most-once message delivery.
+              </li>
 
- - Coding with high-availability AMQP server pairs
+              <li>
+                Preserving atomicity and idempotence when interacting with external resources.
+              </li>
+            </ul>
 
- - Preserving atomicity and idempotence when interacting with external
-   resources
+            Limited library support is also available for working with these
+            patterns, in the <code>RabbitMQ.Client.MessagePatterns</code> namespace:
 
-Limited library support is also available for working with these
-patterns, in the [code RabbitMQ.Client.MessagePatterns] namespace:
+            <ul>
+              <li>
+                <code>Subscription</code> provides a high-level interface to receiving
+                messages from the server.
+              </li>
 
- - [code Subscription] provides a high-level interface to receiving
-   messages from the server
+              <li>
+                <code>SimpleRpcServer</code> builds on <code>Subscription</code> to implement
+                an RPC or one-way service.
+              </li>
 
- - [code SimpleRpcServer] builds on [code Subscription] to implement
-   an RPC or one-way service
+              <li>
+                <code>SimpleRpcClient</code> builds on [code Subscription] to interact
+                with remote services.
+              </li>
+            </ul>
 
- - [code SimpleRpcClient] builds on [code Subscription] to interact
-   with remote services
-
-Future releases of the RabbitMQ .NET client library will include
-improved high-level support for the most common messaging patterns and
-their variations.
+            Future releases of the RabbitMQ .NET client library will include
+            improved high-level support for the most common messaging patterns and
+            their variations.
           </p>
         </doc:subsection>
 
