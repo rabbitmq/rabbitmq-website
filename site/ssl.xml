@@ -315,15 +315,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <p>and so forth.</p>
         </doc:subsection>
 
-        <doc:subsection name="bugs-in-new_ssl">
-          <doc:heading>Bugs in <code>new_ssl</code></doc:heading>
-            <p>Note there are major bugs with SSL in Erlang release R13
-            which renders using SSL with cerificates broken. As of
-            this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R14B or later.</p>
-        </doc:subsection>
-      </doc:section>
-
+        
 
       <doc:section name="trust-levels">
         <doc:heading>Levels of Trust</doc:heading>
