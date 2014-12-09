@@ -386,8 +386,6 @@ SSL-Session:
 </pre>
           </p>
         </doc:subsection>
-      </doc:section>
-
 
         <doc:subsection name="tls-version-support-in-jdk-and-net">
           <doc:heading>TLS Version Support Table for JDK and .NET</doc:heading>
@@ -425,6 +423,7 @@ SSL-Session:
             <li><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">JDK versions source</a>.</li>
           </ul>
         </doc:subsection>
+      </doc:section>
 
 
       <doc:section name="trust-levels">
