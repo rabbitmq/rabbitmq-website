@@ -389,7 +389,7 @@ SSL-Session:
       </doc:section>
 
 
-        <doc:subsection name="TLS Version Support in JDK and .NET">
+        <doc:subsection name="tls-version-support-in-jdk-and-net">
           <doc:heading>TLS Version Support Table for JDK and .NET</doc:heading>
 
           <p>Disabling TLSv1.0 limits the number of client platforms supported. Below is a table that
