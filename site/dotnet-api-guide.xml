@@ -733,7 +733,7 @@ factory.TopologyRecoveryEnabled  = false;
             provides a delivery flag, "mandatory", which can be
             used to ensure service availability at the time a
             request is sent by a client.
-            
+
             Setting the "mandatory" flag causes a request to be returned if it
             cannot be routed to a queue. Returned messages appear as <code>basic.return</code>
             commands, which are made visible to the application via the <code>IModel.BasicReturn</code>
@@ -784,544 +784,480 @@ factory.TopologyRecoveryEnabled  = false;
             AMQP 0-9-1 content header (<code>IBasicProperties</code>) contains a
             field called <code>ReplyTo</code>, which can be used to tell the service where to post
             a reply to a received RPC request. Across current RabbitMQ client
-            libraries, there are two widely-used formats for the string in the
-            <code>ReplyTo</code> header:
+            libraries, the most widely-used formats for the string in the
+            <code>ReplyTo</code> header is a simple queue name, although passing an exchange
+            name and routing key joined by application-specific rules is also an option.
+
+            The service instance will post its reply to the named destination, and
+            the requesting client should arrange to receive messages so addressed,
+            using either <code>BasicGet</code> or <code>BasicConsume</code> on an
+            appropriately-bound queue.
+
+            <h3>Correlating a received reply to a transmitted request</h3>
+
+            <code>IBasicProperties</code> contain a
+            field called <code>CorrelationId</code>, which in AMQP 0-9-1 is an
+            unstructured string that can be used to match a request to a reply. A
+            reply message should have the same <code>CorrelationId</code> as the one
+            that was attached to the request message.
+
+            <h2>Asynchronous, one-way messaging</h2>
+
+            In some situations, a simple request-reply interaction pattern is
+            inappropriate for your application. In these cases, the interaction
+            pattern of interest can be constructed from asynchronous, one-way,
+            point-to-point messages.
+
+            If an application is to respond to both synchronous, RPC-style
+            requests, and asynchronous one-way requests, it should use the value
+            of <code>ReplyTo</code> to decide which interaction style is being requested
+            of it: if <code>ReplyTo</code> is present and non-empty, the request can be
+            assumed to be an RPC-style call; otherwise, it should be assumed to be
+            a one-way message.
+
+            The <code>CorrelationId</code> field can be used to group together a number
+            of related messages, just as for the RPC-style case, but more
+            generally tying together an arbitrary number of messages.
+
+            <h3>Acknowledgment modes for point-to-point</h3>
+
+            AMQP can operate in one of two modes, when receiving messages from the
+            server: auto-acknowledgement mode (when the <code>noAck</code> flag has been
+            set on <code>BasicGet</code>, <code>BasicConsume</code>, or the <code>
+            Subscription</code> constructor), or manual-acknowledgement mode. Choosing
+            the right acknowledgement mode is important for your application:
 
             <ul>
-              <li>a simple queue name; or</li>
+              <li>
+                auto-acknowledgement mode means that the server will internally
+                mark a message as successfully delivered as it transmits it across
+                the network. Messages delivered in auto-acknowledgement mode will
+                not generally be redelivered to any other receiver.
+              </li>
 
               <li>
-                a URI-like string (take care - it is <em>not</em> a URI, it merely
-                shares certain superficial characteristics with URIs) of the form
+                manual-acknowledgement mode means that the server will wait for
+                positive confirmation of receipt before marking a message as
+                successfully delivered. Messages delivered in
+                manual-acknowledgement mode will be re-queued if the channel
+                (<code>IModel</code>) they were delivered on is closed before
+                an acknowledgement is received by the server.
               </li>
             </ul>
 
-   @pre
-     [i exchangeType]://[i exchangeName]/[i routingKey]
+            In general,
 
-   where [i <code>exchangeType</code>] is one of <code>fanout</code>, <code>
-   direct</code> or <code>topic</code>, and both [i <code>exchangeName</code>] and [i
-   <code>routingKey</code>] may be empty strings.
+            <ul>
+              <li>
+                if a service is in manual-acknowledgement mode, it should not
+                acknowledge the request message until it has replied to it; see the
+                section below on interaction with external resources.
+              </li>
+              <li>
+                a client may use auto-acknowledgement mode, depending on the
+                consequences of a retransmission of the request message.
+              </li>
+            </ul>
 
-The service instance will post its reply to the named destination, and
-the requesting client should arrange to receive messages so addressed,
-using either <code>BasicGet</code> or <code>BasicConsume</code> on an
-appropriately-bound queue.
+            <h3>Library support for point-to-point messaging</h3>
 
-**** Correlating a received reply to a transmitted request
+            The RabbitMQ .NET client library includes basic support for common
+            tasks involving point-to-point messaging.
 
-AMQP's Basic-class content header (<code>IBasicProperties</code>) contains a
-field called <code>CorrelationId</code>, which in AMQP 0-8 and 0-9 is an
-unstructured string that can be used to match a request to a reply. A
-reply message should have the same <code>CorrelationId</code> as the one
-that was attached to the request message.
+            <h4>SimpleRpcServer</h4>
 
-*** Asynchronous, one-way messaging
+            The class <code>RabbitMQ.Client.MessagePatterns.SimpleRpcServer</code>
+            implements synchronous RPC-style request handling as well as
+            asynchronous message handling. Users should subclass <code>
+            SimpleRpcServer</code>, overriding one or more of the methods with names
+            beginning with "<code>Handle</code>".
 
-In some situations, a simple request-reply interaction pattern is
-inappropriate for your application. In these cases, the interaction
-pattern of interest can be constructed from asynchronous, one-way,
-point-to-point messages.
+            <code>SimpleRpcServer</code> instances have a request-dispatching loop,
+            <code>MainLoop</code>, which interprets a request as an RPC-style request
+            needing a reply if the <code>ReplyTo</code> field of the request's <code>
+            IBasicProperties</code> is non-null and non-empty. Requests with absent or
+            empty <code>ReplyTo</code> fields are treated as one-way.
 
-If an application is to respond to both synchronous, RPC-style
-requests, and asynchronous one-way requests, it should use the value
-of <code>ReplyTo</code> to decide which interaction style is being requested
-of it: if <code>ReplyTo</code> is present and non-empty, the request can be
-assumed to be an RPC-style call; otherwise, it should be assumed to be
-a one-way message.
+            When an RPC-style request has been processed, the reply is sent to the
+            <code>ReplyTo</code> address. The reply address is first matched against a
+            regular-expression describing the URI-like syntax given above; if it
+            matches, the components of the URI-like syntax are used as the reply
+            address, and if it does not, the whole string is used as a simple
+            queue name, and the reply is sent to the default exchange ("") with a
+            routing-key equal to the <code>ReplyTo</code> string.
 
-The <code>CorrelationId</code> field can be used to group together a number
-of related messages, just as for the RPC-style case, but more
-generally tying together an arbitrary number of messages.
+            <h4>SimpleRpcClient</h4>
 
-*** Acknowledgment modes for point-to-point
+            The class <code>RabbitMQ.Client.MessagePatterns.SimpleRpcClient</code>
+            implements code for interacting with <code>SimpleRpcServer</code>s or
+            similar.
 
-AMQP can operate in one of two modes, when receiving messages from the
-server: auto-acknowledgement mode (when the <code>noAck</code> flag has been
-set on <code>BasicGet</code>, <code>BasicConsume</code>, or the <code>
-Subscription</code> constructor), or manual-acknowledgement mode. Choosing
-the right acknowledgement mode is important for your application:
+            RPC-style interactions are performed with the <code>Call</code> methods. A
+            (private) <code>Subscription</code> is set up to receive replies from the
+            service, and the <code>ReplyTo</code> field is set to point to the
+            subscription. The <code>CorrelationId</code> field of the request is
+            initialised to a fresh GUID. Asynchronous/one-way interactions are
+            simply passed on to <code>IModel.BasicPublish</code> without modification:
+            it is up to the caller to set <code>CorrelationId</code> in the asynchronous
+            case.
 
- - auto-acknowledgement mode means that the server will internally
-   mark a message as successfully delivered as it transmits it across
-   the network. Messages delivered in auto-acknowledgement mode will
-   not generally be redelivered to any other receiver.
+            The class currently has no support for setting the "mandatory" flag
+            on a published request message, nor for handling any
+            <code>BasicReturn</code> events that might arise from setting that flag.
 
- - manual-acknowledgement mode means that the server will wait for
-   positive confirmation of receipt before marking a message as
-   successfully delivered. Messages delivered in
-   manual-acknowledgement mode may be redelivered arbitrarily
-   often[footnote Within limits - please see the AMQP specification
-   for precise details of when redelivery is permitted and when and
-   how it is mandated.</code> until a receiver takes responsibility for a
-   message by sending an acknowledgement for it.
+            The code that retrieves replies from the internal <code>Subscription</code>
+            currently cannot deal with multiple simultaneously outstanding RPC
+            requests, because it requires that replies arrive in the same order as
+            the requests were sent out. Do not attempt to pipeline requests sent
+            through a single instance of <code>SimpleRpcClient</code> until this
+            restriction has been lifted. See also the overridable protected method
+            <code>SimpleRpcClient.RetrieveReply</code>.
 
-In general,
+            The basic pattern for using <code>SimpleRpcClient</code> is as follows:
 
- - if a service is in manual-acknowledgement mode, it should not
-   acknowledge the request message until it has replied to it; see the
-   section below on interaction with external resources.
+<pre class="sourcecode">
+using (IConnection conn = new ConnectionFactory()
+                                .CreateConnection(args[0])) {
+    using (IModel ch = conn.CreateModel()) {
 
- - a client may use auto-acknowledgement mode, depending on the
-   consequences of a retransmission of the request message.
+        SimpleRpcClient client = new SimpleRpcClient(ch, /* ... */);
+        // in the line above, the "..." indicates the parameters
+        // used to specify the address to use to route messages
+        // to the service.
 
-*** Library support for point-to-point messaging
+        // The next three lines are optional:
+        client.TimeoutMilliseconds = 5000; // defaults to infinity
+        client.TimedOut += new EventHandler(TimedOutHandler);
+        client.Disconnected += new EventHandler(DisconnectedHandler);
 
-The RabbitMQ .NET client library includes basic support for common
-tasks involving point-to-point messaging.
+        byte[] replyMessageBytes = client.Call(requestMessageBytes);
+        // other useful overloads of Call() and Cast() are
+        // available. See the code documentation of SimpleRpcClient
+        // for full details.
+    }
+}
+</pre>
 
-**** SimpleRpcServer
-
-The class <code>RabbitMQ.Client.MessagePatterns.SimpleRpcServer</code>
-implements synchronous RPC-style request handling as well as
-asynchronous message handling. Users should subclass <code>
-SimpleRpcServer</code>, overriding one or more of the methods with names
-beginning with "<code>Handle</code>".
-
-<code>SimpleRpcServer</code> instances have a request-dispatching loop,
-<code>MainLoop</code>, which interprets a request as an RPC-style request
-needing a reply if the <code>ReplyTo</code> field of the request's <code>
-IBasicProperties</code> is non-null and non-empty. Requests with absent or
-empty <code>ReplyTo</code> fields are treated as one-way.
-
-When an RPC-style request has been processed, the reply is sent to the
-<code>ReplyTo</code> address. The reply address is first matched against a
-regular-expression describing the URI-like syntax given above; if it
-matches, the components of the URI-like syntax are used as the reply
-address, and if it does not, the whole string is used as a simple
-queue name, and the reply is sent to the default exchange ("") with a
-routing-key equal to the <code>ReplyTo</code> string.
-
-After a reply message, including possible <code>IBasicProperties</code>
-headers, is produced by the service logic, the reply's <code>
-CorrelationId</code> is set to be equal to the <code>CorrelationId</code> of the
-request, if any, before transmission.
-
-For very basic or unusual asynchronous point-to-point messaging tasks,
-a <code>Subscription</code> may be used instead of <code>SimpleRpcServer</code> -
-please see the section below on <code>Subscription</code>s.
-
-The basic pattern for implementing a service using <code>
-SimpleRpcServer</code> is as follows (assuming a class <code>
-MySimpleRpcServerSubclass</code> extending <code>SimpleRpcServer</code>):
-
-@code java
-  using (IConnection conn = new ConnectionFactory()
-                                  .CreateConnection(serverAddress)) {
-      using (IModel ch = conn.CreateModel()) {
-
-          Subscription subscription =
-              new Subscription(ch, /* ... */);
-          // in the line above, the "..." indicates the parameters
-          // used to specify the address to use to route messages
-          // to the subscription. This subscription will be used
-          // to read service request messages, so the "..." effectively
-          // specifies the service address.
-
-          new MySimpleRpcServerSubclass(subscription).MainLoop();
-      }
-  }
-
-The service logic would be implemented in an override of one of the
-<code>HandleCall</code> or <code>HandleCast</code> overloads on <code>
-MySimpleRpcServerSubclass</code>. For full details, please see the code
-documentation for <code>SimpleRpcServer</code>.
-
-**** SimpleRpcClient
-
-The class <code>RabbitMQ.Client.MessagePatterns.SimpleRpcClient</code>
-implements code for interacting with <code>SimpleRpcServer</code>s or
-similar.
-
-RPC-style interactions are performed with the <code>Call</code> methods. A
-(private) <code>Subscription</code> is set up to receive replies from the
-service, and the <code>ReplyTo</code> field is set to point to the
-subscription. The <code>CorrelationId</code> field of the request is
-initialised to a fresh GUID. Asynchronous/one-way interactions are
-simply passed on to <code>IModel.BasicPublish</code> without modification:
-it is up to the caller to set <code>CorrelationId</code> in the asynchronous
-case.
-
-The class currently has no support for setting the "mandatory" or
-"immediate" flags on a published request message, nor for handling any
-<code>BasicReturn</code> events that might arise from setting either flag.
-
-The code that retrieves replies from the internal <code>Subscription</code>
-currently cannot deal with multiple simultaneously outstanding RPC
-requests, because it requires that replies arrive in the same order as
-the requests were sent out. Do not attempt to pipeline requests sent
-through a single instance of <code>SimpleRpcClient</code> until this
-restriction has been lifted. See also the overridable protected method
-<code>SimpleRpcClient.RetrieveReply</code>.
-
-The basic pattern for using <code>SimpleRpcClient</code> is as follows:
-
-@code java
-  using (IConnection conn = new ConnectionFactory()
-                                  .CreateConnection(args[0])) {
-      using (IModel ch = conn.CreateModel()) {
-
-          SimpleRpcClient client = new SimpleRpcClient(ch, /* ... */);
-          // in the line above, the "..." indicates the parameters
-          // used to specify the address to use to route messages
-          // to the service.
-
-          // The next three lines are optional:
-          client.TimeoutMilliseconds = 5000; // defaults to infinity
-          client.TimedOut += new EventHandler(TimedOutHandler);
-          client.Disconnected += new EventHandler(DisconnectedHandler);
-
-          byte[] replyMessageBytes = client.Call(requestMessageBytes);
-          // other useful overloads of Call() and Cast() are
-          // available. See the code documentation of SimpleRpcClient
-          // for full details.
-      }
-  }
-
-Note that a single <code>SimpleRpcClient</code> instance can perform many
-(sequential) <code>Call()</code> and <code>Cast()</code> requests! It is
-recommended that a single <code>SimpleRpcClient</code> be reused for
-multiple service requests, so long as the requests are strictly
-sequential.
+            Note that a single <code>SimpleRpcClient</code> instance can perform many
+            (sequential) <code>Call()</code> and <code>Cast()</code> requests! It is
+            recommended that a single <code>SimpleRpcClient</code> be reused for
+            multiple service requests, so long as the requests are strictly
+            sequential.
         </doc:subsection>
 
         <doc:subsection name="">
           <doc:heading>Event Broadcasting</doc:heading>
-
-The event broadcasting pattern occurs when an application wishes to
-indicate a state change or other notification to a pool of
-applications without knowing precisely the addresses of each
-interested party. Applications interested in a certain subset of
-events use AMQP's exchanges and queue-bindings to configure which
-events are routed to their own private queues.
-
-Generally, events will be broadcast through <code>topic</code> exchanges,
-although <code>direct</code> exchanges, while less flexible, can sometimes
-perform better for applications where their limited pattern-matching
-capability is sufficient.
-
-*** Publishing events
-
-To publish an event,
-
- # ensure the exchange exists
-
- # determine an appropriate routing key (for stocks, a key such as
-   STOCK.IBM.NYSE might be appropriate; for other applications, other
-   topic hierarchies will naturally arise. See the definition of the
-   <code>topic</code> and <code>direct</code> exchange types in the AMQP
-   specification)
-
- # publish the message
-
-For example:
-
-@code java
-  using (IConnection conn = new ConnectionFactory()
-                                  .CreateConnection(args[0])) {
-      using (IModel ch = conn.CreateModel()) {
-
-	  IBasicProperties props = ch.CreateBasicProperties();
-          FillInHeaders(props); // or similar
-          byte[] body = ComputeBody(props); // or similar
-
-          ch.BasicPublish("exchangeName",
-                          "chosen.routing.key",
-                          props,
-                          body);
-      }
-  }
-
-See the documentation for the various overloads of <code>BasicPublish</code>
-on class <code>RabbitMQ.Client.IModel</code>.
-
-*** Subscription
-
-The class <code>RabbitMQ.Client.MessagePatterns.Subscription</code>
-implements most of the boilerplate of receiving messages (including,
-in particular, broadcast events) for you, including consumer
-declaration and management, but excluding queue and exchange
-declaration and queue binding. For example,
-
-@code java
-  // "IModel ch" in scope.
-  Subscription sub = new Subscription(ch, "STOCK.IBM.#");
-  foreach (BasicDeliverEventArgs e in sub) {
-    // handle the message contained in e ...
-    // ... and finally acknowledge it
-    sub.Ack(e);
-  }
-
-will start a consumer on the queue using <code>IModel.BasicConsume</code>.
-It is assumed that the queue and any bindings have been previously
-declared.
-
-<code>Subscription.Ack()</code> should be called for each received event,
-whether or not auto-acknowledgement mode is used, because <code>
-Subscription</code> internally knows whether an actual network message for
-acknowledgement is required, and will take care of it for you in an
-efficient way so long as <code>Ack()</code> is always called in your code.
-
-For full details, please see the code documentation for the <code>
-Subscription</code> class.
-
-*** Retrieving events - low-level approach
-
-Usually, the high-level approach using <code>Subscription</code> is
-sufficient. Occasionally, however, there is a need to use the
-low-level AMQP primitives. The low-level approach to retrieving events
-is to bind a queue to the exchange concerned with an appropriate
-routing-key pattern specification. For instance, assuming that our
-application wanted to retrieve all prices regarding IBM on queue
-"MyApplicationQueue":
-
-@code java
-  // "IModel ch" in scope.
-  ch.ExchangeDeclare("prices", "topic");
-  ch.QueueDeclare("MyApplicationQueue", false, true, true, null);
-  ch.QueueBind("MyApplicationQueue", "prices",
-               "STOCK.IBM.#", false, null);
-
-... followed by consumption of messages from "MyApplicationQueue"
-using <code>BasicGet</code> or <code>BasicConsume</code>. A more full example is
-given in the ApiOverview chapter.
-
-*** Acknowledgment modes for event broadcasting
-
-The same auto-acknowledgement/manual-acknowledgement decision as for
-point-to-point messaging is available for consumers of broadcast
-events, but the pattern of interaction introduces different tradeoffs:
-
- - for high-volume messaging where it is occasionally acceptable to
-   not receive one of the messages one is interested in,
-   auto-acknowledgement mode makes sense
-
- - for scenarios where every message matching our subscription needs
-   to be delivered, manual-acknowledgement is appropriate
-
-For more information, see the section on reliable message transfer
-below.
-
-Note also that class <code>Subscription</code> takes care of acknowledgement
-and the various acknowledgement modes for you, so long as <code>
-Subscription.Ack()</code> is called for each received message.
-        </doc:subsection>
-
-        <doc:subsection name="">
-          <doc:heading></doc:heading>
+          <p>
+          The event broadcasting pattern occurs when an application wishes to
+          indicate a state change or other notification to a pool of
+          applications without knowing precisely the addresses of each
+          interested party. Applications interested in a certain subset of
+          events use exchanges and queue-bindings to configure which
+          events are routed to their own private queues.
+          </p>
 
           <p>
+          Generally, events will be broadcast through <code>topic</code> exchanges,
+          although <code>direct</code> exchanges, while less flexible, can sometimes
+          perform better for applications where their limited pattern-matching
+          capability is sufficient.
+          </p>
+
+          <h3>Publishing events</h3>
+
+          To publish an event, first ensure the exchange exists, then  determine an appropriate routing key.
+          For example, for stocks, a key such as `stock.ibm.nyse` might be appropriate; for other
+          applications, other topic hierarchies will naturally arise. <code>topic</code> exchanges
+          are commonly used. Then publish the message. For example:
+
+<pre class="sourcecode">
+using (IConnection conn = new ConnectionFactory()
+                                .CreateConnection(args[0])) {
+    using (IModel ch = conn.CreateModel()) {
+
+        IBasicProperties props = ch.CreateBasicProperties();
+        FillInHeaders(props); // or similar
+        byte[] body = ComputeBody(props); // or similar
+
+        ch.BasicPublish("exchangeName",
+                        "chosen.routing.key",
+                        props,
+                        body);
+    }
+}
+</pre>
+          See the documentation for the various overloads of <code>BasicPublish</code>
+          on class <code>RabbitMQ.Client.IModel</code>.
+
+          <h3>Subscription</h3>
+
+          The class <code>RabbitMQ.Client.MessagePatterns.Subscription</code>
+          implements most of the boilerplate of receiving messages (including,
+          in particular, broadcast events) for you, including consumer
+          declaration and management, but excluding queue and exchange
+          declaration and queue binding. For example,
+
+<pre class="sourcecode">
+// "IModel ch" in scope.
+Subscription sub = new Subscription(ch, "STOCK.IBM.#");
+foreach (BasicDeliverEventArgs e in sub) {
+  // handle the message contained in e ...
+  // ... and finally acknowledge it
+  sub.Ack(e);
+}
+</pre>
+
+          will start a consumer on the queue using <code>IModel.BasicConsume</code>.
+          It is assumed that the queue and any bindings have been previously
+          declared.
+
+          <code>Subscription.Ack()</code> should be called for each received event,
+          whether or not auto-acknowledgement mode is used, because <code>
+          Subscription</code> internally knows whether an actual network message for
+          acknowledgement is required, and will take care of it for you in an
+          efficient way so long as <code>Ack()</code> is always called in your code.
+
+          For full details, please see the code documentation for the <code>
+          Subscription</code> class.
+
+          <h3>Retrieving events with a custom consumer</h3>
+
+          Sometimes the high-level approach using <code>Subscription</code> is
+          sufficient. Other times, however, there is a need to use a custom consumer.
+          This approach to retrieving events
+          is to bind a queue to the exchange concerned with an appropriate
+          routing-key pattern specification. For instance, assuming that our
+          application wanted to retrieve all prices regarding IBM on queue
+          "MyApplicationQueue":
+
+<pre class="sourcecode">
+// "IModel ch" in scope.
+ch.ExchangeDeclare("prices", "topic");
+ch.QueueDeclare("MyApplicationQueue", false, true, true, null);
+ch.QueueBind("MyApplicationQueue", "prices",
+             "STOCK.IBM.#", false, null);
+</pre>
+
+          ... followed by consumption of messages from "MyApplicationQueue"
+          using <code>BasicGet</code> or <code>BasicConsume</code>. A more full example is
+          given in the ApiOverview chapter.
+
+          <h3>Acknowledgment modes for event broadcasting</h3>
+
+          <p>
+          The same auto-acknowledgement/manual-acknowledgement decision as for
+          point-to-point messaging is available for consumers of broadcast
+          events, but the pattern of interaction introduces different tradeoffs:
+          </p>
+
+          <ul>
+            <li>
+              for high-volume messaging where it is occasionally acceptable to
+              not receive one of the messages one is interested in,
+              auto-acknowledgement mode makes sense
+            </li>
+
+            <li>
+              for scenarios where every message matching our subscription needs
+              to be delivered, manual-acknowledgement is appropriate
+            </li>
+
+            <p>
+            For more information, see the section on reliable message transfer
+            below.
+            Note also that class <code>Subscription</code> takes care of acknowledgement
+            and the various acknowledgement modes for you, so long as <code>
+            Subscription.Ack()</code> is called for each received message.
+            </p>
+        </doc:subsection>
+
+        <doc:subsection name="reliable-message-transfer">
+          <doc:heading>Reliable message transfer</doc:heading>
+
+          <p>
+            Messages can be transported between endpoints with different
+            quality-of-service (QoS) levels. In general, failure cannot be
+            completely ruled out, but it is important to understand the various
+            delivery failure modes to understand the kinds of recovery from
+            failure that are required, and the kinds of situation for which
+            recovery is possible.
+
+            To reiterate: it is not possible to completely rule out failure. The
+            best that can be done is to narrow the conditions in which failure can
+            occur, and to notify a system operator when failure is detected.
+          </p>
+
+          <h3>At-least-once delivery</h3>
+
+          <p>
+            This QoS level assures that a message is delivered to its ultimate
+            destination at least once. That is, a receiver may receive multiple
+            copies of the message. If it is important that a side-effect only
+            occur once for a given message, either at-most-once or exactly-once
+            QoS levels should be used instead.
+          </p>
+
+          To implement at-least-once delivery:
+
+          <ul>
+            <li>
+              publish the message as usual, with some correlation identifier and
+              reply-to address on it so that the receiver can acknowledge receipt
+              to the sender.
+
+              when receiving a message, send an acknowledgement message back to
+              the sender. If the message is an RPC request, then the RPC reply
+              message is implicitly an acknowledgement of receipt of the request.
+            </li>
+
+            <li>
+              Alternatively, rather than implement the round-trip logic manually, a
+              client may use Publisher Confirms. By enabling Confirm mode on a
+              channel, a client is requesting that the broker acknowledge or
+              negatively acknowledge all messages sent on the channel from that
+              point on.  See the instructions from Responsibility Transfer on how to
+              use confirms.
+            </li>
+          </ul>
+
+          <p>
+            Deciding on a message-resend policy can be difficult. Some simple
+            resend strategies are:
+
+            <ul>
+              <li>
+                resend if your connection is lost or some other crash occurs before
+                you receive confirmation of receipt
+              </li>
+
+              <li>
+                timeout and resend if you do not receive a confirmation within a
+                few seconds. Make sure to double the timeout for each resend, to
+                help avoid retry-related denial-of-service and network congestion.
+              </li>
+            </ul>
+
+            <h3> At-most-once delivery</h3>
+
+            For at-most-once delivery, simply publish the message,
+            once, as usual. No correlation identifier is required.
+            Receive the message in the consuming application, paying
+            attention to the <code>Redelivered</code> flag on the
+            delivery. The <code> Redelivered</code> flag will only be
+            clear when the server believes that it is offering a
+            message for consumption for the very first time. If any
+            attempt at delivery has been made before, the
+            <code>Redelivered</code> flag will be set.
+
+            The <code>Redelivered</code> flag is a very limited piece of information,
+            giving only at-most-once semantics.
+        </doc:subsection>
+
+
+
+
+        <doc:subsection name="working-with-clusters">
+          <doc:heading>Coding with multi-node RabbitMQ clusters</doc:heading>
+          <p>
+            In situations where continuous AMQP service is desired, the
+            possibility of a server failure can be hedged against with some
+            careful programming and the availability of a warm-standby AMQP server
+            for failover.
+          </p>
+
+          The main concerns when failing over are
+
+          <ul>
+            <li>atomicity of published/acknowledged work units, and</li>
+            <li>availability of configured resources on the backup server</li>
+          </ul>
+
+          <p>
+            Message producers should take care to use transactions in order to
+            receive positive confirmation of receipt of a group of messages from a
+            server, and should keep a record of the exchanges, queues and bindings
+            they need to have available in order to perform their work, so that on
+            failover, the appropriate resources can be declared before replaying
+            the most recent transactions to recover.
+          </p>
+
+          <p>
+            Message consumers should be aware of the possibility of missing or
+            duplicate messages when failing over: a publisher may decide to resend
+            a transaction whose outcome is in doubt, or a transaction the
+            publisher considered complete could disappear entirely due to failure
+            of a cluster node.
           </p>
         </doc:subsection>
 
+        <doc:subsection name="external-resources">
+          <doc:heading>Interacting with external resources</doc:heading>
+          A common pattern for a service is to
 
-** Responsibility transfer
+          <ul>
+            <li>receive a service request via a queue</li>
+            <li>update some external resource, such as a file or database</li>
 
-In cases where either
+            <li>reply over RabbitMQ, or at a minimum, acknowledge to the server
+            that the message triggering the action has been completed</li>
+          </ul>
 
- - a non durable exchange and/or queue is used[footnote See the AMQP
-   specification for full details of the meaning of "durable" here],
-   or
+          <p>
+            Often elements of the at-least-once pattern appear in
+            conjunction with the external-resource pattern - specifically, the
+            side-effects discussed in the section on reliable message transfer
+            above are often effects on an external resource.
+          </p>
 
- - a message is published with its <code>
-   IBasicProperties.DeliveryMode</code> set to any value other than 2
+          <p>
+            In cases where the exactly-once pattern appears in conjunction with an
+            external resource, it's important to write code that is able at each
+            step to determine whether the step has already been taken in some
+            previous attempt at completing the whole transaction, and if it has,
+            to be able to omit it in this attempt and proceed to the next
+            step. For example:
+          </p>
 
-the message is considered [i transient], and will not (usually) be
-written to disk as part of the interaction between the AMQP server and
-the various AMQP clients publishing and consuming messages.
+          <ul>
+            <li>
+              If a work-triggering request went missing, another copy will
+              (eventually) arrive from the ultimate requestor.
+            </li>
 
-When a message is transient, it means that the responsibility for
-ultimate processing of the message resides with the endpoints - the
-two AMQP clients involved: the publisher, and the consumer.
+            <li>
+              If the work was already performed, for instance a database table
+              was updated, in a previous receipt of the work item in question,
+              the service needs to keep a record of completion of the external
+              work that is atomic with respect to the atomic work itself: for
+              instance, within the same database transaction, some log of
+              honoured requests could be updated, or the row being modified could
+              be updated to include the ID of the request that caused the
+              modification, as well as previous request-IDs that modified the row
+              in question.
+            </li>
+          </ul>
 
-Responsibility can be partially transferred to the broker by using
-durable queues, durable exchanges, persistent-mode delivered messages
-(with <code>DeliveryMode</code> set equal to 2), and Publisher Confirms:
+          <p>
+            This makes it important to be able to compress request IDs so that
+            they do not take unbounded space in the log of performed work, and
+            so that we do not need to introduce a full distributed
+            garbage-collection protocol with the ultimate requestor. One way of
+            doing this is to choose to use request IDs that are strictly
+            increasing, so that a "high water mark" can be used.
 
-- ensure (ahead of time) that the target queue is durable,
+            Once the work is known to have been performed, and a reply has been
+            produced (if there is one), the reply can be sent back to the
+            requestor as many times as necessary. The requestor knows which
+            replies it is expecting, and can discard unwanted duplicates. So
+            long as duplicates of the same request always receive identical
+            reply messages, the replier need not be careful about sending too
+            many copies of the reply.
 
-- select <code>Confirm</code> mode using <code>IModel.ConfirmSelect</code>,
-
-- publish the message with "mandatory" flag set and <code>
-  DeliveryMode</code> set equal to 2,
-
-- listen for acknowledgements and negative acknowledgments by setting
-  the <code>IModel.BasicAcks</code> and <code>BasicNacks</code> event handlers.
-
-Once a broker acknowledges a message via the <code>BasicAcks</code> handler,
-it has taken responsibility for keeping the message on disk and on the
-target queue until some other application retrieves and acknowledges
-the message.
-
-If a broker rejects a message via the <code>BasicNacks</code> handler, the
-publisher may assume that the message was lost or otherwise
-undeliverable.
-
-Note that for unroutable messages are not considered failures and are
-both <code>Basic.Return'ed</code> and <code>Basic.Ack'ed</code>.  So, if the
-"mandatory" or "immediate" are used, the client must also listen for
-returns by setting the <code>IModel.BasicReturn</code> handler.
-
-Responsibility can also be placed with an external database, even
-further along the chain - see the section on interaction with external
-resources below.
-
-** Reliable message transfer
-
-Messages can be transported between endpoints with different
-quality-of-service (QoS) levels. In general, failure cannot be
-completely ruled out, but it is important to understand the various
-delivery failure modes to understand the kinds of recovery from
-failure that are required, and the kinds of situation for which
-recovery is possible.
-
-To reiterate: it is not possible to completely rule out failure. The
-best that can be done is to narrow the conditions in which failure can
-occur, and to notify a system operator when failure is detected.
-
-*** At-least-once delivery
-
-This QoS level assures that a message is delivered to its ultimate
-destination at least once. That is, a receiver may receive multiple
-copies of the message. If it is important that a side-effect only
-occur once for a given message, either at-most-once or exactly-once
-QoS levels should be used instead.
-
-To implement at-least-once delivery:
-
- - publish the message as usual, with some correlation identifier and
-   reply-to address on it so that the receiver can acknowledge receipt
-   to the sender
-
- - when receiving a message, send an acknowledgement message back to
-   the sender. If the message is an RPC request, then the RPC reply
-   message is implicitly an acknowledgement of receipt of the request.
-
-To reduce the need for resends of a message when publishing using an
-at-least-once QoS level, it can sometimes be appropriate to use <code>
-Confirm</code>-class, as described above in the section on responsibility
-transfer. Of course, if a confirmation from the broker is lost, then a
-resend will have to be done, since the sending client doesn't know
-whether the server actually saw the message or not unless the
-<code>Basic.Nack</code> arrives.
-
-Alternatively, rather than implement the round-trip logic manually, a
-client may use Publisher Confirms.  By enabling Confirm mode on a
-channel, a client is requesting that the broker acknowledge or
-negatively acknowledge all messages sent on the channel from that
-point on.  See the instructions from Responsibility Transfer on how to
-use confirms.
-
-Deciding on a message-resend policy can be difficult. Some simple
-resend strategies are:
-
- - resend if your connection is lost or some other crash occurs before
-   you receive confirmation of receipt
-
- - timeout and resend if you do not receive a confirmation within a
-   few seconds. Make sure to double the timeout for each resend, to
-   help avoid retry-related denial-of-service and network congestion.
-
-*** At-most-once delivery
-
-For at-most-once delivery, simply
-
- - publish the message, once, as usual. No correlation identifier is
-   required.
-
- - receive the message in the consuming application, paying attention
-   to the <code>Redelivered</code> flag on the delivery. The <code>
-   Redelivered</code> flag will only be clear when the server believes that
-   it is offering a message for consumption for the very first
-   time. If any attempt at delivery has been made before, the <code>Redelivered</code> flag will be set.
-
-The <code>Redelivered</code> flag is a very limited piece of information,
-giving only at-most-once QoS. In particular, it cannot be used for
-exactly-once QoS.
-
-
-** Coding with high-availability AMQP server pairs
-
-In situations where continuous AMQP service is desired, the
-possibility of a server failure can be hedged against with some
-careful programming and the availability of a warm-standby AMQP server
-for failover.
-
-The main concerns when failing over are
-
- - atomicity of published/acknowledged work units, and
-
- - availability of configured resources on the backup server
-
-Message producers should take care to use transactions in order to
-receive positive confirmation of receipt of a group of messages from a
-server, and should keep a record of the exchanges, queues and bindings
-they need to have available in order to perform their work, so that on
-failover, the appropriate resources can be declared before replaying
-the most recent transactions to recover.
-
-Message consumers should be aware of the possibility of missing or
-duplicate messages when failing over: a publisher may decide to resend
-a transaction whose outcome is in doubt, or a transaction the
-publisher considered complete could disappear entirely due to failure
-of the primary AMQP server.
-
-** Interacting with external resources
-
-A common pattern for an AMQP-connected service is to
-
- # receive a service request via an AMQP queue
-
- # update some external resource, such as a file or database
-
- # reply via AMQP, or at a minimum, acknowledge to the AMQP server
-   that the message triggering the action has been completed
-
-Often elements of the at-least-once or exactly-once patterns appear in
-conjunction with the external-resource pattern - specifically, the
-side-effects discussed in the section on reliable message transfer
-above are often effects on an external resource.
-
-In cases where the exactly-once pattern appears in conjunction with an
-external resource, it's important to write code that is able at each
-step to determine whether the step has already been taken in some
-previous attempt at completing the whole transaction, and if it has,
-to be able to omit it in this attempt and proceed to the next
-step. For example:
-
- - If a work-triggering request went missing, another copy will
-   (eventually) arrive from the ultimate requestor.
-
- - If the work was already performed, for instance a database table
-   was updated, in a previous receipt of the work item in question,
-   the service needs to keep a record of completion of the external
-   work that is atomic with respect to the atomic work itself: for
-   instance, within the same database transaction, some log of
-   honoured requests could be updated, or the row being modified could
-   be updated to include the ID of the request that caused the
-   modification, as well as previous request-IDs that modified the row
-   in question.
-
-   This makes it important to be able to compress request IDs so that
-   they do not take unbounded space in the log of performed work, and
-   so that we do not need to introduce a full distributed
-   garbage-collection protocol with the ultimate requestor. One way of
-   doing this is to choose to use request IDs that are strictly
-   increasing, so that a "high water mark" can be used; see also the
-   section on exactly-once delivery above.
-
- - Once the work is known to have been performed, and a reply has been
-   produced (if there is one), the reply can be sent back to the
-   requestor as many times as necessary. The requestor knows which
-   replies it is expecting, and can discard unwanted duplicates. So
-   long as duplicates of the same request always receive identical
-   reply messages, the replier need not be careful about sending too
-   many copies of the reply.
-
- - Once the reply has been sent to the AMQP server, the request
-   message can be acknowledged as received and processed with the AMQP
-   server. In cases where there is no reply to a request, the
-   acknowledgement is still useful to ensure that requests are not
-   lost.
+            Once the reply has been sent to the server, the request
+            message can be acknowledged as received and processed with the server
+            server. In cases where there is no reply to a request, the
+            acknowledgement is still useful to ensure that requests are not lost.
+          </p>
+        </doc:subsection>
     </body>
 </html>
