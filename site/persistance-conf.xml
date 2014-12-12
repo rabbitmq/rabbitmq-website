@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Persistence Configuration</title>
+  </head>
+  <body>
+    <p class="intro">
+      The RabbitMQ persistence layer is intended to give good results
+      in the majority of situations without configuration. However,
+      some configuration is sometimes useful. This page explains how
+      you can configure it. You are advised to read it all before
+      taking any action.
+    </p>
+
+    <h3>How persistence works</h3>
+
+    <p>
+      First, some background: both persistent and transient messages
+      can be written to disk. Persistent messages will be written to
+      disk as soon as they reach the queue, while transient messages
+      will be written to disk only so that they can be evicted from
+      memory while under memory pressure. Persistent messages are also
+      kept in memory when possible and only evicted from memory under
+      memory pressure. The "persistence layer" refers to the mechanism
+      used to store messages of both types to disk.
+    </p>
+
+    <p>
+      On this page we say "queue" to refer to an unmirrored queue or a
+      queue master or a queue slave. Queue mirroring happens "above"
+      persistence.
+    </p>
+
+    <p>
+      The persistence layer has two components: the <i>queue index</i>
+      and the <i>message store</i>. The queue index is responsible for
+      maintaining knowledge about where a given message is in a queue,
+      along with whether it has been delivered and acknowledged. There
+      is therefore one queue index per queue.
+    </p>
+
+    <p>
+      The message store is a key-value store for messages, shared
+      among all queues in the server. Messages (the body, and any
+      properties and / or headers) can either be stored directly in
+      the queue index, or written to the message store.
+    </p>
+
+    <h3>Memory costs</h3>
+
+    <p>
+      Under memory pressure, the persistence layer tries to write as
+      much out to disk as possible, and remove as much as possible
+      from memory. There are some things however which must remain in
+      memory:
+    </p>
+
+    <ul>
+      <li>
+        Each queue maintains some metadata for each
+        <b>unacknowledged</b> message. The message itself can be
+        removed from memory if its destination is the message store.
+      </li>
+      <li>
+        The message store needs an index. The default message store
+        index uses a small amount of memory for every message in the
+        store.
+      </li>
+    </ul>
+
+    <h3>Messages in the queue index</h3>
+
+    <p>
+      There are advantages and disadvantages to writing messages to
+      the queue index.
+    </p>
+
+    <p>Advantages:</p>
+    <ul>
+      <li>
+        Messages can be written to disk in one operation rather than
+        two; for tiny messages this can be a substantial gain.
+      </li>
+      <li>
+        Messages that are written to the queue index do not require an
+        entry in the message store index and thus do not have a memory
+        cost when paged out.
+      </li>
+    </ul>
+
+    <p>Disadvantages:</p>
+    <ul>
+      <li>
+        The queue index keeps blocks of a fixed number of records in
+        memory; if non-tiny messages are written to the queue index then
+        memory use can be substantial.
+      </li>
+      <li>
+        If a message is routed to multiple queues by an exchange, the
+        message will need to be written to multiple queue indices. If
+        such a message is written to the message store, only one copy
+        needs to be written.
+      </li>
+      <li>
+        Unacknowledged messages whose destination is the queue index
+        are always kept in memory.
+      </li>
+    </ul>
+
+    <p>
+      The intent is for very small messages to be stored in the queue
+      index as an optimisation, and for all other messages to be
+      written to the message store. This is controlled by the
+      configuration item <code>queue_index_embed_msgs_below</code>. By
+      default, messages with a body size of less than 1024 bytes are
+      stored in the queue index.
+    </p>
+
+    <p>
+      Note that <code>queue_index_embed_msgs_below</code> relates to
+      the size of the message body, not the size of the message in
+      total. If you typically use messages with large numbers of
+      headers then you might find it useful to reduce
+      <code>queue_index_embed_msgs_below</code> to a lower value
+      (possibly <code>0</code>).
+    </p>
+
+    <p>
+      Each queue index needs to keep at least one segment file and its
+      journal in memory. The segment file contains records for 16,384
+      messages; the journal defaults to 65,536 (but can be changed
+      using <code>queue_index_max_journal_entries</code>). Therefore
+      be cautious when increasing
+      <code>queue_index_embed_msgs_below</code>; a small increase can
+      lead to a large amount of memory used.
+    </p>
+
+    <h3>Alternate message store index implementations</h3>
+
+    <p>
+      As mentioned above, each message which is written to the message
+      store uses a small amount of memory for its index entry. The
+      message store index is pluggable in RabbitMQ, and other
+      implementations are available as plugins which can remove this
+      limitation. (The reason we do not ship any with the server is
+      that they all use native code.) Note that such plugins typically
+      make the message store run more slowly.
+    </p>
+
+  </body>
+</html>

@@ -64,6 +64,7 @@
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>
          <x:page url="/parameters.html" text="Parameters"/>
+         <x:page url="/persistance-conf.html" text="Persistance"/>
        </x:page>
        <x:page url="/ssl.html" text="SSL Support">
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
