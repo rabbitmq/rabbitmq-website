@@ -33,56 +33,56 @@
         </p>
 
         <p>
-          The client API is closely modelled on the AMQP 0-9-1 protocol specification,
-          with additional abstractions for ease of use.
+            The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+            with additional abstractions for ease of use.
         </p>
 
         <p>
-          This section gives an overview of the RabbitMQ .NET client API.
+            This section gives an overview of the RabbitMQ .NET client API.
 
-          Only the basics of using the library are covered: for full detail,
-          please see the javadoc-like API documentation generated from the
-          source code.
+            Only the basics of using the library are covered: for full detail,
+            please see the javadoc-like API documentation generated from the
+            source code.
         </p>
 
         <doc:section name="classoverview">
-          <doc:heading>Major namespaces, interfaces and classes</doc:heading>
-          <p>
-            The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
+            <doc:heading>Major namespaces, interfaces and classes</doc:heading>
+            <p>
+                The core API interfaces and classes are defined in the <code>RabbitMQ.Client</code> namespace:
 
 <pre class="sourcecode">
-    using RabbitMQ.Client;
+using RabbitMQ.Client;
 </pre>
 
-            The core API interfaces and classes are
+    The core API interfaces and classes are
 
-            <ul>
-              <li><code>IModel</code>: represents an AMQP 0-9-1 data channel, and provides most
-              of the operations (protocol methods).</li>
+    <ul>
+        <li><code>IModel</code>: represents an AMQP 0-9-1 data channel, and provides most
+        of the operations (protocol methods).</li>
 
-              <li><code>IConnection</code>: represents an AMQP connection</li>
+        <li><code>IConnection</code>: represents an AMQP connection</li>
 
-              <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
-            </ul>
+        <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
+    </ul>
 
-            Other useful interfaces and classes include:
+    Other useful interfaces and classes include:
 
-            <ul>
-              <li><code>QueueingBasicConsumer</code> receives messages delivered from the server</li>
-            </ul>
+    <ul>
+        <li><code>QueueingBasicConsumer</code> receives messages delivered from the server</li>
+    </ul>
 
-            Public namespaces other than <code>RabbitMQ.Client</code> include:
+    Public namespaces other than <code>RabbitMQ.Client</code> include:
 
-            <ul>
-              <li>
-                <code>RabbitMQ.Client.Events</code>: various events and event handlers
-                nthat are part of the client library.
-              </li>
-              <li>
-                <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user
-                of the AMQP client library.
-              </li>
-            </ul>
+    <ul>
+        <li>
+            <code>RabbitMQ.Client.Events</code>: various events and event handlers
+            nthat are part of the client library.
+        </li>
+        <li>
+            <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user
+            of the AMQP client library.
+        </li>
+    </ul>
           </p>
 
           <p>
@@ -693,35 +693,36 @@ factory.TopologyRecoveryEnabled  = false;
             <li>some means of receiving a reply must be available</li>
             <li>some means of correlating the request message to the reply message
             must be available</li>
+          </ul>
 
-            <h4>Addressing the service</h4>
+          <h4>Addressing the service</h4>
 
-            Since AMQP messages are published using a pair of an exchange name and
-            a routing key, this is sufficient for addressing a service. Using a
-            simple exchange-name/routing-key combination permits a number of
-            different ways to implement the service while presenting the same
-            interface to clients. For instance, the service could be implemented
-            as a single process consuming from a queue, and load-balancing
-            internally, or it could be multiple processes consuming from a single
-            queue, being handed requests round-robin style, thereby load balancing
-            without special coding in the service logic.
+          Since AMQP messages are published using a pair of an exchange name and
+          a routing key, this is sufficient for addressing a service. Using a
+          simple exchange-name/routing-key combination permits a number of
+          different ways to implement the service while presenting the same
+          interface to clients. For instance, the service could be implemented
+          as a single process consuming from a queue, and load-balancing
+          internally, or it could be multiple processes consuming from a single
+          queue, being handed requests round-robin style, thereby load balancing
+          without special coding in the service logic.
 
-            Messages can be addressed to the service request queue either
+          Messages can be addressed to the service request queue either
 
-            <ul>
-              <li>directly, using the AMQP default exchange (""); or</li>
+          <ul>
+            <li>directly, using the AMQP default exchange (""); or</li>
 
-              <li>
-                indirectly, by using a service-specific exchange, which leaves the
-                routing-key free for such purposes as method selection or
-                additional service-specific addressing information; or
-              </li>
+            <li>
+              indirectly, by using a service-specific exchange, which leaves the
+              routing-key free for such purposes as method selection or
+              additional service-specific addressing information; or
+            </li>
 
-              <li>
-                indirectly, by using an exchange shared by multiple services, with
-                the service name encoded in the routing key.
-              </li>
-            </ul>
+            <li>
+              indirectly, by using an exchange shared by multiple services, with
+              the service name encoded in the routing key.
+            </li>
+          </ul>
 
             Using an exchange other than the default exchange permits other
             applications to receive copies of each request message, which can be
@@ -1061,6 +1062,7 @@ ch.QueueBind("MyApplicationQueue", "prices",
               for scenarios where every message matching our subscription needs
               to be delivered, manual-acknowledgement is appropriate
             </li>
+          </ul>
 
             <p>
             For more information, see the section on reliable message transfer
@@ -1120,9 +1122,8 @@ ch.QueueBind("MyApplicationQueue", "prices",
             </li>
           </ul>
 
-          <p>
-            Deciding on a message-resend policy can be difficult. Some simple
-            resend strategies are:
+          Deciding on a message-resend policy can be difficult. Some simple
+          resend strategies are:
 
             <ul>
               <li>
