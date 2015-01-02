@@ -193,7 +193,7 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
             The above code then binds the queue to the exchange with the given
             routing key.
 
-            Note that many Channel API methods are overloaded. The convenient
+            Note that many channel API (<code>IModel</code>) methods are overloaded. The convenient
             short form of <code>ExchangeDeclare</code> uses sensible defaults. There are
             also longer forms with more parameters, to let you override these
             defaults as necessary, giving full control where needed.
@@ -215,7 +215,7 @@ model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
 </pre>
 
             For fine control, you can use overloaded variants to specify the
-            mandatory flag, or send messages with basic-class header properties:
+            mandatory flag, or specify messages properties:
 
 <pre class="sourcecode">
 byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
@@ -223,8 +223,8 @@ IBasicProperties props = model.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
 mode.BasicPublish(exchangeName,
-                     routingKey, props,
-                     messageBodyBytes);
+                  routingKey, props,
+                  messageBodyBytes);
 </pre>
 
             This sends a message with delivery mode 2 (persistent) and
@@ -235,7 +235,7 @@ mode.BasicPublish(exchangeName,
         </doc:section>
 
         <doc:section name="basic-get">
-          <doc:heading>Retrieving Individual Messages</doc:heading>
+          <doc:heading>Fetching Individual Messages ("pull API")</doc:heading>
 
           <p>
             To retrieve individual messages, use <code>IModel.BasicGet</code>. The
@@ -263,12 +263,15 @@ if (result == null) {
     channel.BasicAck(result.DeliveryTag, false);
 }
 </pre>
+
+            Note that fetching messages using this API is relatively inefficient. If you'd prefer
+            RabbitMQ to push messages to the client, see the next section.
           </p>
         </doc:section>
 
 
         <doc:section name="basic-consume">
-          <doc:heading>Retrieving Messages By Subscription</doc:heading>
+          <doc:heading>Retrieving Messages By Subscription ("push API")</doc:heading>
 
           <p>
             Another way to receive messages is to set up a subscription using the
@@ -276,29 +279,30 @@ if (result == null) {
             automatically as they arrive, rather than having to be requested
             proactively.
 
-            The easiest and safest way to implement a consumer is to use the
+            One way to implement a consumer is to use the
             convenience class <code>QueueingBasicConsumer</code>, and retrieve
             deliveries from the <code>SharedQueue</code> instance contained therein:
 
-@code java
- QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
- String consumerTag = channel.BasicConsume(queueName, false, consumer);
- while (true) {
-     try {
-         RabbitMQ.Client.Events.BasicDeliverEventArgs e =
-           (RabbitMQ.Client.Events.BasicDeliverEventArgs)
-           consumer.Queue.Dequeue();
-         IBasicProperties props = e.BasicProperties;
-         byte[] body = e.Body;
-         // ... process the message
-         channel.BasicAck(e.DeliveryTag, false);
-     } catch (OperationInterruptedException ex) {
-         // The consumer was removed, either through
-         // channel or connection closure, or through the
-         // action of IModel.BasicCancel().
-         break;
-     }
- }
+<pre class="sourcecode">
+QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
+String consumerTag = channel.BasicConsume(queueName, false, consumer);
+while (true) {
+    try {
+        RabbitMQ.Client.Events.BasicDeliverEventArgs e =
+          (RabbitMQ.Client.Events.BasicDeliverEventArgs)
+          consumer.Queue.Dequeue();
+        IBasicProperties props = e.BasicProperties;
+        byte[] body = e.Body;
+        // ... process the message
+        channel.BasicAck(e.DeliveryTag, false);
+    } catch (OperationInterruptedException ex) {
+        // The consumer was removed, either through
+        // channel or connection closure, or through the
+        // action of IModel.BasicCancel().
+        break;
+    }
+}
+</pre>
 
 Another alternative is to subclass <code>DefaultBasicConsumer</code>,
 overriding methods as necessary, or implement <code>IBasicConsumer</code>
@@ -315,57 +319,25 @@ none was supplied to the original <code>IModel.BasicConsume</code> call.
 
 You can cancel an active consumer with <code>IModel.BasicCancel</code>:
 
-@code java
- channel.BasicCancel(consumerTag);
+<pre class="sourcecode">
+channel.BasicCancel(consumerTag);
+</pre>
 
 When calling the API methods, you always refer to consumers by their
 consumer tags, which can be either client- or server-generated as
-explained in the AMQP 0-9-1 specification document.
-          </p>
-        </doc:section>
-
-
-        <doc:section name="disconnecting">
-          <doc:heading>Disconnecting from a Broker</doc:heading>
-
-          <p>
-            To publish a message to an exchange, use <code>IModel.BasicPublish</code> as
-            follows:
-
-<pre class="sourcecode">
-byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-model.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
-</pre>
-
-            For fine control, you can use overloaded variants to specify the
-            mandatory flag, or send messages with basic-class header properties:
-
-<pre class="sourcecode">
-byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-IBasicProperties props = channel.CreateBasicProperties();
-props.ContentType = "text/plain";
-props.DeliveryMode = 2;
-model.BasicPublish(exchangeName,
-                   routingKey, props,
-                   messageBodyBytes);
-</pre>
-
-            This sends a message with delivery mode 2 (persistent) and
-            content-type "text/plain". See the definition of the <code>
-            IBasicProperties</code> interface for more information about the available
-            header properties.
+explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> document.
           </p>
         </doc:section>
 
 
         <doc:section name="concurrency">
-          <doc:heading>Concurrency Consideration for consumers</doc:heading>
+          <doc:heading>Concurrency Considerations for Consumers</doc:heading>
 
           <p>
             Each <code>IConnection</code> instance is, in the current implementation,
             backed by a single background thread that reads from the socket and
             dispatches the resulting events to the application.
-            Additionally there are two threads responsible for <code>Heartbeat</code> support,
+            Additionally there are two threads responsible for heartbeat support,
             if connection negotiation turned it on.
 
             Usually, therefore, there will be four threads active in an application
@@ -419,14 +391,15 @@ model.BasicPublish(exchangeName,
             use <code>IModel.BasicPublish</code> in callbacks, because flow control
             could block publication.
 
-            For this reason, <code>QueueingBasicConsumer</code> is the safest way of
+            For this reason, <code>QueueingBasicConsumer</code> is currently the safest way of
             subscribing to a queue, because its implementation uses <code>
             RabbitMQ.Util.SharedQueue</code> to pass deliveries over to the application
             thread, where all processing of received deliveries is done, and where
             any <code>IModel</code> operation is safe.
 
+
             <doc:subsection name="model-sharing">
-              <doc:heading></doc:heading>
+              <doc:heading>Sharing Channels Between Threads</doc:heading>
 
               <p>
                 In general, <code>IModel</code> instances should not be used by more than
@@ -491,13 +464,13 @@ model.BasicReturn +=
         </doc:section>
 
         <doc:section name="disconnecting">
-          <doc:heading>Disconnecting from a Broker</doc:heading>
+          <doc:heading>Disconnecting from RabbitMQ</doc:heading>
           <p>
             To disconnect, simply close the channel and the connection:
 
 <pre class="sourcecode">
- channel.Close(200, "Goodbye");
- conn.Close();
+channel.Close(200, "Goodbye");
+conn.Close();
 </pre>
 
             Note that closing the channel is considered good practice, but isn't
@@ -520,6 +493,7 @@ conn.AutoClose = true;
             channel is created, the connection will close then and there.
           </p>
         </doc:section>
+
 
         <doc:section name="connection-recovery">
           <doc:heading>Automatic Recovery From Network Failures</doc:heading>
@@ -617,7 +591,7 @@ factory.TopologyRecoveryEnabled  = false;
           </doc:subsection>
         </doc:section>
 
-        <doc:subsection name="common-patterns">
+        <doc:section name="common-patterns">
           <doc:heading>Common ways of working with AMQP 0-9-1</doc:heading>
 
           <p>
@@ -643,7 +617,7 @@ factory.TopologyRecoveryEnabled  = false;
               </li>
 
               <li>
-                Reliable message transfer: at-least-once and at-most-once message delivery.
+                Message transfer: at-least-once and at-most-once message delivery.
               </li>
 
               <li>
@@ -675,7 +649,7 @@ factory.TopologyRecoveryEnabled  = false;
             improved high-level support for the most common messaging patterns and
             their variations.
           </p>
-        </doc:subsection>
+
 
         <doc:subsection name="point-to-point-messaging">
           <doc:heading>Point-to-point Messaging</doc:heading>
@@ -733,6 +707,7 @@ factory.TopologyRecoveryEnabled  = false;
 
             <h4>Ensuring a service instance is listening</h4>
 
+            <p>
             AMQP 0-9-1 publish operation (<code>IModel.BasicPublish</code>)
             provides a delivery flag, "mandatory", which can be
             used to ensure service availability at the time a
@@ -742,32 +717,28 @@ factory.TopologyRecoveryEnabled  = false;
             cannot be routed to a queue. Returned messages appear as <code>basic.return</code>
             commands, which are made visible to the application via the <code>IModel.BasicReturn</code>
             event on the <code>IModel</code> that was used to publish the message.
+            </p>
 
+            <p>
             Since published messages are returned to clients via <code>
             basic.return</code> method, and <code>basic.return</code> is an asynchronous
             negative-acknowledgement event, the <em>absence</em> of a <code>basic.return</code>
             for a particular message cannot be taken as a
             confirmation of delivery: the use of delivery flags only provides a
             way of raising the bar, rather than eliminating failure entirely.
+            </p>
 
-            When using delivery flags it is important to be aware that different
-            AMQP servers implement the flags in different ways. For example, the
-            RabbitMQ server does not support the "immediate" flag. Furthermore,
-            depending on the degree of internal asynchrony and distribution that
-            those servers exhibit. In particular, the interpretation of
-            "mandatory" and "immediate" in situations where <code>Tx</code>-class
-            transactions are active is underspecified in both versions 0-8 and 0-9
-            of the AMQP specification, and different server implementations behave
-            in different ways.
-
+            <p>
             Additionally, the fact that a message was flagged "mandatory", and
             successfully enqueued on one or more queues, is no guarantee of its
             eventual receipt: most trivially, the queue could be deleted before
             the message is processed, but other situations, like the use of the
             <code>noAck</code> flag by a message consumer, can also make the guarantee
             provided by "mandatory" conditional.
+            </p>
 
-            Alternatively, one could use Publisher Confirms. Setting a channel
+            <p>
+            Alternatively, one could use <a href="/confirms.html">Publisher Confirms</a>. Setting a channel
             into <em>confirm mode</em> by calling <code>IModel.ConfirmSelect</code> causes
             the broker to send a <code>Basic.Ack</code> after each message is processed
             by delivering to a ready consumer or by persisting to disk.
@@ -782,6 +753,7 @@ factory.TopologyRecoveryEnabled  = false;
             should assume that the message was lost or otherwise
             undeliverable. Also, note that unroutable messages - messages published as mandatory to non-existing queues -
             are both <code>Basic.Return'ed</code> and <code>Basic.Ack'ed</code>.
+            </p>
 
             <h4>Receiving Replies</h4>
 
@@ -797,7 +769,7 @@ factory.TopologyRecoveryEnabled  = false;
             using either <code>BasicGet</code> or <code>BasicConsume</code> on an
             appropriately-bound queue.
 
-            <h3>Correlating a received reply to a transmitted request</h3>
+            <h4>Correlating a received reply to a transmitted request</h4>
 
             <code>IBasicProperties</code> contain a
             field called <code>CorrelationId</code>, which in AMQP 0-9-1 is an
@@ -1098,8 +1070,7 @@ ch.QueueBind("MyApplicationQueue", "prices",
             This QoS level assures that a message is delivered to its ultimate
             destination at least once. That is, a receiver may receive multiple
             copies of the message. If it is important that a side-effect only
-            occur once for a given message, either at-most-once or exactly-once
-            QoS levels should be used instead.
+            occur once for a given message, at-most-once delivery should be used instead.
           </p>
 
           To implement at-least-once delivery:
@@ -1156,16 +1127,16 @@ ch.QueueBind("MyApplicationQueue", "prices",
             The <code>Redelivered</code> flag is a very limited piece of information,
             giving only at-most-once semantics.
         </doc:subsection>
+        </doc:section>
 
 
 
-
-        <doc:subsection name="working-with-clusters">
+        <doc:section name="working-with-clusters">
           <doc:heading>Coding with multi-node RabbitMQ clusters</doc:heading>
           <p>
-            In situations where continuous AMQP service is desired, the
+            In situations where continuous service is desired, the
             possibility of a server failure can be hedged against with some
-            careful programming and the availability of a warm-standby AMQP server
+            careful programming and the availability of a warm-standby cluster
             for failover.
           </p>
 
@@ -1192,7 +1163,6 @@ ch.QueueBind("MyApplicationQueue", "prices",
             publisher considered complete could disappear entirely due to failure
             of a cluster node.
           </p>
-        </doc:subsection>
 
         <doc:subsection name="external-resources">
           <doc:heading>Interacting with external resources</doc:heading>
@@ -1214,7 +1184,7 @@ ch.QueueBind("MyApplicationQueue", "prices",
           </p>
 
           <p>
-            In cases where the exactly-once pattern appears in conjunction with an
+            In cases where a delivery must be processed no more than once and used in conjunction with an
             external resource, it's important to write code that is able at each
             step to determine whether the step has already been taken in some
             previous attempt at completing the whole transaction, and if it has,
@@ -1263,5 +1233,6 @@ ch.QueueBind("MyApplicationQueue", "prices",
             acknowledgement is still useful to ensure that requests are not lost.
           </p>
         </doc:subsection>
+        </doc:section>
     </body>
 </html>
