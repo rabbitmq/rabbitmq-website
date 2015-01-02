@@ -186,7 +186,7 @@ model.QueueBind(queueName, exchangeName, routingKey, null);
 
             <ul>
               <li>a non-durable, non-autodelete exchange of "direct" type</li>
-              <li>a non-durable, non-exclusive, non-autodelete queue</li>
+              <li>a non-durable, non-autodelete, non-exclusive queue</li>
             </ul>
 
             The exchange can be customised by using additional parameters.
