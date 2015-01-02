@@ -57,18 +57,21 @@ using RabbitMQ.Client;
     The core API interfaces and classes are
 
     <ul>
-        <li><code>IModel</code>: represents an AMQP 0-9-1 data channel, and provides most
+        <li><code>IModel</code>: represents an AMQP 0-9-1 channel, and provides most
         of the operations (protocol methods).</li>
 
-        <li><code>IConnection</code>: represents an AMQP connection</li>
+        <li><code>IConnection</code>: represents an AMQP 0-9-1 connection</li>
 
         <li><code>ConnectionFactory</code>: constructs <code>IConnection</code> instances</li>
+
+        <li><code>IBasicConsumer</code>: represents a message consumer</li>
     </ul>
 
     Other useful interfaces and classes include:
 
     <ul>
-        <li><code>QueueingBasicConsumer</code> receives messages delivered from the server</li>
+        <li><code>DefaultConsumer</code>: commonly used base class for consumers</li>
+        <li><code>QueueingBasicConsumer</code> allows operating on a stream of delivered messages as a collection</li>
     </ul>
 
     Public namespaces other than <code>RabbitMQ.Client</code> include:
@@ -76,11 +79,10 @@ using RabbitMQ.Client;
     <ul>
         <li>
             <code>RabbitMQ.Client.Events</code>: various events and event handlers
-            nthat are part of the client library.
+            that are part of the client library.
         </li>
         <li>
-            <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user
-            of the AMQP client library.
+            <code>RabbitMQ.Client.Exceptions</code>: exceptions visible to the user.
         </li>
     </ul>
           </p>
@@ -100,11 +102,12 @@ using RabbitMQ.Client;
         <doc:section name="connecting">
           <doc:heading>Connecting to a Broker</doc:heading>
           <p>
-            The following two code snippets connect to an AMQP broker:
+            The following two code snippets connect to a RabbitMQ node:
 
 <pre>
 ConnectionFactory factory = new ConnectionFactory();
 factory.UserName = user;
+// "gue
 factory.Password = pass;
 factory.VirtualHost = vhost;
 factory.HostName = hostName;
@@ -121,8 +124,8 @@ IConnection conn = factory.CreateConnection();
           </p>
 
           <p>
-            Since the .NET client uses a stricter interpretation of the AMQP 0-9-1 URI
-            spec than the other clients, care must be taken when using URIs.  In
+            Since the .NET client uses a stricter interpretation of the <a href="/uri-spec.html">AMQP 0-9-1 URI
+            spec</a> than the other clients, care must be taken when using URIs.  In
             particular, the host part must not be omitted and virtual hosts with
             empty names are not addressable.
 
