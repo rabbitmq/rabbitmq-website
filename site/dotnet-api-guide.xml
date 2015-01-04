@@ -1234,5 +1234,397 @@ ch.QueueBind("MyApplicationQueue", "prices",
           </p>
         </doc:subsection>
         </doc:section>
+
+
+        <doc:section name="rabbitmq-binding-for-wcf">
+          <doc:heading>A RabbitMQ Binding for WCF</doc:heading>
+          <p>
+            The <a href="http://msdn.microsoft.com/en-us/library/ms731082(v=vs.100).aspx">Windows Communication Foundation (WCF)</a> enabled
+            protocol independent service oriented applications to be
+            built; RabbitMQ .NET client extends the framework by providing a
+            <code>Binding</code> and <code>Transport Binding Element</code> over RabbitMQ. In the
+            language of WCF, a <code>Binding</code> is a stack of <code>Binding Elements</code>
+            which control all aspects of the service’s communication
+            (for example, Security, Message Format and
+            Transactions). A specialized kind of Binding Element, the
+            <code>Transport Binding Element</code> specifies the protocol to be
+            used for communication between a service and its clients
+            (for example WS-HTTP, MSMQ or .Net Remoting over TCP).
+          </p>
+          <p>
+            The RabbitMQ Binding provides <em>OneWay</em> ("Fire and Forget"),
+            <em>TwoWay</em> (Request/Reply) and <em>Duplex</em> (Asynchronous Callback)
+            communication over RabbitMQ with <code>WS-ReliableSessions</code>,
+            <code>WS-AtomicTransactions</code> and <code>Text</code> message
+            encoding. The binding can be configured from imperative
+            code or using the standard WCF Configuration model.
+          </p>
+          <p>
+            A <code>Transport Binding Element</code> is also supplied and can be
+            used in the construction of custom bindings if the channel
+            stack provided by the <code>RabbitMQ Binding</code> is
+            insufficient. The transport binding must be configured
+            with a broker hostname and broker port prior to use.
+          </p>
+
+          <doc:subsection name="status-and-limitations">
+            <doc:heading>Status and Known Limitations</doc:heading>
+
+            <ol>
+              <li>A <code>TwoWay</code> or <code>Duplex</code> service cannot have <code>SessionMode</code> = <code>SessionMode.NotAllowed</code> since a Reliable Session is required to maintain the reply channel.</li>
+              <li>Only SOAP Formatting is available, other formatters can be specified by building a <code>CustomBinding</code> on top of the <code>RabbitMQTransportBindingElement</code></li>
+              <li>Service queue parameters (e.g. durability) are not configurable</li>
+              <li>Network faults are not reported to the binding</li>
+            </ol>
+
+            <p>
+              The RabbitMQ WCF binding has limited flexibility
+              compared to the RabbitMQ .NET RabbitMQ client
+              library. You are advised to use the .NET RabbitMQ client
+              library if you require greater flexibility (e.g. control
+              over durability of service queue) or if you require
+              long-term support. The WCF binding is <strong>not under active development</strong>.
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="building-samples">
+            <doc:heading>Building the Binding and Samples</doc:heading>
+
+            <p>
+              The RabbitMQ binding to WCF and associated samples can be built automatically using Nant. For more information about Nant, visit http://nant.sourceforge.net/. To build the library and Sample Applications from a console window, change to the RabbitMQ.net drop location and execute:
+
+<pre class="sourcecode">
+nant build-wcf
+nant wcf-examples
+</pre>
+            </p>
+
+            <p>
+              <ul>
+                <li>src\wcf\RabbitMQ.ServiceModel\RabbitMQ.ServiceModel.csproj</li>
+                <li>src\wcf\Test\RabbitMQ.ServiceModel.Test.csproj</li>
+              </ul>
+
+              The WCF Binding is built into the RabbitMQ.ServiceModel.dll assembly
+              and copied to the bin directory of the RabbitMQ.ServiceModel project
+              and the sample applications are built into the bin directory of the
+              Test project. To run the sample applications (verifying the build and
+              your environment configuration) execute the
+              RabbitMQ.ServiceModel.Test.exe application.  By default, the sample
+              applications use a test broker which must be running at localhost. You
+              can modify the broker hostname and port by opening and editing the
+              <code>appSettings</code> section of the Application Configuration file (<code>App.Config</code>)
+              for the Test Project.
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="abcs-of-wcf">
+            <doc:heading>The ABCs of WCF</doc:heading>
+
+            <p>
+              Each Windows Communication Foundation service is built from three components, an Address, Behaviours and a Contract. For more information, see <a href="http://msdn.microsoft.com/en-us/library/ee354181.aspx">Windows Communication Foundation Essentials</a>.
+            </p>
+
+            <h4>Contract</h4>
+            <p>
+              A service contract is an interface decorated with the
+              ServiceContractAttribute and has one or more methods (or
+              property accessors) decorated with the
+              <code>OperationContract</code> attribute. Typically the contract
+              exists in an assembly that can be shared between client
+              and server applications.
+
+<pre class="sourcecode">
+[ServiceContract]
+public interface ICalculator
+{
+  [OperationContract]
+  int Add(int x, int y);
+
+  [OperationContract]
+  int Subtract(int x, int y);
+}
+</pre>
+            </p>
+
+            <h4>Behaviour</h4>
+            <p>
+              The contract for a service specifies what the operations
+              the service agrees to provide, the behaviour specifies
+              the implementation for that service. A behaviour is a
+              class implementing the contract and optionally decorated
+              with the <code>ServiceBehavior</code> attribute.
+
+<pre class="sourcecode">
+[ServiceBehavior(InstanceContextMode=InstanceContextMode.PerCall)]
+public sealed class Calculator : ICalculator
+{
+  public int Add(int x, int y)
+  {
+    return x + y;
+  }
+
+  public int Subtract(int x, int y)
+  {
+    return x - y;
+  }
+}
+</pre>
+            </p>
+
+            <h4>Address</h4>
+            <p>
+              For a service to be useful, it must be reachable and
+              therefore hosted. The two common hosting scenarios for
+              WCF services are IIS and ServiceHost. IIS Hosting is
+              untested and unsupported by the RabbitMQ binding and
+              using <code>System.ServiceModel.ServiceHost</code> is the recommended
+              hosting path. A service host instance is constructed
+              with the type of service behaviour being hosted and a
+              description of the endpoint(s) it will be published
+              on. The endpoints consist of Addresses
+              (e.g. <code>soap.amp:///MyService</code>) and Bindings; they may be
+              specified directly as constructor arguments in
+              imperative code or declaratively through WCF
+              configuration files, both are supported by the RabbitMQ
+              binding.
+            </p>
+
+            <h4>Service Addressing</h4>
+            <p>
+              Services hosted using the RabbitMQ binding must be
+              hosted at addresses under the <code>soap.amqp</code> scheme. The
+              <code>amq.direct</code> exchange is used. The service name must not
+              be omitted.
+
+<pre class="sourcecode">
+serviceAddress = “soap.amqp:///” serviceName
+</pre>
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="sample-services">
+            <doc:heading>Sample Services</doc:heading>
+
+            <p>The sample services referred to in this section are located in the <code>src\wcf\Test project</code>.</p>
+
+            <h4>One Way Services</h4>
+            <p>
+              Operations on a service can be marked as <code>One Way</code>; this
+              means there will be no response from the service when
+              the operation completes. <code>One Way</code> operations always have
+              return type void and have an <code>OperationContract</code> attribute
+              with <code>IsOneWay</code> set equal to true decorating them.
+            </p>
+
+<pre class="sourcecode">
+[OperationContract(IsOneWay=true)]
+void Log(LogData entry);
+</pre>
+
+            <p>
+              If a service only contains one way operations the
+              RabbitMQ binding can be used in an optimized <code>OneWayOnly</code>
+              mode. In this mode, no reply queue is created for
+              responses to be sent back to the client and the client
+              does not listen for responses from the service. To
+              enable <code>OneWayOnly</code> mode set the binding property or use
+              the <code>oneWay</code> configuration attribute.
+            </p>
+
+<pre class="sourcecode">
+&lt;rabbitMQBinding&gt;
+  &lt;binding name="rabbitMQConfig" 
+           hostame="localhost"
+           port="5672"
+           username="guest"
+           password="guest"
+           virtualHost="/"
+           oneWay="true"
+           maxmessagesize="8192" /&gt;
+&lt;/rabbitMQBinding&gt;
+</pre>
+
+            <p>
+              The <code>OneWayTest</code> sample application is a simple logging
+              service. Clients submit log entries to a server which
+              displays them on the console. It demonstrates one way
+              RPC over RabbitMQ, SOAP encoding to transmit complex data
+              types over the wire and singleton instance context mode.
+            </p>
+
+            <h4>Two Way Services</h4>
+            <p>
+              Typically a service operates in a bi-directional, two
+              way fashion where requests from the client are
+              synchronously executed and a response returned to the
+              caller. To support these services, the RabbitMQ binding
+              uses the <code>CompositeDuplexBindingElement</code> , which
+              constructs a uniquely named reply queue on the
+              broker. Two Way services are not supported by the
+              binding when it is in <code>OneWayOnly</code> mode.  The <code>TwoWayTest</code>
+              sample application is a calculator service, whose
+              operations take a pair of integers and return a third.
+            </p>
+
+            <h4>Sessionful Services</h4>
+            <p>
+              Each call to a service can be considered independent of all others
+              with the service maintaining no state, often a more useful service
+              maintains some state between calls. The RabbitMQ binding supports
+              <code>WS-ReliableSessions</code> enable the object instances used to service
+              requests to have a session-long lifetime and be associated with a
+              single client session. <code>The SessionTest</code> sample application is a cart
+              service, allowing items to be added to a cart and a total calculated.
+            </p>
+
+            <h4>Duplex Services</h4>
+            <p>
+              A call to a two way service might start a long running process (for
+              example, aggregating prices from a list of suppliers) and whilst the
+              client requires a response, it is desirable that the client is not
+              blocked for the duration of the call; instead, an asynchronous call is
+              desired. Duplex services allow the service to make calls to the
+              client, and have a contract whose <code>ServiceContract</code> specifies a
+              <code>CallbackContract</code> type.
+            </p>
+
+<pre class="sourcecode">
+[ServiceContract(CallbackContract=typeof(IOrderCallback))]
+public interface IOrderService
+</pre>
+
+            <p>
+              Duplex services are supported by the RabbitMQ binding because its
+              channel stack includes the composite duplex binding element, they
+              are not supported in <code>OneWayOne</code> mode. The <code>DuplexTest</code> sample
+              application is an ordering service, which makes a callback to the
+              client when an order is fulfilled.
+            </p>
+          </doc:subsection>
+
+          <doc:subsection name="using-wcf-binding">
+            <doc:heading>Using the RabbitMQ Binding</doc:heading>
+
+            <h4>Services</h4>
+            <p>
+              The recommended hosting scenario for services over RabbitMQ is self
+              hosting using <code>System.ServiceModel.ServiceHost</code>. The
+              ServiceHost must specify a base or absolute endpoint address under the
+              soap.amqp scheme. An endpoint should then be added to the service
+              using the <code>RabbitMQBinding</code>.
+            </p>
+
+<pre class="sourcecode">
+var service = new ServiceHost(typeof(Calculator), new Uri("soap.amqp:///"));
+var binding = new RabbitMQBinding("localhost", 5672, "guest", "guest", "/",
+                                  8192, Protocols.AMQP_0_9_1);
+
+service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
+</pre>
+
+            <h4>Clients</h4>
+            <p>
+              The recommended pattern for connecting to a service is
+              by deriving from either <code>ClientBase&lt;T&gt;</code> or
+              <code>DuplexClientBase&lt;T&gt;</code>. For duplex clients, the
+              <code>InstanceContext</code> must be specified.
+            </p>
+
+            <h4>Configuration Files</h4>
+            <p>
+              Specifying details like the protocol version and broker
+              address in source code tends to result in services which
+              are very hard to manage and deploy. To avoid this, WCF
+              provides a configuration mechanism using application
+              configuration files (App.Config). The configuration file
+              must be applied to the host or client assembly
+              (typically an executable) and not to a library which
+              contains the service contract or behaviours. To
+              declaratively configure a service, the
+              RabbitMQBindingSection must be imported into the
+              system.serviceModel section of the configuration file.
+            </p>
+
+<pre class="sourcecode">
+&lt;extensions&gt;
+  &lt;bindingExtensions&gt;
+    &lt;add
+      name="rabbitMQBinding"
+      type="RabbitMQ.ServiceModel.RabbitMQBindingSection, RabbitMQ.ServiceModel, Version=1.0.110.0, Culture=neutral, PublicKeyToken=null"/&gt;
+  &lt;/bindingExtensions&gt;
+&lt;/extensions&gt;
+</pre>
+
+            <p>
+              With the extension imported, the <code>rabbitMQBinding</code> can be declared and configured:
+            </p>
+
+<pre class="sourcecode">
+&lt;bindings&gt;
+  &lt;rabbitMQBinding&gt;
+    &lt;binding 
+      name="rabbitMQConfig" 
+      hostname="localhost"
+      port="5672"
+      maxmessagesize="8192"  
+      version="AMQP_0_9_1" /&gt;
+  &lt;/rabbitMQBinding&gt;
+&lt;/bindings&gt;
+</pre>
+
+            <h4>Service Configuration</h4>
+            <p>
+              A service is configured by declaring the contract,
+              endpoint and binding. Multiple services and bindings can
+              be specified in a single configuration file.
+            </p>
+
+<pre class="sourcecode">
+&lt;services&gt;
+  &lt;service name="Calculator"&gt;
+    &lt;host&gt;
+      &lt;baseAddresses&gt;
+        &lt;add baseAddress="soap.amq:///" /&gt;
+      &lt;/baseAddresses&gt;
+    &lt;/host&gt;
+    &lt;endpoint
+      address="Calculator"
+      binding="rabbitMQBinding"
+      bindingConfiguration="rabbitMQConfig"
+      contract="ICalculator"/&gt;
+  &lt;/service&gt;
+&lt;/services&gt;
+</pre>
+
+            <p>
+              To run the service, simply create a new ServiceHost
+              instance passing in the service behaviour (as specified
+              in config).
+            </p>
+
+<pre class="sourcecode">
+host = new ServiceHost(typeof(Calculator));
+host.Open();
+</pre>
+
+            <h4>Client Configuration</h4>
+            <p></p>
+<pre class="sourcecode">
+</pre>
+
+            <p></p>
+<pre class="sourcecode">
+</pre>
+
+            <p></p>
+
+            <p></p>
+          </doc:subsection>
+
+          <doc:subsection name="wcf-binding-reference">
+            <doc:heading>Reference</doc:heading>
+          </doc:subsection>
+        </doc:section>
     </body>
 </html>
