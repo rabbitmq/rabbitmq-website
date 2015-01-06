@@ -805,7 +805,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Size in bytes of message body below which messages will
               be embedded directly in the queue index. You are advised
-              to read the <a href="persistance-conf.html">persister
+              to read the <a href="persistence-conf.html">persister
               tuning</a> documentation before changing this.
               <p>Default: <code>1024</code></p>
             </td>
@@ -816,7 +816,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Maximum number of messages to write to the queue index
               journal before flushing. You are advised to read the <a
-              href="persistance-conf.html">persister tuning</a>
+              href="persistence-conf.html">persister tuning</a>
               documentation before changing this.
               <p>Default: <code>65536</code></p>
             </td>
@@ -826,7 +826,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Implementation module for queue indexing. You are
               advised to read the <a
-              href="persistance-conf.html">persister tuning</a>
+              href="persistence-conf.html">persister tuning</a>
               documentation before changing this.
               <p>Default: <code>rabbit_msg_store_ets_index</code></p>
             </td>
