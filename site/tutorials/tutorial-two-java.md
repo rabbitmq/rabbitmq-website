@@ -166,7 +166,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+    shell2$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
     Worker
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'

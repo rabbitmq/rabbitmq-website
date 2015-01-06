@@ -407,6 +407,14 @@
           substitution). The value is a possible value for that variable.
         </p>
         <p>
+          Note that the values are of different Erlang types;
+          <code>resource</code> and <code>permission</code> have atom
+          values (e.g. <code>resource</code> could be
+          <code>exchange</code>) while the other keys have binary
+          values (e.g. <code>name</code> might be
+          <code>&lt;&lt;"amq.fanout"&gt;&gt;</code>).
+        </p>
+        <p>
           Example:
         </p>
 <pre class="example">{resource_access_query,

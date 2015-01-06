@@ -15,7 +15,7 @@
         <p class="intro">RabbitMQ has inbuilt support for SSL.</p>
         <p class="intro">
           As of RabbitMQ 3.4.0, SSLv3 is disabled automatically to
-          prevent the POODLE attack.
+          prevent the <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE attack</a>.
         </p>
 
         <p>
@@ -315,12 +315,113 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <p>and so forth.</p>
         </doc:subsection>
 
-        <doc:subsection name="bugs-in-new_ssl">
-          <doc:heading>Bugs in <code>new_ssl</code></doc:heading>
-            <p>Note there are major bugs with SSL in Erlang release R13
-            which renders using SSL with cerificates broken. As of
-            this writing, if you're wishing to use SSL with
-            certificates with RabbitMQ, we recommend R14B or later.</p>
+        <doc:subsection name="major-vulnerabilities">
+          <doc:heading>Known TLS Vulnerabilities: POODLE, BEAST, etc</doc:heading>
+          <h4>POODLE</h4>
+          <p>
+              <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE</a> is a known SSL/TLS attack that originally compromised SSLv3.
+              Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
+              the POODLE attack that affects TLSv1.0 was <a href="https://www.imperialviolet.org/2014/12/08/poodleagain.html">announced</a>.
+              It is therefore recommended to disable TLSv1.0 support (see below) when possible.
+          </p>
+
+          <h4>BEAST</h4>
+          <p>
+              <a href="http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack">BEAST attack</a> is a known vulnerability that
+              affects TLSv1.0. To mitigate it, disable TLSv1.0 support (see below).
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="disabling-tls-versions">
+          <doc:heading>Disabling SSL/TLS Versions via Configuration</doc:heading>
+          <p>
+            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option:
+<pre class="sourcecode">
+%% Disable SSLv3.0 support, leaves TLSv1.0 enabled.
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]},
+ {rabbit, [
+           {ssl_listeners, [5671]},
+           {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
+                          {certfile,  "/path/to/server_certificate.pem"},
+                          {keyfile,   "/path/to/server_key.pem"},
+                          {versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}
+                         ]}
+          ]}
+].
+</pre>
+
+<pre class="sourcecode">
+%% Disable SSLv3.0 and TLSv1.0 support.
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
+ {rabbit, [
+           {ssl_listeners, [5671]},
+           {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
+                          {certfile,  "/path/to/server_certificate.pem"},
+                          {keyfile,   "/path/to/server_key.pem"},
+                          {versions, ['tlsv1.2', 'tlsv1.1']}
+                         ]}
+          ]}
+].
+</pre>
+
+         to verify, use <code>openssl s_client</code>:
+
+<pre class="sourcecode">
+# connect using SSLv3
+openssl s_client -connect 127.0.0.1:5671 -ssl3
+</pre>
+
+<pre class="sourcecode">
+# connect using TLSv1.0 through v1.2
+openssl s_client -connect 127.0.0.1:5671 -tls1
+</pre>
+
+         and look for the following in the output:
+
+<pre class="sourcecode">
+SSL-Session:
+  Protocol  : TLSv1
+</pre>
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="tls-version-support-in-jdk-and-net">
+          <doc:heading>TLS Version Support Table for JDK and .NET</doc:heading>
+
+          <p>Disabling TLSv1.0 limits the number of client platforms supported. Below is a table that
+          explains what TLS versions are supported by what JDK and .NET releases.</p>
+
+          <table>
+            <thead>
+              <td>TLS version</td>
+              <td>Minimum JDK version</td>
+              <td>Minimum .NET version</td>
+            </thead>
+            <tr>
+              <td>TLS 1.0</td>
+              <td>JDK 5 (RabbitMQ Java client requires 6)</td>
+              <td>.NET 2.0 (RabbitMQ .NET client requires 3.5)</td>
+            </tr>
+            <tr>
+              <td>TLS 1.1</td>
+              <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+              <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
+              <td>.NET 4.5</td>
+            </tr>
+            <tr>
+              <td>TLS 1.2</td>
+              <td>JDK 7 (see <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">Protocols</a>,
+              <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html">JDK 8 recommended</a>)</td>
+              <td>.NET 4.5</td>
+            </tr>
+          </table>
+
+          <ul>
+            <li><a href="http://msdn.microsoft.com/en-us/library/system.security.authentication.sslprotocols(v=vs.110).aspx">.NET versions source</a>.</li>
+            <li><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">JDK versions source</a>.</li>
+          </ul>
         </doc:subsection>
       </doc:section>
 
@@ -461,7 +562,7 @@ started SSL Listener on 0.0.0.0:5671</pre>
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(<B><FONT COLOR="#BC8F8F">&quot;SunX509&quot;</FONT></B>);
         tmf.init(tks);
 
-        SSLContext c = SSLContext.getInstance(<B><FONT COLOR="#BC8F8F">&quot;SSLv3&quot;</FONT></B>);
+        SSLContext c = SSLContext.getInstance(<B><FONT COLOR="#BC8F8F">&quot;TLSv1.1&quot;</FONT></B>);
         c.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <B><FONT COLOR="#A020F0">null</FONT></B>);
 
         ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
