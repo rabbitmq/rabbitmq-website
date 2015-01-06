@@ -1609,21 +1609,35 @@ host.Open();
 </pre>
 
             <h4>Client Configuration</h4>
-            <p></p>
+            <p>
+              To build a client whose settings are derived from
+              configuration, expose a constructor for your
+              <code>ClientBase&lt;T&gt;</code> derived class calling the
+              <code>ClientBase(string)</code>.
+            </p>
 <pre class="sourcecode">
+public class CalculatorClient : ClientBase&lt;ICalculator&gt;, ICalculator
+{
+
+    public CalculatorClient(string configurationName)
+        : base(configurationName) { }
+
 </pre>
 
-            <p></p>
+            <p>Construct the class passing the client endpoint name as specified in configuration.</p>
 <pre class="sourcecode">
+&lt;client&gt;
+  &lt;endpoint address="soap.amq:///Calculator" 
+            binding="rabbitMQBinding"
+            bindingConfiguration="rabbitMQConfig" 
+            contract=" ICalculator"
+            name="AMQPCalculatorService" /&gt;
+&lt;/client&gt;
 </pre>
 
-            <p></p>
-
-            <p></p>
-          </doc:subsection>
-
-          <doc:subsection name="wcf-binding-reference">
-            <doc:heading>Reference</doc:heading>
+            <p>
+              The RabbitMQ WCF libraries also have full support for the WCF Configuration Editor Tool.
+            </p>
           </doc:subsection>
         </doc:section>
     </body>
