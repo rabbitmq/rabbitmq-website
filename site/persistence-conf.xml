@@ -115,17 +115,9 @@
       index as an optimisation, and for all other messages to be
       written to the message store. This is controlled by the
       configuration item <code>queue_index_embed_msgs_below</code>. By
-      default, messages with a body size of less than 1024 bytes are
-      stored in the queue index.
-    </p>
-
-    <p>
-      Note that <code>queue_index_embed_msgs_below</code> relates to
-      the size of the message body, not the size of the message in
-      total. If you typically use messages with large numbers of
-      headers then you might find it useful to reduce
-      <code>queue_index_embed_msgs_below</code> to a lower value
-      (possibly <code>0</code>).
+      default, messages with a serialised size of less than 1024 bytes
+      (including properties and headers) are stored in the queue
+      index.
     </p>
 
     <p>

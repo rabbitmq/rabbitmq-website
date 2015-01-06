@@ -803,7 +803,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>queue_index_embed_msgs_below</code></td>
             <td>
-              Size in bytes of message body below which messages will
+              Size in bytes of message below which messages will
               be embedded directly in the queue index. You are advised
               to read the <a href="persistence-conf.html">persister
               tuning</a> documentation before changing this.
