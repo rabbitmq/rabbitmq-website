@@ -24,13 +24,11 @@ bug fixes
 26490 in autoheal mode, ensure the leader doesn't stop before the winner told
       it so (since 3.3.0)
 26491 in autoheal mode, prevent a race in Mnesia by waiting for Mnesia
-      shutdown on all loosing nodes (since 3.1.0)
+      shutdown on all losing nodes (since 3.1.0)
 26478 fix startup or rabbitmqctl failures when RABBITMQ_CTL_ERL_ARGS is set
       (since 3.4.0)
-26081 fix error handling when creating a cluster with mismatched Erlang
-      versions
+26081 improve error message when creating a cluster with mismatched Erlang
 26446 improve error message when a plugin is incompatible with current Erlang
-      VM
 26265 ensure that plugins modules are picked before other third-party modules
 26503 support ssl's verify_fun from Erlang R14B+ (since 3.2.0)
 26502 fix 'backing_queue_status' duplication in /api/queues REST API (since
@@ -43,31 +41,31 @@ enhancements
 federation management plugin
 ----------------------------
 bug fixes
-26519 fix double HTML escaping in the upstream name (since 2.4.0)
+26519 fix double HTML escaping in upstream names (since 2.4.0)
 
 
 shovel management plugin
 ------------------------
 bug fixes
-26519 fix double HTML escaping in the dynamic shovel name (since 2.4.0)
+26519 fix double HTML escaping in dynamic shovel names (since 2.4.0)
 
 
 tracing plugin
 --------------
 bug fixes
-26519 fix double HTML escaping in the tracing log file name (since 2.4.0)
+26519 fix double HTML escaping in tracing log file names (since 2.4.0)
 
 
 AMQP 1.0 plugin
 ---------------
 bug fixes
-26486 use env(1) in codegen.py to find python(1) (since 3.1.0)
+26486 use env(1) in codegen.py to find python(1) while building (since 3.1.0)
 
 
 MQTT plugin
 -----------
 bug fixes
-26482 ensure exceptions are logged (since 3.3.5)
+26482 ensure full exception details are logged (since 3.3.5)
 
 
 java client
