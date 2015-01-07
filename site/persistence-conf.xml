@@ -46,7 +46,10 @@
       The message store is a key-value store for messages, shared
       among all queues in the server. Messages (the body, and any
       properties and / or headers) can either be stored directly in
-      the queue index, or written to the message store.
+      the queue index, or written to the message store. There are
+      technically two message stores (one for transient and one for
+      persistent messages) but they are usually considered together as
+      "the message store".
     </p>
 
     <h3>Memory costs</h3>
