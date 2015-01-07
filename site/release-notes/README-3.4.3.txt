@@ -27,6 +27,8 @@ bug fixes
       shutdown on all losing nodes (since 3.1.0)
 26478 fix startup or rabbitmqctl failures when RABBITMQ_CTL_ERL_ARGS is set
       (since 3.4.0)
+26498 fix queue crash with assertion failure in rare circumstances
+      (since 3.4.0)
 26081 improve error message when creating a cluster with mismatched Erlang
 26446 improve error message when a plugin is incompatible with current Erlang
 26265 ensure that plugins modules are picked before other third-party modules
