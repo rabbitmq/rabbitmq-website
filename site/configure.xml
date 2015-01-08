@@ -506,8 +506,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <p>
                 The level can be one of 'none' (no events are logged),
                 'error' (only errors are logged), 'warning' (only
-                errors and warning are logged), or 'info' (errors,
-                warnings and informational messages are logged).
+                errors and warning are logged), 'info' (errors,
+                warnings and informational messages are logged), or
+                'debug' (errors, warnings, informational messages and
+                debugging messages are logged).
               </p>
 
               <p>
