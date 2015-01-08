@@ -17,7 +17,7 @@
     <doc:item>
       <doc:date iso="2015-01-08T10:14:05+0100">8 January 2015</doc:date>
       <doc:title>Security issues in RabbitMQ management plugin (3.4.2 or lower) [CVE-2015-0862]</doc:title>
-      <doc:link>http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2015-0862</doc:link>
+      <doc:link>http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0862</doc:link>
       <doc:text>
         <p>
           Several security issues were found in the RabbitMQ management
