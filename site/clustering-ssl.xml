@@ -30,7 +30,7 @@
         can do the following:</p>
 
 <pre class="sourcecode">
-cat server_certificate.pem server_key.pem &gt; rabbit.pem
+$ cat server_certificate.pem server_key.pem &gt; rabbit.pem
 </pre>
 
         <p>Then we have to tell Erlang where to find the
@@ -38,8 +38,14 @@ cat server_certificate.pem server_key.pem &gt; rabbit.pem
         this:</p>
 
 <pre class="sourcecode">
-ERL_SSL_PATH=`erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
+$ echo `erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
+"/path/to/erl/lib/ssl-5.3.5/ebin"
+$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 </pre>
+
+        <p>There first we find where Erlang has the ssl library, and then the
+          variable ERL_SSL_PATH is set with the result from the first command
+          <em>without</em> the double quotes.</p>
 
         <p>By using the previous information now is time to craft the
         <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> environment variable
@@ -51,7 +57,7 @@ ERL_SSL_PATH=`erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -no
         <code>true</code>. Here's the whole command:</p>
 
 <pre class="sourcecode">
-export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
+$ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 -proto_dist inet_tls \
 -ssl_dist_opt server_certfile /path/to/rabbit.pem \
 -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
