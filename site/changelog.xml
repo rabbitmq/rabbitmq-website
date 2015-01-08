@@ -19,7 +19,7 @@
         <td>
           <ul>
             <li>Bug fixes</li>
-            <li>Security fixes to the management plugin (CVE-ID to be assigned)</li>
+            <li>Security fixes to the management plugin (CVE-2015-0862)</li>
           </ul>
         </td>
         <td class="centre"><a href="release-notes/README-3.4.3.txt">(changes)</a></td>

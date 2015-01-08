@@ -7,12 +7,17 @@ management plugin
 -----------------
 26515 prevent XSS attack in table key names (since 2.4.0)
       (thanks to Robert Fitzpatrick)
+      (CVE-2015-0862)
 26516 prevent XSS attack in policy names (since 3.4.0)
       (thanks to Robert Fitzpatrick)
+      (CVE-2015-0862)
 26517 prevent XSS attack in client details in the connections list
+      (CVE-2015-0862)
 26518 prevent XSS attack in user names in the vhosts list or the vhost names
       in the user list (since 2.4.0)
+      (CVE-2015-0862)
 26520 prevent XSS attack in the cluster name (since 3.3.0)
+      (CVE-2015-0862)
 
 
 Release Highlights
