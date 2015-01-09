@@ -74,6 +74,7 @@
        <x:page url="/clustering.html" text="Clustering">
          <x:page url="/partitions.html" text="Network Partitions"/>
          <x:page url="/nettick.html" text="Net Tick Time"/>
+         <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
