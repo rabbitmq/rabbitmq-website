@@ -82,6 +82,24 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 
       <doc:section name="how-to-osx">
         <doc:heading>OS X</doc:heading>
+        <p>If you are using the OSX Standalone Release, then you need
+        to add some extra arguments in order to run the <code>erl</code>
+        command to find the path of Erlang's SSL library.  Assuming you are
+        inside the folder where you installed the standalone release, the
+        commands will look like these:</p>
+
+<pre class="sourcecode">
+$ echo erts-6.1/bin/erl -boot releases/3.4.3/start_clean \
+-eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell
+"/path/to/erl/lib/ssl-5.3.5/ebin"
+$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+</pre>
+
+        <p>The difference is that we need to specify the path to the
+        <code>erl</code> executable and also provide a path to a boot file,
+        which in our case is inside the releases folder of our standalone
+        installation.</p>
+
       </doc:section>
 
       <doc:section name="how-to-windows">
