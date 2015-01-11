@@ -117,27 +117,5 @@ io:format("~p", [code:lib_dir(ssl, ebin)]).
         similar procedure.</p>
 
       </doc:section>
-
-      <doc:section name="note">
-        <doc:heading>Note</doc:heading>
-        <p>What we just described on this page is explained on the
-        Erlang documentation page <a
-        href="http://www.erlang.org/doc/apps/ssl/ssl_distribution.html">Using
-        SSL for Erlang Distribution</a>. It is worth mentioning that the web
-        page has the following note:</p>
-
-        <p><cite>As an alternative to building a bootscript, one can
-        explicitly add the path to the SSL ebin directory on the command
-        line. This is done with the command line option -pa. This works as the
-        SSL application does not need to be started for the distribution to
-        come up, as a clone of the SSL application is hooked into the kernel
-        application, so as long as the SSL applications code can be reached,
-        the distribution will start. The -pa method is only recommended for
-        testing purposes.</cite></p>
-
-        <p>It is not explained on the Erlang website why that
-        paragraph has this note there: "only recommended for testing
-        purposes".</p>
-      </doc:section>
   </body>
 </html>
