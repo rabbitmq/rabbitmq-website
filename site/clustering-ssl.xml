@@ -20,14 +20,12 @@
 
       <doc:section name="how-to">
         <p>First we need to create the SSL certificate that's going to
-        be used by the Erlang distribution mechanism. To do that we can use
-        the TLS-Gen tool found <a
-        href="https://github.com/michaelklishin/tls-gen">here</a>. After we
-        create our certificates by following the steps explained on that tool
-        <code>README</code> we need to concatenate the server certificate into
-        one file, for example, assuming we have the files
-        <code>server_certificate.pem</code> and <code>server_key.pem</code> we
-        can do the following:</p>
+        be used by the Erlang distribution mechanism. We assume you have done
+        that already, otherwise follow the guide <a href="/ssl.html">here</a>.
+        Once we have our certificates ready we need to concatenate the server
+        certificate and key into one file, for example, assuming we have the
+        files <code>server_certificate.pem</code> and
+        <code>server_key.pem</code> we can do the following:</p>
 
 <pre class="sourcecode">
 $ cat server_certificate.pem server_key.pem &gt; rabbit.pem
