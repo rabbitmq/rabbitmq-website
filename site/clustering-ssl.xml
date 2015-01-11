@@ -18,7 +18,8 @@
         going to review the steps to make this possible.</p>
       </doc:section>
 
-      <doc:section name="how-to">
+      <doc:section name="how-to-linux">
+        <doc:heading>Linux</doc:heading>
         <p>First we need to create the SSL certificate that's going to
         be used by the Erlang distribution mechanism. We assume you have done
         that already, otherwise follow the guide <a href="/ssl.html">here</a>.
