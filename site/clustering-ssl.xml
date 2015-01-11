@@ -100,6 +100,10 @@ $ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
         which in our case is inside the releases folder of our standalone
         installation.</p>
 
+        <p>Once you have ran the previous commands, then you can
+        proceed to create the environment variables as explained above on the
+        <a href="/clustering-ssl.html#how-to-linux">Linux section</a></p>
+
       </doc:section>
 
       <doc:section name="how-to-windows">
