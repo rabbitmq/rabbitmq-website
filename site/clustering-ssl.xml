@@ -85,10 +85,9 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
         <p>As explained on our <a
         href="https://www.rabbitmq.com/configure.html">configuration page</a>
         on Windows is more convenient to set environment variables using the
-        control panel. Also, on Windows is not so easy to capture the return
-        of a shell command onto a variable, so to obtain the path Erlang's SSL
-        lib you will have to run an Erlang shell and then issue the following
-        command to find said value:</p>
+        control panel. To obtain the path Erlang's SSL lib you will have to
+        run an Erlang shell and then issue the following command to find said
+        value:</p>
 
 <pre class="sourcecode">
 io:format("~p", [code:lib_dir(ssl, ebin)]).
