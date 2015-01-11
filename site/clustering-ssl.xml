@@ -80,6 +80,10 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 
       </doc:section>
 
+      <doc:section name="how-to-osx">
+        <doc:heading>OS X</doc:heading>
+      </doc:section>
+
       <doc:section name="Windows">
         <doc:heading>Windows</doc:heading>
 
