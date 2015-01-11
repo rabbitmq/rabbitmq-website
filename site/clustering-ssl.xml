@@ -9,7 +9,7 @@
   <head>
     <title>Clustering Communication using SSL</title>
   </head>
-  <body show-in-this-page="true">
+  <body>
       <doc:section name="intro">
         <p class="intro">Sometimes is desirable to make the Erlang
         nodes talk to each other using SSL, and thus make the whole RabbitMQ
