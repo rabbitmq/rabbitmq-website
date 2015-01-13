@@ -11,12 +11,10 @@
   </head>
   <body>
     <p>
-      The RabbitMQ .NET client is an implementation of an AMQP client
+      The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
       library for C# (and, implicitly, other .NET languages), and a
-      binding exposing AMQP services via Microsoft's Windows
-      Communication Foundation (WCF).  Please see the <a
-      href="specification.html">specification</a> page for more
-      information on AMQP interoperation and standards-conformance.
+      Microsoft's Windows Communication Foundation (WCF) binding that communicates
+      over RabbitMQ.
     </p>
 
     <p>
