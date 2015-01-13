@@ -33,10 +33,10 @@
 
 	<ul class="compact">
 	  <li>
-		Microsoft's .NET 3.5 or later
+		Microsoft's .NET 4.0 or later
 	  </li>
 	  <li>
-        Microsoft Visual Studio® 2008 or later (optional)
+        Microsoft Visual Studio® 2013 or later (optional, Community edition is fine)
       </li>
     </ul>    
     </doc:section>
@@ -76,8 +76,8 @@
       <p>
         To build the source without Visual Studio you first need to make sure
         you have the .NET's framework directory in your path, which is usually
-        <code>DRIVE:\Windows\Microsoft.NET\Framework\v3.5</code>
-        for .NET 3.5.
+        <code>DRIVE:\Windows\Microsoft.NET\Framework\v4.0.30319</code>
+        for .NET 4.0.
       </p>
       <ul class="compact">
         <li>
@@ -96,7 +96,7 @@
       <doc:heading>On Linux</doc:heading>
       <p>
         The library can be built on Linux with Mono, but only with
-        Mono version 2.10 and later. You can
+        Mono version 3.8 and later. You can
         obtain the latest versions of Mono at <a
         href="http://mono-project.com/">mono-project.com</a>
       </p>

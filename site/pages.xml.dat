@@ -106,6 +106,7 @@
          <x:page url="/java-tools.html" text="Java Client Tools"/>
          <x:related url="/java-client.html"/>
        </x:page>
+       <x:page url="/dotnet-api-guide.html" text=".NET Client Guide"/>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
