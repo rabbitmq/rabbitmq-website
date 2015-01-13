@@ -96,7 +96,7 @@
       <doc:heading>On Linux</doc:heading>
       <p>
         The library can be built on Linux with Mono, but only with
-        Mono version 2.10 and later. You can
+        Mono version 3.8 and later. You can
         obtain the latest versions of Mono at <a
         href="http://mono-project.com/">mono-project.com</a>
       </p>
