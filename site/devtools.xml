@@ -486,13 +486,7 @@
             <doc:heading>Common Lisp</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/lisp/de.setf.amqp">de.setf.amqp</a> a Common Lisp client library for AMQP
-              </li>
-              <li>
-                <a href="http://www.nicklevine.org/cl-rabbit/">CL-RABBIT</a> an interface from LispWorks to RabbitMQ
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+lisp">RabbitMQ Lisp development on del.icio.us</a>
+                <a href="https://github.com/lokedhs/cl-rabbit">cl-rabbit</a> a Common Lisp client library for RabbitMQ
               </li>
             </ul>
           </doc:section>
