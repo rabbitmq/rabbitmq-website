@@ -230,7 +230,7 @@
       A cookbook for managing RabbitMQ with Chef.
     </li>
     <li>
-      <a href="http://blog.thomasvandoren.com/2011/10/monitoring-rabbitmq-queues-with-zabbix/">Monitoring RabbitMQ with Zabbix</a><br/>
+      <a href="http://blog.thomasvandoren.com/monitoring-rabbitmq-queues-with-zabbix.html">Monitoring RabbitMQ with Zabbix</a><br/>
       A simple example of how to configure Zabbix (an open source monitoring and
       graphing tool) to monitor queue and exchange statistics in RabbitMQ.
     </li>

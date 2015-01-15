@@ -119,7 +119,6 @@
     </p>
     <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
       yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
-
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>

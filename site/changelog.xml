@@ -12,6 +12,30 @@
         <th>Highlights</th>
         <th class="centre">Changes</th>
       </tr>
+
+      <tr>
+        <td class="centre">3.4.3</td>
+        <td class="centre">7 January 2015</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Security fixes to the management plugin (CVE-2015-0862)</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.4.3.txt">(changes)</a></td>
+      </tr>
+
+      <tr>
+        <td class="centre">3.4.2</td>
+        <td class="centre">26 November 2014</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="release-notes/README-3.4.2.txt">(changes)</a></td>
+      </tr>
+
       <tr>
         <td class="centre">3.4.1</td>
         <td class="centre">29 October 2014</td>
