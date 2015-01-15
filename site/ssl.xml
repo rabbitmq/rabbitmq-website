@@ -27,23 +27,12 @@
         <p>The Erlang crypto application must be installed and working. This may
         be an issue for Windows users and those who compile Erlang from source.</p>
 
-        <p>For Windows users: Versions of Erlang as recent as R13B03 do not include
-        the OpenSSL library needed by the crypto application.
-        <a href="http://www.trapexit.org/forum/viewtopic.php?p=48496">This post</a>
-        explains how to install it. It is necessary to install the 32-bit OpenSSL
-        libraries, even on 64-bit versions of Windows.
-        </p>
-
         <p>For Windows XP users running RabbitMQ as a service: It is not possible to
         use SSL with RabbitMQ running as a service on Windows XP in combination with
         OpenSSL versions 0.9.8 or later. The bug has been confirmed on Windows XP SP3
         with OpenSSL v0.9.8r and v1.0.0d. Suggested workarounds if you want to run RabbitMQ
         as a service is to upgrade to Windows 7 or downgrade to an earlier version of
         OpenSSL (v0.9.7e is known to work).</p>
-
-        <p>For Mac OS X users: The Erlang port should be installed with support for ssl.
-        See the <a href="install-macports.html#install">macports install
-        instructions</a>.</p>
 
         <p>For those compiling Erlang from source: Ensure <code>configure</code>
         finds OpenSSL and builds the crypto application.</p>
