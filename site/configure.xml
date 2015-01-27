@@ -813,17 +813,6 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
-            <td><code>queue_index_max_</code>
-              <code>journal_entries</code></td>
-            <td>
-              Maximum number of messages to write to the queue index
-              journal before flushing. You are advised to read the <a
-              href="persistence-conf.html">persister tuning</a>
-              documentation before changing this.
-              <p>Default: <code>65536</code></p>
-            </td>
-          </tr>
-          <tr>
             <td><code>msg_store_index_module</code></td>
             <td>
               Implementation module for queue indexing. You are
@@ -855,6 +844,15 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Timeout used when waiting for Mnesia tables in a cluster to
               become available.
               <p>Default: <code>30000</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>queue_index_max_</code>
+              <code>journal_entries</code></td>
+            <td>
+              Tunable value for the persister. You almost certainly
+              should not change this.
+              <p>Default: <code>65536</code></p>
             </td>
           </tr>
         </table>

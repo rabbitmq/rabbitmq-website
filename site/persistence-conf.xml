@@ -118,19 +118,17 @@
       index as an optimisation, and for all other messages to be
       written to the message store. This is controlled by the
       configuration item <code>queue_index_embed_msgs_below</code>. By
-      default, messages with a serialised size of less than 1024 bytes
+      default, messages with a serialised size of less than 4096 bytes
       (including properties and headers) are stored in the queue
       index.
     </p>
 
     <p>
-      Each queue index needs to keep at least one segment file and its
-      journal in memory. The segment file contains records for 16,384
-      messages; the journal defaults to 65,536 (but can be changed
-      using <code>queue_index_max_journal_entries</code>). Therefore
-      be cautious when increasing
-      <code>queue_index_embed_msgs_below</code>; a small increase can
-      lead to a large amount of memory used.
+      Each queue index needs to keep at least one segment file in
+      memory when reading messages from disk. The segment file
+      contains records for 16,384 messages. Therefore be cautious if
+      increasing <code>queue_index_embed_msgs_below</code>; a small
+      increase can lead to a large amount of memory used.
     </p>
 
     <h3>Alternate message store index implementations</h3>
