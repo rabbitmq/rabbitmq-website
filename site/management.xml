@@ -399,11 +399,11 @@
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_management, [{sample_retention_policies,
-                          [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
-                           {basic,    [{60, 5}, {3600, 60}]},
-                           {detailed, [{10, 5}]}]}
-                        ]},
+  {rabbitmq_management, 
+    %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
+    [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
+     {basic,    [{605, 5}, {3600, 60}]},
+     {detailed, [{10, 5}]}],
   ...
 ].</pre>
           <p>
@@ -415,10 +415,10 @@
             </ul>
 
             This configuration (which is the default) retains global
-            data at a 5 second resolution for 1 minute, then at a 1
-            minute resolution for 1 hour, then at a 20 minute
-            resolution for 1 day. It retains basic data at a 5 second
-            resolution for 1 minute, then at a 1 minute resolution for
+            data at a 5 second resolution (sampling happens every 5 seconds) for 10 minutes and 5 seconds,
+            then at a 1 minute resolution for 1 hour and 1 minute, then at a 10 minute
+            resolution for about 8 hours. It retains basic data at a 5 second
+            resolution for 1 minute and 5 seconds, then at a 1 minute resolution for
             1 hour, and detailed data only for 10 seconds.
           </p>
         </doc:subsection>
