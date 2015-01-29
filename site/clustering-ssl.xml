@@ -105,5 +105,12 @@ $ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
         <a href="/clustering-ssl.html#how-to-linux">Linux section</a></p>
 
       </doc:section>
+
+      <doc:section name="how-to-windows">
+        <doc:heading>Windows</doc:heading>
+
+        <p>Coming soon.</p>
+
+      </doc:section>
   </body>
 </html>
