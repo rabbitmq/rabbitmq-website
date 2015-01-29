@@ -4,9 +4,10 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Undeprecated Features</title>
+    <title>Spec Differences</title>
   </head>
   <body>
+    <h2>Undeprecated Features</h2>
       <p>
         In addition to extensions beyond the specification, RabbitMQ
         also undeprecates some features that were removed from AMQP
@@ -23,6 +24,12 @@
         in order to maintain compatibility with older clients. This
         method will be removed in the future and should not be relied
         upon.
+      </p>
+
+    <h2>amq.* Exchange Immutability</h2>
+      <p>
+        AMQP 0-9-1 spec dictates that it must not be possible to declare an exchange
+        with the <code>amq.</code> prefix. RabbitMQ also prohibits deletion of such exchanges.
       </p>
   </body>
 </html>
