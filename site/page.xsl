@@ -81,7 +81,7 @@
       <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
     <div id="pivotal-logo">
-      <a href="http://www.gopivotal.com/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
+      <a href="http://pivotal.io/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
     </div>
     <div id="nav-search">
       <xsl:if test="$site-mode = 'www'">
@@ -112,7 +112,7 @@
       </p>
       <p id="copyright">
         Copyright &#169; 2014 Pivotal Software, Inc. All rights reserved
-        |&#160;<a href="http://www.gopivotal.com/privacy-policy">Privacy Policy</a>
+        |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
       </p>
     </div>
   </xsl:template>
