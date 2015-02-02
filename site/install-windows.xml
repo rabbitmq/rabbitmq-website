@@ -83,8 +83,9 @@
     <doc:section name="windows-quirks">
       <doc:heading>Windows-specific Issues</doc:heading>
       <p>
-        If something doesn't work as expected, please consult the <a href="windows-quirks.html">Windows-specific Issues</a>
-        page.
+        We aim to make RabbitMQ a first-class citizen on
+        Windows. However, sometimes there are circumstances beyond our
+        control. Please consult the <a href="windows-quirks.html">Windows-specific Issues</a> page.
       </p>
     </doc:section>
     <xi:include href="install-guest-localhost.xml.inc"/>
