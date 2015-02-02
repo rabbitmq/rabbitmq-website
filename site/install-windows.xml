@@ -80,7 +80,15 @@
         </dl>
       </doc:subsection>
     </doc:section>
+    <doc:section name="windows-quirks">
+      <doc:heading>Windows-specific Issues</doc:heading>
+      <p>
+        If something doesn't work as expected, please consult the <a href="windows-quirks.html">Windows-specific Issues</a>
+        page.
+      </p>
+    </doc:section>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-windows-manage.xml.inc"/>
+    <xi:include href="mailing-list.xml.inc"/>
   </body>
 </html>
