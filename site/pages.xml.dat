@@ -171,7 +171,7 @@
        <x:page url="/maxlength.html" text="Length Limit"/>
        <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/auth-notification.html" text="Auth Failure"/>
-       <x:page url="/undeprecated.html" text="Undeprecation"/>
+       <x:page url="/spec-differences.html" text="Spec Differences"/>
      </x:page>
      <x:page url="/build.html" text="Building">
        <x:page url="/build-server.html" text="Building the Server"/>
