@@ -94,7 +94,7 @@
 	      key</a> to your trusted key list using
 	    <code>apt-key(8)</code>:
 
-	    <pre class="sourcecode">wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	    <pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
 	  <li>

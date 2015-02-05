@@ -57,6 +57,10 @@
 	      Clean up the queues used by the firehose.
 	    </li>
 	  </ol>
+          <p>
+            Note that the firehose state is not persistent; it will
+            default of off at server start time.
+          </p>
         </doc:subsection>
         <doc:subsection>
 	  <doc:heading>Firehose notification format</doc:heading>

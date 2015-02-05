@@ -9,7 +9,7 @@
         </p>
         <p id="copyright">
           Copyright &#169; 2014 Pivotal Software, Inc. All rights reserved
-          |&#160;<a href="http://www.gopivotal.com/privacy-policy">Privacy Policy</a>
+          |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
         </p>
       </div>
     </div>
