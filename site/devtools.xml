@@ -313,14 +313,6 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="lisp-dev">
-            <doc:heading>Common Lisp</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/lokedhs/cl-rabbit">cl-rabbit</a> a Common Lisp client library for RabbitMQ
-              </li>
-            </ul>
-          </doc:section>
           <doc:section name="haskell-dev">
             <doc:heading>Haskell</doc:heading>
             <ul class="plain">
@@ -332,23 +324,6 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="ocaml-dev">
-            <doc:heading>Ocaml</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="http://projects.camlcity.org/projects/netamqp.html">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="cobol-dev">
-            <doc:heading>COBOL</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
-              </li>
-            </ul>
-          </doc:section>
-
           <doc:section name="devops-tools">
             <doc:heading>Provisioning (Chef, Puppet, etc)</doc:heading>
             <ul class="plain">
@@ -360,7 +335,6 @@
               </li>
             </ul>
           </doc:section>
-
           <doc:section name="database-integration">
             <doc:heading>Database Integration</doc:heading>
             <ul class="plain">
@@ -501,6 +475,31 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="ocaml-dev">
+            <doc:heading>Ocaml</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="http://projects.camlcity.org/projects/netamqp.html">NetAMQP</a>, a native AMQP 0-9-1 client for Ocaml tested against RabbitMQ
+              </li>
+            </ul>
+          </doc:section>
+          <doc:section name="lisp-dev">
+            <doc:heading>Common Lisp</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/lokedhs/cl-rabbit">cl-rabbit</a> a Common Lisp client library for RabbitMQ
+              </li>
+            </ul>
+          </doc:section>
+          <doc:section name="cobol-dev">
+            <doc:heading>COBOL</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="nosql">
             <doc:heading>NoSQL</doc:heading>
             <ul class="plain">
