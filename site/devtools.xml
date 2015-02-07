@@ -153,10 +153,10 @@
             <doc:heading>.NET</doc:heading>
             <ul class="plain">
               <li>
-                <a href="dotnet.html">RabbitMQ .NET Client and WCF Binding</a>
+                <a href="dotnet.html">RabbitMQ .NET Client</a>
               </li>
               <li>
-                <a href="http://easynetq.com">EasyNetQ</a>, a simple .NET API for RabbitMQ
+                <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
               </li>
               <li>
                 <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
