@@ -268,10 +268,6 @@
                 RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
               </li>
               <li>
-                <a href="https://github.com/postwait/node-amqp">node-amqp</a>
-                RabbitMQ Node.js client
-              </li>
-              <li>
                 <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
                 Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
                 these installation instructions</a> for rabbit.js on Ubuntu.
