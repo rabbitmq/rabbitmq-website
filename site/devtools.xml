@@ -125,28 +125,14 @@
             <ul class="plain">
               <li>
                 <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (the <a href="https://github.com/pika/pika">source code</a> is on github; the
-                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">docs are here</a>)
+                (<a href="https://github.com/pika/pika">source code</a>, 
+                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
               </li>
               <li>
                 <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
               </li>
               <li>
                 <a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)
-              </li>
-              <li>
-                <a href="http://blogs.digitar.com/jjww/2009/01/rabbits-and-warrens/">Rabbits and Warrens: An Introduction</a>
-              </li>
-              <li>
-                <a href="http://barryp.org/software/py-amqplib/">py-amqplib</a>, an AMQP 0-8 client library
-                (the <a href="http://code.google.com/p/py-amqplib/">source code</a> is on Google code)
-              </li>
-              <li>
-                <a href="https://launchpad.net/txamqp">txAMQP: Twisted AMQP</a>
-              </li>
-              <li>
-                <a href="http://pypi.python.org/pypi/txamqp-helpers">txamqp-helpers</a>, a package of utility classes for working with txAMQP
-                (the <a href="https://github.com/williamsjj/txamqp-helpers">source code</a> is on github)
               </li>
               <li>
                 <a href="https://github.com/majek/puka">puka</a>,an opinionated Python client for library for RabbitMQ
@@ -156,40 +142,10 @@
                 (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
               </li>
               <li>
-                <a href="https://github.com/paolo-losi/stormed-amqp">Stormed-Amqp</a>, a fully asynchronous AMQP 0-9-1 client
-              </li>
-              <li>
-                <a href="http://www.laurentluce.com/?p=191">Distributed messaging using RabbitMQ and Python</a> demonstrates a common use case (using py-amqp)
-              </li>
-              <li>
-                <a href="http://blog.springsource.org/2010/08/19/building-rabbitmq-apps-using-python">Building RabbitMQ apps using Python</a>
-              </li>
-              <li>
-                <a href="http://oubiwann.blogspot.com/2009/06/sinfonia-on-messaging-with-txamqp-part_18.html">Messaging with txAMQP</a>, a tutorial
-              </li>
-              <li>
-                <a href="http://nathanborror.com/posts/2009/may/20/working-django-and-rabbitmq/">Flopsy</a>, simplify working with AMQP and Python
-              </li>
-              <li>
                 <a href="https://github.com/cenkalti/kuyruk">Kuyruk</a>, a task queue
               </li>
               <li>
                 <a href="https://github.com/ceelian/callme">callme</a>, a module providing RPC over AMQP
-              </li>
-              <li>
-                <a href="http://pypi.python.org/pypi/gocept.amqparchive/1.0.0">gocept.amqparchive</a>, an add-on package for <a href="http://pypi.python.org/pypi/gocept.amqprun/">gocept.amqprun</a>
-                that provides archiving, indexing and search for AMQP messages
-              </li>
-              <li>
-                <a href="https://github.com/yellowpark/pyRabbitMqAlert">pyRabbitMQAlert</a>, a script that monitors queue length and triggers alerts if messages back up
-              </li>
-              <li>
-                <a href="http://voices.canonical.com/tag/amqp/">Canonical Voices on AMQP</a>
-                <br />
-                A series of tutorial articles by Canonical covering AMQP, RabbitMQ and txAMQP
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+python">RabbitMQ Python development on del.icio.us</a>
               </li>
             </ul>
           </doc:section>
