@@ -239,6 +239,11 @@
                 Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
                 these installation instructions</a> for rabbit.js on Ubuntu.
               </li>
+              <li>
+                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
+                <br/>
+                A node.js interface for RabbitMQ management statistics
+              </li>
             </ul>
           </doc:section>
           <doc:section name="go-dev">
@@ -488,11 +493,6 @@
                 <a href="http://kirkwylie.blogspot.com/2009/11/announcing-release-of-fudge-messaging.html">Fudge Messaging Format</a>
                 <br/>
                 Fudge is a data encoding system that is hierarchical, typesafe, binary and self-describing. It works with HTTP, JMS and AMQP.
-              </li>
-              <li>
-                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
-                <br/>
-                A node.js interface for RabbitMQ management statistics
               </li>
               <li>
                 <a href="http://qdb.io/">QDB: Persistent Message Queues with Replay</a>
