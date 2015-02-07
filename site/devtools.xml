@@ -375,18 +375,13 @@
               <li>
                 <a href="https://github.com/dansimpson/amqp-js">amqp-js</a>
                 <br/>
-                A native AMQP library for Javascript that provides low-latency message queuing
+                A native  library for Javascript that provides low-latency message queuing
                 without using HTTP.
               </li>
               <li>
                 <a href="https://github.com/tonyg/rabbithub">rabbithub</a>
                 <br />
                 an implementation of Google Pubsubhubbub for HTTP web push
-              </li>
-              <li>
-                <a href="http://rubyreflector.com/PubSubHubbub">PubSubHubbub on Ruby Reflector</a>
-                <br/>
-                Posts about PubSubHubbub with only a mild Ruby bias
               </li>
               <li>
                 We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
