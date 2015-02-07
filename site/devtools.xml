@@ -578,11 +578,6 @@
                 A node.js interface for RabbitMQ management statistics
               </li>
               <li>
-                <a href="https://github.com/yrashk/amqpfs">amqpfs</a>
-                <br/>
-                AMQP file system interface
-              </li>
-              <li>
                 <a href="http://qdb.io/">QDB: Persistent Message Queues with Replay</a>
                 <br/>
                 Queue backup and replay over AMQP. Includes REST API
