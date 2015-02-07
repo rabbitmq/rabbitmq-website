@@ -485,11 +485,6 @@
                 A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
               </li>
               <li>
-                <a href="https://github.com/dsander/rabbitcage/tree/">RabbitCage</a>
-                <br/>
-                An AMQP firewall which allows you to restrict user access to RabbitMQ using ACLs.
-              </li>
-              <li>
                 <a href="http://lethargy.org/~jesus/writes/amqp-for-postgresql">pg_amqp</a>
                 <br/>
                 An AMQP extension for PostgreSQL.
