@@ -382,26 +382,6 @@
               <li><a href="http://jbrisbin.wordpress.com/2010/04/13/exposing-as400-service-programs-via-rabbitmq-and-java/">Exposing AS/400 Service Programs via RabbitMQ and Java</a></li>
             </ul>
           </doc:section>
-          <doc:section name="macosx-dev">
-            <doc:heading>MacOSX</doc:heading>
-            <ul class="plain">
-              <li>
-                Official installation documentation using <a href="install.html#macports">macports</a> or <a href="install.html#machomebrew">homebrew</a>
-              </li>
-              <li>
-                <a href="http://exceptionz.wordpress.com/2010/03/10/install-rabbitmq-on-snow-leopard-with-macports/">Install RabbitMQ on Snow Leopard with MacPorts</a>
-              </li>
-              <li>
-                <a href="http://helenaedelson.com/?p=523">RabbitMQ and Erlang Installation for MacOSX</a> (without macports)
-              </li>
-              <li>
-                <a href="http://codingiscoding.wordpress.com/2011/04/17/rabbitmq-on-os-x/">Post-install tips on OSX</a>
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+macosx">RabbitMQ and MacOSX  on del.icio.us</a>
-              </li>
-            </ul>
-          </doc:section>
           <doc:section name="ec2-dev">
             <doc:heading>Amazon EC2</doc:heading>
             <ul class="plain">
