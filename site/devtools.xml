@@ -379,23 +379,6 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="stomp">
-            <doc:heading>STOMP</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="stomp.html">RabbitMQ STOMP plug-in</a>
-              </li>
-              <li>
-                <a href="https://github.com/ruby-amqp/amqp_stomp_interoperability_example_with_ruby">STOMP plug-in sample code</a> (in Ruby)
-              </li>
-              <li>
-                More <a href="http://www.lshift.net/blog/index.php?s=stomp">STOMP plug-in examples</a>
-              </li>
-              <li>
-                <a href="http://stomp.github.com">STOMP specification</a>
-              </li>
-            </ul>
-          </doc:section>
           <doc:section name="rabbitmq-cli">
             <doc:heading>CLI</doc:heading>
             <ul class="plain">
