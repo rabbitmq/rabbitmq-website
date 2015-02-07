@@ -480,12 +480,6 @@
                 get or publish a message from or to RabbitMQ.
               </li>
               <li>
-                <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">puppetlabs-rabbitmq</a> and
-                <a href="https://github.com/vurbia/puppet-rabbitmq">puppet-rabbitmq</a>
-                <br />
-                A pair of Puppet modules to manage RabbitMQ.
-              </li>
-              <li>
                 <a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a>
                 <br/>
                 A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
