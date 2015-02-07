@@ -20,7 +20,8 @@
         would like to see added to this list.
       </p>
           <doc:section name="java-dev">
-            <doc:heading>Java</doc:heading>
+            <doc:heading>Java and JVM</doc:heading>
+            <h4>Java</h4>
             <ul class="plain">
               <li>
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
