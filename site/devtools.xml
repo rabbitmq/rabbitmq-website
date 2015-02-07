@@ -51,18 +51,6 @@
               </li>
 
             </ul>
-            <h4>Groovy and Grails</h4>
-            <ul class="plain">
-              <li>
-                <a href="http://grails.org/plugin/rabbitmq-native">Grails RabbitMQ plugin</a>
-              </li>
-              <li>
-                <a href="resources/grails-amqp.pdf">Grails with RabbitMQ for messaging</a> (PDF)
-              </li>
-              <li>
-                <a href="https://github.com/michaelklishin/green_bunny">Green Bunny, Groovy RabbitMQ client</a> inspired by Bunny
-              </li>
-            </ul>
             <h4>Scala</h4>
             <ul class="plain">
               <li>
@@ -79,6 +67,18 @@
               </li>
               <li>
                 <a href="https://github.com/liftmodules/amqp">Lift RabbitMQ module</a>
+              </li>
+            </ul>
+            <h4>Groovy and Grails</h4>
+            <ul class="plain">
+              <li>
+                <a href="http://grails.org/plugin/rabbitmq-native">Grails RabbitMQ plugin</a>
+              </li>
+              <li>
+                <a href="resources/grails-amqp.pdf">Grails with RabbitMQ for messaging</a> (PDF)
+              </li>
+              <li>
+                <a href="https://github.com/michaelklishin/green_bunny">Green Bunny, Groovy RabbitMQ client</a> inspired by Bunny
               </li>
             </ul>
             <h4>Clojure</h4>
