@@ -183,6 +183,9 @@
                 <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
               </li>
               <li>
+                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
+              </li>
+              <li>
                 <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
               </li>
               <li>
@@ -193,12 +196,6 @@
               </li>
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
-              </li>
-            </ul>
-            <h4>Symfony2 Framework</h4>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
               </li>
             </ul>
           </doc:section>
