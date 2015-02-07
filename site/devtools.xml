@@ -302,7 +302,7 @@
                 <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client
               </li>
               <li>
-                <a href="https://github.com/videlalvaro/rmq_patterns">AMQP Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
+                <a href="https://github.com/videlalvaro/rmq_patterns">RabbitMQ Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
               </li>
             </ul>
           </doc:section>
@@ -311,9 +311,6 @@
             <ul class="plain">
               <li>
                 An <a href="https://github.com/hreinhardt/amqp">RabbitMQ client for Haskell</a>
-              </li>
-              <li>
-                <a href="http://videlalvaro.github.com/2010/09/haskell-and-rabbitmq.html">Haskell and RabbitMQ</a>, a get started guide
               </li>
             </ul>
           </doc:section>
