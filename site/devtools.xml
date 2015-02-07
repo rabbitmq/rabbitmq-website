@@ -327,9 +327,7 @@
             <doc:heading>Web Messaging</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/videlalvaro/rabbitmq-chat">rabbitmq-chat</a>
-                <br />
-                A web chat room implemented with RabbitMQ and Websockets
+                <a href="web-stomp.html">Web STOMP RabbitMQ plugin</a>
               </li>
               <li>
                 <a href="https://github.com/rabbitmq/rabbit-socks">rabbit-socks</a>
@@ -351,6 +349,11 @@
                 <a href="https://github.com/0x6e6562/as3-amqp/">as3-amqp</a>
                 <br />
                 A RabbitMQ client library in AS3 for Flex and Flash
+              </li>
+              <li>
+                <a href="https://github.com/videlalvaro/rabbitmq-chat">rabbitmq-chat</a>
+                <br />
+                A web chat room implemented with RabbitMQ and Websockets
               </li>
               <li>
                 <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a>
