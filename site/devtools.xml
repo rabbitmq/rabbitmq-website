@@ -375,13 +375,6 @@
               </li>
             </ul>
           </doc:section>
-
-          <doc:section name="as400-dev">
-            <doc:heading>AS/400</doc:heading>
-            <ul class="plain">
-              <li><a href="http://jbrisbin.wordpress.com/2010/04/13/exposing-as400-service-programs-via-rabbitmq-and-java/">Exposing AS/400 Service Programs via RabbitMQ and Java</a></li>
-            </ul>
-          </doc:section>
           <doc:section name="ec2-dev">
             <doc:heading>Amazon EC2</doc:heading>
             <ul class="plain">
