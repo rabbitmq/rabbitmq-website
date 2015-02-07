@@ -278,13 +278,16 @@
             </ul>
           </doc:section>
           <doc:section name="devops-tools">
-            <doc:heading>Provisioning (Chef, Puppet, etc)</doc:heading>
+            <doc:heading>Provisioning (Chef, Puppet, etc) and Operations</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/kennonkwok/rabbitmq">Chef RabbitMQ Cookbook</a>
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet RabbitMQ Module</a>
+              </li>
+              <li>
+                <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension from the New York Times
               </li>
             </ul>
           </doc:section>
@@ -465,20 +468,6 @@
                 <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak RabbitMQ postcommit Hook</a>
                 <br />
                 A postcommit hook for Riak that sends any modified entries to RabbitMQ.
-              </li>
-              <li>
-                <a href="https://github.com/mabrek/rabbitmq-redis">RabbitMQ-Redis Bridge</a>
-                <br />
-                A RabbitMQ plug-in that moves messages between RabbitMQ and Redis Pub/Sub using erldis (experimental).
-              </li>
-              <li>
-                <a href="https://github.com/wingify/agentredrabbit">agentredrabbit</a>
-                <br />
-                A Python transport agent that moves data from Redis to RabbitMQ using multi-threaded workers.
-                (<a href="http://engineering.wingify.com/scaling-with-queues/">Used</a> and written by <a href="http://wingify.com/">Wingify</a>)
-              </li>
-              <li>
-                <a href="http://www.delicious.com/alexisrichardson/rabbitmq+nosql">RabbitMQ and NoSQL on del.icio.us</a>
               </li>
             </ul>
           </doc:section>
