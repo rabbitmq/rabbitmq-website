@@ -429,8 +429,8 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="miscellaneous">
-            <doc:heading>Miscellaneous</doc:heading>
+          <doc:section name="community-plugins">
+            <doc:heading>3rd party plugins</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/videlalvaro/rabbitmq-global-fanout-exchange">RabbitMQ Global Fanout Exchange</a>
@@ -455,8 +455,13 @@
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
                 passing through the exchange.
               </li>
-                <a href="https://github.com/tonyg/rabbitmq-xmpp">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
-                See also "<a href="https://github.com/tonyg/rabbiter/">rabbiter</a>", an experiment in decentralised microblogging.
+            </ul>
+          </doc:section>
+          <doc:section name="miscellaneous">
+            <doc:heading>Miscellaneous</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/ericliang/rabbitmq-xmpp">XMPP adaptor</a>
               </li>
               <li>
                 <a href="http://streambase.com/sbx.htm#Simple%20AMQP%20using%20RabbitMQ">RabbitMQ Adapter for Streambase</a> for complex event processing (CEP)
