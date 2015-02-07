@@ -260,27 +260,6 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="erlang-dev">
-            <doc:heading>Erlang</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="erlang-client-user-guide.html">RabbitMQ Erlang client guide</a>
-              </li>
-              <li>
-                <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client
-              </li>
-              <li>
-                <a href="https://github.com/videlalvaro/rmq_patterns">AMQP Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
-              </li>
-              <li>
-                <a href="https://github.com/careo/rabbitmq-erlang-client-examples">Erlang examples</a>
-              </li>
-              <li>
-                <a href="https://github.com/noblesamurai/gen_bunny">gen_bunny</a>, an easy to use AMQP Erlang client
-                based on the <a href="http://www.rabbitmq.com/erlang-client-user-guide.html">rabbit-erlang-client</a>
-              </li>
-            </ul>
-          </doc:section>
           <doc:section name="node-dev">
             <doc:heading>Node.js</doc:heading>
             <ul class="plain">
@@ -310,6 +289,20 @@
               </li>
               <li>
                 <a href="https://github.com/gocardless/amqpc">amqpc</a>, a load testing tool for RabbitMQ clusters
+              </li>
+            </ul>
+          </doc:section>
+          <doc:section name="erlang-dev">
+            <doc:heading>Erlang</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="erlang-client-user-guide.html">RabbitMQ Erlang client guide</a>
+              </li>
+              <li>
+                <a href="https://github.com/muxspace/bunny_farm">bunny_farm</a>, a simplifying wrapper for the Erlang client
+              </li>
+              <li>
+                <a href="https://github.com/videlalvaro/rmq_patterns">AMQP Messaging Patterns</a>, a library of messaging patterns implemented in Erlang
               </li>
             </ul>
           </doc:section>
