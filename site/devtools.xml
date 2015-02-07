@@ -104,16 +104,13 @@
                 <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
               </li>
               <li>
+                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
+              </li>
+              <li>
                 <a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
               </li>
               <li>
-                <a href="http://rubyamqp.info">amqp gem</a>, an EventMachine-based RabbitMQ client
-              </li>
-              <li>
                 <a href="https://github.com/ruby-amqp/rabbitmq_http_api_client">Ruby RabbitMQ HTTP API client</a>
-              </li>
-              <li>
-                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
               </li>
               <li>
                 <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
@@ -123,9 +120,6 @@
               </li>
               <li>
                 <a href="http://twitter.com/rubyamqp">Ruby RabbitMQ clients Twitter account</a>
-              </li>
-              <li>
-                <a href="http://www.rabbitmq.com/blog/tag/ruby">Ruby-tagged RabbitMQ blog posts</a>
               </li>
             </ul>
           </doc:section>
