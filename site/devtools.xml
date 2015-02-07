@@ -408,12 +408,6 @@
               <li>
                 <a href="ec2.html">How to set up RabbitMQ on EC2</a>
               </li>
-              <li>
-                <a href="http://old.nabble.com/Ubuntu-%2B-RabbitMQ-2.4.0-EC2-AMI-td31280970.html">Ubuntu 10.04 + RabbitMQ 2.4.0 EC2 AMI</a>
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+ec2">RabbitMQ and EC2  on del.icio.us</a>
-              </li>
             </ul>
           </doc:section>
           <doc:section name="web-messaging">
