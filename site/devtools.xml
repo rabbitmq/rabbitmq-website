@@ -179,36 +179,19 @@
             <doc:heading>PHP</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a pure, fully featured PHP client
+                <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
               </li>
               <li>
                 <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
               </li>
               <li>
-                <a href="https://github.com/BraveSirRobin/amqphp">amqphp</a> a pure PHP client
-              </li>
-              <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
-              </li>
-              <li>
-                <a href="http://www.slideshare.net/old_sound/integrating-php-withrabbitmqzendcon">Integrating PHP with RabbitMQ</a>
-                <br />
-                An introductory presentation covering common RabbitMQ use cases with code examples in PHP
-              </li>
-              <li>
-                <a href="http://www.youtube.com/watch?v=YO9AtlJ3JMc">Scaling web apps with RabbitMQ</a>
-                <br />
-                An interview with Alvaro Videla who explains how RabbitMQ can be used to simplify PHP code while increasing
-                website reliability and scalability. (March 11, 2011.)
               </li>
               <li>
                 <a href="https://github.com/videlalvaro/Thumper">Thumper</a> a library of messaging patterns
               </li>
               <li>
-                <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for AMQP messaging
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+php">RabbitMQ PHP development on del.icio.us</a>
+                <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
               </li>
             </ul>
             <h4>Symfony2 Framework</h4>
