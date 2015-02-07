@@ -303,6 +303,16 @@
               <li>
                 <a href="https://github.com/aweber/pgsql-listen-exchange">RabbitMQ integration with PostgreSQL</a>'s LISTEN notifications.
               </li>
+              <li>
+                <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
+                <br />
+                A custom exchange type for RabbitMQ that uses Riak as a backing store.
+              </li>
+              <li>
+                <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak RabbitMQ postcommit Hook</a>
+                <br />
+                A postcommit hook for Riak that sends any modified entries to RabbitMQ.
+              </li>
             </ul>
           </doc:section>
           <doc:section name="ec2-dev">
@@ -452,22 +462,6 @@
             <ul class="plain">
               <li>
                 <a href="http://assortedrambles.blogspot.ru/2013/04/using-rabbitmq-from-cobol_9584.html">Using rabbitmq-c From COBOL</a>
-              </li>
-            </ul>
-          </doc:section>
-
-          <doc:section name="nosql">
-            <doc:heading>NoSQL</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/jbrisbin/riak-exchange">RabbitMQ Riak Exchange</a>
-                <br />
-                A custom exchange type for RabbitMQ that uses Riak as a backing store.
-              </li>
-              <li>
-                <a href="https://github.com/jbrisbin/riak-rabbitmq-commit-hooks">Riak RabbitMQ postcommit Hook</a>
-                <br />
-                A postcommit hook for Riak that sends any modified entries to RabbitMQ.
               </li>
             </ul>
           </doc:section>
