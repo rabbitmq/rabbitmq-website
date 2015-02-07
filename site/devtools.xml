@@ -209,9 +209,6 @@
                 <a href="https://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>, an asynchronous and multi-channel AMQP client using Coro and AnyEvent::RabbitMQ
               </li>
               <li>
-                <a href="https://github.com/ewaters/net-amqp">Net::AMQP</a>, frame (de)serialisation of AMQP
-              </li>
-              <li>
                 <a href="https://github.com/cooldaemon/AnyEvent-RabbitMQ">AnyEvent::RabbitMQ</a>, an asynchronous and multi-channel AMQP client
               </li>
             </ul>
