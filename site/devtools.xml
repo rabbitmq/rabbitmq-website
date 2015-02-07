@@ -508,13 +508,6 @@
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message
                 passing through the exchange.
               </li>
-              <li>
-                <a href="https://github.com/phrawzty/rabbitmq-collectd-plugin">RabbitMQ Plugin for Collectd</a> (in Python)
-              </li>
-              <li>
-                <a href="https://github.com/marksteele/collectd-plugins">RabbitMQ Plugin for Collectd</a> (in Perl)
-              </li>
-              <li>
                 <a href="https://github.com/tonyg/rabbitmq-xmpp">XMPP adaptor</a> (plus a more <a href="https://github.com/ericliang/rabbitmq-xmpp">up to date fork</a>)<br/>
                 See also "<a href="https://github.com/tonyg/rabbiter/">rabbiter</a>", an experiment in decentralised microblogging.
               </li>
@@ -527,12 +520,6 @@
               <li>
                 <a href="https://github.com/bkjones/bevis">bevis</a><br/>
                 A syslog listener that forwards messages over AMQP.
-              </li>
-              <li>
-                <a href="http://linux.softpedia.com/get/Programming/Bug-Tracking/AMQPDeliver-73612.shtml">AMQPDeliver</a>
-                <br />
-                A command line utility that sends AMQP messages read from stdin and a daemon that executes a command for
-                each message.
               </li>
               <li>
                 <a href="http://code.google.com/p/rabbitmq-memcached/">rabbitmq-memcached</a>
@@ -550,12 +537,6 @@
                 <a href="https://github.com/stampy88/flume-amqp-plugin">flume-amqp-plugin</a>
                 <br/>
                 A plugin for <a href="https://github.com/cloudera/flume/wiki">Flume</a> (a Hadoop data loader) that allows you to use an AMQP broker as a data source.
-              </li>
-              <li>
-                <a href="https://github.com/slider/amqp-relay">amqp-relay</a>
-                <br />
-                A simple service to relay all messages from a topic exchange to another
-                RabbitMQ broker instance. Think of Shovel, just in Scala.
               </li>
               <li>
                 <a href="https://github.com/dsander/rabbitcage/tree/">RabbitCage</a>
@@ -581,9 +562,6 @@
                 <a href="http://qdb.io/">QDB: Persistent Message Queues with Replay</a>
                 <br/>
                 Queue backup and replay over AMQP. Includes REST API
-              </li>
-              <li>
-                <a href="http://del.icio.us/alexisrichardson/rabbitmq+client">RabbitMQ Clients on del.icio.us</a>
               </li>
             </ul>
           </doc:section>
