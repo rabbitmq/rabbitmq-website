@@ -337,20 +337,10 @@
                 Websocket and Socket.IO support for RabbitMQ
               </li>
               <li>
-                <a href="http://dahernan.blogspot.com/2011/03/rabbitmq-and-nodejs-websockets.html">RabbitMQ and Node.js Websockets</a>
-                <br/>
-                Experiments with Node.js support for Websockets and RabbitMQ.
-              </li>
-              <li>
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a>
                 <br />
                 An experimental driver (in PHP) for <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a> designed to
                 expedite single call HTTP delivery for Basic.Publish calls to RabbitMQ
-              </li>
-              <li>
-                <a href="https://github.com/akalend/amqp-rest">amqp-rest</a>
-                <br />
-                A lightweight HTTP gateway for AMQP based on libevent. Allows you to publish and consume messages from an AMQP broker over HTTP
               </li>
               <li>
                 <a href="https://github.com/jbrisbin/rabbitmq-webhooks">Webhooks for RabbitMQ</a>
@@ -360,23 +350,12 @@
               <li>
                 <a href="https://github.com/0x6e6562/as3-amqp/">as3-amqp</a>
                 <br />
-                An AMQP client library in AS3 for Flex and Flash
+                A RabbitMQ client library in AS3 for Flex and Flash
               </li>
               <li>
                 <a href="http://geekrelief.wordpress.com/2008/12/15/hxamqp-amqp-with-haxe/">hxamqp</a>
                 <br/>
                 A port of as3-amqp to haXe
-              </li>
-              <li>
-                <a href="http://flexonrails.net/?p=106">Integrating Flex and RabbitMQ using STOMP</a>
-                <br />
-                Describes how to get Flex/Flash applications talking to RabbitMQ using STOMP
-              </li>
-              <li>
-                <a href="https://github.com/dansimpson/amqp-js">amqp-js</a>
-                <br/>
-                A native  library for Javascript that provides low-latency message queuing
-                without using HTTP.
               </li>
               <li>
                 <a href="https://github.com/tonyg/rabbithub">rabbithub</a>
@@ -386,11 +365,6 @@
               <li>
                 We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
                 and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
-              </li>
-              <li>
-                <a href="http://tech.kaazing.com/documentation/dragonfire/howto-amqp.html#config_gateway">AMQP with Kaazing Enterprise Gateway</a>
-                <br />
-                Set up AMQP messaging direct from the browser with Kaazing's AmqpClient for Javascript
               </li>
             </ul>
           </doc:section>
