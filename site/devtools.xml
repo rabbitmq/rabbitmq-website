@@ -20,7 +20,7 @@
         would like to see added to this list.
       </p>
           <doc:section name="java-dev">
-            <doc:heading>Java / JVM</doc:heading>
+            <doc:heading>Java</doc:heading>
             <ul class="plain">
               <li>
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
@@ -32,44 +32,7 @@
                 Lyra, <a href="https://github.com/jhalterman/lyra">highly available RabbitMQ Java client</a>
               </li>
               <li>
-                <a href="http://neopatel.blogspot.com/2009/08/rabbitmq-java-clients-for-beginners.html">RabbitMQ Java Client for Beginners</a>
-              </li>
-              <li>
-                <a href="http://www.hascode.com/2010/09/how-to-create-a-simple-messaging-application-using-rabbitmq-2-and-maven/">A simple messaging application using RabbitMQ and Maven</a>
-              </li>
-              <li>
-                <a href="https://github.com/jhalterman/lyra">Lyra, High Availability RabbitMQ client</a>
-                <br />
-                Lyra is a RabbitMQ client that helps you achieve high availability in your services by embracing failure, allowing for AMQP resources such as connections, channels and consumers to be automatically recovered when server or network failures occur.
-              </li>
-              <li>
-                <a href="https://github.com/joshdevins/rabbitmq-ha-client">RabbitMQ HA Client</a>
-                <br />
-                An implementation of ConnectionFactory that supports automatic connection recovery and message redelivery,
-                which are requirements for many HA topologies.
-              </li>
-              <li>
-                <a href="http://www.lshift.net/blog/2009/03/16/openamqs-jms-client-with-rabbitmq-server">Java JMS with RabbitMQ</a>
-              </li>
-              <li>
-                <a href="http://kirkwylie.blogspot.com/2009/01/rabbitmqamqp-osgi-integration.html">RabbitMQ/AMQP OSGi Integration</a>
-              </li>
-              <li>
                 <a href="https://github.com/lshift/camel-rabbitmq">camel-rabbitmq</a>, an Apache Camel component for interacting with RabbitMQ. This ships as part of Camel 2.12 or later.
-              </li>
-              <li>
-                <a href="https://github.com/slider/amqp-relay">amqp-relay</a>
-                <br/>
-                A simple service to relay all messages from a topic exchange to another RabbitMQ broker instance.
-              </li>
-              <li>
-                <a href="http://blogs.mulesoft.org/bring-erl-on-provisioning-rabbitmq-users-through-mule/">Using RabbitMQ with Mule</a>
-                <br/>
-                A description of the <a href="http://www.mulesoft.org/documentation/display/ERLANG/Home">Mule Erlang Transport</a> showing how
-                you can interface with RabbitMQ from Mule (the post talks about user provisioning on RabbitMQ as a case study).
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a>
               </li>
               <li>
                 <a href="https://github.com/yanghua/banyan">Banyan</a>, a RabbitMQ-backed message bus with a tree topology.
@@ -81,33 +44,12 @@
                 <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for Java</a>
               </li>
               <li>
-                <a href="http://www.infoq.com/presentations/Spring-AMQP">Spring AMQP video and slides</a> from Matthias' presentation at SpringOne 2010
+                <a href="http://docs.spring.io/spring-xd/docs/1.0.3.RELEASE/reference/html/#rabbit">RabbitMQ support in Spring XD</a>
               </li>
               <li>
-                <a href="http://www.slideshare.net/ewolff/the-future-of-messaging-rabbitmq-and-amqp">The Future of Messaging: RabbitMQ and AMQP</a>
-                <br />
-                Covers an introduction to AMQP and messaging with RabbitMQ and Spring
+                <a href="http://docs.spring.io/spring-integration/reference/html/amqp.html">RabbitMQ support in Spring Integration</a>
               </li>
-              <li>
-                <a href="http://blog.codecentric.de/en/2011/04/amqp-messaging-with-rabbitmq/">AMQP Messaging with RabbitMQ and Spring</a>
-                <br/>
-                Getting started with the Spring AMQP templates for RabbitMQ
-              </li>
-              <li>
-                <a href="http://www.slideshare.net/ewolff/07-messaging-inthecloud">Using RabbitMQ with Spring</a>
-                <br/>
-                A presentation outlining how to configure RabbitMQ using the Spring framework
-              </li>
-              <li>
-                <a href="http://www.infoq.com/news/2010/03/amqp_support_spring_integration">Introduction to OpenCredo's Spring Integration Kit for RabbitMQ</a>
-              </li>
-              <li>
-                <a href="https://github.com/yawn/amqp-spring">AMQP/Spring</a> and
-                <a href="https://github.com/momania/spring-rabbitmq">Spring-RabbitMQ</a> community-contributed code
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+spring">RabbitMQ Spring development on del.icio.us</a>
-              </li>
+
             </ul>
             <h4>Groovy / Grails</h4>
             <ul class="plain">
