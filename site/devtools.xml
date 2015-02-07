@@ -159,19 +159,7 @@
                 <a href="http://easynetq.com">EasyNetQ</a>, a simple .NET API for RabbitMQ
               </li>
               <li>
-                <a href="http://lostechies.com/derekgreer/tag/rabbitmq/">RabbitMQ for Windows</a>
-                <br/>
-                An eight-part blog series covering RabbitMQ on Windows
-              </li>
-              <li>
-                <a href="http://www.yourenterprisearchitect.com//p/distributed-systems-mist.html">Distributed Systems &amp; AMQP</a>
-                <br />
-                Enterprise and distributed architecture topics covered using RabbitMQ and C#
-              </li>
-              <li>
-                <a href="http://simonwdixon.wordpress.com/2011/05/08/getting-started-with-rabbitmq-in-dotnet/">Getting Started with RabbitMQ in .NET Part 1</a>,
-                <a href="http://simonwdixon.wordpress.com/2011/05/10/getting-started-with-rabbitmq-in-net-part-2/">Part 2</a> and
-                <a href="http://simonwdixon.wordpress.com/2011/05/19/getting-started-with-rabbitmq-in-net-%E2%80%93-part-3/">Part 3</a>
+                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
               </li>
               <li>
                 <a href="http://freshbrewedcode.com/derekgreer/tag/rabbitmq/">RabbitBus</a>, a fluent interface to the RabbitMQ .NET API
@@ -184,23 +172,6 @@
               </li>
               <li>
                 <a href="https://github.com/mariuszwojcik/RabbitMQTools">RabbitMQTools</a>, PowerShell module containing cmdlets to manage RabbitMQ
-              </li>
-              <li>
-                <a href="http://edparcell.posterous.com/getting-started-with-rabbitmq-in-windows-usin">Getting Started with RabbitMQ in Windows using C#</a>
-                <br/>
-                A simple, step-by-step guide to get started with RabbitMQ using a "Hello World" example in C#
-              </li>
-              <li>
-                <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf">.NET Client Library User Guide</a>
-              </li>
-              <li>
-                <a href="http://www.springsource.org/spring-amqp">Spring AMQP project for .NET</a>
-              </li>
-              <li>
-                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
-              </li>
-              <li>
-                <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+dotnet">RabbitMQ .Net development on del.icio.us</a>
               </li>
             </ul>
           </doc:section>
