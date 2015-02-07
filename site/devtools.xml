@@ -296,6 +296,17 @@
               </li>
             </ul>
           </doc:section>
+          <doc:section name="mobile">
+            <doc:heading>Mobile</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/profmaad/librabbitmq-objc">Objective-C wrapper for librabbitmq-c</a>
+              </li>
+              <li>
+                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="database-integration">
             <doc:heading>Database Integration</doc:heading>
             <ul class="plain">
@@ -365,17 +376,6 @@
               <li>
                 We provide <a href="plugins.html">RabbitMQ plugins</a> that expose a JSON/RPC endpoint
                 and AMQP-over-HTTP binding for interacting with RabbitMQ over HTTP
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="mobile">
-            <doc:heading>Mobile</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/profmaad/librabbitmq-objc">Objective-C wrapper for librabbitmq-c</a>
-              </li>
-              <li>
-                <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
               </li>
             </ul>
           </doc:section>
