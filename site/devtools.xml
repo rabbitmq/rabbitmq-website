@@ -71,6 +71,9 @@
               <li>
                 <a href="http://delicious.com/alexisrichardson/rabbitmq+usecase+java">RabbitMQ Java development on del.icio.us</a>
               </li>
+              <li>
+                <a href="https://github.com/yanghua/banyan">Banyan</a>, a RabbitMQ-backed message bus with a tree topology.
+              </li>
             </ul>
             <h4>Spring Framework</h4>
             <ul class="plain">
