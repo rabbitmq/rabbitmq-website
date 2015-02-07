@@ -244,19 +244,10 @@
                 <a href="https://github.com/alanxz/SimpleAmqpClient">SimpleAmqpClient</a>, a C++ wrapper around rabbitmq-c
               </li>
               <li>
-                <a href="https://github.com/CopernicaMarketingSoftware/AMQP-CPP">AMQP-CPP</a>, a C++ RabbitMQ client
-              </li>
-              <li>
-                You can also try this community <a href="http://markmail.org/message/2phdwvrvwc57ya5m">C Client</a> and a <a href="https://github.com/selivanovm/rabbitmq-d">port of this client to d</a>
-              </li>
-              <li>
-                An <a href="https://github.com/dg1sbg/RabbitMQ_C_VS_Unix">ANSI C compliant library</a> providing a C language interface to RabbitMQ
-              </li>
-              <li>
                 <a href="https://github.com/akalend/amqpcpp">amqpcpp</a>, a C++ message library for RabbitMQ
               </li>
               <li>
-                <a href="https://github.com/fuCtor/QAMQP">QAMQP</a>, a pure Qt 4 implementation of AMQP 0-9-1 without other dependencies
+                <a href="https://github.com/CopernicaMarketingSoftware/AMQP-CPP">AMQP-CPP</a>, a C++ RabbitMQ client
               </li>
             </ul>
           </doc:section>
