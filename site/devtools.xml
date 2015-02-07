@@ -51,50 +51,34 @@
               </li>
 
             </ul>
-            <h4>Groovy / Grails</h4>
+            <h4>Groovy and Grails</h4>
             <ul class="plain">
               <li>
-                <a href="http://ndpar.blogspot.com/2010/03/get-started-with-rabbitmq.html">Using RabbitMQ with Groovy</a>
+                <a href="http://grails.org/plugin/rabbitmq-native">Grails RabbitMQ plugin</a>
               </li>
               <li>
-                <a href="resources/grails-amqp.pdf">Grails + messaging with AMQP/RabbitMQ</a> [pdf, 1.2MB]
+                <a href="resources/grails-amqp.pdf">Grails with RabbitMQ for messaging</a> (PDF)
               </li>
               <li>
-                <a href="https://github.com/grails-plugins/grails-rabbitmq">Grails RabbitMQ plugin</a> and <a href="http://blog.springsource.org/2010/08/23/rabbitmq-plugin-for-grails-early-access/">accompanying blog post</a>
-              </li>
-              <li>
-                <a href="http://tech.favoritemedium.com/2010/08/rabbitmq-pubsub-messaging-with-groovy.html">PubSub with Groovy</a>
-              </li>
-              <li>
-                <a href="http://blog.springsource.org/2011/06/01/a-simple-groovy-dsl-for-building-rabbitmq-amqp-applications/">RabbitMQ Groovy DSL</a> (the <a href="https://github.com/jbrisbin/rabbitmq-dsl">source code</a> is on github)
+                <a href="https://github.com/michaelklishin/green_bunny">Green Bunny, Groovy RabbitMQ client</a> inspired by Bunny
               </li>
             </ul>
-            <h4>Scala / Lift</h4>
+            <h4>Scala</h4>
             <ul class="plain">
               <li>
-                <a href="http://blog.getintheloop.eu/2009/5/22/lift-amqp-with-rabbitmq-and-scala-tutorial-and-screencast">RabbitMQ and Scala</a>
-                <br />
-                A tutorial and screencast that might be of interest for users of other languages
+                <a href="https://github.com/sstone/amqp-client">RabbitMQ client for Scala</a>
               </li>
               <li>
-                <a href="http://scala-tools.org/mvnsites/liftweb/lift-amqp/scaladocs/index.html">AMQP library for Lift</a>
-              </li>
-            </ul>
-            <h4>Akka</h4>
-            <ul class="plain">
-              <li>
-                <a href="http://thoughts.inphina.com/2011/09/15/amqp-and-akka/">AMQP and Akka</a>
-                <br />
-                A post explaining how to send and consume messages on RabbitMQ with Akka
+                <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
-                <a href="https://github.com/geidsvig/akka-amqp">Akka AMQP module source code</a>
+                <a href="http://typesafe.com/activator/template/rabbitmq-akka-stream">Processing RabbitMQ messages using Akka Streams</a>
               </li>
-            </ul>
-            <h4>Play! Framework</h4>
-            <ul class="plain">
               <li>
-                <a href="http://geeks.aretotally.in/rabbitmq-module-for-play-framework">RabbitMQ integration module</a>
+                <a href="https://www.playframework.com/modules/rabbitmq-0.0.9/home">RabbitMQ module for Play Framework</a>
+              </li>
+              <li>
+                <a href="https://github.com/liftmodules/amqp">Lift RabbitMQ module</a>
               </li>
             </ul>
             <h4>Clojure</h4>
