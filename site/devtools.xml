@@ -315,14 +315,6 @@
               </li>
             </ul>
           </doc:section>
-          <doc:section name="ec2-dev">
-            <doc:heading>Amazon EC2</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="ec2.html">How to set up RabbitMQ on EC2</a>
-              </li>
-            </ul>
-          </doc:section>
           <doc:section name="web-messaging">
             <doc:heading>Web Messaging</doc:heading>
             <ul class="plain">
