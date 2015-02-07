@@ -300,7 +300,7 @@
             <doc:heading>Mobile</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/profmaad/librabbitmq-objc">Objective-C wrapper for librabbitmq-c</a>
+                <a href="https://github.com/profmaad/librabbitmq-objc">RabbitMQ Objective-C client</a> (wraps librabbitmq)
               </li>
               <li>
                 <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
