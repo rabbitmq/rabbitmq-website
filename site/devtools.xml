@@ -118,9 +118,6 @@
               <li>
                 <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
               </li>
-              <li>
-                <a href="http://twitter.com/rubyamqp">Ruby RabbitMQ clients Twitter account</a>
-              </li>
             </ul>
           </doc:section>
           <doc:section name="python-dev">
