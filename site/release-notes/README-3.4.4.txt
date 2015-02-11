@@ -58,7 +58,7 @@ bug fixes
 STOMP plugin
 ------------
 bug fixes
-26282 Improve error messages for STOMP connection failures (TLS issues, abrupt TCP connection closures) (since 1.4.0)
+26282 Improve error messages for STOMP connection failures (TLS issues, abrupt TCP connection closures) (since 3.3.3)
 26559 STOMP reader should handle system messages (since 1.4.0)
 
 
