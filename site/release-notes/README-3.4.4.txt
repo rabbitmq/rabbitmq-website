@@ -1,5 +1,7 @@
 Release: RabbitMQ 3.4.4
 
+You can find RabbitMQ change log at http://www.rabbitmq.com/changelog.html.
+
 Release Highlights
 ==================
 
