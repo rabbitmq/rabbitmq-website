@@ -8,7 +8,7 @@ Release Highlights
 server
 ------
 bug fixes
-26564 Declaring a mirrored queue returns before all mirrors are running (since 2.6.0)
+26564 ensure that a mirrored queue declaration only returns when all mirrors are running (since 2.6.0)
 26549 Failure to start if AMQP port > 45535 (since 3.3.0)
 26570 policy change on idle queue might not be reported in a timely manner (since 3.0.0)
 26558 rabbitmq-plugins should respect RABBITMQ_CTL_ERL_ARGS (since 3.4.0)
