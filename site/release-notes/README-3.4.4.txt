@@ -8,11 +8,14 @@ Release Highlights
 server
 ------
 bug fixes
-26564 ensure that a mirrored queue declaration only returns when all mirrors are running (since 2.6.0)
+26564 ensure that a mirrored queue declaration only returns when all mirrors
+      are running (since 2.6.0)
 26549 Failure to start if AMQP port > 45535 (since 3.3.0)
-26570 policy change on idle queue might not be reported in a timely manner (since 3.0.0)
+26570 policy change on idle queue might not be reported in a timely manner
+      (since 3.0.0)
 26558 rabbitmq-plugins should respect RABBITMQ_CTL_ERL_ARGS (since 3.4.0)
-26562 rabbitmq-env uses "--fqdn" which is specific to net-tools' (i.e. Linux) hostname(1) (since 3.4.0)
+26562 rabbitmq-env uses "--fqdn" which is specific to net-tools' (i.e. Linux)
+      hostname(1) (since 3.4.0)
 26144 Windows scripts should respect RABBITMQ_NODE_ONLY (since 1.0.0)
 
 
@@ -20,13 +23,15 @@ building & packaging
 --------------------
 bug fixes
 26443 Mnesia directory world-readable on deb / RPM (since 1.0.0)
-26584 Windows installer should install new version after uninstalling the existing one (since 1.0.0)
+26584 Windows installer should install new version after uninstalling
+      the existing one (since 1.0.0)
 
 
 management plugin
 -----------------
 bug fixes
-26533 Specifying SSL version list for Mochiweb causes rabbit_mgmt_external_stats to crash (since 2.6.0)
+26533 Specifying SSL version list for Mochiweb causes
+      rabbit_mgmt_external_stats to crash (since 2.6.0)
 26541 Overview page doesn't work with IE <= 8 (since 3.4.0)
 
 
@@ -35,7 +40,8 @@ Java client
 bug fixes
 26552 Bindings for non-durable queues are not recovered (since 3.3.0)
 26580 WorkPool.WorkQueue still deadlock-prone (since 3.4.0)
-26523 PerfTest --cmessages off-by-one error (fail to ack last message) (since 3.4.3)
+26523 PerfTest --cmessages off-by-one error (fail to ack last message)
+      (since 3.4.3)
 
 
 .NET client
@@ -51,21 +57,24 @@ The client now requires .NET 4.0.
 MQTT plugin
 -----------
 bug fixes
-26567 Last Will and Testament should be sent in case of keep-alive timeout (since 3.0.0)
+26567 Last Will and Testament should be sent in case of keep-alive timeout
+      (since 3.0.0)
 26589 MQTT processor should link its channel (since 3.0.0)
 
 
 STOMP plugin
 ------------
 bug fixes
-26282 Improve error messages for STOMP connection failures (TLS issues, abrupt TCP connection closures) (since 3.3.3)
+26282 Improve error messages for STOMP connection failures
+      (TLS issues, abrupt TCP connection closures) (since 3.3.3)
 26559 STOMP reader should handle system messages (since 1.4.0)
 
 
 AMQP 1.0 plugin
 ---------------
 bug fixes
-26587 Failure to create resources when producing / consuming not well handled (since 3.1.0)
+26587 Failure to create resources when producing / consuming not well
+      handled (since 3.1.0)
 
 
 LDAP plugin
