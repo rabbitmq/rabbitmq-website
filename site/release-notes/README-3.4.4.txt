@@ -18,7 +18,7 @@ bug fixes
 
 building & packaging
 --------------------
-buf fixes
+bug fixes
 26443 Mnesia directory world-readable on deb / RPM (since 1.0.0)
 26584 Windows installer should install new version after uninstalling the existing one (since 1.0.0)
 
