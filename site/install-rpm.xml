@@ -56,10 +56,10 @@
         you have to download manually.
       </li>
       <li>
-        <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">VMware</a>
-        produces a package stripped down to only provide those components
-        needed to run RabbitMQ. It may not be as up to date as Erlang
-        Solutions' packages, but it might be easiest to use if installing
+        We produce <a href="/releases/erlang/">a package</a> stripped
+        down to only provide those components needed to run
+        RabbitMQ. <b>It may not be as up to date as Erlang Solutions'
+        packages</b>, but it might be easiest to use if installing
         Erlang's dependencies is proving difficult.
       </li>
     </ul>
@@ -104,11 +104,11 @@
       </li>
     </ol>
 
-    <h3>Install monolithic Erlang from VMware</h3>
+    <h3>Install monolithic Erlang from RabbitMQ</h3>
     <ol class="plain">
       <li>
         Download and install the appropriate RPM
-        from <a href="https://my.vmware.com/web/vmware/details?downloadGroup=VFEL_15B02&amp;productId=267">VMware</a>.
+        from <a href="/releases/erlang/">here</a>.
       </li>
     </ol>
 

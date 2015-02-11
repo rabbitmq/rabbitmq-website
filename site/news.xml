@@ -15,6 +15,124 @@
       -->
 
     <doc:item>
+      <doc:date iso="2015-01-08T10:14:05+0100">8 January 2015</doc:date>
+      <doc:title>Security issues in RabbitMQ management plugin (3.4.2 or lower) [CVE-2015-0862]</doc:title>
+      <doc:link>http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0862</doc:link>
+      <doc:text>
+        <p>
+          Several security issues were found in the RabbitMQ management
+          plugin. All versions of RabbitMQ up-to 3.4.2 included are
+          affected. All issues are <strong>fixed in RabbitMQ 3.4.3</strong>.
+        </p>
+
+        <p>
+          The management plugin is a web interface which allows users
+          to monitor the activity of a RabbitMQ cluster and perform
+          administration tasks such as (but not limited to):
+        </p>
+        <ul>
+          <li>adding, modifying or removing users;</li>
+          <li>manage virtual hosts;</li>
+          <li>manage resources (exchanges and queues);</li>
+          <li>consume queued messages.</li>
+        </ul>
+
+        <p>
+          Some user-controllable content was not properly HTML-escaped
+          before being presented to a user in the management web UI:
+        </p>
+        <ul>
+          <li>
+            When a user unqueued a message from the management UI,
+            message details (header names, arguments, etc.) were
+            displayed unescaped.
+            An attacker could publish a specially
+            crafted message to add content or execute arbitrary Javascript
+            code on behalf of a user, if this user unqueued the message
+            from the management UI.
+          </li>
+          <li>
+            When viewing policies, their name was displayed
+            unescaped.
+            An attacker could create a policy with a specially crafted
+            name to add content or execute arbitrary Javascript code
+            on behalf of a user who is viewing policies.
+          </li>
+          <li>
+            When listing connected AMQP network clients, client details
+            such as its version were displayed unescaped.
+            An attacker could use a client with a specially crafted
+            version field to add content or execute arbitrary Javascript
+            code on behalf of a user who is viewing connected clients.
+          </li>
+        </ul>
+        <p>
+          In all cases, the attacker needs a valid user account on the
+          targetted RabbitMQ cluster.
+        </p>
+
+        <p>
+          Furthermore, some admin-controllable content was not properly
+          escaped:
+        </p>
+        <ul>
+          <li>user names;</li>
+          <li>the cluster name.</li>
+        </ul>
+        <p>
+          Likewise, an attacker could add content or execute arbitrary
+          Javascript code on behalf of a user using the management web UI.
+          However, the attacker must be an administrator on the RabbitMQ
+          cluster, thus a trusted user.
+        </p>
+
+        <p>
+          No workaround is available, but RabbitMQ clusters with the
+          management plugin disabled on all nodes are not affected.
+        </p>
+        <p>
+          We strongly encourage you to upgrade to RabbitMQ 3.4.3.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2015-01-07T11:51:09+0100">7 January 2015</doc:date>
+      <doc:title>RabbitMQ 3.4.3 release</doc:title>
+      <doc:link>release-notes/README-3.4.3.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.4.3.
+        </p>
+
+        <p>
+          This release fixes a number of bugs in 3.4.2 and earlier
+          versions. It also fixes a couple of security issues in the
+          management plugin. CVE-IDs were requested; an update will
+          be posted as soon as they are assigned.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2014-11-26T14:39:13+0000">26 November 2014</doc:date>
       <doc:title>RabbitMQ 3.4.2 release</doc:title>
       <doc:link>release-notes/README-3.4.2.txt</doc:link>
@@ -703,7 +821,7 @@
         </ul>
         <p>
           V3.1.0 has significance for another reason: it is the first release made
-          under the banner of our new sponsor company, <a href="http://gopivotal.com/">Pivotal</a>.
+          under the banner of our new sponsor company, <a href="http://pivotal.io/">Pivotal</a>.
           Pivotal launched earlier this year as a joint venture between VMware, EMC and with a
           strategic partnership with General Electric Global Software. Billed as "A New Platform
           for a New Era", the Pivotal platform will unite data, application, and cloud

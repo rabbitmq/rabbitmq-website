@@ -17,7 +17,7 @@
 	  When we build package archive files, both binary and source,
 	  we digitally sign them using <a
 	  href="http://www.gnupg.org/">GnuPG</a> and <a
-	  href="rabbitmq-signing-key-public.asc">our public signing
+	  href="https://www.rabbitmq.com/rabbitmq-signing-key-public.asc">our public signing
 	  key</a>.
     </p>
       </doc:section>
@@ -26,14 +26,14 @@
 	<doc:heading>Importing the signing key</doc:heading>
 	<p>
 	  First, you need to import our <a
-	  href="rabbitmq-signing-key-public.asc">gpg key</a>. You can do that
+	  href="https://www.rabbitmq.com/rabbitmq-signing-key-public.asc">gpg key</a>. You can do that
 	  using <a href="http://pgp.mit.edu/">MIT PGP Public Key Server</a>:
 	</p>
 	<pre class="sourcecode">gpg --keyserver pgp.mit.edu --recv-keys 0x056E8E56</pre>
 	<p>
 	  or you can download the key from our website directly:
 	</p>
-	<pre class="sourcecode">wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	<pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 gpg --import rabbitmq-signing-key-public.asc</pre>
       </doc:section>
 
