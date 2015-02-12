@@ -131,7 +131,89 @@
       increase can lead to a large amount of memory used.
     </p>
 
-    <h3>Alternate message store index implementations</h3>
+    <h2>Accidentally limited persister performance</h2>
+
+    <p>
+      It is possible for persistence to underperform because the
+      persister is limited in the number of file handles or async
+      threads it has to work with. In both cases this can happen when
+      you have a large number of queues which need to access the disk
+      simultaneously.
+    </p>
+
+    <h3>Too few file handles</h3>
+
+    <p>
+      The RabbitMQ server is typically limited in the number of file
+      handles it can open (on Unix, anyway). Every running network
+      connection requires one file handle, and the rest are available
+      for queues to use. If there are more disk-accessing queues than
+      file handles after network connections have been taken into
+      account, then the disk-accessing queues will share the file
+      handles among themselves; each gets to use a file handle for a
+      while before it is taken back and given to another queue.
+    </p>
+
+    <p>
+      This prevents the server from crashing due to there being too
+      many disk-accessing queues, but it can become expensive. The
+      management plugin can show I/O statistics for each node in the
+      cluster; as well as showing rates of reads, writes, seeks and so
+      on it will also show a rate of <i>reopen</i>s - the rate at
+      which file handles are recycled in this way. A busy server with
+      too few file handles might be doing hundreds of reopens per
+      second - in which case its performance is likely to increase
+      notably if given more file handles.
+    </p>
+
+    <h3>Too few async threads</h3>
+
+    <p>
+      The Erlang virtual machine creates a pool of <i>async
+      threads</i> to handle long-running file I/O operations. These
+      are shared among all queues. Every active file I/O operation
+      uses one async thread while it is occurring. Having too few
+      async threads can therefore hurt performance.
+    </p>
+
+    <p>
+      Note that the situation with async threads is not exactly
+      analogous to the situation with file handles. If a queue
+      executes a number of I/O operations in sequence it will perform
+      best if it holds onto a file handle for all the operations;
+      otherwise we may flush and seek too much and use additional CPU
+      orchestrating it. However, queues do not benefit from holding an
+      async thread across a sequence of operations (in fact they
+      cannot do so).
+    </p>
+
+    <p>
+      Therefore there should ideally be enough file handles for all
+      the queues that are executing streams of I/O operations, and
+      enough async threads for the number of simultaneous I/O
+      operations your storage layer can plausibly execute.
+    </p>
+
+    <p>
+      It's less obvious when a lack of async threads is causing
+      performance problems. (It's also less likely in general; check
+      for other things first!) Typical symptoms of too few async
+      threads include the number of I/O operations per second dropping
+      to zero (as reported by the management plugin) for brief periods
+      when the server should be busy with persistence, while the
+      reported time per I/O operation increases.
+    </p>
+
+    <p>
+      The number of async threads is configured by the <code>+A</code>
+      argument to the Erlang virtual machine as described <a
+      href="http://www.erlang.org/doc/man/erl.html#async_thread_pool_size">here</a>,
+      and is typically configured through the envirnment variable
+      <code>RABBITMQ_SERVER_ERL_ARGS</code>. The default value is
+      <code>+A 30</code>.
+    </p>
+
+    <h2>Alternate message store index implementations</h2>
 
     <p>
       As mentioned above, each message which is written to the message
