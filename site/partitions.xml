@@ -176,7 +176,7 @@ Cluster status of node rabbit@smacmullen ...
       In pause-if-all-down mode, RabbitMQ will automatically pause
       cluster nodes which cannot reach any of the listed nodes. This
       is close to the pause-minority mode, however, it allows an
-      adminsitrator to decide which nodes to favorize, instead of
+      administrator to decide which nodes to prefer, instead of
       relying on the context. For instance, if the cluster is made of
       two nodes in datacenter A and two nodes in datacenter B, and the
       link between datacenters is lost, pause-minority mode will pause
