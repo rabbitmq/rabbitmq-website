@@ -53,8 +53,10 @@
 
     <ul>
       <li>
-        There is some in-memory and on-disk cost per priority level per
-        queue, so you may not wish to create huge numbers of levels.
+        There is some in-memory and on-disk cost per priority level
+        per queue. There is also an additional CPU cost, especially
+        when consuming, so you may not wish to create huge numbers of
+        levels.
       </li>
       <li>
         The message <code>priority</code> field is defined as an
