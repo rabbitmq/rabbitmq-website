@@ -171,6 +171,7 @@
        <x:page url="/ttl.html" text="TTL"/>
        <x:page url="/dlx.html" text="Dead Lettering"/>
        <x:page url="/maxlength.html" text="Length Limit"/>
+       <x:page url="/priority.html" text="Priority Queues"/>
        <x:page url="/validated-user-id.html" text="Validated User ID"/>
        <x:page url="/auth-notification.html" text="Auth Failure"/>
        <x:page url="/spec-differences.html" text="Spec Differences"/>

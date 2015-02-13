@@ -99,6 +99,11 @@
           <a href="maxlength.html">Length Limit</a>
           allows the maximum length of a queue to be set.
         </li>
+        <li>
+          <a href="priority.html">Priority Queues</a>
+          support the AMQP message priority field (in a slightly
+          different way).
+        </li>
       </ul>
     </div>
 

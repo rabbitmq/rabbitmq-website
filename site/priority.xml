@@ -1,0 +1,123 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Priority Queue Support</title>
+  </head>
+  <body>
+    <p>
+      You can declare priority queues using the
+      <code>x-max-priority</code> argument. This argument should be an integer
+      indicating the maximum priority the queue should support. For example,
+      using the Java client:
+    </p>
+
+    <pre class="code">    Channel ch = ...;
+    Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+    args.put("x-max-priority", 10);
+    ch.queueDeclare("my-priority-queue", true, false, false, args);</pre>
+
+    <p>
+      You can then publish prioritised messages using the
+      <code>priority</code> field of
+      <code>basic.properties</code>. Larger numbers indicate higher
+      priority.
+    </p>
+
+    <p>
+      Because the on-disk format for a priority queue is different,
+      <b>priority queues can only be defined by arguments</b>, not
+      policies. Queues can never change the number of priorities they
+      support.
+    </p>
+
+    <h2>Behaviour</h2>
+
+    <p>
+      The AMQP spec is a bit vague about how priorities work. It says
+      that all queues MUST support at least 2 priorities, and MAY
+      support up to 10. It does not define how messages without a
+      priority property are treated.
+    </p>
+
+    <p>
+      In contrast to the AMQP spec, RabbitMQ queues by default do not
+      support priorities. When creating priority queues, you can
+      specify as many priority levels as you like. Note that:
+    </p>
+
+    <ul>
+      <li>
+        There is some in-memory and on-disk cost per priority level per
+        queue, so you may not wish to create huge numbers of levels.
+      </li>
+      <li>
+        The message <code>priority</code> field is defined as an
+        unsigned byte, so in practice priorities should be between 0
+        and 255.
+      </li>
+    </ul>
+
+    <p>
+      Messages without a <code>priority</code> property are treated as
+      if their priority were 0. Messages with a priority which is
+      higher than the queue's maximum are treated as if they were
+      published with the maximum priority.
+    </p>
+
+    <h2>Interaction with consumers</h2>
+
+    <p>
+      It's important to understand how consumers work when working
+      with priority queues. By default, consumers may be sent a large
+      number of messages before they acknowledge any, limited only by
+      network backpressure.
+    </p>
+
+    <p>
+      So if such a hungry consumer connects to an empty queue to which
+      messages are subsequently published, the messages may not spend
+      any time at all waiting in the queue. In this case the priority
+      queue will not get any opportunity to prioritise them.
+    </p>
+
+    <p>
+      In most cases you will want to use the <code>basic.qos</code>
+      method in manual acknowledgement mode on your consumers, to
+      limit the number of messages that can be out for delivery at any
+      time and thus allow messages to be prioritised.
+    </p>
+
+    <h2>Interaction with other features</h2>
+
+    <p>
+      In general priority queues have all the features of standard
+      RabbitMQ queues: they support persistence, paging, mirroring,
+      and so on. There are a couple of interactions that should be
+      noted though:
+    </p>
+
+    <ul>
+      <li>
+        <a href="ttl.html">Messages which should expire</a> will still
+        only expire from the head of the queue. This means that unlike
+        with normal queues, even per-queue TTL can lead to expired
+        lower-priority messages getting stuck behind non-expired
+        higher priority ones. These messages will never be delivered,
+        but they will appear in queue statistics.
+      </li>
+      <li>
+        <a href="maxlength.html">Queues which have a max-length
+        set</a> will, as usual, drop messages from the head of the
+        queue to enforce the limit. This means that higher priority
+        messages might be dropped to make way for lower priority ones,
+        which might not be what you would expect.
+      </li>
+    </ul>
+  </body>
+</html>
