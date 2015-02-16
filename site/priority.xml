@@ -11,6 +11,9 @@
   </head>
   <body>
     <p>
+      RabbitMQ has priority queue implementation in the core as of version <code>3.5.0</code>.
+    </p>
+    <p>
       You can declare priority queues using the
       <code>x-max-priority</code> argument. This argument should be an integer
       indicating the maximum priority the queue should support. For example,
