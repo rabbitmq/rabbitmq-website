@@ -42,14 +42,14 @@
     <h2>Behaviour</h2>
 
     <p>
-      The AMQP spec is a bit vague about how priorities work. It says
+      The AMQP 0-9-1 spec is a bit vague about how priorities work. It says
       that all queues MUST support at least 2 priorities, and MAY
       support up to 10. It does not define how messages without a
       priority property are treated.
     </p>
 
     <p>
-      In contrast to the AMQP spec, RabbitMQ queues by default do not
+      In contrast to the AMQP 0-9-1 spec, RabbitMQ queues by default do not
       support priorities. When creating priority queues, you can
       specify as many priority levels as you like. Note that:
     </p>
