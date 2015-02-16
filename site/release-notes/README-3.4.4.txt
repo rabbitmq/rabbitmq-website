@@ -65,6 +65,7 @@ bug fixes
 STOMP plugin
 ------------
 bug fixes
+26553 Unexpected authorisation errors may result in client connections staying open
 26282 Improve error messages for STOMP connection failures
       (TLS issues, abrupt TCP connection closures) (since 3.3.3)
 26559 STOMP reader should handle system messages (since 1.4.0)
