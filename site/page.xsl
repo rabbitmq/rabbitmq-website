@@ -245,8 +245,8 @@
 
   <xsl:template match="r:repositories">
     <p>
-      For information on how to work with the RabbitMQ mercurial
-      repositories, please see <a href="mercurial.html">this page</a>.
+      For information on how to work with the RabbitMQ GitHub
+      repositories, please see <a href="github.html">this page</a>.
     </p>
     <xsl:choose>
       <xsl:when test="@type = 'plugin'">
@@ -334,10 +334,10 @@
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README{@extension}">README for this plugin</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-tag;/README{@extension}">README for this plugin</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-hg;/README">README for this plugin</a>
+        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-tag;/README">README for this plugin</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

@@ -3,47 +3,47 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-  	<title>Erlang AMQP Client Library Build Instructions</title>
+        <title>Erlang AMQP Client Library Build Instructions</title>
   </head>
   <body>
       <p class="intro">
-	This section describes the process for obtaining a copy of the
-	RabbitMQ Erlang AMQP client source code and its dependecies, as
-	well as instructions for building the Erlang client from source.
+        This section describes the process for obtaining a copy of the
+        RabbitMQ Erlang AMQP client source code and its dependecies, as
+        well as instructions for building the Erlang client from source.
       </p>
 
       <doc:section name="obtaining">
-	<doc:heading>Obtaining the source</doc:heading>
+        <doc:heading>Obtaining the source</doc:heading>
 
-	<br />
-	<ul>
-	  <li>
-	    Either download a released source code distribution from
-	    the <a href="erlang-client.html">download page</a>, or
-	  </li>
+        <br />
+        <ul>
+          <li>
+            Either download a released source code distribution from
+            the <a href="erlang-client.html">download page</a>, or
+          </li>
 
-	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
-	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
-$ hg clone http://hg.rabbitmq.com/rabbitmq-server
-$ hg clone http://hg.rabbitmq.com/rabbitmq-erlang-client
+          <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
+            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
+$ git clone https://github.com/rabbitmq/rabbitmq-server.git
+$ git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
 $ cd rabbitmq-erlang-client
 $ make</pre>
-	  </li>
-	</ul>
+          </li>
+        </ul>
 
-	<p>
-	  If you choose to check the code out using mercurial, be
-	  aware that the server code and the code-generation module are
-	  dependencies of the Erlang client library. If you're  working with a
-	  released source code distribution, though, all necessary dependecies
-	  are included.
-	</p>
+        <p>
+          If you choose to check the code out using Git, be
+          aware that the server code and the code-generation module are
+          dependencies of the Erlang client library. If you're working with a
+          released source code distribution, though, all necessary dependencies
+          are included.
+        </p>
       </doc:section>
 
       <xi:include href="build-erlang-prerequisites.xml.inc"/>
 
       <doc:section name="building-erlang-client">
-	<doc:heading>Building the Erlang client libraries</doc:heading>
+        <doc:heading>Building the Erlang client libraries</doc:heading>
 
         <p>
           You will need to get the source of the server and the
@@ -63,22 +63,22 @@ $ make</pre>
           you specify BROKER_DIR every time you run a make target.
         </p>
 
-	<p>
-	  Other interesting <code>Makefile</code> targets include
-	</p>
+        <p>
+          Other interesting <code>Makefile</code> targets include
+        </p>
 
-	<p>
-	  <dl>
-	    <dt>all</dt>
-	    <dd>
-	      The default target. Builds the client libraries.
-	    </dd>
+        <p>
+          <dl>
+            <dt>all</dt>
+            <dd>
+              The default target. Builds the client libraries.
+            </dd>
 
-	    <dt>run</dt>
-	    <dd>
-	      Builds the client libraries and starts an Erlang shell with the
-	      libraries loaded.
-	    </dd>
+            <dt>run</dt>
+            <dd>
+              Builds the client libraries and starts an Erlang shell with the
+              libraries loaded.
+            </dd>
 
             <dt>run_in_broker</dt>
             <dd>
@@ -86,18 +86,18 @@ $ make</pre>
               and the client included in load path.
             </dd>
 
-	    <dt>clean</dt>
-	    <dd>
-	      Removes build products.
-	    </dd>
+            <dt>clean</dt>
+            <dd>
+              Removes build products.
+            </dd>
 
-	    <dt>test</dt>
-	    <dd>
-	      Runs a set of tests against a server running on
-	      locally. You will need to start a local instance of an
-	      AMQP server, running on port 5672, which allows
-	      guest/guest access on virtual host "/", beforehand.
-	    </dd>
+            <dt>test</dt>
+            <dd>
+              Runs a set of tests against a server running on
+              locally. You will need to start a local instance of an
+              AMQP server, running on port 5672, which allows
+              guest/guest access on virtual host "/", beforehand.
+            </dd>
 
             <dt>all_tests</dt>
             <dd>
@@ -157,8 +157,8 @@ $ make PLT=/path/to/plt add_broker_to_plt</pre>
               by the erlang client.
             </dd>
 
-	  </dl>
-	</p>
+          </dl>
+        </p>
       </doc:section>
   </body>
 </html>

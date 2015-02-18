@@ -18,8 +18,8 @@
 	    the <a href="dotnet.html">download page</a>, or
 	  </li>
 
-	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
-	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-dotnet-client</pre>
+	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
+	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-dotnet-client.git</pre>
 	  </li>
 	</ul>
       </doc:section>
@@ -38,7 +38,7 @@
 	  <li>
         Microsoft Visual Studio® 2008 or later (optional)
       </li>
-    </ul>    
+    </ul>
     </doc:section>
 
 	<doc:section name="building">
