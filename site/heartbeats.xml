@@ -7,7 +7,7 @@
   </head>
   <body>
     <doc:section name="overview">
-      <doc:heading>Why Heartbeats are Necessary</doc:heading>
+      <doc:heading>Introduction</doc:heading>
       <p>
         In some types of network failure, packet loss can mean that
         disrupted TCP connections take a moderately long time (about 11
