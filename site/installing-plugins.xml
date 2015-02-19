@@ -42,13 +42,6 @@
           </td>
         </tr>
         <tr>
-          <th>Macports</th>
-          <td>
-            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
-          </td>
-        </tr>
-        <tr>
           <th>Homebrew</th>
           <td>
             <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
