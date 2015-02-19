@@ -26,30 +26,31 @@
       <doc:heading>Heartbeat Timeout Interval</doc:heading>
       <p>
         The heartbeat timeout value defines after what period of time
-        peer TCP connection should be considered dead by RabbitMQ and
-        client libraries. This value is negotiated between the client
-        and RabbitMQ server at the time of connection.he client must
-        be configured to request heartbeats. In RabbitMQ versions 3.0
-        and higher, the broker will attempt to negotiate heartbeats by
-        default (although the client can still veto them). The timeout
-        is in seconds.
+        the peer TCP connection should be considered dead by RabbitMQ
+        and client libraries. This value is negotiated between the
+        client and RabbitMQ server at the time of connection. The
+        client must be configured to request heartbeats. In RabbitMQ
+        versions 3.0 and higher, the broker will attempt to negotiate
+        heartbeats by default (although the client can still veto
+        them). The timeout is in seconds.
       </p>
       <p>
-        Heartbeat frames are sent about every <code>timeout / 2</code> seconds.
-        After two missed heartbeats, the peer is considered to be unreachable.
-        Different clients manifest this differently but TCP connection will
-        be closed. When a client detects that RabbitMQ node is unreachable due to
-        a heartbeat, it needs to re-connect.
+        Heartbeat frames are sent about every <code>timeout / 2</code>
+        seconds. After two missed heartbeats, the peer is considered
+        to be unreachable. Different clients manifest this differently
+        but the TCP connection will be closed. When a client detects
+        that RabbitMQ node is unreachable due to a heartbeat, it needs
+        to re-connect.
       </p>
       <p>
-        Heartbeats can be disabled by setting timeout interval to <code>0</code>.
+        Heartbeats can be disabled by setting the timeout interval to <code>0</code>.
       </p>
     </doc:section>
 
     <doc:section name="using-heartbeats-in-java">
       <doc:heading>Enabling Heartbeats with Java Client</doc:heading>
       <p>
-        To configure heartbeat timeout in the Java client, set it with
+        To configure the heartbeat timeout in the Java client, set it with
         <code>ConnectionFactory#setRequestedHeartbeat</code> before
         creating a connection:
       </p>
@@ -57,7 +58,7 @@
 <pre class="sourcecode">
 ConnectionFactory cf = new ConnectionFactory();
 
-// set heartbeat timeout to 60 seconds
+// set the heartbeat timeout to 60 seconds
 cf.setRequestedHeartbeat(60);
 </pre>
     </doc:section>
@@ -65,7 +66,7 @@ cf.setRequestedHeartbeat(60);
     <doc:section name="using-heartbeats-in-dotnet">
       <doc:heading>Enabling Heartbeats with the .NET Client</doc:heading>
       <p>
-        To configure heartbeat timeout in the .NET client, set it with
+        To configure the heartbeat timeout in the .NET client, set it with
         <code>ConnectionFactory.RequestedHeartbeat</code> before
         creating a connection:
       </p>
@@ -73,7 +74,7 @@ cf.setRequestedHeartbeat(60);
 <pre class="sourcecode">
 var cf = new ConnectionFactory();
 
-// set heartbeat timeout to 60 seconds
+// set the heartbeat timeout to 60 seconds
 cf.RequestedHeartbeat = 60;
 </pre>
     </doc:section>
