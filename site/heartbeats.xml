@@ -6,7 +6,7 @@
     <title>Detecting Dead TCP Connections with Heartbeats</title>
   </head>
   <body>
-    <doc:section name="overview">
+    <doc:section name="intro">
       <doc:heading>Introduction</doc:heading>
       <p>
         In some types of network failure, packet loss can mean that
