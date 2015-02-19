@@ -155,5 +155,6 @@
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
+    <xi:include href="linux-kernel-tuning.xml.inc" />
   </body>
 </html>

@@ -107,28 +107,11 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
 	</ol>
       </doc:subsection>
-
-      <doc:subsection name="debian-system-limits">
-        <doc:heading>Controlling system limits</doc:heading>
-        <p>
-          To adjust system limits (in particular the number of open
-          file handles), edit the file
-          <code>/etc/default/rabbitmq-server</code> to
-          invoke <code>ulimit</code> when the service is started, for
-          example:
-        </p>
-<pre class="sourcecode">
-  ulimit -n 1024
-</pre>
-        <p>
-          will set the maximum number of file open handles for the
-          service process to 1024 (the default).
-        </p>
-      </doc:subsection>
     </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
+    <xi:include href="linux-kernel-tuning.xml.inc" />
   </body>
 </html>
