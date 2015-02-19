@@ -78,6 +78,7 @@
          <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
        </x:page>
        <x:page url="/ha.html" text="High Availability"/>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control"/>
        <x:page url="/authentication.html" text="SASL Authentication"/>
@@ -110,6 +111,7 @@
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
        </x:page>
