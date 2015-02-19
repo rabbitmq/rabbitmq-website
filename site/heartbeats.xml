@@ -3,11 +3,11 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Heartbeats</title>
+    <title>Detecting Dead TCP Connections with Heartbeats</title>
   </head>
   <body>
     <doc:section name="overview">
-      <doc:heading>Detecting Dead TCP Connections with Heartbeats</doc:heading>
+      <doc:heading>Why Heartbeats are Necessary</doc:heading>
       <p>
         In some types of network failure, packet loss can mean that
         disrupted TCP connections take a moderately long time (about 11
