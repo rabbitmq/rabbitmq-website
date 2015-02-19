@@ -1,30 +1,33 @@
 <?xml version="1.0"?>
 <doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-             name="linux-kernel-tuning">
-    <doc:heading>Controlling System Limits</doc:heading>
+             name="osx-max-open-files-limit">
+    <doc:heading>Controlling System Limits on OS X</doc:heading>
     <p>
-      RabbitMQ installations running production workloads may need system
+      RabbitMQ installations running may need system
       limits and kernel parameters tuning in order to handle a decent number of
       concurrent connections and queues. The main setting that needs adjustment
       is the max number of open files, also known as <code>ulimit -n</code>.
-      The default value on most Linux distributions is <code>1024</code>, which is unreasonably low
-      for a messaging broker. We recommend allowing for at least <code>65536</code> file descriptors
-      for user <code>rabbitmq</code>.
+      The default value on OS X is in low thousands, which may be too low
+      for a messaging broker. We recommend allowing for at least <code>8192</code> file descriptors
+      for RabbitMQ.
     </p>
     <p>
       There are two limits in play: the maximum number of open files the OS kernel
-      allows (<code>fs.file-max</code>) and the per-user limit (<code>ulimit -n</code>).
+      allows (<code>kern.maxfilesperproc</code>) and the per-user limit (<code>ulimit -n</code>).
       The former must be higher than the latter.
     </p>
     <p>
-      For more information about controlling <code>fs-file-max</code> with <code>sysctl</code>,
-      please refer to the excellent <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Riak guide on open file limit tuning</a>.
+      For more information about controlling
+      <code>kern.maxfilesperproc</code> with <code>sysctl</code>,
+      please refer to <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sysctl.8.html">sysctl(8)</a>
+      page in Apple documentation.
     </p>
     <p>
       To adjust the per-user limit for RabbitMQ, there are several options:
 
       <ul>
-        <li><a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configuring max open files limit</a> via <code>/etc/security/limits.conf</code>.</li>
+        <li><a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configuring max open files limit</a> via <code>launchctl limit</code>
+        <code>/etc/launchd.conf</code>.</li>
         <li>
           Edit the file <code>/etc/default/rabbitmq-server</code> to
           invoke <code>ulimit</code> before the service is started.

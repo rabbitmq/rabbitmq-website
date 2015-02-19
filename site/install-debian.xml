@@ -112,6 +112,6 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
-    <xi:include href="linux-kernel-tuning.xml.inc" />
+    <xi:include href="linux-max-open-files-limit.xml.inc" />
   </body>
 </html>
