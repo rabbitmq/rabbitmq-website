@@ -7,20 +7,18 @@
   </head>
   <body>
       <p class="intro">
-        This page describes the way we work with GitHub on the
+        This page describes the way we work with Git on the
         RabbitMQ project.
       </p>
 
       <doc:section name="overview">
         <p>
           <a href="http://git-scm.com/">Git</a> is a fast, powerful
-          <a href="http://en.wikipedia.org/wiki/Revision_control">Source
-          Control Management system</a> designed for efficient
-          handling of very large distributed projects.
+          distributed source control management system.
         </p>
         <p>
           We use Git on the RabbitMQ project to manage almost
-          all our source-code.
+          all of our source-code.
         </p>
         <ul>
           <li>Git has numerous <a
@@ -34,20 +32,22 @@
         </ul>
       </doc:section>
 
-      <doc:section name="branchperbug">
-        <doc:heading>Branching policy: Branch per bug</doc:heading>
+      <doc:section name="branch-per-bug">
+        <doc:heading>Branching policy: Branch per issue</doc:heading>
         <p>
-          We use the technique of <i>branch per bug</i> when
+          We use the technique of <i>branch per issue</i> when
           developing RabbitMQ code, where each feature or bug fix is
-          developed on a branch of its own (using <code>git
-          checkout -b</code>) and merged into the <code>master</code>
-          (trunk) branch only when the hurdle of QA is passed. We use
-          our Bugzilla instance to track each work item, so branches
-          follow the pattern <code>bug<i>NNNNN</i></code>.
+          developed on a branch of its own (using <code>git checkout
+          -b</code>) and merged into the <code>master</code> branch
+          only when the hurdle of QA is passed. Branches follow the
+          pattern <code>issue<i>NNNNN</i></code>, where <i>NNNN</i> is
+          the GitHub issue number. There are also branches named
+          <code>bug<i>NNNNN</i></code> for issues in the original
+          Bugzilla tracker (which is not public).
         </p>
       </doc:section>
 
-      <doc:section name="defaultbranch">
+      <doc:section name="default-branch">
         <doc:heading>The master branch</doc:heading>
         <p>
           The <code>master</code> branch contains all the work that
@@ -61,16 +61,14 @@
         </p>
       </doc:section>
 
-      <doc:section name="maintenancebranches">
-        <doc:heading>Maintenance branches</doc:heading>
+      <doc:section name="maintenance-branches">
+        <doc:heading>Maintenance branch</doc:heading>
         <p>
-          Sometimes we create branches for maintenance work, which are
-          used for bug-fixes for a particular release. An example of
-          this is the <code>v1_5</code> branch which appears in a
-          number of RabbitMQ repositories. Such branches play the same
-          role as the <code>master</code> branch except that they
-          carry merged, QA'd code intended for the next bug-fix
-          release rather than the next general release.
+          There's a separate branch for maintenance work,
+          <code>stable</code>. It plays the same role as the
+          <code>master</code> branch except that it carries merged,
+          QA'd code intended for the next bug-fix release rather than
+          the next general release.
         </p>
       </doc:section>
 
@@ -83,52 +81,32 @@
           snapshot are tagged.
         </p>
         <p>
-          For example, if you are using RabbitMQ server version 1.5.3,
+          For example, if you are using RabbitMQ server version 3.4.4,
           then examining the output of <code>git tag</code> in a copy
           of <code>rabbitmq-stomp</code> gives:
         </p>
         <pre>$ git tag
-Migrated_to_mercurial
-rabbitmq_v1_4_0
-rabbitmq_v1_5_0
-rabbitmq_v1_5_1
-rabbitmq_v1_5_3</pre>
+# omitted for brevity
+rabbitmq_v3_3_5
+rabbitmq_v3_4_0
+rabbitmq_v3_4_1
+rabbitmq_v3_4_2
+rabbitmq_v3_4_3
+rabbitmq_v3_4_4
+        </pre>
         <p>
           It's important to make sure that all the repositories you
           are using are on the same tag as each other. Continuing with
-          our example of server version 1.5.3, you could make sure
+          our example of server version 3.4.4, you could make sure
           your checkout of <code>rabbitmq-stomp</code> was at the
-          <code>rabbitmq_v1_5_3</code> tag by using <code>git
+          <code>rabbitmq_v3_4_4</code> tag by using <code>git
           checkout</code>:
         </p>
-        <pre>git checkout rabbitmq_v1_5_3</pre>
+        <pre>git checkout rabbitmq_v3_4_4</pre>
         <p>
           At this point, you could proceed with compiling the plugin
           as explained in the plugin's documentation.
         </p>
-        <p>
-          If there is no specific tag for a repository for the version
-          of the server you are using, try using the newest tag that
-          has the same major and minor version number. For instance,
-          if you were running RabbitMQ server version 1.5.4, but no
-          corresponding tag on <code>rabbitmq-stomp</code> was
-          available, you should try using tag
-          <code>rabbitmq_v1_5_3</code>. Another alternative for this
-          hypothetical situation would be to use the tip of the 1.5.x
-          branch:
-        </p>
-        <pre>$ git branch -a
-* master
-  ...
-  remotes/origin/bug26559
-  remotes/origin/master
-  remotes/origin/stable
-  remotes/origin/v1_5
-  ...
-$ git checkout v1_5
-Branch v1_5 set up to track remote branch v1_5 from origin.
-Switched to a new branch 'v1_5'
-$ </pre>
       </doc:section>
   </body>
 </html>
