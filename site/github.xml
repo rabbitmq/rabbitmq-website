@@ -24,11 +24,12 @@
           <li>Git has numerous <a
           href="http://git-scm.com/doc">tutorials</a>.</li>
 
-          <li>RabbitMQ's Git repositories are <a
-          href="https://github.com/rabbitmq">hosted on GitHub</a>.
-          Individual project pages on this website will generally point
-          you in the direction of the specific combinations of modules
-          you'll need to check out.</li>
+          <li>
+            <a href="https://github.com/rabbitmq">RabbitMQ's Git repositories</a> are hosted on GitHub.
+            Individual project pages on this website will generally point
+            you in the direction of the specific combinations of modules
+            you'll need to check out.
+          </li>
         </ul>
       </doc:section>
 
