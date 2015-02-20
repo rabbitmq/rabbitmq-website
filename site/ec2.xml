@@ -13,9 +13,9 @@
   <body>
 <doc:section name="ec2">
   <p>
-    Using RabbitMQ on EC2 is no more complex than running it on other
+    Using RabbitMQ on EC2 is quite similar running it on other
     platforms. Although we don't provide our own AMI images, we make
-    sure that RabbitMQ does work on current Ubuntu AMIs.
+    sure that RabbitMQ works well on current Ubuntu AMIs.
   </p>
 
   <p>This guide is mean to be used together with the general <a href="/clustering.html">clustering guide</a>.</p>
