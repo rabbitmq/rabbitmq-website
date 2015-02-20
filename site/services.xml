@@ -4,7 +4,7 @@
     <title>Commercial Services</title>
   </head>
   <body suppress-rhs="true">
-    <h2>Commercial Licensing, Support, Training and Consulting</h2>
+    <h2>Commercial Licensing, Support</h2>
     <p class="intro">
       Pivotal provides a <strong>full range of commercial support and services for
       RabbitMQ</strong>.
@@ -17,14 +17,16 @@
       We also produce a <strong>commercially licensed</strong> release
       of RabbitMQ.This includes all of the features of the open
       source version and contains additional commercially focussed
-      components. <strong>Support agreements</strong> are also available from Pivotal
-      for RabbitMQ.
+      components. <strong>Support agreements</strong> are also available for the commercial
+      release.
     </p>
+    <h2>Training</h2>
     <p>
       We offer on-line and instructor-led <strong>training courses</strong>
       worldwide that cover learning messaging with RabbitMQ, use cases, patterns,
       best practice design and architecture.
     </p>
+    <h2>Consulting</h2>
     <p>
       Our <strong>professional consulting services</strong> are highly flexible
       to address specific issues such as on-site troubleshooting, design review,
