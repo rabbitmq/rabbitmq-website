@@ -44,7 +44,23 @@
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="managing-the-broker.xml.inc"/>
 
-    <xi:include href="linux-max-open-files-limit.xml.inc" />
-    <xi:include href="osx-max-open-files-limit.xml.inc" />
+    <doc:section name="max-open-files-limit">
+      <doc:heading>Controlling System Limits</doc:heading>
+      <xi:include href="max-open-files-limit-intro.xml.inc" />
+
+      <p>
+        There are two limits in play: the maximum number of open files the OS kernel
+        allows (<code>fs.file-max</code> on Linux, <code>kern.maxp</code> on OS X and FreeBSD) and the per-user limit (<code>ulimit -n</code>).
+        The former must be higher than the latter.
+      </p>
+      <p>
+        For more information about controlling the system-wide limit,
+        please refer to the excellent <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/">Riak guide on open file limit tuning</a>.
+      </p>
+
+      <xi:include href="max-open-files-limit-per-session.xml.inc" />
+      <xi:include href="max-open-files-limit-tools.xml.inc" />
+    </doc:section>
+
   </body>
 </html>
