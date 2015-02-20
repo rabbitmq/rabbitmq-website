@@ -122,9 +122,9 @@
       <doc:heading>Unix Default Locations</doc:heading>
       <p>
         In the following table the <code>${install_prefix}</code> to
-        some paths is indicated. Macports installations use the
-        <i>installation-prefix</i> set when Macports is installed. By
-        default this is <code>/opt/local</code>.
+        some paths is indicated. Homebrew installations use the
+        <i>installation-prefix</i> (Homebrew Cellar) when installed. By
+        default this is <code>/usr/local</code>.
       </p>
       <p>
         Deb / RPM package installations use an empty

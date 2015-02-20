@@ -361,9 +361,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <li><b>Debian</b> - <span class="path">/etc/rabbitmq/</span></li>
             <li><b>RPM</b> - <span class="path">/etc/rabbitmq/</span></li>
             <li>
-              <b>Mac OS X (Macports)</b> - <span class="path"><span
+              <b>Mac OS X (Homebrew)</b> - <span class="path"><span
               class="envvar">${install_prefix}</span>/etc/rabbitmq/</span>,
-              the Macports prefix is usually <code>/opt/local</code>
+              the Homebrew prefix is usually <code>/usr/local</code>
             </li>
             <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\</span></li>
           </ul>

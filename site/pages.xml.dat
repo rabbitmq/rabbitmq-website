@@ -33,7 +33,6 @@
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
      <x:page url="/install-standalone-mac.html" text="Install: Mac OS X"/>
-     <x:page url="/install-macports.html" text="Install: MacPorts"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
      <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
        <x:related url="/windows-quirks.html"/>
