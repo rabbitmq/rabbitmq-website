@@ -49,15 +49,15 @@
             </a>
           </li>
           <li>
-            <a href="documentation.html">
-              <h4>Documentation</h4>
-              <p>How to do almost anything with RabbitMQ</p>
-            </a>
-          </li>
-          <li>
             <a href="getstarted.html">
               <h4>Tutorials</h4>
               <p>Teach yourself RabbitMQ in six easy lessons</p>
+            </a>
+          </li>
+          <li>
+            <a href="documentation.html">
+              <h4>Documentation</h4>
+              <p>How to do almost anything with RabbitMQ</p>
             </a>
           </li>
         </ul>
