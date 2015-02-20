@@ -48,6 +48,17 @@
         </p>
       </doc:section>
 
+      <doc:section name="pull-requests">
+        <doc:heading>Pull Requests and the Review/QA Process</doc:heading>
+        <p>
+          Branches that are ready to be reviewed and/or QA'ed should be submitted as
+          pull requests. Feedback is then given in the comments. After receiving feedback,
+          update the original branch and push it: GitHub will take care of updating
+          the pull request. Then the process goes on until the pull request is merged
+          or closed (e.g. because a feature is rejected after an attempt to implement it).
+        </p>
+      </doc:section>
+
       <doc:section name="default-branch">
         <doc:heading>The master branch</doc:heading>
         <p>
