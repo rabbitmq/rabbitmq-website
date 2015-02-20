@@ -69,10 +69,16 @@
          <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
-       <x:page url="/reliability.html" text="Reliable Delivery"/>
+       <x:page url="/reliability.html" text="Reliable Delivery">
+         <x:related url="/heartbeats.html" text="Heartbeats"/>
+       </x:page>
        <x:page url="/clustering.html" text="Clustering">
-         <x:page url="/partitions.html" text="Network Partitions"/>
-         <x:page url="/nettick.html" text="Net Tick Time"/>
+         <x:page url="/partitions.html" text="Network Partitions">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
+         <x:page url="/nettick.html" text="Net Tick Time">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
          <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
        </x:page>
        <x:page url="/ha.html" text="High Availability"/>
@@ -107,6 +113,7 @@
          <x:page url="/java-tools.html" text="Java Client Tools"/>
          <x:related url="/java-client.html"/>
        </x:page>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
