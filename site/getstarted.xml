@@ -34,7 +34,7 @@
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="http://hg.rabbitmq.com/rabbitmq-erlang-client/file/default">erlang client</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)

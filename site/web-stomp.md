@@ -34,7 +34,7 @@ library is required. We've tested a
 [stomp-websocket](https://github.com/jmesnil/stomp-websocket/) library
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
-[This library](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv/stomp.js)
+[This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
 is included as part of RabbitMQ-Web-Stomp-Examples.
 
 By default the Web-Stomp plugin exposes a SockJS endpoint on port
@@ -71,7 +71,7 @@ connection with the broker:
 ## <a id="examples"/>Examples (RabbitMQ-Web-Stomp-Examples)
 
 A few simple Web-Stomp examples are provided as a
-[RabbitMQ-Web-Stomp-Examples](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/)
+[RabbitMQ-Web-Stomp-Examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
 plugin. To get it running follow the installation instructions above
 and enable the plugin:
 
@@ -85,7 +85,7 @@ The examples will be available under
  * "echo" - shows how to use STOMP to do simple message broadcasting
  * "bunny" - example of a simple collaboration canvas painting app
 
-We encourage you to take a look [at the source code](http://hg.rabbitmq.com/rabbitmq-web-stomp-examples/file/default/priv).
+We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/tree/master/priv).
 
 ## <a id="config"/>Configuration
 

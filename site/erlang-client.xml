@@ -92,7 +92,7 @@ user quide</a>.</p>
       Erlang Client library other than the above.
     </p>
 
-    <h2>Mercurial repositories</h2>
+    <h2>GitHub repositories</h2>
     <p>
       The Erlang AMQP client library and tests depends on the server
       and the code-generation library modules. Please see the <a
@@ -100,12 +100,12 @@ user quide</a>.</p>
     </p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-erlang-client"
-        url="http://hg.rabbitmq.com/rabbitmq-erlang-client/"/>
-      <repository type="hg" shortname="rabbitmq-server"
-        url="http://hg.rabbitmq.com/rabbitmq-server/"/>
-      <repository type="hg" shortname="rabbitmq-codegen"
-        url="http://hg.rabbitmq.com/rabbitmq-codegen/"/>
+      <repository type="github" shortname="rabbitmq-erlang-client"
+        url="https://github.com/rabbitmq/rabbitmq-erlang-client"/>
+      <repository type="github" shortname="rabbitmq-server"
+        url="https://github.com/rabbitmq/rabbitmq-server"/>
+      <repository type="github" shortname="rabbitmq-codegen"
+        url="https://github.com/rabbitmq/rabbitmq-codegen"/>
     </repositories>
 
     <h2>Support</h2>

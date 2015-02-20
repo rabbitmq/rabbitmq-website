@@ -177,7 +177,7 @@
        <x:page url="/build-java-client.html" text="Building the Java Client"/>
        <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
        <x:page url="/build-erlang-client.html" text="Building the Erlang Client"/>
-       <x:page url="/mercurial.html" text="Our use of Mercurial"/>
+       <x:page url="/github.html" text="Our use of Git and GitHub"/>
        <x:related url="/plugin-development.html"/>
      </x:page>
      <x:modal mode="www">

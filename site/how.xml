@@ -476,13 +476,13 @@
       More information on the open standard from the AMQP working group.
     </li>
     <li>
-      <a href="http://hg.rabbitmq.com/">RabbitMQ Source Code Repository</a><br />
+      <a href="https://github.com/rabbitmq">RabbitMQ Source Code Repository</a><br />
       Browse the source.
     </li>
     <li>
       <a href="http://vimeo.com/23834429">HOWTO: Creating plugins for RabbitMQ</a><br />
       A video by Alvaro Videla demonstrating how to create plugins for RabbitMQ using the
-      <a href="http://hg.rabbitmq.com/rabbitmq-public-umbrella">RabbitMQ Public Umbrella</a>.
+      <a href="https://github.com/rabbitmq/rabbitmq-public-umbrella">RabbitMQ Public Umbrella</a>.
     </li>
     <li>
       <a href="http://vimeo.com/27158376">HOWTO: Writing plugins with RabbitMQ</a><br />
@@ -510,7 +510,7 @@
       custom exchange implementations to extend the functionality of RabbitMQ.
     </li>
     <li>
-      <a href="http://hg.rabbitmq.com/rabbitmq-codegen/">RabbitMQ's Protocol Code Generator</a><br />
+      <a href="https://github.com/rabbitmq/rabbitmq-codegen">RabbitMQ's Protocol Code Generator</a><br />
       Browse the source code used to auto-generate AMQP base classes from the
       protocol specification.
     </li>
