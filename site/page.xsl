@@ -21,7 +21,7 @@
   <xsl:template match="html:head">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <meta name="description" content="RabbitMQ is a complete and highly reliable enterprise messaging system based on the emerging AMQP standard"/>
+      <meta name="description" content="RabbitMQ is an open source enterprise messaging broker that supports multiple protocols"/>
       <meta name="googlebot" content="NOODP"/>
       <meta name="google-site-verification" content="nSYeDgyKM9mw5CWcZuD0xu7iSWXlJijAlg9rcxVOYf4"/>
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
