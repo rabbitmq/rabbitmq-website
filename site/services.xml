@@ -4,11 +4,11 @@
     <title>Commercial Services</title>
   </head>
   <body suppress-rhs="true">
+    <h2>Commercial Licensing, Support, Training and Consulting</h2>
     <p class="intro">
       Pivotal provides a <strong>full range of commercial support and services for
       RabbitMQ</strong>.
     </p>
-    <h2>Commercial Licensing, Support, Training and Consulting</h2>
     <p>
       Pivotal offers <strong>commercial support agreements</strong> for the most
       recent open source release of RabbitMQ.
