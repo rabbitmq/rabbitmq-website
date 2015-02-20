@@ -22,17 +22,17 @@
 	    the <a href="download.html">download page</a>, or
 	  </li>
 
-	  <li>Check the code out directly from <a href="mercurial.html">our mercurial repositories</a>:
+	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
 
-	    <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-codegen
-$ hg clone http://hg.rabbitmq.com/rabbitmq-server
+	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
+$ git clone https://github.com/rabbitmq/rabbitmq-server.git
 $ cd rabbitmq-server
 $ make</pre>
 	  </li>
 	</ul>
 
 	<p>
-	  If you choose to check the code out using mercurial, be
+	  If you choose to check the code out using Git, be
 	  aware that the code-generation module is a dependency of
 	  the server library. If you're working with a released
 	  source code distribution, though, the code-generation

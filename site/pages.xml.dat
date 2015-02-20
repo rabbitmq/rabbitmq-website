@@ -33,7 +33,6 @@
      <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
      <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
      <x:page url="/install-standalone-mac.html" text="Install: Mac OS X"/>
-     <x:page url="/install-macports.html" text="Install: MacPorts"/>
      <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
      <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
        <x:related url="/windows-quirks.html"/>
@@ -71,10 +70,16 @@
          <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
-       <x:page url="/reliability.html" text="Reliable Delivery"/>
+       <x:page url="/reliability.html" text="Reliable Delivery">
+         <x:related url="/heartbeats.html" text="Heartbeats"/>
+       </x:page>
        <x:page url="/clustering.html" text="Clustering">
-         <x:page url="/partitions.html" text="Network Partitions"/>
-         <x:page url="/nettick.html" text="Net Tick Time"/>
+         <x:page url="/partitions.html" text="Network Partitions">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
+         <x:page url="/nettick.html" text="Net Tick Time">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
          <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
        </x:page>
        <x:page url="/ha.html" text="High Availability"/>
@@ -110,6 +115,7 @@
          <x:related url="/java-client.html"/>
        </x:page>
        <x:page url="/dotnet-api-guide.html" text=".NET Client Guide"/>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
        <x:page url="/uri-spec.html" text="AMQP URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
@@ -181,7 +187,7 @@
        <x:page url="/build-java-client.html" text="Building the Java Client"/>
        <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
        <x:page url="/build-erlang-client.html" text="Building the Erlang Client"/>
-       <x:page url="/mercurial.html" text="Our use of Mercurial"/>
+       <x:page url="/github.html" text="Our use of Git and GitHub"/>
        <x:related url="/plugin-development.html"/>
      </x:page>
      <x:modal mode="www">

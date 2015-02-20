@@ -91,21 +91,23 @@
         during publish and consume operations and
         only <i>at-most-once</i> delivery is guaranteed.
       </p>
-
-      <h3>Heartbeats</h3>
-      <p>
-        In some types of network failure, packet loss can mean that disrupted
-        TCP connections take some time to be detected by the operating
-        system. AMQP offers a <i>heartbeat</i> feature to ensure that the
-        application layer promptly finds out about disrupted connections (and
-        also completely unresponsive peers). Heartbeats also defend against
-        certain network equipment which may terminate "idle" TCP
-        connections. In RabbitMQ versions 3.0 and higher, the broker will
-        attempt to negotiate heartbeats by default (although the client can
-        still veto them). Using earlier versions the client must be configured
-        to request heartbeats.
-      </p>
     </doc:section>
+
+    <doc:section name="heartbeat-overview">
+      <doc:heading>Detecting Dead TCP Connections with Heartbeats</doc:heading>
+      <p>
+        In some types of network failure, packet loss can mean that
+        disrupted TCP connections take a moderately long time (about 11
+        minutes with default configuration on Linux, for example) to be
+        detected by the operating system. AMQP 0-9-1 offers a
+        <i>heartbeat</i> feature to ensure that the application layer
+        promptly finds out about disrupted connections (and also
+        completely unresponsive peers). Heartbeats also defend against
+        certain network equipment which may terminate "idle" TCP
+        connections. See <a href="heartbeats.html">Heartbeats</a> for details.
+      </p>
+</doc:section>
+
 
     <doc:section name="at-the-broker">
       <doc:heading>At the Broker</doc:heading>

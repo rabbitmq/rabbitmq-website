@@ -414,6 +414,9 @@
                 which bound queue to route message to.
               </li>
               <li>
+                <a href="https://github.com/gotthardp/rabbitmq-email">SMTP gateway for RabbitMQ</a>
+              </li>
+              <li>
                 <a href="https://github.com/tonyg/script-exchange">RabbitMQ Script Exchange</a>
                 <br />
                 Extends RabbitMQ server with support for running arbitrary scripts (python, ruby, javascript) for each message

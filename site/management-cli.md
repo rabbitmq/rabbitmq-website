@@ -16,7 +16,7 @@ With the management plugin installed, browse to
 
 Alternatively, you can download the version of rabbitmqadmin which
 corresponds with the management plugin version &version-server;
-[here](http://hg.rabbitmq.com/rabbitmq-management/raw-file/&version-server-hg;/bin/rabbitmqadmin).
+[here](https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/bin/rabbitmqadmin).
 
 ## Getting started
 

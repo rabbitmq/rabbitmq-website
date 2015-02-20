@@ -14,7 +14,7 @@
       </p>
       <doc:section name="stability-and-safety">
 	  <p>
-          Nightly builds are based on the 'default' branch of our mercurial
+          Nightly builds are based on the 'master' branch of our GitHub
           repositories. This represents the <i>bleeding edge</i> and therefore
           should not be considered complete or completely stable. It is quite
           possible that existing features, APIs and/or configuration data

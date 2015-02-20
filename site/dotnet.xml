@@ -76,14 +76,14 @@
       also <a href="&dir-current-dotnet-apidoc;/index.html">an online API reference</a>.
     </p>
 
-    <h2>Mercurial repository</h2>
+    <h2>GitHub repository</h2>
     <p>The .NET/C# RabbitMQ client library, WCF binding, and example programs. Please
       see the <a href="build-dotnet-client.html">build page</a> for
       instructions on compiling from source-code.</p>
 
     <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
-      <repository type="hg" shortname="rabbitmq-dotnet-client"
-        url="http://hg.rabbitmq.com/rabbitmq-dotnet-client/"/>
+      <repository type="github" shortname="rabbitmq-dotnet-client"
+        url="https://github.com/rabbitmq/rabbitmq-dotnet-client"/>
     </repositories>
 
     <h2>

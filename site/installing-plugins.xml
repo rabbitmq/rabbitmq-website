@@ -42,13 +42,6 @@
           </td>
         </tr>
         <tr>
-          <th>Macports</th>
-          <td>
-            <code>${install_prefix}/lib/rabbitmq/lib/rabbitmq_server-<i>version</i>/plugins</code>
-            (the Macports <code>${install_prefix}</code> defaults to <code>/opt/local</code>)
-          </td>
-        </tr>
-        <tr>
           <th>Homebrew</th>
           <td>
             <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
@@ -81,8 +74,8 @@
           You can also build RabbitMQ plugins from source.  The sources for a
           particular version of the plugins is distributed in the same
           archive as the broker with that version.  The source code
-          repositories can all be found on our <a
-          href="http://hg.rabbitmq.com/">Mercurial server</a>. See the
+          repositories can all be found on <a
+          href="https://github.com/rabbitmq">GitHub</a>. See the
           <a href="plugin-development.html">plugin development</a>
           guide for more information on building plugins from source.
         </p>
@@ -90,7 +83,7 @@
           Note that plugins tend to be strongly bound to a particular
           version of <code>rabbitmq-server</code>. For example, if you are
           running RabbitMQ &version-server;, you should check out all plugins
-          with the Mercurial tag <code>&version-server-hg;</code>.
+          with the Git tag <code>&version-server-tag;</code>.
         </p>
       </doc:section>
   </body>
