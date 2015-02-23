@@ -1,0 +1,124 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Using Git and GitHub</title>
+  </head>
+  <body>
+      <p class="intro">
+        This page describes the way we work with Git on the
+        RabbitMQ project.
+      </p>
+
+      <doc:section name="overview">
+        <p>
+          <a href="http://git-scm.com/">Git</a> is a fast, powerful
+          distributed source control management system.
+        </p>
+        <p>
+          We use Git on the RabbitMQ project to manage almost
+          all of our source-code.
+        </p>
+        <ul>
+          <li>Git has numerous <a
+          href="http://git-scm.com/doc">tutorials</a>.</li>
+
+          <li>
+            <a href="https://github.com/rabbitmq">RabbitMQ's Git repositories</a> are hosted on GitHub.
+            Individual project pages on this website will generally point
+            you in the direction of the specific combinations of modules
+            you'll need to check out.
+          </li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="branch-per-bug">
+        <doc:heading>Branching policy: Branch per issue</doc:heading>
+        <p>
+          We use the technique of <i>branch per issue</i> when
+          developing RabbitMQ code, where each feature or bug fix is
+          developed on a branch of its own (using <code>git checkout
+          -b</code>) and merged into the <code>master</code> branch
+          only when the hurdle of QA is passed. Branches follow the
+          pattern <code>issue<i>NNNNN</i></code>, where <i>NNNN</i> is
+          the GitHub issue number. There are also branches named
+          <code>bug<i>NNNNN</i></code> for issues in the original
+          Bugzilla tracker (which is not public).
+        </p>
+      </doc:section>
+
+      <doc:section name="pull-requests">
+        <doc:heading>Pull Requests and the Review/QA Process</doc:heading>
+        <p>
+          Branches that are ready to be reviewed and/or QA'ed should be submitted as
+          pull requests. Feedback is then given in the comments. After receiving feedback,
+          update the original branch and push it: GitHub will take care of updating
+          the pull request. Then the process goes on until the pull request is merged
+          or closed (e.g. because a feature is rejected after an attempt to implement it).
+        </p>
+      </doc:section>
+
+      <doc:section name="default-branch">
+        <doc:heading>The master branch</doc:heading>
+        <p>
+          The <code>master</code> branch contains all the work that
+          has been QA'd so far that is scheduled to appear in the next
+          release. The <code>master</code> branch of each RabbitMQ
+          repository is usually roughly in sync with the
+          <code>master</code> branches of the others. Generally, you
+          can track QA'd development work by tracking the
+          <code>master</code> branches of the RabbitMQ repositories
+          of interest.
+        </p>
+      </doc:section>
+
+      <doc:section name="maintenance-branches">
+        <doc:heading>Maintenance branch</doc:heading>
+        <p>
+          There's a separate branch for maintenance work,
+          <code>stable</code>. It plays the same role as the
+          <code>master</code> branch except that it carries merged,
+          QA'd code intended for the next bug-fix release rather than
+          the next general release.
+        </p>
+      </doc:section>
+
+      <doc:section name="tags">
+        <doc:heading>Tags</doc:heading>
+        <p>
+          We also use tags to give names to snapshots of the state of
+          the code. Generally, both the core repositories and the
+          repositories of plugins intended to work with the named
+          snapshot are tagged.
+        </p>
+        <p>
+          For example, if you are using RabbitMQ server version 3.4.4,
+          then examining the output of <code>git tag</code> in a copy
+          of <code>rabbitmq-stomp</code> gives:
+        </p>
+        <pre>$ git tag
+# omitted for brevity
+rabbitmq_v3_3_5
+rabbitmq_v3_4_0
+rabbitmq_v3_4_1
+rabbitmq_v3_4_2
+rabbitmq_v3_4_3
+rabbitmq_v3_4_4
+        </pre>
+        <p>
+          It's important to make sure that all the repositories you
+          are using are on the same tag as each other. Continuing with
+          our example of server version 3.4.4, you could make sure
+          your checkout of <code>rabbitmq-stomp</code> was at the
+          <code>rabbitmq_v3_4_4</code> tag by using <code>git
+          checkout</code>:
+        </p>
+        <pre>git checkout rabbitmq_v3_4_4</pre>
+        <p>
+          At this point, you could proceed with compiling the plugin
+          as explained in the plugin's documentation.
+        </p>
+      </doc:section>
+  </body>
+</html>

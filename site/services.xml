@@ -4,27 +4,29 @@
     <title>Commercial Services</title>
   </head>
   <body suppress-rhs="true">
+    <h2>Commercial Licensing, Support</h2>
     <p class="intro">
       Pivotal provides a <strong>full range of commercial support and services for
       RabbitMQ</strong>.
     </p>
-    <h3>Commercial Licensing, Support, Training and Consulting</h3>
     <p>
       Pivotal offers <strong>commercial support agreements</strong> for the most
       recent open source release of RabbitMQ.
     </p>
     <p>
-      We also produce a <strong>commercially licensed</strong> release of RabbitMQ
-      under the <em>vFabric&#8482;</em> brand. This includes all of the features
-      of the open source version and contains additional commercially focussed
-      components. Support agreements are also available from Pivotal for
-      vFabric RabbitMQ.
+      We also produce a <strong>commercially licensed</strong> release
+      of RabbitMQ.This includes all of the features of the open
+      source version and contains additional commercially focussed
+      components. <strong>Support agreements</strong> are also available for the commercial
+      release.
     </p>
+    <h2>Training</h2>
     <p>
       We offer on-line and instructor-led <strong>training courses</strong>
-      worldwide that cover learning messaging with AMQP, use cases and patterns
-      with RabbitMQ and best practice design and architecture.
+      worldwide that cover learning messaging with RabbitMQ, use cases, patterns,
+      best practice design and architecture.
     </p>
+    <h2>Consulting</h2>
     <p>
       Our <strong>professional consulting services</strong> are highly flexible
       to address specific issues such as on-site troubleshooting, design review,

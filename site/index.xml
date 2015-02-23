@@ -36,7 +36,7 @@
         <li><a href="getstarted.html">Easy to use</a></li>
         <li>Runs on all major <a href="platforms.html">operating systems</a></li>
         <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
-        <li><a href="mpl.html">Open source</a> and <a href="services.html">commercially supported</a></li>
+        <li><a href="github.html">Open source</a> and <a href="services.html">commercially supported</a></li>
       </ul>
 
       <div id="home-what-is">
@@ -49,15 +49,15 @@
             </a>
           </li>
           <li>
-            <a href="documentation.html">
-              <h4>Documentation</h4>
-              <p>How to do almost anything with RabbitMQ</p>
-            </a>
-          </li>
-          <li>
             <a href="getstarted.html">
               <h4>Tutorials</h4>
               <p>Teach yourself RabbitMQ in six easy lessons</p>
+            </a>
+          </li>
+          <li>
+            <a href="documentation.html">
+              <h4>Documentation</h4>
+              <p>How to do almost anything with RabbitMQ</p>
             </a>
           </li>
         </ul>
@@ -72,12 +72,13 @@
           <a href="devtools.html#ruby-dev">Ruby</a> |
           <a href="devtools.html#python-dev">Python</a> |
           <a href="devtools.html#php-dev">PHP</a> |
+          <a href="devtools.html#node-dev">JavaScript</a> |
           <a href="devtools.html">more...</a>
         </li>
         <li>
           Cloud:
           <a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Cloud Foundry</a> |
-          <a href="devtools.html#ec2-dev">EC2</a> |
+          <a href="ec2.html">EC2</a> |
           <a href="https://developers.google.com/cloud/rabbitmq/click-to-deploy">Google Compute Engine</a> |
           <a href="how.html#cloud-configurations">more...</a>
         </li>        

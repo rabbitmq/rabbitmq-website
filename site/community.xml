@@ -7,13 +7,14 @@
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Community Contributions to RabbitMQ</title>
+    <title>RabbitMQ Community</title>
   </head>
   <body>
     <div class="landing-box">
       <h2>Mailing list</h2>
       <p>
-        Join rabbitmq-users, the official <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>, to ask questions and report issues.
+        Join rabbitmq-users, the official <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ
+        mailing list</a>, to ask questions and request features.
       </p>
     </div>
     <div class="landing-box">
@@ -32,9 +33,16 @@
       </p>
     </div>
     <div class="landing-box">
+      <h2>Contribute</h2>
+      <p>
+        RabbitMQ is open source software. We <a href="github.html">use GitHub</a> for development. Please submit pull requests
+        and issues there.
+      </p>
+    </div>
+    <div class="landing-box">
       <h2>Contact Us</h2>
       <p>
-        Contact us via a <a href="contact.html">variety of means</a>.
+        Contact us via a <a href="contact.html">variety of means</a> and <a href="http://twitter.com/rabbitmq">follow us on Twitter</a>.
       </p>
     </div>
   </body>

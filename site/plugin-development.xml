@@ -2,7 +2,7 @@
 <!DOCTYPE html [
 <!ENTITY % entities SYSTEM "rabbit.ent" >
 %entities;
-<!ENTITY metronome_hg "http://hg.rabbitmq.com/rabbitmq-metronome/file/default">
+<!ENTITY metronome_repo "https://github.com/rabbitmq/rabbitmq-metronome/blob/master">
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
@@ -75,7 +75,7 @@
         </p>
         <ul>
           <li>
-            Ensure that you have a working installation of <a href="http://mercurial.selenic.com/wiki/">Mercurial</a>.
+            Ensure that you have a working installation of <a href="http://git-scm.com/">Git</a>.
           </li>
           <li>
             Ensure that the dependencies detailed in the <a href="build-server.html#prerequisites">Server Build</a>
@@ -83,7 +83,7 @@
           </li>
           <li>
             Clone the RabbitMQ public umbrella:
-            <pre class="sourcecode">$ hg clone http://hg.rabbitmq.com/rabbitmq-public-umbrella</pre>
+            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-public-umbrella.git</pre>
           </li>
           <li>
             Checkout the sub-projects into the Umbrella:
@@ -164,7 +164,7 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
-          The <a href="http://hg.rabbitmq.com/rabbitmq-metronome/">rabbitmq-metronome</a> repository in Mercurial
+          The <a href="https://github.com/rabbitmq/rabbitmq-metronome">rabbitmq-metronome</a> repository on GitHub
           contains a copy of the code for this plugin. This will be checked out for you in the <code>make
             co</code> step above, or you can check it out separately.
         </p>
@@ -177,48 +177,48 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
             <th>Purpose</th>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/Makefile"><code>Makefile</code></a></td>
+            <td><a href="&metronome_repo;/Makefile"><code>Makefile</code></a></td>
             <td>
               The top-level umbrella.mk file aims to make your application's Makefile as declarative as possible. Your
               plugin's Makefile is still a real Makefile however, so you can still do any kind of normal Make tasks.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/package.mk"><code>package.mk</code></a></td>
+            <td><a href="&metronome_repo;/package.mk"><code>package.mk</code></a></td>
             <td>
               Contains various settings used by the umbrella Makefile.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
+            <td><a href="&metronome_repo;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
             <td>
               This file declares the dependencies required by the plugin (<code>rabbit</code>
               and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/src/rabbit_metronome.erl"><code>src/rabbit_metronome.erl</code></a></td>
+            <td><a href="&metronome_repo;/src/rabbit_metronome.erl"><code>src/rabbit_metronome.erl</code></a></td>
             <td>
               Implementation of the Erlang "application" behaviour. Provides a means for the Erlang VM to start and
               stop the plugin.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/src/rabbit_metronome_sup.erl"><code>src/rabbit_metronome_sup.erl</code></a></td>
+            <td><a href="&metronome_repo;/src/rabbit_metronome_sup.erl"><code>src/rabbit_metronome_sup.erl</code></a></td>
             <td>
               Implementation of the Erlang "supervisor" behaviour. Monitors the worker process and restarts it if
               it crashes.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/src/rabbit_metronome_worker.erl"><code>src/rabbit_metronome_worker.erl</code></a></td>
+            <td><a href="&metronome_repo;/src/rabbit_metronome_worker.erl"><code>src/rabbit_metronome_worker.erl</code></a></td>
             <td>
               The core of the plugin. The worker will connect internally to the broker, then create a task that
               will be triggered every second.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_hg;/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
+            <td><a href="&metronome_repo;/test/src/rabbit_metronome_tests.erl"><code>test/rabbit_metronome_tests.erl</code></a></td>
             <td>
               Automated tests for the plugin.
             </td>

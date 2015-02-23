@@ -238,6 +238,12 @@ Connection conn = factory.newConnection(addrArr);
     </doc:subsection>
 
 
+    <doc:subsection name="heartbeats-timeout">
+        <doc:heading>Heartbeat Timeout</doc:heading>
+        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
+        and how to configure them in the Java client.</p>
+    </doc:subsection>
+
     <doc:subsection name="thread-factories">
       <doc:heading><i>Custom Thread Factories</i></doc:heading>
       <p>
