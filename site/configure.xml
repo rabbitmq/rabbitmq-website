@@ -781,11 +781,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <tr>
             <td><code>cluster_partition_handling</code></td>
             <td>
-              How to handle network partitions. One
-              of <code>ignore</code>,
-              <code>pause_minority</code>
-              or <code>autoheal</code>. See
-              the <a href="partitions.html#automatic-handling">documentation
+              How to handle network partitions. Available modes are:
+              <ul>
+                <li><code>ignore</code></li>
+                <li><code>pause_minority</code></li>
+                <li><code>{pause_if_all_down, [nodes], ignore | autoheal}</code>
+                  where <code>[nodes]</code> is a list of node names<br/>
+                  (ex: <code>['rabbit@node1', 'rabbit@node2']</code>)
+                </li>
+                <li><code>autoheal</code></li>
+              </ul>
+              See the
+              <a href="partitions.html#automatic-handling">documentation
               on partitions</a> for more information.
               <p>Default: <code>ignore</code></p>
             </td>

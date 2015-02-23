@@ -154,10 +154,10 @@ Cluster status of node rabbit@smacmullen ...
     <doc:section name="automatic-handling">
     <doc:heading>Automatically handling partitions</doc:heading>
     <p>
-      RabbitMQ also offers two ways to deal with network partitions
-      automatically: <i>pause-minority</i> mode and <i>autoheal</i>
-      mode. (The default behaviour is referred to as <i>ignore</i>
-      mode).
+      RabbitMQ also offers three ways to deal with network partitions
+      automatically: <i>pause-minority</i> mode, <i>pause-if-all-down</i>
+      mode and <i>autoheal</i> mode. (The default behaviour is referred
+      to as <i>ignore</i> mode).
     </p>
 
     <p>
@@ -170,6 +170,22 @@ Cluster status of node rabbit@smacmullen ...
       partition will continue to run. The minority nodes will pause as
       soon as a partition starts, and will start again when the
       partition ends.
+    </p>
+
+    <p>
+      In pause-if-all-down mode, RabbitMQ will automatically pause
+      cluster nodes which cannot reach any of the listed nodes. This
+      is close to the pause-minority mode, however, it allows an
+      administrator to decide which nodes to prefer, instead of
+      relying on the context. For instance, if the cluster is made of
+      two nodes in datacenter A and two nodes in datacenter B, and the
+      link between datacenters is lost, pause-minority mode will pause
+      all nodes. In pause-if-all-down mode, if the administrator listed
+      the two nodes in datacenter A, only nodes in datacenter B will
+      pause. Note that it is possible the listed nodes get split across
+      both sides of a partition: in this situation, no node will pause.
+      That is why there is an additional <i>ignore</i>/<i>autoheal</i>
+      argument to indicate how to recover from the partition.
     </p>
 
     <p>
@@ -191,9 +207,13 @@ Cluster status of node rabbit@smacmullen ...
       parameter <code>cluster_partition_handling</code> for
       the <code>rabbit</code> application in
       your <a href="configure.html#configuration-file">configuration
-      file</a> to either <code>pause_minority</code>
-      or <code>autoheal</code>.
+      file</a> to:
     </p>
+    <ul>
+      <li><code>pause_minority</code></li>
+      <li><code>{pause_if_all_down, [nodes], ignore | autoheal}</code></li>
+      <li><code>autoheal</code></li>
+    </ul>
 
     <h3 id="which-mode">Which mode should I pick?</h3>
 
