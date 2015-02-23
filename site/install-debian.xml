@@ -112,6 +112,14 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
-    <xi:include href="linux-max-open-files-limit.xml.inc" />
+
+    <doc:section name="kernel-resource-limits">
+      <doc:heading>Controlling System Limits on Linux</doc:heading>
+      <xi:include href="max-open-files-limit-intro.xml.inc" />
+      <xi:include href="max-open-files-limit-different-limits.xml.inc" />
+      <xi:include href="max-open-files-limit-options-debian.xml.inc" />
+      <xi:include href="max-open-files-limit-per-session.xml.inc" />
+      <xi:include href="max-open-files-limit-tools.xml.inc" />
+    </doc:section>
   </body>
 </html>
