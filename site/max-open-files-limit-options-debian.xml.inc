@@ -3,20 +3,22 @@
              xmlns:xi="http://www.w3.org/2003/XInclude"
              name="linux-max-open-files-limit-options-debian">
   <p>
-    To adjust the per-user limit for RabbitMQ, there are several options:
+    The most straightforward way to adjust the per-user limit for
+    RabbitMQ is to edit the <code>/etc/default/rabbitmq-server</code>
+    (provided by the RabbitMQ Debian package) or <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a>
+    to invoke <code>ulimit</code> before the service is started.
 
-    <ul>
-      <li>
-        Edit the <code>/etc/default/rabbitmq-server</code> (provided by the RabbitMQ Debian package)
-        or <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a> to
-        invoke <code>ulimit</code> before the service is started. This is the most straightforward way.
-      </li>
-      <li>
-        <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configure max open files limit</a> via
-        <code>/etc/security/limits.conf</code>. Requires enabling the <a href="http://askubuntu.com/a/34559">pam_limits.so</a> module
-        and re-login. There are <a href="http://lzone.de/Debian%20Ubuntu%20ulimit%20Check%20List">several caveats</a> when using
-        this approach on Debian and its derivatives.
-      </li>
-    </ul>
+<pre class="sourcecode">
+ulimit -S -n 4096
+</pre>
+
+    Note that limits cannot be changed for running OS processes.
+  </p>
+
+  <p>
+    To adjust the limit to values higher than <code>4096</code> (the default "hard" limit), it is necessary to
+    <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">increase the "hard" limit</a> via
+    <code>/etc/security/limits.conf</code>. This also requires enabling the <a href="http://askubuntu.com/a/34559">pam_limits.so</a> module
+    and re-login or reboot.
   </p>
 </doc:subsection>

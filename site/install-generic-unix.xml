@@ -58,7 +58,7 @@
         please refer to the excellent <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/">Riak guide on open file limit tuning</a>.
       </p>
 
-      <xi:include href="max-open-files-limit-per-session.xml.inc" />
+      <xi:include href="max-open-files-limit-verifying-generic.xml.inc" />
       <xi:include href="max-open-files-limit-tools.xml.inc" />
     </doc:section>
 

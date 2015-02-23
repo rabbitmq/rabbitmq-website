@@ -20,15 +20,18 @@
       To adjust the per-user limit for RabbitMQ, there are several options:
 
       <ul>
-        <li><a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configure max open files limit</a> via <code>launchctl limit</code>
-        <code>/etc/launchd.conf</code>.</li>
+        <li>
+          Invoke <code>ulimit -S -n 4096</code> before starting RabbitMQ in foreground.
+        </li>
         <li>
           Edit the <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a> to
           invoke <code>ulimit</code> before the service is started.
         </li>
+        <li><a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configure max open files limit</a> via <code>launchctl limit</code>
+        <code>/etc/launchd.conf</code>.</li>
       </ul>
     </p>
 
-    <xi:include href="max-open-files-limit-per-session.xml.inc" />
+    <xi:include href="max-open-files-limit-verifying-osx.xml.inc" />
     <xi:include href="max-open-files-limit-tools.xml.inc" />
 </doc:section>
