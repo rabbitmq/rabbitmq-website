@@ -50,7 +50,7 @@
 
       <p>
         There are two limits in play: the maximum number of open files the OS kernel
-        allows (<code>fs.file-max</code> on Linux, <code>kern.maxp</code> on OS X and FreeBSD) and the per-user limit (<code>ulimit -n</code>).
+        allows (<code>fs.file-max</code> on Linux, <code>kern.maxfilesperproc</code> on OS X and FreeBSD) and the per-user limit (<code>ulimit -n</code>).
         The former must be higher than the latter.
       </p>
       <p>
