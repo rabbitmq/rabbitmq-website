@@ -5,9 +5,10 @@
     limits and kernel parameters tuning in order to handle a decent number of
     concurrent connections and queues. The main setting that needs adjustment
     is the max number of open files, also known as <code>ulimit -n</code>.
-    The default value on most operating systems is <code>1024</code>, which can be too low
-    for a messaging broker. We recommend allowing for at least <code>65536</code> file descriptors
-    for user <code>rabbitmq</code> in production environments. <code>4096</code> should be sufficient
-    for most development workloads.
+    The default value on many operating systems is too low for a messaging
+    broker (eg. 1024 on several Linux distributions). We recommend allowing
+    for at least 65536 file descriptors for user <code>rabbitmq</code> in
+    production environments. 4096 should be sufficient for most development
+    workloads.
   </p>
 </doc:subsection>

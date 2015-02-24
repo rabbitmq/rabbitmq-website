@@ -118,6 +118,7 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
       <xi:include href="max-open-files-limit-intro.xml.inc" />
       <xi:include href="max-open-files-limit-different-limits.xml.inc" />
       <xi:include href="max-open-files-limit-options-debian.xml.inc" />
+      <xi:include href="max-open-files-limit-going-further-linux.xml.inc" />
       <xi:include href="max-open-files-limit-verifying-linux.xml.inc" />
       <xi:include href="max-open-files-limit-tools.xml.inc" />
     </doc:section>

@@ -11,12 +11,6 @@
       The former must be higher than the latter.
     </p>
     <p>
-      For more information about controlling
-      <code>kern.maxfilesperproc</code> with <code>sysctl</code>,
-      please refer to <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sysctl.8.html">sysctl(8)</a>
-      page in Apple documentation.
-    </p>
-    <p>
       To adjust the per-user limit for RabbitMQ, there are several options:
 
       <ul>
@@ -32,6 +26,15 @@
         <code>/etc/launchd.conf</code>.
         </li>
       </ul>
+    </p>
+    <p>
+      Note that limits cannot be changed for running OS processes.
+    </p>
+    <p>
+      For more information about controlling
+      <code>kern.maxfilesperproc</code> with <code>sysctl</code>,
+      please refer to <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sysctl.8.html">sysctl(8)</a>
+      page in Apple documentation.
     </p>
 
     <xi:include href="max-open-files-limit-verifying-osx.xml.inc" />
