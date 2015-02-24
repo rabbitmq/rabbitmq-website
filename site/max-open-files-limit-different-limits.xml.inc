@@ -8,7 +8,7 @@
       The former must be higher than the latter.
     </p>
     <p>
-      For more information about controlling <code>fs-file-max</code> with <code>sysctl</code>,
+      For more information about controlling <code>fs.file-max</code> with <code>sysctl</code>,
       please refer to the excellent <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Riak guide on open file limit tuning</a>.
     </p>
 </doc:subsection>
