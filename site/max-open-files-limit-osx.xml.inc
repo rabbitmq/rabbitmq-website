@@ -27,8 +27,10 @@
           Edit the <a href="http://www.rabbitmq.com/configure.html">rabbitmq-env.conf</a> to
           invoke <code>ulimit</code> before the service is started.
         </li>
-        <li><a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Linux">Configure max open files limit</a> via <code>launchctl limit</code>
-        <code>/etc/launchd.conf</code>.</li>
+        <li>
+          <a href="http://docs.basho.com/riak/latest/ops/tuning/open-files-limit/#Mac-OS-X">Configure max open files limit</a> via <code>launchctl limit</code>
+        <code>/etc/launchd.conf</code>.
+        </li>
       </ul>
     </p>
 
