@@ -36,6 +36,7 @@
     </p>
 
     <xi:include href="install-guest-localhost.xml.inc"/>
+    <xi:include href="max-open-files-limit-osx.xml.inc" />
 
     <p>
       See the <a href="install-generic-unix.html">Generic Unix or Linux</a> section for further information.

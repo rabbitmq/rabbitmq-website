@@ -47,5 +47,6 @@
 
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="managing-the-broker.xml.inc"/>
+    <xi:include href="max-open-files-limit-osx.xml.inc" />
   </body>
 </html>
