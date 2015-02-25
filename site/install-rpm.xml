@@ -155,5 +155,15 @@
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-unix-manage.xml.inc"/>
+
+    <doc:section name="kernel-resource-limits">
+      <doc:heading>Controlling System Limits on Linux</doc:heading>
+      <xi:include href="max-open-files-limit-intro.xml.inc" />
+      <xi:include href="max-open-files-limit-different-limits.xml.inc" />
+      <xi:include href="max-open-files-limit-options-other-linux.xml.inc" />
+      <xi:include href="max-open-files-limit-going-further-linux.xml.inc" />
+      <xi:include href="max-open-files-limit-verifying-linux.xml.inc" />
+      <xi:include href="max-open-files-limit-tools.xml.inc" />
+    </doc:section>
   </body>
 </html>
