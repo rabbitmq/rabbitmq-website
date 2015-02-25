@@ -278,7 +278,10 @@
         </dd>
       </dl>
     </doc:section>
+    <xi:include href="install-windows-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
     <xi:include href="install-windows-manage.xml.inc"/>
+    <xi:include href="install-windows-quirks.xml.inc" />
+    <xi:include href="mailing-list.xml.inc"/>
   </body>
 </html>
