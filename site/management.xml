@@ -103,7 +103,7 @@
           <li>
             The HTTP API and its documentation are both located at:
             http://<i>server-name</i>:15672/api/ (or view
-            our <a href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
+            our <a href="https://raw.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
           <li>
