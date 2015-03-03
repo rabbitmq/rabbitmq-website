@@ -219,6 +219,18 @@
           </r:plugin>
 -->
 
+          <r:plugin name="rabbitmq_email">
+            Maps SMTP to AMQP (to convert an incoming email to an AMQP
+            message) and AMQP to SMTP (to send an email from an AMQP message).
+            <ul>
+              <li><r:community-plugin-link name="gen_smtp"/></li>
+              <li><r:community-plugin-link name="rabbitmq_email"/></li>
+            </ul>
+            <ul>
+              <li>Authors: <b>Petr Gotthard</b></li>
+              <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
+            </ul>
+          </r:plugin>
           <r:plugin name="rabbitmq_jsonrpc_channel">
             Adds an HTTP server which makes use of JSON-RPC polling
             to emulate AMQP channels in a web browser. Note that
