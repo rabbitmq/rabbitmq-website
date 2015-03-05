@@ -334,82 +334,87 @@ explained in the <a href="/specification.html">AMQP 0-9-1 specification</a> docu
           <doc:heading>Concurrency Considerations for Consumers</doc:heading>
 
           <p>
-            Each <code>IConnection</code> instance is, in the current implementation,
-            backed by a single background thread that reads from the socket and
-            dispatches the resulting events to the application.
-            Additionally there are two threads responsible for heartbeat support,
-            if connection negotiation turned it on.
+          Each <code>IConnection</code> instance is, in the current implementation,
+          backed by a single background thread that reads from the socket and
+          dispatches the resulting events to the application.
+          If heartbeats are enabled, as of version <code>3.5.0</code>
+          they are implemented in terms of .NET timers.
 
-            Usually, therefore, there will be four threads active in an application
-            using this library:
+          Usually, therefore, there will be at least two threads active in an application
+          using this library:
+          </p>
 
-            <dl>
-              <dt>the application thread</dt>
-              <dd>
-                contains the application logic, and makes
-                calls on <code>IModel</code> methods to perform protocol operations.
-              </dd>
+          <dl>
+            <dt>the application thread</dt>
+            <dd>
+              contains the application logic, and makes
+              calls on <code>IModel</code> methods to perform protocol operations.
+            </dd>
 
-              <dt>the connection thread</dt>
-              <dd>
-                hidden away and completely managed by the
-               <code>IConnection</code> instance.
-              </dd>
+            <dt>the I/O activity thread</dt>
+            <dd>
+              hidden away and completely managed by the
+              <code>IConnection</code> instance.
+            </dd>
+          </dl>
 
-              <dt>the heartbeat read thread</dt>
-              <dd>
-               continuously checking if <code>IConnection</code>
-               instance has not missed too many <code>Heartbeat</code> frames from the broker
-              </dd>
+          <p>
+          The one place where the nature of the threading model is visible to
+          the application is in any callback the application registers with the
+          library. Such callbacks include:
+          </p>
 
-              <dt>the heartbeat write thread</dt>
-              <dd>
-               continuosuly checking if <code>IConnection</code>
-               instance should send <code>Heartbeat</code> frame to the broker
-              </dd>
-            </dl>
+          <ul>
+            <li>any <code>IBasicConsumer</code> method</li>
+            <li>the <code>BasicReturn</code> event on <code>IModel</code></li>
+            <li>any of the various shutdown events on <code>IConnection</code>, <code>IModel</code> etc.</li>
+          </ul>
 
-            The one place where the nature of the threading model is visible to
-            the application is in any callback the application registers with the
-            library. Such callbacks include:
+          <doc:subsection name="consumer-callbacks-and-ordering">
+            <doc:heading>Consumer Callbacks and Ordering</doc:heading>
+            <p>
+              As of version <code>3.5.0</code> application callback handlers <strong>can</strong> invoke blocking
+              operations (such as <code>IModel.QueueDeclare</code> or <code>
+              IModel.BasicCancel</code>). <code>IBasicConsumer</code> callbacks are invoked concurrently.
+              However, per-channel operation order is preserved. In other word, if messages A and B were delivered
+              in this order on the same channel, they will be processed in this order. If messages A and B
+              were delivered on different channels, they can be processed in any order (or in parallel).
+              Consumer callbacks are invoked in tasks dispatched to the default <a href="https://msdn.microsoft.com/en-us/library/dd997402%28v=vs.110%29.aspx">TaskScheduler</a>
+              provided by the .NET runtime.
+            </p>
+          </doc:subsection>
 
-            <ul>
-             <li>any <code>IBasicConsumer</code> method</li>
-             <li>the <code>BasicReturn</code> event on <code>IModel</code></li>
-             <li>any of the various shutdown events on <code>IConnection</code>, <code>IModel</code> etc.</li>
-            </ul>
+          <doc:subsection name="custom-task-scheduler">
+            <doc:heading>Using a Custom Task Scheduler</doc:heading>
+            <p>
+              It is possible to use a custom task scheduler by setting <code>ConnectionFactory.TaskScheduler</code>:
 
-            Application callback handlers <strong>must not</strong> invoke blocking
-            operations (such as <code>IModel.QueueDeclare</code> or <code>
-            IModel.BasicCancel</code>). If they do, the
-            channel will deadlock. The underlying implementation reason
-            is that the <code>IBasicConsumer</code> callbacks are invoked in the connection's
-            thread rather than in the application's thread.
+<pre class="sourcecode">
+public class CustomTaskScheduler : TaskScheduler
+{
+  // ...
+}
 
-            Only asynchronous operations without content are safe for use
-            within callbacks, such as <code>IModel.BasicAck</code>. It is not safe to
-            use <code>IModel.BasicPublish</code> in callbacks, because flow control
-            could block publication.
+var cf = new ConnectionFactory();
+cf.TaskScheduler = new CustomTaskScheduler();
+</pre>        
 
-            For this reason, <code>QueueingBasicConsumer</code> is currently the safest way of
-            subscribing to a queue, because its implementation uses <code>
-            RabbitMQ.Util.SharedQueue</code> to pass deliveries over to the application
-            thread, where all processing of received deliveries is done, and where
-            any <code>IModel</code> operation is safe.
+              This, for example, can be used to <a href="https://msdn.microsoft.com/en-us/library/ee789351%28v=vs.110%29.aspx">limit concurrency degree with a custom TaskScheduler</a>.
+            </p>
+          </doc:subsection>
 
+          <doc:subsection name="model-sharing">
+            <doc:heading>Sharing Channels Between Threads</doc:heading>
 
-            <doc:subsection name="model-sharing">
-              <doc:heading>Sharing Channels Between Threads</doc:heading>
+            <p>
+              As a rule of thumb, <code>IModel</code> instances should not be used by more than
+              one thread simultaneously: application code should maintain a clear
+              notion of thread ownership for <code>IModel</code> instances.
 
-              <p>
-                In general, <code>IModel</code> instances should not be used by more than
-                one thread simultaneously: application code should maintain a clear
-                notion of thread ownership for <code>IModel</code> instances.
-
-                If more than one thread needs to access a particular <code>IModel</code>
-                instances, the application should enforce mutual exclusion itself. One
-                way of achieving this is for all users of an <code>IModel</code> to <code>
-                lock</code> the instance itself:
+              If more than one thread needs to access a particular <code>IModel</code>
+              instances, the application should enforce mutual exclusion itself. One
+              way of achieving this is for all users of an <code>IModel</code> to <code>
+              lock</code> the instance itself:
 
 <pre class="sourcecode">
 IModel ch = RetrieveSomeSharedIModelInstance();
@@ -418,27 +423,26 @@ lock (ch) {
 }
 </pre>
 
-                Symptoms of incorrect serialisation of <code>IModel</code> operations
-                include, but are not limited to,
+              Symptoms of incorrect serialisation of <code>IModel</code> operations
+              include, but are not limited to,
 
-                <ul>
-                  <li>invalid frame sequences being sent on the wire (which occurs, for
-                  example, if more than one <code>BasicPublish</code> operation is run
-                  simultaneously), and/or
-                  </li>
+              <ul>
+                <li>invalid frame sequences being sent on the wire (which occurs, for
+                example, if more than one <code>BasicPublish</code> operation is run
+                simultaneously), and/or
+                </li>
 
-                  <li>
-                    <code>NotSupportedException</code>s being thrown from a method in class
-                    <code>RpcContinuationQueue</code> complaining about <code>"Pipelining of
-                    requests forbidden"</code> (which occurs in situations where more than
-                    one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run
-                    simultaneously).
-                  </li>
-                </ul>
-              </p>
-            </doc:subsection>
+                <li>
+                  <code>NotSupportedException</code>s being thrown from a method in class
+                  <code>RpcContinuationQueue</code> complaining about <code>"Pipelining of
+                  requests forbidden"</code> (which occurs in situations where more than
+                  one AMQP 0-9-1 synchronous operation, such as <code>ExchangeDeclare</code>, is run
+                  simultaneously).
+                </li>
+              </ul>
             </p>
-          </doc:section>
+          </doc:subsection>
+        </doc:section>
 
 
         <doc:section name="basic-return">
@@ -1434,7 +1438,7 @@ void Log(LogData entry);
 
 <pre class="sourcecode">
 &lt;rabbitMQBinding&gt;
-  &lt;binding name="rabbitMQConfig" 
+  &lt;binding name="rabbitMQConfig"
            hostame="localhost"
            port="5672"
            username="guest"
@@ -1563,11 +1567,11 @@ service.AddServiceEndpoint(typeof(ICalculator), binding, "Calculator");
 <pre class="sourcecode">
 &lt;bindings&gt;
   &lt;rabbitMQBinding&gt;
-    &lt;binding 
-      name="rabbitMQConfig" 
+    &lt;binding
+      name="rabbitMQConfig"
       hostname="localhost"
       port="5672"
-      maxmessagesize="8192"  
+      maxmessagesize="8192"
       version="AMQP_0_9_1" /&gt;
   &lt;/rabbitMQBinding&gt;
 &lt;/bindings&gt;
@@ -1627,9 +1631,9 @@ public class CalculatorClient : ClientBase&lt;ICalculator&gt;, ICalculator
             <p>Construct the class passing the client endpoint name as specified in configuration.</p>
 <pre class="sourcecode">
 &lt;client&gt;
-  &lt;endpoint address="soap.amq:///Calculator" 
+  &lt;endpoint address="soap.amq:///Calculator"
             binding="rabbitMQBinding"
-            bindingConfiguration="rabbitMQConfig" 
+            bindingConfiguration="rabbitMQConfig"
             contract=" ICalculator"
             name="AMQPCalculatorService" /&gt;
 &lt;/client&gt;
