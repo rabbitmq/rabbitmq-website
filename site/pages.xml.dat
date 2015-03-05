@@ -48,7 +48,7 @@
        <x:related url="/api-guide.html"/>
      </x:page>
      <x:page url="/dotnet.html" text=".NET Client Downloads">
-       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
+       <x:related url="/dotnet-api-guide.html" text=".NET Guide"/>
      </x:page>
      <x:page url="/erlang-client.html" text="Erlang Client Downloads">
        <x:related url="/erlang-client-user-guide.html"/>
