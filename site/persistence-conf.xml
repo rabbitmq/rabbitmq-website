@@ -52,7 +52,7 @@
       "the message store".
     </p>
 
-    <h3>Memory costs</h3>
+    <h3 id="memory-costs">Memory costs</h3>
 
     <p>
       Under memory pressure, the persistence layer tries to write as
@@ -74,7 +74,7 @@
       </li>
     </ul>
 
-    <h3>Messages in the queue index</h3>
+    <h3 id="index-embedding">Messages in the queue index</h3>
 
     <p>
       There are advantages and disadvantages to writing messages to
@@ -131,7 +131,7 @@
       increase can lead to a large amount of memory used.
     </p>
 
-    <h2>Accidentally limited persister performance</h2>
+    <h2 id="limits">Accidentally limited persister performance</h2>
 
     <p>
       It is possible for persistence to underperform because the
@@ -141,7 +141,7 @@
       simultaneously.
     </p>
 
-    <h3>Too few file handles</h3>
+    <h3 id="file-handles">Too few file handles</h3>
 
     <p>
       The RabbitMQ server is typically limited in the number of file
@@ -166,7 +166,7 @@
       notably if given more file handles.
     </p>
 
-    <h3>Too few async threads</h3>
+    <h3 id="async-threads">Too few async threads</h3>
 
     <p>
       The Erlang virtual machine creates a pool of <i>async
@@ -214,7 +214,7 @@
       with several different values before changing this.
     </p>
 
-    <h2>Alternate message store index implementations</h2>
+    <h2 id="alternate-index">Alternate message store index implementations</h2>
 
     <p>
       As mentioned above, each message which is written to the message
