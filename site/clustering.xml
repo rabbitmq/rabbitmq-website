@@ -46,19 +46,12 @@
         </p>
         <p>
           A node can be a <em>disk node</em> or a <em>RAM node</em>.
-          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used interchangeably.
-          Configuration syntax or status messages normally use <i>disc</i>.)
-          RAM nodes keep their state only in memory (with the exception of queue
-          contents, which can reside on disc if the queue is persistent or too
-          big to fit in memory). Disk nodes keep state in memory and on disk. As
-          RAM nodes don't have to write to disk as much as disk nodes, they can
-          perform better. However, note that since the queue data is always
-          stored on disc, the performance improvements will affect only
-          resources management (e.g. adding/removing queues, exchanges, or
-          vhosts), but not publishing or consuming speed. Because state is
-          replicated across all nodes in the cluster, it is sufficient (but not
-          recommended) to have just one disk node within a cluster, to store the
-          state of the cluster safely.
+          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used
+          interchangeably.  Configuration syntax or status messages
+          normally use <i>disc</i>.)  In most cases you want all your
+          nodes to be disk nodes; RAM nodes are a special case that
+          can be used to improve the performance of large
+          clusters: see <a href="#ram-nodes">RAM nodes</a> below.
         </p>
       </doc:section>
 
@@ -68,9 +61,7 @@
           The following is a transcript of setting up and manipulating
           a RabbitMQ cluster across three machines -
           <code>rabbit1</code>, <code>rabbit2</code>,
-          <code>rabbit3</code>, with two of the machines replicating
-          data on ram and disk, and the other replicating data in ram
-          only.
+          <code>rabbit3</code>.
         </p>
         <p>
           We assume that the user is logged into all three machines,
@@ -133,18 +124,19 @@ Cluster status of node rabbit@rabbit3 ...
             third, say <code>rabbit@rabbit1</code>.
           </p>
           <p>
-            We first join <code>rabbit@rabbit2</code> as a ram node in a cluster
-            with <code>rabbit@rabbit1</code> in a cluster. To do that, on
-            <code>rabbit@rabbit2</code> we stop the RabbitMQ application and
-            join the <code>rabbit@rabbit1</code> cluster enabling the
-            <code>--ram</code> flag, and restart the RabbitMQ application. Note
-            that joining a cluster implicitly resets the node, thus removing all
-            resources and data that were previously present on that node.
+            We first join <code>rabbit@rabbit2</code> in a cluster
+            with <code>rabbit@rabbit1</code>. To do that, on
+            <code>rabbit@rabbit2</code> we stop the RabbitMQ
+            application and join the <code>rabbit@rabbit1</code>
+            cluster, then restart the RabbitMQ application. Note that
+            joining a cluster implicitly resets the node, thus
+            removing all resources and data that were previously
+            present on that node.
           </p>
           <pre class="sourcecode">
 rabbit2$ <i>rabbitmqctl stop_app</i>
 Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl join_cluster --ram rabbit@rabbit1</i>
+rabbit2$ <i>rabbitmqctl join_cluster rabbit@rabbit1</i>
 Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
 rabbit2$ <i>rabbitmqctl start_app</i>
 Starting node rabbit@rabbit2 ...done.</pre>
@@ -155,24 +147,23 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 </pre>
           <p>
-            Now we join <code>rabbit@rabbit3</code> as a disk node to the same
-            cluster. The steps are identical to the ones above, except that we
-            omit the <code>--ram</code> flag in order to turn it into a disk
-            rather than ram node. This time we'll cluster to
-            <code>rabbit2</code> to demonstrate that the node chosen to cluster
-            to does not matter - it is enough to provide one online node and the
-            node will be clustered to the cluster that the specified node
-            belongs to.
+            Now we join <code>rabbit@rabbit3</code> as a disk node to
+            the same cluster. The steps are identical to the ones
+            above. This time we'll cluster to <code>rabbit2</code> to
+            demonstrate that the node chosen to cluster to does not
+            matter - it is enough to provide one online node and the
+            node will be clustered to the cluster that the specified
+            node belongs to.
           </p>
           <pre class="sourcecode">
 rabbit3$ <i>rabbitmqctl stop_app</i>
@@ -188,49 +179,23 @@ Starting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit3]},{ram,[rabbit@rabbit2]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
             By following the above steps we can add new nodes to the
             cluster at any time, while the cluster is running.
           </p>
-        </doc:subsection>
-
-        <doc:subsection name="change-type">
-          <doc:heading>Changing node types</doc:heading>
-          <p>
-            We can change the type of a node from ram to disk and vice
-            versa. Say we wanted to reverse the types of
-            <code>rabbit@rabbit2</code> and <code>rabbit@rabbit3</code>, turning
-            the former from a ram node into a disk node and the latter from a
-            disk node into a ram node. To do that we can use the
-            <code>change_cluster_node_type</code> command. The node must be
-            stopped first.
-          </p>
-          <pre class="sourcecode">
-rabbit2$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit2 ...done.
-rabbit2$ <i>rabbitmqctl change_cluster_node_type disc</i>
-Turning rabbit@rabbit2 into a disc node ...
-...done.
-Starting node rabbit@rabbit2 ...done.
-rabbit3$ <i>rabbitmqctl stop_app</i>
-Stopping node rabbit@rabbit3 ...done.
-rabbit3$ <i>rabbitmqctl change_cluster_node_type ram</i>
-Turning rabbit@rabbit3 into a ram node ...
-rabbit3$ <i>rabbitmqctl start_app</i>
-Starting node rabbit@rabbit3 ...done.</pre>
         </doc:subsection>
 
         <doc:subsection name="restarting">
@@ -253,19 +218,19 @@ rabbit1$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit1 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl stop</i>
 Stopping and halting node rabbit@rabbit3 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2]}]
 ...done.</pre>
           <p>
@@ -276,42 +241,34 @@ Cluster status of node rabbit@rabbit2 ...
 rabbit1$ <i>rabbitmq-server -detached</i>
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
 ...done.
 rabbit3$ <i>rabbitmq-server -detached</i>
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit2,rabbit@rabbit1]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
 ...done.</pre>
           <p>
             There are some important caveats:
           </p>
           <ul>
-            <li>
-              At least one disk node should be running at all times to prevent
-              data loss.  RabbitMQ will prevent the creation of a RAM-only
-              cluster in many situations, but it still won't stop you from
-              stopping and forcefully resetting all the disc nodes, which will
-              lead to a RAM-only cluster. Doing this is not advisable and makes
-              losing data very easy.
-            </li>
             <li>
               When the entire cluster is brought down, the last node to go down
               must be the first node to be brought online. If this doesn't
@@ -466,15 +423,13 @@ Starting node rabbit@rabbit2 ...done.</pre>
           <p>
             A common use of cluster configuration via the RabbitMQ config file
             is to automatically configure nodes to join a common cluster. For
-            this purpose the same cluster nodes can be specified on all cluster,
-            plus the boolean to determine disc nodes.
+            this purpose the same cluster nodes can be specified on all cluster.
           </p>
           <p>
-            Say we want to join our three separate nodes of our running example
-            back into a single cluster, with <code>rabbit@rabbit1</code> and
-            <code>rabbit@rabbit2</code> being the disk nodes of the
-            cluster. First we reset and stop all nodes, to make sure that we're
-            working with fresh nodes:
+            Say we want to join our three separate nodes of our
+            running example back into a single cluster. First we reset
+            and stop all nodes, to make sure that we're working with
+            fresh nodes:
           </p>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl stop_app</i>
@@ -513,12 +468,6 @@ Stopping and halting node rabbit@rabbit3 ...done.</pre>
           <pre class="sourcecode">[{rabbit,
   [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], disc}}]}].</pre>
           <p>
-            Since we want <code>rabbit@rabbit3</code> to be a ram node, we need
-            to specify that in its configuration file:
-          </p>
-          <pre class="sourcecode">[{rabbit,
-  [{cluster_nodes, {['rabbit@rabbit1', 'rabbit@rabbit2', 'rabbit@rabbit3'], ram}}]}].</pre>
-          <p>
             (Note for Erlang programmers and the curious: this is a
             standard Erlang configuration file.  For more details, see the
             <a href="configure.html#configuration-file">configuration guide</a>
@@ -540,17 +489,17 @@ rabbit3$ <i>rabbitmq-server -detached</i></pre>
           <pre class="sourcecode">
 rabbit1$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit1 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit2$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit2 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.
 rabbit3$ <i>rabbitmqctl cluster_status</i>
 Cluster status of node rabbit@rabbit3 ...
-[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]},{ram,[rabbit@rabbit3]}]},
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
  {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
 ...done.</pre>
         <p>
@@ -670,6 +619,94 @@ $ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management liste
           RabbitMQ itself, and we recommend the use of other
           technologies designed specifically to solve these problems.
         </p>
+      </doc:section>
+
+      <doc:section name="ram-nodes">
+        <doc:heading>Clusters with RAM nodes</doc:heading>
+        <p>
+          RAM nodes keep their metadata only in memory. As RAM nodes
+          don't have to write to disk as much as disk nodes, they can
+          perform better. However, note that since persistent queue
+          data is always stored on disk, the performance improvements
+          will affect only resource management (e.g. adding/removing
+          queues, exchanges, or vhosts), but not publishing or
+          consuming speed.
+        </p>
+        <p>
+          RAM nodes are an advanced use case; when setting up your
+          first cluster you should simply not use them. You should
+          have enough disk nodes to handle your redundancy
+          requirements, then if necessary add additional RAM nodes for
+          scale.
+        </p>
+        <p>
+          A cluster containing only RAM nodes is fragile; if the
+          cluster stops you will not be able to start it again and
+          <b>will lose all data</b>. RabbitMQ will prevent the creation of a
+          RAM-node-only cluster in many situations, but it can't
+          absolutely prevent it.
+        </p>
+        <p>
+          The examples here show a cluster with one disk and one RAM
+          node for simplicity only; such a cluster is a poor design
+          choice.
+        </p>
+        <doc:subsection name="creating-ram">
+          <doc:heading>Creating RAM nodes</doc:heading>
+          <p>
+            We can declare a node as a RAM node when it first joins
+            the cluster. We do this with <code>rabbitmqctl
+            join_cluster</code> as before, but passing the
+            <code>--ram</code> flag:
+          </p>
+          <pre class="sourcecode">
+rabbit2$ <i>rabbitmqctl stop_app</i>
+Stopping node rabbit@rabbit2 ...done.
+rabbit2$ <i>rabbitmqctl join_cluster --ram rabbit@rabbit1</i>
+Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+rabbit2$ <i>rabbitmqctl start_app</i>
+Starting node rabbit@rabbit2 ...done.</pre>
+          <p>
+            RAM nodes are shown as such in the cluster status:
+          </p>
+          <pre class="sourcecode">
+rabbit1$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+...done.
+rabbit2$ <i>rabbitmqctl cluster_status</i>
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1]},{ram,[rabbit@rabbit2]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+...done.
+</pre>
+        </doc:subsection>
+        <doc:subsection name="change-type">
+          <doc:heading>Changing node types</doc:heading>
+          <p>
+            We can change the type of a node from ram to disk and vice
+            versa. Say we wanted to reverse the types of
+            <code>rabbit@rabbit2</code> and <code>rabbit@rabbit1</code>, turning
+            the former from a ram node into a disk node and the latter from a
+            disk node into a ram node. To do that we can use the
+            <code>change_cluster_node_type</code> command. The node must be
+            stopped first.
+          </p>
+          <pre class="sourcecode">
+rabbit2$ <i>rabbitmqctl stop_app</i>
+Stopping node rabbit@rabbit2 ...done.
+rabbit2$ <i>rabbitmqctl change_cluster_node_type disc</i>
+Turning rabbit@rabbit2 into a disc node ...
+...done.
+Starting node rabbit@rabbit2 ...done.
+rabbit1$ <i>rabbitmqctl stop_app</i>
+Stopping node rabbit@rabbit1 ...done.
+rabbit1$ <i>rabbitmqctl change_cluster_node_type ram</i>
+Turning rabbit@rabbit1 into a ram node ...
+rabbit1$ <i>rabbitmqctl start_app</i>
+Starting node rabbit@rabbit1 ...done.</pre>
+        </doc:subsection>
       </doc:section>
   </body>
 </html>
