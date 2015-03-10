@@ -13,7 +13,6 @@ bug fixes
 26628 When using autoheal, ensure the leader waits for the winner to finish
       the autoheal process (since 3.3.0)
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
-26545 Prohibit deletion of amq.* exchanges
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect
 26426 Ensure epmd is running on Windows, even if the user who executed
       rabbitmq* commands logged out.
@@ -29,45 +28,42 @@ bug fixes
 26636 Fix inconsistencies and hangs when a node comes back online before its
       disappearance is fulled treated
 
-
 enhancements
-24351 Support SSL for Erlang distribution
 26393 Add more info to "user_authentication_*" events
 26427 Silence connection errors from load balancer sanity checks
 26465 New "pause_if_all_down" partition handling mode
 26471 Log when HiPE is enabled
 26615 Notify systemd when RabbitMQ is started, if "sd_notify" is available
-24781 Provide statistics about file I/O
-25430 Limit queue's journal size to avoid excessive memory use
+25430 Further limit queue's journal size to avoid excessive memory use
 26183 Move priority queues from an external plugin to the broker
 26327 Embed messages smaller than a configurable size in the queue index
-26444 Improve headers parsing performance
+26444 Improve performance parsing AMQP tables / arrays
 26457 Add read buffer cache to improve on-disk messages consumption
 26469 Support separate authentication/authorization backends
-26475 Add the ability to rename a node
-26522 Provide statistics about accesses to message store and queue index
-26543 Improve I/O by reading or writing several file segments in one
-      operation
+26475 Add "rabbitmqctl rename_cluster_node"
+26545 Prohibit deletion of amq.* exchanges
+26543 Improve I/O performance by reading or writing several file segments
+      in one operation
 26602 Add routing decision information to firehose messages
-26603 Improve unacked messages requeueing performance
-26450 Document the async threads setting
-
+26603 Improve unacked messages requeueing performance in priority queues
 
 feature removal
-26257 Remove support for the legacy "cluster_nodes" configuration directive
+26257 Remove support for the legacy (2.x compatible) form of the
+      "cluster_nodes" configuration directive
 
 
 management plugin
 -----------------
 bug fixes
-26613 Fix an exception on the node details page if the node goes
-      online or offline at the same time (since 3.4.0)
-
+26613 Fix exception on the node details page if the node goes
+      online or offline while viewing (since 3.4.0)
 
 enhancements
+26522 Provide statistics about accesses to message store and queue index
+24781 Provide statistics about file I/O
 24700 Support if-unused and if-empty for queue / exchange deletion
-24921 rabbitmqadmin: Support both Python 2 and 3
-25652 Add a "move message" UI
+24921 rabbitmqadmin: Support Python 3
+25652 Add a "move messages" UI
 26561 Show per-queue disk message read/write rates
 26598 Show cross-cluster networking statistics
 26621 Display a warning when the management database is overloaded
@@ -76,22 +72,18 @@ enhancements
 LDAP plugin
 -----------
 bug fixes
-26601 If other_bind is not set to as_user, establish a new LDAP connection to
-      perform tag queries against
+26601 Ensure tag_queries respects other_bind setting
 
 
 MQTT plugin
 -----------
-bug fixes
-26481 Set ssl_cert_login default value to "false"
-
 
 enhancements
 26278 Support authentication via SSL certificate
 
 
 Web-STOMP plugin
-------------
+----------------
 enhancements
 26504 Add configuration parameter for cowboy connection pool size
 
@@ -108,11 +100,9 @@ java client
 bug fixes
 26576 Make sure Channel#abort ignores IOExceptions as the docs say
 
-
 enhancements
 26571 Undeprecate QueueingConsumer
 26617 Dynamically calculate number of consumer work service executor threads
-
 
 feature removal
 26007 Remove deprecated ConnectionFactory#getNumConsumerThreads,
@@ -124,7 +114,6 @@ feature removal
 -----------
 bug fixes
 26508 Synchronise SessionManager Count method (since 3.3.5)
-
 
 enhancements
 24699 Add a unit test to ensure channels are notified when a connection is
