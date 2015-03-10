@@ -6,9 +6,10 @@ Release Highlights
 server
 ------
 bug fixes
-26527 Prevent huge GM / slave memory consumption by adding flow control
+26527 Prevent huge GM / slave memory consumption under load by adding flow
+      control to messages via GM (since 2.6.0)
 26636 Fix inconsistencies and hangs when a node comes back online before its
-      disappearance is fulled treated
+      disappearance is fulled treated (since 3.1.0)
 26622 Ensure channels don't deliver confirms when a pause mode lasts (since
       3.3.5)
 26628 When using autoheal, ensure the leader waits for the winner to finish
@@ -17,8 +18,9 @@ bug fixes
       (since 3.4.0)
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect
+      (since 1.0.0)
 26426 Ensure epmd is running on Windows, even if the user who executed
-      rabbitmq* commands logged out.
+      rabbitmq* commands logged out (since 1.0.0)
 26595 Fix a crash when querying SSL certificate info while the connection is
       closing (since 2.1.1)
 26610 Restore the timeout error message while waiting for other cluster nodes
@@ -77,7 +79,6 @@ bug fixes
 
 MQTT plugin
 -----------
-
 enhancements
 26278 Support authentication via SSL certificate
 
