@@ -6,46 +6,46 @@ Release Highlights
 server
 ------
 bug fixes
-26477 Only send 'user_authentication_success' event if
-      rabbit_reader:auth_phase/2 accepts the user (since 3.3.0)
+26527 Prevent huge GM / slave memory consumption by adding flow control
+26636 Fix inconsistencies and hangs when a node comes back online before its
+      disappearance is fulled treated
 26622 Ensure channels don't deliver confirms when a pause mode lasts (since
       3.3.5)
 26628 When using autoheal, ensure the leader waits for the winner to finish
       the autoheal process (since 3.3.0)
+26467 Fix promotion of offline slaves, in particular if the slave crashed
+      (since 3.4.0)
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect
 26426 Ensure epmd is running on Windows, even if the user who executed
       rabbitmq* commands logged out.
-26467 Fix promotion of offline slaves, in particular if the slave crashed
-      (since 3.4.0)
-26527 Ensure GM's memory consumption remains limited by adding flow control
 26595 Fix a crash when querying SSL certificate info while the connection is
       closing (since 2.1.1)
 26610 Restore the timeout error message while waiting for other cluster nodes
       (since 3.4.0)
-26636 Fix inconsistencies and hangs when a node comes back online before its
-      disappearance is fulled treated
+26477 Only send 'user_authentication_success' event if
+      rabbit_reader:auth_phase/2 accepts the user (since 3.3.0)
 
 enhancements
 26463 Ensure new mirrors are started when old ones go down if ha-mode=exactly
       is being used
-26393 Add more info to "user_authentication_*" events
-26427 Silence connection errors from load balancer sanity checks
-26465 New "pause_if_all_down" partition handling mode
-26471 Log when HiPE is enabled
-26615 Notify systemd when RabbitMQ is started, if "sd_notify" is available
-25430 Further limit queue's journal size to avoid excessive memory use
 26183 Move priority queues from an external plugin to the broker
 26327 Embed messages smaller than a configurable size in the queue index
-26444 Improve performance parsing AMQP tables / arrays
 26457 Add read buffer cache to improve on-disk messages consumption
-26469 Support separate authentication/authorization backends
-26475 Add "rabbitmqctl rename_cluster_node"
-26545 Prohibit deletion of amq.* exchanges
 26543 Improve I/O performance by reading or writing several file segments
       in one operation
+26465 New "pause_if_all_down" partition handling mode
+26469 Support separate authentication/authorization backends
+26475 Add "rabbitmqctl rename_cluster_node"
+25430 Further limit queue's journal size to avoid excessive memory use
+26545 Prohibit deletion of amq.* exchanges
+26393 Add more info to "user_authentication_*" events
+26444 Improve performance parsing AMQP tables / arrays
 26602 Add routing decision information to firehose messages
+26615 Notify systemd when RabbitMQ is started, if "sd_notify" is available
 26603 Improve unacked messages requeueing performance in priority queues
+26427 Silence connection errors from load balancer sanity checks
+26471 Log when HiPE is enabled
 
 feature removal
 26257 Remove support for the legacy (2.x compatible) form of the
@@ -61,12 +61,12 @@ bug fixes
 enhancements
 26522 Provide statistics about accesses to message store and queue index
 24781 Provide statistics about file I/O
-24700 Support if-unused and if-empty for queue / exchange deletion
 24921 rabbitmqadmin: Support Python 3
 25652 Add a "move messages" UI
 26561 Show per-queue disk message read/write rates
 26598 Show cross-cluster networking statistics
 26621 Display a warning when the management database is overloaded
+24700 Support if-unused and if-empty for queue / exchange deletion
 
 
 LDAP plugin
@@ -141,11 +141,11 @@ enhancements
 building and packaging
 ----------------------
 bug fixes
+26539 Use "exec" to run rabbitmq-server in rabbitmq-script-wrapper to ensure
+      signals are correctly propagated (since 2.8.3)
 26524 Improve error message when build dependencies are missing on Mac OS X
       (since 3.1.0)
 26525 Do not install rabbitmq.config.example if DOC_INSTALL_DIR is unset
       (since 3.2.0)
 26526 Replace GNU patch specific "--no-backup-if-mismatch" by a portable
       combination of patch(1) and find(1) (since 3.4.0)
-26539 Use "exec" to run rabbitmq-server in rabbitmq-script-wrapper to ensure
-      signals are correctly propagated (since 2.8.3)
