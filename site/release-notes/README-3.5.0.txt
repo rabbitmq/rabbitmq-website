@@ -16,8 +16,6 @@ bug fixes
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect
 26426 Ensure epmd is running on Windows, even if the user who executed
       rabbitmq* commands logged out.
-26463 Ensure new mirrors are started when old ones go down if ha-mode=exactly
-      is being used (since 3.4.0)
 26467 Fix promotion of offline slaves, in particular if the slave crashed
       (since 3.4.0)
 26527 Ensure GM's memory consumption remains limited by adding flow control
@@ -29,6 +27,8 @@ bug fixes
       disappearance is fulled treated
 
 enhancements
+26463 Ensure new mirrors are started when old ones go down if ha-mode=exactly
+      is being used
 26393 Add more info to "user_authentication_*" events
 26427 Silence connection errors from load balancer sanity checks
 26465 New "pause_if_all_down" partition handling mode
