@@ -19,8 +19,8 @@ bug fixes
 26631 Work around a possible hang in Erlang's "global" (since 3.4.2)
 26614 Ensure rabbitmqctl.bat exits with code 1 if ERLANG_HOME is incorrect
       (since 1.0.0)
-26426 Ensure epmd is running on Windows, even if the user who executed
-      rabbitmq* commands logged out (since 1.0.0)
+26426 Ensure epmd is restarted on Windows if it ends up running as a normal
+      user and thus getting killed on logout (since 1.0.0)
 26595 Fix a crash when querying SSL certificate info while the connection is
       closing (since 2.1.1)
 26610 Restore the timeout error message while waiting for other cluster nodes
@@ -29,14 +29,13 @@ bug fixes
       rabbit_reader:auth_phase/2 accepts the user (since 3.3.0)
 
 enhancements
-26463 Ensure new mirrors are started when old ones go down if ha-mode=exactly
-      is being used
 26183 Move priority queues from an external plugin to the broker
 26327 Embed messages smaller than a configurable size in the queue index
 26457 Add read buffer cache to improve on-disk messages consumption
 26543 Improve I/O performance by reading or writing several file segments
       in one operation
 26465 New "pause_if_all_down" partition handling mode
+26463 Ensure new mirrors are started when old ones go down when ha-mode=exactly
 26469 Support separate authentication/authorization backends
 26475 Add "rabbitmqctl rename_cluster_node"
 25430 Further limit queue's journal size to avoid excessive memory use
