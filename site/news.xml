@@ -25,12 +25,14 @@
         </p>
 
         <p>
-          This release adds support for priority queues which were available
-          as a plugin before. Performance is improved; in particular messages
-          smaller than configurable size are embedded directly in the queue
-          index to reduce I/O and memory consumption. Stability of clustering
-          and autoheal partition handling is improved as well. A new
-          <a href="partitions.html#automatic-handling">pause_if_all_down</a>
+          This release adds support for
+          <a href="http://www.rabbitmq.com/priority.html">priority queues</a>
+          which were available as a plugin before. Performance is improved;
+          in particular messages smaller than configurable size are
+          <a href="http://www.rabbitmq.com/persistence-conf.html">embedded in the queue index</a>
+          to reduce I/O and memory consumption. Stability of clustering and
+          autoheal partition handling is improved as well. A new
+          <a href="http://www.rabbitmq.com/partitions.html#automatic-handling">pause_if_all_down</a>
           partition handling mode is added. The management web UI now shows
           many more I/O statistics.
         </p>
