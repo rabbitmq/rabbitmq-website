@@ -15,6 +15,52 @@
       -->
 
     <doc:item>
+      <doc:date iso="2015-03-11T09:50:26+0100">11 March 2015</doc:date>
+      <doc:title>RabbitMQ 3.5.0 release</doc:title>
+      <doc:link>release-notes/README-3.5.0.txt</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.5.0.
+        </p>
+
+        <p>
+          This release adds support for priority queues which were available
+          as a plugin before. Performance is improved; in particular messages
+          smaller than configurable size are embedded directly in the queue
+          index to reduce I/O and memory consumption. Stability of clustering
+          and autoheal partition handling is improved as well. A new
+          <a href="partitions.html#automatic-handling">pause_if_all_down</a>
+          partition handling mode is added. The management web UI now shows
+          many more I/O statistics.
+        </p>
+
+        <p>
+          This release also corrects a number of defects in the broker
+          and plugins, as well as introducing many smaller new
+          features and improvements.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2015-02-11T18:40:09+0300">11 February 2015</doc:date>
       <doc:title>RabbitMQ 3.4.4 release</doc:title>
       <doc:link>release-notes/README-3.4.4.txt</doc:link>

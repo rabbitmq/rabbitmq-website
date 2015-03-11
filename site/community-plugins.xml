@@ -180,12 +180,13 @@
         <doc:heading>Queues</doc:heading>
         <table class="plugins">
           <r:plugin name="rabbitmq_priority_queue">
-            Priority Queues for RabbitMQ.
-            <ul>
-              <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-priority-queue">rabbitmq/rabbitmq-priority-queue</a></li>
-            </ul>
+            <i>
+              As of RabbitMQ 3.5.0 the <a
+              href="priority.html">priority queue</a> plugin is
+              integrated into the broker. Users of the plugin
+              upgrading from previous versions of RabbitMQ need do
+              nothing; your priority queues will continue to work.
+            </i>
           </r:plugin>
         </table>
         <table class="plugins">

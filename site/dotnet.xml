@@ -11,12 +11,10 @@
   </head>
   <body>
     <p>
-      The RabbitMQ .NET client is an implementation of an AMQP client
+      The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
       library for C# (and, implicitly, other .NET languages), and a
-      binding exposing AMQP services via Microsoft's Windows
-      Communication Foundation (WCF).  Please see the <a
-      href="specification.html">specification</a> page for more
-      information on AMQP interoperation and standards-conformance.
+      Microsoft's Windows Communication Foundation (WCF) binding that communicates
+      over RabbitMQ.
     </p>
 
     <p>
@@ -33,7 +31,7 @@
     </p>
 
     <p>
-      The .NET/C# AMQP client library should be used in preference to the
+      The .NET/C# RabbitMQ client library should be used in preference to the
       WCF binding where possible. The WCF binding suffers from a number
       of limitations and no further development is planned for it.
       The limitations are described in the WCF Service Model documentation.
@@ -53,16 +51,6 @@
       Download the library and documentation
     </h2>
 
-    <h3>Library and documentation installer</h3>
-
-    <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;.msi"
-          downloadpath="&dir-dotnet-client;">
-        Binary, compiled for .NET 3.5 (Windows installer) - includes
-        documentation and example code
-      </r:download>
-    </r:downloads>
-
     <h3>The library</h3>
 
     <p>
@@ -71,9 +59,9 @@
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-3.5.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-4.0.zip"
 		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET 3.5 and newer (zip) - includes
+	Binary, compiled for .NET 4.0 and newer (zip) - includes
 	example code, the WCF binding and WCF examples
       </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
@@ -83,43 +71,10 @@
     </r:downloads>
 
     <h3>The documentation</h3>
-
     <p>
-      <a href="/releases/&dir-dotnet-client;/">This directory</a>
-      contains all the available documentation. You can
-      also browse <a href="&dir-current-dotnet-apidoc;/index.html">an online-browsable copy</a>
-      of the generated HTML API guide documentation.
+      Please refer to the <a href="api-guide.html">API guide</a>. There's
+      also <a href="&dir-current-dotnet-apidoc;/index.html">an online API reference</a>.
     </p>
-
-    <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-user-guide.pdf"
-		  downloadpath="&dir-dotnet-client;">
-	The User Guide (pdf)
-      </r:download>
-      <r:download downloadfile="&nameVersion-dotnet-client;-wcf-service-model.pdf"
-		  downloadpath="&dir-dotnet-client;">
-	A description of the WCF binding and Service Model (pdf)
-      </r:download>
-    </r:downloads>
-
-    <p>
-      The .NET RabbitMQ client library API Guide, generated from the source code using <a
-      href="http://www.lshift.net/~tonyg/ndocproc/doc/index.html">NDocProc</a>,
-      is also available:
-    </p>
-
-    <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-api-guide.pdf"
-		  downloadpath="&dir-dotnet-client;">
-	API Guide PDF
-      </r:download>
-      <r:download downloadfile="&nameVersion-dotnet-client;-client-htmldoc.zip"
-		  downloadpath="&dir-dotnet-client;"> A downloadable
-	ZIP of the generated HTML documentation (also available
-	in <a href="&dir-current-dotnet-apidoc;/index.html">online-browsable</a>
-	form)
-      </r:download>
-    </r:downloads>
 
     <h2>GitHub repository</h2>
     <p>The .NET/C# RabbitMQ client library, WCF binding, and example programs. Please

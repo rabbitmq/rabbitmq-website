@@ -99,6 +99,11 @@
           <a href="maxlength.html">Length Limit</a>
           allows the maximum length of a queue to be set.
         </li>
+        <li>
+          <a href="priority.html">Priority Queues</a>
+          support the AMQP message priority field (in a slightly
+          different way).
+        </li>
       </ul>
     </div>
 
@@ -119,12 +124,13 @@
     </div>
 
     <div class="landing-box">
-      <h2>Undeprecated Features</h2>
+      <h2>AMQP 0-9-1 Spec Differences</h2>
       <ul>
         <li>
           Some features that were in AMQP 0-8 were deprecated in AMQP
-          0-9-1. We have <a href="undeprecated.html">undeprecated</a>
-          some of them.
+          0-9-1. We have undeprecated some of them and introduced a
+          couple of tiny behaviour changes that improve usability of
+          the product. Please refer to the <a href="spec-differences.html">spec differences</a> page.
         </li>
       </ul>
     </div>

@@ -85,9 +85,12 @@
               the cluster, the queue is mirrored to all nodes. If
               there are more than <i>count</i> nodes in the cluster,
               and a node containing a mirror goes down, then a new
-              mirror will <b>not</b> be created on another node. (This
-              is to prevent queues migrating across a cluster as it is
-              brought down.)
+              mirror will be created on another node. Use of
+              <code>exactly</code> mode with <a
+              href="#cluster-shutdown"><code>"ha-promote-on-shutdown":
+              "always"</code></a> can be dangerous since queues can
+              migrate across a cluster and become unsynced as it is
+              brought down.
             </td>
           </tr>
           <tr>

@@ -138,6 +138,42 @@ default MQTT SSL port is 8883. If this option is non-empty then the
 
 See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
 
+
+
+### <a id="cta.ssl"/>Authentication with SSL client certificates
+
+The MQTT adapter can authenticate SSL-based connections by extracting
+a name from the client's SSL certificate, without using a password.
+
+For safety the server must be configured with the SSL options
+`fail_if_no_peer_cert` set to `true` and `verify` set to `verify_peer`, to
+force all SSL clients to have a verifiable client certificate.
+
+To switch this feature on, set `ssl_cert_login` to `true` for the
+`rabbitmq_mqtt` application. For example:
+
+    [
+      {rabbitmq_mqtt, [{ssl_cert_login, true}]}
+    ].
+
+By default this will set the username to an RFC4514-ish string form of
+the certificate's subject's Distinguished Name, similar to that
+produced by OpenSSL's "-nameopt RFC2253" option.
+
+To use the Common Name instead, add:
+
+    {rabbit, [{ssl_cert_login_from, common_name}]}
+
+to your configuration.
+
+Note that:
+
+* The authenticated user must exist in the configured authentication / authorisation backend(s).
+* Clients must **not** supply username and password.
+
+
+
+
 ### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions)
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
