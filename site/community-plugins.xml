@@ -184,9 +184,13 @@
               As of RabbitMQ 3.5.0 the <a
               href="priority.html">priority queue</a> plugin is
               integrated into the broker. Users of the plugin
-              upgrading from previous versions of RabbitMQ need do
-              nothing; your priority queues will continue to work.
+              upgrading from previous versions of RabbitMQ should:
             </i>
+            <ul>
+              <li>Install the new version of RabbitMQ</li>
+              <li>Invoke: <code>rabbitmq-plugins disable rabbitmq_priority_queue</code></li>
+              <li>Start the server</li>
+            </ul>
           </r:plugin>
         </table>
         <table class="plugins">
