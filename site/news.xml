@@ -34,9 +34,14 @@
           autoheal partition handling is improved as well. A new
           <a href="http://www.rabbitmq.com/partitions.html#automatic-handling">pause_if_all_down</a>
           partition handling mode is added. The management web UI now shows
-          many more I/O statistics. The .NET client receives many improvements
-          leading to backward-incompatible changes to the
+          many more I/O statistics.
+        </p>
+
+        <p>
+          The .NET client receives many improvements leading to
+          backward-incompatible changes to the
           <a href="http://www.rabbitmq.com/dotnet-api-guide.html">API</a>.
+          From now on, the .NET client will be published as a NuGet package.
         </p>
 
         <p>
