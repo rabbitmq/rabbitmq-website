@@ -19,9 +19,8 @@
         <td>
           <ul>
             <li><a href="priority.html">Priority queues</a></li>
-            <li>Performance improvements</li>
-            <li>I/O statistics in the management UI</li>
-            <li>Bug fixes</li>
+            <li><a href="persistence-conf.html">Faster persistence</a></li>
+            <li>I/O statistics</li>
           </ul>
         </td>
         <td class="centre"><a href="release-notes/README-3.5.0.txt">(changes)</a></td>
