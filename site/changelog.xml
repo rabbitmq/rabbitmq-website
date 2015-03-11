@@ -21,6 +21,7 @@
             <li><a href="priority.html">Priority queues</a></li>
             <li><a href="persistence-conf.html">Faster persistence</a></li>
             <li>I/O statistics</li>
+            <li><a href="dotnet-api-guide.html">.NET client API</a> changes</li>
           </ul>
         </td>
         <td class="centre"><a href="release-notes/README-3.5.0.txt">(changes)</a></td>
