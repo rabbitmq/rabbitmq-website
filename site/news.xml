@@ -39,9 +39,10 @@
 
         <p>
           The .NET client receives many improvements leading to
-          backward-incompatible changes to the
-          <a href="http://www.rabbitmq.com/dotnet-api-guide.html">API</a>.
-          From now on, the .NET client will be published as a NuGet package.
+          <a href="https://groups.google.com/d/topic/rabbitmq-users/sPSP3ulG6sg/discussion">backward-incompatible changes</a>
+          to the <a href="http://www.rabbitmq.com/dotnet-api-guide.html">API</a>.
+          In the future, NuGet will become the primary distribution method
+          for the .NET client.
         </p>
 
         <p>
