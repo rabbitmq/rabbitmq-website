@@ -122,6 +122,16 @@
               <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-amqp">simonmacmullen/rabbitmq-auth-backend-amqp</a></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_auth_backend_ip_range">
+            Provides the ability for your RabbitMQ server to perform
+            authorisation based on the client IP address.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Authors: <b>Petr Gotthard</b></li>
+              <li>Github: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 
