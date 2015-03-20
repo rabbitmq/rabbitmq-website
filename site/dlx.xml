@@ -184,8 +184,8 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       <p>
         The dead-lettering process adds an array to the header of
         each dead-lettered message named <code>x-death</code>.
-        This array contains an entry for each time the message was
-        dead-lettered.  Each such entry is a table that consists
+        This array contains an entry for each queue the message was
+        dead-lettered in. Each such entry is a table that consists
         of several fields:
         <ul>
           <li><code>queue</code> - the name of the queue the
@@ -209,6 +209,9 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             message on dead-lettering in order to prevent it from
             expiring again in any queues it is routed to.</li>
         </ul>
+
+        In case <code>x-death</code> already contains an entry with
+        the same queue, only the most recent one is preserved.
       </p>
       <p>
         The <code>reason</code> is a name describing why the
