@@ -258,7 +258,7 @@
              <doc:subsection name="exchange-headers">
                <doc:heading>Headers Exchange</doc:heading>
                <p>
-                 A headers exchange is designed to for routing on multiple
+                 A headers exchange is designed for routing on multiple
                  attributes that are more easily expressed as message
                  headers than a routing key. Headers exchanges ignore the
                  routing key attribute. Instead, the attributes used for
