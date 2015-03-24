@@ -513,7 +513,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </p>
 
               <p>
-                At present there are three categories defined. Other,
+                At present there are four categories defined. Other,
                 currently uncategorised, events are always logged.
               </p>
 
@@ -522,6 +522,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </p>
 
               <ul>
+                <li>
+                  <code>channel</code> - for all events relating to
+                  AMQP channels
+                </li>
                 <li>
                   <code>connection</code> - for all events relating to
                   network connections
