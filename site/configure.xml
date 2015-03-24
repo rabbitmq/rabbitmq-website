@@ -531,12 +531,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                   network connections
                 </li>
                 <li>
-                  <code>mirroring</code> - for all events relating to
-                  <a href="ha.html">mirrored queues</a>
-                </li>
-                <li>
                   <code>federation</code> - for all events relating to
                   <a href="federation.html">federation</a>
+                </li>
+                <li>
+                  <code>mirroring</code> - for all events relating to
+                  <a href="ha.html">mirrored queues</a>
                 </li>
               </ul>
               <p>Default: <code>[{connection, info}]</code></p>
