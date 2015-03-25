@@ -202,7 +202,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             (including <code>CC</code> keys but excluding
             <code>BCC</code> ones) the message was published
           with.</li>
-          <li><code>counter</code> - how many times this message was dead-lettered
+          <li><code>count</code> - how many times this message was dead-lettered
           in this queue for this reason
           </li>
           <li><code>original-expiration</code> (if the message was
@@ -215,7 +215,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         </ul>
 
         In case <code>x-death</code> already contains an entry with
-        the same queue and dead lettering reason, its counter will be
+        the same queue and dead lettering reason, its count field will be
         incremented.
       </p>
       <p>
