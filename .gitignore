@@ -1,0 +1,6 @@
+.sw?
+.*.sw?
+*~
+*.pyc
+/site/man/*.xml
+target/
