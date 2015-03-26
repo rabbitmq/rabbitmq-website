@@ -184,8 +184,9 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       <p>
         The dead-lettering process adds an array to the header of
         each dead-lettered message named <code>x-death</code>.
-        This array contains an entry for each time the message was
-        dead-lettered.  Each such entry is a table that consists
+        This array contains an entry for each dead lettering event,
+        identified by a pair of <code>{queue, reason}</code>.
+        Each such entry is a table that consists
         of several fields:
         <ul>
           <li><code>queue</code> - the name of the queue the
@@ -196,11 +197,13 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           <li><code>exchange</code> - the exchange the message was
             published to (note that this will be a dead letter
             exchange if the message is dead lettered multiple
-            times), and</li>
+            times),</li>
           <li><code>routing-keys</code> - the routing keys
             (including <code>CC</code> keys but excluding
             <code>BCC</code> ones) the message was published
-            with.</li>
+            with,</li>
+          <li><code>count</code> - how many times this message was
+            dead-lettered in this queue for this reason, and</li>
           <li><code>original-expiration</code> (if the message was
             dead-letterered due to <a
             href="ttl.html#per-message-ttl">per-message TTL</a>) - the
@@ -209,6 +212,10 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
             message on dead-lettering in order to prevent it from
             expiring again in any queues it is routed to.</li>
         </ul>
+
+        In case <code>x-death</code> already contains an entry with
+        the same queue and dead lettering reason, its count field will be
+        incremented.
       </p>
       <p>
         The <code>reason</code> is a name describing why the

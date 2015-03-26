@@ -353,7 +353,7 @@
   {rabbit,                    [ {tcp_listeners,               [5672]},
                                 {collect_statistics_interval, 10000} ] },
   {rabbitmq_management,       [ {http_log_dir,  "/tmp/rabbit-mgmt"},
-                                {message_rates, basic}] }
+                                {rates_mode,    basic}] }
 ].</pre>
         </doc:subsection>
         <doc:subsection name="mochiweb-config">
