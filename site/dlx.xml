@@ -197,14 +197,13 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           <li><code>exchange</code> - the exchange the message was
             published to (note that this will be a dead letter
             exchange if the message is dead lettered multiple
-            times), and</li>
+            times),</li>
           <li><code>routing-keys</code> - the routing keys
             (including <code>CC</code> keys but excluding
             <code>BCC</code> ones) the message was published
-          with.</li>
-          <li><code>count</code> - how many times this message was dead-lettered
-          in this queue for this reason
-          </li>
+            with,</li>
+          <li><code>count</code> - how many times this message was
+            dead-lettered in this queue for this reason, and</li>
           <li><code>original-expiration</code> (if the message was
             dead-letterered due to <a
             href="ttl.html#per-message-ttl">per-message TTL</a>) - the
