@@ -41,10 +41,10 @@
           developed on a branch of its own (using <code>git checkout
             -b</code>) and merged into the <code>master</code> or
           <code>stable</code> branches only when it passes QA. Branches
-          follow the pattern <code><i>repository-name</i>-<i>NNNNN</i></code>,
+          follow the pattern <code><i>repository-name</i>-<i>NN</i></code>,
           where <i>repository-name</i> is the name of the GitHub project
-          where the issue was filed (eg. <code>rabbitmq-dotnet-client</code>
-          and<i>NNNN</i> is the GitHub issue number. The purpose of
+          where the issue was filed (eg. <code>rabbitmq-dotnet-client</code>)
+          and <i>NN</i> is the GitHub issue number. The purpose of
           prepending the repository owning the issue is that an issue
           may require changes to several projects. There are also
           branches named <code>bug<i>NNNNN</i></code> for issues in the
@@ -67,8 +67,8 @@
           The pull request must be made against the <code>stable</code>
           branch if it is a bugfix involving no incompatible changes
           with the latest stable release (ie. no changes to the Mnesia
-          schema or the inter-node messages), or the <code>master</code>
-          branch for anything else.
+          schema or the inter-node communication), or the <code>master</code>
+          branch for everything else.
         </p>
       </doc:section>
 
