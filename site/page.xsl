@@ -232,13 +232,27 @@
     <tr>
       <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
-        <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+      <xsl:choose>
+        <xsl:when test="@absolute = 'yes'">
+          <a class="adownload" href="{@url}"><xsl:value-of select="@downloadfile"/></a>
+        </xsl:when>
+        <xsl:otherwise>
+          <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        </xsl:otherwise>
+      </xsl:choose>
+
       </td>
-      <xsl:if test="../@signature = 'yes'">
-         <td class="signature">
+      <xsl:choose>
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no')">
+          <td class="signature">
             <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
-         </td>
-      </xsl:if>
+          </td>
+        </xsl:when>
+        <xsl:otherwise>
+          <td class="signature">
+          </td>
+        </xsl:otherwise>
+      </xsl:choose>
     </tr>
   </xsl:template>
 
