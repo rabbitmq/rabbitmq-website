@@ -17,7 +17,11 @@
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
 		    downloadpath="&dir-server;">
-	  Packaged as .deb for Debian-based Linux
+	  .deb for Debian-based Linux (from rabbitmq.com)
+        </r:download>
+        <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb"
+                    downloadfile="rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">
+	  .deb for Debian-based Linux (from github.com)
         </r:download>
       </r:downloads>
       <p>
@@ -46,7 +50,7 @@
           <dd>
             <p>
               The server should start using defaults.
-              You can 
+              You can
               <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
               Also see how to <a href="configure.html#configuration-file">configure components</a>.
             </p>
@@ -74,8 +78,12 @@
       </doc:subsection>
 
       <doc:subsection name="apt">
-	<doc:heading>Our APT repository</doc:heading>
+	<doc:heading>APT repositories</doc:heading>
 
+        <p>
+          RabbitMQ hosts our own apt repository. We also have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
+        </p>
+        
         <p>To use our APT repository:</p>
 	<ol>
 	  <li>
