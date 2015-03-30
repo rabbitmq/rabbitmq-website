@@ -11,6 +11,16 @@
   </head>
   <body>
     <x:modal mode="www">
+    <p class="warning">
+      Our hosting provider is currently experiencing network
+      connectivity problems, leading to TCP connections being cut off
+      mid-download. The situation is being investigated. As a
+      temporary workaround, we have uploaded some common installers to
+      <a
+      href="https://packagecloud.io/rabbitmq/rabbitmq-server">https://packagecloud.io/rabbitmq/rabbitmq-server</a>.<br/><br/>
+
+      We thoroughly apologise for this situation.
+    </p>
     <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
     <div class="landing-box">
       <h2>RabbitMQ Server</h2>
