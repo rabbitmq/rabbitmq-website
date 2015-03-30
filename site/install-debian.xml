@@ -78,8 +78,12 @@
       </doc:subsection>
 
       <doc:subsection name="apt">
-	<doc:heading>Our APT repository</doc:heading>
+	<doc:heading>APT repositories</doc:heading>
 
+        <p>
+          RabbitMQ hosts our own apt repository. We also have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
+        </p>
+        
         <p>To use our APT repository:</p>
 	<ol>
 	  <li>
@@ -101,9 +105,6 @@
 	    <pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	  </li>
-          <li>
-            We have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
-          </li>
 	  <li>
 	    Run <code>apt-get update</code>.
 	  </li>
