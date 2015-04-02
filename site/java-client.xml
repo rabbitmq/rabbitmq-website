@@ -7,7 +7,7 @@
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>Java AMQP client library</title>
+    <title>RabbitMQ Java client library</title>
   </head>
   <body>
     <p>
@@ -19,23 +19,25 @@
       information on AMQP interoperation and standards-conformance.
     </p>
 
-    <p>
-      The library is open-source, and is dual-licensed under <a
-      href="mpl.html">the Mozilla Public License v1.1</a> and the <a
-      href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General
-      Public License, v2</a>.
+    <p class="intro">
+      The library is open-source, and is triple-licensed under
+
+      <ul>
+        <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+        <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+        <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+      </ul>
     </p>
 
     <p>
-      You will need an AMQP server, such as our very own <a
-      href="download.html">RabbitMQ server</a>, to use with the client
+      You will need a <a href="download.html">RabbitMQ node</a> to use with the client
       library.
     </p>
 
     <h3>Version</h3>
 
     <p>
-      The current release of the RabbitMQ Java AMQP library is <b>
+      The current release of the RabbitMQ Java client is <b>
       &version-java-client;</b>.
     </p>
 
