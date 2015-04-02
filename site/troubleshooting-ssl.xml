@@ -243,6 +243,16 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
                  using the recommended version of Erlang.
                </p>
             </dd>
+
+            <dt>Entries containing <code>{tls_alert,"bad record mac"}</code></dt>
+            <dd>
+              <p>
+                The server has tried verifying integrity of a piece of data it received
+              and the check failed. This can be due to problematic network equipment, unintentional
+              socket sharing in the client (e.g. due to the use of <code>fork(2)</code>) or a bug
+              in the client implementation of TLS.
+              </p>
+            </dd>
         </dl>
       </doc:section>
   </body>
