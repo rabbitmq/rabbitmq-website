@@ -57,7 +57,7 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Maintainer: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-lvc-plugin">simonmacmullen/rabbitmq-lvc-plugin</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
             </ul>
           </r:plugin>
 
@@ -109,7 +109,7 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-http">simonmacmullen/rabbitmq-auth-backend-http</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
             </ul>
           </r:plugin>
 
@@ -119,7 +119,7 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-auth-backend-amqp">simonmacmullen/rabbitmq-auth-backend-amqp</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
             </ul>
           </r:plugin>
 
@@ -144,7 +144,7 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-top">simonmacmullen/rabbitmq-top</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
             </ul>
           </r:plugin>
 
@@ -154,7 +154,7 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-management-exchange">simonmacmullen/rabbitmq-management-exchange</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
             </ul>
           </r:plugin>
 
@@ -165,7 +165,17 @@
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Simon MacMullen</b></li>
-              <li>Github: <a href="https://github.com/simonmacmullen/rabbitmq-event-exchange">simonmacmullen/rabbitmq-event-exchange</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-event-exchange">rabbitmq/rabbitmq-event-exchange</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_themes">
+            Adds the possibility to customize the management web UI
+            look.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
             </ul>
           </r:plugin>
         </table>
