@@ -14,6 +14,17 @@
       </tr>
 
       <tr>
+        <td class="centre">3.5.1</td>
+        <td class="centre">03 April 2015</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_1">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.5.0</td>
         <td class="centre">11 March 2015</td>
         <td>
