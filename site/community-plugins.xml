@@ -168,6 +168,16 @@
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-event-exchange">rabbitmq/rabbitmq-event-exchange</a></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_management_themes">
+            Adds the possibility to customize the management web UI
+            look.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 
