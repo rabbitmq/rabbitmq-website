@@ -17,7 +17,7 @@
     <doc:item>
       <doc:date iso="2015-04-03T08:00:00+0300">03 April 2015</doc:date>
       <doc:title>RabbitMQ 3.5.1 release</doc:title>
-      <doc:link>release-notes/README-3.5.1.txt</doc:link>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_1</doc:link>
       <doc:text>
         <p>
           The RabbitMQ team is pleased to announce the release of RabbitMQ
