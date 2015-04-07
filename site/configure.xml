@@ -823,7 +823,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               be embedded directly in the queue index. You are advised
               to read the <a href="persistence-conf.html">persister
               tuning</a> documentation before changing this.
-              <p>Default: <code>1024</code></p>
+              <p>Default: <code>4096</code></p>
             </td>
           </tr>
           <tr>
