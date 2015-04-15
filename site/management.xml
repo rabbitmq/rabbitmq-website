@@ -244,7 +244,7 @@
           http://<i>server-name</i>:15672/api/. Browse to that
           location for more information on the API.
           For convenience you can read the
-          <a href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
+          <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
           latest HTTP API documentation</a> on GitHub.
         </p>
         <p>
