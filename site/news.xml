@@ -14,6 +14,19 @@
 	   will give you a suitable value.
       -->
 
+      <a href="">We're Hiring</a>
+
+    <doc:item>
+      <doc:date iso="2015-04-16T08:00:00+0300">16 April 2015</doc:date>
+      <doc:title>RabbitMQ team is Hiring Engineers</doc:title>
+      <doc:link>https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J</doc:link>
+      <doc:text>
+        <p>
+          RabbitMQ team at Pivotal has 2 engineering positions open.
+        </p>
+      </doc:text>
+    </doc:item>      
+      
     <doc:item>
       <doc:date iso="2015-04-03T08:00:00+0300">03 April 2015</doc:date>
       <doc:title>RabbitMQ 3.5.1 release</doc:title>
