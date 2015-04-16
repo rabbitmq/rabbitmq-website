@@ -39,7 +39,7 @@
         <li>
           The <a href="management.html">management plugin</a>: a web UI
           and HTTP API for managing and monitoring RabbitMQ.<br/>
-          See its <a href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API documentation</a> and its
+          See its <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API documentation</a> and its
           <a href="/management-cli.html">command line interface,
           rabbitmqadmin</a>.
         </li>

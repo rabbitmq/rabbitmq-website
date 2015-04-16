@@ -658,7 +658,7 @@ SSL-Session:
           certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
           specifies that the certificate can be used by an SSL client. The
-          values in the <code>extendedKeyUsage</code> fields precodey much just say the
+          values in the <code>extendedKeyUsage</code> fields say the
           same thing.</p>
           <p>You can use <a class="extlink" href="http://gist.github.com/145812">this small tool</a> to
           check that the certificate <i>presented by the RabbitMQ server</i> is
