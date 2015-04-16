@@ -283,13 +283,16 @@
             </ul>
           </doc:section>
           <doc:section name="devops-tools">
-            <doc:heading>Provisioning (Chef, Puppet, etc) and Operations</doc:heading>
+            <doc:heading>Provisioning (Chef, Puppet, Docker, etc) and Operations</doc:heading>
             <ul class="plain">
               <li>
                 <a href="https://github.com/kennonkwok/rabbitmq">Chef RabbitMQ Cookbook</a>
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet RabbitMQ Module</a>
+              </li>
+              <li>
+                <a href="https://registry.hub.docker.com/_/rabbitmq/">RabbitMQ Docker image</a>
               </li>
               <li>
                 <a href="https://github.com/NYTimes/collectd-rabbitmq">RabbitMQ CollectD</a> extension from the New York Times
