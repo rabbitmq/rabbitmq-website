@@ -167,7 +167,7 @@
       defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
 
-    <h2>Combining policy definitions</h2>
+    <h2 id="combining-policy-definitions">Combining policy definitions</h2>
     <p>
       In some cases we might want to apply more than one policy
       definition to a resource.  For example we might need a queue to
