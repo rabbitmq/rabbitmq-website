@@ -411,7 +411,7 @@ SSL-Session:
             <tr>
               <td>TLS 1.0</td>
               <td>JDK 5 (RabbitMQ Java client requires 6)</td>
-              <td>.NET 2.0 (RabbitMQ .NET client requires 3.5)</td>
+              <td>.NET 2.0 (RabbitMQ .NET client requires 4.0)</td>
             </tr>
             <tr>
               <td>TLS 1.1</td>
