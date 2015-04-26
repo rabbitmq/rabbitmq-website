@@ -12,8 +12,9 @@ and [blog](http://www.rabbitmq.com/blog).
 
 * QoS0 and QoS1 publish & consume
 * Last Will and Testament (LWT)
-* SSL
+* TLS/SSL
 * Session stickiness
+* Retained messages with pluggable storage backends
 
 ## <a id="ifb"/>Enabling the Plugin
 
@@ -181,14 +182,40 @@ option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com
 parameter, so the value `1800000` means 30 minutes.
 
 The `prefetch` option controls the maximum number of unacknowledged messages that
-will be delivered. This option is interpreted in the same way as the [AMQP prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
+will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
 field, so a value of `0` means "no limit".
+
+
 
 ### Custom Exchanges
 
 The `exchange` option determines which exchange messages from MQTT clients are published
 to. If a non-default exchange is chosen then it must be created before clients
-publish any messages. The exchange is expected to be an AMQP topic exchange.
+publish any messages. The exchange is expected to be a topic exchange.
+
+
+
+## <a id="retained"/> Retained Messages and Stores
+
+The plugin supports retained messages. Message store implementation is pluggable
+and the plugin ships with two implementation out of the box:
+
+ * ETS-based (in memory), implemented in the <code>rabbit_mqtt_retained_msg_store_ets</code> module
+ * DETS-based (on disk), implemented in the <code>rabbit_mqtt_retained_msg_store_dets</code>
+
+Both implementations have limitations and trade-offs.
+With the first one, maximum number of messages that can be retained is is limited by RAM.
+With the second one, there is a limit of 2 GB per vhost. Both are node-local
+(messages retained on one broker node are not replicated to other nodes in the cluster).
+
+These implementations are suitable for development but sometimes won't be for production needs.
+MQTT 3.1 specification does not define consistency or replication requirements for retained
+message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
+availability needs of a particular environment. For example, stores based on [Riak](http://basho.com/riak/)
+and [Cassandra](http://cassandra.apache.org/) would be suitable for most production environments as
+those data stores provide [tunable consistency](http://docs.basho.com/riak/latest/dev/advanced/replication-properties/).
+
+Message stores must implement the <code>rabbit_mqtt_retained_msg_store</code> behaviour.
 
 
 ## <a id="limitations"/> Limitations
@@ -199,3 +226,8 @@ Overlapping subscriptions from the same client
 (e.g. `/sports/football/epl/#` and `/sports/football/#`) can result in
 duplicate messages being delivered. Applications
 need to account for this.
+
+### Retained Message Stores
+
+See Retained Messages above. Different retained message stores have
+different benefits, trade-offs, and limitations.
