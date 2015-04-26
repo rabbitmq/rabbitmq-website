@@ -208,6 +208,28 @@ With the first one, maximum number of messages that can be retained is is limite
 With the second one, there is a limit of 2 GB per vhost. Both are node-local
 (messages retained on one broker node are not replicated to other nodes in the cluster).
 
+To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
+
+    [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
+                      {default_pass,     <<"guest">>},
+                      {allow_anonymous,  true},
+                      {vhost,            <<"/">>},
+                      {exchange,         <<"amq.topic">>},
+                      {subscription_ttl, 1800000},
+                      {prefetch,         10},
+                      %% use DETS (disk-based) store for retained messages
+                      {retained_message_store, rabbit_mqtt_retained_msg_store_dets},
+                      %% only used by DETS store
+                      {retained_message_store_dets_sync_interval, 2000},
+                      {ssl_listeners,    []},
+                      {tcp_listeners,    [1883]}]}
+    ].
+
+The value must be a module that implements the store:
+
+ * <code>rabbit_mqtt_retained_msg_store_ets</code> for RAM-based
+ * <code>rabbit_mqtt_retained_msg_store_dets</code> for disk-based
+
 These implementations are suitable for development but sometimes won't be for production needs.
 MQTT 3.1 specification does not define consistency or replication requirements for retained
 message stores, therefore RabbitMQ allows for custom ones to meet the consistency and
