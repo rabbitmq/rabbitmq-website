@@ -6,12 +6,6 @@
     <script type="text/javascript" src="/js/contact.js"></script>
   </head>
   <body>
-    <h2 id="mailing-list">Mailing List</h2>
-    <p>
-      <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a> is the group for
-      discussions about RabbitMQ. Once you join you can get help with technical issues,
-      ask questions and share your experiences with RabbitMQ. RabbitMQ team members are on this group.
-    </p>
     <h2 id="email">Commercial Enquiries</h2>
     <p>
       For enquiries about commercial licensing, support, training, and
@@ -20,7 +14,7 @@
       note that this address is for commercial enquiries only; if you
       have questions about how to use RabbitMQ and do not want to
       purchase a support contract please use the <a
-      href="https://groups.google.com/forum/#!forum/rabbitmq-users">group</a>
+      href="https://groups.google.com/forum/#!forum/rabbitmq-users">mailing list</a>
       instead.
     </p>
     <p>
@@ -28,6 +22,19 @@
       with Pivotal, please see the
       <a href="http://www.pivotal.io/about-pivotal/support">Pivotal
       support page</a>.
+    </p>
+    <h2 id="mailing-list">Community Support (Mailing List, IRC)</h2>
+    <h3 id="irc">Public Mailing List</h3>    
+    <p>
+      <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a> is the group for
+      discussions about RabbitMQ. Once you join you can get help with technical issues,
+      ask questions and share your experiences with RabbitMQ.
+    </p>
+    <h3 id="irc">IRC</h3>
+    <p>
+      RabbitMQ IRC channgel is <code>#rabbitmq</code> on irc.freenode.net: <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
+      The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
+      There's a <a href="http://webchat.freenode.net/">Web interface to Freenode</a> if you don't have an IRC client installed.
     </p>
     <h2 id="email">Private Enquiries</h2>
     <p>
@@ -46,13 +53,6 @@
       <a href="http://twitter.com/#!/rabbitmq">RabbitMQ</a> is on twitter.
       If you're tweeting about RabbitMQ please don't forget to use the <em>#rabbitmq</em> hash tag.
     </p>
-    <h3 id="irc">IRC</h3>
-    <p>
-      RabbitMQ developers are sometimes available to chat rabbitmq on irc.freenode.net (see also
-      <a href="http://freenode.net/">http://freenode.net/</a>) in channel <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
-      The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
-    You can use this <a href="http://webchat.freenode.net/">web interface to freenode</a> if you don't have an IRC client installed.
-  </p>
     <h3>Facebook</h3>
     <p>
       RabbitMQ is <a href="http://www.facebook.com/pages/RabbitMQ/202623286424686">on Facebook</a>.
