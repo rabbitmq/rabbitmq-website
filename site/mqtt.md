@@ -204,7 +204,7 @@ and the plugin ships with two implementation out of the box:
  * DETS-based (on disk), implemented in the <code>rabbit_mqtt_retained_msg_store_dets</code>
 
 Both implementations have limitations and trade-offs.
-With the first one, maximum number of messages that can be retained is is limited by RAM.
+With the first one, maximum number of messages that can be retained is limited by RAM.
 With the second one, there is a limit of 2 GB per vhost. Both are node-local
 (messages retained on one broker node are not replicated to other nodes in the cluster).
 
