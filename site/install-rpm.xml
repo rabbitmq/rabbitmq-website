@@ -108,6 +108,21 @@
       </li>
     </ol>
 
+    <h3>Using PackageCloud RPM Repository</h3>
+    <p>
+      PackageCloud installs packages via HTTPS and signs them using their GPG key.
+      There are multiple ways to install:
+
+      <ul>
+        <li>Provided installation scripts</li>
+        <li>Using PackageCloud Chef cookbook</li>
+        <li>Using PackageCloud Puppet module</li>
+        <li>Manually</li>
+      </ul>
+
+      See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
+    </p>    
+
     <h3>Install monolithic Erlang from RabbitMQ</h3>
     <ol class="plain">
       <li>
