@@ -104,6 +104,8 @@
 
 	    <pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 sudo apt-key add rabbitmq-signing-key-public.asc</pre>
+
+            <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
 	  </li>
 	  <li>
 	    Run <code>apt-get update</code>.
