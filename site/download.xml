@@ -61,11 +61,22 @@
             <a href="install-generic-unix.html">Generic Unix</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
-        <li>
-            Cloud:
-            <a href="ec2.html">EC2</a>
-        </li>
       </ul>
+
+      <h3>Cloud</h3>
+      <ul>
+        <li><a href="ec2.html">Amazon EC2</a></li>
+        <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
+        <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
+      </ul>
+
+      <h3>Chef, Puppet, Docker</h3>
+      <ul>
+        <li><a href="https://github.com/jjasghar/rabbitmq">Chef cookbook</a></li>
+        <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
+        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a></li>
+      </ul>
+
       <h3>Older Versions</h3>
       <ul>
         <li>

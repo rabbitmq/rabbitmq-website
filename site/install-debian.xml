@@ -83,8 +83,8 @@
         <p>
           RabbitMQ hosts our own apt repository. We also have an alternative <a href="https://packagecloud.io/rabbitmq/rabbitmq-server">repository on Package Cloud</a>.
         </p>
-        
-        <p>To use our APT repository:</p>
+
+        <h3>Using rabbitmq.com APT Repository</h3>
 	<ol>
 	  <li>
 	    Add the following line to your <code>/etc/apt/sources.list</code>:
@@ -104,6 +104,8 @@
 
 	    <pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 sudo apt-key add rabbitmq-signing-key-public.asc</pre>
+
+            <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
 	  </li>
 	  <li>
 	    Run <code>apt-get update</code>.
@@ -114,6 +116,22 @@ sudo apt-key add rabbitmq-signing-key-public.asc</pre>
 	    <pre class="sourcecode">sudo apt-get install rabbitmq-server</pre>
 	  </li>
 	</ol>
+
+
+        <h3>Using PackageCloud APT Repository</h3>
+        <p>
+          PackageCloud installs packages via HTTPS and signs them using their GPG key.
+          There are multiple ways to install:
+
+          <ul>
+            <li>Provided installation scripts</li>
+            <li>Using PackageCloud Chef cookbook</li>
+            <li>Using PackageCloud Puppet module</li>
+            <li>Manually</li>
+          </ul>
+
+          See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
+        </p>
       </doc:subsection>
     </doc:section>
 
