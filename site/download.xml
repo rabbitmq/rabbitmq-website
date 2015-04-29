@@ -63,9 +63,11 @@
         </li>
       </ul>
 
-      <h3>Cloud/IaaS</h3>
+      <h3>Cloud</h3>
       <ul>
         <li><a href="ec2.html">Amazon EC2</a></li>
+        <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
+        <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
       </ul>
 
       <h3>Chef, Puppet, Docker</h3>
