@@ -286,7 +286,7 @@
             <doc:heading>Provisioning (Chef, Puppet, Docker, etc) and Operations</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/kennonkwok/rabbitmq">Chef RabbitMQ Cookbook</a>
+                <a href="https://github.com/jjasghar/rabbitmq">Chef RabbitMQ Cookbook</a>
               </li>
               <li>
                 <a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet RabbitMQ Module</a>
