@@ -27,8 +27,7 @@
     <div class="landing-box">
       <h2>How To...</h2>
       <p>
-        The <a href="how.html">How To</a> page showcases some of our favourite
-        content on this site and the web that will help you get started
+        The <a href="getstarted.html">Get Started</a> page will help you get started
         with messaging and RabbitMQ.
       </p>
     </div>
