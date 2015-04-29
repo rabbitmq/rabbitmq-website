@@ -27,6 +27,8 @@
 	RPM for Fedora / RHEL / CentOS Linux (from github.com)
       </r:download>
     </r:downloads>
+
+    <h2>Overview</h2>
     <p>
       <code>rabbitmq-server</code> is included in Fedora. However,
       the versions included are often quite old. You will probably
@@ -36,6 +38,12 @@
       available for which versions of the distribution.
     </p>
 
+    <p>
+      We also upload our RPM packages to <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+      and <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>.
+    </p>
+
+    <h2>Install Erlang</h2>
     <p>
       Before installing RabbitMQ, you must install Erlang. We strongly
       recommend using a packaged version. There are three suggested sources
@@ -68,17 +76,6 @@
       </li>
     </ul>
 
-    <h3>Install Erlang from the EPEL repository <i>or</i></h3>
-    <ol class="plain">
-      <li>
-        Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
-      </li>
-      <li>
-        Issue the following command as 'root':
-        <pre>yum install erlang</pre>
-      </li>
-    </ol>
-
     <h3>Install Erlang from the Erlang Solutions repository <i>or</i></h3>
     <ol class="plain">
       <li>
@@ -108,6 +105,36 @@
       </li>
     </ol>
 
+    <h3>Install monolithic Erlang from RabbitMQ</h3>
+    <ol class="plain">
+      <li>
+        Download and install the appropriate RPM
+        from <a href="/releases/erlang/">here</a>.
+      </li>
+    </ol>
+
+    <h3>Install Erlang from the EPEL repository <i>or</i></h3>
+    <ol class="plain">
+      <li>
+        Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
+      </li>
+      <li>
+        Issue the following command as 'root':
+        <pre>yum install erlang</pre>
+      </li>
+    </ol>
+
+    <h2>Install RabbitMQ Server</h2>
+    <h3>With rpm and Downloaded RPM</h3>
+    <p>
+      After downloading the server package, issue the following command as
+      'root':
+    </p>
+    <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+
+    <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
+
     <h3>Using PackageCloud RPM Repository</h3>
     <p>
       PackageCloud installs packages via HTTPS and signs them using their GPG key.
@@ -121,23 +148,8 @@
       </ul>
 
       See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
-    </p>    
-
-    <h3>Install monolithic Erlang from RabbitMQ</h3>
-    <ol class="plain">
-      <li>
-        Download and install the appropriate RPM
-        from <a href="/releases/erlang/">here</a>.
-      </li>
-    </ol>
-
-    <h3>Install the Server</h3>
-    <p>
-      After downloading the server package, issue the following command as
-      'root':
     </p>
-    <pre>rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-      yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+
     <h3>Run RabbitMQ Server</h3>
     <dl class="instructions">
       <dt>Customise RabbitMQ Environment Variables</dt>
