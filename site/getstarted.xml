@@ -31,37 +31,36 @@
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/dotnet">C#</a> (using <a href="http://www.rabbitmq.com/dotnet.html">.net/c# client</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">java</a> (using <a href="/java-client.html">java client</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/go">Go</a> (using <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>)
           </li>
           <li>
-            <a href="https://github.com/squaremo/amqp.node/tree/master/examples/tutorials">javascript/node.js</a> (using <a href="https://github.com/squaremo/amqp.node">amqp.node</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
+          </li>          
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">Java</a> (using <a href="/java-client.html">java client</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
+            <a href="https://github.com/squaremo/amqp.node/tree/master/examples/tutorials">JavaScript/node.js</a> (using <a href="https://github.com/squaremo/amqp.node">amqp.node</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python-puka">python-puka</a> (using <a href="https://github.com/majek/puka/">puka</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">Python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby-amqp">ruby</a> (using <a href="http://rubyamqp.info">amqp gem</a>)
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">Ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
           </li>
         </ul>
       </p>
       <p>
         We also maintain a list
-        of <a href="how.html#quickstart">tutorials</a> and a list
         of <a href="devtools.html">clients and developer tools</a> for
         a range of platforms, which you may find useful.
       </p>
@@ -71,7 +70,7 @@
         skip ahead), you may wish to read an
         <a href="tutorials/amqp-concepts.html">Introduction to AMQP Concepts</a>
         and browse our
-        <a href="amqp-0-9-1-quickref.html">AMQP Quick Reference Guide</a>.
+        <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
       </p>
       </div>
   </body>

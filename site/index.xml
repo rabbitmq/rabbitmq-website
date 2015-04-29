@@ -80,7 +80,7 @@
           <a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Cloud Foundry</a> |
           <a href="ec2.html">EC2</a> |
           <a href="https://developers.google.com/cloud/rabbitmq/click-to-deploy">Google Compute Engine</a> |
-          <a href="how.html#cloud-configurations">more...</a>
+          <a href="devtools.html">more...</a>
         </li>        
       </ul>
     </div>
