@@ -54,9 +54,6 @@
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
           </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby-amqp">ruby</a> (using <a href="http://rubyamqp.info">amqp gem</a>)
-          </li>
         </ul>
       </p>
       <p>
