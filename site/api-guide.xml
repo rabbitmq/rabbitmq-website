@@ -387,7 +387,8 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         instead of sharing the same <code>Channel</code> across
         multiple threads. While some operations on channels are safe to invoke
         concurrently, some are not and will result in incorrect frame interleaving
-        on the wire.
+        on the wire. Sharing channels between threads will also interfere with
+ * <a href="confirms.html">Publisher Confirms</a>.
       </p>
 	</doc:section>
 
