@@ -386,7 +386,7 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         should prefer using a <code>Channel</code> per thread
         instead of sharing the same <code>Channel</code> across
         multiple threads. While some operations on channels are safe to invoke
-        concurrently, some are not and will result in incorrect thread interleaving
+        concurrently, some are not and will result in incorrect frame interleaving
         on the wire.
       </p>
 	</doc:section>
