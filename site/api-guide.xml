@@ -846,6 +846,26 @@ factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
 
+      <doc:subsection name="recovery-listeners">
+        <doc:heading>Recovery Listeners</doc:heading>
+        <p>
+          It is possible to register one or more recovery listeners on recoverable connections
+          and channels. When connection recovery is enabled, connections returned by
+          <code>ConnectionFactory#newConnection</code> and <code>Connection#createChannel</code>
+          implement <code>com.rabbitmq.client.Recoverable</code>, providing two methods with
+          fairly descriptive names:
+
+          <ul>
+            <li>addRecoveryListener</li>
+            <li>removeRecoveryListener</li>
+          </ul>
+
+          Note that you currently need to cast connections and channels to <code>Recoverable</code>
+          in order to use those methods.
+        </p>
+      </doc:subsection>
+      
+
       <doc:subsection name="publishers">
         <doc:heading>Effects on Publishing</doc:heading>
         <p>
