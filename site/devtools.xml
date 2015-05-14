@@ -61,6 +61,10 @@
                 <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
+                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, a new (mid-2015), optinionated Akka-based RabbitMQ
+                client for Scala.
+              </li>
+              <li>
                 <a href="http://typesafe.com/activator/template/rabbitmq-akka-stream">Processing RabbitMQ messages using Akka Streams</a>
               </li>
               <li>
@@ -163,7 +167,7 @@
                 <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
               </li>
               <li>
-                <a href="http://freshbrewedcode.com/derekgreer/tag/rabbitmq/">RabbitBus</a>, a fluent interface to the RabbitMQ .NET API
+                <a href="https://github.com/derekgreer/rabbitBus">rabbitBus</a>, a fluent interface to the RabbitMQ .NET API
               </li>
               <li>
                 <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client

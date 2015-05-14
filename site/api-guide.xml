@@ -4,114 +4,75 @@
 %entities;
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
-  <head>
-    <title>Java Client API Guide</title>
-  </head>
-  <body show-in-this-page="true">
-      <p class="intro">
-	This page gives an overview of the RabbitMQ Java client	API.
-      </p>
-      <p class="intro">
-	The code samples given here demonstrate connecting to RabbitMQ and
-	performing several common operations with the client.
-      </p>
-      <p class="intro">
-	The client is triple-licensed under
+    <head>
+        <title>Java Client API Guide</title>
+    </head>
+    <body show-in-this-page="true">
+        <p class="intro">
+            This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
+            are <a href="getstarted.html"></a> available in a different section.
+        </p>
+        <p class="intro">
+            The client is triple-licensed under
 
-        <ul>
-          <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
-          <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-          <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
-        </ul>
-      </p>
-      <p class="intro">
-	For more details, please see the relevant Javadoc <a
-	href="&dir-current-javadoc;">documentation</a>.
-      </p>
-      <p class="intro">
-        The Java client also ships with
-        some <a href="java-tools.html">command line tools</a>.
-      </p>
+            <ul>
+                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+            </ul>
+        </p>
+        <p class="intro">
+            For more details, please see the relevant Javadoc <a
+            href="&dir-current-javadoc;">documentation</a>.
+        </p>
+        <p class="intro">
+            The Java client also ships with
+            some <a href="java-tools.html">command line tools</a>.
+        </p>
 
     <p>
-       The client API is closely modelled on the AMQP 0-9-1 protocol specification,
-       with additional abstractions for ease of use.
+        The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+        with additional abstractions for ease of use.
     </p>
 
     <doc:section name="classoverview">
-        <doc:heading>Protocol class overview</doc:heading>
+        <doc:heading>Overview</doc:heading>
         <p>
-            The holder class <code>AMQP</code> stores all the code
-            generated automatically from the AMQP XML protocol
-            definition specification. It contains all required
-            content-class-specific content header definitions (such
-            as <code>AMQP.BasicProperties</code>) and all the
-            method request and response descriptors (such
-            as <code>AMQP.Basic.Publish</code>
-            and <code>AMQP.Queue.BindOk</code>), as well as useful
-            protocol-specific constants and other values.
-        </p>
-        <pre class="sourcecode"><b>import</b> com.rabbitmq.client.AMQP;</pre>
-        <p>
-            The method request and response descriptors
-            (and the <code>BasicProperties</code> class) come with
-            <code>Builder</code> classes (following the <i>Builder Pattern</i>)
-            to make constructing protocol objects
-            easier and to allow us to construct them with immutable state.
-        </p>
-        <p>
-            We illustrate the builder classes by constructing
-            some <code>AMQP.BasicProperties</code> objects with its <code>Builder</code> class:
-        </p>
-<pre class="sourcecode">
-AMQP.BasicProperties.Builder bob = <b>new</b> AMQP.BasicProperties.Builder();
-AMQP.BasicProperties minBasic = bob.build();
-AMQP.BasicProperties minPersistentBasic = bob.deliveryMode(2).build();
-AMQP.BasicProperties persistentBasic
-                    = bob.priority(0).contentType("application/octet-stream").build();
-AMQP.BasicProperties persistentTextPlain = bob.contentType("text/plain").build();
-</pre>
-        <p>
-            <code>bob</code> (the builder) is constructed first
-            and whenever <code>build()</code> is invoked this method returns
-            a new <code>BasicProperties</code> object with the properties
-            set in <code>bob</code> at that point. The parameter calls (<code>deliveryMode</code>,
-            <code>priority</code>, etc.) update <code>bob</code> and <i>not</i>
-            the <code>BasicProperties</code> object. Each of these methods returns the
-            updated builder (allowing chaining, for example as in <code>persistentBasic</code> above).
-            This pattern
-            allows the parameters to be named and set in any order, the consistency of the
-            complete set of parameters to be checked at <code>build()</code> time,
-            the built objects to be immutable, and partially initialised builders
-            to be re-used.
-        </p>
-        <p>
-            For details and exact definitions of the AMQP protocol,
-            please see <a href="http://www.amqp.org/">the AMQP specification document</a>;
-            for details of the API (including the <code>Builder</code> classes) see the
-            <a href="&dir-current-javadoc;">Javadoc documentation</a>; and for background
-            on the <i>Builder Pattern</i> see
-            <a href="http://drdobbs.com/java/208403883?pgno=2">this Dr. Dobb&#8217;s article</a> or
-            refer to <a href="http://amzn.com/0321356683">Effective Java</a> by <i>Joshua Bloch</i>.
+            RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
+            The key classes and interfaces are:
+
+            <ul>
+                <li>Channel</li>
+                <li>Connection</li>
+                <li>ConnectionFactory</li>
+                <li>Consumer</li>
+            </ul>
+
+            Protocol operations are available through the
+            <code>Channel</code> interface. <code>Connection</code> is
+            used to open channels, register connection lifecycle event
+            handlers, and close connections that are no longer needed.
+            <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
+            which is how you configure various connection settings, such as the vhost or username.
         </p>
     </doc:section>
 
 	<doc:section name="connecting">
-	<doc:heading>Connections and channels</doc:heading>
+	<doc:heading>Connections and Channels</doc:heading>
 
 	<p>
-	  The core API classes are <code>Connection</code>
-	  and <code>Channel</code>, representing an AMQP connection and an
-	  AMQP data channel, respectively:
+            The core API classes are <code>Connection</code>
+            and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
+            channel, respectively. They are typically imported before used:
 	</p>
 	<pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
 <b>import</b> com.rabbitmq.client.Channel;</pre>
 
-	  <doc:heading>Connecting to a broker</doc:heading>
+    <doc:heading>Connecting to a broker</doc:heading>
 
-	  <p>
-	    The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
-	  </p>
+    <p>
+        The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
+    </p>
 
 <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
@@ -124,10 +85,10 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-      All of these parameters have sensible defaults for a RabbitMQ server running locally.
+        All of these parameters have sensible defaults for a RabbitMQ server running locally.
     </p>
     <p>
-      Alternatively, <a href="uri-spec.html">AMQP URIs</a> may be used:
+        Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
 <pre class="sourcecode">
@@ -137,137 +98,38 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-      All of these parameters have sensible defaults for a stock
-      RabbitMQ server running locally.
+        All of these parameters have sensible defaults for a stock
+        RabbitMQ server running locally.
     </p>
 
-	  <p>
+        <p>
 	    The <code>Connection</code> interface can then be used to open a channel:
-	  </p>
+        </p>
 
 <pre class="sourcecode">
 Channel channel = conn.createChannel();
 </pre>
-	  <p>
-	    The channel can now be used to send and receive messages, as described in subsequent sections.
-	  </p>
+    <p>
+        The channel can now be used to send and receive messages, as described in subsequent sections.
+    </p>
 
-	  <p>
-	    To disconnect, simply close the channel and the connection:
-	  </p>
+    <p>
+        To disconnect, simply close the channel and the connection:
+    </p>
 
-	  <pre class="sourcecode">channel.close();
+    <pre class="sourcecode">channel.close();
 conn.close();</pre>
 
-	  <p>
-	    Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
-	    automatically anyway when the underlying connection is closed.
-	  </p>
+    <p>
+        Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
+        automatically anyway when the underlying connection is closed.
+    </p>
 
   </doc:section>
 
-<doc:section name="advanced-connection">
-  <doc:heading>Advanced Connection options</doc:heading>
-    <doc:subsection name="consumer-thread-pool">
-        <doc:heading><i>Consumer thread pool</i></doc:heading>
-        <p>
-          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
-          automatically allocated in a new <code>ExecutorService</code> thread pool
-          by default. If greater control is required supply an <code>ExecutorService</code> on the
-          <code>newConnection()</code> method, so that this pool of threads is
-          used instead. Here is an example where a larger thread pool is
-          supplied than is normally allocated:
-<pre class="sourcecode">
-ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
-Connection conn = factory.newConnection(<b>es</b>);
-</pre>
-          Both <code>Executors</code> and <code>ExecutorService</code> classes
-          are in the <code>java.util.concurrent</code> package.
-        </p>
-        <p>
-          When the connection is closed a default <code>ExecutorService</code>
-          will be <code>shutdown()</code>, but a user-supplied
-          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
-          <i>not</i> be <code>shutdown()</code>.
-          Clients that supply a custom <code>ExecutorService</code> must ensure
-          it is shutdown eventually (by calling its <code>shutdown()</code>
-          method), or else the pool&#8217;s threads may prevent JVM termination.
-        </p>
-        <p>
-          The same executor service may be shared between multiple connections,
-          or serially re-used on re-connection but it cannot be used after it is
-          <code>shutdown()</code>.
-        </p>
-        <p>
-          Use of this feature should only be considered if there is evidence
-          that there is a severe bottleneck in the processing of <code>Consumer</code>
-          callbacks.
-          If there are no <code>Consumer</code> callbacks executed, or very few, the default
-          allocation is more than sufficient. The overhead is initially minimal and
-          the total thread resources allocated are bounded, even if a burst of consumer
-          activity may occasionally occur.
-        </p>
-    </doc:subsection>
 
-    <doc:subsection name="address-array">
-        <doc:heading><i>Address array</i></doc:heading>
-        <p>
-          It is possible to pass an <code>Address</code> array
-          to <code>newConnection()</code>.
-          An <code>Address</code> is simply a convenience class
-          (in the <code>com.rabbitmq.client</code> package) with <i>host</i>
-          and <i>port</i> components.
-          For example:
-<pre class="sourcecode">
-Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
-                                 , <b>new</b> Address(hostname2, portnumber2)};
-Connection conn = factory.newConnection(addrArr);
-</pre>
-          will attempt to connect to <code>hostname1:portnumber1</code>, and if
-          that fails to <code>hostname2:portnumber2</code>. The connection returned is
-          the first in the array that succeeds (without throwing
-          <code>IOException</code>). This is entirely equivalent to repeatedly
-          setting host and port on a factory, calling
-          <code>factory.newConnection()</code> each time, until one of them succeeds.
-        </p>
-        <p>
-          If an <code>ExecutorService</code> is provided as well (using the
-          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
-          associated with the (first) successful connection.
-        </p>
-    </doc:subsection>
-
-
-    <doc:subsection name="heartbeats-timeout">
-        <doc:heading>Heartbeat Timeout</doc:heading>
-        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
-        and how to configure them in the Java client.</p>
-    </doc:subsection>
-
-    <doc:subsection name="thread-factories">
-      <doc:heading><i>Custom Thread Factories</i></doc:heading>
-      <p>
-        Environments such as Google App Engine (GAE) can <a
-        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
-        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
-        it's necessary to configure a custom <code>ThreadFactory</code> that uses
-        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
-
-        Below is an example for Google App Engine.
-      </p>
-      <p>
-<pre class="sourcecode">
-import com.google.appengine.api.ThreadManager;
-
-ConnectionFactory cf = new ConnectionFactory();
-cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
-</pre>
-      </p>
-    </doc:subsection>
-</doc:section>
-
-	<doc:section name="declaring">
-	  <doc:heading>Using exchanges and queues</doc:heading>
+	<doc:section name="exchanges-and-queues">
+	  <doc:heading>Using Exchanges and Queues</doc:heading>
 
 	  <p>
 	   Client applications work with exchanges and queues, the high-level building blocks of AMQP.
@@ -370,19 +232,25 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
 	    Note that <code>BasicProperties</code> is an inner class of the autogenerated
 	    holder class <code>AMQP</code>.
 	  </p>
+
+          <p>
+            Invocations of <code>Channel#basicPublish</code> will eventually block if a
+            <a href="http://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
+          </p>
 	</doc:section>
 
 	<doc:section name="channel-threads">
-	  <doc:heading>Channel thread-safety</doc:heading>
+	  <doc:heading>Channels and Concurrency Considerations (Thread Safety)</doc:heading>
 
       <p>
-        <code>Channel</code> instances are safe for use by multiple
-        threads. Requests into a <code>Channel</code> are
-        serialized, with only one thread being able to run a command
-        on the <code>Channel</code> at a time. Even so, applications
+        <code>Channel</code> instances must not be shared between
+        threads. Applications
         should prefer using a <code>Channel</code> per thread
         instead of sharing the same <code>Channel</code> across
-        multiple threads.
+        multiple threads. While some operations on channels are safe to invoke
+        concurrently, some are not and will result in incorrect frame interleaving
+        on the wire. Sharing channels between threads will also interfere with
+ * <a href="confirms.html">Publisher Confirms</a>.
       </p>
 	</doc:section>
 
@@ -557,71 +425,17 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
 	  </p>
 	</doc:section>
 
-      <doc:section name="rpc">
-	<doc:heading>Basic RPC</doc:heading>
-
-	<p>
-	  As a programming convenience, the Java client API offers a
-	  class <code>RpcClient</code> which uses a temporary reply
-	  queue to provide simple RPC-style communication facilities via AMQP.
-	</p>
-	<p>
-	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
-	  It simply provides a mechanism for sending a message to a given exchange with a particular
-	  routing key, and waiting for a response on a reply queue.
-	</p>
-
-	<pre class="sourcecode">
-<b>import</b> com.rabbitmq.client.RpcClient;
-
-RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
-
-	<p>
-	  (The implementation details of how this class uses AMQP are as follows: request messages are sent with the
-	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
-	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
-	</p>
-
-	<p>
-	  Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
-	</p>
-
-	<pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
-String stringCall(String message)
-Map mapCall(Map message)
-Map mapCall(Object[] keyValuePairs)</pre>
-
-	<p>
-	  The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
-	  bodies. The method <code>stringCall</code> is a thin
-	  convenience wrapper around <code>primitiveCall</code>,
-	  treating the message bodies as <code>String</code> instances
-	  in the default character encoding.
-	</p>
-	<p>
-	  The <code>mapCall</code> variants are a little more sophisticated: they encode
-	  a <code>java.util.Map</code> containing ordinary Java values
-	  into an AMQP binary table representation, and decode the
-	  response in the same way. (Note that there are some restrictions on what value
-	  types can be used here - see the javadoc for details.)
-	</p>
-
-	<p>
-	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
-	  transport mechanism, and just provide a wrapping layer on top of it.
-	</p>
-      </doc:section>
       <doc:section name="shutdown">
         <doc:heading>Shutdown Protocol</doc:heading>
           <doc:subsection name="shutdown-overview">
 	    <doc:heading>Overview of the AMQP client shutdown</doc:heading>
 	    <p>
-	      The AMQP connection and channel share the same general
+	      The AMQP 0-9-1 connection and channel share the same general
 	      approach to managing network failure, internal failure,
 	      and explicit local shutdown.
 	    </p>
 	    <p>
-	      The AMQP connection and channel have the following lifecycle states:
+	      The AMQP 0-9-1 connection and channel have the following lifecycle states:
 	    </p>
 	    <ul>
 	      <li>
@@ -780,6 +594,108 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           </doc:subsection>
     </doc:section>
 
+
+<doc:section name="advanced-connection">
+  <doc:heading>Advanced Connection options</doc:heading>
+    <doc:subsection name="consumer-thread-pool">
+        <doc:heading><i>Consumer thread pool</i></doc:heading>
+        <p>
+          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
+          automatically allocated in a new <code>ExecutorService</code> thread pool
+          by default. If greater control is required supply an <code>ExecutorService</code> on the
+          <code>newConnection()</code> method, so that this pool of threads is
+          used instead. Here is an example where a larger thread pool is
+          supplied than is normally allocated:
+<pre class="sourcecode">
+ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(<b>es</b>);
+</pre>
+          Both <code>Executors</code> and <code>ExecutorService</code> classes
+          are in the <code>java.util.concurrent</code> package.
+        </p>
+        <p>
+          When the connection is closed a default <code>ExecutorService</code>
+          will be <code>shutdown()</code>, but a user-supplied
+          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <i>not</i> be <code>shutdown()</code>.
+          Clients that supply a custom <code>ExecutorService</code> must ensure
+          it is shutdown eventually (by calling its <code>shutdown()</code>
+          method), or else the pool&#8217;s threads may prevent JVM termination.
+        </p>
+        <p>
+          The same executor service may be shared between multiple connections,
+          or serially re-used on re-connection but it cannot be used after it is
+          <code>shutdown()</code>.
+        </p>
+        <p>
+          Use of this feature should only be considered if there is evidence
+          that there is a severe bottleneck in the processing of <code>Consumer</code>
+          callbacks.
+          If there are no <code>Consumer</code> callbacks executed, or very few, the default
+          allocation is more than sufficient. The overhead is initially minimal and
+          the total thread resources allocated are bounded, even if a burst of consumer
+          activity may occasionally occur.
+        </p>
+    </doc:subsection>
+
+    <doc:subsection name="address-array">
+        <doc:heading>Using Lists of Hosts</doc:heading>
+        <p>
+          It is possible to pass an <code>Address</code> array
+          to <code>newConnection()</code>.
+          An <code>Address</code> is simply a convenience class
+          in the <code>com.rabbitmq.client</code> package with <i>host</i>
+          and <i>port</i> components.
+          For example:
+<pre class="sourcecode">
+Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                 , <b>new</b> Address(hostname2, portnumber2)};
+Connection conn = factory.newConnection(addrArr);
+</pre>
+          will attempt to connect to <code>hostname1:portnumber1</code>, and if
+          that fails to <code>hostname2:portnumber2</code>. The connection returned is
+          the first in the array that succeeds (without throwing
+          <code>IOException</code>). This is entirely equivalent to repeatedly
+          setting host and port on a factory, calling
+          <code>factory.newConnection()</code> each time, until one of them succeeds.
+        </p>
+        <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
+          associated with the (first) successful connection.
+        </p>
+    </doc:subsection>
+
+
+    <doc:subsection name="heartbeats-timeout">
+        <doc:heading>Heartbeat Timeout</doc:heading>
+        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
+        and how to configure them in the Java client.</p>
+    </doc:subsection>
+
+    <doc:subsection name="thread-factories">
+      <doc:heading><i>Custom Thread Factories</i></doc:heading>
+      <p>
+        Environments such as Google App Engine (GAE) can <a
+        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+        it's necessary to configure a custom <code>ThreadFactory</code> that uses
+        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
+
+        Below is an example for Google App Engine.
+      </p>
+      <p>
+<pre class="sourcecode">
+import com.google.appengine.api.ThreadManager;
+
+ConnectionFactory cf = new ConnectionFactory();
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+</pre>
+      </p>
+    </doc:subsection>
+</doc:section>
+
+
     <doc:section name="recovery">
       <doc:heading>Automatic Recovery From Network Failures</doc:heading>
       <doc:subsection name="connection-recovery">
@@ -839,6 +755,26 @@ Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
 factory.newConnection(addresses);</pre>
         </p>
       </doc:subsection>
+
+      <doc:subsection name="recovery-listeners">
+        <doc:heading>Recovery Listeners</doc:heading>
+        <p>
+          It is possible to register one or more recovery listeners on recoverable connections
+          and channels. When connection recovery is enabled, connections returned by
+          <code>ConnectionFactory#newConnection</code> and <code>Connection#createChannel</code>
+          implement <code>com.rabbitmq.client.Recoverable</code>, providing two methods with
+          fairly descriptive names:
+
+          <ul>
+            <li>addRecoveryListener</li>
+            <li>removeRecoveryListener</li>
+          </ul>
+
+          Note that you currently need to cast connections and channels to <code>Recoverable</code>
+          in order to use those methods.
+        </p>
+      </doc:subsection>
+
 
       <doc:subsection name="publishers">
         <doc:heading>Effects on Publishing</doc:heading>
@@ -956,5 +892,62 @@ cf.setRequestedHeartbeat(5);
         being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
       </p>
     </doc:section>
+
+
+      <doc:section name="rpc">
+	<doc:heading>The RPC (Request/Reply) Pattern</doc:heading>
+
+	<p>
+	  As a programming convenience, the Java client API offers a
+	  class <code>RpcClient</code> which uses a temporary reply
+	  queue to provide simple <a href="/tutorials/tutorial-six-java.html">RPC-style communication</a> facilities via AMQP 0-9-1.
+	</p>
+	<p>
+	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
+	  It simply provides a mechanism for sending a message to a given exchange with a particular
+	  routing key, and waiting for a response on a reply queue.
+	</p>
+
+	<pre class="sourcecode">
+<b>import</b> com.rabbitmq.client.RpcClient;
+
+RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
+	<p>
+	  (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
+	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
+	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
+	</p>
+
+	<p>
+	  Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
+	</p>
+
+	<pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
+String stringCall(String message)
+Map mapCall(Map message)
+Map mapCall(Object[] keyValuePairs)</pre>
+
+	<p>
+	  The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
+	  bodies. The method <code>stringCall</code> is a thin
+	  convenience wrapper around <code>primitiveCall</code>,
+	  treating the message bodies as <code>String</code> instances
+	  in the default character encoding.
+	</p>
+	<p>
+	  The <code>mapCall</code> variants are a little more sophisticated: they encode
+	  a <code>java.util.Map</code> containing ordinary Java values
+	  into an AMQP 0-9-1 binary table representation, and decode the
+	  response in the same way. (Note that there are some restrictions on what value
+	  types can be used here - see the javadoc for details.)
+	</p>
+
+	<p>
+	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
+	  transport mechanism, and just provide a wrapping layer on top of it.
+	</p>
+      </doc:section>
+
   </body>
 </html>

@@ -135,5 +135,11 @@
       would <em>not</em> have received an ack for the lost message
       (since the message hadn't been written to disk yet).
     </p>
+
+    <h3>Maximum Delivery Tag</h3>
+    <p>
+      Confirm delivery tag is a 64 bit long value, and thus its maximum value
+      is 9223372036854775807.
+    </p>
   </body>
 </html>
