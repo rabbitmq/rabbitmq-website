@@ -127,108 +127,9 @@ conn.close();</pre>
 
   </doc:section>
 
-<doc:section name="advanced-connection">
-  <doc:heading>Advanced Connection options</doc:heading>
-    <doc:subsection name="consumer-thread-pool">
-        <doc:heading><i>Consumer thread pool</i></doc:heading>
-        <p>
-          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
-          automatically allocated in a new <code>ExecutorService</code> thread pool
-          by default. If greater control is required supply an <code>ExecutorService</code> on the
-          <code>newConnection()</code> method, so that this pool of threads is
-          used instead. Here is an example where a larger thread pool is
-          supplied than is normally allocated:
-<pre class="sourcecode">
-ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
-Connection conn = factory.newConnection(<b>es</b>);
-</pre>
-          Both <code>Executors</code> and <code>ExecutorService</code> classes
-          are in the <code>java.util.concurrent</code> package.
-        </p>
-        <p>
-          When the connection is closed a default <code>ExecutorService</code>
-          will be <code>shutdown()</code>, but a user-supplied
-          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
-          <i>not</i> be <code>shutdown()</code>.
-          Clients that supply a custom <code>ExecutorService</code> must ensure
-          it is shutdown eventually (by calling its <code>shutdown()</code>
-          method), or else the pool&#8217;s threads may prevent JVM termination.
-        </p>
-        <p>
-          The same executor service may be shared between multiple connections,
-          or serially re-used on re-connection but it cannot be used after it is
-          <code>shutdown()</code>.
-        </p>
-        <p>
-          Use of this feature should only be considered if there is evidence
-          that there is a severe bottleneck in the processing of <code>Consumer</code>
-          callbacks.
-          If there are no <code>Consumer</code> callbacks executed, or very few, the default
-          allocation is more than sufficient. The overhead is initially minimal and
-          the total thread resources allocated are bounded, even if a burst of consumer
-          activity may occasionally occur.
-        </p>
-    </doc:subsection>
 
-    <doc:subsection name="address-array">
-        <doc:heading><i>Address array</i></doc:heading>
-        <p>
-          It is possible to pass an <code>Address</code> array
-          to <code>newConnection()</code>.
-          An <code>Address</code> is simply a convenience class
-          (in the <code>com.rabbitmq.client</code> package) with <i>host</i>
-          and <i>port</i> components.
-          For example:
-<pre class="sourcecode">
-Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
-                                 , <b>new</b> Address(hostname2, portnumber2)};
-Connection conn = factory.newConnection(addrArr);
-</pre>
-          will attempt to connect to <code>hostname1:portnumber1</code>, and if
-          that fails to <code>hostname2:portnumber2</code>. The connection returned is
-          the first in the array that succeeds (without throwing
-          <code>IOException</code>). This is entirely equivalent to repeatedly
-          setting host and port on a factory, calling
-          <code>factory.newConnection()</code> each time, until one of them succeeds.
-        </p>
-        <p>
-          If an <code>ExecutorService</code> is provided as well (using the
-          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
-          associated with the (first) successful connection.
-        </p>
-    </doc:subsection>
-
-
-    <doc:subsection name="heartbeats-timeout">
-        <doc:heading>Heartbeat Timeout</doc:heading>
-        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
-        and how to configure them in the Java client.</p>
-    </doc:subsection>
-
-    <doc:subsection name="thread-factories">
-      <doc:heading><i>Custom Thread Factories</i></doc:heading>
-      <p>
-        Environments such as Google App Engine (GAE) can <a
-        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
-        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
-        it's necessary to configure a custom <code>ThreadFactory</code> that uses
-        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
-
-        Below is an example for Google App Engine.
-      </p>
-      <p>
-<pre class="sourcecode">
-import com.google.appengine.api.ThreadManager;
-
-ConnectionFactory cf = new ConnectionFactory();
-cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
-</pre>
-      </p>
-    </doc:subsection>
-</doc:section>
-
-	<doc:section name="declaring">
-	  <doc:heading>Using exchanges and queues</doc:heading>
+	<doc:section name="exchanges-and-queues">
+	  <doc:heading>Using Exchanges and Queues</doc:heading>
 
 	  <p>
 	   Client applications work with exchanges and queues, the high-level building blocks of AMQP.
@@ -747,6 +648,108 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           </doc:subsection>
     </doc:section>
 
+
+<doc:section name="advanced-connection">
+  <doc:heading>Advanced Connection options</doc:heading>
+    <doc:subsection name="consumer-thread-pool">
+        <doc:heading><i>Consumer thread pool</i></doc:heading>
+        <p>
+          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
+          automatically allocated in a new <code>ExecutorService</code> thread pool
+          by default. If greater control is required supply an <code>ExecutorService</code> on the
+          <code>newConnection()</code> method, so that this pool of threads is
+          used instead. Here is an example where a larger thread pool is
+          supplied than is normally allocated:
+<pre class="sourcecode">
+ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(<b>es</b>);
+</pre>
+          Both <code>Executors</code> and <code>ExecutorService</code> classes
+          are in the <code>java.util.concurrent</code> package.
+        </p>
+        <p>
+          When the connection is closed a default <code>ExecutorService</code>
+          will be <code>shutdown()</code>, but a user-supplied
+          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <i>not</i> be <code>shutdown()</code>.
+          Clients that supply a custom <code>ExecutorService</code> must ensure
+          it is shutdown eventually (by calling its <code>shutdown()</code>
+          method), or else the pool&#8217;s threads may prevent JVM termination.
+        </p>
+        <p>
+          The same executor service may be shared between multiple connections,
+          or serially re-used on re-connection but it cannot be used after it is
+          <code>shutdown()</code>.
+        </p>
+        <p>
+          Use of this feature should only be considered if there is evidence
+          that there is a severe bottleneck in the processing of <code>Consumer</code>
+          callbacks.
+          If there are no <code>Consumer</code> callbacks executed, or very few, the default
+          allocation is more than sufficient. The overhead is initially minimal and
+          the total thread resources allocated are bounded, even if a burst of consumer
+          activity may occasionally occur.
+        </p>
+    </doc:subsection>
+
+    <doc:subsection name="address-array">
+        <doc:heading>Using Lists of Hosts</doc:heading>
+        <p>
+          It is possible to pass an <code>Address</code> array
+          to <code>newConnection()</code>.
+          An <code>Address</code> is simply a convenience class
+          in the <code>com.rabbitmq.client</code> package with <i>host</i>
+          and <i>port</i> components.
+          For example:
+<pre class="sourcecode">
+Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                 , <b>new</b> Address(hostname2, portnumber2)};
+Connection conn = factory.newConnection(addrArr);
+</pre>
+          will attempt to connect to <code>hostname1:portnumber1</code>, and if
+          that fails to <code>hostname2:portnumber2</code>. The connection returned is
+          the first in the array that succeeds (without throwing
+          <code>IOException</code>). This is entirely equivalent to repeatedly
+          setting host and port on a factory, calling
+          <code>factory.newConnection()</code> each time, until one of them succeeds.
+        </p>
+        <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
+          associated with the (first) successful connection.
+        </p>
+    </doc:subsection>
+
+
+    <doc:subsection name="heartbeats-timeout">
+        <doc:heading>Heartbeat Timeout</doc:heading>
+        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
+        and how to configure them in the Java client.</p>
+    </doc:subsection>
+
+    <doc:subsection name="thread-factories">
+      <doc:heading><i>Custom Thread Factories</i></doc:heading>
+      <p>
+        Environments such as Google App Engine (GAE) can <a
+        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+        it's necessary to configure a custom <code>ThreadFactory</code> that uses
+        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
+
+        Below is an example for Google App Engine.
+      </p>
+      <p>
+<pre class="sourcecode">
+import com.google.appengine.api.ThreadManager;
+
+ConnectionFactory cf = new ConnectionFactory();
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+</pre>
+      </p>
+    </doc:subsection>
+</doc:section>
+
+    
     <doc:section name="recovery">
       <doc:heading>Automatic Recovery From Network Failures</doc:heading>
       <doc:subsection name="connection-recovery">
