@@ -895,12 +895,12 @@ cf.setRequestedHeartbeat(5);
 
 
       <doc:section name="rpc">
-	<doc:heading>Basic RPC</doc:heading>
+	<doc:heading>The RPC (Request/Reply) Pattern</doc:heading>
 
 	<p>
 	  As a programming convenience, the Java client API offers a
 	  class <code>RpcClient</code> which uses a temporary reply
-	  queue to provide simple RPC-style communication facilities via AMQP 0-9-1.
+	  queue to provide simple <a href="/tutorials/tutorial-six-java.html">RPC-style communication</a> facilities via AMQP 0-9-1.
 	</p>
 	<p>
 	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
