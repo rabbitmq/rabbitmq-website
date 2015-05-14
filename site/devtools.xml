@@ -61,6 +61,10 @@
                 <a href="https://github.com/thenewmotion/akka-rabbitmq">Akka-based RabbitMQ client for Scala</a>
               </li>
               <li>
+                <a href="https://github.com/SpinGo/op-rabbit">Op-Rabbit</a>, a new (mid-2015), optinionated Akka-based RabbitMQ
+                client for Scala.
+              </li>
+              <li>
                 <a href="http://typesafe.com/activator/template/rabbitmq-akka-stream">Processing RabbitMQ messages using Akka Streams</a>
               </li>
               <li>
