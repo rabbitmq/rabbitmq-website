@@ -4,56 +4,56 @@
 %entities;
 ]>
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
-  <head>
-    <title>Java Client API Guide</title>
-  </head>
-  <body show-in-this-page="true">
-      <p class="intro">
-	This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
-        are <a href="getstarted.html"></a> available in a different section.
-      </p>
-      <p class="intro">
-	The client is triple-licensed under
+    <head>
+        <title>Java Client API Guide</title>
+    </head>
+    <body show-in-this-page="true">
+        <p class="intro">
+            This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
+            are <a href="getstarted.html"></a> available in a different section.
+        </p>
+        <p class="intro">
+            The client is triple-licensed under
 
-        <ul>
-          <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
-          <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
-          <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
-        </ul>
-      </p>
-      <p class="intro">
-	For more details, please see the relevant Javadoc <a
-	href="&dir-current-javadoc;">documentation</a>.
-      </p>
-      <p class="intro">
-        The Java client also ships with
-        some <a href="java-tools.html">command line tools</a>.
-      </p>
+            <ul>
+                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+            </ul>
+        </p>
+        <p class="intro">
+            For more details, please see the relevant Javadoc <a
+            href="&dir-current-javadoc;">documentation</a>.
+        </p>
+        <p class="intro">
+            The Java client also ships with
+            some <a href="java-tools.html">command line tools</a>.
+        </p>
 
     <p>
-       The client API is closely modelled on the AMQP 0-9-1 protocol specification,
-       with additional abstractions for ease of use.
+        The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+        with additional abstractions for ease of use.
     </p>
 
     <doc:section name="classoverview">
         <doc:heading>Overview</doc:heading>
         <p>
-          RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
-          The key classes and interfaces are:
+            RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
+            The key classes and interfaces are:
 
-          <ul>
-            <li>Channel</li>
-            <li>Connection</li>
-            <li>ConnectionFactory</li>
-            <li>Consumer</li>            
-          </ul>
+            <ul>
+                <li>Channel</li>
+                <li>Connection</li>
+                <li>ConnectionFactory</li>
+                <li>Consumer</li>
+            </ul>
 
-          Protocol operations are available through the
-          <code>Channel</code> interface. <code>Connection</code> is
-          used to open channels, register connection lifecycle event
-          handlers, and close connections that are no longer needed.
-          <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
-          which is how you configure various connection settings, such as the vhost or username.
+            Protocol operations are available through the
+            <code>Channel</code> interface. <code>Connection</code> is
+            used to open channels, register connection lifecycle event
+            handlers, and close connections that are no longer needed.
+            <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
+            which is how you configure various connection settings, such as the vhost or username.
         </p>
     </doc:section>
 
@@ -61,18 +61,18 @@
 	<doc:heading>Connections and Channels</doc:heading>
 
 	<p>
-	  The core API classes are <code>Connection</code>
-	  and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
-	  channel, respectively. They are typically imported before used:
+            The core API classes are <code>Connection</code>
+            and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
+            channel, respectively. They are typically imported before used:
 	</p>
 	<pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
 <b>import</b> com.rabbitmq.client.Channel;</pre>
 
-	  <doc:heading>Connecting to a broker</doc:heading>
+    <doc:heading>Connecting to a broker</doc:heading>
 
-	  <p>
-	    The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
-	  </p>
+    <p>
+        The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
+    </p>
 
 <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
@@ -85,10 +85,10 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-      All of these parameters have sensible defaults for a RabbitMQ server running locally.
+        All of these parameters have sensible defaults for a RabbitMQ server running locally.
     </p>
     <p>
-      Alternatively, <a href="uri-spec.html">URIs</a> may be used:
+        Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
 <pre class="sourcecode">
@@ -98,32 +98,32 @@ Connection conn = factory.newConnection();
 </pre>
 
     <p>
-      All of these parameters have sensible defaults for a stock
-      RabbitMQ server running locally.
+        All of these parameters have sensible defaults for a stock
+        RabbitMQ server running locally.
     </p>
 
-	  <p>
+        <p>
 	    The <code>Connection</code> interface can then be used to open a channel:
-	  </p>
+        </p>
 
 <pre class="sourcecode">
 Channel channel = conn.createChannel();
 </pre>
-	  <p>
-	    The channel can now be used to send and receive messages, as described in subsequent sections.
-	  </p>
+    <p>
+        The channel can now be used to send and receive messages, as described in subsequent sections.
+    </p>
 
-	  <p>
-	    To disconnect, simply close the channel and the connection:
-	  </p>
+    <p>
+        To disconnect, simply close the channel and the connection:
+    </p>
 
-	  <pre class="sourcecode">channel.close();
+    <pre class="sourcecode">channel.close();
 conn.close();</pre>
 
-	  <p>
-	    Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
-	    automatically anyway when the underlying connection is closed.
-	  </p>
+    <p>
+        Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
+        automatically anyway when the underlying connection is closed.
+    </p>
 
   </doc:section>
 
@@ -425,71 +425,17 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
 	  </p>
 	</doc:section>
 
-      <doc:section name="rpc">
-	<doc:heading>Basic RPC</doc:heading>
-
-	<p>
-	  As a programming convenience, the Java client API offers a
-	  class <code>RpcClient</code> which uses a temporary reply
-	  queue to provide simple RPC-style communication facilities via AMQP.
-	</p>
-	<p>
-	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
-	  It simply provides a mechanism for sending a message to a given exchange with a particular
-	  routing key, and waiting for a response on a reply queue.
-	</p>
-
-	<pre class="sourcecode">
-<b>import</b> com.rabbitmq.client.RpcClient;
-
-RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
-
-	<p>
-	  (The implementation details of how this class uses AMQP are as follows: request messages are sent with the
-	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
-	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
-	</p>
-
-	<p>
-	  Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
-	</p>
-
-	<pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
-String stringCall(String message)
-Map mapCall(Map message)
-Map mapCall(Object[] keyValuePairs)</pre>
-
-	<p>
-	  The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
-	  bodies. The method <code>stringCall</code> is a thin
-	  convenience wrapper around <code>primitiveCall</code>,
-	  treating the message bodies as <code>String</code> instances
-	  in the default character encoding.
-	</p>
-	<p>
-	  The <code>mapCall</code> variants are a little more sophisticated: they encode
-	  a <code>java.util.Map</code> containing ordinary Java values
-	  into an AMQP binary table representation, and decode the
-	  response in the same way. (Note that there are some restrictions on what value
-	  types can be used here - see the javadoc for details.)
-	</p>
-
-	<p>
-	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
-	  transport mechanism, and just provide a wrapping layer on top of it.
-	</p>
-      </doc:section>
       <doc:section name="shutdown">
         <doc:heading>Shutdown Protocol</doc:heading>
           <doc:subsection name="shutdown-overview">
 	    <doc:heading>Overview of the AMQP client shutdown</doc:heading>
 	    <p>
-	      The AMQP connection and channel share the same general
+	      The AMQP 0-9-1 connection and channel share the same general
 	      approach to managing network failure, internal failure,
 	      and explicit local shutdown.
 	    </p>
 	    <p>
-	      The AMQP connection and channel have the following lifecycle states:
+	      The AMQP 0-9-1 connection and channel have the following lifecycle states:
 	    </p>
 	    <ul>
 	      <li>
@@ -749,7 +695,7 @@ cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
     </doc:subsection>
 </doc:section>
 
-    
+
     <doc:section name="recovery">
       <doc:heading>Automatic Recovery From Network Failures</doc:heading>
       <doc:subsection name="connection-recovery">
@@ -828,7 +774,7 @@ factory.newConnection(addresses);</pre>
           in order to use those methods.
         </p>
       </doc:subsection>
-      
+
 
       <doc:subsection name="publishers">
         <doc:heading>Effects on Publishing</doc:heading>
@@ -946,5 +892,62 @@ cf.setRequestedHeartbeat(5);
         being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
       </p>
     </doc:section>
+
+
+      <doc:section name="rpc">
+	<doc:heading>Basic RPC</doc:heading>
+
+	<p>
+	  As a programming convenience, the Java client API offers a
+	  class <code>RpcClient</code> which uses a temporary reply
+	  queue to provide simple RPC-style communication facilities via AMQP 0-9-1.
+	</p>
+	<p>
+	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
+	  It simply provides a mechanism for sending a message to a given exchange with a particular
+	  routing key, and waiting for a response on a reply queue.
+	</p>
+
+	<pre class="sourcecode">
+<b>import</b> com.rabbitmq.client.RpcClient;
+
+RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
+	<p>
+	  (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
+	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
+	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
+	</p>
+
+	<p>
+	  Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
+	</p>
+
+	<pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
+String stringCall(String message)
+Map mapCall(Map message)
+Map mapCall(Object[] keyValuePairs)</pre>
+
+	<p>
+	  The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
+	  bodies. The method <code>stringCall</code> is a thin
+	  convenience wrapper around <code>primitiveCall</code>,
+	  treating the message bodies as <code>String</code> instances
+	  in the default character encoding.
+	</p>
+	<p>
+	  The <code>mapCall</code> variants are a little more sophisticated: they encode
+	  a <code>java.util.Map</code> containing ordinary Java values
+	  into an AMQP 0-9-1 binary table representation, and decode the
+	  response in the same way. (Note that there are some restrictions on what value
+	  types can be used here - see the javadoc for details.)
+	</p>
+
+	<p>
+	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
+	  transport mechanism, and just provide a wrapping layer on top of it.
+	</p>
+      </doc:section>
+
   </body>
 </html>
