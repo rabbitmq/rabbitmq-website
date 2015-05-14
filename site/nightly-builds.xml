@@ -45,7 +45,7 @@
           As with our published live releases, we continue to digitally
           sign the nightly build artefacts using
           <a href="http://www.gnupg.org/">GnuPG</a> and
-          <a href="rabbit-nightly-signing-key-public.asc">
+          <a href="https://rabbitmq.com/rabbit-nightly-signing-key-public.asc">
               our nightly builds public signing key</a>.
       </p>
       <p>
