@@ -7,47 +7,21 @@ This repository contains source code for rabbitmq.com content.
 
 ## Branches
 
-There are three noteworthy and long-lived named branches in the
-rabbitmq-website repo:
+There are three noteworthy and long-lived named branches in this
+repository:
 
 Branch  | Description
 --------|------------------------------------------------------------------------
 live:   | The current version of the website. This must represent whatever's
         | deployed to www.rabbitmq.com.
-        |
 master: | Changes to the website that will correspond to the next release of
         | rabbitmq. This gets merged into live when the release occurs. Normally
         | this should represent whatever's deployed to next.rabbitmq.com.
-        |
 stable: | Like "master", but for changes that will correspond to the next bugfix
         | release.
-        |
 stage:  | The staging version of the website. Only relevant while a release is
         | being prepared, it acts to snapshot master in case changes are made
         | to that during the release process.
-
-Modes
-=====
-
-The website also has the concept of being deployed in modes. The three
-modes are:
-
-Mode     | Description
----------|------------------------------------------------------------------------
-www:     |  this is the "normal" mode. You would normally deploy from the live
-         |  branch with this mode.
-         |
-next:    |  this is the mode for next.rabbitmq.com. This mode has the home page
-         |  and download page chopped down, no blog or search, and a watermark.
-         |  You would normally deploy from the master branch with this mode.
-         |
-previous | for previous.rabbitmq.com. The website is reduced in the same way
-         | as "next", but this mode is meant for previous releases rather than
-         | future releases.
-
-You determine which mode you are using with an argument to the driver
-or deploy scripts. Modes are implemented with the <x:modal/> tag and
-the $page-mode variable in XSLT.
 
 ## Development environment
 
@@ -84,6 +58,26 @@ Using the system Python, you can install the necessary parts with:
     sudo easy_install pip
     sudo pip install lxml
     sudo pip install markdown
+
+### Modes
+
+The website also has the concept of being deployed in modes. The three
+modes are:
+
+Mode     | Description
+---------|------------------------------------------------------------------------
+www      | This is the "normal" mode. You would normally deploy from the live
+         | branch with this mode.
+next     | This is the mode for next.rabbitmq.com. This mode has the home page
+         | and download page chopped down, no blog or search, and a watermark.
+         | You would normally deploy from the master branch with this mode.
+previous | For previous.rabbitmq.com. The website is reduced in the same way
+         | as "next", but this mode is meant for previous releases rather than
+         | future releases.
+
+You determine which mode you are using with an argument to the driver
+or deploy scripts. Modes are implemented with the `<x:modal/>` tag and
+the `$page-mode` variable in XSLT.
 
 
 ## Copyright and License
