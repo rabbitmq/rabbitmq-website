@@ -7,21 +7,39 @@ This repository contains source code for rabbitmq.com content.
 
 ## Branches
 
-There are three noteworthy and long-lived named branches in this
+There are a few noteworthy and long-lived named branches in this
 repository:
 
-Branch  | Description
---------|------------------------------------------------------------------------
-live:   | The current version of the website. This must represent whatever's
-        | deployed to www.rabbitmq.com.
-master: | Changes to the website that will correspond to the next release of
-        | rabbitmq. This gets merged into live when the release occurs. Normally
-        | this should represent whatever's deployed to next.rabbitmq.com.
-stable: | Like "master", but for changes that will correspond to the next bugfix
-        | release.
-stage:  | The staging version of the website. Only relevant while a release is
-        | being prepared, it acts to snapshot master in case changes are made
-        | to that during the release process.
+<table>
+  <thead>
+    <td>Branch</td>
+    <td>Description</td>
+  </thead>
+
+  <tr>
+    <td>live</td>
+    <td>
+        The current version of the website. This must represent whatever's
+        deployed to www.rabbitmq.com.    
+    </td>
+  </tr>
+  <tr>
+    <td>master</td>
+    <td>
+        Changes to the website that will correspond to the next release of
+        rabbitmq. This gets merged into live when the release occurs. Normally
+        this should represent whatever's deployed to next.rabbitmq.com.
+    </td>
+  </tr>
+  <tr>
+    <td>stage</td>
+    <td>
+        The staging version of the website. Only relevant while a release is
+        being prepared, it acts to snapshot master in case changes are made
+        to that during the release process.
+    </td>
+  </tr>  
+</table>
 
 ## Development environment
 
