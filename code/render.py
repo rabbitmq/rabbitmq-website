@@ -5,6 +5,10 @@ import os.path
 import markdown
 import codecs
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 try:
     from mod_python import apache
 except ImportError:
@@ -73,7 +77,9 @@ def preprocess_markdown(fpath):
 
 <div id="tutorial">""".format(tutorial.group(1))
         processed = tutorial_head + processed + '</div>'
-    return etree.fromstring(pre + head + processed + post).getroottree()
+    utf8_parser = etree.XMLParser(encoding='utf-8')
+    s = (pre + head + processed + post).encode("utf-8")
+    return etree.fromstring(s, parser = utf8_parser).getroottree()
 
 
 def parse(fpath):
