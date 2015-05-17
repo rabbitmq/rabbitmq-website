@@ -3,6 +3,7 @@ import re
 import os
 import os.path
 import markdown
+import codecs
 
 try:
     from mod_python import apache
@@ -72,7 +73,6 @@ def preprocess_markdown(fpath):
 
 <div id="tutorial">""".format(tutorial.group(1))
         processed = tutorial_head + processed + '</div>'
-
     return etree.fromstring(pre + head + processed + post).getroottree()
 
 
