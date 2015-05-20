@@ -112,6 +112,7 @@
       <p id="copyright">
         Copyright &#169; 2015 Pivotal Software, Inc. All rights reserved
         |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+        |&#160;<a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a>
       </p>
     </div>
   </xsl:template>
@@ -213,6 +214,7 @@
     <xsl:copy-of select="node()"/>
   </xsl:template>
 
+
   <!-- ############################################################ -->
 
   <xsl:template match="r:downloads">
@@ -232,13 +234,27 @@
     <tr>
       <td class="desc" id="{@id}"><xsl:apply-templates /></td>
       <td>
-        <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+      <xsl:choose>
+        <xsl:when test="@absolute = 'yes'">
+          <a class="adownload" href="{@url}"><xsl:value-of select="@downloadfile"/></a>
+        </xsl:when>
+        <xsl:otherwise>
+          <a class="adownload" href="/releases/{@downloadpath}/{@downloadfile}"><xsl:value-of select="@downloadfile"/></a>
+        </xsl:otherwise>
+      </xsl:choose>
+
       </td>
-      <xsl:if test="../@signature = 'yes'">
-         <td class="signature">
+      <xsl:choose>
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no')">
+          <td class="signature">
             <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
-         </td>
-      </xsl:if>
+          </td>
+        </xsl:when>
+        <xsl:otherwise>
+          <td class="signature">
+          </td>
+        </xsl:otherwise>
+      </xsl:choose>
     </tr>
   </xsl:template>
 

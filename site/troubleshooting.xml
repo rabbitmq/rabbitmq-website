@@ -153,6 +153,17 @@
               See <a href="troubleshooting-ssl.html">SSL troubleshooting</a>.
             </p>
           </dd>
+
+          <dt><strong>Client Connection Takes a Long Time</strong></dt>
+          <dd>
+            <p>
+              Client connections generally should not take more than a second
+              on networks with reasonable latency. If it takes 10 or more seconds
+              for a client to connect to RabbitMQ, this typically suggests a DNS resolution timeout.
+              This is often the case with environements that use VPN, which may alter DNS servers
+              configuration silently.
+            </p>
+          </dd>
         </dl>
         <p>
           If the server is not behaving as expected during operation,
@@ -161,8 +172,8 @@
           to obtain further information on the server status.
         </p>
         <p>
-          For problems encountered in the handling of AMQP traffic,
-          the <a href="api-guide.html#tracer">AMQP capture and analysis
+          For problems encountered in the handling of network traffic,
+          the <a href="api-guide.html#tracer">RabbitMQ capture and analysis
           tool</a> may help in the analysis.
         </p>
         <p>
@@ -170,21 +181,14 @@
           Try using the search box at the top of our web pages to find site,
           mailing list and blog information.
            You might also check our
-          <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/">mailing list archives</a>.
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">mailing list archives</a>.
         </p>
         <p>
           If you still can't find a solution to your problem then
           please post a new message to
-          <a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>
-          (you may have to
-          <a href="http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">
-          join the mailing list first</a>).
-          Let us know what you were trying to do, the error you received and
-          relevant entries from the logfile and one of our engineers will help you get it fixed.
-        </p>
-        <p>
-          If all of the above fails, please <a href="contact.html">tell us about the problem</a>,
-          including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+          Please specify what you were trying to do and the error you're getting.
+          Plase also including the log files under <b>RABBITMQ_LOG_BASE</b> in your report.
         </p>
   </body>
 </html>

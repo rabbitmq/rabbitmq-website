@@ -58,7 +58,7 @@
      <x:related url="/troubleshooting.html" text="Troubleshooting"/>
    </x:modal>
    </x:page>
-   <x:page url="/documentation.html" text="Documentation">
+   <x:page url="/documentation.html" text="Docs">
      <x:page url="/admin-guide.html" text="Server Documentation">
        <x:page url="/configure.html" text="Configuration">
          <x:page url="/relocate.html" text="File Locations"/>
@@ -214,10 +214,11 @@
        <x:page url="/tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
      </x:page>
    </x:page>
-   <x:page url="/services.html" text="Services"/>
+   <x:page url="/services.html" text="Support"/>
    <x:page url="/community.html" text="Community">
-     <x:page url="/how.html" text="How To..."/>
+     <x:page url="/getstarted.html" text="Tutorials"/>
      <x:page url="/devtools.html" text="Development tools"/>
      <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
+   <x:page url="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J" text="We're Hiring"/>
 </x:pages>

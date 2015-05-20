@@ -14,7 +14,7 @@
     <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
     <div class="landing-box">
       <h2>RabbitMQ Server</h2>
-      <h3>Quick Download</h3>
+      <h3>Downloads on rabbitmq.com</h3>
       <ul>
         <li>
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.exe">Windows</a> |
@@ -28,6 +28,19 @@
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
         </li>
       </ul>
+
+      <h3>Downloads <a href="https://github.com/rabbitmq/rabbitmq-server/releases">on GitHub</a></h3>
+      <ul>
+        <li>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">Windows</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
+          Binary
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">.zip</a>
+        </li>
+      </ul>
+
       <h3>Installation Guides</h3>
       <ul>
         <li>
@@ -48,11 +61,22 @@
             <a href="install-generic-unix.html">Generic Unix</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
-        <li>
-            Cloud:
-            <a href="ec2.html">EC2</a>
-        </li>
       </ul>
+
+      <h3>Cloud</h3>
+      <ul>
+        <li><a href="ec2.html">Amazon EC2</a></li>
+        <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
+        <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
+      </ul>
+
+      <h3>Chef, Puppet, Docker</h3>
+      <ul>
+        <li><a href="https://github.com/jjasghar/rabbitmq">Chef cookbook</a></li>
+        <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
+        <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a></li>
+      </ul>
+
       <h3>Older Versions</h3>
       <ul>
         <li>
@@ -66,6 +90,10 @@
       <h2>Official Clients</h2>
       <h3>Java Client</h3>
       <ul>
+        <li>
+          On Maven Central:
+          <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.rabbitmq%22%20AND%20a%3A%22amqp-client%22">RabbitMQ Java client</a>.
+        </li>
         <li>
           Quick download:
           Binary
@@ -85,8 +113,12 @@
       <h3>.NET/C# Client</h3>
       <ul>
         <li>
+          On NuGet:
+          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client</a>.
+        </li>
+        <li>
           Quick download:
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-3.5.zip">Binary (.NET 3.5+)</a> |
+          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.0.zip">Binary</a> |
           <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;.zip">Source</a>
         </li>
         <li>

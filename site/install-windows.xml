@@ -17,8 +17,12 @@
       <r:downloads signature="yes">
         <r:download downloadfile="rabbitmq-server-&version-server;.exe"
 		    downloadpath="&dir-server;">
-	  Installer for Windows systems
+	  Installer for Windows systems (from rabbitmq.com)
         </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;.exe"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">
+	  Installer for Windows systems (from github.com)
+        </r:download>        
       </r:downloads>
       <doc:subsection name="install-windows">
         <doc:heading>Uninstall previous version</doc:heading>

@@ -15,6 +15,88 @@
       -->
 
     <doc:item>
+      <doc:date iso="2015-05-12T12:12:00+0200">12 May 2015</doc:date>
+      <doc:title>RabbitMQ 3.5.2 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_2</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.5.2.
+        </p>
+
+        <p>
+          This release fixes a number of bugs in 3.5.1 and earlier
+          versions.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <a href="">We're Hiring</a>
+
+    <doc:item>
+      <doc:date iso="2015-04-16T08:00:00+0300">16 April 2015</doc:date>
+      <doc:title>RabbitMQ team is Hiring Engineers</doc:title>
+      <doc:link>https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J</doc:link>
+      <doc:text>
+        <p>
+          RabbitMQ team at Pivotal has <a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">2 engineering positions open</a>. Come help us make
+          RabbitMQ better!
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
+      <doc:date iso="2015-04-03T08:00:00+0300">03 April 2015</doc:date>
+      <doc:title>RabbitMQ 3.5.1 release</doc:title>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_1</doc:link>
+      <doc:text>
+        <p>
+          The RabbitMQ team is pleased to announce the release of RabbitMQ
+          3.5.1.
+        </p>
+
+        <p>
+          This release fixes a number of bugs in 3.5.0 and earlier
+          versions.
+        </p>
+
+        <p>
+          Binary and source distributions of the new release can
+          be found on the
+          <a href="http://www.rabbitmq.com/download.html">download page</a>.
+        </p>
+        <p>
+          We encourage all users of earlier versions of RabbitMQ to
+          upgrade to this latest release.
+        </p>
+        <p>
+          As always, we welcome any questions, bug reports, and other feedback
+          on this release, as well as general suggestions for features and
+          enhancements in future releases. Contact us via the
+          <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a>
+          Google group.
+        </p>
+      </doc:text>
+    </doc:item>
+
+    <doc:item>
       <doc:date iso="2015-03-11T09:50:26+0100">11 March 2015</doc:date>
       <doc:title>RabbitMQ 3.5.0 release</doc:title>
       <doc:link>release-notes/README-3.5.0.txt</doc:link>
@@ -1418,9 +1500,9 @@
       <doc:title>
         RabbitMQ 2.7.1 release
       </doc:title>
-      
+
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-December/016941.html</doc:link>
-      
+
       <doc:text>
         <p>
           The RabbitMQ team is delighted to announce the release of RabbitMQ
@@ -1434,7 +1516,7 @@
         </p>
         <p>
           Binary and source distributions of the new release can
-          be found on the 
+          be found on the
           <a href="http://www.rabbitmq.com/download.html">download page</a>.
         </p>
         <p>
@@ -1445,7 +1527,7 @@
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
           enhancements in future releases. Mail us on the RabbitMQ discussion
-          list (signup 
+          list (signup
           <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
           and then e-mail to &lt;rabbitmq-discuss at lists.rabbitmq.com&gt;), or
           contact us directly by e-mailing &lt;info at rabbitmq.com&gt;.
@@ -1458,9 +1540,9 @@
       <doc:title>
         RabbitMQ 2.7.0 release
       </doc:title>
-      
+
       <doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2011-November/016069.html</doc:link>
-      
+
       <doc:text>
         <p>
           The RabbitMQ team is delighted to announce the release of RabbitMQ
@@ -1476,7 +1558,7 @@
 
         <p>
           Binary and source distributions of the new release can
-          be found on the 
+          be found on the
           <a href="http://www.rabbitmq.com/download.html">download page</a>.
         </p>
 
@@ -1489,7 +1571,7 @@
           As always, we welcome any questions, bug reports, and other feedback
           on this release, as well as general suggestions for features and
           enhancements in future releases. Mail us on the RabbitMQ discussion
-          list (signup 
+          list (signup
           <a href="https://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss">here</a>
           and then e-mail to rabbitmq-discuss at lists.rabbitmq.com), or contact
           us directly by e-mailing to info at rabbitmq.com.
@@ -1760,7 +1842,7 @@
         <doc:link>http://www.erlang-factory.com/conference/London2011/speakers/AlvaroVidela</doc:link>
         <doc:text>
           <p><a href="http://obvioushints.blogspot.com/">Alvaro Videla</a>, co-author of <a href="http://manning.com/videla/">RabbitMQ in Action</a>, will
-             be speaking about RabbitMQ and messaging patterns at the next <a href="http://www.erlang-factory.com/conference/London2011/">Erlang 
+             be speaking about RabbitMQ and messaging patterns at the next <a href="http://www.erlang-factory.com/conference/London2011/">Erlang
              Factory meeting</a> in London, June 9-10th.</p>
           <p>Alvaro will present how to implement several messaging patterns using RabbitMQ such as:
             <ul class="plain">
@@ -2068,7 +2150,7 @@
 	</doc:title>
 
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html</doc:link>
-	
+
 	<doc:text>
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.8.1.</p>
 
@@ -2079,10 +2161,10 @@
           include the ability to observe channel.flow events from the
           Java API and clustering usability improvements.</p>
 
-	  <p>For details see 
+	  <p>For details see
 	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-July/000027.html">the release notes</a>.</p>
 
-	  <p>Binary and source distributions of the new release can be found in the 
+	  <p>Binary and source distributions of the new release can be found in the
 	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
@@ -2096,7 +2178,7 @@
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2010-06-16T00:00:00Z">16 June 2010</doc:date>
 	<doc:title>
@@ -2104,7 +2186,7 @@
 	</doc:title>
 
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html</doc:link>
-	
+
 	<doc:text>
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.8.0.</p>
 
@@ -2117,10 +2199,10 @@
           obey the instruction to stop sending messages to Rabbit when
           Rabbit comes under memory pressure.</p>
 
-	  <p>For details see 
+	  <p>For details see
 	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2010-June/000025.html">the release notes</a>.</p>
 
-	  <p>Binary and source distributions of the new release can be found in the 
+	  <p>Binary and source distributions of the new release can be found in the
 	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
@@ -2134,7 +2216,7 @@
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2010-04-13T00:00:00Z">13 April 2010</doc:date>
 	<doc:title>
@@ -2142,32 +2224,32 @@
 	</doc:title>
 
 	<doc:link>/resources/SpringSourceAcquiresRabbitTech.pdf</doc:link>
-	
+
 	<doc:text>
 
-	<p>Rabbit Technologies Ltd. (RTL), the company behind RabbitMQ, today announced that the company 
-	is to be acquired by SpringSource, a division of VMware, Inc.. RTL was founded in February 2007 
-	and is a spin out from LShift Ltd., the UK software consultancy, and Cohesive FT, the US 
+	<p>Rabbit Technologies Ltd. (RTL), the company behind RabbitMQ, today announced that the company
+	is to be acquired by SpringSource, a division of VMware, Inc.. RTL was founded in February 2007
+	and is a spin out from LShift Ltd., the UK software consultancy, and Cohesive FT, the US
 	virtualization and cloud computing company. </p>
 
-	<p>The Rabbit Team are very excited about the deal. “RabbitMQ is an extremely successful 
-	technology and forms the backbone for many varied cloud messaging systems,” said Alexis 
-	Richardson, chief executive officer and co-founder, Rabbit Technologies, Ltd. “By 
-	providing a multi-protocol, completely open, portable messaging system, our technology 
-	can be a key enabler of tomorrow’s applications. By joining with enterprise leaders, 
+	<p>The Rabbit Team are very excited about the deal. “RabbitMQ is an extremely successful
+	technology and forms the backbone for many varied cloud messaging systems,” said Alexis
+	Richardson, chief executive officer and co-founder, Rabbit Technologies, Ltd. “By
+	providing a multi-protocol, completely open, portable messaging system, our technology
+	can be a key enabler of tomorrow’s applications. By joining with enterprise leaders,
 	SpringSource and VMware, RabbitMQ expects to continue to be at the forefront of the
-	movement toward cloud computing. Users and customers will benefit from an organization 
+	movement toward cloud computing. Users and customers will benefit from an organization
 	offering deep and immediate experience with the challenges of managing highly available
-	and stable operations.”</p>  
+	and stable operations.”</p>
 
 	<p>RabbitMQ will continue to be open source and distributed in the same way as before.
 	The RabbitMQ community can expect to see increased investment in this outstanding technology
 	which should result in significant improvements to the open source release.</p>
 
-	<p>RabbitMQ customers will see an increase in availability of training, professional 
+	<p>RabbitMQ customers will see an increase in availability of training, professional
 	services and support offerings as the RabbitMQ business is integrated with SpringSource. </p>
 
-	<p>For more details please see <a href="/resources/SpringSourceAcquiresRabbitTech.pdf">the 
+	<p>For more details please see <a href="/resources/SpringSourceAcquiresRabbitTech.pdf">the
 	full press release</a>.</p>
 
 	<p>Contacts:</p>
@@ -2184,14 +2266,14 @@
 
 	<p><strong>Cohesive FT</strong><br />
 	Dwight Koop, <a href="mailto:dwight.koop@cohesiveft.com">dwight.koop@cohesiveft.com</a></p>
-    
+
 	<p>Acknowledgements:</p>
-	<p>Rabbit Technologies would like to thank <strong>Orrick, Herrington &amp; Sutcliffe LLP (London)</strong> for acting 
+	<p>Rabbit Technologies would like to thank <strong>Orrick, Herrington &amp; Sutcliffe LLP (London)</strong> for acting
 	as counsel throughout the acquisition process. Visit
 	<a href="http://www.orrick.com/offices/london/index.asp">their website</a>.</p>
 	</doc:text>
-      </doc:item>    
-      
+      </doc:item>
+
       <doc:item>
 	<doc:date iso="2010-04-12T00:00:00Z">12 April 2010</doc:date>
 	<doc:title>
@@ -2199,16 +2281,16 @@
 	</doc:title>
 
 	<doc:link>http://skillsmatter.com/event/cloud-grid/cloud-grid-exchange-2010/wd-777</doc:link>
-	
+
 	<doc:text>
-	  <p>Alexis Richardson, Rabbit Technologies CEO, will be speaking at the Cloud &amp; Grid 
-	  Exchange in London, 23rd April. In his talk, Alexis will present use cases for cloud 
-	  messaging: what is messaging and why it is useful for cloud computing? This talk will 
+	  <p>Alexis Richardson, Rabbit Technologies CEO, will be speaking at the Cloud &amp; Grid
+	  Exchange in London, 23rd April. In his talk, Alexis will present use cases for cloud
+	  messaging: what is messaging and why it is useful for cloud computing? This talk will
 	  answer these questions by way of illustrating use cases from RabbitMQ customers.</p>
 	  <p><a href="http://skillsmatter.com/event/cloud-grid/cloud-grid-exchange-2010/wd-777">Read more</a></p>
 	</doc:text>
-      </doc:item>      
-      
+      </doc:item>
+
       <doc:item>
 	<doc:date iso="2010-02-16T00:00:00Z">16 February 2010</doc:date>
 	<doc:title>
@@ -2216,7 +2298,7 @@
 	</doc:title>
 
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html</doc:link>
-	
+
 	<doc:text>
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.7.2.</p>
 
@@ -2231,10 +2313,10 @@
 	  Java client has been improved and there are several bug fixes and
 	  enhancements to the AMQP Tracer tool.</p>
 
-	  <p>For details see 
+	  <p>For details see
 	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-February/006353.html">the release notes</a>.</p>
 
-	  <p>Binary and source distributions of the new release can be found in the 
+	  <p>Binary and source distributions of the new release can be found in the
 	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
@@ -2248,7 +2330,7 @@
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2010-01-25T00:00:00Z">25 January 2010</doc:date>
 	<doc:title>
@@ -2256,7 +2338,7 @@
 	</doc:title>
 
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html</doc:link>
-	
+
 	<doc:text>
 	  <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.7.1.</p>
 
@@ -2274,10 +2356,10 @@
 	  MacPorts, and improved performance and error reporting in the Java and
 	  .Net clients.</p>
 
-	  <p>For details see 
+	  <p>For details see
 	  <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2010-January/005993.html">the release notes</a>.</p>
 
-	  <p>Binary and source distributions of the new release can be found in the 
+	  <p>Binary and source distributions of the new release can be found in the
 	  <a href="http://www.rabbitmq.com/download.html">usual place</a>.</p>
 
 	  <p>We recommend that all users of earlier versions of RabbitMQ upgrade to
@@ -2291,7 +2373,7 @@
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2010-01-05T00:00:00Z">05 January 2010</doc:date>
 	<doc:title>
@@ -2302,13 +2384,13 @@
 
 	<doc:text>
 	<p>RabbitMQ was listed as one of the <strong>Best Cloud Application Providers</strong> in John M Willis
-	second annual 'Cloudies' awards. John has worked in the IT management industry for 30 years and is 
+	second annual 'Cloudies' awards. John has worked in the IT management industry for 30 years and is
 	known internationally for his <a href="http://www.johnmwillis.com">IT Management and Cloud blog</a>.
 	</p>
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2009-12-07T00:00:00Z">07 December 2009</doc:date>
 	<doc:title>
@@ -2326,9 +2408,9 @@
 
 	</doc:text>
       </doc:item>
-      
-      
-      
+
+
+
       <doc:item>
 	<doc:date iso="2009-10-08T00:00:00Z">08 October 2009</doc:date>
 	<doc:title>
@@ -2338,28 +2420,28 @@
 	<doc:link>http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf</doc:link>
 
 	<doc:text>
-	<p>Rabbit Technologies Limited, the company behind RabbitMQ, today 
-	announced the signing of a formal teaming agreement with Ubuntu sponsor 
+	<p>Rabbit Technologies Limited, the company behind RabbitMQ, today
+	announced the signing of a formal teaming agreement with Ubuntu sponsor
 	Canonical. The goal of the partnership is to promote open standards in
 	the emerging cloud computing space.</p>
 
-	<p>"We want to be sure our users can navigate safely into the cloud", said 
+	<p>"We want to be sure our users can navigate safely into the cloud", said
 	Simon Wardley, software services manager for Canonical, "and we see this
-	working according to three rules. Rule one is to build on their own 
-	infrastructure. Rule two is moving between their infrastructure and an external 
-	provider. Rule three is switching between providers. RabbitMQ provides an 
-	important message bus in the cloud that enables applications to interoperate 
-	without dependency upon a proprietary solution. It will play a significant 
+	working according to three rules. Rule one is to build on their own
+	infrastructure. Rule two is moving between their infrastructure and an external
+	provider. Rule three is switching between providers. RabbitMQ provides an
+	important message bus in the cloud that enables applications to interoperate
+	without dependency upon a proprietary solution. It will play a significant
 	role in the future of cloud switching."</p>
 
-	<p>For details see <a href="http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf">the 
+	<p>For details see <a href="http://www.rabbitmq.com/resources/RabbitMQ_CanonicalTeaming_PR.pdf">the
 	full press release</a>.</p>
 
 	</doc:text>
       </doc:item>
 
 
-            
+
       <doc:item>
 	<doc:date iso="2009-10-07T00:00:00Z">07 October 2009</doc:date>
 	<doc:title>
@@ -2381,22 +2463,22 @@ configuration. Finally, there are a number of small bug fixes.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20091007/3aaed239/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual 
+<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
-<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this 
+<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
 latest release.</p>
 
-<p>As always, we welcome any questions, bug reports, and other feedback on this 
-release, as well as general suggestions for features and enhancements in future 
-releases. Mail us via the RabbitMQ discussion list at 
-<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>, 
+<p>As always, we welcome any questions, bug reports, and other feedback on this
+release, as well as general suggestions for features and enhancements in future
+releases. Mail us via the RabbitMQ discussion list at
+<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
 or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	</doc:text>
       </doc:item>
 
- 	      
+
       <doc:item>
 	<doc:date iso="2009-09-30T00:00:00Z">30 September 2009</doc:date>
 	<doc:title>
@@ -2422,7 +2504,7 @@ Ruby on Rails.</p>
 	<p>The virtual appliance is available to download for free from the <a href="http://www.vmware.com/appliances/">VMware virtual appliance marketplace</a>.</p>
 
 	</doc:text>
-      </doc:item>              
+      </doc:item>
       <doc:item>
 	<doc:date iso="2009-07-22T00:00:00Z">22 July 2009</doc:date>
 	<doc:title>
@@ -2433,20 +2515,20 @@ Ruby on Rails.</p>
 
 	<doc:text>
 <p>The RabbitMQ team have been busy giving presentations about the use of RabbitMQ at events
-like Google London, Oxford Geek Night, Erlang Factory etc. Many of these presentations were 
+like Google London, Oxford Geek Night, Erlang Factory etc. Many of these presentations were
 filmed, and you can catch up online.</p>
 
 
-	
-	<p>Check out 
+
+	<p>Check out
 <a href="http://delicious.com/alexisrichardson/rabbitmq+video">these bookmarks on Delicious</a>.</p>
 
-<p>There have also been many exciting developments in the RabbitMQ community recently. Keep an eye 
+<p>There have also been many exciting developments in the RabbitMQ community recently. Keep an eye
 on <a href="how.html">this page</a> for a summary of who is doing what, and how, with RabbitMQ.</p>
 
 	</doc:text>
       </doc:item>
-            
+
       <doc:item>
 	<doc:date iso="2009-07-15T00:00:00Z">15 July 2009</doc:date>
 	<doc:title>
@@ -2456,15 +2538,15 @@ on <a href="how.html">this page</a> for a summary of who is doing what, and how,
 	<doc:link>http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=</doc:link>
 
 	<doc:text>
-	
+
 <p>Kaazing Corporation, makers of gateways that connect web-based applications to high-volume, real-time message traffic, today announced support for the Advanced Message Queuing Protocol (AMQP) in the most recent release of the company's flagship product, Kaazing Enterprise Gateway (KEG).</p>
 
 <p>For details see <a href="http://news.prnewswire.com/ViewContent.aspx?ACCT=109&amp;STORY=/www/story/07-14-2009/0005059766&amp;EDATE=">the full release</a>.</p>
 
 	</doc:text>
       </doc:item>
-  
-            
+
+
       <doc:item>
 	<doc:date iso="2009-06-17T00:00:00Z">17 June 2009</doc:date>
 	<doc:title>
@@ -2485,24 +2567,24 @@ bug fixes.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090617/c0781ab0/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual 
+<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
-<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this 
+<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
 latest release.</p>
 
-<p>As always, we welcome any questions, bug reports, and other feedback on this 
-release, as well as general suggestions for features and enhancements in future 
-releases. Mail us via the RabbitMQ discussion list at 
-<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>, 
+<p>As always, we welcome any questions, bug reports, and other feedback on this
+release, as well as general suggestions for features and enhancements in future
+releases. Mail us via the RabbitMQ discussion list at
+<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
 or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	</doc:text>
       </doc:item>
 
-      
-      
-      
+
+
+
       <doc:item>
 	<doc:date iso="2009-06-03T00:00:00Z">03 June 2009</doc:date>
 	<doc:title>
@@ -2525,7 +2607,7 @@ for inclusion.</p>
 
 	</doc:text>
       </doc:item>
-    
+
       <doc:item>
 	<doc:date iso="2009-05-20T00:00:00Z">20 May 2009</doc:date>
 	<doc:title>
@@ -2537,22 +2619,22 @@ for inclusion.</p>
 	<doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.5</p>
 
-<p>This release has 'final' status and fixes a small number of bugs in the server, 
-the startup and control scripts on Windows, and the Debian/RPM packaging. Also 
-included are some minor enhancements to the way the server can be configured. The 
+<p>This release has 'final' status and fixes a small number of bugs in the server,
+the startup and control scripts on Windows, and the Debian/RPM packaging. Also
+included are some minor enhancements to the way the server can be configured. The
 RabbitMQ clients have remained unchanged.</p>
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090520/dbf9c694/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual 
+<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
-<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this 
+<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
 latest release.</p>
 
-<p>As always, we welcome any questions, bug reports, and other feedback on this 
-release, as well as general suggestions for features and enhancements in future 
-releases. Mail us via the RabbitMQ discussion list at 
-<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>, 
+<p>As always, we welcome any questions, bug reports, and other feedback on this
+release, as well as general suggestions for features and enhancements in future
+releases. Mail us via the RabbitMQ discussion list at
+<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
 or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	</doc:text>
@@ -2582,9 +2664,9 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	</doc:text>
       </doc:item>
 
-      
-            
-      
+
+
+
       <doc:item>
 	<doc:date iso="2009-04-06T00:00:00Z">6 April 2009</doc:date>
 	<doc:title>
@@ -2596,29 +2678,29 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:text>
 <p>The RabbitMQ team is pleased to announce the release of RabbitMQ 1.5.4.</p>
 
-<p>This release has 'final' status and fixes a small number of bugs in the server, 
-the startup and control scripts on Windows, and the Debian/RPM packaging. Also 
-included are some minor enhancements to the way the server can be configured. The 
+<p>This release has 'final' status and fixes a small number of bugs in the server,
+the startup and control scripts on Windows, and the Debian/RPM packaging. Also
+included are some minor enhancements to the way the server can be configured. The
 RabbitMQ clients have remained unchanged.</p>
 
 <p>For details see <a href="http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/attachments/20090406/fffcc5a0/attachment.txt">the release notes</a>.</p>
 
-<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual 
+<p>Binary and source distributions of the new release can be found in  <a href="http://www.rabbitmq.com/download.html">the usual
 place</a></p>
 
-<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this 
+<p>We recommend that all users of earlier versions of RabbitMQ upgrade to this
 latest release.</p>
 
-<p>As always, we welcome any questions, bug reports, and other feedback on this 
-release, as well as general suggestions for features and enhancements in future 
-releases. Mail us via the RabbitMQ discussion list at 
-<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>, 
+<p>As always, we welcome any questions, bug reports, and other feedback on this
+release, as well as general suggestions for features and enhancements in future
+releases. Mail us via the RabbitMQ discussion list at
+<a href="mailto:rabbitmq-discuss@lists.rabbitmq.com">rabbitmq-discuss@lists.rabbitmq.com</a>,
 or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	</doc:text>
       </doc:item>
 
-      
+
       <doc:item>
 	<doc:date iso="2009-03-16T00:00:00Z">16 March 2009</doc:date>
 	<doc:title>
@@ -2638,12 +2720,12 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
     <li><a href="http://gojko.net/2009/03/11/qcon-london-2009-mom-interoperability-finally/">Gojko Adzic's review</a></li>
   </ul>
   <p>If you're looking for a place to start <a href="/how">try here</a>.</p>
-      
+
 	</doc:text>
       </doc:item>
 
-	
-	
+
+
       <doc:item>
 	<doc:date iso="2009-03-11T00:00:00Z">11 March 2009</doc:date>
 	<doc:title>
@@ -2653,11 +2735,11 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	<doc:text>
 	  <p>The LShift/RabbitMQ team is pleased to announce its second visit to Qcon London, please do come and say hello.</p>
-	  <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="http://www.rabbitmq.com/how">how to use RabbitMQ</a>.</p>	  
-      
+	  <p>In honour of the event, and while we work on a new website, we produced this overview of <a href="http://www.rabbitmq.com/how">how to use RabbitMQ</a>.</p>
+
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2009-02-24T00:00:00Z">24 February 2009</doc:date>
 	<doc:title>
@@ -2759,7 +2841,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2008-10-14T00:00:00Z">14 October 2008</doc:date>
 	<doc:title>
@@ -2775,9 +2857,9 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	    <li>Ben's hackathon showing what you can do and how</li>
 	  </ol>
 	  <p>
-	    It will start at 6:30pm and be at the <a href="http://www.lshift.net/contact">LShift offices</a> in London. 
+	    It will start at 6:30pm and be at the <a href="http://www.lshift.net/contact">LShift offices</a> in London.
 	    A few beers may be provided and some RabbitMQ t-shirts are available
-	    for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming. 
+	    for people who don't have one. Please <a href="mailto:info@rabbitmq.com">let us know</a> if you're coming.
 	  </p>
 
 
@@ -2787,7 +2869,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
       <doc:item>
 	<doc:date iso="2008-09-30T00:00:00Z">30 September 2008</doc:date>
 	<doc:title>
-	  RabbitMQ Tech Talk at Google London 
+	  RabbitMQ Tech Talk at Google London
 	</doc:title>
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-discuss/2008-September/001659.html</doc:link>
 	<doc:text>
@@ -2803,7 +2885,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	  </p>
 	</doc:text>
       </doc:item>
-      
+
       <doc:item>
 	<doc:date iso="2008-07-30T00:00:00Z">30 July 2008</doc:date>
 	<doc:title>
@@ -2881,10 +2963,10 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	<doc:link>http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-September/000009.html</doc:link>
 	<doc:text>
 	  The RabbitMQ team is pleased to announce the release of
-	  RabbitMQ 1.2.0.<br/> This release has beta status. It 
-	  improves performance when running a server close to capacity 
-	  and simplifies cluster configuration, along with the 
-	  usual bug fixes and minor enhancements. Further details are 
+	  RabbitMQ 1.2.0.<br/> This release has beta status. It
+	  improves performance when running a server close to capacity
+	  and simplifies cluster configuration, along with the
+	  usual bug fixes and minor enhancements. Further details are
 	  available <a
 	  href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-September/000009.html">here</a>.
 	</doc:text>
@@ -2919,7 +3001,7 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	  details are available <a
 	  href="http://lists.rabbitmq.com/pipermail/rabbitmq-announce/2007-August/000007.html">here</a>.
 	</doc:text>
-      </doc:item>  
+      </doc:item>
       <doc:item>
 	<doc:date iso="2007-03-18T00:00:00Z">18 March 2007</doc:date>
 	<doc:title>Rabbit Technologies joins AMQP working group</doc:title>
@@ -2946,10 +3028,10 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 	</doc:text>
       </doc:item>
     </doc:feed>
-    
+
     <p>You can also  <a href="http://lists.rabbitmq.com">
     join our mailing list </a> to keep up-to-date with the latest developments
     and discussion.</p>
-    
+
   </body>
 </html>

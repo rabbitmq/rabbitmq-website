@@ -411,7 +411,7 @@ SSL-Session:
             <tr>
               <td>TLS 1.0</td>
               <td>JDK 5 (RabbitMQ Java client requires 6)</td>
-              <td>.NET 2.0 (RabbitMQ .NET client requires 3.5)</td>
+              <td>.NET 2.0 (RabbitMQ .NET client requires 4.0)</td>
             </tr>
             <tr>
               <td>TLS 1.1</td>
@@ -432,8 +432,42 @@ SSL-Session:
             <li><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/SunProviders.html#SunJSSEProvider">JDK versions source</a>.</li>
           </ul>
         </doc:subsection>
-      </doc:section>
 
+        <doc:subsection name="configuring-ciphers">
+          <doc:heading>Configuring Cipher Suites</doc:heading>
+
+          <p>
+            It is possible to configure what cipher suites will be used by RabbitMQ. Note that now all
+            suites will be available on all systems. For example, to use elliptic curve ciphers,
+            please run the most recent Erlang release available.
+
+            The below examples demonstrates how the <code>ciphers</code> TLS option is used.
+          </p>
+
+<pre class="sourcecode">
+%% List allowed ciphers
+[
+ {ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]},
+ {rabbit, [
+           {ssl_listeners, [5671]},
+           {ssl_options, [{cacertfile,"/path/to/ca_certificate.pem"},
+                          {certfile,  "/path/to/server_certificate.pem"},
+                          {keyfile,   "/path/to/server_key.pem"},
+                          {versions, ['tlsv1.2', 'tlsv1.1']},
+                          {ciphers,  [{ecdhe_ecdsa,aes_128_cbc,sha256},
+                                      {ecdhe_ecdsa,aes_256_cbc,sha}]}
+                         ]}
+          ]}
+].
+</pre>
+
+          <p>To list all cipher suites supported by installed Erlang runtime, use</p>
+
+<pre class="sourcecode">
+rabbitmqctl eval 'ssl:cipher_suites(openssl).'
+</pre>
+        </doc:subsection>
+      </doc:section>
 
       <doc:section name="trust-levels">
         <doc:heading>Levels of Trust</doc:heading>
@@ -658,7 +692,7 @@ SSL-Session:
           certificate can be used by an SSL Server, and <code>digitalSignature</code>
 
           specifies that the certificate can be used by an SSL client. The
-          values in the <code>extendedKeyUsage</code> fields precodey much just say the
+          values in the <code>extendedKeyUsage</code> fields say the
           same thing.</p>
           <p>You can use <a class="extlink" href="http://gist.github.com/145812">this small tool</a> to
           check that the certificate <i>presented by the RabbitMQ server</i> is
