@@ -513,7 +513,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </p>
 
               <p>
-                At present there are three categories defined. Other,
+                At present there are four categories defined. Other,
                 currently uncategorised, events are always logged.
               </p>
 
@@ -523,16 +523,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 
               <ul>
                 <li>
+                  <code>channel</code> - for all events relating to
+                  AMQP channels
+                </li>
+                <li>
                   <code>connection</code> - for all events relating to
                   network connections
                 </li>
                 <li>
-                  <code>mirroring</code> - for all events relating to
-                  <a href="ha.html">mirrored queues</a>
-                </li>
-                <li>
                   <code>federation</code> - for all events relating to
                   <a href="federation.html">federation</a>
+                </li>
+                <li>
+                  <code>mirroring</code> - for all events relating to
+                  <a href="ha.html">mirrored queues</a>
                 </li>
               </ul>
               <p>Default: <code>[{connection, info}]</code></p>
