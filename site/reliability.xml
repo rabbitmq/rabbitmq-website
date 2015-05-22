@@ -1,0 +1,277 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Reliability Guide</title>
+  </head>
+  <body show-in-this-page="true">
+    <doc:section name="background-info">
+      <p class="intro">
+        This page explains how to use the various features of AMQP
+        and RabbitMQ to achieve <i>reliable delivery</i> - to ensure
+        that messages are always delivered, even encountering
+        failure in any part of your system.
+      </p>
+    </doc:section>
+    <doc:section name="what-can-fail">
+      <doc:heading>What Can Fail?</doc:heading>
+      <p>
+        Network problems are probably the most common class of failure.  Not
+        only can networks fail, firewalls can interrupt idle connections,
+        and network failures are not always detected immediately.
+      </p>
+      <p>
+        In addition to connectivity failures, the broker and client
+        applications can experience hardware failure (or software can crash)
+        at any time. Additionally, even if client applications keep running,
+        logic errors can cause channel or connection errors which force the
+        client to establish a new channel or connection and recover from the
+        problem.
+      </p>
+    </doc:section>
+    <doc:section name="connection-failures">
+      <doc:heading>Connection Failures</doc:heading>
+      <p>
+        In the event of a connection failure, the client will need to
+        establish a new connection to the broker.  Any channels opened on the
+        previous connection will have been automatically closed and these will
+        need re-opening too.
+      </p>
+      <p>
+        In general when connections fail, the client will be informed by the
+        connection throwing an exception (or similar language construct). The
+        official Java and .NET clients additionally provide callback methods
+        to let you hear about connection failures in other contexts - Java
+        provides the <code>ShutdownListener</code> callback on
+        both <code>Connection</code> and <code>Channel</code> classes, and
+        .NET client provides <code>IConnection.ConnectionShutdown</code> and
+        <code>IModel.ModelShutdown</code> events for the same purpose.
+      </p>
+      <h3>Acknowledgements and Confirms</h3>
+      <p>
+        When a connection fails, messages may be in transit between client and
+        server - they may be in the middle of being parsed or generated, in OS
+        buffers, or on the wire. Messages in transit will be lost - they will
+        need to be retransmitted. <i>Acknowledgements</i> let the server and
+        clients know when to do this.
+      </p>
+      <p>
+        Acknowledgements can be used in both directions - to allow a consumer
+        to indicate to the server that it has received / processed a message
+        and to allow the server to indicate the same thing to the
+        producer. RabbitMQ refers to the latter case as a "confirm".
+      </p>
+      <p>
+        Of course, TCP ensures that packets have been received, and will
+        retransmit until they are - but that's just the network
+        layer. Acknowledgements and confirms indicate that messages have been
+        received <i>and acted upon</i>. An acknowledgement signals both the
+        receipt of a message, and a transfer of ownership where the receiver
+        assumes full responsibility for it.
+      </p>
+
+      <p>
+        Acknowledgements therefore have semantics - a consuming application
+        should not acknowledge messages until it has done whatever it needs to
+        do with them - recorded them in a database, forwarded them on, printed
+        them onto paper or anything else. Once it does so, the broker is free
+        to forget about the message.
+      </p>
+
+      <p>
+        Similarly, the broker will confirm messages once it has taken
+        responsibility for them (see <a href="confirms.html#when">here</a> for
+        what that means).
+      </p>
+
+      <p>
+        Use of acknowledgements guarantees <i>at-least-once</i>
+        delivery. Without acknowledgements, message loss is possible
+        during publish and consume operations and
+        only <i>at-most-once</i> delivery is guaranteed.
+      </p>
+    </doc:section>
+
+    <doc:section name="heartbeat-overview">
+      <doc:heading>Detecting Dead TCP Connections with Heartbeats</doc:heading>
+      <p>
+        In some types of network failure, packet loss can mean that
+        disrupted TCP connections take a moderately long time (about 11
+        minutes with default configuration on Linux, for example) to be
+        detected by the operating system. AMQP 0-9-1 offers a
+        <i>heartbeat</i> feature to ensure that the application layer
+        promptly finds out about disrupted connections (and also
+        completely unresponsive peers). Heartbeats also defend against
+        certain network equipment which may terminate "idle" TCP
+        connections. See <a href="heartbeats.html">Heartbeats</a> for details.
+      </p>
+</doc:section>
+
+
+    <doc:section name="at-the-broker">
+      <doc:heading>At the Broker</doc:heading>
+      <p>
+        In order to avoid losing messages in the broker we need to cope with
+        broker restarts, broker hardware failure and <i>in extremis</i> even
+        broker crashes.
+      </p>
+      <p>
+        To ensure that messages and broker definitions survive restarts, we
+        need to ensure that they are on disk. The AMQP standard has a concept
+        of durability for exchanges, queues and of persistent messages,
+        requiring that a durable object or persistent message will survive a
+        restart. More details about specific flags pertaining to durability
+        and persistence can be found in the
+        <a href="/tutorials/amqp-concepts.html">AMQP Concepts Guide</a>.
+      </p>
+      <h3>Clustering and High Availability</h3>
+      <p>
+        If we need to ensure that our broker survives hardware failure, we can
+        use RabbitMQ's clustering. In a RabbitMQ cluster, all definitions (of
+        exchanges, bindings, users, etc) are mirrored across the entire
+        cluster. Queues behave differently, by default residing only on a
+        single node, but optionally being mirrored across several or all
+        nodes. Queues remain visible and reachable from all nodes regardless
+        of where they are located.
+      </p>
+      <p>
+        Mirrored queues replicate their contents across all configured cluster
+        nodes, tolerating node failures seamlessly and without message loss
+        (although see <a href="ha.html#unsynchronised-slaves">this note on
+        unsynchronised slaves</a>). However, consuming applications need to be
+        aware that when queues fail their consumers will be cancelled and they
+        will need to reconsume - see <a href="ha.html#behaviour">the
+        documentation</a> for more details.
+      </p>
+    </doc:section>
+
+    <doc:section name="producer">
+      <doc:heading>At the Producer</doc:heading>
+      <p>
+        When using confirms, producers recovering from a channel or connection
+        failure should retransmit any messages for which an acknowledgement
+        has not been received from the broker. There is a possibility of
+        message duplication here, because the broker might have sent a
+        confirmation that never reached the producer (due to network failures,
+        etc). Therefore consumer applications will need to perform
+        deduplication or handle incoming messages in an idempotent manner.
+      </p>
+      <h3>Ensuring Messages are Routed</h3>
+      <p>
+        In some circumstances it can be important for producers to ensure that
+        their messages are being routed to queues (although not always - in
+        the case of a pub-sub system producers will just publish and if no
+        consumers are interested it is correct for messages to be dropped).
+      </p>
+      <p>
+        To ensure messages are routed to a single known queue, the producer
+        can just declare a destination queue and publish directly to it. If
+        messages may be routed in more complex ways but the producer still
+        needs to know if they reached at least one queue, it can set the
+        <code>mandatory</code> flag on a <code>basic.publish</code>, ensuring
+        that a <code>basic.return</code> (containing a reply code and some
+        textual explanation) will be sent back to the client if no queues were
+        appropriately bound.
+      </p>
+      <p>
+        Producers should also be aware that when publishing to a clustered node,
+        if one or more destination queues that are bound to the exchange have
+        mirrors in the cluster, it's possible to incur delays in the face of
+        network failures between nodes, due to flow control between replicas
+        and the master queue process. See <a href="nettick.html">here</a> for
+        more details.
+      </p>
+    </doc:section>
+
+    <doc:section name="consumer">
+      <doc:heading>At the Consumer</doc:heading>
+      <p>
+        In the event of network failure (or a node crashing), messages can be
+        duplicated, and consumers must be prepared to handle them. If
+        possible, the simplest way to handle this is to ensure that your
+        consumers handle messages in an idempotent way rather than explicitly
+        deal with deduplication.
+      </p>
+      <p>
+        If a message is delivered to a consumer and then requeued (because it
+        was not acknowledged before the consumer connection dropped, for
+        example) then RabbitMQ will set the <code>redelivered</code> flag on
+        it when it is delivered again (whether to the same consumer or a
+        different one). This is a hint that a consumer <i>may</i> have seen
+        this message before (although that's not guaranteed, the message may
+        have made it out of the broker but not into a consumer before the
+        connection dropped). Conversely if the <code>redelivered</code> flag
+        is not set then it is guaranteed that the message has not been seen
+        before. Therefore if a consumer finds it more expensive to deduplicate
+        messages or process them in an idempotent manner, it can do this only
+        for messages with the <code>redelivered</code> flag set.
+      </p>
+      <h3>Consumer Cancel Notification</h3>
+      <p>
+        Under some circumstances the server needs to be able to cancel a
+        consumer - since the queue it was consuming from has been deleted, or
+        has <a href="ha.html#behaviour">failed over</a>. In this case the
+        consumer should consume again but be aware that it may see messages
+        again which it has already seen.
+      </p>
+      <p>
+        Note that consumer cancel notification is a RabbitMQ extension to
+        AMQP, and as such may not be supported by all clients.
+      </p>
+      <h3>Messages That Cannot Be Processed</h3>
+      <p>
+        If a consumer determines that it cannot handle a message then it
+        can <i>reject</i> it using <code>basic.reject</code>
+        (or <code>basic.nack</code>), either asking the server to requeue it,
+        or not (in which case the server might be configured
+        to <a href="dlx.html">dead-letter</a> it instead.
+      </p>
+    </doc:section>
+
+    <doc:section name="distribution">
+      <doc:heading>Distributed RabbitMQ</doc:heading>
+      <p>
+        Rabbit provides two plugins to assist with distributing nodes over
+        unreliable networks: <a href="federation.html">federation</a> and
+        the <a href="shovel.html">shovel</a>. Both are implemented as AMQP
+        clients, so if you configure them to use confirms and
+        acknowledgements, they will retransmit when necessary. Both will use
+        confirms and acknowledgements by default.
+      </p>
+      <p>
+        When connecting clusters with federation or the shovel, it is
+        desirable to ensure that the federation links and shovels tolerate
+        node failures. Federation will automatically distribute links across
+        the downstream cluster and fail them over on failure of a downstream
+        node. In order to connect to a new upstream when an upstream
+        node fails you can specify multiple redundant URIs for an upstream,
+        or connect via a TCP load balancer.
+      </p>
+      <p>
+        When using the shovel, it is possible to specify redundant brokers in
+        a source or destination clause; however it is not currently possible
+        to make the shovel itself redundant. We hope to improve this situation
+        in the future; in the mean time a new node can be brought up manually
+        to run a shovel if the node it was originally running on fails.
+      </p>
+    </doc:section>
+  </body>
+</html>

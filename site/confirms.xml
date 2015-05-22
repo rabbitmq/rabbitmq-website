@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Confirms (aka Publisher Acknowledgements)</title>
+  </head>
+  <body>
+    <p>
+      Using standard AMQP 0-9-1, the only way to guarantee that a
+      message isn't lost is by using transactions -- make the
+      channel transactional, publish the message, commit.  In this
+      case, transactions are unnecessarily heavyweight and
+      decrease throughput by a factor of 250.  To remedy this,
+      a confirmation mechanism was introduced.
+    </p>
+
+    <p>
+      To enable confirms, a client sends the
+      <code>confirm.select</code> method.  Depending on whether
+      <code>no-wait</code> was set or not, the broker may respond
+      with a <code>confirm.select-ok</code>.  Once the
+      <code>confirm.select</code> method is used on a channel, it
+      is said to be in confirm mode.  A transactional channel
+      cannot be put into confirm mode and once a channel is in
+      confirm mode, it cannot be made transactional.
+    </p>
+
+    <p>
+      Once a channel is in confirm mode, both the broker and the
+      client count messages (counting starts at 1 on the first
+      <code>confirm.select</code>).  The broker then confirms
+      messages as it handles them by sending a
+      <code>basic.ack</code> on the same channel. The
+      <code>delivery-tag</code> field contains the sequence number
+      of the confirmed message.  The broker may also set the
+      <code>multiple</code> field in <code>basic.ack</code> to
+      indicate that all messages up to and including the one with
+      the sequence number have been handled.
+    </p>
+
+    <p>
+      An example in Java that publishes a large number of
+      messages to a channel in confirm mode and waits for the
+      acknowledgements can be found <a
+        href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-java-client/master/test/src/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
+    </p>
+
+    <h3>Negative Acknowledgment</h3>
+    <p>
+      In exceptional cases when the broker is unable to handle
+      messages successfully, instead of a <code>basic.ack</code>,
+      the broker will send a <code>basic.nack</code>.  In this
+      context, fields of the <code>basic.nack</code> have the same
+      meaning as the corresponding ones in <code>basic.ack</code>
+      and the <code>requeue</code> field should be ignored.  By
+      nack'ing one or more messages, the broker indicates that it
+      was unable to process the messages and refuses responsibility
+      for them; at that point, the client may choose to re-publish
+      the messages.
+    </p>
+
+    <p>
+      After a channel is put into confirm mode, all subsequently
+      published messages will be confirmed or nack'd once.  No
+      guarantees are made as to how soon a message is confirmed.
+      No message will be both confirmed and nack'd.
+    </p>
+
+    <p>
+      <code>basic.nack</code> will only be delivered if an internal
+      error occurs in the Erlang process responsible for a queue.
+    </p>
+
+    <h3 id="when">When will messages be confirmed?</h3>
+
+    <p>
+      For unroutable messages, the broker will issue a confirm
+      once the exchange verifies a message won't route to any queue
+      (returns an empty list of queues). If the message is also
+      published as mandatory, the <code>basic.return</code> is sent
+      to the client before <code>basic.ack</code>.
+    </p>
+
+    <p>
+      For routable messages, the <code>basic.ack</code> is sent when a
+      message has been accepted by all the queues. For persistent
+      messages routed to durable queues, this <strong>means persisting
+      to disk</strong>. For mirrored queues, this means that all
+      mirrors have accepted the message.
+    </p>
+
+    <h3 id="latency">Ack Latency for Persistent Messages</h3>
+    <p>
+      <code>basic.ack</code> for a persistent message routed to a
+      durable queue will be sent after persisting the message to
+      disk. The RabbitMQ message store persists messages to disk in
+      batches after an interval (a few hundred milliseconds) to
+      minimise the number of fsync(2) calls, or when a queue is idle.
+
+      This means that under a constant load, latency for
+      <code>basic.ack</code> can reach a few hundred milliseconds. To
+      improve throughput, applications are strongly advised to
+      process acknowledgements asynchronously (as a stream) or publish
+      batches of messages and wait for outstanding confirms. The exact
+      API for this varies between client libraries.
+    </p>
+
+    <h3>Confirms and Guaranteed Delivery</h3>
+
+    <p>
+      The broker loses persistent messages if it crashes before
+      said messages are written to disk.  Under certain
+      conditions, this causes the broker to behave in surprising
+      ways.
+    </p>
+
+    <p>
+      For instance, consider this scenario:
+      <ol>
+        <li>a client publishes a persistent message to a durable
+          queue</li>
+        <li>a client consumes the message from the queue (noting
+          that the message is persistent and the queue
+          durable), but doesn't yet ack it,</li>
+        <li>the broker dies and is restarted, and</li>
+        <li>the client reconnects and starts consuming messages.</li>
+      </ol>
+      At this point, the client could reasonably assume that the
+      message will be delivered again.  This is not the case: the
+      restart has caused the broker to lose the message.  In order to
+      guarantee persistence, a client should use confirms.  If the
+      publisher's channel had been in confirm mode, the publisher
+      would <em>not</em> have received an ack for the lost message
+      (since the message hadn't been written to disk yet).
+    </p>
+
+    <h3>Maximum Delivery Tag</h3>
+    <p>
+      Confirm delivery tag is a 64 bit long value, and thus its maximum value
+      is 9223372036854775807.
+    </p>
+  </body>
+</html>

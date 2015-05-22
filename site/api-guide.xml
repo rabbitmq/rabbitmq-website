@@ -1,0 +1,969 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+    <head>
+        <title>Java Client API Guide</title>
+    </head>
+    <body show-in-this-page="true">
+        <p class="intro">
+            This guide covers RabbitMQ Java client API. It is not, however, a tutorial. Those
+            are <a href="getstarted.html"></a> available in a different section.
+        </p>
+        <p class="intro">
+            The client is triple-licensed under
+
+            <ul>
+                <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+                <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+            </ul>
+        </p>
+        <p class="intro">
+            For more details, please see the relevant Javadoc <a
+            href="&dir-current-javadoc;">documentation</a>.
+        </p>
+        <p class="intro">
+            The Java client also ships with
+            some <a href="java-tools.html">command line tools</a>.
+        </p>
+
+    <p>
+        The client API is closely modelled on the AMQP 0-9-1 protocol specification,
+        with additional abstractions for ease of use.
+    </p>
+
+    <doc:section name="classoverview">
+        <doc:heading>Overview</doc:heading>
+        <p>
+            RabbitMQ Java client uses <code>com.rabbitmq.client</code> as its top-level package.
+            The key classes and interfaces are:
+
+            <ul>
+                <li>Channel</li>
+                <li>Connection</li>
+                <li>ConnectionFactory</li>
+                <li>Consumer</li>
+            </ul>
+
+            Protocol operations are available through the
+            <code>Channel</code> interface. <code>Connection</code> is
+            used to open channels, register connection lifecycle event
+            handlers, and close connections that are no longer needed.
+            <code>Connection</code>s are instantiated through <code>ConnectionFactory</code>,
+            which is how you configure various connection settings, such as the vhost or username.
+        </p>
+    </doc:section>
+
+	<doc:section name="connecting">
+	<doc:heading>Connections and Channels</doc:heading>
+
+	<p>
+            The core API classes are <code>Connection</code>
+            and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
+            channel, respectively. They are typically imported before used:
+	</p>
+	<pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
+<b>import</b> com.rabbitmq.client.Channel;</pre>
+
+    <doc:heading>Connecting to a broker</doc:heading>
+
+    <p>
+        The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
+    </p>
+
+<pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUsername(<b>userName</b>);
+factory.setPassword(<b>password</b>);
+factory.setVirtualHost(<b>virtualHost</b>);
+factory.setHost(<b>hostName</b>);
+factory.setPort(<b>portNumber</b>);
+Connection conn = factory.newConnection();
+</pre>
+
+    <p>
+        All of these parameters have sensible defaults for a RabbitMQ server running locally.
+    </p>
+    <p>
+        Alternatively, <a href="uri-spec.html">URIs</a> may be used:
+    </p>
+
+<pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUri("<b>amqp://userName:password@hostName:portNumber/virtualHost</b>");
+Connection conn = factory.newConnection();
+</pre>
+
+    <p>
+        All of these parameters have sensible defaults for a stock
+        RabbitMQ server running locally.
+    </p>
+
+        <p>
+	    The <code>Connection</code> interface can then be used to open a channel:
+        </p>
+
+<pre class="sourcecode">
+Channel channel = conn.createChannel();
+</pre>
+    <p>
+        The channel can now be used to send and receive messages, as described in subsequent sections.
+    </p>
+
+    <p>
+        To disconnect, simply close the channel and the connection:
+    </p>
+
+    <pre class="sourcecode">channel.close();
+conn.close();</pre>
+
+    <p>
+        Note that closing the channel may be considered good practice, but isn&#8217;t strictly necessary here - it will be done
+        automatically anyway when the underlying connection is closed.
+    </p>
+
+  </doc:section>
+
+
+	<doc:section name="exchanges-and-queues">
+	  <doc:heading>Using Exchanges and Queues</doc:heading>
+
+	  <p>
+	   Client applications work with exchanges and queues, the high-level building blocks of AMQP.
+	   These must be "declared" before they can be used. Declaring either type of object
+	   simply ensures that one of that name exists, creating it if necessary.
+	  </p>
+
+	  <p>
+	   Continuing the previous example, the following code declares an exchange and a queue,
+	   then binds them together.
+	  </p>
+
+	  <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
+String <b>queueName</b> = channel.queueDeclare().getQueue();
+channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
+	  <p>
+	    This will actively declare the following objects,
+	    both of which can be customised by using additional parameters.
+	    Here neither of them have any special arguments.
+	  </p>
+
+	  <ol>
+	    <li>a durable, non-autodelete exchange of "direct" type</li>
+	    <li>a non-durable, exclusive, autodelete queue with a generated name</li>
+	  </ol>
+
+	  <p>
+	    The above function calls then bind the queue to the exchange with the
+        given routing key.
+	  </p>
+	  <p>
+        Note that this would be a typical way to declare a queue when only one
+        client wants to work with it: it doesn&#8217;t need a well-known name, no
+        other client can use it (exclusive) and will be cleaned up
+        automatically (autodelete). If several clients want to share a queue
+        with a well-known name, this code would be appropriate:
+	  </p>
+
+	  <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
+channel.queueDeclare(<b>queueName</b>, <b>true</b>, <b>false</b>, <b>false</b>, <b>null</b>);
+channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
+	  <p>
+	    This will actively declare:
+	  </p>
+
+	  <ol>
+	    <li>a durable, non-autodelete exchange of "direct" type</li>
+	    <li>a durable, non-exclusive, non-autodelete queue with a well-known name</li>
+	  </ol>
+
+	  <p>
+	    Note that all of these <code>Channel</code> API methods are overloaded.
+	    These convenient short forms of <code>exchangeDeclare</code>, <code>queueDeclare</code> and <code>queueBind</code>
+	    use sensible defaults. There are also longer forms with more parameters, to let you override these defaults
+	    as necessary, giving full control where needed.
+	  </p>
+	  <p>
+	    This "short form, long form" pattern is used throughout the client API uses.
+	  </p>
+	</doc:section>
+
+	<doc:section name="publishing">
+	  <doc:heading>Publishing messages</doc:heading>
+
+	  <p>
+	    To publish a message to an exchange, use <code>Channel.basicPublish</code> as follows:
+	  </p>
+
+	  <pre class="sourcecode"><b>byte</b>[] messageBodyBytes = <b>"Hello, world!"</b>.getBytes();
+channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messageBodyBytes);</pre>
+
+	  <p>
+	    For fine control, you can use overloaded variants to specify the <code>mandatory</code> flag, or send messages with pre-set message properties:
+	  </p>
+
+	  <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>mandatory</b>,
+                     MessageProperties.PERSISTENT_TEXT_PLAIN,
+                     messageBodyBytes);</pre>
+
+	  <p>
+	    This sends a message with delivery mode 2 (persistent), priority 0
+	    and content-type "text/plain". You can build your
+	    own message properties object, using a <code>Builder</code> class
+	    mentioning as many properties as you like, for example:
+	  </p>
+
+	  <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
+                     <b>new</b> AMQP.BasicProperties.Builder()
+                       .contentType("text/plain").deliveryMode(2)
+                       .priority(1).userId("bob")
+                       .build()),
+                     messageBodyBytes);</pre>
+
+	  <p>
+	    We have not illustrated all the possibilities here.
+	  </p>
+	  <p>
+	    Note that <code>BasicProperties</code> is an inner class of the autogenerated
+	    holder class <code>AMQP</code>.
+	  </p>
+
+          <p>
+            Invocations of <code>Channel#basicPublish</code> will eventually block if a
+            <a href="http://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
+          </p>
+	</doc:section>
+
+	<doc:section name="channel-threads">
+	  <doc:heading>Channels and Concurrency Considerations (Thread Safety)</doc:heading>
+
+      <p>
+        <code>Channel</code> instances must not be shared between
+        threads. Applications
+        should prefer using a <code>Channel</code> per thread
+        instead of sharing the same <code>Channel</code> across
+        multiple threads. While some operations on channels are safe to invoke
+        concurrently, some are not and will result in incorrect frame interleaving
+        on the wire. Sharing channels between threads will also interfere with
+ * <a href="confirms.html">Publisher Confirms</a>.
+      </p>
+	</doc:section>
+
+	<doc:section name="consuming">
+	  <doc:heading>Receiving messages by subscription</doc:heading>
+
+	  <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
+<b>import</b> com.rabbitmq.client.DefaultConsumer;</pre>
+
+	  <p>
+	    The most efficient way to receive messages is to set up a
+	    subscription using the <code>Consumer</code>
+	    interface. The messages will then be delivered
+	    automatically as they arrive, rather than having to be
+	    explicitly requested.
+	  </p>
+
+	  <p>
+	    When calling the API methods relating to
+	    <code>Consumer</code>s, individual subscriptions are
+	    always referred to by their consumer tags, which can be
+	    either client- or server-generated as explained in <a
+	    href="http://www.amqp.org/">the AMQP specification
+	    document</a>. Distinct <code>Consumer</code>s
+        on the same <code>Channel</code> must have distinct consumer tags.
+      </p>
+
+      <p>
+	    The easiest way to implement a <code>Consumer</code> is to
+	    subclass the convenience class <code>DefaultConsumer</code>.
+	    An object of this subclass can be passed on a <code>basicConsume</code>
+	    call to set up the subscription:
+	  </p>
+
+	  <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+channel.basicConsume(queueName, autoAck, "myConsumerTag",
+     <b>new</b> DefaultConsumer(channel) {
+         @Override
+         <b>public</b> <b>void</b> handleDelivery(String consumerTag,
+                                    Envelope envelope,
+                                    AMQP.BasicProperties properties,
+                                    <b>byte</b>[] body)
+             <b>throws</b> IOException
+         {
+             String routingKey = envelope.getRoutingKey();
+             String contentType = properties.contentType;
+             <b>long</b> deliveryTag = envelope.getDeliveryTag();
+             <i>// (process the message components here ...)</i>
+             channel.basicAck(deliveryTag, <b>false</b>);
+         }
+     });</pre>
+
+      <p>
+          Here, since we specified <code>autoAck = </code><b><code>false</code></b>,
+          it is necessary to acknowledge messages delivered to the <code>Consumer</code>,
+          most conveniently done in the <code>handleDelivery</code>
+          method, as illustrated.
+      </p>
+
+	  <p>
+	    More sophisticated <code>Consumer</code>s will need to override further
+	    methods.  In particular, <code>handleShutdownSignal</code>
+	    is called when channels and connections close, and
+	    <code>handleConsumeOk</code> is passed the consumer tag
+	    before any other callbacks to that <code>Consumer</code> are called.
+	  </p>
+
+	  <p>
+	    <code>Consumer</code>s can also implement the
+	    <code>handleCancelOk</code> and <code>handleCancel</code>
+	    methods to be notified of explicit and implicit cancellations,
+	    respectively.
+	  </p>
+
+      <p>
+        You can explicitly cancel a particular <code>Consumer</code> with
+        <code>Channel.basicCancel</code>:
+      </p>
+
+	  <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
+
+      <p>
+        passing the consumer tag.
+      </p>
+	  <p>
+        Callbacks to <code>Consumer</code>s are dispatched on a thread
+        separate from the thread managed by the
+        <code>Connection</code>. This means that
+        <code>Consumer</code>s can safely call blocking methods on the
+        <code>Connection</code> or <code>Channel</code>, such as
+        <code>queueDeclare</code>, <code>txCommit</code>,
+        <code>basicCancel</code> or <code>basicPublish</code>.
+	  </p>
+
+      <p>
+        Each <code>Channel</code> has its own dispatch thread. For the
+        most common use case of one <code>Consumer</code> per
+        <code>Channel</code>, this means <code>Consumer</code>s do
+        not hold up other <code>Consumer</code>s. If you have multiple
+        <code>Consumer</code>s per <code>Channel</code> be aware that
+        a long-running <code>Consumer</code> may hold up dispatch of
+        callbacks to other <code>Consumer</code>s on that
+        <code>Channel</code>.
+	  </p>
+
+    </doc:section>
+
+	<doc:section name="getting">
+	  <doc:heading>Retrieving individual messages</doc:heading>
+
+      <p>
+        To explicitly retrieve messages, use
+        <code>Channel.basicGet</code>.  The returned value is an
+        instance of <code>GetResponse</code>, from which the
+        header information (properties) and message body can be
+        extracted:
+      </p>
+<pre class="sourcecode">
+<b>boolean</b> autoAck = <b>false</b>;
+GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
+<b>if</b> (response == <b>null</b>) {
+    <i>// No message retrieved.
+</i>} <b>else</b> {
+    AMQP.BasicProperties props = response.getProps();
+    <b>byte</b>[] body = response.getBody();
+    long deliveryTag = response.getEnvelope().getDeliveryTag();
+    ...</pre>
+
+      <p>
+        and since the <code>autoAck</code> = <code>false</code> above,
+        you must also call <code>Channel.basicAck</code> to
+        acknowledge that you have successfully received the message:
+      </p>
+<pre class="sourcecode">
+    ...
+    channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
+}</pre>
+
+	</doc:section>
+
+	<doc:section name="returning">
+	  <doc:heading>Handling unroutable messages</doc:heading>
+
+	  <p>
+	    If a message is published with the "mandatory" flags set,
+	    but cannot be routed, the broker will return it to the
+	    sending client (via a <code>AMQP.Basic.Return</code>
+	    command).
+	  </p>
+	  <p>
+	    To be notified of such returns, clients can implement the <code>ReturnListener</code>
+	    interface and call <code>Channel.setReturnListener</code>.
+	    If the client has not configured a return listener for a particular channel,
+        then the associated returned messages will be silently dropped.
+	  </p>
+
+<pre class="sourcecode">
+channel.setReturnListener(<b>new</b> ReturnListener() {
+    <b>public</b> <b>void</b> handleBasicReturn(int replyCode,
+                                  String replyText,
+                                  String exchange,
+                                  String routingKey,
+                                  AMQP.BasicProperties properties,
+                                  byte[] body)
+    <b>throws</b> IOException {
+        ...
+    }
+});</pre>
+	  <p>
+	    A return listener will be called, for example, if the client publishes a message with
+	    the "mandatory" flag set to an exchange of "direct" type which is not bound to a queue.
+	  </p>
+	</doc:section>
+
+      <doc:section name="shutdown">
+        <doc:heading>Shutdown Protocol</doc:heading>
+          <doc:subsection name="shutdown-overview">
+	    <doc:heading>Overview of the AMQP client shutdown</doc:heading>
+	    <p>
+	      The AMQP 0-9-1 connection and channel share the same general
+	      approach to managing network failure, internal failure,
+	      and explicit local shutdown.
+	    </p>
+	    <p>
+	      The AMQP 0-9-1 connection and channel have the following lifecycle states:
+	    </p>
+	    <ul>
+	      <li>
+		<code>open</code>: the object is ready to use
+	      </li>
+	      <li>
+		<code>closing</code>: the object has been explicitly
+		notified to shut down locally, has issued a shutdown
+		request to any supporting lower-layer objects, and is
+		waiting for their shutdown procedures to complete
+	      </li>
+	      <li>
+		<code>closed</code>: the object has received all
+		shutdown-complete notification(s) from any lower-layer
+		objects, and as a consequence has shut itself down
+	      </li>
+	    </ul>
+	    <p>
+	      Those objects always end up in the closed state,
+	      regardless of the reason that casued the closure, like
+	      an application request, an internal client library
+	      failure, a remote network request or network failure.
+	    </p>
+	    <p>
+	      The AMQP connection and channel objects possess the
+	      following shutdown-related methods:
+	    </p>
+	    <ul>
+	      <li>
+		<code>addShutdownListener(ShutdownListener
+		listener)</code> and
+		<code>removeShutdownListener(ShutdownListener
+		listener)</code>, to manage any listeners, which will
+		be fired when the object transitions to
+		<code>closed</code> state. Note that, adding a
+		ShutdownListener to an object that is already closed
+		will fire the listener immediately
+	      </li>
+	      <li>
+		<code>getCloseReason()</code>, to allow the
+		investigation of what was the reason of the object&#8217;s
+		shutdown
+	      </li>
+	      <li>
+		<code>isOpen()</code>, useful for testing whether the
+		object is in an open state
+	      </li>
+	      <li>
+		<code>close(int closeCode, String
+		closeMessage)</code>, to explictly notify the object
+		to shut down
+	      </li>
+	    </ul>
+	    <p>
+	      Simple usage of listeners would look like:
+	    </p>
+            <pre class="sourcecode"><b>import</b> com.rabbitmq.client.ShutdownSignalException;
+<b>import</b> com.rabbitmq.client.ShutdownListener;
+
+connection.addShutdownListener(<b>new</b> ShutdownListener() {
+    <b>public void</b> shutdownCompleted(ShutdownSignalException cause)
+    {
+        ...
+    }
+});</pre>
+	  </doc:subsection>
+	  <doc:subsection name="shutdown-cause">
+	    <doc:heading>Information about the circumstances of a shutdown</doc:heading>
+	    <p>
+	      One can retrieve the
+	      <code>ShutdownSignalException</code>, which contains all
+	      the information available about the close reason, either
+	      by explictly calling the <code>getCloseReason()</code>
+	      method or by using the <code>cause</code> parameter in
+	      the <code>service(ShutdownSignalException cause)</code>
+	      method of the <code>ShutdownListener</code> class.
+	    </p>
+	    <p>
+	      The <code>ShutdownSignalException</code> class provides
+	      methods to analyze the reason of the shutdown. By
+	      calling the <code>isHardError()</code> method we get
+	      information whether it was a connection or a channel
+	      error, and <code>getReason()</code> returns information
+	      about the cause, in the form an AMQP method - either
+	      <code>AMQP.Channel.Close</code> or
+	      <code>AMQP.Connection.Close</code> (or null if the cause
+	      was some exception in the library, such as a network
+	      communication failure, in which case that exception can
+	      be retrieved with <code>getCause()</code>).
+	    </p>
+            <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
+{
+  <b>if</b> (cause.isHardError())
+  {
+    Connection conn = (Connection)cause.getReference();
+    <b>if</b> (!cause.isInitiatedByApplication())
+    {
+      Method reason = cause.getReason();
+      ...
+    }
+    ...
+  } <b>else</b> {
+    Channel ch = (Channel)cause.getReference();
+    ...
+  }
+}</pre>
+          </doc:subsection>
+          <doc:subsection name="shutdown-atomicity">
+            <doc:heading>Atomicity and use of the isOpen() method</doc:heading>
+            <p>
+             Use of the <code>isOpen()</code> method of channel and
+             connection objects is not recommended for production
+             code, because the value returned by the method is
+             dependent on the existence of the shutdown cause.  The
+             following code illustrates the possibility of race
+             conditions:
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> brokenMethod(Channel channel)
+{
+    <b>if</b> (channel.isOpen())
+    {
+        // The following code depends on the channel being in open state.
+        // However there is a possibility of the change in the channel state
+        // between isOpen() and basicQos(1) call
+        ...
+        channel.basicQos(1);
+    }
+}</pre>
+	    <p>
+	      Instead, we should normally ignore such checking, and
+	      simply attempt the action desired. If during the
+	      execution of the code the channel of the connection is
+	      closed, a <code>ShutdownSignalException</code> will be
+	      thrown indicating that the object is in an invalid
+	      state. We should also catch for <code>IOException</code>
+	      caused either by <code>SocketException</code>, when
+	      broker closes the connection unexpectedly, or
+	      <code>ShutdownSignalException</code>, when broker
+	      initiated clean close.
+	    </p>
+	    <pre class="sourcecode"><b>public void</b> validMethod(Channel channel)
+{
+    <b>try</b> {
+        ...
+        channel.basicQos(1);
+    } <b>catch</b> (ShutdownSignalException sse) {
+        // possibly check if channel was closed
+        // by the time we started action and reasons for
+        // closing it
+        ...
+    } <b>catch</b> (IOException ioe) {
+        // check why connection was closed
+        ...
+    }
+}</pre>
+          </doc:subsection>
+    </doc:section>
+
+
+<doc:section name="advanced-connection">
+  <doc:heading>Advanced Connection options</doc:heading>
+    <doc:subsection name="consumer-thread-pool">
+        <doc:heading><i>Consumer thread pool</i></doc:heading>
+        <p>
+          <code>Consumer</code> threads (see <a href="#consuming">Receiving</a> below) are
+          automatically allocated in a new <code>ExecutorService</code> thread pool
+          by default. If greater control is required supply an <code>ExecutorService</code> on the
+          <code>newConnection()</code> method, so that this pool of threads is
+          used instead. Here is an example where a larger thread pool is
+          supplied than is normally allocated:
+<pre class="sourcecode">
+ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(<b>es</b>);
+</pre>
+          Both <code>Executors</code> and <code>ExecutorService</code> classes
+          are in the <code>java.util.concurrent</code> package.
+        </p>
+        <p>
+          When the connection is closed a default <code>ExecutorService</code>
+          will be <code>shutdown()</code>, but a user-supplied
+          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <i>not</i> be <code>shutdown()</code>.
+          Clients that supply a custom <code>ExecutorService</code> must ensure
+          it is shutdown eventually (by calling its <code>shutdown()</code>
+          method), or else the pool&#8217;s threads may prevent JVM termination.
+        </p>
+        <p>
+          The same executor service may be shared between multiple connections,
+          or serially re-used on re-connection but it cannot be used after it is
+          <code>shutdown()</code>.
+        </p>
+        <p>
+          Use of this feature should only be considered if there is evidence
+          that there is a severe bottleneck in the processing of <code>Consumer</code>
+          callbacks.
+          If there are no <code>Consumer</code> callbacks executed, or very few, the default
+          allocation is more than sufficient. The overhead is initially minimal and
+          the total thread resources allocated are bounded, even if a burst of consumer
+          activity may occasionally occur.
+        </p>
+    </doc:subsection>
+
+    <doc:subsection name="address-array">
+        <doc:heading>Using Lists of Hosts</doc:heading>
+        <p>
+          It is possible to pass an <code>Address</code> array
+          to <code>newConnection()</code>.
+          An <code>Address</code> is simply a convenience class
+          in the <code>com.rabbitmq.client</code> package with <i>host</i>
+          and <i>port</i> components.
+          For example:
+<pre class="sourcecode">
+Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
+                                 , <b>new</b> Address(hostname2, portnumber2)};
+Connection conn = factory.newConnection(addrArr);
+</pre>
+          will attempt to connect to <code>hostname1:portnumber1</code>, and if
+          that fails to <code>hostname2:portnumber2</code>. The connection returned is
+          the first in the array that succeeds (without throwing
+          <code>IOException</code>). This is entirely equivalent to repeatedly
+          setting host and port on a factory, calling
+          <code>factory.newConnection()</code> each time, until one of them succeeds.
+        </p>
+        <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
+          associated with the (first) successful connection.
+        </p>
+    </doc:subsection>
+
+
+    <doc:subsection name="heartbeats-timeout">
+        <doc:heading>Heartbeat Timeout</doc:heading>
+        <p>See the <a href="heartbeats.html">Heartbeats guide</a> for more information about heartbeats
+        and how to configure them in the Java client.</p>
+    </doc:subsection>
+
+    <doc:subsection name="thread-factories">
+      <doc:heading><i>Custom Thread Factories</i></doc:heading>
+      <p>
+        Environments such as Google App Engine (GAE) can <a
+        href="https://developers.google.com/appengine/docs/java/#Java_The_sandbox">restrict
+        direct thread instantiation</a>. To use RabbitMQ Java client in such environments,
+        it's necessary to configure a custom <code>ThreadFactory</code> that uses
+        an appropriate method to instantiate threads, e.g. GAE's <code>ThreadManager</code>.
+
+        Below is an example for Google App Engine.
+      </p>
+      <p>
+<pre class="sourcecode">
+import com.google.appengine.api.ThreadManager;
+
+ConnectionFactory cf = new ConnectionFactory();
+cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
+</pre>
+      </p>
+    </doc:subsection>
+</doc:section>
+
+
+    <doc:section name="recovery">
+      <doc:heading>Automatic Recovery From Network Failures</doc:heading>
+      <doc:subsection name="connection-recovery">
+        <doc:heading>Connection Recovery</doc:heading>
+        <p>
+          Network connection between clients and RabbitMQ nodes can fail.
+          RabbitMQ Java client supports automatic recovery of connections
+          and topology (queues, exchanges, bindings, and consumers).
+
+          The automatic recovery process for many applications follows the following steps:
+          <ol>
+            <li>Reconnect</li>
+            <li>Restore connection listeners</li>
+            <li>Re-open channels</li>
+            <li>Restore channel listeners</li>
+            <li>Restore channel <code>basic.qos</code> setting, publisher confirms and transaction settings</li>
+          </ol>
+
+          Topology recovery includes the following actions, performed for every channel
+
+          <ol>
+            <li>Re-declare exchanges (except for predefined ones)</li>
+            <li>Re-declare queues</li>
+            <li>Recover all bindings</li>
+            <li>Recover all consumers</li>
+          </ol>
+
+          To enable automatic connection recovery, use
+          <code>factory.setAutomaticRecoveryEnabled(true)</code>:
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+factory.setUsername(<b>userName</b>);
+factory.setPassword(<b>password</b>);
+factory.setVirtualHost(<b>virtualHost</b>);
+factory.setHost(<b>hostName</b>);
+factory.setPort(<b>portNumber</b>);
+factory.setAutomaticRecoveryEnabled(true);
+// connection that will recover automatically
+Connection conn = factory.newConnection();</pre>
+
+          If recovery fails due to an exception (e.g. RabbitMQ node is
+          still not reachable), it will be retried after a fixed time interval (default
+          is 5 seconds). The interval can be configured:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+// attempt recovery every 10 seconds
+factory.setNetworkRecoveryInterval(10000);</pre>
+
+          When a list of addresses is provided, a random one will be picked
+          during recovery:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
+factory.newConnection(addresses);</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="recovery-listeners">
+        <doc:heading>Recovery Listeners</doc:heading>
+        <p>
+          It is possible to register one or more recovery listeners on recoverable connections
+          and channels. When connection recovery is enabled, connections returned by
+          <code>ConnectionFactory#newConnection</code> and <code>Connection#createChannel</code>
+          implement <code>com.rabbitmq.client.Recoverable</code>, providing two methods with
+          fairly descriptive names:
+
+          <ul>
+            <li>addRecoveryListener</li>
+            <li>removeRecoveryListener</li>
+          </ul>
+
+          Note that you currently need to cast connections and channels to <code>Recoverable</code>
+          in order to use those methods.
+        </p>
+      </doc:subsection>
+
+
+      <doc:subsection name="publishers">
+        <doc:heading>Effects on Publishing</doc:heading>
+        <p>
+          Messages that are published using <code>Channel.basicPublish</code> when connection is down
+          will be lost. The client does not enqueue them for delivery after connection has recovered.
+          To ensure that published messages reach RabbitMQ applications need to use <a href="confirms.html">Publisher Confirms</a>
+          and account for connection failures.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="topology-recovery">
+        <doc:heading>Topology Recovery</doc:heading>
+        <p>
+          Topology recovery involves recovery of exchanges, queues, bindings
+          and consumers. It is enabled by default but can be disabled:
+
+          <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+
+Connection conn = factory.newConnection();
+factory.setAutomaticRecoveryEnabled(true);
+factory.setTopologyRecoveryEnabled(false);
+          </pre>
+        </p>
+        </doc:subsection>
+
+      <doc:subsection name="recovery-and-acknowledgements">
+        <doc:heading>Manual Acknowledgements and Automatic Recovery</doc:heading>
+        <p>
+          When manual acknowledgements are used, it is possible that
+          network connection to RabbitMQ node fails between message
+          delivery and acknowledgement. After connection recovery,
+          RabbitMQ will reset delivery tags on all channels.
+
+          This means that <i>basic.ack</i>, <i>basic.nack</i>, and <i>basic.reject</i>
+          with old delivery tags will cause a channel exception. To avoid this,
+          RabbitMQ Java client keeps track of and updates delivery tags to make them monotonically
+          growing between recoveries.
+
+          <code>Channel.basicAck</code>,
+          <code>Channel.basicNack</code>, and
+          <code>Channel.basicReject</code> then translate adjusted
+          delivery tags into those used by RabbitMQ.
+
+          <b>Acknowledgements with stale delivery tags will not be sent</b>. Applications
+          that use manual acknowledgements and automatic recovery must
+          be capable of handling redeliveries.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="unhandled-exceptions">
+      <doc:heading>Unhandled Exceptions</doc:heading>
+      <p>
+        Unhandled exceptions related to connection, channel, recovery,
+        and consumer lifecycle are delegated to the exception
+        handler. Exception handler is any object that implements the
+        <code>ExceptionHandler</code> interface.  By default, an
+        instance of <code>DefaultExceptionHandler</code> is used. It
+        prints exception details to the standard output.
+      </p>
+
+      <p>
+        It is possible to override the handler using
+        <code>ConnectionFactory#setExceptionHandler</code>. It will be
+        used for all connections created by the factory:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setExceptionHandler(customHandler);
+        </pre>
+
+        Exception handlers should be used for exception logging.
+      </p>
+    </doc:section>
+
+    <doc:section name="gae-pitfalls">
+      <doc:heading>RabbitMQ Java Client on Google App Engine</doc:heading>
+      <p>
+        Using RabbitMQ Java client on Google App Engine (GAE) requires using a custom
+        thread factory that instantiates thread using GAE's <code>ThreadManager</code> (see above).
+        In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
+        into the low <code>InputStream</code> read timeouts on GAE:
+
+        <pre class="sourcecode">
+ConnectionFactory factory = <b>new</b> ConnectionFactory();
+cf.setRequestedHeartbeat(5);
+        </pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="cache-pitfalls">
+      <doc:heading>Caveats and Limitations</doc:heading>
+      <p>
+        To make topology recovery possible, RabbitMQ Java client maintains a cache
+        of declared queues, exchanges, and bindings. The cache is per-connection. Certain
+        RabbitMQ features make it impossible for clients to observe some topology changes,
+        e.g. when a queue is deleted due to TTL. RabbitMQ Java client tries to invalidate
+        cache entries in the most common cases:
+
+        <ul>
+          <li>When queue is deleted.</li>
+          <li>When exchange is deleted.</li>
+          <li>When binding is deleted.</li>
+          <li>When consumer is cancelled on an auto-deleted queue.</li>
+          <li>When queue or exchange is is unbound from an auto-deleted exchange.</li>
+        </ul>
+
+        However, the client cannot track these topology changes beyond a single connection.
+        Applications that rely on auto-delete queues or exchanges, as well as queue TTL (note: not message TTL!),
+        and use automatic connection recovery, should explicitly delete entities know to be unused
+        or deleted, to purge client-side topology cache. This is facilitated by <code>Channel#queueDelete</code>,
+        <code>Channel#exchangeDelete</code>, <code>Channel#queueUnbind</code>, and <code>Channel#exchangeUnbind</code>
+        being idempotent in RabbitMQ 3.3.x (deleting what's not there does not result in an exception).
+      </p>
+    </doc:section>
+
+
+      <doc:section name="rpc">
+	<doc:heading>The RPC (Request/Reply) Pattern</doc:heading>
+
+	<p>
+	  As a programming convenience, the Java client API offers a
+	  class <code>RpcClient</code> which uses a temporary reply
+	  queue to provide simple <a href="/tutorials/tutorial-six-java.html">RPC-style communication</a> facilities via AMQP 0-9-1.
+	</p>
+	<p>
+	  The class doesn&#8217;t impose any particular format on the RPC arguments and return values.
+	  It simply provides a mechanism for sending a message to a given exchange with a particular
+	  routing key, and waiting for a response on a reply queue.
+	</p>
+
+	<pre class="sourcecode">
+<b>import</b> com.rabbitmq.client.RpcClient;
+
+RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+
+	<p>
+	  (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
+	  <code>basic.correlation_id</code> field set to a value unique for this <code>RpcClient</code> instance,
+	  and with <code>basic.reply_to</code> set to the name of the reply queue.)
+	</p>
+
+	<p>
+	  Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
+	</p>
+
+	<pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
+String stringCall(String message)
+Map mapCall(Map message)
+Map mapCall(Object[] keyValuePairs)</pre>
+
+	<p>
+	  The <code>primitiveCall</code> method transfers raw byte arrays as the request and response
+	  bodies. The method <code>stringCall</code> is a thin
+	  convenience wrapper around <code>primitiveCall</code>,
+	  treating the message bodies as <code>String</code> instances
+	  in the default character encoding.
+	</p>
+	<p>
+	  The <code>mapCall</code> variants are a little more sophisticated: they encode
+	  a <code>java.util.Map</code> containing ordinary Java values
+	  into an AMQP 0-9-1 binary table representation, and decode the
+	  response in the same way. (Note that there are some restrictions on what value
+	  types can be used here - see the javadoc for details.)
+	</p>
+
+	<p>
+	  All the marshalling/unmarshalling convenience methods use <code>primitiveCall</code> as a
+	  transport mechanism, and just provide a wrapping layer on top of it.
+	</p>
+      </doc:section>
+
+  </body>
+</html>

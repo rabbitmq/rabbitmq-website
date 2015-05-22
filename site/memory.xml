@@ -1,0 +1,208 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Memory Alarms</title>
+  </head>
+  <body>
+    <!--
+       To avoid terminology soup:
+       - "memory threshold" always refers to the configured fraction
+       - "memory limit" always refers to the computed absolute limit
+    -->
+    <p>
+      The RabbitMQ server detects the total amount of
+      RAM installed in the computer on startup and when
+      <code>rabbitmqctl
+      set_vm_memory_high_watermark <em>fraction</em></code> is
+      executed. By default, when the RabbitMQ server uses above 40%
+      of the installed RAM, it raises a memory alarm and blocks all
+      connections. Once the memory alarm has cleared (e.g. due
+      to the server paging messages to disk or delivering them to
+      clients) normal service resumes.
+    </p>
+
+    <p>
+      The default memory threshold is set to 40% of installed
+      RAM. Note that this does not prevent the RabbitMQ server
+      from using more than 40%, it is merely the point at which
+      publishers are throttled. Erlang's garbage collector can, in
+      the worst case, cause double the amount of memory to be used
+      (by default, 80% of RAM). It is strongly recommended that OS
+      swap or page files are enabled.
+    </p>
+
+    <p>
+      32-bit architectures tend to impose a per process memory limit
+      of 2GB. Common implementations of 64-bit architectures
+      (i.e. AMD64 and Intel EM64T) permit only a paltry 256TB per
+      process. 64-bit Windows further limits this to 8TB. However,
+      note that even under 64-bit OSes, a 32-bit process frequently
+      only has a maximum address space of 2GB.
+    </p>
+    <doc:section name="memsup-usage">
+      <doc:heading>Configuring the Memory Threshold</doc:heading>
+
+      <p>
+        The memory threshold at which the flow control is triggered
+        can be adjusted by editing the <a
+        href="configure.html#configuration-file">configuration
+        file</a>.  The example below sets the threshold to the
+        default value of 0.4:
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
+      </p>
+
+      <p>
+        The default value of 0.4 stands for 40% of installed RAM or
+        40% of available virtual address space, whichever is
+        smaller. E.g. on a 32-bit platform, if you have 4GB of RAM
+        installed, 40% of 4GB is 1.6GB, but 32-bit Windows normally
+        limits processes to 2GB, so the threshold is actually to 40%
+        of 2GB (which is 820MB).
+      </p>
+
+      <p>
+        The memory limit is appended to the
+        <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
+        starts:
+        <pre class="sourcecode">
+=INFO REPORT==== 29-Oct-2009::15:43:27 ===
+Memory limit set to 2048MB.</pre>
+        The memory limit may also be queried using the
+        <code>rabbitmqctl status</code> command.
+      </p>
+
+      <p>
+        The threshold can be changed while the broker is running
+        using the <code>rabbitmqctl set_vm_memory_high_watermark
+        <em>fraction</em></code> command. This command will take effect
+        until the broker shuts down. The corresponding configuration
+        setting should also be changed when the effects should survive
+        a broker restart. The memory limit may change on systems with
+        hot-swappable RAM when this command is executed without altering
+        the threshold, due to the fact that the total amount of system
+        RAM is queried.
+      </p>
+
+      <h3>Disabling all publishing</h3>
+      <p>
+        A value of <code>0</code> makes the memory alarm go off
+        immediately and thus disables all publishing (this may be
+        useful if you wish to disable publishing globally);
+        use <code>rabbitmqctl set_vm_memory_high_watermark
+        0</code>.
+      </p>
+    </doc:section>
+
+    <doc:section name="address-space">
+      <doc:heading>Limited Address Space</doc:heading>
+      <p>
+        When running RabbitMQ inside a 32 bit Erlang VM in a 64 bit
+        OS (or a 32 bit OS with PAE), the addressable memory is
+        limited. The server will detect this and log a message like:
+      </p>
+
+      <pre class="sourcecode">=WARNING REPORT==== 19-Dec-2013::11:27:13 ===
+Only 2048MB of 12037MB memory usable due to limited address space.
+Crashes due to memory exhaustion are possible - see
+http://www.rabbitmq.com/memory.html#address-space</pre>
+
+      <p>
+        The memory alarm system is not perfect. While stopping publishing
+        will usually prevent any further memory from being used, it is quite
+        possible for other things to continue to increase memory
+        use. Normally when this happens and the physical memory is exhausted
+        the OS will start to swap. But when running with a limited address
+        space, running over the limit will cause the VM to crash.
+      </p>
+
+      <p>
+        It is therefore strongly recommended that when running on a 64 bit
+        OS you use a 64 bit Erlang VM.
+      </p>
+    </doc:section>
+
+    <doc:section name="memsup-paging">
+      <doc:heading>Configuring the Paging Threshold</doc:heading>
+      <p>
+        Before the broker hits the high watermark and blocks
+        publishers, it will attempt to free up memory by instructing
+        queues to page their contents out to disc. Both persistent
+        and transient messages will be paged out (the persistent
+        messages will already be on disc but will be evicted from
+        memory).
+      </p>
+      <p>
+        By default this starts to happen when the broker is 50% of
+        the way to the high watermark (i.e. with a default high
+        watermark of 0.4, this is when 20% of memory is used). To
+        change this value, modify
+        the <code>vm_memory_high_watermark_paging_ratio</code>
+        configuration from its default value
+        of <code>0.5</code>. For example:
+      </p>
+      <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
+         {vm_memory_high_watermark, 0.4}]}].</pre>
+      <p>
+        The above configuration starts paging at 30% of memory used, and
+        blocks publishers at 40%.
+      </p>
+      <p>
+        It is possible to
+        set <code>vm_memory_high_watermark_paging_ratio</code> to a
+        greater value than <code>1.0</code>. In this case queues
+        will not page their contents to disc. If this causes the memory alarm
+        to go off, then producers will be blocked as explained above.
+      </p>
+    </doc:section>
+
+    <doc:section name="memsup-unrecognised-platforms">
+      <doc:heading>Unrecognised platforms</doc:heading>
+      <p>
+        If the RabbitMQ server is unable to recognise your system,
+        it will append a warning to the
+        <b>RABBITMQ_NODENAME</b>.log file. It then assumes than
+        1GB of RAM is installed:
+        <pre class="sourcecode">
+=WARNING REPORT==== 29-Oct-2009::17:23:44 ===
+Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
+      </p>
+
+      <p>
+        In this case, the <code>vm_memory_high_watermark</code>
+        configuration value is used to scale the assumed 1GB
+        RAM. With the default value of
+        <code>vm_memory_high_watermark</code> set to 0.4,
+        RabbitMQ's memory threshold is set to 410MB, thus it will
+        throttle producers whenever RabbitMQ is using more than
+        410MB memory. Thus when RabbitMQ can't recognize your
+        platform, if you actually have 8GB RAM installed and you
+        want RabbitMQ to throttle producers when the server is using
+        above 3GB, set <code>vm_memory_high_watermark</code> to 3.
+      </p>
+
+      <p>
+        It is advised you do not set the threshold above 50% of your
+        installed RAM.
+      </p>
+    </doc:section>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Manual Pages</title>
+  </head>
+  <body>
+      <p class="intro">
+    	This page lists the available manual pages taken from the latest server release.
+      </p>
+
+      <doc:section name="section1">
+        <doc:heading>Section 1 - General Commands</doc:heading>
+        <ul>
+          <li><a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a></li>
+          <li><a href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a></li>
+          <li><a href="man/rabbitmq-server.1.man.html">rabbitmq-server</a></li>
+          <li><a href="man/rabbitmq-service.man.html">rabbitmq-service</a></li>
+          <li><a href="man/rabbitmq-echopid.man.html">rabbitmq-echopid</a></li>
+        </ul>
+      </doc:section>
+
+      <doc:section name="section5">
+        <doc:heading>Section 5 - File formats</doc:heading>
+        <ul>
+          <li><a href="man/rabbitmq-env.conf.5.man.html">rabbitmq-env.conf</a></li>
+        </ul>
+      </doc:section>
+  </body>
+</html>
+

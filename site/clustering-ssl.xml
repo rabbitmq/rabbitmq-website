@@ -1,0 +1,132 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Clustering Communication using SSL</title>
+  </head>
+  <body>
+      <doc:section name="intro">
+        <p class="intro">Sometimes is desirable to make the Erlang
+        nodes talk to each other using SSL, and thus make the whole RabbitMQ
+        cluster communication via SSL. To achieve that we need to make the
+        Erlang distribution mechanism to use SSL. In this document we are
+        going to review the steps to make this possible.</p>
+      </doc:section>
+
+      <doc:section name="how-to-linux">
+        <doc:heading>Linux</doc:heading>
+        <p>First we need to create the SSL certificate that's going to
+        be used by the Erlang distribution mechanism. We assume you have done
+        that already, otherwise follow the guide <a href="/ssl.html">here</a>.
+        Once we have our certificates ready we need to concatenate the server
+        certificate and key into one file, for example, assuming we have the
+        files <code>server_certificate.pem</code> and
+        <code>server_key.pem</code> we can do the following:</p>
+
+<pre class="sourcecode">
+$ cat server_certificate.pem server_key.pem &gt; rabbit.pem
+</pre>
+
+        <p>Then we have to tell Erlang where to find the
+        <code>ssl</code> library during startup. We can create a variable like
+        this:</p>
+
+<pre class="sourcecode">
+$ echo `erl -eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell`
+"/path/to/erl/lib/ssl-5.3.5/ebin"
+$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+</pre>
+
+        <p>There first we find where Erlang has the ssl library, and then the
+          variable ERL_SSL_PATH is set with the result from the first command
+          <em>without</em> the double quotes.</p>
+
+        <p>By using the previous information now is time to craft the
+        <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> environment variable
+        so RabbitMQ is able to start Erlang using SSL for distribution. We do
+        that by setting the <code>proto_dist</code> argument to
+        <code>inet_tls</code> and then telling Erlang what certificate to use
+        (in our case that's the <code>rabbit.pem</code> file we just
+        created). Finally we set secure renegotiation to
+        <code>true</code>. Here's the whole command:</p>
+
+<pre class="sourcecode">
+$ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
+-proto_dist inet_tls \
+-ssl_dist_opt server_certfile /path/to/rabbit.pem \
+-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+</pre>
+
+        <p>Keep in mind that every Erlang program that tries to
+        communicate with our RabbitMQ server by using Erlang's distribution
+        must now use SSL as well. One of such programs is
+        <code>rabbitmqctl</code> that we use for administering RabbitMQ. This
+        means we have to do what we just did for
+        <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> but this time for
+        the environment variable <code>RABBITMQ_CTL_ERL_ARGS</code>.</p>
+
+        <p>Now that we have this in place, it's just a matter of
+        starting RabbitMQ as we usually do to get the Erlang distribution to
+        use SSL for internode communication. Keep in mind that other nodes in
+        the cluster that want to join our initial node must use the same
+        certificate and the same
+        <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> arguments. The same
+        applies for <code>rabbitmqctl</code>.</p>
+
+      </doc:section>
+
+      <doc:section name="how-to-osx">
+        <doc:heading>OS X</doc:heading>
+        <p>If you are using the OSX Standalone Release, then you need
+        to add some extra arguments in order to run the <code>erl</code>
+        command to find the path of Erlang's SSL library.  Assuming you are
+        inside the folder where you installed the standalone release, the
+        commands will look like these:</p>
+
+<pre class="sourcecode">
+$ echo erts-6.1/bin/erl -boot releases/3.4.3/start_clean \
+-eval 'io:format("~p", [code:lib_dir(ssl, ebin)]),halt().' -noshell
+"/path/to/erl/lib/ssl-5.3.5/ebin"
+$ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
+</pre>
+
+        <p>The difference is that we need to specify the path to the
+        <code>erl</code> executable and also provide a path to a boot file,
+        which in our case is inside the releases folder of our standalone
+        installation.</p>
+
+        <p>Once you have ran the previous commands, then you can
+        proceed to create the environment variables as explained above on the
+        <a href="/clustering-ssl.html#how-to-linux">Linux section</a></p>
+
+      </doc:section>
+
+      <doc:section name="how-to-windows">
+        <doc:heading>Windows</doc:heading>
+
+        <p>Coming soon.</p>
+
+      </doc:section>
+  </body>
+</html>

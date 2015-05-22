@@ -1,0 +1,100 @@
+    ServerName www.rabbitmq.com
+    ServerAlias *.lon.pivotallabs.com
+    ServerAdmin postmaster@rabbitmq.com
+
+    DocumentRoot /srv/www.rabbitmq.com/site/
+
+    # rogue apt clients flood the log making the disk
+    # run out of space
+    SetEnvIf Request_URI "^/debian/dists" dontlog
+
+    CustomLog /var/log/apache2/access-www.rabbitmq.com.log combined env=!dontlog
+    ErrorLog /var/log/apache2/error-www.rabbitmq.com.log
+
+    # Send 404 and 500s to the appropriate pages.  403 is permission denied.
+    ErrorDocument 403 /404.html
+    ErrorDocument 404 /404.html
+    ErrorDocument 500 /500.html
+
+    # These directories are constructed by the rabbitmq-umbrella
+    Alias /examples /home/rabbitmq/extras/examples
+    Alias /javadoc /home/rabbitmq/extras/javadoc
+    Alias /releases /home/rabbitmq/extras/releases
+    Alias /debian /home/rabbitmq/extras/releases/debian
+    Alias /community-plugins /home/rabbitmq/extras/community-plugins
+
+    # These directories are created/managed by the sync-nightly infrastructure
+    Alias /nightlies /home/rabbitmq/extras/nightlies
+    Alias /debian-snapshot /home/rabbitmq/extras/nightlies/debian
+
+    Alias /wp-uploads /srv/www/wp-uploads/rabbit-web.eng.vmware.com
+
+    # /how appeared on some printed materials
+    Redirect permanent /how http://www.rabbitmq.com/how.html
+
+    # From former versions of the website
+    Redirect permanent /server.html /download.html
+    Redirect permanent /install.html /download.html
+    Redirect permanent /debian.html /install-debian.html
+    Redirect permanent /faq.html /documentation.html
+
+    # Redirects to assign some permanent URLs to cloudfoundry resources
+    Redirect /cloudfoundry/samples https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples
+    Redirect /cloudfoundry/rails http://support.cloudfoundry.com/entries/20334591-getting-started-with-the-rabbitmq-service-from-a-rails-application
+    Redirect /cloudfoundry/spring http://support.cloudfoundry.com/entries/20322602-getting-started-with-the-rabbitmq-service-from-a-spring-application
+    Redirect /cloudfoundry/sinatra https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/sinatra
+    Redirect /cloudfoundry/nodejs https://github.com/rabbitmq/rabbitmq-cloudfoundry-samples/tree/master/nodejs
+    Redirect /cloudfoundry/faq http://support.cloudfoundry.com/entries/20334618-rabbitmq-service-faq
+    # Doesn't exist yet, but might do
+    #Redirect /cloudfoundry/railsvid http://www.youtube.com/watch?v=AId8RTG0eD8
+
+    <Directory /home/rabbitmq/extras/releases/rabbitmq-server>
+        Options +FollowSymLinks
+    </Directory>
+
+    ServerSignature On
+    <Directory /srv/www.rabbitmq.com/site>
+        Options -Indexes
+    </Directory>
+    <Directory /home/rabbitmq/extras/releases>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
+    <Directory /home/rabbitmq/extras/nightlies>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
+    <Directory /home/rabbitmq/extras/community-plugins>
+        Options +Indexes
+        IndexOptions FancyIndexing HTMLTable SuppressHTMLPreamble VersionSort IgnoreClient SuppressDescription XHTML
+        HeaderName /templates/index-header.html
+        ReadmeName /templates/index-footer.html
+    </Directory>
+
+    Alias /blog /usr/share/wordpress
+
+    # Redirect manpages from release folder
+    RewriteEngine On
+    RewriteRule ^/releases/rabbitmq-server/v[0-9\.]+/(.*).man.xml$ /$1.man.html [R]
+    RewriteRule ^/(tutorial-.*)\.html /tutorials/$1.html [R=301]
+    
+    <Location /server-status>
+      SetHandler server-status
+      Order deny,allow
+      Deny from all
+      Allow from 10.20.218.0/23
+      Allow from 213.122.168.19/28
+      Allow from 127.0.0.1
+    </Location>
+
+      # Via: http://mail-archives.apache.org/mod_mbox/httpd-announce/201108.mbox/%3C20110824161640.122D387DD@minotaur.apache.org%3E
+      #
+      # Drop the Range header when more than 5 ranges.
+      # CVE-2011-3192
+
+      SetEnvIf Range (,.*?){5,} bad-range=1
+      RequestHeader unset Range env=bad-range

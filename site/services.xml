@@ -1,0 +1,56 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Commercial Services</title>
+  </head>
+  <body suppress-rhs="true">
+    <h2>Commercial Licensing, Support</h2>
+    <p class="intro">
+      Pivotal provides a <strong>full range of commercial support and services for
+      RabbitMQ</strong>.
+    </p>
+    <p>
+      Pivotal offers <strong>commercial support agreements</strong> for the most
+      recent open source release of RabbitMQ.
+    </p>
+    <p>
+      We also produce a <strong>commercially licensed</strong> release
+      of RabbitMQ.This includes all of the features of the open
+      source version and contains additional commercially focussed
+      components. <strong>Support agreements</strong> are also available for the commercial
+      release.
+    </p>
+    <h2>Training</h2>
+    <p>
+      We offer on-line and instructor-led <strong>training courses</strong>
+      worldwide that cover learning messaging with RabbitMQ, use cases, patterns,
+      best practice design and architecture.
+    </p>
+    <h2>Consulting</h2>
+    <p>
+      Our <strong>professional consulting services</strong> are highly flexible
+      to address specific issues such as on-site troubleshooting, design review,
+      deployment planning, project delivery and other value-adding services
+      tailored to suit your needs.</p>
+    <p>
+      Please <a href="contact.html#email">contact us</a> for more information.
+    </p>
+  </body>
+</html>

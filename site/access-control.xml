@@ -1,0 +1,208 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Access Control</title>
+  </head>
+  <body>
+      <doc:section name="default-state">
+        <p>
+          When the server first starts running, and detects that its
+          database is uninitialised or has been deleted, it
+          initialises a fresh database with the following resources:
+        </p>
+
+        <ul class="compact">
+          <li>
+            a virtual host named <code>/</code>
+          </li>
+          <li>
+            a user named <code>guest</code> with a default password of
+            <code>guest</code>, granted full access to the
+            <code>/</code> virtual host.
+          </li>
+        </ul>
+
+        <p>
+          It is advisable
+          to <a href="man/rabbitmqctl.1.man.html#delete_user">delete</a>
+          the <code>guest</code> user
+          or <a href="man/rabbitmqctl.1.man.html#change_password">change
+          the password</a> to something private, particularly if your
+          broker is accessible publicly.
+        </p>
+      </doc:section>
+
+      <doc:section name="loopback-users">
+        <doc:heading>"guest" user can only connect via localhost</doc:heading>
+        <p>
+          By default, the <code>guest</code> user is prohibited from
+          connecting to the broker remotely; it can only connect over
+          a loopback interface (i.e. <code>localhost</code>). This
+          applies both to AMQP and to any other protocols enabled via
+          plugins. Any other users you create will not (by default) be
+          restricted in this way.
+        </p>
+        <p>
+          This is configured via the <code>loopback_users</code> item
+          in the <a href="configure.html#configuration-file">
+          configuration file</a>.
+        </p>
+        <p>
+          If you wish to allow the <code>guest</code> user to connect
+          from a remote host, you should set the
+          <code>loopback_users</code> configuration item to
+          <code>[]</code>. A complete <code>rabbitmq.config</code>
+          which does this would look like:
+        </p>
+        <pre class="sourcecode">
+[{rabbit, [{loopback_users, []}]}].</pre>
+      </doc:section>
+
+      <doc:section name="access-control">
+        <doc:heading>How permissions work</doc:heading>
+        <p>
+          When an AMQP client establishes a connection to an AMQP
+          server, it specifies a virtual host within which it intends
+          to operate. A first level of access control is enforced at
+          this point, with the server checking whether the user has
+          any permissions to access the virtual hosts, and rejecting
+          the connection attempt otherwise.
+        </p>
+
+        <p>
+          Resources, i.e. exchanges and queues, are named entities
+          inside a particular virtual host; the same name denotes a
+          different resource in each virtual host. A second level of
+          access control is enforced when certain operations are
+          performed on resources.
+        </p>
+
+        <p>
+          RabbitMQ distinguishes between <em>configure</em>,
+          <em>write</em> and <em>read</em> operations on a
+          resource. The <em>configure</em> operations create or
+          destroy resources, or alter their behaviour. The
+          <em>write</em> operations inject messages into a
+          resource. And the <em>read</em> operations retrieve messages
+          from a resource.
+        </p>
+
+        <p>
+          In order to perform an operation on a resource the user must
+          have been granted the appropriate permissions for it. The
+          following table shows what permissions on what type of
+          resource are required for all the AMQP commands which
+          perform permission checks.
+          <table>
+            <tr>
+              <th>AMQP command</th>
+              <th></th>
+              <th>configure</th>
+              <th>write</th>
+              <th>read</th>
+            </tr>
+            <tr>
+              <td>exchange.declare</td><td>(passive=false)</td><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>exchange.declare</td><td>(passive=true)</td><td></td><td/><td/>
+            </tr>
+            <tr>
+              <td>exchange.declare</td><td>(with <a href="ae.html">AE</a>)</td><td>exchange</td><td>exchange (AE)</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>exchange.delete</td><td/><td>exchange</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>(passive=false)</td><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>(passive=true)</td><td></td><td/><td/>
+            </tr>
+            <tr>
+              <td>queue.declare</td><td>(with <a href="dlx.html">DLX</a>)</td><td>queue</td><td>exchange (DLX)</td><td>queue</td>
+            </tr>
+            <tr>
+              <td>queue.delete</td><td/><td>queue</td><td/><td/>
+            </tr>
+            <tr>
+              <td>exchange.bind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
+            </tr>
+            <tr>
+              <td>exchange.unbind</td><td/><td/><td>exchange (destination)</td><td>exchange (source)</td>
+            </tr>
+            <tr>
+              <td>queue.bind</td><td/><td/><td>queue</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>queue.unbind</td><td/><td/><td>queue</td><td>exchange</td>
+            </tr>
+            <tr>
+              <td>basic.publish</td><td/><td/><td>exchange</td><td/>
+            </tr>
+            <tr>
+              <td>basic.get</td><td/><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>basic.consume</td><td/><td/><td/><td>queue</td>
+            </tr>
+            <tr>
+              <td>queue.purge</td><td/><td/><td/><td>queue</td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          Permissions are expressed as a triple of regular expressions
+          - one each for configure, write and read - on per-vhost
+          basis. The user is granted the respective permission for
+          operations on all resources with names matching the regular
+          expressions. <i>(Note: For convenience RabbitMQ maps AMQP's
+          default exchange's blank name to 'amq.default' when
+          performing permission checks.)</i>
+        </p>
+
+        <p>
+          The regular expression <code>'^$'</code>, i.e. matching
+          nothing but the empty string, covers all resources and
+          effectively stops the user from performing any operation.
+          Standard AMQP resource names are prefixed with
+          <code>amq.</code> and server generated names are prefixed
+          with <code>amq.gen</code>.  For example,
+          <code>'^(amq\.gen.*|amq\.default)$'</code> gives a user access to
+          server-generated names and the default exchange.  The empty
+          string, <code>''</code> is a synonym for <code>'^$'</code>
+          and restricts permissions in the exact same way.
+        </p>
+
+        <p>
+          RabbitMQ may cache the results of access control checks on a
+          per-connection or per-channel basis. Hence changes to user
+          permissions may only take effect when the user reconnects.
+        </p>
+        <p>
+          For details of how to set up access control, please see the
+          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
+          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
+        </p>
+      </doc:section>
+  </body>
+</html>

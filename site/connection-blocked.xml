@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Blocked Connection Notifications</title>
+  </head>
+  <body>
+    <p>
+      It is sometimes desirable for clients to receive a notification
+      when their connection gets <a href="memory.html">blocked</a>
+      due to the broker running low on resources (memory or disk).
+    </p>
+
+    <p>
+      We have introduced an AMQP protocol extension in which the
+      broker sends to the client a <code>connection.blocked</code>
+      method when the connection gets blocked, and
+      <code>connection.unblocked</code> when it is unblocked.
+    </p>
+    <p>
+      To receive these notifications, the client must present a
+      <code>capabilities</code> table in its
+      <code>client-properties</code> in which there is a key
+      <code>connection.blocked</code> and a boolean value
+      <code>true</code>. See the <a
+      href="#capabilities">capabilities</a> section for further
+      details on this. Our supported clients indicate this capability
+      by default and provide a way to register handlers for the
+      <code>connection.blocked</code> and
+      <code>connection.unblocked</code> methods.
+    </p>
+
+    <doc:section>
+      <doc:heading>Using Blocked Connection Notifications with Java Client</doc:heading>
+
+      <p>With the official Java client, blocked connection
+      notifications are handled by <code>BlockedListener</code>
+      interface implementations. They can be registered on a
+      <code>Connection</code> using the
+      <code>Connection.addBlockedListener</code> method:</p>
+
+      <pre class="sourcecode">
+ConnectionFactory factory = new ConnectionFactory();
+Connection connection = factory.newConnection();
+connection.addBlockedListener(new BlockedListener() {
+    public void handleBlocked(String reason) throws IOException {
+        // Connection is now blocked
+    }
+
+    public void handleUnblocked() throws IOException {
+        // Connection is now unblocked
+    }
+});
+      </pre>
+    </doc:section>
+
+
+
+    <doc:section>
+      <doc:heading>Using Blocked Connection Notifications with .NET Client</doc:heading>
+
+      <p>With the official .NET client, blocked connection
+      notifications are handled by the
+      <code>RabbitMQ.Client.Events.ConnectionBlockedEventHandler</code>
+      delegate. <code>IConnection</code> provides
+      <code>IConnection.ConnectionBlocked</code> and
+      <code>IConnection.ConnectionUnblocked</code> events:</p>
+
+      <pre class="sourcecode">
+        public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
+        {
+            // Connection is now blocked
+        }
+
+        public void HandleUnblocked(IConnection sender)
+        {
+            // Connection is now unblocked
+        }
+
+Conn.ConnectionBlocked   += HandleBlocked;
+Conn.ConnectionUnblocked += HandleUnblocked;
+      </pre>
+    </doc:section>
+
+    <doc:section>
+      <doc:heading>When Notifications are Sent</doc:heading>
+      <p>
+        A <code>connection.blocked</code> notification is sent to
+        publishing connections the first time RabbitMQ is low on a
+        resource. For example, when a RabbitMQ node detects that it
+        is low on RAM, it sends
+        <code>connection.blocked</code> to all connected publishing
+        clients supporting this feature. If before the connections
+        are unblocked the node also starts running low on disk space,
+        another <code>connection.blocked</code> will not be sent.
+      </p>
+      <p>
+        A <code>connection.unblocked</code> is sent when <em>all</em>
+        resource alarms have cleared and the connection is fully
+        unblocked.
+      </p>
+    </doc:section>
+  </body>
+</html>

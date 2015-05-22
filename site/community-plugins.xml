@@ -1,0 +1,326 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Community Plugins</title>
+  </head>
+  <body show-in-this-page="true">
+      <doc:section name="overview">
+        <p>
+          For your convenience, we offer binary downloads of plugins
+          which have been contributed by authors in the
+          community. These plugins do not ship with the RabbitMQ
+          server itself; you can download them from
+          our community plugin archive.
+        </p>
+        <p>
+          The plugins are available compiled against various releases
+          of RabbitMQ.
+        </p>
+        <p>
+          Of course, we offer no guarantee that these will even work
+          against a given release of RabbitMQ. We build them at
+          release time, and also when requested to by a plugin
+          author.
+        </p>
+        <p>
+          The download links on this page let you download the latest
+          build of the plugin, compiled against the latest feature
+          release of RabbitMQ. Bugfix releases do not affect plugin
+          compatibility. For older versions of plugins or RabbitMQ,
+          see <a href="/community-plugins">the archive</a>. See also
+          <a href="installing-plugins.html">how to install additional
+          plugins</a>
+        </p>
+
+        <p>
+          If you are the author of a plugin and would like it listed
+          here, please <a href="contact.html">get in touch</a>!
+        </p>
+      </doc:section>
+      <doc:section name="routing">
+        <doc:heading>Routing</doc:heading>
+
+        <table class="plugins">
+          <r:plugin name="rabbitmq_lvc">
+            The last value exchange acts like a direct exchange (binding
+            keys are compared for equality with routing keys); but it
+            also keeps track of the last value that was published with
+            each routing key, and when a queue is bound, it
+            automatically enqueues the last value for the binding key.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Maintainer: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_rtopic_exchange">
+            Adds a reverse topic exchange which lets you provide
+            routing patterns at publishing time, instead of at
+            binding time.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Alvaro Videla</b></li>
+              <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-rtopic-exchange">videlalvaro/rabbitmq-rtopic-exchange</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_recent_history_exchange">
+            A plugin that caches the last N messages that passed through an
+            exchange and delivers them to newly bound queues.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Alvaro Videla</b></li>
+              <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">videlalvaro/rabbitmq-recent-history-exchange</a></li>
+            </ul>
+          </r:plugin>
+<!--
+          <r:plugin name="rabbit_presence_exchange">
+            Adds exchange type <code>x-presence</code>. An exchange
+            of type <code>x-presence</code> notifies queues that are
+            bound to it when other bindings appear and disappear.
+
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Maintainer: <b>Tony Garnock-Jones</b></li>
+              <li>Github: <a href="https://github.com/tonyg/presence-exchange">tonyg/presence-exchange</a></li>
+            </ul>
+          </r:plugin>
+-->
+
+          <r:plugin name="rabbitmq_delayed_message_exchange">
+            A plugin that adds delayed-messaging (or
+            scheduled-messaging) to RabbitMQ.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Alvaro Videla</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="auth">
+        <doc:heading>Authentication / Authorisation</doc:heading>
+
+        <table class="plugins">
+          <r:plugin name="rabbitmq_auth_backend_http">
+            Provides the ability for your RabbitMQ server to perform
+            authentication (determining who can log in) and
+            authorisation (determining what permissions they have)
+            by making requests to an HTTP server.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_auth_backend_amqp">
+            Provides the ability for your RabbitMQ server to perform
+            authentication and authorisation over AMQP itself.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_auth_backend_ip_range">
+            Provides the ability for your RabbitMQ server to perform
+            authorisation based on the client IP address.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Authors: <b>Petr Gotthard</b></li>
+              <li>Github: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="mgmt">
+        <doc:heading>Management</doc:heading>
+        <table class="plugins">
+          <r:plugin name="rabbitmq_top">
+            Adds a "top" like view of busy processes to the
+            management plugin.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_exchange">
+            Adds an exchange type which allows you to connect to the
+            management API using AMQP rather than HTTP.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_event_exchange">
+            Adds an exchange <code>amq.rabbitmq.event</code> which
+            allows you to hear when queues, exchanges, bindings,
+            users, connections and so on are created and deleted.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-event-exchange">rabbitmq/rabbitmq-event-exchange</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_management_themes">
+            Adds the possibility to customize the management web UI
+            look.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_autocluster_consul">
+            Adds the possibility to automatically cluster RabbitMQ nodes
+            using Consul.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Gavin M. Roy</b></li>
+              <li>Github: <a href="https://github.com/aweber/rabbitmq-autocluster-consul">aweber/rabbitmq-autocluster-consul</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="logging">
+        <doc:heading>Logging</doc:heading>
+        <table class="plugins">
+          <r:plugin name="lager">
+            Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Basho Technologies</b></li>
+              <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
+              <li>Github (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="queues">
+        <doc:heading>Queues</doc:heading>
+        <table class="plugins">
+          <r:plugin name="rabbitmq_priority_queue">
+            <i>
+              As of RabbitMQ 3.5.0 the <a
+              href="priority.html">priority queue</a> plugin is
+              integrated into the broker. Users of the plugin
+              upgrading from previous versions of RabbitMQ should:
+            </i>
+            <ul>
+              <li>Install the new version of RabbitMQ</li>
+              <li>Invoke: <code>rabbitmq-plugins disable rabbitmq_priority_queue</code></li>
+              <li>Start the server</li>
+            </ul>
+          </r:plugin>
+        </table>
+        <table class="plugins">
+          <r:plugin name="rabbitmq_sharding">
+            Sharded Queues and Message Partitioning for RabbitMQ.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Alvaro Videla</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-sharding">rabbitmq/rabbitmq-sharding</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="protocols">
+        <doc:heading>Protocols</doc:heading>
+        <table class="plugins">
+<!--
+          <r:plugin name="rabbit_udp_exchange">
+              Adds a new exchange type which listens on a
+              specified UDP port for incoming messages, and relays them on
+              to the queues bound to the exchange. It also takes messages
+              published to the exchange and relays them on to a specified
+              IP address and UDP port.
+              <ul>
+                <li><r:community-plugin-link/></li>
+                <li>Author: <b>Tony Garnock-Jones</b></li>
+                <li>Github: <a href="https://github.com/tonyg/udp-exchange">tonyg/udp-exchange</a></li>
+              </ul>
+          </r:plugin>
+-->
+
+          <r:plugin name="rabbitmq_email">
+            Maps SMTP to AMQP (to convert an incoming email to an AMQP
+            message) and AMQP to SMTP (to send an email from an AMQP message).
+            <ul>
+              <li><r:community-plugin-link name="gen_smtp"/></li>
+              <li><r:community-plugin-link name="rabbitmq_email"/></li>
+            </ul>
+            <ul>
+              <li>Authors: <b>Petr Gotthard</b></li>
+              <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
+            </ul>
+          </r:plugin>
+          <r:plugin name="rabbitmq_jsonrpc_channel">
+            Adds an HTTP server which makes use of JSON-RPC polling
+            to emulate AMQP channels in a web browser. Note that
+            this functionality is split across various plugins:
+            <ul>
+              <li><r:community-plugin-link name="rfc4627_jsonrpc"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel"/></li>
+              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel_examples"/> <i>(to see example code)</i></li>
+            </ul>
+            <ul>
+              <li>Authors: <b>The RabbitMQ Team</b></li>
+            </ul>
+          </r:plugin>
+          <r:plugin name="pgsql_listen_exchange">
+            Translates PostgreSQL NOTIFY messages to AMQP messages and
+            publishes them to bound queues. The PostgreSQL NOTIFY
+            message channel is used as the routing key for the message
+            using direct exchange style routing mechanics.
+            <p>Note that two plugin files are required:</p>
+            <ul>
+              <li><r:community-plugin-link name="epgsql"/></li>
+              <li><r:community-plugin-link name="pgsql_listen_exchange"/></li>
+            </ul>
+            <ul>
+              <li>Author: <b>Gavin M. Roy</b></li>
+              <li>Github: <a href="https://github.com/aweber/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
+            </ul>
+          </r:plugin>
+        </table>
+      </doc:section>
+  </body>
+</html>

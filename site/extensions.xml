@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Protocol Extensions</title>
+  </head>
+  <body>
+      <p class="intro">
+        The RabbitMQ Server implements a number of extensions of the
+        <a href="specification.html">AMQP specification</a>, which we
+        document here.
+      </p>
+
+    <div class="landing-box">
+      <h2>Publishing</h2>
+      <ul>
+        <li>
+          <a href="confirms.html">Confirms</a> (aka Publisher
+          Acknowledgements) are a lightweight way to know when
+          RabbitMQ has taken responsibility for messages.
+        </li>
+        <li>
+          <a href="connection-blocked.html">Blocked Connection Notifications</a>
+          allows clients to be notified when a connection is blocked and unblocked.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Consuming</h2>
+      <ul>
+        <li>
+          <a href="consumer-cancel.html">Consumer Cancellation
+          Notifications</a> let a consumer know if it has been
+          cancelled by the server.
+        </li>
+        <li>
+          <a href="nack.html"><code>basic.nack</code></a>
+          extends <code>basic.reject</code> to support rejecting
+          multiple messages at once.
+        </li>
+        <li>
+          <a href="consumer-priority.html">Consumer Priorities</a> allow you
+          to send messages to higher priority consumers first.
+        </li>
+        <li>
+          <a href="direct-reply-to.html">Fast reply-to</a> allows RPC
+          clients to receive replies to their queries without needing
+          to declare a temporary queue.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Message Routing</h2>
+
+      <ul>
+        <li>
+          <a href="e2e.html">Exchange to Exchange Bindings</a> allow
+          messages to pass through multiple exchanges for more flexible
+          routing.
+        </li>
+        <li>
+          <a href="ae.html">Alternate Exchanges</a> route messages
+          that were otherwise unroutable.
+        </li>
+        <li>
+          <a href="sender-selected.html">Sender-selected
+          Distribution</a> allows a publisher to decide where messages
+          are routed directly.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Message Lifecycle</h2>
+      <ul>
+        <li>
+          <a href="ttl.html#per-queue-message-ttl">Per-Queue Message TTL</a>
+          determines how long an unconsumed message can live in a queue before
+          it is automatically deleted.
+        </li>
+        <li>
+          <a href="ttl.html#per-message-ttl">Per-Message TTL</a>
+          determines the TTL on a per-message basis.
+        </li>
+        <li>
+          <a href="ttl.html#queue-ttl">Queue TTL</a> determines how
+          long an unused queue can live before it is automatically
+          deleted.
+        </li>
+        <li>
+          <a href="dlx.html">Dead Letter Exchanges</a> ensure messages
+          get re-routed when they are rejected or expire.
+        </li>
+        <li>
+          <a href="maxlength.html">Length Limit</a>
+          allows the maximum length of a queue to be set.
+        </li>
+        <li>
+          <a href="priority.html">Priority Queues</a>
+          support the AMQP message priority field (in a slightly
+          different way).
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Authentication and Identity</h2>
+      <ul>
+        <li>
+          The <a href="validated-user-id.html">User-ID</a> message
+          property is validated by the server.
+        </li>
+
+        <li>
+          Clients that advertise the appropriate capability may receive
+          explicit <a href="auth-notification.html">authentication failure notifications</a>
+          from the broker.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>AMQP 0-9-1 Spec Differences</h2>
+      <ul>
+        <li>
+          Some features that were in AMQP 0-8 were deprecated in AMQP
+          0-9-1. We have undeprecated some of them and introduced a
+          couple of tiny behaviour changes that improve usability of
+          the product. Please refer to the <a href="spec-differences.html">spec differences</a> page.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

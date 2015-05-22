@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+remote_host=$1
+mode=$2
+version=$3
+
+if [ x"$remote_host" = x -o x"$mode" = x -o \( x"${version}" = x -a x"$mode" = xprevious \) ] ; then
+    echo 'Usage: deploy <host to deploy to> [www|next|previous vA_B_C]'
+    exit 1
+fi
+
+tmp_dir=/tmp/to_deploy_${mode}
+
+set -x
+
+ssh $remote_host mkdir -p $tmp_dir
+rsync -qcrz --delete --perms --chmod=a+rwX --exclude=site/man code conf site wordpress-theme $remote_host:$tmp_dir
+ssh -t $remote_host sudo "$tmp_dir/code/deploy-remote ${mode} ${version}"

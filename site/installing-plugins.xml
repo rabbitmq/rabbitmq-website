@@ -1,0 +1,107 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Installing Additional Plugins</title>
+  </head>
+  <body show-in-this-page="true">
+      <doc:section name="installing-plugins">
+      <p>
+        Any plugins that do not ship with the server will need to be
+        installed as .ez archives by copying them to the plugins
+        directory. Once they have been copied to the correct
+        directory, they will show up in <code>rabbitmq-plugins
+        list</code> and can be enabled with <code>rabbitmq-plugins
+        enable <i>plugin-name</i></code>.
+      </p>
+      <p>
+        The plugins directory location is determined by the
+        <b>RABBITMQ_PLUGINS_DIR</b> variable.  Its default value
+        depends on how you installed RabbitMQ. Some common values are:
+      </p>
+      <table>
+        <tr><th>Installation method</th><th>Plugins directory</th></tr>
+        <tr>
+          <th>Debian/RPM packages</th>
+          <td>
+            <code>/usr/lib/rabbitmq/lib/rabbitmq_server-</code><i>version</i><code>/plugins</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Windows</th>
+          <td>
+            Typically <code>C:\Program
+              Files\RabbitMQ\rabbitmq_server-</code><i>version</i><code>\plugins</code>
+            (depending on where it was installed)
+          </td>
+        </tr>
+        <tr>
+          <th>Homebrew</th>
+          <td>
+            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
+          </td>
+        </tr>
+        <tr>
+          <th>Generic&#160;Unix</th>
+          <td>
+            <code>rabbitmq_server-</code><i>version</i><code>/plugins</code>
+            (depending on where it was installed)
+          </td>
+        </tr>
+      </table>
+      </doc:section>
+      <doc:section name="upgrades">
+        <doc:heading>Plugins and Upgrades</doc:heading>
+        <p>
+          The enabled plugins configuration is preserved between
+          upgrades, so there is no need to re-enable plugins after an
+          upgrade, but because the plugins directory changes between
+          versions, any third party plugins will need to be copied to
+          the new directory. It's very possible that due to API
+          changes you may need to check for updates to third party
+          plugins at this point.
+        </p>
+      </doc:section>
+      <doc:section name="building">
+        <doc:heading>Building Plugins</doc:heading>
+        <p>
+          You can also build RabbitMQ plugins from source.  The sources for a
+          particular version of the plugins is distributed in the same
+          archive as the broker with that version.  The source code
+          repositories can all be found on <a
+          href="https://github.com/rabbitmq">GitHub</a>. See the
+          <a href="plugin-development.html">plugin development</a>
+          guide for more information on building plugins from source.
+        </p>
+        <p>
+          Note that plugins tend to be strongly bound to a particular
+          version of <code>rabbitmq-server</code>. For example, if you are
+          running RabbitMQ &version-server;, you should check out all plugins
+          with the Git tag <code>&version-server-tag;</code>.
+        </p>
+      </doc:section>
+  </body>
+</html>

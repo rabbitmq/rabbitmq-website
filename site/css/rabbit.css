@@ -1,0 +1,545 @@
+/*
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+/* 8a948f - 150 7 58 */
+/* a9b5af - 150 7 71 */
+/* old visited color: #c40; */
+html {
+overflow-x:auto;
+overflow-y:scroll;
+}
+
+body, table {
+	font: 13px/18px Verdana, sans-serif;
+	color: #555;
+	background-color: #fff;
+}
+
+body {
+	margin: 0px;
+	text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+div#outerContainer {
+	text-align: left;
+	clear: both;
+	margin: 0 auto;
+	width: 960px;
+	padding: 1px;
+}
+
+:link, :visited {
+	color: #444;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:active, a:hover {
+	color: #ff9933;
+	text-decoration: underline;
+}
+
+:link img, :visited img {
+	border: 0;
+}
+
+h1, h2, h3  {
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 20px 0 0.5em 0;
+	padding: 0;
+}
+
+#rabbit-logo {
+	margin: 10px 0 0 0;
+	float: left;
+	height: 53px;
+}
+
+#pivotal-logo {
+	float: right;
+	margin: 15px 0 0 0;
+}
+
+div#nav-search {
+	clear: both;
+}
+
+div#search-box {
+	float: right;
+	clear: right;
+	background: url('../img/search-box.png') no-repeat;
+	height: 26px;
+	width: 191px;
+	padding: 4px 10px 4px 10px;
+}
+
+input#search-query {
+	float: left;
+	height: 17px;
+	width: 172px;
+	border: none;
+	color: #8a948f;
+	font-size: 12px;
+}
+
+input#search-query.focus {
+	color: #000;
+}
+
+input#search-button {
+	cursor: pointer;
+	height: 17px;
+	width: 17px;
+	background: url('../img/button-search.png') no-repeat;
+	border: none;
+}
+
+dd p {
+	margin: 0 0 5px 0;
+}
+
+h2 a {
+	color: #f60;
+      }
+
+h1, h2 {
+    color: #f60;
+    font-size: 1.7em;
+}
+
+h3 {
+	color: #f60;
+	font-size: 1.2em;
+	}
+
+ul {
+	margin: 10px 0;
+	padding: 0;
+	}
+
+div#right-nav ul { margin: 0; }
+table#changelog ul { margin: 0 0 10px 0; }
+table#changelog .centre { text-align: center; white-space: nowrap; }
+table#changelog .centre a { font-size: 80%; }
+
+li {
+	list-style-type: none; 
+	background: url(../img/li.gif) no-repeat 1px 9px;
+	margin: 0;
+	padding: 3px 0 2px 10px;
+}
+		
+ol.plain, ul.plain {
+	margin: 5px 0px 0px 10px;	
+	padding: 0px 0px 0px 0px;
+}
+
+ol.plain li, ul.plain li {
+	background: none;
+	margin: 0px 0px 0px 10px;	
+	padding: 0px 0px 0px 0px;
+	border-bottom: none;
+}
+ul.plain li {
+	list-style-type : disc !important;	
+}
+ol.plain li {
+	list-style-type : decimal !important;	
+}
+	
+.col li {
+	border-bottom: #e4e4e4 1px solid;
+}
+
+p {
+	clear:left;
+	}
+	
+.logos {
+	text-align: center;
+	margin-top: 3ex;
+	}
+
+.logos img {
+	padding: 0 20px;}
+
+b, strong, .intro {
+	color: black;
+	font-weight: normal;
+}
+.clear {
+	clear:both;
+}
+.lft {
+	clear:left;
+}
+
+div.docRoadmapentryHeading {
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+ul.mainNav {
+	text-align: left;
+	height: 21px;
+        padding-top: 8px;
+}
+
+.mainNav li {
+	display: inline;
+	border: none;
+	background: none;
+        padding: 0 2em 0 0;
+	margin: 1px;
+	text-decoration: none;
+}
+.mainNav :link, .mainNav :visited {
+	/* color: #a9b5af; */
+	color: #8a948f;
+	text-decoration: none;
+	font-weight: bold;
+}
+.mainNav :hover, .mainNav :active {
+	color: #ff9933;
+	text-decoration: underline;
+}
+
+.mainNav a.selected {
+    color: #444;
+}
+
+hr {
+	clear: both;
+	visibility: hidden;
+}
+
+hr.pad {
+	margin: 0px 0px 21px 0px;
+	padding: 0px;
+}
+div.nav-separator {
+	clear: both;
+	border-top: #FF8C00 1px solid;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	padding: 0px;
+}
+.compact li {
+	padding-bottom: 0em;
+}
+.compact {
+	padding-bottom: 1ex;
+}
+
+.compact ul.compact {
+	padding-bottom: 0ex;
+}
+
+.faqHeading {
+	border-top: #e4e4e4 1px solid;
+	margin-top: 1em;
+	padding-top: 1em;
+	color: #f60;
+	font-weight: bold;
+}
+
+.faqQuestion {
+	font-style: italic;
+}
+
+.faqAnswer {
+	margin-left: 0em;
+}
+
+pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
+	background: #eee;
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+
+pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.code, span.path {
+    color: #333;
+    font-family: "Courier New", Courier, monospace;
+    font-size: small;
+}
+
+span.code {
+  white-space: nowrap;
+}
+
+pre span.code {
+  white-space: pre;
+  display: block;
+}
+	
+span.envvar {
+  color: black;
+  white-space: nowrap;
+}
+span.path {
+	white-space: nowrap;
+}
+
+.sourcecode i {
+	color: darkred;
+}
+
+.sourcecode b {
+	color: darkcyan;
+}
+
+.docSection div.cmdsynopsis {
+	margin: 2.5em 0 0.5em 0;
+}
+
+.docSection div.cmdsynopsis p {
+	margin: 0;
+}
+.docSection div.cmdsynopsis span.command {
+	font-weight: bold;
+}
+
+div.variablelist .sourcecode {
+    color: white;
+    background: #444;
+    border: none;
+}
+
+table {
+	width: 100%;
+	border-top: #e4e4e4 1px solid;
+	border-left: #e4e4e4 1px solid;
+}
+
+th, td {
+	border-bottom: #e4e4e4 1px solid;
+	border-right: #e4e4e4 1px solid;
+	text-align: left;
+	padding: 2px 0.5em 2px 0.5em;
+}
+
+div.auto-index table, div.auto-index th, div.auto-index td { border: none; }
+
+tr {
+	vertical-align: top;
+}
+
+.highlights {
+  border: #8a948f 4px solid;
+  margin: 10px 0px 10px 0px;
+  padding: 0px 10px 10px 10px;
+}
+
+td.desc, th.desc {
+  width:350px;
+}
+
+.signature a {
+  font-weight: normal;
+  font-size: 80%;
+}
+
+.amqpRules th, .amqpRules td {
+	vertical-align: top;
+}
+.amqpRules .notes {
+	font-style: italic;
+}
+.amqpRules .notes .leader {
+	font-weight: bold;
+}
+.amqpRules .statusCell 			{background: #ccc;}
+.amqpRules .status_ok 			{background: #0c0;}
+.amqpRules .status_planned 		{background: #cf0;}
+.amqpRules .status_partial 		{background: #cf0;}
+.amqpRules .status_invalid 		{background: #cf0;}
+.amqpRules .status_unsupported 	{background: #fc0;}
+.amqpRules .status_deprecated 	{background: #fc0;}
+.amqpRules .status_failing 		{background: #c00; color: white;}
+
+.platformHighlight {
+	background: #f6fcb0;
+}
+
+.pageFooter {
+	color: #a9b5af;
+	text-align: left;
+	border-top: #e4e4e4 1px solid;
+	margin-top: 21px;
+	font-size: 95%;
+	height: 128px;
+}
+
+.pageFooter p.righter {
+   float: right;
+}
+
+.pageFooter a {
+   font-weight: normal;
+}
+
+.pageFooter #copyright a {
+   color: #a9b5af;
+}
+
+ol.feed {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+}
+
+.feed li {
+	line-height: 17px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+  }
+  
+.feed li hr {
+	visibility: visible;
+	border: none;
+	height: 1px;
+	margin-top: 2em;
+	margin-bottom: 1em;
+	background-color: #e4e4e4;
+}
+
+.feed li .feed-item-title {
+	float: left;
+	font-weight: bold;
+	color: #8a948f;
+}
+
+.feed li .feed-item-date {
+	float: right;
+	color: #8a948f;
+	font-weight: bold;
+}
+.downloadlabel {
+	font-size: 120%;
+	font-weight: bold;
+	background: #f6fcb0;
+}
+.downloadlabel a {
+	color: #444;
+	display: block;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.subscribe {
+        float: right;
+}
+
+div.rgt-third {
+    width: 30%;
+    float: right;
+}
+div.rgt-third p,
+div.rgt-third h3,
+div.rgt-third ol {
+    margin-left: 2%;
+}
+
+p.warning {
+	color: black;
+	background: #ff8;
+	border: 2px solid #880;
+	font-weight: bold;
+	margin: 20px;
+	padding: 15px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	text-align: center;
+}
+
+p.warning a {
+    color: black;
+    text-decoration: underline;
+}
+
+#getting_here address {
+  float: left;
+  padding-right: 50px;
+}
+
+#map_canvas {
+  width:400px;
+  height:250px;
+  float: left;
+}
+
+#changelog  { width: auto; clear: both; }
+
+#changelog td, table.styled-table td { background-color: #f7f7f7; }
+
+table.plugins th { border-bottom: none; }
+table.plugins td { border-top: none; padding-left: 5em; }
+
+#home-content { width: 68%; }
+
+#home-content h3, .rgt-third h3 { background-color: #ffebde; color: #444; padding: 3px 5px; font-size: 1em; border-bottom: 1px solid #f93; }
+
+ul#large-bullets { margin: 1em 0 0 0; }
+ul#large-bullets li { font-family: Helvetica, Arial, sans-serif; font-size: 2.0em; line-height: 1.1em; padding: 5px 5px 5px 15px; background: url(../img/li-big.gif) no-repeat 0px 14px; }
+
+#buttons { overflow: auto; width: 100%; text-align: center; margin: 0; padding: 1em 0 0 0; height: 9.1em; }
+#buttons li { float: left; display: block; width: 33%; padding: 0; background: none; height: 9.1em; }
+#buttons li a {
+    height: 9em;
+    padding: 0;
+    margin: 0 5px;
+    display: block;
+    text-decoration: none;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: white;
+    background: #f93;
+}
+
+#buttons li a:hover { background-color: #f60; }
+#buttons li a h4 { margin: 0; padding: 8px; border-bottom: 1px solid #ffebde; }
+#buttons li a p { font-weight: normal; padding: 10px; margin: 0; }
+
+.news-date { float: right; color: #888; }
+.blog-author { display: block; color: #888; }
+
+/* right hand navigation */
+
+div#left-content { float: left; width: 730px; }
+
+div#right-nav { float: right; width: 215px; margin-top: 20px; }
+div#right-nav div { margin: 0 0 20px 5px; padding: 10px; background: #eee; border-radius: 10px; -moz-border-radius: 10px; }
+div#right-nav h4 { margin: 0; }
+div#right-nav li { padding: 6px 0 0 15px; background-position: 6px 12px; }
+div#right-nav li.gap-after { padding-bottom: 10px; }
+div#right-nav a { font-weight: normal; }
+div#right-nav a.selected { font-weight: bold; }
+
+/* landing box */
+
+.landing-box { background: #ffebde; border-radius: 20px; padding: 1px 20px 20px 20px; margin-bottom: 30px; -moz-border-radius: 20px; }
+
+#sitemap h3 { clear: both; padding: 20px 0 0 0; }
+#sitemap ul { float: left; }
+#sitemap ul ul a { font-weight: normal; }
+#sitemap li { float: left; width: 250px; }
+

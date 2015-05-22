@@ -1,0 +1,120 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Server Documentation</title>
+  </head>
+  <body>
+    <p class="intro">
+      RabbitMQ ships in a state where it can be used straight away in
+      simple cases - just start the server and it's ready to go. If
+      you have more complex needs you may need to adjust your server
+      configuration.
+    </p>
+
+    <div class="landing-box">
+      <h2>Configuring your Server</h2>
+      <ul>
+        <li>
+          How to <a href="configure.html">configure</a> RabbitMQ:
+          configuration files and environment variables.
+        </li>
+        <li>
+          Configuring RabbitMQ to accept <a href="ssl.html">SSL connections</a>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Management and Monitoring</h2>
+      <p>
+        RabbitMQ ships with:
+      </p>
+      <ul>
+        <li>
+          The <a href="management.html">management plugin</a>: a web UI
+          and HTTP API for managing and monitoring RabbitMQ.<br/>
+          See its <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API documentation</a> and its
+          <a href="/management-cli.html">command line interface,
+          rabbitmqadmin</a>.
+        </li>
+        <li>
+          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>: a
+          simpler command line tool for managing RabbitMQ.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Clustering and High Availability</h2>
+      <ul>
+        <li>
+          The different ways to <a href="distributed.html">run RabbitMQ in a distributed environment</a>.
+        </li>
+        <li>
+          How to achieve <a href="reliability.html">reliable message
+          delivery</a>.
+        </li>
+        <li>
+          How to <a href="clustering.html">set up a RabbitMQ cluster</a>.
+        </li>
+        <li>
+          Configuring a RabbitMQ cluster to
+          use <a href="ha.html">active-active highly available queues</a>.
+        </li>
+        <li>
+          Configuring a pair of RabbitMQ brokers in an active-passive
+          <a href="pacemaker.html">highly available</a> configuration (legacy).
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Authentication and Authorisation</h2>
+      <ul>
+        <li>
+          How to <a href="access-control.html">set up access
+          control</a> for the objects in your broker.
+        </li>
+        <li>
+          Configuring <a href="authentication.html">SASL authentication</a>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Other Documentation</h2>
+      <ul>
+        <li>
+          Documentation on how RabbitMQ <a href="memory.html">manages
+          memory</a>.
+        </li>
+        <li>
+          <a href="firehose.html">The Firehose</a> - trace messages as
+          they pass through your RabbitMQ server.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

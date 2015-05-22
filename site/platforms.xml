@@ -1,0 +1,108 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Supported Platforms</title>
+  </head>
+  <body>
+    <p class="intro">
+      Our goal is for RabbitMQ to run on as wide a range of platforms as
+      possible. RabbitMQ can potentially run on any platform that Erlang
+      supports, from embedded systems to multi-core clusters and cloud-based
+      servers.
+    </p>
+
+    <p id="erlang-supported">
+      The following platforms are supported by Erlang and could therefore
+      run RabbitMQ:
+      <ul class="compact">
+        <li>Solaris</li>
+        <li>BSD</li>
+        <li>Linux</li>
+        <li>MacOSX</li>
+        <li>TRU64</li>
+        <li>Windows NT/2000/XP/Vista/Windows 7/Windows 8</li>
+        <li>Windows Server 2003/2008/2012</li>
+        <li>Windows 95, 98</li>
+        <li>VxWorks</li>
+      </ul>
+    </p>
+
+    <p id="rabbit-supported">
+      The open source release of RabbitMQ is most commonly deployed on the
+      following platforms:
+      <ul class="compact">
+        <li>Ubuntu and Debian-based Linux distributions</li>
+        <li>Fedora and RPM-based Linux distributions</li>
+        <li>openSUSE and derived distributions (including SLES and SLERT)</li>
+        <li>Mac OS X</li>
+        <li>Windows XP and later</li>
+      </ul>
+    </p>
+
+    <h3 id="windows">Windows</h3>
+    <p>
+      RabbitMQ will run on Windows XP and later (Server 2003, Vista, Windows 7, Windows 8,
+      Server 2008 and Server 2012). It should be possible to run on Windows NT and
+      Windows 2000 as well although this has not been tested.
+    </p>
+    <p>
+      The Windows Erlang VM is available as 32bit (all available versions) and 64bit
+      versions (since R15B). Some limitations (such as address space) will be apparent when
+      running a 32bit Erlang VM on 64bit hardware.
+    </p>
+
+    <h3 id="unix">Generic UNIX</h3>
+    <p>
+      While not officially supported, Erlang and hence RabbitMQ can run on most
+      systems with a POSIX layer including Solaris, FreeBSD, NetBSD, OpenBSD
+      and many more.
+    </p>
+
+    <h3>Virtual Platforms</h3>
+    <p>
+      RabbitMQ can run on physical or emulated hardware. This also allows
+      unsupported platforms that are able to emulate a supported platform to
+      run RabbitMQ.
+    </p>
+    <p>
+       See the <a href="ec2.html">EC2 guide</a> for details on
+      running on RabbitMQ on Amazon EC2.
+    </p>
+
+    <h2 id="commercial">Commercially Supported Platforms</h2>
+    <p>A list of platforms for which you can purchase commercial support for
+       RabbitMQ is available in the
+       <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">
+         RabbitMQ commercial documentation</a>.
+    </p>
+    <h2 id="unsupported">Unsupported Platforms</h2>
+    <p>
+      Some platforms are not supported and probably never will be:
+      <ul class="compact">
+        <li>z/OS and most mainframes</li>
+        <li>Memory-constrained systems (&lt; 16Mb RAM)</li>
+      </ul>
+
+      If your platform is on this list or you need assistance then
+      please <a href="contact.html">contact us</a>.
+    </p>
+  </body>
+</html>

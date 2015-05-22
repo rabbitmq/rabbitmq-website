@@ -1,0 +1,136 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Messaging that just works</title>
+  </head>
+  <body suppress-rhs="true">
+    <x:modal mode="www">
+    <div class="rgt-third">
+      <h3>
+	<span class="subscribe">
+	  <a href="news.atom">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
+	  </a>
+	</span>Latest News
+      </h3>
+      <doc:homefeed src="news.atom" type="ournews" limit="5" />
+
+      <h3>
+	<span class="subscribe">
+	  <a href="/blog/feed/">
+	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our blog posts" title="Subscribe to our blog posts" />
+	  </a>
+	</span>Latest Blog Posts
+      </h3>
+      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="5" />
+    </div>
+
+    <div id="home-content">
+      <h3>What is RabbitMQ?</h3>
+      <ul id="large-bullets">
+        <li>Robust <a href="features.html">messaging</a> for applications</li>
+        <li><a href="getstarted.html">Easy to use</a></li>
+        <li>Runs on all major <a href="download.html">operating systems</a></li>
+        <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
+        <li><a href="github.html">Open source</a> and <a href="services.html">commercially supported</a></li>
+      </ul>
+
+      <div id="home-what-is">
+        <h3>Get Started</h3>
+        <ul id="buttons">
+          <li>
+            <a href="download.html">
+              <h4>Download</h4>
+              <p>Server and clients for various operating systems and languages</p>
+            </a>
+          </li>
+          <li>
+            <a href="getstarted.html">
+              <h4>Tutorials</h4>
+              <p>Teach yourself RabbitMQ in six easy lessons</p>
+            </a>
+          </li>
+          <li>
+            <a href="documentation.html">
+              <h4>Documentation</h4>
+              <p>How to do almost anything with RabbitMQ</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <h3>Read More</h3>
+      <ul>
+        <li>
+          Languages:
+          <a href="devtools.html#java-dev">Java</a> |
+          <a href="devtools.html#dotnet-dev">.NET</a> |
+          <a href="devtools.html#ruby-dev">Ruby</a> |
+          <a href="devtools.html#python-dev">Python</a> |
+          <a href="devtools.html#php-dev">PHP</a> |
+          <a href="devtools.html#node-dev">JavaScript</a> |
+          <a href="devtools.html">more...</a>
+        </li>
+        <li>
+          Cloud:
+          <a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Cloud Foundry</a> |
+          <a href="ec2.html">EC2</a> |
+          <a href="https://developers.google.com/cloud/rabbitmq/click-to-deploy">Google Compute Engine</a> |
+          <a href="devtools.html">more...</a>
+        </li>        
+      </ul>
+    </div>
+    </x:modal>
+    <x:modal mode="next">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>next.rabbitmq.com</b>, exists to document the
+        features that will be available in the <b>next</b> feature
+        release of RabbitMQ, and that are available in
+        the <a href="http://www.rabbitmq.com/nightly-builds.html">nightly
+        builds</a>.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
+    <x:modal mode="previous">
+     <div id="home-content">
+      <h3>What is this website?</h3>
+      <p>
+        This website, <b>previous.rabbitmq.com</b>, exists to document
+        a historical feature release of RabbitMQ (&version-server;).
+        Visit the <a href="http://previous.rabbitmq.com/">release index page</a>
+        for documentation of other historical releases.
+      </p>
+      <ul id="large-bullets">
+        <li>Visit <a href="http://www.rabbitmq.com/">www.rabbitmq.com</a>
+        for information on the current release.</li>
+      </ul>
+     </div>
+    </x:modal>
+  </body>
+</html>

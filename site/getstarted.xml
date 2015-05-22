@@ -1,0 +1,93 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Getting started with RabbitMQ</title>
+  </head>
+  <body suppress-rhs="true">
+      <p>
+        These tutorials cover the basics of creating messaging
+        applications using RabbitMQ.
+
+        You need to have the RabbitMQ server installed to go through
+        the tutorials &#8210; please see the <a
+        href="download.html">installation guide.</a>
+      </p>
+
+      <div id="tutorial-index">
+        <xi:include href="tutorials/tutorials-menu.xml.inc"/>
+      </div>
+      <hr/>
+      <div>
+      <h3>Tutorials in other languages</h3>
+      <p>
+        The tutorials here use Python, Java, Ruby, PHP and C#,
+        however, the tutorial code examples are available for a
+        variety of languages and client libraries:
+
+        <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/dotnet">C#</a> (using <a href="http://www.rabbitmq.com/dotnet.html">.net/c# client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/go">Go</a> (using <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
+          </li>          
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">Java</a> (using <a href="/java-client.html">java client</a>)
+          </li>
+          <li>
+            <a href="https://github.com/squaremo/amqp.node/tree/master/examples/tutorials">JavaScript/node.js</a> (using <a href="https://github.com/squaremo/amqp.node">amqp.node</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">Python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">Ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
+          </li>
+        </ul>
+      </p>
+      <p>
+        We also maintain a list
+        of <a href="devtools.html">clients and developer tools</a> for
+        a range of platforms, which you may find useful.
+      </p>
+      <h3>Further reading</h3>
+      <p>
+        Once you have been through the tutorials (or if you want to
+        skip ahead), you may wish to read an
+        <a href="tutorials/amqp-concepts.html">Introduction to AMQP Concepts</a>
+        and browse our
+        <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
+      </p>
+      </div>
+  </body>
+</html>

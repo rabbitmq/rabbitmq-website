@@ -1,0 +1,118 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+  <head>
+    <title>Java Client Tools</title>
+  </head>
+  <body>
+    <p class="intro">
+      The Java client distribution ships with some utility programs written
+      using the Java client. This page documents how to use them.
+    </p>
+    <p>
+      These utility programs are contained
+      within <code>rabbitmq-client-tests.jar</code>. This jar file also
+      contains several small example programs for exercising the functionality
+      of the RabbitMQ server. The source code for these examples is in
+      the <code>test/src</code> folder in the source distribution. These are
+      intended to be fairly self-explanatory and are not documented here.
+    </p>
+    <p>
+      The script <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> runs Java with
+      the class path correctly configured for the examples, e.g.
+      <code>runjava.sh com.rabbitmq.examples.TestMain</code> runs
+      the <code>TestMain</code> functional tests.
+    </p>
+
+    <doc:section name="perftest">
+      <doc:heading>PerfTest</doc:heading>
+      <p>
+        <code>PerfTest</code> (formerly known
+        as <code>MulticastMain</code>) is a performance testing tool. It
+        starts up zero or more producers and consumers and reports the
+        rate at which messages are sent and received, along with the
+        latency (i.e. time taken for messages to pass through the
+        broker).
+      </p>
+
+      <p>
+        <code>PerfTest</code> supports many command line
+        flags. Invoke it with <code>--help</code> to see them:
+      </p>
+      <pre>runjava.sh com.rabbitmq.examples.PerfTest --help</pre>
+      <p>Some examples:</p>
+      <dl>
+        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -a</pre></dt>
+        <dd>
+          Send transient messages without acknowledgement, 1
+          producer and 1 consumer.
+        </dd>
+        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -c 1000</pre></dt>
+        <dd>
+          Similar, but with acknowledgments and confirms.
+        </dd>
+        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -c 1000 -f persistent</pre></dt>
+        <dd>
+          ...with acknowledgments, confirms and persistence.
+        </dd>
+        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -y0 -p -u my-queue -s 1000 -C 1000000</pre></dt>
+        <dd>
+          Fill a pre-declared queue with 1M transient messages of 1kB each
+        </dd>
+        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -x0 -y10 -p -u another-queue</pre></dt>
+        <dd>
+          Start 10 consumers from a predeclared queue, and no producers.
+        </dd>
+      </dl>
+    </doc:section>
+
+    <doc:section name="html-performance-tools">
+      <doc:heading>HTML Performance Tools</doc:heading>
+      <p>
+        The <code>HTML Performance Tools</code> are a set of tools
+        that can help you run automated benchmarks by wrapping around the
+        <code>PerfTest</code> benchmarking framework. You can provide
+        benchmark specs, and the tool will take care of running the benchmark,
+        collecting results and displaying them in an HTML page. Learn more
+        <a href="https://github.com/rabbitmq/rabbitmq-perf-html">here</a>
+      </p>
+    </doc:section>
+
+    <doc:section name="tracer">
+      <doc:heading>Tracer</doc:heading>
+      <p>
+        There's a very basic, very simple AMQP protocol analyzer in
+        class <code>com.rabbitmq.tools.Tracer</code>. Invoke it with
+      </p>
+      <pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
+      <dl>
+        <dt>listenPort</dt>
+        <dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
+        <dt>connectHost</dt>
+        <dd>hostname to use when making an outbound connection in response to an incoming connection - defaults to localhost.</dd>
+        <dt>connectPort</dt>
+        <dd>port number to use when making an outbound connection - defaults to 5672.</dd>
+      </dl>
+    </doc:section>
+  </body>
+</html>

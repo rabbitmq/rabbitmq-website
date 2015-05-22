@@ -1,0 +1,84 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Erlang Versions</title>
+  </head>
+  <body>
+    <h3>Which Version of Erlang?</h3>
+    <p>
+      In general, use the <a href="http://www.erlang.org/download.html">latest available</a>
+      stable (non-alpha) version of Erlang.
+    </p>
+    <p>
+      The minimum version of <a href="http://www.erlang.org">Erlang</a>
+      required to run the RabbitMQ server is R13B03. If you absolutely must
+      use an older version of Erlang, RabbitMQ 3.1.x is the newest version
+      compatible with R12B-3. Certain RabbitMQ configurations require more
+      <a href="http://www.erlang.org/download.html">recent versions</a>:
+    </p>
+    <p>
+    <table>
+      <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
+      <tr>
+        <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
+        <td>R13B03</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>use <a href="ssl.html">SSL</a> reliably</td>
+        <td>R16B01</td>
+        <td>Covers most common signature algorithms.</td>
+      </tr>
+      <tr>
+        <td>use <a href="web-stomp.html">web STOMP</a></td>
+        <td>R14B</td>
+        <td>The cowboy web server requires at least R14B.</td>
+      </tr>
+      <tr>
+        <td>run on a <a href="platforms.html#windows">64bit Windows</a> VM</td>
+        <td>R15B</td>
+        <td>Earlier versions are 32bit only.</td>
+      </tr>
+    </table>
+    </p>
+    <p>
+      If using <a href="clustering.html#upgrading">clustered</a> nodes,
+      all nodes should use the same version of Erlang.
+    </p>
+
+    <h3>OS support</h3>
+    <p>
+      Most current distributions now package Erlang that supports all
+      the above. One (partial) exception is Red Hat Enterprise Linux -
+      RPMs are available but not as part of the core distribution.
+      See the <a href="install-rpm.html">RPM-based Linux
+      Installation</a> page for how to install Erlang on RPM-based
+      distributions.
+    </p>
+
+    <h3>Building Erlang from source</h3>
+    <p>
+      If a sufficiently recent Erlang package is not available for your system then you will need to
+      <a href="http://www.erlang.org/doc/installation_guide/INSTALL.html">build Erlang from source</a>.
+      This requires a build environment that satisfies the Erlang build dependencies, such as OpenSSL.
+    </p>
+  </body>
+</html>

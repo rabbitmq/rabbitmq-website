@@ -1,0 +1,580 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>High availability with Pacemaker and DRBD</title>
+  </head>
+  <body>
+    <p class="warning">
+      This page documents a legacy technique for achieving
+      active-passive high availability with
+      RabbitMQ. <a href="ha.html">Active-active mirrored queues</a>
+      are easier to use and do not impose a delay at failover.
+    </p>
+      <doc:section name="introduction">
+        <p>There are many forms of high availability, replication and
+        resilience in the face of various different types of
+        failure. RabbitMQ can be made to work in an active/passive
+        setup, such that persistent messages that have been written to
+        disk on the active node are able to be recovered by the
+        passive node should the active node fail. Non-persistent
+        messages will be lost, and the promotion of the passive node
+        may take a little while as it reads the messages off disk.
+        </p>
+
+        <p>Whilst RabbitMQ also supports <a
+        href="clustering.html">clustering</a>, clustering is intended
+        to facilitate scalability, not availability. Thus in a
+        cluster, if a node fails, queues which were on the failed node
+        are lost. With the high availability setup described in this
+        guide, when a node fails, the durable queues and the
+        persistent messages within them can be recovered by a
+        different node.</p>
+
+        <img src="img/pacemaker.png"/>
+
+        <p>Clustering can be combined with high availability to create
+        a cluster that can scale beyond a single node and
+        simultaneously preserve persistent messages and durable
+        resources in the event of node failure.</p>
+      </doc:section>
+
+      <doc:section name="requirements">
+	<doc:heading>Requirements</doc:heading>
+
+        <p>This guide assumes that you're going to use the <a
+        href="http://www.clusterlabs.org/">Pacemaker</a> HA stack to
+        do the resource management and monitoring. This guide will
+        also make use of <a href="http://www.drbd.org/">DRBD</a> to
+        provide a shared storage area in which the active node will
+        write messages. If you have a NAS or SAN or some other means
+        of providing reliable shared storage to both nodes, then you
+        can use that instead of DRBD. If you are going to use DRBD,
+        note that the DRBD OCF script which we use later on only
+        appeared in DRBD version 8.3.2.</p>
+
+        <p>This guide uses CoroSync (which is a cut-down version of
+        OpenAIS) in preference to Heartbeat as the messaging layer
+        underneath Pacemaker. However, we also have Heartbeat
+        installed so as to be able to access Heartbeat's OCF
+        scripts. You should find that the instructions here work
+        equally well regardless of whether you use CoroSync, Heartbeat
+        or OpenAIS.</p>
+
+        <p>Note that CoroSync relies on multicast in order to do
+        resource discovery. In some environments (e.g. EC2), multicast
+        is not available. Heartbeat, which can do resource discovery
+        using unicast, is the recommended solution if multicast is not
+        available.</p>
+
+        <p>This guide does not tell you how to install Pacemaker,
+        Heartbeat, OpenAIS, CoroSync or DRBD - there are already
+        several good guides available for these tasks:</p>
+
+        <p><ul class="plain">
+          <li><a
+          href="http://www.clusterlabs.org/wiki/Install">Pacemaker
+          install guide</a></li>
+	  <li>General <a
+	  href="http://www.clusterlabs.org/wiki/Documentation">Pacemaker
+	  documentation</a>: In particular, see the <i>Clusters from
+	  scratch</i> guides</li>
+          <li><a href="http://www.drbd.org/users-guide/">DRBD
+          users guide</a></li>
+        </ul></p>
+
+        <p>As of August 2010, Debian <i>testing</i> and Ubuntu
+        <i>lucid</i> both contain sufficiently up-to-date versions of
+        Heartbeat, CoroSync and Pacemaker that it should not be
+        necessary to compile from source.</p>
+
+        <p>If you're compiling Pacemaker et al from source, be aware
+        that the various autoconf configure scripts don't seem to test
+        thoroughly enough for various libraries, the result of which
+        is that compilation may eventually fail due to missing
+        libraries, even though the configure script passes. Under
+        Debian Sid, we have had to install the following extra
+        packages, though obviously your mileage will vary with
+        different distributions: <code>autoconf libtool pkg-config
+        libglib2.0-dev libxml2 libxml2-dev uuid-dev uuid-runtime
+        libnss3-dev groff libxslt1.1 libxslt1-dev libesmtp5
+        libesmtp-dev libssl-dev ssmping xsltproc</code>. Be aware that
+        we have found that if the build does fail, merely installing
+        the necessary libraries was not enough to make the build then
+        pass - we have had to go back and re-run the autotools and
+        configure steps before it would find the new libraries and
+        compile correctly.</p>
+
+      </doc:section>
+
+      <doc:section name="assumption">
+	<doc:heading>Assumptions</doc:heading>
+
+        <p>By this point, we assume that you have installed Pacemaker
+        and, if you're going to use it, DRBD, on two different
+        machines, which can see each other. You should have configured
+        DRBD and thus be able to set one node the primary and the
+        other the secondary for the DRBD resource. The initial sync
+        between the two nodes has already been done. Our DRBD resource
+        <code>drbd1</code> configuration looks like:</p>
+
+<pre class="sourcecode">
+global {
+  usage-count no;
+}
+
+resource drbd1 {
+  device    /dev/drbd1;
+  disk      /dev/vdb;
+  meta-disk internal;
+  protocol  C;
+  on ha-node-1 {
+    address   192.168.100.21:7789;
+  }
+  on ha-node-2 {
+    address   192.168.100.22:7789;
+  }
+}
+</pre>
+
+        <p>We assume that if you bring up the DRBD device, you have
+        already put a file-system on it and can mount and unmount
+        it. <code>crm configure show</code> should show nothing
+        configured:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm configure show
+node ha-node-1
+node ha-node-2
+property $id="cib-bootstrap-options" \
+        dc-version="1.0.7-6fab059e5cbe82faa65f5aac2042ecc0f2f535c7" \
+        cluster-infrastructure="openais" \
+        expected-quorum-votes="2" \
+        stonith-enabled="false" \
+        no-quorum-policy="ignore" \
+        last-lrm-refresh="1268667122"
+rsc_defaults $id="rsc-options" \
+        resource-stickiness="100"
+</pre>
+        <p>Note that here we have already set stickiness to 100,
+        disabled STONITH, and told Pacemaker not to worry about not
+        having quorum (see the section <i>Create an Active/Passive
+        cluster</i> in the <i>Clusters from scratch</i> guides
+        referenced above). In reality, you probably do want STONITH
+        devices, and you'll want a cluster of at least 3 nodes, so
+        that quorum can be maintained in the event of node failure,
+        and ring-fencing can occur.</p>
+      </doc:section>
+
+      <doc:section name="drbd_pacemaker">
+	<doc:heading>DRBD in Pacemaker</doc:heading>
+
+        <p>If you are planning on using DRBD to provide shared
+        storage, you need to get Pacemaker to manage this. The
+        instructions here are adapted for our setup but are pretty
+        much the same as from the <i>Clusters from scratch</i> guides
+        and from the <a
+        href="http://www.drbd.org/users-guide/ch-pacemaker.html">DRBD
+        Pacemaker documentation</a>. DRBD only allows one node at a
+        time access to the shared device, so there is never any danger
+        of multiple nodes writing over the same data. If you're using
+        some other means to provide shared storage, you may wish to
+        use Pacemaker to ensure only one node has the shared storage
+        area mounted at any one time.</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm
+crm(live)# cib new drbd
+INFO: drbd shadow CIB created
+crm(drbd)# configure primitive drbd ocf:linbit:drbd params drbd_resource="drbd1" op monitor interval="60s"
+crm(drbd)# configure ms drbd_ms drbd meta master-max="1" master-node-max="1" clone-max="2" clone-node-max="1" notify="true"
+crm(drbd)# configure primitive drbd_fs ocf:heartbeat:Filesystem params device="/dev/drbd1" directory="/media/drbd1" fstype="ext3"
+crm(drbd)# configure colocation fs_on_drbd inf: drbd_fs drbd_ms:Master
+crm(drbd)# configure order fs_after_drbd inf: drbd_ms:promote drbd_fs:start
+crm(drbd)# cib commit drbd
+crm(drbd)# cib use live
+crm(live)# cib delete drbd
+crm(live)# exit
+bye
+ha-node-2:~#
+</pre>
+
+        <p>The first <code>configure</code> command here creates a
+        resource <i>drbd</i>. That is then incorporated into a
+        master+slave resource called <i>drbd_ms</i> in the second
+        <code>configure</code>. We then create a <i>drbd_fs</i>
+        resource which knows how to mount the DRBD device. We can only
+        mount the DRBD resource on the node which is the master, so we
+        then create a colocation directive <i>fs_on_drbd</i> which
+        states that the <i>drbd_fs</i> and <i>drbd_ms:Master</i>
+        resources must be on the same node. Finally, we know that we
+        can only mount the file-system once the node has successfully
+        become the master node for the DRBD device. Similarly, we must
+        un-mount the DRBD device before degrading a node to the
+        secondary for the DRBD device. Both of these are achieved by
+        creating the order directive which says to promote the
+        <i>drbd_ms</i> resource before starting the <i>drbd_fs</i>
+        resource. Note that after committing the shadow CIB into the
+        live CIB and switching back to the live CIB, we delete the old
+        shadow CIB - this is purely a housekeeping exercise and is not
+        essential.</p>
+
+        <p>If you're not using DRBD, you will just want to configure a
+        single primitive <code>ocf:heartbeat:Filesystem</code> which
+        can mount the shared storage.</p>
+      </doc:section>
+
+      <doc:section name="simple_rabbit">
+	<doc:heading>Simple HA Rabbit</doc:heading>
+
+        <p>The main trick to HA Rabbit is to ensure that when the
+        passive node becomes the active node, it must have the same
+        node-name as the failed node. It must also have read and write
+        access to the files in the shared storage, and if it's going
+        to also be part of a cluster then it must also have the same
+        Erlang cookie.</p>
+
+        <p>Start by installing the RabbitMQ server on both nodes. The
+        server runs as the user <code>rabbitmq</code> which is a
+        member of the group <code>rabbitmq</code>. You must ensure
+        that this user and group have the same UIDs and GIDs on both
+        nodes. You can probably save yourself some time by explicitly
+        creating the <code>rabbitmq</code> user and group with the
+        same UID and GID on all nodes before installing the RabbitMQ
+        server at all. If necessary, edit <code>/etc/passwd</code> and
+        <code>/etc/group</code> on both nodes, and then reinstall the
+        RabbitMQ server to ensure all necessary files are owned by the
+        correct user and group. Also make sure the
+        <code>rabbitmq</code> user has permission to write and read to
+        the shared storage mount point (<code>/media/drbd1</code> in
+        our example above). Although not strictly necessary at this
+        stage, next ensure that all the nodes share the same Erlang
+        cookie. The <code>rabbitmq</code> home directory is normally
+        <code>/var/lib/rabbitmq</code>, so:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# scp /var/lib/rabbitmq/.erlang.cookie ha-node-1:/var/lib/rabbitmq/
+
+ha-node-1:~# chown rabbitmq: /var/lib/rabbitmq/.erlang.cookie
+ha-node-1:~# chmod 400 /var/lib/rabbitmq/.erlang.cookie
+</pre>
+
+        <p>We also need to make sure that when the nodes boot, they
+        don't start Rabbit. Thus edit the init script (usually at
+        <code>/etc/init.d/rabbitmq-server</code>) and just insert an
+        <code>exit 0</code> after the comments at the top (the more
+        <i>correct</i> solution is to use something like
+        <code>update-rc.d rabbitmq-server disable S 2 3 4 5</code>,
+        depending on your platform). Now create a resource in
+        Pacemaker for Rabbit:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm
+crm(live)# cib new bunny
+INFO: bunny shadow CIB created
+crm(bunny)# configure primitive bunny ocf:rabbitmq:rabbitmq-server params mnesia_base="/media/drbd1"
+crm(bunny)# configure colocation bunny_on_fs inf: bunny drbd_fs
+crm(bunny)# configure order bunny_after_fs inf: drbd_fs bunny
+crm(bunny)# cib commit bunny
+crm(bunny)# cib use live
+crm(live)# cib delete bunny
+crm(live)# exit
+bye
+ha-node-2:~#
+</pre>
+
+        <p>We create a resource called <i>bunny</i> which is our
+        RabbitMQ instance. We configure it to place its database files
+        (and message store) on our DRBD-backed mount point. We then
+        need to colocate the <i>bunny</i> resource with the
+        <i>drbd_fs</i> resource, and we also need to make sure that
+        the file-system is mounted before we start the <i>bunny</i>
+        resource (and similarly, the <i>bunny</i> resource is stopped
+        before we un-mount the file-system). The status of the
+        resources can be seen by running <code>crm status</code> on
+        any active node:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm status
+============
+Last updated: Mon Apr 12 17:29:50 2010
+Stack: openais
+Current DC: ha-node-2 - partition with quorum
+Version: 1.0.7-6fab059e5cbe82faa65f5aac2042ecc0f2f535c7
+2 Nodes configured, 2 expected votes
+4 Resources configured.
+============
+
+Online: [ ha-node-2 ha-node-1 ]
+
+ bunny  (ocf::rabbitmq:rabbitmq-server):        Started ha-node-1
+ Master/Slave Set: drbd_ms
+     Masters: [ ha-node-1 ]
+     Slaves: [ ha-node-2 ]
+ drbd_fs        (ocf::heartbeat:Filesystem):    Started ha-node-1
+</pre>
+
+        <p>Thus we can see that the <i>bunny</i> and <i>drbd_fs</i>
+        resources are running only on <code>ha-node-1</code> and that
+        the <i>drbd_ms</i> resource has its master as
+        <code>ha-node-1</code> and its slave as
+        <code>ha-node-2</code>. The output of <code>mount</code>
+        should show that <code>/media/drbd1</code> is mounted only on
+        <code>ha-node-1</code>, and a <code>ps ax | grep
+        [r]abbit</code> should show that RabbitMQ is running only on
+        <code>ha-node-1</code>.</p>
+
+        <p>If you stop <code>ha-node-1</code> (turn it off, or just
+        stop Heartbeat or CoroSync), you should find all the services
+        migrate to the other node. If you create some durable
+        resources (e.g. durable queues or exchanges), you should find
+        that these survive the transition to the other node. It's a
+        good idea to play with stopping and starting the nodes at this
+        point to build confidence that it really is doing the right
+        thing. Status commands (<code>rabbitmqctl -n rabbit@localhost
+        status</code> and <code>rabbitmqctl -n rabbit@localhost
+        cluster_status</code>) will allow you to see the status of
+        RabbitMQ server from whichever node it is currently running
+        on.</p>
+
+        <p>By default, the <code>ocf:rabbitmq:rabbitmq-server</code>
+        script sets the node-name to <code>rabbit@localhost</code> on
+        all nodes. This is the simplest solution as it should always
+        be possible to resolve <code>localhost</code>, but it does
+        mean that you can't join a cluster. We'll correct that later
+        on.</p>
+
+        <p>To stop the <i>bunny</i> resource you just need to run
+        <code>crm resource bunny stop</code>, and likewise to start
+        it, <code>crm resource bunny start</code>. Note that you'll
+        need to do this manually before upgrading Rabbit as if you're
+        using a binary package then you'll have likely disabled the
+        <code>rabbitmq-server</code> init script, which will mean the
+        package manager will fail to safely stop RabbitMQ prior to
+        upgrading its source. Unless the upgrade is changing the
+        database schema or the format of the persisted data, you
+        should be able to upgrade RabbitMQ on the passive node, then
+        migrate RabbitMQ to the passive node (<code>crm resource
+        migrate bunny</code>) and upgrade what was the active
+        node.</p>
+      </doc:section>
+
+      <doc:section name="with_ip">
+	<doc:heading>Getting an IP address to move with Rabbit</doc:heading>
+
+        <p>You may wish your highly-available Rabbit to always be
+        accessible on the same IP address. There are a number of ways
+        to achieve this, for example, you could use a TCP load
+        balancer. Here, we demonstrate getting Pacemaker to migrate an
+        IP address with Rabbit. Note that if you're happy to build
+        into your clients the various IPs on which Rabbit may be
+        available, then you may not need this step at all.</p>
+
+        <p>In testing, we have found that the IP migration done by
+        Pacemaker frequently hangs if the IP address being migrated is
+        on the same network as another IP interface on the same
+        node. In the example here, the two nodes have IP addresses of
+        192.168.100.21 and 192.168.100.22 (both on a /24). We shall
+        therefore choose that the IP on which Rabbit will always be
+        available is 192.168.50.1 (i.e. a different network). This
+        seems to make the migration of the IP address more
+        reliable.</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm
+crm(live)# cib new ip
+INFO: bunny shadow CIB created
+crm(ip)# configure primitive ip ocf:heartbeat:IPaddr2 params ip="192.168.50.1" cidr_netmask="24"
+crm(ip)# configure colocation bunny_on_ip inf: bunny ip
+crm(ip)# configure order bunny_after_ip inf: ip bunny
+crm(ip)# cib commit ip
+crm(ip)# cib use live
+crm(live)# cib delete ip
+crm(live)# exit
+bye
+ha-node-2:~#
+</pre>
+
+        <p>This should all be looking rather familiar by now. We
+        create the <i>ip</i> resource, we say that the <i>bunny</i>
+        resource must run on the same node as the <i>ip</i> resource,
+        and we make sure that the <i>bunny</i> resource is started
+        after, and stopped before, the <i>ip</i> resource. By default,
+        the RabbitMQ server will listen on all network interfaces, so
+        we are done now, but we can explicitly tell it to listen on
+        our chosen IP:</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm_resource --resource bunny --set-parameter ip --parameter-value 192.168.50.1
+ha-node-2:~#
+</pre>
+
+        <p>The above command is the same as going into
+        <code>crm</code>, calling <code>configure edit bunny</code>
+        and then in the editor that will appear, adding to the
+        <i>params</i> <code>ip="192.168.50.1"</code>. The RabbitMQ
+        server should then immediately be restarted, as Pacemaker
+        detects that its configuration has changed. You should now
+        find that when a node fails, all the resources get transferred
+        over to the spare node, and Rabbit will start up on the same
+        IP address. Thus clients can be completely oblivious as to
+        which node is the active node, and which is the passive
+        node. You could also indicate to Rabbit the IP address to use
+        by editing the <a
+        href="configure.html#configuration-file">RabbitMQ
+        configuration file</a> and providing an entry for
+        <code>tcp_listeners</code>. However, that would then spread
+        the configuration across multiple systems, and would require
+        you to both synchronise the configuration across all the HA
+        nodes, and to restart the <i>bunny</i> resource.</p>
+      </doc:section>
+
+      <doc:section name="ha_cluster">
+	<doc:heading>HA within a RabbitMQ Cluster</doc:heading>
+
+        <p>Finally, we wish to be able to construct a cluster of
+        Rabbits which can survive node failure and still remain a
+        cluster. Our plan is to have a cluster of 2 RabbitMQ servers,
+        spread across 3 nodes, one of which is the passive node for
+        both of the others. Thus in the event of failure of a single
+        node, either the passive node dies, or one of the active nodes
+        die, causing a migration onto the shared passive node.</p>
+
+        <img src="img/pacemaker-cluster.png"/>
+
+        <p>Sadly, we are limited by DRBD here: in an ideal world, we
+        would like that for each RabbitMQ service, any of the three
+        nodes could be the active, and any of the three nodes could be
+        the secondary. That would require DRBD to be able to have one
+        primary and multiple secondary nodes, and to be able to
+        promote any of the secondaries to primaries in the event of
+        failure and then add back in any failed node as a secondary,
+        which it can't do in general. However, if you're using a NAS
+        or SAN, then you likely will be able to achieve this extra
+        flexibility.</p>
+
+        <p>So far, we have two nodes: <code>ha-node-1</code> and
+        <code>ha-node-2</code> which are fully configured with DRBD,
+        RabbitMQ, mobile IPs and filesystems. We now repeat all the
+        above instructions again, but this time with a new machine
+        <code>ha-node-3</code> and the existing
+        <code>ha-node-2</code>. The idea is that
+        <code>ha-node-1</code> and <code>ha-node-3</code> will be the
+        active nodes, and <code>ha-node-2</code> will form the
+        passive. Thus when adding all the additional resources, you'll
+        need to make sure all the resource names are different, and
+        obviously you'll need to take into account the change in host
+        name, a different mount point, DRBD resource name, and a
+        different mobile IP address (which I shall assume to be
+        192.168.50.2).</p>
+
+        <p>Rabbit nodes within a cluster need to be able to resolve
+        each others' host-name. Currently we have that the node-name
+        is set to <code>rabbit@localhost</code> which must be changed
+        as the other nodes in the cluster would get the wrong idea if
+        we asked them to resolve <i>localhost</i>. We can't use the IP
+        address raw (i.e. we can't have the node-name as
+        <code>rabbit@192.168.50.1</code>) without switching to
+        long-names, which is more work, so instead our plan is to give
+        a host-name of rabbit-ha-1 to 192.168.50.1, rabbit-ha-2 to
+        192.168.50.2 and then set the node-names to
+        <code>rabbit@rabbit-ha-1</code> and
+        <code>rabbit@rabbit-ha-2</code>. There are a number of ways to
+        do this - either configure this in your DNS server, or edit
+        enough <code>/etc/hosts</code> files to ensure that all the HA
+        nodes can resolve <i>rabbit-ha-1</i> and
+        <i>rabbit-ha-2</i>.</p>
+
+        <p>Having done that, you should now be able to issue (assuming
+        the second RabbitMQ server resource is called
+        <i>bunny2</i>):</p>
+
+<pre class="sourcecode">
+ha-node-2:~# crm_resource --resource bunny --set-parameter nodename --parameter-value "rabbit@rabbit-ha-1"
+ha-node-2:~# crm_resource --resource bunny2 --set-parameter nodename --parameter-value "rabbit@rabbit-ha-2"
+ha-node-2:~#
+</pre>
+
+        <p>The <i>bunny</i> and <i>bunny2</i> resources should
+        instantly restart, reflecting the changes in node-names. As
+        per the <a href="clustering.html">clustering guide</a>, we
+        have already ensured that we have the same Erlang cookie on
+        all of the HA nodes, and we issue the following commands to
+        form the cluster:</p>
+
+<pre class="sourcecode">
+ha-node-3:~# rabbitmqctl stop_app
+ha-node-3:~# rabbitmqctl reset
+ha-node-3:~# rabbitmqctl cluster rabbit@rabbit-ha-1 rabbit@rabbit-ha-2
+ha-node-3:~# rabbitmqctl start_app
+ha-node-3:~# rabbitmqctl cluster_status
+Cluster status of node 'rabbit@rabbit-ha-2' ...
+[{nodes,[{disc,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]},
+ {running_nodes,['rabbit@rabbit-ha-1','rabbit@rabbit-ha-2']}]
+...done.
+ha-node-3:~#
+</pre>
+
+        <p>And that's it - you should find that if you kill either of
+        the HA nodes which are running Rabbit then the resources
+        should transfer over to the passive node, Rabbit will start
+        up, and will successfully reconnect back into the cluster.</p>
+      </doc:section>
+
+      <doc:section name="params">
+	<doc:heading>Configuration Parameters</doc:heading>
+
+        <p>The configuration parameters that can be provided in
+        Pacemaker to the <code>ocf:rabbitmq:rabbitmq-server</code>
+        script are all logical translations of the
+        <code>RABBITMQ_*</code> environment variables that can be used
+        to configure Rabbit. They are:</p>
+        <dl>
+          <dt>server</dt>
+          <dd>The path to the rabbitmq-server script</dd>
+
+          <dt>ctl</dt>
+          <dd>The path to the rabbitmqctl script</dd>
+
+          <dt>nodename</dt>
+          <dd>The node name for rabbitmq-server</dd>
+
+          <dt>ip</dt>
+          <dd>The IP address for rabbitmq-server to listen on</dd>
+
+          <dt>port</dt>
+          <dd>The IP Port for rabbitmq-server to listen on</dd>
+
+          <dt>config_file</dt>
+          <dd>Location of the config file</dd>
+
+          <dt>log_base</dt>
+          <dd>Location of the directory under which logs will be created</dd>
+
+          <dt>mnesia_base</dt>
+          <dd>Location of the directory under which mnesia will store data</dd>
+
+          <dt>server_start_args</dt>
+          <dd>Additional arguments provided to the server on startup</dd>
+        </dl>
+      </doc:section>
+  </body>
+</html>

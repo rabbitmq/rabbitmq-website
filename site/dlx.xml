@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Dead Letter Exchanges</title>
+  </head>
+  <body>
+    <p>
+      Messages from a queue can be 'dead-lettered'; that is, republished to
+      another exchange when any of the following events occur:
+      <ul>
+        <li>The message is rejected (<code>basic.reject</code> or
+          <code>basic.nack</code>) with <code>requeue=false</code>,</li>
+        <li>The TTL for the message expires; or</li>
+        <li>The queue length limit is exceeded.</li>
+      </ul>
+    </p>
+
+    <p>
+      Dead letter exchanges (DLXs) are normal exchanges.  They can be
+      any of the usual types and are declared as usual.
+    </p>
+
+    <p>
+      For any given queue, a DLX can be defined by clients using the
+      queue's arguments, or in the server
+      using <a href="parameters.html#policies">policies</a>. In the
+      case where both policy and arguments specify a DLX, the one
+      specified in arguments overrules the one specified in policy.
+    </p>
+
+    <doc:section>
+      <doc:heading>Configuration using arguments</doc:heading>
+      <p>
+        To set the dead letter exchange for a queue, set
+        the <code>x-dead-letter-exchange</code> argument to the
+        name of the exchange:
+      </p>
+
+      <pre class="sourcecode">
+channel.exchangeDeclare("some.exchange.name", "direct");
+
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("x-dead-letter-exchange", "some.exchange.name");
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+      <p>
+        The code above declares a new exchange called
+        <code>some.exchange.name</code> and sets this new exchange
+        as the dead letter exchange for a newly created queue.
+        Note that the exchange does not have to be declared when
+        the queue is declared, but it should exist by the time
+        messages need to be dead-lettered; if it is missing then,
+        the messages will be silently dropped.
+      </p>
+
+      <p>
+        You may also specify a routing key to be used when
+        dead-lettering messages.  If this is not set, the
+        message's own routing keys will be used.
+        <pre class="sourcecode">
+args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
+      </p>
+
+      <p>
+        When a dead letter exchange has been specified, in addition to
+        the usual configure permissions on the declared queue, the user
+        needs to have read permissions on that queue and write
+        permissions on the dead letter exchange. Permissions are
+        verified at the time of queue declaration.
+      </p>
+    </doc:section>
+
+    <doc:section>
+      <doc:heading>Configuration using policy</doc:heading>
+
+      <p>
+        To specify a DLX using policy, add the key "dead-letter-exchange"
+        to a policy definition. For example:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy DLX ".*" '{"dead-letter-exchange":"my-dlx"}' --apply-to queues</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy DLX ".*" "{""dead-letter-exchange"":""my-dlx""}" --apply-to queues</pre>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        This applies the DLX "my-dlx" to all queues.
+      </p>
+
+      <p>
+        Similarly, an explicit routing key can be specified by adding
+        the key "dead-letter-routing-key" to the policy.
+      </p>
+
+      <p>
+        Policies can also be defined using the management plugin, see
+        the <a href="parameters.html#policies">policy
+        documentation</a> for more details.
+      </p>
+    </doc:section>
+
+    <doc:section>
+      <doc:heading>Routing Dead-Lettered Messages</doc:heading>
+      <p>
+        Dead-lettered messages are routed to their dead letter
+        exchange either:
+        <ul>
+          <li>with the routing key specified for the queue they
+            were on; or, <em>if this was not set</em>,</li>
+          <li>with the same routing keys they were originally
+            published with.</li>
+        </ul>
+      </p>
+      <p>
+        For example, if you publish a message to an exchange with
+        routing key <code>foo</code>, and that message is
+        dead-lettered, it will be published to its dead letter
+        exchange with routing key <code>foo</code>.  If the queue
+        the message originally landed on had been declared with
+        <code>x-dead-letter-routing-key</code> set to
+        <code>bar</code>, then the message will be published to
+        its dead letter exchange with routing key
+        <code>bar</code>.
+      </p>
+      <p>
+        Note that, if a specific routing key was not set for the
+        queue, messages on it are dead-lettered with <em>all</em>
+        their original routing keys.  This includes routing keys
+        added by the <code>CC</code> and <code>BCC</code> headers
+        (see <a href="sender-selected.html">Sender-selected
+          distribution</a> for details on these two headers).
+      </p>
+      <p>
+        Dead-lettered messages are re-published with publisher
+        confirms turned on internally so, the dead-letter queues
+        the messages eventually land on must confirm the messages
+        before they are removed from the original queue.  In other
+        words, the publishing queue will <em>not</em> remove
+        messages before the dead-letter queues acknowledge
+        receiving them (see <a href="confirms.html">Confirms</a> for
+        details on the guarantees made).  Note that, in the event
+        of an unclean broker shutdown, the same message may be
+        duplicated on both the original queue and on the
+        dead-letter queues.
+      </p>
+      <p>
+        It is possible to form a cycle of dead-letter queues.  For
+        instance, this can happen when a queue dead-letters
+        messages to the default exchange without specifiying a
+        dead-letter routing key.  Messages in such cycles (i.e.
+        messages that reach the same queue twice) will be
+        dropped <em>if the entire cycle is due to message expiry</em>.
+      </p>
+    </doc:section>
+    <doc:section>
+      <doc:heading>Dead-Lettered Messages</doc:heading>
+      <p>
+        Dead-lettering a message modifies its headers:
+        <ul>
+          <li>the exchange name is replaced with that of the
+            latest dead-letter exchange,</li>
+          <li>the routing key may be replaced with that specified
+            in a dead letter queue,</li>
+          <li>if the above happens, the <code>CC</code> header
+            will also be removed, and</li>
+          <li>the <code>BCC</code> header will be removed as per
+            <a href="sender-selected.html">Sender-selected
+              distribution</a>.</li>
+        </ul>
+      </p>
+      <p>
+        The dead-lettering process adds an array to the header of
+        each dead-lettered message named <code>x-death</code>.
+        This array contains an entry for each dead lettering event,
+        identified by a pair of <code>{queue, reason}</code>.
+        Each such entry is a table that consists
+        of several fields:
+        <ul>
+          <li><code>queue</code> - the name of the queue the
+            message was in before it was dead-lettered,</li>
+          <li><code>reason</code> - see below,</li>
+          <li><code>time</code> - the date and time the message
+            was dead lettered as a 64-bit AMQP format timestamp,</li>
+          <li><code>exchange</code> - the exchange the message was
+            published to (note that this will be a dead letter
+            exchange if the message is dead lettered multiple
+            times),</li>
+          <li><code>routing-keys</code> - the routing keys
+            (including <code>CC</code> keys but excluding
+            <code>BCC</code> ones) the message was published
+            with,</li>
+          <li><code>count</code> - how many times this message was
+            dead-lettered in this queue for this reason, and</li>
+          <li><code>original-expiration</code> (if the message was
+            dead-letterered due to <a
+            href="ttl.html#per-message-ttl">per-message TTL</a>) - the
+            original <code>expiration</code> property of the message.
+            The <code>expiration</code> property is removed from the
+            message on dead-lettering in order to prevent it from
+            expiring again in any queues it is routed to.</li>
+        </ul>
+
+        In case <code>x-death</code> already contains an entry with
+        the same queue and dead lettering reason, its count field will be
+        incremented.
+      </p>
+      <p>
+        The <code>reason</code> is a name describing why the
+        message was dead-lettered and is one of the following:
+
+        <ul>
+          <li><code>rejected</code> - the message was rejected
+            with <code>requeue=false</code>,</li>
+          <li><code>expired</code> - the TTL of the message
+            expired; or</li>
+          <li><code>maxlen</code> - the maximum allowed queue
+            length was exceeded.</li>
+        </ul>
+      </p>
+      <p>
+        Note that the array is sorted most-recent-first, so the
+        most recent dead-lettering will be recorded in the first
+        entry.
+      </p>
+    </doc:section>
+  </body>
+</html>

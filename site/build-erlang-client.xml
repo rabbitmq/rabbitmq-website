@@ -1,0 +1,180 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+        <title>Erlang AMQP Client Library Build Instructions</title>
+  </head>
+  <body>
+      <p class="intro">
+        This section describes the process for obtaining a copy of the
+        RabbitMQ Erlang AMQP client source code and its dependecies, as
+        well as instructions for building the Erlang client from source.
+      </p>
+
+      <doc:section name="obtaining">
+        <doc:heading>Obtaining the source</doc:heading>
+
+        <br />
+        <ul>
+          <li>
+            Either download a released source code distribution from
+            the <a href="erlang-client.html">download page</a>, or
+          </li>
+
+          <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
+            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
+$ git clone https://github.com/rabbitmq/rabbitmq-server.git
+$ git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
+$ cd rabbitmq-erlang-client
+$ make</pre>
+          </li>
+        </ul>
+
+        <p>
+          If you choose to check the code out using Git, be
+          aware that the server code and the code-generation module are
+          dependencies of the Erlang client library. If you're working with a
+          released source code distribution, though, all necessary dependencies
+          are included.
+        </p>
+      </doc:section>
+
+      <xi:include href="build-erlang-prerequisites.xml.inc"/>
+
+      <doc:section name="building-erlang-client">
+        <doc:heading>Building the Erlang client libraries</doc:heading>
+
+        <p>
+          You will need to get the source of the server and the
+          codegen. If you ran the commands above, the these will be
+          placed in sibling directories to the Erlang client (i.e:
+          <code>../rabbitmq-server</code> and
+          <code>../rabbitmq-codegen</code>), which is the default that
+          the <code>Makefile</code> expects. In this case, you can
+          just run <code>make</code>.
+        </p>
+
+        <p>
+          If the source tree for the server is not in the sibling
+          directory, you will need to specify the path to this
+          directory with <code>make
+          BROKER_DIR=/path/to/server</code>. In this case, make sure
+          you specify BROKER_DIR every time you run a make target.
+        </p>
+
+        <p>
+          Other interesting <code>Makefile</code> targets include
+        </p>
+
+        <p>
+          <dl>
+            <dt>all</dt>
+            <dd>
+              The default target. Builds the client libraries.
+            </dd>
+
+            <dt>run</dt>
+            <dd>
+              Builds the client libraries and starts an Erlang shell with the
+              libraries loaded.
+            </dd>
+
+            <dt>run_in_broker</dt>
+            <dd>
+              Builds the client and starts RabbitMQ server with shell
+              and the client included in load path.
+            </dd>
+
+            <dt>clean</dt>
+            <dd>
+              Removes build products.
+            </dd>
+
+            <dt>test</dt>
+            <dd>
+              Runs a set of tests against a server running on
+              locally. You will need to start a local instance of an
+              AMQP server, running on port 5672, which allows
+              guest/guest access on virtual host "/", beforehand.
+            </dd>
+
+            <dt>all_tests</dt>
+            <dd>
+              Clean compiles the client and client tests source code
+              and runs <code>network_client_SUITE</code>,
+              <code>direct_client_SUITE</code> and packaging
+              tests. During testing, this make target runs an instance
+              of the broker, so make sure there is no other instance
+              of RabbitMQ server running.
+            </dd>
+
+            <dt>dialyze</dt>
+            <dd>
+              Analyses the client source code with dialyzer. Uses PLT
+              file from default location:
+              <code>~/.dialyzer_plt</code>. Use
+
+              <pre class="sourcecode">
+$ make PLT=/path/to/plt dialyze</pre>
+
+              to override this. Add broker to PLT beforehand,
+              otherwise you will a lot of 'unknown function'
+              warnings. See <code>add_broker_to_plt</code> make
+              target.
+            </dd>
+
+            <dt>dialyze_all</dt>
+            <dd>
+              Same as dialyze, except that this also analyses tests
+              source code.
+            </dd>
+
+            <dt>add_broker_to_plt</dt>
+            <dd>
+              Adds broker .beam files to default plt. Use
+
+              <pre class="sourcecode">
+$ make PLT=/path/to/plt add_broker_to_plt</pre>
+
+              to override default plt location
+              (<code>~/.dialyzer_plt</code>).
+            </dd>
+
+            <dt>source_tarball</dt>
+            <dd>
+              Creates tarball of all the client source code.
+            </dd>
+
+            <dt>package</dt>
+            <dd>
+              Creates an erlang archive of the client.
+            </dd>
+
+            <dt>common_package</dt>
+            <dd>
+              Creates an erlang archive of the server modules required
+              by the erlang client.
+            </dd>
+
+          </dl>
+        </p>
+      </doc:section>
+  </body>
+</html>

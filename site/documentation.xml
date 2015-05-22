@@ -1,0 +1,137 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Documentation</title>
+  </head>
+  <body>
+    <x:modal mode="www">
+      <p class="intro">
+        This page summarises the available RabbitMQ documentation for the current release, &version-server;. Also available are:
+      </p>
+
+      <ul>
+        <li><a href="previous.html">Documentation for previous stable releases</a></li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a></li>
+      </ul>
+    </x:modal>
+    <x:modal mode="next">
+      <p class="intro">
+        This page summarises the available RabbitMQ documentation for the current nightly builds. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+      </p>
+    </x:modal>
+    <x:modal mode="previous">
+      <p class="intro">
+        This page summarises the available RabbitMQ documentation for the historical release, &version-server;. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+      </p>
+    </x:modal>
+
+      <div class="landing-box">
+        <h2>Get Started</h2>
+        <p>
+          See the <a href="getstarted.html">Get Started</a> page
+          for our tutorials that offer a gentle introduction to
+          messaging, the AMQP model and RabbitMQ.
+        </p>
+      </div>
+
+      <div class="landing-box">
+        <h2>Server</h2>
+        <ul>
+          <li>
+            Quick links:
+            <a href="configure.html">Configuration</a> |
+            <a href="ssl.html">SSL</a> |
+            <a href="management.html">Management</a> |
+            <a href="clustering.html">Clustering</a> |
+            <a href="ha.html">High Availability</a>
+          </li>
+          <li>
+            View all <a href="admin-guide.html">server documentation</a>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="landing-box">
+        <h2>Clients</h2>
+        <ul>
+          <li>
+            API docs:
+            <a href="&dir-current-javadoc;">Java</a> |
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a> |
+            <a href="&dir-current-edoc;">Erlang</a>
+          </li>
+          <li>View all <a href="clients.html">client documentation</a> for
+          guides and additional content.</li>
+        </ul>
+      </div>
+
+      <div class="landing-box">
+        <h2>Plugins</h2>
+        <ul>
+          <li>
+            Popular plugins:
+            <a href="management.html">Management</a> |
+            <a href="federation.html">Federation</a> |
+            <a href="shovel.html">Shovel</a> |
+            <a href="stomp.html">STOMP</a>
+          </li>
+          <li>
+            View all <a href="plugins.html">plugins</a>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="landing-box">
+        <h2>Case Studies</h2>
+        <ul>
+          <li>
+            <a href="http://blog.pivotal.io/tag/rabbitmq">Who is using RabbitMQ</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="landing-box">
+        <h2>Other</h2>
+        <ul>
+          <li>
+            <a href="news.html">News about RabbitMQ</a>
+          </li>
+          <li>
+            AMQP 0-9-1: <a href="extensions.html">Extensions</a> |
+            <a href="amqp-0-9-1-quickref.html">Quick Reference</a>
+          </li>
+          <li>
+            View all <a href="protocol.html">protocol documentation</a>.
+          </li>
+          <li>
+            How to <a href="build.html">build RabbitMQ</a> from source, or
+            from <a href="github.html">GitHub</a>.
+          </li>
+          <li>
+            <a href="troubleshooting.html">Some troubleshooting tips</a>.
+          </li>
+        </ul>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Which protocols does RabbitMQ support?</title>
+  </head>
+  <body>
+      <p class="intro">
+        RabbitMQ supports several messing protocols, directly and through the
+        use of plugins. This page describes the supported protocols and
+        helps differentiate between them.
+      </p>
+
+      <doc:section>
+        <h3>AMQP 0-9-1, 0-9 and 0-8, and extensions</h3>
+        <p>
+          RabbitMQ was originally developed to <a href="protocol.html">support
+          AMQP</a>. As such this protocol is the "core" protocol supported by
+          the broker. All of these variants are fairly similar to each other,
+          with later versions tidying up unclear or unhelpful parts of earlier
+          versions. We have <a href="extensions.html">extended</a> AMQP 0-9-1
+          in various ways.
+        </p>
+
+        <p>
+          AMQP 0-9-1 is a binary protocol, and defines quite strong
+          messaging semantics. For clients it's a reasonably easy
+          protocol to implement, and as such there
+          are <a href="devtools.html">a large number of
+          implementations</a> available for many different programming
+          languages and environments.
+        </p>
+
+        <p>
+          If you are just looking to use RabbitMQ, we recommend using AMQP
+          0-9-1.
+        </p>
+
+        <h3>STOMP</h3>
+        <p>
+          <a href="http://stomp.github.io/">STOMP</a> is a text-based
+          messaging protocol emphasising (protocol) simplicity. It
+          defines little in the way of messaging semantics, but is
+          easy to implement and very easy to implement partially (it's
+          the only protocol that can be used by hand over telnet).
+        </p>
+
+        <p>
+          RabbitMQ supports STOMP (all current versions) via
+          a <a href="stomp.html">plugin</a>.
+        </p>
+
+        <h3>MQTT</h3>
+        <p>
+          <a href="http://mqtt.org/">MQTT</a> is a binary protocol
+          emphasising lightweight publish / subscribe messaging,
+          targetted towards clients in constrained devices. It has
+          well defined messaging semantics for publish / subscribe,
+          but not for other messaging idioms.
+        </p>
+
+        <p>
+          RabbitMQ supports MQTT 3.1 via a <a href="mqtt.html">plugin</a>.
+        </p>
+
+        <h3>AMQP 1.0</h3>
+        <p>
+          Despite the name, AMQP 1.0 is a radically different protocol from
+          AMQP 0-9-1 / 0-9 / 0-8, sharing essentially nothing at the wire
+          level. AMQP 1.0 imposes far fewer semantic requirements; it is
+          therefore easier to add support for AMQP 1.0 to existing
+          brokers. The protocol is substantially more complex than AMQP 0-9-1,
+          and there are fewer client implementations.
+        </p>
+        <p>
+          RabbitMQ supports AMQP 1.0 via a <a href="plugins.html">plugin</a>.
+        </p>
+
+        <h3>HTTP</h3>
+
+        <p>
+          HTTP is of course not a messaging protocol. However,
+          RabbitMQ can transmit messages over HTTP in three ways:
+        </p>
+
+        <ul>
+          <li>
+            The <a href="management.html">management plugin</a> supports a
+            simple HTTP API to send and receive messages. This is primarily
+            intended for diagnostic purposes but can be used for low volume
+            messaging without <a href="reliability.html">reliable
+            delivery</a>.
+          </li>
+          <li>
+            The <a href="web-stomp.html">Web-STOMP plugin</a> supports STOMP
+            messaging to the browser, using WebSockets or one of the fallback
+            mechanisms supported by SockJS.
+          </li>
+          <li>
+            The <a href="plugins.html">JSON-RPC channel plugin</a> supports
+            AMQP 0-9-1 messaging
+            over <a href="http://json-rpc.org/">JSON-RPC</a> to the
+            browser. Note that since JSON RPC is a synchronous protocol, some
+            parts of AMQP that depend on aysnchronous delivery to the client
+            are emulated by polling.
+          </li>
+        </ul>
+
+      </doc:section>
+  </body>
+</html>
+

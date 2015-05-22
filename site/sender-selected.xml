@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Sender-selected Distribution</title>
+  </head>
+  <body>
+    <p>
+      The routing logic in AMQP does not offer a way for message
+      publishers to select intended recipients. This is the
+      equivalent of entering multiple recipients in the "CC"
+      field of an email. The RabbitMQ broker treats two headers
+      in a special way to overcome this limitation.
+    </p>
+    <p>
+      The values associated with the "CC" and "BCC" header keys will
+      be added to the routing key if they are present. The message
+      will be routed to all destinations matching the routing key
+      supplied as a parameter to the <code>basic.publish</code>
+      method, as well as the routes supplied in the "CC" and "BCC"
+      headers. The type of "CC" and "BCC" values must be an array
+      of <a href="/amqp-0-9-1-reference.html#domain.longstr">longstr</a>
+      and these keys are case-sensitive. If the header does not
+      contain "CC" or "BCC" keys then this extension has no effect.
+    </p>
+    <p>
+      The "BCC" key and value will be removed from the message
+      prior to delivery, offering some confidentiality among
+      consumers. This feature is a violation of the AMQP
+      specification which forbids any message modification,
+      including headers. This feature imposes a small
+      performance penalty.
+    </p>
+    <p>
+      This extension is independent of the client. Any AMQP
+      client with the ability to interoperate with RabbitMQ and
+      set header values can make use of this extension.
+    </p>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+.common { background: #ffff00; }
+.removed { background: #ff8888; }
+.inserted { background: #88ff88; }
+
+.highlight { color: #B02; }
+.initial {text-decoration: underline;}
+.center {text-align: center;}
+
+.Y { background: #ffff00; }
+.B { background: #8888ff; }
+.G { background: #88ff88; }
+.R { background: #ff8888; }
+
+#footer {background: #FfF url(RabbitMQLogo.png) no-repeat right top  !important; text-align: left;}
+#footer h1 {font-size: 80% !important;}
+#footer h2 {font-size: 80% !important;;}
+body { background: #fff; text-align: center; }
+
+.slide h1 { text-align: center; background: white; color: black; clear: both; margin: 0 0 0.75em 0; }
+.slide h2 { text-align: center; }
+.slide { text-align: left; padding: 0.5em !important;  width: 98%; padding: 1em}
+
+.wrapLeft { text-align: left; padding: 0 0 0 0.57em;}
+
+div#navLinks {background: #fff; height: 90px; color: #AAAABB; padding-right: 10px;}
+#controls #navLinks a {background: #fff; color: #AAAABB !important;}
+#workinggroup {}
+
+.margin-90 { margin: 90px;}
+.margin-50 { margin: 50px;}
+.margin-20 { margin: 20px;}
+.margin-10 { margin: 0 10px 0 10px;}
+
+h1 {
+font-size:1.7em !important;
+}
+h2, legend {
+font-size:1.5em !important;
+}
+h3, dt {
+font-size:1.3em !important;
+}
+h4 {
+font-size:1.1em !important;
+}
+
+.slide { page-break-after: always; }
+
+    .comparison-table {
+      margin-top: 1em;
+      border: 1px solid black;
+      width: 100%;
+    }
+    .comparison-table td, .comparison-table th {
+      text-align: left;
+      border: 0.1px solid #dddddd;
+      margin: 0px;
+      padding: 0px;
+    }
+    .comparison-table td {
+      width: 120px;
+    }
+    tr.idealrow th, tr.idealrow td {
+      border-top: 0.1px solid black;
+      border-bottom: 0.1px solid black;
+    }
+    .ideal {
+      background-color: #bbffbb;
+    }
+    tr.idealrow th, tr.idealrow .ideal {
+      background-color: #ffdddd;
+    }
+    div.comparison-table-slide {
+      font-size: 12pt;
+    }

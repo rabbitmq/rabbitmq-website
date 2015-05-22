@@ -1,0 +1,81 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Client Documentation</title>
+  </head>
+  <body>
+    <div class="landing-box">
+      <h2>Java Client</h2>
+      <ul>
+        <li>
+          <a href="api-guide.html">API Guide</a>
+        </li>
+        <li>
+          <a href="&dir-current-javadoc;">Javadoc API reference</a>
+        </li>
+        <li>
+          <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">JMS client</a> (commercial)
+        </li>
+        <li>
+          <a href="java-tools.html">Command line tools</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>.NET Client</h2>
+      <ul>
+        <li>
+          <a href="dotnet-api-guide.html">API Guide</a>
+        </li>
+          <li>
+            <a href="&dir-current-dotnet-apidoc;/index.html">API reference</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Erlang Client</h2>
+      <ul>
+        <li><a href="&dir-current-edoc;">Erlang edoc</a></li>
+        <li>
+          <a href="erlang-client-user-guide.html">Erlang Client API Guide</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Other links</h2>
+      <ul>
+        <li>
+          <a href="uri-spec.html">AMQP URI spec</a>
+        </li>
+        <li>
+          See the <a href="devtools.html">developer tools</a> for community-contributed code.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

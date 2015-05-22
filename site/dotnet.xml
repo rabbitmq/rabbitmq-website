@@ -1,0 +1,125 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+  <head>
+    <title>.NET/C# AMQP client library and WCF binding</title>
+  </head>
+  <body>
+    <p>
+      The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
+      library for C# (and, implicitly, other .NET languages), and a
+      Microsoft's Windows Communication Foundation (WCF) binding that communicates
+      over RabbitMQ.
+    </p>
+
+    <p>
+      The library is open-source, and is dual-licensed under <a
+      href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+      License v2</a> and <a href="mpl.html">the Mozilla Public License
+      v1.1</a>.
+    </p>
+
+    <p>
+      In order to compile or run the RabbitMQ .NET/C# client library,
+      you will need an appropriate .NET SDK or runtime environment
+      available, respectively.
+    </p>
+
+    <p>
+      The .NET/C# RabbitMQ client library should be used in preference to the
+      WCF binding where possible. The WCF binding suffers from a number
+      of limitations and no further development is planned for it.
+      The limitations are described in the WCF Service Model documentation.
+    </p>
+
+    <h3>Version</h3>
+
+    <p>
+      The current release of the RabbitMQ .NET/C# AMQP library is <b>
+      &version-dotnet-client;</b>. Consult
+      <a href="/releases/rabbitmq-dotnet-client/">the archive</a> if
+      you want to download a version of the RabbitMQ .NET/C# Client
+      library or documentation other than the above.
+    </p>
+
+    <h2>
+      Download the library and documentation
+    </h2>
+
+    <h3>The library</h3>
+
+    <p>
+      The library is available in several compiled forms, and as
+      source:
+    </p>
+
+    <r:downloads signature="no">
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-4.0.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Binary, compiled for .NET 4.0 and newer (zip) - includes
+	example code, the WCF binding and WCF examples
+      </r:download>
+      <r:download downloadfile="&nameVersion-dotnet-client;.zip"
+		  downloadpath="&dir-dotnet-client;">
+	Source code and tools (zip)
+      </r:download>
+    </r:downloads>
+
+    <h3>The documentation</h3>
+    <p>
+      Please refer to the <a href="api-guide.html">API guide</a>. There's
+      also <a href="&dir-current-dotnet-apidoc;/index.html">an online API reference</a>.
+    </p>
+
+    <h2>GitHub repository</h2>
+    <p>The .NET/C# RabbitMQ client library, WCF binding, and example programs. Please
+      see the <a href="build-dotnet-client.html">build page</a> for
+      instructions on compiling from source-code.</p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="github" shortname="rabbitmq-dotnet-client"
+        url="https://github.com/rabbitmq/rabbitmq-dotnet-client"/>
+    </repositories>
+
+    <h2>
+      Strong naming
+    </h2>
+
+    <p>
+      The client assembly is strong named. The public key token is 89e7d7c5feba84ce 
+      and the public part of the signing key is 
+<pre>
+00240000048000009400000006020000002400005253413100040000010001008d20ec856aeeb8
+c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
+96c77329efdee4579b3814c0789e5a39b51df6edd75b602a33ceabdfcf19a3feb832f31d825416
+8cd7ba5700dfbca301fbf8db614ba41ba18474de0a5f4c2d51c995bc3636c641c8cbe76f45717b
+fcb943b5.
+</pre>
+    </p>
+    <h2>Support</h2>
+    <p>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
+    </p>
+  </body>
+</html>

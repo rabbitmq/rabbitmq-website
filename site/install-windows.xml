@@ -1,0 +1,111 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Installing on Windows</title>
+  </head>
+  <body>
+    <doc:section name="windows">
+      <h3>Download the Server</h3>
+      <r:downloads signature="yes">
+        <r:download downloadfile="rabbitmq-server-&version-server;.exe"
+		    downloadpath="&dir-server;">
+	  Installer for Windows systems (from rabbitmq.com)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;.exe"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;.exe">
+	  Installer for Windows systems (from github.com)
+        </r:download>        
+      </r:downloads>
+      <doc:subsection name="install-windows">
+        <doc:heading>Uninstall previous version</doc:heading>
+        <p>
+          If you have an existing installation and are planning to upgrade
+          the Erlang VM from a 32bit to a 64bit version then you must uninstall
+          the broker before upgrading the VM. The installer will not be able to stop
+          or remove a service that was installed with an Erlang VM of a different
+          architecture.
+        </p>
+        <doc:heading>Install the Server</doc:heading>
+        <p>
+          Firstly, download and run
+          the <a href="http://www.erlang.org/download.html">Erlang
+            Windows Binary File</a>. It takes around 5 minutes.
+        </p>
+        <p>
+          Then just run the installer,
+          <code><span class="path">rabbitmq-server-&version-server;.exe</span></code>.
+          It takes around 2 minutes, and will set RabbitMQ up and
+          running as a service, with a default
+          configuration.
+        </p>
+      </doc:subsection>
+      <doc:subsection name="run-windows">
+        <doc:heading>Run RabbitMQ Service</doc:heading>
+        <dl class="instructions">
+          <dt>Customise RabbitMQ Environment Variables</dt>
+          <dd>
+            <p>
+              The service will run fine using its default
+              settings. You may want to
+              <a href="configure.html#customise-windows-environment">customise
+              the RabbitMQ environment</a> or
+              edit <a href="configure.html#configuration-file">configuration</a>.
+            </p>
+          </dd>
+          <dt>Run RabbitMQ</dt>
+          <dd>
+            <p>
+              The RabbitMQ service starts automatically. You can
+              stop/reinstall/start the RabbitMQ service from the Start
+              Menu.
+            </p>
+          </dd>
+          <dt>Manage the Service</dt>
+          <dd>
+            <p>
+              You can find links to RabbitMQ directories in the Start Menu.
+            </p>
+            <p>
+              There is also a link to a command prompt window that
+              will start in the sbin dir, in the Start Menu. This is
+              the most convenient way to run
+              the <a href="manpages.html">various command line
+                tools</a>.
+            </p>
+          </dd>
+        </dl>
+      </doc:subsection>
+    </doc:section>
+
+    <xi:include href="install-windows-ports.xml.inc"/>
+    <xi:include href="install-guest-localhost.xml.inc"/>
+    <xi:include href="install-windows-manage.xml.inc"/>
+    <xi:include href="install-windows-quirks.xml.inc" />
+    <xi:include href="mailing-list.xml.inc"/>
+  </body>
+</html>

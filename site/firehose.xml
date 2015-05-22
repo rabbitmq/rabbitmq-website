@@ -1,0 +1,155 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Firehose Tracer</title>
+  </head>
+  <body>
+      <doc:section>
+	<p>
+	  Sometimes, during development or debugging, it's useful to
+	  be able to see every message that is published, and every
+	  message that is delivered. RabbitMQ has a "firehose"
+	  feature, where the administrator can enable (on a per-node,
+	  per-vhost basis) an exchange to which publish- and
+	  delivery-notifications should be CCed.
+	</p>
+        <p>
+          These notifications are close to what's happening on the
+          wire - for example you will see unacked messages.
+        </p>
+	<p>
+	  When the feature is switched off, it has no effect on
+	  performance; when it is switched on, performance will drop
+	  somewhat due to additional messages being generated and
+	  routed.
+	</p>
+        <doc:subsection>
+	  <doc:heading>Enabling the firehose</doc:heading>
+	  <ol>
+	    <li>
+	      Decide which node, and which vhost, you want to enable
+	      it for. In the examples below, we assume the default
+	      vhost, "<code>/</code>", and the default node
+	      "<code>rabbit@(hostname)</code>". Use the
+	      <code>-n</code> argument to specify a node other than,
+	      and the <code>-p</code> argument to specify another
+	      vhost.
+	    </li>
+	    <li>
+	      Within your chosen vhost create queues, bind them to the
+	      topic exchange <code>amq.rabbitmq.trace</code>, and
+	      begin consuming.
+	    </li>
+	    <li>
+	      Run <code>rabbitmqctl trace_on</code>.
+            </li>
+	  </ol>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Disabling the firehose</doc:heading>
+	  <ol>
+	    <li>
+	      Run <code>rabbitmqctl trace_off</code>.
+	    </li>
+	    <li>
+	      Clean up the queues used by the firehose.
+	    </li>
+	  </ol>
+          <p>
+            Note that the firehose state is not persistent; it will
+            default of off at server start time.
+          </p>
+        </doc:subsection>
+        <doc:subsection>
+	  <doc:heading>Firehose notification format</doc:heading>
+	  <p>
+	    The firehose publishes messages to the topic exchange
+	    <code>amq.rabbitmq.trace</code> with
+	  </p>
+	  <ul>
+	    <li>
+	      routing key either
+	      "<code>publish.<i>exchangename</i></code>", for messages
+	      entering the broker, or
+	      "<code>deliver.<i>queuename</i></code>", for messages
+	      leaving the broker;
+	    </li>
+	    <li>
+	      headers containing metadata about the original message:
+              <p>
+                <table>
+                  <tr><th>Header</th><th>Type</th><th>Description</th></tr>
+                  <tr>
+                    <td>exchange_name</td>
+                    <td>longstr</td>
+                    <td>
+                      name of the exchange to which the message was
+                      published
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>routing_keys</td>
+                    <td>array</td>
+                    <td>
+                      routing key plus contents of
+                      <a href="sender-selected.html"><code>CC</code> and
+                      <code>BCC</code> headers</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>properties</td>
+                    <td>table</td>
+                    <td><a href="amqp-0-9-1-reference.html#class.basic">content properties</a></td>
+                  </tr>
+                  <tr>
+                    <td>node</td>
+                    <td>longstr</td>
+                    <td>Erlang node on which the trace message was generated</td>
+                  </tr>
+                  <tr>
+                    <td>redelivered</td>
+                    <td>signedint</td>
+                    <td>
+                      whether the message has its redelivered flag set
+                      (messages leaving the broker only)
+                    </td>
+                  </tr>
+                </table>
+              </p>
+	    </li>
+	    <li>
+	      body corresponding to the body of the original message
+	    </li>
+	  </ul>
+        </doc:subsection>
+      </doc:section>
+      <doc:section>
+        <doc:heading>Tracing plugin</doc:heading>
+        <p>
+          The <code>rabbitmq_tracing</code> <a
+          href="plugins.html">plugin</a> builds on top of the tracer
+          and provides a GUI to capture traced messages and log them
+          in text or JSON format files.
+        </p>
+      </doc:section>
+
+  </body>
+</html>

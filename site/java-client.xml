@@ -1,0 +1,176 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+  <head>
+    <title>RabbitMQ Java client library</title>
+  </head>
+  <body>
+    <p>
+      The RabbitMQ Java client library allows Java code to interface
+      to AMQP servers. The library is platform neutral; the binary
+      distributions listed below differ only in the version of Java
+      they are intended for use with. Please see the <a
+      href="specification.html">specification</a> page for more
+      information on AMQP interoperation and standards-conformance.
+    </p>
+
+    <p class="intro">
+      The library is open-source, and is triple-licensed under
+
+      <ul>
+        <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Public License 2.0</a></li>
+        <li><a href="https://www.mozilla.org/MPL/1.1/">Mozilla Public License</a></li>
+        <li><a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL 2.0</a></li>
+      </ul>
+    </p>
+
+    <p>
+      You will need a <a href="download.html">RabbitMQ node</a> to use with the client
+      library.
+    </p>
+
+    <h3>Version</h3>
+
+    <p>
+      The current release of the RabbitMQ Java client is <b>
+      &version-java-client;</b>.
+    </p>
+
+    <h2>Download the library and documentation</h2>
+
+    <h3>The library</h3>
+
+    <p>
+      The library is available in several compiled forms, and as
+      source. The precompiled archives include example source code.
+    </p>
+
+    <r:downloads signature="yes">
+      <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.zip"
+		  downloadpath="&dir-java-client;">
+	Binary, compiled for Java 1.5 or newer (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.tar.gz"
+		  downloadpath="&dir-java-client;">
+	Binary, compiled for Java 1.5 or newer (tar.gz)
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (zip)
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-&version-java-client;.tar.gz"
+		  downloadpath="&dir-java-client;">
+	Source code and tools (tar.gz)
+      </r:download>
+    </r:downloads>
+
+    <p>
+      Please see <a href="signatures.html">checking signatures</a> for
+      details on how to verify the signatures on our packages, and the
+      <a href="build-java-client.html">build page</a> for instructions on
+      compiling from source-code.
+    </p>
+
+    <h3>The documentation</h3>
+
+    <p>Please refer to the <a href="api-guide.html">API guide</a>.</p>
+
+    <p>
+      The Javadoc documentation is <a
+      href="&dir-current-javadoc;">browseable on-line</a>, or you can
+      download it for off-line use:
+    </p>
+
+    <r:downloads signature="yes">
+      <r:download downloadfile="rabbitmq-java-client-javadoc-&version-java-client;.zip"
+		  downloadpath="&dir-java-client;">
+	A zip file containing generated Javadoc documentation
+      </r:download>
+      <r:download downloadfile="rabbitmq-java-client-javadoc-&version-java-client;.tar.gz"
+		  downloadpath="&dir-java-client;">
+	A tar.gz file containing generated Javadoc documentation
+      </r:download>
+    </r:downloads>
+
+    <h3>Other versions</h3>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-java-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      Java Client library or documentation other than the above.
+    </p>
+
+    <h2>OSGi Ready</h2>
+    <p>
+      The RabbitMQ Java AMQP library jar comes ready with an OSGi
+      manifest (with bundle version and package dependencies correctly
+      set) so it can be deployed in an OSGi environment.
+      This means it is no longer necessary to <i>bundleise</i> or
+      <i>OSGiefy</i> the jar prior to using it in an OSGi container.
+    </p>
+
+    <h2>Maven Artifact</h2>
+    <p>
+      The RabbitMQ Java AMQP library is available as a Maven artifact
+      on the <a href="http://repo1.maven.org/maven2/">central Maven
+      repository</a> and mirrors thereof.
+    </p>
+    <p>
+      To include it in your project, add this dependency to your pom:
+      <pre class="sourcecode">
+&lt;dependency&gt;
+  &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
+  &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
+  &lt;version&gt;&version-java-client;&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+    </p>
+    <p>
+      We attempt to upload new versions of the Java client on the day
+      of release; however the Maven servers are sometimes unavailable,
+      so there may be a delay of a few days between a new release and
+      its appearance in the central Maven repository. Please be patient.
+    </p>
+
+    <h2>GitHub repositories</h2>
+    <p>
+      The Java AMQP client library and example programs. Depends on
+      the code-generation library module. Please see the <a
+      href="build-java-client.html">build page</a> for instructions on
+      compiling from source code.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="github" shortname="rabbitmq-java-client"
+        url="https://github.com/rabbitmq/rabbitmq-java-client"/>
+      <repository type="github" shortname="rabbitmq-codegen"
+        url="https://github.com/rabbitmq/rabbitmq-codegen/"/>
+    </repositories>
+
+    <h2>Support</h2>
+    <p>
+      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
+    </p>
+  </body>
+</html>

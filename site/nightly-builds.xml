@@ -1,0 +1,100 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Nightly Builds</title>
+  </head>
+  <body>
+      <p class="intro">
+          We now produce nightly builds for the RabbitMQ broker
+          and official client libraries. These builds are available
+          so that users can try out the latest features and bug fixes
+          as soon as they become available.
+      </p>
+      <doc:section name="stability-and-safety">
+	  <p>
+          Nightly builds are based on the 'master' branch of our GitHub
+          repositories. This represents the <i>bleeding edge</i> and therefore
+          should not be considered complete or completely stable. It is quite
+          possible that existing features, APIs and/or configuration data
+          formats have been changed in ways that are not backwards compatible
+          or even removed altogether.
+      </p>
+      <p>
+          In addition to the changes described above, it is also possible that
+          incompatible changes have been made to the way persistent storage
+          is handled. Such changes may mean that after installing a nightly
+          build, your RabbitMQ installation <i>cannot be rolled back to a
+          previous (stable) version</i>. To avoid conflicting with an existing
+          installation, you should either remove it first, or configure the
+          nightly build installation to use an alternative location for its
+          persistent storage and (potentially) other configuration elements
+          using the <a href="relocate.html">provided instructions</a>.
+      </p>
+      </doc:section>
+      <doc:section name="packaging-repositories">
+        <p>
+          We publish a debian repository containing the nighty build artefacts,
+          so that you can install them using the relevant package manager for
+          your system. You should be aware that this repository will be
+          overwritten each night, so you can <i>only</i> use the latest version
+          when installing in this manner.
+      </p>
+      <p>
+          As with our published live releases, we continue to digitally
+          sign the nightly build artefacts using
+          <a href="http://www.gnupg.org/">GnuPG</a> and
+          <a href="https://rabbitmq.com/rabbit-nightly-signing-key-public.asc">
+              our nightly builds public signing key</a>.
+      </p>
+      <p>
+        You can find documentation about any new features available in
+        our nightly builds
+        at <a href="http://next.rabbitmq.com/documentation.html">next.rabbitmq.com</a>.
+      </p>
+
+    </doc:section>
+    <doc:section name="downloads">
+    <div class="landing-box">
+      <h2>Downloading and installing RabbitMQ nightly builds</h2>
+      <h3>RabbitMQ Server</h3>
+      <ul>
+        <li>
+          <a href="/nightlies/rabbitmq-server/">Download</a> |
+          <a href="/debian-snapshot">Debian Repository</a> |
+        </li>
+      </ul>
+      <h3>Official Clients</h3>
+      <ul>
+        <li id="rabbitmq-java-client">
+          <a href="/nightlies/rabbitmq-java-client">Java Client</a>
+        </li>
+        <li id="rabbitmq-dotnet-client">
+            <a href="/nightlies/rabbitmq-dotnet-client">.NET/C# Client</a>
+        </li>
+        <li id="rabbitmq-erlang-client">
+          <a href="/nightlies/rabbitmq-erlang-client">Erlang Client</a>
+        </li>
+      </ul>
+    </div>
+    </doc:section>
+  </body>
+</html>

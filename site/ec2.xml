@@ -1,0 +1,191 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Amazon EC2</title>
+  </head>
+  <body>
+<doc:section name="ec2">
+  <p>
+    Using RabbitMQ on EC2 is quite similar running it on other
+    platforms. Although we don't provide our own AMI images, we make
+    sure that RabbitMQ works well on current Ubuntu AMIs.
+  </p>
+
+  <p>This guide is mean to be used together with the general <a href="/clustering.html">clustering guide</a>.</p>
+
+  <doc:subsection name="instance_type">
+    <doc:heading>Choose instance type</doc:heading>
+    <p>
+      First, you need to choose what instance type to run. RabbitMQ
+      will work on every instance type, but there are a few considerations
+      worth bearing in mind:
+    </p>
+    <ul>
+      <li>
+	RabbitMQ will work on 32-bit operating system, but for
+	production usage we recommend 64-bit instances.
+      </li>
+      <li>
+	RabbitMQ by default will take advantage of all the processors
+	in the system. However a single strong CPU configuration might
+	behave slightly better than a collection of weak processors.
+      </li>
+      <li>
+	In some cases RabbitMQ requires substantial amounts of memory.
+	Make sure that your host does have <a href="/memory.html">enough RAM</a> and always have
+	at least a few gigabytes of swap space enabled.
+      </li>
+    </ul>
+  </doc:subsection>
+
+
+  <doc:subsection name="os_type">
+    <doc:heading>Choose operating system</doc:heading>
+    <p>
+      Although RabbitMQ is tested with most major Linux distributions,
+      Ubuntu support for Amazon EC2 seems to be strongest. You can
+      get the list of Ubuntu AMI images here:
+
+      <pre>
+      <a href="http://uec-images.ubuntu.com/releases/">http://uec-images.ubuntu.com/releases/</a></pre>
+
+      You may find more information
+      in <a href="https://help.ubuntu.com/community/EC2StartersGuide">Ubuntu
+      EC2 Starters Guide</a>.
+    </p>
+  </doc:subsection>
+
+
+  <doc:subsection name="install">
+    <doc:heading>Install RabbitMQ</doc:heading>
+    <p>
+      Ubuntu ships with RabbitMQ but it's often not the latest
+      version. If you want the recent version, you may use
+      our <a href="install-debian.html">Debian
+      repository</a>. Here is a shell
+      script <code>rabbitmq-user-data.sh</code> that automates
+      RabbitMQ installation on Ubuntu:
+    </p>
+    <pre class="ec2_sourcecode">#!/bin/sh
+cat &lt;&lt;EOF &gt; /etc/apt/sources.list.d/rabbitmq.list
+deb http://www.rabbitmq.com/debian/ testing main
+EOF
+
+curl https://www.rabbitmq.com/rabbitmq-signing-key-public.asc -o /tmp/rabbitmq-signing-key-public.asc
+apt-key add /tmp/rabbitmq-signing-key-public.asc
+rm /tmp/rabbitmq-signing-key-public.asc
+
+apt-get -qy update
+apt-get -qy install rabbitmq-server</pre>
+
+    <p>
+      Instead of running it manually, you can tell the instance to run
+      this script automatically during the first start. You can do it
+      using the <code>user-data-file</code> command line option for
+      the <code>ec2-run-instances</code> command. For example:
+
+      <pre class="ec2_sourcecode">$ ec2-run-instances ami-XXX \
+    --key ${EC2_KEYPAIR} \
+    --instance-type m1.large \
+    --region eu-west-1 \
+    --user-data-file rabbitmq-user-data.sh</pre>
+
+      Put your chosen AMI id in the place of <code>ami-XXX</code>. The
+      string <code>${EC2_KEYPAIR}</code> should be replaced with the
+      public ssh keypair name that is going to be used to log in to
+      the instance. You can find more information
+      about <code>ec2-run-instances</code> command in
+      <a href="http://docs.amazonwebservices.com/AWSEC2/latest/GettingStartedGuide/">EC2 Getting Started Guide</a>.
+    </p>
+  </doc:subsection>
+
+  <doc:subsection name="ebs">
+    <doc:heading>Persistent data on EBS device</doc:heading>
+    <p>
+      RabbitMQ writes data to the following directories on Ubuntu:
+      <ul>
+	<li>
+	  <code>/var/lib/rabbitmq/</code> to store persistent data
+	  like the messages or queues
+	</li>
+
+	<li>
+	  <code>/var/log/rabbitmq/</code> to store logs
+	</li>
+      </ul>
+    </p>
+
+    <p>
+      If you want to use EBS block device to store RabbitMQ data, just
+      link these directories to your EBS device. Stop RabbitMQ
+      before making any changes to the data directory:
+      <pre class="ec2_sourcecode">$ /etc/init.d/rabbitmq-server stop</pre>
+    </p>
+  </doc:subsection>
+</doc:section>
+
+<xi:include href="install-guest-localhost.xml.inc"/>
+<xi:include href="clustering-hostname-issues.xml.inc"/>
+<xi:include href="clustering-firewalled-nodes.xml.inc"/>
+<xi:include href="clustering-erlang-version.xml.inc"/>
+
+<doc:section name="testing">
+  <doc:heading>Testing RabbitMQ</doc:heading>
+    <p>
+        Once RabbitMQ has been started, confirm that it actually
+	works.  You can do this by installing the RabbitMQ Java client
+	and running the test scripts that come with it. Use the
+	following instructions to install the required packages on the
+	instance:
+    </p>
+    <pre class="ec2_sourcecode">apt-get install openjdk-6-jre
+curl http://www.rabbitmq.com/releases/&dir-java-client;/rabbitmq-java-client-bin-&version-java-client;.tar.gz \
+    -o rabbitmq-java-client-bin-&version-java-client;.tar.gz
+tar xzf rabbitmq-java-client-bin-&version-java-client;.tar.gz
+cd rabbitmq-java-client-bin-&version-java-client;</pre>
+    <p>
+        When the dependencies are available, you can run the test:
+    </p>
+    <pre class="ec2_sourcecode">rabbitmq:~/rabbitmq-java-client-&version-java-client;$ sh ./runjava.sh com.rabbitmq.examples.MulticastMain</pre>
+    <p>
+        On the screen you should see output similar to this:
+    </p>
+    <pre class="ec2_sourcecode">starting consumer #0
+starting producer #0
+recving rate: 2920 msg/s, min/avg/max latency: 13431/137515/349586 microseconds
+sending rate: 7182 msg/s
+recving rate: 4513 msg/s, min/avg/max latency: 352244/535973/715864 microseconds
+sending rate: 4897 msg/s
+recving rate: 4119 msg/s, min/avg/max latency: 654393/829167/1021911 microseconds
+sending rate: 4989 msg/s</pre>
+</doc:section>
+
+  <p>
+    If you have any comments please <a href="contact.html">let us know</a>.
+  </p>
+  </body>
+</html>

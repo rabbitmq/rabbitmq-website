@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE xml [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<x:pages xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <!--
+     ~~~ Using this file ~~~
+
+     The purpose of this file is to provide a central record of the
+     site structure as shown in the right hand nav, along with related
+     links.
+
+     For each page, create an <x:page> section with a url attribute
+     pointing to its URL and a text attribute containing the link text.
+
+     Add a child <x:related> element for each link that you want to
+     appear in the related links section. Use the page's relative url
+     as the url attribute.
+  -->
+
+   <x:page url="/features.html" text="Features">
+     <x:modal mode="www">
+       <x:page url="/protocols.html" text="Supported Protocols"/>
+     </x:modal>
+   </x:page>
+
+   <x:page url="/download.html" text="Installation">
+   <x:modal mode="www">
+     <x:page url="/install-windows.html" text="Install: Windows">
+       <x:related url="/windows-quirks.html"/>
+     </x:page>
+     <x:page url="/install-debian.html" text="Install: Debian / Ubuntu"/>
+     <x:page url="/install-rpm.html" text="Install: RPM-based Linux"/>
+     <x:page url="/install-standalone-mac.html" text="Install: Mac OS X"/>
+     <x:page url="/install-homebrew.html" text="Install: Homebrew"/>
+     <x:page url="/install-windows-manual.html" text="Install: Windows (manual)">
+       <x:related url="/windows-quirks.html"/>
+     </x:page>
+     <x:page url="/install-generic-unix.html" text="Install: Generic Unix"/>
+     <x:page url="/install-solaris.html" text="Install: Solaris"/>
+     <x:page url="/ec2.html" text="Install: EC2" gap-after="true"/>
+     <x:page url="/platforms.html" text="Supported Platforms"/>
+     <x:page url="/changelog.html" text="Server Changelog"/>
+     <x:page url="/which-erlang.html" text="Erlang Versions"/>
+     <x:page url="/signatures.html" text="Signed Packages" gap-after="true"/>
+     <x:page url="/java-client.html" text="Java Client Downloads">
+       <x:related url="/api-guide.html"/>
+     </x:page>
+     <x:page url="/dotnet.html" text=".NET Client Downloads">
+       <x:related url="/dotnet-api-guide.html" text=".NET Guide"/>
+     </x:page>
+     <x:page url="/erlang-client.html" text="Erlang Client Downloads">
+       <x:related url="/erlang-client-user-guide.html"/>
+     </x:page>
+     <x:page url="/community-plugins.html" text="Community Plugins" gap-after="true"/>
+     <x:page url="/nightly-builds.html" text="Nightly Builds" />
+     <x:related url="/troubleshooting.html" text="Troubleshooting"/>
+   </x:modal>
+   </x:page>
+   <x:page url="/documentation.html" text="Docs">
+     <x:page url="/admin-guide.html" text="Server Documentation">
+       <x:page url="/configure.html" text="Configuration">
+         <x:page url="/relocate.html" text="File Locations"/>
+         <x:page url="/parameters.html" text="Parameters"/>
+         <x:page url="/persistence-conf.html" text="Persistence"/>
+       </x:page>
+       <x:page url="/ssl.html" text="SSL Support">
+         <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
+         <x:related url="/clustering-ssl.html"/>
+       </x:page>
+       <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
+       <x:page url="/reliability.html" text="Reliable Delivery">
+         <x:related url="/heartbeats.html" text="Heartbeats"/>
+       </x:page>
+       <x:page url="/clustering.html" text="Clustering">
+         <x:page url="/partitions.html" text="Network Partitions">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
+         <x:page url="/nettick.html" text="Net Tick Time">
+           <x:related url="/heartbeats.html" text="Heartbeats"/>
+         </x:page>
+         <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
+       </x:page>
+       <x:page url="/ha.html" text="High Availability"/>
+       <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
+       <x:page url="/access-control.html" text="Access Control"/>
+       <x:page url="/authentication.html" text="SASL Authentication"/>
+       <x:page url="/alarms.html" text="Alarms">
+         <x:page url="/memory.html" text="Memory Alarms"/>
+         <x:page url="/disk-alarms.html" text="Disk Alarms"/>
+         <x:page url="/flow-control.html" text="Flow Control"/>
+       </x:page>
+       <x:page url="/memory-use.html" text="Memory Use"/>
+       <x:page url="/firehose.html" text="Firehose / Tracing"/>
+       <x:page url="/manpages.html" text="Manual Pages">
+         <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
+         <x:page url="/man/rabbitmq-plugins.1.man.html" text="rabbitmq-plugins"/>
+         <x:page url="/man/rabbitmq-server.1.man.html" text="rabbitmq-server"/>
+         <x:page url="/man/rabbitmq-service.man.html" text="rabbitmq-service"/>
+         <x:page url="/man/rabbitmq-echopid.man.html" text="rabbitmq-echopid"/>
+         <x:page url="/man/rabbitmq-env.conf.5.man.html" text="rabbitmq-env.conf">
+           <x:related url="/configure.html"/>
+         </x:page>
+       </x:page>
+       <x:page url="/windows-quirks.html" text="Windows Quirks"/>
+       <x:related url="/management.html"/>
+       <x:related url="/federation.html"/>
+       <x:related url="/extensions.html"/>
+       <x:related url="/changelog.html"/>
+     </x:page>
+     <x:page url="/clients.html" text="Client Documentation">
+       <x:page url="/api-guide.html" text="Java Client Guide">
+         <x:page url="/java-tools.html" text="Java Client Tools"/>
+         <x:related url="/java-client.html"/>
+       </x:page>
+       <x:page url="/dotnet-api-guide.html" text=".NET Client Guide"/>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
+       <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide"/>
+       <x:page url="/uri-spec.html" text="AMQP URI Spec">
+         <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
+       </x:page>
+       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
+       <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
+       <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
+       <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
+     </x:page>
+     <x:page url="/plugins.html" text="Plugins">
+       <x:page url="/management.html" text="Management plugin">
+         <x:page url="/management-cli.html" text="Management CLI"/>
+       </x:page>
+       <x:page url="/federation.html" text="Federation plugin">
+         <x:page url="/federated-exchanges.html" text="Exchanges"/>
+         <x:page url="/federated-queues.html" text="Queues"/>
+         <x:page url="/federation-reference.html" text="Reference">
+           <x:related url="/uri-spec.html"/>
+           <x:related url="/uri-query-parameters.html"/>
+         </x:page>
+       </x:page>
+       <x:page url="/shovel.html" text="Shovel plugin">
+         <x:page url="/shovel-static.html" text="Static Shovels"/>
+         <x:page url="/shovel-dynamic.html" text="Dynamic Shovels"/>
+         <x:related url="/uri-spec.html"/>
+         <x:related url="/uri-query-parameters.html"/>
+       </x:page>
+       <x:page url="/stomp.html" text="STOMP plugin"/>
+       <x:page url="/mqtt.html" text="MQTT plugin"/>
+       <x:page url="/ldap.html" text="LDAP plugin"/>
+       <x:page url="/mochiweb.html" text="Configuring web plugins"/>
+       <x:page url="/installing-plugins.html" text="Installing plugins"/>
+       <x:page url="/plugin-development.html" text="Plugin development"/>
+       <x:related url="/community-plugins.html"/>
+     </x:page>
+     <x:page url="/news.html" text="News"/>
+     <x:page url="/protocol.html" text="Protocol">
+       <x:page url="/specification.html" text="Compatibility"/>
+       <x:page url="/interoperability.html" text="Interoperability"/>
+       <x:page url="/semantics.html" text="Broker Semantics"/>
+
+       <x:page url="/amqp-0-9-1-quickref.html" text="Quick Reference"/>
+       <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
+       <x:page url="/amqp-0-9-1-errata.html" text="Errata"/>
+       <x:page url="/amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:related url="/tutorials/amqp-concepts.html"/>
+     </x:page>
+     <x:page url="/extensions.html" text="Our Extensions">
+       <x:page url="/confirms.html" text="Confirms"/>
+       <x:page url="/consumer-cancel.html" text="Consumer Cancel"/>
+       <x:page url="/consumer-prefetch.html" text="Consumer Prefetch"/>
+       <x:page url="/consumer-priority.html" text="Consumer Priorities"/>
+       <x:page url="/direct-reply-to.html" text="Direct reply-to"/>
+       <x:page url="/connection-blocked.html" text="Blocked Connections"/>
+       <x:page url="/nack.html" text="basic.nack"/>
+       <x:page url="/e2e.html" text="e2e bindings"/>
+       <x:page url="/ae.html" text="Alternate Exchanges"/>
+       <x:page url="/sender-selected.html" text="Sender Routing"/>
+       <x:page url="/ttl.html" text="TTL"/>
+       <x:page url="/dlx.html" text="Dead Lettering"/>
+       <x:page url="/maxlength.html" text="Length Limit"/>
+       <x:page url="/priority.html" text="Priority Queues"/>
+       <x:page url="/validated-user-id.html" text="Validated User ID"/>
+       <x:page url="/auth-notification.html" text="Auth Failure"/>
+       <x:page url="/spec-differences.html" text="Spec Differences"/>
+     </x:page>
+     <x:page url="/build.html" text="Building">
+       <x:page url="/build-server.html" text="Building the Server"/>
+       <x:page url="/build-java-client.html" text="Building the Java Client"/>
+       <x:page url="/build-dotnet-client.html" text="Building the .NET Client"/>
+       <x:page url="/build-erlang-client.html" text="Building the Erlang Client"/>
+       <x:page url="/github.html" text="Our use of Git and GitHub"/>
+       <x:related url="/plugin-development.html"/>
+     </x:page>
+     <x:modal mode="www">
+       <x:page url="/previous.html" text="Previous Releases"/>
+     </x:modal>
+     <x:page url="/mpl.html" text="License"/>
+   </x:page>
+   <x:page url="/getstarted.html" text="Tutorials">
+     <x:page url="/tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
+     <x:page url="/tutorials/tutorial-one-java.html" text="Java">
+       <x:page url="/tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
+       <x:page url="/tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
+       <x:page url="/tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
+       <x:page url="/tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
+       <x:page url="/tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
+       <x:page url="/tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
+     </x:page>
+     <x:page url="/tutorials/tutorial-one-python.html" text="Python">
+       <x:page url="/tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
+       <x:page url="/tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
+       <x:page url="/tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
+       <x:page url="/tutorials/tutorial-four-python.html" text="4: Routing (Python)"/>
+       <x:page url="/tutorials/tutorial-five-python.html" text="5: Topics (Python)"/>
+       <x:page url="/tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
+     </x:page>
+   </x:page>
+   <x:page url="/services.html" text="Support"/>
+   <x:page url="/community.html" text="Community">
+     <x:page url="/getstarted.html" text="Tutorials"/>
+     <x:page url="/devtools.html" text="Development tools"/>
+     <x:page url="/contact.html" text="Contact Us"/>
+   </x:page>
+   <x:page url="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J" text="We're Hiring"/>
+</x:pages>

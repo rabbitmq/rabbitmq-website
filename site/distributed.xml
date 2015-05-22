@@ -1,0 +1,192 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Distributed RabbitMQ brokers</title>
+  </head>
+  <body>
+    <p class="intro">
+      AMQP and the other messaging protocols supported by RabbitMQ via
+      plug-ins (e.g. STOMP), are (of course) inherently distributed -
+      it is quite common for applications from multiple machines to
+      connect to a single broker, even across the internet.
+    </p>
+    <p class="intro">
+      Sometimes however it is necessary or desirable to make the
+      RabbitMQ broker itself distributed. There are three ways in
+      which to accomplish that: with clustering, with federation, and
+      using the shovel. This page explains the purpose of each
+      approach.
+    </p>
+    <p>
+      Note that you do not need to pick a single approach - you can
+      connect clusters together with federation, or the shovel, or both.
+    </p>
+
+    <h2>Clustering</h2>
+    <p>
+      <a href="clustering.html">Clustering</a> connects multiple
+      machines together to form a single logical broker. Communication
+      is via Erlang message-passing, so all nodes in the cluster must
+      have the same Erlang cookie. The network links between machines
+      in a cluster <b>must</b> be reliable, and all machines in the
+      cluster must run the same versions of RabbitMQ and Erlang.
+    </p>
+    <p>
+      Virtual hosts, exchanges, users, and permissions are
+      automatically mirrored across all nodes in a cluster. Queues may
+      be located on a single node, or <a href="ha.html">mirrored
+      across multiple nodes</a>. A client connecting to any node in a
+      cluster can see all queues in the cluster, even if they are not
+      located on that node.
+    </p>
+    <p>
+      Typically you would use clustering for high availability and
+      increased throughput, with machines in a single location.
+    </p>
+
+    <h2>Federation</h2>
+    <p>
+      <a href="federation.html">Federation</a> allows an exchange or
+      queue on one broker to receive messages published to an exchange
+      or queue on another (the brokers may be individual machines, or
+      clusters). Communication is via AMQP (with optional SSL), so for
+      two exchanges or queues to federate they must be granted
+      appropriate users and permissions.
+    </p>
+    <p>
+      Federated exchanges are connected with one way point-to-point
+      links. By default, messages will only be forwarded over a
+      federation link once, but this can be increased to allow for
+      more complex routing topologies. Some messages may not be
+      forwarded over the link; if a message would not be routed to a
+      queue after reaching the federated exchange, it will not be
+      forwarded in the first place.
+    </p>
+    <p>
+      Federated queues are similarly connected with one way
+      point-to-point links. Messages will be moved between federated
+      queues an arbitrary number of times to follow the consumers.
+    </p>
+    <p>
+      Typically you would use federation to link brokers across the
+      internet for pub/sub messaging and work queueing.
+    </p>
+
+    <h2>The Shovel</h2>
+    <p>
+      Connecting brokers
+      with <a href="shovel.html">the
+      shovel</a> is conceptually similar to connecting them with
+      federation. However, the shovel works at a lower level.
+    </p>
+    <p>
+      Whereas federation aims to provide opinionated distribution of
+      exchanges and queues, the shovel simply consumes messages from a
+      queue on one broker, and forwards them to an exchange on
+      another.
+    </p>
+    <p>
+      Typically you would use the shovel to link brokers across the
+      internet when you need more control than federation provides.
+    </p>
+    <p>
+      <a href="shovel-dynamic.html">Dynamic shovels</a> can also be
+      useful for moving messages around in an ad-hoc manner on a
+      single broker.
+    </p>
+
+    <h2>Summary</h2>
+    <table>
+      <tr>
+        <th>Federation / Shovel</th>
+        <th>Clustering</th>
+      </tr>
+      <tr>
+        <td>
+          Brokers are logically separate and may have different owners.
+        </td>
+        <td>
+          A cluster forms a single logical broker.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Brokers can run different versions of RabbitMQ and Erlang.
+        </td>
+        <td>
+          Nodes must run the same version of RabbitMQ, and frequently Erlang.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Brokers can be connected via unreliable WAN
+          links. Communication is via AMQP (optionally secured by
+          SSL), requiring appropriate users and permissions to be set up.
+        </td>
+        <td>
+          Brokers must be connected via reliable LAN
+          links. Communication is via Erlang internode messaging,
+          requiring a shared Erlang cookie.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Brokers can be connected in whatever topology you
+          arrange. Links can be one- or two-way.
+        </td>
+        <td>
+          All nodes connect to all other nodes in both directions.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Chooses Availability and Partition Tolerance from
+          the <a href="http://en.wikipedia.org/wiki/CAP_theorem">CAP
+          theorem</a>.
+        </td>
+        <td>
+          Chooses Consistency and Availability (or
+          optionally <a href="partitions.html#cp-mode">Consistency and
+          Partition Tolerance</a>) from the CAP theorem.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Some exchanges in a broker may be federated while some may be local.
+        </td>
+        <td>
+          Clustering is all-or-nothing.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          A client connecting to any broker can only see queues in that broker.
+        </td>
+        <td>
+          A client connecting to any node can see queues on all nodes.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

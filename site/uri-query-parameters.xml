@@ -1,0 +1,160 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>URI query parameters</title>
+  </head>
+  <body>
+    <p class="intro">
+      This page is a less-formal companion to the <a
+      href="uri-spec.html">URI specification</a>, documenting how the
+      officially-supported clients interpret URI parameters. Currently
+      only the Erlang client does so.
+    </p>
+
+    <p>
+      The <a href="federation-reference.html#upstreams">federation</a>
+      and <a href="shovel.html#uris">shovel</a> plugins specify
+      connections to other brokers using URIs, and are implemented
+      using the Erlang client, so they take all the parameters
+      described here for it.
+    </p>
+
+    <p>
+      Query parameters are added to the URI in the usual way. Any
+      parameter can be omitted. The client will pick sensible defaults
+      when they are.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <pre>amqp://myhost?heartbeat=5&amp;frame_max=8192</pre>
+
+    <p>
+      This specifies a (non-encrypted) network connection to the host
+      <code>myhost</code>. The heartbeat interval is set to 5 seconds,
+      and the maximum frame size to 8192 bytes. Other parameters are
+      set to their default values.
+    </p>
+
+    <!--
+         TODO when another client supports some of these, split them
+         out into standardised and client-specific. For example,
+         auth_mechanism and heartbeat seem fairly standard, but the
+         SSL bits are quite tied to the Erlang SSL implementation.
+    -->
+
+    <table>
+      <tr>
+        <th>Parameter name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>
+          <code>cacertfile</code><br/>
+          <code>certfile</code><br/>
+          <code>keyfile</code>
+        </td>
+        <td>
+          Paths to files to use in order to present a client-side SSL
+          certificate to the server. Only of use for the
+          <code>amqps</code> scheme.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>verify</code><br/>
+          <code>fail_if_no_peer_cert</code>
+        </td>
+        <td>
+          Use to configure verification of the server's SSL
+          certificate. See the <a href="ssl.html">SSL guide</a> for
+          details of SSL in RabbitMQ in general and specifically the
+          <a href="ssl.html#configure-erlang">Erlang client</a>
+          section. Only of use for the <code>amqps</code> scheme.
+        </td>
+      </tr>
+      <tr>
+        <td><code>auth_mechanism</code></td>
+        <td>
+          SASL authentication mechanisms to consider when negotiating
+          a mechanism with the server. This parameter can be specified
+          multiple times,
+          e.g. <code>?sasl_mechanism=plain&amp;sasl_mechanism=amqplain</code>,
+          to specify multiple mechanisms.
+        </td>
+      </tr>
+      <tr>
+        <td><code>heartbeat</code></td>
+        <td>
+          Heartbeat value (in seconds) to negotiate withe the server.
+        </td>
+      </tr>
+      <tr>
+        <td><code>connection_timeout</code></td>
+        <td>
+          Time (in seconds) to wait while establishing a connection
+          before giving up.
+        </td>
+      </tr>
+      <tr>
+        <td><code>channel_max</code></td>
+        <td>
+          Maximum number of channels to permit on this connection.
+        </td>
+      </tr>
+      <tr>
+        <td><code>frame_max</code></td>
+        <td>
+          Maximum frame size (in bytes) to permit on this connection.
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      SSL options can also be specified globally using the
+      <code>ssl_config</code> environment key for the
+      <code>amqp_client</code> application. They will be merged with
+      the SSL parameters from the URI (the latter will take
+      precedence).
+    </p>
+
+    <pre class="example">
+%% Configures the maximum number of non-self-issued intermediate certificates
+%% that may follow the peer certificate in a valid certification path.
+%%
+%% Will have effect on all plugins that use RabbitMQ Erlang client, e.g.
+%% Shovel and Federation.
+[
+  {amqp_client, [
+    {ssl_config, [
+      {depth, 2}
+    ]}
+  ]}
+].</pre>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Alternate Exchanges</title>
+  </head>
+  <body>
+    <p>
+      It is sometimes desirable to let clients handle messages
+      that an exchange was unable to route (i.e. either because
+      there were no bound queues our no matching
+      bindings). Typical examples of this are
+      <ul>
+        <li>detecting when clients accidentally or maliciously
+          publish messages that cannot be routed</li>
+        <li>"or else" routing semantics where some messages are
+          handled specially and the rest by a generic handler</li>
+      </ul>
+    </p>
+    <p>
+      RabbitMQ's <em>Alternate Exchange</em> ("AE") feature
+      addresses these use cases.
+    </p>
+
+    <p>
+      For any given exchange, an AE can be defined by clients using
+      the exchange's arguments, or in the server
+      using <a href="parameters.html#policies">policies</a>. In the
+      case where both policy and arguments specify an AE, the one
+      specified in arguments overrules the one specified in policy.
+    </p>
+
+    <h2>Configuration using arguments</h2>
+    <p>
+      When creating an exchange the name of an AE can be
+      optionally supplied in the <code>exchange.declare</code>
+      method's <code>arguments</code> table by specifying a key
+      of 'alternate-exchange' and a value of type 'S' (string)
+      containing the name.
+    </p>
+    <p>
+      When an AE has been specified, in addition to the usual
+      <em>configure</em> permissions on the declared exchange,
+      the user needs to have <em>read</em> permissions on that
+      exchange and <em>write</em> permissions on the AE.
+    </p>
+    <p>
+      For example:
+    </p>
+    <pre class="sourcecode">
+Map&lt;String, Object&gt; args = new HashMap&lt;String, Object&gt;();
+args.put("alternate-exchange", "my-ae");
+channel.exchangeDeclare("my-direct", "direct", false, false, args);
+channel.exchangeDeclare("my-ae", "fanout");
+channel.queueDeclare("routed");
+channel.queueBind("routed", "my-direct", "key1");
+channel.queueDeclare("unrouted");
+channel.queueBind("unrouted", "my-ae", "");</pre>
+    <p>
+      In the above fragment of Java code we create a direct
+      exchange 'my-direct' that is configured with an AE called
+      'my-ae'. The latter is declared as a fanout exchange. We
+      bind one queue 'routed' to 'my-direct' with a binding key
+      of 'key1', and a queue 'unrouted' to 'my-ae'.
+    </p>
+
+    <h2>Configuration using policy</h2>
+
+    <p>
+      To specify an AE using policy, add the key 'alternate-exchange'
+      to a policy definition. For example:
+    </p>
+
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <pre>rabbitmqctl set_policy AE "^my-direct$" '{"alternate-exchange":"my-ae"}'</pre>
+        </td>
+      </tr>
+      <tr>
+        <th>rabbitmqctl (Windows)</th>
+        <td>
+          <pre>rabbitmqctl set_policy AE "^my-direct$" "{""alternate-exchange"":""my-ae""}"</pre>
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      This will apply an AE of "my-ae" to the exchange called
+       "my-direct". Policies can also be defined using the management
+       plugin, see the <a href="parameters.html#policies">policy
+       documentation</a> for more details.
+    </p>
+
+    <h2>Alternate exchange logic</h2>
+
+    <p>
+      Whenever an exchange with a configured AE cannot route a message
+      to any queue, it publishes the message to the specified AE
+      instead. If that AE does not exist then a warning is logged. If
+      an AE cannot route a message, it in turn publishes the message
+      to its AE, if it has one configured. This process continues
+      until either the message is successfully routed, the end of the
+      chain of AEs is reached, or an AE is encountered which has
+      already attempted to route the message.
+    </p>
+    <p>
+      For example if we publish a message to 'my-direct' with a
+      routing key of 'key1' then that message is routed to the
+      'routed' queue, in accordance with the standard AMQP
+      behaviour.  However, when publishing a message to
+      'my-direct' with a routing key of 'key2', rather than
+      being discarded the message is routed via our configured
+      AE to the 'unrouted' queue.
+    </p>
+    <p>
+      The behaviour of an AE purely pertains to routing. If a message
+      is routed via an AE it still counts as routed for the purpose of
+      the 'mandatory' flag, and the message is otherwise unchanged.
+    </p>
+  </body>
+</html>

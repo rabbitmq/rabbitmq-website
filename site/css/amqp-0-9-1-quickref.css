@@ -1,0 +1,77 @@
+/*
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+/* stylesheet for rendering AMQP 0-9-1 quick reference */
+
+div.method-box {
+  border: 1px solid #555;
+  padding: 0.5em 1em;
+  background-color: #eee;
+  margin-bottom: 0.5em;
+}
+div#container h3 {
+  font-size: 1.4em;
+  margin-top: 1.5em;
+}
+h3.class {
+  margin-bottom: 0.5em;
+}
+h4.method {
+  font-weight: normal;
+  font-family: "Courier New", Courier, monospace;
+  margin-top: 0.5em;
+  text-indent: -1em;
+  padding-left: 1em;
+}
+h4.method .method-name, h4.method .method-retval {
+  font-weight: bold;
+}
+h4.method .parameter, h4.method .method-retval {
+  white-space: nowrap;
+}
+h4.method .param-name {
+  font-style: italic;
+  font-weight: normal;
+}
+h5.amqp-extension {
+  font-style: italic;
+  color: #F60;
+}
+div.doc h5 {
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+}
+div#container ul li {
+  font-size: 12px;
+  padding-bottom: 0;
+}
+div#container a {
+  color: #555;
+}
+a.back {
+  font-size: 0.8em;
+  float: right;
+}
+a.doc {
+  display: block;
+  margin-bottom: 0.5em;
+}
+span.override {
+  font-size: 90%;
+  vertical-align: super;
+}

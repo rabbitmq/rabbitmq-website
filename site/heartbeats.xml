@@ -1,0 +1,111 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Detecting Dead TCP Connections with Heartbeats</title>
+  </head>
+  <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+      <p>
+        In some types of network failure, packet loss can mean that
+        disrupted TCP connections take a moderately long time (about 11
+        minutes with default configuration on Linux, for example) to be
+        detected by the operating system. AMQP 0-9-1 offers a
+        <i>heartbeat</i> feature to ensure that the application layer
+        promptly finds out about disrupted connections (and also
+        completely unresponsive peers). Heartbeats also defend against
+        certain network equipment which may terminate "idle" TCP
+        connections.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="heartbeats-timeout">
+      <doc:heading>Heartbeat Timeout Interval</doc:heading>
+      <p>
+        The heartbeat timeout value defines after what period of time
+        the peer TCP connection should be considered dead by RabbitMQ
+        and client libraries. This value is negotiated between the
+        client and RabbitMQ server at the time of connection. The
+        client must be configured to request heartbeats. In RabbitMQ
+        versions 3.0 and higher, the broker will attempt to negotiate
+        heartbeats by default (although the client can still veto
+        them). The timeout is in seconds.
+      </p>
+      <p>
+        Heartbeat frames are sent about every <code>timeout / 2</code>
+        seconds. After two missed heartbeats, the peer is considered
+        to be unreachable. Different clients manifest this differently
+        but the TCP connection will be closed. When a client detects
+        that RabbitMQ node is unreachable due to a heartbeat, it needs
+        to re-connect.
+      </p>
+      <p>
+        Heartbeats can be disabled by setting the timeout interval to <code>0</code>.
+      </p>
+    </doc:section>
+
+    <doc:section name="using-heartbeats-in-java">
+      <doc:heading>Enabling Heartbeats with Java Client</doc:heading>
+      <p>
+        To configure the heartbeat timeout in the Java client, set it with
+        <code>ConnectionFactory#setRequestedHeartbeat</code> before
+        creating a connection:
+      </p>
+
+<pre class="sourcecode">
+ConnectionFactory cf = new ConnectionFactory();
+
+// set the heartbeat timeout to 60 seconds
+cf.setRequestedHeartbeat(60);
+</pre>
+    </doc:section>
+
+    <doc:section name="using-heartbeats-in-dotnet">
+      <doc:heading>Enabling Heartbeats with the .NET Client</doc:heading>
+      <p>
+        To configure the heartbeat timeout in the .NET client, set it with
+        <code>ConnectionFactory.RequestedHeartbeat</code> before
+        creating a connection:
+      </p>
+
+<pre class="sourcecode">
+var cf = new ConnectionFactory();
+
+// set the heartbeat timeout to 60 seconds
+cf.RequestedHeartbeat = 60;
+</pre>
+    </doc:section>
+
+    <doc:section name="stomp">
+      <doc:heading>Heartbeats in STOMP</doc:heading>
+      <p>
+        <a href="https://stomp.github.io/stomp-specification-1.2.html#Heart-beating">STOMP 1.2 includes heartbeats</a>. In STOMP, heartbeat timeouts can be assymetrical: that is to say, client
+        and server can use different values. RabbitMQ STOMP plugin fully supports this feature.
+      </p>
+      <p>
+        Heartbeats in STOMP are opt-in. To enable them, use the <code>heart-beat</code>
+        header when connecting. See <a href="https://stomp.github.io/stomp-specification-1.2.html#Heart-beating">STOMP specification</a> for an example.
+      </p>
+    </doc:section>
+
+  </body>
+</html>

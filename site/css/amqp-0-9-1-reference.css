@@ -1,0 +1,174 @@
+/*
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+/* stylesheet for rendering AMQP 0-9-1 reference guide */
+
+#content-pane: {
+  width: 100%;
+  margin: 0 auto;
+}
+#content-pane h3 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+#content-pane h4 {
+  font-size: 1.2em;
+  margin: 1.0em 0 0.5em 0;
+}
+#content-pane h5 {
+  font-size: 1.0em;
+  margin: 0.5em 0;
+}
+#content-pane p {
+  margin: 0.5em 0;
+}
+table {
+  width: 100%;
+  margin: 1em auto;
+  table-layout: fixed;
+  border-width: thin;
+  border-style: outset;
+  border-collapse: collapse;
+}
+table thead {
+  background-color: #ccc;
+}
+table th, table td {
+  padding: 0.5em;
+  vertical-align: top;
+  border: 1px solid #e4e4e4;
+}
+table#domains-table th.col-1, table#domains-table th.col-2 {
+  width: 15%;
+}
+table#constants-table th.col-1 {
+  width: 15%;
+}
+table#constants-table th.col-2 {
+  width: 8%;
+}
+table#constants-table th.col-3 {
+  width: 12%;
+}
+table.fields-table {
+  margin: 0 auto 0 0 ;
+  width: auto;
+  table-layout: auto;
+  background-color: #eee;
+  border: 1px solid #555;
+}
+table.fields-table thead {
+  display: none;
+}
+table.fields-table th, table.fields-table td {
+  padding: 0.3em 0.5em;
+}
+ul.rules {
+  margin: 0;
+  padding-left: 0;
+}
+ul.rules li {
+  margin: 0;
+  padding: 6px 0 0 10px;
+}
+p.grammar-label {
+  font-style: italic;
+  margin: 0 !important;
+}
+pre.code {
+  font-size: 0.9em;
+  border: 1px solid #e4e4e4;
+  padding: 5px 0 0 0;
+  width: auto;
+  margin: 0;
+}
+dl {
+  float: left;
+  width: 100%;
+  font-size: 0.9em;
+  margin: 0 0 0.5em 0;
+}
+dl, dt, dd {
+  padding: 0;
+}
+dt {
+  font-weight: bold;
+  float: left;
+  clear: both;
+}
+dd {
+  margin-left: 0.3em;
+  float: left;
+}
+* html dd, * html dt {
+  /* IE6 and lower */
+  float: none;
+  margin-left: 1em;
+}
+*:first-child+html dd, *:first-child+html dt {
+  /* IE7 and IE8 quirks */
+  float: none;
+  margin-left: 1em;
+}
+a.back {
+  font-size: 0.8em;
+  line-height: normal;
+  display: inline-block;
+  margin-left: 0.8em;
+}
+.class a.back {
+  float: right;
+}
+.class {
+  margin: 1.5em 0;
+  border: 1px solid #555;
+  padding: 1em;
+  background-color: #eee;
+}
+.class h3 {
+ margin-top: 0;
+}
+.method-sig {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.1em !important;
+  float: left;
+  width: 100%;
+}
+.method-name {
+  float: left;
+}
+.method-params {
+  float: left;
+  width: 85%;
+}
+.method-retval, .parameter {
+  white-space: nowrap;
+}
+.inline-block {
+  display: inline-block;
+}
+p.param-desc {
+  padding-left: 10px;
+}
+.field-name, .param-name {
+  font-style: italic;
+  font-weight: normal;
+}
+hr {
+  visibility: visible;
+  margin-top: 1.5em;
+}

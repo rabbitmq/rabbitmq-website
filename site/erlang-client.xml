@@ -1,0 +1,135 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!DOCTYPE html [
+<!ENTITY % entities SYSTEM "rabbit.ent" >
+%entities;
+]>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance"
+      xmlns:xi="http://www.w3.org/2003/XInclude">
+  <head>
+    <title>Erlang AMQP client library</title>
+  </head>
+  <body>
+    <p>
+      The RabbitMQ Erlang client library allows Erlang code to
+      interface to AMQP servers. The current release implements AMQP
+      protocol version 0-9-1. Please see the <a
+      href="specification.html">specification</a> page for more
+      information on interoperation and standards-conformance.
+    </p>
+
+    <p>
+      The library is open-source, and is dual-licensed under <a
+      href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
+      License v2</a> and <a href="mpl.html">the Mozilla Public License
+      v1.1</a>.
+    </p>
+
+    <p>
+      You will need an AMQP server, such as our very own <a
+      href="download.html">RabbitMQ server</a>, to use with the client
+      library.
+    </p>
+
+    <h3>Version</h3>
+
+    <p>
+      The current release of the RabbitMQ Erlang AMQP library is <b>
+      &version-erlang-client;</b>.
+    </p>
+
+    <h2>
+      Download the library and documentation
+    </h2>
+
+    <h3>The library</h3>
+
+    <p>
+      The library is available as source, or compiled as a loadable .ez binary
+archive. The AMQP client binary archive has a runtime dependency on the some
+modules common to the RabbitMQ server. These are provided as a separate
+loadable .ez archive.
+    </p>
+
+    <r:downloads signature="yes">
+      <r:download downloadfile="amqp_client-&version-erlang-client;.ez"
+		  downloadpath="&dir-erlang-client;">
+	AMQP client library .ez archive
+      </r:download>
+      <r:download downloadfile="rabbit_common-&version-erlang-client;.ez"
+		  downloadpath="&dir-erlang-client;">
+	RabbitMQ common library .ez bundle
+      </r:download>
+      <r:download downloadfile="amqp_client-&version-erlang-client;-src.tar.gz"
+		  downloadpath="&dir-erlang-client;">
+	Source code and tests (tar.gz)
+      </r:download>
+    </r:downloads>
+
+    <p>
+      Please see <a href="signatures.html">checking signatures</a> for
+      details on how to verify the signatures on our packages, and the
+      <a href="build-erlang-client.html">build page</a> for
+      instructions on compiling from source-code.
+    </p>
+
+    <h3>The documentation</h3>
+
+    <p>Please refer to the <a href="erlang-client-user-guide.html">Erlang AMQP
+user quide</a>.</p>
+
+    <p>
+      The edoc documentation is <a
+      href="&dir-current-edoc;">browseable on-line</a>.
+    </p>
+
+    <h3>Other versions</h3>
+
+    <p>
+      Consult <a href="/releases/rabbitmq-erlang-client/">the
+      archive</a> if you want to download a version of the RabbitMQ
+      Erlang Client library other than the above.
+    </p>
+
+    <h2>GitHub repositories</h2>
+    <p>
+      The Erlang AMQP client library and tests depends on the server
+      and the code-generation library modules. Please see the <a
+      href="build-erlang-client.html">build instructions</a>.
+    </p>
+
+    <repositories xmlns="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
+      <repository type="github" shortname="rabbitmq-erlang-client"
+        url="https://github.com/rabbitmq/rabbitmq-erlang-client"/>
+      <repository type="github" shortname="rabbitmq-server"
+        url="https://github.com/rabbitmq/rabbitmq-server"/>
+      <repository type="github" shortname="rabbitmq-codegen"
+        url="https://github.com/rabbitmq/rabbitmq-codegen"/>
+    </repositories>
+
+    <h2>Support</h2>
+
+    <p>
+      For help compiling or installing RabbitMQ, or for general
+      queries, please <a href="contact.html"> contact us</a>.
+    </p>
+  </body>
+</html>
