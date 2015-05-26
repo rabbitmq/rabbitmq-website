@@ -71,7 +71,7 @@ limitations under the License.
             Quick links:
             <a href="configure.html">Configuration</a> |
             <a href="ssl.html">TLS/SSL</a> |
-            <a href="management.html">Management</a> |
+            <a href="management.html">Management UI and HTTP API</a> |
             <a href="clustering.html">Clustering</a> |
             <a href="ha.html">High Availability</a>
           </li>
