@@ -35,6 +35,15 @@ limitations under the License.
         <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a></li>
       </ul>
     </x:modal>
+
+    <x:modal mode="www">
+      <p class="intro">
+        The content on this site is open source and <a href="https://github.com/rabbitmq/rabbitmq-website/">available
+        on GitHub</a>. Community contributions are welcome and will be
+        considered.
+      </p>
+    </x:modal>
+    
     <x:modal mode="next">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the current nightly builds. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.

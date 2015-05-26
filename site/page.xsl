@@ -129,6 +129,7 @@ limitations under the License.
       <p id="copyright">
         Copyright &#169; 2015 Pivotal Software, Inc. All rights reserved
         |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+        |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>        
         |&#160;<a href="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J">We're Hiring</a>
       </p>
     </div>

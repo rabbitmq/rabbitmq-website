@@ -47,6 +47,10 @@ limitations under the License.
             you'll need to check out.
           </li>
         </ul>
+        <p>
+          This website is <a href="https://github.com/rabbitmq/rabbitmq-website/">open source and hosted on GitHub</a>
+          as well.
+        </p>
       </doc:section>
 
       <doc:section name="branch-per-bug">
