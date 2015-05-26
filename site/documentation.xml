@@ -1,10 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -43,7 +43,7 @@ limitations under the License.
         considered.
       </p>
     </x:modal>
-    
+
     <x:modal mode="next">
       <p class="intro">
         This page summarises the available RabbitMQ documentation for the current nightly builds. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
@@ -66,48 +66,87 @@ limitations under the License.
 
       <div class="landing-box">
         <h2>Server</h2>
+        <p>
+          <a href="admin-guide.html">RabbitMQ server documentation</a> is organised in a number of guides.
+        </p>
         <ul>
+          <p>Some popular guides are:</p>
           <li>
-            Quick links:
-            <a href="configure.html">Configuration</a> |
-            <a href="ssl.html">TLS/SSL</a> |
-            <a href="management.html">Management UI and HTTP API</a> |
-            <a href="clustering.html">Clustering</a> |
-            <a href="ha.html">High Availability</a>
+            <a href="configure.html">Configuration</a>
           </li>
           <li>
-            View all <a href="admin-guide.html">server documentation</a>.
+            <a href="ssl.html">TLS/SSL</a>
+          </li>
+          <li>
+            <a href="management.html">Management UI and HTTP API</a>
+          </li>
+          <li>
+            <a href="clustering.html">Clustering</a>
+          </li>
+          <li>
+            <a href="ha.html">High Availability</a>
           </li>
         </ul>
       </div>
 
       <div class="landing-box">
         <h2>Clients</h2>
+        <p>
+          <a href="clients.html">RabbitMQ clients documentation</a> is organised in a number
+          of guides and API references.
+        </p>
         <ul>
+          <p>Documentation guides:</p>
           <li>
-            API docs:
-            <a href="&dir-current-javadoc;">Java</a> |
-            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a> |
+            <a href="api-guide.thml">Java</a>
+          </li>
+          <li>
+            <a href="dotnet-api-guide.html">.NET</a>
+          </li>
+          <li>
+            <a href="http://rubybunny.info">Ruby</a>
+          </li>
+        </ul>
+        <ul>
+          API reference:
+          <li>
+            <a href="&dir-current-javadoc;">Java</a>
+          </li>
+          <li>
+            <a href="&dir-current-dotnet-apidoc;/index.html">.NET</a>
+          </li>
+          <li>
             <a href="&dir-current-edoc;">Erlang</a>
           </li>
-          <li>View all <a href="clients.html">client documentation</a> for
-          guides and additional content.</li>
         </ul>
+        <p>
+          See <a href="devtools.html">Clients and Developer Tools</a>
+          for community client libraries.
+        </p>
       </div>
 
       <div class="landing-box">
         <h2>Plugins</h2>
         <ul>
+          <p>Popular plugins:</p>
           <li>
-            Popular plugins:
             <a href="management.html">Management</a> |
-            <a href="federation.html">Federation</a> |
-            <a href="shovel.html">Shovel</a> |
-            <a href="stomp.html">STOMP</a>
           </li>
           <li>
-            View all <a href="plugins.html">plugins</a>.
+            <a href="stomp.html">STOMP</a> |
           </li>
+          <li>          
+            <a href="mqtt.html">MQTT</a> |
+          </li>
+          <li>          
+            <a href="federation.html">Federation</a> |
+          </li>
+          <li>          
+            <a href="shovel.html">Shovel</a>
+          </li>
+          <p>
+            See the <a href="plugins.html">plugins guide</a> for details.
+          </p>
         </ul>
       </div>
 
