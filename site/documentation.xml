@@ -46,12 +46,14 @@ limitations under the License.
 
     <x:modal mode="next">
       <p class="intro">
-        This page summarises the available RabbitMQ documentation for the current nightly builds. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        This page summarises the available RabbitMQ documentation for the current nightly builds.
+        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
     <x:modal mode="previous">
       <p class="intro">
-        This page summarises the available RabbitMQ documentation for the historical release, &version-server;. See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
+        This page summarises the available RabbitMQ documentation for the historical release, &version-server;.
+        See <a href="http://www.rabbitmq.com/documentation.html">www.rabbitmq.com</a> for documentation on the current release.
       </p>
     </x:modal>
 
@@ -135,13 +137,13 @@ limitations under the License.
           <li>
             <a href="stomp.html">STOMP</a> |
           </li>
-          <li>          
+          <li>
             <a href="mqtt.html">MQTT</a> |
           </li>
-          <li>          
+          <li>
             <a href="federation.html">Federation</a> |
           </li>
-          <li>          
+          <li>
             <a href="shovel.html">Shovel</a>
           </li>
           <p>
