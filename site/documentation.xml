@@ -60,7 +60,7 @@ limitations under the License.
         <p>
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
-          messaging, the AMQP model and RabbitMQ.
+          messaging, the protocol, RabbitMQ features, and common usage scenarios.
         </p>
       </div>
 
