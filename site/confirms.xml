@@ -96,7 +96,8 @@ limitations under the License.
       once the exchange verifies a message won't route to any queue
       (returns an empty list of queues). If the message is also
       published as mandatory, the <code>basic.return</code> is sent
-      to the client before <code>basic.ack</code>.
+      to the client before <code>basic.ack</code>. The same
+      is true for negative acknowledgements (<code>basic.nack</code>).
     </p>
 
     <p>
