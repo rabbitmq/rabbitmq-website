@@ -100,7 +100,7 @@ limitations under the License.
         <ul>
           <p>Documentation guides:</p>
           <li>
-            <a href="api-guide.thml">Java</a>
+            <a href="api-guide.html">Java</a>
           </li>
           <li>
             <a href="dotnet-api-guide.html">.NET</a>
