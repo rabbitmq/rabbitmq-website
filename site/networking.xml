@@ -1,0 +1,186 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Networking and RabbitMQ</title>
+  </head>
+  <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+
+      <doc:subsection name="intro">
+        <p>
+          Clients communicate with RabbitMQ over the network. All
+          protocols supported by the broker are TCP-based. As such,
+          both RabbitMQ and the operating system provide a wide range
+          of knobs that can be tweaked. Some of them are directly
+          related to TCP and IP operations, others have to do with
+          application-level protocols such as TLS. This guide covers
+          multiple topics related to networking in the context of
+          RabbitMQ. This guide is not meant to be an extensive
+          reference but rather an overview. Some tuneable parameters
+          discussed are OS-specific. This guide focuses on Linux when
+          covering OS-specific subjects, as it is the most common
+          platform RabbitMQ is deployed on in production.
+        </p>
+        <p>
+          There are several areas which can be configured or tuned:
+
+          <ul>
+            <li>Interfaces and ports</li>
+            <li>TLS</li>
+            <li>TCP socket settings</li>
+            <li>Kernel TCP settings</li>
+            <li>(AMQP 0-9-1, STOMP) Heartbeats</li>
+            <li>Hostnames and DNS</li>
+          </ul>
+
+          Except for OS kernel parameters and DNS, all RabbitMQ settings
+          are <a href="/configure.html">configured the same way</a>.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="interfaces">
+      <doc:heading>Network Interfaces</doc:heading>
+
+      <doc:subsection name="multiple-interfaces">
+        <p>
+          For RabbitMQ to accept client connections, it needs to bind to one or more
+          interfaces and listen on (protocol-specific) ports. The interfaces are
+          configured using the <code>rabbit.tcp_listeners</code> config option.
+          By default, RabbitMQ will listen on all available interfaces.
+        </p>
+
+        <p>
+          TCP listeners configure both interface and port. The following example
+          demonstrates how to configure RabbitMQ on a specific IP and standard port:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"192.168.1.99", 5672}]}
+  ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dual-stack">
+        <doc:heading>Listening on Dual Stack (Both IPv4 and IPv6) Interfaces</doc:heading>
+        <p>
+          The following example demonstrates how to configure RabbitMQ
+          to listen on localhost only for both IPv4 and IPv6:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"127.0.0.1", 5672},
+                     {"::1",       5672}]}
+  ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="single-stack-ipv4">
+        <doc:heading>Listening on IPv4 Interfaces Only</doc:heading>
+        <p>
+          In this example RabbitMQ will listen on an IPv4 interface only:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"192.168.1.99", 5672}]}
+  ]}
+].
+</pre>
+        </p>
+        <p>
+          Alternatively, if a single stack setup is desired, the interface can be
+          configured using the <code>RABBITMQ_NODE_IP</code> environment variable.
+          See our <a href="/configure.html">Configuration guide</a> for detalis.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="single-stack-ipv6">
+        <doc:heading>Listening on IPv6 Interfaces Only</doc:heading>
+        <p>
+          In this example RabbitMQ will listen on an IPv6 interface only:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"fe80::2acf:e9ff:fe17:f97b", 5672}]}
+  ]}
+].
+</pre>
+        </p>
+        <p>
+          Alternatively, if a single stack setup is desired, the interface can be
+          configured using the <code>RABBITMQ_NODE_IP</code> environment variable.
+          See our <a href="/configure.html">Configuration guide</a> for detalis.
+        </p>        
+      </doc:subsection>
+    </doc:section>
+
+    <xi:include href="install-selinux-ports.xml.inc" />
+
+    <doc:section name="tls">
+      <p>
+        It is possible to encrypt connections using TLS with RabbitMQ. Authentication
+        using peer certificates is also possible. Please refer to the <a href="/ssl.html">TLS/SSL guide</a>
+        for more information.
+      </p>
+    </doc:section>
+
+    <doc:section name="tuning-for-large-number-of-connections">
+    </doc:section>
+
+    <doc:section name="tuning-for-throughput">
+    </doc:section>
+
+    <doc:section name="tuning-for-large-number-of-connections">
+    </doc:section>
+
+    <doc:section name="">
+      <doc:heading>OS Level Tuning</doc:heading>
+    </doc:section>
+
+    <doc:section name="socket-gen-tcp-options">
+      <doc:heading>TCP Socket Options</doc:heading>
+    </doc:section>
+
+    <doc:section name="heartbeats">
+      <doc:heading>Heartbeats</doc:heading>
+
+      <p>
+        Some protocols supported by RabbitMQ, including AMQP 0-9-1, support <em>heartbeats</em>, a way to detect dead
+        TCP peers quicker. Please refer to the <a href="/heartbeats.html">Heartbeats guide</a>
+        for more information.
+      </p>
+    </doc:section>
+
+    <doc:section name="dns">
+      <doc:heading>DNS</doc:heading>
+    </doc:section>
+  </body>
+</html>

@@ -19,7 +19,7 @@ limitations under the License.
 <doc:section xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
              xmlns:xi="http://www.w3.org/2003/XInclude"
              name="selinux-ports">
-  <doc:heading>Security and Ports</doc:heading>
+  <doc:heading>Port Access</doc:heading>
   <p>
     SELinux and similar mechanisms may prevent RabbitMQ from binding to a port. When that happens,
     RabbitMQ will fail to start. Make sure the following ports can be opened:
