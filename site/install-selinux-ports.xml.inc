@@ -26,6 +26,6 @@ limitations under the License.
 
     <xi:include href="list-of-ports.xml.inc" />
 
-    Note that it is possible to <a href="/configure.html">configure RabbitMQ</a> to use different ports.
+    It is possible to <a href="/configure.html">configure RabbitMQ</a> to use different ports.
   </p>
 </doc:section>
