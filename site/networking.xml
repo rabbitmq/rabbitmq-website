@@ -56,6 +56,13 @@ limitations under the License.
           Except for OS kernel parameters and DNS, all RabbitMQ settings
           are <a href="/configure.html">configured the same way</a>.
         </p>
+        <p>
+          Networking is a broad topic. There are many configuration options
+          that can have positive or negative effect on certain workloads.
+          As such, this guide does not try to be a complete reference but rather
+          offer an index of key tunable parameters and serve as a starting
+          point.
+        </p>
       </doc:subsection>
     </doc:section>
 
@@ -138,7 +145,7 @@ limitations under the License.
           Alternatively, if a single stack setup is desired, the interface can be
           configured using the <code>RABBITMQ_NODE_IP</code> environment variable.
           See our <a href="/configure.html">Configuration guide</a> for detalis.
-        </p>        
+        </p>
       </doc:subsection>
     </doc:section>
 
@@ -152,17 +159,191 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="tuning-for-large-number-of-connections">
-    </doc:section>
-
     <doc:section name="tuning-for-throughput">
+      <doc:heading>Tuning for Throughput</doc:heading>
+
+      <doc:subsection name="tuning-for-throughput-intro">
+        <p>
+          Tuning for throughput is a common goal. Improvements can be achieved by
+
+          <ul>
+            <li>Increasing TCP buffer sizes</li>
+            <li>Ensuring Nagle's algorithm is disabled</li>
+            <li>Enabling optional TCP features and extensions</li>
+          </ul>
+
+          For the latter two, see the OS-level tuning section below.
+
+          Note that tuning for throughput will involve trade-offs. For example, increasing TCP buffer
+          sizes will increase the amount of RAM used by every connection, which can be a significant
+          total server RAM use increase.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-throughput-tcp-buffers">
+        <doc:heading>TCP Buffer Size</doc:heading>
+        <p>
+          This is one of the key tunable parameters. Every TCP connection has buffers
+          allocated for it. Generally speaking, the larger these buffers are, the more RAM
+          is used per connection and better the throughput. On Linux, the OS will automatically
+          tune TCP buffer size by default, typically settling on a value between 80 and 120 KB.
+          For maximum throughput, it is possible to increase buffer size using the <code>rabbit.tcp_listen_options</code>.
+        </p>
+        <p>
+          The following example sets TCP buffers to 192K:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listen_options, [
+                          {sndbuf, 196608},
+                          {recbuf, 196608}
+                          ]}
+  ]}
+].
+</pre>
+
+         Note that setting send and receive buffer sizes to different values is dangerous
+         and is not recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-throughput-async-thread-pool">
+        <doc:heading>Erlang VM I/O Thread Pool</doc:heading>
+
+        <p>
+          Erlang runtime uses a pool of threads for performing I/O
+          operations asynchronously. The size of the pool is <a href="/configure.html">configured</a> via
+          the <code>+A</code> VM command line flag, e.g. <code>+A 128</code>. We highly recommend
+          overriding the flag using the `RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS` environment
+          variable:
+
+<pre class="code">
+RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
+</pre>
+
+          Default value is 30. Nodes that have 8 or more cores available are recommended
+          to use values higher than 96, that is, 12 or more I/O threads for every core available.
+          Note that higher values do not necessarily mean better throughput or lower CPU
+          burn due to waiting on I/O.
+        </p>
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="tuning-for-large-number-of-connections">
+      <doc:heading>Tuning for a Large Number of Connections</doc:heading>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-intro">
+        <p>
+          Some workloads, often referred to as "the Internet of
+          Things", assume a large number of client connections per
+          node, and a relatively low volume of traffic from each node.
+          One such workload is sensor networks: there can be hundreds
+          of thousands or millions of sensors deployed, each emitting
+          data every several minutes. Optimising for the maximum
+          number of concurrent clients ca be more important than for
+          total throughput.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-limitations">
+        <p>
+          Several factors can limit how many concurrent connections a single node can support:
+
+          <ul>
+            <li>Number of open file handles (including sockets)</li>
+            <li>Amount of RAM used by each connection</li>
+            <li>Amout of CPU resources used by each connection</li>
+          </ul>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-open-file-handles-limit">
+        <doc:heading>Open File Handles Limit</doc:heading>
+        <p>
+          Most operating systems limit the number of file handles that
+          can be opened at the same time. <a href="http://docs.basho.com/riak/latest/ops/tuning/linux/">How
+          the limit is configured</a> varies from OS to OS.
+
+          When optimising for the number of concurrent connections,
+          making sure your system has enough file descriptors to
+          support not only client connections but also files the node
+          may use. To calculate a ball park limit, multiply the number
+          of connections per node by 1.5. For example, to support 100,000
+          connections, set the limit to 150,000.
+
+          Increasing the limit slightly increases the amount of
+          RAM idle machine uses but this is a reasonable trade-off.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-tcp-buffer-size">
+        <doc:heading>TCP Buffer Size</doc:heading>
+        <p>
+          See the section above for an overview. 
+          it is possible to decrease buffer size using the <code>rabbit.tcp_listen_options</code> to reduce
+          the amount of RAM by the server used per connection. This is typically necessary
+        </p>
+        <p>
+          The following example sets TCP buffers to 32K:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listen_options, [
+                          {sndbuf, 32768},
+                          {recbuf, 32768}
+                          ]}
+  ]}
+].
+</pre>
+
+         Note that lower TCP buffer sizes will result in a significant throughput drop,
+         so an optional value between throughput and per-connection RAM use needs to be
+         found for every workload.
+
+         Setting send and receive buffer sizes to different values is dangerous
+         and is not recommended. Values lower than 8K are not recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-async-thread-pool">
+        <doc:heading>Erlang VM I/O Thread Pool Tuning</doc:heading>
+        <p>
+          Adequate Erlang VM I/O thread pool size is also important when tuning for a large number of
+          concurrent connections. See the section above.
+        </p>
+      </doc:subsection>
     </doc:section>
 
-    <doc:section name="">
+    <doc:section name="os-tuning">
       <doc:heading>OS Level Tuning</doc:heading>
+
+      <doc:subsection name="os-tuning-intro">
+        <p>
+          Operating system settings can affect operation of RabbitMQ.
+          Some are directly related to networking (e.g. TCP settings), others
+          affect TCP sockets as well as other things (e.g. open file handles limit).
+
+          Understanding these limits is important, as they may changing depending on
+          the workload.
+        </p>
+
+        <p>
+          TCP stack tuning is a broad topic that is covered in much detail elsewhere:
+
+          <ul>
+            <li><a href="http://www.psc.edu/index.php/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
+            <li><a href="https://fasterdata.es.net/host-tuning/linux/expert/">TCP Tuning Expert Guide</a></li>
+          </ul>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="os-tuning-max-open-file-handles">
+      </doc:subsection>
+
+      <doc:subsection name="os-tuning-">
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="socket-gen-tcp-options">
@@ -180,7 +361,16 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="dns">
-      <doc:heading>DNS</doc:heading>
+      <doc:heading>Hostname Resolution and DNS</doc:heading>
+      <p>
+        In many cases, RabbitMQ relies on the Erlang runtime for inter-node communication (including
+        tools such as <code>rabbitmqctl</code>, <code>rabbitmq-plugins</code>, etc).
+      </p>
+      <p>
+        If the <code>rabbit.reverse_dns_lookups</code> configuration option is set to <code>true</code>,
+        RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
+        in connection information (e.g. in the <a href="/management.html">Management UI</a>.
+      </p>
     </doc:section>
   </body>
 </html>
