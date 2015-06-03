@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -25,5 +25,7 @@ limitations under the License.
     RabbitMQ will fail to start. Make sure the following ports can be opened:
 
     <xi:include href="list-of-ports.xml.inc" />
+
+    It is possible to <a href="/configure.html">configure RabbitMQ</a> to use different ports.
   </p>
 </doc:section>
