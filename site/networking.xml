@@ -280,7 +280,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
       <doc:subsection name="tuning-for-large-number-of-connections-tcp-buffer-size">
         <doc:heading>TCP Buffer Size</doc:heading>
         <p>
-          See the section above for an overview. 
+          See the section above for an overview.
           it is possible to decrease buffer size using the <code>rabbit.tcp_listen_options</code> to reduce
           the amount of RAM by the server used per connection. This is typically necessary
         </p>
@@ -307,11 +307,69 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
         </p>
       </doc:subsection>
 
+      <doc:subsection name="tuning-for-large-number-of-connections-nodelay">
+        <doc:heading>Nagle's Algorithm ("nodelay")</doc:heading>
+        <p>
+          Disabling <a
+          href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's
+          algorithm</a> is primarily useful for reducing latency but
+          can also improve
+          throughput. <code>kernel.inet_default_connect_options</code>
+          and <code>kernel.inet_default_listen_options</code> must
+          include <code>{nodelay, true}</code> to disable Nagle's
+          algorithm for inter-node connections.  When configuring
+          sockets that serve client connections,
+          <code>rabbit.tcp_listen_options</code> must include the same
+          option. This is the default.
+
+          The following example demonstrates that:
+
+<pre class="code">
+[
+  {kernel, [
+    {inet_default_connect_options, [{nodelay, true}]},
+    {inet_default_listen_options,  [{nodelay, true}]}
+  ]},
+  {rabbit, [
+    {tcp_listen_options, [
+                          {nodelay, true}
+                          ]}
+  ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="tuning-for-large-number-of-connections-async-thread-pool">
         <doc:heading>Erlang VM I/O Thread Pool Tuning</doc:heading>
         <p>
           Adequate Erlang VM I/O thread pool size is also important when tuning for a large number of
           concurrent connections. See the section above.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="tuning-for-large-number-of-connections-connection-backlog">
+        <doc:heading>Connection Backlog</doc:heading>
+        <p>
+          With a low number of clients, new connection rate is very unevenly distributed
+          but is also small enough to not make much difference. When the number reaches tens of thousands
+          or more, it is important to make sure that the server can accept inbound connections.
+          Unaccepted TCP connections are put into a queue with bounded length. This length has to be
+          sufficient to account for peak load hours and possible spikes (e. g. mass client
+          disconnects due to a network interruption). This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
+          option:
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listen_options, [{backlog, 4096}]}
+  ]}
+].
+</pre>
+
+           Default value is 128. When pending connection queue length grows beyond this value,
+           connections will be rejected by the operating system. See also <code>net.core.somaxconn</code>
+           in the kernel tuning section.
         </p>
       </doc:subsection>
     </doc:section>
@@ -328,26 +386,132 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           Understanding these limits is important, as they may changing depending on
           the workload.
         </p>
+      </doc:subsection>
 
+      <doc:subsection name="os-tuning-important-options">
+        <p>
+          A few important configurable kernel options include (for IPv4):
+
+          <dl>
+            <dt><code>fs.file-max</code></dt>
+            <dd>
+              Max number of files the kernel will allocate. Limits and current value
+              can be inspected using <code>/proc/sys/fs/file-nr</code>.
+            </dd>
+
+            <dt><code>net.ipv4.ip_local_port_range</code></dt>
+            <dd>
+              Local IP port range, define as a pair of values. The range must .
+            </dd>
+
+            <dt><code>net.ipv4.tcp_tw_reuse</code></dt>
+            <dd>
+              When enabled, allows the kernel to reuse sockets in <code>TIME_WAIT</code>
+              state when it's safe to do so. See <a href="http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html">Coping with the TCP TIME_WAIT connections on busy servers</a> for details.
+              This option is dangerous when used behind NAT.
+            </dd>
+
+            <dt><code>net.ipv4.tcp_fin_timeout</code></dt>
+            <dd>
+              Lowering this value to 5-10 reduces the amount of time closed connections
+              will stay in the TIME_WAIT state. Recommended for cases when a large
+              number of concurrent connections is expected.
+            </dd>
+
+            <dt><code>net.core.somaxconn</code></dt>
+            <dd>
+              Size of the listen queue (how many connections are in
+              the process of being established at the same time).
+              Default is 128. Increase to 4096 or higher to support
+              inbound connection bursts, e.g. when clients re-connect
+              en masse.
+            </dd>
+
+            <dt><code>net.ipv4.tcp_max_syn_backlog</code></dt>
+            <dd>
+              Maximum number of remembered connection requests, which
+              are still did not receive an acknowledgment from
+              connecting client. Default is 128, max value is 65535. 4096 and 8192 are
+              recommended starting values when optimising for throughput.
+            </dd>
+
+            <dt><code>net.ipv4.tcp_keepalive_*</code></dt>
+            <dd>
+              <code>net.ipv4.tcp_keepalive_time</code>, <code>net.ipv4.tcp_keepalive_intvl</code>,
+              and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
+
+              AMQP 0-9-1 and STOMP have <a href="/heartbeats.html">Heartbeats</a> which partially
+              undo its effect, namely that it can take minutes to detect a unresponsive peer,
+              e.g. in case of a hardware or power failure.
+
+              When enabling TCP keepalive, we recommend setting heartbeat timeout to 8-20 seconds.
+            </dd>
+
+            <dt><code>net.ipv4.conf.default.rp_filter</code></dt>
+            <dd>
+              Enabled reverse path filtering. If <a href="http://en.wikipedia.org/wiki/IP_address_spoofing">IP address spoofing</a>
+              is not a concern for your system, disable it.
+            </dd>
+          </dl>
+
+
+          Note that default values for these vary between Linux kernel releases.
+          Using a recent kernel (3.9 or later) is recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="os-tuning-important-how-to-configure">
+        <p>
+          Kernel parameter tuning differs from OS to OS. This guide focuses on Linux.
+          To configure a kernel parameter interactively, use <code>sysctl -w</code> (requires superuser
+          privileges), for example:
+
+<pre class="code">
+sysctl -w fs.file-max 200000
+</pre>
+
+          To make the changes permanent (stick between reboots), they need to be added to
+          <code>/etc/sysctl.conf</code>. See <a href="http://man7.org/linux/man-pages/man8/sysctl.8.html">sysctl(8)</a>
+          and <a href="http://man7.org/linux/man-pages/man5/sysctl.conf.5.html">sysctl.conf(5)</a>
+          for more details.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="os-tuning-outro">
         <p>
           TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 
           <ul>
             <li><a href="http://www.psc.edu/index.php/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
-            <li><a href="https://fasterdata.es.net/host-tuning/linux/expert/">TCP Tuning Expert Guide</a></li>
+            <li><a href="https://fasterdata.es.net/network-tuning/">Network Tuning Guide</a></li>
           </ul>
         </p>
       </doc:subsection>
 
       <doc:subsection name="os-tuning-max-open-file-handles">
       </doc:subsection>
-
-      <doc:subsection name="os-tuning-">
-      </doc:subsection>
     </doc:section>
 
     <doc:section name="socket-gen-tcp-options">
       <doc:heading>TCP Socket Options</doc:heading>
+
+      <doc:subsection name="socket-gen-tcp-options-defaults">
+        <doc:heading>Defaults</doc:heading>
+
+        <p>
+          Below is the default TCP socket option configuration used by RabbitMQ:
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listen_options, [{reuseaddr,     true},
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true, 0}}]}
+  ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="heartbeats">
