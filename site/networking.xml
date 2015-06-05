@@ -495,6 +495,61 @@ sysctl -w fs.file-max 200000
     <doc:section name="socket-gen-tcp-options">
       <doc:heading>TCP Socket Options</doc:heading>
 
+      <doc:subsection name="socket-gen-tcp-options-common">
+        <doc:heading>Common Options</doc:heading>
+        <dl>
+          <dt><code>rabbit.tcp_listen_options.nodelay</code></dt>
+          <dd>
+            When enabled, disables
+            <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
+            Default is true. Highly recommended for most users.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.sndbuf</code></dt>
+          <dd>
+            See TCP buffers discussion earlier in this guide. Default value is
+            automatically tuned by the OS, typically in the 88K to 128K range on
+            modern Linux versions. Increasing buffer size improves consumer throughput
+            and RAM use for every connection. Decreasing has the opposite effect.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.recbuf</code></dt>
+          <dd>
+            See TCP buffers discussion earlier in this guide. Default value effect
+            are similar to that of <code>rabbit.tcp_listen_options.sndbuf</code> but
+            for publishers and protocol operations in general.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.backlog</code></dt>
+          <dd>
+            Maximum size of the unaccepted TCP connections queue. When this size
+            is reached, new connections will be rejected. Set to 4096 or higher for
+            environments with thousands of concurrent connections and possible bulk client
+            re-connections.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.linger</code></dt>
+          <dd>
+            When set to <code>{true, N}</code>, sets
+            the timeout in seconds for flushing unsent data when the (server) socket is
+            closed.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.keepalive</code></dt>
+          <dd>
+            When set to <code>true</code>, enables TCP keepalives (see above).
+            Default is <code>false</code>. Makes sense for environments where
+            connections can go idle for a long time (at least 10 minutes),
+            although <a href="/heartbeats.html">heartbeats</a> is still recommended over
+            this option.
+          </dd>
+          <dt><code>rabbit.tcp_listen_options.reuseaddr</code></dt>
+          <dd>
+            Sets <code>SO_REUSEADDR</code> on the sockets, which allows a port belonging
+            to a connection in the <code>TIME_WAIT</code> state to be reused for other
+            connections. Enabled by default, highly recommended for environments with
+            large numbers of concurrent connections and/or connection churn (short-lived
+            clients).
+          </dd>
+        </dl>
+
+      </doc:subsection>
+
       <doc:subsection name="socket-gen-tcp-options-defaults">
         <doc:heading>Defaults</doc:heading>
 
@@ -526,15 +581,56 @@ sysctl -w fs.file-max 200000
 
     <doc:section name="dns">
       <doc:heading>Hostname Resolution and DNS</doc:heading>
+
       <p>
         In many cases, RabbitMQ relies on the Erlang runtime for inter-node communication (including
-        tools such as <code>rabbitmqctl</code>, <code>rabbitmq-plugins</code>, etc).
+        tools such as <code>rabbitmqctl</code>, <code>rabbitmq-plugins</code>, etc). Client libraries
+        also perform hostname resolution when connecting to RabbitMQ nodes. This section briefly
+        covers most common issues associated with that.
       </p>
-      <p>
-        If the <code>rabbit.reverse_dns_lookups</code> configuration option is set to <code>true</code>,
-        RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
-        in connection information (e.g. in the <a href="/management.html">Management UI</a>.
-      </p>
+
+      
+      <doc:subsection name="dns-resolution-by-clients">
+        <doc:heading>Performed by Client Libraries</doc:heading>
+
+        <p>
+          If a client library is configured to connect to a hostname, it perform
+          hostname resolution. Depending on DNS and local resolver (<code>/etc/hosts</code>
+          and similar) configuration, this can take some time. Incorrect configuration
+          may lead to resolution timeouts, e.g. when trying to resolve a local hostname
+          such as <code>my-dev-machine</code>, over DNS. As a result, client connections
+          can take a long time (from tens of seconds to a few minutes).
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dns-resolution-by-nodes">
+        <doc:heading>Short and Fully-qualified RabbitMQ Node Names</doc:heading>
+
+        <p>
+          RabbitMQ relies on the Erlang runtime for inter-node
+          communication. Erlang nodes include a hostname, either short
+          (<code>rmq1</code>) or fully-qualified
+          (<code>rmq1.dev.megacorp.local</code>). Mixing short and
+          fully-qualified hostnames is not allowed by the
+          runtime. Every node in a cluster must be able to resolve
+          every other node's hostname, short or fully-qualified.
+
+          By default RabbitMQ will use short hostnames. Set the
+          <code>RABBITMQ_USE_LONGNAME</code> environment variable to
+          make RabbitMQ nodes use fully-qualified names,
+          e.g. <code>rmq1.dev.megacorp.local</code>.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="dns-reverse-dns-lookups">
+        <doc:heading>Reverse DNS Lookups</doc:heading>
+      
+        <p>
+          If the <code>rabbit.reverse_dns_lookups</code> configuration option is set to <code>true</code>,
+          RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
+          in connection information (e.g. in the <a href="/management.html">Management UI</a>).
+        </p>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
