@@ -590,6 +590,30 @@ sysctl -w fs.file-max 200000
       </p>
     </doc:section>
 
+    <doc:section name="nettick">
+      <doc:heading>Connection Handshake Timeout</doc:heading>
+
+      <p>
+        RabbitMQ has a timeout for connection handshake, 10 seconds by
+        default. When clients run in heavy constrainted environments,
+        it may be necessary to increase the timeout. This can be done via
+        the <code>rabbit.handshake_timeout</code> (in milliseconds):
+
+<pre class="code">
+[
+  {rabbit, [
+    %% 20 seconds
+    {handshake_timeout, 20000}
+  ]}
+].
+</pre>
+
+        It should be pointed out that this is only necessary with very constrained
+        clients and networks. Handshake timeouts in other circumstances indicate
+        a problem elsewhere.
+      </p>
+    </doc:section>
+
     <doc:section name="dns">
       <doc:heading>Hostname Resolution and DNS</doc:heading>
 
