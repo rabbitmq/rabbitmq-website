@@ -579,6 +579,17 @@ sysctl -w fs.file-max 200000
       </p>
     </doc:section>
 
+    <doc:section name="nettick">
+      <doc:heading>Net Tick Time</doc:heading>
+
+      <p>
+        <a href="/heartbeats.html">Heartbeats</a> are used to detect peer or connection failure
+        between clients and RabbitMQ nodes. <a href="/net_ticktime.html">net_ticktime</a> serves
+        the same purpose but for cluster node communication. Values lower than 5 (seconds) are
+        may result in false positive and are not recommended.
+      </p>
+    </doc:section>
+
     <doc:section name="dns">
       <doc:heading>Hostname Resolution and DNS</doc:heading>
 
@@ -589,7 +600,7 @@ sysctl -w fs.file-max 200000
         covers most common issues associated with that.
       </p>
 
-      
+
       <doc:subsection name="dns-resolution-by-clients">
         <doc:heading>Performed by Client Libraries</doc:heading>
 
@@ -624,7 +635,7 @@ sysctl -w fs.file-max 200000
 
       <doc:subsection name="dns-reverse-dns-lookups">
         <doc:heading>Reverse DNS Lookups</doc:heading>
-      
+
         <p>
           If the <code>rabbit.reverse_dns_lookups</code> configuration option is set to <code>true</code>,
           RabbitMQ will perform reverse DNS lookups for client IP addresses and list hostnames
