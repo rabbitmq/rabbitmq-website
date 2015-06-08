@@ -409,7 +409,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           Some are directly related to networking (e.g. TCP settings), others
           affect TCP sockets as well as other things (e.g. open file handles limit).
 
-          Understanding these limits is important, as they may changing depending on
+          Understanding these limits is important, as they may change depending on
           the workload.
         </p>
       </doc:subsection>
