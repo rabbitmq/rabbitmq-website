@@ -468,7 +468,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
               and <code>net.ipv4.tcp_keepalive_probes</code> configure TCP keepalive.
 
               AMQP 0-9-1 and STOMP have <a href="/heartbeats.html">Heartbeats</a> which partially
-              undo its effect, namely that it can take minutes to detect a unresponsive peer,
+              undo its effect, namely that it can take minutes to detect an unresponsive peer,
               e.g. in case of a hardware or power failure.
 
               When enabling TCP keepalive, we recommend setting heartbeat timeout to 8-20 seconds.
