@@ -324,7 +324,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 </pre>
 
          Note that lower TCP buffer sizes will result in a significant throughput drop,
-         so an optional value between throughput and per-connection RAM use needs to be
+         so an optimal value between throughput and per-connection RAM use needs to be
          found for every workload.
 
          Setting send and receive buffer sizes to different values is dangerous
