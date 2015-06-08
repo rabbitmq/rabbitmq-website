@@ -457,7 +457,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
             <dt><code>net.ipv4.tcp_max_syn_backlog</code></dt>
             <dd>
               Maximum number of remembered connection requests which
-              still did not receive an acknowledgment from
+              still not receive an acknowledgment yet from
               connecting client. Default is 128, max value is 65535. 4096 and 8192 are
               recommended starting values when optimising for throughput.
             </dd>
@@ -534,7 +534,7 @@ sysctl -w fs.file-max 200000
           <dt><code>rabbit.tcp_listen_options.sndbuf</code></dt>
           <dd>
             See TCP buffers discussion earlier in this guide. Default value is
-            automatically tuned by the OS, typically in the 88K to 128K range on
+            automatically tuned by the OS, typically in the 88 KiB to 128 KiB range on
             modern Linux versions. Increasing buffer size improves consumer throughput
             and RAM use for every connection. Decreasing has the opposite effect.
           </dd>
@@ -562,7 +562,7 @@ sysctl -w fs.file-max 200000
             When set to <code>true</code>, enables TCP keepalives (see above).
             Default is <code>false</code>. Makes sense for environments where
             connections can go idle for a long time (at least 10 minutes),
-            although <a href="/heartbeats.html">heartbeats</a> is still recommended over
+            although using <a href="/heartbeats.html">heartbeats</a> is still recommended over
             this option.
           </dd>
           <dt><code>rabbit.tcp_listen_options.reuseaddr</code></dt>
