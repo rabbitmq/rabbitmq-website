@@ -173,7 +173,7 @@ limitations under the License.
       <doc:subsection name="resource-limits-file-handle-limit">
         <doc:heading>Open File Handles Limit</doc:heading>
         <p>
-          Oprating systems limit maximum number of concurrently open file handles, which
+          Operating systems limit maximum number of concurrently open file handles, which
           incluldes network sockets. Make sure that your have limits set high enough to allow
           for expected number of concurrent connections.
 
