@@ -212,7 +212,8 @@ limitations under the License.
           at least to encrypt traffic. Peer verification (authentication) is also recommended.
           Development and QA environments can use <a href="https://github.com/michaelklishin/tls-gen/">self-signed TLS certificates</a>.
           Self-signed certificates can be appropriate in production environments when
-          RabbitMQ and all applications run on a trusted network or iso.
+          RabbitMQ and all applications run on a trusted network or isolated using technologies
+          such as VMware NSX.
         </p>
         <p>
           While RabbitMQ tries to offer a secure TLS configuration by
