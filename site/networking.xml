@@ -310,7 +310,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           where the number of concurrent connections sustained per node is more important than throughput.
         </p>
         <p>
-          The following example sets TCP buffers to 32K:
+          The following example sets TCP buffers to 32 KiB:
 
 <pre class="code">
 [
