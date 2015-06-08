@@ -269,8 +269,8 @@ limitations under the License.
           connect to the same node, if possible: this will reduce inter-node traffic.
           Equally helpful would be making consumers connect to the node that currently hosts
           queue master (can be inferred using <a href="/management.html">HTTP API</a>).
-          When data locality is taken into consideration, it
-          <a href="http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine"></a>
+          When data locality is taken into consideration, total cluster throughput
+          can reach <a href="http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine">non-trivial</a> volumes.
         </p>
         <p>
           For most environments, mirroring to more than half of cluster nodes is sufficient.
