@@ -450,7 +450,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
               Size of the listen queue (how many connections are in
               the process of being established at the same time).
               Default is 128. Increase to 4096 or higher to support
-              inbound connection bursts, e.g. when clients re-connect
+              inbound connection bursts, e.g. when clients reconnect
               en masse.
             </dd>
 
@@ -549,7 +549,7 @@ sysctl -w fs.file-max 200000
             Maximum size of the unaccepted TCP connections queue. When this size
             is reached, new connections will be rejected. Set to 4096 or higher for
             environments with thousands of concurrent connections and possible bulk client
-            re-connections.
+            reconnections.
           </dd>
           <dt><code>rabbit.tcp_listen_options.linger</code></dt>
           <dd>
