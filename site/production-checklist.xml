@@ -91,7 +91,7 @@ limitations under the License.
       <doc:heading>Resource Limits</doc:heading>
 
       <p>
-        RabbitMQ uses <a href="/alarms.html">Resource-drive alarms</a>
+        RabbitMQ uses <a href="/alarms.html">Resource-driven alarms</a>
         to throttle publishers when consumers do not keep up.
         It is important to evaluate resource limit configurations before
         going into production.
