@@ -111,6 +111,9 @@ limitations under the License.
           moving into production.
         </li>
         <li>
+          <a href="/networking.html">Networking</a>: network tuning for various scenarios.
+        </li>        
+        <li>
           <a href="alarms.html">Resource-driven alarms</a>.
         </li>
         <li>
