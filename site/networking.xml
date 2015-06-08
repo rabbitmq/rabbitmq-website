@@ -380,8 +380,9 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           but is also small enough to not make much difference. When the number reaches tens of thousands
           or more, it is important to make sure that the server can accept inbound connections.
           Unaccepted TCP connections are put into a queue with bounded length. This length has to be
-          sufficient to account for peak load hours and possible spikes (e. g. mass client
-          disconnects due to a network interruption). This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
+          sufficient to account for peak load hours and possible spikes, for instance, when many clients
+          disconnect due to a network interruption or choose to reconnect.
+          This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
 
 <pre class="code">
