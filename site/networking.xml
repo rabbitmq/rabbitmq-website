@@ -482,7 +482,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           </dl>
 
 
-          Note that default values for these vary between Linux kernel releases.
+          Note that default values for these vary between Linux kernel releases and distributions.
           Using a recent kernel (3.9 or later) is recommended.
         </p>
       </doc:subsection>
