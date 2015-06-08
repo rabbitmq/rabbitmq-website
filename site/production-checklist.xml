@@ -72,7 +72,7 @@ limitations under the License.
           <ul>
             <li>Correlating client connections with applications</li>
             <li>Using <a href="/access-control.html">fine-grained permissions</a></li>
-            <li>Credentials roll-over in case of a breach or periodically</li>
+            <li>Credentials roll-over (e.g. periodically or in case of a breach)</li>
           </ul>
 
           In case there are many instances of the same application, there's a trade-off
