@@ -214,7 +214,7 @@ is equivalent to
           For maximum throughput, it is possible to increase buffer size using the <code>rabbit.tcp_listen_options</code>.
         </p>
         <p>
-          The following example sets TCP buffers to 192K:
+          The following example sets TCP buffers to 192 KiB:
 
 <pre class="code">
 [
@@ -328,7 +328,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
          found for every workload.
 
          Setting send and receive buffer sizes to different values is dangerous
-         and is not recommended. Values lower than 8K are not recommended.
+         and is not recommended. Values lower than 8 KiB are not recommended.
         </p>
       </doc:subsection>
 
