@@ -457,7 +457,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
             <dt><code>net.ipv4.tcp_max_syn_backlog</code></dt>
             <dd>
               Maximum number of remembered connection requests which
-              still not receive an acknowledgment yet from
+              did not receive an acknowledgment yet from
               connecting client. Default is 128, max value is 65535. 4096 and 8192 are
               recommended starting values when optimising for throughput.
             </dd>
