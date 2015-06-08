@@ -106,6 +106,30 @@ limitations under the License.
 ].
 </pre>
         </p>
+        <p>
+          With modern Linux kernels and Windows versions after Vista,
+          when a port is specified and RabbitMQ is configured to
+          listen on all IPv6 addresses but IPv4 is not disabled
+          explicitly, IPv4 address will be included, so
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"::",       5672}]}
+  ]}
+].
+</pre>
+
+is equivalent to
+
+<pre class="code">
+[
+  {rabbit, [
+    {tcp_listeners, [{"0.0.0.0", 5672},
+                     {"::",      5672}]}
+  ]}
+].
+</pre>
+        </p>
       </doc:subsection>
 
       <doc:subsection name="single-stack-ipv4">
