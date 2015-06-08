@@ -104,7 +104,7 @@ limitations under the License.
           that are dedicated to run RabbitMQ, it is often reasonable to raise
           the limit. However, care should be taken as the OS and file system caches
           need RAM to operate as well. Failing to do so will have a severe throughput drop due
-          to OS swapping, or even result in RabbitMQ process terminated by the OS.
+          to OS swapping, or even result in the RabbitMQ process terminated by the OS.
         </p>
         <p>
           Below are some basic guidelines for determining what <a href="/memory.html">RAM limit</a>
