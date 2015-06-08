@@ -200,7 +200,7 @@ limitations under the License.
       <doc:subsection name="security-considerations-erlang-cookie">
         <doc:heading>Erlang Cookie</doc:heading>
         <p>
-          It is highly recommended to restrict <a href="/clustering.html">Erlang cookie</a>
+          On Linux and BSD systems, It is necessary to restrict <a href="/clustering.html">Erlang cookie</a>
           access only to the users that will run RabbitMQ and tools such as <code>rabbitmqctl</code>.
         </p>
       </doc:subsection>
