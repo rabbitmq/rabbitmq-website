@@ -74,7 +74,7 @@ limitations under the License.
           For RabbitMQ to accept client connections, it needs to bind to one or more
           interfaces and listen on (protocol-specific) ports. The interfaces are
           configured using the <code>rabbit.tcp_listeners</code> config option.
-          By default, RabbitMQ will listen on all available interfaces.
+          By default, RabbitMQ will listen on port 5672 on all available interfaces.
         </p>
 
         <p>
