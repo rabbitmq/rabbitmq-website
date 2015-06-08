@@ -401,7 +401,8 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 
             <dt><code>net.ipv4.ip_local_port_range</code></dt>
             <dd>
-              Local IP port range, define as a pair of values. The range must .
+              Local IP port range, define as a pair of values. The range must provide enough
+              entries for the peak number of concurrent connections.
             </dd>
 
             <dt><code>net.ipv4.tcp_tw_reuse</code></dt>
