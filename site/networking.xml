@@ -565,14 +565,6 @@ sysctl -w fs.file-max 200000
             although using <a href="/heartbeats.html">heartbeats</a> is still recommended over
             this option.
           </dd>
-          <dt><code>rabbit.tcp_listen_options.reuseaddr</code></dt>
-          <dd>
-            Sets <code>SO_REUSEADDR</code> on the sockets, which allows a port belonging
-            to a connection in the <code>TIME_WAIT</code> state to be reused for other
-            connections. Enabled by default, highly recommended for environments with
-            large numbers of concurrent connections and/or connection churn (short-lived
-            clients).
-          </dd>
         </dl>
 
       </doc:subsection>
