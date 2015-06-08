@@ -268,7 +268,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           When optimising for the number of concurrent connections,
           making sure your system has enough file descriptors to
           support not only client connections but also files the node
-          may use. To calculate a ball park limit, multiply the number
+          may use. To calculate a ballpark limit, multiply the number
           of connections per node by 1.5. For example, to support 100,000
           connections, set the limit to 150,000.
 
