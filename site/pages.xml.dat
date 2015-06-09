@@ -102,7 +102,7 @@ limitations under the License.
        </x:page>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/access-control.html" text="Access Control (Authorisation)"/>
-       <x:page url="/production-checklist.html" text="Production Checklist"/>       
+       <x:page url="/production-checklist.html" text="Production Checklist"/>
        <x:page url="/authentication.html" text="SASL Authentication"/>
        <x:page url="/alarms.html" text="Alarms">
          <x:page url="/memory.html" text="Memory Alarms"/>

@@ -112,7 +112,7 @@ limitations under the License.
         </li>
         <li>
           <a href="/networking.html">Networking</a>: network tuning for various scenarios.
-        </li>        
+        </li>
         <li>
           <a href="alarms.html">Resource-driven alarms</a>.
         </li>
@@ -135,7 +135,7 @@ limitations under the License.
         <li>
           <a href="firehose.html">The Firehose</a> - trace messages as
           they pass through your RabbitMQ server.
-        </li>        
+        </li>
       </ul>
     </div>
   </body>
