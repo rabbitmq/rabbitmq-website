@@ -115,16 +115,16 @@ messages from that queue.
 
 > #### RabbitMQ libraries
 >
-> RabbitMQ speaks a protocol called AMQP. To use Rabbit you'll need a library
-> that understands the same protocol as Rabbit. There is a choice of libraries
-> for almost every programming language. For python it's no different and there
-> are a bunch of libraries to choose from:
+> RabbitMQ speaks several protocols. The one covered in this tutorial is called AMQP 0-9-1. To use Rabbit you'll need a library
+> that understands the same protocol as RabbitMQ. There is a choice of libraries
+> for almost every programming language. For Python it's no different and there
+> are multiple libraries to choose from:
 >
-> * [py-amqplib](http://barryp.org/software/py-amqplib/)
-> * [txAMQP](https://launchpad.net/txamqp)
 > * [pika](http://github.com/pika/pika)
+> * [py-amqp](https://github.com/celery/py-amqp)
+> * [py-amqplib](http://barryp.org/software/py-amqplib/)
 >
-> In this tutorial series we're going to use `pika`. To install it
+> In this tutorial series we're going to use `Pika`, which is the library recommendd by the RabbitMQ team. To install it
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     :::bash
