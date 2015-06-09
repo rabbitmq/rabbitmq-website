@@ -1,10 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -104,11 +104,33 @@ limitations under the License.
     </div>
 
     <div class="landing-box">
-      <h2>Other Documentation</h2>
+      <h2>Operations</h2>
       <ul>
+        <li>
+          <a href="/production-checklist.html">Production Checklist</a>: for those
+          moving into production.
+        </li>
+        <li>
+          <a href="/networking.html">Networking</a>: network tuning for various scenarios.
+        </li>
+        <li>
+          <a href="alarms.html">Resource-driven alarms</a>.
+        </li>
         <li>
           Documentation on how RabbitMQ <a href="memory.html">manages
           memory</a>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Development and Troubleshooting</h2>
+      <ul>
+        <li>
+          <a href="troubleshooting.html">Troubleshooting</a>.
+        </li>
+        <li>
+          <a href="troubleshooting-ssl.html">Troubleshooting TLS-specific topics</a>.
         </li>
         <li>
           <a href="firehose.html">The Firehose</a> - trace messages as

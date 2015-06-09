@@ -1,0 +1,291 @@
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:xi="http://www.w3.org/2003/XInclude"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Production Checklist</title>
+  </head>
+  <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+
+      <p>
+        Data services such as RabbitMQ often have many tunable
+        parameters. Some configurations make a lot of sense for
+        development but are not really suitable for production.  No
+        single configuration fits every use case.  It is, therefore,
+        important to assess your configuration before going into
+        production. This guide aims to help with that.
+      </p>
+    </doc:section>
+
+
+    <doc:section name="users-and-permissions">
+      <doc:heading>Virtual Hosts, Users, Permissions</doc:heading>
+
+      <doc:subsection name="virtual-hosts">
+        <doc:heading>Virtual Hosts</doc:heading>
+        <p>
+          In a single-tenant environment, for example, when your RabbitMQ
+          cluster is dedicated to power a single system in production,
+          using default virtual host (<code>/</code>) is perfectly fine.
+        </p>
+
+        <p>
+          In multi-tenant environments, use a separate vhost for
+          each tenant/environment, e.g. <code>project1_development</code>,
+          <code>project1_production</code>, <code>project2_development</code>,
+          <code>project2_production</code>, and so on.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="users">
+        <doc:heading>Users</doc:heading>
+        <p>
+          For production environments, delete the default user (<code>guest</code>).
+          Default user only can connect from localhost by default, because it has well-known
+          credentials. Instead of enabling remote connections, consider using a separate user
+          with administrative permissions and a generated password.
+        </p>
+        <p>
+          It is recommended to use a separate user per application. For example, if you
+          have a mobile app, a Web app, and a data aggregation system, you'd have 3
+          separate users. This makes a number of things easier:
+
+          <ul>
+            <li>Correlating client connections with applications</li>
+            <li>Using <a href="/access-control.html">fine-grained permissions</a></li>
+            <li>Credentials roll-over (e.g. periodically or in case of a breach)</li>
+          </ul>
+
+          In case there are many instances of the same application, there's a trade-off
+          between better security (having a set of credentials per instance) and convenience
+          of provisioning (sharing a set of credentials between some or all instances).
+
+          For IoT applications that involve many clients performing the same or similar
+          function and having fixed IP addresses, it may make sense to <a href="/tls.html">authenticate
+          using x509 certificates</a> or <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source IP addresse ranges</a>.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="resource-limits">
+      <doc:heading>Resource Limits</doc:heading>
+
+      <p>
+        RabbitMQ uses <a href="/alarms.html">Resource-driven alarms</a>
+        to throttle publishers when consumers do not keep up.
+        It is important to evaluate resource limit configurations before
+        going into production.
+      </p>
+
+      <doc:subsection name="resource-limits-ram">
+        <doc:heading>Memory</doc:heading>
+        <p>
+          By default, RabbitMQ will use up to 40% of available RAM. For nodes
+          that are dedicated to run RabbitMQ, it is often reasonable to raise
+          the limit. However, care should be taken as the OS and file system caches
+          need RAM to operate as well. Failing to do so will have a severe throughput drop due
+          to OS swapping, or even result in the RabbitMQ process terminated by the OS.
+        </p>
+        <p>
+          Below are some basic guidelines for determining what <a href="/memory.html">RAM limit</a>
+          is recommended:
+
+          <ul>
+            <li>At least 128 MB</li>
+            <li>
+              75% of the configured RAM limit when
+              the limit is up to 4 GB of RAM
+            </li>
+            <li>
+              80% of the configured RAM limit when
+              the limit is between 4 and 8 GB of RAM
+            </li>
+            <li>
+              85% of the configured RAM limit when
+              the limit is between 8 and 16 GB of RAM
+            </li>
+            <li>
+              90% of the configured RAM limit when
+              the limit is above 16 GB of RAM
+            </li>
+          </ul>
+
+          Values higher than 0.9 can be dangerous
+          and are not recommended.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="resource-limits-disk-space">
+        <doc:heading>Free Disk Space</doc:heading>
+        <p>
+          Some free disk space should be available to avoid <a href="/disk-alarms.html">disk space alarms</a>.
+          By default RabbitMQ requires 50 MiB of free disk space at all times. This improves developer
+          experience on many popular Linux distributions which may place the <code>/var</code> directory
+          on a small partition. However, this is not a value recommended for production environments,
+          since they may have significantly higher RAM limits.
+
+          Below are some basic guidelines for determining how much free disk space
+          is recommended:
+
+          <ul>
+            <li>At least 2 GB</li>
+            <li>
+              50% of the configured RAM limit when
+              the limit is between 1 and 8 GB of RAM
+            </li>
+            <li>
+              40% of the configured RAM limit when
+              the limit is between 8 and 32 GB of RAM
+            </li>
+            <li>
+              30% of the configured RAM limit when
+              the limit is above 32 GB of RAM
+            </li>
+          </ul>
+
+          The <code>rabbit.disk_free_limit</code> configuration setting
+          can be set to <code>{mem_relative, N}</code> to make it calculated
+          as a percentage of the RAM limit. For example, use <code>{mem_relative, 0.5}</code>
+          for 50%, <code>{mem_relative, 0.25}</code> for 25%, and so on.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="resource-limits-file-handle-limit">
+        <doc:heading>Open File Handles Limit</doc:heading>
+        <p>
+          Operating systems limit maximum number of concurrently open file handles, which
+          includes network sockets. Make sure that you have limits set high enough to allow
+          for expected number of concurrent connections.
+
+          As a rule of thumb, multiple the 95th percentile number of concurrent connections
+          by 2 to calculate recommended open file handle limit.
+
+          See <a href="/networking.html">Networking guide</a>
+          for more information.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="security-considerations">
+      <doc:heading>Security Considerations</doc:heading>
+
+      <doc:subsection name="security-considerations-users-and-permissions">
+        <doc:heading>Users and Permissions</doc:heading>
+        <p>
+          See the section on vhosts, users, and credentials above.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="security-considerations-erlang-cookie">
+        <doc:heading>Erlang Cookie</doc:heading>
+        <p>
+          On Linux and BSD systems, it is necessary to restrict <a href="/clustering.html">Erlang cookie</a>
+          access only to the users that will run RabbitMQ and tools such as <code>rabbitmqctl</code>.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="security-considerations-tls">
+        <doc:heading>TLS</doc:heading>
+        <p>
+          We recommend using <a href="/ssl.html">TLS connections</a> when possible,
+          at least to encrypt traffic. Peer verification (authentication) is also recommended.
+          Development and QA environments can use <a href="https://github.com/michaelklishin/tls-gen/">self-signed TLS certificates</a>.
+          Self-signed certificates can be appropriate in production environments when
+          RabbitMQ and all applications run on a trusted network or isolated using technologies
+          such as VMware NSX.
+        </p>
+        <p>
+          While RabbitMQ tries to offer a secure TLS configuration by
+          default (e.g. SSLv3 is disabled), we recommend evaluating
+          what TLS versions and cipher suites are enabled.  Please see
+          our <a href="/ssl.html">TLS guide</a> for more information.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="Networking Configuration">
+      <doc:heading>Networking Configuration</doc:heading>
+
+      <doc:subsection name="networking-configuration-intro">
+        <p>
+          Production environments may require network configuration
+          tuning. Please refer to the <a href="/networking.html">Networking Guide</a> for details.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="networking-configuration-automatic-recovery">
+        <doc:heading>Automatic Connection Recovery</doc:heading>
+        <p>
+          Some client libraries, for example, <a href="/api-guide.html">Java</a>, <a
+          href="/dotnet-api-guide.html">.NET</a>, and <a href="http://rubybunny.info">Ruby</a> ones, support
+          automatic connection recovery after network failures. If the
+          client used provides this feature, it is recommended to use
+          it instead of developing your own recovery mechanism.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+
+    <doc:section name="distribution-considerations">
+      <doc:heading>Clustering Considerations</doc:heading>
+
+      <doc:subsection name="distribution-considerations-cluster-size">
+        <doc:heading>Cluster Size</doc:heading>
+        <p>
+          When determining cluster size, it is important to take several factors into
+          consideration:
+
+          <ul>
+            <li>Expected throughput</li>
+            <li>Expected replication (number of mirrors)</li>
+            <li>Data locality</li>
+          </ul>
+        </p>
+        <p>
+          Since clients can connect to any node, RabbitMQ may need to perform inter-cluster
+          routing of messages and internal operations. Try making consumers and producers
+          connect to the same node, if possible: this will reduce inter-node traffic.
+          Equally helpful would be making consumers connect to the node that currently hosts
+          queue master (can be inferred using <a href="/management.html">HTTP API</a>).
+          When data locality is taken into consideration, total cluster throughput
+          can reach <a href="http://blog.pivotal.io/pivotal/products/rabbitmq-hits-one-million-messages-per-second-on-google-compute-engine">non-trivial</a> volumes.
+        </p>
+        <p>
+          For most environments, mirroring to more than half of cluster nodes is sufficient.
+          It is recommended to use clusters with an odd number of nodes (3, 5, and so on).
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="distribution-considerations-partition-handling-strategy">
+        <doc:heading>Partition Handling Strategy</doc:heading>
+        <p>
+          It is important to pick a <a href="/partitions.html">partition handling strategy</a>
+          before going into production. When in doubt, use the <code>autoheal</code> strategy.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+  </body>
+</html>
