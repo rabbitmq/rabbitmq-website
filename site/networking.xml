@@ -265,7 +265,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           One such workload is sensor networks: there can be hundreds
           of thousands or millions of sensors deployed, each emitting
           data every several minutes. Optimising for the maximum
-          number of concurrent clients ca be more important than for
+          number of concurrent clients can be more important than for
           total throughput.
         </p>
       </doc:subsection>
@@ -277,7 +277,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           <ul>
             <li>Number of open file handles (including sockets)</li>
             <li>Amount of RAM used by each connection</li>
-            <li>Amout of CPU resources used by each connection</li>
+            <li>Amount of CPU resources used by each connection</li>
           </ul>
         </p>
       </doc:subsection>
@@ -540,7 +540,7 @@ sysctl -w fs.file-max 200000
           </dd>
           <dt><code>rabbit.tcp_listen_options.recbuf</code></dt>
           <dd>
-            See TCP buffers discussion earlier in this guide. Default value effect
+            See TCP buffers discussion earlier in this guide. Default value effects
             are similar to that of <code>rabbit.tcp_listen_options.sndbuf</code> but
             for publishers and protocol operations in general.
           </dd>
@@ -648,7 +648,7 @@ sysctl -w fs.file-max 200000
         <doc:heading>Performed by Client Libraries</doc:heading>
 
         <p>
-          If a client library is configured to connect to a hostname, it perform
+          If a client library is configured to connect to a hostname, it performs
           hostname resolution. Depending on DNS and local resolver (<code>/etc/hosts</code>
           and similar) configuration, this can take some time. Incorrect configuration
           may lead to resolution timeouts, e.g. when trying to resolve a local hostname

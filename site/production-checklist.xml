@@ -139,7 +139,7 @@ limitations under the License.
         <doc:heading>Free Disk Space</doc:heading>
         <p>
           Some free disk space should be available to avoid <a href="/disk-alarms.html">disk space alarms</a>.
-          By default RabbitMQ requires 50 MB of free disk space at all times. This improves developer
+          By default RabbitMQ requires 50 MiB of free disk space at all times. This improves developer
           experience on many popular Linux distributions which may place the <code>/var</code> directory
           on a small partition. However, this is not a value recommended for production environments,
           since they may have significantly higher RAM limits.
@@ -174,7 +174,7 @@ limitations under the License.
         <doc:heading>Open File Handles Limit</doc:heading>
         <p>
           Operating systems limit maximum number of concurrently open file handles, which
-          incluldes network sockets. Make sure that your have limits set high enough to allow
+          includes network sockets. Make sure that you have limits set high enough to allow
           for expected number of concurrent connections.
 
           As a rule of thumb, multiple the 95th percentile number of concurrent connections
@@ -200,7 +200,7 @@ limitations under the License.
       <doc:subsection name="security-considerations-erlang-cookie">
         <doc:heading>Erlang Cookie</doc:heading>
         <p>
-          On Linux and BSD systems, It is necessary to restrict <a href="/clustering.html">Erlang cookie</a>
+          On Linux and BSD systems, it is necessary to restrict <a href="/clustering.html">Erlang cookie</a>
           access only to the users that will run RabbitMQ and tools such as <code>rabbitmqctl</code>.
         </p>
       </doc:subsection>
