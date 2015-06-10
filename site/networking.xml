@@ -527,7 +527,7 @@ sysctl -w fs.file-max 200000
         <dl>
           <dt><code>rabbit.tcp_listen_options.nodelay</code></dt>
           <dd>
-            When set to <code>false</code>, disables
+            When set to <code>true</code>, disables
             <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
             Default is true. Highly recommended for most users.
           </dd>

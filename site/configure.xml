@@ -4,11 +4,11 @@
 %entities;
 ]>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -106,8 +106,22 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
              </p>
              <p>
                Create or edit the system variable name and value.
-               <em>For environment changes to take effect on Windows, the service must be
-               re-installed</em>. It is <em>not sufficient</em> to restart the service.
+
+
+            </p>
+            <p>
+              <em>For environment changes to take effect on Windows, the service must be
+              re-installed</em>. It is <em>not sufficient</em> to restart the service.
+
+              This can be done using the installer or on the command line
+              with administrator permissions:
+              <ul>
+                <li><a href="https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx">Start an admin command prompt</a></li>
+                <li>Run <code>rabbitmq-service.bat remove</code></li>
+                <li>cd into the sbin folder under <em>RabbitMQ server installation directory</em> (e.g. <code>C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin</code>)</li>
+                <li>Set environment variables via command line, i.e. run commands like the following: <code>set RABBITMQ_BASE=c:\Data\RabbitMQ</code></li>
+                <li>Run <code>rabbitmq-service.bat install</code></li>
+              </ul>
             </p>
         </doc:subsection>
       </doc:section>
