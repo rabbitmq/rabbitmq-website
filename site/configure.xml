@@ -117,10 +117,20 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               with administrator permissions:
               <ul>
                 <li><a href="https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx">Start an admin command prompt</a></li>
-                <li>Run <code>rabbitmq-service.bat remove</code></li>
                 <li>cd into the sbin folder under <em>RabbitMQ server installation directory</em> (e.g. <code>C:\Program Files (x86)\RabbitMQ Server\rabbitmq_server-&version-server;\sbin</code>)</li>
+                <li>Run <code>rabbitmq-service.bat remove</code></li>
                 <li>Set environment variables via command line, i.e. run commands like the following: <code>set RABBITMQ_BASE=c:\Data\RabbitMQ</code></li>
                 <li>Run <code>rabbitmq-service.bat install</code></li>
+              </ul>
+
+              Alternative, if new configuration needs to take effect after next broker restart,
+              one step can be skipped:
+
+              <ul>
+                <li><a href="https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx">Start an admin command prompt</a></li>
+                <li>cd into the sbin folder under <em>RabbitMQ server installation directory</em></li>                
+                <li>Set environment variables via command line</li>
+                <li>Run <code>rabbitmq-service.bat install</code>, which will only update service parameters</li>
               </ul>
             </p>
         </doc:subsection>
