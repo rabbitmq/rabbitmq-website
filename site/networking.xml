@@ -175,7 +175,7 @@ is equivalent to
 
     <xi:include href="install-selinux-ports.xml.inc" />
 
-    <doc:section name="tls">
+    <doc:section name="tls-support">
       <p>
         It is possible to encrypt connections using TLS with RabbitMQ. Authentication
         using peer certificates is also possible. Please refer to the <a href="/ssl.html">TLS/SSL guide</a>
@@ -631,6 +631,25 @@ sysctl -w fs.file-max 200000
         clients and networks. Handshake timeouts in other circumstances indicate
         a problem elsewhere.
       </p>
+
+      <doc:subsection name="tls-handshake">
+        <doc:heading>TLS/SSL Handshake</doc:heading>
+
+        <p>
+          If TLS/SSL is enabled, it may necessary to increase also the TLS/SSL
+          handshake timeout. This can be done via
+          the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
+
+<pre class="code">
+[
+  {rabbit, [
+    %% 10 seconds
+    {ssl_handshake_timeout, 10000}
+  ]}
+].
+</pre>
+        </p>
+      </doc:subsection>
     </doc:section>
 
     <doc:section name="dns">
