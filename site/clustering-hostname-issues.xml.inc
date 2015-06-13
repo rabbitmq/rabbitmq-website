@@ -44,6 +44,9 @@ Whenever the hostname changes you should restart RabbitMQ:
     invoked from a remote host. A more sophisticated solution that does not
     suffer from this weakness is to use DNS, e.g. 
     <a href="http://aws.amazon.com/route53/">Amazon Route 53</a> if running
-    on EC2.
+    on EC2.  If you want to use the full hostname for your nodename (RabbitMQ
+    defaults to the short name), and that full hostname is resolveable using DNS,
+    you may want to investigate setting the environment variable
+    <code>RABBITMQ_USE_LONGNAME=true</code>.
   </p>
 </doc:section>
