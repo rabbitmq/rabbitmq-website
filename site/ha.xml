@@ -1,10 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -127,6 +127,26 @@ limitations under the License.
           Whenever the HA policy for a queue changes it will endeavour
           to keep its existing mirrors as far as this fits with the new
           policy.
+        </p>
+
+        <h3>Queue Master Location</h3>
+        <p>
+          Every queue in RabbitMQ has a home node. That node is called
+          <em>queue master</em>. All queue operations go through the master
+          first and then are replicated to mirrors. This is necessary to
+          guarantee FIFO ordering of messages.
+        </p>
+        <p>
+          Queue masters can be distributed between nodes using several
+          strategies. Which strategy is used is controlled using the <code>x-queue-master-location-strategy</code>
+          argument, which can be configured using a policy or the <code>x-arguments</code>
+          argument to <code>queue.declare</code>:
+
+          <ul>
+            <li>Pick the node the client that declares the queue is connected to: <code>client-local</code></li>
+            <li>Round robin: <code>round-robin</code></li>
+            <li>Pick the node hosting the minumum number of masters: <code>min-masters</code></li>
+          </ul>
         </p>
 
         <h3>"nodes" policy and migrating masters</h3>
