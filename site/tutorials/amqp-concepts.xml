@@ -23,19 +23,16 @@ limitations under the License.
         <doc:section name="about-this-guide">
         <doc:heading>About This Guide</doc:heading>
             <p>
-              This guide explains the AMQP 0-9-1 model used by RabbitMQ.
-              The <a href="http://bit.ly/amqp-model-explained">original version</a>
-              was written and kindly contributed by
-              <a href="http://twitter.com/michaelklishin">Michael Klishin</a>
-              and edited by <a href="https://twitter.com/celldee">Chris Duncan</a>.
+              This guide provides an overview of the the AMQP 0-9-1 protocol, one of the protocols
+              supported by RabbitMQ.
             </p>
            </doc:section>
            <doc:section name="highlevel-overview">
            <doc:heading>High-level Overview of AMQP 0-9-1 and the AMQP Model</doc:heading>
              <doc:subsection name="what-is-amqp">
-             <doc:heading>What is AMQP?</doc:heading>
+             <doc:heading>What is AMQP 0-9-1?</doc:heading>
                <p>
-                 AMQP (Advanced Message Queuing Protocol) is a networking
+                 AMQP 0-9-1 (Advanced Message Queuing Protocol) is a messaging
                  protocol that enables conforming client applications to
                  communicate with conforming messaging middleware brokers.
                </p>
@@ -49,7 +46,7 @@ limitations under the License.
                    that process them).
                  </p>
                  <p>
-                   Since AMQP is a network protocol, the publishers,
+                   Since it is a network protocol, the publishers,
                    consumers and the broker can all reside on
                    different machines.
                  </p>

@@ -84,7 +84,7 @@ limitations under the License.
       <p>
         Once you have been through the tutorials (or if you want to
         skip ahead), you may wish to read an
-        <a href="tutorials/amqp-concepts.html">Introduction to AMQP Concepts</a>
+        <a href="tutorials/amqp-concepts.html">Introduction to RabbitMQ Concepts</a>
         and browse our
         <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
       </p>
