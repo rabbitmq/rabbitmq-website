@@ -51,4 +51,12 @@ limitations under the License.
     <code>rabbitmq-server</code> and <code>rabbitmqctl</code>
     scripts.
   </p>
+  <p>
+    When setting up a cluster each cluster member must have the same
+    erlang cookie or the cluster members will not be able to connect, resulting
+    in errors like "Connection attempt from disallowed node" and
+    "Could not auto-cluster". To fix this make sure that you set the same cookie
+    to every instance by either creating the appropriate cookie file manually
+    or supplying the cookie from the command line.
+  </p>
 </doc:subsection>
