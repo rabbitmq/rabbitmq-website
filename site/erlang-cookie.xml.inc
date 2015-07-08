@@ -22,11 +22,13 @@ limitations under the License.
 <doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="erlang-cookie">
   <doc:heading>Erlang cookie</doc:heading>
   <p>
-    Erlang nodes use a cookie to determine whether they are
-    allowed to communicate with each other - for two nodes to
-    be able to communicate they must have the same cookie.
-    The cookie is just a string of alphanumeric characters. It
-    can be as long or short as you like.
+    Erlang nodes use a cookie to determine whether they are allowed to
+    communicate with each other - for two nodes to be able to
+    communicate they must have the same cookie.  The cookie is just a
+    string of alphanumeric characters. It can be as long or short as
+    you like. Every cluster node must have
+    the same cookie. The cookie is also used for tools such as <code>rabbitmqctl</code>
+    and <code>rabbitmq-plugins</code>.
   </p>
   <p>
     Erlang will automatically create a random cookie file when
@@ -52,11 +54,7 @@ limitations under the License.
     scripts.
   </p>
   <p>
-    When setting up a cluster each cluster member must have the same
-    erlang cookie or the cluster members will not be able to connect, resulting
-    in errors like "Connection attempt from disallowed node" and
-    "Could not auto-cluster". To fix this make sure that you set the same cookie
-    to every instance by either creating the appropriate cookie file manually
-    or supplying the cookie from the command line.
+     When the cookie is misconfigured (for example, not identical), RabbitMQ will log errors
+     such as "Connection attempt from disallowed node" and "Could not auto-cluster".
   </p>
 </doc:subsection>
