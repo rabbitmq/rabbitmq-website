@@ -124,7 +124,7 @@ messages from that queue.
 > * [py-amqp](https://github.com/celery/py-amqp)
 > * [py-amqplib](http://barryp.org/software/py-amqplib/)
 >
-> In this tutorial series we're going to use `Pika`, which is the library recommendd by the RabbitMQ team. To install it
+> In this tutorial series we're going to use `Pika`, which is the library recommended by the RabbitMQ team. To install it
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     :::bash
