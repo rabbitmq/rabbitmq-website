@@ -93,20 +93,13 @@ Some help to get the message from the command line argument:
     }
 
 Our old _Receive.cs_ script also requires some changes: it needs to
-fake a second of work for every dot in the message body. It will pop
-messages from the queue and perform the task, so let's call it `Worker.cs`:
+fake a second of work for every dot in the message body. It will
+handle messages delivered by RabbitMQ and perform the task, so let's call it `Worker.cs`:
 
     :::csharp
-    var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("hello", true, consumer);
-
-    Console.WriteLine(" [*] Waiting for messages. " +
-                      "To exit press CTRL+C");
-    while (true)
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += (model, ea) =>
     {
-        var ea =
-            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-
         var body = ea.Body;
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine(" [x] Received {0}", message);
@@ -115,7 +108,10 @@ messages from the queue and perform the task, so let's call it `Worker.cs`:
         Thread.Sleep(dots * 1000);
 
         Console.WriteLine(" [x] Done");
-    }
+
+        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    };
+    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
 
 Our fake task to simulate execution time:
 
@@ -216,20 +212,26 @@ only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
 Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off via the `noAck=true`
-flag. It's time to remove this flag and send a proper acknowledgment
+examples we explicitly turned them off by setting the `noAck` ("no manual acks")
+parameter to `true`. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::csharp
-    var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("hello", false, consumer);
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += (model, ea) =>
+    {
+        var body = ea.Body;
+        var message = Encoding.UTF8.GetString(body);
+        Console.WriteLine(" [x] Received {0}", message);
 
-        while (true)
-        {
-            var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-            //...
-            channel.BasicAck(ea.DeliveryTag, false);
-        }
+        int dots = message.Split('.').Length - 1;
+        Thread.Sleep(dots * 1000);
+
+        Console.WriteLine(" [x] Done");
+
+        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    };
+    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon

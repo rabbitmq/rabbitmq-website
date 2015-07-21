@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -275,8 +275,8 @@ before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
-callback in the form of an object that will buffer the messages until
-we're ready to use them. That is what `QueueingBasicConsumer` does.
+callback. That is what `EventingBasicConsumer.Received` event handler
+does.
 
     :::csharp
     class Receive
@@ -290,32 +290,26 @@ we're ready to use them. That is what `QueueingBasicConsumer` does.
                 {
                     channel.QueueDeclare("hello", false, false, false, null);
 
-                    var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume("hello", true, consumer);
-
-                    Console.WriteLine(" [*] Waiting for messages." +
-                                             "To exit press CTRL+C");
-                    while (true)
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += (model, ea) =>
                     {
-                        var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-
                         var body = ea.Body;
                         var message = Encoding.UTF8.GetString(body);
                         Console.WriteLine(" [x] Received {0}", message);
-                    }
+                    };
+                    channel.BasicConsume(queue: "hello", noAck: true, consumer: consumer);
+
+                    Console.WriteLine(" Press [enter] to exit.");
+                    Console.ReadLine();
                 }
             }
         }
     }
 
-
-`QueueingBasicConsumer.Queue.Dequeue()` blocks until another message has
-been delivered from the server.
-
 [Here's the whole Receive.cs
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.cs).
 
-### Putting it all together
+### Putting It All Together
 
 You can compile both of these by referencing the RabbitMQ .NET client
 assembly. We're using the command line (`cmd.exe` and `csc`) to
