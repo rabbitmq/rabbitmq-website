@@ -312,7 +312,7 @@ channel.basicConsume(queueName, autoAck, "myConsumerTag",
              <b>throws</b> IOException
          {
              String routingKey = envelope.getRoutingKey();
-             String contentType = properties.contentType;
+             String contentType = properties.getContentType();
              <b>long</b> deliveryTag = envelope.getDeliveryTag();
              <i>// (process the message components here ...)</i>
              channel.basicAck(deliveryTag, <b>false</b>);
