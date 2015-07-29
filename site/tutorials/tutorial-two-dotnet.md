@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -370,7 +370,7 @@ Final code of our `NewTask.cs` class:
     using System;
     using RabbitMQ.Client;
     using System.Text;
-    
+
     class NewTask
     {
         public static void Main(string[] args)
@@ -381,19 +381,19 @@ Final code of our `NewTask.cs` class:
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare("task_queue", true, false, false, null);
-    
+
                     var message = GetMessage(args);
                     var body = Encoding.UTF8.GetBytes(message);
-    
+
                     var properties = channel.CreateBasicProperties();
                     properties.SetPersistent(true);
-    
+
                     channel.BasicPublish("", "task_queue", properties, body);
                     Console.WriteLine(" [x] Sent {0}", message);
                 }
             }
         }
-    
+
       private static string GetMessage(string[] args)
       {
         return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
@@ -411,41 +411,39 @@ And our `Worker.cs`:
     using RabbitMQ.Client.Events;
     using System.Text;
     using System.Threading;
-    
+
     class Worker
     {
         public static void Main()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                using (var channel = connection.CreateModel())
+                channel.QueueDeclare(queue: "task_queue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+                channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+                Console.WriteLine(" [*] Waiting for messages.");
+
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += (model, ea) =>
                 {
-                    channel.QueueDeclare("task_queue", true, false, false, null);
-    
-                    channel.BasicQos(0, 1, false);
-                    var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume("task_queue", false, consumer);
-    
-                    Console.WriteLine(" [*] Waiting for messages. " +
-                                      "To exit press CTRL+C");
-                    while (true)
-                    {
-                        var ea =
-                            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-    
-                        var body = ea.Body;
-                        var message = Encoding.UTF8.GetString(body);
-                        Console.WriteLine(" [x] Received {0}", message);
-    
-                        int dots = message.Split('.').Length - 1;
-                        Thread.Sleep(dots * 1000);
-    
-                        Console.WriteLine(" [x] Done");
-    
-                        channel.BasicAck(ea.DeliveryTag, false);
-                    }
-                }
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    Console.WriteLine(" [x] Received {0}", message);
+
+                    int dots = message.Split('.').Length - 1;
+                    Thread.Sleep(dots * 1000);
+
+                    Console.WriteLine(" [x] Done");
+
+                    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                };
+                channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
             }
         }
     }
