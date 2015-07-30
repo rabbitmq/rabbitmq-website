@@ -214,6 +214,27 @@ limitations under the License.
               <li>Github: <a href="https://github.com/aweber/rabbitmq-autocluster-consul">aweber/rabbitmq-autocluster-consul</a></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_boot_steps_visualiser">
+            Adds a tab to the management UI which displays boot steps
+            in a graph. This is a debugging tool: it is of no use in a
+            production broker.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Alvaro Videla</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_clusterer">
+            Provides an alternative mean for creating and maintaining
+            clusters of Rabbits.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Michael Klishin</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 

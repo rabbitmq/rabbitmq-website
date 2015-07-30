@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -93,20 +93,13 @@ Some help to get the message from the command line argument:
     }
 
 Our old _Receive.cs_ script also requires some changes: it needs to
-fake a second of work for every dot in the message body. It will pop
-messages from the queue and perform the task, so let's call it `Worker.cs`:
+fake a second of work for every dot in the message body. It will
+handle messages delivered by RabbitMQ and perform the task, so let's call it `Worker.cs`:
 
     :::csharp
-    var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("hello", true, consumer);
-
-    Console.WriteLine(" [*] Waiting for messages. " +
-                      "To exit press CTRL+C");
-    while (true)
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += (model, ea) =>
     {
-        var ea =
-            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-
         var body = ea.Body;
         var message = Encoding.UTF8.GetString(body);
         Console.WriteLine(" [x] Received {0}", message);
@@ -115,7 +108,10 @@ messages from the queue and perform the task, so let's call it `Worker.cs`:
         Thread.Sleep(dots * 1000);
 
         Console.WriteLine(" [x] Done");
-    }
+
+        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    };
+    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
 
 Our fake task to simulate execution time:
 
@@ -216,20 +212,26 @@ only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
 Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off via the `noAck=true`
-flag. It's time to remove this flag and send a proper acknowledgment
+examples we explicitly turned them off by setting the `noAck` ("no manual acks")
+parameter to `true`. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::csharp
-    var consumer = new QueueingBasicConsumer(channel);
-    channel.BasicConsume("hello", false, consumer);
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += (model, ea) =>
+    {
+        var body = ea.Body;
+        var message = Encoding.UTF8.GetString(body);
+        Console.WriteLine(" [x] Received {0}", message);
 
-        while (true)
-        {
-            var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-            //...
-            channel.BasicAck(ea.DeliveryTag, false);
-        }
+        int dots = message.Split('.').Length - 1;
+        Thread.Sleep(dots * 1000);
+
+        Console.WriteLine(" [x] Done");
+
+        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+    };
+    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -368,7 +370,7 @@ Final code of our `NewTask.cs` class:
     using System;
     using RabbitMQ.Client;
     using System.Text;
-    
+
     class NewTask
     {
         public static void Main(string[] args)
@@ -379,19 +381,19 @@ Final code of our `NewTask.cs` class:
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare("task_queue", true, false, false, null);
-    
+
                     var message = GetMessage(args);
                     var body = Encoding.UTF8.GetBytes(message);
-    
+
                     var properties = channel.CreateBasicProperties();
                     properties.SetPersistent(true);
-    
+
                     channel.BasicPublish("", "task_queue", properties, body);
                     Console.WriteLine(" [x] Sent {0}", message);
                 }
             }
         }
-    
+
       private static string GetMessage(string[] args)
       {
         return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
@@ -409,41 +411,39 @@ And our `Worker.cs`:
     using RabbitMQ.Client.Events;
     using System.Text;
     using System.Threading;
-    
+
     class Worker
     {
         public static void Main()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                using (var channel = connection.CreateModel())
+                channel.QueueDeclare(queue: "task_queue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+                channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+                Console.WriteLine(" [*] Waiting for messages.");
+
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += (model, ea) =>
                 {
-                    channel.QueueDeclare("task_queue", true, false, false, null);
-    
-                    channel.BasicQos(0, 1, false);
-                    var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume("task_queue", false, consumer);
-    
-                    Console.WriteLine(" [*] Waiting for messages. " +
-                                      "To exit press CTRL+C");
-                    while (true)
-                    {
-                        var ea =
-                            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-    
-                        var body = ea.Body;
-                        var message = Encoding.UTF8.GetString(body);
-                        Console.WriteLine(" [x] Received {0}", message);
-    
-                        int dots = message.Split('.').Length - 1;
-                        Thread.Sleep(dots * 1000);
-    
-                        Console.WriteLine(" [x] Done");
-    
-                        channel.BasicAck(ea.DeliveryTag, false);
-                    }
-                }
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    Console.WriteLine(" [x] Received {0}", message);
+
+                    int dots = message.Split('.').Length - 1;
+                    Thread.Sleep(dots * 1000);
+
+                    Console.WriteLine(" [x] Done");
+
+                    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                };
+                channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
             }
         }
     }

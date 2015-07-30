@@ -305,39 +305,36 @@ The code for `ReceiveLogs.cs`:
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
     using System.Text;
-    
+
     class ReceiveLogs
     {
         public static void Main()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                using (var channel = connection.CreateModel())
+                channel.ExchangeDeclare(exchange: "logs", type: "fanout");
+    
+                var queueName = channel.QueueDeclare().QueueName;
+                channel.QueueBind(queue: queueName, exchange: "logs", routingKey: "");
+    
+                Console.WriteLine(" [*] Waiting for logs.");
+                
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += (model, ea) =>
                 {
-                    channel.ExchangeDeclare("logs", "fanout");
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    Console.WriteLine(" [x] {0}", message);
+                };
+                channel.BasicConsume(queue: queueName, noAck: true, consumer: consumer);
     
-                    var queueName = channel.QueueDeclare().QueueName;
-    
-                    channel.QueueBind(queueName, "logs", "");
-                    var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume(queueName, true, consumer);
-    
-                    Console.WriteLine(" [*] Waiting for logs." +
-                                      "To exit press CTRL+C");
-                    while (true)
-                    {
-                        var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-    
-                        var body = ea.Body;
-                        var message = Encoding.UTF8.GetString(body);
-                        Console.WriteLine(" [x] {0}", message);
-                    }
-                }
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
             }
         }
     }
-
 
 [(ReceiveLogs.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogs.cs)
 
