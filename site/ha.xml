@@ -143,9 +143,9 @@ limitations under the License.
           argument to <code>queue.declare</code>:
 
           <ul>
+            <li>Pick the node hosting the minumum number of masters: <code>min-masters</code></li>            
             <li>Pick the node the client that declares the queue is connected to: <code>client-local</code></li>
-            <li>Round robin: <code>round-robin</code></li>
-            <li>Pick the node hosting the minumum number of masters: <code>min-masters</code></li>
+            <li>Pick a random node: <code>random</code></li>
           </ul>
         </p>
 
