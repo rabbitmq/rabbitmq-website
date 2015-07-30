@@ -17,21 +17,17 @@ limitations under the License.
 
 # RabbitMQ MQTT Adapter NOSYNTAX
 
-This is a protocol adapter that allows MQTT-capable clients to
-connect to a RabbitMQ broker. The adapter translates MQTT 3.1
-methods into their AMQP equivalents and back.
+RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec).
 
-Announcements regarding the adapter are periodically made on the
-[RabbitMQ mailing list](http://lists.rabbitmq.com/cgi-bin/mailman/listinfo/rabbitmq-discuss)
-and [blog](http://www.rabbitmq.com/blog).
-
-## <a id="smf"/> Supported MQTT 3.1 features
+## <a id="smf"/> Supported MQTT 3.1.1 features
 
 * QoS0 and QoS1 publish & consume
 * Last Will and Testament (LWT)
 * TLS/SSL
 * Session stickiness
 * Retained messages with pluggable storage backends
+
+MQTT clients can interoperate with other protocols and 
 
 ## <a id="ifb"/>Enabling the Plugin
 
@@ -44,11 +40,12 @@ After the plugin has been enabled, RabbitMQ needs restarting.
 
 ## <a id="overview"/> How it Works
 
-RabbitMQ MQTT plugin targets MQTT 3.1 and supports a broad range
+RabbitMQ MQTT plugin targets MQTT 3.1.1 and supports a broad range
 of MQTT clients. It also makes it possible for MQTT clients to interoperate
 with [AMQP 0-9-1, AMQP 1.0, and STOMP](https://www.rabbitmq.com/protocols.html) clients.
+There is also support for multi-tenancy.
 
-The plugin builds on top of RabbitMQ exchanges and queues. Messages published
+The plugin builds on top of RabbitMQ core protocol's entities: exchanges and queues. Messages published
 to MQTT topics use a topic exchange (`amq.topic` by default) internally. Subscribers consume from
 RabbitMQ queues bound to the topic exchange. This both enables interoperability
 with other protocols and makes it possible to use the [Management plugin](/management.html)
