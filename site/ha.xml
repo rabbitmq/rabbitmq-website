@@ -138,7 +138,7 @@ limitations under the License.
         </p>
         <p>
           Queue masters can be distributed between nodes using several
-          strategies. Which strategy is used is controlled using the <code>x-queue-master-location-strategy</code>
+          strategies. Which strategy is used is controlled using the <code>x-queue-master-locator</code>
           argument, which can be configured using a policy or the <code>x-arguments</code>
           argument to <code>queue.declare</code>:
 
