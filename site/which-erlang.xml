@@ -29,10 +29,26 @@ limitations under the License.
     </p>
     <p>
       The minimum version of <a href="http://www.erlang.org">Erlang</a>
-      required to run the RabbitMQ server is <strong>R16B03-1</strong>.
+      required to run the RabbitMQ server is <strong>R16B03</strong>.
       If you absolutely must use an older version of Erlang, RabbitMQ
       3.5.x is the newest version compatible with R13B03.
     </p>
+    <p>
+      Certain RabbitMQ configurations require more recent versions:
+    </p>
+    <table>
+      <th>If you want to:</th><th>Minimum version</th><th>Notes</th>
+      <tr>
+        <td>build / run <a href="download.html">RabbitMQ</a> server and most plugins</td>
+        <td>R16B03</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>use <a href="ssl.html">SSL/TLS</a> reliably</td>
+        <td>17.0</td>
+        <td>Covers most common signature algorithms and can honor server ciphers order.</td>
+      </tr>
+    </table>
     <p>
       If using <a href="clustering.html#upgrading">clustered</a> nodes,
       all nodes should use the same version of Erlang.
