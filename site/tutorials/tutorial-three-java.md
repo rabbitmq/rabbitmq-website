@@ -299,41 +299,35 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 The code for `ReceiveLogs.java`:
 
     #!java
+    import com.rabbitmq.client.*;
+    
     import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
-
+    
     public class ReceiveLogs {
-
-        private static final String EXCHANGE_NAME = "logs";
-
-        public static void main(String[] argv)
-                      throws java.io.IOException,
-                      java.lang.InterruptedException {
-
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-
-            channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-            String queueName = channel.queueDeclare().getQueue();
-            channel.queueBind(queueName, EXCHANGE_NAME, "");
-
-            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-
-            QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(queueName, true, consumer);
-
-            while (true) {
-                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                String message = new String(delivery.getBody());
-
-                System.out.println(" [x] Received '" + message + "'");
-            }
-        }
+      private static final String EXCHANGE_NAME = "logs";
+    
+      public static void main(String[] argv) throws Exception {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+    
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        String queueName = channel.queueDeclare().getQueue();
+        channel.queueBind(queueName, EXCHANGE_NAME, "");
+    
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    
+        Consumer consumer = new DefaultConsumer(channel) {
+          @Override
+          public void handleDelivery(String consumerTag, Envelope envelope,
+                                     AMQP.BasicProperties properties, byte[] body) throws IOException {
+            String message = new String(body, "UTF-8");
+            System.out.println(" [x] Received '" + message + "'");
+          }
+        };
+        channel.basicConsume(queueName, true, consumer);
+      }
     }
 
 [(ReceiveLogs.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
@@ -342,22 +336,22 @@ The code for `ReceiveLogs.java`:
 Compile as before and we're done.
 
     :::bash
-    $ javac -cp rabbitmq-client.jar EmitLog.java ReceiveLogs.java
+    $ javac -cp .:rabbitmq-client.jar EmitLog.java ReceiveLogs.java
 
 If you want to save logs to a file, just open a console and type:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogs > logs_from_rabbit.log
+    $ java -cp .:rabbitmq-client.jar ReceiveLogs > logs_from_rabbit.log
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar ReceiveLogs
+    $ java -cp .:rabbitmq-client.jar ReceiveLogs
 
 And of course, to emit logs type:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar EmitLog
+    $ java -cp .:rabbitmq-client.jar EmitLog
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
