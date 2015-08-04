@@ -151,7 +151,6 @@ Set up the class and name the queue:
 
     :::java
     public class Send {
-    
       private final static String QUEUE_NAME = "hello";
 
       public static void main(String[] argv)
@@ -238,7 +237,6 @@ Note this matches up with the queue that `send` publishes to.
 
     :::java
     public class Recv {
-    
       private final static String QUEUE_NAME = "hello";
     
       public static void main(String[] argv)
@@ -263,21 +261,18 @@ before we try to consume messages from it.
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
 callback in the form of an object that will buffer the messages until
-we're ready to use them. That is what `QueueingConsumer` does.
+we're ready to use them. That is what a `DefaultConsumer` subclass does.
 
     :::java
-        QueueingConsumer consumer = new QueueingConsumer(channel);
+        Consumer consumer = new DefaultConsumer(channel) {
+          @Override
+          public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
+              throws IOException {
+            String message = new String(body, "UTF-8");
+            System.out.println(" [x] Received '" + message + "'");
+          }
+        };
         channel.basicConsume(QUEUE_NAME, true, consumer);
-        
-        while (true) {
-          QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-          String message = new String(delivery.getBody());
-          System.out.println(" [x] Received '" + message + "'");
-        }
-
-
-`QueueingConsumer.nextDelivery()` blocks until another message has
-been delivered from the server.
 
 [Here's the whole Recv.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
