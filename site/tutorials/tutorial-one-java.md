@@ -226,7 +226,8 @@ The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/ma
     import com.rabbitmq.client.ConnectionFactory;
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.QueueingConsumer;
+    import com.rabbitmq.client.Consumer;
+    import com.rabbitmq.client.DefaultConsumer;
 
 The extra `QueueingConsumer` is a class we'll use to buffer the
 messages pushed to us by the server.
