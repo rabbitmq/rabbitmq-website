@@ -42,7 +42,7 @@ limitations under the License.
 </div>
 
 
-In the [first tutorial](tutorial-one-ruby.html) we
+In the [first tutorial](tutorial-one-javascript.html) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
