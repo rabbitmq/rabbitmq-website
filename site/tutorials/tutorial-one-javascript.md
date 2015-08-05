@@ -162,7 +162,7 @@ to the queue:
       conn.createChannel(function(err, ch) {
         var q = 'hello';
 
-        ch.assertQueue(q);
+        ch.assertQueue(q, {durable: false});
         ch.sendToQueue(q, new Buffer('Hello World!'));
         console.log(" [x] Sent 'Hello World!'");
       });
@@ -177,7 +177,7 @@ Lastly, we close the connection and exit;
     :::javascript
     setTimeout(function() { conn.close(); process.exit(0) }, 500);
 
-[Here's the whole send.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/send.js).
+[Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/send.js).
 
 > #### Sending doesn't work!
 >
@@ -201,25 +201,26 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js)) has the same require as `send`:
+The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js)) has the same require as `send`:
 
-    :::ruby
-    #!/usr/bin/env ruby
-    # encoding: utf-8
+    :::javascript
+    #!/usr/bin/env node
 
-    require "bunny"
+    var amqp = require('amqplib/callback_api');
 
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
-Note this matches up with the queue that `send` publishes to.
+Note this matches up with the queue that `sendToQueue` publishes to.
 
-    :::ruby
-    conn = Bunny.new
-    conn.start
-
-    ch   = conn.create_channel
-    q    = ch.queue("hello")
+    :::javascript
+    amqp.connect('amqp://localhost', function(err, conn) {
+      conn.createChannel(function(err, ch) {
+        var q = 'hello';
+    
+        ch.assertQueue(q);
+      });
+    });
 
 
 Note that we declare the queue here, as well. Because we might start
@@ -229,33 +230,27 @@ before we try to consume messages from it.
 We're about to tell the server to deliver us the messages from the
 queue. Since it will push us messages asynchronously, we provide a
 callback that will be executed when RabbitMQ pushes messages to
-our consumer. This is what `Bunny::Queue#subscribe` does.
+our consumer. This is what `Channel.consume` does.
 
-    :::ruby
-    puts " [*] Waiting for messages in #{q.name}. To exit press CTRL+C"
-    q.subscribe(:block => true) do |delivery_info, properties, body|
-      puts " [x] Received #{body}"
+    :::javascript
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
+    ch.consume(q, function(msg) {
+        console.log(" [x] Received %s", msg.content.toString());
+      }, {noAck: true});
 
-      # cancel the consumer to exit
-      delivery_info.consumer.cancel
-    end
-
-`Bunny::Queue#subscribe` is used with the `:block` option that makes it
-block the calling thread (we don't want the script to finish running immediately!).
-
-[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js).
+[Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js).
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
+Now we can run both scripts. In a terminal, from the rabbitmq-tutorials/javascript-nodejs/src/ folder, run the sender:
 
     :::bash
-    $ ruby -rubygems send.rb
+    $ ./send.js
 
 then, run the receiver:
 
     :::bash
-    $ ruby -rubygems receive.rb
+    $ ./receive.js
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
