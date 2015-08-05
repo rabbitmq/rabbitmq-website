@@ -172,7 +172,7 @@ Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the connection;
+Lastly, we close the connection and exit;
 
     :::javascript
     setTimeout(function() { conn.close(); process.exit(0) }, 500);
@@ -201,7 +201,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb)) has the same require as `send`:
+The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js)) has the same require as `send`:
 
     :::ruby
     #!/usr/bin/env ruby
@@ -243,7 +243,7 @@ our consumer. This is what `Bunny::Queue#subscribe` does.
 `Bunny::Queue#subscribe` is used with the `:block` option that makes it
 block the calling thread (we don't want the script to finish running immediately!).
 
-[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb).
+[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js).
 
 ### Putting it all together
 
