@@ -218,7 +218,7 @@ Note this matches up with the queue that `sendToQueue` publishes to.
       conn.createChannel(function(err, ch) {
         var q = 'hello';
     
-        ch.assertQueue(q);
+        ch.assertQueue(q, {durable: false});
       });
     });
 
