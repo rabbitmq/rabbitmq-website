@@ -270,7 +270,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
         var ex = 'logs';
         var msg = process.argv.slice(2).join(' ') || 'Hello World!';
 
-        ch.assertExchange(ex, 'fanout', {durable: false})
+        ch.assertExchange(ex, 'fanout', {durable: false});
         ch.publish(ex, '', new Buffer(msg));
         console.log(" [x] Sent %s", msg);
       });
