@@ -39,7 +39,7 @@ limitations under the License.
       <h3>Tutorials in other languages</h3>
       <p>
         The tutorials here use a number of popular technologies,
-        however, there are ports available for 
+        however, there are <a href="https://github.com/rabbitmq/rabbitmq-tutorials">ports available</a> for 
         many more languages and client libraries:
 
         <ul>
