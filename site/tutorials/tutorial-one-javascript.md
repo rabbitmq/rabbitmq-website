@@ -235,8 +235,8 @@ our consumer. This is what `Channel.consume` does.
     :::javascript
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.consume(q, function(msg) {
-        console.log(" [x] Received %s", msg.content.toString());
-      }, {noAck: true});
+      console.log(" [x] Received %s", msg.content.toString());
+    }, {noAck: true});
 
 [Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js).
 
