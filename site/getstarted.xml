@@ -38,14 +38,11 @@ limitations under the License.
       <div>
       <h3>Tutorials in other languages</h3>
       <p>
-        The tutorials here use Python, Java, Ruby, PHP and C#,
-        however, the tutorial code examples are available for a
-        variety of languages and client libraries:
+        The tutorials here use a number of popular technologies,
+        however, there are <a href="https://github.com/rabbitmq/rabbitmq-tutorials">ports available</a> for 
+        many more languages and client libraries:
 
         <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/dotnet">C#</a> (using <a href="http://www.rabbitmq.com/dotnet.html">.net/c# client</a>)
-          </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
           </li>
@@ -60,9 +57,6 @@ limitations under the License.
           </li>          
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">Java</a> (using <a href="/java-client.html">java client</a>)
-          </li>
-          <li>
-            <a href="https://github.com/squaremo/amqp.node/tree/master/examples/tutorials">JavaScript/node.js</a> (using <a href="https://github.com/squaremo/amqp.node">amqp.node</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)

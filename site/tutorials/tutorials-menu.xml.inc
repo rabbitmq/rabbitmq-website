@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -33,6 +33,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-one-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-one-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-one-javascript.html">Javascript</a>
           </p>
         </li>
 
@@ -52,6 +54,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-two-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-two-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-two-javascript.html">Javascript</a>
           </p>
         </li>
 
@@ -71,6 +75,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-three-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-three-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-three-javascript.html">Javascript</a>
           </p>
         </li>
 
@@ -90,6 +96,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-four-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-four-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-four-javascript.html">Javascript</a>
           </p>
         </li>
 
@@ -109,6 +117,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-five-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-five-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-five-javascript.html">Javascript</a>
           </p>
         </li>
 
@@ -128,6 +138,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-six-php.html">PHP</a>
           |
           <a href="/tutorials/tutorial-six-dotnet.html">C#</a>
+          |
+          <a href="/tutorials/tutorial-six-javascript.html">Javascript</a>
           </p>
         </li>
       </ul>
