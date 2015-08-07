@@ -35,38 +35,6 @@ client and a scalable RPC server. As we don't have any time-consuming
 tasks that are worth distributing, we're going to create a dummy RPC
 service that returns Fibonacci numbers.
 
-### Client interface
-
-To illustrate how an RPC service could be used we're going to
-create a simple client class. It's going to expose a method named `call`
-which sends an RPC request and blocks until the answer is received:
-
-    :::ruby
-    client   = FibonacciClient.new(ch, "rpc_queue")
-    response = client.call(30)
-    puts " [.] Got #{response}"
-
-> #### A note on RPC
->
-> Although RPC is a pretty common pattern in computing, it's often criticised.
-> The problems arise when a programmer is not aware
-> whether a function call is local or if it's a slow RPC. Confusions
-> like that result in an unpredictable system and adds unnecessary
-> complexity to debugging. Instead of simplifying software, misused RPC
-> can result in unmaintainable spaghetti code.
->
-> Bearing that in mind, consider the following advice:
->
->  * Make sure it's obvious which function call is local and which is remote.
->  * Document your system. Make the dependencies between components clear.
->  * Handle error cases. How should the client react when the RPC server is
->    down for a long time?
->
-> When in doubt avoid RPC. If you can, you should use an asynchronous
-> pipeline - instead of RPC-like blocking, results are asynchronously
-> pushed to a next computation stage.
-
-
 ### Callback queue
 
 In general doing RPC over RabbitMQ is easy. A client sends a request
@@ -106,11 +74,11 @@ a better way - let's create a single callback queue per client.
 
 That raises a new issue, having received a response in that queue it's
 not clear to which request the response belongs. That's when the
-`correlation_id:` property is used. We're going to set it to a unique
+`correlation_id` property is used. We're going to set it to a unique
 value for every request. Later, when we receive a message in the
 callback queue we'll look at this property, and based on that we'll be
 able to match a response with a request. If we see an unknown
-`correlation_id:` value, we may safely discard the message - it
+`correlation_id` value, we may safely discard the message - it
 doesn't belong to our requests.
 
 You may ask, why should we ignore unknown messages in the callback
@@ -201,7 +169,7 @@ Our RPC will work like this:
 Putting it all together
 -----------------------
 
-The Fibonacci task:
+The Fibonacci function:
 
     :::javascript
     function fibonacci(n) {
@@ -306,7 +274,7 @@ The code for our RPC client [rpc_client.js](https://github.com/rabbitmq/rabbitmq
              Math.random().toString();
     }
 
-Now is a good time to take a look at our full example source code (which includes basic exception handling) for
+Now is a good time to take a look at our full example source code for
 [rpc_client.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/rpc_client.js) and [rpc_server.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/rpc_server.js).
 
 

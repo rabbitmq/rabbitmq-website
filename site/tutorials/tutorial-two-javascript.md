@@ -253,12 +253,12 @@ a queue with different name, for example `task_queue`:
     :::javascript
     ch.assertQueue('task_queue', {durable: true});
 
-This `durable:` option change needs to be applied to both the producer
+This `durable` option change needs to be applied to both the producer
 and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by using the `persistent:` option `Channel.sendToQueue` takes.
+- by using the `persistent` option `Channel.sendToQueue` takes.
 
     :::javascript
     ch.sendToQueue(q, new Buffer(msg), {persistent: true});
