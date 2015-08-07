@@ -270,8 +270,8 @@ Some teasers:
        ruby -rubygems emit_log_topic.rb "a.b"
    </div>
 
-(Full source code for [emit_log_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/emit_log_topic.js)
-and [receive_logs_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive_logs_topic.js))
+(Full source code for [emit_log_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log_topic.js)
+and [receive_logs_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs_topic.js))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-javascript.html)
 

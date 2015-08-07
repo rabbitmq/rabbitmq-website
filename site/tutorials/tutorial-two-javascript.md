@@ -351,7 +351,7 @@ Final code of our `new_task.js` class:
       setTimeout(function() { conn.close(); process.exit(0) }, 500);
     });
 
-[(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/new_task.js)
+[(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/new_task.js)
 
 And our `worker.js`:
 
@@ -379,7 +379,7 @@ And our `worker.js`:
       });
     });
 
-[(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/worker.js)
+[(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/worker.js)
 
 Using message acknowledgments and `prefetch` you can set up a
 work queue. The durability options let the tasks survive even if

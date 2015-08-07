@@ -278,7 +278,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
       setTimeout(function() { conn.close(); process.exit(0) }, 500);
     });
 
-[(emit_log.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/emit_log.js)
+[(emit_log.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log.js)
 
 As you see, after establishing the connection we declared the
 exchange. This step is necessary as publishing to a non-existing
@@ -311,7 +311,7 @@ The code for `receive_logs.js`:
       });
     });
 
-[(receive_logs.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive_logs.js)
+[(receive_logs.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive_logs.js)
 
 
 If you want to save logs to a file, just open a console and type:

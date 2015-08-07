@@ -133,7 +133,7 @@ We'll call our message sender `send.js` and our message receiver
 then exit.
 
 In
-[`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/send.js),
+[`send.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js),
 we need to require the library first:
 
     :::javascript
@@ -177,7 +177,7 @@ Lastly, we close the connection and exit;
     :::javascript
     setTimeout(function() { conn.close(); process.exit(0) }, 500);
 
-[Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/send.js).
+[Here's the whole send.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/send.js).
 
 > #### Sending doesn't work!
 >
@@ -201,7 +201,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js)) has the same require as `send`:
+The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js)) has the same require as `send`:
 
     :::javascript
     #!/usr/bin/env node
@@ -238,7 +238,7 @@ our consumer. This is what `Channel.consume` does.
       console.log(" [x] Received %s", msg.content.toString());
     }, {noAck: true});
 
-[Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/rabbitmq-tutorials-62/javascript-nodejs/src/receive.js).
+[Here's the whole receive.js script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/receive.js).
 
 ### Putting it all together
 
