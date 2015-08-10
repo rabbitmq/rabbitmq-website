@@ -246,28 +246,28 @@ Some teasers:
  * Will "`*`" binding catch a message sent with an empty routing key?
    <div class="teaser_answer">
        No.
-       ruby -rubygems receive_logs_topic.rb "&#42;"
-       ruby -rubygems emit_log_topic.rb ""
+       ./receive_logs_topic.js "&#42;"
+       ./emit_log_topic.js ""
    </div>
  * Will "`#.*`" catch a message with a string "`..`" as a key? Will
    it catch a message with a single word key?
    <div class="teaser_answer">
        No. (but I don't know why!)
-       ruby -rubygems receive_logs_topic.rb "#.&#42;"
-       ruby -rubygems emit_log_topic.rb ".."
+       ./receive_logs_topic.js "#.&#42;"
+       ./emit_log_topic.js ".."
        Yes
-       ruby -rubygems receive_logs_topic.rb "#.&#42;"
-       ruby -rubygems emit_log_topic.rb "a"
+       ./receive_logs_topic.js "#.&#42;"
+       ./emit_log_topic.js "a"
    </div>
  * How different is "`a.*.#`" from "`a.#`"?
    <div class="teaser_answer">
        'a.&#42;.#' matches anything that has two words or more, and the first
        word is 'a'. But 'a.#' matches anything that has one word or more
        with the first word set to 'a'.
-       ruby -rubygems receive_logs_topic.rb "a.*.#"
-       ruby -rubygems emit_log_topic.rb "a.b"
-       ruby -rubygems receive_logs_topic.rb "a.#"
-       ruby -rubygems emit_log_topic.rb "a.b"
+       ./receive_logs_topic.js "a.*.#"
+       ./emit_log_topic.js "a.b"
+       ./receive_logs_topic.js "a.#"
+       ./emit_log_topic.js "a.b"
    </div>
 
 (Full source code for [emit_log_topic.js](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/emit_log_topic.js)
