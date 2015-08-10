@@ -111,9 +111,9 @@ on behalf of the consumer.
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
 > languages](/devtools.html). We'll
-> use the Bunny client in this tutorial.
+> use the Go amqp client in this tutorial.
 >
-> First, install Bunny using `go get`:
+> First, install amqp using `go get`:
 >
 >     :::bash
 >     $ go get github.com/streadway/amqp
@@ -253,48 +253,69 @@ Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::ruby
-    conn = Bunny.new
-    conn.start
+    :::go
+    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+    failOnError(err, "Failed to connect to RabbitMQ")
+    defer conn.Close()
 
-    ch   = conn.create_channel
-    q    = ch.queue("hello")
+    ch, err := conn.Channel()
+    failOnError(err, "Failed to open a channel")
+    defer ch.Close()
 
+    q, err := ch.QueueDeclare(
+      "hello", // name
+      false,   // durable
+      false,   // delete when usused
+      false,   // exclusive
+      false,   // no-wait
+      nil,     // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. Since it will push us messages asynchronously, we provide a
-callback that will be executed when RabbitMQ pushes messages to
-our consumer. This is what `Bunny::Queue#subscribe` does.
+queue. Since it will push us messages asynchronously, we will read 
+the messages from a channel (returned by `amqp::Consume`) in a goroutine.
 
-    :::ruby
-    puts " [*] Waiting for messages in #{q.name}. To exit press CTRL+C"
-    q.subscribe(:block => true) do |delivery_info, properties, body|
-      puts " [x] Received #{body}"
+    :::go
+    msgs, err := ch.Consume(
+      q.Name, // queue
+      "",     // consumer
+      true,   // auto-ack
+      false,  // exclusive
+      false,  // no-local
+      false,  // no-wait
+      nil,    // args
+    )
+    failOnError(err, "Failed to register a consumer")
 
-      # cancel the consumer to exit
-      delivery_info.consumer.cancel
-    end
+    forever := make(chan bool)
 
-`Bunny::Queue#subscribe` is used with the `:block` option that makes it
-block the calling thread (we don't want the script to finish running immediately!).
+    go func() {
+      for d := range msgs {
+        log.Printf("Received a message: %s", d.Body)
+      }
+    }()
 
-[Here's the whole receive.rb script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/receive.rb).
+    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+    <-forever
+
+[Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go).
 
 ### Putting it all together
 
 Now we can run both scripts. In a terminal, run the sender:
 
     :::bash
-    $ ruby -rubygems send.rb
+    $ go run send.go
 
 then, run the receiver:
 
     :::bash
-    $ ruby -rubygems receive.rb
+    $ go run receive.go
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
@@ -302,7 +323,6 @@ the sender from another terminal.
 
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
-Hello World!
 
-Time to move on to [part 2](tutorial-two-ruby.html) and build a simple _work queue_.
+Time to move on to [part 2](tutorial-two-go.html) and build a simple _work queue_.
 
