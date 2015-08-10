@@ -30,7 +30,7 @@ More context is available in
 
 RabbitMQ Web-Stomp plugin is rather simple. It takes the STOMP protocol,
 as provided by [RabbitMQ-STOMP plugin](/stomp.html) and exposes it using
-[a SockJS server](http://sockjs.org).
+either plain WebSockets or [a SockJS server](http://sockjs.org).
 
 SockJS is a WebSockets poly-fill that provides a WebSocket-like
 JavaScript object in any browser. It will therefore work in older
@@ -53,13 +53,27 @@ by [Jeff Mesnil](https://github.com/jmesnil) and
 [This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
 is included as part of RabbitMQ-Web-Stomp-Examples.
 
-By default the Web-Stomp plugin exposes a SockJS endpoint on port
-15674 with `/stomp` prefix:
+By default the Web-Stomp plugin exposes both a WebSocket and a
+SockJS endpoint on port 15674. The WebSocket endpoint is available
+on the `/ws` path:
+
+    http://127.0.0.1:15674/ws
+
+The SockJS endpoint on the `/stomp` prefix:
 
     http://127.0.0.1:15674/stomp
 
-In order to establish connection from the browser you may
-use code like:
+In order to establish connection from the browser using WebSocket
+you may use code like:
+
+    <script src="stomp.js"></script>
+    <script>
+
+        var ws = new WebSocket('ws://127.0.0.1:15674/stomp');
+        var client = Stomp.over(ws);
+        [...]
+
+Using SockJS:
 
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script src="stomp.js"></script>
