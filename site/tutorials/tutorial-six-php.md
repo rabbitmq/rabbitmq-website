@@ -224,10 +224,10 @@ The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitm
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->queue_declare('rpc_queue', false, false, false, false);
@@ -285,7 +285,7 @@ The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitm
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
     class FibonacciRpcClient {
@@ -296,7 +296,7 @@ The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitm
     	private $corr_id;
 
     	public function __construct() {
-    		$this->connection = new AMQPConnection(
+    		$this->connection = new AMQPStreamConnection(
     			'localhost', 5672, 'guest', 'guest');
     		$this->channel = $this->connection->channel();
     		list($this->callback_queue, ,) = $this->channel->queue_declare(
