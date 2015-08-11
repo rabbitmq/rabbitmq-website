@@ -119,7 +119,11 @@ using RabbitMQ.Client;
         <doc:section name="connecting">
           <doc:heading>Connecting to a Broker</doc:heading>
           <p>
-            The following two code snippets connect to a RabbitMQ node:
+            To connect to a RabbitMQ, it is necessary to instantiate a <code>ConnectionFactory</code>
+            and configure it to use desired hostname, virtual host, and credentials. Then
+            use <code>ConnectionFactory.CreateConnection()</code> to open a connection.
+            
+            The following two code snippets connect to a RabbitMQ node on <code>hostName</code>:
 
 <pre>
 ConnectionFactory factory = new ConnectionFactory();
