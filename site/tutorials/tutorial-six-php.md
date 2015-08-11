@@ -267,8 +267,8 @@ The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitm
     $connection->close();
 
     ?>
-    
-    
+
+
 The server code is rather straightforward:
 
   * As usual we start by establishing the connection, channel and declaring

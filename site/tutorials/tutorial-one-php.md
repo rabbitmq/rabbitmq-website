@@ -128,7 +128,7 @@ on behalf of the consumer.
 >     $ composer.phar install
 >
 
-Now we have the php-amqplib installed, we can write some
+Now we have the php-amqplib library installed, we can write some
 code.
 
 ### Sending
