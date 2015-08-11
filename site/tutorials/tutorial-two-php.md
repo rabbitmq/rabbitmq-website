@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -194,7 +194,7 @@ only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
 Message acknowledgments are turned off by default.
-It's time to turn them on by setting the fourth parameter to `basic_consume` to `false` 
+It's time to turn them on by setting the fourth parameter to `basic_consume` to `false`
 (true means _no ack_) and send a proper acknowledgment
 from the worker, once we're done with a task.
 
