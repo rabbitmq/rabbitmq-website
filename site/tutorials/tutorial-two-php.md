@@ -346,10 +346,10 @@ Final code of our `new_task.php` file:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
 
@@ -380,9 +380,9 @@ And our `worker.php`:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->queue_declare('task_queue', false, true, false, false);
