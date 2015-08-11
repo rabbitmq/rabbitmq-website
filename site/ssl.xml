@@ -347,7 +347,9 @@ started SSL Listener on 0.0.0.0:5671</pre>
               <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE</a> is a known SSL/TLS attack that originally compromised SSLv3.
               Starting with version 3.4.0, RabbitMQ server refuses to accept SSLv3 connections. In December 2014, a modified version of
               the POODLE attack that affects TLSv1.0 was <a href="https://www.imperialviolet.org/2014/12/08/poodleagain.html">announced</a>.
-              It is therefore recommended to disable TLSv1.0 support (see below) when possible.
+              It is therefore recommended to either run Erlang 18.0 or later, which
+              <a href="http://www.erlang.org/news/88">eliminates TLS 1.0 implementation vulnerability to POODLE</a>,
+              or disable TLSv1.0 support (see below).
           </p>
 
           <h4>BEAST</h4>
