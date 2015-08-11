@@ -118,7 +118,7 @@ on behalf of the consumer.
 >     :::javascript
 >     {
 >         "require": {
->             "videlalvaro/php-amqplib": "v2.1.0"
+>             "videlalvaro/php-amqplib": "2.5.*"
 >         }
 >     }
 >
