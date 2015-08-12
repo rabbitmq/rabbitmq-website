@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc.
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
 ## Work Queues
-### (using [php-amqplib](https://github.com/videlalvaro/php-amqplib))
+### (using Go RabbitMQ client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -42,7 +42,7 @@ limitations under the License.
 </div>
 
 
-In the [first tutorial](tutorial-one-php.html) we
+In the [first tutorial](tutorial-one-go.html) we
 wrote programs to send and receive messages from a named queue. In this
 one we'll create a _Work Queue_ that will be used to distribute
 time-consuming tasks among multiple workers.
@@ -65,49 +65,71 @@ In the previous part of this tutorial we sent a message containing
 "Hello World!". Now we'll be sending strings that stand for complex
 tasks. We don't have a real-world task, like images to be resized or
 pdf files to be rendered, so let's fake it by just pretending we're
-busy - by using the `sleep()` function. We'll take the number of dots
+busy - by using the `time.Sleep` function. We'll take the number of dots
 in the string as its complexity; every dot will account for one second
 of "work".  For example, a fake task described by `Hello...`
 will take three seconds.
 
-We will slightly modify the _send.php_ code from our previous example,
+We will slightly modify the _send.go_ code from our previous example,
 to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
-`new_task.php`:
+`new_task.go`:
 
-    :::php
-    $data = implode(' ', array_slice($argv, 1));
-    if(empty($data)) $data = "Hello World!";
-    $msg = new AMQPMessage($data,
-                            array('delivery_mode' => 2) # make message persistent
-                          );
+    :::go
+    body := bodyFrom(os.Args)
+    err = ch.Publish(
+      "",           // exchange
+      q.Name,       // routing key
+      false,        // mandatory
+      false,
+      amqp.Publishing {
+        DeliveryMode: amqp.Persistent,
+        ContentType:  "text/plain",
+        Body:         []byte(body),
+      }
+    )
+    failOnError(err, "Failed to publish a message")
+    log.Printf(" [x] Sent %s", body)
 
-    $channel->basic_publish($msg, '', 'task_queue');
-
-    echo " [x] Sent ", $data, "\n";
-
-Our old _receive.php_ script also requires some changes: it needs to
+Our old _receive.go_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
-messages from the queue and perform the task, so let's call it `worker.php`:
+messages from the queue and perform the task, so let's call it `worker.go`:
 
-    :::php
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-      $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
+    :::go
+    msgs, err := ch.Consume(
+      q.Name, // queue
+      "",     // consumer
+      false,  // auto-ack
+      false,  // exclusive
+      false,  // no-local
+      false,  // no-wait
+      nil,    // args
+    )
+    failOnError(err, "Failed to register a consumer")
 
-    $channel->basic_qos(null, 1, null);
-    $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
+    forever := make(chan bool)
+
+    go func() {
+      for d := range msgs {
+        log.Printf("Received a message: %s", d.Body)
+        d.Ack(false)
+        dot_count := bytes.Count(d.Body, []byte("."))
+        t := time.Duration(dot_count)
+        time.Sleep(t * time.Second)
+        log.Printf("Done")
+      }
+    }()
+
+    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+    <-forever
 
 Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
     :::bash
-    shell1$ php new_task.php "A very hard task which takes two seconds.."
-    shell2$ php worker.php
+    shell1$ go run worker.go
+    shell2$ go run new_task.go
 
 Round-robin dispatching
 -----------------------
@@ -116,36 +138,36 @@ One of the advantages of using a Task Queue is the ability to easily
 parallelise work. If we are building up a backlog of work, we can just
 add more workers and that way, scale easily.
 
-First, let's try to run two `worker.php` scripts at the same time. They
+First, let's try to run two `worker.go` scripts at the same time. They
 will both get messages from the queue, but how exactly? Let's see.
 
-You need three consoles open. Two will run the `worker.php`
+You need three consoles open. Two will run the `worker.go`
 script. These consoles will be our two consumers - C1 and C2.
 
     :::bash
-    shell1$ php worker.php
+    shell1$ go run worker.go
      [*] Waiting for messages. To exit press CTRL+C
 
 <div></div>
 
     :::bash
-    shell2$ php worker.php
+    shell2$ go run worker.go
      [*] Waiting for messages. To exit press CTRL+C
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
     :::bash
-    shell3$ php new_task.php First message.
-    shell3$ php new_task.php Second message..
-    shell3$ php new_task.php Third message...
-    shell3$ php new_task.php Fourth message....
-    shell3$ php new_task.php Fifth message.....
+    shell3$ go run new_task.go First message.
+    shell3$ go run new_task.go Second message..
+    shell3$ go run new_task.go Third message...
+    shell3$ go run new_task.go Fourth message....
+    shell3$ go run new_task.go Fifth message.....
 
 Let's see what is delivered to our workers:
 
     :::bash
-    shell1$ php worker.php
+    shell1$ go run worker.go
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'First message.'
      [x] Received 'Third message...'
@@ -154,7 +176,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    shell2$ php worker.php
+    shell2$ go run worker.go
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
@@ -194,19 +216,37 @@ only when the worker connection dies. It's fine even if processing a
 message takes a very, very long time.
 
 Message acknowledgments are turned off by default.
-It's time to turn them on by setting the fourth parameter to `basic_consume` to `false`
-(true means _no ack_) and send a proper acknowledgment
-from the worker, once we're done with a task.
+It's time to turn them on using the `false,  // auto-ack` option and send a proper acknowledgment
+from the worker `d.Ack(false)`, once we're done with a task.
 
-    :::php
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-      $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
+    :::go
+    msgs, err := ch.Consume(
+      q.Name, // queue
+      "",     // consumer
+      false,  // auto-ack
+      false,  // exclusive
+      false,  // no-local
+      false,  // no-wait
+      nil,    // args
+    )
+    failOnError(err, "Failed to register a consumer")
 
-    $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
+    forever := make(chan bool)
+
+    go func() {
+      for d := range msgs {
+        log.Printf("Received a message: %s", d.Body)
+        d.Ack(false)
+        dot_count := bytes.Count(d.Body, []byte("."))
+        t := time.Duration(dot_count)
+        time.Sleep(t * time.Second)
+        log.Printf("Done")
+      }
+    }()
+
+    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+    <-forever
+
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -214,7 +254,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basic_ack`. It's an easy error,
+> It's a common mistake to miss the `ack`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -242,11 +282,18 @@ messages aren't lost: we need to mark both the queue and messages as
 durable.
 
 First, we need to make sure that RabbitMQ will never lose our
-queue. In order to do so, we need to declare it as _durable_.
-To do so we pass the third parameter to `queue_declare` as `true`:
+queue. In order to do so, we need to declare it as _durable_:
 
-    :::php
-    $channel->queue_declare('hello', false, true, false, false);
+    :::go
+    q, err := ch.QueueDeclare(
+      "hello",      // name
+      true,         // durable
+      false,        // delete when unused
+      false,        // exclusive
+      false,        // no-wait
+      nil,          // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -255,21 +302,36 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::php
-    $channel->queue_declare('task_queue', false, true, false, false);
+    :::go
+    q, err := ch.QueueDeclare(
+      "task_queue", // name
+      true,         // durable
+      false,        // delete when unused
+      false,        // exclusive
+      false,        // no-wait
+      nil,          // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
-This flag set to `true` needs to be applied to both the producer
+This `durable` option change needs to be applied to both the producer
 and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting the `delivery_mode = 2` message property which `AMQPMessage` takes
-as part of the property array.
+- by using the `amqp.Persistent` option `amqp.Publishing` takes.
 
-    :::php
-    $msg = new AMQPMessage($data,
-           array('delivery_mode' => 2) # make message persistent
-           );
+    :::go
+    err = ch.Publish(
+      "",           // exchange
+      q.Name,       // routing key
+      false,        // mandatory
+      false,
+      amqp.Publishing {
+        DeliveryMode: amqp.Persistent,
+        ContentType:  "text/plain",
+        Body:         []byte(body),
+      }
+    )
 
 > #### Note on message persistence
 >
@@ -323,14 +385,19 @@ to the n-th consumer.
   </div>
 </div>
 
-In order to defeat that we can use the `basic_qos` method with the
-`prefetch_count` = `1` setting. This tells RabbitMQ not to give more than
+In order to defeat that we can set the prefetch count with the
+value of `1`. This tells RabbitMQ not to give more than
 one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::php
-    $channel->basic_qos(null, 1, null);
+    :::go
+    err = ch.Qos(
+      1,     // prefetch count
+      0,     // prefetch size
+      false, // global
+    )
+    failOnError(err, "Failed to set QoS")
 
 > #### Note about queue size
 >
@@ -340,80 +407,158 @@ previous one. Instead, it will dispatch it to the next worker that is not still 
 Putting it all together
 -----------------------
 
-Final code of our `new_task.php` file:
+Final code of our `new_task.go` class:
 
-    :::php
-    <?php
+    :::go
+    package main
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
-
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
-
-
-    $channel->queue_declare('task_queue', false, true, false, false);
-
-    $data = implode(' ', array_slice($argv, 1));
-    if(empty($data)) $data = "Hello World!";
-    $msg = new AMQPMessage($data,
-                            array('delivery_mode' => 2) # make message persistent
-                          );
-
-    $channel->basic_publish($msg, '', 'task_queue');
-
-    echo " [x] Sent ", $data, "\n";
-
-    $channel->close();
-    $connection->close();
-
-    ?>
-
-
-
-[(new_task.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/new_task.php)
-
-And our `worker.php`:
-
-    :::php
-    <?php
-
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
-
-    $channel->queue_declare('task_queue', false, true, false, false);
-
-    echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
-
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-      $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
-
-    $channel->basic_qos(null, 1, null);
-    $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
-
-    while(count($channel->callbacks)) {
-        $channel->wait();
+    import (
+            "fmt"
+            "log"
+            "os"
+            "strings"
+    
+            "github.com/streadway/amqp"
+    )
+    
+    func failOnError(err error, msg string) {
+            if err != nil {
+                    log.Fatalf("%s: %s", msg, err)
+                    panic(fmt.Sprintf("%s: %s", msg, err))
+            }
+    }
+    
+    func main() {
+            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+            failOnError(err, "Failed to connect to RabbitMQ")
+            defer conn.Close()
+    
+            ch, err := conn.Channel()
+            failOnError(err, "Failed to open a channel")
+            defer ch.Close()
+    
+            q, err := ch.QueueDeclare(
+                    "task_queue", // name
+                    true,         // durable
+                    false,        // delete when unused
+                    false,        // exclusive
+                    false,        // no-wait
+                    nil,          // arguments
+            )
+            failOnError(err, "Failed to declare a queue")
+    
+            body := bodyFrom(os.Args)
+            err = ch.Publish(
+                    "",           // exchange
+                    q.Name,       // routing key
+                    false,        // mandatory
+                    false,
+                    amqp.Publishing{
+                            DeliveryMode: amqp.Persistent,
+                            ContentType:  "text/plain",
+                            Body:         []byte(body),
+                    })
+            failOnError(err, "Failed to publish a message")
+            log.Printf(" [x] Sent %s", body)
+    }
+    
+    func bodyFrom(args []string) string {
+            var s string
+            if (len(args) < 2) || os.Args[1] == "" {
+                    s = "hello"
+            } else {
+                    s = strings.Join(args[1:], " ")
+            }
+            return s
     }
 
-    $channel->close();
-    $connection->close();
 
-    ?>
+[(new_task.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/new_task.go)
 
-[(worker.php source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/worker.php)
+And our `worker.go`:
 
-Using message acknowledgments and `prefetch` you can set up a
+    :::go
+    package main
+
+    import (
+            "bytes"
+            "fmt"
+            "github.com/streadway/amqp"
+            "log"
+            "time"
+    )
+    
+    func failOnError(err error, msg string) {
+            if err != nil {
+                    log.Fatalf("%s: %s", msg, err)
+                    panic(fmt.Sprintf("%s: %s", msg, err))
+            }
+    }
+    
+    func main() {
+            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+            failOnError(err, "Failed to connect to RabbitMQ")
+            defer conn.Close()
+    
+            ch, err := conn.Channel()
+            failOnError(err, "Failed to open a channel")
+            defer ch.Close()
+    
+            q, err := ch.QueueDeclare(
+                    "task_queue", // name
+                    true,         // durable
+                    false,        // delete when unused
+                    false,        // exclusive
+                    false,        // no-wait
+                    nil,          // arguments
+            )
+            failOnError(err, "Failed to declare a queue")
+    
+            err = ch.Qos(
+                    1,     // prefetch count
+                    0,     // prefetch size
+                    false, // global
+            )
+            failOnError(err, "Failed to set QoS")
+    
+            msgs, err := ch.Consume(
+                    q.Name, // queue
+                    "",     // consumer
+                    false,  // auto-ack
+                    false,  // exclusive
+                    false,  // no-local
+                    false,  // no-wait
+                    nil,    // args
+            )
+            failOnError(err, "Failed to register a consumer")
+    
+            forever := make(chan bool)
+    
+            go func() {
+                    for d := range msgs {
+                            log.Printf("Received a message: %s", d.Body)
+                            d.Ack(false)
+                            dot_count := bytes.Count(d.Body, []byte("."))
+                            t := time.Duration(dot_count)
+                            time.Sleep(t * time.Second)
+                            log.Printf("Done")
+                    }
+            }()
+    
+            log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+            <-forever
+    }
+
+
+[(worker.go source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/worker.go)
+
+Using message acknowledgments and prefetch count you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
-Now we can move on to [tutorial 3](tutorial-three-php.html) and learn how
+For more information on `amqp.Channel` methods and message properties, you can browse the
+[amqp API reference](http://godoc.org/github.com/streadway/amqp).
+
+Now we can move on to [tutorial 3](tutorial-three-go.html) and learn how
 to deliver the same message to many consumers.
 

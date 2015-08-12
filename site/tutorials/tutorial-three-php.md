@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -260,10 +260,10 @@ value is ignored for `fanout` exchanges. Here goes the code for
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->exchange_declare('logs', 'fanout', false, false, false);
@@ -297,9 +297,9 @@ The code for `receive_logs.php`:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
 

@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc.
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -89,13 +89,13 @@ Note that the producer, consumer, and  broker do not have to reside on
 the same machine; indeed in most applications they don't.
 
 ## "Hello World"
-### (using the php-amqplib Client)
+### (using Go RabbitMQ client)
 
-In this part of the tutorial we'll write two programs in PHP; a
+In this part of the tutorial we'll write two small programs in Ruby; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [php-amqplib](https://github.com/videlalvaro/php-amqplib) API, concentrating on this very simple thing just to get
-started.  It's a "Hello World" of messaging.
+the [Go RabbitMQ](http://godoc.org/github.com/streadway/amqp) API, concentrating on this very simple thing just to get
+started. It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
 box in the middle is a queue - a message buffer that RabbitMQ keeps
@@ -105,30 +105,21 @@ on behalf of the consumer.
   <img src="/img/tutorials/python-one.png" alt="(P) -> [|||] -> (C)" height="60" />
 </div>
 
-> #### The php-amqplib client library
+> #### The Go RabbitMQ client library
 >
-> RabbitMQ speaks [AMQP](http://amqp.org/), which is an open,
+> RabbitMQ speaks AMQP 0.9.1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
-> for AMQP in [many different
-> languages](http://rabbitmq.com/devtools.html). We'll
-> use the php-amqplib in this tutorial.
+> for RabbitMQ in [many different
+> languages](/devtools.html). We'll
+> use the Go amqp client in this tutorial.
 >
-> Add a composer.json file to your project:
->
->     :::javascript
->     {
->         "require": {
->             "videlalvaro/php-amqplib": "2.5.*"
->         }
->     }
->
->Provided you have [composer](http://getcomposer.org) installed, you can run the following:
+> First, install amqp using `go get`:
 >
 >     :::bash
->     $ composer.phar install
+>     $ go get github.com/streadway/amqp
 >
 
-Now we have the php-amqplib library installed, we can write some
+Now we have amqp installed, we can write some
 code.
 
 ### Sending
@@ -137,57 +128,85 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.php` and our message receiver
-`receive.php`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message sender `send.go` and our message receiver
+`receive.go`.  The sender will connect to RabbitMQ, send a single message,
 then exit.
 
 In
-[`send.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php),
-we need to include the library and `use` the necessary classes:
+[`send.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go),
+we need to import the library first:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+    :::go
+    package main
 
-then we can create a connection to the server:
+    import (
+      "fmt"
+      "log"
 
-    :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+      "github.com/streadway/amqp"
+    )
+
+We also need an helper function to check the return value for each 
+amqp call:
+
+    :::go
+    func failOnError(err error, msg string) {
+      if err != nil {
+        log.Fatalf("%s: %s", msg, err)
+        panic(fmt.Sprintf("%s: %s", msg, err))
+      }
+    }
+
+
+then connect to RabbitMQ server
+
+    :::go
+    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+    failOnError(err, "Failed to connect to RabbitMQ")
+    defer conn.Close()
 
 The connection abstracts the socket connection, and takes care of
-protocol version negotiation and authentication and so on for us. Here
-we connect to a broker on the local machine - hence the
-_localhost_. If we wanted to connect to a broker on a different
-machine we'd simply specify its name or IP address here.
-
+protocol version negotiation and authentication and so on for us.
 Next we create a channel, which is where most of the API for getting
-things done resides.
+things done resides:
+
+    :::go
+    ch, err := conn.Channel()
+    failOnError(err, "Failed to open a channel")
+    defer ch.Close()
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::php
-    $channel->queue_declare('hello', false, false, false, false);
+    :::go
+    q, err := ch.QueueDeclare(
+      "hello", // name
+      false,   // durable
+      false,   // delete when unused
+      false,   // exclusive
+      false,   // no-wait
+      nil,     // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
-    $msg = new AMQPMessage('Hello World!');
-    $channel->basic_publish($msg, '', 'hello');
-
-    echo " [x] Sent 'Hello World!'\n";
+    body := "hello"
+    err = ch.Publish(
+      "",     // exchange
+      q.Name, // routing key
+      false,  // mandatory
+      false,  // immediate
+      amqp.Publishing {
+        ContentType: "text/plain",
+        Body:        []byte(body),
+      }
+    )
+    failOnError(err, "Failed to publish a message")
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
 whatever you like there.
 
-Lastly, we close the channel and the connection;
-
-    :::php
-    $channel->close();
-    $connection->close();
-
-[Here's the whole send.php
-class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/send.php).
+[Here's the whole send.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go).
 
 > #### Sending doesn't work!
 >
@@ -211,62 +230,92 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)) has almost the same
-`include` and `use`s as `send`:
+The code (in [`receive.go`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go)) has the same import and helper function as `send`:
 
-    :::php
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    :::go
+    package main
+
+    import (
+      "fmt"
+      "log"
+
+      "github.com/streadway/amqp"
+    )
+ 
+    func failOnError(err error, msg string) {
+      if err != nil {
+        log.Fatalf("%s: %s", msg, err)
+        panic(fmt.Sprintf("%s: %s", msg, err))
+      }
+    }
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+    :::go
+    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+    failOnError(err, "Failed to connect to RabbitMQ")
+    defer conn.Close()
 
-    $channel->queue_declare('hello', false, false, false, false);
+    ch, err := conn.Channel()
+    failOnError(err, "Failed to open a channel")
+    defer ch.Close()
 
-    echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+    q, err := ch.QueueDeclare(
+      "hello", // name
+      false,   // durable
+      false,   // delete when usused
+      false,   // exclusive
+      false,   // no-wait
+      nil,     // arguments
+    )
+    failOnError(err, "Failed to declare a queue")
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
-queue. We will define a [PHP callable](http://www.php.net/manual/en/language.types.callable.php)
-that will receive the messages sent by the server. Keep in mind
-that messages are sent asynchronously from the server to the clients.
+queue. Since it will push us messages asynchronously, we will read 
+the messages from a channel (returned by `amqp::Consume`) in a goroutine.
 
-    :::php
+    :::go
+    msgs, err := ch.Consume(
+      q.Name, // queue
+      "",     // consumer
+      true,   // auto-ack
+      false,  // exclusive
+      false,  // no-local
+      false,  // no-wait
+      nil,    // args
+    )
+    failOnError(err, "Failed to register a consumer")
 
-    $callback = function($msg) {
-      echo " [x] Received ", $msg->body, "\n";
-    };
+    forever := make(chan bool)
 
-    $channel->basic_consume('hello', '', false, true, false, false, $callback);
+    go func() {
+      for d := range msgs {
+        log.Printf("Received a message: %s", d.Body)
+      }
+    }()
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+    <-forever
 
-Our code will block while our `$channel` has callbacks. Whenever we receive a
-message our `$callback` function will be passed the received message.
-
-[Here's the whole receive.php class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive.php)
+[Here's the whole receive.go script](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go).
 
 ### Putting it all together
 
 Now we can run both scripts. In a terminal, run the sender:
 
     :::bash
-    $ php send.php
+    $ go run send.go
 
 then, run the receiver:
 
     :::bash
-    $ php receive.php
+    $ go run receive.go
 
 The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
@@ -274,6 +323,6 @@ the sender from another terminal.
 
 If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
-Hello World!
 
-Time to move on to [part 2](tutorial-two-php.html) and build a simple _work queue_.
+Time to move on to [part 2](tutorial-two-go.html) and build a simple _work queue_.
+
