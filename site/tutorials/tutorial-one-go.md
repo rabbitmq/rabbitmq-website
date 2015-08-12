@@ -91,7 +91,7 @@ the same machine; indeed in most applications they don't.
 ## "Hello World"
 ### (using Go RabbitMQ client)
 
-In this part of the tutorial we'll write two small programs in Ruby; a
+In this part of the tutorial we'll write two small programs in Go; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [Go RabbitMQ](http://godoc.org/github.com/streadway/amqp) API, concentrating on this very simple thing just to get
