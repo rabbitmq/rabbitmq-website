@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
 ## Publish/Subscribe
-### (using the Bunny Client)
+### (using Go RabbitMQ client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
