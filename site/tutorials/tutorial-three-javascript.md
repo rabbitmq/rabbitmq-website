@@ -331,7 +331,7 @@ And of course, to emit logs type:
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
-creates bindings and queues as we want. With two `receive_logs.rb`
+creates bindings and queues as we want. With two `receive_logs.js`
 programs running you should see something like:
 
     :::bash

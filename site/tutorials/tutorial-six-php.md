@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -76,7 +76,7 @@ Let's try it:
 
     :::php
     list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
-    
+
     $msg = new AMQPMessage(
         $payload,
         array('reply_to' => $queue_name));
@@ -224,10 +224,10 @@ The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitm
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->queue_declare('rpc_queue', false, false, false, false);
@@ -267,8 +267,8 @@ The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitm
     $connection->close();
 
     ?>
-    
-    
+
+
 The server code is rather straightforward:
 
   * As usual we start by establishing the connection, channel and declaring
@@ -285,7 +285,7 @@ The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitm
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPConnection;
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
     class FibonacciRpcClient {
@@ -296,7 +296,7 @@ The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitm
     	private $corr_id;
 
     	public function __construct() {
-    		$this->connection = new AMQPConnection(
+    		$this->connection = new AMQPStreamConnection(
     			'localhost', 5672, 'guest', 'guest');
     		$this->channel = $this->connection->channel();
     		list($this->callback_queue, ,) = $this->channel->queue_declare(

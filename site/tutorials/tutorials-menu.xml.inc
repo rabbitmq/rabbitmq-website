@@ -35,6 +35,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-one-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-one-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-one-go.html">Go</a>
           </p>
         </li>
 
@@ -56,6 +58,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-two-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-two-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-two-go.html">Go</a>
           </p>
         </li>
 
@@ -77,6 +81,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-three-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-three-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-three-go.html">Go</a>
           </p>
         </li>
 
@@ -98,6 +104,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-four-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-four-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-four-go.html">Go</a>
           </p>
         </li>
 
@@ -119,6 +127,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-five-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-five-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-five-go.html">Go</a>
           </p>
         </li>
 
@@ -140,6 +150,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-six-dotnet.html">C#</a>
           |
           <a href="/tutorials/tutorial-six-javascript.html">Javascript</a>
+          |
+          <a href="/tutorials/tutorial-six-go.html">Go</a>
           </p>
         </li>
       </ul>

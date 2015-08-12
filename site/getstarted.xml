@@ -40,7 +40,7 @@ limitations under the License.
       <p>
         The tutorials here use a number of popular technologies,
         however, there are <a href="https://github.com/rabbitmq/rabbitmq-tutorials">ports available</a> for 
-        many more languages and client libraries:
+        many more languages and client libraries, for example:
 
         <ul>
           <li>
@@ -50,22 +50,13 @@ limitations under the License.
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
           </li>
           <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/go">Go</a> (using <a href="https://github.com/streadway/amqp">Go RabbitMQ client</a>)
-          </li>
-          <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
           </li>          
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/java">Java</a> (using <a href="/java-client.html">java client</a>)
-          </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
           </li>
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">Python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/ruby">Ruby</a> (using <a href="http://rubybunny.info">Bunny</a>)
           </li>
         </ul>
       </p>

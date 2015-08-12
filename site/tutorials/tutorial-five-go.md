@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc.
+Copyright (C) 2007-2015 Pivotal Software, Inc. 
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License,
-Version 2.0 (the "License”); you may not use this file except in compliance
+are made available under the terms of the under the Apache License, 
+Version 2.0 (the "License”); you may not use this file except in compliance 
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -17,11 +17,11 @@ limitations under the License.
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
 ## Topics
-### (using [php-amqplib](https://github.com/videlalvaro/php-amqplib))
+### (using Go RabbitMQ client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
-In the [previous tutorial](tutorial-four-php.html) we improved our
+In the [previous tutorial](tutorial-four-go.html) we improved our
 logging system. Instead of using a `fanout` exchange only capable of
 dummy broadcasting, we used a `direct` one, and gained a possibility
 of selectively receiving the logs.
@@ -41,6 +41,7 @@ just critical errors coming from 'cron' but also all logs from 'kern'.
 
 To implement that in our logging system we need to learn about a more
 complex `topic` exchange.
+
 
 Topic exchange
 --------------
@@ -151,105 +152,201 @@ start off with a working assumption that the routing keys of logs will
 have two words: "`<facility>.<severity>`".
 
 The code is almost the same as in the
-[previous tutorial](tutorial-four-php.html).
+[previous tutorial](tutorial-four-go.html).
 
-The code for `emit_log_topic.php`:
+The code for `emit_log_topic.go`:
 
-    :::php
-    <?php
-
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
-
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
-
-
-    $channel->exchange_declare('topic_logs', 'topic', false, false, false);
-
-    $routing_key = $argv[1];
-    if(empty($routing_key)) $routing_key = "anonymous.info";
-    $data = implode(' ', array_slice($argv, 2));
-    if(empty($data)) $data = "Hello World!";
-
-    $msg = new AMQPMessage($data);
-
-    $channel->basic_publish($msg, 'topic_logs', $routing_key);
-
-    echo " [x] Sent ",$routing_key,':',$data," \n";
-
-    $channel->close();
-    $connection->close();
-
-    ?>
-
-The code for `receive_logs_topic.php`:
-
-    :::php
-    <?php
-
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
-
-    $channel->exchange_declare('topic_logs', 'topic', false, false, false);
-
-    list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
-
-    $binding_keys = array_slice($argv, 1);
-    if( empty($binding_keys )) {
-    	file_put_contents('php://stderr', "Usage: $argv[0] [binding_key]\n");
-    	exit(1);
+    :::go
+    package main
+    
+    import (
+            "fmt"
+            "log"
+            "os"
+            "strings"
+    
+            "github.com/streadway/amqp"
+    )
+    
+    func failOnError(err error, msg string) {
+            if err != nil {
+                    log.Fatalf("%s: %s", msg, err)
+                    panic(fmt.Sprintf("%s: %s", msg, err))
+            }
+    }
+    
+    func main() {
+            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+            failOnError(err, "Failed to connect to RabbitMQ")
+            defer conn.Close()
+    
+            ch, err := conn.Channel()
+            failOnError(err, "Failed to open a channel")
+            defer ch.Close()
+    
+            err = ch.ExchangeDeclare(
+                    "logs_topic", // name
+                    "topic",      // type
+                    true,         // durable
+                    false,        // auto-deleted
+                    false,        // internal
+                    false,        // no-wait
+                    nil,          // arguments
+            )
+            failOnError(err, "Failed to declare an exchange")
+    
+            body := bodyFrom(os.Args)
+            err = ch.Publish(
+                    "logs_topic",          // exchange
+                    severityFrom(os.Args), // routing key
+                    false, // mandatory
+                    false, // immediate
+                    amqp.Publishing{
+                            ContentType: "text/plain",
+                            Body:        []byte(body),
+                    })
+            failOnError(err, "Failed to publish a message")
+    
+            log.Printf(" [x] Sent %s", body)
+    }
+    
+    func bodyFrom(args []string) string {
+            var s string
+            if (len(args) < 3) || os.Args[2] == "" {
+                    s = "hello"
+            } else {
+                    s = strings.Join(args[2:], " ")
+            }
+            return s
+    }
+    
+    func severityFrom(args []string) string {
+            var s string
+            if (len(args) < 2) || os.Args[1] == "" {
+                    s = "anonymous.info"
+            } else {
+                    s = os.Args[1]
+            }
+            return s
     }
 
-    foreach($binding_keys as $binding_key) {
-    	$channel->queue_bind($queue_name, 'topic_logs', $binding_key);
+
+The code for `receive_logs_topic.go`:
+
+    :::go
+    package main
+    
+    import (
+            "fmt"
+            "log"
+            "os"
+    
+            "github.com/streadway/amqp"
+    )
+    
+    func failOnError(err error, msg string) {
+            if err != nil {
+                    log.Fatalf("%s: %s", msg, err)
+                    panic(fmt.Sprintf("%s: %s", msg, err))
+            }
+    }
+    
+    func main() {
+            conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+            failOnError(err, "Failed to connect to RabbitMQ")
+            defer conn.Close()
+    
+            ch, err := conn.Channel()
+            failOnError(err, "Failed to open a channel")
+            defer ch.Close()
+    
+            err = ch.ExchangeDeclare(
+                    "logs_topic", // name
+                    "topic",      // type
+                    true,         // durable
+                    false,        // auto-deleted
+                    false,        // internal
+                    false,        // no-wait
+                    nil,          // arguments
+            )
+            failOnError(err, "Failed to declare an exchange")
+    
+            q, err := ch.QueueDeclare(
+                    "",    // name
+                    false, // durable
+                    false, // delete when usused
+                    true,  // exclusive
+                    false, // no-wait
+                    nil,   // arguments
+            )
+            failOnError(err, "Failed to declare a queue")
+    
+            if len(os.Args) < 2 {
+                    log.Printf("Usage: %s [binding_key]...", os.Args[0])
+                    os.Exit(0)
+            }
+            for _, s := range os.Args[1:] {
+                    log.Printf("Binding queue %s to exchange %s with routing key %s",
+                            q.Name, "logs_topic", s)
+                    err = ch.QueueBind(
+                            q.Name,       // queue name
+                            s,            // routing key
+                            "logs_topic", // exchange
+                            false,
+                            nil)
+                    failOnError(err, "Failed to bind a queue")
+            }
+    
+            msgs, err := ch.Consume(
+                    q.Name, // queue
+                    "",     // consumer
+                    true,   // auto ack
+                    false,  // exclusive
+                    false,  // no local
+                    false,  // no wait
+                    nil,    // args
+            )
+            failOnError(err, "Failed to register a consumer")
+    
+            forever := make(chan bool)
+    
+            go func() {
+                    for d := range msgs {
+                            log.Printf(" [x] %s", d.Body)
+                    }
+            }()
+    
+            log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
+            <-forever
     }
 
-    echo ' [*] Waiting for logs. To exit press CTRL+C', "\n";
-
-    $callback = function($msg){
-      echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
-    };
-
-    $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
-
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
-
-    $channel->close();
-    $connection->close();
-
-    ?>
 
 To receive all the logs:
 
     :::bash
-    $ php receive_logs_topic.php "#"
+    $ go run receive_logs_topic.go "#"
 
 To receive all logs from the facility "`kern`":
 
     :::bash
-    $ phpreceive_logs_topic.php "kern.*"
+    $ go run receive_logs_topic.go "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
     :::bash
-    $ php receive_logs_topic.php "*.critical"
+    $ go run receive_logs_topic.go "*.critical"
 
 You can create multiple bindings:
 
     :::bash
-    $ php receive_logs_topic.php "kern.*" "*.critical"
+    $ go run receive_logs_topic.go "kern.*" "*.critical"
+
 
 And to emit a log with a routing key "`kern.critical`" type:
 
     :::bash
-    $ php emit_log_topic.php "kern.critical" "A critical kernel error"
+    $ go run emit_log_topic.go "kern.critical" "A critical kernel error"
+
 
 Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
@@ -260,31 +357,32 @@ Some teasers:
  * Will "`*`" binding catch a message sent with an empty routing key?
    <div class="teaser_answer">
        No.
-       php receive_logs_topic.php "&#42;"
-       php emit_log_topic.php ""
+       go run receive_logs_topic.go "&#42;"
+       go run emit_log_topic.go ""
    </div>
  * Will "`#.*`" catch a message with a string "`..`" as a key? Will
    it catch a message with a single word key?
    <div class="teaser_answer">
        No. (but I don't know why!)
-       php receive_logs_topic.php "#.&#42;"
-       php emit_log_topic.php ".."
+       go run receive_logs_topic.go "#.&#42;"
+       go run emit_log_topic.go ".."
        Yes
-       php receive_logs_topic.php "#.&#42;"
-       php emit_log_topic.php "a"
+       go run receive_logs_topic.go "#.&#42;"
+       go run emit_log_topic.go "a"
    </div>
  * How different is "`a.*.#`" from "`a.#`"?
    <div class="teaser_answer">
        'a.&#42;.#' matches anything that has two words or more, and the first
        word is 'a'. But 'a.#' matches anything that has one word or more
        with the first word set to 'a'.
-       php receive_logs_topic.php "a.*.#"
-       php emit_log_topic.php "a.b"
-       php receive_logs_topic.php "a.#"
-       php emit_log_topic.php "a.b"
+       go run receive_logs_topic.go "a.*.#"
+       go run emit_log_topic.go "a.b"
+       go run receive_logs_topic.go "a.#"
+       go run emit_log_topic.go "a.b"
    </div>
 
-(Full source code for [emit_log_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log_topic.php)
-and [receive_logs_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs_topic.php))
+(Full source code for [emit_log_topic.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log_topic.go)
+and [receive_logs_topic.go](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs_topic.go))
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-php.html)
+Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-go.html)
+
