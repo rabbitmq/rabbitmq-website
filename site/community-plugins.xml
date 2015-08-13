@@ -219,11 +219,11 @@ limitations under the License.
       </doc:section>
 
       <doc:section name="distributed">
-        <doc:heading>Clustering & Distributed RabbitMQ</doc:heading>
+        <doc:heading>Clustering and Distributed RabbitMQ</doc:heading>
         <table class="plugins">
           <r:plugin name="autocluster">
             Adds the possibility to automatically cluster RabbitMQ nodes
-            using Consul, etcd2 or DNS for service discovery.
+            using Consul, etcd or DNS for service discovery.
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Gavin M. Roy</b></li>
