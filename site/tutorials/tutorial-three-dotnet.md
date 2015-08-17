@@ -130,20 +130,12 @@ queues it knows. And that's exactly what we need for our logger.
 > Recall how we published a message before:
 >
 >     :::csharp
-
-
-
-
-
-
-
-
 >     var message = GetMessage(args);
 >     var body = Encoding.UTF8.GetBytes(message);
->     channel.BasicPublish( exchange: "",
->                           routingKey: "hello",
->                           basicProperties: null,
->                           body: body );
+>     channel.BasicPublish(exchange: "",
+>                          routingKey: "hello",
+>                          basicProperties: null,
+>                          body: body);
 >
 > The first parameter is the the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
@@ -154,10 +146,10 @@ Now, we can publish to our named exchange instead:
     :::csharp
     var message = GetMessage(args);
     var body = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish( exchange: "logs",
-                          routingKey: "",
-                          basicProperties: null,
-                          body: body );
+    channel.BasicPublish(exchange: "logs",
+                         routingKey: "",
+                         basicProperties: null,
+                         body: body);
 
 
 Temporary queues
@@ -221,9 +213,9 @@ tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
     :::csharp
-    channel.QueueBind( queue: queueName,
-                       exchange: "logs",
-                       routingKey: "" );
+    channel.QueueBind(queue: queueName,
+                      exchange: "logs",
+                      routingKey: "");
 
 From now on the `logs` exchange will append messages to our queue.
 
@@ -283,30 +275,32 @@ value is ignored for `fanout` exchanges. Here goes the code for
     
     class EmitLog
     {
-        public static void Main( string[] args )
+        public static void Main(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using( var connection = factory.CreateConnection() )
-            using( var channel = connection.CreateModel() )
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                channel.ExchangeDeclare( exchange: "logs", type: "fanout" );
+                channel.ExchangeDeclare(exchange: "logs", type: "fanout");
     
-                var message = GetMessage( args );
-                var body = Encoding.UTF8.GetBytes( message );
-                channel.BasicPublish( exchange: "logs",
-                                      routingKey: "",
-                                      basicProperties: null,
-                                      body: body );
-                Console.WriteLine( " [x] Sent {0}", message );
+                var message = GetMessage(args);
+                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(exchange: "logs",
+                                     routingKey: "",
+                                     basicProperties: null,
+                                     body: body);
+                Console.WriteLine(" [x] Sent {0}", message);
             }
     
-            Console.WriteLine( " Press [enter] to exit." );
+            Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
         }
     
-        private static string GetMessage( string[] args )
+        private static string GetMessage(string[] args)
         {
-            return ( ( args.Length > 0 ) ? string.Join( " ", args ) : "info: Hello World!" );
+            return ((args.Length > 0)
+                   ? string.Join(" ", args)
+                   : "info: Hello World!");
         }
     }
 
@@ -340,9 +334,9 @@ The code for `ReceiveLogs.cs`:
                 channel.ExchangeDeclare(exchange: "logs", type: "fanout");
     
                 var queueName = channel.QueueDeclare().QueueName;
-                channel.QueueBind( queue: queueName,
-                                   exchange: "logs",
-                                   routingKey: "" );
+                channel.QueueBind(queue: queueName,
+                                  exchange: "logs",
+                                  routingKey: "");
     
                 Console.WriteLine(" [*] Waiting for logs.");
                 
@@ -353,9 +347,9 @@ The code for `ReceiveLogs.cs`:
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(" [x] {0}", message);
                 };
-                channel.BasicConsume( queue: queueName,
-                                      noAck: true,
-                                      consumer: consumer );
+                channel.BasicConsume(queue: queueName,
+                                     noAck: true,
+                                     consumer: consumer);
     
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();

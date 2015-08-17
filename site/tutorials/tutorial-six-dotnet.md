@@ -85,10 +85,10 @@ request:
     props.CorrelationId = corrId;
 
     var messageBytes = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish( exchange: "",
-                          routingKey: "rpc_queue",
-                          basicProperties: props,
-                          body: messageBytes );
+    channel.BasicPublish(exchange: "",
+                         routingKey: "rpc_queue",
+                         basicProperties: props,
+                         body: messageBytes);
 
     // ... then code to read a response message from the callback_queue ...
 
@@ -244,16 +244,16 @@ The code for our RPC server [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-t
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())
             {
-                channel.QueueDeclare( queue: "rpc_queue",
-                                      durable: false,
-                                      exclusive: false,
-                                      autoDelete: false,
-                                      arguments: null );
+                channel.QueueDeclare(queue: "rpc_queue",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
                 channel.BasicQos(0, 1, false);
                 var consumer = new QueueingBasicConsumer(channel);
-                channel.BasicConsume( queue: "rpc_queue",
-                                      noAck: false,
-                                      consumer: consumer );
+                channel.BasicConsume(queue: "rpc_queue",
+                                     noAck: false,
+                                     consumer: consumer);
                 Console.WriteLine(" [x] Awaiting RPC requests");
     
                 while(true)
@@ -281,12 +281,12 @@ The code for our RPC server [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-t
                     finally
                     {
                         var responseBytes = Encoding.UTF8.GetBytes(response);
-                        channel.BasicPublish( exchange: "",
-                                              routingKey: props.ReplyTo,
-                                              basicProperties: replyProps,
-                                              body: responseBytes );
-                        channel.BasicAck( deliveryTag: ea.DeliveryTag,
-                                          multiple: false );
+                        channel.BasicPublish(exchange: "",
+                                             routingKey: props.ReplyTo,
+                                             basicProperties: replyProps,
+                                             body: responseBytes);
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag,
+                                         multiple: false);
                     }
                 }
             }
@@ -345,9 +345,9 @@ The code for our RPC client [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-t
             channel = connection.CreateModel();
             replyQueueName = channel.QueueDeclare().QueueName;
             consumer = new QueueingBasicConsumer(channel);
-            channel.BasicConsume( queue: replyQueueName,
-                                  noAck: true,
-                                  consumer: consumer );
+            channel.BasicConsume(queue: replyQueueName,
+                                 noAck: true,
+                                 consumer: consumer);
         }
     
         public string Call(string message)
@@ -358,10 +358,10 @@ The code for our RPC client [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-t
             props.CorrelationId = corrId;
     
             var messageBytes = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish( exchange: "",
-                                  routingKey: "rpc_queue",
-                                  basicProperties: props,
-                                  body: messageBytes );
+            channel.BasicPublish(exchange: "",
+                                 routingKey: "rpc_queue",
+                                 basicProperties: props,
+                                 body: messageBytes);
     
             while(true)
             {

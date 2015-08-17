@@ -165,25 +165,25 @@ The code for `EmitLogTopic.cs`:
     
     class EmitLogTopic
     {
-        public static void Main( string[] args )
+        public static void Main(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using( var connection = factory.CreateConnection() )
-            using( var channel = connection.CreateModel() )
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                channel.ExchangeDeclare( exchange: "topic_logs",
-                                         type: "topic" );
+                channel.ExchangeDeclare(exchange: "topic_logs",
+                                        type: "topic");
     
-                var routingKey = ( args.Length > 0 ) ? args[0] : "anonymous.info";
-                var message = ( args.Length > 1 )
-                              ? string.Join( " ", args.Skip( 1 ).ToArray() )
+                var routingKey = (args.Length > 0) ? args[0] : "anonymous.info";
+                var message = (args.Length > 1)
+                              ? string.Join(" ", args.Skip( 1 ).ToArray())
                               : "Hello World!";
-                var body = Encoding.UTF8.GetBytes( message );
-                channel.BasicPublish( exchange: "topic_logs",
-                                      routingKey: routingKey,
-                                      basicProperties: null,
-                                      body: body );
-                Console.WriteLine( " [x] Sent '{0}':'{1}'", routingKey, message );
+                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(exchange: "topic_logs",
+                                     routingKey: routingKey,
+                                     basicProperties: null,
+                                     body: body);
+                Console.WriteLine(" [x] Sent '{0}':'{1}'", routingKey, message);
             }
         }
     }
@@ -210,8 +210,8 @@ The code for `ReceiveLogsTopic.cs`:
     
                 if(args.Length < 1)
                 {
-                    Console.Error.WriteLine( "Usage: {0} [binding_key...]",
-                                             Environment.GetCommandLineArgs()[0] );
+                    Console.Error.WriteLine("Usage: {0} [binding_key...]",
+                                            Environment.GetCommandLineArgs()[0]);
                     Console.WriteLine(" Press [enter] to exit.");
                     Console.ReadLine();
                     Environment.ExitCode = 1;
@@ -220,9 +220,9 @@ The code for `ReceiveLogsTopic.cs`:
     
                 foreach(var bindingKey in args)
                 {
-                    channel.QueueBind( queue: queueName,
-                                       exchange: "topic_logs",
-                                       routingKey: bindingKey );
+                    channel.QueueBind(queue: queueName,
+                                      exchange: "topic_logs",
+                                      routingKey: bindingKey);
                 }
     
                 Console.WriteLine(" [*] Waiting for messages. To exit press CTRL+C");
@@ -233,13 +233,13 @@ The code for `ReceiveLogsTopic.cs`:
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     var routingKey = ea.RoutingKey;
-                    Console.WriteLine( " [x] Received '{0}':'{1}'",
-                                       routingKey,
-                                       message );
+                    Console.WriteLine(" [x] Received '{0}':'{1}'",
+                                      routingKey,
+                                      message);
                 };
-                channel.BasicConsume( queue: queueName,
-                                      noAck: true,
-                                      consumer: consumer );
+                channel.BasicConsume(queue: queueName,
+                                     noAck: true,
+                                     consumer: consumer);
     
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();

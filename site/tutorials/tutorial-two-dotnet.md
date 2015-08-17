@@ -76,24 +76,24 @@ program will schedule tasks to our work queue, so let's name it
 `NewTask.cs`:
 
     :::csharp
-    var message = GetMessage( args );
-    var body = Encoding.UTF8.GetBytes( message );
+    var message = GetMessage(args);
+    var body = Encoding.UTF8.GetBytes(message);
 
     var properties = channel.CreateBasicProperties();
-    properties.SetPersistent( true );
+    properties.SetPersistent(true);
 
-    channel.BasicPublish( exchange: "",
-                          routingKey: "task_queue",
-                          basicProperties: properties,
-                          body: body );
+    channel.BasicPublish(exchange: "",
+                         routingKey: "task_queue",
+                         basicProperties: properties,
+                         body: body);
     
 
 Some help to get the message from the command line argument:
 
     :::csharp
-    private static string GetMessage( string[] args )
+    private static string GetMessage(string[] args)
     {
-        return ( ( args.Length > 0 ) ? string.Join( " ", args ) : "Hello World!" );
+        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
     }
 
 
@@ -276,11 +276,11 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
     :::csharp
-    channel.QueueDeclare( queue: "hello",
-                          durable: true,
-                          exclusive: false,
-                          autoDelete: false,
-                          arguments: null );
+    channel.QueueDeclare(queue: "hello",
+                         durable: true,
+                         exclusive: false,
+                         autoDelete: false,
+                         arguments: null);
 
 
 Although this command is correct by itself, it won't work in our present
@@ -291,11 +291,11 @@ that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
     :::csharp
-    channel.QueueDeclare( queue: "task_queue",
-                          durable: true,
-                          exclusive: false,
-                          autoDelete: false,
-                          arguments: null );
+    channel.QueueDeclare(queue: "task_queue",
+                         durable: true,
+                         exclusive: false,
+                         autoDelete: false,
+                         arguments: null);
     
 
 This `queueDeclare` change needs to be applied to both the producer
@@ -387,38 +387,38 @@ Final code of our `NewTask.cs` class:
     
     class NewTask
     {
-        public static void Main( string[] args )
+        public static void Main(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using( var connection = factory.CreateConnection() )
-            using( var channel = connection.CreateModel() )
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                channel.QueueDeclare( queue: "task_queue",
-                                      durable: true,
-                                      exclusive: false,
-                                      autoDelete: false,
-                                      arguments: null );
+                channel.QueueDeclare(queue: "task_queue",
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
     
-                var message = GetMessage( args );
-                var body = Encoding.UTF8.GetBytes( message );
+                var message = GetMessage(args);
+                var body = Encoding.UTF8.GetBytes(message);
     
                 var properties = channel.CreateBasicProperties();
-                properties.SetPersistent( true );
+                properties.SetPersistent(true);
     
-                channel.BasicPublish( exchange: "",
-                                      routingKey: "task_queue",
-                                      basicProperties: properties,
-                                      body: body );
-                Console.WriteLine( " [x] Sent {0}", message );
+                channel.BasicPublish(exchange: "",
+                                     routingKey: "task_queue",
+                                     basicProperties: properties,
+                                     body: body);
+                Console.WriteLine(" [x] Sent {0}", message);
             }
     
-            Console.WriteLine( " Press [enter] to exit." );
+            Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
         }
     
-        private static string GetMessage( string[] args )
+        private static string GetMessage(string[] args)
         {
-            return ( ( args.Length > 0 ) ? string.Join( " ", args ) : "Hello World!" );
+            return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
         }
     }
 
@@ -442,11 +442,11 @@ And our `Worker.cs`:
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())
             {
-                channel.QueueDeclare( queue: "task_queue",
-                                      durable: true,
-                                      exclusive: false,
-                                      autoDelete: false,
-                                      arguments: null );
+                channel.QueueDeclare(queue: "task_queue",
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
     
                 channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
     
@@ -466,9 +466,9 @@ And our `Worker.cs`:
     
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };
-                channel.BasicConsume( queue: "task_queue",
-                                      noAck: false,
-                                      consumer: consumer );
+                channel.BasicConsume(queue: "task_queue",
+                                     noAck: false,
+                                     consumer: consumer);
     
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
