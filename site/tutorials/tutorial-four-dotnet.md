@@ -39,7 +39,9 @@ In previous examples we were already creating bindings. You may recall
 code like:
 
     :::csharp
-    channel.QueueBind(queueName, "direct_logs", "");
+    channel.QueueBind(queue: queueName,
+                      exchange: "logs",
+                      routingKey: "");
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -50,7 +52,9 @@ confusion with a `BasicPublish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
     :::csharp
-    channel.QueueBind(queueName, "direct_logs", "black");
+    channel.QueueBind(queue: queueName,
+                      exchange: "direct_logs",
+                      routingKey: "black");
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -181,13 +185,16 @@ first.
 As always, we need to create an exchange first:
 
     :::csharp
-    channel.ExchangeDeclare("direct_logs", "direct");
+    channel.ExchangeDeclare(exchange: "direct_logs", type: "direct");
 
 And we're ready to send a message:
 
     :::csharp
     var body = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish("direct_logs", severity, null, body);
+    channel.BasicPublish(exchange: "direct_logs",
+                         routingKey: severity,
+                         basicProperties: null,
+                         body: body);
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -204,10 +211,13 @@ we're interested in.
     :::csharp
     var queueName = channel.QueueDeclare().QueueName;
 
-    foreach (var severity in args)
+    foreach(var severity in args)
     {
-        channel.QueueBind(queueName, "direct_logs", severity);
+        channel.QueueBind(queue: queueName,
+                          exchange: "direct_logs",
+                          routingKey: severity);
     }
+
 
 Putting it all together
 -----------------------
@@ -257,46 +267,64 @@ Putting it all together
 The code for `EmitLogDirect.cs` class:
 
     :::csharp
+    using System;
+    using System.Linq;
+    using RabbitMQ.Client;
+    using System.Text;
+    
     class EmitLogDirect
     {
         public static void Main(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                using (var channel = connection.CreateModel())
-                {
-                    channel.ExchangeDeclare("direct_logs", "direct");
+                channel.ExchangeDeclare(exchange: "direct_logs",
+                                        type: "direct");
     
-                    var severity = (args.Length > 0) ? args[0] : "info";
-                    var message = (args.Length > 1)
-                                    ? string.Join(" ", args.Skip(1).ToArray())
-                                    : "Hello World!";
-                    var body = Encoding.UTF8.GetBytes(message);
-                    channel.BasicPublish("direct_logs", severity, null, body);
-                    Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
-                }
+                var severity = (args.Length > 0) ? args[0] : "info";
+                var message = (args.Length > 1)
+                              ? string.Join(" ", args.Skip( 1 ).ToArray())
+                              : "Hello World!";
+                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(exchange: "direct_logs",
+                                     routingKey: severity,
+                                     basicProperties: null,
+                                     body: body);
+                Console.WriteLine(" [x] Sent '{0}':'{1}'", severity, message);
             }
+    
+            Console.WriteLine(" Press [enter] to exit.");
+            Console.ReadLine();
         }
     }
+
 
 The code for `ReceiveLogsDirect.cs`:
 
     :::csharp
+    using System;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using System.Text;
+    
     class ReceiveLogsDirect
     {
-        public static void Main( string[] args )
+        public static void Main(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())
             {
-                channel.ExchangeDeclare(exchange: "direct_logs", type: "direct");
+                channel.ExchangeDeclare(exchange: "direct_logs",
+                                        type: "direct");
                 var queueName = channel.QueueDeclare().QueueName;
     
                 if(args.Length < 1)
                 {
-                    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]", Environment.GetCommandLineArgs()[0]);
+                    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
+                                            Environment.GetCommandLineArgs()[0]);
                     Console.WriteLine(" Press [enter] to exit.");
                     Console.ReadLine();
                     Environment.ExitCode = 1;
@@ -305,7 +333,9 @@ The code for `ReceiveLogsDirect.cs`:
     
                 foreach(var severity in args)
                 {
-                    channel.QueueBind(queue: queueName, exchange: "direct_logs", routingKey: severity);
+                    channel.QueueBind(queue: queueName,
+                                      exchange: "direct_logs",
+                                      routingKey: severity);
                 }
     
                 Console.WriteLine(" [*] Waiting for messages.");
@@ -316,16 +346,18 @@ The code for `ReceiveLogsDirect.cs`:
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     var routingKey = ea.RoutingKey;
-                    Console.WriteLine(" [x] Received '{0}':'{1}'", routingKey, message);
+                    Console.WriteLine(" [x] Received '{0}':'{1}'",
+                                      routingKey, message);
                 };
-                channel.BasicConsume(queue: queueName, noAck: true, consumer: consumer);
+                channel.BasicConsume(queue: queueName,
+                                     noAck: true,
+                                     consumer: consumer);
     
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
             }
         }
     }
-
 
 
 Compile as usual (see [tutorial one](tutorial-one-dotnet.html) for
