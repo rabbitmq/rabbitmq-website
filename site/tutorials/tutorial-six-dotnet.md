@@ -85,7 +85,10 @@ request:
     props.CorrelationId = corrId;
 
     var messageBytes = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish("", "rpc_queue", props, messageBytes);
+    channel.BasicPublish(exchange: "",
+                         routingKey: "rpc_queue",
+                         basicProperties: props,
+                         body: messageBytes);
 
     // ... then code to read a response message from the callback_queue ...
 
@@ -228,60 +231,79 @@ The code for our RPC server [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-t
 
 
     :::csharp
+    using System;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using System.Text;
+    
     class RPCServer
     {
         public static void Main()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
             {
-                using (var channel = connection.CreateModel())
+                channel.QueueDeclare(queue: "rpc_queue",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+                channel.BasicQos(0, 1, false);
+                var consumer = new QueueingBasicConsumer(channel);
+                channel.BasicConsume(queue: "rpc_queue",
+                                     noAck: false,
+                                     consumer: consumer);
+                Console.WriteLine(" [x] Awaiting RPC requests");
+    
+                while(true)
                 {
-                    channel.QueueDeclare("rpc_queue", false, false, false, null);
-                    channel.BasicQos(0, 1, false);
-                    var consumer = new QueueingBasicConsumer(channel);
-                    channel.BasicConsume("rpc_queue", false, consumer);
-                    Console.WriteLine(" [x] Awaiting RPC requests");
-
-                    while (true)
+                    string response = null;
+                    var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+    
+                    var body = ea.Body;
+                    var props = ea.BasicProperties;
+                    var replyProps = channel.CreateBasicProperties();
+                    replyProps.CorrelationId = props.CorrelationId;
+    
+                    try
                     {
-                        string response = null;
-                        var ea =
-                            (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-
-                        var body = ea.Body;
-                        var props = ea.BasicProperties;
-                        var replyProps = channel.CreateBasicProperties();
-                        replyProps.CorrelationId = props.CorrelationId;
-
-                        try
-                        {
-                            var message = Encoding.UTF8.GetString(body);
-                            int n = int.Parse(message);
-                            Console.WriteLine(" [.] fib({0})", message);
-                            response = fib(n).ToString();
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(" [.] " + e.Message);
-                            response = "";
-                        }
-                        finally
-                        {
-                            var responseBytes =
-                                Encoding.UTF8.GetBytes(response);
-                            channel.BasicPublish("", props.ReplyTo, replyProps,
-                                                 responseBytes);
-                            channel.BasicAck(ea.DeliveryTag, false);
-                        }
+                        var message = Encoding.UTF8.GetString(body);
+                        int n = int.Parse(message);
+                        Console.WriteLine(" [.] fib({0})", message);
+                        response = fib(n).ToString();
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(" [.] " + e.Message);
+                        response = "";
+                    }
+                    finally
+                    {
+                        var responseBytes = Encoding.UTF8.GetBytes(response);
+                        channel.BasicPublish(exchange: "",
+                                             routingKey: props.ReplyTo,
+                                             basicProperties: replyProps,
+                                             body: responseBytes);
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag,
+                                         multiple: false);
                     }
                 }
             }
         }
-
+    
+        /// <summary>
+        /// Assumes only valid positive integer input.
+        /// Don't expect this one to work for big numbers,
+        /// and it's probably the slowest recursive implementation possible.
+        /// </summary>
         private static int fib(int n)
         {
-            if (n == 0 || n == 1) return n;
+            if(n == 0 || n == 1)
+            {
+                return n;
+            }
+    
             return fib(n - 1) + fib(n - 2);
         }
     }
@@ -301,59 +323,72 @@ The server code is rather straightforward:
 The code for our RPC client [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient.cs):
 
     :::csharp
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    
     class RPCClient
     {
         private IConnection connection;
         private IModel channel;
         private string replyQueueName;
         private QueueingBasicConsumer consumer;
-
+    
         public RPCClient()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
-            replyQueueName = channel.QueueDeclare();
+            replyQueueName = channel.QueueDeclare().QueueName;
             consumer = new QueueingBasicConsumer(channel);
-            channel.BasicConsume(replyQueueName, true, consumer);
+            channel.BasicConsume(queue: replyQueueName,
+                                 noAck: true,
+                                 consumer: consumer);
         }
-
+    
         public string Call(string message)
         {
             var corrId = Guid.NewGuid().ToString();
             var props = channel.CreateBasicProperties();
             props.ReplyTo = replyQueueName;
             props.CorrelationId = corrId;
-
+    
             var messageBytes = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish("", "rpc_queue", props, messageBytes);
-
-            while (true)
+            channel.BasicPublish(exchange: "",
+                                 routingKey: "rpc_queue",
+                                 basicProperties: props,
+                                 body: messageBytes);
+    
+            while(true)
             {
                 var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-                if (ea.BasicProperties.CorrelationId == corrId)
+                if(ea.BasicProperties.CorrelationId == corrId)
                 {
                     return Encoding.UTF8.GetString(ea.Body);
                 }
             }
         }
-
+    
         public void Close()
         {
             connection.Close();
         }
     }
-
+    
     class RPC
     {
         public static void Main()
         {
             var rpcClient = new RPCClient();
-
+    
             Console.WriteLine(" [x] Requesting fib(30)");
             var response = rpcClient.Call("30");
             Console.WriteLine(" [.] Got '{0}'", response);
-
+    
             rpcClient.Close();
         }
     }

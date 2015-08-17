@@ -4,11 +4,11 @@
 %entities;
 ]>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -72,7 +72,7 @@ limitations under the License.
             automatically enqueues the last value for the binding key.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Maintainer: <b>Simon MacMullen</b></li>
+              <li>Maintainer: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
             </ul>
           </r:plugin>
@@ -134,7 +134,7 @@ limitations under the License.
             by making requests to an HTTP server.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
             </ul>
           </r:plugin>
@@ -144,7 +144,7 @@ limitations under the License.
             authentication and authorisation over AMQP itself.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
             </ul>
           </r:plugin>
@@ -169,7 +169,7 @@ limitations under the License.
             management plugin.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
             </ul>
           </r:plugin>
@@ -179,7 +179,7 @@ limitations under the License.
             management API using AMQP rather than HTTP.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
             </ul>
           </r:plugin>
@@ -190,7 +190,7 @@ limitations under the License.
             users, connections and so on are created and deleted.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-event-exchange">rabbitmq/rabbitmq-event-exchange</a></li>
             </ul>
           </r:plugin>
@@ -200,18 +200,8 @@ limitations under the License.
             look.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Simon MacMullen</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
-            </ul>
-          </r:plugin>
-
-          <r:plugin name="autocluster">
-            Adds the possibility to automatically cluster RabbitMQ nodes
-            using Consul, etcd2 or DNS for service discovery.
-            <ul>
-              <li><r:community-plugin-link/></li>
-              <li>Author: <b>Gavin M. Roy</b></li>
-              <li>Github: <a href="https://github.com/aweber/rabbitmq-autocluster">aweber/rabbitmq-autocluster</a></li>
             </ul>
           </r:plugin>
 
@@ -225,13 +215,28 @@ limitations under the License.
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
             </ul>
           </r:plugin>
+        </table>
+      </doc:section>
+
+      <doc:section name="distributed">
+        <doc:heading>Clustering and Distributed RabbitMQ</doc:heading>
+        <table class="plugins">
+          <r:plugin name="autocluster">
+            Adds the possibility to automatically cluster RabbitMQ nodes
+            using Consul, etcd or DNS for service discovery.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Gavin M. Roy</b></li>
+              <li>Github: <a href="https://github.com/aweber/rabbitmq-autocluster">aweber/rabbitmq-autocluster</a></li>
+            </ul>
+          </r:plugin>
 
           <r:plugin name="rabbitmq_clusterer">
             Provides an alternative mean for creating and maintaining
             clusters of Rabbits.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>Michael Klishin</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
             </ul>
           </r:plugin>
