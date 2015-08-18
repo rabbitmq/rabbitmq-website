@@ -55,9 +55,6 @@ limitations under the License.
           <li>
             <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
           </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/python">Python</a> (using <a href="https://github.com/pika/pika/">pika</a>)
-          </li>
         </ul>
       </p>
       <p>
