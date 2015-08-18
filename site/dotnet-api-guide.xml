@@ -306,11 +306,11 @@ if (result == null) {
 
 <pre class="sourcecode">
 var consumer = new EventingBasicConsumer(channel);
-consumer.Received += (model, ea) =>
+consumer.Received += (ch, ea) =>
                 {
                     var body = ea.Body;
                     // ... process the message
-                    channel.BasicAck(ea.DeliveryTag, false);
+                    ch.BasicAck(ea.DeliveryTag, false);
                 };  
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
