@@ -301,44 +301,36 @@ if (result == null) {
             proactively.
 
             One way to implement a consumer is to use the
-            convenience class <code>QueueingBasicConsumer</code>, and retrieve
-            deliveries from the <code>SharedQueue</code> instance contained therein:
+            convenience class <code>EventingBasicConsumer</code>, which dispatches
+            deliveries and other consumer lifecycle events as C# events:
 
 <pre class="sourcecode">
-QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
+                {
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    byte[] body = ea.Body;
+                    // ... process the message
+                    channel.BasicAck(ea.DeliveryTag, false);
+                };  
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
-while (true) {
-    try {
-        RabbitMQ.Client.Events.BasicDeliverEventArgs e =
-          (RabbitMQ.Client.Events.BasicDeliverEventArgs)
-          consumer.Queue.Dequeue();
-        IBasicProperties props = e.BasicProperties;
-        byte[] body = e.Body;
-        // ... process the message
-        channel.BasicAck(e.DeliveryTag, false);
-    } catch (OperationInterruptedException ex) {
-        // The consumer was removed, either through
-        // channel or connection closure, or through the
-        // action of IModel.BasicCancel().
-        break;
-    }
-}
 </pre>
 
-Another alternative is to subclass <code>DefaultBasicConsumer</code>,
-overriding methods as necessary, or implement <code>IBasicConsumer</code>
-directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
+            Another option is to subclass <code>DefaultBasicConsumer</code>,
+            overriding methods as necessary, or implement <code>IBasicConsumer</code>
+            directly. You will generally want to implement the core method <code>IBasicConsumer.HandleBasicDeliver</code>.
 
-More sophisticated consumers will need to implement further
-methods. In particular, <code>HandleModelShutdown</code> traps
-channel/connection closure. Consumers can also implement <code>
-HandleBasicCancelOk</code> to be notified of cancellations.
+            More sophisticated consumers will need to implement further
+            methods. In particular, <code>HandleModelShutdown</code> traps
+            channel/connection closure. Consumers can also implement <code>
+            HandleBasicCancelOk</code> to be notified of cancellations.
 
-The <code>ConsumerTag</code> property of <code>DefaultBasicConsumer</code> can be
-used to retrieve the server-generated consumer tag, in cases where
-none was supplied to the original <code>IModel.BasicConsume</code> call.
+            The <code>ConsumerTag</code> property of <code>DefaultBasicConsumer</code> can be
+            used to retrieve the server-generated consumer tag, in cases where
+            none was supplied to the original <code>IModel.BasicConsume</code> call.
 
-You can cancel an active consumer with <code>IModel.BasicCancel</code>:
+            You can cancel an active consumer with <code>IModel.BasicCancel</code>:
 
 <pre class="sourcecode">
 channel.BasicCancel(consumerTag);
