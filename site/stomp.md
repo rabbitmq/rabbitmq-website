@@ -482,6 +482,25 @@ It is not permitted to set a `message-id` header on a `SEND` frame.
 The header and its value is set by the server on a `MESSAGE` frame sent
 to a client.
 
+### Queue properties
+
+SEND and SUBSCRIBE frames accepts a set of headers to configure the queue behaviour:
+
+ * [x-message-ttl](/ttl.html#per-message-ttl) 
+ * [x-expires](/ttl.html#queue-ttl) 
+ * [x-max-length](/maxlength.html) 
+ * [x-max-length-bytes](/maxlength.html) 
+ * [x-dead-letter-exchange](/dlx.html) 
+ * [x-dead-letter-routing-key](/dlx.html) 
+ * [x-max-priority](/priority.html) 
+
+For example, if you want to set the maximum priority value for a queue, you 
+can SUBSCRIBE (or SEND) with the following header:
+
+    SUBSCRIBE
+    destination:/direct/my-priority-queue
+    x-max-priority:5
+
 ### <a id="pear.ap"/>AMQP Properties
 
 `SEND` frames also allow headers corresponding to the *AMQP properties*
