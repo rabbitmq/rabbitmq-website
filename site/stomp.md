@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -482,32 +482,13 @@ It is not permitted to set a `message-id` header on a `SEND` frame.
 The header and its value is set by the server on a `MESSAGE` frame sent
 to a client.
 
-### Queue properties
-
-SEND and SUBSCRIBE frames accepts a set of headers to configure the queue behaviour:
-
- * [x-message-ttl](/ttl.html#per-message-ttl) 
- * [x-expires](/ttl.html#queue-ttl) 
- * [x-max-length](/maxlength.html) 
- * [x-max-length-bytes](/maxlength.html) 
- * [x-dead-letter-exchange](/dlx.html) 
- * [x-dead-letter-routing-key](/dlx.html) 
- * [x-max-priority](/priority.html) 
-
-For example, if you want to set the maximum priority value for a queue, you 
-can SUBSCRIBE (or SEND) with the following header:
-
-    SUBSCRIBE
-    destination:/direct/my-priority-queue
-    x-max-priority:5
-
-### <a id="pear.ap"/>AMQP Properties
+### <a id="pear.ap"/>Queue Properties
 
 `SEND` frames also allow headers corresponding to the *AMQP properties*
 available when publishing messages. These headers are also set on
 `MESSAGE` frames sent to clients.
 
-All non-deprecated AMQP properties (`content-type`,
+All non-deprecated AMQP 0-9-1 properties (`content-type`,
 `content-encoding`, `headers`, `delivery-mode`, `priority`,
 `correlation-id`, `reply-to`, `expiration`, `message-id`, `timestamp`,
 `type`, `user-id` and `app-id`) are supported. The following special
@@ -517,5 +498,34 @@ rules apply:
   vice-versa.
 * The `reply-to` header causes temporary queues to be created (see
   [Temp Queue Destinations](#d.tqd) above).
-* All unrecognised STOMP headers are inserted into the AMQP `headers`
-  property.
+* Some x-prefixed STOMP headers are translated into optional queue arguments
+  (see below).
+
+
+### Optional Queue Properties
+
+As of RabbitMQ 3.5.5, SEND and SUBSCRIBE frames accepts a set of headers to configure the queue behaviour,
+for example, use [TTL](/ttl.html) or similar extensions.
+
+The list of supported headers is
+
+ * [x-message-ttl](/ttl.html#per-message-ttl)
+ * [x-expires](/ttl.html#queue-ttl)
+ * [x-max-length](/maxlength.html)
+ * [x-max-length-bytes](/maxlength.html)
+ * [x-dead-letter-exchange](/dlx.html)
+ * [x-dead-letter-routing-key](/dlx.html)
+ * [x-max-priority](/priority.html)
+
+For example, if you want to use priority queues with STOMP, you
+can SUBSCRIBE (or SEND) with the following header:
+
+    SUBSCRIBE
+    destination:/direct/my-priority-queue
+    x-max-priority:5
+
+### Queue Immutability
+
+Once a queue is declared, its properties cannot be changed. Optional arguments
+can be modified with [policies](/parameters.html). Otherwise the queue has to be deleted
+and re-declared. This is true for STOMP clients as well as AMQP 0-9-1.
