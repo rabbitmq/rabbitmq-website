@@ -48,7 +48,7 @@ limitations under the License.
         <li><a href="/clustering.html">Auto-configuration of a cluster</a> (part of RabbitMQ core)</li>
         <li>
           <a href="https://github.com/aweber/rabbitmq-autocluster">rabbitmq-autocluster</a>: forms
-          clusters using round-robin DNS (e.g. <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">with Route 53</a>), <a href="https://www.consul.io/">Consule</a> or <a href="https://github.com/coreos/etcd">etcd</a>.
+          clusters using round-robin DNS (e.g. <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html">with Route 53</a>), <a href="https://www.consul.io/">Consul</a> or <a href="https://github.com/coreos/etcd">etcd</a>.
         </li>
         <li>
           <a href="http://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq-clusterer</a>, a declarative clustering
