@@ -192,19 +192,18 @@ Cluster status of node rabbit@smacmullen ...
     <p>
       In pause-if-all-down mode, RabbitMQ will automatically pause
       cluster nodes which cannot reach any of the listed nodes. In
-      other words, all the listed nodes must be down for RabbitMQ
-      to pause a cluster node. This is close to the pause-minority
-      mode, however, it allows an administrator to decide which nodes
-      to prefer, instead of relying on the context. For instance,
-      if the cluster is made of two nodes in datacenter A and two
-      nodes in datacenter B, and the link between datacenters is lost,
-      pause-minority mode will pause all nodes. In pause-if-all-down
-      mode, if the administrator listed the two nodes in datacenter A,
-      only nodes in datacenter B will pause. Note that it is possible
-      the listed nodes get split across both sides of a partition:
-      in this situation, no node will pause. That is why there is an
-      additional <i>ignore</i>/<i>autoheal</i> argument to indicate how
-      to recover from the partition.
+      other words, all the listed nodes must be down for RabbitMQ to
+      pause a cluster node. This is close to the pause-minority mode,
+      however, it allows an administrator to decide which nodes to
+      prefer, instead of relying on the context. For instance, if the
+      cluster is made of two nodes in rack A and two nodes in rack B,
+      and the link between racks is lost, pause-minority mode will pause
+      all nodes. In pause-if-all-down mode, if the administrator listed
+      the two nodes in rack A, only nodes in rack B will pause. Note
+      that it is possible the listed nodes get split across both sides
+      of a partition: in this situation, no node will pause. That is why
+      there is an additional <i>ignore</i>/<i>autoheal</i> argument to
+      indicate how to recover from the partition.
     </p>
 
     <p>
