@@ -134,6 +134,17 @@ port to 12345 would look like:
       {rabbitmq_web_stomp, [{port, 12345}]}
     ].
 
+This is a shorthand for the following:
+
+    [
+      {rabbitmq_web_stomp,
+          [{tcp_config, [{port, 12345}]}]}
+    ].
+
+You can use the `tcp_config` section to specify any TCP option you need.
+When both a `port` and a `tcp_config` sections exist, the plugin will
+use the former as a port number, ignoring the one in `tcp_config`.
+
 In addition, encrypted connections are supported if SSL configuration parameters are
 provided in the `ssl_config` section:
 
@@ -149,6 +160,17 @@ provided in the `ssl_config` section:
 
 Note that port, certfile, keyfile and password are all mandatory. See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
+
+RabbitMQ-Web-Stomp uses the Cowboy web server under the hood.
+Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
+that can be used to customize the behavior of the server. You
+can specify those in the Web-Stomp plugin documentation, in
+the `cowboy_opts` section:
+
+    [
+      {rabbitmq_web_stomp,
+          [{cowboy_opts, [{max_keepalive, 10}]}]}
+    ].
 
 ## <a id="missing"/>Missing features
 
