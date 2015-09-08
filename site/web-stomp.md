@@ -51,9 +51,9 @@ library is required. We've tested a
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
 [This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
-is included as part of RabbitMQ-Web-Stomp-Examples.
+is included as part of RabbitMQ Web STOMP examples.
 
-By default the Web-Stomp plugin exposes both a WebSocket and a
+By default the Web STOMP plugin exposes both a WebSocket and a
 SockJS endpoint on port 15674. The WebSocket endpoint is available
 on the `/ws` path:
 
@@ -98,10 +98,10 @@ connection with the broker:
         [...]
 
 
-## <a id="examples"/>Examples (RabbitMQ-Web-Stomp-Examples)
+## <a id="examples"/>Web STOMP Examples
 
 A few simple Web-Stomp examples are provided as a
-[RabbitMQ-Web-Stomp-Examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
+[RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
 plugin. To get it running follow the installation instructions above
 and enable the plugin:
 
@@ -161,7 +161,7 @@ provided in the `ssl_config` section:
 Note that port, certfile, keyfile and password are all mandatory. See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
 
-RabbitMQ-Web-Stomp uses the Cowboy web server under the hood.
+The Web STOMP uses the Cowboy web server under the hood.
 Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server. You
 can specify those in the Web-Stomp plugin documentation, in
