@@ -86,8 +86,7 @@ program will schedule tasks to our work queue, so let's name it
         DeliveryMode: amqp.Persistent,
         ContentType:  "text/plain",
         Body:         []byte(body),
-      }
-    )
+      })
     failOnError(err, "Failed to publish a message")
     log.Printf(" [x] Sent %s", body)
 
@@ -330,8 +329,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
         DeliveryMode: amqp.Persistent,
         ContentType:  "text/plain",
         Body:         []byte(body),
-      }
-    )
+      })
 
 > #### Note on message persistence
 >
