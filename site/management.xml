@@ -4,11 +4,11 @@
 %entities;
 ]>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -416,7 +416,7 @@ limitations under the License.
           </p>
           <pre class="example">[
   ...
-  {rabbitmq_management, 
+  {rabbitmq_management,
     %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
     [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
      {basic,    [{605, 5}, {3600, 60}]},
@@ -472,5 +472,23 @@ ProxyPass        /    http://localhost:15672/
 ProxyPassReverse /    http://localhost:15672/</pre>
         </p>
       </doc:section>
+
+      <doc:section name="stats-db">
+        <doc:heading>Restart Statistics Database</doc:heading>
+
+        <p>
+          Statistics database is stored entirely in memory. All of its contents
+          is transient and should be treated as such.
+
+          It is possible to restart stats database process, for example,
+          to make it move to another node.
+
+<pre class="example">
+rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
+</pre>
+        </p>
+      </doc:section>
+
+
   </body>
 </html>
