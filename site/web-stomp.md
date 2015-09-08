@@ -63,13 +63,25 @@ The SockJS endpoint on the `/stomp` prefix:
 
     http://127.0.0.1:15674/stomp
 
+The SockJS endpoint is provided for compatibility purposes with
+older browsers that do not implement Websocket. It has two
+limitations because of SockJS:
+
+ *  Stomp heart-beats are disabled
+ *  Messages must be encoded using UTF-8
+
+The raw Websocket endpoint was created to provide an alternative
+that does not have these limitations. On the other hand, this
+endpoint will only work with Websocket capable clients. Note that
+some configuration is necessary in order to accept binary messages.
+
 In order to establish connection from the browser using WebSocket
 you may use code like:
 
     <script src="stomp.js"></script>
     <script>
 
-        var ws = new WebSocket('ws://127.0.0.1:15674/stomp');
+        var ws = new WebSocket('ws://127.0.0.1:15674/ws');
         var client = Stomp.over(ws);
         [...]
 
@@ -160,6 +172,15 @@ provided in the `ssl_config` section:
 
 Note that port, certfile, keyfile and password are all mandatory. See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
+
+By default, the Web STOMP plugin will expect to handle messages
+encoded as UTF-8. This cannot be changed for the SockJS endpoint,
+however you can switch the Websocket endpoint to binary if needed.
+The `ws_frame` option serves this purpose:
+
+    [
+      {rabbitmq_web_stomp, [{ws_frame, binary}]}
+    ].
 
 The Web STOMP uses the Cowboy web server under the hood.
 Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
