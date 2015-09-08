@@ -63,6 +63,17 @@ The SockJS endpoint on the `/stomp` prefix:
 
     http://127.0.0.1:15674/stomp
 
+The SockJS endpoint is provided for compatibility purposes with
+older browsers that do not implement Websocket. It has two
+limitations because of SockJS:
+
+ *  Stomp heart-beats are disabled
+ *  Messages must be encoded using UTF-8
+
+The raw Websocket endpoint was created to provide an alternative
+that does not have these limitations. On the other hand, this
+endpoint will only work with Websocket capable clients.
+
 In order to establish connection from the browser using WebSocket
 you may use code like:
 
