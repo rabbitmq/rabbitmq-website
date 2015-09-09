@@ -193,6 +193,17 @@ the `cowboy_opts` section:
           [{cowboy_opts, [{max_keepalive, 10}]}]}
     ].
 
+The SockJS endpoint can also be configured further in the
+`sockjs_opts` section of the configuration. Look into the
+SockJS-erlang repository for a detailed [list of options](https://github.com/rabbitmq/sockjs-erlang#sockjs-erlang-api)
+you can use. For example, to use a different SockJS client
+version, you can use the following configuration:
+
+    [
+      {rabbitmq_web_stomp,
+          [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
+    ].
+
 ## <a id="missing"/>Missing features
 
 RabbitMQ-Web-Stomp is fully compatible with the
