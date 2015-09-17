@@ -26,7 +26,10 @@ RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec)
 * TLS/SSL
 * Session stickiness
 
-MQTT clients can interoperate with other protocols and 
+MQTT clients can interoperate with other protocols. All the functionality in
+the [management UI](/management.html) and several other clients can be
+used with MQTT, although there may be some limitations or the need to
+tweak the defaults.
 
 ## <a id="ifb"/>Enabling the Plugin
 
