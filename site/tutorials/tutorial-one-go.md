@@ -198,8 +198,7 @@ to the queue:
       amqp.Publishing {
         ContentType: "text/plain",
         Body:        []byte(body),
-      }
-    )
+      })
     failOnError(err, "Failed to publish a message")
 
 Declaring a queue is idempotent - it will only be created if it doesn't
