@@ -79,7 +79,7 @@ the same machine; indeed in most applications they don't.
 
 Hello World!
 ------------
-### (using the pika 0.9.8 Python client)
+### (using the pika 0.10.0 Python client)
 
 Our "Hello world" won't be too complex &#8210; let's send a message, receive
 it and print it on the screen. To do so we need two programs: one that
@@ -128,7 +128,7 @@ messages from that queue.
 > you can use the [`pip`](http://pip.openplans.org/) package management tool:
 >
 >     :::bash
->     $ sudo pip install pika==0.9.8
+>     $ sudo pip install pika==0.10.0
 >
 > The installation depends on `pip` and `git-core` packages, you may
 > need to install them first.
@@ -149,7 +149,7 @@ messages from that queue.
 >
 >         :::bash
 >         > easy_install pip
->         > pip install pika==0.9.8
+>         > pip install pika==0.10.0
 >
 
 ### Sending
