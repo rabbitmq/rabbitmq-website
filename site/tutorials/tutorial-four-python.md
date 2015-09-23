@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Routing SUPPRESS-RHS
 
 ## Routing
-### (using the pika 0.9.8 Python client)
+### (using the pika 0.10.0 Python client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
