@@ -27,7 +27,7 @@ limitations under the License.
 <!ENTITY standalone-otp-version "17.5">
 
 <!ENTITY serverDebMinorVersion "3">
-<!ENTITY serverRPMMinorVersion "1">
+<!ENTITY serverRPMMinorVersion "3">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
 
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
