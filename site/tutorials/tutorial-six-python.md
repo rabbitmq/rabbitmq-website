@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Remote procedure call (RPC) SUPPRESS-RHS
 
 ## Remote procedure call (RPC)
-### (using the pika 0.9.8 Python client)
+### (using the pika 0.10.0 Python client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
