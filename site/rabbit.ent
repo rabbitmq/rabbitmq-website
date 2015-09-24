@@ -26,7 +26,7 @@ limitations under the License.
 <!ENTITY version-server-tag "rabbitmq_v3_5_5">
 <!ENTITY standalone-otp-version "17.5">
 
-<!ENTITY serverDebMinorVersion "1">
+<!ENTITY serverDebMinorVersion "3">
 <!ENTITY serverRPMMinorVersion "1">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
 
