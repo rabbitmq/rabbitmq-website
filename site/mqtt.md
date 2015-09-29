@@ -195,8 +195,8 @@ Note that:
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
-parameter, so the value `1800000` means 30 minutes. To disable the TTL feature, just comment or remove 
-the `subscription_ttl` line from the configuration file:
+parameter, so the value `1800000` means 30 minutes. To disable the TTL feature, just set
+the `subscription_ttl`  to `undefined` in the configuration file:
 
     [{rabbit,        [{tcp_listeners,    [5672]}]},
      {rabbitmq_mqtt, [{default_user,     <<"guest">>},
@@ -204,7 +204,7 @@ the `subscription_ttl` line from the configuration file:
                       {allow_anonymous,  true},
                       {vhost,            <<"/">>},
                       {exchange,         <<"amq.topic">>},
-                      %% {subscription_ttl, 1800000},
+                      {subscription_ttl, undefined},
                       {prefetch,         10},
                       ...
     ].
