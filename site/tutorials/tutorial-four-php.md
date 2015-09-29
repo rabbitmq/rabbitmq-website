@@ -256,10 +256,10 @@ The code for `emit_log_direct.php` class:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->exchange_declare('direct_logs', 'direct', false, false, false);
@@ -287,9 +287,9 @@ The code for `receive_logs_direct.php`:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->exchange_declare('direct_logs', 'direct', false, false, false);
