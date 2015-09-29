@@ -147,13 +147,13 @@ we need to include the library and `use` the necessary classes:
 
     :::php
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
 then we can create a connection to the server:
 
     :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
 The connection abstracts the socket connection, and takes care of
@@ -216,14 +216,14 @@ The code (in [`receive.php`](https://github.com/rabbitmq/rabbitmq-tutorials/blob
 
     :::php
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
 
 Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
     :::php
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->queue_declare('hello', false, false, false, false);

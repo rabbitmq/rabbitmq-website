@@ -159,10 +159,10 @@ The code for `emit_log_topic.php`:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
 
@@ -190,9 +190,9 @@ The code for `receive_logs_topic.php`:
     <?php
 
     require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Connection\AMQPConnection;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
     $channel = $connection->channel();
 
     $channel->exchange_declare('topic_logs', 'topic', false, false, false);
