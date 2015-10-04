@@ -49,14 +49,14 @@ limitations under the License.
       node is unable to contact it for a minute or so (see the page
       on <a href="nettick.html">net_ticktime</a>). If two nodes come back into
       contact, both having thought the other is down, Mnesia will
-      determine that a partition has occured. This will be written to
+      determine that a partition has occurred. This will be written to
       the RabbitMQ log in a form like:
     </p>
     <pre>=ERROR REPORT==== 15-Oct-2012::18:02:30 ===
 Mnesia(rabbit@smacmullen): ** ERROR ** mnesia_event got
     {inconsistent_database, running_partitioned_network, hare@smacmullen}</pre>
     <p>
-      RabbitMQ nodes will record whether this event has ever occured
+      RabbitMQ nodes will record whether this event has ever occurred
       while the node is up, and expose this information
       through <code>rabbitmqctl cluster_status</code> and the
       management plugin.
@@ -72,7 +72,7 @@ Cluster status of node rabbit@smacmullen ...
  {partitions,[]}]
 ...done.</pre>
     <p>
-      However, if a network partition has occured then information
+      However, if a network partition has occurred then information
       about partitions will appear there:
     </p>
     <pre># rabbitmqctl cluster_status
@@ -87,7 +87,7 @@ Cluster status of node rabbit@smacmullen ...
       information for each node under <code>partitions</code>
       in <code>/api/nodes</code>. The management plugin UI will show a
       large red warning on the overview page if a partition has
-      occured.
+      occurred.
     </p>
     </doc:section>
 
@@ -150,7 +150,7 @@ Cluster status of node rabbit@smacmullen ...
       To recover from a network partition, first choose one partition
       which you trust the most. This partition will become the
       authority for the state of Mnesia to use; any changes which have
-      occured on other partitions will be lost.
+      occurred on other partitions will be lost.
     </p>
     <p>
       Stop all nodes in the other partitions, then start them all up
