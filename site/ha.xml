@@ -390,7 +390,7 @@ limitations under the License.
           manually or automatically. If a queue is set to
           automatically synchronise it will synchronise whenever a new
           slave joins - becoming unresponsive until it has done so. <a
-          href="sync-since-3-6-0">Since RabbitMQ 3.6.0, this has been
+          href="#sync-since-3-6-0">Since RabbitMQ 3.6.0, this has been
           improved.</a>
         </p>
 
@@ -407,7 +407,7 @@ limitations under the License.
           since RabbitMQ 3.6.0 we can tell masters to synchronise
           messages in batches. To do so, set the
           <code>ha-sync-batch-size</code> policy key to an integer
-          value that fits your <a href="sync-batch-size">particular
+          value that fits your <a href="#sync-batch-size">particular
           workload</a>. If <code>ha-sync-batch-size</code> is not
           specified, then a value of <code>1</code> is assumed.
         </p>
