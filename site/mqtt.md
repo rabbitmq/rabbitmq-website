@@ -196,7 +196,19 @@ Note that:
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
-parameter, so the value `1800000` means 30 minutes.
+parameter, so the value `1800000` means 30 minutes. To disable the TTL feature, just set
+the `subscription_ttl`  to `undefined` in the configuration file:
+
+    [{rabbit,        [{tcp_listeners,    [5672]}]},
+     {rabbitmq_mqtt, [{default_user,     <<"guest">>},
+                      {default_pass,     <<"guest">>},
+                      {allow_anonymous,  true},
+                      {vhost,            <<"/">>},
+                      {exchange,         <<"amq.topic">>},
+                      {subscription_ttl, undefined},
+                      {prefetch,         10},
+                      ...
+    ].
 
 The `prefetch` option controls the maximum number of unacknowledged messages that
 will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)

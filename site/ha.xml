@@ -157,7 +157,7 @@ limitations under the License.
           new policy. In order to prevent message loss, RabbitMQ will
           keep the existing master around until at least one other
           slave has synchronised (even if this is a long
-          time). However, once synchronisation has occured things will
+          time). However, once synchronisation has occurred things will
           proceed just as if the node had failed: consumers will be
           disconnected from the master and will need to reconnect.
         </p>
@@ -360,7 +360,7 @@ limitations under the License.
           messages, will shrink until eventually the slave's contents
           precisely match the master's contents. At this point, the
           slave can be considered fully synchronised, but it is
-          important to note that this has occured because of actions
+          important to note that this has occurred because of actions
           of clients in terms of draining the pre-existing head of the
           queue.
         </p>

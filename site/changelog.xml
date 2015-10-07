@@ -18,7 +18,7 @@ limitations under the License.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
-  <head><title>Server Changelog</title></head>
+  <head><title>RabbitMQ Changelog</title></head>
 
   <body>
     <table id="changelog">
@@ -28,6 +28,18 @@ limitations under the License.
         <th>Highlights</th>
         <th class="centre">Changes</th>
       </tr>
+
+      <tr>
+        <td class="centre">3.5.6</td>
+        <td class="centre">7 October 2015</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li>Usability improvements</li>            
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_6">(changes)</a></td>
+      </tr>      
 
       <tr>
         <td class="centre">3.5.5</td>
