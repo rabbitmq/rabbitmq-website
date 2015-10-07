@@ -15,19 +15,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!ENTITY version-java-client "3.5.5">
-<!ENTITY version-dotnet-client "3.5.5">
-<!ENTITY version-server "3.5.5">
-<!ENTITY version-erlang-client "3.5.5">
+<!ENTITY version-java-client "3.5.6">
+<!ENTITY version-dotnet-client "3.5.6">
+<!ENTITY version-server "3.5.6">
+<!ENTITY version-erlang-client "3.5.6">
 <!--
   Note, the following entity should contain underscores not dots, like
   rabbitmq_vX_Y_Z for version X.Y.Z.
 -->
-<!ENTITY version-server-tag "rabbitmq_v3_5_5">
+<!ENTITY version-server-tag "rabbitmq_v3_5_6">
 <!ENTITY standalone-otp-version "17.5">
 
-<!ENTITY serverDebMinorVersion "3">
-<!ENTITY serverRPMMinorVersion "3">
+<!ENTITY serverDebMinorVersion "1">
+<!ENTITY serverRPMMinorVersion "1">
 <!ENTITY dir-server "rabbitmq-server/v&version-server;">
 
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
