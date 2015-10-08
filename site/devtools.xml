@@ -471,6 +471,16 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+          <doc:section name="protocol-analysis">
+            <doc:heading>AMQP Protocol Analysis</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="amqp-wireshark.html">Wireshark</a> is the world's foremost
+                network protocol analyzer. It lets you see what's happening on your
+                network at a microscopic level.
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="miscellaneous">
             <doc:heading>Miscellaneous</doc:heading>
             <ul class="plain">
