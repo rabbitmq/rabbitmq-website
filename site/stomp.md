@@ -393,6 +393,16 @@ Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
 reply queues.
 
+### <a id="d.ugqn"/>User generated queue names for Topic and Exchange destinations
+
+When subscribing to an /exchange or /topic destination, RabbitMQ generates the 
+queue names for the user. From version 3.5.7, is it possible to override the 
+server generated queue names passing the `x-queue-name` extended header:
+
+    SUBSCRIBE
+    destination:/topic/alarms
+    x-queue-name:my-alarms-queue
+
 ## Using Policies with STOMP
 
 RabbitMQ [policies](https://www.rabbitmq.com/parameters.html#policies) allow for flexible,
@@ -521,7 +531,7 @@ For example, if you want to use priority queues with STOMP, you
 can SUBSCRIBE (or SEND) with the following header:
 
     SUBSCRIBE
-    destination:/direct/my-priority-queue
+    destination:/queue/my-priority-queue
     x-max-priority:5
 
 ### Queue Immutability
