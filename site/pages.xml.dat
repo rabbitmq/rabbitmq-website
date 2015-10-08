@@ -183,6 +183,7 @@ limitations under the License.
        <x:page url="/amqp-0-9-1-reference.html" text="Full Reference"/>
        <x:page url="/amqp-0-9-1-errata.html" text="Errata"/>
        <x:page url="/amqp-0-8-to-0-9-1.html" text="Differences from AMQP 0-8 to 0-9-1"/>
+       <x:page url="/amqp-wireshark.html" text="Traffic Analyzer"/>
        <x:related url="/tutorials/amqp-concepts.html"/>
      </x:page>
      <x:page url="/extensions.html" text="Our Extensions">
