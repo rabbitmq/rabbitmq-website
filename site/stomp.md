@@ -387,7 +387,7 @@ destinations in the `destination` header. Messages cannot be sent to
 `/temp-queue` destinations, and subscriptions to reply queues are
 created automatically.
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 
 Each `/temp-queue/` corresponds to a distinct anonymous, exclusive,
 auto delete queue. As such, there is no need for explicit clean up of
@@ -395,9 +395,9 @@ reply queues.
 
 ### <a id="d.ugqn"/>User generated queue names for Topic and Exchange destinations
 
-When subscribing to an /exchange or /topic destination, RabbitMQ generates the 
-queue names for the user. From version 3.5.7, is it possible to override the 
-server generated queue names passing the `x-queue-name` extended header:
+When subscribing to an `exchange` or `topic` destination, RabbitMQ would generate
+a queue name by default. Starting with version 3.5.7, is it possible to provide
+a custom name using the `x-queue-name` header:
 
     SUBSCRIBE
     destination:/topic/alarms
