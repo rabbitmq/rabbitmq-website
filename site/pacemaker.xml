@@ -1,10 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
@@ -24,10 +24,10 @@ limitations under the License.
   </head>
   <body>
     <p class="warning">
-      This page documents a legacy technique for achieving
+      This page documents a technique for achieving
       active-passive high availability with
-      RabbitMQ. <a href="ha.html">Active-active mirrored queues</a>
-      are easier to use and do not impose a delay at failover.
+      RabbitMQ. <a href="ha.html">Mirrored queues</a>
+      can be easier to use and do not impose a delay at failover.
     </p>
       <doc:section name="introduction">
         <p>There are many forms of high availability, replication and
@@ -538,6 +538,56 @@ ha-node-3:~#
         should transfer over to the passive node, Rabbit will start
         up, and will successfully reconnect back into the cluster.</p>
       </doc:section>
+
+      <doc:section name="auto-pacemaker">
+        <doc:heading>Auto-configuration of a cluster with a Pacemaker</doc:heading>
+        <p>
+          Another option to configure clusters "on the fly" is
+          <a href="http://www.linux-ha.org/wiki/Resource_agents">Pacemaker resource agents</a>.
+          The OCF scripts for the cluster resource agents are located at
+          <code>/usr/lib/ocf/resource.d/rabbitmq/</code>. The first one
+          <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server</code>
+          is a generic init-like script and provides no clustering.
+          The second one <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha</code>
+          provides an active-active cluster configuration with a dynamic membership of nodes.
+          Note that only disc nodes are currently supported by the OCF agent.
+        </p>
+        <p>
+          To start using this OCF agent, first create a
+          <a href="http://clusterlabs.org/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-resource-multistate.html">multi-state resource</a>
+          in your running Pacemaker cluster of 3 or more nodes. With the <code>pcs</code> tool,
+          the command syntax should look like:
+        </p>
+        <pre class="sourcecode">
+$ <i>pcs resource create resource_id standard:provider:type|type [resource options] \
+--master [meta master_options]</i>
+        </pre>
+        <p>
+          But this is out of the scope of this document. The resulting resource may look like:
+        </p>
+        <pre class="sourcecode">
+ Master: master_p_rabbitmq-server
+  Meta Attrs: notify=true ordered=false interleave=true master-max=1 master-node-max=1
+  Resource: p_rabbitmq-server (class=ocf provider=rabbitmq type=rabbitmq-server-ha)
+   Attributes: node_port=5672 debug=false command_timeout=--signal=KILL erlang_cookie=EOKOWXQREETZSHFNTPEY admin_user=rabbitmq
+   Meta Attrs: migration-threshold=INFINITY failure-timeout=360s
+   Operations: monitor interval=30 timeout=180 (p_rabbitmq-server-monitor-30)
+               monitor interval=27 role=Master timeout=180 (p_rabbitmq-server-monitor-27)
+               monitor interval=103 role=Slave timeout=180 OCF_CHECK_LEVEL=30 (p_rabbitmq-server-monitor-103)
+               start interval=0 timeout=360 (p_rabbitmq-server-start-0)
+               stop interval=0 timeout=120 (p_rabbitmq-server-stop-0)
+               promote interval=0 timeout=120 (p_rabbitmq-server-promote-0)
+               demote interval=0 timeout=120 (p_rabbitmq-server-demote-0)
+               notify interval=0 timeout=180 (p_rabbitmq-server-notify-0)
+        </pre>
+        <p>
+          After that, your cluster has to be assembled by the OCF agent and ready for operations.
+          When assembled, one and only resource instance must run as a resource master, and others as a slaves.
+          Note that these are the multi-state resource's Master/Slave and has nothing to the RabbitMQ cluster,
+          which is active-active.
+        </p>
+      </doc:section>
+
 
       <doc:section name="params">
 	<doc:heading>Configuration Parameters</doc:heading>
