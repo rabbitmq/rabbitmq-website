@@ -25,8 +25,8 @@ limitations under the License.
     <doc:section name="intro">
       <doc:heading>Introduction</doc:heading>
       <p>
-        In some types of network failure, packet loss can mean that
-        disrupted TCP connections take a moderately long time (about 11
+        Network can fail in many ways, sometimes pretty subtle (e.g. high ratio packet loss).
+        Disrupted TCP connections take a moderately long time (about 11
         minutes with default configuration on Linux, for example) to be
         detected by the operating system. AMQP 0-9-1 offers a
         <i>heartbeat</i> feature to ensure that the application layer

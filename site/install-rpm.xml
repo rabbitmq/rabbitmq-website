@@ -111,7 +111,7 @@ limitations under the License.
         Download and install
         the <a href="https://github.com/jasonmcintosh/esl-erlang-compat">esl-erlang-compat</a>
         RPM
-        (<a href="https://github.com/jasonmcintosh/esl-erlang-compat/blob/master/rpmbuild/RPMS/noarch/esl-erlang-compat-R14B-1.el6.noarch.rpm?raw=true">direct
+        (<a href="https://github.com/jasonmcintosh/esl-erlang-compat/releases/download/1.1.1/esl-erlang-compat-18.1-1.noarch.rpm">direct
         download</a>) produced by <a href="https://github.com/jasonmcintosh/">Jason
         McIntosh</a>.
         <p>
