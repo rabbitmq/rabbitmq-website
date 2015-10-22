@@ -628,9 +628,48 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           which is active-active.
         </p>
       </doc:section>
-
-
       <doc:section name="params">
+  <doc:heading>Pacemaker resource agent actions flow charts</doc:heading>
+        
+        <p>
+          The OCF resource agent clustering logic is based on a Pacemaker actions.
+          These are monitor, start, stop, promote, demote and corresponding
+          pre and post notifications being sent cluster-wide.
+          The flow charts of events for the main actions are depicted below.
+        </p>
+        <p>
+          Promoting a new master resource:
+        </p>
+
+        <img src="img/Rabbitmq_clustering_pacemaker_promote.png"/>
+        <p>
+          Demoting a master resource:
+        </p>
+        <img src="img/Rabbitmq_clustering_pacemaker_demote.png"/>
+        <p>
+          At least one rabbit node (the node-2 here) will be running ensuring
+          there is no full RabbitMQ cluster downtime.
+        </p>
+        <p>
+          Starting a resource:
+        </p>
+        <img src="img/Rabbitmq_clustering_pacemaker_start.png"/>
+        <p>
+          Note that if several nodes started, few post-start notify events may be
+          missed by a Pacemaker. In order to join these nodes missed post-start events,
+          the running nodes are being checked as well.
+        </p>
+        <p>
+          Stopping the resource:
+        </p>
+        <img src="img/Rabbitmq_clustering_pacemaker_stop.png"/>
+        <p>
+          Note that the notify post-stop will not be called, if any corosync node running the
+          pacemaker resource agent for RabbitMQ had failed. In order to handle it, an
+          external fencing action (a manual or automatic) is required. This action should kick
+          the failed node from the RabbitMQ cluster as well. And it should re-join the node back
+          to both the corosync and RabbitMQ clusters once it is restored.
+        </p>
 	<doc:heading>Configuration Parameters</doc:heading>
 
         <p>

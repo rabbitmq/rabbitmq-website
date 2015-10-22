@@ -80,6 +80,18 @@ limitations under the License.
       </p>
 
       <p>
+        Alternatively, the memory threshold can be adjusted by setting
+	an absolute limit of RAM used by the node. The example below sets
+	the threshold to 1024MB:
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, 1024}}]}].</pre>
+      </p>
+
+      <p>
+	If the absolute limit is larger than the installed RAM or available virtual
+	address space, the threshold is set to whichever limit is smaller.
+      </p>
+
+      <p>
         The memory limit is appended to the
         <b>RABBITMQ_NODENAME</b>.log file when the RabbitMQ server
         starts:
@@ -93,7 +105,9 @@ Memory limit set to 2048MB.</pre>
       <p>
         The threshold can be changed while the broker is running
         using the <code>rabbitmqctl set_vm_memory_high_watermark
-        <em>fraction</em></code> command. This command will take effect
+        <em>fraction</em></code> command or
+	<code>rabbitmqctl set_vm_memory_high_watermark absolute
+        <em>memory_limit_mb</em></code> command. This command will take effect
         until the broker shuts down. The corresponding configuration
         setting should also be changed when the effects should survive
         a broker restart. The memory limit may change on systems with
