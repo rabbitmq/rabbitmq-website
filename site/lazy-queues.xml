@@ -200,7 +200,11 @@ limitations under the License.
         queue, the time required was 421 seconds, with an average
         sending rate of 23653 msg/s. The difference can be explained
         by the fact that from time to time, the <code>default</code>
-        queue had to page messages to disk.
+        queue had to page messages to disk. Once we activated a
+        consumer, the <code>lazy</code> queue had a RAM consumption of
+        approximately 40MB while it was delivering messages. The
+        message receiving rate average was 13938 msg/s for one active
+        consumer.
       </p>
 
       <p>You can reproduce the test with our <a
