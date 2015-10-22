@@ -110,7 +110,10 @@ limitations under the License.
          <x:page url="/flow-control.html" text="Flow Control"/>
        </x:page>
        <x:page url="/networking.html" text="Networking"/>
-       <x:page url="/memory-use.html" text="Memory Use"/>
+       <x:page url="/memory-use.html" text="Memory Use">
+         <x:related url="/lazy-queues.html"/>
+       </x:page>
+       <x:page url="/lazy-queues.html" text="Lazy Queues"/>
        <x:page url="/firehose.html" text="Firehose / Tracing"/>
        <x:page url="/manpages.html" text="Manual Pages">
          <x:page url="/man/rabbitmqctl.1.man.html" text="rabbitmqctl"/>
