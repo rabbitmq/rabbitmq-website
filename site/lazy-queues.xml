@@ -183,12 +183,12 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       <h3>RAM Utilization</h3>
       <p>
         <code>lazy</code> queues use much less memory than
-        <code>default</code> queues. While it's hard to give numbers,
-        since every use case is different, we tried publishing 10
-        million messages into a queue; with no consumers online. The
-        message body size was 1000 bytes. <code>default</code> queues
-        required 1.2GB of RAM, while <code>lazy</code> queues only
-        used 1.5MB of RAM.
+        <code>default</code> queues. While it's hard to give numbers
+        that make sense for every use case, here's what we found: we
+        tried publishing 10 million messages into a queue, with no
+        consumers online. The message body size was 1000
+        bytes. <code>default</code> queues required 1.2GB of RAM,
+        while <code>lazy</code> queues only used 1.5MB of RAM.
       </p>
 
       <p>
