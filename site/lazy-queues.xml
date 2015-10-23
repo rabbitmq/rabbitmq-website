@@ -102,11 +102,9 @@ limitations under the License.
         This example in Java declares a queue with the queue mode set
         to <code>"lazy"</code>:
       </p>
-      <pre class="sourcecode">
-        Map&lt;String, Object> args = new HashMap&lt;String, Object>();
-        args.put("x-queue-mode", "lazy");
-        channel.queueDeclare("myqueue", false, false, false, args);
-      </pre>
+      <pre class="sourcecode">Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-queue-mode", "lazy");
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
       <h3>Configuration using policy</h3>
 
@@ -184,7 +182,7 @@ limitations under the License.
 
       <h3>RAM Utilization</h3>
       <p>
-        <code>lazy</code queues use much less memory than
+        <code>lazy</code> queues use much less memory than
         <code>default</code> queues. While it's hard to give numbers,
         since every use case is different, we tried publishing 10
         million messages into a queue; with no consumers online. The
@@ -211,9 +209,8 @@ limitations under the License.
         href="java-tools.html">Java library</a> by running:
       </p>
 
-      <pre>
-        ./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue -f persistent -s 1000 -x1 -y0 -C10000000
-      </pre>
+      <pre class="sourcecode">./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue \
+-f persistent -s 1000 -x1 -y0 -C10000000</pre>
 
       <p>
         <bold>Note that this was a very simplistic test. Please make
