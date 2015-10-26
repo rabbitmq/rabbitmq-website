@@ -70,11 +70,11 @@ limitations under the License.
     <r:downloads signature="yes">
       <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
-	Binary, compiled for Java 1.5 or newer (zip)
+	Binary, compiled for JDK 6 or newer (zip)
       </r:download>
       <r:download downloadfile="rabbitmq-java-client-bin-&version-java-client;.tar.gz"
 		  downloadpath="&dir-java-client;">
-	Binary, compiled for Java 1.5 or newer (tar.gz)
+	Binary, compiled for JDK 6 or newer (tar.gz)
       </r:download>
       <r:download downloadfile="rabbitmq-java-client-&version-java-client;.zip"
 		  downloadpath="&dir-java-client;">
