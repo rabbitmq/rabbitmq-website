@@ -138,13 +138,16 @@ limitations under the License.
         </p>
         <p>
           Queue masters can be distributed between nodes using several
-          strategies. Which strategy is used is controlled using the <code>x-queue-master-locator</code>
-          argument, which can be configured using a policy or the <code>x-arguments</code>
-          argument to <code>queue.declare</code>:
+          strategies. Which strategy is used is controlled using the
+          <code>x-queue-master-locator</code> queue declare argument,
+          or by setting the <code>queue-master-locator</code> policy
+          key. Here are the possible strategies and how to set them:
 
           <ul>
-            <li>Pick the node hosting the minimum number of masters: <code>min-masters</code></li>
-            <li>Pick the node the client that declares the queue is connected to: <code>client-local</code></li>
+            <li>Pick the node hosting the minimum number of masters:
+            <code>min-masters</code></li>
+            <li>Pick the node the client that declares the queue is
+            connected to: <code>client-local</code></li>
             <li>Pick a random node: <code>random</code></li>
           </ul>
         </p>
