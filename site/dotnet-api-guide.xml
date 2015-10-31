@@ -518,7 +518,7 @@ conn.AutoClose = true;
 
             <p>
               Network connection between clients and RabbitMQ nodes can fail.
-              RabbitMQ Java client supports automatic recovery of connections
+              RabbitMQ .NET/C# client supports automatic recovery of connections
               and topology (queues, exchanges, bindings, and consumers).
 
               The automatic recovery process for many applications follows the following steps:
