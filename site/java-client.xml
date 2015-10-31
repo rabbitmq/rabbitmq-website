@@ -165,7 +165,7 @@ limitations under the License.
       <repository type="github" shortname="rabbitmq-java-client"
         url="https://github.com/rabbitmq/rabbitmq-java-client"/>
       <repository type="github" shortname="rabbitmq-codegen"
-        url="https://github.com/rabbitmq/rabbitmq-codegen/"/>
+        url="https://github.com/rabbitmq/rabbitmq-codegen"/>
     </repositories>
 
     <h2>Support</h2>

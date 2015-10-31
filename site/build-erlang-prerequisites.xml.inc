@@ -25,7 +25,7 @@ limitations under the License.
 
   <p>
     RabbitMQ requires a recent version of <a
-    href="http://www.python.org/download/">Python</a> and <a
+    href="http://www.python.org/download/">Python 2</a> and <a
     href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
     (an implementation of a <a href="http://json.org">JSON</a> reader
     and writer in Python), for generating AMQP framing code.
@@ -55,6 +55,10 @@ limitations under the License.
     <li>
       a recent version of <i>xsltproc</i>, which is part of <a
       href="http://xmlsoft.org/XSLT/">libxslt</a>
+    </li>
+
+    <li>
+      <a href="http://www.info-zip.org/Zip.html">zip</a> and <a href="http://www.info-zip.org/UnZip.html">unzip</a>
     </li>
   </ul>
 </doc:section>

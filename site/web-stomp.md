@@ -30,7 +30,7 @@ More context is available in
 
 RabbitMQ Web-Stomp plugin is rather simple. It takes the STOMP protocol,
 as provided by [RabbitMQ-STOMP plugin](/stomp.html) and exposes it using
-[a SockJS server](http://sockjs.org).
+either plain WebSockets or [a SockJS server](http://sockjs.org).
 
 SockJS is a WebSockets poly-fill that provides a WebSocket-like
 JavaScript object in any browser. It will therefore work in older
@@ -51,15 +51,41 @@ library is required. We've tested a
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
 [This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
-is included as part of RabbitMQ-Web-Stomp-Examples.
+is included as part of RabbitMQ Web STOMP examples.
 
-By default the Web-Stomp plugin exposes a SockJS endpoint on port
-15674 with `/stomp` prefix:
+By default the Web STOMP plugin exposes both a WebSocket and a
+SockJS endpoint on port 15674. The WebSocket endpoint is available
+on the `/ws` path:
+
+    http://127.0.0.1:15674/ws
+
+The SockJS endpoint on the `/stomp` prefix:
 
     http://127.0.0.1:15674/stomp
 
-In order to establish connection from the browser you may
-use code like:
+The SockJS endpoint is provided for compatibility purposes with
+older browsers that do not implement Websocket. It has two
+limitations because of SockJS:
+
+ *  Stomp heart-beats are disabled
+ *  Messages must be encoded using UTF-8
+
+The raw Websocket endpoint was created to provide an alternative
+that does not have these limitations. On the other hand, this
+endpoint will only work with Websocket capable clients. Note that
+some configuration is necessary in order to accept binary messages.
+
+In order to establish connection from the browser using WebSocket
+you may use code like:
+
+    <script src="stomp.js"></script>
+    <script>
+
+        var ws = new WebSocket('ws://127.0.0.1:15674/ws');
+        var client = Stomp.over(ws);
+        [...]
+
+Using SockJS:
 
     <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script src="stomp.js"></script>
@@ -84,10 +110,10 @@ connection with the broker:
         [...]
 
 
-## <a id="examples"/>Examples (RabbitMQ-Web-Stomp-Examples)
+## <a id="examples"/>Web STOMP Examples
 
 A few simple Web-Stomp examples are provided as a
-[RabbitMQ-Web-Stomp-Examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
+[RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
 plugin. To get it running follow the installation instructions above
 and enable the plugin:
 
@@ -120,6 +146,17 @@ port to 12345 would look like:
       {rabbitmq_web_stomp, [{port, 12345}]}
     ].
 
+This is a shorthand for the following:
+
+    [
+      {rabbitmq_web_stomp,
+          [{tcp_config, [{port, 12345}]}]}
+    ].
+
+You can use the `tcp_config` section to specify any TCP option you need.
+When both a `port` and a `tcp_config` sections exist, the plugin will
+use the former as a port number, ignoring the one in `tcp_config`.
+
 In addition, encrypted connections are supported if SSL configuration parameters are
 provided in the `ssl_config` section:
 
@@ -135,6 +172,37 @@ provided in the `ssl_config` section:
 
 Note that port, certfile, keyfile and password are all mandatory. See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
+
+By default, the Web STOMP plugin will expect to handle messages
+encoded as UTF-8. This cannot be changed for the SockJS endpoint,
+however you can switch the Websocket endpoint to binary if needed.
+The `ws_frame` option serves this purpose:
+
+    [
+      {rabbitmq_web_stomp, [{ws_frame, binary}]}
+    ].
+
+The Web STOMP uses the Cowboy web server under the hood.
+Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
+that can be used to customize the behavior of the server. You
+can specify those in the Web-Stomp plugin documentation, in
+the `cowboy_opts` section:
+
+    [
+      {rabbitmq_web_stomp,
+          [{cowboy_opts, [{max_keepalive, 10}]}]}
+    ].
+
+The SockJS endpoint can also be configured further in the
+`sockjs_opts` section of the configuration. Look into the
+SockJS-erlang repository for a detailed [list of options](https://github.com/rabbitmq/sockjs-erlang#sockjs-erlang-api)
+you can use. For example, to use a different SockJS client
+version, you can use the following configuration:
+
+    [
+      {rabbitmq_web_stomp,
+          [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
+    ].
 
 ## <a id="missing"/>Missing features
 

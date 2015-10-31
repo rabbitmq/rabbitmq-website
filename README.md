@@ -1,6 +1,6 @@
-# rabbitmq.com
+# [rabbitmq.com](http://www.rabbitmq.com/)
 
-This repository contains source code for rabbitmq.com content.
+This repository contains source code for [rabbitmq.com](http://www.rabbitmq.com/) content.
 
 
 
@@ -57,13 +57,13 @@ to install required dependencies and then
 
 from the base of the repository to run a local version of the site, with page
 regeneration on reload. The site will be available at
-[http://localhost:8191](http://localhost:8191/). Note that using driver.py the site will not
+[http://localhost:8191](http://localhost:8191/). Note that using [driver.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/driver.py) the site will not
 feature:
 
  * Any release artefacts (this includes the web versions of the man pages)
  * The blog
 
-The script code/diagrams.py generates PNGs from graph descriptions
+The script [diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/master/code/diagrams.py) generates PNGs from graph descriptions
 embedded in files. Generally you don't need to run this, since we
 check the PNGs in, but if you do want to use it, you'll also need dot:
 
