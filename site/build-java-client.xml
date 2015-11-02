@@ -37,7 +37,7 @@ limitations under the License.
 	  </li>
 
 	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
+	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
 $ git clone https://github.com/rabbitmq/rabbitmq-java-client.git
 $ cd rabbitmq-java-client
 $ ant dist</pre>
