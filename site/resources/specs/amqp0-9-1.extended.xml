@@ -2597,7 +2597,7 @@
         corresponding basic.cancel from the client). This allows
         clients to be notified of the loss of consumers due to events
         such as queue deletion. Note that as it is not a MUST for
-        clients to accept this method from the client, it is advisable
+        clients to accept this method from the server, it is advisable
         for the broker to be able to identify those clients that are
         capable of accepting the method, through some means of
         capability negotiation.
