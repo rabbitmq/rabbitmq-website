@@ -943,7 +943,7 @@
       <doc>
         This method opens a channel to the server.
       </doc>
-      <rule name = "state" on-failure = "channel-error">
+      <rule name = "state" on-failure = "command-invalid">
         <doc>
           The client MUST NOT use this method on an already-opened channel.
         </doc>
