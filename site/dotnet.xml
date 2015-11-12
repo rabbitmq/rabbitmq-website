@@ -56,11 +56,10 @@ limitations under the License.
     <h3>Version</h3>
 
     <p>
-      The current release of the RabbitMQ .NET/C# AMQP library is <b>
+      The current release of the RabbitMQ .NET/C# client library is <b>
       &version-dotnet-client;</b>. Consult
       <a href="/releases/rabbitmq-dotnet-client/">the archive</a> if
-      you want to download a version of the RabbitMQ .NET/C# Client
-      library or documentation other than the above.
+      you want to download a version of the library or documentation other than the above.
     </p>
 
     <h2>
@@ -75,10 +74,10 @@ limitations under the License.
     </p>
 
     <r:downloads signature="no">
-      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-4.0.zip"
+      <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-&minimum-dotnet-version;.zip"
 		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET 4.0 and newer (zip) - includes
-	example code, the WCF binding and WCF examples
+	Binary, compiled for .NET &minimum-dotnet-version; and newer (zip archive), includes
+	example code, the WCF binding and WCF examples.
       </r:download>
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
 		  downloadpath="&dir-dotnet-client;">

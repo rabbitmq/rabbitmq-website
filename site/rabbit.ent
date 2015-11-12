@@ -47,3 +47,6 @@ limitations under the License.
 <!ENTITY dir-erlang-client "rabbitmq-erlang-client/v&version-erlang-client;">
 <!ENTITY nameVersion-erlang-client "amqp_client-&version-dotnet-client;">
 <!ENTITY dir-current-edoc "/releases/&dir-erlang-client;/doc/">
+
+<!ENTITY minimum-jdk-version "6">
+<!ENTITY minimum-dotnet-version "4.5">
