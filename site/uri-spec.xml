@@ -444,8 +444,8 @@ vhost          = segment</pre>
               <td>amqp://host/</td>
               <td></td>
               <td></td>
-              <td></td>
               <td>"host"</td>
+              <td></td>
               <td>""</td>
           </tr>
 
@@ -453,8 +453,8 @@ vhost          = segment</pre>
               <td>amqp://host/%2f</td>
               <td></td>
               <td></td>
-              <td></td>
               <td>"host"</td>
+              <td></td>
               <td>"/"</td>
           </tr>
 
