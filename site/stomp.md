@@ -435,7 +435,7 @@ frames. These extra headers provide access to features that are not
 described in the STOMP specs. In addition, we prohibit some headers which
 are reserved for server use. The details are given below.
 
-### <a id="pear.c"/>Connect
+### <a id="pear.c"/>Connection and Virtual Hosts
 
 The `CONNECT` (or `STOMP`) frame in
 [STOMP 1.1](http://stomp.github.com/stomp-specification-1.1.html) has a
