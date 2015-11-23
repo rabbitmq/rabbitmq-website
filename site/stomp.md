@@ -204,7 +204,7 @@ STOMP gateway;
 * `/topic` -- `SEND` and `SUBSCRIBE` to transient and durable topics;
 * `/temp-queue/` -- create temporary queues (in `reply-to` headers only).
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 The `destination` header on a `MESSAGE` frame is set as though the
 message originated from a `SEND` frame:
 
@@ -255,7 +255,7 @@ Queue destinations deliver each message to at most one
 subscriber. Messages sent when no subscriber exists will be queued
 until a subscriber connects to the queue.
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 For `SUBSCRIBE` frames, these destinations create a shared queue `<name>`. A
 subscription against the queue `<name>` is created for the current STOMP
 session.
@@ -270,7 +270,7 @@ the default exchange with the routing key `<name>`.
 To address existing queues created outside the STOMP adapter,
 destinations of the form `/amq/queue/<name>` can be used.
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 For both `SEND` and `SUBSCRIBE` frames no queue is created.
 For `SUBSCRIBE` frames, it is an error if the queue does not exist.
 
@@ -290,7 +290,7 @@ topic exchanges.
 Messages sent to a topic destination that has no active subscribers
 are simply discarded.
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 
 For `SEND` frames, the message is sent to the `amq.topic` exchange
 with the routing key `<name>`.
@@ -312,16 +312,24 @@ given topic.
 
 #### Creating a Durable Subscription
 
-To create a durable subscription, set the `persistent` header to
-`true` in the `SUBSCRIBE` frame. When creating a durable subscription,
+To create a durable subscription, set the `durable` header to
+`true` in the `SUBSCRIBE` frame. `persistent` is also supported as an alias for
+`durable` for backwards compatibility with earlier plugin versions.
+
+When creating a durable subscription to a topic destination,
+set `auto-delete` to `false` to make sure the queue that backs your
+subscription is not deleted when last subscriber disconnects.
+
+When creating a durable subscription,
 the `id` header must be specified. For example:
 
     SUBSCRIBE
     destination:/topic/my-durable
     id:1234
-    persistent:true
+    durable:true
+    auto-delete:false
 
-#### AMQP Semantics
+#### AMQP 0-9-1 Semantics
 
 For `SEND` frames, the message is sent to the `amq.topic` exchange
 with the routing key `<name>`.
@@ -334,11 +342,15 @@ the queue.
 #### Deleting a Durable Subscription
 
 To permanently delete a durable subscription, send an `UNSUBSCRIBE` frame for
-the subscription ID with the `persistent` header set to `true`. For example:
+the subscription ID with the same `durable` and `auto-delete` header values as when
+subscribing.
+
+For example:
 
     UNSUBSCRIBE
     id:1234
-    persistent:true
+    durable:true
+    auto-delete:false
 
 ### <a id="d.tqd"/>Temp Queue Destinations
 
@@ -402,6 +414,30 @@ a custom name using the `x-queue-name` header:
     SUBSCRIBE
     destination:/topic/alarms
     x-queue-name:my-alarms-queue
+
+## Controlling RabbitMQ Queue Parameters with STOMP
+
+As of RabbitMQ 3.6.0, it is possible to control queue parameters via STOMP
+headers:
+
+ * `durable` (aliased as `persistent`)
+ * `auto-delete`
+ * `exclusive`
+
+plus optional arguments ("x-arguments") for controlling dead lettering,
+queue and message TTL, queue limits, etc:
+
+ * `x-dead-letter-exchange`
+ * `x-dead-letter-routing-key`
+ * `x-expires`
+ * `x-message-ttl` 
+ * `x-max-length`
+ * `x-max-length-bytes`
+ * `x-max-length-bytes`
+ * `x-max-priority`
+
+The meaning of every header is the same as when a queue is declared over AMQP 0-9-1.
+Please consult the rest of the documentation for details.
 
 ## Using Policies with STOMP
 
