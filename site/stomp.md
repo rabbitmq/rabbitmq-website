@@ -222,6 +222,10 @@ where *dd* is the hexadecimal code for the byte.
 Because of these rules the destination on a `MESSAGE` frame may not
 exactly match that on a `SEND` that published it.
 
+Different destinations have different queue parameter defaults.
+They can be controlled explicitly via headers, as explained further
+in this guide.
+
 ### <a id="d.ed"/>Exchange Destinations
 
 Any exchange/queue or exchange/routing-key combination can be accessed
@@ -264,6 +268,9 @@ For `SEND` frames, a shared queue `<name>` is created on the _first_ `SEND` to
 this destination in this session, but not subsequently. The message is sent to
 the default exchange with the routing key `<name>`.
 
+If no queue parameters are specified, queue will be assumed to be
+durable, non-exclusive, non-autodeleted.
+
 
 ### <a id="d.aqd"/>AMQ Queue Destinations
 
@@ -280,6 +287,9 @@ For `SEND` frames, the message is sent directly to the existing queue named
 For `SUBSCRIBE` frames, a subscription against the existing queue `<name>` is
 created for the current STOMP session.
 
+If no queue parameters are specified, queue will be assumed to be
+durable, non-exclusive, non-autodeleted.
+
 ### <a id="d.td"/>Topic Destinations
 
 For simple topic destinations which deliver a copy of each message to
@@ -295,9 +305,9 @@ are simply discarded.
 For `SEND` frames, the message is sent to the `amq.topic` exchange
 with the routing key `<name>`.
 
-For `SUBSCRIBE` frames, an exclusive queue is created and bound to the
+For `SUBSCRIBE` frames, an autodeleted, non-durable queue is created and bound to the
 `amq.topic` exchange with routing key `<name>`. A subscription is
-created against the exclusive queue.
+created against the queue.
 
 ### <a id="d.dts"/>Durable Topic Subscriptions
 
