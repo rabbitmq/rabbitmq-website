@@ -614,7 +614,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               performance in situations with a great number of connections, but
               might lead to connections dropping in the presence of network
               devices that close inactive connections.
-              <p>Default: <code>580</code></p>
+              <p>Default: <code>60</code> (<code>580</code> prior to release 3.5.5)</p>
             </td>
           </tr>
           <tr>
