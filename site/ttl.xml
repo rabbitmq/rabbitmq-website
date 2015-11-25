@@ -93,6 +93,13 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
+        When a TTL policy is being applied to a queue which already
+        has messages in it, matching messages will be discarded
+        immediately (with <a
+        href="ttl.html#per-message-ttl-caveats">some caveats</a>).
+      </p>
+
+      <p>
         The original expiry time of a message is preserved if it
         is requeued (for example due to the use of an AMQP method
         that features a requeue parameter, or due to a channel
