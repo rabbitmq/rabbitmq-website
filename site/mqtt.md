@@ -97,10 +97,7 @@ Here is a sample configuration that sets every MQTT option:
                       %% Default MQTT with TLS port is 8883
                       %% {ssl_listeners,    [8883]}
                       {tcp_listeners,    [1883]},
-                      {tcp_listen_options, [binary,
-                                            {packet,    raw},
-                                            {reuseaddr, true},
-                                            {backlog,   128},
+                      {tcp_listen_options, [{backlog,   128},
                                             {nodelay,   true}]}]}
     ].
 

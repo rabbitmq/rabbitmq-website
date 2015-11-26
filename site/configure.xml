@@ -788,9 +788,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               change this.
 
               <p>Default:
-                <pre>[binary, {packet,        raw},
-         {reuseaddr,     true},
-         {backlog,       128},
+                <pre>[{backlog,       128},
          {nodelay,       true},
          {exit_on_close, false}]</pre>
               </p>
