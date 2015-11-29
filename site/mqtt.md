@@ -156,7 +156,7 @@ default MQTT SSL port is 8883. If this option is non-empty then the
 Note that RabbitMQ rejects SSLv3 connections by default because that protocol
 is known to be compromised.
 
-See the [SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
+See the [TLS/SSL configuration guide](http://www.rabbitmq.com/ssl.html) for details.
 
 
 
