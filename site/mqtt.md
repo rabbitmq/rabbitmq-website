@@ -189,7 +189,7 @@ to your configuration.
 Note that:
 
 * The authenticated user must exist in the configured authentication / authorisation backend(s).
-* Clients must **not** supply username and password.
+* Clients **must not** supply username and password.
 
 
 
