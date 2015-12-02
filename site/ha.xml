@@ -142,8 +142,9 @@ limitations under the License.
           namely, using the <code>x-queue-master-locator</code> queue
           declare argument, setting the <code>queue-master-locator</code>
           policy key or by defining the <code>queue_master_locator<code>
-          key in <code>rabbit.config<code>. Here are the
-          possible strategies and how to set them:
+          key in <a href="configure.html#configuration-file">
+          <code>rabbitmq.config</code></a>. Here are the possible
+          strategies and how to set them:
 
           <ul>
             <li>Pick the node hosting the minimum number of masters:
