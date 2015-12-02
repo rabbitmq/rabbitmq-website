@@ -911,6 +911,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <p>Default: <code>65536</code></p>
             </td>
           </tr>
+          <tr>
+            <td><code>queue_master_locator</code></td>
+            <td>
+              Queue master location strategy. Available strategies are:
+              <ul>
+                <li><code>&lt;&lt;"min-masters"&gt;&gt;</code></li>
+                <li><code>&lt;&lt;"client-local"&gt;&gt;</code></li>
+                <li><code>&lt;&lt;"random"&gt;&gt;</code></li>
+              </ul>
+              See the
+              <a href="ha.html#queue-master-location">documentation
+              on queue master location</a> for more information.
+              <p>Default: <code>&lt;&lt;"client-local"&gt;&gt;</code></p>
+            </td>
+          </tr>
         </table>
         <p>
           In addition, many plugins can have sections in the
