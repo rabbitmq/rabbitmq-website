@@ -175,13 +175,21 @@ limitations under the License.
         <p>
           Operating systems limit maximum number of concurrently open file handles, which
           includes network sockets. Make sure that you have limits set high enough to allow
-          for expected number of concurrent connections.
-
+          for expected number of concurrent connections and queues.
+        </p>
+        <p>
+          Make sure your environment allows for at least 50K open file descriptors for effective RabbitMQ
+          user, including in development environments.
+        </p>        
+        <p>
           As a rule of thumb, multiple the 95th percentile number of concurrent connections
-          by 2 to calculate recommended open file handle limit.
+          by 2 and add total number of queues to calculate recommended open file handle limit.
+          Values as high as 500K are not inadequate and
+          won't consume a lot of hardware resources, and therefore are recommended for production
+          setups.
 
           See <a href="/networking.html">Networking guide</a>
-          for more information.
+          for more information.          
         </p>
       </doc:subsection>
     </doc:section>
