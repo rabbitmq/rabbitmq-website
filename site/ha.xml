@@ -129,7 +129,7 @@ limitations under the License.
           policy.
         </p>
 
-        <h3>Queue Master Location</h3>
+        <h3 id="queue-master-location">Queue Master Location</h3>
         <p>
           Every queue in RabbitMQ has a home node. That node is called
           <em>queue master</em>. All queue operations go through the master
@@ -138,10 +138,12 @@ limitations under the License.
         </p>
         <p>
           Queue masters can be distributed between nodes using several
-          strategies. Which strategy is used is controlled using the
-          <code>x-queue-master-locator</code> queue declare argument,
-          or by setting the <code>queue-master-locator</code> policy
-          key. Here are the possible strategies and how to set them:
+          strategies. Which strategy is used is controlled in three ways,
+          namely, using the <code>x-queue-master-locator</code> queue
+          declare argument, setting the <code>queue-master-locator</code>
+          policy key or by defining the <code>queue_master_locator<code>
+          key in <code>rabbit.config<code>. Here are the
+          possible strategies and how to set them:
 
           <ul>
             <li>Pick the node hosting the minimum number of masters:
