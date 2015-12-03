@@ -82,8 +82,10 @@ limitations under the License.
       <p>
         Alternatively, the memory threshold can be adjusted by setting
 	an absolute limit of RAM used by the node. The example below sets
-	the threshold to 1024MB:
-        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, 1024}}]}].</pre>
+	the threshold to 1073741824 bytes (1024 MB):
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, 1073741824}}]}].</pre>
+        Same example, but using memory units:
+        <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, "1024MiB"}}]}].</pre>
       </p>
 
       <p>
@@ -107,7 +109,9 @@ Memory limit set to 2048MB.</pre>
         using the <code>rabbitmqctl set_vm_memory_high_watermark
         <em>fraction</em></code> command or
 	<code>rabbitmqctl set_vm_memory_high_watermark absolute
-        <em>memory_limit_mb</em></code> command. This command will take effect
+        <em>memory_limit</em></code> command. 
+        Memory units can also be used in this command.
+        This command will take effect
         until the broker shuts down. The corresponding configuration
         setting should also be changed when the effects should survive
         a broker restart. The memory limit may change on systems with

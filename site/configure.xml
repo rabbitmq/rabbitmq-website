@@ -530,10 +530,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               this limit, flow control is triggered. The value may be
               set relative to the total amount of RAM (e.g.
               <code>{mem_relative, 1.0}</code>). The value may also be
-              set to an integer number of bytes. By default free disk
+              set to an integer number of bytes. Or, alternatively, in 
+              information units (e.g <code>"50MB"</code>). By default free disk
               space must exceed 50MB. See
-              the <a href="memory.html#diskfreesup">memory-based flow
-              control</a> documentation.
+              the <a href="disk-alarms.html">Disk Alarms</a> documentation.
               <p>Default: <code>50000000</code></p>
             </td>
           </tr>
