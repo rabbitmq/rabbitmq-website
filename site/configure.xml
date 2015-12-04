@@ -800,13 +800,12 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>hipe_compile</code></td>
             <td>
               Set to <code>true</code> to precompile parts of RabbitMQ
-              with the High Performance Erlang compiler. This will
-              increase the message rate that the server can handle,
-              while also increasing startup time.
+              with HiPE, a just-in-time compiler for Erlang. This will
+              increase server throughput at the cost of increased startup time.
 
               <p>
                 You might see 20-50% better performance at the cost of
-                approximately 1 minute delay at startup. These
+                a few minutes delay at startup. These
                 figures are highly workload- and hardware-dependent.
               </p>
               <p>
@@ -822,9 +821,8 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 notably including Windows.
               </p>
               <p>
-                This option should be
-                considered <b>experimental</b>. If your Erlang VM
-                segfaults, disable this option again.
+                HiPE has known issues in Erlang/OTP versions prior to 17.5.
+                Using a recent Erlang/OTP version is highly recommended for HiPE.
               </p>
               <p>Default: <code>false</code></p>
             </td>
