@@ -820,9 +820,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 notably including Windows.
               </p>
               <p>
-                This option should be
-                considered <b>experimental</b>. If your Erlang VM
-                segfaults, disable this option again.
+                This option should be considered <b>experimantal in erlang versions
+                lower than 17.x</b>. If you are using lower versions and 
+                Erlang VM segfaults, disable this option again.
               </p>
               <p>Default: <code>false</code></p>
             </td>
