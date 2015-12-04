@@ -73,11 +73,11 @@ Here's a tabular summary of the state of things:
 ---------------------------------------------------------------------------
         t       t            Boolean
         b       b            Signed 8-bit
-        B                    Unsigned 8-bit
+        B       B            Unsigned 8-bit
         U       s            Signed 16-bit      (A1)
-        u                    Unsigned 16-bit
+        u       u            Unsigned 16-bit
   I     I       I            Signed 32-bit
-        i                    Unsigned 32-bit
+        i       i            Unsigned 32-bit
         L       l            Signed 64-bit      (B)
         l                    Unsigned 64-bit
         f       f            32-bit float
