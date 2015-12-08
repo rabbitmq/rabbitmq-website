@@ -29,8 +29,8 @@ limitations under the License.
       <doc:subsection name="intro">
         <p>
           Clients communicate with RabbitMQ over the network. All
-          protocols supported by the broker are TCP-based. As such,
-          both RabbitMQ and the operating system provide a wide range
+          protocols supported by the broker are TCP-based. Both
+          RabbitMQ and the operating system provide a number
           of knobs that can be tweaked. Some of them are directly
           related to TCP and IP operations, others have to do with
           application-level protocols such as TLS. This guide covers
@@ -39,7 +39,7 @@ limitations under the License.
           reference but rather an overview. Some tuneable parameters
           discussed are OS-specific. This guide focuses on Linux when
           covering OS-specific subjects, as it is the most common
-          platform RabbitMQ is deployed on in production.
+          platform RabbitMQ is deployed on.
         </p>
         <p>
           There are several areas which can be configured or tuned:
