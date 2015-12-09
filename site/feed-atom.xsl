@@ -30,7 +30,16 @@ limitations under the License.
   <xsl:template match="/">
     <feed>
       <xsl:apply-templates select="html/head"/>
-      <updated><xsl:value-of select="$updated"/></updated>
+      <xsl:choose>
+        <xsl:when test="$updated">
+          <updated><xsl:value-of select="$updated"/></updated>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="xhtml:html/xhtml:body/doc:feed/doc:item/doc:date">
+            <xsl:sort select="@iso" order="descending" />
+          </xsl:apply-templates>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="xhtml:html/xhtml:body/doc:feed/doc:item">
         <xsl:sort select="doc:date/@iso" order="descending"/>
       </xsl:apply-templates>
@@ -77,6 +86,12 @@ limitations under the License.
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="node()|text()" mode="xhtml"/>
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="doc:date">
+    <xsl:if test="position() = 1">
+      <updated><xsl:value-of select="@iso" /></updated>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
