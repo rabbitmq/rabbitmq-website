@@ -66,6 +66,11 @@ limitations under the License.
       <id>tag:rabbitmq.net,2007:<xsl:value-of select="doc:date/@iso"/></id>
       <title type="text"><xsl:value-of select="doc:title"/></title>
       <updated><xsl:value-of select="doc:date/@iso"/></updated>
+      <author>
+          <name>RabbitMQ</name>
+          <uri>https://www.rabbitmq.com/</uri>
+          <email>support@rabbitmq.com</email>
+      </author>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <xsl:apply-templates select="doc:text/*|doc:text/text()" mode="xhtml"/>
