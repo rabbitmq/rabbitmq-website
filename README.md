@@ -80,7 +80,7 @@ modes are:
 Mode     | Description
 :--------|:------------
 www      | This is the "normal" mode. You would normally deploy from the live branch with this mode.
-next     | This is the mode for next.rabbitmq.com. This mode has the home page and download page chopped down, no blog or search, and a watermark. You would normally deploy from the master branch with this mode.
+next     | This is the mode for [next.rabbitmq.com](http://next.rabbitmq.com/). This mode has the home page and download page chopped down, no blog or search, and a watermark. You would normally deploy from the master branch with this mode.
 previous | For [previous.rabbitmq.com](http://previous.rabbitmq.com/). The website is reduced in the same way as "next", but this mode is meant for previous releases rather than future releases.
 
 You determine which mode you are using with an argument to the driver
