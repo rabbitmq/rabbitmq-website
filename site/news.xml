@@ -2655,14 +2655,14 @@ or directly at <a href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>.</p>
 
     <doc:text>
 <p>We are delighted to be providing RabbitMQ open messaging to support the
-VMware vCloud&#153;  Initiative, their customers and the growing cloud
+VMware vCloud  Initiative, their customers and the growing cloud
 ecosystem," Alexis Richardson, CEO, RabbitMQ.  "Customers want choice, and
 RabbitMQ delivers choice by lowering the cost of scale, and by removing
 lock-in.  RabbitMQ is the market leading implementation of AMQP, the
 interoperable open business messaging protocol, and is distributed on most
 major development platforms. Already businesses are using RabbitMQ to scale up
 business-critical application functionality on multiple leading public and
-private cloud infrastructures.  Our support for the VMware vCloud&#153; Initiative
+private cloud infrastructures.  Our support for the VMware vCloud Initiative
 is a natural extension.  RabbitMQ has an open source license making it ideal
 for elastic deployments, and for integration in platforms such as Spring and
 Ruby on Rails.</p>
