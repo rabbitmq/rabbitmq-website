@@ -78,7 +78,7 @@ limitations under the License.
   we need either escaped HTML or something in the XHTML namespace -->
 
   <xsl:template match="text()" mode="xhtml">
-    <xsl:value-of select="."/>
+    <xsl:value-of select="translate(., '&#x99;', '')"/>
   </xsl:template>
 
   <xsl:template match="*" mode="xhtml">
