@@ -63,8 +63,7 @@ Using the system Python, you can install the necessary parts with:
 
 ```sh
 sudo easy_install pip
-sudo pip install lxml
-sudo pip install markdown
+sudo pip install lxml markdown
 ```
 
 ### Modes
