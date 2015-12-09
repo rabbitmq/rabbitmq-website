@@ -49,11 +49,15 @@ The site requires Python and Python XSLT support for development, and
 assumes Apache is used for deployment. For simple development on Debian-based
 systems, it is enough to run
 
-    sudo apt-get install python-lxml python-markdown python-pygments
+```sh
+sudo apt-get install python-lxml python-markdown python-pygments
+```
 
 to install required dependencies and then
 
-    ./driver.py [www|next|previous]
+```sh
+./driver.py [www|next|previous]
+```
 
 from the base of the repository to run a local version of the site, with page
 regeneration on reload. The site will be available at
@@ -67,22 +71,26 @@ The script [diagrams.py](https://github.com/rabbitmq/rabbitmq-website/blob/maste
 embedded in files. Generally you don't need to run this, since we
 check the PNGs in, but if you do want to use it, you'll also need dot:
 
-    sudo apt-get install graphviz
+```sh
+sudo apt-get install graphviz
+```
 
 ### On OS X
 
 Using [Homebrew](http://brew.sh/), you can install the necessary parts with:
 
-```bash
+```sh
 brew install python
 pip install lxml markdown
 ```
 
 Using the system Python, you can install the necessary parts with:
 
-    sudo easy_install pip
-    sudo pip install lxml
-    sudo pip install markdown
+```sh
+sudo easy_install pip
+sudo pip install lxml
+sudo pip install markdown
+```
 
 ### Modes
 
