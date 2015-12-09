@@ -3,4 +3,5 @@
 *~
 *.pyc
 /site/man/*.xml
+/site/news.atom
 target/
