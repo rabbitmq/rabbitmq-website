@@ -29,7 +29,7 @@ limitations under the License.
 
   <xsl:template match="/">
     <feed>
-      <xsl:apply-templates select="html/head"/>
+      <xsl:apply-templates select="xhtml:html/xhtml:head"/>
       <xsl:choose>
         <xsl:when test="$updated">
           <updated><xsl:value-of select="$updated"/></updated>
@@ -46,13 +46,13 @@ limitations under the License.
     </feed>
   </xsl:template>
 
-  <xsl:template match="/xhtml:html/xhtml:head">
+  <xsl:template match="xhtml:head">
     <!-- For our feed ID, the URL is as good as anything, even if it's a bit confusing.
     See http://diveintomark.org/archives/2004/05/28/howto-atom-id -->
     <id>http://www.rabbitmq.net/news.atom</id>
     <link rel="self" href="http://www.rabbitmq.net/news.atom"/>
     <link rel="alternate" type="text/html" href="http://www.rabbitmq.net/news.html"/>
-    <title type="text"><xsl:value-of select="title"/></title>
+    <title type="text"><xsl:value-of select="xhtml:title"/></title>
       <!--
           We transgressively omit the author, since there isn't a sensible value
       <author>
