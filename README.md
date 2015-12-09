@@ -50,6 +50,12 @@ check the PNGs in, but if you do want to use it, you'll also need dot:
 sudo apt-get install graphviz
 ```
 
+If you want the `site/news.atom` feed generated, you can run the following command:
+
+```sh
+xsltproc --novalid site/feed-atom.xsl site/news.xml > site/news.atom
+```
+
 ### On OS X
 
 Using [Homebrew](http://brew.sh/), you can install the necessary parts with:
