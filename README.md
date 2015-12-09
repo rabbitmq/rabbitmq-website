@@ -71,6 +71,13 @@ check the PNGs in, but if you do want to use it, you'll also need dot:
 
 ### On OS X
 
+Using [Homebrew](http://brew.sh/), you can install the necessary parts with:
+
+```bash
+brew install python
+pip install lxml markdown
+```
+
 Using the system Python, you can install the necessary parts with:
 
     sudo easy_install pip
