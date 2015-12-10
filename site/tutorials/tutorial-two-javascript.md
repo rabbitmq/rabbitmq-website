@@ -180,10 +180,12 @@ message _acknowledgments_. An ack(nowledgement) is sent back from the
 consumer to tell RabbitMQ that a particular message has been received,
 processed and that RabbitMQ is free to delete it.
 
-If a consumer dies without sending an ack, RabbitMQ will understand that a
-message wasn't processed fully and will redeliver it to another
-consumer. That way you can be sure that no message is lost, even if
-the workers occasionally die.
+If a consumer dies (its channel is closed, connection is closed, or
+TCP connection is lost) without sending an ack, RabbitMQ will
+understand that a message wasn't processed fully and will re-queue it.
+If there are other consumers online at the same time, it will then quickly redeliver it
+to another consumer. That way you can be sure that no message is lost,
+even if the workers occasionally die.
 
 There aren't any message timeouts; RabbitMQ will redeliver the message
 only when the worker connection dies. It's fine even if processing a
