@@ -24,7 +24,7 @@ limitations under the License.
   </head>
   <body>
     <p class="warning">
-      This page documents a technique for achieving
+      This part documents a technique for achieving
       active-passive high availability with
       RabbitMQ. <a href="ha.html">Mirrored queues</a>
       can be easier to use and do not impose a delay at failover.
@@ -541,6 +541,11 @@ ha-node-3:~#
 
       <doc:section name="auto-pacemaker">
         <doc:heading>Auto-configuration of a cluster with a Pacemaker</doc:heading>
+        <p class="warning">
+          This part documents a technique for achieving
+          active-active high availability with
+          RabbitMQ with <a href="ha.html">Mirrored queues</a>
+        </p>
         <p>
           Another option to configure clusters "on the fly" is
           <a href="http://www.linux-ha.org/wiki/Resource_agents">Pacemaker resource agents</a>.
@@ -569,7 +574,7 @@ $ <i>pcs resource create --force --master p_rabbitmq-server ocf:rabbitmq:rabbitm
   op promote interval=0 timeout=120 \
   op demote interval=0 timeout=120 \
   op notify interval=0 timeout=180 \
-  meta notify=true ordered=false interleave=true master-max=1 master-node-max=1
+  meta notify=true ordered=false interleave=false master-max=1 master-node-max=1
 </i>
 $ <i>crm configure primitive p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
         params erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672 \
@@ -584,7 +589,7 @@ $ <i>crm configure primitive p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
         meta migration-threshold=10 failure-timeout=30s resource-stickiness=100
 </i>
 $ <i>crm configure ms p_rabbitmq-server-master p_rabbitmq-server \
-        meta notify=true ordered=false interleave=true master-max=1 master-node-max=1</i>
+        meta notify=true ordered=false interleave=false master-max=1 master-node-max=1</i>
         </pre>
         <p>
           Note, that for a symmetric Pacemaker cluster, the resource should be started
@@ -593,7 +598,7 @@ $ <i>crm configure ms p_rabbitmq-server-master p_rabbitmq-server \
         <pre class="sourcecode">
 $ <i>pcs resource show p_rabbitmq-server-master</i>
  Master: p_rabbitmq-server-master
-  Meta Attrs: notify=true ordered=false interleave=true master-max=1 master-node-max=1
+  Meta Attrs: notify=true ordered=false interleave=false master-max=1 master-node-max=1
   Resource: p_rabbitmq-server (class=ocf provider=rabbitmq type=rabbitmq-server-ha)
    Attributes: erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672
    Meta Attrs: migration-threshold=10 failure-timeout=30s resource-stickiness=100
@@ -619,7 +624,7 @@ primitive p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
         meta migration-threshold=10 failure-timeout=30s resource-stickiness=100
 $ <i>crm configure show p_rabbitmq-server-master</i>
 ms p_rabbitmq-server-master p_rabbitmq-server \
-        meta notify=true ordered=false interleave=true master-max=1 master-node-max=1
+        meta notify=true ordered=false interleave=false master-max=1 master-node-max=1
         </pre>
         <p>
           After that, your cluster has to be assembled by the OCF agent and ready for operations.
@@ -642,6 +647,11 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
         </p>
 
         <img src="img/Rabbitmq_clustering_pacemaker_promote.png"/>
+        <p>
+          Note that there is a special file <code>/usr/lib/ocf/resource.d/rabbitmq/set_rabbitmq_policy.sh</code>
+          which will be called on each promote action. This script may be used
+          to specify ha-mode for mirrored queues, configure expiration policy and so on.
+        </p>
         <p>
           Demoting a master resource:
         </p>
