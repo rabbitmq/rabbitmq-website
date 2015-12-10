@@ -86,7 +86,7 @@ program will schedule tasks to our work queue, so let's name it
                          routingKey: "task_queue",
                          basicProperties: properties,
                          body: body);
-    
+
 
 Some help to get the message from the command line argument:
 
@@ -213,9 +213,9 @@ message wasn't processed fully and will redeliver it to another
 consumer. That way you can be sure that no message is lost, even if
 the workers occasionally die.
 
-There aren't any message timeouts; RabbitMQ will redeliver the message
-only when the worker connection dies. It's fine even if processing a
-message takes a very, very long time.
+There aren't any message timeouts; RabbitMQ will redeliver the message when
+the consumer dies. It's fine even if processing a message takes a very, very
+long time.
 
 Message acknowledgments are turned on by default. In previous
 examples we explicitly turned them off by setting the `noAck` ("no manual acks")
@@ -296,7 +296,7 @@ a queue with different name, for example `task_queue`:
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
-    
+
 
 This `queueDeclare` change needs to be applied to both the producer
 and consumer code.
@@ -348,7 +348,7 @@ to the n-th consumer.
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
         label="queue_name=hello";
-	color=transparent;
+    color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
@@ -384,7 +384,7 @@ Final code of our `NewTask.cs` class:
     using System;
     using RabbitMQ.Client;
     using System.Text;
-    
+
     class NewTask
     {
         public static void Main(string[] args)
@@ -398,24 +398,24 @@ Final code of our `NewTask.cs` class:
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
-    
+
                 var message = GetMessage(args);
                 var body = Encoding.UTF8.GetBytes(message);
-    
+
                 var properties = channel.CreateBasicProperties();
                 properties.SetPersistent(true);
-    
+
                 channel.BasicPublish(exchange: "",
                                      routingKey: "task_queue",
                                      basicProperties: properties,
                                      body: body);
                 Console.WriteLine(" [x] Sent {0}", message);
             }
-    
+
             Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
         }
-    
+
         private static string GetMessage(string[] args)
         {
             return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
@@ -433,7 +433,7 @@ And our `Worker.cs`:
     using RabbitMQ.Client.Events;
     using System.Text;
     using System.Threading;
-    
+
     class Worker
     {
         public static void Main()
@@ -447,29 +447,29 @@ And our `Worker.cs`:
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
-    
+
                 channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-    
+
                 Console.WriteLine(" [*] Waiting for messages.");
-    
+
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, ea) =>
                 {
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(" [x] Received {0}", message);
-    
+
                     int dots = message.Split('.').Length - 1;
                     Thread.Sleep(dots * 1000);
-    
+
                     Console.WriteLine(" [x] Done");
-    
+
                     channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };
                 channel.BasicConsume(queue: "task_queue",
                                      noAck: false,
                                      consumer: consumer);
-    
+
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
             }
