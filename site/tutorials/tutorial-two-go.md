@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -210,9 +210,9 @@ message wasn't processed fully and will redeliver it to another
 consumer. That way you can be sure that no message is lost, even if
 the workers occasionally die.
 
-There aren't any message timeouts; RabbitMQ will redeliver the message
-only when the worker connection dies. It's fine even if processing a
-message takes a very, very long time.
+There aren't any message timeouts; RabbitMQ will redeliver the message when
+the consumer dies. It's fine even if processing a message takes a very, very
+long time.
 
 Message acknowledgments are turned off by default.
 It's time to turn them on using the `false,  // auto-ack` option and send a proper acknowledgment
@@ -370,7 +370,7 @@ to the n-th consumer.
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
         label="queue_name=hello";
-	color=transparent;
+    color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
@@ -415,26 +415,26 @@ Final code of our `new_task.go` class:
             "log"
             "os"
             "strings"
-    
+
             "github.com/streadway/amqp"
     )
-    
+
     func failOnError(err error, msg string) {
             if err != nil {
                     log.Fatalf("%s: %s", msg, err)
                     panic(fmt.Sprintf("%s: %s", msg, err))
             }
     }
-    
+
     func main() {
             conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
             failOnError(err, "Failed to connect to RabbitMQ")
             defer conn.Close()
-    
+
             ch, err := conn.Channel()
             failOnError(err, "Failed to open a channel")
             defer ch.Close()
-    
+
             q, err := ch.QueueDeclare(
                     "task_queue", // name
                     true,         // durable
@@ -444,7 +444,7 @@ Final code of our `new_task.go` class:
                     nil,          // arguments
             )
             failOnError(err, "Failed to declare a queue")
-    
+
             body := bodyFrom(os.Args)
             err = ch.Publish(
                     "",           // exchange
@@ -459,7 +459,7 @@ Final code of our `new_task.go` class:
             failOnError(err, "Failed to publish a message")
             log.Printf(" [x] Sent %s", body)
     }
-    
+
     func bodyFrom(args []string) string {
             var s string
             if (len(args) < 2) || os.Args[1] == "" {
@@ -485,23 +485,23 @@ And our `worker.go`:
             "log"
             "time"
     )
-    
+
     func failOnError(err error, msg string) {
             if err != nil {
                     log.Fatalf("%s: %s", msg, err)
                     panic(fmt.Sprintf("%s: %s", msg, err))
             }
     }
-    
+
     func main() {
             conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
             failOnError(err, "Failed to connect to RabbitMQ")
             defer conn.Close()
-    
+
             ch, err := conn.Channel()
             failOnError(err, "Failed to open a channel")
             defer ch.Close()
-    
+
             q, err := ch.QueueDeclare(
                     "task_queue", // name
                     true,         // durable
@@ -511,14 +511,14 @@ And our `worker.go`:
                     nil,          // arguments
             )
             failOnError(err, "Failed to declare a queue")
-    
+
             err = ch.Qos(
                     1,     // prefetch count
                     0,     // prefetch size
                     false, // global
             )
             failOnError(err, "Failed to set QoS")
-    
+
             msgs, err := ch.Consume(
                     q.Name, // queue
                     "",     // consumer
@@ -529,9 +529,9 @@ And our `worker.go`:
                     nil,    // args
             )
             failOnError(err, "Failed to register a consumer")
-    
+
             forever := make(chan bool)
-    
+
             go func() {
                     for d := range msgs {
                             log.Printf("Received a message: %s", d.Body)
@@ -542,7 +542,7 @@ And our `worker.go`:
                             log.Printf("Done")
                     }
             }()
-    
+
             log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
             <-forever
     }

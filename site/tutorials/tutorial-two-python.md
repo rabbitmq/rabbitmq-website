@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -77,7 +77,7 @@ program will schedule tasks to our work queue, so let's name it
 
     :::python
     import sys
-    
+
     message = ' '.join(sys.argv[1:]) or "Hello World!"
     channel.basic_publish(exchange='',
                           routing_key='hello',
@@ -178,9 +178,9 @@ message wasn't processed fully and will redeliver it to another
 consumer. That way you can be sure that no message is lost, even if
 the workers occasionally die.
 
-There aren't any message timeouts; RabbitMQ will redeliver the message
-only when the worker connection dies. It's fine even if processing a
-message takes a very, very long time.
+There aren't any message timeouts; RabbitMQ will redeliver the message when
+the consumer dies. It's fine even if processing a message takes a very, very
+long time.
 
 Message acknowledgments are turned on by default. In previous
 examples we explicitly turned them off via the `no_ack=True`
@@ -301,7 +301,7 @@ to the n-th consumer.
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
         label="queue_name=hello";
-	color=transparent;
+    color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
