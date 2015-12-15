@@ -302,6 +302,14 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+          <doc:section name="ocaml-dev">
+            <doc:heading>OCaml</doc:heading>
+            <ul class="plain">
+              <li>
+                An <a href="https://github.com/andersfugmann/amqp-client">RabbitMQ client for OCaml</a>
+              </li>
+            </ul>
+          </doc:section>          
           <doc:section name="devops-tools">
             <doc:heading>Provisioning (Chef, Puppet, Docker, etc) and Operations</doc:heading>
             <ul class="plain">
