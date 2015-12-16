@@ -70,7 +70,7 @@ limitations under the License.
     <ul>
       <li>
         <a
-        href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang
+        href="https://www.erlang-solutions.com/resources/download.html">Erlang
         Solutions</a> produces packages that are usually up to
         date. They produce two sets of packages - ones which are split
         up and are more convenient to use if you can add a yum
@@ -97,7 +97,7 @@ limitations under the License.
     <ol class="plain">
       <li>
         Follow the instructions under "Installation using repository"
-        at <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang Solutions</a>.
+        at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
       </li>
     </ol>
 
@@ -105,7 +105,7 @@ limitations under the License.
     <ol class="plain">
       <li>
         Download and install the appropriate <code>esl-erlang</code> RPM
-        from <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Erlang Solutions</a>.
+        from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
       </li>
       <li>
         Download and install
