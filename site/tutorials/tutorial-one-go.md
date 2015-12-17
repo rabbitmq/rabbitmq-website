@@ -107,10 +107,10 @@ on behalf of the consumer.
 
 > #### The Go RabbitMQ client library
 >
-> RabbitMQ speaks AMQP 0.9.1, which is an open,
+> RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/devtools.html). We'll
+> languages](http://rabbitmq.com/devtools.html). We'll
 > use the Go amqp client in this tutorial.
 >
 > First, install amqp using `go get`:

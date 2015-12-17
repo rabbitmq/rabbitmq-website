@@ -106,12 +106,11 @@ on behalf of the consumer.
 </div>
 
 > #### The amqp.node client library
->
-> RabbitMQ speaks AMQP 0.9.1, which is an open,
+> RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/devtools.html). We'll
-> use the amqp.node client in this tutorial.
+> languages](http://rabbitmq.com/devtools.html). We'll
+> use the [amqp.node client](http://www.squaremobius.net/amqp.node/) in this tutorial.
 >
 > First, install amqp.node using [npm](https://www.npmjs.com):
 >

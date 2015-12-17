@@ -114,43 +114,14 @@ Producer sends messages to the "hello" queue. The consumer receives
 messages from that queue.
 
 > #### RabbitMQ libraries
->
-> RabbitMQ speaks several protocols. The one covered in this tutorial is called AMQP 0-9-1. To use Rabbit you'll need a library
-> that understands the same protocol as RabbitMQ. There is a choice of libraries
-> for almost every programming language. For Python it's no different and there
-> are multiple libraries to choose from:
->
-> * [pika](http://github.com/pika/pika)
-> * [py-amqp](https://github.com/celery/py-amqp)
-> * [py-amqplib](http://barryp.org/software/py-amqplib/)
->
-> In this tutorial series we're going to use `Pika`, which is the library recommended by the RabbitMQ team. To install it
-> you can use the [`pip`](http://pip.openplans.org/) package management tool:
->
->     :::bash
->     $ sudo pip install pika==0.10.0
->
-> The installation depends on `pip` and `git-core` packages, you may
-> need to install them first.
->
-> * On Ubuntu:
->
->         :::bash
->         $ sudo apt-get install python-pip git-core
->
-> * On Debian:
->
->         :::bash
->         $ sudo apt-get install python-setuptools git-core
->         $ sudo easy_install pip
->
-> * On Windows:
->To install easy_install, run the MS Windows Installer for [`setuptools`](http://pypi.python.org/pypi/setuptools)
->
->         :::bash
->         > easy_install pip
->         > pip install pika==0.10.0
->
+
+> RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
+> protocol for messaging. There are a number of clients for RabbitMQ
+> in [many different languages](/devtools.html).  In this tutorial
+> series we're going to use [Pika](https://pika.readthedocs.org/en/0.10.0/#),
+> which is the Python client recommended
+> by the RabbitMQ team. To install it you can use the
+> [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool.
 
 ### Sending
 
