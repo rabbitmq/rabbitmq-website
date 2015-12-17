@@ -49,9 +49,11 @@ limitations under the License.
     </p>
     <h3 id="irc">IRC</h3>
     <p>
-      RabbitMQ IRC channgel is <code>#rabbitmq</code> on irc.freenode.net: <strong>#rabbitmq -- irc://irc.freenode.net/rabbitmq</strong>.
-      The logs of these conversations are available at <a href="http://dev.rabbitmq.com/irclog/">http://dev.rabbitmq.com/irclog/</a>.
-      There's a <a href="http://webchat.freenode.net/">Web interface to Freenode</a> if you don't have an IRC client installed.
+      RabbitMQ IRC channgel is <code>#rabbitmq</code> on
+      irc.freenode.net: <strong>#rabbitmq --
+      irc://irc.freenode.net/rabbitmq</strong>.  There's a <a
+      href="http://webchat.freenode.net/">Web interface to
+      Freenode</a> if you don't have an IRC client installed.
     </p>
     <h2 id="email">Private Enquiries</h2>
     <p>
