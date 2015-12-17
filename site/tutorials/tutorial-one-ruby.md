@@ -106,17 +106,16 @@ on behalf of the consumer.
 </div>
 
 > #### The Bunny client library
->
-> RabbitMQ speaks AMQP 0.9.1, which is an open,
+> RabbitMQ speaks multiple protocols. This tutorial uses AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
 > for RabbitMQ in [many different
-> languages](/devtools.html). We'll
-> use the Bunny client in this tutorial.
+> languages](http://rabbitmq.com/devtools.html). We'll
+> use the [Bunny](http://rubybunny.info), the most popular Ruby client, in this tutorial.
 >
 > First, install Bunny using [Rubygems](http://rubygems.org):
 >
 >     :::bash
->     $ gem install bunny --version ">= 1.6.0"
+>     $ gem install bunny --version ">= 2.2.1"
 >
 
 Now we have Bunny installed, we can write some

@@ -107,11 +107,12 @@ on behalf of the consumer.
 
 > #### The php-amqplib client library
 >
-> RabbitMQ speaks [AMQP](http://amqp.org/), which is an open,
+> RabbitMQ speaks multiple protocols. This tutorial covers AMQP 0-9-1, which is an open,
 > general-purpose protocol for messaging. There are a number of clients
-> for AMQP in [many different
+> for RabbitMQ in [many different
 > languages](http://rabbitmq.com/devtools.html). We'll
-> use the php-amqplib in this tutorial.
+> use the php-amqplib in this tutorial, and [Composer](https://getcomposer.org/doc/00-intro.md)
+> for dependency management.
 >
 > Add a composer.json file to your project:
 >
@@ -122,11 +123,13 @@ on behalf of the consumer.
 >         }
 >     }
 >
->Provided you have [composer](http://getcomposer.org) installed, you can run the following:
+>Provided you have [Composer](https://getcomposer.org/doc/00-intro.md) installed and functional,
+>you can run the following:
 >
 >     :::bash
 >     $ composer.phar install
 >
+>There's also a [Composer installer for Windows](https://github.com/composer/windows-setup).
 
 Now we have the php-amqplib library installed, we can write some
 code.
