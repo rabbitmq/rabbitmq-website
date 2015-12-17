@@ -1,10 +1,10 @@
 <?xml-stylesheet type="text/xml" href="page.xsl"?>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -25,22 +25,23 @@ limitations under the License.
     <h2 id="email">Commercial Enquiries</h2>
     <p>
       For enquiries about commercial licensing, support, training, and
-      consulting, please contact us by email on <a
-      href="mailto:info@rabbitmq.com">info@rabbitmq.com</a>. Please
-      note that this address is for commercial enquiries only; if you
-      have questions about how to use RabbitMQ and do not want to
-      purchase a support contract please use the <a
-      href="https://groups.google.com/forum/#!forum/rabbitmq-users">mailing list</a>
-      instead.
-    </p>
-    <p>
+      consulting, please <a
+      href="mailto:sales@rabbitmq.com">contact sales</a>.
+
       Alternatively, if you already have a support contract established
       with Pivotal, please see the
-      <a href="http://www.pivotal.io/about-pivotal/support">Pivotal
+      <a href="https://support.pivotal.io/hc/en-us">Pivotal
       support page</a>.
     </p>
+    <p>
+      If you
+      have questions about how to use RabbitMQ and do not want to
+      purchase a support contract or learn about commercial offerings, please use the <a
+      href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>
+      instead.
+    </p>
     <h2 id="mailing-list">Community Support (Mailing List, IRC)</h2>
-    <h3 id="irc">Public Mailing List</h3>    
+    <h3 id="irc">Public Mailing List</h3>
     <p>
       <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">rabbitmq-users</a> is the group for
       discussions about RabbitMQ. Once you join you can get help with technical issues,
@@ -97,4 +98,3 @@ limitations under the License.
     </div>
   </body>
 </html>
-
