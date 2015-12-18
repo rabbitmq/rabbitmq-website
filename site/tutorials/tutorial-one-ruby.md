@@ -115,7 +115,7 @@ on behalf of the consumer.
 > First, install Bunny using [Rubygems](http://rubygems.org):
 >
 >     :::bash
->     $ gem install bunny --version ">= 2.2.1"
+>     $ gem install bunny --version ">= 2.2.2"
 >
 
 Now we have Bunny installed, we can write some
