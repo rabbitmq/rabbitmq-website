@@ -78,7 +78,7 @@ messages will be used internally.
 
 Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
 one per subscription QoS level. The queues will have [queue TTL](/ttl.html) depending
-on MQTT plugin configuration.
+on MQTT plugin configuration, 24 hours by default.
 
 
 ## <a id="config"/> Plugin Configuration
@@ -192,11 +192,11 @@ Note that:
 
 
 
-### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions)
+### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL
 
 The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
-parameter, so the value `1800000` means 30 minutes. To disable the TTL feature, just set
+parameter, so the value `86400000` means 24 hours. To disable the TTL feature, just set
 the `subscription_ttl`  to `undefined` in the configuration file:
 
     [{rabbit,        [{tcp_listeners,    [5672]}]},
@@ -209,6 +209,10 @@ the `subscription_ttl`  to `undefined` in the configuration file:
                       {prefetch,         10},
                       ...
     ].
+
+Note that disabling queue TTL carries a risk: short-lived clients that don't use clean sessions
+can leave queues and messages behind, which will consume resources and require manual
+cleanup.
 
 The `prefetch` option controls the maximum number of unacknowledged messages that
 will be delivered. This option is interpreted in the same way as the [AMQP 0-9-1 prefetch-count](http://www.rabbitmq.com/amqp-0-9-1-reference.html#basic.qos.prefetch-count)
