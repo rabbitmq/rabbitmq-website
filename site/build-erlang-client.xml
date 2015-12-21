@@ -39,18 +39,15 @@ limitations under the License.
           </li>
 
           <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
-$ git clone https://github.com/rabbitmq/rabbitmq-server.git
-$ git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
+            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
 $ cd rabbitmq-erlang-client
 $ make</pre>
           </li>
         </ul>
 
         <p>
-          If you choose to check the code out using Git, be
-          aware that the server code and the code-generation module are
-          dependencies of the Erlang client library. If you're working with a
+          If you choose to check the code out using Git, the necessary
+          dependencies will be fetched automatically. If you're working with a
           released source code distribution, though, all necessary dependencies
           are included.
         </p>
@@ -62,21 +59,9 @@ $ make</pre>
         <doc:heading>Building the Erlang client libraries</doc:heading>
 
         <p>
-          You will need to get the source of the server and the
-          codegen. If you ran the commands above, the these will be
-          placed in sibling directories to the Erlang client (i.e:
-          <code>../rabbitmq-server</code> and
-          <code>../rabbitmq-codegen</code>), which is the default that
-          the <code>Makefile</code> expects. In this case, you can
-          just run <code>make</code>.
-        </p>
-
-        <p>
-          If the source tree for the server is not in the sibling
-          directory, you will need to specify the path to this
-          directory with <code>make
-          BROKER_DIR=/path/to/server</code>. In this case, make sure
-          you specify BROKER_DIR every time you run a make target.
+          If you ran the commands above, there is nothing else to do.
+          The Erlang.mk build system compiled everything when you ran
+          <code>make</code>.
         </p>
 
         <p>
@@ -90,13 +75,13 @@ $ make</pre>
               The default target. Builds the client libraries.
             </dd>
 
-            <dt>run</dt>
+            <dt>shell</dt>
             <dd>
               Builds the client libraries and starts an Erlang shell with the
               libraries loaded.
             </dd>
 
-            <dt>run_in_broker</dt>
+            <dt>run-broker</dt>
             <dd>
               Builds the client and starts RabbitMQ server with shell
               and the client included in load path.
@@ -104,15 +89,18 @@ $ make</pre>
 
             <dt>clean</dt>
             <dd>
-              Removes build products.
+              Removes temporary build products.
             </dd>
 
-            <dt>test</dt>
+            <dt>distclean</dt>
+            <dd>
+              Removes all build products.
+            </dd>
+
+            <dt>tests</dt>
             <dd>
               Runs a set of tests against a server running on
-              locally. You will need to start a local instance of an
-              AMQP server, running on port 5672, which allows
-              guest/guest access on virtual host "/", beforehand.
+              locally.
             </dd>
 
             <dt>all_tests</dt>
@@ -140,24 +128,7 @@ $ make PLT=/path/to/plt dialyze</pre>
               target.
             </dd>
 
-            <dt>dialyze_all</dt>
-            <dd>
-              Same as dialyze, except that this also analyses tests
-              source code.
-            </dd>
-
-            <dt>add_broker_to_plt</dt>
-            <dd>
-              Adds broker .beam files to default plt. Use
-
-              <pre class="sourcecode">
-$ make PLT=/path/to/plt add_broker_to_plt</pre>
-
-              to override default plt location
-              (<code>~/.dialyzer_plt</code>).
-            </dd>
-
-            <dt>source_tarball</dt>
+            <dt>source-dist</dt>
             <dd>
               Creates tarball of all the client source code.
             </dd>
@@ -165,12 +136,6 @@ $ make PLT=/path/to/plt add_broker_to_plt</pre>
             <dt>package</dt>
             <dd>
               Creates an erlang archive of the client.
-            </dd>
-
-            <dt>common_package</dt>
-            <dd>
-              Creates an erlang archive of the server modules required
-              by the erlang client.
             </dd>
 
           </dl>
