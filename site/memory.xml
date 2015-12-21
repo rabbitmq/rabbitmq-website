@@ -218,8 +218,8 @@ Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory 
       </p>
 
       <p>
-        It is advised you do not set the threshold above 50% of your
-        installed RAM.
+        For guidelines on recommended RAM watermark settings,
+        see <a href="/production-checklist.html">Production Checklist</a>.
       </p>
     </doc:section>
   </body>
