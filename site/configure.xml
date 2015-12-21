@@ -1024,7 +1024,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <ul>
           <li><a href="management.html#configuration">rabbitmq_management</a></li>
           <li><a href="management.html#configuration">rabbitmq_management_agent</a></li>
-          <li><a href="mochiweb.html">rabbitmq_mochiweb</a></li>
+          <li><a href="web-dispatch.html">rabbitmq_web_dispatch</a></li>
           <li><a href="stomp.html">rabbitmq_stomp</a></li>
           <li><a href="shovel.html">rabbitmq_shovel</a></li>
           <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>

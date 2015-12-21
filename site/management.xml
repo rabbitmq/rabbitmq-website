@@ -385,10 +385,10 @@ limitations under the License.
                                 {rates_mode,    basic}] }
 ].</pre>
         </doc:subsection>
-        <doc:subsection name="mochiweb-config">
+        <doc:subsection name="web-dispatch-config">
           <doc:heading>Configuring the HTTP listener</doc:heading>
           <p>
-            It is possible to configure rabbitmq-mochiweb to serve the
+            It is possible to configure rabbitmq-web-dispatch to serve the
             management plugin on a different port or network
             interface, with SSL, etc. To do so, you should configure the
             <code>listener</code> configuration item; for example to
@@ -414,7 +414,7 @@ limitations under the License.
   ]}
 ].</pre>
           <p>
-            See the <a href="mochiweb.html">rabbitmq-mochiweb</a>
+            See the <a href="web-dispatch.html">rabbitmq-web-dispatch</a>
             guide for more details.
           </p>
         </doc:subsection>
