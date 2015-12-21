@@ -141,7 +141,7 @@ limitations under the License.
           strategies. Which strategy is used is controlled in three ways,
           namely, using the <code>x-queue-master-locator</code> queue
           declare argument, setting the <code>queue-master-locator</code>
-          policy key or by defining the <code>queue_master_locator<code>
+          policy key or by defining the <code>queue_master_locator</code>
           key in <a href="configure.html#configuration-file">
           <code>the configuration file</code></a>. Here are the possible
           strategies and how to set them:
