@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -279,7 +279,7 @@ The code for `emit_log_direct.py`:
     channel.basic_publish(exchange='direct_logs',
                           routing_key=severity,
                           body=message)
-    print " [x] Sent %r:%r" % (severity, message)
+    print(" [x] Sent %r:%r" % (severity, message))
     connection.close()
 
 
@@ -301,8 +301,7 @@ The code for `receive_logs_direct.py`:
 
     severities = sys.argv[1:]
     if not severities:
-        print >> sys.stderr, "Usage: %s [info] [warning] [error]" % \
-                             (sys.argv[0],)
+        sys.stderr.write("Usage: %s [info] [warning] [error]\n" % sys.argv[0])
         sys.exit(1)
 
     for severity in severities:
@@ -310,10 +309,10 @@ The code for `receive_logs_direct.py`:
                            queue=queue_name,
                            routing_key=severity)
 
-    print ' [*] Waiting for logs. To exit press CTRL+C'
+    print(' [*] Waiting for logs. To exit press CTRL+C')
 
     def callback(ch, method, properties, body):
-        print " [x] %r:%r" % (method.routing_key, body,)
+        print(" [x] %r:%r" % (method.routing_key, body))
 
     channel.basic_consume(callback,
                           queue=queue_name,
@@ -346,4 +345,3 @@ And, for example, to emit an `error` log message just type:
 
 Move on to [tutorial 5](tutorial-five-python.html) to find out how to listen
 for messages based on a pattern.
-

@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -172,7 +172,7 @@ The code for `emit_log_topic.py`:
     channel.basic_publish(exchange='topic_logs',
                           routing_key=routing_key,
                           body=message)
-    print " [x] Sent %r:%r" % (routing_key, message)
+    print(" [x] Sent %r:%r" % (routing_key, message))
     connection.close()
 
 The code for `receive_logs_topic.py`:
@@ -193,7 +193,7 @@ The code for `receive_logs_topic.py`:
 
     binding_keys = sys.argv[1:]
     if not binding_keys:
-        print >> sys.stderr, "Usage: %s [binding_key]..." % (sys.argv[0],)
+        sys.stderr.write("Usage: %s [binding_key]...\n" % sys.argv[0])
         sys.exit(1)
 
     for binding_key in binding_keys:
@@ -201,10 +201,10 @@ The code for `receive_logs_topic.py`:
                            queue=queue_name,
                            routing_key=binding_key)
 
-    print ' [*] Waiting for logs. To exit press CTRL+C'
-    
+    print(' [*] Waiting for logs. To exit press CTRL+C')
+
     def callback(ch, method, properties, body):
-        print " [x] %r:%r" % (method.routing_key, body,)
+        print(" [x] %r:%r" % (method.routing_key, body))
 
     channel.basic_consume(callback,
                           queue=queue_name,
@@ -276,4 +276,3 @@ Some teasers:
 and [receive_logs_topic.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_topic.py))
 
 Move on to [tutorial 6](tutorial-six-python.html) to learn about *RPC*.
-

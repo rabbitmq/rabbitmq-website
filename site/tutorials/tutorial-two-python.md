@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -77,13 +77,15 @@ program will schedule tasks to our work queue, so let's name it
 
     :::python
     import sys
-    
+
     message = ' '.join(sys.argv[1:]) or "Hello World!"
     channel.basic_publish(exchange='',
-                          routing_key='hello',
-                          body=message)
-    print " [x] Sent %r" % (message,)
-
+                          routing_key='task_queue',
+                          body=message,
+                          properties=pika.BasicProperties(
+                             delivery_mode = 2, # make message persistent
+                          ))
+    print(" [x] Sent %r" % message)
 
 Our old _receive.py_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
@@ -93,9 +95,10 @@ messages from the queue and perform the task, so let's call it `worker.py`:
     import time
 
     def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
-        time.sleep( body.count('.') )
-        print " [x] Done"
+        print(" [x] Received %r" % body)
+        time.sleep(body.count(b'.'))
+        print(" [x] Done")
+        ch.basic_ack(delivery_tag = method.delivery_tag)
 
 
 Round-robin dispatching
@@ -352,7 +355,7 @@ Final code of our `new_task.py` script:
                           properties=pika.BasicProperties(
                              delivery_mode = 2, # make message persistent
                           ))
-    print " [x] Sent %r" % (message,)
+    print(" [x] Sent %r" % message)
     connection.close()
 
 [(new_task.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/new_task.py)
@@ -368,12 +371,12 @@ And our worker:
     channel = connection.channel()
 
     channel.queue_declare(queue='task_queue', durable=True)
-    print ' [*] Waiting for messages. To exit press CTRL+C'
+    print(' [*] Waiting for messages. To exit press CTRL+C')
 
     def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
-        time.sleep( body.count('.') )
-        print " [x] Done"
+        print(" [x] Received %r" % body)
+        time.sleep(body.count(b'.'))
+        print(" [x] Done")
         ch.basic_ack(delivery_tag = method.delivery_tag)
 
     channel.basic_qos(prefetch_count=1)
@@ -391,4 +394,3 @@ RabbitMQ is restarted.
 
 Now we can move on to [tutorial 3](tutorial-three-python.html) and learn how
 to deliver the same message to many consumers.
-
