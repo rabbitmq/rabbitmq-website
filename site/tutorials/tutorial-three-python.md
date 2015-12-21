@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -273,7 +273,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
     channel.basic_publish(exchange='logs',
                           routing_key='',
                           body=message)
-    print " [x] Sent %r" % (message,)
+    print(" [x] Sent %r" % message)
     connection.close()
 
 [(emit_log.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log.py)
@@ -303,10 +303,10 @@ The code for `receive_logs.py`:
     channel.queue_bind(exchange='logs',
                        queue=queue_name)
 
-    print ' [*] Waiting for logs. To exit press CTRL+C'
+    print(' [*] Waiting for logs. To exit press CTRL+C')
 
     def callback(ch, method, properties, body):
-        print " [x] %r" % (body,)
+        print(" [x] %r" % body)
 
     channel.basic_consume(callback,
                           queue=queue_name,
@@ -350,4 +350,3 @@ that's exactly what we intended.
 
 To find out how to listen for a subset of messages, let's move on to
 [tutorial 4](tutorial-four-python.html)
-

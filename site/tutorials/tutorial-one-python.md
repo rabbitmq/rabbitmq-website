@@ -186,7 +186,7 @@ The queue name needs to be specified in the `routing_key` parameter:
     channel.basic_publish(exchange='',
                           routing_key='hello',
                           body='Hello World!')
-    print " [x] Sent 'Hello World!'"
+    print(" [x] Sent 'Hello World!'")
 
 
 Before exiting the program we need to make sure the network buffers
@@ -275,7 +275,7 @@ the message.
 
     :::python
     def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
+        print(" [x] Received %r" % body)
 
 
 Next, we need to tell RabbitMQ that this particular callback function should
@@ -296,7 +296,7 @@ And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary.
 
     :::python
-    print ' [*] Waiting for messages. To exit press CTRL+C'
+    print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 
 
@@ -318,7 +318,7 @@ Full code for `send.py`:
     channel.basic_publish(exchange='',
                           routing_key='hello',
                           body='Hello World!')
-    print " [x] Sent 'Hello World!'"
+    print(" [x] Sent 'Hello World!'")
     connection.close()
 
 [(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
@@ -336,15 +336,14 @@ Full `receive.py` code:
 
     channel.queue_declare(queue='hello')
 
-    print ' [*] Waiting for messages. To exit press CTRL+C'
-
     def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
+        print(" [x] Received %r" % body)
 
     channel.basic_consume(callback,
                           queue='hello',
                           no_ack=True)
 
+    print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
@@ -372,5 +371,3 @@ Try to run `send.py` again in a new terminal.
 We've learned how to send and receive a message from a named
 queue. It's time to move on to [part 2](tutorial-two-python.html)
 and build a simple _work queue_.
-
-

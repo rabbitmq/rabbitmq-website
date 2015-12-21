@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -44,7 +44,7 @@ which sends an RPC request and blocks until the answer is received:
     :::python
     fibonacci_rpc = FibonacciRpcClient()
     result = fibonacci_rpc.call(4)
-    print "fib(4) is %r" % (result,)
+    print("fib(4) is %r" % result)
 
 > #### A note on RPC
 >
@@ -220,7 +220,6 @@ The code for `rpc_server.py`:
 
     channel.queue_declare(queue='rpc_queue')
 
-
     def fib(n):
         if n == 0:
             return 0
@@ -232,21 +231,20 @@ The code for `rpc_server.py`:
     def on_request(ch, method, props, body):
         n = int(body)
 
-        print " [.] fib(%s)"  % (n,)
+        print(" [.] fib(%s)" % n)
         response = fib(n)
 
         ch.basic_publish(exchange='',
                          routing_key=props.reply_to,
                          properties=pika.BasicProperties(correlation_id = \
-                                                         props.correlation_id),
+                                                             props.correlation_id),
                          body=str(response))
         ch.basic_ack(delivery_tag = method.delivery_tag)
-
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(on_request, queue='rpc_queue')
 
-    print " [x] Awaiting RPC requests"
+    print(" [x] Awaiting RPC requests")
     channel.start_consuming()
 
 
@@ -304,9 +302,9 @@ The code for `rpc_client.py`:
 
     fibonacci_rpc = FibonacciRpcClient()
 
-    print " [x] Requesting fib(30)"
+    print(" [x] Requesting fib(30)")
     response = fibonacci_rpc.call(30)
-    print " [.] Got %r" % (response,)
+    print(" [.] Got %r" % response)
 
 
 The client code is slightly more involved:
@@ -361,11 +359,9 @@ complex (but important) problems, like:
    forwarded to the client?
  * Protecting against invalid incoming messages
    (eg checking bounds) before processing.
-   
+
 >
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
 >
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
-
-

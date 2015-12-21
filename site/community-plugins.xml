@@ -305,6 +305,19 @@ limitations under the License.
           </r:plugin>
 -->
 
+          <r:plugin name="rabbitmq_coap_pubsub">
+            Implements the Publish-Subscribe Broker for the Constrained
+            Application Protocol (CoAP) as specified in the
+            <a href="https://www.ietf.org/id/draft-koster-core-coap-pubsub-02.txt">draft-koster-core-coap-pubsub-02</a>.
+            <ul>
+              <li><r:community-plugin-link name="gen_coap"/></li>
+              <li><r:community-plugin-link name="rabbitmq_coap_pubsub"/></li>
+            </ul>
+            <ul>
+              <li>Authors: <b>Petr Gotthard</b></li>
+              <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-coap-pubsub">gotthardp/rabbitmq-coap-pubsub</a></li>
+            </ul>
+          </r:plugin>
           <r:plugin name="rabbitmq_email">
             Maps SMTP to AMQP (to convert an incoming email to an AMQP
             message) and AMQP to SMTP (to send an email from an AMQP message).
