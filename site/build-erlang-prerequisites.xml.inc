@@ -41,10 +41,10 @@ limitations under the License.
     <li>
       the <a href="http://www.erlang.org/download.html">Erlang</a>
       development and runtime tools<br/> If you are on a Debian-based
-      system then you need the <i>erlang-nox</i> and <i>erlang-dev</i>
-      packages installed.  If you are building and installing Erlang
-      from source then you must ensure that openssl is installed on
-      your system.
+      system then you need the <i>erlang-nox</i>, <i>erlang-dev</i> and
+      <i>erlang-src</i> packages installed. If you are building and
+      installing Erlang from source then you must ensure that openssl is
+      installed on your system.
     </li>
 
     <li>
