@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ Web-Stomp Plugin NOSYNTAX
 
 The Web-Stomp plugin is a simple bridge exposing the
-[STOMP](http://stomp.github.com) protocol over emulated
+[STOMP](http://stomp.github.com) protocol over direct or emulated
 [HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
 
 The main intention of Web-Stomp is to make it possible to use RabbitMQ
