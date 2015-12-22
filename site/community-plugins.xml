@@ -84,7 +84,7 @@ limitations under the License.
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Alvaro Videla</b></li>
-              <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-rtopic-exchange">videlalvaro/rabbitmq-rtopic-exchange</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
             </ul>
           </r:plugin>
 
