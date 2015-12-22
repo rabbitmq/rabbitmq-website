@@ -193,7 +193,7 @@ apt-get -qy install rabbitmq-server</pre>
 	following instructions to install the required packages on the
 	instance:
     </p>
-    <pre class="ec2_sourcecode">apt-get install openjdk-6-jre
+    <pre class="ec2_sourcecode">apt-get install openjdk-8-jre
 curl http://www.rabbitmq.com/releases/&dir-java-client;/rabbitmq-java-client-bin-&version-java-client;.tar.gz \
     -o rabbitmq-java-client-bin-&version-java-client;.tar.gz
 tar xzf rabbitmq-java-client-bin-&version-java-client;.tar.gz
