@@ -115,17 +115,13 @@ messages from that queue.
 
 > #### RabbitMQ libraries
 >
-> RabbitMQ speaks several protocols. The one covered in this tutorial is called AMQP 0-9-1. To use Rabbit you'll need a library
-> that understands the same protocol as RabbitMQ. There is a choice of libraries
-> for almost every programming language. For Elixir it's no different and the Erlang ecosystem
-> is available too, resulting in multiple libraries to choose from:
+> RabbitMQ speaks AMQP 0.9.1, which is an open, general-purpose
+> protocol for messaging. There are a number of clients for RabbitMQ
+> in [many different languages](/devtools.html).  In this tutorial
+> series we're going to use [amqp](http://github.com/pma/amqp).
 >
-> * [amqp](http://github.com/pma/amqp)
-> * [rabbit_common](https://github.com/jbrisbin/rabbit_common)
-> * [rabbitmq-erlang-client](https://github.com/rabbitmq/rabbitmq-erlang-client)
->
-> In this tutorial series we're going to use `amqp`. To install it
-> you can use the [`hex`](http://hex.pm/) package management tool. Let's make a new project.
+> To install it you can use the [`hex`](http://hex.pm/) package
+> management tool. Let's make a new project.
 >
 >     :::bash
 >     $ mix new rabbitmq_tutorials
