@@ -82,7 +82,7 @@ program will schedule tasks to our work queue, so let's name it
         words -> Enum.join(words, " ")
       end
 
-    AMQP.Basic.publish(channel, "", "hello", message)
+    AMQP.Basic.publish(channel, "", "task_queue", message, persistent: true)
 
     IO.puts " [x] Send '#{message}'"
 
@@ -103,6 +103,7 @@ messages from the queue and perform the task, so let's call it `worker.exs`:
             |> Kernel.*(1000)
             |> :timer.sleep
             IO.puts " [x] Done."
+            AMQP.Basic.ack(channel, meta.delivery_tag)
 
             wait_for_messages(channel)
         end
