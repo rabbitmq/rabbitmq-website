@@ -112,6 +112,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-four-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-four-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-four-elixir.html">Elixir</a>
           </p>
         </li>
 
