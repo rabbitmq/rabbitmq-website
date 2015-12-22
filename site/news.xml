@@ -34,7 +34,7 @@ limitations under the License.
    <doc:item>
       <doc:date iso="2015-12-22T18:00:00+0300">22 December 2015</doc:date>
       <doc:title>RabbitMQ 3.6.0 release</doc:title>
-      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6.0</doc:link>
+      <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0</doc:link>
       <doc:text>
         <p>
           The RabbitMQ team is pleased to announce the release of RabbitMQ
