@@ -37,10 +37,10 @@ limitations under the License.
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
           Binary
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-generic-unix-&version-server;.tar.xz">.tar.xz</a>
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-windows-&version-server;.zip">.zip</a> |
           Source
-          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.tar.gz">.tar.gz</a>
+          <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.tar.xz">.tar.xz</a>
           <a href="/releases/rabbitmq-server/v&version-server;/rabbitmq-server-&version-server;.zip">.zip</a>
         </li>
       </ul>
@@ -52,7 +52,7 @@ limitations under the License.
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server_&version-server;-&serverDebMinorVersion;_all.deb">Debian / Ubuntu</a> |
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">Fedora / RHEL</a> |
           Binary
-          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.gz">.tar.gz</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-generic-unix-&version-server;.tar.xz">.tar.xz</a>
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-windows-&version-server;.zip">.zip</a>
         </li>
       </ul>
@@ -134,7 +134,7 @@ limitations under the License.
         </li>
         <li>
           Quick download:
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.0.zip">Binary</a> |
+          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.5.zip">Binary</a> |
           <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;.zip">Source</a>
         </li>
         <li>
@@ -150,7 +150,7 @@ limitations under the License.
         <li>
           Quick download:
           Binary <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;.ez">client.ez</a> <a href="/releases/&dir-erlang-client;/rabbit_common-&version-erlang-client;.ez">common.ez</a> |
-          Source <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;-src.tar.gz">.tar.gz</a>
+          Source <a href="/releases/&dir-erlang-client;/&nameVersion-erlang-client;-src.tar.xz">.tar.xz</a>
         </li>
         <li>
           <a href="erlang-client.html">All Erlang client downloads</a>

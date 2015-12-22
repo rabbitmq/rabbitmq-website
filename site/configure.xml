@@ -530,10 +530,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               this limit, flow control is triggered. The value may be
               set relative to the total amount of RAM (e.g.
               <code>{mem_relative, 1.0}</code>). The value may also be
-              set to an integer number of bytes. By default free disk
+              set to an integer number of bytes. Or, alternatively, in 
+              information units (e.g <code>"50MB"</code>). By default free disk
               space must exceed 50MB. See
-              the <a href="memory.html#diskfreesup">memory-based flow
-              control</a> documentation.
+              the <a href="disk-alarms.html">Disk Alarms</a> documentation.
               <p>Default: <code>50000000</code></p>
             </td>
           </tr>
@@ -788,9 +788,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               change this.
 
               <p>Default:
-                <pre>[binary, {packet,        raw},
-         {reuseaddr,     true},
-         {backlog,       128},
+                <pre>[{backlog,       128},
          {nodelay,       true},
          {exit_on_close, false}]</pre>
               </p>
@@ -909,6 +907,21 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               Tunable value for the persister. You almost certainly
               should not change this.
               <p>Default: <code>65536</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>queue_master_locator</code></td>
+            <td>
+              Queue master location strategy. Available strategies are:
+              <ul>
+                <li><code>&lt;&lt;"min-masters"&gt;&gt;</code></li>
+                <li><code>&lt;&lt;"client-local"&gt;&gt;</code></li>
+                <li><code>&lt;&lt;"random"&gt;&gt;</code></li>
+              </ul>
+              See the
+              <a href="ha.html#queue-master-location">documentation
+              on queue master location</a> for more information.
+              <p>Default: <code>&lt;&lt;"client-local"&gt;&gt;</code></p>
             </td>
           </tr>
         </table>

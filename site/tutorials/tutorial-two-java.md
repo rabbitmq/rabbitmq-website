@@ -1,9 +1,9 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -16,7 +16,7 @@ limitations under the License.
 -->
 # RabbitMQ tutorial - Work Queues SUPPRESS-RHS
 
-## Work Queues 
+## Work Queues
 ### (using the Java Client)
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
@@ -90,7 +90,7 @@ Some help to get the message from the command line argument:
             return "Hello World!";
         return joinStrings(strings, " ");
     }  
-  
+
     private static String joinStrings(String[] strings, String delimiter) {
         int length = strings.length;
         if (length == 0) return "";
@@ -226,9 +226,9 @@ If there are other consumers online at the same time, it will then quickly redel
 to another consumer. That way you can be sure that no message is lost,
 even if the workers occasionally die.
 
-There aren't any message timeouts; RabbitMQ will redeliver the message
-only when the worker connection dies. It's fine even if processing a
-message takes a very, very long time.
+There aren't any message timeouts; RabbitMQ will redeliver the message when
+the consumer dies. It's fine even if processing a message takes a very, very
+long time.
 
 Message acknowledgments are turned on by default. In previous
 examples we explicitly turned them off via the `autoAck=true`
@@ -287,7 +287,7 @@ unless you tell it not to. Two things are required to make sure that
 messages aren't lost: we need to mark both the queue and messages as
 durable.
 
-First, we need to make sure that RabbitMQ will never lose our 
+First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
     :::java
@@ -310,13 +310,13 @@ and consumer code.
 
 At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
-- by setting `MessageProperties` (which implements `BasicProperties`) 
+- by setting `MessageProperties` (which implements `BasicProperties`)
 to the value `PERSISTENT_TEXT_PLAIN`.
 
     :::java
     import com.rabbitmq.client.MessageProperties;
-        
-    channel.basicPublish("", "task_queue", 
+
+    channel.basicPublish("", "task_queue",
                 MessageProperties.PERSISTENT_TEXT_PLAIN,
                 message.getBytes());
 
@@ -359,7 +359,7 @@ to the n-th consumer.
       P1 [label="P", fillcolor="#00ffff"];
       subgraph cluster_Q1 {
         label="queue_name=hello";
-	color=transparent;
+    color=transparent;
         Q1 [label="{||||}", fillcolor="red", shape="record"];
       };
       C1 [label=&lt;C&lt;font point-size="7"&gt;1&lt;/font&gt;&gt;, fillcolor="#33ccff"];
@@ -398,28 +398,28 @@ Final code of our `NewTask.java` class:
     import com.rabbitmq.client.Connection;
     import com.rabbitmq.client.Channel;
     import com.rabbitmq.client.MessageProperties;
-    
+
     public class NewTask {
-    
+
       private static final String TASK_QUEUE_NAME = "task_queue";
-    
-      public static void main(String[] argv) 
+
+      public static void main(String[] argv)
                           throws java.io.IOException {
-    
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
-        
+
         channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
-        
+
         String message = getMessage(argv);
-    
-        channel.basicPublish( "", TASK_QUEUE_NAME, 
+
+        channel.basicPublish( "", TASK_QUEUE_NAME,
                 MessageProperties.PERSISTENT_TEXT_PLAIN,
                 message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
-        
+
         channel.close();
         connection.close();
       }      
@@ -432,28 +432,28 @@ And our `Worker.java`:
 
     :::java
     import com.rabbitmq.client.*;
-    
+
     import java.io.IOException;
-    
+
     public class Worker {
       private static final String TASK_QUEUE_NAME = "task_queue";
-    
+
       public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         final Connection connection = factory.newConnection();
         final Channel channel = connection.createChannel();
-    
+
         channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
+
         channel.basicQos(1);
-    
+
         final Consumer consumer = new DefaultConsumer(channel) {
           @Override
           public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
             String message = new String(body, "UTF-8");
-    
+
             System.out.println(" [x] Received '" + message + "'");
             try {
               doWork(message);
@@ -465,7 +465,7 @@ And our `Worker.java`:
         };
         channel.basicConsume(TASK_QUEUE_NAME, false, consumer);
       }
-    
+
       private static void doWork(String task) {
         for (char ch : task.toCharArray()) {
           if (ch == '.') {

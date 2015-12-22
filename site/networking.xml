@@ -220,9 +220,6 @@ is equivalent to
 [
   {rabbit, [
   {tcp_listen_options, [
-                        {binary,    true},
-                        {packet,    raw},
-                        {reuseaddr, true},
                         {backlog,   128},
                         {nodelay,   true}  
                         {sndbuf,    196608},
@@ -321,9 +318,6 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {binary,    true},
-                          {packet,    raw},
-                          {reuseaddr, true},
                           {backlog,   128},
                           {nodelay,   true}  
                           {sndbuf,    32768},
@@ -367,9 +361,6 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
   ]},
   {rabbit, [
     {tcp_listen_options, [
-                          {binary,    true},
-                          {packet,    raw},
-                          {reuseaddr, true},
                           {backlog,   4096},
                           {nodelay,   true}  
                          ]}
@@ -403,9 +394,6 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {binary,    true},
-                          {packet,    raw},
-                          {reuseaddr, true},
                           {backlog,   4096},
                           {nodelay,   true}  
                          ]}
@@ -597,8 +585,7 @@ sysctl -w fs.file-max 200000
 <pre class="code">
 [
   {rabbit, [
-    {tcp_listen_options, [{reuseaddr,     true},
-                          {backlog,       128},
+    {tcp_listen_options, [{backlog,       128},
                           {nodelay,       true},
                           {linger,        {true, 0}}]}
   ]}

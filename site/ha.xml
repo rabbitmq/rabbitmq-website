@@ -129,6 +129,32 @@ limitations under the License.
           policy.
         </p>
 
+        <h3 id="queue-master-location">Queue Master Location</h3>
+        <p>
+          Every queue in RabbitMQ has a home node. That node is called
+          <em>queue master</em>. All queue operations go through the master
+          first and then are replicated to mirrors. This is necessary to
+          guarantee FIFO ordering of messages.
+        </p>
+        <p>
+          Queue masters can be distributed between nodes using several
+          strategies. Which strategy is used is controlled in three ways,
+          namely, using the <code>x-queue-master-locator</code> queue
+          declare argument, setting the <code>queue-master-locator</code>
+          policy key or by defining the <code>queue_master_locator</code>
+          key in <a href="configure.html#configuration-file">
+          <code>the configuration file</code></a>. Here are the possible
+          strategies and how to set them:
+
+          <ul>
+            <li>Pick the node hosting the minimum number of masters:
+            <code>min-masters</code></li>
+            <li>Pick the node the client that declares the queue is
+            connected to: <code>client-local</code></li>
+            <li>Pick a random node: <code>random</code></li>
+          </ul>
+        </p>
+
         <h3>"nodes" policy and migrating masters</h3>
 
         <p>
@@ -355,13 +381,23 @@ limitations under the License.
           synchronise inactive queues.
         </p>
 
+        <h3 id="sync-since-3-6-0">Performance Improvements since RabbitMQ 3.6.0</h3>
+
+        <p>With RabbitMQ 3.6.0 we introduced a new policy that can be
+        configured with mirrored queues:
+        <code>ha-sync-batch-size</code>. By synchronising messages in
+        batches, the synchronisation process can be sped up
+        considerably.</p>
+
         <h3 id="eager-synchronisation">Configuring explicit synchronisation</h3>
 
         <p>
-          Explicit synchronisation can be triggered in two ways: manually or
-          automatically. If a queue is set to automatically synchronise it
-          will synchronise whenever a new slave joins - becoming unresponsive
-          until it has done so.
+          Explicit synchronisation can be triggered in two ways:
+          manually or automatically. If a queue is set to
+          automatically synchronise it will synchronise whenever a new
+          slave joins - becoming unresponsive until it has done so. <a
+          href="#sync-since-3-6-0">Since RabbitMQ 3.6.0, this has been
+          improved.</a>
         </p>
 
         <p>
@@ -370,6 +406,16 @@ limitations under the License.
           to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
           to <code>manual</code>. If it is not set then <code>manual</code> is
           assumed.
+        </p>
+
+        <p>
+          By default queues will synchronise one message at a time but
+          since RabbitMQ 3.6.0 we can tell masters to synchronise
+          messages in batches. To do so, set the
+          <code>ha-sync-batch-size</code> policy key to an integer
+          value that fits your <a href="#sync-batch-size">particular
+          workload</a>. If <code>ha-sync-batch-size</code> is not
+          specified, then a value of <code>1</code> is assumed.
         </p>
 
         <p>
@@ -387,6 +433,31 @@ limitations under the License.
         <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
         <p>
           These features are also available through the management plugin.
+        </p>
+
+        <h3 id="sync-batch-size">Choosing the Right Synchronisation Batch Size</h3>
+
+        <p>
+          To choose the right value for
+          <code>ha-sync-batch-size</code> you need to consider: a)
+          your queue average message size. This value will be a
+          multipier for the batch size which you must take into
+          account according to your particular network bandwidth; b)
+          setting a batch size that is too high can result in the
+          nodes in your cluster missing <a href="nettick.html">tick
+          messages.</a> from other nodes.
+        </p>
+        <p>
+          If for example you set <code>ha-sync-batch-size</code> to
+          <code>50000</code> messages per batch, and each message in
+          the queue weights 1kb, then each synchronisation message
+          between nodes will be of 50 megabytes. You need to make sure
+          that your network links between queue mirrors can accomodate
+          to this kind traffic. As mentioned above, if the network
+          takes longer than <a href="nettick.html">net_ticktime</a> to
+          send one batch of messages, then nodes in the cluster could
+          think they are in the presence of a network
+          partition. <em>Note that these are example values.</em>.
         </p>
 
         <doc:subsection name="start-stop">

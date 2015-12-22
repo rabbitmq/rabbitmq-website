@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2007-2015 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Lazy Queues</title>
+  </head>
+  <body>
+    <doc:section name="overview">
+      <p>
+        Since <strong>RabbitMQ 3.6.0</strong> the broker has the
+        concept of <em>Lazy Queues</em>: these are queues that try to
+        keep as many messages as possible on disk, and only load them
+        in RAM when requested by consumers, therefore the lazy
+        denomination.
+      </p>
+
+      <p>
+        One of the main goals of lazy queues is to be able to support
+        very long queues (many millions of messages). These queues can
+        arise when consumers are unable to fetch messages from queues
+        for long periods of times. This can happen for various reasons
+        and use cases: because consumers are offline; because they
+        have crashed, or they have been taken down for maintenance;
+        and so on.
+      </p>
+
+      <p>
+        By default, queues keep an in-memory cache of messages that's
+        filled up as messages are published into RabbitMQ. The idea of
+        this cache is to be able to deliver messages to consumers as
+        fast as possible (note that persistent messages are written to
+        disk as they enter the broker <i>and</i> kept in this cache at
+        the same time). Whenever the broker considers it needs to free
+        up memory, messages from this cache will be paged out to
+        disk. Paging messages to disk takes time and block the queue
+        process, making it unable to receive new messages while it's
+        paging. Even if on recent RabbitMQ versions we have improved
+        the paging algorithm, the situation is still not ideal for use
+        cases where you have many millions on messages in the queue
+        that might need to be paged out.
+      </p>
+
+      <p>
+        Lazy queues help here by eliminating this cache and only
+        loading messages in memory when requested by consumers. Lazy
+        queues will send every message that arrives to the queue right
+        away to the file system, completely eliminating the in-memory
+        cache mentioned before. This has the consequence of heavily
+        reducing the amount of RAM consumed by a queue and also
+        eliminates the need for paging. While this will increase I/O
+        usage, it is the same behaviour as when publishing persistent
+        messages.
+      </p>
+    </doc:section>
+
+    <doc:section name="usage">
+      <doc:heading>Using Lazy Queues</doc:heading>
+      <p>
+        Queues can be made to work in <code>default</code> mode or
+        <code>lazy</code> mode either by specifying the mode via
+        <code>queue.declare</code> arguments, or by applying a <a
+        href="parameters.html#policies">policy</a> in the server. In
+        the case where both policy and queue arguments specify a queue
+        mode, then the queue argument has priority over the policy
+        value. This means that if a queue mode is set via a declare
+        argument, it can only be changed by deleting the queue, and
+        re-declaring it later with a different argument.
+      </p>
+
+      <h3>Configuration using arguments</h3>
+      <p>
+        The queue mode can be set by supplying the
+        <code>x-queue-mode</code> queue declaration argument with a
+        string specifying the desired mode. Valid modes are
+        <code>"default"</code> and <code>"lazy"</code>. If no mode is
+        specified during declare, then <code>"default"</code> is
+        assumed. The <code>default</code> mode is the behaviour
+        already present in pre 3.6.0 versions of the broker, so there
+        are no breaking changes in this regard.
+      </p>
+
+      <p>
+        This example in Java declares a queue with the queue mode set
+        to <code>"lazy"</code>:
+      </p>
+      <pre class="sourcecode">Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+args.put("x-queue-mode", "lazy");
+channel.queueDeclare("myqueue", false, false, false, args);</pre>
+
+      <h3>Configuration using policy</h3>
+
+      <p>
+        To specify a queue mode using a policy, add the key
+        <code>queue-length</code> to a policy definition. For example:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy Lazy "^lazy-queue$" '{"queue-mode":"lazy"}' --apply-to queues</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy Lazy "^lazy-queue$" "{""queue-mode"":""lazy""}" --apply-to queues</pre>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        This ensures the queue called <code>lazy-queue</code> will
+        work in the <code>lazy</code> mode.
+      </p>
+
+      <p>
+        Policies can also be defined using the management plugin, see
+        the <a href="parameters.html#policies">policy
+        documentation</a> for more details.
+      </p>
+
+      <h3>Changing queue modes</h3>
+      <p>
+        If you specified the queue mode via a policy, then you can
+        change it at run time without the need of deleting the queue
+        and re-declaring it with a different mode. If you want the
+        previous <code>lazy-queue</code> to start working like a
+        <code>default</code> queue, then you can do so by issuing the
+        following command:
+      </p>
+
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy Lazy "^lazy-queue$" '{"queue-mode":"default"}' --apply-to queues</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy Lazy "^lazy-queue$" "{""queue-mode"":""default""}" --apply-to queues</pre>
+          </td>
+        </tr>
+      </table>
+    </doc:section>
+
+    <doc:section>
+      <doc:heading>Performance Considerations for Lazy Queues</doc:heading>
+
+      <h3>Disk Utilization</h3>
+      <p>
+        As stated above, lazy queues will send every message to disk
+        right as they enter the queue. This will increase I/O opts,
+        but keep in mind that this is the same behaviour as when
+        persistent messages are delivered to queues. Note that even if
+        you publish <em>transient</em> messages, they will still be
+        sent to disk when using <code>lazy</code> queues. With
+        <code>default</code> queues <em>transient</em> messages are
+        only sent to disk if paging requires it.
+      </p>
+
+      <h3>RAM Utilization</h3>
+      <p>
+        <code>lazy</code> queues use much less memory than
+        <code>default</code> queues. While it's hard to give numbers
+        that make sense for every use case, here's what we found: we
+        tried publishing 10 million messages into a queue, with no
+        consumers online. The message body size was 1000
+        bytes. <code>default</code> queues required 1.2GB of RAM,
+        while <code>lazy</code> queues only used 1.5MB of RAM.
+      </p>
+
+      <p>
+        For a <code>default</code> queue, it took 801 seconds to send
+        10MM messages, with an average sending rate of 12469 msg/s. To
+        publish the same amount of messages into a <code>lazy</code>
+        queue, the time required was 421 seconds, with an average
+        sending rate of 23653 msg/s. The difference can be explained
+        by the fact that from time to time, the <code>default</code>
+        queue had to page messages to disk. Once we activated a
+        consumer, the <code>lazy</code> queue had a RAM consumption of
+        approximately 40MB while it was delivering messages. The
+        message receiving rate average was 13938 msg/s for one active
+        consumer.
+      </p>
+
+      <p>You can reproduce the test with our <a
+        href="java-tools.html">Java library</a> by running:
+      </p>
+
+      <pre class="sourcecode">./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue \
+-f persistent -s 1000 -x1 -y0 -C10000000</pre>
+
+      <p>
+        <bold>Note that this was a very simplistic test. Please make
+        sure to run your own benchmarks.</bold>
+      </p>
+
+      <p>
+        Don't forget to change the queue mode between benchmarks runs.
+      </p>
+
+      <h3>Converting between queue modes</h3>
+      <p>
+        If we need to convert a <code>default</code> queue into a
+        <code>lazy</code> one, then we will suffer the same
+        performance impact as when a queue needs to page messages to
+        disk. When we convert a queue into a <code>lazy</code> one,
+        first it will page messages to disk and then it will start
+        accepting publishes, acks, and other commands.
+      </p>
+
+      <p>
+        When a queue goes from the <code>lazy</code> mode to the
+        <code>default</code> one, it will perform the same process as
+        when a queue is recovered after a server restart. A batch of
+        16384 messages will be loaded in the cache mentioned above.
+      </p>
+    </doc:section>
+  </body>
+</html>
