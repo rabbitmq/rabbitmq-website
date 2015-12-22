@@ -35,7 +35,7 @@ limitations under the License.
         <td>
           <ul>
             <li><a href="/lazy-queues.html">Lazy Queues</a></li>
-            <li>Batch (mirror) syncronisation</li>
+            <li>Batch (mirror) synchronisation</li>
             <li>Pagination in management UI</li>
             <li>Stronger password encryption</li>
             <li><a href="/web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
