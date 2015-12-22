@@ -84,11 +84,8 @@ limitations under the License.
         <doc:heading>Getting Started</doc:heading>
 
         <p>
-          To develop a RabbitMQ plugin, a working RabbitMQ development environment
-          first needs to be configured. An &quot;umbrella&quot; project is now
-          provided to assist in assembling all the necessary repositories. The following
-          steps will walk through the process of checking out and using a copy of the
-          umbrella project in your local environment.
+          To develop a RabbitMQ plugin, first make sure the following
+          requirements are met:
         </p>
         <ul>
           <li>
@@ -98,55 +95,24 @@ limitations under the License.
             Ensure that the dependencies detailed in the <a href="build-server.html#prerequisites">Server Build</a>
             documentation are installed and functional.
           </li>
-          <li>
-            Clone the RabbitMQ public umbrella:
-            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-public-umbrella.git</pre>
-          </li>
-          <li>
-            Checkout the sub-projects into the Umbrella:
-            <pre class="sourcecode">$ cd rabbitmq-public-umbrella
-$ make co</pre>
-          </li>
-          <li>
-            Optionally, switch to a different branch, e.g. if you want to build plugins for a particular version of RabbitMQ:
-            <pre class="sourcecode">$ make BRANCH=<i>&lt;tag></i> up_c</pre>
-          </li>
-          <li>
-            Ensure that the umbrella environment is functional by building one of the supplied sub-projects, for example <code>rabbitmq-stomp</code>:
-            <pre class="sourcecode">$ cd rabbitmq-stomp
-$ make</pre>
-            This should build the dependencies of STOMP (in this case, this includes the <code>rabbitmq-server</code> sub-project) and then the STOMP adapter.
-            You could also run the STOMP tests (issue <code>make test</code> in the sub-project directory), which should all PASS.
-          </li>
         </ul>
+
+        <p>
+          <a href="http://erlang.mk">Erlang.mk</a> is used to
+          build RabbitMQ and its plugins. The easiest way to start on
+          a new plugin is probably to copy an existing plugin such as
+          <tt>rabbitmq-metronome</tt>, <a href="#plugin-hello-world">used
+          as an example below</a>.
+        </p>
       </doc:section>
 
       <doc:section name="installing-plugins-during-development">
         <doc:heading>Activating Plugins During Development</doc:heading>
 
         <p>
-          Instead of requiring that developers rebuild plugin archives and re-install them each time a change
-          is made, plugins can be operated in a development-style mode to make it possible to develop plugins
-          in place.
-        </p>
-        <p>
-          To enable and activate a plugin in a development environment, create a
-          symlink to the build output location of the plugin directory
-          from the rabbitmq-server/plugins directory (which you will
-          have to create if it does not exist already). For example,
-          to enable a development build of the rabbitmq-shovel
-          plugin and its dependencies:
-
-          <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
-$ cd rabbitmq-server/plugins
-$ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-shovel
-$ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
-          The plugin will be activated immediately.
-        </p>
-        <p>
-          Conversely, to deactivate a plugin, simply remove the symlink,
-          and <code>rabbitmq-plugins disable plugin-name</code>.
+          To test your plugin while you're working on it, you can start
+          a broker with your plugin enabled:
+          <pre class="sourcecode">$ make run-broker</pre>
         </p>
       </doc:section>
 
@@ -182,8 +148,7 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
         </p>
         <p>
           The <a href="https://github.com/rabbitmq/rabbitmq-metronome">rabbitmq-metronome</a> repository on GitHub
-          contains a copy of the code for this plugin. This will be checked out for you in the <code>make
-            co</code> step above, or you can check it out separately.
+          contains a copy of the code for this plugin.
         </p>
         <p>
           The following table should explain the purpose of the various files in the repository.
@@ -196,21 +161,63 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
           <tr>
             <td><a href="&metronome_repo;/Makefile"><code>Makefile</code></a></td>
             <td>
-              The top-level umbrella.mk file aims to make your application's Makefile as declarative as possible. Your
-              plugin's Makefile is still a real Makefile however, so you can still do any kind of normal Make tasks.
+              This top-level Makefile defines the name
+              of your plugin and its dependencies. The
+              name must match the Erlang application name.
+              Dependencies are declared using erlang.mk's
+              variables. Just after that, the Makefile includes
+              <tt>rabbitmq-components.mk</tt> and <tt>erlang.mk</tt>,
+              as well as <tt>rabbitmq-plugins.mk</tt> using erlang.mk
+              plugins facility. See below for a description of those
+              files.
             </td>
           </tr>
           <tr>
-            <td><a href="&metronome_repo;/package.mk"><code>package.mk</code></a></td>
+            <td><a href="&metronome_repo;/erlang.mk"><code>erlang.mk</code></a></td>
             <td>
-              Contains various settings used by the umbrella Makefile.
+              A local copy of <tt>erlang.mk</tt>. This is not a vanilla
+              copy because RabbitMQ relies on a few modifications
+              which have not been merged upstream at the time of
+              this writing. That's why <tt>ERLANG_MK_REPO</tt> and
+              <tt>ERLANG_MK_COMMIT</tt> are overridden for now.
+            </td>
+          </tr>
+          <tr>
+            <td><a href="&metronome_repo;/build.config"><code>build.config</code></a></td>
+            <td>
+              This file configures which features of erlang.mk should be
+              enabled. In most of RabbitMQ's plugins, EUnit is disabled,
+              because they depend on a running broker. Our erlang.mk
+              extensions take care of starting a node and run the EUnit
+              tests when you type <tt>make tests</tt>.
+            </td>
+          </tr>
+          <tr>
+            <td><a href="&metronome_repo;/rabbitmq-components.mk"><code>rabbitmq-components.mk</code></a></td>
+            <td>
+              A local copy of <tt>rabbitmq-components.mk</tt>. The
+              original file is in <tt>rabbitmq-common</tt> which your
+              plugin will depend on automatically. It contains other
+              erlang.mk extensions and helpers which must be defined
+              before <tt>erlang.mk</tt> inclusion. This file must be
+              kept up-to-date w.r.t. <tt>rabbitmq-common</tt>: when it
+              is out-of-date, you will get the following error:
+              <pre>error: rabbitmq-components.mk must be updated!</pre>
+              In this case, just run the following command to update
+              your copy:
+              <pre>make rabbitmq-components-mk</pre>
             </td>
           </tr>
           <tr>
             <td><a href="&metronome_repo;/src/rabbitmq_metronome.app.src"><code>src/rabbitmq_metronome.app.src</code></a></td>
             <td>
-              This file declares the dependencies required by the plugin (<code>rabbit</code>
-              and <code>amqp_client</code>). These will be available and started before starting the plugin. Note that the real app file is generated from this; there is no need to fill in the list of modules.
+              This file declares the dependencies required by the plugin
+              (<code>rabbit</code> and <code>amqp_client</code>). These
+              applications will be available and started before starting
+              the plugin. Note that the real <tt>.app</tt> file is
+              generated from this <tt>.app.src</tt>; there is no need to
+              fill in the list of modules. You can let the <tt>vsn</tt>
+              field empty: it will inherit RabbitMQ's version.
             </td>
           </tr>
           <tr>
@@ -246,34 +253,25 @@ $ ../scripts/rabbitmq-plugins enable rabbitmq_shovel</pre>
           <li>
             Run make to build your application:
             <pre class="sourcecode">$ make</pre>
-            Note that the umbrella build system will build the server and the Erlang client first if necessary.
-          </li>
-          <li>
-            Next, associate your plugin (and its dependencies) with the server:
-            <pre class="sourcecode">$ mkdir -p rabbitmq-server/plugins
-$ cd ../rabbitmq-server/plugins
-$ ln -s ../../rabbitmq-erlang-client
-$ ln -s ../../rabbitmq-metronome
-$ ../scripts/rabbitmq-plugins --offline enable rabbitmq_metronome
-$ cd ..</pre>
           </li>
           <li>
             Start up your Rabbit broker:
-            <pre class="sourcecode">$ make run</pre>
+            <pre class="sourcecode">$ make run-broker</pre>
           </li>
           <li>
             To ensure that your new plugin is up and running, run the following command:
-            <pre class="sourcecode">./scripts/rabbitmqctl status</pre>
+            <pre class="sourcecode">./deps/rabbit/scripts/rabbitmqctl status</pre>
             If your plugin has loaded successfully, you should see an entry in the returned list that looks
-            like: <pre class="sourcecode">{rabbitmq_metronome,"Embedded Rabbit Metronome","0.01"}</pre>
+            like: <pre class="sourcecode">{rabbitmq_metronome,"Embedded Rabbit Metronome",[]}</pre>
           </li>
           <li>
             You can run the automated tests by issuing:
-            <pre class="sourcecode">$ make test</pre>
+            <pre class="sourcecode">$ make tests</pre>
           </li>
           <li>
             Finally, you can produce a <code>.ez</code> file, suitable for distribution with:
             <pre class="sourcecode">$ make dist</pre>
+            The file appears in the <tt>plugins</tt> subdirectory.
           </li>
         </ul>
       </doc:section>
