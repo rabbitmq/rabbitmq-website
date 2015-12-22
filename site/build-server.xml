@@ -40,19 +40,17 @@ limitations under the License.
 
 	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
 
-	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git
-$ git clone https://github.com/rabbitmq/rabbitmq-server.git
+	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-server.git
 $ cd rabbitmq-server
 $ make</pre>
 	  </li>
 	</ul>
 
 	<p>
-	  If you choose to check the code out using Git, be
-	  aware that the code-generation module is a dependency of
-	  the server library. If you're working with a released
-	  source code distribution, though, the code-generation
-	  module is included.
+	  If you choose to check the code out using Git, the necessary
+	  dependencies will be fetched automatically. If you're working with a
+	  released source code distribution, though, all necessary dependencies
+	  are included.
 	</p>
       </doc:section>
 
@@ -77,29 +75,43 @@ $ make</pre>
 		The default target. Builds the server.
 	      </dd>
 
-	      <dt>run</dt>
+	      <dt>shell</dt>
+	      <dd>
+		Builds the client libraries and starts an Erlang shell with the
+		libraries loaded.
+	      </dd>
+
+	      <dt>run-broker</dt>
 	      <dd>
 		Builds the server and starts an instance with an
-		interactive Erlang shell. This will by default create
-		a Mnesia database in <code>/tmp/rabbit-mnesia</code>,
+		interactive Erlang shell. This will by default put
+                data, including a Mnesia database, in <code>/tmp/rabbitmq-test-instances</code>,
 		but this location can be overridden by setting the
-		Makefile variable <code>MNESIA_DIR</code>:
+		Makefile variable <code>TEST_TMPDIR</code>:
 		<p>
-		  <code>make run MNESIA_DIR=/some/other/location/for/rabbit-mnesia</code>
+		  <code>make run TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
 		</p>
 	      </dd>
 
 	      <dt>clean</dt>
 	      <dd>
-		Removes build products and wipes the Mnesia database
-		directory used by the <code>run</code> target. See the
-		above description of <code>MNESIA_DIR</code>.
+		Removes temporary build products.
 	      </dd>
 
-	      <dt>srcdist</dt>
+	      <dt>distclean</dt>
 	      <dd>
-		Runs the "clean" target, and constructs a source-code
-		distribution tarball in <code>./dist</code>.
+		Removes all build products.
+	      </dd>
+
+	      <dt>tests</dt>
+	      <dd>
+		Runs a set of tests.
+	      </dd>
+
+	      <dt>source-dist</dt>
+	      <dd>
+		Constructs a source-code distribution archive in
+		<code>./PACKAGES</code>.
 	      </dd>
 	    </dl>
 	  </p>
