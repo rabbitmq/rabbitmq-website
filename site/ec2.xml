@@ -184,37 +184,6 @@ apt-get -qy install rabbitmq-server</pre>
 <xi:include href="clustering-firewalled-nodes.xml.inc"/>
 <xi:include href="clustering-erlang-version.xml.inc"/>
 
-<doc:section name="testing">
-  <doc:heading>Testing RabbitMQ</doc:heading>
-    <p>
-        Once RabbitMQ has been started, confirm that it actually
-	works.  You can do this by installing the RabbitMQ Java client
-	and running the test scripts that come with it. Use the
-	following instructions to install the required packages on the
-	instance:
-    </p>
-    <pre class="ec2_sourcecode">apt-get install openjdk-8-jre
-curl http://www.rabbitmq.com/releases/&dir-java-client;/rabbitmq-java-client-bin-&version-java-client;.tar.gz \
-    -o rabbitmq-java-client-bin-&version-java-client;.tar.gz
-tar xzf rabbitmq-java-client-bin-&version-java-client;.tar.gz
-cd rabbitmq-java-client-bin-&version-java-client;</pre>
-    <p>
-        When the dependencies are available, you can run the test:
-    </p>
-    <pre class="ec2_sourcecode">rabbitmq:~/rabbitmq-java-client-&version-java-client;$ sh ./runjava.sh com.rabbitmq.examples.MulticastMain</pre>
-    <p>
-        On the screen you should see output similar to this:
-    </p>
-    <pre class="ec2_sourcecode">starting consumer #0
-starting producer #0
-recving rate: 2920 msg/s, min/avg/max latency: 13431/137515/349586 microseconds
-sending rate: 7182 msg/s
-recving rate: 4513 msg/s, min/avg/max latency: 352244/535973/715864 microseconds
-sending rate: 4897 msg/s
-recving rate: 4119 msg/s, min/avg/max latency: 654393/829167/1021911 microseconds
-sending rate: 4989 msg/s</pre>
-</doc:section>
-
   <p>
     If you have any comments please <a href="contact.html">let us know</a>.
   </p>
