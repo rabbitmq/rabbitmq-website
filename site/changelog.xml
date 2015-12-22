@@ -30,6 +30,23 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.0</td>
+        <td class="centre">22 December 2015</td>
+        <td>
+          <ul>
+            <li><a href="/lazy-queues.html">Lazy Queues</a></li>
+            <li>Batch (mirror) syncronisation</li>
+            <li>Pagination in management UI</li>
+            <li>Stronger password encryption</li>
+            <li><a href="/web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
+            <li><a href="/plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk<a/></li>
+            <li>Development moved entirely <a href="https://github.com/rabbitmq/">to GitHub</a></li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.5.7</td>
         <td class="centre">15 December 2015</td>
         <td>
