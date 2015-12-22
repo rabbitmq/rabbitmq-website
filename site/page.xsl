@@ -367,10 +367,10 @@ limitations under the License.
   <xsl:template match="r:readme-link">
     <xsl:choose>
       <xsl:when test="@extension">
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-tag;/README{@extension}">README for this plugin</a>
+        <a href="https://github.com/rabbitmq/{@repo}/blob/&version-server-tag;/README{@extension}">README for this plugin</a>
       </xsl:when>
       <xsl:otherwise>
-        <a href="http://hg.rabbitmq.com/{@repo}/file/&version-server-tag;/README">README for this plugin</a>
+        <a href="https://github.com/rabbitmq/{@repo}/blob/&version-server-tag;/README">README for this plugin</a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
