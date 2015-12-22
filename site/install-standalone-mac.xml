@@ -32,9 +32,9 @@ limitations under the License.
     <doc:section name="standalone-mac">
       <h3>Download the Server</h3>
       <r:downloads signature="yes">
-        <r:download downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.gz"
+        <r:download downloadfile="rabbitmq-server-mac-standalone-&version-server;.tar.xz"
 		    downloadpath="&dir-server;">
-	  Packaged for Mac systems (tar.gz) shipping Erlang &standalone-otp-version;
+	  Packaged for Mac systems (tar.xz) shipping Erlang &standalone-otp-version;
         </r:download>
       </r:downloads>
 
@@ -51,7 +51,7 @@ limitations under the License.
         </p>
         <p>
           Download
-          <code>rabbitmq-server-mac-standalone-&version-server;.tar.gz</code>
+          <code>rabbitmq-server-mac-standalone-&version-server;.tar.xz</code>
           from the link above.
         </p>
         <xi:include href="download-tarball.xml.inc"/>
