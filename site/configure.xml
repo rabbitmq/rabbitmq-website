@@ -893,6 +893,15 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>msg_store_disk_error_strategy</code></td>
+            <td>
+              How to handle disk errors when deleting message store files.
+              <code>ignore</code> - ignore and continue
+              <code>crash</code> - exit and cause application crash
+              <p>Default: <code>ignore</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>mnesia_table_loading_timeout</code></td>
             <td>
               Timeout used when waiting for Mnesia tables in a cluster to
