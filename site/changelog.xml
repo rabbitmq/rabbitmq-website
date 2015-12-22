@@ -39,7 +39,7 @@ limitations under the License.
             <li>Pagination in management UI</li>
             <li>Stronger password encryption</li>
             <li><a href="/web-stomp.html">Web STOMP</a> revamp, with new "pure WebSocket" endpoint</li>
-            <li><a href="/plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk<a/></li>
+            <li><a href="/plugin-development.html">New build system</a> based on <a href="https://github.com/ninenines/erlang.mk">erlang.mk</a></li>
             <li>Development moved entirely <a href="https://github.com/rabbitmq/">to GitHub</a></li>
           </ul>
         </td>
