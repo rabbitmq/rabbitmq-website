@@ -4,11 +4,11 @@
 %entities;
 ]>
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc. 
+Copyright (C) 2007-2015 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -79,6 +79,12 @@ limitations under the License.
 	Binary, compiled for .NET &minimum-dotnet-version; and newer (zip archive), includes
 	example code, the WCF binding and WCF examples.
       </r:download>
+
+      <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases/download/&version-dotnet-client-tag;/RabbitMQ.Client.WinRT.dll"
+                    downloadfile="RabbitMQ.Client.WinRT.dll">
+	  (Experimental) Binary, compiled for WinRT (from github.com)
+      </r:download>
+
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
 		  downloadpath="&dir-dotnet-client;">
 	Source code and tools (zip)
@@ -106,8 +112,8 @@ limitations under the License.
     </h2>
 
     <p>
-      The client assembly is strong named. The public key token is 89e7d7c5feba84ce 
-      and the public part of the signing key is 
+      The client assembly is strong named. The public key token is 89e7d7c5feba84ce
+      and the public part of the signing key is
 <pre>
 00240000048000009400000006020000002400005253413100040000010001008d20ec856aeeb8
 c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
