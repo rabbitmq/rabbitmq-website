@@ -23,18 +23,16 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>.NET/C# AMQP client library and WCF binding</title>
+    <title>.NET/C# RabbitMQ client library</title>
   </head>
   <body>
     <p>
       The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
-      library for C# (and, implicitly, other .NET languages), and a
-      Microsoft's Windows Communication Foundation (WCF) binding that communicates
-      over RabbitMQ.
+      library for C# (and, implicitly, other .NET languages).
     </p>
 
     <p>
-      The library is open-source, and is dual-licensed under <a
+      The library is <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client">open-source</a>, and is dual-licensed under <a
       href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
       License v2</a> and <a href="mpl.html">the Mozilla Public License
       v1.1</a>.
