@@ -84,18 +84,15 @@ limitations under the License.
             <ul>
               <li><r:community-plugin-link/></li>
               <li>Author: <b>Alvaro Videla</b></li>
-              <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-rtopic-exchange">videlalvaro/rabbitmq-rtopic-exchange</a></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
             </ul>
           </r:plugin>
 
           <r:plugin name="rabbitmq_recent_history_exchange">
-            A plugin that caches the last N messages that passed through an
-            exchange and delivers them to newly bound queues.
-            <ul>
-              <li><r:community-plugin-link/></li>
-              <li>Author: <b>Alvaro Videla</b></li>
-              <li>Github: <a href="https://github.com/videlalvaro/rabbitmq-recent-history-exchange">videlalvaro/rabbitmq-recent-history-exchange</a></li>
-            </ul>
+            <i>
+              As of RabbitMQ 3.6.0 the <a href="https://github.com/rabbitmq/rabbitmq-recent-history-exchange#readme">recent history exchange plugin</a>
+              is provided with the broker's package.
+            </i>
           </r:plugin>
 <!--
           <r:plugin name="rabbit_presence_exchange">
@@ -185,14 +182,10 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_event_exchange">
-            Adds an exchange <code>amq.rabbitmq.event</code> which
-            allows you to hear when queues, exchanges, bindings,
-            users, connections and so on are created and deleted.
-            <ul>
-              <li><r:community-plugin-link/></li>
-              <li>Author: <b>Team RabbitMQ</b></li>
-              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-event-exchange">rabbitmq/rabbitmq-event-exchange</a></li>
-            </ul>
+            <i>
+              As of RabbitMQ 3.6.0 the <a href="https://github.com/rabbitmq/rabbitmq-event-exchange#readme">event exchange plugin</a>
+              is provided with the broker's package.
+            </i>
           </r:plugin>
 
           <r:plugin name="rabbitmq_management_themes">
@@ -277,12 +270,10 @@ limitations under the License.
         </table>
         <table class="plugins">
           <r:plugin name="rabbitmq_sharding">
-            Sharded Queues and Message Partitioning for RabbitMQ.
-            <ul>
-              <li><r:community-plugin-link/></li>
-              <li>Author: <b>Alvaro Videla</b></li>
-              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-sharding">rabbitmq/rabbitmq-sharding</a></li>
-            </ul>
+            <i>
+              As of RabbitMQ 3.6.0 the <a href="https://github.com/rabbitmq/rabbitmq-sharding#readme">sharding plugin</a>
+              is provided with the broker's package.
+            </i>
           </r:plugin>
         </table>
       </doc:section>

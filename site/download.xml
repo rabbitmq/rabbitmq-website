@@ -134,7 +134,8 @@ limitations under the License.
         </li>
         <li>
           Quick download:
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.5.zip">Binary</a> |
+          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.5.zip">.NET 4.5 binary</a> |
+          <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases/download/&version-dotnet-client-tag;/RabbitMQ.Client.WinRT.dll">WinRT binary</a> (experimental) |
           <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;.zip">Source</a>
         </li>
         <li>

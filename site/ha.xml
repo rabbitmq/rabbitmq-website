@@ -114,11 +114,14 @@ limitations under the License.
             <td><i>node names</i></td>
             <td>
               Queue is mirrored to the nodes listed in <i>node
-              names</i>. If any of those node names are not a part of
-              the cluster, this does not constitute an error. If none
-              of the nodes in the list are online at the time when the
-              queue is declared then the queue will be created on the
-              node that the declaring client is connected to.
+              names</i>. Node names are the Erlang node names as they
+              appear in <code>rabbitmqctl cluster_status</code>; they
+              usually have the form "<tt>rabbit@hostname</tt>". If
+              any of those node names are not a part of the cluster,
+              this does not constitute an error. If none of the nodes
+              in the list are online at the time when the queue is
+              declared then the queue will be created on the node that
+              the declaring client is connected to.
             </td>
           </tr>
         </table>
@@ -307,21 +310,21 @@ limitations under the License.
             <th>rabbitmqctl</th>
             <td>
               <pre>rabbitmqctl set_policy ha-nodes "^nodes\." \
-   '{"ha-mode":"nodes","ha-params":["nodeA", "nodeB"]}'</pre>
+   '{"ha-mode":"nodes","ha-params":["rabbit@nodeA", "rabbit@nodeB"]}'</pre>
             </td>
           </tr>
           <tr>
             <th>rabbitmqctl (Windows)</th>
             <td>
               <pre>rabbitmqctl set_policy ha-nodes "^nodes\." ^
-   "{""ha-mode"":""nodes"",""ha-params"":[""nodeA"", ""nodeB""]}"</pre>
+   "{""ha-mode"":""nodes"",""ha-params"":[""rabbit@nodeA"", ""rabbit@nodeB""]}"</pre>
             </td>
           </tr>
           <tr>
             <th>HTTP API</th>
             <td>
               <pre>PUT /api/policies/%2f/ha-nodes
-{"pattern":"^nodes\.", "definition":{"ha-mode":"nodes", "ha-params":["nodeA", "nodeB"]}</pre>
+{"pattern":"^nodes\.", "definition":{"ha-mode":"nodes", "ha-params":["rabbit@nodeA", "rabbit@nodeB"]}</pre>
             </td>
           </tr>
           <tr>
@@ -339,8 +342,9 @@ limitations under the License.
                 <li>
                   Enter "ha-mode" = "nodes" in the first line next to
                   Policy, then "ha-params" in the second line, set the
-                  second line's type to "List", and then enter "nodeA"
-                  and "nodeB" in the sublist which appears.
+                  second line's type to "List", and then enter
+                  "rabbit@nodeA" and "rabbit@nodeB" in the sublist which
+                  appears.
                 </li>
                 <li>
                   Click Add policy.
