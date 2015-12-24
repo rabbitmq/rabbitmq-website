@@ -898,6 +898,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               How to handle disk errors when deleting message store files.
               <code>ignore</code> - ignore and continue
               <code>crash</code> - exit and cause application crash
+              <code>leave</code> - leave cluster and stop erlang node
               <p>Default: <code>ignore</code></p>
             </td>
           </tr>
