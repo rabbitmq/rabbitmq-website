@@ -83,7 +83,7 @@ limitations under the License.
             Authentication mechanism plugin using SASL EXTERNAL to authenticate
             using SSL client certificates.
             <ul>
-              <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl"/></li>
+              <li><r:readme-link repo="rabbitmq-auth-mechanism-ssl" extension=".md"/></li>
             </ul>
           </r:plugin>
 
