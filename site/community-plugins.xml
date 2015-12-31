@@ -40,7 +40,7 @@ limitations under the License.
           of RabbitMQ.
         </p>
         <p>
-          Of course, we offer no guarantee that these will even work
+          We offer no guarantee that these will even work
           against a given release of RabbitMQ. We build them at
           release time, and also when requested to by a plugin
           author.
@@ -52,8 +52,14 @@ limitations under the License.
           compatibility. For older versions of plugins or RabbitMQ,
           see <a href="/community-plugins">the archive</a>. See also
           <a href="installing-plugins.html">how to install additional
-          plugins</a>
+          plugins</a>.
         </p>
+
+        <p>
+          When RabbitMQ is upgraded, all community plugins must be re-installed.
+          This may mean installing newer versions of them. Alternatively,
+          they can be disabled before or during the upgrade.
+        </p>        
 
         <p>
           If you are the author of a plugin and would like it listed
