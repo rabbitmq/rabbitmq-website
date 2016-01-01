@@ -1,5 +1,5 @@
 <!--
-Copyright (C) 2007-2015 Pivotal Software, Inc.
+Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the under the Apache License,
