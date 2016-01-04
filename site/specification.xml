@@ -26,31 +26,23 @@ limitations under the License.
   <body show-in-this-page="true">
       <doc:section name="spec">
   <p>
-  The AMQP specification is open and free to all users and implementers.
-  RabbitMQ implements version 0-9-1 of the specification today,
-  with legacy support for version 0-8 and 0-9.  RabbitMQ will perform protocol
-  negotiation with clients implementing 0-9-1, 0-9 and 0-8, in accordance
-  with the specification. These three versions are extremely similar.  The
-  0-9-1 specification clarifies some of the definitions of version 0-8 and 0-9
-  and makes it easier for multiple implementations to interoperate. RabbitMQ
-  implements a number of <a href="extensions.html">extensions</a> to the
+  RabbitMQ implements version 0-9-1 of the AMQP specification in the core,
+  with a number of <a href="extensions.html">extensions</a> to the
   specification.
   </p>
   <p>
-    RabbitMQ implements AMQP 1.0 via an experimental <a
+    RabbitMQ implements AMQP 1.0 via a <a
     href="plugins.html">plugin</a>. However, AMQP 1.0 is a completely
     different protocol than AMQP 0-9-1 and hence not a suitable
-    replacement for the latter.  RabbitMQ will therefore continue to
-    support AMQP 0-9-1 (and its close relatives 0-9 and 0-8)
-    indefinitely. RabbitMQ is unlikely ever to support AMQP 0-10.
+    replacement for the latter. RabbitMQ will therefore continue to
+    support AMQP 0-9-1 indefinitely.
   </p>
         <p>
-          The 0-9-1 (with and without extensions), 0-9 and 0-8 specifications are linked to below for
+          The 0-9-1 (with and without extensions) specifications are linked to below for
           your convenience.  We recommend reading them if you want to
-          learn more about AMQP.  Please see our <a
+          learn more about AMQP 0-9-1.  Please see our <a
           href="documentation.html">documentation</a> and, in particular, our <a
           href="amqp-0-9-1-reference.html">AMQP 0-9-1 Reference Guide</a> for more information.
-          Or, you can visit <a href="http://www.amqp.org/">amqp.org</a>.
 	</p>
       </doc:section>
 
@@ -58,7 +50,7 @@ limitations under the License.
 
     <xi:include href="amqp-proto-download-table.xml.inc"/>
 
-	<doc:heading>Specification versions supported</doc:heading>
+	<doc:heading>Specification Versions Supported</doc:heading>
 	<p>
 	  The following table describes the version of the AMQP
 	  protocol specification implemented by RabbitMQ release 2.0.0 and later:
@@ -71,7 +63,7 @@ limitations under the License.
 	  </tr>
 	  <tr>
         <td>Server</td>
-	    <td> 0-9-1, 0-9, 0-8</td>
+	    <td> 0-9-1</td>
 	  </tr>
 	  <tr>
         <td>Java client</td>
@@ -86,34 +78,17 @@ limitations under the License.
 	    <td> 0-9-1</td>
 	  </tr>
 	</table>
-	<p>
-	  The following table describes the version of the AMQP
-	  protocol specification implemented by RabbitMQ release prior to 2.0.0:
-	</p>
-	<table class="styled-table">
-	  <tr>
-        <th>Component</th>
-	    <th>Implements AMQP protocol version</th>
-	  </tr>
-	  <tr>
-        <td>Server</td>
-	    <td> 0-8 </td>
-	  </tr>
-	  <tr>
-        <td>Java client</td>
-	    <td> 0-8 </td>
-	  </tr>
-	  <tr>
-        <td>.NET/C# client</td>
-	    <td> 0-9 and 0-8 switchable at runtime </td>
-	  </tr>
-	</table>
       </doc:section>
 
       <doc:section name="ver-diffs">
     	  <doc:heading>Differences between versions</doc:heading>
         <p>
           Please see the <a href="amqp-0-8-to-0-9-1.html">0-8 to 0-9-1 page</a>.
+        </p>
+        <p>
+          AMQP 1.0 introduced significant changes to the spec compared to 0-9-1,
+          and at least in RabbitMQ, considered to be a separate protocol, support for
+          which is provided using a plugin.
         </p>
       </doc:section>
 
