@@ -100,6 +100,9 @@ limitations under the License.
         <li>
           Configuring <a href="authentication.html">SASL authentication</a>.
         </li>
+        <li>
+          Configuring <a href="passwords.html">password hashing algorithm</a>.
+        </li>        
       </ul>
     </div>
 
