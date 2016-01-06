@@ -153,20 +153,8 @@ limitations under the License.
                 <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
               </li>
               <li>
-                <a href="http://pypi.python.org/pypi/kombu/0.9.1">kombu</a>, an AMQP messaging framework for Python (a rewrite of Carrot)
-              </li>
-              <li>
-                <a href="https://github.com/majek/puka">puka</a>,an opinionated Python client for library for RabbitMQ
-              </li>
-              <li>
                 <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
                 (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
-              </li>
-              <li>
-                <a href="https://github.com/cenkalti/kuyruk">Kuyruk</a>, a task queue
-              </li>
-              <li>
-                <a href="https://github.com/ceelian/callme">callme</a>, a module providing RPC over AMQP
               </li>
             </ul>
           </doc:section>
