@@ -162,6 +162,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-six-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-six-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-six-elixir.html">Elixir</a>
           </p>
         </li>
       </ul>
