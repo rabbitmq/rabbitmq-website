@@ -59,7 +59,7 @@ limitations under the License.
           When RabbitMQ is upgraded, all community plugins must be re-installed.
           This may mean installing newer versions of them. Alternatively,
           they can be disabled before or during the upgrade.
-        </p>        
+        </p>
 
         <p>
           If you are the author of a plugin and would like it listed
@@ -248,7 +248,10 @@ limitations under the License.
           <r:plugin name="lager">
             Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><r:community-plugin-link name="goldrush"/></li>
+              <li><r:community-plugin-link name="lager"/></li>
+            </ul>
+            <ul>
               <li>Author: <b>Basho Technologies</b></li>
               <li>Github (Lager): <a href="https://github.com/basho/lager">basho/lager</a></li>
               <li>Github (RabbitMQ packaging / notes): <a href="https://github.com/hyperthunk/rabbitmq-lager">hyperthunk/rabbitmq-lager</a></li>
