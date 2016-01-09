@@ -86,7 +86,7 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.rb`:
 
     :::ruby
-    q.subscribe(:ack => true, :block => true) do |delivery_info, properties, body|
+    q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
       puts " [x] Received #{body}"
       # imitate some work
       sleep body.count(".").to_i
@@ -375,7 +375,7 @@ And our `worker.rb`:
     puts " [*] Waiting for messages. To exit press CTRL+C"
 
     begin
-      q.subscribe(:ack => true, :block => true) do |delivery_info, properties, body|
+      q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
         puts " [x] Received '#{body}'"
         # imitate some work
         sleep 1.0
