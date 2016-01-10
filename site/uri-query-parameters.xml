@@ -111,7 +111,8 @@ limitations under the License.
       <tr>
         <td><code>heartbeat</code></td>
         <td>
-          Heartbeat value (in seconds) to negotiate withe the server.
+          <a href="/heartbeats.html">Heartbeat</a> value (in seconds)
+          to negotiate with the server.
         </td>
       </tr>
       <tr>
