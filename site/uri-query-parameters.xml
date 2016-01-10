@@ -131,10 +131,10 @@ limitations under the License.
     </table>
 
     <p>
-      SSL options can also be specified globally using the
+      <a href="/ssl.html">TLS options</a> can also be specified globally using the
       <code>ssl_config</code> environment key for the
       <code>amqp_client</code> application. They will be merged with
-      the SSL parameters from the URI (the latter will take
+      the TLS parameters from the URI (the latter will take
       precedence).
     </p>
 
