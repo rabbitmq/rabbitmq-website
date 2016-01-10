@@ -127,12 +127,6 @@ limitations under the License.
           Maximum number of channels to permit on this connection.
         </td>
       </tr>
-      <tr>
-        <td><code>frame_max</code></td>
-        <td>
-          Maximum frame size (in bytes) to permit on this connection.
-        </td>
-      </tr>
     </table>
 
     <p>
