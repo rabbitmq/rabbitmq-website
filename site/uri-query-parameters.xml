@@ -52,7 +52,7 @@ limitations under the License.
       Example:
     </p>
 
-    <pre>amqp://myhost?heartbeat=5&amp;frame_max=8192</pre>
+    <pre>amqp://myhost?heartbeat=10&amp;connection_timeout=10</pre>
 
     <p>
       This specifies a (non-encrypted) network connection to the host
@@ -111,7 +111,8 @@ limitations under the License.
       <tr>
         <td><code>heartbeat</code></td>
         <td>
-          Heartbeat value (in seconds) to negotiate withe the server.
+          <a href="/heartbeats.html">Heartbeat</a> value (in seconds)
+          to negotiate with the server.
         </td>
       </tr>
       <tr>
@@ -127,19 +128,13 @@ limitations under the License.
           Maximum number of channels to permit on this connection.
         </td>
       </tr>
-      <tr>
-        <td><code>frame_max</code></td>
-        <td>
-          Maximum frame size (in bytes) to permit on this connection.
-        </td>
-      </tr>
     </table>
 
     <p>
-      SSL options can also be specified globally using the
+      <a href="/ssl.html">TLS options</a> can also be specified globally using the
       <code>ssl_config</code> environment key for the
       <code>amqp_client</code> application. They will be merged with
-      the SSL parameters from the URI (the latter will take
+      the TLS parameters from the URI (the latter will take
       precedence).
     </p>
 

@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -18,86 +18,81 @@ limitations under the License.
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:r="http://www.rabbitmq.com/namespaces/ad-hoc/conformance">
   <head>
-    <title>AMQP URI Specification</title>
+    <title>RabbitMQ URI Specification</title>
   </head>
   <body>
       <p>
           This specification defines an "amqp" URI scheme.  Conforming
-          URIs represent the information needed to connect to an AMQP
-          server (for versions 0-8 and 0-9-1 of AMQP).
+          URIs represent the information needed by AMQP 0-9-1 clients
+          as well as some RabbitMQ plugins to connect to RabbitMQ
+          server.
       </p>
 
       <h3>1. Introduction</h3>
 
       <p>
-          <a href="http://www.amqp.org/">AMQP</a> is a protocol
-          standard for messaging middleware.  A number of different
-          versions of AMQP have been published, which differ
-          significantly in their goals.  The scope of this
-          specification is limited to versions 0-8 and 0-9-1 of AMQP
-          (0-9-1 being a refinement of 0-8).  An AMQP client connects
-          to an AMQP server in order to publish and consume messages
+          The scope of this
+          specification is limited to AMQP 0-9-1, the original protocol
+          implemented by RabbitMQ.  An AMQP 0-9-1 client connects
+          to a RabbitMQ node in order to publish and consume messages
           according to the messaging model.
       </p>
 
       <p>
           Several pieces of information are needed by a client to
-          establish an AMQP 0-8/0-9-1 connection and put it into a
-          state ready for normal use (i.e. when the server has replied
-          to the client with the connection.start-ok AMQP method).
+          establish and negotiate an AMQP 0-9-1 connection.
           These connection parameters include:
+
+          <ul>
+              <li>The parameters needed to establish the underlying TCP/IP
+              connection to the server (i.e. host address and port).</li>
+
+              <li>Information to authenticate the client. AMQP 0-9-1 uses <a
+              href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
+              for authentication.  Typically the <code>PLAIN</code> mechanism is
+              used, and so the authentication parameters consist of a
+              username and password.</li>
+
+              <li>The name of the "virtual host" (or <em>vhost</em>) that
+              specifies the namespace for entities (such as exchanges and queues)
+              referred to by the protocol. Note that this is not virtual
+              hosting in the HTTP sense.</li>
+          </ul>
+
       </p>
 
-      <ul>
-          <li>The parameters needed to establish the underlying TCP/IP
-          connection to the server (i.e. host address and port).</li>
-
-          <li>Information to authenticate the client.  AMQP uses <a
-          href="http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer">SASL</a>
-          for authentication.  Typically the PLAIN mechanism is
-          used, and so the authentication parameters consist of a
-          username and password.</li>
-
-          <li>The name of the "virtual host" (or <em>vhost</em>) that
-          specifies the namespace for entities (exchanges and queues)
-          referred to by the protocol.  Note that this is not virtual
-          hosting in the HTTP sense.</li>
-      </ul>
-
       <p>
-          An AMQP client application will typically obtain all these
-          parameters from the same source (e.g. a configuration
-          file). They must then be relayed to the AMQP client library
-          (the library that implements the AMQP) in order for it to
-          set up the connection.  So it is convenient if the
+          A RabbitMQ client will typically obtain all these parameters
+          from a configuration file or environment variables in order
+          for it to set up the connection. So it is convenient if the
           connection parameters can be combined into a single
           character string, rather than as distinct configuration
-          settings.  That means that only one configuration setting is
-          needed, and only one value has to be passed to the AMQP
-          client library.
+          settings. That means that only one configuration setting is
+          needed, and only one value has to be passed to the client
+          library.
       </p>
 
       <p>
           But combining the connection parameters into a single string
-          requires a convention, understood by the AMQP client
+          requires a convention, understood by the client
           library, about exactly how the connection parameters are
-          represented and delimited.  It is desirable to standardise
+          represented and delimited. It is desirable to standardise
           that convention, so that it may be implemented consistently
-          by many AMQP client libraries. An obvious basis for such a
+          by many AMQP 0-9-1 client libraries. An obvious basis for such a
           standard is the generic syntax for URIs defined in <a
           href="http://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
       </p>
 
       <p>
           The purpose of this specification is to define the "amqp"
-          and "amqps" URI schemes which represent the AMQP 0-8/0-9-1
+          and "amqps" URI schemes which represent the AMQP 0-9-1
           connection parameters within the generic URI syntax.
       </p>
 
       <h3>2. The "amqp" URI scheme</h3>
 
       <p>
-          The syntax of an AMQP URI is defined by the following ABNF
+          The syntax of an AMQP 0-9-1 URI is defined by the following ABNF
           rules.  All names in these rules not defined here are taken
           from <a
           href="http://www.ietf.org/rfc/rfc3986.txt">RFC3986</a>.
@@ -117,7 +112,7 @@ vhost          = segment</pre>
 
       <p>
           Once a URI has been successfully parsed according to this
-          syntax, the AMQP connection parameters are determined as
+          syntax, the connection parameters are determined as
           described in the following sections.
       </p>
 
@@ -138,7 +133,7 @@ vhost          = segment</pre>
           made is determined from the port component according to
           RFC3986.  The port component may be absent, indicated by the
           lack of the ":" character separating it from the host.  If
-          it is absent, then the IANA-assigned port number for AMQP,
+          it is absent, then the IANA-assigned port number for AMQP 0-9-1,
           5672, should be substituted instead.
       </p>
 
@@ -147,7 +142,7 @@ vhost          = segment</pre>
       <p>
           If present, the username and password components should be
           used in the SASL exchange that occurs via the
-          connection.secure and connection.secure-ok AMQP methods.
+          <code>connection.secure</code> and <code>connection.secure-ok</code> AMQP 0-9-1 methods.
           Any percent-encoded octets in the username and password
           should be decoded before they are used in the SASL exchange,
           and the resulting octet sequences should be regarded as
@@ -170,18 +165,18 @@ vhost          = segment</pre>
           error" (section 7.5).  While this is sound advice in the
           context of user-facing applications (e.g. web browsers) and
           for URIs that might be stored and displayed insecurely, it
-          is not necessarily valid for AMQP applications.  Many AMQP
-          applications are server-based, and make AMQP connections on
+          is not necessarily valid for backend applications.  Many of those
+          applications are "headless" services, and open RabbitMQ connections on
           behalf of the application as a whole rather than for
-          specific users.  So the username and password identify the
+          specific users. So the username and password identify the
           application rather than a human user, and are likely to be
           included with connection parameters appearing in a secure
-          store of configuration settings.  User-facing AMQP
-          applications, which make AMQP connections on behalf of
+          store of configuration settings. User-facing
+          applications, which make RabbitMQ connections on behalf of
           specific users, are also possible.  In such cases the
           username and password may be provided by the user to
-          identify themselves.  But such AMQP applications are the
-          exception rather than the rule.  Thus authors of AMQP
+          identify themselves.  But such applications are the
+          exception rather than the rule.  Thus authors of
           applications implementing this specification should not
           consider themselves bound by section 7.5 of RFC3986.  Please
           also see section 5 ("Security Considerations") below.
@@ -191,14 +186,13 @@ vhost          = segment</pre>
 
       <p>
           The vhost component is used as the basis for the
-          virtual-host field of the connection.open AMQP method.  Any
+          virtual-host field of the <code>connection.open</code> AMQP 0-9-1 method.  Any
           percent-encoded octets in the vhost should be decoded before
           the it is passed to the server.
       </p>
 
       <p>
           Note that:
-      </p>
 
       <ul>
           <li>The vhost component of the URI does not include the
@@ -209,10 +203,9 @@ vhost          = segment</pre>
           <li>The vhost is a single segment.  Therefore, any "/"
           characters that appear in the vhost name must be
           percent-encoded. URIs with multi-segment paths do not obey
-          this specification. (They are reserved to allow future
-          revisions of this URI scheme to refer to AMQP entities other
-          than vhosts.)</li>
+          this specification.</li>
       </ul>
+      </p>
 
       <p>
           The vhost component may be absent; this is indicated by the
@@ -254,24 +247,23 @@ vhost          = segment</pre>
 
       <p>
           For example, the URI "amqp://", in which all components are
-          absent, might result in an AMQP client library using a set
-          of defaults which correspond to a connection to a local AMQP
+          absent, might result in an client library using a set
+          of defaults which correspond to a connection to a local RabbitMQ
           server, authenticating as a guest user.  This would be
-          convenient for development purposes and casual use of AMQP
-          applications.
+          convenient for development purposes.
       </p>
 
       <h3>4. The "amqps" URI scheme</h3>
 
       <p>
-          The "amqps" URI scheme is used to instruct an AMQP client
-          to make an secured connection to the AMQP server.
+          The "amqps" URI scheme is used to instruct a client
+          to make an secured connection to the server.
       </p>
 
       <p>
-          The AMQP 0-8 and 0-9-1 specifications assume that the
+          The AMQP 0-9-1 specification assume that the
           underlying transport layer provides reliable
-          byte-stream-oriented virtual circuits.  When it is not
+          byte stream-oriented virtual circuits.  When it is not
           necessary to secure the traffic on the network, TCP/IP
           connections are typically used.
       </p>
@@ -280,10 +272,10 @@ vhost          = segment</pre>
           In cases where the traffic must be secured, TLS (see <a
           href="http://tools.ietf.org/rfc/rfc5246.txt">RFC5246</a>)
           can be used.  Current practice is simply to layer AMQP
-          0-8/0-9-1 on top of TLS to form "AMQPS" (analogously to the
-          way HTTPS layers HTTP on top of TLS).  AMQP 0-8/0-9-1 does
+          0-9-1 on top of TLS to form "AMQPS" (analogously to the
+          way HTTPS layers HTTP on top of TLS).  AMQP 0-9-1 does
           not provide a way for a non-secured connection to be
-          upgraded to a secured connection.  So a server that supports
+          upgraded to a secured connection. So a server that supports
           both secured and non-secured connections must listen on
           distinct ports for the two types of connections.
       </p>
@@ -296,16 +288,16 @@ vhost          = segment</pre>
       <pre>amqps_URI      = "amqps://" amqp_authority [ "/" vhost ]</pre>
 
       <p>
-          The interpretation of an AMQPS URI differs from the
-          corresponding AMQP URI in two ways.  In all other respects,
+          The interpretation of an amqps URI differs from the
+          corresponding "plain" URI in two ways. In all other respects,
           the interpretation is the same.
       </p>
 
       <ul>
-          <li>The AMQP client must act as a TLS client, and begin the
+          <li>The client must act as a TLS client, and begin the
           TLS handshake as soon as the underlying TCP/IP connection
-          has been established.  All AMQP data is sent as TLS
-          "application data".  Other than this, normal AMQP behaviour
+          has been established. All AMQP 0-9-1 protocol data is sent as TLS
+          "application data".  Other than this, normal AMQP 0-9-1 behaviour
           is followed.</li>
 
           <li>If the port number is absent from the URI, the
@@ -316,24 +308,24 @@ vhost          = segment</pre>
       <h3>5. Security Considerations</h3>
 
       <p>
-          As discussed in the section 2.3 above, AMQP URIs will often
+          As discussed in the section 2.3 above, URIs will often
           be supplied to applications as configuration settings.  In
           such contexts, if the password cannot be incorporated into
           the URI, then it will simply be supplied as a separate
-          configuration setting.  This reduces the benefit of the use
-          of an AMQP URI without any increase in security.  For this
+          configuration setting. This reduces the benefit of the use
+          of a URI without any increase in security. For this
           reason, this specification overrides RFC3986's deprecation
           of passwords within the userinfo component.
       </p>
 
       <p>
-          Implementers of AMQP applications should feel free use the
-          password component whenever this does not impact security.
-          Nonetheless, they should be aware that the contents of the
-          password component may be sensitive, and they should avoid
-          leaking it (e.g. the full AMQP URI should not appear in
-          exception messages or log records, which might be visible to
-          less privileged personnel).
+          Developers should feel free use the password component
+          whenever this does not impact security.  Nonetheless, they
+          should be aware that the contents of the password component
+          may be sensitive, and they should avoid leaking it (e.g. the
+          full URI should not appear in exception messages or log
+          records, which might be visible to less privileged
+          personnel).
       </p>
 
       <h3>Appendix A: Examples</h3>
@@ -343,10 +335,10 @@ vhost          = segment</pre>
           parsed according to this specification.  Many of these
           examples are intended to demonstrate edge cases in order to
           elucidate the specification and provide test cases for code
-          that parses AMQP URIs.  Each row shows a URI, and the
-          resulting octet sequences for each component.  Those octet
-          sequences are enclosed in double quotes.  Empty cells
-          indicate absent components, as described in section 3.
+          that parses URIs. Each row shows a URI, and the resulting
+          octet sequences for each component.  Those octet sequences
+          are enclosed in double quotes. Empty cells indicate absent
+          components, as described in section 3.
       </p>
 
       <table>
@@ -471,7 +463,7 @@ vhost          = segment</pre>
       <h3>Appendix B: Query parameters</h3>
 
       <p>
-        AMQP clients may require further parameterisation to define how
+        Clients may require further parameterisation to define how
         they should connect to servers. The standard URI query syntax
         may be used to provide additional information to the client.
       </p>
@@ -483,38 +475,5 @@ vhost          = segment</pre>
         officially supported clients read URI query parameters <a
         href="uri-query-parameters.html">here</a>.
       </p>
-
-      <h3>Appendix C: Other proposals for an "amqp" URI scheme</h3>
-
-      <p>
-          This specification is not the first proposal for an "amqp"
-          URI scheme.  In particular, the Apache QPID project has made
-          two distinct proposals
-          (&lt;<a href="https://cwiki.apache.org/qpid/connection-url-format.html">https://cwiki.apache.org/qpid/connection-url-format.html</a>&gt;,
-          &lt;<a href="https://cwiki.apache.org/qpid/url-format-proposal.html">https://cwiki.apache.org/qpid/url-format-proposal.html</a>&gt;).
-      </p>
-
-      <p>
-          Compared with those proposals, this specification has the
-          following characteristics:
-      </p>
-
-      <ul>
-          <li>It is precise.</li>
-
-          <li>It has a clear basis in the relevant RFCs: RFC3986 and
-          RFC2718.</li>
-
-          <li>It focuses on AMQP 0-8/0-9-1, rather than considering
-          other versions of the AMQP standard.</li>
-
-          <li>It leaves out of scope features that do not fit well
-          into the generic URI syntax established by RFC3986, and that
-          might be better achieved in other ways (e.g. listing
-          multiple server addresses).</li>
-
-          <li>It restricts the vhost to a single segment, reserving
-          URIs with multiple-segment paths for future use.</li>
-      </ul>
   </body>
 </html>
