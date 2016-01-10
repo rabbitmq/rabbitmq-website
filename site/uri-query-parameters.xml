@@ -52,7 +52,7 @@ limitations under the License.
       Example:
     </p>
 
-    <pre>amqp://myhost?heartbeat=5&amp;frame_max=8192</pre>
+    <pre>amqp://myhost?heartbeat=10&amp;connection_timeout=10</pre>
 
     <p>
       This specifies a (non-encrypted) network connection to the host
