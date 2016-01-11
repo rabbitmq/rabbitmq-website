@@ -374,6 +374,26 @@ limitations under the License.
           </p>
         </dd>
 
+        <dt><strong>add_timestamp_header</strong></dt>
+        <dd>
+          <p>
+            This clause is optional. It takes the form:
+          </p>
+<pre class="example">
+  {add_timestamp_header, <em>boolean</em>}
+</pre>
+          <p>
+            If <code>add_timestamp_header</code> is set to true, an
+            <code>x-shovelled-timestamp</code> header is added to
+            the message before it is re-published. 
+            This header value is timestamp (in seconds since epoch) when
+            message had been shovelled.
+          </p>
+          <p>
+            The default is not to add such a header.
+          </p>
+        </dd>
+
         <dt><strong>publish_fields</strong></dt>
         <dd>
           <p>
