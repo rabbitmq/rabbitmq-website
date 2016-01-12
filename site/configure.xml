@@ -473,6 +473,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>num_tcp_acceptors</code></td>
+            <td>
+              Number of Erlang processes that will accept connections for the TCP
+              listeners.
+              <p>Default: <code>10</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>handshake_timeout</code></td>
             <td>
               Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket connection
@@ -485,6 +493,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               As above, for SSL connections.
               <p>Default: <code>[]</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>num_ssl_acceptors</code></td>
+            <td>
+              Number of Erlang processes that will accept connections for the SSL
+              listeners.
+              <p>Default: <code>1</code></p>
             </td>
           </tr>
           <tr>
