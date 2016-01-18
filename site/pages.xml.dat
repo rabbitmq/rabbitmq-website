@@ -246,5 +246,5 @@ limitations under the License.
      <x:page url="/devtools.html" text="Development tools"/>
      <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
-   <x:page url="https://groups.google.com/forum/#!msg/rabbitmq-users/UuvnsOV7yS4/14b8pHcs8I0J" text="We're Hiring"/>
+   <x:page url="https://groups.google.com/forum/#!topic/rabbitmq-users/N2XFX6eK7vg" text="We're Hiring"/>
 </x:pages>
