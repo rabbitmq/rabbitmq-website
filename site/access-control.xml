@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -19,10 +19,34 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Access Control</title>
+    <title>Access Control (Authentication, Authorisation) in RabbitMQ</title>
   </head>
   <body>
+    <doc:section name="intro">
+      <p>
+        This document describes authentication and authorisation machinery that
+        implements access control.
+
+        Authentication backends should not be confused with
+        <a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>
+        in AMQP 0-9-1.
+      </p>
+    </doc:section>
+
+    <doc:section name="terminology-and-definitions">
+      <doc:heading>Terminology and Definitions</doc:heading>
+      <p>
+        Authentication and authorisation are often confused or used
+        interchangeably. That's wrong and in RabbitMQ, the two are
+        separated. For the sake of simplicity, we'll define
+        authentication as "identifying who the user is" and
+        authorisation as "determining what the user is and isn't
+        allowed to do."
+      </p>
+    </doc:section>
+
       <doc:section name="default-state">
+        <doc:heading>Default Virtual Host and User</doc:heading>
         <p>
           When the server first starts running, and detects that its
           database is uninitialised or has been deleted, it
@@ -77,9 +101,9 @@ limitations under the License.
       </doc:section>
 
       <doc:section name="access-control">
-        <doc:heading>How permissions work</doc:heading>
+        <doc:heading>How Permissions Work</doc:heading>
         <p>
-          When an AMQP client establishes a connection to an AMQP
+          When a RabbitMQ client establishes a connection to a
           server, it specifies a virtual host within which it intends
           to operate. A first level of access control is enforced at
           this point, with the server checking whether the user has
@@ -113,7 +137,7 @@ limitations under the License.
           perform permission checks.
           <table>
             <tr>
-              <th>AMQP command</th>
+              <th>AMQP 0-9-1 Operation</th>
               <th></th>
               <th>configure</th>
               <th>write</th>
@@ -203,6 +227,147 @@ limitations under the License.
           <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
           of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
         </p>
+      </doc:section>
+
+
+      <doc:section name="backends">
+        <doc:heading>Alternative Authentication and Authorisation Backends</doc:heading>
+
+        <p>
+          Authentication and authorisation are pluggable. Plugins can provide implementations
+          of
+
+          <ul>
+            <li>authentication ("authn") backends</li>
+            <li>authorisation ("authz") backends</li>
+          </ul>
+
+          It is possible for a plugin to provide both.
+          For example the internal, <a href="/ldap.html">LDAP</a>
+          and <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>
+          backends do so.
+        </p>
+
+        <p>
+          Some plugins, for example, the <a
+          href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">Source
+          IP range one</a>, only provide an authorisation backend. Authentication
+          is supposed to be handled by the internal database, LDAP, etc.
+        </p>
+        
+        <doc:subsection name="combined-backends">
+          <doc:heading>Combining Backends</doc:heading>
+
+          <p>
+            It is possible to use multiple backends for
+            <code>authn</code> or <code>authz</code> using the
+            <code>rabbit.auth_backends</code> configuration key. When
+            several authentication backends are used then the first
+            positive result returned by a backend in the chain is
+            considered to be final. This should not be confused with
+            mixed backends (for example, using LDAP for authentication and internal
+            backend for authorisation).
+          </p>
+
+          <p>
+            The following example configures RabbitMQ to use the internal backend
+            only (and is the default):
+          </p>
+            
+<pre class="example">
+[{rabbit, [
+            {auth_backends, [rabbit_auth_backend_internal]}
+          ]
+}].
+</pre>
+
+          <p>
+            The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
+            for both authentication and authorisation. Internal database will not be consulted:
+          </p>
+            
+<pre class="example">
+[{rabbit, [
+            {auth_backends, [rabbit_auth_backend_ldap]}
+          ]
+}].
+</pre>
+
+      <p>
+        This will check LDAP first, and then fall back to the internal
+        database if the user cannot be authenticated through LDAP:
+      </p>
+      <pre class="example">
+[{rabbit, [
+            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
+          ]
+}].
+      </pre>
+      
+      <p>
+        Same as above but will fall back to the <a
+        href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>
+        backend instead of internal database:
+      </p>
+      <pre class="example">
+[{rabbit, [
+            {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
+          ]
+ },
+ %% See HTTP backend docs for details
+ {rabbitmq_auth_backend_http,
+   [{user_path,     "http://my-authenticator-app/auth/user"},
+    {vhost_path,    "http://my-authenticator-app/auth/vhost"},
+    {resource_path, "http://my-authenticator-app/auth/resource"}]}].
+</pre>      
+
+
+          <p>
+            The following example configures RabbitMQ to use internal
+            database for authentication and the <a
+            href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">Source
+            IP range backend</a> for authorisation.
+          </p>
+            
+<pre class="example">
+[{rabbit, [
+            {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
+          ]
+}].
+</pre>
+
+
+      <p>
+        The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
+        for authentication and but internal backend for authorisation:
+      </p>
+<pre class="example">
+[{rabbit, [
+            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
+          ]}].
+</pre>
+
+      <p>
+        The example below will check LDAP first. If the user is found in LDAP then the
+        password will be checked against LDAP and subsequent authorisation
+        checks will be performed against the internal database (therefore
+        users in LDAP must exist in the internal database as well, but do not
+        need a password there). If the user is not found in LDAP then a second
+        attempt is made using only the internal database:
+      </p>
+
+<pre class="example">
+[{rabbit, [
+            {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
+                             rabbit_auth_backend_internal]
+          ]
+ }].
+</pre>      
+        </doc:subsection>
+
+        <doc:subsection name="">
+          <doc:heading></doc:heading>
+        </doc:subsection>
       </doc:section>
   </body>
 </html>
