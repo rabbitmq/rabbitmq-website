@@ -171,13 +171,7 @@ limitations under the License.
                 <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
               </li>
               <li>
-                <a href="https://github.com/derekgreer/rabbitBus">rabbitBus</a>, a fluent interface to the RabbitMQ .NET API
-              </li>
-              <li>
-                <a href="https://github.com/videlalvaro/rmq_msmq">rmq_msmq</a>, a bridge between Microsoft MQ and RabbitMQ implemented using F# and the RabbitMQ .NET client
-              </li>
-              <li>
-                <a href="http://www.beefycode.com/post/consuming-rabbitmq-messages-in-powershell.aspx">poshrabbit</a>, a PowerShell module to publish and consume RabbitMQ messages
+                <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
               </li>
               <li>
                 <a href="https://github.com/mariuszwojcik/RabbitMQTools">RabbitMQTools</a>, PowerShell module containing cmdlets to manage RabbitMQ
