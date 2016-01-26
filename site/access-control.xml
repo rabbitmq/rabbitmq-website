@@ -306,8 +306,8 @@ limitations under the License.
       
       <p>
         Same as above but will fall back to the <a
-        href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>
-        backend instead of internal database:
+        href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP backend</a>
+        instead:
       </p>
       <pre class="example">
 [{rabbit, [
@@ -324,9 +324,9 @@ limitations under the License.
 
           <p>
             The following example configures RabbitMQ to use internal
-            database for authentication and the <a
-            href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">Source
-            IP range backend</a> for authorisation.
+            database for authentication and <a
+            href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
+            IP range backend</a> for authorisation:
           </p>
             
 <pre class="example">
@@ -338,7 +338,7 @@ limitations under the License.
 
 
       <p>
-        The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
+        The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
         for authentication and but internal backend for authorisation:
       </p>
 <pre class="example">
@@ -348,12 +348,13 @@ limitations under the License.
 </pre>
 
       <p>
-        The example below will check LDAP first. If the user is found in LDAP then the
-        password will be checked against LDAP and subsequent authorisation
-        checks will be performed against the internal database (therefore
-        users in LDAP must exist in the internal database as well, but do not
-        need a password there). If the user is not found in LDAP then a second
-        attempt is made using only the internal database:
+        The example below is fairly advanced. It will check LDAP
+        first. If the user is found in LDAP then the password will be
+        checked against LDAP and subsequent authorisation checks will
+        be performed against the internal database (therefore users in
+        LDAP must exist in the internal database as well, but do not
+        need a password there). If the user is not found in LDAP then
+        a second attempt is made using only the internal database:
       </p>
 
 <pre class="example">
