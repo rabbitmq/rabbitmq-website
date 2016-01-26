@@ -745,7 +745,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>auth_backends</code></td>
             <td>
               <p>
-                List of authentication / authorisation databases to
+                List of <a href="/access-control.html">authentication / authorisation backends</a> to
                 use. This list can contain names of modules (in which
                 case the same module is used for both authentication
                 and authorisation), or 2-tuples like <code>{ModN,
