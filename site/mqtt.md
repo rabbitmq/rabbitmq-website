@@ -61,8 +61,7 @@ to inspect queue sizes, message rates, and so on.
 MQTT 3.1 assumes three primary usage scenarios:
 
  * Transient clients that use transient (non-persistent) messages
- * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
- * Stateful clients with durable subscriptions and two-step acknowledgement (exactly-once delivery, QoS2)
+ * Stateful clients that use durable subscriptions (non-clean sessions, QoS1 or QoS2)
 
 This section briefly covers how these scenarios map to RabbitMQ queue durability and persistence
 features.
