@@ -58,7 +58,7 @@ to inspect queue sizes, message rates, and so on.
 
 ### <a id="durability"/> Subscription Durability
 
-MQTT 3.1 assumes three primary usage scenarios:
+MQTT 3.1 assumes two primary usage scenarios:
 
  * Transient clients that use transient (non-persistent) messages
  * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
