@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -22,6 +22,7 @@ RabbitMQ supports MQTT as of 3.0 (currently targeting version 3.1.1 of the spec)
 ## <a id="smf"/> Supported MQTT 3.1.1 features
 
 * QoS0 and QoS1 publish & consume
+* QoS2 publish (downgraded to QoS1)
 * Last Will and Testament (LWT)
 * TLS/SSL
 * Session stickiness
@@ -57,7 +58,7 @@ to inspect queue sizes, message rates, and so on.
 
 ### <a id="durability"/> Subscription Durability
 
-MQTT 3.1 assumes two primary usage scenarios:
+MQTT 3.1 assumes three primary usage scenarios:
 
  * Transient clients that use transient (non-persistent) messages
  * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
@@ -79,6 +80,13 @@ messages will be used internally.
 Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
 one per subscription QoS level. The queues will have [queue TTL](/ttl.html) depending
 on MQTT plugin configuration, 24 hours by default.
+
+**RabbitMQ does not support QoS2 subscriptions**. RabbitMQ
+automatically downgrades QoS 2 publishes and subscribes to QoS
+1. Messages published as QoS 2 will be sent to subscribers as QoS 1.
+Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
+request (SUBACK responses will contain the actually provided QoS
+level).
 
 
 ## <a id="config"/> Plugin Configuration
