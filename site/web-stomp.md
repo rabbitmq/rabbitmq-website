@@ -55,9 +55,9 @@ is included as part of RabbitMQ Web STOMP examples.
 
 By default the Web STOMP plugin exposes both a WebSocket and a
 SockJS endpoint on port 15674. The WebSocket endpoint is available
-on the `/ws` path:
+on the `/stomp/websocket` path:
 
-    http://127.0.0.1:15674/ws
+    ws://127.0.0.1:15674/stomp/websocket
 
 The SockJS endpoint on the `/stomp` prefix:
 
@@ -81,7 +81,7 @@ you may use code like:
     <script src="stomp.js"></script>
     <script>
 
-        var ws = new WebSocket('ws://127.0.0.1:15674/ws');
+        var ws = new WebSocket('ws://127.0.0.1:15674/stomp/websocket');
         var client = Stomp.over(ws);
         [...]
 
