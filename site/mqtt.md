@@ -61,7 +61,7 @@ to inspect queue sizes, message rates, and so on.
 MQTT 3.1 assumes three primary usage scenarios:
 
  * Transient clients that use transient (non-persistent) messages
- * Stateful clients that use durable subscriptions (non-clean sessions, QoS1 or QoS2)
+ * Stateful clients that use durable subscriptions (non-clean sessions, QoS1)
 
 This section briefly covers how these scenarios map to RabbitMQ queue durability and persistence
 features.
@@ -77,15 +77,16 @@ For transient (QoS0) publishes, the plugin will publish messages as transient
 (non-persistent). Naturally, for durable (QoS1) publishes, persistent
 messages will be used internally.
 
-**RabbitMQ doesn't support two-step acknowledgements, and so there is no support for QoS2 subscriptions.**
-However, MQTT 3.1 supports QoS downgrade and RabbitMQ automatically downgrades
-QoS2 publishes and subscribes to QoS1. All messages published as QoS2 will be 
-sent to subscribers as QoS1. All subscriptions with QoS2 will be downgraded to QoS1 
-during SUBSCRIBE request (SUBACK responses will contain downgraded QoS).
-
 Queues created for MQTT subscribers will have names starting with `mqtt-subscription-`,
 one per subscription QoS level. The queues will have [queue TTL](/ttl.html) depending
 on MQTT plugin configuration, 24 hours by default.
+
+**RabbitMQ does not support QoS2 subscriptions**. RabbitMQ
+automatically downgrades QoS 2 publishes and subscribes to QoS
+1. Messages published as QoS 2 will be sent to subscribers as QoS 1.
+Subscriptions with QoS 2 will be downgraded to QoS1 during SUBSCRIBE
+request (SUBACK responses will contain the actually provided QoS
+level).
 
 
 ## <a id="config"/> Plugin Configuration
