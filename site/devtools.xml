@@ -168,6 +168,9 @@ limitations under the License.
                 <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
               </li>
               <li>
+                <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
+              </li>
+              <li>
                 <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
               </li>
               <li>
