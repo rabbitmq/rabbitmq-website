@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -31,31 +31,23 @@ limitations under the License.
       <doc:section name="obtaining">
 	<doc:heading>Obtaining the source</doc:heading>
 
-	<br />
-	<ul>
-	  <li>
-	    Either download a released source code distribution from
-	    the <a href="download.html">download page</a>, or
-	  </li>
+        <p>
+        First, obtain the source code from <a href="github.html">our GitHub repositories</a>:
+	    <pre class="sourcecode">
+git clone https://github.com/rabbitmq/rabbitmq-server.git
+</pre>
+        </p>
 
-	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-
-	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-server.git
-$ cd rabbitmq-server
-$ make</pre>
-	  </li>
-	</ul>
-
-	<p>
-	  If you choose to check the code out using Git, the necessary
-	  dependencies will be fetched automatically. If you're working with a
-	  released source code distribution, though, all necessary dependencies
-	  are included.
-	</p>
+        <p>
+          Then, use <code>make</code> to pull down dependencies and build the server:
+	<pre class="sourcecode">
+cd rabbitmq-server
+make</pre>
+        </p>
       </doc:section>
 
       <xi:include href="build-erlang-prerequisites.xml.inc" />
-       
+
       <doc:section name="building-server">
 	<doc:heading>Building the server</doc:heading>
 
@@ -63,7 +55,7 @@ $ make</pre>
 	  Change to the <code>rabbitmq-server</code> directory, and
 	  type <code>make</code>.
 	</p>
-         
+
 	<p>
 	  Other interesting <code>Makefile</code> targets include
 	</p>
@@ -115,6 +107,93 @@ $ make</pre>
 	    </dd>
 	  </dl>
 	</p>
+      </doc:section>
+
+
+
+      <doc:section name="building-packages">
+	<doc:heading>Building Server Packages</doc:heading>
+
+	<p>
+          In practice, building RabbitMQ server from source is of limited use
+          unless an easy to deploy package (e.g. a Debian one) can be produced.
+	</p>
+
+              <doc:subsection name="building-generic-unix-package">
+	        <doc:heading>Building a Generic UNIX Package</doc:heading>
+
+                <p>
+                  To build a generic UNIX package, use the <code>package-generic-unix</code> target
+                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
+                  signing:
+
+	          <pre class="sourcecode">
+# replace x, y, z, and build with your own values, e.g.
+# 3.7.0.801
+make package-generic-unix VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
+                  </pre>
+
+                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
+                </p>
+              </doc:subsection>
+
+              <doc:subsection name="building-debian-package">
+	        <doc:heading>Building a Debian Package</doc:heading>
+
+                <p>
+                  Producing a Debian package requires a number of build time dependencies. On a recent Debian-based
+                  system (e.g. Ubuntu 15.10), they can be installed with
+
+                  <pre class="sourcecode">
+sudo apt-get install -y debhelper erlang-dev erlang-src python-simplejson \
+                        xmlto xsltproc erlang-nox zip rsync
+                  </pre>
+                </p>
+
+                <p>
+                  To build a generic UNIX package, use the <code>package-deb</code> target
+                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
+                  signing:
+
+	          <pre class="sourcecode">
+# replace x, y, z, and build with your own values, e.g.
+# 3.7.0.801
+make package-deb VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
+                  </pre>
+
+                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
+                </p>
+              </doc:subsection>
+
+              <doc:subsection name="building-windows-package">
+	        <doc:heading>Building a Windows Package</doc:heading>
+
+                <p>
+                  Producing a Windows package requires a Debian-based
+                  machine and number of build time dependencies. On a
+                  recent Debian-based system (e.g. Ubuntu 15.10), they
+                  can be installed with
+
+                  <pre class="sourcecode">
+sudo apt-get install -y tofrodos nsis elinks
+                  </pre>
+                </p>
+
+
+                <p>
+                  To build a Windows package, use the <code>package-windows</code> target
+                  in the server repository. You'd need to provide a version and (commonly) opt out of artifact
+                  signing:
+
+	          <pre class="sourcecode">
+# replace x, y, z, and build with your own values, e.g.
+# 3.7.0.801
+make package-windows VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
+                  </pre>
+
+                  Built artifacts will be placed under the <code>PACKAGES</code> directory.
+                </p>
+              </doc:subsection>
       </doc:section>
   </body>
 </html>
