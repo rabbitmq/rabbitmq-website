@@ -16,9 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions"
-      xmlns:xi="http://www.w3.org/2003/XInclude">
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+    xmlns:x="http://www.rabbitmq.com/2011/extensions"
+    xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
   	<title>Server Build Instructions</title>
   </head>
@@ -54,67 +54,67 @@ $ make</pre>
 	</p>
       </doc:section>
 
-       <xi:include href="build-erlang-prerequisites.xml.inc" />
+      <xi:include href="build-erlang-prerequisites.xml.inc" />
+       
+      <doc:section name="building-server">
+	<doc:heading>Building the server</doc:heading>
 
-	<doc:section name="building-server">
-	  <doc:heading>Building the server</doc:heading>
+	<p>
+	  Change to the <code>rabbitmq-server</code> directory, and
+	  type <code>make</code>.
+	</p>
+         
+	<p>
+	  Other interesting <code>Makefile</code> targets include
+	</p>
 
-	  <p>
-	    Change to the <code>rabbitmq-server</code> directory, and
-	    type <code>make</code>.
-	  </p>
+	<p>
+	  <dl>
+	    <dt>all</dt>
+	    <dd>
+	      The default target. Builds the server.
+	    </dd>
 
-	  <p>
-	    Other interesting <code>Makefile</code> targets include
-	  </p>
+	    <dt>shell</dt>
+	    <dd>
+	      Builds the client libraries and starts an Erlang shell with the
+	      libraries loaded.
+	    </dd>
 
-	  <p>
-	    <dl>
-	      <dt>all</dt>
-	      <dd>
-		The default target. Builds the server.
-	      </dd>
+	    <dt>run-broker</dt>
+	    <dd>
+	      Builds the server and starts an instance with an
+	      interactive Erlang shell. This will by default put
+              data, including a Mnesia database, in <code>/tmp/rabbitmq-test-instances</code>,
+	      but this location can be overridden by setting the
+	      Makefile variable <code>TEST_TMPDIR</code>:
+	      <p>
+		<code>make run TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
+	      </p>
+	    </dd>
 
-	      <dt>shell</dt>
-	      <dd>
-		Builds the client libraries and starts an Erlang shell with the
-		libraries loaded.
-	      </dd>
+	    <dt>clean</dt>
+	    <dd>
+	      Removes temporary build products.
+	    </dd>
 
-	      <dt>run-broker</dt>
-	      <dd>
-		Builds the server and starts an instance with an
-		interactive Erlang shell. This will by default put
-                data, including a Mnesia database, in <code>/tmp/rabbitmq-test-instances</code>,
-		but this location can be overridden by setting the
-		Makefile variable <code>TEST_TMPDIR</code>:
-		<p>
-		  <code>make run TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
-		</p>
-	      </dd>
+	    <dt>distclean</dt>
+	    <dd>
+	      Removes all build products.
+	    </dd>
 
-	      <dt>clean</dt>
-	      <dd>
-		Removes temporary build products.
-	      </dd>
+	    <dt>tests</dt>
+	    <dd>
+	      Runs a set of tests.
+	    </dd>
 
-	      <dt>distclean</dt>
-	      <dd>
-		Removes all build products.
-	      </dd>
-
-	      <dt>tests</dt>
-	      <dd>
-		Runs a set of tests.
-	      </dd>
-
-	      <dt>source-dist</dt>
-	      <dd>
-		Constructs a source-code distribution archive in
-		<code>./PACKAGES</code>.
-	      </dd>
-	    </dl>
-	  </p>
-	</doc:section>
+	    <dt>source-dist</dt>
+	    <dd>
+	      Constructs a source-code distribution archive in
+	      <code>./PACKAGES</code>.
+	    </dd>
+	  </dl>
+	</p>
+      </doc:section>
   </body>
 </html>
