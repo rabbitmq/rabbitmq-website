@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -28,7 +28,7 @@ limitations under the License.
     href="http://www.python.org/download/">Python 2</a> and <a
     href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
     (an implementation of a <a href="http://json.org">JSON</a> reader
-    and writer in Python), for generating AMQP framing code.
+    and writer in Python), for generating AMQP 0-9-1 framing code.
     simplejson.py is included as a standard json library in the Python
     core since 2.6 release.
   </p>
@@ -55,6 +55,10 @@ limitations under the License.
     <li>
       a recent version of <i>xsltproc</i>, which is part of <a
       href="http://xmlsoft.org/XSLT/">libxslt</a>
+    </li>
+
+    <li>
+      a recent version of <i>xmlto</i>
     </li>
 
     <li>
