@@ -37,6 +37,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-one-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-one-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-one-elixir.html">Elixir</a>
           </p>
         </li>
 
@@ -60,6 +62,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-two-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-two-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-two-elixir.html">Elixir</a>
           </p>
         </li>
 
@@ -83,6 +87,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-three-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-three-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-three-elixir.html">Elixir</a>
           </p>
         </li>
 
@@ -106,6 +112,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-four-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-four-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-four-elixir.html">Elixir</a>
           </p>
         </li>
 
@@ -129,6 +137,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-five-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-five-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-five-elixir.html">Elixir</a>
           </p>
         </li>
 
@@ -152,6 +162,8 @@ limitations under the License.
           <a href="/tutorials/tutorial-six-javascript.html">Javascript</a>
           |
           <a href="/tutorials/tutorial-six-go.html">Go</a>
+          |
+          <a href="/tutorials/tutorial-six-elixir.html">Elixir</a>
           </p>
         </li>
       </ul>
