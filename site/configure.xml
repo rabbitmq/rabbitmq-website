@@ -23,25 +23,25 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Configuration</title>
+    <title>RabbitMQ Configuration</title>
   </head>
   <body show-in-this-page="true">
       <doc:section name="introduction">
+        <doc:heading>Overview</doc:heading>
       <p>
-      RabbitMQ comes with default built-in settings which will most likely be
+      RabbitMQ comes with default built-in settings which will quite likely be
       sufficient for running your RabbitMQ server effectively. If it runs fine,
-      then you probably don't need any configuration at all.
+      then you possibly don't need any configuration at all.
       </p>
       <p>
-          If you have other constraints, RabbitMQ provides three general ways to
-          customise the server:
+          RabbitMQ provides three general ways to customise the server:
       <dl>
           <dt>
               <a href="#define-environment-variables">environment variables</a>
           </dt>
           <dd>
               define ports, file locations and names (taken from the shell, or
-              set in the <code>rabbitmq-env.conf</code> file)
+              set in the environment configuration file, <code>rabbitmq-env.conf</code>)
           </dd>
           <dt>
               <a href="#configuration-file">a configuration file</a>
@@ -57,24 +57,58 @@ limitations under the License.
               defines cluster-wide settings which can change at run time
           </dd>
       </dl>
+
+      Most settings are configured using the first two methods. This guide,
+      therefore, focuses on them.
       </p>
 
+      <doc:subsection name="config-file-location">
+        <doc:heading>Config File Locations</doc:heading>
+        <p>
+          <a href="/configure.html#config-location">Default config file locations</a>
+          vary between operating systems and <a
+          href="/download.html">package types</a>.
+
+          This topic is covered in more details in the rest of this guide.
+        </p>
+
+        <p>
+          To verify effective RabbitMQ config file location, see the section below.
+        </p>
+      </doc:subsection>
+
       <doc:subsection name="verify-configuration">
-      <doc:heading>Verify Configuration</doc:heading>
-         <p>
-           The active configuration can be verified in the broker log,
-           e.g. the active configuration file:
-         </p>
-           <pre class="sourcecode">
+        <doc:heading>Verify Configuration (How to Find Config File Location)</doc:heading>
+        <p>
+          The active configuration file can be verified by inspecting
+          RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
+          at the top together with other broker boot log entries, for example:
+
+           <pre class="example">
+node           : rabbit@example
+home dir       : /var/lib/rabbitmq
 config file(s) : /etc/rabbitmq/rabbitmq.config</pre>
-         <p>
-           will show up in the <a href="relocate.html">log file</a>.
-         </p>
+
+          In case log file cannot be found or read by RabbitMQ, log entry
+          will say so:
+
+           <pre class="example">
+node           : rabbit@example
+home dir       : /var/lib/rabbitmq
+config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
+        </p>
       </doc:subsection>
       </doc:section>
 
       <doc:section name="customise-environment">
-      <doc:heading>Customise RabbitMQ Environment</doc:heading>
+        <doc:heading>Customise RabbitMQ Environment</doc:heading>
+
+        <p>
+          Certain server parameters can be configured using environment variables:
+          node name, RabbitMQ configuration file location, AMQP 0-9-1 and inter-node communication ports,
+          and so on.
+        </p>
+        
         <doc:subsection name="customise-general-unix-environment">
         <doc:heading>Unix (general)</doc:heading>
           <p>
@@ -128,7 +162,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
 
               <ul>
                 <li><a href="https://technet.microsoft.com/en-us/library/cc947813%28v=ws.10%29.aspx">Start an admin command prompt</a></li>
-                <li>cd into the sbin folder under <em>RabbitMQ server installation directory</em></li>                
+                <li>cd into the sbin folder under <em>RabbitMQ server installation directory</em></li>
                 <li>Set environment variables via command line</li>
                 <li>Run <code>rabbitmq-service.bat install</code>, which will only update service parameters</li>
               </ul>
@@ -368,25 +402,24 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <a href="http://www.erlang.org/doc/man/config.html">Erlang Config Man Page</a>.
         </p>
         <p>
-          An example configuration file follows:
+          An minimalistic example configuration file follows:
         </p>
         <p>
 <pre class="sourcecode">
   [
-    {mnesia, [{dump_log_write_threshold, 1000}]},
     {rabbit, [{tcp_listeners, [5673]}]}
   ].
 </pre>
         </p>
         <p>
-          This example will alter the dump_log_write_threshold for
-          mnesia (increasing from the default of 100), and alter the
-          port RabbitMQ listens on from 5672 to 5673.
+          This example will alter the port RabbitMQ listens on for
+          AMQP 0-9-1 client connections from 5672 to 5673.
         </p>
         <p>
-           This configuration file is not the same as
-          <code>rabbitmq-env.conf</code>, which can be used to set environment
-          variables on non-windows systems.
+           This configuration file is not the same as the environment
+           configuration file, <code>rabbitmq-env.conf</code>, which
+           can be used to set environment variables on non-Windows
+           systems.
         </p>
         </doc:subsection>
 
@@ -425,15 +458,18 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </doc:subsection>
 
         <doc:subsection name="example-config">
-          <doc:heading>Example rabbitmq.config file</doc:heading>
+          <doc:heading>Example rabbitmq.config File</doc:heading>
           <p>
-            We ship an example configuration file with the RabbitMQ
-            server, named <code>rabbitmq.config.example</code>. This
+            RabbitMQ server source repository contains 
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example">an example configuration file</a>
+            named <code>rabbitmq.config.example</code>. This
             example file contains an example of most of the
             configuration items you might want to set (with some very
             obscure ones omitted) along with documentation for those
             settings. All configuration items are commented out in the
-            example, so you can uncomment what you need.
+            example, so you can uncomment what you need. Note that
+            the example file is meant to be used as, well, example,
+            and should not be treated as a general recommendation.
           </p>
 
           <p>
@@ -546,7 +582,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               this limit, flow control is triggered. The value may be
               set relative to the total amount of RAM (e.g.
               <code>{mem_relative, 1.0}</code>). The value may also be
-              set to an integer number of bytes. Or, alternatively, in 
+              set to an integer number of bytes. Or, alternatively, in
               information units (e.g <code>"50MB"</code>). By default free disk
               space must exceed 50MB. See
               the <a href="disk-alarms.html">Disk Alarms</a> documentation.
