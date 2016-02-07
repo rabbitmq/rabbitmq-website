@@ -243,9 +243,9 @@ byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
 IBasicProperties props = model.CreateBasicProperties();
 props.ContentType = "text/plain";
 props.DeliveryMode = 2;
-mode.BasicPublish(exchangeName,
-                  routingKey, props,
-                  messageBodyBytes);
+model.BasicPublish(exchangeName,
+                   routingKey, props,
+                   messageBodyBytes);
 </pre>
 
             This sends a message with delivery mode 2 (persistent) and
@@ -266,9 +266,9 @@ props.Headers = new Dictionary&lt;string, object&gt;();
 props.Headers.Add("latitude",  51.5252949);
 props.Headers.Add("longitude", -0.0905493);
 
-mode.BasicPublish(exchangeName,
-                  routingKey, props,
-                  messageBodyBytes);
+model.BasicPublish(exchangeName,
+                   routingKey, props,
+                   messageBodyBytes);
 </pre>
 </p>
 
