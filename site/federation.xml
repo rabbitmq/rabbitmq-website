@@ -321,7 +321,7 @@ limitations under the License.
 
       <p>
         Just like with "regular" client connections, server's CA should be
-        trusted on the node where Shovel runs, and vice versa.
+        trusted on the node where federation link(s) runs, and vice versa.
       </p>
     </doc:section>
 
