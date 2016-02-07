@@ -222,18 +222,18 @@ limitations under the License.
       overridden to match the actual deployment scenario.
     </p>
     <p>
-      SSL options can also be specified globally using the
+      TLS options can also be specified globally using the
       <code>ssl_options</code> environment key for the
       <code>amqp_client</code> application. They will be merged with
-      the SSL parameters from the URI (the latter will take
+      the TLS parameters from the URI (the latter will take
       precedence).
     </p>
     <p>
       If a client wishes to run inside the same Erlang cluster as the
-      RabbitMQ broker, it can start a direct connection that optimises
-      away the AMQP codec. To start a direct connection, use
-      amqp_connection:start/1 with the parameter set to an
-      #amqp_params_direct record.
+      RabbitMQ broker, it can start a direct connection that bypasses
+      network serialisation. To start a direct connection, use
+      <code>amqp_connection:start/1</code> with the parameter set to an
+      <code>#amqp_params_direct</code> record.
     </p>
     <p>
       Providing a username and password is optional, since the direct
