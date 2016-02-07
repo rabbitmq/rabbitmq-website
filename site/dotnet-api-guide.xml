@@ -251,7 +251,42 @@ mode.BasicPublish(exchangeName,
             This sends a message with delivery mode 2 (persistent) and
             content-type "text/plain". See the definition of the <code>
             IBasicProperties</code> interface for more information about the available
-            header properties.
+            message properties.
+          </p>
+          <p>
+            In the following example, we publish a message with custom headers:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+
+IBasicProperties props = model.CreateBasicProperties();
+props.ContentType = "text/plain";
+props.DeliveryMode = 2;
+props.Headers = new Dictionary&lt;string, object&gt;();
+props.Headers.Add("latitude",  51.5252949);
+props.Headers.Add("longitude", -0.0905493);
+
+mode.BasicPublish(exchangeName,
+                  routingKey, props,
+                  messageBodyBytes);
+</pre>
+</p>
+
+          <p>
+            Code sample below sets a message expiration:
+
+<pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+
+IBasicProperties props = model.CreateBasicProperties();
+props.ContentType = "text/plain";
+props.DeliveryMode = 2;
+props.Expiration = "36000000"
+
+mode.BasicPublish(exchangeName,
+                  routingKey, props,
+                  messageBodyBytes);
+</pre>
           </p>
         </doc:section>
 
@@ -311,7 +346,7 @@ consumer.Received += (ch, ea) =>
                     var body = ea.Body;
                     // ... process the message
                     ch.BasicAck(ea.DeliveryTag, false);
-                };  
+                };
 String consumerTag = channel.BasicConsume(queueName, false, consumer);
 </pre>
 
