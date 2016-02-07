@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -22,54 +22,68 @@ limitations under the License.
     <title>Getting started with RabbitMQ</title>
   </head>
   <body suppress-rhs="true">
+    <h1>RabbitMQ Tutorials</h1>
       <p>
         These tutorials cover the basics of creating messaging
         applications using RabbitMQ.
 
         You need to have the RabbitMQ server installed to go through
-        the tutorials &#8210; please see the <a
+        the tutorials, please see the <a
         href="download.html">installation guide.</a>
+
+        The <a href="https://github.com/rabbitmq/rabbitmq-tutorials">source code of these tutorials</a> is open source,
+        as is <a href="https://github.com/rabbitmq/rabbitmq-website">RabbitMQ website</a>.
       </p>
 
       <div id="tutorial-index">
         <xi:include href="tutorials/tutorials-menu.xml.inc"/>
       </div>
-      <hr/>
-      <div>
-      <h3>Tutorials in other languages</h3>
-      <p>
-        The tutorials here use a number of popular technologies,
-        however, there are <a href="https://github.com/rabbitmq/rabbitmq-tutorials">ports available</a> for 
-        many more languages and client libraries, for example:
 
-        <ul>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
-          </li>
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
-          </li>          
-          <li>
-            <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
-          </li>
-        </ul>
-      </p>
-      <p>
-        We also maintain a list
-        of <a href="devtools.html">clients and developer tools</a> for
-        a range of platforms, which you may find useful.
-      </p>
-      <h3>Further reading</h3>
-      <p>
-        Once you have been through the tutorials (or if you want to
-        skip ahead), you may wish to read an
-        <a href="tutorials/amqp-concepts.html">Introduction to RabbitMQ Concepts</a>
-        and browse our
-        <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
-      </p>
+      <div>
+        <h2>Getting Help</h2>
+
+        <p>
+          If you have any questions or comments regarding RabbitMQ, feel free to
+          ask them on <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+        </p>
+      </div>      
+
+      <div>
+        <h2>Tutorials in other languages</h2>
+        <p>
+          The tutorials here use a number of popular technologies,
+          however, there are <a href="https://github.com/rabbitmq/rabbitmq-tutorials">ports available</a> for
+          many more languages and client libraries, for example:
+
+          <ul>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
+            </li>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
+            </li>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
+            </li>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
+            </li>
+          </ul>
+        </p>
+        <p>
+          We also maintain a list
+          of <a href="devtools.html">clients and developer tools</a> for
+          a range of platforms, which you may find useful.
+        </p>
+
+        <h2>Further reading</h2>
+        <p>
+          Once you have been through the tutorials (or if you want to
+          skip ahead), you may wish to read an
+          <a href="tutorials/amqp-concepts.html">Introduction to RabbitMQ Concepts</a>
+          and browse our
+          <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
+        </p>
       </div>
   </body>
 </html>
