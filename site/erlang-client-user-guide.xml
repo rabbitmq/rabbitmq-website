@@ -31,20 +31,13 @@ limitations under the License.
 
  <doc:section name="introduction">
    <p>
-     The AMQP client provides an Erlang interface to compliant AMQP
-     brokers. The client follows the AMQP execution model and
-     implements the wire level marshaling required to encode and
-     decode AMQP commands in a protocol conformant fashion. AMQP is a
-     connection orientated protocol and multiplexes parallel
-     interactions via multiple channels within a connection.
+     This guide covers an Erlang client for RabbitMQ (AMQP 0-9-1).
    </p>
    <p>
-     This user guide assumes that the reader is familiar with basic
-     concepts of AMQP and understands exchanges, queues and
-     bindings. This information is contained in the protocol
-     documentation on the AMQP website. For details and exact
-     definitions, please see <a href="http://www.amqp.org/">the AMQP
-     specification document</a>.
+     This user guide assumes that the reader is familiar with <a
+     href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">basic
+     concepts of AMQP 0-9-1</a> and understands exchanges, queues and
+     bindings.
    </p>
    <p>
      The basic usage of the client follows these broad steps:
@@ -129,18 +122,13 @@ limitations under the License.
 <!-- ..................................................................... -->
 
 <doc:section name="commands">
-  <doc:heading>AMQP Commands</doc:heading>
+  <doc:heading>AMQP 0-9-1 Commands</doc:heading>
   <p>
     The general mechanism of interacting with the broker is to send
-    and receive AMQP commands that are defined in the protocol
-    documentation. During build process, the machine readable version
-    of the AMQP specification is used to auto-generate Erlang records
-    for each command. The code generation process also defines
-    sensible default values for each command. Using default values
-    allows the programmer to write terser code - it is only necessary
-    to override a field if you require non-default behaviour. The
-    definition of each command can be consulted in the
-    rabbit_framing.hrl header file. For example, when using the
+    and receive AMQP 0-9-1 methods that are expressed with records in
+    the client. The client defines sensible default values for each
+    command. It is only necessary to override a field if you require
+    non-default behaviour. For example, when using the
     #'exchange.declare'{} command, specifying the following:
 
     <pre class="sourcecode">
