@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -28,24 +28,22 @@ limitations under the License.
   </head>
   <body show-in-this-page="true">
     <p>
-      The <em>Shovel plugin</em> allows you to configure a number of
-      <em>shovel</em>s, which start automatically when the broker
-      starts.
-    </p>
-    <p>
-      The high level goal of a <em>shovel</em> is to reliably and
-      continually take messages from a queue (a <em>source</em>) in one
-      broker and publish them to exchanges in another broker (a
-      <em>destination</em>).
+      Sometimes it is necessary to reliably and
+      continually move messages from a queue (a <em>source</em>) in one
+      broker to an exchange in another broker (a
+      <em>destination</em>). The <em>Shovel plugin</em> allows you to
+      configure a number of <em>shovel</em>s, which do just that and
+      start automatically when the broker starts.
     </p>
     <p>
       The source queue and destination exchanges can be on the same
-      broker or distinct brokers.
+      broker (typically in different vhosts) or distinct brokers.
     </p>
     <p>
       A shovel behaves like a well-written client application, which
       connects to its source and destination, reads and writes messages,
-      and copes with connection failures.
+      and copes with connection failures. In fact, Shovels use
+      <a href="https://www.rabbitmq.com/erlang-client-user-guide.html">RabbitMQ Erlang client</a> under the hood.
     </p>
 
     <p>
@@ -67,7 +65,7 @@ limitations under the License.
       </dd>
       <dt><strong>WAN-friendly</strong></dt>
       <dd>
-        The Shovel plugin uses AMQP to communicate between brokers, and
+        The Shovel plugin uses AMQP 0-9-1 to communicate between brokers, and
         is designed to tolerate intermittent connectivity without
         message loss.
       </dd>
@@ -246,6 +244,32 @@ limitations under the License.
         fail over when needed.
       </p>
     </doc:section>
+
+
+    <doc:section name="tls-connections">
+      <doc:heading>Securing Shovel Connections with TLS</doc:heading>
+      <p>
+        Shovel connections can be secured with TLS. Because Shovel uses
+        a RabbitMQ client under the hood, it is necessary to both configure
+        source broker to <a href="/ssl.html">listen for TLS connections</a>
+        and Shovel/Erlang client to use TLS.
+      </p>
+      <p>
+        To configure Shovel to use TLS, one needs to
+
+        <ul>
+          <li>Specify CA certificate and client certificate/key pair via
+          <a href="/uri-query-parameters.html">URI query parameters</a></li>
+          <li><a href="/ssl.html">Configure Erlang client to use TLS</a></li>
+        </ul>
+      </p>
+
+      <p>
+        Just like with "regular" client connections, server's CA should be
+        trusted on the node where Shovel runs, and vice versa.
+      </p>
+    </doc:section>
+
 
     <doc:section name="status">
       <doc:heading>Monitoring shovels</doc:heading>
