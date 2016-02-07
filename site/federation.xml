@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -298,5 +298,32 @@ limitations under the License.
         </li>
       </ul>
     </doc:section>
+
+
+    <doc:section name="tls-connections">
+      <doc:heading>Securing Federation Connections with TLS</doc:heading>
+      <p>
+        Federation connections (links) can be secured with TLS. Because Federation uses
+        a RabbitMQ client under the hood, it is necessary to both configure
+        source broker to <a href="/ssl.html">listen for TLS connections</a>
+        and Federation/Erlang client to use TLS.
+      </p>
+      <p>
+        To configure Federation to use TLS, one needs to
+
+        <ul>
+          <li>Specify CA certificate and client certificate/key pair via
+          <a href="/uri-query-parameters.html">URI query parameters</a>
+          when configuring upstream(s)</li>
+          <li><a href="/ssl.html">Configure Erlang client to use TLS</a></li>
+        </ul>
+      </p>
+
+      <p>
+        Just like with "regular" client connections, server's CA should be
+        trusted on the node where Shovel runs, and vice versa.
+      </p>
+    </doc:section>
+
   </body>
 </html>

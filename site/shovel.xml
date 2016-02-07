@@ -252,10 +252,10 @@ limitations under the License.
         Shovel connections can be secured with TLS. Because Shovel uses
         a RabbitMQ client under the hood, it is necessary to both configure
         source broker to <a href="/ssl.html">listen for TLS connections</a>
-        and Shovel to use TLS.
+        and Shovel/Erlang client to use TLS.
       </p>
       <p>
-        Client-side Shovel configuration comes down to
+        To configure Shovel to use TLS, one needs to
 
         <ul>
           <li>Specify CA certificate and client certificate/key pair via
