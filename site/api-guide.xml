@@ -220,7 +220,8 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
 channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messageBodyBytes);</pre>
 
       <p>
-        For fine control, you can use overloaded variants to specify the <code>mandatory</code> flag, or send messages with pre-set message properties:
+        For fine control, you can use overloaded variants to specify the <code>mandatory</code> flag,
+        or send messages with pre-set message properties:
       </p>
 
       <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>mandatory</b>,
@@ -228,18 +229,47 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
                      messageBodyBytes);</pre>
 
       <p>
-        This sends a message with delivery mode 2 (persistent), priority 0
+        This sends a message with delivery mode 2 (persistent), priority 1
         and content-type "text/plain". You can build your
         own message properties object, using a <code>Builder</code> class
         mentioning as many properties as you like, for example:
       </p>
 
-      <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
-                     <b>new</b> AMQP.BasicProperties.Builder()
-                       .contentType("text/plain").deliveryMode(2)
-                       .priority(1).userId("bob")
-                       .build()),
-                     messageBodyBytes);</pre>
+      <pre class="sourcecode">
+channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
+             <b>new</b> AMQP.BasicProperties.Builder()
+               .contentType("text/plain")
+               .deliveryMode(2)
+               .priority(1)
+               .userId("bob")
+               .build()),
+               messageBodyBytes);</pre>
+
+      <p>
+        This example publishes a message with custom headers:
+      </p>
+
+      <pre class="sourcecode">
+Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
+headers.put("latitude",  51.5252949);
+headers.put("longitude", -0.0905493);
+
+channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
+             <b>new</b> AMQP.BasicProperties.Builder()
+               .headers(headers)
+               .build()),
+               messageBodyBytes);</pre>
+
+      <p>
+        This example publishes a message with expiration:
+      </p>
+
+      <pre class="sourcecode">
+channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
+             <b>new</b> AMQP.BasicProperties.Builder()
+               .expiration("60000")
+               .build()),
+               messageBodyBytes);</pre>
 
       <p>
         We have not illustrated all the possibilities here.
@@ -249,10 +279,10 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         holder class <code>AMQP</code>.
       </p>
 
-          <p>
-            Invocations of <code>Channel#basicPublish</code> will eventually block if a
-            <a href="http://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
-          </p>
+      <p>
+        Invocations of <code>Channel#basicPublish</code> will eventually block if a
+        <a href="http://www.rabbitmq.com/alarms.html">resource-driven alarm</a> is in effect.
+      </p>
     </doc:section>
 
     <doc:section name="channel-threads">
