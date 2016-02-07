@@ -31,20 +31,13 @@ limitations under the License.
 
  <doc:section name="introduction">
    <p>
-     The AMQP client provides an Erlang interface to compliant AMQP
-     brokers. The client follows the AMQP execution model and
-     implements the wire level marshaling required to encode and
-     decode AMQP commands in a protocol conformant fashion. AMQP is a
-     connection orientated protocol and multiplexes parallel
-     interactions via multiple channels within a connection.
+     This guide covers an Erlang client for RabbitMQ (AMQP 0-9-1).
    </p>
    <p>
-     This user guide assumes that the reader is familiar with basic
-     concepts of AMQP and understands exchanges, queues and
-     bindings. This information is contained in the protocol
-     documentation on the AMQP website. For details and exact
-     definitions, please see <a href="http://www.amqp.org/">the AMQP
-     specification document</a>.
+     This user guide assumes that the reader is familiar with <a
+     href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">basic
+     concepts of AMQP 0-9-1</a> and understands exchanges, queues and
+     bindings.
    </p>
    <p>
      The basic usage of the client follows these broad steps:
@@ -129,18 +122,13 @@ limitations under the License.
 <!-- ..................................................................... -->
 
 <doc:section name="commands">
-  <doc:heading>AMQP Commands</doc:heading>
+  <doc:heading>AMQP 0-9-1 Commands</doc:heading>
   <p>
     The general mechanism of interacting with the broker is to send
-    and receive AMQP commands that are defined in the protocol
-    documentation. During build process, the machine readable version
-    of the AMQP specification is used to auto-generate Erlang records
-    for each command. The code generation process also defines
-    sensible default values for each command. Using default values
-    allows the programmer to write terser code - it is only necessary
-    to override a field if you require non-default behaviour. The
-    definition of each command can be consulted in the
-    rabbit_framing.hrl header file. For example, when using the
+    and receive AMQP 0-9-1 methods that are expressed with records in
+    the client. The client defines sensible default values for each
+    command. It is only necessary to override a field if you require
+    non-default behaviour. For example, when using the
     #'exchange.declare'{} command, specifying the following:
 
     <pre class="sourcecode">
@@ -208,14 +196,6 @@ limitations under the License.
   <p>
     In case of an error, the above call returns {error, Error}.
   </p>
-  <p>
-    An AMQP broker contains objects organised into groups called
-    virtual hosts. The concept of virtual hosts gives an administrator
-    the facility to partition a broker resource into separate domains
-    and restrict access to the objects contained within these
-    groups. AMQP connections require client authentication and the
-    authorisation to access specific virtual hosts.
-    </p>
     <p>
       The #amqp_params_network record sets the following default values:
     </p>
@@ -242,18 +222,18 @@ limitations under the License.
       overridden to match the actual deployment scenario.
     </p>
     <p>
-      SSL options can also be specified globally using the
+      TLS options can also be specified globally using the
       <code>ssl_options</code> environment key for the
       <code>amqp_client</code> application. They will be merged with
-      the SSL parameters from the URI (the latter will take
+      the TLS parameters from the URI (the latter will take
       precedence).
     </p>
     <p>
       If a client wishes to run inside the same Erlang cluster as the
-      RabbitMQ broker, it can start a direct connection that optimises
-      away the AMQP codec. To start a direct connection, use
-      amqp_connection:start/1 with the parameter set to an
-      #amqp_params_direct record.
+      RabbitMQ broker, it can start a direct connection that bypasses
+      network serialisation. To start a direct connection, use
+      <code>amqp_connection:start/1</code> with the parameter set to an
+      <code>#amqp_params_direct</code> record.
     </p>
     <p>
       Providing a username and password is optional, since the direct
