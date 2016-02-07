@@ -261,7 +261,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
     :::elixir
-    AMQP.Queue.declare(channel, "hello", durable: true)
+    AMQP.Queue.declare(channel, "task_queue", durable: true)
 
 Although this command is correct by itself, it won't work in our
 setup. That's because we've already defined a queue called `hello`
@@ -281,7 +281,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by supplying a `persistent: true` property.
 
     :::elixir
-    AMQP.Basic.publish(channel, "", "hello", message, persistent: true)
+    AMQP.Basic.publish(channel, "", "task_queue", message, persistent: true)
 
 > #### Note on message persistence
 >
@@ -400,7 +400,7 @@ And our worker:
     AMQP.Queue.declare(channel, "task_queue", durable: true)
     AMQP.Basic.qos(channel, prefetch_count: 1)
 
-    AMQP.Basic.consume(channel, "hello")
+    AMQP.Basic.consume(channel, "task_queue")
     IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
     Worker.wait_for_messages(channel)
