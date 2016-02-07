@@ -16,37 +16,37 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <doc:section name="issues-hostname" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
-  <doc:heading>Issues with hostname</doc:heading>
+  <doc:heading>Hostname Changes</doc:heading>
   <p>
-    RabbitMQ names the database directory using the
+    As explained in the <a href="/clustering.html">Clustering guide</a>,
+    RabbitMQ nodes use hostnames to communicate with each other. Therefore,
+    all node names must be able to resolve names of all cluster peers. This is
+    also true for tools such as <code>rabbitmqctl</code>.
+  </p>
+  <p>
+    In addition to that, by default RabbitMQ names the database directory using the
     current hostname of the system. If the hostname
     changes, a new empty database is created. To avoid data loss it's
-    crucial to set up a fixed and resolvable hostname. For example:
+    crucial to set up a fixed and resolvable hostname.
 
-    <pre class="sourcecode">
-sudo -s # become root
-echo "rabbit" > /etc/hostname
-echo "127.0.0.1 rabbit" >> /etc/hosts
-hostname -F /etc/hostname
-    </pre>
-
-Whenever the hostname changes you should restart RabbitMQ:
+    Whenever the hostname changes you should restart RabbitMQ:
 <pre class="sourcecode">$ /etc/init.d/rabbitmq-server restart</pre>
   </p>
   <p>
     A similar effect can be achieved by using <code>rabbit@localhost</code>
     as the broker nodename.
-  </p>
-  <p>
     The impact of this solution is that clustering will not work, because
     the chosen hostname will not resolve to a routable address from remote
     hosts. The <code>rabbitmqctl</code> command will similarly fail when
     invoked from a remote host. A more sophisticated solution that does not
     suffer from this weakness is to use DNS, e.g. 
     <a href="http://aws.amazon.com/route53/">Amazon Route 53</a> if running
-    on EC2.  If you want to use the full hostname for your nodename (RabbitMQ
+    on EC2. If you want to use the full hostname for your nodename (RabbitMQ
     defaults to the short name), and that full hostname is resolveable using DNS,
     you may want to investigate setting the environment variable
     <code>RABBITMQ_USE_LONGNAME=true</code>.
+  </p>
+  <p>
+    See <a href="/clustering.html">Clustering guide</a> for more information.
   </p>
 </doc:section>
