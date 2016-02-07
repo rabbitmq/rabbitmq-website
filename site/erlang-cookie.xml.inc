@@ -20,18 +20,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <doc:subsection xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" name="erlang-cookie">
-  <doc:heading>Erlang cookie</doc:heading>
+  <doc:heading>How Nodes (and CLI tools) Authenticate to Each Other: the Erlang Cookie</doc:heading>
   <p>
-    Erlang nodes use a cookie to determine whether they are allowed to
-    communicate with each other - for two nodes to be able to
-    communicate they must have the same cookie.  The cookie is just a
-    string of alphanumeric characters. It can be as long or short as
-    you like. Every cluster node must have
-    the same cookie. The cookie is also used for tools such as <code>rabbitmqctl</code>
-    and <code>rabbitmq-plugins</code>.
+    RabbitMQ nodes and CLI tools (e.g. <code>rabbitmqctl</code>) use a
+    cookie to determine whether they are allowed to communicate with
+    each other. For two nodes to be able to communicate they must have
+    the same shared secret called the Erlang cookie.  The cookie is
+    just a string of alphanumeric characters. It can be as long or
+    short as you like. Every cluster node must have the same cookie.
   </p>
   <p>
-    Erlang will automatically create a random cookie file when
+    Erlang VM will automatically create a random cookie file when
     the RabbitMQ server starts up. The easiest way to proceed is to allow
     one node to create the file, and then copy it to all the
     other nodes in the cluster.
