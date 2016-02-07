@@ -37,8 +37,8 @@ limitations under the License.
 #sidebar.tutorial-five #tutorials > li#tutorial-five { border-color: #444; }
 #sidebar.tutorial-six #tutorials > li#tutorial-six { border-color: #444; }
 
-ul#tutorials {
-   list-style-type: none;
+table#tutorials {
+   border: none;
 }
 
 #tutorial .aside {
@@ -53,7 +53,7 @@ ul#tutorials {
    color: #444;
 }
 
-ul#tutorials > li .tute-num {
+table#tutorials > td .tute-num {
    padding: 0.2em 0.5em 0.2em 0.5em;
    background: #444;
    color: white;
@@ -62,15 +62,14 @@ ul#tutorials > li .tute-num {
    -moz-border-radius: 0.5em;
 }
 
-ul#tutorials > li h2, #tutorial-index .aside > h2 {
+table#tutorials > li h2, #tutorial-index .aside > h2 {
    margin-bottom: 1.2em;
    margin-top: 0.9em;
 }
 
-ul#tutorials > li {
+table#tutorials td {
    float: left;
    width: 19.5em;
-   height: 16em;
    border-radius: 8px;
    -moz-border-radius: 8px;
    margin-bottom: 2.0em;
@@ -78,22 +77,18 @@ ul#tutorials > li {
    margin-right: 2.4em;
 }
 
-ul#tutorials > li {
+table#tutorials td {
    background: none;
    border: 1px solid #ccc;
 }
 
-ul#tutorials > li p {
+table#tutorials td p {
 	height: 25%;
 	width: 80%;
 	padding: auto;
 	margin: auto;
 }
-/*
-ul#tutorials > li ul {
-	margin-top: 0.5em;
-}
-*/
+
 #tutorial pre {
     background-color: #eee;
     padding: 5px 15px;
