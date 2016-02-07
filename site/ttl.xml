@@ -157,6 +157,21 @@ AMQP.BasicProperties properties = new AMQP.BasicProperties();
 properties.setExpiration("60000");
 channel.basicPublish("my-exchange", "routing-key", properties, messageBodyBytes);</pre>
 
+      <p>
+        The same example in .NET:
+      </p>
+      <pre class="sourcecode">
+byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+
+IBasicProperties props = model.CreateBasicProperties();
+props.ContentType = "text/plain";
+props.DeliveryMode = 2;
+props.Expiration = "36000000"
+
+model.BasicPublish(exchangeName,
+                   routingKey, props,
+                   messageBodyBytes);</pre>
+
       <doc:subsection name="per-message-ttl-caveats">
         <doc:heading>Caveats</doc:heading>
         <p>
