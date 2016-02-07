@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -24,55 +24,122 @@ limitations under the License.
   </head>
   <body show-in-this-page="true">
       <doc:section name="clustering">
+        <doc:heading>Overview</doc:heading>
         <p>
           A RabbitMQ <i>broker</i> is a logical grouping of one or
           several Erlang <i>nodes</i>, each running the RabbitMQ
           <i>application</i> and sharing users, virtual hosts,
-          queues, exchanges, etc. Sometimes we refer to the collection
+          queues, exchanges, bindings, and runtime parameters. Sometimes we refer to the collection
           of nodes as a <i>cluster</i>.
         </p>
-        <p>
-          All data/state required for the operation of a RabbitMQ
-          broker is replicated across all nodes, for reliability and
-          scaling, with full ACID properties. An exception to this are
-          message queues, which by default reside on the node that
-          created them, though they are visible and reachable from all
-          nodes. To replicate queues across nodes in a cluster, see
-          the documentation on <a href="ha.html">high availability</a>
-          (note that you will need a working cluster first).
-        </p>
-        <p>
-          <a href="partitions.html">RabbitMQ clustering does not
-          tolerate network partitions well</a>, so it should not be
-          used over a WAN.
-          The <a href="shovel.html">shovel</a> or
-          <a href="federation.html">federation</a>
-          plugins are better solutions for connecting brokers across a
-          WAN.
-        </p>
-        <p>
-          The composition of a cluster can be altered dynamically.
-          All RabbitMQ brokers start out as running on a single
-          node. These nodes can be joined into clusters, and
-          subsequently turned back into individual brokers again.
-        </p>
-        <p>
-          RabbitMQ brokers tolerate the failure of individual
-          nodes. Nodes can be started and stopped at will.
-        </p>
-        <p>
-          A node can be a <em>disk node</em> or a <em>RAM node</em>.
-          (<b>Note:</b> <i>disk</i> and <i>disc</i> are used
-          interchangeably.  Configuration syntax or status messages
-          normally use <i>disc</i>.)  In most cases you want all your
-          nodes to be disk nodes; RAM nodes are a special case that
-          can be used to improve the performance of large
-          clusters: see <a href="#ram-nodes">RAM nodes</a> below.
-        </p>
+
+
+        <doc:subsection name="overview-what-is-replicated">
+          <doc:heading>What is Replicated?</doc:heading>
+          <p>
+            All data/state required for the operation of a RabbitMQ
+            broker is replicated across all nodes. An exception to this
+            are message queues, which by default reside on one node,
+            though they are visible and reachable from all nodes. To
+            replicate queues across nodes in a cluster, see the
+            documentation on <a href="ha.html">high availability</a>
+            (note that you will need a working cluster first).
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="overview-hostname-requirements">
+          <doc:heading>Hostname Resolution Requirements</doc:heading>
+          <p>
+            RabbitMQ nodes address each other using domain names,
+            either short or fully-qualified (FQDNs). Therefore
+            hostnames of all cluster members
+            must be resolvable from all cluster nodes, as well
+            as machines on which command line tools such as <code>rabbitmqctl</code>
+            might be used.
+          </p>
+          <p>
+            Hostname resolution can use any of the standard OS-provided
+            methods:
+
+            <ul>
+              <li>DNS records</li>
+              <li>Local host files (e.g. <code>/etc/hosts</code>)</li>
+            </ul>
+
+            In more restrictive environments, where DNS record or
+            hosts file modification is restricted, impossible or
+            undesired, <a
+            href="http://erlang.org/doc/apps/erts/inet_cfg.html">Erlang
+            VM can be configured to use alternative hostname
+            resolution methods</a>, such as an alternative DNS server,
+            a local file, a non-standard hosts file location, or a mix
+            of methods.  Those methods can work in concert with the
+            standard OS hostname resolution methods.
+          </p>
+          <p>
+            To use FQDNs, see <code>RABBITMQ_USE_LONGNAME</code> in the <a href="/configure.html#define-environment-variables">Configuration guide</a>.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="overview-cluster-formation-and-membership">
+          <doc:heading>Cluster Formation</doc:heading>
+          <p>
+            Cluster can formed in a number of ways:
+
+            <ul>
+              <li>Manually with <code>rabbitmqctl</code></li>
+              <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
+              <li>Declaratively with <a href="https://github.com/aweber/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
+              <li>Declaratively with <a href="http://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq-clusterer</a> (a plugin)</li>
+            </ul>
+          </p>
+
+          <p>
+            The composition of a cluster can be altered dynamically.
+            All RabbitMQ brokers start out as running on a single
+            node. These nodes can be joined into clusters, and
+            subsequently turned back into individual brokers again.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="overview-dealing-with-failure">
+          <doc:heading>Failure Handling</doc:heading>
+
+          <p>
+            RabbitMQ brokers tolerate the failure of individual
+            nodes. Nodes can be started and stopped at will,
+            as long as they can contact a cluster member node
+            known at the time of shutdown.
+          </p>
+          <p>
+            RabbitMQ clustering has several modes of dealing with <a href="partitions.html">network partitions</a>,
+            primarily consistency oriented. Clustering is meant to be used across LAN. It is
+            not recommended to run clusters that span WAN.
+            The <a href="shovel.html">Shovel</a> or
+            <a href="federation.html">Federation</a>
+            plugins are better solutions for connecting brokers across a
+            WAN. Note that <a href="distributed.html">Shovel and Federation are not equivalent to clustering</a>.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="overview-node-types">
+          <doc:heading>Disk and RAM Nodes</doc:heading>
+
+          <p>
+            A node can be a <em>disk node</em> or a <em>RAM node</em>.
+            (<b>Note:</b> <i>disk</i> and <i>disc</i> are used
+            interchangeably). In most cases you want all your
+            nodes to be disk nodes; RAM nodes are a special case that
+            can be used to improve the performance
+            clusters with high queue, exchange, or binding churn.
+            When in doubt, use disk nodes only.
+          </p>
+        </doc:subsection>
       </doc:section>
 
       <doc:section name="transcript">
-        <doc:heading>Clustering transcript</doc:heading>
+        <doc:heading>Clustering Transcript</doc:heading>
         <p>
           The following is a transcript of setting up and manipulating
           a RabbitMQ cluster across three machines -
@@ -86,8 +153,28 @@ limitations under the License.
           user's PATH.
         </p>
 
-        <xi:include href="erlang-cookie.xml.inc"/>
 
+        <doc:subsection name="using-a-single-host">
+          <doc:heading>Cluster on a Single Host</doc:heading>
+          <p>
+            This transcript can be modified to run on a single host. In
+            order to run multiple RabbitMQ nodes on a single machine, it
+            is necessary to make sure the nodes have distinct node
+            names, data store locations, log file locations, and bind to
+            different ports, including those used by plugins such as <a
+            href=""></a> and <a href=""></a>. See
+            <code>RABBITMQ_NODENAME</code>,
+            <code>RABBITMQ_NODE_PORT</code>, and
+            <code>RABBITMQ_DIST_PORT</code> in the <a
+            href="/configure.html#define-environment-variables">Configuration
+            guide</a>, as well as <code>RABBITMQ_MNESIA_DIR</code>,
+            <code>RABBITMQ_CONFIG_FILE</code>, and
+            <code>RABBITMQ_LOG_BASE</code> in the <a
+            href="/relocate.html">File and Directory Locations guide</a>.
+          </p>
+        </doc:subsection>
+
+        <xi:include href="erlang-cookie.xml.inc"/>
 
         <doc:subsection name="starting">
           <doc:heading>Starting independent nodes</doc:heading>
