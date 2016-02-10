@@ -180,7 +180,7 @@ RabbitMQ server.
 
     :::elixir
     {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open
+    {:ok, channel} = AMQP.Channel.open(connection)
 
 We're connected now, to a broker on the local machine. By default, [AMQP.Connection.open](http://hexdocs.pm/amqp/AMQP.Connection.html#open/1)
 connects to _localhost_. If we wanted to connect to a broker on a different
