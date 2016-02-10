@@ -180,7 +180,7 @@ RabbitMQ server.
 
     :::elixir
     {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open
+    {:ok, channel} = AMQP.Channel.open(connection)
 
 We're connected now, to a broker on the local machine. By default, [AMQP.Connection.open](http://hexdocs.pm/amqp/AMQP.Connection.html#open/1)
 connects to _localhost_. If we wanted to connect to a broker on a different
@@ -299,7 +299,7 @@ In our case we will print on the screen the contents of the message.
     defmodule Receive do
       def wait_for_messages do
         receive do
-          {:basic_deliver, payload, _meta) ->
+          {:basic_deliver, payload, _meta} ->
             IO.puts " [x] Received #{payload}"
             wait_for_messages
         end
