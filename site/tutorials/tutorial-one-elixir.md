@@ -299,7 +299,7 @@ In our case we will print on the screen the contents of the message.
     defmodule Receive do
       def wait_for_messages do
         receive do
-          {:basic_deliver, payload, _meta) ->
+          {:basic_deliver, payload, _meta} ->
             IO.puts " [x] Received #{payload}"
             wait_for_messages
         end
