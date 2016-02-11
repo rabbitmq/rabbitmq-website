@@ -363,7 +363,7 @@ Full `receive.exs` code:
     {:ok, channel} = AMQP.Channel.open(connection)
     AMQP.Queue.declare(channel, "hello")
     AMQP.Basic.consume(channel, "hello", nil, no_ack: true)
-    IO.puts " [*] Waiting for messages. To exist press CTRL+C, CTRL+C"
+    IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
     Receive.wait_for_messages
 
