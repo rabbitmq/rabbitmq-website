@@ -290,7 +290,7 @@ declaring the queue in both programs.
 
 
 Receiving messages from the queue is more complex. It works by sending Elixir messages to
-an Elixir process. Whenever the AMQP library receives a RabbitMQ message, a `{:basic_delivier, payload, metadata}`
+an Elixir process. Whenever the AMQP library receives a RabbitMQ message, a `{:basic_deliver, payload, metadata}`
 Elixir message is sent to the specified Elixir process. We can then handle the payload and metadata
 any way we like.
 In our case we will print on the screen the contents of the message.
