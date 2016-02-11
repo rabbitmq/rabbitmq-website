@@ -290,7 +290,7 @@ declaring the queue in both programs.
 
 
 Receiving messages from the queue is more complex. It works by sending Elixir messages to
-an Elixir process. Whenever the AMQP library receives a RabbitMQ message, a `{:basic_delivier, payload, metadata}`
+an Elixir process. Whenever the AMQP library receives a RabbitMQ message, a `{:basic_deliver, payload, metadata}`
 Elixir message is sent to the specified Elixir process. We can then handle the payload and metadata
 any way we like.
 In our case we will print on the screen the contents of the message.
@@ -363,7 +363,7 @@ Full `receive.exs` code:
     {:ok, channel} = AMQP.Channel.open(connection)
     AMQP.Queue.declare(channel, "hello")
     AMQP.Basic.consume(channel, "hello", nil, no_ack: true)
-    IO.puts " [*] Waiting for messages. To exist press CTRL+C, CTRL+C"
+    IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
     Receive.wait_for_messages
 

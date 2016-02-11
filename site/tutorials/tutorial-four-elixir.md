@@ -323,7 +323,7 @@ The code for `receive_logs_direct.exs`:
 
     AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
 
-    IO.puts " [*] Waiting for messages. To exist press CTRL+C, CTRL+C"
+    IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
 
 
     ReceiveLogsDirect.wait_for_messages(channel)
