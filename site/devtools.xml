@@ -197,7 +197,7 @@ limitations under the License.
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
               </li>
               <li>
-                <a href="https://github.com/videlalvaro/Thumper">Thumper</a> a library of messaging patterns
+                <a href="https://github.com/php-amqplib/Thumper">Thumper</a> a library of messaging patterns
               </li>
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
