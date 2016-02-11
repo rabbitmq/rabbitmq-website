@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Publish/Subscribe SUPPRESS-RHS
 
 ## Publish/Subscribe
-### (using [php-amqplib](https://github.com/videlalvaro/php-amqplib))
+### (using [php-amqplib](https://github.com/php-amqplib/php-amqplib))
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 
@@ -161,7 +161,7 @@ even better - let the server choose a random queue name for us.
 Secondly, once we disconnect the consumer the queue should be
 automatically deleted.
 
-In the [php-amqplib](https://github.com/videlalvaro/php-amqplib) client, when we supply queue name
+In the [php-amqplib](https://github.com/php-amqplib/php-amqplib) client, when we supply queue name
 as an empty string, we create a non-durable queue with a generated name:
 
     :::php
