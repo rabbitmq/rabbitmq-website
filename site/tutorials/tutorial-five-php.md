@@ -17,7 +17,7 @@ limitations under the License.
 # RabbitMQ tutorial - Topics SUPPRESS-RHS
 
 ## Topics
-### (using [php-amqplib](https://github.com/videlalvaro/php-amqplib))
+### (using [php-amqplib](https://github.com/php-amqplib/php-amqplib))
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
 

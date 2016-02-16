@@ -185,10 +185,10 @@ limitations under the License.
             <doc:heading>PHP</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/videlalvaro/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
+                <a href="https://github.com/php-amqplib/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
               </li>
               <li>
-                <a href="https://github.com/videlalvaro/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
+                <a href="https://github.com/php-amqplib/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
               </li>
               <li>
                 <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
@@ -197,7 +197,7 @@ limitations under the License.
                 <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
               </li>
               <li>
-                <a href="https://github.com/videlalvaro/Thumper">Thumper</a> a library of messaging patterns
+                <a href="https://github.com/php-amqplib/Thumper">Thumper</a> a library of messaging patterns
               </li>
               <li>
                 <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
