@@ -135,7 +135,7 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
     :::elixir
-    AMQP.Basic.publish("logs", "", message)
+    AMQP.Basic.publish(channel, "logs", "", message)
 
 Temporary queues
 ----------------

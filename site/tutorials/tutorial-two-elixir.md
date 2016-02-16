@@ -366,7 +366,7 @@ Final code of our `new_task.exs` script:
         words -> Enum.join(words, " ")
       end
 
-    AMQP.Basic.publish(channel, "", "hello", message, persistent: true)
+    AMQP.Basic.publish(channel, "", "task_queue", message, persistent: true)
     IO.puts " [x] Sent '#{message}'"
 
     AMQP.Connection.close(connection)
