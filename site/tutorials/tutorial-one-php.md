@@ -94,7 +94,7 @@ the same machine; indeed in most applications they don't.
 In this part of the tutorial we'll write two programs in PHP; a
 producer that sends a single message, and a consumer that receives
 messages and prints them out.  We'll gloss over some of the detail in
-the [php-amqplib](https://github.com/videlalvaro/php-amqplib) API, concentrating on this very simple thing just to get
+the [php-amqplib](https://github.com/php-amqplib/php-amqplib) API, concentrating on this very simple thing just to get
 started.  It's a "Hello World" of messaging.
 
 In the diagram below, "P" is our producer and "C" is our consumer. The
@@ -119,7 +119,7 @@ on behalf of the consumer.
 >     :::javascript
 >     {
 >         "require": {
->             "videlalvaro/php-amqplib": "2.5.*"
+>             "php-amqplib/php-amqplib": "2.5.*"
 >         }
 >     }
 >
