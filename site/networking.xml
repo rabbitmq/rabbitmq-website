@@ -277,7 +277,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           Several factors can limit how many concurrent connections a single node can support:
 
           <ul>
-            <li>Number of open file handles (including sockets) as well as other kernel resources</li>
+            <li>Maximum number of open file handles (including sockets) as well as other kernel-enforced resource limits</li>
             <li>Amount of RAM used by each connection</li>
             <li>Amount of CPU resources used by each connection</li>
             <li>Maximum number of Erlang processes the VM is configured to allow</li>
