@@ -18,7 +18,6 @@ limitations under the License.
 <doc:section name="issues-hostname" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <doc:heading>Hostname Changes</doc:heading>
   <p>
-    As explained in the <a href="/clustering.html">Clustering guide</a>,
     RabbitMQ nodes use hostnames to communicate with each other. Therefore,
     all node names must be able to resolve names of all cluster peers. This is
     also true for tools such as <code>rabbitmqctl</code>.
@@ -47,6 +46,6 @@ limitations under the License.
     <code>RABBITMQ_USE_LONGNAME=true</code>.
   </p>
   <p>
-    See <a href="/clustering.html">Clustering guide</a> for more information.
+    See the <a href="/clustering.html#overview-hostname-requirements">hostname resolution guide</a> for more information.
   </p>
 </doc:section>
