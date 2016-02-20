@@ -26,46 +26,51 @@ limitations under the License.
     <title>Federation Plugin</title>
   </head>
   <body show-in-this-page="true">
-    <p>
-      The high-level goal of the federation plugin is to transmit messages
-      between brokers without requiring clustering. This is useful for various
-      reasons:
-    </p>
 
-    <dl class="plain">
-      <dt><b>Loose coupling</b></dt>
-      <dd>
-        The federation plugin can transmit messages between brokers
-        (or clusters) in different administrative domains:
-        <ul class="plain">
-          <li>
-            they may have different users and virtual hosts;
-          </li>
-          <li>
-            they may run on different versions of RabbitMQ and Erlang.
-          </li>
-        </ul>
-      </dd>
-      <dt><b>WAN-friendly</b></dt>
-      <dd>
-        The federation plugin uses AMQP to communicate between brokers, and is
-        designed to tolerate intermittent connectivity.
-      </dd>
-      <dt><b>Specificity</b></dt>
-      <dd>
-        A broker can contain federated <i>and</i> local-only components - you
-        don't need to federate everything if you don't want to.
-      </dd>
-      <dt><b>Scalability</b></dt>
-      <dd>
-        Federation does not require O(n<sup>2</sup>) connections between
-        <i>n</i> brokers (although this is the easiest way to set
-        things up), which should mean it scales better.
-      </dd>
-    </dl>
+    <doc:section name="introduction">
+      <doc:heading>Introduction</doc:heading>
+
+      <p>
+        The high-level goal of the federation plugin is to transmit messages
+        between brokers without requiring clustering. This is useful for various
+        reasons:
+      </p>
+
+      <dl class="plain">
+        <dt><b>Loose coupling</b></dt>
+        <dd>
+          The federation plugin can transmit messages between brokers
+          (or clusters) in different administrative domains:
+          <ul class="plain">
+            <li>
+              they may have different users and virtual hosts;
+            </li>
+            <li>
+              they may run on different versions of RabbitMQ and Erlang.
+            </li>
+          </ul>
+        </dd>
+        <dt><b>WAN-friendly</b></dt>
+        <dd>
+          The federation plugin uses AMQP 0-9-1 to communicate between brokers, and is
+          designed to tolerate intermittent connectivity.
+        </dd>
+        <dt><b>Specificity</b></dt>
+        <dd>
+          A broker can contain federated <i>and</i> local-only components - you
+          don't need to federate everything if you don't want to.
+        </dd>
+        <dt><b>Scalability</b></dt>
+        <dd>
+          Federation does not require O(n<sup>2</sup>) connections between
+          <i>n</i> brokers (although this is the easiest way to set
+          things up), which should mean it scales better.
+        </dd>
+      </dl>
+    </doc:section>
 
     <doc:section name="what-does-it-do">
-      <doc:heading>What does it do?</doc:heading>
+      <doc:heading>What Does It Do?</doc:heading>
       <p>
         The federation plugin allows you to make exchanges and queues
         <i>federated</i>. A federated exchange or queue can receive
@@ -77,10 +82,37 @@ limitations under the License.
       </p>
 
       <p>
+        Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
+        they can connect to a specific vhost, use TLS, use multiple
+        <a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
+      </p>      
+
+      <p>
         For more details, see the
         documentation on <a href="federated-exchanges.html">federated
         exchanges</a> and <a href="federated-queues.html">federated
         queues</a>.
+      </p>
+    </doc:section>
+
+    <doc:section name="how-is-it-configured">
+      <doc:heading>How is Federation Set Up?</doc:heading>
+
+      <p>
+        To use federation, one needs to configure two things
+
+        <ul>
+          <li>
+            One or more upstreams that define federation connections
+            to other nodes. This can be done via <a href="/parameters.html">runtime parameters</a>
+            or the <a href="https://github.com/rabbitmq/rabbitmq-federation-management">federation management plugin</a> which
+            adds a federation management tab to the <a href="/management.html">management UI</a>.
+          </li>
+          <li>
+            One or more policies that match exchanges/queues and makes them
+            federated.
+          </li>
+        </ul>
       </p>
     </doc:section>
 
@@ -102,26 +134,26 @@ limitations under the License.
 
       <p>
         When using a federation in a cluster, all the nodes of the
-        cluster should have the federation plugin installed.
+        cluster should have the federation plugin enabled.
       </p>
 
       <p>
-        Information about federation is stored in the RabbitMQ
+        Information about federation upstreams is stored in the RabbitMQ
         database, along with users, permissions, queues, etc. There
         are three levels of configuration involved in federation:
       </p>
 
       <ul>
         <li>
-          <b>Upstreams</b> - each upstream defines how to connect
+          <b>Upstreams</b>: each upstream defines how to connect
           to another broker.
         </li>
         <li>
-          <b>Upstream sets</b> - each upstream set groups together a
+          <b>Upstream sets</b>: each upstream set groups together a
           set of upstreams to use for federation.
         </li>
         <li>
-          <b>Policies</b> - each policy selects a set of exchanges,
+          <b>Policies</b>: each policy selects a set of exchanges,
           queues or both, and applies a single upstream or an upstream
           set to those objects.
         </li>
@@ -136,10 +168,10 @@ limitations under the License.
 
       <p>
         Upstreams and upstream sets are both instances of
-        <i>parameters</i>.  Like exchanges and queues, each virtual host
+        <a href="/parameters.html">runtime parameters</a>.  Like exchanges and queues, each virtual host
         has its own distinct set of parameters and policies. For more
         generic information on parameters and policies, see the
-        documentation on <a href="parameters.html">parameters and
+        documentation on <a href="/parameters.html">parameters and
         policies</a>. For full details on the parameters used by
         federation, see the <a href="federation-reference.html">federation
         reference</a>.
@@ -188,15 +220,15 @@ limitations under the License.
         <tr>
           <th>Web UI</th>
           <td>
-            Navigate to Admin > Federation Upstreams > Add a new
-            upstream. Enter "my-upstream" next to Name,
+            Navigate to <code>Admin</code> > <code>Federation Upstreams</code> > <code>Add a new
+            upstream</code>. Enter "my-upstream" next to Name,
             "amqp://server-name" next to URI, and 36000000 next to
             Expiry. Click Add upstream.
           </td>
         </tr>
         </table>
 
-        <p><b>Then define a policy to use this upstream:</b></p>
+        <p><b>Then define a policy that will match built-in exchanges and use this upstream:</b></p>
         <table>
         <tr>
           <th>rabbitmqctl</th>
@@ -242,7 +274,8 @@ limitations under the License.
         </p>
 
         <p>
-          The built in exchanges should now be federated. You can
+          The built in exchanges should now be federated because they are
+          matched by the policy. You can
           check that the policy has applied to the exchanges by
           checking the exchanges list in management or with:
         </p>
@@ -269,7 +302,7 @@ limitations under the License.
     </doc:section>
 
     <doc:section name="clustering">
-      <doc:heading>Federating clusters</doc:heading>
+      <doc:heading>Federating Clusters</doc:heading>
       <p>
         Clusters can be linked together with federation just as single brokers
         can. To summarise how clustering and federation interact:
@@ -312,6 +345,7 @@ limitations under the License.
         To configure Federation to use TLS, one needs to
 
         <ul>
+          <li>Use the <code>amqps</code> URI scheme instead of <code>amqp</code></li>
           <li>Specify CA certificate and client certificate/key pair via
           <a href="/uri-query-parameters.html">URI query parameters</a>
           when configuring upstream(s)</li>
@@ -325,5 +359,12 @@ limitations under the License.
       </p>
     </doc:section>
 
+    <doc:section name="getting-help">
+      <doc:heading>Getting Help</doc:heading>
+      <p>
+        If you have any questions or comments regarding RabbitMQ, feel free to
+        ask them on <a href="https://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.
+      </p>
+    </doc:section>
   </body>
 </html>
