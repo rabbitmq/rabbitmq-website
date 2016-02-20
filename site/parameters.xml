@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -21,12 +21,14 @@ limitations under the License.
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
-      xmlns:x="http://www.rabbitmq.com/2011/extensions">
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+    xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Parameters</title>
+    <title>Parameters and Policies</title>
   </head>
   <body>
+  <doc:section name="intro">
+    <doc:heading>Introduction</doc:heading>
     <p>
       While much of the configuration for RabbitMQ lives in
       the <a href="configure.html">configuration file</a>, some things
@@ -42,6 +44,16 @@ limitations under the License.
       invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
       or through <a href="management.html">the management plugin</a>'s HTTP API.
     </p>
+    <p>
+      One special case of parameters usage is policies, which are used for specifying
+      optional arguments for groups of queues and exchanges, as well as plugins such
+      as Federation and Shovel.
+    </p>
+  </doc:section>
+
+  <doc:section name="parameter-management">
+    <doc:heading>Parameter Management</doc:heading>
+
     <p>
       Parameters can be set, cleared and listed:
     </p>
@@ -64,24 +76,28 @@ limitations under the License.
       </tr>
     </table>
     <p>
-      Since a parameter value is a JSON document, you will usually
-      need to quote it when creating one on the command line
-      with <code>rabbitmqctl</code>. On Unix it is usually easiest to
-      quote the whole document with single quotes, and use double
-      quotes within it. On Windows you will have to escape every
-      double quote. We give examples for both Unix and Windows for
-      this reason.
+        Since a parameter value is a JSON document, you will usually
+        need to quote it when creating one on the command line
+        with <code>rabbitmqctl</code>. On Unix it is usually easiest to
+        quote the whole document with single quotes, and use double
+        quotes within it. On Windows you will have to escape every
+        double quote. We give examples for both Unix and Windows for
+        this reason.
     </p>
     <p>
-      Parameters reside in the database used by RabbitMQ for
-      definitions of virtual hosts, exchanges, queues, bindings, users
-      and permissions. Parameters are exported along with other object
-      definitions by the management plugin's export feature.
+        Parameters reside in the database used by RabbitMQ for
+        definitions of virtual hosts, exchanges, queues, bindings, users
+        and permissions. Parameters are exported along with other object
+        definitions by the management plugin's export feature.
     </p>
     <p>
-      Parameters are used by the federation and shovel plugins.
+        Parameters are used by the federation and shovel plugins.
     </p>
-    <h2 id="policies">Policies</h2>
+    </doc:section>
+
+    <doc:section name="policies">
+      <doc:heading>Policies</doc:heading>
+
     <p>
       Policies automatically match against exchanges and queues, and help
       determine how they behave. Each exchange or queue will have at most
@@ -183,6 +199,8 @@ limitations under the License.
       and <code>"priority"</code> settings are optional, in which case the
       defaults are <code>"all"</code> and <code>"0"</code> respectively.
     </p>
+    </doc:section>
+
 
     <h2 id="combining-policy-definitions">Combining policy definitions</h2>
     <p>
