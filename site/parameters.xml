@@ -43,6 +43,7 @@ limitations under the License.
       set by
       invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
       or through <a href="management.html">the management plugin</a>'s HTTP API.
+      Parameters are scoped per vhost.
     </p>
     <p>
       One special case of parameters usage is policies, which are used for specifying
