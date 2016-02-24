@@ -93,9 +93,15 @@ limitations under the License.
           If you wish to allow the <code>guest</code> user to connect
           from a remote host, you should set the
           <code>loopback_users</code> configuration item to
-          <code>[]</code>. A complete <code>rabbitmq.config</code>
+          <code>false</code>. A complete <a href="/configure.html">RabbitMQ config file</a>
           which does this would look like:
         </p>
+        <pre class="sourcecode">
+loopback_users.guest = false
+</pre>
+
+        Or, in the <a href="/configure.html">classic config file format</a> (<code>rabbitmq.config</code>):
+
         <pre class="sourcecode">
 [{rabbit, [{loopback_users, []}]}].</pre>
       </doc:section>
@@ -254,7 +260,7 @@ limitations under the License.
           IP range one</a>, only provide an authorisation backend. Authentication
           is supposed to be handled by the internal database, LDAP, etc.
         </p>
-        
+
         <doc:subsection name="combined-backends">
           <doc:heading>Combining Backends</doc:heading>
 
@@ -273,7 +279,7 @@ limitations under the License.
             The following example configures RabbitMQ to use the internal backend
             only (and is the default):
           </p>
-            
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_internal]}
@@ -285,7 +291,7 @@ limitations under the License.
             The following example configures RabbitMQ to use the <a href="/ldap.html">LDAP backend</a>
             for both authentication and authorisation. Internal database will not be consulted:
           </p>
-            
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap]}
@@ -303,7 +309,7 @@ limitations under the License.
           ]
 }].
       </pre>
-      
+
       <p>
         Same as above but will fall back to the <a
         href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP backend</a>
@@ -319,7 +325,7 @@ limitations under the License.
    [{user_path,     "http://my-authenticator-app/auth/user"},
     {vhost_path,    "http://my-authenticator-app/auth/vhost"},
     {resource_path, "http://my-authenticator-app/auth/resource"}]}].
-</pre>      
+</pre>
 
 
           <p>
@@ -328,7 +334,7 @@ limitations under the License.
             href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
             IP range backend</a> for authorisation:
           </p>
-            
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_internal, rabbit_auth_backend_ip_range}]}
@@ -363,7 +369,7 @@ limitations under the License.
                              rabbit_auth_backend_internal]
           ]
  }].
-</pre>      
+</pre>
         </doc:subsection>
 
         <doc:subsection name="">
