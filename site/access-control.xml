@@ -80,7 +80,7 @@ limitations under the License.
           By default, the <code>guest</code> user is prohibited from
           connecting to the broker remotely; it can only connect over
           a loopback interface (i.e. <code>localhost</code>). This
-          applies both to AMQP and to any other protocols enabled via
+          applies both to AMQP 0-9-1 and to any other protocols enabled via
           plugins. Any other users you create will not (by default) be
           restricted in this way.
         </p>
@@ -267,7 +267,7 @@ loopback_users.guest = false
           <p>
             It is possible to use multiple backends for
             <code>authn</code> or <code>authz</code> using the
-            <code>rabbit.auth_backends</code> configuration key. When
+            <code>auth_backends</code> configuration key. When
             several authentication backends are used then the first
             positive result returned by a backend in the chain is
             considered to be final. This should not be confused with
@@ -279,6 +279,17 @@ loopback_users.guest = false
             The following example configures RabbitMQ to use the internal backend
             only (and is the default):
           </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+# 1 here is a backend name. It can be anything.
+# Since we only really care about backend
+# ordering, we use numbers throughout this guide.
+auth_backends.1 = internal
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -293,6 +304,12 @@ loopback_users.guest = false
           </p>
 
 <pre class="example">
+auth_backends.1 = ldap
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
+<pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap]}
           ]
@@ -303,6 +320,14 @@ loopback_users.guest = false
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
+
+<pre class="example">
+auth_backends.1 = ldap
+auth_backends.2 = internal
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
       <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}
@@ -315,6 +340,25 @@ loopback_users.guest = false
         href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP backend</a>
         instead:
       </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1 = ldap
+# uses module name instead of a short alias, "http"
+auth_backends.2 = rabbit_auth_backend_http
+</pre>
+<pre class="example">
+%% advanced.config
+%% See HTTP backend docs for details
+{rabbitmq_auth_backend_http,
+  [{user_path,     "http://my-authenticator-app/auth/user"},
+   {vhost_path,    "http://my-authenticator-app/auth/vhost"},
+   {resource_path, "http://my-authenticator-app/auth/resource"}]}].
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
       <pre class="example">
 [{rabbit, [
             {auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_http]}
@@ -327,13 +371,22 @@ loopback_users.guest = false
     {resource_path, "http://my-authenticator-app/auth/resource"}]}].
 </pre>
 
-
           <p>
             The following example configures RabbitMQ to use internal
             database for authentication and <a
             href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">source
             IP range backend</a> for authorisation:
           </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = internal
+# uses module name because this backend is from a 3rd party
+auth_backends.1.authz = rabbit_auth_backend_ip_range
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -347,6 +400,16 @@ loopback_users.guest = false
         The following example configures RabbitMQ to use <a href="/ldap.html">LDAP backend</a>
         for authentication and but internal backend for authorisation:
       </p>
+
+<pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
 <pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal}]
@@ -364,16 +427,22 @@ loopback_users.guest = false
       </p>
 
 <pre class="example">
+# rabbitmq.conf
+#
+auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+auth_backends.2       = internal
+</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
+<pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                              rabbit_auth_backend_internal]
           ]
  }].
 </pre>
-        </doc:subsection>
-
-        <doc:subsection name="">
-          <doc:heading></doc:heading>
         </doc:subsection>
       </doc:section>
   </body>
