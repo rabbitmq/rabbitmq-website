@@ -132,7 +132,6 @@ limitations under the License.
             An adapter implementing the MQTT 3.1 protocol.
             <ul>
               <li><a href="mqtt.html">Documentation for the MQTT plugin</a></li>
-              <li><a href="http://www.rabbitmq.com/blog/2012/09/12/mqtt-adapter/">Blog post on the plugin</a></li>
             </ul>
           </r:plugin>
 
@@ -140,8 +139,7 @@ limitations under the License.
             A plug-in for RabbitMQ that shovels messages from a queue on
             one broker to an exchange on another broker.
             <ul>
-              <li><a href="shovel.html">Documentation for the shovel plugin</a></li>
-              <li><a href="https://github.com/rabbitinaction/sourcecode/blob/master/configs/rabbitmq/rabbitmq.config.shovel">A working Shovel configuration</a></li>
+              <li><a href="/shovel.html">Documentation for the Shovel plugin</a></li>
             </ul>
           </r:plugin>
 
@@ -155,11 +153,9 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_stomp">
-            A gateway for exposing AMQP functionality via
-            the <a href="http://stomp.github.com">STOMP protocol</a>.
+            Provides <a href="http://stomp.github.io/stomp-specification-1.2.html">STOMP protocol</a> support in RabbitMQ.
             <ul>
               <li><a href="stomp.html">Documentation for the STOMP plugin</a><br/></li>
-              <li><a href="http://stomp.github.com/implementations.html">Details on clients and servers supporting STOMP</a></li>
             </ul>
           </r:plugin>
         </table>
