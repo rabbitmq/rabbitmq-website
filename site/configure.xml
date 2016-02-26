@@ -498,7 +498,7 @@ or, if you'd like to use the Erlang term format:
         <p>
             RabbitMQ server source repository contains
             <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.conf.example">an example rabbitmq.conf file</a>
-            named <code>rabbitmq.config.example</code>. This
+            named <code>rabbitmq.conf.example</code>. This
             example file contains an example of most of the
             configuration items you might want to set (with some very
             obscure ones omitted) along with documentation for those
