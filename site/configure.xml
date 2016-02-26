@@ -496,13 +496,13 @@ or, if you'd like to use the Erlang term format:
            systems.
         </p>
         <p>
-            RabbitMQ server source repository contains
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.conf.example">an example rabbitmq.conf file</a>
-            named <code>rabbitmq.conf.example</code>. This
-            example file contains an example of most of the
-            configuration items you might want to set (with some very
-            obscure ones omitted) along with documentation for those
-            settings.
+            RabbitMQ server source repository contains <a
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.conf.example">an
+            example rabbitmq.conf file</a> named
+            <code>rabbitmq.conf.example</code>. It contains an example
+            of most of the configuration items you might want to set
+            (with some very obscure ones omitted) along with
+            documentation for those settings.
           </p>
         </doc:subsection>
 
@@ -516,11 +516,11 @@ or, if you'd like to use the Erlang term format:
             with the configuration provided in <code>rabbitmq.conf</code>.
           </p>
           <p>
-            RabbitMQ server source repository contains
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/advanced.config.example">an example advanced.config file</a>
-            named <code>advanced.config.example</code>. This
-            example file focuses on the options that are typically set using the
-            advanced config.
+            RabbitMQ server source repository contains <a
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/advanced.config.example">an
+            example advanced.config file</a> named
+            <code>advanced.config.example</code>. It focuses on the
+            options that are typically set using the advanced config.
           </p>
         </doc:subsection>
 
@@ -535,11 +535,12 @@ or, if you'd like to use the Erlang term format:
             with out the <code>.config</code> extension.
           </p>
           <p>
-            RabbitMQ server source repository contains
-            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example">an example configuration file</a>
-            named <code>rabbitmq.config.example</code>. This
-            example file contains an example of most of the
-            configuration items in the classic config format.
+            RabbitMQ server source repository contains <a
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example">an
+            example configuration file</a> named
+            <code>rabbitmq.config.example</code>. It contains an
+            example of most of the configuration items in the classic
+            config format.
           </p>
         </doc:subsection>
 
