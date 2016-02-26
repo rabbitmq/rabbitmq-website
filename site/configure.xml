@@ -609,11 +609,10 @@ or, if you'd like to use the Erlang term format:
         </doc:subsection>
 
         <doc:subsection name="config-items">
-        <doc:heading>Variables Configurable in rabbitmq.config</doc:heading>
+        <doc:heading>Commonly Used Variables Configurable in rabbitmq.config</doc:heading>
         <p>
-          Many users of RabbitMQ never need to change any of these
-          values, and some are fairly obscure. However, for
-          completeness they are all listed here.
+          These values are configured most often. The list is not complete, as
+          some settings are quite obscure.
         </p>
         <table>
           <tr>
@@ -622,31 +621,30 @@ or, if you'd like to use the Erlang term format:
           </tr>
           <tr>
             <td>
-              <code>tcp_listeners</code>
+              <code>listeners</code>
             </td>
             <td>
-              List of ports on which to listen for AMQP connections
-              (without SSL). Can contain integers (meaning "listen on
-              all interfaces") or tuples such as <code>{"127.0.0.1",
-              5672}</code> to listen on one or more interfaces.
+              Ports or hostname/pair on which to listen for AMQP connections
+              (without TLS). See the <a href="/networking.html">Networking guide</a> for more
+              details and examples.
 
-              <p>Default: <code>[5672]</code></p>
+              <p>Default: <code>listeners.tcp.default = 5672</code></p>
             </td>
           </tr>
           <tr>
-            <td><code>num_tcp_acceptors</code></td>
+            <td><code>num_acceptors.tcp</code></td>
             <td>
               Number of Erlang processes that will accept connections for the TCP
               listeners.
-              <p>Default: <code>10</code></p>
+              <p>Default: <code>num_acceptors.tcp = 10</code></p>
             </td>
           </tr>
           <tr>
             <td><code>handshake_timeout</code></td>
             <td>
-              Maximum time for AMQP 0-8/0-9/0-9-1 handshake (after socket connection
-              and SSL handshake), in milliseconds.
-              <p>Default: <code>10000</code></p>
+              Maximum time for AMQP 0-9-1 handshake (after socket connection
+              and TLS handshake), in milliseconds.
+              <p>Default: <code>handshake_timeout = 10000</code></p>
             </td>
           </tr>
           <tr>
@@ -657,25 +655,25 @@ or, if you'd like to use the Erlang term format:
             </td>
           </tr>
           <tr>
-            <td><code>num_ssl_acceptors</code></td>
+            <td><code>listeners.ssl</code></td>
             <td>
               Number of Erlang processes that will accept connections for the SSL
               listeners.
-              <p>Default: <code>1</code></p>
+              <p>Default: <code>listeners.ssl.default = 5671</code></p>
             </td>
           </tr>
           <tr>
             <td><code>ssl_options</code></td>
             <td>
-              SSL configuration. See the <a href="ssl.html#enabling-ssl">SSL
+              TLS configuration. See the <a href="ssl.html#enabling-ssl">TLS support
               documentation</a>.
-              <p>Default: <code>[]</code></p>
+              <p>Default: <code>none</code></p>
             </td>
           </tr>
           <tr>
             <td><code>ssl_handshake_timeout</code></td>
             <td>
-              SSL handshake timeout, in milliseconds.
+              TLS handshake timeout, in milliseconds.
               <p>Default: <code>5000</code></p>
             </td>
           </tr>
@@ -683,10 +681,11 @@ or, if you'd like to use the Erlang term format:
             <td><code>vm_memory_high_watermark</code></td>
             <td>
               Memory threshold at which the flow control is
-              triggered. See
+              triggered. Can be absolute or relative to the amount of RAM available
+              to the OS. See
               the <a href="memory.html">memory-based flow
-              control</a> documentation.
-              <p>Default: <code>0.4</code></p>
+              control</a> and <a href="alarms.html">alarms</a> documentation.
+              <p>Default: <code>vm_memory_high_watermark.relative = 0.4</code></p>
             </td>
           </tr>
           <tr>
@@ -696,7 +695,7 @@ or, if you'd like to use the Erlang term format:
               start to page messages out to disc to free up
               memory. See the <a href="memory.html">memory-based flow
               control</a> documentation.
-              <p>Default: <code>0.5</code></p>
+              <p>Default: <code>vm_memory_high_watermark_paging_ratio = 0.5</code></p>
             </td>
           </tr>
           <tr>
@@ -704,70 +703,31 @@ or, if you'd like to use the Erlang term format:
             <td>
               Disk free space limit of the partition on which RabbitMQ
               is storing data. When available disk space falls below
-              this limit, flow control is triggered. The value may be
-              set relative to the total amount of RAM (e.g.
-              <code>{mem_relative, 1.0}</code>). The value may also be
-              set to an integer number of bytes. Or, alternatively, in
-              information units (e.g <code>"50MB"</code>). By default free disk
+              this limit, flow control is triggered. The value can be
+              set relative to the total amount of RAM or as an absolute value
+              in bytes or, alternatively, in
+              information units (e.g <code>"50MB"</code> or <code>"5GB"</code>). By default free disk
               space must exceed 50MB. See
               the <a href="disk-alarms.html">Disk Alarms</a> documentation.
-              <p>Default: <code>50000000</code></p>
+              <p>Default: <code>disk_free_limit.absolute = 50MB</code></p>
             </td>
           </tr>
           <tr>
-            <td><code>log_levels</code></td>
+            <td><code>log.file.level</code></td>
             <td>
               Controls the granularity of logging. The value is a list
               of log event category and log level pairs.
 
               <p>
-                The level can be one of 'none' (no events are logged),
-                'error' (only errors are logged), 'warning' (only
-                errors and warning are logged), 'info' (errors,
-                warnings and informational messages are logged), or
-                'debug' (errors, warnings, informational messages and
-                debugging messages are logged).
+                The level can be one of 'error' (only errors are
+                logged), 'warning' (only errors and warning are
+                logged), 'info' (errors, warnings and informational
+                messages are logged), or 'debug' (errors, warnings,
+                informational messages and debugging messages are
+                logged).
               </p>
 
-              <p>
-                At present there are four categories defined. Other,
-                currently uncategorised, events are always logged.
-              </p>
-
-              <p>
-                The categories are:
-              </p>
-
-              <ul>
-                <li>
-                  <code>channel</code> - for all events relating to
-                  AMQP channels
-                </li>
-                <li>
-                  <code>connection</code> - for all events relating to
-                  network connections
-                </li>
-                <li>
-                  <code>federation</code> - for all events relating to
-                  <a href="federation.html">federation</a>
-                </li>
-                <li>
-                  <code>mirroring</code> - for all events relating to
-                  <a href="ha.html">mirrored queues</a>
-                </li>
-              </ul>
-              <p>Default: <code>[{connection, info}]</code></p>
-            </td>
-          </tr>
-          <tr>
-            <td><code>frame_max</code></td>
-            <td>
-              Maximum permissible size of a frame (in bytes) to
-              negotiate with clients. Setting to 0 means "unlimited"
-              but will trigger a bug in some QPid clients. Setting a
-              larger value may improve throughput; setting a smaller
-              value may improve latency.
-              <p>Default: <code>131072</code></p>
+              <p>Default: <code>log.file.level = info</code></p>
             </td>
           </tr>
           <tr>
@@ -776,22 +736,23 @@ or, if you'd like to use the Erlang term format:
               Maximum permissible number of channels to
               negotiate with clients. Setting to 0 means "unlimited".
               Using more channels increases memory footprint of the broker.
-              <p>Default: <code>0</code></p>
+              <p>Default: <code>channel_max = 0</code></p>
             </td>
           </tr>
           <tr>
             <td><code>heartbeat</code></td>
             <td>
-              Value representing the heartbeat delay, in seconds, that the
-              server sends in the <code>connection.tune</code> frame. If set to
-              0, heartbeats are disabled. Clients might not follow the server
-              suggestion, see the <a
+              Value representing the heartbeat delay, in seconds, that
+              the server sends in the <code>connection.tune</code>
+              frame. If set to 0, heartbeats are disabled. Clients
+              might not follow the server suggestion, see the <a
               href="amqp-0-9-1-reference.html#connection.tune">AMQP
-              reference</a> for more details. Disabling heartbeats might improve
-              performance in situations with a great number of connections, but
-              might lead to connections dropping in the presence of network
-              devices that close inactive connections.
-              <p>Default: <code>60</code> (<code>580</code> prior to release 3.5.5)</p>
+              reference</a> for more details. Disabling heartbeats
+              might improve performance in situations with a great
+              number of connections, but might lead to connections
+              dropping in the presence of network devices that close
+              inactive connections.  <p>Default: <code>heartbeat =
+              600</code></p>
             </td>
           </tr>
           <tr>
@@ -801,7 +762,7 @@ or, if you'd like to use the Erlang term format:
               database from scratch. The
               exchange <code>amq.rabbitmq.log</code> will exist in
               this virtual host.
-              <p>Default: <code>&lt;&lt;"/"&gt;&gt;</code></p>
+              <p>Default: <code>default_vhost = /</code></p>
             </td>
           </tr>
           <tr>
@@ -809,21 +770,21 @@ or, if you'd like to use the Erlang term format:
             <td>
               User name to create when RabbitMQ creates a new database
               from scratch.
-              <p>Default: <code>&lt;&lt;"guest"&gt;&gt;</code></p>
+              <p>Default: <code>default_user = guest</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_pass</code></td>
             <td>
               Password for the default user.
-              <p>Default: <code>&lt;&lt;"guest"&gt;&gt;</code></p>
+              <p>Default: <code>default_pass = guest</code></p>
             </td>
           </tr>
           <tr>
             <td><code>default_user_tags</code></td>
             <td>
               Tags for the default user.
-              <p>Default: <code>[administrator]</code></p>
+              <p>Default: <code>default_user_tags.administrator = true</code></p>
             </td>
           </tr>
           <tr>
@@ -831,9 +792,12 @@ or, if you'd like to use the Erlang term format:
             <td>
               <a href="access-control.html">Permissions</a>
               to assign to the default user when creating it.
-              <p>Default: <code>
-                  [&lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;, &lt;&lt;".*"&gt;&gt;]
-              </code></p>
+              <p>Default:
+<pre>
+default_permissions.configure = .*
+default_permissions.read = .*
+default_permissions.write = .*                
+</pre></p>
             </td>
           </tr>
           <tr>
@@ -846,9 +810,14 @@ or, if you'd like to use the Erlang term format:
               <p>
                 If you wish to allow the default <code>guest</code>
                 user to connect remotely, you need to change this to
-                <code>[]</code>.
+                <code>loopback_users.guest = false</code>.
               </p>
-              <p>Default: <code> [&lt;&lt;"guest"&gt;&gt;] </code></p>
+              <p>
+                To restrict another user to localhost-only connections,
+                do it like so (<code>monitoring</code> is the name of the user):
+                <code>loopback_users.monitoring = false</code>.
+              </p>              
+              <p>Default: <code>loopback_users.guest = true</code></p>
             </td>
           </tr>
           <tr>
@@ -856,18 +825,15 @@ or, if you'd like to use the Erlang term format:
             <td>
               Set this to cause clustering
               to <a href="clustering.html#auto-config">happen automatically</a>
-              when a node starts for the very first time. The first element of
-              the tuple is the nodes that the node will try to cluster to. The
-              second element is either <code>disc</code> or
-              <code>ram</code> and determines the node type.
-              <p>Default: <code>{[], disc}</code></p>
-            </td>
-          </tr>
-          <tr>
-            <td><code>server_properties</code></td>
-            <td>
-              List of key-value pairs to announce to clients on connection.
-              <p>Default: <code>[]</code></p>
+              when a node starts for the very first time.
+
+              For example, to cluster with nodes <code>rabbit@hostname1</code> and
+              <code>rabbit@hostname2</code>:
+<pre>
+cluster_nodes.disc.1 = rabbit@hostname1
+cluster_nodes.disc.2 = rabbit@hostname2
+              </pre>
+              <p>Default: <code>none</code></p>
             </td>
           </tr>
           <tr>
@@ -876,12 +842,11 @@ or, if you'd like to use the Erlang term format:
               Statistics collection mode. Primarily relevant for the
               management plugin. Options are:
               <ul>
-                <li>none (do not emit statistics events)</li>
-                <li>coarse (emit per-queue / per-channel / per-connection statistics)</li>
-                <li>fine (also emit per-message statistics)</li>
+                <li><code>none</code> (do not emit statistics events)</li>
+                <li><code>coarse</code> (emit per-queue / per-channel / per-connection statistics)</li>
+                <li><code>fine</code> (also emit per-message statistics)</li>
                 </ul>
-              You probably don't want to change this yourself.
-              <p>Default: <code>none</code></p>
+              <p>Default: <code>collect_statistics = none</code></p>
             </td>
           </tr>
           <tr>
@@ -891,7 +856,7 @@ or, if you'd like to use the Erlang term format:
               milliseconds. Primarily relevant for
               the <a href="management.html#statistics-interval">management
               plugin</a>.
-              <p>Default: <code>5000</code></p>
+              <p>Default: <code>collect_statistics_interval = 5000</code></p>
             </td>
           </tr>
           <tr>
@@ -907,26 +872,14 @@ or, if you'd like to use the Erlang term format:
             <td>
               <p>
                 List of <a href="/access-control.html">authentication / authorisation backends</a> to
-                use. This list can contain names of modules (in which
-                case the same module is used for both authentication
-                and authorisation), or 2-tuples like <code>{ModN,
-                ModZ}</code> in which case <code>ModN</code> is used
-                for authentication and <code>ModZ</code> is used for
-                authorisation.
-              </p>
-              <p>
-                In the 2-tuple case, ModZ can be replaced by a list,
-                <b>all</b> the elements of which must confirm each
-                authorisation query, e.g. <code>{ModN, [ModZ1,
-                ModZ2]}</code>. This allows authorisation plugins to
-                mix-in and provide additional security constraints.
+                use.
               </p>
               <p>
                 Other databases
                 than <code>rabbit_auth_backend_internal</code> are
                 available through <a href="plugins.html">plugins</a>.
               </p>
-              <p>Default: <code>[rabbit_auth_backend_internal]</code></p>
+              <p>Default: <code>rabbit_auth_backend_internal</code></p>
             </td>
           </tr>
           <tr>
