@@ -518,7 +518,7 @@ or, if you'd like to use the Erlang term format:
           <p>
             RabbitMQ server source repository contains
             <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/advanced.config.example">an example advanced.config file</a>
-            named <code>rabbitmq.config.example</code>. This
+            named <code>advanced.config.example</code>. This
             example file focuses on the options that are typically set using the
             advanced config.
           </p>
