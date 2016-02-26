@@ -682,10 +682,23 @@ or, if you'd like to use the Erlang term format:
             <td>
               Memory threshold at which the flow control is
               triggered. Can be absolute or relative to the amount of RAM available
-              to the OS. See
-              the <a href="memory.html">memory-based flow
-              control</a> and <a href="alarms.html">alarms</a> documentation.
-              <p>Default: <code>vm_memory_high_watermark.relative = 0.4</code></p>
+              to the OS:
+
+<pre>
+vm_memory_high_watermark.relative = 0.6
+              </pre>
+<pre>
+vm_memory_high_watermark.absolute = 2GB
+              </pre>
+
+              See the <a href="memory.html">memory-based flow
+              control</a> and <a href="alarms.html">alarms</a>
+              documentation.
+
+              <p>
+                Default:
+                <code>vm_memory_high_watermark.relative = 0.4</code>
+              </p>
             </td>
           </tr>
           <tr>
@@ -706,10 +719,18 @@ or, if you'd like to use the Erlang term format:
               this limit, flow control is triggered. The value can be
               set relative to the total amount of RAM or as an absolute value
               in bytes or, alternatively, in
-              information units (e.g <code>"50MB"</code> or <code>"5GB"</code>). By default free disk
-              space must exceed 50MB. See
-              the <a href="disk-alarms.html">Disk Alarms</a> documentation.
-              <p>Default: <code>disk_free_limit.absolute = 50MB</code></p>
+              information units (e.g <code>"50MB"</code> or <code>"5GB"</code>):
+<pre>
+disk_free_limit.relative = 3.0
+              </pre>
+<pre>
+disk_free_limit.absolute = 2GB
+              </pre>
+
+              By default free disk space must exceed 50MB. See the <a
+              href="disk-alarms.html">Disk Alarms</a> documentation.
+              <p>Default: <code>disk_free_limit.absolute =
+              50MB</code></p>
             </td>
           </tr>
           <tr>
@@ -796,7 +817,7 @@ or, if you'd like to use the Erlang term format:
 <pre>
 default_permissions.configure = .*
 default_permissions.read = .*
-default_permissions.write = .*                
+default_permissions.write = .*
 </pre></p>
             </td>
           </tr>
@@ -816,7 +837,7 @@ default_permissions.write = .*
                 To restrict another user to localhost-only connections,
                 do it like so (<code>monitoring</code> is the name of the user):
                 <code>loopback_users.monitoring = false</code>.
-              </p>              
+              </p>
               <p>Default: <code>loopback_users.guest = true</code></p>
             </td>
           </tr>
