@@ -648,20 +648,23 @@ or, if you'd like to use the Erlang term format:
             </td>
           </tr>
           <tr>
-            <td><code>ssl_listeners</code></td>
-            <td>
-              As above, for SSL connections.
-              <p>Default: <code>[]</code></p>
-            </td>
-          </tr>
-          <tr>
             <td><code>listeners.ssl</code></td>
             <td>
-              Number of Erlang processes that will accept connections for the SSL
-              listeners.
+              Ports or hostname/pair on which to listen for AMQP connections
+              (without TLS). See the <a href="/networking.html">Networking guide</a> for more
+              details and examples.
               <p>Default: <code>listeners.ssl.default = 5671</code></p>
             </td>
           </tr>
+          <tr>
+            <td><code>num_acceptors.ssl</code></td>
+            <td>
+              Number of Erlang processes that will accept connections for the TLS
+              listeners.
+              <p>Default: <code>num_acceptors.ssl = 1</code></p>
+            </td>
+          </tr>
+          
           <tr>
             <td><code>ssl_options</code></td>
             <td>
