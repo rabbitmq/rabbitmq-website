@@ -242,6 +242,17 @@ server testca
           </p>
 
 <pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/testca/cacert.pem
+    ssl_options.certfile = /path/to/testca/cert.pem
+    ssl_options.keyfile = /path/to/testca/key.pem
+    ssl_options.verify = verify_peer
+    ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Using the classic config format:
+
+<pre class="sourcecode">
 [
   {rabbit, [
      {ssl_listeners, [5671]},
@@ -325,6 +336,16 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <p>
             It is possible to provide a password for private key using the <code>password</code> option:
 <pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/ca_certificate.pem
+    ssl_options.certfile   = /path/to/server_certificate.pem
+    ssl_options.keyfile    = /path/to/server_key.pem
+    ssl_options.password   = t0p$3kRe7
+</pre>
+
+Using the classic config format:
+
+<pre class="sourcecode">
 [
  {rabbit, [
            {ssl_listeners, [5671]},
@@ -363,6 +384,49 @@ started SSL Listener on 0.0.0.0:5671</pre>
           <doc:heading>Disabling SSL/TLS Versions via Configuration</doc:heading>
           <p>
             To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option:
+
+Disable SSLv3.0 support, leaves TLSv1.0 enabled:
+
+In <code>rabbitmq.conf</code>
+
+<pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/ca_certificate.pem"},
+    ssl_options.certfile   = /path/to/server_certificate.pem"},
+    ssl_options.keyfile    = /path/to/server_key.pem"},
+    ssl_options.versions.tls1_2 = tlsv1.2
+    ssl_options.versions.tls1_1 = tlsv1.1
+    ssl_options.versions.tls1   = tlsv1
+</pre>
+
+In <code>advanced.config</code>
+
+<pre classic="sourcecode">
+[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
+</pre>
+
+Disable SSLv3.0 and TLSv1.0 support:
+
+In <code>rabbitmq.conf</code>
+
+<pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/ca_certificate.pem"},
+    ssl_options.certfile   = /path/to/server_certificate.pem"},
+    ssl_options.keyfile    = /path/to/server_key.pem"},
+    ssl_options.versions.tls1_2 = tlsv1.2
+    ssl_options.versions.tls1_1 = tlsv1.1
+</pre>
+
+In <code>advanced.config</code>
+
+<pre classic="sourcecode">
+[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]}].
+</pre>
+
+
+Using the classic config format:
+
 <pre class="sourcecode">
 %% Disable SSLv3.0 support, leaves TLSv1.0 enabled.
 [
@@ -461,6 +525,8 @@ SSL-Session:
 
             The below examples demonstrates how the <code>ciphers</code> TLS option is used.
           </p>
+
+Using the classic config format:
 
 <pre class="sourcecode">
 %% List allowed ciphers
@@ -961,6 +1027,19 @@ namespace RabbitMQ.Client.Examples {
           management, STOMP, etc).
         </p>
         <p>The following example demonstrates this:</p>
+
+<pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_allow_poodle_attack = true
+    ssl_options.cacertfile  = /path/to/testca/cacert.pem
+    ssl_options.certfile    = /path/to/server/cert.pem
+    ssl_options.keyfile     = /path/to/server/key.pem
+    ssl_options.verify      = verify_peer
+    ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Using the classic config format:
+
 <pre class="sourcecode">[
   {rabbit, [
      {ssl_listeners, [5671]},
@@ -988,6 +1067,18 @@ namespace RabbitMQ.Client.Examples {
 
           The following example demonstrates how to configure certificate validation depth for
           RabbitMQ server:
+<pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/testca/cacert.pem
+    ssl_options.certfile   = /path/to/server/cert.pem
+    ssl_options.keyfile    = /path/to/server/key.pem
+    ssl_options.depth      = 2},
+    ssl_options.verify     = verify_peer
+    ssl_options.fail_if_no_peer_cert = false
+</pre>
+
+Using the classic config format:
+
 <pre class="sourcecode">[
   {rabbit, [
      {ssl_listeners, [5671]},
