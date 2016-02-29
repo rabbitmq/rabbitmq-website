@@ -228,10 +228,27 @@ Cluster status of node rabbit@smacmullen ...
       file</a> to:
     </p>
     <ul>
-      <li><code>pause_minority</code></li>
-      <li><code>{pause_if_all_down, [nodes], ignore | autoheal}</code></li>
       <li><code>autoheal</code></li>
+      <li><code>pause_minority</code></li>
+      <li><code>pause_if_all_down</code></li>
     </ul>
+
+    If using <code>pause_if_all_down</code> mode, there should be additional 
+    parameters:
+    <ul>
+        <li><code>nodes</code> - nodes, which should be unavailable to pause</li>
+        <li><code>recover</code> - recover action, can be <code>ignore</code> or <code>autoheal</code></li>
+    </ul>
+    Example of <code>pause_if_all_down</code> configuration:
+    <pre class="sourcecode">
+    cluster_partition_handling = pause_if_all_down
+
+    ## Recover strategy. Can be either 'autoheal' or 'ignore'
+    cluster_partition_handling.pause_if_all_down.recover = ignore
+    
+    ## Node names to check
+    cluster_partition_handling.pause_if_all_down.nodes.1 = rabbit@myhost1
+    cluster_partition_handling.pause_if_all_down.nodes.2 = rabbit@myhost2</pre>
 
     <h3 id="which-mode">Which mode should I pick?</h3>
 

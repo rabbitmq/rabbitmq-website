@@ -943,9 +943,11 @@ cluster_nodes.disc.2 = rabbit@hostname2
               change this.
 
               <p>Default:
-                <pre>[{backlog,       128},
-         {nodelay,       true},
-         {exit_on_close, false}]</pre>
+                <pre>
+    tcp_listen_options.backlog = 128
+    tcp_listen_options.nodelay = true
+    tcp_listen_options.exit_on_close =false
+                </pre>
               </p>
             </td>
           </tr>
@@ -986,12 +988,14 @@ cluster_nodes.disc.2 = rabbit@hostname2
               How to handle network partitions. Available modes are:
               <ul>
                 <li><code>ignore</code></li>
-                <li><code>pause_minority</code></li>
-                <li><code>{pause_if_all_down, [nodes], ignore | autoheal}</code>
-                  where <code>[nodes]</code> is a list of node names<br/>
-                  (ex: <code>['rabbit@node1', 'rabbit@node2']</code>)
-                </li>
                 <li><code>autoheal</code></li>
+                <li><code>pause_minority</code></li>
+                <li><code>pause_if_all_down</code></li>
+              </ul>
+              <code>pause_if_all_down</code> mode require additional parameters:
+              <ul>  
+                <li><code>nodes</code></li>
+                <li><code>recover</code></li>
               </ul>
               See the
               <a href="partitions.html#automatic-handling">documentation
