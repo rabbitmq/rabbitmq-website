@@ -82,6 +82,12 @@ limitations under the License.
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
 <pre class="code">
+listerners.tcp.1 = 192.168.1.99:5672
+</pre>
+
+Or using classic config format:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -98,6 +104,17 @@ limitations under the License.
           to listen on localhost only for both IPv4 and IPv6:
 
 <pre class="code">
+    listeners
+</pre>
+
+<pre class="code">
+    listeners.tcp.1 = 127.0.0.1:5672
+    listeners.tcp.2 = ::1:5672
+</pre>
+
+Or using the classic config format:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"127.0.0.1", 5672},
@@ -111,6 +128,20 @@ limitations under the License.
           when a port is specified and RabbitMQ is configured to
           listen on all IPv6 addresses but IPv4 is not disabled
           explicitly, IPv4 address will be included, so
+
+<pre class="code">
+    listeners.tcp.1 = :::5672
+</pre>
+
+is equivalent to
+
+<pre class="code">
+    listeners.tcp.1 = 0.0.0.0:5672
+    listeners.tcp.2 = :::5672
+</pre>
+
+Using the classic config format:
+
 <pre class="code">
 [
   {rabbit, [
@@ -138,6 +169,12 @@ is equivalent to
           In this example RabbitMQ will listen on an IPv4 interface only:
 
 <pre class="code">
+listeners.tcp.1 = 192.168.1.99:5672
+</pre>
+
+Using the classic config format:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -156,6 +193,12 @@ is equivalent to
         <doc:heading>Listening on IPv6 Interfaces Only</doc:heading>
         <p>
           In this example RabbitMQ will listen on an IPv6 interface only:
+
+<pre class="code">
+listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
@@ -215,6 +258,15 @@ is equivalent to
         </p>
         <p>
           The following example sets TCP buffers to 192 KiB:
+
+<pre class="code">
+tcp_listen_options.backlog = 128
+tcp_listen_options.nodelay = true
+tcp_listen_options.sndbuf = 196608
+tcp_listen_options.recbuf = 196608
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
@@ -316,6 +368,15 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           The following example sets TCP buffers to 32 KiB:
 
 <pre class="code">
+tcp_lsiten_options.backlog = 128
+tcp_lsiten_options.nodelay = true
+tcp_lsiten_options.sndbuf  = 32768
+tcp_lsiten_options.recbuf  = 32768
+</pre>
+
+Using the classic config format:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -354,6 +415,24 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 
           The following example demonstrates that:
 
+In <code>rabbitmq.conf</code>
+
+<pre class="code">
+    tcp_listen_options.backlog = 4096
+    tcp_listen_options.nodelay = true
+</pre>
+
+In <code>advanced.config</code>
+<pre class="code">
+[
+  {kernel, [
+    {inet_default_connect_options, [{nodelay, true}]},
+    {inet_default_listen_options,  [{nodelay, true}]}
+  ]}].
+</pre>
+
+Using the classic config format (rabbitmq.config):
+
 <pre class="code">
 [
   {kernel, [
@@ -390,6 +469,13 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           disconnect due to a network interruption or choose to reconnect.
           This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
+
+<pre class="code">
+    tcp_listen_options.backlog = 4096
+    tcp_listen_options.nodelay = true
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
@@ -625,6 +711,11 @@ sysctl -w fs.file-max 200000
         default. When clients run in heavily constrained environments,
         it may be necessary to increase the timeout. This can be done via
         the <code>rabbit.handshake_timeout</code> (in milliseconds):
+<pre class="code">
+    handshake_timeout = 20000
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
@@ -647,6 +738,12 @@ sysctl -w fs.file-max 200000
           If TLS/SSL is enabled, it may necessary to increase also the TLS/SSL
           handshake timeout. This can be done via
           the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
+
+<pre class="code">
+    ssl_handshake_timeout = 10000
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
