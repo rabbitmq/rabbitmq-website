@@ -92,12 +92,12 @@ limitations under the License.
         <p>
           If you wish to allow the <code>guest</code> user to connect
           from a remote host, you should set the
-          <code>loopback_users</code> configuration item to
-          <code>false</code>. A complete <a href="/configure.html">RabbitMQ config file</a>
+          <code>loopback_users</code> configuration to
+          <code>none</code>. A complete <a href="/configure.html">RabbitMQ config file</a>
           which does this would look like:
         </p>
         <pre class="sourcecode">
-loopback_users.guest = false
+loopback_users = none
 </pre>
 
         Or, in the <a href="/configure.html">classic config file format</a> (<code>rabbitmq.config</code>):
@@ -364,14 +364,11 @@ auth_backends.2 = internal
 auth_backends.1 = ldap
 # uses module name instead of a short alias, "http"
 auth_backends.2 = rabbit_auth_backend_http
-</pre>
-<pre class="example">
-%% advanced.config
-%% See HTTP backend docs for details
-{rabbitmq_auth_backend_http,
-  [{user_path,     "http://my-authenticator-app/auth/user"},
-   {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-   {resource_path, "http://my-authenticator-app/auth/resource"}]}].
+
+# See HTTP backend docs for details
+http.user_path = http://my-authenticator-app/auth/user
+http.vhost_path = http://my-authenticator-app/auth/vhost
+http.resource_path = http://my-authenticator-app/auth/resource
 </pre>
 
           Or, in the <a href="/configure.html">classic config format</a>:
