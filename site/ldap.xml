@@ -58,12 +58,22 @@ limitations under the License.
         will configure RabbitMQ to <b>only</b> check LDAP for users,
         and ignore the internal database:
       </p>
+      <pre class="example">auth_backends.1 = ldap</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
+
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
       <p>
         This will check LDAP first, and then fall back to the internal
         database if the user cannot be authenticated through LDAP:
       </p>
+      <pre class="example">auth_backends.1 = ldap
+auth_backends.2 = internal</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
+
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
 
       <p>
@@ -74,6 +84,12 @@ limitations under the License.
         need a password there). If the user is not found in LDAP then a second
         attempt is made using only the internal database.
       </p>
+
+      <pre class="example">auth_backends.1.authn = ldap
+auth_backends.1.authz = internal
+auth_backends.2 = internal</pre>
+
+          Or, in the <a href="/configure.html">classic config format</a>:
 
       <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                                                      rabbit_auth_backend_internal]}]}</pre>
@@ -98,6 +114,8 @@ limitations under the License.
         with that, there is no need to read the documentation on authorisation.
       </p>
       <p>
+        Listed options can be defined using <a href="/configure.html">sysctl config format</a> in
+        <code>rabbitmq.conf</code>
         The options not directly related to authorisation are:
       </p>
 
@@ -105,7 +123,7 @@ limitations under the License.
         <dt><code>servers</code></dt>
         <dd>
           List of LDAP servers to attempt to bind to, in order. You almost
-          certainly want to change this. Default: <code>["ldap"]</code>
+          certainly want to change this. Default: <code>ldap.servers.1 = ldap</code>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
@@ -163,8 +181,8 @@ limitations under the License.
           <p>
             For example, if I set
           </p>
-          <pre>{dn_lookup_attribute,   "userPrincipalName"},
-{dn_lookup_base,        "DC=gopivotal,DC=com"}</pre>
+          <pre class="example">ldap.dn_lookup_attribute = "userPrincipalName"
+ldap.dn_lookup_base = "DC=gopivotal,DC=com"</pre>
           <p>
             I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
             local Active Directory server return my real DN.
@@ -176,7 +194,7 @@ limitations under the License.
             searches for the DN.
           </p>
           <p>
-            Default: <code>'none'</code>, <code>'none'</code> and <code>'as_user'</code>
+            Default: <code>none</code>, <code>none</code> and <code>as_user</code>
           </p>
         </dd>
         <dt><code>other_bind</code></dt>
@@ -191,15 +209,19 @@ limitations under the License.
           <p>
             This option must either be one of the
             atoms <code>as_user</code> (to bind as the authenticated
-            user) or <code>anon</code> (to bind anonymously), or a
-            tuple <code>{UserDN, Password}</code> (to bind with a
-            specified username and password).
+            user) or <code>anon</code> (to bind anonymously), or be presented by two
+            options <code>other_bind.user_dn</code> and <code>other_bind.password</code>
+            to bind with a specified username and password.
+            For example:
+            <pre class="example">
+    ldap.other_bind.user_dn = username
+    ldap.other_bind.password = password</pre>
           </p>
           <p>
             Note that it is not possible to use the
             default <code>as_user</code> configuration when users connect
             without passwords. You must set <code>other_bind</code>
-            to <code>anon</code>, or <code>{UserDN, Password}</code> for users
+            to <code>anon</code>, or with user_dn and password for users
             to log in without passwords.
           </p>
           <p>
@@ -274,6 +296,12 @@ limitations under the License.
         <li><code>resource_access_query</code></li>
         <li><code>tag_queries</code></li>
       </ul>
+
+      <p>
+        Queries are complex erlang terms, so they can be defined only using the
+        <a href="/configure.html">classic config format</a>. When using the sysctl 
+        format, <config>additional.config</config> can be used for query definitions
+      </p>
 
       <p>
         Note that in order for a user to be able to access a virtual
