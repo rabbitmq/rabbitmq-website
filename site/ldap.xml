@@ -123,7 +123,14 @@ auth_backends.2 = internal</pre>
         <dt><code>servers</code></dt>
         <dd>
           List of LDAP servers to attempt to bind to, in order. You almost
-          certainly want to change this. Default: <code>ldap.servers.1 = ldap</code>
+          certainly want to change this. Default: <code>["ldap"]</code>
+          Example of configuration using the sysctl config format:
+          <pre class="example">
+    ldap.servers.1 = some_server
+    ldap.servers.2 = some_other_server
+          </pre>
+          Using the classic config format:
+          <pre class="example">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
         </dd>
         <dt><code>user_dn_pattern</code></dt>
         <dd>
@@ -181,8 +188,8 @@ auth_backends.2 = internal</pre>
           <p>
             For example, if I set
           </p>
-          <pre class="example">ldap.dn_lookup_attribute = "userPrincipalName"
-ldap.dn_lookup_base = "DC=gopivotal,DC=com"</pre>
+          <pre class="example">ldap.dn_lookup_attribute = userPrincipalName
+ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
           <p>
             I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
             local Active Directory server return my real DN.
@@ -214,8 +221,10 @@ ldap.dn_lookup_base = "DC=gopivotal,DC=com"</pre>
             to bind with a specified username and password.
             For example:
             <pre class="example">
-    ldap.other_bind.user_dn = username
-    ldap.other_bind.password = password</pre>
+ldap.other_bind.user_dn = username
+ldap.other_bind.password = password</pre>
+            Using the classic config format:
+            <pre class="example">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
           </p>
           <p>
             Note that it is not possible to use the

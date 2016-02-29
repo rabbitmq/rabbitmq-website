@@ -367,10 +367,19 @@ limitations under the License.
             to their default values, would look like this:
           </p>
           <pre class="example">
-            tcp_listeners.default = 5672
-            collect_statistics_interval = 10000
-            management.http_log_dir = /tmp/rabbit-mgmt
-            management.rates_mode = basic</pre>
+listeners.tcp.default = 5672
+collect_statistics_interval = 10000
+management.http_log_dir = /tmp/rabbit-mgmt
+management.rates_mode = basic</pre>
+
+          Or using the classic config format:
+          
+          <pre class="example">[
+  {rabbit,                    [ {tcp_listeners,               [5672]},
+                                {collect_statistics_interval, 10000} ] },
+  {rabbitmq_management,       [ {http_log_dir,  "/tmp/rabbit-mgmt"},
+                                {rates_mode,    basic}] }
+].</pre>
         </doc:subsection>
         <doc:subsection name="web-dispatch-config">
           <doc:heading>Configuring the HTTP listener</doc:heading>
@@ -386,6 +395,14 @@ limitations under the License.
   management.listener.port = 12345
   ...</pre>
 
+        Or using the classic config format:
+
+        <pre class="example">[
+  ...
+  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+  ...
+].</pre>
+
           <p>
             or to make the management plugin use HTTPS:
           </p>
@@ -397,6 +414,19 @@ management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
 management.listener.ssl_opts.certfile = /path/to/cert.pem
 management.listener.ssl_opts.keyfile = /path/to/key.pem
 ...</pre>
+
+        Or using the classic config format:
+
+        <pre class="example">
+[{rabbitmq_management,
+  [{listener, [{port,     15671},
+               {ssl,      true},
+               {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
+                           {certfile,   "/path/to/cert.pem"},
+                           {keyfile,    "/path/to/key.pem"}]}
+              ]}
+  ]}
+].</pre>
           <p>
             See the <a href="web-dispatch.html">rabbitmq-web-dispatch</a>
             guide for more details.
@@ -421,6 +451,19 @@ management.sample_retention_policies.basic.hour   = 60
 
 management.sample_retention_policies.detailed.10 = 5
 ...</pre>
+
+        Or using the classic config format:
+
+        <pre class="example">[
+  ...
+  {rabbitmq_management,
+    %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
+    [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
+     {basic,    [{605, 5}, {3600, 60}]},
+     {detailed, [{10, 5}]}],
+  ...
+].</pre>
+
           <p>
             There are three policies:
             <ul>

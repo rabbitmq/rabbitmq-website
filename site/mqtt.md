@@ -93,6 +93,23 @@ level).
 
 Here is a sample configuration that sets every MQTT option:
 
+    listeners.tcp.default = 5672
+    mqtt.default_user     = guest
+    mqtt.default_pass     = guest
+    mqtt.allow_anonymous  = true
+    mqtt.vhost            = /
+    mqtt.exchange         = amq.topic
+    mqtt.subscription_ttl = 1800000
+    mqtt.prefetch         = 10
+    mqtt.listeners.ssl    = none
+    ## Default MQTT with TLS port is 8883
+    # mqtt.listeners.ssl.default = 8883
+    mqtt.listeners.tcp.default = 1883
+    mqtt.tcp_listen_options.backlog = 128
+    mqtt.tcp_listen_options.nodelay = true
+
+Or using the classic config format:
+    
     [{rabbit,        [{tcp_listeners,    [5672]}]},
      {rabbitmq_mqtt, [{default_user,     <<"guest">>},
                       {default_pass,     <<"guest">>},
@@ -134,17 +151,28 @@ means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 
 ### Host and Port
 
-The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
+The `listeners.tcp` and `tcp_listen_options` options are interpreted in the same way
 as the corresponding options in the `rabbit` section, as explained in the
 [broker configuration documentation](http://www.rabbitmq.com/configure.html).
 
 ### TLS/SSL
 
-The `ssl_listeners` option in the `rabbitmq_mqtt` config section controls the
+The `listeners.ssl` option in the `rabbitmq_mqtt` config section controls the
 endpoint (if any) that the adapter accepts SSL connections on. The
 default MQTT SSL port is 8883. If this option is non-empty then the
 `rabbit` section of the configuration file must contain an
 `ssl_options` entry:
+
+    ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
+    ssl_options.certfile   = /path/to/tls/server/cert.pem
+    ssl_options.keyfile    = /path/to/tls/server/key.pem
+    ssl_options.verify     = verify_peer
+    ssl_options.fail_if_no_peer_cert  = true
+    
+    mqtt.listeners.ssl.default = 8883
+    mqtt.listeners.tcp.default = 1883
+
+Or using the classic config format:
 
     [{rabbit,        [
                       {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
@@ -158,6 +186,7 @@ default MQTT SSL port is 8883. If this option is non-empty then the
                       {tcp_listeners,    [1883]}
                       ]}
     ].
+     
 
 Note that RabbitMQ rejects SSLv3 connections by default because that protocol
 is known to be compromised.
@@ -178,6 +207,10 @@ force all SSL clients to have a verifiable client certificate.
 To switch this feature on, set `ssl_cert_login` to `true` for the
 `rabbitmq_mqtt` application. For example:
 
+    mqtt.ssl_cert_login = true
+    
+Or using the classic config format:
+
     [
       {rabbitmq_mqtt, [{ssl_cert_login, true}]}
     ].
@@ -187,6 +220,10 @@ the certificate's subject's Distinguished Name, similar to that
 produced by OpenSSL's "-nameopt RFC2253" option.
 
 To use the Common Name instead, add:
+
+    ssl_cert_login_from = common_name
+
+Or using the classic config format:
 
     {rabbit, [{ssl_cert_login_from, common_name}]}
 
@@ -206,6 +243,18 @@ The `subscription_ttl` option controls the lifetime of non-clean sessions. This
 option is interpreted in the same way as the [queue TTL](http://www.rabbitmq.com/ttl.html#queue-ttl)
 parameter, so the value `86400000` means 24 hours. To disable the TTL feature, just set
 the `subscription_ttl`  to `undefined` in the configuration file:
+
+    listeners.tcp.default = 5672
+    mqtt.default_user     = guest
+    mqtt.default_pass     = guest
+    mqtt.allow_anonymous  = true
+    mqtt.vhost            = /
+    mqtt.exchange         = amq.topic
+    mqtt.subscription_ttl = undefined
+    mqtt.prefetch         = 10
+    ...
+
+Or using the classic config format:
 
     [{rabbit,        [{tcp_listeners,    [5672]}]},
      {rabbitmq_mqtt, [{default_user,     <<"guest">>},
@@ -251,6 +300,25 @@ With the second one, there is a limit of 2 GB per vhost. Both are node-local
 
 To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> configuration key:
 
+    
+    mqtt.default_user     = guest
+    mqtt.default_pass     = guest
+    mqtt.allow_anonymous  = true
+    mqtt.vhost            = /
+    mqtt.exchange         = amq.topic
+    mqtt.subscription_ttl = 1800000
+    mqtt.prefetch         = 10
+
+    ## use DETS (disk-based) store for retained messages
+    mqtt.retained_message_store = rabbit_mqtt_retained_msg_store_dets
+    ## only used by DETS store
+    mqtt.retained_message_store_dets_sync_interval = 2000
+    
+    mqtt.listeners.ssl = none
+    mqtt.listeners.tcp.default = 1883
+
+Or using the classic config format:
+
     [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
                       {default_pass,     <<"guest">>},
                       {allow_anonymous,  true},
@@ -265,6 +333,7 @@ To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> co
                       {ssl_listeners,    []},
                       {tcp_listeners,    [1883]}]}
     ].
+    
 
 The value must be a module that implements the store:
 
