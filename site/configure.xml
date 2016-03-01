@@ -69,7 +69,7 @@ limitations under the License.
           vary between operating systems and <a
           href="/download.html">package types</a>.
 
-          This topic is covered in more details in the rest of this guide.
+          This topic is covered in more detail in the rest of this guide.
         </p>
 
         <p>
@@ -450,7 +450,7 @@ and
             express desired configuration. To accommodate this need,
             RabbitMQ still supports the classic <code>rabbitmq.config</code>
             config files as well as ability to use both formats at the same time
-            (<code>advanced.config</code>). This is covered in more details in the following sections.
+            (<code>advanced.config</code>). This is covered in more detail in the following sections.
           </p>
         </doc:subsection>
 
@@ -772,7 +772,7 @@ disk_free_limit.absolute = 2GB
               frame. If set to 0, heartbeats are disabled. Clients
               might not follow the server suggestion, see the <a
               href="amqp-0-9-1-reference.html#connection.tune">AMQP
-              reference</a> for more details. Disabling heartbeats
+              reference</a> for more detail. Disabling heartbeats
               might improve performance in situations with a great
               number of connections, but might lead to connections
               dropping in the presence of network devices that close
