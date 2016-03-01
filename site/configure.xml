@@ -44,7 +44,7 @@ limitations under the License.
               set in the environment configuration file, <code>rabbitmq-env.conf</code>)
           </dd>
           <dt>
-              <a href="#configuration-file">One of more configuration file(s)</a>
+              <a href="#configuration-file">One or more configuration file(s)</a>
           </dt>
           <dd>
               defines server component settings for permissions, limits and
