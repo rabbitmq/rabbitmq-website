@@ -141,9 +141,9 @@ limitations under the License.
           Seeing as no development guide would be complete without a Hello World example, the following tries to
           provide the basics of how your would build your very own RabbitMQ plugin. The following example details
           how you might build a simple plugin that acts like a metronome. Every second, it fires a message that has
-          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot;. Applications
-          can attach queues to this exchange with various routing keys in order to be invoked at regular intervals. For
-          example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
+          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot; by default. 
+          Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals. 
+          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
@@ -206,6 +206,28 @@ limitations under the License.
               In this case, just run the following command to update
               your copy:
               <pre>make rabbitmq-components-mk</pre>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="&metronome_repo;/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
+            <td>
+              The <a href="https://github.com/basho/cuttlefish/">cuttlefish</a> 
+              schema for sysctl format configuration.
+              Used to translate <a href="configure.html#configuration-file">configuration file</a>
+              to application environment.
+
+              Metronome schema contains mapping for <code>metronome.exchange</code> variable, 
+              setting exchange name for this plugin. Default value is defined in <code>rabbitmq_metronome.app.src</code>.
+
+              Mapped values can be accessed using <code>application:get_env/2</code>.
+              
+              Configuration is being regenerated when enabling plugin. 
+              Plugin specific values will cause error 
+              if plugin has not been enabled.     
+
+              More information about writing schema files can be found 
+              <a href="https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Erlang-Developers">in the cuttlefish wiki</a>
+              
             </td>
           </tr>
           <tr>
