@@ -29,10 +29,10 @@ limitations under the License.
   <body show-in-this-page="true">
     <doc:section name="configuration">
       <p>
-        The configuration for the Shovel plugin in the
-        <a href="configure.html#configuration-file">broker configuration
-        file</a> is an Erlang term (as usual) and consists of a single
-        <code>shovels</code> clause:
+        The configuration for the Shovel plugin should be defined in the in the
+        <a href="configure.html#advanced-config-file">advanced broker configuration
+        file</a> or in the <a href="configure.html#erlang-term-config-file">classic format file</a>.
+        It is an Erlang term and consists of a single <code>shovels</code> clause:
       </p>
 <pre class="example">
   {rabbitmq_shovel, [ {shovels, [ {<em>shovel_name</em>, [ <em>...</em> ]}, <em>...</em> ]} ]}
