@@ -41,6 +41,11 @@ The `listener` configuration item can contain the following keys:
 Use `ip` to specify an interface for Cowboy to bind to (giving an IP
 address as a string or tuple). For example:
 
+    management.listener.port = 15672
+    management.listener.ip   = 127.0.0.1
+    
+Using the classic config format:
+
     [{rabbitmq_management,
       [{listener, [{port, 15672},
                    {ip, "127.0.0.1"}
@@ -61,6 +66,15 @@ verification turned off</b>. If you wish to use client certificate
 verification, specify `ssl_opts` explicitly.
 
 For example:
+
+    management.listener.port = 15672
+    management.listener.ssl  = true
+
+    management.listener.ssl_opts.cacertfile = /path/to/cacert.pem
+    management.listener.ssl_opts.certfile   = /path/to/cert.pem
+    management.listener.ssl_opts.keyfile    = /path/to/key.pem
+
+Using the classic config format:
 
     [{rabbitmq_management,
       [{listener, [{port,     15672},

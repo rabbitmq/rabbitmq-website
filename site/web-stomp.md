@@ -136,7 +136,7 @@ all interfaces on port 15674 and have a default user login/passcode of
 `guest`/`guest`.
 
 To change this, edit your
-[Configuration file](/configure.html#configuration-file),
+[Advanced configuration file](/configure.html#configuration-file),
 to contain a `port` variable for the `rabbitmq_web_stomp` application.
 
 For example, a complete configuration file which changes the listener
