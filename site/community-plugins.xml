@@ -123,6 +123,26 @@ limitations under the License.
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_routing_node_stamp">
+            A plugin that stamps a message with the node who first
+            received it.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
+            </ul>
+          </r:plugin>
+
+          <r:plugin name="rabbitmq_message_timestamp">
+            A plugin that adds a timestamp when a message first enters
+            RabbitMQ.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 
