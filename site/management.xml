@@ -444,7 +444,7 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
 ...
 management.sample_retention_policies.global.minute  = 5
 management.sample_retention_policies.global.hour    = 60
-management.sample_retention_policies.global.24hours = 1200
+management.sample_retention_policies.global.day = 1200
 
 management.sample_retention_policies.basic.minute = 5
 management.sample_retention_policies.basic.hour   = 60
@@ -458,8 +458,8 @@ management.sample_retention_policies.detailed.10 = 5
   ...
   {rabbitmq_management,
     %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
-    [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
-     {basic,    [{605, 5}, {3600, 60}]},
+    [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
+     {basic,    [{60, 5}, {3600, 60}]},
      {detailed, [{10, 5}]}],
   ...
 ].</pre>

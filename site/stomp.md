@@ -87,8 +87,8 @@ STOMP SSL connections, add a listener configuration to the
     ssl_options.verify     =  verify_peer
     ssl_options.fail_if_no_peer_cert = true
 
-    listeners.tcp.1 = 61613
-    listeners.ssl.1 = 61614
+    stomp.listeners.tcp.1 = 61613
+    stomp.listeners.ssl.1 = 61614
 
 Using the classic config format:
 

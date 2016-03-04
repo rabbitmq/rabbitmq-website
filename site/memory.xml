@@ -184,7 +184,7 @@ http://www.rabbitmq.com/memory.html#address-space</pre>
         of <code>0.5</code>. For example:
       </p>
       <pre class="sourcecode">vm_memory_high_watermark_paging_ratio = 0.75
-vm_memory_high_watermark = 0.4</pre>
+vm_memory_high_watermark.relative = 0.4</pre>
 
       Using the classic config format:
 

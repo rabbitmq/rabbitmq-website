@@ -422,9 +422,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             Compare
 
             <pre class="sourcecode">
-ssl_options.cacertfile           = /path/to/rabbitmq.crt
-ssl_options.certfile             = /path/to/rabbitmq.crt
-ssl_options.keyfile              = /path/to/rabbitmq.key
+ssl_options.cacertfile           = /path/to/testca/cacert.pem
+ssl_options.certfile             = /path/to/server/cert.pem
+ssl_options.keyfile              = /path/to/server/key.pem
 ssl_options.verify               = verify_peer
 ssl_options.fail_if_no_peer_cert = true
 </pre>

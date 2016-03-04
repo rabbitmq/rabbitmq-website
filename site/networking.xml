@@ -82,7 +82,7 @@ limitations under the License.
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
 <pre class="code">
-listerners.tcp.1 = 192.168.1.99:5672
+listeners.tcp.1 = 192.168.1.99:5672
 </pre>
 
 Or using classic config format:
@@ -273,7 +273,7 @@ Using the classic config format:
   {rabbit, [
   {tcp_listen_options, [
                         {backlog,   128},
-                        {nodelay,   true}  
+                        {nodelay,   true},  
                         {sndbuf,    196608},
                         {recbuf,    196608}
                        ]}
