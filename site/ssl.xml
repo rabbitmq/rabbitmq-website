@@ -391,9 +391,9 @@ In <code>rabbitmq.conf</code>
 
 <pre class="sourcecode">
     listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/ca_certificate.pem"},
-    ssl_options.certfile   = /path/to/server_certificate.pem"},
-    ssl_options.keyfile    = /path/to/server_key.pem"},
+    ssl_options.cacertfile = /path/to/ca_certificate.pem
+    ssl_options.certfile   = /path/to/server_certificate.pem
+    ssl_options.keyfile    = /path/to/server_key.pem
     ssl_options.versions.tls1_2 = tlsv1.2
     ssl_options.versions.tls1_1 = tlsv1.1
     ssl_options.versions.tls1   = tlsv1
@@ -404,26 +404,6 @@ In <code>advanced.config</code>
 <pre classic="sourcecode">
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
 </pre>
-
-Disable SSLv3.0 and TLSv1.0 support:
-
-In <code>rabbitmq.conf</code>
-
-<pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/ca_certificate.pem"},
-    ssl_options.certfile   = /path/to/server_certificate.pem"},
-    ssl_options.keyfile    = /path/to/server_key.pem"},
-    ssl_options.versions.tls1_2 = tlsv1.2
-    ssl_options.versions.tls1_1 = tlsv1.1
-</pre>
-
-In <code>advanced.config</code>
-
-<pre classic="sourcecode">
-[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]}].
-</pre>
-
 
 Using the classic config format:
 
@@ -440,6 +420,26 @@ Using the classic config format:
                          ]}
           ]}
 ].
+</pre>
+
+
+Disable SSLv3.0 and TLSv1.0 support:
+
+In <code>rabbitmq.conf</code>
+
+<pre class="sourcecode">
+    listeners.ssl.1 = 5671
+    ssl_options.cacertfile = /path/to/ca_certificate.pem
+    ssl_options.certfile   = /path/to/server_certificate.pem
+    ssl_options.keyfile    = /path/to/server_key.pem
+    ssl_options.versions.tls1_2 = tlsv1.2
+    ssl_options.versions.tls1_1 = tlsv1.1
+</pre>
+
+In <code>advanced.config</code>
+
+<pre classic="sourcecode">
+[{ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]}].
 </pre>
 
 <pre class="sourcecode">

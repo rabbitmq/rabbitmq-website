@@ -453,7 +453,7 @@ auth_backends.2       = internal
 <pre class="example">
 [{rabbit, [
             {auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
-                             rabbit_auth_backend_internal]
+                             rabbit_auth_backend_internal]}
           ]
  }].
 </pre>

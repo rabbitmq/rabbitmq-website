@@ -85,7 +85,7 @@ limitations under the License.
         Alternatively, the memory threshold can be adjusted by setting
 	an absolute limit of RAM used by the node. The example below sets
 	the threshold to 1073741824 bytes (1024 MB):
-        <pre class="sourcecode">vm_memory_high_watermark.absolute = 1073741824.</pre>
+        <pre class="sourcecode">vm_memory_high_watermark.absolute = 1073741824</pre>
         Same example, but using memory units:
         <pre class="sourcecode">vm_memory_high_watermark.absolute = 1024MB</pre>
         Same examples using the classic config format:

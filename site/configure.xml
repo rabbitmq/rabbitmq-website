@@ -437,7 +437,7 @@ and
                              {certfile,             "/path/to/server/cert.pem"},
                              {keyfile,              "/path/to/server/key.pem"},
                              {verify,               verify_peer},
-                             {fail_if_no_peer_cert, true}]}
+                             {fail_if_no_peer_cert, true}]}]}
   ].
 </pre>
           </p>
