@@ -62,7 +62,6 @@ limitations under the License.
 
           Or, in the <a href="/configure.html">classic config format</a>:
 
-
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
       <p>
@@ -223,6 +222,7 @@ ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
             <pre class="example">
 ldap.other_bind.user_dn = username
 ldap.other_bind.password = password</pre>
+
             Using the classic config format:
             <pre class="example">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
           </p>
@@ -603,6 +603,37 @@ ldap.other_bind.password = password</pre>
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
+      Sysctl config format (rabbitmq.conf)
+<pre class="example">
+    auth_backends.1 = ldap
+    ldap.servers.1  = my-ldap-server
+    user_dn_pattern = cn=${username},ou=People,dc=example,dc=com
+    ldap.use_ssl    = false
+    ldap.port       = 389
+    ldap.log        = false
+</pre>
+     Advanced term-based config (advanced.config)
+<pre class="example">
+[{rabbitmq_auth_backend_ldap,[
+    {vhost_access_query,    {in_group,
+                              "ou=${vhost}-users,ou=vhosts,dc=example,dc=com"}},
+     {resource_access_query,
+      {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
+             {permission, write,
+              {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, exchange, {constant, true}}]}},
+             {permission, read,
+              {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
+                     {resource, queue,    {constant, true}}]}}
+            ]
+      }},
+     {tag_queries,           [{administrator, {constant, false}},
+                              {management,    {constant, true}}]}
+]}].
+</pre>
+
+    Or using classic config format:
+
 <pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
   {rabbitmq_auth_backend_ldap,

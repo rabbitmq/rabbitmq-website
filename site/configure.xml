@@ -654,7 +654,7 @@ or, if you'd like to use the Erlang term format:
               Ports or hostname/pair on which to listen for AMQP connections
               (without TLS). See the <a href="/networking.html">Networking guide</a> for more
               details and examples.
-              <p>Default: <code>listeners.ssl.default = 5671</code></p>
+              <p>Default: <code>listeners.ssl = none</code></p>
             </td>
           </tr>
           <tr>
@@ -835,12 +835,12 @@ default_permissions.write = .*
               <p>
                 If you wish to allow the default <code>guest</code>
                 user to connect remotely, you need to change this to
-                <code>loopback_users.guest = false</code>.
+                <code>loopback_users = none</code>.
               </p>
               <p>
                 To restrict another user to localhost-only connections,
                 do it like so (<code>monitoring</code> is the name of the user):
-                <code>loopback_users.monitoring = false</code>.
+                <code>loopback_users.monitoring = true</code>.
               </p>
               <p>Default: <code>loopback_users.guest = true</code></p>
             </td>
