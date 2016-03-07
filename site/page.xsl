@@ -263,9 +263,14 @@ limitations under the License.
 
       </td>
       <xsl:choose>
-        <xsl:when test="../@signature = 'yes' and not(@signature = 'no')">
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and @downloadpath">
           <td class="signature">
             <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+          </td>
+        </xsl:when>
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and not(@downloadpath)">
+          <td class="signature">
+            <a class="adownload" href="{@url}.asc">(Signature)</a>
           </td>
         </xsl:when>
         <xsl:otherwise>
