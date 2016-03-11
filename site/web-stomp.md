@@ -185,7 +185,7 @@ The `ws_frame` option serves this purpose:
 The Web STOMP plugin uses the Cowboy web server under the hood.
 Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server. You
-can specify those in the Web-Stomp plugin documentation, in
+can specify those in the Web-Stomp plugin configuration, in
 the `cowboy_opts` section:
 
     [
