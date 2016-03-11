@@ -35,6 +35,7 @@ The `listener` configuration item can contain the following keys:
 * `ip` (to listen on only one interface)
 * `ssl` (to enable SSL)
 * `ssl_opts` (to configure SSL)
+* `cowboy_opts` (to configure the Cowboy HTTP server)
 
 ## Listening on a single interface
 
@@ -68,6 +69,21 @@ For example:
                    {ssl_opts, [{cacertfile, "/path/to/cacert.pem"},
                                {certfile,   "/path/to/cert.pem"},
                                {keyfile,    "/path/to/key.pem"}]}
+                  ]}
+      ]}
+    ].
+
+## Compressed responses
+
+Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
+that can be used to customize the behavior of the server. You
+can specify those in the listener options under `cowboy_opts`.
+
+To compress responses, set the proper `cowboy_opts` option:
+
+    [{rabbitmq_management,
+      [{listener, [{port,        15672},
+                   {cowboy_opts, [{compress, true}]}
                   ]}
       ]}
     ].
