@@ -97,7 +97,7 @@ config file(s) : /etc/rabbitmq/advanced.config
            <pre class="example">
 node           : rabbit@example
 home dir       : /var/lib/rabbitmq
-config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
+config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
         </p>
       </doc:subsection>
       </doc:section>
@@ -118,7 +118,7 @@ config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
               <code><span class="path">rabbitmq-env.conf</span></code>
               to define environment variables.
               Its <a href="#config-location">location</a> is not configurable
-              (unlike <code>rabbitmq.config</code>).
+              (unlike <code>rabbitmq.conf</code> and <code>advanced.config</code>).
             </p>
             <p>
               Use the standard environment variable names
@@ -212,8 +212,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </td>
               <td>
                 Change this if you only want to bind to one network interface.
-                To bind to two or more interfaces, use the <code>tcp_listeners</code>
-                key in <code>rabbitmq.config</code>.
+                To bind to two or more interfaces, this can be done in the configuration file.
               </td>
             </tr>
 
@@ -610,7 +609,7 @@ or, if you'd like to use the Erlang term format:
         </doc:subsection>
 
         <doc:subsection name="config-items">
-        <doc:heading>Commonly Used Variables Configurable in rabbitmq.config</doc:heading>
+        <doc:heading>Commonly Used Variables Configurable in rabbitmq.conf</doc:heading>
         <p>
           These values are configured most often. The list is not complete, as
           some settings are quite obscure.
