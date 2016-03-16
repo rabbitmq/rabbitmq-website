@@ -261,7 +261,7 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
     :::elixir
-    AMQP.Queue.declare(channel, "task_queue", durable: true)
+    AMQP.Queue.declare(channel, "hello", durable: true)
 
 Although this command is correct by itself, it won't work in our
 setup. That's because we've already defined a queue called `hello`
