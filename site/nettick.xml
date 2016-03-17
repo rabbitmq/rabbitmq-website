@@ -66,7 +66,7 @@ node rabbit@cordelia down: net_tick_timeout
         by the <code>net_ticktime</code> configuration setting. Normally four ticks
         are exchanged between a pair of nodes every <code>net_ticktime</code> seconds.
         If no communication is received from a node within <code>net_ticktime</code>
-        (&#177; 25%) seconds then the node is considered down and no longer a member
+        (&#177; 25% for ) seconds then the node is considered down and no longer a member
         of the cluster.
       </p>
       <p>
@@ -80,7 +80,7 @@ node rabbit@cordelia down: net_tick_timeout
       <p>
         The impact of changing the default <code>net_ticktime</code> should be
         carefully considered. All nodes in a cluster must use the same
-        <code>net_ticktime</code>. The following sample <a href="/configure.html">advanced.config</a>
+        <code>net_ticktime</code>. The following sample <a href="/configure.html#advanced-config-file">advanced.config</a>
         configuration demonstrates doubling the default <code>net_ticktime</code> from
         60 to 120 seconds:
       </p>
