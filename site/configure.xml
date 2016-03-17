@@ -41,7 +41,7 @@ limitations under the License.
           </dt>
           <dd>
               define ports, file locations and names (taken from the shell, or
-              set in the environment configuration file, <code>rabbitmq-env.conf</code>)
+              set in the environment configuration file, <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
           </dd>
           <dt>
               <a href="#configuration-file">One or more configuration file(s)</a>
@@ -117,8 +117,8 @@ config file(s) : /var/lib/rabbitmq/hare.conf (not found)</pre>
               On Unix-based systems (including Linux, MacOSX) you can create/edit
               <code><span class="path">rabbitmq-env.conf</span></code>
               to define environment variables.
-              Its <a href="#config-location">location</a> is not configurable
-              (unlike <code>rabbitmq.conf</code> and <code>advanced.config</code>).
+              Its <a href="#config-location">location</a> is configurable
+              using the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> environment variable.
             </p>
             <p>
               Use the standard environment variable names
@@ -138,12 +138,14 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <p>
                If you need to customise names, ports, locations, it is easiest
                to configure environment variables in the Windows dialogue:
-               Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables.
+               Start&#xA0;>&#xA0;Settings&#xA0;>&#xA0;Control&#xA0;Panel&#xA0;>&#xA0;System&#xA0;>&#xA0;Advanced&#xA0;>&#xA0;Environment&#xA0;Variables. Then create or edit the system variable name and value.
              </p>
-             <p>
-               Create or edit the system variable name and value.
-
-
+            <p>
+              Alternatively, you can create/edit
+              <code><span class="path">rabbitmq-env-conf.bat</span></code>
+              to define environment variables.
+              Its <a href="#config-location">location</a> is configurable
+              using the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> environment variable.
             </p>
             <p>
               <em>For environment changes to take effect on Windows, the service must be
@@ -298,6 +300,28 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
                 "Advanced" (Erlang term-based) RabbitMQ config file path without the <code>.config</code> file extension.
                 For example, it should be <span class="path">/data/rabbitmq/advanced</span>,
                 not <span class="path">/data/rabbitmq/advanced.config</span>.
+              </td>
+            </tr>
+
+            <tr>
+              <td>RABBITMQ_CONF_ENV_FILE</td>
+              <td>
+                <ul>
+                  <li><b>Generic UNIX</b> - <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq-env.conf</span>
+                  </li>
+                  <li><b>Debian</b> - <span class="path">/etc/rabbitmq/rabbitmq-env.conf</span></li>
+                  <li><b>RPM</b> - <span class="path">/etc/rabbitmq/rabbitmq-env.conf</span></li>
+                  <li>
+                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    class="envvar">${install_prefix}</span>/etc/rabbitmq/rabbitmq-env.conf</span>,
+                    the Homebrew prefix is usually <code>/usr/local</code>
+                  </li>
+                  <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\rabbitmq-env-conf.bat</span></li>
+                </ul>
+              </td>
+              <td>
+                Location of the file that contains environment variable definitions (without the <span class="envvar">RABBITMQ_</span>
+                prefix). Note that file name on Windows is different from other operating systems.
               </td>
             </tr>
 
@@ -530,7 +554,7 @@ listeners.tcp.default = 5673
         <p>
           To override main RabbitMQ config file location, use the <span class="envvar">RABBITMQ_CONFIG_FILE</span>
           environment variable.
-        </p>        
+        </p>
         <p>
            Note that this configuration file is not the same as the environment
            configuration file, <code>rabbitmq-env.conf</code>, which
@@ -620,7 +644,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
         </p>
         <p>
           If <code>rabbitmq-env.conf</code> doesn't exist, it can be created manually
-          in the default location only. It is not used on Windows systems.
+          in the default location only. On Windows systems, it is named <code>rabbitmq-env.bat</code>.
         </p>
         <p>
           If <code>rabbitmq.conf</code> doesn't exist, it can be created manually.
