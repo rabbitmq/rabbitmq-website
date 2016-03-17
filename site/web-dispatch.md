@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Web dispatch plugin NOSYNTAX
+# Web Dispatch Plugin NOSYNTAX
 
 The `rabbitmq-web-dispatch` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
@@ -44,7 +44,7 @@ address as a string or tuple). For example:
     management.listener.port = 15672
     management.listener.ip   = 127.0.0.1
     
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbitmq_management,
       [{listener, [{port, 15672},
@@ -53,15 +53,15 @@ Using the classic config format:
       ]}
     ].
 
-## SSL
+## TLS/SSL
 
-Set `ssl` to `true` to turn on SSL for a listener. Use `ssl_opts` to
-specify SSL options. These are the standard Erlang SSL options - [see
-the main page on SSL for more information](ssl.html).
+Set `ssl` to `true` to turn on TLS for a listener. Use `ssl_opts` to
+specify SSL options. These are the standard Erlang TLS options: [see
+the RabbitMQ TLS guide](/ssl.html) for more information.
 
 For convenience, if you do not specify `ssl_opts` then
-rabbitmq-web-dispatch will use the same options as the main RabbitMQ
-server does for AMQP over SSL, <b>but with client certificate
+Web Dispatch will use the same options as the main RabbitMQ
+server does for AMQP over TLS, <b>but with client certificate
 verification turned off</b>. If you wish to use client certificate
 verification, specify `ssl_opts` explicitly.
 
@@ -74,7 +74,7 @@ For example:
     management.listener.ssl_opts.certfile   = /path/to/cert.pem
     management.listener.ssl_opts.keyfile    = /path/to/key.pem
 
-Using the classic config format:
+The same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbitmq_management,
       [{listener, [{port,     15672},
