@@ -255,6 +255,53 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </tr>
 
             <tr>
+              <td>RABBITMQ_CONFIG_FILE</td>
+              <td>
+                <ul>
+                  <li><b>Generic UNIX</b> - <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/rabbitmq</span>
+                  </li>
+                  <li><b>Debian</b> - <span class="path">/etc/rabbitmq/rabbitmq</span></li>
+                  <li><b>RPM</b> - <span class="path">/etc/rabbitmq/rabbitmq</span></li>
+                  <li>
+                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    class="envvar">${install_prefix}</span>/etc/rabbitmq/rabbitmq</span>,
+                    the Homebrew prefix is usually <code>/usr/local</code>
+                  </li>
+                  <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\rabbitmq</span></li>
+                </ul>
+              </td>
+              <td>
+                Main RabbitMQ config file path without the <code>.conf</code>
+                (or <code>.config</code>, for the classic format) extension.
+                For example, it should be <span class="path">/data/rabbitmq/rabbitmq</span>,
+                not <span class="path">/data/rabbitmq/rabbitmq.conf</span>.
+              </td>
+            </tr>
+
+            <tr>
+              <td>RABBITMQ_ADVANCED_CONFIG_FILE</td>
+              <td>
+                <ul>
+                  <li><b>Generic UNIX</b> - <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/etc/rabbitmq/advanced</span>
+                  </li>
+                  <li><b>Debian</b> - <span class="path">/etc/rabbitmq/advanced</span></li>
+                  <li><b>RPM</b> - <span class="path">/etc/rabbitmq/advanced</span></li>
+                  <li>
+                    <b>Mac OS X (Homebrew)</b> - <span class="path"><span
+                    class="envvar">${install_prefix}</span>/etc/rabbitmq/advanced</span>,
+                    the Homebrew prefix is usually <code>/usr/local</code>
+                  </li>
+                  <li><b>Windows</b> - <span class="path"><span class="envvar">%APPDATA%</span>\RabbitMQ\advanced</span></li>
+                </ul>
+              </td>
+              <td>
+                "Advanced" (Erlang term-based) RabbitMQ config file path without the <code>.config</code> file extension.
+                For example, it should be <span class="path">/data/rabbitmq/advanced</span>,
+                not <span class="path">/data/rabbitmq/advanced.config</span>.
+              </td>
+            </tr>
+
+            <tr>
               <td>RABBITMQ_USE_LONGNAME</td>
               <td></td>
               <td>
@@ -541,7 +588,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
     {rabbit, [{tcp_listeners, [5673]}]}
   ].
 </pre>
-            
+
           </p>
         </doc:subsection>
 
@@ -666,7 +713,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
               <p>Default: <code>num_acceptors.ssl = 1</code></p>
             </td>
           </tr>
-          
+
           <tr>
             <td><code>ssl_options</code></td>
             <td>
@@ -994,7 +1041,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 <li><code>pause_if_all_down</code></li>
               </ul>
               <code>pause_if_all_down</code> mode require additional parameters:
-              <ul>  
+              <ul>
                 <li><code>nodes</code></li>
                 <li><code>recover</code></li>
               </ul>
