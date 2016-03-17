@@ -206,6 +206,6 @@ version, you can use the following configuration:
 
 ## <a id="missing"/>Missing features
 
-RabbitMQ-Web-Stomp is fully compatible with the
-[RabbitMQ-STOMP](/stomp.html) plugin, with the exception of STOMP
+RabbitMQ Web STOMP is fully compatible with the
+[RabbitMQ STOMP](/stomp.html) plugin, with the exception of STOMP
 heartbeats. STOMP heartbeats won't work with SockJS.
