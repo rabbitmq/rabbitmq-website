@@ -758,7 +758,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
             <td><code>ssl_handshake_timeout</code></td>
             <td>
               TLS handshake timeout, in milliseconds.
-              <p>Default: <code>5000</code></p>
+              <p>Default: <code>ssl_handshake_timeout = 5000</code></p>
             </td>
           </tr>
           <tr>
@@ -969,7 +969,8 @@ cluster_nodes.disc.2 = rabbit@hostname2
             <td>
               <a href="authentication.html">SASL authentication
               mechanisms</a> to offer to clients.
-              <p>Default: <code>['PLAIN', 'AMQPLAIN']</code></p>
+              <p>Default: <pre>    auth_mechanisms.1 = PLAIN
+    auth_mechanisms.2 = AMQPLAIN</pre></p>
             </td>
           </tr>
           <tr>
@@ -984,7 +985,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 than <code>rabbit_auth_backend_internal</code> are
                 available through <a href="plugins.html">plugins</a>.
               </p>
-              <p>Default: <code>rabbit_auth_backend_internal</code></p>
+              <p>Default: <code>auth_backends.1 = internal</code></p>
             </td>
           </tr>
           <tr>
@@ -994,7 +995,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               reverse DNS lookup on client connections, and present
               that information through <code>rabbitmqctl</code> and
               the management plugin.
-              <p>Default: <code>false</code></p>
+              <p>Default: <code>reverse_dns_lookups = false</code></p>
             </td>
           </tr>
           <tr>
@@ -1004,18 +1005,10 @@ cluster_nodes.disc.2 = rabbit@hostname2
               communication. On a machine which has a very large
               number of cores and is also part of a cluster, you may
               wish to increase this value.
-              <p>Default: <code>16</code></p>
+              <p>Default: <code>delegate_count = 16</code></p>
             </td>
           </tr>
-          <tr>
-            <td><code>trace_vhosts</code></td>
-            <td>
-              Used internally by
-              the <a href="firehose.html">tracer</a>. You shouldn't
-              change this.
-              <p>Default: <code>[]</code></p>
-            </td>
-          </tr>
+          
           <tr>
             <td><code>tcp_listen_options</code></td>
             <td>
@@ -1059,7 +1052,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 HiPE has known issues in Erlang/OTP versions prior to 17.5.
                 Using a recent Erlang/OTP version is highly recommended for HiPE.
               </p>
-              <p>Default: <code>false</code></p>
+              <p>Default: <code>hipe_compile = false</code></p>
             </td>
           </tr>
           <tr>
@@ -1080,7 +1073,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               See the
               <a href="partitions.html#automatic-handling">documentation
               on partitions</a> for more information.
-              <p>Default: <code>ignore</code></p>
+              <p>Default: <code>cluster_partition_handling = ignore</code></p>
             </td>
           </tr>
           <tr>
@@ -1092,7 +1085,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               href="nettick.html"><code>net_ticktime</code></a>;
               missed keepalive messages will not cause nodes to be
               considered down.
-              <p>Default: <code>10000</code></p>
+              <p>Default: <code>cluster_keepalive_interval = 10000</code></p>
             </td>
           </tr>
           <tr>
@@ -1102,8 +1095,45 @@ cluster_nodes.disc.2 = rabbit@hostname2
               be embedded directly in the queue index. You are advised
               to read the <a href="persistence-conf.html">persister
               tuning</a> documentation before changing this.
-              <p>Default: <code>4096</code></p>
+              <p>Default: <code>queue_index_embed_msgs_below = 4096</code></p>
             </td>
+          </tr>
+          
+          <tr>
+            <td><code>mnesia_table_loading_timeout</code></td>
+            <td>
+              Timeout used when waiting for Mnesia tables in a cluster to
+              become available.
+              <p>Default: <code>mnesia_table_loading_timeout = 30000</code></p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td><code>queue_master_locator</code></td>
+            <td>
+              Queue master location strategy. Available strategies are:
+              <ul>
+                <li><code>min-masters</code></li>
+                <li><code>client-local</code></li>
+                <li><code>random</code></li>
+              </ul>
+              See the
+              <a href="ha.html#queue-master-location">documentation
+              on queue master location</a> for more information.
+              <p>Default: <code>queue_master_locator = client-local</code></p>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          Following configuration values can be set in 
+          <a href="#advanced-config-file">advanced config file</a> only.
+        </p>
+
+        <table>
+          <tr>
+            <th>Key</th>
+            <th>Documentation</th>
           </tr>
           <tr>
             <td><code>msg_store_index_module</code></td>
@@ -1132,38 +1162,26 @@ cluster_nodes.disc.2 = rabbit@hostname2
             </td>
           </tr>
           <tr>
-            <td><code>mnesia_table_loading_timeout</code></td>
+            <td><code>trace_vhosts</code></td>
             <td>
-              Timeout used when waiting for Mnesia tables in a cluster to
-              become available.
-              <p>Default: <code>30000</code></p>
+              Used internally by
+              the <a href="firehose.html">tracer</a>. You shouldn't
+              change this.
+              <p>Default: <code>[]</code></p>
             </td>
           </tr>
           <tr>
-            <td><code>queue_index_max_</code>
-              <code>journal_entries</code></td>
+            <td><code>queue_index_max_journal_entries </code></td>
             <td>
               Tunable value for the persister. You almost certainly
               should not change this.
               <p>Default: <code>65536</code></p>
             </td>
           </tr>
-          <tr>
-            <td><code>queue_master_locator</code></td>
-            <td>
-              Queue master location strategy. Available strategies are:
-              <ul>
-                <li><code>&lt;&lt;"min-masters"&gt;&gt;</code></li>
-                <li><code>&lt;&lt;"client-local"&gt;&gt;</code></li>
-                <li><code>&lt;&lt;"random"&gt;&gt;</code></li>
-              </ul>
-              See the
-              <a href="ha.html#queue-master-location">documentation
-              on queue master location</a> for more information.
-              <p>Default: <code>&lt;&lt;"client-local"&gt;&gt;</code></p>
-            </td>
-          </tr>
         </table>
+
+
+
         <p>
           In addition, many plugins can have sections in the
           configuration file, with names of the
