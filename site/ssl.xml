@@ -67,7 +67,7 @@ limitations under the License.
           chain of trust from a known, trusted <i>root</i> certificate, and the
           certificate presented. The <i>root</i> certificate is a self-signed
           certificate, made available by a <i>Certificate Authority</i>. These
-          exist as commercial companies, and will, for a fee, sign SSL
+          exist as commercial companies, and will, for a fee, sign TLS
           Certificates that you have generated.</p>
 
           <p>For the purposes of this guide, we will start by creating our own
@@ -280,36 +280,33 @@ Below is the same example using the <a href="/configure.html#erlang-term-config-
             configuration file are interpreted as escape sequences -
             so for example to specify the
             path <code>c:\cacert.pem</code> for the CA certificate you
-            would need to enter <code>{cacertfile,
-            "c:\\cacert.pem"}</code> or <code>{cacertfile,
-            "c:/cacert.pem"}</code>.
+            would need to use <code>"c:\\cacert.pem"</code> or <code>
+            "c:/cacert.pem"</code>.
           </p>
 
-          <p>When a web browser connects to an HTTPS web server, the server
-          presents its public certificate, the web browser attempts to establish
-          a chain of trust between the root certificates the browser is aware of
-          and the server's certificate, and all being well, an encrypted
-          communication channel is established. Although not used normally by
-          web browsers and web servers, SSL allows the server to ask the client
-          to present a certificate. In this way the server can verify that the
-          client is who they say they are.</p>
+          <p>When a web browser connects to an HTTPS web server, the
+          server presents its public certificate, the web browser
+          attempts to establish a chain of trust between the root
+          certificates the browser is aware of and the server's
+          certificate, and all being well, an encrypted communication
+          channel is established. Although not used normally by web
+          browsers and web servers, TLS allows the server to ask the
+          client to present a certificate. In this way the server can
+          verify that the client is who they say they are.</p>
+
           <p>This policy of whether or not the server asks for a
           certificate from the client, and whether or not they demand
-          that they are able to trust the certificate, is what
-          the <code>verify</code>
-          and <code>fail_if_no_peer_cert</code> arguments
-          control. Through
-          the <code>{fail_if_no_peer_cert,false}</code>
-          option, we state that we're prepared to accept clients which
-          don't have a certificate to send us, but through
-          the <code>{verify,verify_peer}</code> option, we
-          state that if the client does send us a certificate, we must
-          be able to establish a chain of trust to it. Note that these
-          values can change across versions of ssl shipped with
-          Erlang/OTP, so check your man page <code>erl -man
-          new_ssl</code> to ensure you have the proper values.</p>
+          that they are able to trust the certificate, is what the
+          <code>verify</code> and <code>fail_if_no_peer_cert</code>
+          arguments control. By setting
+          the <code>fail_if_no_peer_cert</code> option to <code>false</code>, we state
+          that we're prepared to accept clients which don't have a
+          certificate to send us, but through the
+          <code>verify</code> option set to <code>verify_peer</code>, we state that if
+          the client does send us a certificate, we must be able to
+          establish a chain of trust to it.</p>
 
-          <p>Note that if <code>{verify, verify_none}</code> is used,
+          <p>Note that if the <code>verify_none</code> mode is used,
           no certificate exchange takes place from the client to the
           server and <code>rabbitmqctl list_connections</code> will
           output empty strings for the peer certificate info
@@ -342,18 +339,18 @@ started SSL Listener on 0.0.0.0:5671</pre>
         </doc:subsection>
 
         <doc:subsection name="disabling-tls-versions">
-          <doc:heading>Providing Certificate Password</doc:heading>
+          <doc:heading>Providing Private Key Password</doc:heading>
           <p>
             It is possible to provide a password for private key using the <code>password</code> option:
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/ca_certificate.pem
-    ssl_options.certfile   = /path/to/server_certificate.pem
-    ssl_options.keyfile    = /path/to/server_key.pem
-    ssl_options.password   = t0p$3kRe7
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.password   = t0p$3kRe7
 </pre>
 
-Using the classic config format:
+The same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 [
@@ -393,29 +390,29 @@ Using the classic config format:
         <doc:subsection name="disabling-tls-versions">
           <doc:heading>Disabling SSL/TLS Versions via Configuration</doc:heading>
           <p>
-            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option:
+            To limit enabled SSL/TLS protocol versions, use the <code>versions</code> option.
+          </p>
 
-Disable SSLv3.0 support, leaves TLSv1.0 enabled:
-
-In <code>rabbitmq.conf</code>
+Using the <a href="/configure.html#config-file">standard config</a>:
 
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/ca_certificate.pem
-    ssl_options.certfile   = /path/to/server_certificate.pem
-    ssl_options.keyfile    = /path/to/server_key.pem
-    ssl_options.versions.tls1_2 = tlsv1.2
-    ssl_options.versions.tls1_1 = tlsv1.1
-    ssl_options.versions.tls1   = tlsv1
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+ssl_options.versions.2 = tlsv1.1
+ssl_options.versions.3 = tlsv1
 </pre>
 
-In <code>advanced.config</code>
+Using the <a href="/configure.html#advanced-config-file">advanced config</a>:
 
 <pre classic="sourcecode">
+%% advanced config here is only used to configure TLS versions
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1', tlsv1]}]}].
 </pre>
 
-Using the classic config format:
+Using <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 %% Disable SSLv3.0 support, leaves TLSv1.0 enabled.
@@ -433,24 +430,26 @@ Using the classic config format:
 </pre>
 
 
-Disable SSLv3.0 and TLSv1.0 support:
+The examples below disable SSLv3.0 and TLSv1.0 support.
 
-In <code>rabbitmq.conf</code>
+Using the <a href="/configure.html#config-file">standard config</a>:
 
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/ca_certificate.pem
-    ssl_options.certfile   = /path/to/server_certificate.pem
-    ssl_options.keyfile    = /path/to/server_key.pem
-    ssl_options.versions.tls1_2 = tlsv1.2
-    ssl_options.versions.tls1_1 = tlsv1.1
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/ca_certificate.pem
+ssl_options.certfile   = /path/to/server_certificate.pem
+ssl_options.keyfile    = /path/to/server_key.pem
+ssl_options.versions.1 = tlsv1.2
+ssl_options.versions.2 = tlsv1.1
 </pre>
 
-In <code>advanced.config</code>
+Using the <a href="/configure.html#advanced-config-file">advanced config</a>:
 
 <pre classic="sourcecode">
 [{ssl, [{versions, ['tlsv1.2', 'tlsv1.1']}]}].
 </pre>
+
+Using <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 %% Disable SSLv3.0 and TLSv1.0 support.
@@ -466,8 +465,14 @@ In <code>advanced.config</code>
           ]}
 ].
 </pre>
+        </doc:subsection>
 
-         to verify, use <code>openssl s_client</code>:
+
+
+        <doc:subsection name="verifying-tls-versions">
+          <doc:heading>Verifying Enabled TLS Versions</doc:heading>
+
+          To verify provided TLS versions, use <code>openssl s_client</code>:
 
 <pre class="sourcecode">
 # connect using SSLv3
@@ -485,7 +490,6 @@ openssl s_client -connect 127.0.0.1:5671 -tls1
 SSL-Session:
   Protocol  : TLSv1
 </pre>
-          </p>
         </doc:subsection>
 
         <doc:subsection name="tls-version-support-in-jdk-and-net">
@@ -536,7 +540,8 @@ SSL-Session:
             The below examples demonstrates how the <code>ciphers</code> TLS option is used.
           </p>
 
-Using the classic config format:
+Cipher suites can only be configured using the <a href="/configure.html#advanced-config-file">advanced config</a>
+file or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 %% List allowed ciphers
@@ -1039,19 +1044,19 @@ namespace RabbitMQ.Client.Examples {
         <p>The following example demonstrates this:</p>
 
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_allow_poodle_attack = true
-    ssl_options.cacertfile  = /path/to/testca/cacert.pem
-    ssl_options.certfile    = /path/to/server/cert.pem
-    ssl_options.keyfile     = /path/to/server/key.pem
-    ssl_options.verify      = verify_peer
-    ssl_options.fail_if_no_peer_cert = false
+listeners.ssl.1 = 5671
+ssl_allow_poodle_attack = true
+ssl_options.cacertfile  = /path/to/testca/cacert.pem
+ssl_options.certfile    = /path/to/server/cert.pem
+ssl_options.keyfile     = /path/to/server/key.pem
+ssl_options.verify      = verify_peer
+ssl_options.fail_if_no_peer_cert = false
 </pre>
 
-Using the classic config format:
+Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">[
-  {rabbit, [
+{rabbit, [
      {ssl_listeners, [5671]},
      {ssl_allow_poodle_attack, true},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
@@ -1078,19 +1083,19 @@ Using the classic config format:
           The following example demonstrates how to configure certificate validation depth for
           RabbitMQ server:
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/testca/cacert.pem
-    ssl_options.certfile   = /path/to/server/cert.pem
-    ssl_options.keyfile    = /path/to/server/key.pem
-    ssl_options.depth      = 2
-    ssl_options.verify     = verify_peer
-    ssl_options.fail_if_no_peer_cert = false
+listeners.ssl.1 = 5671
+ssl_options.cacertfile = /path/to/testca/cacert.pem
+ssl_options.certfile   = /path/to/server/cert.pem
+ssl_options.keyfile    = /path/to/server/key.pem
+ssl_options.depth      = 2
+ssl_options.verify     = verify_peer
+ssl_options.fail_if_no_peer_cert = false
 </pre>
 
-Using the classic config format:
+Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">[
-  {rabbit, [
+ {rabbit, [
      {ssl_listeners, [5671]},
      {ssl_options, [{cacertfile,"/path/to/testca/cacert.pem"},
                     {certfile,"/path/to/server/cert.pem"},
