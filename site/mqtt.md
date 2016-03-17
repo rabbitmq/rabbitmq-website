@@ -91,7 +91,7 @@ level).
 
 ## <a id="config"/> Plugin Configuration
 
-Here is a sample configuration that sets every MQTT option:
+Here is a sample <a href="/configure.html#config-file">configuration</a> that sets (almost) every MQTT plugin setting provided:
 
     listeners.tcp.default = 5672
     mqtt.default_user     = guest
@@ -99,7 +99,8 @@ Here is a sample configuration that sets every MQTT option:
     mqtt.allow_anonymous  = true
     mqtt.vhost            = /
     mqtt.exchange         = amq.topic
-    mqtt.subscription_ttl = 1800000
+    # 24 hours by default
+    mqtt.subscription_ttl = 86400000
     mqtt.prefetch         = 10
     mqtt.listeners.ssl    = none
     ## Default MQTT with TLS port is 8883
@@ -108,7 +109,7 @@ Here is a sample configuration that sets every MQTT option:
     mqtt.tcp_listen_options.backlog = 128
     mqtt.tcp_listen_options.nodelay = true
 
-Or using the classic config format:
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
     
     [{rabbit,        [{tcp_listeners,    [5672]}]},
      {rabbitmq_mqtt, [{default_user,     <<"guest">>},
@@ -172,7 +173,7 @@ default MQTT SSL port is 8883. If this option is non-empty then the
     mqtt.listeners.ssl.default = 8883
     mqtt.listeners.tcp.default = 1883
 
-Or using the classic config format:
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbit,        [
                       {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
@@ -223,7 +224,7 @@ To use the Common Name instead, add:
 
     ssl_cert_login_from = common_name
 
-Or using the classic config format:
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     {rabbit, [{ssl_cert_login_from, common_name}]}
 
@@ -254,7 +255,7 @@ the `subscription_ttl`  to `undefined` in the configuration file:
     mqtt.prefetch         = 10
     ...
 
-Or using the classic config format:
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbit,        [{tcp_listeners,    [5672]}]},
      {rabbitmq_mqtt, [{default_user,     <<"guest">>},
@@ -317,7 +318,7 @@ To configure the store, use <code>rabbitmq_mqtt.retained_message_store</code> co
     mqtt.listeners.ssl = none
     mqtt.listeners.tcp.default = 1883
 
-Or using the classic config format:
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
                       {default_pass,     <<"guest">>},
