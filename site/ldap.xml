@@ -603,7 +603,9 @@ ldap.other_bind.password = password</pre>
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
-      Sysctl config format (rabbitmq.conf)
+      To define it using <a href="configure.html#config-file">sysctl config</a> 
+      you should use both <code>rabbitmq.conf</code> and <code>advanced.config</code> files.
+      Sysctl config format (rabbitmq.conf) can be used only for several configuration variables.
 <pre class="example">
     auth_backends.1 = ldap
     ldap.servers.1  = my-ldap-server
@@ -612,7 +614,7 @@ ldap.other_bind.password = password</pre>
     ldap.port       = 389
     ldap.log        = false
 </pre>
-     Advanced term-based config (advanced.config)
+    To define queries, there should be advanced term-based config (advanced.config)
 <pre class="example">
 [{rabbitmq_auth_backend_ldap,[
     {vhost_access_query,    {in_group,
@@ -632,7 +634,8 @@ ldap.other_bind.password = password</pre>
 ]}].
 </pre>
 
-    Or using classic config format:
+    Alternatively, you can use classic <a href="configure.html#erlang-term-config-file">erlang term based</a> 
+    config format to define all ldap configuration in one file:
 
 <pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
