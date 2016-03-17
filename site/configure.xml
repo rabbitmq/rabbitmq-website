@@ -462,10 +462,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </div>
       </doc:section>
 
-      <doc:section name="configuration-file">
+      <doc:section name="configuration-files">
         <doc:heading>Configuration File(s)</doc:heading>
 
-        <doc:subsection name="config-file">
+        <doc:subsection name="config-file-intro">
           <doc:heading>Introduction</doc:heading>
           <p>
             While some settings in RabbitMQ can be tuned using environment variables,
@@ -476,7 +476,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           </p>
         </doc:subsection>
 
-        <doc:subsection name="config-file">
+        <doc:subsection name="config-file-formats">
           <doc:heading>The New and Old Config File Formats</doc:heading>
           <p>
             Prior to RabbitMQ 3.7.0, RabbitMQ config file was named
