@@ -636,7 +636,7 @@ ldap.other_bind.password = password</pre>
 ]}].
 </pre>
 
-    Alternatively, you can use the <a href="configure.html#erlang-term-config-file">classic config format</a>
+    Alternatively, you can use the <a href="/configure.html#erlang-term-config-file">classic config format</a>
     to configure everything in a single file:
 
 <pre class="example">[
