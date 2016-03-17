@@ -278,27 +278,33 @@ limitations under the License.
           RabbitMQ
           <a href="configure.html#configuration-file">configuration file</a>.
         </p>
-        <doc:subsection name="load-definitions">
-          <doc:heading>Load definitions at startup</doc:heading>
+        <doc:subsection name="http-logging">
+          <doc:heading>HTTP request logging</doc:heading>
           <p>
-            The management plugin lets you export a JSON file
-            containing definitions of all broker objects (queues,
-            exchanges, bindings, users, virtual hosts, permissions and
-            parameters). In some scenarios it may be useful to ensure
-            the existence of these objects at every startup.
+            To create simple access logs of requests to the HTTP API,
+            set the value of the <code>http_log_dir</code> variable in
+            the <code>rabbitmq_management</code> application to the name
+            of a directory in which logs can be created and restart
+            RabbitMQ. Note that only requests to the API
+            at <code>/api</code> are logged, not requests to the static
+            files which make up the browser-based GUI.
+          </p>
+        </doc:subsection>        
+        <doc:subsection name="statistics-interval">
+          <doc:heading>Statistics interval</doc:heading>
+          <p>
+            By default the server will emit statistics events every
+            5000ms. The message rate values shown in the management
+            plugin are calculated over this period. You may therefore
+            want to increase this value in order to sample rates over
+            a longer period, or to reduce the statistics load on a
+            server with a very large number of queues or channels.
           </p>
           <p>
-            To do this, set the <code>load_definitions</code> variable
-            to the path of a previously exported JSON file containing
-            the definitions you want.
-          </p>
-          <p>
-            Note that the definitions in the file will overwrite
-            anything already in the broker; using this option will not
-            delete anything that is already there. However, if you
-            start from a completely reset broker, use of this
-            option <b>will</b> prevent the usual default user /
-            virtual host / permissions from being created.
+            In order to do so, set the value of
+            the <code>collect_statistics_interval</code> variable for
+            the <code>rabbit</code> application to the desired
+            interval in milliseconds and restart RabbitMQ.
           </p>
         </doc:subsection>
         <doc:subsection name="fine-stats">
@@ -328,36 +334,30 @@ limitations under the License.
             <code>basic</code> (the default), <code>detailed</code> or
             <code>none</code>.
           </p>
-        </doc:subsection>
-        <doc:subsection name="statistics-interval">
-          <doc:heading>Statistics interval</doc:heading>
+        </doc:subsection>        
+        <doc:subsection name="load-definitions">
+          <doc:heading>Load definitions at startup</doc:heading>
           <p>
-            By default the server will emit statistics events every
-            5000ms. The message rate values shown in the management
-            plugin are calculated over this period. You may therefore
-            want to increase this value in order to sample rates over
-            a longer period, or to reduce the statistics load on a
-            server with a very large number of queues or channels.
+            The management plugin lets you export a JSON file
+            containing definitions of all broker objects (queues,
+            exchanges, bindings, users, virtual hosts, permissions and
+            parameters). In some scenarios it may be useful to ensure
+            the existence of these objects at every startup.
           </p>
           <p>
-            In order to do so, set the value of
-            the <code>collect_statistics_interval</code> variable for
-            the <code>rabbit</code> application to the desired
-            interval in milliseconds and restart RabbitMQ.
+            To do this, set the <code>load_definitions</code> variable
+            to the path of a previously exported JSON file containing
+            the definitions you want.
           </p>
-        </doc:subsection>
-        <doc:subsection name="http-logging">
-          <doc:heading>HTTP request logging</doc:heading>
           <p>
-            To create simple access logs of requests to the HTTP API,
-            set the value of the <code>http_log_dir</code> variable in
-            the <code>rabbitmq_management</code> application to the name
-            of a directory in which logs can be created and restart
-            RabbitMQ. Note that only requests to the API
-            at <code>/api</code> are logged, not requests to the static
-            files which make up the browser-based GUI.
+            Note that the definitions in the file will overwrite
+            anything already in the broker; using this option will not
+            delete anything that is already there. However, if you
+            start from a completely reset broker, use of this
+            option <b>will</b> prevent the usual default user /
+            virtual host / permissions from being created.
           </p>
-        </doc:subsection>
+        </doc:subsection>        
         <doc:subsection name="example-config">
           <doc:heading>Example</doc:heading>
           <p>
