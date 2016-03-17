@@ -55,7 +55,7 @@ port to 12345 would look like:
 
     stomp.listeners.tcp.1 = 12345
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [12345]}]}
@@ -67,7 +67,7 @@ both IPv4 and IPv6) would look like:
     stomp.listeners.tcp.1 = 127.0.0.1:61613
     stomp.listeners.tcp.2 = ::1:61613
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{tcp_listeners, [{"127.0.0.1", 61613},
@@ -76,8 +76,8 @@ Using the classic config format:
 
 ## TLS/SSL Support
 
-To use SSL for STOMP connections, [SSL must be configured](/ssl.html) in the broker. To enable
-STOMP SSL connections, add a listener configuration to the
+To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
+STOMP TLS connections, add a listener configuration to the
 `ssl_listeners` variable for the `rabbitmq_stomp` application. For example:
 
 
@@ -90,7 +90,7 @@ STOMP SSL connections, add a listener configuration to the
     stomp.listeners.tcp.1 = 61613
     stomp.listeners.ssl.1 = 61614
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [{rabbit,          [
                         {ssl_options, [{cacertfile, "/path/to/tls/ca/cacert.pem"},
@@ -117,7 +117,7 @@ section to the `rabbitmq_stomp` application configuration. For example:
     stomp.default_user = guest
     stomp.default_pass = guest
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{default_user, [{login, "guest"},
@@ -127,7 +127,7 @@ Using the classic config format:
 The configuration example above makes `guest`/`guest` the default
 login/passcode pair.
 
-### <a id="cta.ssl"/>Authentication with SSL client certificates
+### <a id="cta.ssl"/>Authentication with TLS/x509 client certificates
 
 The STOMP adapter can authenticate SSL-based connections by extracting
 a name from the client's SSL certificate, without using a password.
@@ -141,7 +141,7 @@ To switch this feature on, set `ssl_cert_login` to `true` for the
 
     stomp.ssl_cert_login = true
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{ssl_cert_login, true}]}
@@ -155,7 +155,7 @@ To use the Common Name instead, add:
 
     ssl_cert_login_from = common_name
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     {rabbit, [{ssl_cert_login_from, common_name}]}
 
@@ -182,7 +182,7 @@ To enable implicit connect, set `implicit_connect` to `true` for the
     stomp.default_pass = guest
     stomp.implicit_connect = true
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{default_user,     [{login, "guest"},
@@ -536,7 +536,7 @@ section to the `rabbitmq_stomp` application configuration, e.g.
 
     stomp.default_vhost = /
 
-Using the classic config format:
+Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_stomp, [{default_vhost, <<"/">>}]}
