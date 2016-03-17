@@ -644,7 +644,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
         </p>
         <p>
           If <code>rabbitmq-env.conf</code> doesn't exist, it can be created manually
-          in the default location only. On Windows systems, it is named <code>rabbitmq-env.bat</code>.
+          in the default location only. On Windows systems, it is named <code>rabbitmq-env-conf.bat</code>.
         </p>
         <p>
           If <code>rabbitmq.conf</code> doesn't exist, it can be created manually.
