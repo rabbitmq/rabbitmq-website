@@ -68,7 +68,7 @@ limitations under the License.
         file</a>.  The example below sets the threshold to the
         default value of 0.4:
         <pre class="sourcecode">vm_memory_high_watermark.relative = 0.4</pre>
-        Same example using the classic config format:
+        Same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
         <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, 0.4}]}].</pre>
       </p>
 
@@ -88,7 +88,7 @@ limitations under the License.
         <pre class="sourcecode">vm_memory_high_watermark.absolute = 1073741824</pre>
         Same example, but using memory units:
         <pre class="sourcecode">vm_memory_high_watermark.absolute = 1024MB</pre>
-        Same examples using the classic config format:
+        Same example using the the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
         <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, 1073741824}}]}].</pre>
         Using memory units:
         <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark, {absolute, "1024MiB"}}]}].</pre>
@@ -126,10 +126,10 @@ Memory limit set to 2048MB.</pre>
         RAM is queried.
       </p>
 
-      <h3>Disabling all publishing</h3>
+      <h3>Disabling All Publishing</h3>
       <p>
         A value of <code>0</code> makes the memory alarm go off
-        immediately and thus disables all publishing (this may be
+        immediately and thus eventually blocks all publishing connections (this may be
         useful if you wish to disable publishing globally);
         use <code>rabbitmqctl set_vm_memory_high_watermark
         0</code>.
@@ -186,7 +186,7 @@ http://www.rabbitmq.com/memory.html#address-space</pre>
       <pre class="sourcecode">vm_memory_high_watermark_paging_ratio = 0.75
 vm_memory_high_watermark.relative = 0.4</pre>
 
-      Using the classic config format:
+      Using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="sourcecode">[{rabbit, [{vm_memory_high_watermark_paging_ratio, 0.75},
          {vm_memory_high_watermark, 0.4}]}].</pre>
