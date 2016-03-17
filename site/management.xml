@@ -502,7 +502,7 @@ management.sample_retention_policies.detailed.10 = 5
       </doc:section>
 
       <doc:section name="proxy">
-        <doc:heading>Proxy setup</doc:heading>
+        <doc:heading>Proxy Setup</doc:heading>
         <p>
           It is possible to make the web UI available via any proxy that
           conforms with RFC 1738. The following sample Apache configuration
