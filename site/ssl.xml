@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -209,28 +209,38 @@ server testca
       <doc:section name="enabling-ssl">
         <doc:heading>Enabling SSL Support in RabbitMQ</doc:heading>
 
-          <p>To enable the SSL/TLS support in RabbitMQ, we need to provide to
-          RabbitMQ the location of the <i>root</i> certificate, the server's
-          certificate file, and the server's key. We also need to tell it to
-          listen on a socket that is going to be used for SSL connections, and
-          we need to tell it whether it should ask for clients to present
-          certificates, and if the client does present a certificate, whether we
-          should accept the certificate if we can't establish a chain of trust
-          to it. These settings are all controlled by two arguments to RabbitMQ:</p>
+          <p>To enable the SSL/TLS support in RabbitMQ, we need to
+          provide to RabbitMQ the location of the <i>root</i>
+          certificate, the server's certificate file, and the server's
+          key. We also need to tell it to listen on a socket that is
+          going to be used for TLS connections, and we need to tell it
+          whether it should ask for clients to present certificates,
+          and if the client does present a certificate, whether we
+          should accept the certificate if we can't establish a chain
+          of trust to it. These settings are controlled by
+          severalconfiguration keys:</p>
 
           <ul class="plain">
             <li>
-              <pre class="sourcecode"><b>-rabbit ssl_listeners</b></pre>
-              <p>
-                This is a list of ports to listen on for SSL
-                connections. To listen on a single network interface,
-                add something like <code>{"127.0.0.1",
-                5671}</code> to the list.
-              </p>
+              <code>listeners.ssl</code>: this is a list of ports to listen on for TLS
+              connections. RabbitMQ can listen on a single interface or multiple ones.
             </li>
-            <li><pre class="sourcecode"><b>-rabbit ssl_options</b></pre><p>This is a tuple list of <code>new_ssl</code> options. The complete list
-            of ssl_options is available via the <code>new_ssl</code> man page:
-            i.e. <code>erl -man new_ssl</code>, but the most important are <code>cacertfile</code>, <code>certfile</code> and <code>keyfile</code>.</p></li>
+            <li>
+              <code>ssl_options.cacertfile</code>: Certificate Authority (CA) certificate file path
+            </li>
+            <li>
+              <code>ssl_options.certfile</code>: server certificate file path
+            </li>
+            <li>
+              <code>ssl_options.keyfile</code>: server private key file path
+            </li>
+            <li>
+              <code>ssl_options.verify</code>: controls peer verification mode
+            </li>
+            <li>
+              <code>ssl_options.fail_if_no_peer_cert</code>: when set to true, TLS connection
+              will be rejected if client fails to provide a certificate
+            </li>
           </ul>
 
           <p>
@@ -242,15 +252,15 @@ server testca
           </p>
 
 <pre class="sourcecode">
-    listeners.ssl.1 = 5671
-    ssl_options.cacertfile = /path/to/testca/cacert.pem
-    ssl_options.certfile = /path/to/server/cert.pem
-    ssl_options.keyfile = /path/to/server/key.pem
-    ssl_options.verify = verify_peer
-    ssl_options.fail_if_no_peer_cert = false
+listeners.ssl.default = 5671
+ssl_options.cacertfile = /path/to/testca/cacert.pem
+ssl_options.certfile = /path/to/server/cert.pem
+ssl_options.keyfile = /path/to/server/key.pem
+ssl_options.verify = verify_peer
+ssl_options.fail_if_no_peer_cert = false
 </pre>
 
-Using the classic config format:
+Below is the same example using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="sourcecode">
 [
