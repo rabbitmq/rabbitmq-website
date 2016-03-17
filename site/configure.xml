@@ -528,7 +528,11 @@ listeners.tcp.default = 5673
           AMQP 0-9-1 client connections from 5672 to 5673.
         </p>
         <p>
-           This configuration file is not the same as the environment
+          To override main RabbitMQ config file location, use the <span class="envvar">RABBITMQ_CONFIG_FILE</span>
+          environment variable.
+        </p>        
+        <p>
+           Note that this configuration file is not the same as the environment
            configuration file, <code>rabbitmq-env.conf</code>, which
            can be used to set environment variables on non-Windows
            systems.
@@ -559,6 +563,10 @@ listeners.tcp.default = 5673
             example advanced.config file</a> named
             <code>advanced.config.example</code>. It focuses on the
             options that are typically set using the advanced config.
+          </p>
+          <p>
+            To override advanced config file location, use the <span class="envvar">RABBITMQ_ADVANCED_CONFIG_FILE</span>
+            environment variable.
           </p>
         </doc:subsection>
 
