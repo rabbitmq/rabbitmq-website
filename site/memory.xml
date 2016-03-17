@@ -213,7 +213,7 @@ vm_memory_high_watermark.relative = 0.4</pre>
         1GB of RAM is installed:
         <pre class="sourcecode">
 =WARNING REPORT==== 29-Oct-2009::17:23:44 ===
-Unknown total memory size for your OS {unix,magic_homebrew_os}. Assuming memory size is 1024MB.</pre>
+Unknown total memory size for your OS {unix,magic_homegrown_os}. Assuming memory size is 1024MB.</pre>
       </p>
 
       <p>
