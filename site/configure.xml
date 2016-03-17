@@ -1126,8 +1126,9 @@ cluster_nodes.disc.2 = rabbit@hostname2
         </table>
 
         <p>
-          Following configuration values can be set in 
-          <a href="#advanced-config-file">advanced config file</a> only.
+          The following configuration settings can be set in 
+          the <a href="#advanced-config-file">advanced config file</a> only,
+          under the <code>rabbit</code> section.
         </p>
 
         <table>
@@ -1171,11 +1172,11 @@ cluster_nodes.disc.2 = rabbit@hostname2
             </td>
           </tr>
           <tr>
-            <td><code>queue_index_max_journal_entries </code></td>
+            <td><code>queue_index_max_journal_entries</code></td>
             <td>
-              Tunable value for the persister. You almost certainly
-              should not change this.
-              <p>Default: <code>65536</code></p>
+              After how many queue index journal entries it will be
+              flushed to disk.
+              <p>Default: <code>32768</code></p>
             </td>
           </tr>
         </table>
