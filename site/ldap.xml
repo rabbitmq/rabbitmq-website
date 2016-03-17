@@ -60,7 +60,7 @@ limitations under the License.
       </p>
       <pre class="example">auth_backends.1 = ldap</pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap]}]}</pre>
 
@@ -71,7 +71,7 @@ limitations under the License.
       <pre class="example">auth_backends.1 = ldap
 auth_backends.2 = internal</pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">{rabbit,[{auth_backends, [rabbit_auth_backend_ldap, rabbit_auth_backend_internal]}]}</pre>
 
@@ -88,7 +88,7 @@ auth_backends.2 = internal</pre>
 auth_backends.1.authz = internal
 auth_backends.2 = internal</pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">{rabbit,[{auth_backends, [{rabbit_auth_backend_ldap, rabbit_auth_backend_internal},
                                                      rabbit_auth_backend_internal]}]}</pre>
@@ -308,7 +308,7 @@ ldap.other_bind.password = password</pre>
 
       <p>
         Queries are complex erlang terms, so they can be defined only using the
-        <a href="/configure.html">classic config format</a>. When using the sysctl 
+        <a href="/configure.html#erlang-term-config-file">classic config format</a>. When using the sysctl 
         format, <config>additional.config</config> can be used for query definitions
       </p>
 

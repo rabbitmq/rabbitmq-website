@@ -100,7 +100,7 @@ limitations under the License.
 loopback_users = none
 </pre>
 
-        Or, in the <a href="/configure.html">classic config file format</a> (<code>rabbitmq.config</code>):
+        Or, in the <a href="/configure.html#erlang-term-config-file">classic config file format</a> (<code>rabbitmq.config</code>):
 
         <pre class="sourcecode">
 [{rabbit, [{loopback_users, []}]}].</pre>
@@ -291,7 +291,7 @@ loopback_users = none
 auth_backends.1 = internal
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -324,7 +324,7 @@ auth_backends.1 = internal
 auth_backends.1 = ldap
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -343,7 +343,7 @@ auth_backends.1 = ldap
 auth_backends.2 = internal
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">
 [{rabbit, [
@@ -371,7 +371,7 @@ http.vhost_path = http://my-authenticator-app/auth/vhost
 http.resource_path = http://my-authenticator-app/auth/resource
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
       <pre class="example">
 [{rabbit, [
@@ -400,7 +400,7 @@ auth_backends.1.authn = internal
 auth_backends.1.authz = rabbit_auth_backend_ip_range
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -422,7 +422,7 @@ auth_backends.1.authn = ldap
 auth_backends.1.authz = internal
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
@@ -448,7 +448,7 @@ auth_backends.1.authz = internal
 auth_backends.2       = internal
 </pre>
 
-          Or, in the <a href="/configure.html">classic config format</a>:
+          Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="example">
 [{rabbit, [
