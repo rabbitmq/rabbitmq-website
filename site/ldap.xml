@@ -308,7 +308,7 @@ ldap.other_bind.password = password</pre>
 
       <p>
         Queries are complex erlang terms, so they can be defined only using the
-        <a href="/configure.html#erlang-term-config-file">classic config format</a>. When using the sysctl 
+        <a href="/configure.html#erlang-term-config-file">classic config format</a>. When using the sysctl
         format, <config>additional.config</config> can be used for query definitions
       </p>
 
@@ -595,7 +595,8 @@ ldap.other_bind.password = password</pre>
     <doc:section name="example">
       <doc:heading>Example configuration</doc:heading>
       <p>
-        Bringing it all together, here's a sample configuration. This
+        Bringing it all together, here's a sample configuration. It uses both the <a href="/configure.html#config-file">standard config</a> and
+        <a href="/configure.html#advanced-config-file">advanced config</a> files together. This
         makes all users able to access the management plugin, but
         makes none of them administrators. Access to virtual hosts is
         controlled by membership of a group per virtual host. Only
@@ -603,9 +604,10 @@ ldap.other_bind.password = password</pre>
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues.
       </p>
-      To define it using <a href="configure.html#config-file">sysctl config</a> 
-      you should use both <code>rabbitmq.conf</code> and <code>advanced.config</code> files.
-      Sysctl config format (rabbitmq.conf) can be used only for several configuration variables.
+      The <a href="/configure.html#config-file">standard config</a>
+      (rabbitmq.conf) is used to configure authentication backends and
+      several LDAP plugin parameters:
+
 <pre class="example">
     auth_backends.1 = ldap
     ldap.servers.1  = my-ldap-server
@@ -614,7 +616,7 @@ ldap.other_bind.password = password</pre>
     ldap.port       = 389
     ldap.log        = false
 </pre>
-    To define queries, there should be advanced term-based config (advanced.config)
+    <a href="/configure.html#advanced-config-file">Advanced config</a> is used to define LDAP queries:
 <pre class="example">
 [{rabbitmq_auth_backend_ldap,[
     {vhost_access_query,    {in_group,
@@ -634,8 +636,8 @@ ldap.other_bind.password = password</pre>
 ]}].
 </pre>
 
-    Alternatively, you can use classic <a href="configure.html#erlang-term-config-file">erlang term based</a> 
-    config format to define all ldap configuration in one file:
+    Alternatively, you can use the <a href="configure.html#erlang-term-config-file">classic config format</a>
+    to configure everything in a single file:
 
 <pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
