@@ -305,11 +305,11 @@ auth_backends.1 = internal
             The following aliases are available:
 
             <ul>
-              <li><code>internal</code>for <code>rabbit_auth_backend_internal</code></li>
-              <li><code>ldap</code>for <code>rabbit_auth_backend_ldap</code> (from the <a href="/ldap.html">LDAP plugin</a>)</li>
-              <li><code>http</code>for <code>rabbit_auth_backend_http</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP auth backend plugin</a>)</li>
-              <li><code>amqp</code>for <code>rabbit_auth_backend_amqp</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP 0-9-1 auth backend plugin</a>)</li>
-              <li><code>dummy</code>for <code>rabbit_auth_backend_dummy</code></li>
+              <li><code>internal</code> for <code>rabbit_auth_backend_internal</code></li>
+              <li><code>ldap</code> for <code>rabbit_auth_backend_ldap</code> (from the <a href="/ldap.html">LDAP plugin</a>)</li>
+              <li><code>http</code> for <code>rabbit_auth_backend_http</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP auth backend plugin</a>)</li>
+              <li><code>amqp</code> for <code>rabbit_auth_backend_amqp</code> (from the <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP 0-9-1 auth backend plugin</a>)</li>
+              <li><code>dummy</code> for <code>rabbit_auth_backend_dummy</code></li>
             </ul>
 
             When using third party plugins, providing a full module name is necessary.
