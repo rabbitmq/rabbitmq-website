@@ -475,14 +475,6 @@ and
           <pre class="sourcecode">
 listeners.tcp.default = 5673
 </pre>
-
-or, if you'd like to use the Erlang term format:
-
-<pre class="sourcecode">
-  [
-    {rabbit, [{tcp_listeners, [5673]}]}
-  ].
-</pre>
         </p>
         <p>
           This example will alter the port RabbitMQ listens on for
@@ -540,6 +532,16 @@ or, if you'd like to use the Erlang term format:
             <code>rabbitmq.config.example</code>. It contains an
             example of most of the configuration items in the classic
             config format.
+          </p>
+          <p>
+Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
+
+<pre class="sourcecode">
+  [
+    {rabbit, [{tcp_listeners, [5673]}]}
+  ].
+</pre>
+            
           </p>
         </doc:subsection>
 
