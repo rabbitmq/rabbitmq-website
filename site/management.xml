@@ -372,13 +372,14 @@ collect_statistics_interval = 10000
 management.http_log_dir = /tmp/rabbit-mgmt
 management.rates_mode = basic</pre>
 
-          Or using the classic config format:
+          Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
           
-          <pre class="example">[
-  {rabbit,                    [ {tcp_listeners,               [5672]},
-                                {collect_statistics_interval, 10000} ] },
-  {rabbitmq_management,       [ {http_log_dir,  "/tmp/rabbit-mgmt"},
-                                {rates_mode,    basic}] }
+          <pre class="example">
+[
+  {rabbit,                    [{tcp_listeners,               [5672]},
+                               {collect_statistics_interval, 10000} ]},
+  {rabbitmq_management,       [{http_log_dir,  "/tmp/rabbit-mgmt"},
+                               {rates_mode,    basic}] }
 ].</pre>
         </doc:subsection>
         <doc:subsection name="web-dispatch-config">
@@ -392,14 +393,14 @@ management.rates_mode = basic</pre>
           </p>
           <pre class="example">
   ...
-  management.listener.port = 12345
+management.listener.port = 12345
   ...</pre>
 
-        Or using the classic config format:
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
         <pre class="example">[
   ...
-  {rabbitmq_management, [{listener, [{port, 12345}]}]},
+{rabbitmq_management, [{listener, [{port, 12345}]}]},
   ...
 ].</pre>
 
@@ -415,7 +416,7 @@ management.listener.ssl_opts.certfile = /path/to/cert.pem
 management.listener.ssl_opts.keyfile = /path/to/key.pem
 ...</pre>
 
-        Or using the classic config format:
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
         <pre class="example">
 [{rabbitmq_management,
@@ -434,7 +435,7 @@ management.listener.ssl_opts.keyfile = /path/to/key.pem
         </doc:subsection>
 
         <doc:subsection name="sample-retention">
-          <doc:heading>Sample retention policies</doc:heading>
+          <doc:heading>Sample Retention Policies</doc:heading>
           <p>
             The management plugin will retain samples of some data
             such as message rates and queue lengths. You can
@@ -452,16 +453,17 @@ management.sample_retention_policies.basic.hour   = 60
 management.sample_retention_policies.detailed.10 = 5
 ...</pre>
 
-        Or using the classic config format:
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
         <pre class="example">[
   ...
-  {rabbitmq_management,
-    %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
-    [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
-     {basic,    [{60, 5}, {3600, 60}]},
-     {detailed, [{10, 5}]}],
-  ...
+{rabbitmq_management,
+  %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
+  [{global,   [{60, 5}, {3600, 60}, {86400, 1200}]},
+   {basic,    [{60, 5}, {3600, 60}]},
+   {detailed, [{10, 5}]}]
+
+ %% , ...
 ].</pre>
 
           <p>
