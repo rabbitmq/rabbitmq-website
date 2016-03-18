@@ -77,8 +77,8 @@ Or, using the <a href="/configure.html#erlang-term-config-file">classic config f
 ## TLS/SSL Support
 
 To use TLS for STOMP connections, [TLS must be configured](/ssl.html) in the broker. To enable
-STOMP TLS connections, add a listener configuration to the
-`ssl_listeners` variable for the `rabbitmq_stomp` application. For example:
+STOMP TLS connections, add a TLS listener for STOMP. The plugin will use core RabbitMQ server
+certificates and key (just like AMQP 0-9-1):
 
 
     ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
