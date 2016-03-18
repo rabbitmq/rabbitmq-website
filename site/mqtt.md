@@ -159,10 +159,10 @@ as the corresponding options in the `rabbit` section, as explained in the
 ### TLS/SSL
 
 The `listeners.ssl` option in the `rabbitmq_mqtt` config section controls the
-endpoint (if any) that the adapter accepts SSL connections on. The
-default MQTT SSL port is 8883. If this option is non-empty then the
-`rabbit` section of the configuration file must contain an
-`ssl_options` entry:
+endpoint (if any) that the adapter accepts TLS connections on. The
+default MQTT TLS port is 8883. If this option is non-empty then the
+`ssl_options` configuration values must be provided. The plugin will use them
+just like AMQP 0-9-1 listeners do:
 
     ssl_options.cacertfile = /path/to/tls/ca/cacert.pem
     ssl_options.certfile   = /path/to/tls/server/cert.pem
