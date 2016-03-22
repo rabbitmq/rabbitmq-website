@@ -694,7 +694,7 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
         <doc:subsection name="config-items">
         <doc:heading>Commonly Used Variables Configurable in rabbitmq.conf</doc:heading>
         <p>
-          These values are configured most often. The list is not complete, as
+          These variables are the most common. The list is not complete, as
           some settings are quite obscure.
         </p>
         <table>
