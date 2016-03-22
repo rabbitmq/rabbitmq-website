@@ -126,11 +126,11 @@ limitations under the License.
 	    <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
 	  </li>
 	  <li>
-	    Run <code>apt-get update</code>.
+	    Run the following command to update the package list:
+	    <pre class="sourcecode">sudo apt-get update</pre>.
 	  </li>
 	  <li>
-	    Install packages as usual; for instance,
-
+	    Install <code>rabbitmq-server</code> package:
 	    <pre class="sourcecode">sudo apt-get install rabbitmq-server</pre>
 	  </li>
 	</ol>
