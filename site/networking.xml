@@ -105,7 +105,7 @@ Or using classic config format:
 
 <pre class="code">
 listeners.tcp.1 = 127.0.0.1:5672
-listeners.tcp.2 = [::1]:5672
+listeners.tcp.2 = ::1:5672
 </pre>
 
 Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
