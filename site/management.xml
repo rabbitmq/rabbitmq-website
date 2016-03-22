@@ -289,7 +289,7 @@ limitations under the License.
             at <code>/api</code> are logged, not requests to the static
             files which make up the browser-based GUI.
           </p>
-        </doc:subsection>        
+        </doc:subsection>
         <doc:subsection name="statistics-interval">
           <doc:heading>Statistics interval</doc:heading>
           <p>
@@ -334,7 +334,7 @@ limitations under the License.
             <code>basic</code> (the default), <code>detailed</code> or
             <code>none</code>.
           </p>
-        </doc:subsection>        
+        </doc:subsection>
         <doc:subsection name="load-definitions">
           <doc:heading>Load definitions at startup</doc:heading>
           <p>
@@ -357,7 +357,7 @@ limitations under the License.
             option <b>will</b> prevent the usual default user /
             virtual host / permissions from being created.
           </p>
-        </doc:subsection>        
+        </doc:subsection>
         <doc:subsection name="example-config">
           <doc:heading>Example</doc:heading>
           <p>
@@ -373,7 +373,7 @@ management.http_log_dir = /tmp/rabbit-mgmt
 management.rates_mode = basic</pre>
 
           Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
-          
+
           <pre class="example">
 [
   {rabbit,                    [{tcp_listeners,               [5672]},
