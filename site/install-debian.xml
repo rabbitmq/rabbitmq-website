@@ -104,8 +104,10 @@ limitations under the License.
         <h3>Using rabbitmq.com APT Repository</h3>
 	<ol>
 	  <li>
-	    Add the following line to your <code>/etc/apt/sources.list</code>:
-	    <pre class="sourcecode">deb http://www.rabbitmq.com/debian/ testing main</pre>
+	    Execute the following command to add the APT repository to your <code>/etc/apt/sources.list.d</code>:
+	    <pre class="sourcecode">
+            echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+	    </pre>
 	    (Please note that the word <code>testing</code> in this
 	    line refers to the state of our release of RabbitMQ, not
 	    any particular Debian distribution. You can use it with
