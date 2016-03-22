@@ -354,7 +354,7 @@ limitations under the License.
             anything already in the broker; using this option will not
             delete anything that is already there. However, if you
             start from a completely reset broker, use of this
-            option <b>will</b> prevent the usual default user /
+            option <strong>will</strong> prevent the usual default user /
             virtual host / permissions from being created.
           </p>
         </doc:subsection>
