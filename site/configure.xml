@@ -1067,7 +1067,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 <li><code>pause_minority</code></li>
                 <li><code>pause_if_all_down</code></li>
               </ul>
-              <code>pause_if_all_down</code> mode require additional parameters:
+              <code>pause_if_all_down</code> mode requires additional parameters:
               <ul>
                 <li><code>nodes</code></li>
                 <li><code>recover</code></li>
