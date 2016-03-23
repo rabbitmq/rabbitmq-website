@@ -142,6 +142,10 @@ to contain a `port` variable for the `rabbitmq_web_stomp` application.
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
 
+    web_stomp.port = 12345
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_web_stomp, [{port, 12345}]}
     ].
@@ -159,6 +163,15 @@ use the former as a port number, ignoring the one in `tcp_config`.
 
 In addition, encrypted connections are supported if SSL configuration parameters are
 provided in the `ssl_config` section:
+
+    web_stomp.ssl_config.port = 12345
+    web_stomp.ssl_config.backlog    = 1024
+    web_stomp.ssl_config.certfile   = path/to/certs/client/cert.pem
+    web_stomp.ssl_config.keyfile    = path/to/certs/client/key.pem
+    web_stomp.ssl_config.cacertfile = path/to/certs/testca/cacert.pem
+    web_stomp.ssl_config.password   = changeme
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -178,6 +191,10 @@ encoded as UTF-8. This cannot be changed for the SockJS endpoint,
 however you can switch the Websocket endpoint to binary if needed.
 The `ws_frame` option serves this purpose:
 
+    web_stomp.ws_frame = binary
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
     [
       {rabbitmq_web_stomp, [{ws_frame, binary}]}
     ].
@@ -187,6 +204,10 @@ Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/man
 that can be used to customize the behavior of the server. You
 can specify those in the Web-Stomp plugin documentation, in
 the `cowboy_opts` section:
+
+    web_stomp.cowboy_opts.max_keepalive = 10
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
@@ -198,6 +219,10 @@ The SockJS endpoint can also be configured further in the
 SockJS-erlang repository for a detailed [list of options](https://github.com/rabbitmq/sockjs-erlang#sockjs-erlang-api)
 you can use. For example, to use a different SockJS client
 version, you can use the following configuration:
+
+    web_stomp.sockjs_opts.url = https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js
+
+Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
