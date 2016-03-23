@@ -8,8 +8,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -46,7 +46,7 @@ limitations under the License.
         <ul>
           <li>
             Enable your application to access internal RabbitMQ functionality that is not exposed
-            via the AMQP interface.
+            via one of the supported protocols.
           </li>
           <li>
             Running in the same Erlang VM as the broker may increase performance for certain applications.
@@ -141,9 +141,9 @@ limitations under the License.
           Seeing as no development guide would be complete without a Hello World example, the following tries to
           provide the basics of how your would build your very own RabbitMQ plugin. The following example details
           how you might build a simple plugin that acts like a metronome. Every second, it fires a message that has
-          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot;. Applications
-          can attach queues to this exchange with various routing keys in order to be invoked at regular intervals. For
-          example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
+          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot; by default.
+          Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals.
+          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
@@ -206,6 +206,26 @@ limitations under the License.
               In this case, just run the following command to update
               your copy:
               <pre>make rabbitmq-components-mk</pre>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="&metronome_repo;/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
+            <td>
+              A <a href="https://github.com/basho/cuttlefish/">Cuttlefish</a>
+              configrution schema.
+              Used to translate <a href="/configure.html#configuration-file">configuration file</a>
+              to the internal format used by RabbitMQ and its runtime.
+
+              Metronome schema contains mappings for the <code>metronome.exchange</code> setting,
+              setting the exchange used by the plugin. Default value is defined in <code>rabbitmq_metronome.app.src</code>.
+
+              Configuration will be regenerated when the plugin is
+              enabled. Plugin-specific values in the config will cause error if
+              plugin has not been enabled.
+
+              More information about writing schema files can be found
+              <a href="https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Erlang-Developers">in the Cuttlefish docs</a>.
+
             </td>
           </tr>
           <tr>
