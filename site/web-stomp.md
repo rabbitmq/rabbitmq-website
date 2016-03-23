@@ -164,12 +164,12 @@ use the former as a port number, ignoring the one in `tcp_config`.
 In addition, encrypted connections are supported if SSL configuration parameters are
 provided in the `ssl_config` section:
 
-    web_stomp.ssl_config.port = 12345
-    web_stomp.ssl_config.backlog    = 1024
-    web_stomp.ssl_config.certfile   = path/to/certs/client/cert.pem
-    web_stomp.ssl_config.keyfile    = path/to/certs/client/key.pem
-    web_stomp.ssl_config.cacertfile = path/to/certs/testca/cacert.pem
-    web_stomp.ssl_config.password   = changeme
+    web_stomp.ssl.port = 12345
+    web_stomp.ssl.backlog    = 1024
+    web_stomp.ssl.certfile   = path/to/certs/client/cert.pem
+    web_stomp.ssl.keyfile    = path/to/certs/client/key.pem
+    web_stomp.ssl.cacertfile = path/to/certs/testca/cacert.pem
+    web_stomp.ssl.password   = changeme
 
 Or using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
