@@ -125,7 +125,7 @@ limitations under the License.
 	  </li>
 	  <li>
 	    Run the following command to update the package list:
-	    <pre class="sourcecode">sudo apt-get update</pre>.
+	    <pre class="sourcecode">sudo apt-get update</pre>
 	  </li>
 	  <li>
 	    Install <code>rabbitmq-server</code> package:
