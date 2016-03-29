@@ -229,12 +229,17 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
           [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
     ].
 
+## Basic HTTP Authentication
+
 The `use_http_auth` option extends the authentication by
 allowing clients to send the login and passcode in the
 HTTP Authorization header (using HTTP Basic Auth). If
 present, these credentials will be used. Otherwise, the
 default STOMP credentials are used. The credentials found
 in the CONNECT frame, if any, are ignored.
+
+This is an advanced feature that is only exposed via the [advanced configuration file](/configure.html#configuration-file)
+or the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
     [
       {rabbitmq_web_stomp,
