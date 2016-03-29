@@ -659,7 +659,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td>
               Channel operation timeout in milliseconds (used internally, not directly
               exposed to clients due to messaging protocol differences and limitations).
-              <p>Default: <code>5000</code></p>
+              <p>Default: <code>15000</code></p>
             </td>
           </tr>          
           <tr>
