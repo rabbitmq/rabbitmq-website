@@ -17,8 +17,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -29,7 +29,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-  
+
 <xsl:include href="feed.xsl"/>
 <xsl:output method="xml" media-type="text/html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 <xsl:param name="page-name"/>
@@ -129,7 +129,7 @@ limitations under the License.
       <p id="copyright">
         Copyright &#169; 2007-2016 Pivotal Software, Inc. All rights reserved
         |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
-        |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>        
+        |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>
         |&#160;<a href="https://groups.google.com/forum/#!topic/rabbitmq-users/N2XFX6eK7vg">We're Hiring</a>
       </p>
     </div>
@@ -263,9 +263,14 @@ limitations under the License.
 
       </td>
       <xsl:choose>
-        <xsl:when test="../@signature = 'yes' and not(@signature = 'no')">
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and @downloadpath">
           <td class="signature">
             <a href="/releases/{@downloadpath}/{@downloadfile}.asc">(Signature)</a>
+          </td>
+        </xsl:when>
+        <xsl:when test="../@signature = 'yes' and not(@signature = 'no') and not(@downloadpath)">
+          <td class="signature">
+            <a class="adownload" href="{@url}.asc">(Signature)</a>
           </td>
         </xsl:when>
         <xsl:otherwise>

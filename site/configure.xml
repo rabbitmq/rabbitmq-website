@@ -847,6 +847,14 @@ disk_free_limit.absolute = 2GB
             </td>
           </tr>
           <tr>
+            <td><code>channel_operation_timeout</code></td>
+            <td>
+              Channel operation timeout in milliseconds (used internally, not directly
+              exposed to clients due to messaging protocol differences and limitations).
+              <p>Default: <code>15000</code></p>
+            </td>
+          </tr>          
+          <tr>
             <td><code>heartbeat</code></td>
             <td>
               Value representing the heartbeat delay, in seconds, that
