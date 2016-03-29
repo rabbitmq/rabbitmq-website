@@ -199,7 +199,7 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
       {rabbitmq_web_stomp, [{ws_frame, binary}]}
     ].
 
-The Web STOMP uses the Cowboy web server under the hood.
+The Web STOMP plugin uses the Cowboy web server under the hood.
 Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server. You
 can specify those in the Web-Stomp plugin configuration, in
@@ -227,6 +227,18 @@ Or using the <a href="/configure.html#erlang-term-config-file">classic config fo
     [
       {rabbitmq_web_stomp,
           [{sockjs_opts, [{sockjs_url, "https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"}]}]}
+    ].
+
+The `use_http_auth` option extends the authentication by
+allowing clients to send the login and passcode in the
+HTTP Authorization header (using HTTP Basic Auth). If
+present, these credentials will be used. Otherwise, the
+default STOMP credentials are used. The credentials found
+in the CONNECT frame, if any, are ignored.
+
+    [
+      {rabbitmq_web_stomp,
+          [{use_http_auth, true}]}
     ].
 
 ## <a id="missing"/>Missing features
