@@ -377,7 +377,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
   {rabbit, [
     {tcp_listen_options, [
                           {backlog,   128},
-                          {nodelay,   true}
+                          {nodelay,   true},
                           {sndbuf,    32768},
                           {recbuf,    32768}
                          ]}
