@@ -320,7 +320,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
   {rabbit, [
     {tcp_listen_options, [
                           {backlog,   128},
-                          {nodelay,   true}  
+                          {nodelay,   true},
                           {sndbuf,    32768},
                           {recbuf,    32768}
                          ]}
