@@ -131,7 +131,7 @@ queues it knows. And that's exactly what we need for our logger.
 >                           routing_key='hello',
 >                           body=message)
 >
-> The `exchange` parameter is the the name of the exchange.
+> The `exchange` parameter is the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routing_key`, if it exists.
 
