@@ -133,6 +133,30 @@ limitations under the License.
           </li>
         </ul>
       </doc:section>
+      <doc:section name="plugin-version-constraints">
+        <doc:heading>Version constraints</doc:heading>
+        <p>
+            You can define required broker version for your plugin using <code>rabbitmq_versions</code> key 
+            in <code>.app.src</code> file.
+            You should define minimal patch bersion for each minor version of broker. For example:
+            <pre class="sourcecode">{application, my_plugin,[
+    ...
+    {rabbitmq_versions, ["3.5.2", "3.6.1", "3.7.0"]}
+]}</pre>
+            This plugin will be valid for rabbitmq 3.5.x starting from 3.5.2, 3.6.x starting from 3.6.1 and all 3.7.x versions.
+            <b>To support new minor version of broker, plugin should be updated</b>
+        </p>
+        <p>
+            If your plugin depends on some other plugins (e.g. rabbitmq_management), you can define required versions of this plugins.
+            Version definitions are similar to broker, but defined using <code>plugins_versions</code> key and
+            require dependency plugins names. For example:
+            <pre class="sourcecode">{application, my_plugin,[
+    ...
+    {plugins_versions, [{rabbitmq_management, ["3.6.1", "3.7.0"]}]}
+]}</pre>
+
+        </p>
+      </doc:section>
 
       <doc:section name="plugin-hello-world">
         <doc:heading>Example Plugin: Metronome</doc:heading>
