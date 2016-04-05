@@ -41,7 +41,7 @@ limitations under the License.
           </dt>
           <dd>
               define ports, file locations and names (taken from the shell, or
-							set in <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
+	      set in <code>rabbitmq-env.conf</code>/<code>rabbitmq-env-conf.bat</code>)
           </dd>
 					<br/>
 					<dt>
