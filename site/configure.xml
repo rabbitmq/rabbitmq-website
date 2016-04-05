@@ -273,7 +273,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               </td>
               <td>
                 Location of the file that contains environment variable definitions (without the <span class="envvar">RABBITMQ_</span>
-                prefix). Note that file name on Windows is different from other operating systems.
+                prefix). Note that the file name on Windows is different from other operating systems.
               </td>
             </tr>
 
@@ -471,7 +471,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         <p>
           If <code>rabbitmq-env.conf</code> doesn't exist, it can be created manually
-          in the location, specified by <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> variable. 
+          in the location, specified by the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> variable. 
           On Windows systems, it is named <code>rabbitmq-env.bat</code>.
         </p>
         <p>
