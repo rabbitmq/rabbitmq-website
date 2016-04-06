@@ -19,74 +19,7 @@ limitations under the License.
 ## Introduction
 
 <xi:include href="site/tutorials/tutorials-help.xml.inc"/>
-
-RabbitMQ is a message broker. In essence, it accepts messages from
-_producers_, and delivers them to _consumers_. In-between, it can
-route, buffer, and persist the messages according to rules you give
-it.
-
-RabbitMQ, and messaging in general, uses some jargon.
-
- * _Producing_ means nothing more than sending. A program that sends messages
-   is a _producer_. We'll draw it like that, with "P":
-   <div class="diagram">
-     <img src="/img/tutorials/producer.png" height="50" />
-     <div class="diagram_source">
-     digraph {
-       bgcolor=transparent;
-       truecolor=true;
-       rankdir=LR;
-       node [style="filled"];
-       //
-       P1 [label="P", fillcolor="#00ffff"];
-     }
-     </div>
-   </div>
-
- * _A queue_ is the name for a mailbox. It lives inside
-   RabbitMQ. Although messages flow through RabbitMQ and your
-   applications, they can be stored only inside a _queue_. A _queue_
-   is not bound by any limits, it can store as many messages as you
-   like - it's essentially an infinite buffer. Many _producers_ can send
-   messages that go to one queue - many _consumers_ can try to
-   receive data from one _queue_. A queue will be drawn like this, with
-   its name above it:
-   <div class="diagram">
-     <img src="/img/tutorials/queue.png" height="90" />
-     <div class="diagram_source">
-     digraph {
-       bgcolor=transparent;
-       truecolor=true;
-       rankdir=LR;
-       node [style="filled"];
-       //
-       subgraph cluster_Q1 {
-         label="queue_name";
-         color=transparent;
-         Q1 [label="{||||}", fillcolor="red", shape="record"];
-       };
-     }
-     </div>
-   </div>
-
- * _Consuming_ has a similar meaning to receiving. A _consumer_ is a program
-   that mostly waits to receive messages. On our drawings it's shown with "C":
-   <div class="diagram">
-     <img src="/img/tutorials/consumer.png" height="50" />
-     <div class="diagram_source">
-     digraph {
-       bgcolor=transparent;
-       truecolor=true;
-       rankdir=LR;
-       node [style="filled"];
-       //
-       C1 [label="C", fillcolor="#33ccff"];
-     }
-     </div>
-   </div>
-
-Note that the producer, consumer, and  broker do not have to reside on
-the same machine; indeed in most applications they don't.
+<xi:include href="site/tutorials/tutorials-intro.xml.inc"/>
 
 ## "Hello World"
 ### (using the Bunny Ruby Client)
