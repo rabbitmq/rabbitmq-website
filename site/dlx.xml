@@ -161,16 +161,17 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
       </p>
       <p>
         Dead-lettered messages are re-published with publisher
-        confirms turned on internally so, the dead-letter queues
-        the messages eventually land on must confirm the messages
-        before they are removed from the original queue.  In other
-        words, the publishing queue will <em>not</em> remove
-        messages before the dead-letter queues acknowledge
-        receiving them (see <a href="confirms.html">Confirms</a> for
-        details on the guarantees made).  Note that, in the event
-        of an unclean broker shutdown, the same message may be
-        duplicated on both the original queue and on the
-        dead-letter queues.
+        confirms turned on internally so, the "dead-letter queues"
+        (DLX routing targets) the messages eventually land on must
+        confirm the messages before they are removed from the original
+        queue. In other words, the "publishing" (the one in which
+        messages expired) queue will <em>not</em> remove messages
+        before the dead-letter queues acknowledge receiving them (see
+        <a href="confirms.html">Confirms</a> for details on the
+        guarantees made).  Note that, in the event of an unclean
+        broker shutdown, the same message may be duplicated on both
+        the original queue and on the dead-lettering destination
+        queues.
       </p>
       <p>
         It is possible to form a cycle of dead-letter queues.  For
