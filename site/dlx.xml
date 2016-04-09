@@ -174,7 +174,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
         queues.
       </p>
       <p>
-        It is possible to form a cycle of dead-letter queues.  For
+        It is possible to form a cycle of message dead-lettering.  For
         instance, this can happen when a queue dead-letters
         messages to the default exchange without specifiying a
         dead-letter routing key.  Messages in such cycles (i.e.
@@ -190,7 +190,7 @@ args.put("x-dead-letter-routing-key", "some-routing-key");</pre>
           <li>the exchange name is replaced with that of the
             latest dead-letter exchange,</li>
           <li>the routing key may be replaced with that specified
-            in a dead letter queue,</li>
+            in a queue performing dead lettering,</li>
           <li>if the above happens, the <code>CC</code> header
             will also be removed, and</li>
           <li>the <code>BCC</code> header will be removed as per
