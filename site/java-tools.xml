@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -84,6 +84,25 @@ limitations under the License.
           Start 10 consumers from a predeclared queue, and no producers.
         </dd>
       </dl>
+
+      <p>
+      If queue name is defined (<code>-u "queue-name"</code>), PerfTest will create a queue with this name
+      and all consumers will consume from this queue. The queue will be bound to the direct exchange with it's name
+      as routing key and this routing key will be used by producers to send messages.
+      This will cause messages from all producers to be sent to this single queue and all consumers to receive
+      messages from this single queue.
+      </p>
+      <p>
+      If queue name is not defined, PerfTest will create a random UUID routing key with which producers will publish messages.
+      Each consumer will create its own anonymous queue and bind it to the direct exchange with this routing key.
+      This will cause each message from all producers to be replicated to multiple queues
+      (number of queues equals number of consumers), while each consumer will be receiving messages from one queue.
+      When using PerfTest without queue name it makes sense to set ratesMode for consumer to
+      <code>producerRatesMode * producersCount</code>
+      For example:
+      <pre>runjava.sh com.rabbitmq.examples.PerfTest -x100 -y100 -r2 -R200</pre>
+      </p>
+
     </doc:section>
 
     <doc:section name="html-performance-tools">
