@@ -68,56 +68,43 @@ First, we import the client framework as a module:
 
     @import RMQClient;
 
-Now we call a send method from `viewDidLoad`:
+Now we call some receive and send methods from `viewDidLoad`. We have a little
+nap in between, so our receive consumer has chance to register before we send:
 
     - (void)viewDidLoad {
         [super viewDidLoad];
+        [self receive];
+        sleep(1);
         [self send];
 
 The send method itself begins with a connection to the RabbitMQ broker:
 
     - (void)send {
-        RMQConnection *conn = [RMQConnection new];
-        NSError *error = NULL;
-        [conn startWithError:&error];
+        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+        [conn start];
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
-we connect to a broker on the local machine with all default settings.
+we connect to a broker on the local machine with all default settings. A
+logging delegate is used so we can see any errors in the Xcode console.
 
 If we wanted to connect to a broker on a different
-machine we'd simply specify its name or IP address using the `initWithUri:`
+machine we'd simply specify its name or IP address using the `initWithUri:delegate:`
 convenience initializer:
 
-    RMQConnection *conn =
-    [[RMQConnection alloc] initWithUri:@"amqp://myrabbitserver.com:1234"];
-
-After connecting we handle any errors that may have occurred:
-
-    if (error) {
-        NSLog(@"Couldn't connect to local RabbitMQ broker: %@", error);
-        exit(1);
-    }
-
-We probably wouldn't log or exit the app in a real-life situation, but for our
-tutorial it's an easy way out.
+    RMQConnection *conn = [[RMQConnection alloc] initWithUri:@"amqp://myrabbitserver.com:1234"
+                                                    delegate:[RMQConnectionDelegateLogger new]];
 
 Next we create a channel, which is where most of the API for getting
 things done resides:
 
-    id<RMQChannel> ch = [conn createChannelWithError:&error];
-    if (error) {
-        NSLog(@"Error creating channel: %@", error);
-        [conn close];
-        exit(1);
-    }
+    id<RMQChannel> ch = [conn createChannel];
 
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
     RMQQueue *q = [ch queue:@"hello"];
     [q publish:@"Hello World!"];
-    NSLog(@"Sent 'Hello World!'");
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already.
@@ -130,8 +117,8 @@ Lastly, we close the connection:
 
 > #### Sending doesn't work!
 >
-> If this is your first time using RabbitMQ and you don't see the "Sent"
-> message then you may be left scratching your head wondering what could
+> If this is your first time using RabbitMQ and you get logged errors at this
+> point then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 1Gb free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
@@ -156,20 +143,10 @@ Note this matches up with the queue that `send` publishes to.
 
     - (void)receive {
         NSLog(@"Attempting to connect to local RabbitMQ broker");
-        RMQConnection *conn = [RMQConnection new];
-        NSError *error = NULL;
-        [conn startWithError:&error];
-        if (error) {
-            NSLog(@"Couldn't connect to local RabbitMQ broker: %@", error);
-            exit(1);
-        }
+        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+        [conn start];
 
         id<RMQChannel> ch = [conn createChannelWithError:&error];
-        if (error) {
-            NSLog(@"Error creating channel: %@", error);
-            [conn close];
-            exit(1);
-        }
 
         RMQQueue *q = [ch queue:@"hello"];
 
@@ -183,17 +160,9 @@ callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `RMQQueue subscribe:` does.
 
     NSLog(@"Waiting for messages.");
-    [q subscribeWithError:&error handler:^(id<RMQMessage>  _Nonnull message) {
+    [q subscribe:^(id<RMQMessage>  _Nonnull message) {
         NSLog(@"Received %@", message.content);
     }];
-    if (error) {
-        NSLog(@"Error subscribing: %@", error);
-        [conn close];
-        exit(1);
-    }
-
-We also include some error handling for the case when a subscription can't be
-made.
 
 [Here's the whole controller again (including send)][controller].
 
