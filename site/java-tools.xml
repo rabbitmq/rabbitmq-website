@@ -86,18 +86,18 @@ limitations under the License.
       </dl>
 
       <p>
-      If queue name is defined (<code>-u "queue-name"</code>), PerfTest will create a queue with this name
-      and all consumers will consume from this queue. The queue will be bound to the direct exchange with it's name
-      as routing key and this routing key will be used by producers to send messages.
+      If a queue name is defined (<code>-u "queue-name"</code>), PerfTest will create a queue with this name
+      and all consumers will consume from this queue. The queue will be bound to the direct exchange with its name
+      as the routing key. The routing key will be used by producers to send messages.
       This will cause messages from all producers to be sent to this single queue and all consumers to receive
       messages from this single queue.
       </p>
       <p>
-      If queue name is not defined, PerfTest will create a random UUID routing key with which producers will publish messages.
+      If the queue name is not defined, PerfTest will create a random UUID routing key with which producers will publish messages.
       Each consumer will create its own anonymous queue and bind it to the direct exchange with this routing key.
       This will cause each message from all producers to be replicated to multiple queues
-      (number of queues equals number of consumers), while each consumer will be receiving messages from one queue.
-      When using PerfTest without queue name it makes sense to set ratesMode for consumer to
+      (number of queues equals number of consumers), while each consumer will be receiving messages from only one queue.
+      When using PerfTest without a queue name it makes sense to set <code>ratesMode</code> for consumer to
       <code>producerRatesMode * producersCount</code>
       For example:
       <pre>runjava.sh com.rabbitmq.examples.PerfTest -x100 -y100 -r2 -R200</pre>
