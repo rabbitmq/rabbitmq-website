@@ -233,7 +233,7 @@ To receive all the logs:
 To receive all logs from the facility "`kern`":
 
     :::bash
-    $ phpreceive_logs_topic.php "kern.*"
+    $ php receive_logs_topic.php "kern.*"
 
 Or if you want to hear only about "`critical`" logs:
 
