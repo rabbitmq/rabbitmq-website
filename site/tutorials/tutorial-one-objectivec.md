@@ -68,16 +68,14 @@ First, we import the client framework as a module:
 
     @import RMQClient;
 
-Now we call some receive and send methods from `viewDidLoad`. We have a little
-nap in between, so our receive consumer has chance to register before we send:
+Now we call some send and receive methods from `viewDidLoad`:
 
     - (void)viewDidLoad {
         [super viewDidLoad];
-        [self receive];
-        sleep(1);
         [self send];
+        [self receive];
 
-The send method itself begins with a connection to the RabbitMQ broker:
+The send method begins with a connection to the RabbitMQ broker:
 
     - (void)send {
         RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
@@ -117,7 +115,7 @@ Lastly, we close the connection:
 
 > #### Sending doesn't work!
 >
-> If this is your first time using RabbitMQ and you get logged errors at this
+> If this is your first time using RabbitMQ and you get errors logged at this
 > point then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
 > (by default it needs at least 1Gb free) and is therefore refusing to
