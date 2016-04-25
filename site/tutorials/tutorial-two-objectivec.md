@@ -350,6 +350,9 @@ Using message acknowledgments and prefetch you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
 
+Now we can move on to [tutorial 3](tutorial-three-objectivec.html) and learn how
+to deliver the same message to many consumers.
+
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-one-objectivec.html
 [previous-code]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial1/tutorial1/ViewController.m
