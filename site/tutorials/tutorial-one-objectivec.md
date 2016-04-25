@@ -177,6 +177,8 @@ If you want to check on the queue, try using `rabbitmqctl list_queues`.
 
 Hello World!
 
+Time to move on to [part 2](tutorial-two-objectivec.html) and build a simple _work queue_.
+
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [controller]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial1/tutorial1/ViewController.m
 [devtools]:http://rabbitmq.com/devtools.html
