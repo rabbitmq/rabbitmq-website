@@ -3257,7 +3257,7 @@
   <class name = "confirm" handler = "channel" index = "85" label = "work with confirms">
     <doc>
       The Confirm class allows publishers to put the channel in
-      confirm mode and susequently be notified when messages have been
+      confirm mode and subsequently be notified when messages have been
       handled by the broker.  The intention is that all messages
       published on a channel in confirm mode will be acknowledged at
       some point.  By acknowledging a message the broker assumes
