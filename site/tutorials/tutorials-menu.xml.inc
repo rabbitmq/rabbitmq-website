@@ -110,6 +110,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-five-javascript.html">Javascript</a></li>
       <li><a href="/tutorials/tutorial-five-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-five-elixir.html">Elixir</a></li>
+      <li><a href="/tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
     </ul>
   </td>
 
