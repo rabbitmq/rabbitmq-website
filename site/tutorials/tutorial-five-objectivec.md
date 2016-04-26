@@ -242,9 +242,6 @@ with more than two routing key parameters.
 
 ([source][source])
 
-Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-ruby.html)
-
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-four-objectivec.html
-[next]:tutorial-six-objectivec.html
 [source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial5/tutorial5/ViewController.m
