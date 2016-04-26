@@ -179,6 +179,9 @@ table#tutorials td p {
 #tutorial .teaser_answer {
     display: none;
 }
+#tutorial .teaser_answer:target {
+    display: block;
+}
 
 .screenshots { margin: 20px 0 0 0; }
 .screenshots th { font-weight: normal; }
