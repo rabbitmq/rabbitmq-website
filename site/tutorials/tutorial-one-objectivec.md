@@ -158,7 +158,7 @@ callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `RMQQueue subscribe:` does.
 
     NSLog(@"Waiting for messages.");
-    [q subscribe:^(id<RMQMessage>  _Nonnull message) {
+    [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
         NSLog(@"Received %@", message.content);
     }];
 
