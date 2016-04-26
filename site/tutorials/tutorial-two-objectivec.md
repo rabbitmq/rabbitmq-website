@@ -64,7 +64,7 @@ fake a second of work for every dot in the message body. It will help us
 understand what's going on if each worker has a name, and each will need to pop
 messages from the queue and perform the task, so let's call it `workerNamed:`:
 
-    [q subscribe:^(id<RMQMessage>  _Nonnull message) {
+    [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
         NSLog(@"%@: Received %@", name, message.content);
         // imitate some work
         unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
@@ -169,7 +169,7 @@ explicitly setting `AMQBasicConsumeNoOptions` and sending a proper
 acknowledgment from the worker once we're done with a task.
 
     RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
-    [q subscribe:manualAck handler:^(id<RMQMessage>  _Nonnull message) {
+    [q subscribe:manualAck handler:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
         NSLog(@"%@: Received %@", name, message.content);
         // imitate some work
         unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
@@ -333,7 +333,7 @@ And our `workerNamed:`:
         NSLog(@"%@: Waiting for messages", name);
 
         RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
-        [q subscribe:manualAck handler:^(id<RMQMessage>  _Nonnull message) {
+        [q subscribe:manualAck handler:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
             NSLog(@"%@: Received %@", name, message.content);
             // imitate some work
             unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
@@ -349,6 +349,9 @@ And our `workerNamed:`:
 Using message acknowledgments and prefetch you can set up a
 work queue. The durability options let the tasks survive even if
 RabbitMQ is restarted.
+
+Now we can move on to [tutorial 3](tutorial-three-objectivec.html) and learn how
+to deliver the same message to many consumers.
 
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-one-objectivec.html
