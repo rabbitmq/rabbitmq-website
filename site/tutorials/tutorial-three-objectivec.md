@@ -74,7 +74,7 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
-    [ch fanout:@"logs" options:RMQExchangeDeclareNoOptions];
+    [ch fanout:@"logs"];
 
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
@@ -118,7 +118,7 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-    RMQExchange *x = [ch fanout:@"logs" options:RMQExchangeDeclareNoOptions];
+    RMQExchange *x = [ch fanout:@"logs"];
     [x publish:msg];
 
 
@@ -244,7 +244,7 @@ nameless one. Here goes the code for
     [conn start];
 
     id<RMQChannel> ch = [conn createChannel];
-    RMQExchange *x = [ch fanout:@"logs" options:RMQExchangeDeclareNoOptions];
+    RMQExchange *x = [ch fanout:@"logs"];
 
     NSString *msg = @"Hello World!";
 
@@ -266,14 +266,14 @@ The code for `receiveLogs`:
     [conn start];
 
     id<RMQChannel> ch = [conn createChannel];
-    RMQExchange *x = [ch fanout:@"logs" options:RMQExchangeDeclareNoOptions];
+    RMQExchange *x = [ch fanout:@"logs"];
     RMQQueue *q = [ch queue:@"" options:RMQQueueDeclareExclusive];
 
     [q bind:x];
 
     NSLog(@"Waiting for logs.");
 
-    [q subscribe:^(RMQMessage * _Nonnull message) {
+    [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
         NSLog(@"Received %@", message);
     }];
 
