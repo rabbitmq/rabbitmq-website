@@ -283,4 +283,4 @@ for messages based on a pattern.
 [client]:https://github.com/rabbitmq/rabbitmq-objc-client
 [previous]:tutorial-three-objectivec.html
 [next]:tutorial-five-objectivec.html
-[source]:https://github.com/rabbitmq/rabbitmq-tutorials/objective-c/tutorial4/tutorial4/ViewController.m
+[source]:https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/objective-c/tutorial4/tutorial4/ViewController.m
