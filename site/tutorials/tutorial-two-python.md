@@ -98,7 +98,6 @@ messages from the queue and perform the task, so let's call it `worker.py`:
         print(" [x] Received %r" % body)
         time.sleep(body.count(b'.'))
         print(" [x] Done")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
 
 
 Round-robin dispatching
