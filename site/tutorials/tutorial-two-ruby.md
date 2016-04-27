@@ -86,13 +86,11 @@ fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.rb`:
 
     :::ruby
-    q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
+    q.subscribe(:block => true) do |delivery_info, properties, body|
       puts " [x] Received #{body}"
       # imitate some work
       sleep body.count(".").to_i
       puts " [x] Done"
-
-      ch.ack(delivery_info.delivery_tag)
     end
 
 Note that our fake task simulates execution time.
