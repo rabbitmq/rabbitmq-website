@@ -113,10 +113,8 @@ handle messages delivered by RabbitMQ and perform the task, so let's call it `Wo
         Thread.Sleep(dots * 1000);
 
         Console.WriteLine(" [x] Done");
-
-        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
     };
-    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+    channel.BasicConsume(queue: "task_queue", noAck: true, consumer: consumer);
 
 
 Our fake task to simulate execution time:

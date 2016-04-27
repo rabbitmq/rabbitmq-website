@@ -93,9 +93,8 @@ messages from the queue and perform the task, so let's call it `worker.js`:
       console.log(" [x] Received %s", msg.content.toString());
       setTimeout(function() {
         console.log(" [x] Done");
-        ch.ack(msg);
       }, secs * 1000);
-    }, {noAck: false});
+    }, {noAck: true});
 
 Note that our fake task simulates execution time.
 
@@ -191,9 +190,10 @@ There aren't any message timeouts; RabbitMQ will redeliver the message when
 the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
-Message acknowledgments are turned off by default.
-It's time to turn them on using the `{noAck: false}` option and send a proper acknowledgment
-from the worker, once we're done with a task.
+Message acknowledgments have been turned off in previous examples.
+It's time to turn them on using the `{noAck: false}` (you may also remove the
+options altogether) option and send a proper acknowledgment from the worker,
+once we're done with a task.
 
     :::javascript
     ch.consume(q, function(msg) {
