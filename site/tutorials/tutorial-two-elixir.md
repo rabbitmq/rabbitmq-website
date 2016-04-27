@@ -103,7 +103,6 @@ messages from the queue and perform the task, so let's call it `worker.exs`:
             |> Kernel.*(1000)
             |> :timer.sleep
             IO.puts " [x] Done."
-            AMQP.Basic.ack(channel, meta.delivery_tag)
 
             wait_for_messages(channel)
         end

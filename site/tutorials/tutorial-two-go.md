@@ -98,7 +98,7 @@ messages from the queue and perform the task, so let's call it `worker.go`:
     msgs, err := ch.Consume(
       q.Name, // queue
       "",     // consumer
-      false,  // auto-ack
+      true,   // auto-ack
       false,  // exclusive
       false,  // no-local
       false,  // no-wait
@@ -111,7 +111,6 @@ messages from the queue and perform the task, so let's call it `worker.go`:
     go func() {
       for d := range msgs {
         log.Printf("Received a message: %s", d.Body)
-        d.Ack(false)
         dot_count := bytes.Count(d.Body, []byte("."))
         t := time.Duration(dot_count)
         time.Sleep(t * time.Second)
@@ -237,11 +236,11 @@ from the worker `d.Ack(false)`, once we're done with a task.
     go func() {
       for d := range msgs {
         log.Printf("Received a message: %s", d.Body)
-        d.Ack(false)
         dot_count := bytes.Count(d.Body, []byte("."))
         t := time.Duration(dot_count)
         time.Sleep(t * time.Second)
         log.Printf("Done")
+        d.Ack(false)
       }
     }()
 
