@@ -247,9 +247,13 @@ limitations under the License.
           </p>
           <p>
             Select <code>network</code> to <b>additionally</b> cause LDAP
-            network traffic to be logged at a somewhat lower level. This will
-            typically cause passwords to be written to the logs; exercise
-            caution.
+            network traffic to be logged at a somewhat lower level, with bind
+            request credentials scrubbed in the logs.
+          </p>
+          <p>
+            Select <code>network_unsafe</code> to cause LDAP network traffic to
+            be logged at a lower level, with bind request credentials such as
+            passwords, written to the logs; exercise caution.
           </p>
           <p>
             Default: <code>false</code>
