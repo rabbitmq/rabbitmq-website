@@ -275,13 +275,18 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
           <p>
             Select <code>true</code> for verbose logging of the logic used by
             the LDAP plugin to make decisions. This is typically useful for
-            debugging.
+            debugging. Note; credentials in bind request outcomes will be
+            scrubbed under this option.
           </p>
           <p>
             Select <code>network</code> to <b>additionally</b> cause LDAP
-            network traffic to be logged at a somewhat lower level. This will
-            typically cause passwords to be written to the logs; exercise
-            caution.
+            network traffic to be logged at a somewhat lower level, with bind
+            request credentials scrubbed.
+          </p>
+          <p>
+            Select <code>network_unsafe</code> to cause LDAP network traffic to
+            be logged at a lower level, with bind request credentials such as
+            passwords, written to the logs; exercise caution.
           </p>
           <p>
             Default: <code>false</code>
