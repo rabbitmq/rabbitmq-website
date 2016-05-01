@@ -501,7 +501,7 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
         </ul>
         <p>
           Those objects always end up in the closed state,
-          regardless of the reason that casued the closure, like
+          regardless of the reason that caused the closure, like
           an application request, an internal client library
           failure, a remote network request or network failure.
         </p>
