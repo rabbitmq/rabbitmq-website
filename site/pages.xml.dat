@@ -246,5 +246,5 @@ limitations under the License.
      <x:page url="/devtools.html" text="Development tools"/>
      <x:page url="/contact.html" text="Contact Us"/>
    </x:page>
-   <x:page url="https://groups.google.com/forum/#!topic/rabbitmq-users/N2XFX6eK7vg" text="We're Hiring"/>
+   <x:page url="http://pivotal.io/careers/engineering" text="Pivotal is Hiring"/>
 </x:pages>
