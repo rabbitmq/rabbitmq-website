@@ -549,13 +549,27 @@ ha-node-3:~#
         <p>
           Another option to configure clusters "on the fly" is
           <a href="http://www.linux-ha.org/wiki/Resource_agents">Pacemaker resource agents</a>.
+          There are several OCF RA agents exist upstream. More details in
+          <a href="https://github.com/lemenkov/pmk-rmq.md/blob/master/pmk-rmq.md">this comparison</a>.
           The OCF scripts for the cluster resource agents are located at
           <code>/usr/lib/ocf/resource.d/rabbitmq/</code>. The first one
           <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server</code>
           is a generic init-like script and provides no clustering.
           The second one <code>/usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha</code>
-          provides an active-active cluster configuration with a dynamic membership of nodes.
-          Note that only disc nodes are currently supported by the OCF agent.
+          (referenced as "RabbitMQ HA" in the comparison sreadsheet)
+          provides an active-active disposable cluster configuration with a dynamic membership
+          of nodes. Note that only disc nodes are currently supported by the OCF agent.
+          There is also an example <i>policy file</i>
+          <code>/usr/lib/ocf/resource.d/rabbitmq/set_rabbitmq_policy.sh.example</code>
+          to enforce required modes to queues runtime.
+        </p>
+        <p class="warning">                                                                                                                                                               
+          A disposable cluster does not guarantee data persistence for some failure modes!
+          It may end up wiping the mnesia database, which is all data, of all of the
+          cluster nodes. Make sure to make
+          <a href="https://www.rabbitmq.com/persistence-conf.html">persistent configs</a>
+          and configure export/import for definitions as well. See the
+          <i>definitions_dump_file</i> and <i>policy_file</i> OCF RA configuration parameters.
         </p>
         <p>
           To start using this OCF agent, first create a
@@ -648,9 +662,12 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
 
         <img src="img/Rabbitmq_clustering_pacemaker_promote.png"/>
         <p>
-          Note that there is a special file <code>/usr/lib/ocf/resource.d/rabbitmq/set_rabbitmq_policy.sh</code>
-          which will be called on each promote action. This script may be used
-          to specify ha-mode for mirrored queues, configure expiration policy and so on.
+          Note that the <i>policy_file</i>, if configured, will be called on each promote action.
+          This script may be used to specify ha-mode for mirrored queues, configure expiration
+          policy and so on. Also note that when a node is promoted, the rest of the cluster
+          members will remain running as is, unless any issues discovered later (lazy joining).
+          If another node restarts and starts complaining that it is "thinking is clustered with the
+          old master, but it refuses", the workflow will be exactly as depicted above for the <i>node-2</i>.
         </p>
         <p>
           Demoting a master resource:
