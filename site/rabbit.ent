@@ -15,15 +15,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!ENTITY version-java-client "3.6.1">
-<!ENTITY version-dotnet-client "3.6.1">
-<!ENTITY version-server "3.6.1">
-<!ENTITY version-erlang-client "3.6.1">
+<!ENTITY version-java-client "3.6.2">
+<!ENTITY version-dotnet-client "3.6.2">
+<!ENTITY version-server "3.6.2">
+<!ENTITY version-erlang-client "3.6.2">
 <!--
   Note, the following entity should contain underscores not dots, like
   rabbitmq_vX_Y_Z for version X.Y.Z.
 -->
-<!ENTITY version-server-tag "rabbitmq_v3_6_1">
+<!ENTITY version-server-tag "rabbitmq_v3_6_2">
 <!ENTITY standalone-otp-version "17.5">
 
 <!ENTITY serverDebMinorVersion "1">
@@ -33,7 +33,7 @@ limitations under the License.
 <!ENTITY dir-dotnet-client "rabbitmq-dotnet-client/v&version-dotnet-client;">
 <!ENTITY nameVersion-dotnet-client "rabbitmq-dotnet-client-&version-dotnet-client;">
 <!ENTITY dir-current-dotnet-apidoc "/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-client-htmldoc/html">
-<!ENTITY version-dotnet-client-tag "rabbitmq_v3_6_1">
+<!ENTITY version-dotnet-client-tag "rabbitmq_v3_6_2">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
 <!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">

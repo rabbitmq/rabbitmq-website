@@ -30,13 +30,26 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.2</td>
+        <td class="centre">19 May 2016</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li><a href="https://github.com/rabbitmq/rabbitmq-management/issues/41">New statistics collector</a> in management plugin</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_2">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.1</td>
         <td class="centre">1 March 2016</td>
         <td>
           <ul>
             <li>Bug fixes</li>
             <li>Security fixes to the management plugin (CVE-2015-8786)</li>
-            <li>Usability improvements</li>            
+            <li>Usability improvements</li>
           </ul>
         </td>
         <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_1">(changes)</a></td>
