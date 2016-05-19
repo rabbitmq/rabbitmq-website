@@ -574,7 +574,8 @@ ha-node-3:~#
         <p>
           To start using this OCF agent, first create a
           <a href="http://clusterlabs.org/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-resource-multistate.html">multi-state resource</a>
-          in your running Pacemaker cluster of 3 or more nodes. With either the <code>pcs</code>
+          in your running Pacemaker cluster of 3 or more nodes. Note, that a Pacemaker >= 1.1.14
+          is recommended. With either the <code>pcs</code>
           or <code>crm</code> tools, the example commands may look like:
         </p>
         <pre class="sourcecode">
@@ -748,6 +749,19 @@ $ <i>pcs resource describe ocf:rabbitmq:rabbitmq-server-ha</i>
         <pre class="sourcecode">
 $i <i>OCF_ROOT=/usr/lib/ocf /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server-ha meta-data</i> 
         </pre>
+        <p>We only briefly describe some of them here. A few, that help to
+          configure persistence and backup/restore existing definitions, was
+          already mentioned above: <i>definitions_dump_file</i> and
+          <i>policy_file</i>. Another useful parameter is <i>max_rabbitmqctl_timeouts</i>.
+          When set with a non-zero value (default is 3), it allows to detect the
+          <i>rabbitmqctl</i> consequent timeouts and mitigate by restarting
+          affected rabbit nodes, if the RabbitMQ control plane turned
+          unresponsive more times than it is allowed by the parameter.
+          Note, for a Pacemaker version 1.1.13 or lower, it does nothing.
+          Setting the parameter to zero will allow it to work for such cases as
+          well, although rendering it to "tolerate nothing" and restart a node
+          each time the CP becomes unresponsive.
+        </p>
       </doc:section>
   </body>
 </html>
