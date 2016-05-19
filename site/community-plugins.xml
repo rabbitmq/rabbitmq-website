@@ -234,6 +234,17 @@ limitations under the License.
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
             </ul>
           </r:plugin>
+
+          <r:plugin name="rabbitmq_trust_store">
+            Provides support for TLS (x509) certificate whitelisting.
+            All plugins which use the global TLS options will be
+            configured with the same whitelist.
+            <ul>
+              <li><r:community-plugin-link/></li>
+              <li>Author: <b>RabbitMQ Team</b></li>
+              <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-trust-store">rabbitmq/rabbitmq-trust-store</a></li>
+            </ul>
+          </r:plugin>
         </table>
       </doc:section>
 
