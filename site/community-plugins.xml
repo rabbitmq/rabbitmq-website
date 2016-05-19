@@ -241,7 +241,7 @@ limitations under the License.
             configured with the same whitelist.
             <ul>
               <li><r:community-plugin-link/></li>
-              <li>Author: <b>RabbitMQ Team</b></li>
+              <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-trust-store">rabbitmq/rabbitmq-trust-store</a></li>
             </ul>
           </r:plugin>
