@@ -434,36 +434,37 @@ limitations under the License.
         <pre>{in_group_nested, Pattern, AttributeName}</pre>
         <pre>{in_group_nested, Pattern, AttributeName, Scope}</pre>
         <p>
-          Similar to In Group Query, but also traverses the group hierarchy
-          if the logged in user is a member of group, which is a member of
-          another group etc. Membership is checked against the <code>member</code>
+          Similar to the <code>in_group</code> query but also traverses group hierarchy,
+          e.g. if the logged in user is a member of the group which is a member of
+          another group. Membership is checked against the <code>member</code>
           attribute or any named attribute.
           Groups are searched in the DN defined by the <code>group_lookup_base</code>
-          environment variable, or the <code>dn_lookup_base</code> variable if
+          configuration key, or the <code>dn_lookup_base</code> variable if
           former is <code>none</code>. If both lookup base variables are set to
           <code>none</code> the query will always return <code>false</code>.
-          Search scope can be set to either <code>subtree</code> or <code>onelevel</code>
+          Search scope can be set to either <code>subtree</code> or <code>single_level</code>.
           <ul>
-            <li><code>subtree</code> searches all objects contained under lookup base</li>
-            <li><code>onelevel</code> searches for groups directly contained within the lookup base</li>
+            <li><code>subtree</code> searches all objects contained under the lookup base</li>
+            <li><code>single_level</code> searches for groups directly contained within the lookup base</li>
           </ul>
-          Default value for scope is <code>subrtee</code>
-          The query is using in-depth search up from user to target group.
-          Search process will detect and skip cyclic paths.
-          This query can be time and memory consuming if users are members of many
-          groups, which are members of many groups as well. Preferred use case is
-          tree-based membership hierarchy.
-          It is still recommended to use plain <code>{in_group, ...}</code> query
-          whenever is possible.
+          Default value for scope is <code>subrtee</code> The query is
+          using in-depth search up from user to target group.  Search
+          process will detect and skip cyclic paths.  This query can
+          be time and memory consuming if users are members of many
+          groups, which are members of many groups as well. Use this
+          query when groups for a membership hierarchy. It is still
+          recommended to use plain <code>{in_group, ...}</code> query
+          when possible: nested groups can be challenging to reason
+          about.
         </p>
         <p>Example:</p>
         <pre class="example">[
             {group_lookup_base, "ou=groups,dc=example,dc=com"},
-            {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", onelevel}]</pre>
+            {vhost_access_query, {in_group_nested, "cn=${vhost}-groups,ou=groups,dc=example,dc=com"}, "member", single_level}]</pre>
         <p>
-          This grants access to vitrual hosts when the user a member in group
-          hierarchy, defined by <code>member</code> attribute values and located
-          single level under <code>ou=groups,dc=example,dc=com</code> directory.
+          This grants access to virtual hosts when the user a member in group
+          hierarchy defined by the <code>member</code> attribute values and located
+          in the <code>ou=groups,dc=example,dc=com</code> directory.
         </p>
       </doc:subsection>
 
