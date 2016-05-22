@@ -182,9 +182,9 @@ limitations under the License.
         <dt><code>group_lookup_base</code></dt>
         <dd>
             <p>
-                Base DN to search for nested groups when using
-                <code>{in_group_nested, ...}</code> filter only.
-                For more info, see the <a href="#query-reference">queries section</a>
+                Base DN to search for nested groups. Used by
+                the <code>{in_group_nested, ...}</code> query only.
+                For more info see the <a href="#query-reference">section on queries</a>.
             </p>
             <p>
                 For example, if you have directory containing all groups:
