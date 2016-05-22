@@ -28,7 +28,7 @@ limitations under the License.
   </head>
   <body>
       <p class="intro">
-        RabbitMQ supports several messing protocols, directly and through the
+        RabbitMQ supports several messaging protocols, directly and through the
         use of plugins. This page describes the supported protocols and
         helps differentiate between them.
       </p>
