@@ -187,7 +187,7 @@ limitations under the License.
                 For more info see the <a href="#query-reference">section on queries</a>.
             </p>
             <p>
-                For example, if you have directory containing all groups:
+                In the below example <code>ou=groups,dc=example,dc=com</code> is the directory that contains all groups:
             </p>
             <pre>{group_lookup_base, "ou=groups,dc=example,dc=com"}</pre>
             <p>
