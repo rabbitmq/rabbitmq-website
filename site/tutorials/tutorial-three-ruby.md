@@ -255,8 +255,7 @@ Putting it all together
 The producer program, which emits log messages, doesn't look much
 different from the previous tutorial. The most important change is that
 we now want to publish messages to our `logs` exchange instead of the
-nameless one. We need to supply a `routingKey` when sending, but its
-value is ignored for `fanout` exchanges. Here goes the code for
+nameless one. Here goes the code for
 `emit_log.rb` script:
 
     :::ruby
@@ -281,7 +280,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
 [(emit_log.rb source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/ruby/emit_log.rb)
 
 As you see, after establishing the connection we declared the
-exchange. This step is neccesary as publishing to a non-existing
+exchange. This step is necessary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
