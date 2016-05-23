@@ -252,8 +252,7 @@ Putting it all together
 The producer program, which emits log messages, doesn't look much
 different from the previous tutorial. The most important change is that
 we now want to publish messages to our `logs` exchange instead of the
-nameless one. We need to supply a `routing_key` when sending, but its
-value is ignored for `fanout` exchanges. Here goes the code for
+nameless one. Here goes the code for
 `emit_log.php` script:
 
     :::php
