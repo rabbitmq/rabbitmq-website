@@ -121,7 +121,7 @@ limitations under the License.
 	    <code>apt-key(8)</code>:
 	    <pre class="sourcecode">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
         sudo apt-key add -</pre>
-	    <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
+	    <p>Our public signing key is also <a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">available from Bintray</a>.</p>
 	  </li>
 	  <li>
 	    Run the following command to update the package list:
