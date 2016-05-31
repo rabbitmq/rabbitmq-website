@@ -513,7 +513,7 @@ ProxyPassReverse /    http://localhost:15672/</pre>
       </doc:section>
 
       <doc:section name="stats-db">
-        <doc:heading>Restart Statistics Database</doc:heading>
+        <doc:heading>Statistics Database: RAM Use and Operations</doc:heading>
 
         <p>
           Statistics database is stored entirely in memory. All of its contents
@@ -525,61 +525,60 @@ ProxyPassReverse /    http://localhost:15672/</pre>
         <p>
           The statistics database is stored in the memory of the stats process
           previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
-          3.6.2. Thus, it is possible to restart the database previously to
-          RabbitMQ 3.6.2 with only:
+          3.6.2. To restart the database with versions earlier than 3.6.2, use
 
 <pre class="example">
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
-         but from RabbitMQ 3.6.2 onwards it requires a full restart of the
-         database:
+
+Starting with RabbitMQ 3.6.2, use
 <pre class="example">
 rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
                   rabbit_mgmt_sup_sup:start_child().'
 </pre>
-         These commands must be executed on the node contaning the database.
+         These commands must be executed on the node hosting the database.
         </p>
       </doc:section>
 
       <doc:section name="memory-mgmt">
         <doc:heading>Memory Management</doc:heading>
-        <p>
+        <div>
           The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
 <pre class="example">
 rabbitmqctl status
 </pre>
-          or the request /api/nodes/<i>name</i> from the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
+          or a GET request to /api/nodes/<i>name</i> via the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
           HTTP API</a>.
 
           <p>
-          Publishing messages does not put any stress on the management database.
-          Stats are emitted periodically, regulated by the statistics interval
-          described above, or when certain components are created/declared
-          (e.g. a new connection or channel is opened, or a queue declared)
-          or closed/deleted.
+          Stats are emitted periodically, regulated by the statistics
+          interval described above, or when certain components are
+          created/declared (e.g. a new connection or channel is
+          opened, or a queue declared) or closed/deleted.  Message
+          rates do not directly affect management database memory
+          usage.
           </p>
           <p>
-          The new stats collector introduced in 3.6.2 reduces the memory consumption
-          during the processing of the stats. However, the total amount of memory
-          consumed still depends on the collection interval, rates mode and retention
-          policies.
+          total amount of memory consumed by the stats database
+          depends on the event emission interval, effective rates mode and
+          retention policies.
           </p>
           <p>
-          Increasing the statistics interval to 30-60s will reduce memory
-          comsuption in systems with large amounts of queues/channels/connections, while
-          decrease retention policies also contributes to the reduction.
+          Increasing the <code>rabbit.collect_statistics_interval</code> value to 30-60s (note: the value should
+          be set in milliseconds, e.g. <code>30000</code>) will reduce memory
+          comsuption for systems with large amounts of queues/channels/connections.
+          Adjusting retention policies to retain less data will also help.
           </p>
           <p>
-          The statistics interval can be changed in runtime, but will not have
+          The statistics interval can also be changed at runtime. Doing so will have no
           effect on existing connections, channels or queues. Only new stats
           emitting entities are affected.
 <pre class="example">
 rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
 </pre>
           </p>
-          To release all the memory, the statistics database can be restarted.
-
-        </p>
+          To release all the memory, the statistics database can be restarted (see above).
+        </div>
       </doc:section>
 
 
