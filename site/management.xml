@@ -519,12 +519,66 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           Statistics database is stored entirely in memory. All of its contents
           is transient and should be treated as such.
 
-          It is possible to restart stats database process, for example,
+          It is possible to restart the stats database, for example,
           to make it move to another node.
+        </p>
+        <p>
+          The statistics database is stored in the memory of the stats process
+          previously to RabbitMQ 3.6.2, and stored in ETS tables from RabbitMQ
+          3.6.2. Thus, it is possible to restart the database previously to
+          RabbitMQ 3.6.2 with only:
 
 <pre class="example">
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
+         but from RabbitMQ 3.6.2 onwards it requires a full restart of the
+         database:
+<pre class="example">
+rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
+                  rabbit_mgmt_sup_sup:start_child().'
+</pre>
+         These commands must be executed on the node contaning the database.
+        </p>
+      </doc:section>
+
+      <doc:section name="memory-mgmt">
+        <doc:heading>Memory Management</doc:heading>
+        <p>
+          The memory usage of the management database can be obtained with <i>rabbitmqctl</i>:
+<pre class="example">
+rabbitmqctl status
+</pre>
+          or the request /api/nodes/<i>name</i> from the <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
+          HTTP API</a>.
+
+          <p>
+          Publishing messages does not put any stress on the management database.
+          Stats are emitted periodically, regulated by the statistics interval
+          described above, or when certain components are created/declared
+          (e.g. a new connection or channel is opened, or a queue declared)
+          or closed/deleted.
+          </p>
+          <p>
+          The new stats collector introduced in 3.6.2 reduces the memory consumption
+          during the processing of the stats. However, the total amount of memory
+          consumed still depends on the collection interval, rates mode and retention
+          policies.
+          </p>
+          <p>
+          Increasing the statistics interval to 30-60s will reduce memory
+          comsuption in systems with large amounts of queues/channels/connections, while
+          decrease retention policies also contributes to the reduction.
+          </p>
+          <p>
+          The statistics interval can be changed in runtime, but will not have
+          effect on existing connections, channels or queues. Only new stats
+          emitting entities are affected.
+<pre class="example">
+rabbitmqctl eval 'application:set_env(rabbit, collect_statistics_interval, 60000).'
+</pre>
+          </p>
+          To release all the memory, the statistics database can be restarted.
+
         </p>
       </doc:section>
 
