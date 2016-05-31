@@ -147,7 +147,7 @@ limitations under the License.
       After downloading the server package, issue the following command as
       'root':
     </p>
-    <pre>rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
 
     <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>

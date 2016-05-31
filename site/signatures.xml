@@ -34,7 +34,7 @@ limitations under the License.
 	  When we build package archive files, both binary and source,
 	  we digitally sign them using <a
 	  href="http://www.gnupg.org/">GnuPG</a> and <a
-	  href="https://www.rabbitmq.com/rabbitmq-signing-key-public.asc">our public signing
+	  href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">our public signing
 	  key</a>.
     </p>
       </doc:section>
@@ -43,15 +43,15 @@ limitations under the License.
 	<doc:heading>Importing the signing key</doc:heading>
 	<p>
 	  First, you need to import our <a
-	  href="https://www.rabbitmq.com/rabbitmq-signing-key-public.asc">gpg key</a>. You can do that
-	  using <a href="http://pgp.mit.edu/">MIT PGP Public Key Server</a>:
+	  href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc">gpg key</a>. You can do that
+	  using <a href="https://sks-keyservers.net/overview-of-pools.php">SKS Keyservers Pool</a>:
 	</p>
-	<pre class="sourcecode">gpg --keyserver pgp.mit.edu --recv-keys 0x056E8E56</pre>
+	<pre class="sourcecode">gpg --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
 	<p>
 	  or you can download the key from our website directly:
 	</p>
-	<pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-gpg --import rabbitmq-signing-key-public.asc</pre>
+	<pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+gpg --import rabbitmq-release-signing-key.asc</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">
@@ -67,9 +67,15 @@ gpg --import rabbitmq-signing-key-public.asc</pre>
 	  the download area:
 	</p>
 	<pre class="sourcecode">
-$ gpg --verify rabbitmq-server_2.1.0-1_all.deb.asc rabbitmq-server_2.1.0-1_all.deb
-gpg: Signature made Tue 14 Sep 2010 02:28:03 PM BST using DSA key ID 056E8E56
-gpg: Good signature from "RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;"
+$ gpg --verify rabbitmq-server_3.6.2-1_all.deb.asc rabbitmq-server_3.6.2-1_all.deb
+gpg: Signature made Thu 12 May 2016 11:18:49 AM BST
+gpg:                using RSA key 0xEDF4AE3B59B046FA
+gpg: using subkey 0xEDF4AE3B59B046FA instead of primary key 0x6B73A36E6026DFCA
+gpg: using PGP trust model
+gpg: Good signature from "RabbitMQ Signing Key &lt;info@rabbitmq.com&gt;" [full]
+Primary key fingerprint: 4E30 C634 2FB4 AF5C 6334  2330 79A1 D640 D80A 61F0
+     Subkey fingerprint: 5EC4 26E8 A6F3 523D D924  8FC8 EDF4 AE3B 59B0 46FA
+gpg: binary signature, digest algorithm SHA512
 </pre>
         <p>
 	  If the signature is invalid, you will see a "BAD signature"
@@ -86,7 +92,7 @@ gpg: Good signature from "RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;
 	  GnuPG by signing it using your own key (to
 	  create your private key run <code>gpg --gen-key</code>):
 	</p>
-	<pre>gpg --sign-key 0x056E8E56</pre>
+	<pre>gpg --sign-key 0x6B73A36E6026DFCA</pre>
       </doc:section>
   </body>
 </html>

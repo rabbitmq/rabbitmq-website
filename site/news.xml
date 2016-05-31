@@ -32,6 +32,172 @@ limitations under the License.
       -->
 
    <doc:item>
+     <doc:date iso="2016-05-25T18:00:00+03:00">25 May 2016</doc:date>
+     <doc:title>New OpenPGP keys</doc:title>
+     <doc:text>
+       <p>
+         We are replacing our old OpenPGP keys we use to sign releases
+         and nightlies with new stronger keys. The old keys were still
+         DSA-1024 keys. The new ones are RSA-4096 keys. They are already
+         available at the following locations:
+       </p>
+       <ul>
+         <li><a href="http://www.rabbitmq.com/rabbitmq-release-signing-key.asc">Release signing key</a></li>
+         <li><a href="http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc">Nightly signing key</a></li>
+       </ul>
+
+       <p>
+         You will find below the transition statement for each replaced
+         keys. They are each signed with the appropriate old key and
+         their corresponding new key. There are links so you can easily
+         download the transition statements and verify them.
+       </p>
+
+       <p>
+         For Deb and RPM packages users, we recommend you import the new
+         keys as soon as possible, so the switch from the old to the new
+         key is smooth. See the documentation
+         <a href="https://www.rabbitmq.com/install-debian.html#apt">for Deb packages</a> and
+         <a href="https://www.rabbitmq.com/install-rpm.html">for RPM packages</a>
+         for instructions to import it.
+       </p>
+
+       <dl>
+         <dt><a href="https://www.rabbitmq.com/key-transition-0xF7B8CEA6056E8E56.txt">Transition statement for the release key</a></dt>
+         <dd>
+           <pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1,SHA512
+
+OpenPGP Key Transition Statement for RabbitMQ Release Signing Key
+
+We have created a new OpenPGP key and will be transitioning away from
+the old key. The old key has not been compromised and will continue
+to be valid for some time, but we will sign release artifacts and
+repositories with the new key going forward.
+
+We would like this new key to be re-integrated into the web of trust.
+This message is signed by both keys to certify the transition.  The new
+and old keys are signed by each other.
+
+The old key, which we are transitioning away from, is:
+
+pub   dsa1024/0xF7B8CEA6056E8E56 2007-07-06 [SC]
+      Key fingerprint = F783 72A0 6FF5 0C80 464F  C1B4 F7B8 CEA6 056E 8E56
+uid                              RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;
+
+The new key, to which we are transitioning, is:
+
+pub   rsa4096/0x6B73A36E6026DFCA 2016-05-17 [SC]
+      Key fingerprint = 0A9A F211 5F46 87BD 2980  3A20 6B73 A36E 6026 DFCA
+uid                              RabbitMQ Release Signing Key &lt;info@rabbitmq.com&gt;
+
+The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+
+To fetch the full new key from a public key server using GnuPG, run:
+
+  gpg --recv-key 0x6B73A36E6026DFCA
+
+If you already know my old key, you can now verify that the new key is
+signed by the old one:
+
+  gpg --check-sigs 0x6B73A36E6026DFCA
+
+If you'd like any further verification or have any questions about the
+transition please contact us directly.
+
+To verify the integrity of this statement:
+
+  wget -q -O- https://www.rabbitmq.com/key-transition-0xF7B8CEA6056E8E56.txt | gpg --verify
+
+The RabbitMQ Team
+-----BEGIN PGP SIGNATURE-----
+
+iEYEARECAAYFAlc8IjwACgkQ97jOpgVujlYL3QCfdO0C4R3iSDn+cmmff3xpEmWj
+9JcAnRP15QAkjlOeIBRDRM+1rqLGbAMniQIcBAEBCgAGBQJXPCI8AAoJEGtzo25g
+Jt/KtgUQALCNCCSnCX5A3jvtQl1iN9QegfSB7wXBkyWzc7wBwknzGCV+29P/y8rr
+e8i4nBm+Kdkq55UDkFcX+kPBe+m+H/Xb53fWcoMatUb82C0YEmnJ8C1zXDcHvlVH
+eSVRouWY6qa5GPcTIiGnsM5lTTYuo6BQUU7U1DbrGcpK9pi557a4mX+5aE05/hqR
+w8LzMv+jhdY0/enaeQ9oqvfIP32WEVhHlzCNU5XDK0z2uOXtNoAK8AOtHufD+JaX
+1DS1mHSr+l1LRkH346rW9fa5EaS6qqT1QNkjMwYDsrSiT3Z4/rIaDArPJf4SEL9R
+1DGizxVN/I5VY+v+DH0fv07P4+W6mJQEPRmia2NYgHfU39QtiQYi0UW8Ep8yNpEQ
+Pq+cjj1pKY9hWAkAQkRrxqM3k6h2OJEW2u9WIxuB6SaZDB1b6VZK1vQcFyybNqTx
+zBHr6A+bROU6GvzO+klTrrsqnEYMZavzhzO9nupoRdfJ3+bHJASWwQDgEgNAlI6h
+Yni/tbq8gcEGr6ym6cIOPz7Gwqxfpwfw0UMBfEzaZMbZkeJ6ZOzf7OIPhADtJ1S+
+ilHqXw1v5uTFdBDb2P6rBkJHkQICGULoW1mbjheG/l2nBz7gRPlq6eeohW7XjJYk
+645b/NuitFjWIKnnNO3YH6da92pLddzEuZOh9rdCpam/G9Uxyadk
+=GeDx
+-----END PGP SIGNATURE-----</pre>
+         </dd>
+         <dt><a href="https://www.rabbitmq.com/key-transition-0x0697F46E2DF405B6.txt">Transition statement for the nightlies key</a></dt>
+         <dd>
+           <pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1,SHA512
+
+OpenPGP Key Transition Statement for RabbitMQ (Nightly builds)
+
+We have created a new OpenPGP key and will be transitioning away from
+the old key. The old key has not been compromised and will continue
+to be valid for some time, but we will sign release artifacts and
+repositories with the new key going forward.
+
+We would like this new key to be re-integrated into the web of trust.
+This message is signed by both keys to certify the transition.  The new
+and old keys are signed by each other.
+
+The old key, which we are transitioning away from, is:
+
+pub   dsa1024/0x0697F46E2DF405B6 2010-08-23 [SC]
+      Key fingerprint = 9EFB 5FE2 CBEB 7999 23EE  0F58 0697 F46E 2DF4 05B6
+uid                              RabbitMQ (Nightly builds) &lt;info@rabbitmq.com&gt;
+
+The new key, to which we are transitioning, is:
+
+pub   rsa4096/0xD441A9DDBA058EF7 2016-05-17 [SC]
+      Key fingerprint = C77F 043E C632 A405 91D2  158B D441 A9DD BA05 8EF7
+uid                              RabbitMQ Nightly Signing Key &lt;info@rabbitmq.com&gt;
+
+The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
+
+To fetch the full new key from a public key server using GnuPG, run:
+
+  gpg --recv-key 0xD441A9DDBA058EF7
+
+If you already know my old key, you can now verify that the new key is
+signed by the old one:
+
+  gpg --check-sigs 0xD441A9DDBA058EF7
+
+If you'd like any further verification or have any questions about the
+transition please contact us directly.
+
+To verify the integrity of this statement:
+
+  wget -q -O- https://www.rabbitmq.com/key-transition-0x0697F46E2DF405B6.txt | gpg --verify
+
+The RabbitMQ Team
+-----BEGIN PGP SIGNATURE-----
+
+iEYEARECAAYFAlc8IiYACgkQBpf0bi30BbbgbQCgkY4xS5z+fSlGYhbYHnLEuEMs
+z9QAoKx5erqa0qiO6pXNm+Nt/LOusns2iQIcBAEBCgAGBQJXPCImAAoJENRBqd26
+BY73ouEQAJ3lQpKUZw/TbC2AMyKXEqZmikUiZE9cMXR53RAHAwOOxRlJYT4ykfKQ
+GQc/xefJ2nbSbRb2f871YYimw+CmOrMfTtz1RNEkcNvD9Shz3qtYPr/JtY+dA4bV
+7d8JcpVm4WObG0gijXZsLKSXTzK3NBNop2hmL/Sjk34aabu2o8X3S9XNqpH+qjqx
+dfMWifhcvviEPfdCUcGX5IPh25UgJEtu/wDnb1c7pLAnuKhZ7zo7hGWAICjXdLaz
++Khe7YRq/fjabXq6oJXng8o2AZwQsrRfPPF5pWiKpPOth11YYI9tUjpQwIiAl8Yc
+VdmxGyF4FvHTF8ERnQugwGYA4BWjp4xBUg7aLoOtfAp92EUVP10qgvFVQo708DIU
+hPvQDL4IJtf7qqNhwcz73LP+/a+5Bg1DceICZ5Ki2WyRfF1Ig//XQLhif0/gG0gC
+rG3W2TuoGgSMbbnuk42J7JUxRfHMNWy+y8dBBeMVExybZSGZqfJAOXbhY8RIPUK3
+4RMTVlsqBwhvix5L4NbbPsY5sIbbEq2RRn7Nepa9JpGEpddjVEpwaPW8op9ImRht
+U9Vex5RdGT0uoPDlqBsCffBxxy9MxTFD+NreVrah5NeCWiROG4WwDwOPmR2hH7io
+j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
+=brAw
+-----END PGP SIGNATURE-----</pre>
+         </dd>
+       </dl>
+     </doc:text>
+   </doc:item>
+
+   <doc:item>
       <doc:date iso="2016-05-19T18:00:00+03:00">19 May 2016</doc:date>
       <doc:title>RabbitMQ 3.6.2 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_2</doc:link>
@@ -67,7 +233,7 @@ limitations under the License.
         </p>
       </doc:text>
     </doc:item>
-      
+
    <doc:item>
       <doc:date iso="2016-03-01T18:00:00+03:00">1 March 2016</doc:date>
       <doc:title>RabbitMQ 3.6.1 release</doc:title>
