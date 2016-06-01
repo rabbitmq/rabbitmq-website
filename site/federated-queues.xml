@@ -106,7 +106,7 @@ limitations under the License.
         from another federated queue. One can even form 'loops', for
         example, queue A declares queue B to be upstream from it, and
         queue B declares queue A to be upstream from it. More complex
-        multiply-connected arrangements are allowed.
+        multiple-connected arrangements are allowed.
       </p>
 
       <h2>How It Works</h2>
