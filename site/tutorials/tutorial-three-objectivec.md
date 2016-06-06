@@ -111,7 +111,7 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
->     [ch.default_exchange publish:@"hello" routingKey:@"hello"];
+>     [ch.defaultExchange publish:@"hello" routingKey:@"hello" persistent:YES];
 >
 > Here we use the default or _nameless_ exchange: messages are
 > routed to the queue with the name specified by `routingKey`, if it exists.
@@ -273,7 +273,7 @@ The code for `receiveLogs`:
 
     NSLog(@"Waiting for logs.");
 
-    [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
+    [q subscribe:^(RMQMessage * _Nonnull message) {
         NSLog(@"Received %@", message);
     }];
 

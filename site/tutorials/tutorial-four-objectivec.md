@@ -266,8 +266,8 @@ The code for `receiveLogsDirect`:
 
         NSLog(@"Waiting for logs.");
 
-        [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
-            NSLog(@"%@:%@", deliveryInfo.routingKey, message.content);
+        [q subscribe:^(RMQMessage * _Nonnull message) {
+            NSLog(@"%@:%@", message.routingKey, message.content);
         }];
     }
 

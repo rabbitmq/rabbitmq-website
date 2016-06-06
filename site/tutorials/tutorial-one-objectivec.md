@@ -144,7 +144,7 @@ Note this matches up with the queue that `send` publishes to.
         RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
         [conn start];
 
-        id<RMQChannel> ch = [conn createChannelWithError:&error];
+        id<RMQChannel> ch = [conn createChannel];
 
         RMQQueue *q = [ch queue:@"hello"];
 
@@ -158,7 +158,7 @@ callback that will be executed when RabbitMQ pushes messages to
 our consumer. This is what `RMQQueue subscribe:` does.
 
     NSLog(@"Waiting for messages.");
-    [q subscribe:^(RMQDeliveryInfo * _Nonnull deliveryInfo, RMQMessage * _Nonnull message) {
+    [q subscribe:^(RMQMessage * _Nonnull message) {
         NSLog(@"Received %@", message.content);
     }];
 
