@@ -358,6 +358,18 @@ limitations under the License.
             files which make up the browser-based GUI.
           </p>
         </doc:subsection>
+        <doc:subsection name="max-backlog">
+          <doc:heading>Events backlog</doc:heading>
+          <p>
+            Under heavy load, the processing of statistics events can
+            increase the memory consumption. To reduce this,
+            the maximum backlog size of the channel and queue statistics
+            collectors can be regulated. The value of the
+            <code>stats_event_max_backlog</code> variable in
+            the <code>rabbitmq_management</code> application sets
+            the maximum size of both backlogs. Defaults to 250.
+          </p>
+        </doc:subsection>
         <doc:subsection name="example-config">
           <doc:heading>Example</doc:heading>
           <p>
@@ -568,6 +580,12 @@ rabbitmqctl status
           be set in milliseconds, e.g. <code>30000</code>) will reduce memory
           comsuption for systems with large amounts of queues/channels/connections.
           Adjusting retention policies to retain less data will also help.
+          </p>
+          <p>
+          The memory usage of the channel and stats collector processes can be limited
+          by setting the the maximum backlog queue size using the parameter
+          <code>stats_event_max_backlog</code>. If the backlog queue is full, new channel
+          and queue stats will be dropped until the previous ones have been processed.
           </p>
           <p>
           The statistics interval can also be changed at runtime. Doing so will have no
