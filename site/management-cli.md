@@ -27,8 +27,11 @@ you may want to consider using the HTTP API directly.
 ## Obtaining rabbitmqadmin
 
 With the management plugin installed, browse to
-`http://server-name:15672/cli/` to download. You will need Python 2.x,
-2.6 or later (i.e. not Python 3).
+`http://server-name:15672/cli/` to download. The tool supports
+
+ * Python `3.x`
+ * Python `2.6` or later for HTTP connections
+ * Python `2.7.9` or later for HTTPS connections
 
 
 Alternatively, you can download the version of rabbitmqadmin which
