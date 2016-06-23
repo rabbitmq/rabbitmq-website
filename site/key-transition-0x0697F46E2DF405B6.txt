@@ -1,0 +1,62 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1,SHA512
+
+OpenPGP Key Transition Statement for RabbitMQ (Nightly builds)
+
+We have created a new OpenPGP key and will be transitioning away from
+the old key. The old key has not been compromised and will continue
+to be valid for some time, but we will sign release artifacts and
+repositories with the new key going forward.
+
+We would like this new key to be re-integrated into the web of trust.
+This message is signed by both keys to certify the transition.  The new
+and old keys are signed by each other.
+
+The old key, which we are transitioning away from, is:
+
+pub   dsa1024/0x0697F46E2DF405B6 2010-08-23 [SC]
+      Key fingerprint = 9EFB 5FE2 CBEB 7999 23EE  0F58 0697 F46E 2DF4 05B6
+uid                              RabbitMQ (Nightly builds) <info@rabbitmq.com>
+
+The new key, to which we are transitioning, is:
+
+pub   rsa4096/0xD441A9DDBA058EF7 2016-05-17 [SC]
+      Key fingerprint = C77F 043E C632 A405 91D2  158B D441 A9DD BA05 8EF7
+uid                              RabbitMQ Nightly Signing Key <info@rabbitmq.com>
+
+The entire key may be downloaded from: http://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc
+
+To fetch the full new key from a public key server using GnuPG, run:
+
+  gpg --recv-key 0xD441A9DDBA058EF7
+
+If you already know my old key, you can now verify that the new key is
+signed by the old one:
+
+  gpg --check-sigs 0xD441A9DDBA058EF7
+
+If you'd like any further verification or have any questions about the
+transition please contact us directly.
+
+To verify the integrity of this statement:
+
+  wget -q -O- https://www.rabbitmq.com/key-transition-0x0697F46E2DF405B6.txt | gpg --verify
+
+The RabbitMQ Team
+-----BEGIN PGP SIGNATURE-----
+
+iEYEARECAAYFAlc8IiYACgkQBpf0bi30BbbgbQCgkY4xS5z+fSlGYhbYHnLEuEMs
+z9QAoKx5erqa0qiO6pXNm+Nt/LOusns2iQIcBAEBCgAGBQJXPCImAAoJENRBqd26
+BY73ouEQAJ3lQpKUZw/TbC2AMyKXEqZmikUiZE9cMXR53RAHAwOOxRlJYT4ykfKQ
+GQc/xefJ2nbSbRb2f871YYimw+CmOrMfTtz1RNEkcNvD9Shz3qtYPr/JtY+dA4bV
+7d8JcpVm4WObG0gijXZsLKSXTzK3NBNop2hmL/Sjk34aabu2o8X3S9XNqpH+qjqx
+dfMWifhcvviEPfdCUcGX5IPh25UgJEtu/wDnb1c7pLAnuKhZ7zo7hGWAICjXdLaz
++Khe7YRq/fjabXq6oJXng8o2AZwQsrRfPPF5pWiKpPOth11YYI9tUjpQwIiAl8Yc
+VdmxGyF4FvHTF8ERnQugwGYA4BWjp4xBUg7aLoOtfAp92EUVP10qgvFVQo708DIU
+hPvQDL4IJtf7qqNhwcz73LP+/a+5Bg1DceICZ5Ki2WyRfF1Ig//XQLhif0/gG0gC
+rG3W2TuoGgSMbbnuk42J7JUxRfHMNWy+y8dBBeMVExybZSGZqfJAOXbhY8RIPUK3
+4RMTVlsqBwhvix5L4NbbPsY5sIbbEq2RRn7Nepa9JpGEpddjVEpwaPW8op9ImRht
+U9Vex5RdGT0uoPDlqBsCffBxxy9MxTFD+NreVrah5NeCWiROG4WwDwOPmR2hH7io
+j8ZGl+/bUPvV/SuMHp61DbfBXjbeBmnP3mycMwo6LMr+ZBqwbVJq
+=brAw
+-----END PGP SIGNATURE-----

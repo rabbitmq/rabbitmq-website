@@ -62,7 +62,7 @@ limitations under the License.
           As with our published live releases, we continue to digitally
           sign the nightly build artefacts using
           <a href="http://www.gnupg.org/">GnuPG</a> and
-          <a href="https://rabbitmq.com/rabbit-nightly-signing-key-public.asc">
+          <a href="https://www.rabbitmq.com/rabbitmq-nightly-signing-key.asc">
               our nightly builds public signing key</a>.
       </p>
       <p>
@@ -88,7 +88,7 @@ limitations under the License.
           <a href="/nightlies/rabbitmq-java-client">Java Client</a>
         </li>
         <li id="rabbitmq-dotnet-client">
-            <a href="/nightlies/rabbitmq-dotnet-client">.NET/C# Client</a>
+            <a href="https://ci.appveyor.com/nuget/rabbitmq-dotnet-client-ci">.NET/C# Client (AppVeyor NuGet feed)</a>
         </li>
         <li id="rabbitmq-erlang-client">
           <a href="/nightlies/rabbitmq-erlang-client">Erlang Client</a>

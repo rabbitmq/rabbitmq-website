@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
     <title>Clients &amp; Developer Tools</title>
   </head>
@@ -36,7 +36,7 @@ limitations under the License.
         would like to see added to this list.
       </p>
           <doc:section name="java-dev">
-            <doc:heading>Java and JVM</doc:heading>
+            <doc:heading>Java and Spring</doc:heading>
             <h4>Java</h4>
             <ul class="plain">
               <li>
@@ -68,6 +68,110 @@ limitations under the License.
               </li>
 
             </ul>
+          </doc:section>
+
+          <doc:section name="dotnet-dev">
+            <doc:heading>.NET</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="dotnet.html">RabbitMQ .NET Client</a>
+              </li>
+              <li>
+                <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
+              </li>
+              <li>
+                <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
+              </li>
+              <li>
+                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
+              </li>
+              <li>
+                <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
+              </li>
+              <li>
+                <a href="https://github.com/mariuszwojcik/RabbitMQTools">RabbitMQTools</a>, PowerShell module containing cmdlets to manage RabbitMQ
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="ruby-dev">
+            <doc:heading>Ruby</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="http://rubybunny.info">Bunny</a>, a dead easy to use RabbitMQ Ruby client
+              </li>
+              <li>
+                <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
+              </li>
+              <li>
+                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
+              </li>
+              <li>
+                <a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
+              </li>
+              <li>
+                <a href="https://github.com/ruby-amqp/rabbitmq_http_api_client">Ruby RabbitMQ HTTP API client</a>
+              </li>
+              <li>
+                <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
+              </li>
+              <li>
+                <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="python-dev">
+            <doc:heading>Python</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
+                (<a href="https://github.com/pika/pika">source code</a>,
+                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
+              </li>
+              <li>
+                <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
+              </li>
+              <li>
+                <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
+                (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="php-dev">
+            <doc:heading>PHP</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/php-amqplib/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
+              </li>
+              <li>
+                <a href="https://github.com/php-amqplib/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
+              </li>
+              <li>
+                <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
+              </li>
+              <li>
+                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
+              </li>
+              <li>
+                <a href="https://github.com/php-amqplib/Thumper">Thumper</a> a library of messaging patterns
+              </li>
+              <li>
+                <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
+              </li>
+            </ul>
+          </doc:section>
+
+          <doc:section name="objc-swift-dev">
+            <doc:heading>Objective-C and Swift</doc:heading>
+            <ul class="plain">
+              <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
+            </ul>
+          </doc:section>
+
+          <doc:section name="alt-jvm-dev">
+            <doc:heading>Other JVM Languages</doc:heading>
             <h4>Scala</h4>
             <ul class="plain">
               <li>
@@ -115,103 +219,22 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
-          <doc:section name="ruby-dev">
-            <doc:heading>Ruby</doc:heading>
+          <doc:section name="node-dev">
+            <doc:heading>Node.js</doc:heading>
             <ul class="plain">
               <li>
-                <a href="http://rubybunny.info">Bunny</a>, a dead easy to use RabbitMQ Ruby client
+                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
+                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
               </li>
               <li>
-                <a href="http://rubymarchhare.info">March Hare</a>, a JRuby RabbitMQ client
+                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
+                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
+                these installation instructions</a> for rabbit.js on Ubuntu.
               </li>
               <li>
-                <a href="http://jondot.github.io/sneakers/">Sneakers</a>, a fast background processing framework for Ruby and RabbitMQ
-              </li>
-              <li>
-                <a href="https://github.com/gocardless/hutch">Hutch</a>, a convensions-based framework for writing (Ruby) services that communicate over RabbitMQ.
-              </li>
-              <li>
-                <a href="https://github.com/ruby-amqp/rabbitmq_http_api_client">Ruby RabbitMQ HTTP API client</a>
-              </li>
-              <li>
-                <a href="http://blog.rubyrabbitmq.info">Ruby RabbitMQ clients blog</a>
-              </li>
-              <li>
-                <a href="http://groups.google.com/group/ruby-amqp/">Ruby RabbitMQ clients mailing list</a>
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="python-dev">
-            <doc:heading>Python</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="http://pypi.python.org/pypi/pika">pika</a>, a pure-Python AMQP 0-9-1 client
-                (<a href="https://github.com/pika/pika">source code</a>,
-                <a href="http://readthedocs.org/docs/pika/en/latest/index.html">API reference</a>)
-              </li>
-              <li>
-                <a href="http://docs.celeryproject.org/en/latest/">Celery</a>, a distributed task queue for Django and pure Python
-              </li>
-              <li>
-                <a href="https://pypi.python.org/pypi/haigha">Haigha</a>, an asynchronous AMQP 0-9-1 client based on libevent
-                (the <a href="https://github.com/agoragames/haigha">source code and docs</a> are on github)
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="dotnet-dev">
-            <doc:heading>.NET</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="dotnet.html">RabbitMQ .NET Client</a>
-              </li>
-              <li>
-                <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
-              </li>
-              <li>
-                <a href="http://restbus.org">Restbus</a>, a service-oriented framework for .NET
-              </li>
-              <li>
-                <a href="http://particular.net/nservicebus">.NET NServiceBus client</a>
-              </li>
-              <li>
-                <a href="https://github.com/pardahlman/RawRabbit">RawRabbit</a>, a higher-level client that targets ASP.NET vNext and supports .NET Core.
-              </li>
-              <li>
-                <a href="https://github.com/mariuszwojcik/RabbitMQTools">RabbitMQTools</a>, PowerShell module containing cmdlets to manage RabbitMQ
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="php-dev">
-            <doc:heading>PHP</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/php-amqplib/php-amqplib">php-amqplib</a> a pure PHP, fully featured RabbitMQ client
-              </li>
-              <li>
-                <a href="https://github.com/php-amqplib/rabbitmqbundle">RabbitMqBundle</a> incorporates RabbitMQ messaging with the Symfony2 web framework
-              </li>
-              <li>
-                <a href="http://pecl.php.net/package/amqp">PECL AMQP library</a> built on top of the <a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ C client</a>
-              </li>
-              <li>
-                <a href="https://github.com/myYearbook/VorpalBunny">VorpalBunny</a> a PHP client library using <a href="plugins.html#rabbitmq_jsonrpc_channel">rabbitmq_jsonrpc_channel</a>
-              </li>
-              <li>
-                <a href="https://github.com/php-amqplib/Thumper">Thumper</a> a library of messaging patterns
-              </li>
-              <li>
-                <a href="http://www.yiiframework.com/extension/amqp/">CAMQP</a> an extension for the Yii framework providing a gateway for RabbitMQ messaging
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="perl-dev">
-            <doc:heading>Perl</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>, an asynchronous and multi-channel RabbitMQ client using Coro and AnyEvent::RabbitMQ
-              </li>
-              <li>
-                <a href="https://github.com/cooldaemon/AnyEvent-RabbitMQ">AnyEvent::RabbitMQ</a>, an asynchronous and multi-channel RabbitMQ client
+                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
+                <br/>
+                A node.js interface for RabbitMQ management statistics
               </li>
             </ul>
           </doc:section>
@@ -229,25 +252,6 @@ limitations under the License.
               </li>
               <li>
                 <a href="https://github.com/CopernicaMarketingSoftware/AMQP-CPP">AMQP-CPP</a>, a C++ RabbitMQ client
-              </li>
-            </ul>
-          </doc:section>
-          <doc:section name="node-dev">
-            <doc:heading>Node.js</doc:heading>
-            <ul class="plain">
-              <li>
-                <a href="https://github.com/squaremo/amqp.node">amqp.node</a>
-                RabbitMQ / AMQP 0-9-1 client for Node.js, supporting the full protocol
-              </li>
-              <li>
-                <a href="https://github.com/squaremo/rabbit.js">rabbit.js</a>
-                Message patterns in node.js using RabbitMQ. See also <a href="http://vbatik.blogspot.com/2011/09/installing-rabbitjs-on-ubuntu-1104.html">
-                these installation instructions</a> for rabbit.js on Ubuntu.
-              </li>
-              <li>
-                <a href="https://github.com/timisbusy/node-amqp-stats">amqp-stats</a>
-                <br/>
-                A node.js interface for RabbitMQ management statistics
               </li>
             </ul>
           </doc:section>
@@ -316,13 +320,25 @@ limitations under the License.
             <doc:heading>Mobile</doc:heading>
             <ul class="plain">
               <li>
-                <a href="https://github.com/profmaad/librabbitmq-objc">RabbitMQ Objective-C client</a> (wraps librabbitmq)
+                <a href="https://github.com/rabbitmq/rabbitmq-objc-client/">RabbitMQ Objective-C and Swift client</a> from the RabbitMQ team
               </li>
               <li>
                 <a href="https://www.cloudamqp.com/blog/2014-10-28-rabbitmq-on-android.html">Get Started with RabbitMQ on Android</a>
               </li>
             </ul>
           </doc:section>
+          <doc:section name="perl-dev">
+            <doc:heading>Perl</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/cooldaemon/RabbitFoot">RabbitFoot</a>, an asynchronous and multi-channel RabbitMQ client using Coro and AnyEvent::RabbitMQ
+              </li>
+              <li>
+                <a href="https://github.com/cooldaemon/AnyEvent-RabbitMQ">AnyEvent::RabbitMQ</a>, an asynchronous and multi-channel RabbitMQ client
+              </li>
+            </ul>
+          </doc:section>
+
           <doc:section name="database-integration">
             <doc:heading>Database Integration</doc:heading>
             <ul class="plain">
