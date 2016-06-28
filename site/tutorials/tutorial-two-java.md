@@ -464,7 +464,7 @@ And our `Worker.java`:
             }
           }
         };
-        channel.basicConsume(TASK_QUEUE_NAME, false, consumer);
+        channel.basicConsume(TASK_QUEUE_NAME, consumer);
       }
 
       private static void doWork(String task) {
