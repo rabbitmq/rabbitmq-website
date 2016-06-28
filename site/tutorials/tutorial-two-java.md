@@ -231,8 +231,8 @@ the consumer dies. It's fine even if processing a message takes a very, very
 long time.
 
 Message acknowledgments are turned on by default. In previous
-examples we explicitly turned them off via the `autoAck=true`
-flag. It's time to remove this flag and send a proper acknowledgment
+examples we explicitly turned them off passing `true` to `autoAck` flag of method
+`basicConsume`. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::java
@@ -252,6 +252,7 @@ from the worker, once we're done with a task.
         }
       }
     };
+    channel.basicConsume(TASK_QUEUE_NAME, consumer);
 
 
 Using this code we can be sure that even if you kill a worker using
