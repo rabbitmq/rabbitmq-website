@@ -78,7 +78,7 @@ limitations under the License.
 
     <p>
             The core API classes are <code>Connection</code>
-            and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
+            and <code>Channel</code>, representing an AMQP 0-9-1 connection and
             channel, respectively. They are typically imported before used:
     </p>
     <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
