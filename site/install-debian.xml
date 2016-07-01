@@ -59,6 +59,19 @@ limitations under the License.
               You can either download it with the link above and install
               with <code>dpkg</code>, or use our APT repository (see below).
           </p>
+
+          <p>
+            Below is a list of supported Debian-based distributions as of RabbitMQ 3.6.3:
+            <ul>
+              <li>Ubuntu 14.04 through 16.04</li>
+              <li>Debian Jessie</li>
+              <li>Debian Wheezy (some dependencies will require <a href="https://backports.debian.org/Instructions/">backports repository</a>)</li>
+            </ul>
+
+            The package may work on other Debian-based distributions
+            but their testing and support is done on a best effort
+            basis.
+          </p>
       </doc:subsection>
 
       <doc:subsection name="deb-package-dependencies">
