@@ -59,6 +59,10 @@ limitations under the License.
               You can either download it with the link above and install
               with <code>dpkg</code>, or use our APT repository (see below).
           </p>
+      </doc:subsection>
+
+      <doc:subsection name="supported-debian-distributions">
+          <doc:heading>Supported Distributions</doc:heading>
 
           <p>
             Below is a list of supported Debian-based distributions as of RabbitMQ 3.6.3:
