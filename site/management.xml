@@ -525,7 +525,7 @@ ProxyPassReverse /    http://localhost:15672/</pre>
       </doc:section>
 
       <doc:section name="stats-db">
-        <doc:heading>Statistics Database: RAM Use and Operations</doc:heading>
+        <doc:heading>Restarting Statistics Database</doc:heading>
 
         <p>
           Statistics database is stored entirely in memory. All of its contents

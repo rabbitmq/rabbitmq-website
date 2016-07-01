@@ -150,4 +150,4 @@ available system-wide:
 
 ### Close all connections
 
-    $ rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name=${conn} ; done
+    $ rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
