@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -41,57 +41,45 @@ limitations under the License.
 	  .deb for Debian-based Linux (from github.com)
         </r:download>
       </r:downloads>
-      <p>
-        <code>rabbitmq-server</code> is included in Debian since 6.0
-        (squeeze) and in Ubuntu since 9.04. However, the versions
-        included are often quite old. You will probably get better
-        results installing the .deb from our website. Check
-        the <a href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
-        package</a>
-        and <a href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
-        package</a> details for which version of the server is
-        available for which versions of the distribution.
-      </p>
-      <p>
-        You can either download it with the link above and install
-        with <code>dpkg</code>, or use our APT repository (see below).
-      </p>
-      <p>
-        All dependencies should be met automatically.
-      </p>
 
-      <doc:subsection name="running-debian">
-        <doc:heading>Run RabbitMQ Server</doc:heading>
-        <dl class="instructions">
-          <dt>Customise RabbitMQ Environment Variables</dt>
-          <dd>
-            <p>
-              The server should start using defaults.
-              You can
-              <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-              Also see how to <a href="configure.html#configuration-file">configure components</a>.
-            </p>
-          </dd>
-          <dt>Start the Server</dt>
-          <dd>
-            <p>
-              The server is started as a daemon by default when the
-              RabbitMQ server package is installed.
-            </p>
-            <p>
-              As an administrator, start and stop the
-              server as usual for Debian using
-              <code>invoke-rc.d rabbitmq-server <i>stop/start/etc</i></code>.
-            </p>
-            <p>
-              <em>Note: </em>The server is set up to run as system user
-              <code>rabbitmq</code>.
-              If you change the location of the Mnesia database or the logs,
-              you must ensure the files are owned by this user
-              (and also update the environment variables).
-            </p>
-          </dd>
-        </dl>
+      <doc:subsection name="standard-packages">
+          <doc:heading>Standard Ubuntu and Debian Repositories</doc:heading>
+          <p>
+          <code>rabbitmq-server</code> is included in standard Debian
+          and Ubuntu repositories. However, the versions included are
+          often quite old. You will probably get better results
+          installing the .deb from the apt repository on rabbitmq.com or <a href="">Package Cloud</a>. Check the <a
+          href="http://packages.qa.debian.org/r/rabbitmq-server.html">Debian
+          package</a> and <a
+          href="https://launchpad.net/ubuntu/+source/rabbitmq-server">Ubuntu
+          package</a> details for which version of the server is
+          available for which versions of the distribution.
+          </p>
+          <p>
+              You can either download it with the link above and install
+              with <code>dpkg</code>, or use our APT repository (see below).
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="deb-package-dependencies">
+        <doc:heading>Package Dependencies</doc:heading>
+        <p>
+          When installing with apt, all dependencies should be met automatically in recent distributions (e.g. Ubuntu 14.04 or later,
+          Debian Jessie). When that's not the case, dependency packages should be available
+          from an appropriate <a href="https://backports.debian.org/Instructions/">backports repository</a>.
+
+          However, when installing via dpkg that's not the case. Below is the list of
+          dependencies of RabbitMQ server as of <code>3.6.3</code>:
+
+          <ul>
+            <li><code>erlang-nox (>= 1:16.b.3) | esl-erlang.</code> <a href="/which-erlang.html">Erlang</a>
+            can installed either from the standard repositories or <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.</li>
+            <li><code>init-helpers-systemd >= 1.13</code>. Required for systemd support.</li>
+            <li><code>socat</code></li>
+            <li><code>adduser</code></li>
+            <li><code>logrotate</code></li>
+          </ul>
+        </p>
       </doc:subsection>
 
       <doc:subsection name="apt">
@@ -148,6 +136,40 @@ limitations under the License.
 
           See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
         </p>
+      </doc:subsection>
+
+      <doc:subsection name="running-debian">
+        <doc:heading>Run RabbitMQ Server</doc:heading>
+        <dl class="instructions">
+          <dt>Customise RabbitMQ Environment Variables</dt>
+          <dd>
+            <p>
+              The server should start using defaults.
+              You can
+              <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+              Also see how to <a href="configure.html#configuration-file">configure components</a>.
+            </p>
+          </dd>
+          <dt>Start the Server</dt>
+          <dd>
+            <p>
+              The server is started as a daemon by default when the
+              RabbitMQ server package is installed.
+            </p>
+            <p>
+              As an administrator, start and stop the
+              server as usual for Debian using
+              <code>invoke-rc.d rabbitmq-server <i>stop/start/etc</i></code>.
+            </p>
+            <p>
+              <em>Note: </em>The server is set up to run as system user
+              <code>rabbitmq</code>.
+              If you change the location of the Mnesia database or the logs,
+              you must ensure the files are owned by this user
+              (and also update the environment variables).
+            </p>
+          </dd>
+        </dl>
       </doc:subsection>
     </doc:section>
 
