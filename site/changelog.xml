@@ -30,6 +30,21 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.3</td>
+        <td class="centre">6 July 2016</td>
+        <td>
+          <ul>
+            <li>Important bug fixes</li>
+            <li><a href="https://groups.google.com/forum/#!topic/rabbitmq-users/orFuEYExcxk">systemd support in the Debian package</a> (Debian and Ubuntu users: please read)</li>
+            <li><a href="https://groups.google.com/forum/#!msg/rabbitmq-users/BO5cmEsdEhc/Jupz1_Q4AwAJ">New OpenGPG key</a> used for artifact signing</li>
+            <li>New plugins included into the distribution</li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_3">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.2</td>
         <td class="centre">19 May 2016</td>
         <td>
