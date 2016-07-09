@@ -69,12 +69,13 @@ limitations under the License.
             <ul>
               <li>Ubuntu 14.04 through 16.04</li>
               <li>Debian Jessie</li>
-              <li>Debian Wheezy (some dependencies will require <a href="https://backports.debian.org/Instructions/">backports repository</a>)</li>
+              <li>Debian Wheezy (<a href="https://backports.debian.org/Instructions/">Wheezy backports repository</a> is required)</li>
             </ul>
 
             The package may work on other Debian-based distributions
-            but their testing and support is done on a best effort
-            basis.
+            if dependencies (see below) are satisfied (e.g. using the
+            Wheezy backports repository) but their testing and support
+            is done on a best effort basis.
           </p>
       </doc:subsection>
 
@@ -90,8 +91,8 @@ limitations under the License.
 
           <ul>
             <li><code>erlang-nox (>= 1:16.b.3) | esl-erlang.</code> <a href="/which-erlang.html">Erlang</a>
-            can installed either from the standard repositories or <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.</li>
-            <li><code>init-helpers-systemd >= 1.13</code>. Required for systemd support.</li>
+            can installed either from the standard repositories or <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>.</li>
+            <li><code>init-system-helpers >= 1.13</code>. Required for systemd support.</li>
             <li><code>socat</code></li>
             <li><code>adduser</code></li>
             <li><code>logrotate</code></li>
@@ -154,6 +155,51 @@ limitations under the License.
           See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
         </p>
       </doc:subsection>
+
+
+      <doc:subsection name="ubuntu-12.04">
+        <doc:heading>Installation on Ubuntu 12.04</doc:heading>
+
+        <p>
+          RabbitMQ Debian package can be installed on Ubuntu 12.04 with the help of
+          additional apt repositories, namely:
+
+          <ul>
+            <li><a href="https://backports.debian.org/Instructions/">Debian Wheezy backports</a> to obtain <code>init-system-helpers</code></li>
+            <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions apt repository</a> to obtain a supported version of <code>esl-erlang</code></li>
+          </ul>
+        </p>
+        <p>
+          Below is an example of how the above repositories can be added on the command line:
+
+<pre class="sourcecode">
+# Add Debian Wheezy backports repository to obtain init-system-helpers
+gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
+gpg -a --export 7638D0442B90D010 | sudo apt-key add -
+echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
+
+# Add Erlang Solutions repository to obtain esl-erlang
+wget -O- https://packages.erlang-solutions.com/debian/erlang_solutions.asc | sudo apt-key add -
+echo 'deb https://packages.erlang-solutions.com/debian wheezy contrib' | sudo tee /etc/apt/sources.list.d/esl.list
+
+sudo apt-get update
+sudo apt-get install init-system-helpers socat esl-erlang
+
+# continue with RabbitMQ installation as explained above
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+</pre>
+        </p>
+        <p>
+          As mentioned above, Ubuntu 12.04 support in the RabbitMQ
+          Debian package is offered on a best-effort basis. We highly
+          recommend upgrading to Ubuntu 14.04 or 16.04.
+        </p>
+      </doc:subsection>
+
 
       <doc:subsection name="running-debian">
         <doc:heading>Run RabbitMQ Server</doc:heading>
