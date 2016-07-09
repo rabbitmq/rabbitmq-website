@@ -91,7 +91,7 @@ limitations under the License.
           <ul>
             <li><code>erlang-nox (>= 1:16.b.3) | esl-erlang.</code> <a href="/which-erlang.html">Erlang</a>
             can installed either from the standard repositories or <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.</li>
-            <li><code>init-helpers-systemd >= 1.13</code>. Required for systemd support.</li>
+            <li><code>init-system-helpers >= 1.13</code>. Required for systemd support.</li>
             <li><code>socat</code></li>
             <li><code>adduser</code></li>
             <li><code>logrotate</code></li>
