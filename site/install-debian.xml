@@ -69,12 +69,13 @@ limitations under the License.
             <ul>
               <li>Ubuntu 14.04 through 16.04</li>
               <li>Debian Jessie</li>
-              <li>Debian Wheezy (some dependencies will require <a href="https://backports.debian.org/Instructions/">backports repository</a>)</li>
+              <li>Debian Wheezy (<a href="https://backports.debian.org/Instructions/">Wheezy backports repository</a> is required)</li>
             </ul>
 
             The package may work on other Debian-based distributions
-            but their testing and support is done on a best effort
-            basis.
+            if dependencies (see below) are satisfied (e.g. using the
+            Wheezy backports repository) but their testing and support
+            is done on a best effort basis.
           </p>
       </doc:subsection>
 
