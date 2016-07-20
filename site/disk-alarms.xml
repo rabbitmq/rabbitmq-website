@@ -25,29 +25,20 @@ limitations under the License.
 
     <p>
       RabbitMQ will block producers when free disk space drops
-      below a certain limit. This is a good idea since even
-      transient messages can be paged to disk at any time, and
-      running out of disk space can cause the server to crash. By
-      default RabbitMQ will block producers, and prevent
-      memory-based messages from being paged to disk, when free disk
-      space drops below 50MB. This will reduce but not eliminate the
-      likelihood of a crash due to disk space being exhausted. In
-      particular, if messages are being paged out rapidly it is
-      possible to run out of disk space and crash in the time
-      between two runs of the disk space monitor. A more
-      conservative approach would therefore be to set the limit to
-      the same as the amount of memory installed on the system
-      (see the configuration <a href="#diskfreesup-usage">below</a>).
+      below a certain configurable limit. This is a good idea 
+      because even transient messages can be paged to disk at any
+      time, and running out of disk space can cause the server to
+      crash.
     </p>
 
     <p>
       Global flow control will be triggered if the amount of free disk
-      space drops below a configured limit. The free space of the
-      drive or partition that the broker database uses will be
-      monitored at least every 10 seconds to determine whether the
-      alarm should be raised or cleared.  Monitoring will start as
-      soon as the broker starts up, causing an entry in the broker
-      logfile:
+      space drops below a configured limit (the default limit is 50 MB).
+      The free space of the drive or partition that the broker database
+      uses will be monitored at least every 10 seconds to determine
+      whether the alarm should be raised or cleared.  Monitoring will
+      start as soon as the broker starts up, causing an entry in the
+      broker logfile:
       <pre class="sourcecode">
 =INFO REPORT==== 23-Jun-2012::14:52:41 ===
 Disk free limit set to 953MB</pre>
@@ -65,7 +56,7 @@ Disabling disk free space monitoring</pre>
     </p>
 
     <p>
-      RabbitMQ will periodically check the amount of free disk
+      RabbitMQ periodically checks the amount of free disk
       space. The frequency with which disk space is checked is related
       to the amount of space at the last check (in order to ensure
       that the disk alarm goes off in a timely manner when space is
@@ -75,20 +66,39 @@ Disabling disk free space monitoring</pre>
       second. This may have some effect on system load.
     </p>
 
+    <p>
+      When free disk space drops below the configured limit, RabbitMQ will
+      block producers and prevent memory-based messages
+      from being paged to disk. This will reduce the likelihood of a
+      crash due to disk space being exhausted, but will not eliminate
+      it entirely. In particular, if messages are being paged out
+      rapidly it is possible to run out of disk space and crash in the
+      time between two runs of the disk space monitor. A more
+      conservative approach would be to set the limit to the same as
+      the amount of memory installed on the system (see the configuration
+      section below).
+    </p>
+
     <doc:section name="diskfreesup-usage">
       <doc:heading>Configuring the Disk Free Space Limit</doc:heading>
       <p>
         The disk free space limit is configured with
         the <code>disk_free_limit</code> setting. By default 50MB is
-        required to be free on the database partition. (See the description of
-        <a href="/relocate.html">file locations</a> for the default location).
+        required to be free on the database partition (see the description of
+        <a href="/relocate.html">file locations</a> for the default database location).
         This configuration file sets the disk free space limit to 1GB:
+        <pre class="sourcecode">disk_free_limit.absolute = 1000000000</pre>
+        Or you can use memory units (KB, MB GB etc.) like this:
+        <pre class="sourcecode">disk_free_limit.absolute = 1GB</pre>
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
-        Or you can use memory units (kB, kiB, MB, MiB, GB, GiB etc.) like this:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, "1GB"}]}].</pre>
+      </p>
+      <p>
         It is also possible to set a free space limit relative to the RAM in the machine.
         This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
+        <pre class="sourcecode">disk_free_limit.relative = 1.0</pre>
+        Or, using the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
         <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
       </p>
       <p>

@@ -82,6 +82,12 @@ limitations under the License.
           demonstrates how to configure RabbitMQ on a specific IP and standard port:
 
 <pre class="code">
+listeners.tcp.1 = 192.168.1.99:5672
+</pre>
+
+Or using classic config format:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -98,6 +104,13 @@ limitations under the License.
           to listen on localhost only for both IPv4 and IPv6:
 
 <pre class="code">
+listeners.tcp.1 = 127.0.0.1:5672
+listeners.tcp.2 = ::1:5672
+</pre>
+
+Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"127.0.0.1", 5672},
@@ -111,6 +124,20 @@ limitations under the License.
           when a port is specified and RabbitMQ is configured to
           listen on all IPv6 addresses but IPv4 is not disabled
           explicitly, IPv4 address will be included, so
+
+<pre class="code">
+listeners.tcp.1 = :::5672
+</pre>
+
+is equivalent to
+
+<pre class="code">
+listeners.tcp.1 = 0.0.0.0:5672
+listeners.tcp.2 = :::5672
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
 <pre class="code">
 [
   {rabbit, [
@@ -138,6 +165,12 @@ is equivalent to
           In this example RabbitMQ will listen on an IPv4 interface only:
 
 <pre class="code">
+listeners.tcp.1 = 192.168.1.99:5672
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listeners, [{"192.168.1.99", 5672}]}
@@ -156,6 +189,12 @@ is equivalent to
         <doc:heading>Listening on IPv6 Interfaces Only</doc:heading>
         <p>
           In this example RabbitMQ will listen on an IPv6 interface only:
+
+<pre class="code">
+listeners.tcp.1 = fe80::2acf:e9ff:fe17:f97b:5672
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="code">
 [
@@ -215,6 +254,15 @@ is equivalent to
         </p>
         <p>
           The following example sets TCP buffers to 192 KiB:
+
+<pre class="code">
+tcp_listen_options.backlog = 128
+tcp_listen_options.nodelay = true
+tcp_listen_options.sndbuf = 196608
+tcp_listen_options.recbuf = 196608
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="code">
 [
@@ -316,6 +364,15 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           The following example sets TCP buffers to 32 KiB:
 
 <pre class="code">
+tcp_lsiten_options.backlog = 128
+tcp_lsiten_options.nodelay = true
+tcp_lsiten_options.sndbuf  = 32768
+tcp_lsiten_options.recbuf  = 32768
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="code">
 [
   {rabbit, [
     {tcp_listen_options, [
@@ -354,6 +411,26 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 
           The following example demonstrates that:
 
+In <code>rabbitmq.conf</code>
+
+<pre class="code">
+    tcp_listen_options.backlog = 4096
+    tcp_listen_options.nodelay = true
+</pre>
+
+together with the following bits in the <a href="/configure.html#advanced-config-file">advanced config file</a>:
+
+<pre class="code">
+[
+  {kernel, [
+    {inet_default_connect_options, [{nodelay, true}]},
+    {inet_default_listen_options,  [{nodelay, true}]}
+  ]}].
+</pre>
+
+When using the <a href="/configure.html#erlang-term-config-file">classic config format</a>,
+everything is configured in a single file:
+
 <pre class="code">
 [
   {kernel, [
@@ -390,6 +467,13 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
           disconnect due to a network interruption or choose to reconnect.
           This is configured using the <code>rabbit.tcp_listen_options.backlog</code>
           option:
+
+<pre class="code">
+tcp_listen_options.backlog = 4096
+tcp_listen_options.nodelay = true
+</pre>
+
+In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
 
 <pre class="code">
 [
@@ -523,9 +607,6 @@ sysctl -w fs.file-max 200000
           </ul>
         </p>
       </doc:subsection>
-
-      <doc:subsection name="os-tuning-max-open-file-handles">
-      </doc:subsection>
     </doc:section>
 
     <doc:section name="socket-gen-tcp-options">
@@ -534,39 +615,33 @@ sysctl -w fs.file-max 200000
       <doc:subsection name="socket-gen-tcp-options-common">
         <doc:heading>Common Options</doc:heading>
         <dl>
-          <dt><code>rabbit.tcp_listen_options.nodelay</code></dt>
+          <dt><code>tcp_listen_options.nodelay</code></dt>
           <dd>
             When set to <code>true</code>, disables
             <a href="http://en.wikipedia.org/wiki/Nagle's_algorithm">Nagle's algorithm</a>.
             Default is true. Highly recommended for most users.
           </dd>
-          <dt><code>rabbit.tcp_listen_options.sndbuf</code></dt>
+          <dt><code>tcp_listen_options.sndbuf</code></dt>
           <dd>
             See TCP buffers discussion earlier in this guide. Default value is
             automatically tuned by the OS, typically in the 88 KiB to 128 KiB range on
             modern Linux versions. Increasing buffer size improves consumer throughput
             and RAM use for every connection. Decreasing has the opposite effect.
           </dd>
-          <dt><code>rabbit.tcp_listen_options.recbuf</code></dt>
+          <dt><code>tcp_listen_options.recbuf</code></dt>
           <dd>
             See TCP buffers discussion earlier in this guide. Default value effects
             are similar to that of <code>rabbit.tcp_listen_options.sndbuf</code> but
             for publishers and protocol operations in general.
           </dd>
-          <dt><code>rabbit.tcp_listen_options.backlog</code></dt>
+          <dt><code>tcp_listen_options.backlog</code></dt>
           <dd>
             Maximum size of the unaccepted TCP connections queue. When this size
             is reached, new connections will be rejected. Set to 4096 or higher for
             environments with thousands of concurrent connections and possible bulk client
             reconnections.
           </dd>
-          <dt><code>rabbit.tcp_listen_options.linger</code></dt>
-          <dd>
-            When set to <code>{true, N}</code>, sets
-            the timeout in seconds for flushing unsent data when the (server) socket is
-            closed.
-          </dd>
-          <dt><code>rabbit.tcp_listen_options.keepalive</code></dt>
+          <dt><code>tcp_listen_options.keepalive</code></dt>
           <dd>
             When set to <code>true</code>, enables TCP keepalives (see above).
             Default is <code>false</code>. Makes sense for environments where
@@ -583,15 +658,12 @@ sysctl -w fs.file-max 200000
 
         <p>
           Below is the default TCP socket option configuration used by RabbitMQ:
-<pre class="code">
-[
-  {rabbit, [
-    {tcp_listen_options, [{backlog,       128},
-                          {nodelay,       true},
-                          {linger,        {true, 0}}]}
-  ]}
-].
-</pre>
+
+          <ul>
+            <li>TCP connection backlog is limited to 128 connections</li>
+            <li>Nagle's algorithm is disabled</li>
+            <li>Server socket lingering is enabled with the timeout of 0</li>
+          </ul>
         </p>
       </doc:subsection>
     </doc:section>
@@ -625,6 +697,11 @@ sysctl -w fs.file-max 200000
         default. When clients run in heavily constrained environments,
         it may be necessary to increase the timeout. This can be done via
         the <code>rabbit.handshake_timeout</code> (in milliseconds):
+<pre class="code">
+    handshake_timeout = 20000
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [
@@ -647,6 +724,12 @@ sysctl -w fs.file-max 200000
           If TLS/SSL is enabled, it may necessary to increase also the TLS/SSL
           handshake timeout. This can be done via
           the <code>rabbit.ssl_handshake_timeout</code> (in milliseconds):
+
+<pre class="code">
+    ssl_handshake_timeout = 10000
+</pre>
+
+Using the classic config format:
 
 <pre class="code">
 [

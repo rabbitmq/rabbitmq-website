@@ -156,6 +156,51 @@ limitations under the License.
         </p>
       </doc:subsection>
 
+
+      <doc:subsection name="ubuntu-12.04">
+        <doc:heading>Installation on Ubuntu 12.04</doc:heading>
+
+        <p>
+          RabbitMQ Debian package can be installed on Ubuntu 12.04 with the help of
+          additional apt repositories, namely:
+
+          <ul>
+            <li><a href="https://backports.debian.org/Instructions/">Debian Wheezy backports</a> to obtain <code>init-system-helpers</code></li>
+            <li><a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions apt repository</a> to obtain a supported version of <code>esl-erlang</code></li>
+          </ul>
+        </p>
+        <p>
+          Below is an example of how the above repositories can be added on the command line:
+
+<pre class="sourcecode">
+# Add Debian Wheezy backports repository to obtain init-system-helpers
+gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
+gpg -a --export 7638D0442B90D010 | sudo apt-key add -
+echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
+
+# Add Erlang Solutions repository to obtain esl-erlang
+wget -O- https://packages.erlang-solutions.com/debian/erlang_solutions.asc | sudo apt-key add -
+echo 'deb https://packages.erlang-solutions.com/debian wheezy contrib' | sudo tee /etc/apt/sources.list.d/esl.list
+
+sudo apt-get update
+sudo apt-get install init-system-helpers socat esl-erlang
+
+# continue with RabbitMQ installation as explained above
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+</pre>
+        </p>
+        <p>
+          As mentioned above, Ubuntu 12.04 support in the RabbitMQ
+          Debian package is offered on a best-effort basis. We highly
+          recommend upgrading to Ubuntu 14.04 or 16.04.
+        </p>
+      </doc:subsection>
+
+
       <doc:subsection name="running-debian">
         <doc:heading>Run RabbitMQ Server</doc:heading>
         <dl class="instructions">
