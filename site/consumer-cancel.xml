@@ -61,10 +61,10 @@ limitations under the License.
       present to the consumer callback. For example, in our Java
       client, the <code>Consumer</code> interface has a
       <code>handleCancel</code> callback, which can be overridden
-      by sub-classing the <code>QueueingConsumer</code> class:
+      by sub-classing the <code>DefaultConsumer</code> class:
       <pre class="sourcecode">
 channel.queueDeclare(queue, false, true, false, null);
-Consumer consumer = new QueueingConsumer(channel) {
+Consumer consumer = new DefaultConsumer(channel) {
     @Override
     public void handleCancel(String consumerTag) throws IOException {
         // consumer has been cancelled unexpectedly

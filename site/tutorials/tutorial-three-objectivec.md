@@ -119,7 +119,7 @@ queues it knows. And that's exactly what we need for our logger.
 Now, we can publish to our named exchange instead:
 
     RMQExchange *x = [ch fanout:@"logs"];
-    [x publish:msg];
+    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding]];
 
 
 Temporary queues
@@ -248,7 +248,7 @@ nameless one. Here goes the code for
 
     NSString *msg = @"Hello World!";
 
-    [x publish:msg];
+    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"Sent %@", msg);
 
     [conn close];
@@ -274,7 +274,7 @@ The code for `receiveLogs`:
     NSLog(@"Waiting for logs.");
 
     [q subscribe:^(RMQMessage * _Nonnull message) {
-        NSLog(@"Received %@", message);
+        NSLog(@"Received %@", [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
     }];
 
 [(source)](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/objective-c/tutorial3/tutorial3/ViewController.m)
