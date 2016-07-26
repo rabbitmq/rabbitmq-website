@@ -167,7 +167,7 @@ As always, we need to create an exchange first:
 And we're ready to send a message:
 
     RMQExchange *x = [ch direct:@"logs"];
-    [x publish:msg routingKey:severity];
+    [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -243,7 +243,7 @@ The code for the `emitLogDirect` method:
         id<RMQChannel> ch = [conn createChannel];
         RMQExchange *x    = [ch direct:@"direct_logs"];
 
-        [x publish:msg routingKey:severity];
+        [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:severity];
         NSLog(@"Sent '%@'", msg);
 
         [conn close];
@@ -267,7 +267,7 @@ The code for `receiveLogsDirect`:
         NSLog(@"Waiting for logs.");
 
         [q subscribe:^(RMQMessage * _Nonnull message) {
-            NSLog(@"%@:%@", message.routingKey, message.content);
+            NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
         }];
     }
 

@@ -147,7 +147,7 @@ The code for `emitLogTopic`:
         id<RMQChannel> ch = [conn createChannel];
         RMQExchange *x    = [ch topic:@"topic_logs"];
 
-        [x publish:msg routingKey:routingKey];
+        [x publish:[msg dataUsingEncoding:NSUTF8StringEncoding] routingKey:routingKey];
         NSLog(@"Sent '%@'", msg);
 
         [conn close];
@@ -170,7 +170,7 @@ The code for `receiveLogsTopic`:
         NSLog(@"Waiting for logs.");
 
         [q subscribe:^(RMQMessage * _Nonnull message) {
-            NSLog(@"%@:%@", message.routingKey, message.content);
+            NSLog(@"%@:%@", message.routingKey, [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
         }];
     }
 
