@@ -102,7 +102,7 @@ To send, we must declare a queue for us to send to; then we can publish a messag
 to the queue:
 
     RMQQueue *q = [ch queue:@"hello"];
-    [q publish:@"Hello World!"];
+    [ch.defaultExchange publish:[@"Hello World!" dataUsingEncoding:NSUTF8StringEncoding] routingKey:q.name];
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already.
@@ -159,7 +159,7 @@ our consumer. This is what `RMQQueue subscribe:` does.
 
     NSLog(@"Waiting for messages.");
     [q subscribe:^(RMQMessage * _Nonnull message) {
-        NSLog(@"Received %@", message.content);
+        NSLog(@"Received %@", [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding]);
     }];
 
 [Here's the whole controller again (including send)][controller].

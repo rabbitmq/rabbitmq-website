@@ -56,8 +56,24 @@ will take three seconds.
 
 We will slightly modify the `send` method from [our previous example][previous-code],
 to allow an arbitrary string to be sent as a method parameter. This
-method will schedule tasks to our work queue, so let's just rename it to
-`newTask`. The implementation remains the same for now.
+method will schedule tasks to our work queue, so let's rename it to `newTask`.
+The implementation remains the same apart from the new parameter:
+
+    - (void)newTask:(NSString *)msg {
+        NSLog(@"Attempting to connect to local RabbitMQ broker");
+        RMQConnection *conn = [[RMQConnection alloc] initWithDelegate:[RMQConnectionDelegateLogger new]];
+        [conn start];
+
+        id<RMQChannel> ch = [conn createChannel];
+
+        RMQQueue *q = [ch queue:@"hello"];
+
+        NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
+        [ch.defaultExchange publish:msgData routingKey:q.name];
+        NSLog(@"Sent %@", msg);
+
+        [conn close];
+    }
 
 Our old _receive_ method requires some bigger changes: it needs to
 fake a second of work for every dot in the message body. It will help us
@@ -65,9 +81,10 @@ understand what's going on if each worker has a name, and each will need to pop
 messages from the queue and perform the task, so let's call it `workerNamed:`:
 
     [q subscribe:^(RMQMessage * _Nonnull message) {
-        NSLog(@"%@: Received %@", name, message.content);
+        NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+        NSLog(@"%@: Received %@", name, messageText);
         // imitate some work
-        unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
+        unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
         NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
         sleep(sleepTime);
     }];
@@ -170,9 +187,10 @@ acknowledgment from the worker once we're done with a task.
 
     RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
     [q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
-        NSLog(@"%@: Received %@", name, message.content);
+        NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+        NSLog(@"%@: Received %@", name, messageText);
         // imitate some work
-        unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
+        unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
         NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
         sleep(sleepTime);
 
@@ -233,7 +251,7 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option.
 
-    [ch.defaultExchange publish:msg routingKey:q.name persistent:YES];
+    [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
 
 > #### Note on message persistence
 >
@@ -313,7 +331,8 @@ Final code of our `newTask:` method:
 
         RMQQueue *q = [ch queue:@"task_queue" options:RMQQueueDeclareDurable];
 
-        [ch.defaultExchange publish:msg routingKey:q.name persistent:YES];
+        NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
+        [ch.defaultExchange publish:msgData routingKey:q.name persistent:YES];
         NSLog(@"Sent %@", msg);
 
         [conn close];
@@ -334,9 +353,10 @@ And our `workerNamed:`:
 
         RMQBasicConsumeOptions manualAck = RMQBasicConsumeNoOptions;
         [q subscribe:manualAck handler:^(RMQMessage * _Nonnull message) {
-            NSLog(@"%@: Received %@", name, message.content);
+            NSString *messageText = [[NSString alloc] initWithData:message.body encoding:NSUTF8StringEncoding];
+            NSLog(@"%@: Received %@", name, messageText);
             // imitate some work
-            unsigned int sleepTime = (unsigned int)[message.content componentsSeparatedByString:@"."].count - 1;
+            unsigned int sleepTime = (unsigned int)[messageText componentsSeparatedByString:@"."].count - 1;
             NSLog(@"%@: Sleeping for %u seconds", name, sleepTime);
             sleep(sleepTime);
 
