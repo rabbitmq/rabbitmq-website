@@ -211,20 +211,48 @@ is equivalent to
           allocated for it. Generally speaking, the larger these buffers are, the more RAM
           is used per connection and better the throughput. On Linux, the OS will automatically
           tune TCP buffer size by default, typically settling on a value between 80 and 120 KB.
-          For maximum throughput, it is possible to increase buffer size using the <code>rabbit.tcp_listen_options</code>.
+          For maximum throughput, it is possible to
+          increase buffer size using the
+          <code>rabbit.tcp_listen_options</code>,
+          <code>rabbitmq_mqtt.tcp_listen_options</code>,
+          <code>rabbitmq_amqp1_0.tcp_listen_options</code>, and
+          related config keys.
         </p>
         <p>
-          The following example sets TCP buffers to 192 KiB:
+          The following example sets TCP buffers for AMQP 0-9-1 connections to 192 KiB:
 
 <pre class="code">
 [
   {rabbit, [
-  {tcp_listen_options, [
-                        {backlog,   128},
-                        {nodelay,   true},
-                        {sndbuf,    196608},
-                        {recbuf,    196608}
-                       ]}
+    {tcp_listen_options, [
+                          {backlog,   128},
+                          {nodelay,   true},
+                          {sndbuf,    196608},
+                          {recbuf,    196608}
+                         ]}
+  ]}
+].
+</pre>
+
+          The same example for MQTT and STOMP connections:
+
+<pre class="code">
+[
+  {rabbitmq_mqtt, [
+    {tcp_listen_options, [
+                          {backlog,   128},
+                          {nodelay,   true},
+                          {sndbuf,    196608},
+                          {recbuf,    196608}
+                         ]}
+                         ]},
+  {rabbitmq_stomp, [
+    {tcp_listen_options, [
+                          {backlog,   128},
+                          {nodelay,   true},
+                          {sndbuf,    196608},
+                          {recbuf,    196608}
+                         ]}
   ]}
 ].
 </pre>
@@ -307,17 +335,45 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
       <doc:subsection name="tuning-for-large-number-of-connections-tcp-buffer-size">
         <doc:heading>TCP Buffer Size</doc:heading>
         <p>
-          See the section above for an overview.
-          it is possible to decrease buffer size using the <code>rabbit.tcp_listen_options</code> to reduce
-          the amount of RAM by the server used per connection. This is often necessary in environments
-          where the number of concurrent connections sustained per node is more important than throughput.
+          See the section above for an overview. It is possible to
+          decrease buffer size using the
+          <code>rabbit.tcp_listen_options</code>,
+          <code>rabbitmq_mqtt.tcp_listen_options</code>,
+          <code>rabbitmq_amqp1_0.tcp_listen_options</code>, and
+          related config keys to reduce the amount of RAM by the
+          server used per connection. This is often necessary in
+          environments where the number of concurrent connections
+          sustained per node is more important than throughput.
         </p>
         <p>
-          The following example sets TCP buffers to 32 KiB:
+          The following example sets TCP buffers for AMQP 0-9-1 connections to 32 KiB:
 
 <pre class="code">
 [
   {rabbit, [
+    {tcp_listen_options, [
+                          {backlog,   128},
+                          {nodelay,   true},
+                          {sndbuf,    32768},
+                          {recbuf,    32768}
+                         ]}
+  ]}
+].
+</pre>
+
+          The same example for MQTT and STOMP connections:
+
+<pre class="code">
+[
+  {rabbitmq_mqtt, [
+    {tcp_listen_options, [
+                          {backlog,   128},
+                          {nodelay,   true},
+                          {sndbuf,    32768},
+                          {recbuf,    32768}
+                         ]}
+                         ]},
+  {rabbitmq_stomp, [
     {tcp_listen_options, [
                           {backlog,   128},
                           {nodelay,   true},
