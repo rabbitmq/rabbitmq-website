@@ -68,7 +68,7 @@ limitations under the License.
         </p>
       </doc:text>
     </doc:item>
-      
+
    <doc:item>
       <doc:date iso="2016-07-29T18:00:00+03:00">29 July 2016</doc:date>
       <doc:title>RabbitMQ 3.6.4 release</doc:title>
