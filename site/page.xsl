@@ -122,16 +122,17 @@ limitations under the License.
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
-      <p class="righter">
+      <p>
         <a href="/sitemap.html">Sitemap</a> |
-        <a href="/contact.html">Contact</a>
+        <a href="/contact.html">Contact</a> |
+        <a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a> |
+        <a href="https://pivotal.io/careers/engineering">Pivotal is Hiring</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2007-2016 Pivotal Software, Inc. All rights reserved
-        |&#160;<a href="https://pivotal.io/terms-of-use">Terms of Use</a>
-        |&#160;<a href="https://pivotal.io/privacy-policy">Privacy</a>
-        |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>
-        |&#160;<a href="https://pivotal.io/careers/engineering">Pivotal is Hiring</a>
+        Copyright &#169; 2007-2016 <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
+        <a href="https://pivotal.io/terms-of-use">Terms of Use</a>,
+        <a href="https://pivotal.io/privacy-policy">Privacy</a> and
+        <a href="/trademark-guidelines.html">Trademark Guidelines</a>
       </p>
     </div>
   </xsl:template>

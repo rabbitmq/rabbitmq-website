@@ -158,13 +158,19 @@ ol.plain li, ul.plain li {
 	padding: 0px 0px 0px 0px;
 	border-bottom: none;
 }
-ul.plain li {
-	list-style-type : disc !important;	
+ul.plain>li {
+	list-style-type : disc !important;
 }
-ol.plain li {
-	list-style-type : decimal !important;	
+ol.plain>li {
+	list-style-type : decimal !important;
 }
-	
+ol.alpha>li {
+    list-style-type : lower-alpha !important;
+}
+ol.roman>li {
+    list-style-type : lower-roman !important;
+}
+
 .col li {
 	border-bottom: #e4e4e4 1px solid;
 }
