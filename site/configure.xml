@@ -1029,8 +1029,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 <pre>
     tcp_listen_options.backlog = 128
     tcp_listen_options.nodelay = true
-    tcp_listen_options.linger  = {true,0}
-    tcp_listen_options.exit_on_close =false
+    tcp_listen_options.exit_on_close = false
                 </pre>
               </p>
             </td>
