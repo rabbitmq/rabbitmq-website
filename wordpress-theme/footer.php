@@ -10,7 +10,7 @@
         <a href="https://pivotal.io/careers/engineering">Pivotal is Hiring</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2007-2016 <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
+        Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
         <a href="https://pivotal.io/terms-of-use">Terms of Use</a>,
         <a href="https://pivotal.io/privacy-policy">Privacy</a> and
         <a href="/trademark-guidelines.html">Trademark Guidelines</a>
