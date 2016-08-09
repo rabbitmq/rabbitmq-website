@@ -8,8 +8,11 @@
           <a href="/contact.html">Contact</a>
         </p>
         <p id="copyright">
-          Copyright &#169; 2014 Pivotal Software, Inc. All rights reserved
-          |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
+          Copyright &#169; 2007-2016 Pivotal Software, Inc. All rights reserved
+          |&#160;<a href="https://pivotal.io/terms-of-use">Terms of Use</a>
+          |&#160;<a href="https://pivotal.io/privacy-policy">Privacy</a>
+          |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>
+          |&#160;<a href="https://pivotal.io/careers/engineering">Pivotal is Hiring</a>
         </p>
       </div>
     </div>
