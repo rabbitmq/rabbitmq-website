@@ -879,6 +879,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <p>Default:
                 <pre>[{backlog,       128},
          {nodelay,       true},
+         {linger,        {true,0}},
          {exit_on_close, false}]</pre>
               </p>
             </td>

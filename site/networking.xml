@@ -225,10 +225,12 @@ is equivalent to
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
   ]}
 ].
@@ -240,18 +242,22 @@ is equivalent to
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
                          ]},
   {rabbitmq_stomp, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false}
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
   ]}
 ].
@@ -352,10 +358,12 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
   ]}
 ].
@@ -367,18 +375,22 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
                          ]},
   {rabbitmq_stomp, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
   ]}
 ].
@@ -418,8 +430,10 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
   ]},
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   4096},
-                          {nodelay,   true}
+                          {backlog,       4096},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false}
                          ]}
   ]}
 ].
@@ -451,8 +465,10 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   4096},
-                          {nodelay,   true}
+                          {backlog,       4096},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false}
                          ]}
   ]}
 ].
@@ -644,7 +660,8 @@ sysctl -w fs.file-max 200000
   {rabbit, [
     {tcp_listen_options, [{backlog,       128},
                           {nodelay,       true},
-                          {linger,        {true, 0}}]}
+                          {linger,        {true, 0}},
+                          {exit_on_close,  false}]
   ]}
 ].
 </pre>
