@@ -78,6 +78,12 @@ ConnectionFactory cf = new ConnectionFactory();
 // set the heartbeat timeout to 60 seconds
 cf.setRequestedHeartbeat(60);
 </pre>
+
+      <p>
+        Note that in case RabbitMQ server has a non-zero heartbeat timeout
+        configured (which is the default in versions starting with 3.6.x),
+        the client can only lower the value but not increase it.
+      </p>
     </doc:section>
 
     <doc:section name="using-heartbeats-in-dotnet">

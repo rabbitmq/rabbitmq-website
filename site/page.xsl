@@ -97,7 +97,7 @@ limitations under the License.
       <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
     </div>
     <div id="pivotal-logo">
-      <a href="http://pivotal.io/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
+      <a href="https://pivotal.io/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
     </div>
     <div id="nav-search">
       <xsl:if test="$site-mode = 'www'">
@@ -122,15 +122,17 @@ limitations under the License.
   <xsl:template name="page-footer">
     <div class="clear"/>
     <div class="pageFooter">
-      <p class="righter">
+      <p>
         <a href="/sitemap.html">Sitemap</a> |
-        <a href="/contact.html">Contact</a>
+        <a href="/contact.html">Contact</a> |
+        <a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a> |
+        <a href="https://pivotal.io/careers/engineering">Pivotal is Hiring</a>
       </p>
       <p id="copyright">
-        Copyright &#169; 2007-2016 Pivotal Software, Inc. All rights reserved
-        |&#160;<a href="http://pivotal.io/privacy-policy">Privacy Policy</a>
-        |&#160;<a href="https://github.com/rabbitmq/rabbitmq-website/">This Site is Open Source</a>
-        |&#160;<a href="http://pivotal.io/careers/engineering">Pivotal is Hiring</a>
+        Copyright &#169; 2007-Present <a href="https://pivotal.io/">Pivotal Software</a>, Inc. All rights reserved.
+        <a href="https://pivotal.io/terms-of-use">Terms of Use</a>,
+        <a href="https://pivotal.io/privacy-policy">Privacy</a> and
+        <a href="/trademark-guidelines.html">Trademark Guidelines</a>
       </p>
     </div>
   </xsl:template>

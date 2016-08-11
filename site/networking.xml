@@ -263,6 +263,8 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 <pre class="code">
 tcp_listen_options.backlog = 128
 tcp_listen_options.nodelay = true
+tcp_listen_options.linger.on      = true
+tcp_listen_options.linger.timeout = 0
 tcp_listen_options.sndbuf = 196608
 tcp_listen_options.recbuf = 196608
 </pre>
@@ -273,10 +275,12 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
   ]}
 ].
@@ -288,18 +292,22 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
                          ]},
   {rabbitmq_stomp, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    196608},
-                          {recbuf,    196608}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false}
+                          {sndbuf,        196608},
+                          {recbuf,        196608}
                          ]}
   ]}
 ].
@@ -399,6 +407,8 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 <pre class="code">
 tcp_lsiten_options.backlog = 128
 tcp_lsiten_options.nodelay = true
+tcp_listen_options.linger.on      = true
+tcp_listen_options.linger.timeout = 0
 tcp_lsiten_options.sndbuf  = 32768
 tcp_lsiten_options.recbuf  = 32768
 </pre>
@@ -409,10 +419,12 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
   ]}
 ].
@@ -424,18 +436,22 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 [
   {rabbitmq_mqtt, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
                          ]},
   {rabbitmq_stomp, [
     {tcp_listen_options, [
-                          {backlog,   128},
-                          {nodelay,   true},
-                          {sndbuf,    32768},
-                          {recbuf,    32768}
+                          {backlog,       128},
+                          {nodelay,       true},
+                          {linger,        {true,0}},
+                          {exit_on_close, false},
+                          {sndbuf,        32768},
+                          {recbuf,        32768}
                          ]}
   ]}
 ].
@@ -495,8 +511,10 @@ everything is configured in a single file:
   ]},
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   4096},
-                          {nodelay,   true}
+                          {backlog,       4096},
+                          {nodelay,       true},
+                          {linger,        {true, 0}},
+                          {exit_on_close, false}
                          ]}
   ]}
 ].
@@ -535,8 +553,10 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 [
   {rabbit, [
     {tcp_listen_options, [
-                          {backlog,   4096},
-                          {nodelay,   true}
+                          {backlog,       4096},
+                          {nodelay,       true},
+                          {linger,        {true, 0}},
+                          {exit_on_close, false}
                          ]}
   ]}
 ].

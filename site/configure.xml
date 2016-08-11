@@ -82,7 +82,7 @@ limitations under the License.
       <doc:subsection name="verify-configuration">
         <doc:heading>How to Find the Config File</doc:heading>
         <p>
-          The active configuration file can be verified by inspecting the 
+          The active configuration file can be verified by inspecting the
           RabbitMQ log file. It will show up in the <a href="relocate.html">log file</a>
           at the top, along with the other broker boot log entries. For example:
 
@@ -853,7 +853,7 @@ disk_free_limit.absolute = 2GB
               exposed to clients due to messaging protocol differences and limitations).
               <p>Default: <code>15000</code></p>
             </td>
-          </tr>          
+          </tr>
           <tr>
             <td><code>heartbeat</code></td>
             <td>
@@ -1018,7 +1018,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               <p>Default: <code>delegate_count = 16</code></p>
             </td>
           </tr>
-          
+
           <tr>
             <td><code>tcp_listen_options</code></td>
             <td>
@@ -1029,6 +1029,8 @@ cluster_nodes.disc.2 = rabbit@hostname2
                 <pre>
     tcp_listen_options.backlog = 128
     tcp_listen_options.nodelay = true
+    tcp_listen_options.linger.on = true
+    tcp_listen_options.linger.timeout = 0
     tcp_listen_options.exit_on_close = false
                 </pre>
               </p>
@@ -1108,7 +1110,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               <p>Default: <code>queue_index_embed_msgs_below = 4096</code></p>
             </td>
           </tr>
-          
+
           <tr>
             <td><code>mnesia_table_loading_timeout</code></td>
             <td>
@@ -1117,7 +1119,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
               <p>Default: <code>mnesia_table_loading_timeout = 30000</code></p>
             </td>
           </tr>
-          
+
           <tr>
             <td><code>queue_master_locator</code></td>
             <td>
@@ -1136,7 +1138,7 @@ cluster_nodes.disc.2 = rabbit@hostname2
         </table>
 
         <p>
-          The following configuration settings can be set in 
+          The following configuration settings can be set in
           the <a href="#advanced-config-file">advanced config file</a> only,
           under the <code>rabbit</code> section.
         </p>
