@@ -95,7 +95,7 @@ to the queue:
         var q = 'hello';
 
         ch.assertQueue(q, {durable: false});
-        ch.sendToQueue(q, Buffer.from('Hello World!'));
+        ch.sendToQueue(q, new Buffer('Hello World!'));
         console.log(" [x] Sent 'Hello World!'");
       });
     });
