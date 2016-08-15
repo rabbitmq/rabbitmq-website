@@ -95,7 +95,8 @@ to the queue:
         var q = 'hello';
 
         ch.assertQueue(q, {durable: false});
-        ch.sendToQueue(q, Buffer.from('Hello World!'));
+        // Note: on Node 6 Buffer.from(msg) should be used
+        ch.sendToQueue(q, new Buffer('Hello World!'));
         console.log(" [x] Sent 'Hello World!'");
       });
     });

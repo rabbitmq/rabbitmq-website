@@ -78,7 +78,7 @@ limitations under the License.
         you have to download manually.
       </li>
       <li>
-        We produce <a href="/releases/erlang/">a package</a> stripped
+        We produce <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
         down to only provide those components needed to run
         RabbitMQ. <b>It may not be as up to date as Erlang Solutions'
         packages</b>, but it might be easiest to use if installing
@@ -122,11 +122,11 @@ limitations under the License.
       </li>
     </ol>
 
-    <h3>Install monolithic Erlang from RabbitMQ</h3>
+    <h3>Install zero-dependency Erlang from RabbitMQ</h3>
     <ol class="plain">
       <li>
-        Download and install the appropriate RPM
-        from <a href="/releases/erlang/">here</a>.
+        Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>. As the name suggests, the package strips off some Erlang modules and dependencies
+        that are not essential for running RabbitMQ.
       </li>
     </ol>
 
