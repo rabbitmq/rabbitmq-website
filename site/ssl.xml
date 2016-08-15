@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -27,32 +27,58 @@ limitations under the License.
     <title>TLS Support</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="intro">
-        <p class="intro">RabbitMQ has inbuilt support for TLS.</p>
-        <p class="intro">
-          As of RabbitMQ 3.4.0, SSLv3 is disabled automatically to
-          prevent the <a href="https://www.openssl.org/~bodo/ssl-poodle.pdf">POODLE attack</a>.
-        </p>
-
+      <doc:section name="intro-and-requirements">
+        <doc:heading>Intro</doc:heading>
+        <p class="intro">RabbitMQ has inbuilt support for TLS. This includes
+        client connections and popular plugins, where applicable, such as <a href="federation.html">Federation
+        links</a>. It is also possible to use TLS to encrypt inter-node connections in clusters.</p>
         <p>
-          The recommended Erlang/OTP version for installations that use TLS is 17.5 or
-          later. R16 releases may work for some
-          certificates but have <a href="#old-erlang">major limitations</a>.
+          A separate guide on <a href="troubleshooting-ssl.html">Troubleshooting TLS-related issues</a>
+          is available.
         </p>
 
-        <p>The Erlang crypto application must be installed and working. This may
-        be an issue for Windows users and those who compile Erlang from source.</p>
+        <doc:subsection name="erlang-otp-requirements">
+          <doc:heading>Erlang/OTP Requirements for TLS Support</doc:heading>
+          <p>
+            In order to support TLS connections, RabbitMQ needs TLS and
+            crypto-related modules to be available in the Erlang/OTP
+            installation. The recommended Erlang/OTP version to use with
+            TLS is 18.2 or later. R16B03 may work for some certificates
+            but has <a href="#old-erlang">known limitations</a>.
+          </p>
 
-        <p>For Windows XP users running RabbitMQ as a service: It is not possible to
-        use SSL with RabbitMQ running as a service on Windows XP in combination with
-        OpenSSL versions 0.9.8 or later. The bug has been confirmed on Windows XP SP3
-        with OpenSSL v0.9.8r and v1.0.0d. Suggested workarounds if you want to run RabbitMQ
-        as a service is to upgrade to Windows 7 or downgrade to an earlier version of
-        OpenSSL (v0.9.7e is known to work).</p>
+          <p>The Erlang <code>crypto</code>, <code>asn1</code>,
+          <code>public_key</code>, and <code>ssl</code> libraries
+          (applications) must be installed and functional. On Debian and
+          Ubuntu this is provided by the <a
+          href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a>
+          package. The <a
+          href="https://github.com/rabbitmq/erlang-rpm">zero dependency
+          Erlang RPM for RabbitMQ</a> includes the above modules.</p>
 
-        <p>For those compiling Erlang from source: Ensure <code>configure</code>
-        finds OpenSSL and builds the crypto application.</p>
+          <p>If Erlang/OTP is compiled from source, it is necessarry to ensure that <code>configure</code>
+          finds OpenSSL and builds the above libraries.</p>
+        </doc:subsection>
+
+        <doc:subsection name="known-compatibility-issues">
+          <doc:heading>Known Incompatibilities and Limitations</doc:heading>
+          <p>
+            If elliptic curve cryptography (ECC) cipher suites is
+            expected to be used, the most recent Erlang/OTP release
+            (e.g. 19.x) is highly recommended. Earlier releases have
+            known limitations around ECC.
+          </p>
+          <p>
+            For Windows XP users running RabbitMQ as a service: It is not possible to
+            use SSL with RabbitMQ running as a service on Windows XP in combination with
+            OpenSSL versions 0.9.8 or later. The bug has been confirmed on Windows XP SP3
+            with OpenSSL v0.9.8r and v1.0.0d. Suggested workarounds if you want to run RabbitMQ
+            as a service is to upgrade to a later Windows release or downgrade to an earlier version of
+            OpenSSL (v0.9.7e is known to work).
+          </p>
+        </doc:subsection>        
       </doc:section>
+
 
       <doc:section name="keys-and-certs">
         <doc:heading>Keys, Certificates and CA Certificates</doc:heading>
