@@ -221,13 +221,21 @@ stunnel -r localhost:5672 -d 5679 -f -p client/key-cert.pem -D 7</pre>
 
 
       <doc:section name="logs">
-       <doc:heading>Understanding SSL logs</doc:heading>
+       <doc:heading>Understanding TLS Connection Log Errors</doc:heading>
         <p>
          New broker logfile entries will be generated during many of the preceding steps. These entries
          together with diagnostic output from commands on the console should help to identify the cause
-         of SSL errors. What follows is a list of the most common error entries:
+         of TLS-related errors. What follows is a list of the most common error entries:
         </p>
         <dl>
+          <dt>
+            Entries containing <code>{undef, [{crypto,hash,...</code>
+          </dt>
+          <dd>
+            The <code>crypto</code> module is missing in the Erlang/OTP installation
+            used or it is out of date. On Debian, Ubuntu, and other Debian-derived distributions
+            it usually means that the <a href="http://packages.ubuntu.com/search?keywords=erlang-ssl">erlang-ssl</a> package was not installed.
+          </dd>
             <dt>
                Entries containing <code>{ssl_upgrade_error, ekeyfile}</code>
                or <code>{ssl_upgrade_error, ecertfile}</code>
