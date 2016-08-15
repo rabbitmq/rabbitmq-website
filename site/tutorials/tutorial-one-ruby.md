@@ -48,7 +48,7 @@ on behalf of the consumer.
 > First, install Bunny using [Rubygems](http://rubygems.org):
 >
 >     :::bash
->     $ gem install bunny --version ">= 2.2.2"
+>     $ gem install bunny --version ">= 2.5.1"
 >
 
 Now we have Bunny installed, we can write some
