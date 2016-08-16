@@ -425,14 +425,17 @@ limitations under the License.
             The management plugin will retain samples of some data
             such as message rates and queue lengths. You can
             configure how long such data is retained.
-          </p>
-          <pre class="example">[
+          </p>          
+        <pre class="example">           
+[
   ...
   {rabbitmq_management,
-    %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
-    [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
-     {basic,    [{605, 5}, {3600, 60}]},
-     {detailed, [{10, 5}]}],
+    {sample_retention_policies,
+      %% List of {MaxAgeInSeconds, SampleEveryNSeconds}
+      [{global,   [{605, 5}, {3660, 60}, {29400, 600}, {86400, 1800}]},
+       {basic,    [{605, 5}, {3600, 60}]},
+       {detailed, [{10, 5}]}]
+    },
   ...
 ].</pre>
           <p>
