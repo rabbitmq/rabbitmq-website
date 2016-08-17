@@ -140,6 +140,7 @@ countryName = optional
 emailAddress = optional
 organizationName = optional
 organizationalUnitName = optional
+domainComponent = optional
 
 [ certificate_extensions ]
 basicConstraints = CA:false
