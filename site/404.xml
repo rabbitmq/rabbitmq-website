@@ -21,9 +21,9 @@ limitations under the License.
   </head>
   <body>
 
-  <p>The page you were looking for has not been found,
-  please <a href="/contact.html">contact us</a> if you can't find what
-  you're looking for using the links above.</p>
+  <p>The page you were looking for has not been found, please
+  <a href="https://www.rabbitmq.com/contact.html">contact us</a>
+  if you can't find what you're looking for using the links above.</p>
 
   <p>Thanks</p>
 
