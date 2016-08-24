@@ -119,7 +119,8 @@ delivered messages and perform the task, so let's call it `Worker.java`:
         }
       }
     };
-    channel.basicConsume(TASK_QUEUE_NAME, true, consumer);
+    boolean autoAck = true; // acknowledgment is covered below
+    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
 
 Our fake task to simulate execution time:
 
@@ -232,11 +233,11 @@ long time.
 
 Message acknowledgments are turned on by default. In previous
 examples we explicitly turned them off via the `autoAck=true`
-flag. It's time to remove this flag and send a proper acknowledgment
+flag. It's time to set this flag to `false` and send a proper acknowledgment
 from the worker, once we're done with a task.
 
     :::java
-    channel.basicQos(1);
+    channel.basicQos(1); // accept only one unack-ed message at a time (see below)
 
     final Consumer consumer = new DefaultConsumer(channel) {
       @Override
@@ -252,7 +253,8 @@ from the worker, once we're done with a task.
         }
       }
     };
-
+    boolean autoAck = false;
+    channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -463,7 +465,8 @@ And our `Worker.java`:
             }
           }
         };
-        channel.basicConsume(TASK_QUEUE_NAME, false, consumer);
+        boolean autoAck = false;
+        channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
       }
 
       private static void doWork(String task) {
@@ -491,4 +494,3 @@ For more information on `Channel` methods and `MessageProperties`, you can brows
 
 Now we can move on to [tutorial 3](tutorial-three-java.html) and learn how
 to deliver the same message to many consumers.
-
