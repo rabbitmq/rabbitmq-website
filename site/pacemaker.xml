@@ -667,16 +667,14 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           This script may be used to specify ha-mode for mirrored queues, configure expiration
           policy and so on. Also note that when a node is promoted, the rest of the cluster
           members will remain running as is, unless any issues discovered later (lazy joining).
-          If another node restarts and starts complaining that it is "thinking is clustered with the
-          old master, but it refuses", the workflow will be exactly as depicted above for the <i>node-2</i>.
         </p>
         <p>
           Demoting a master resource:
         </p>
         <img src="img/Rabbitmq_clustering_pacemaker_demote.png"/>
         <p>
-          At least one rabbit node (the node-2 here) will be running ensuring
-          there is no full RabbitMQ cluster downtime.
+          Nothing is done on demote, the script only removes rabbit-master attribute to remember
+          that the current node is no longer master.
         </p>
         <p>
           Starting a resource:
@@ -697,6 +695,15 @@ ms p_rabbitmq-server-master p_rabbitmq-server \
           external fencing action (a manual or automatic) is required. This action should kick
           the failed node from the RabbitMQ cluster as well. And it should re-join the node back
           to both the corosync and RabbitMQ clusters once it is restored.
+        </p>
+        <p>
+          Handling split brain:
+        </p>
+        <img src="img/Rabbitmq_clustering_pacemaker_split_brain.png"/>
+        <p>
+          Before checking if other nodes are clustered with the master, the master first checks
+          its own health. Only if its health is ok, orders to restart could be given to the other
+          nodes. That way we always keep at least one node (master) alive.
         </p>
 	<doc:heading>Configuration Parameters</doc:heading>
 

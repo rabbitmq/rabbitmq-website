@@ -79,24 +79,9 @@ limitations under the License.
     <div id="getting_here">
     <h2>Getting here</h2>
     <h3 id="location">Location</h3>
-    <address>
-      Pivotal<br/>
-      4th Floor<br/>
-      Bentima House<br/>
-      168-172 Old Street<br/>
-      London EC1V 9BP<br/>
-      United Kingdom<br/>
-    </address>
-    <div id="map_canvas"></div>
-    <h3 class="clear">Journey Planner</h3>
-    <p>For the quickest route to RabbitHQ use Transport for London's
-    <a href="http://journeyplanner.tfl.gov.uk/user/XSLT_TRIP_REQUEST2?language=en" target="_blank">journey planner</a>.</p>
-    <ul id="underground">The nearest underground stations to RabbitHQ are:
-      <li><a href="https://www.google.co.uk/maps/preview#!data=!4m22!3m21!1m5!1sBentima+House%2C+168-172+Old+St%2C+London+EC1V+9BP%2C+UK!2s0x48761ca88457abb7%3A0x1862ded6bb87113f!3m2!3d51.5250255!4d-0.0904861!1m5!1sOld+Street+Station%2C+Old+St%2C+London+EC1Y+1BE%2C+United+Kingdom!2s0x487604aab9ddd7d5%3A0x32cb0decb8d8e186!3m2!3d51.525986!4d-0.087977!3m8!1m3!1d2411!2d-0.0892716!3d51.5255057!3m2!1i1193!2i746!4f13.1&amp;fid=0">Old Street</a> (180 metres)</li>
-      <li><a href="https://www.google.co.uk/maps/preview#!data=!1m4!1m3!1d4823!2d-0.0791473!3d51.5205988!4m20!3m19!1m5!1sBentima+House%2C+168-172+Old+St%2C+London+EC1V+9BP%2C+UK!2s0x48761ca88457abb7%3A0x1862ded6bb87113f!3m2!3d51.5250255!4d-0.0904861!1m1!1sMoorgate%2C+United+Kingdom!2e2!3m8!1m3!1d4823!2d-0.0840002!3d51.5193695!3m2!1i1193!2i746!4f13.1!7e0&amp;fid=0">Moorgate</a> (900 metres)</li>
-      <li><a href="https://www.google.co.uk/maps/preview#!data=!1m4!1m3!1d4822!2d-0.0782837!3d51.5273646!4m24!3m23!1m5!1sBentima+House%2C+168-172+Old+St%2C+London+EC1V+9BP%2C+UK!2s0x48761ca88457abb7%3A0x1862ded6bb87113f!3m2!3d51.5250255!4d-0.0904861!1m5!1sShoreditch+High+Street%2C+United+Kingdom!2s0x48761cb0daa2b7c7%3A0xc867545237afa2f8!3m2!3d51.523447!4d-0.077107!2e2!3m8!1m3!1d4822!2d-0.0779416!3d51.5281684!3m2!1i1193!2i746!4f13.1!7e0&amp;fid=0">Shoreditch High Street</a> (1,100 metres)</li>
-      <li><a href="https://www.google.co.uk/maps/preview#!data=!1m4!1m3!1d4823!2d-0.0916119!3d51.5246094!4m20!3m19!1m5!1sBentima+House%2C+168-172+Old+St%2C+London+EC1V+9BP%2C+UK!2s0x48761ca88457abb7%3A0x1862ded6bb87113f!3m2!3d51.5250255!4d-0.0904861!1m1!1sFarringdon+Station%2C+Cowcross+St%2C+London+EC1M+6BY%2C+UK!2e2!3m8!1m3!1d4822!2d-0.0741209!3d51.5273913!3m2!1i1193!2i746!4f13.1!7e0&amp;fid=0">Farringdon</a> (1,200 metres)</li>
-    </ul>
+    <p>
+      We're based in Pivotal's <a href="https://pivotal.io/locations/london">London Office</a>.
+    </p>
     </div>
   </body>
 </html>
