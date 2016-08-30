@@ -43,7 +43,7 @@ limitations under the License.
                 <a href="java-client.html">RabbitMQ Java client</a> and the <a href="api-guide.html">API-guide</a>
               </li>
               <li>
-                <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">RabbitMQ JMS client</a> (commercial)
+                <a href="https://github.com/rabbitmq/rabbitmq-jms-client">RabbitMQ JMS client</a> (OSS)
               </li>
               <li>
                 Lyra, <a href="https://github.com/jhalterman/lyra">highly available RabbitMQ Java client</a>
