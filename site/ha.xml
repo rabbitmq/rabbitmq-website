@@ -584,7 +584,7 @@ limitations under the License.
           promoted. At this point, the following happens:
           <ol>
             <li>A slave is promoted to become the new master. The
-            slave chosen for promotion is the eldest slave. As such,
+            slave chosen for promotion is the oldest slave. As such,
             it has the best chance of being synchronised with the
             master. However, note that should there be no slave that
             is <a href="#unsynchronised-slaves">synchronised</a> with
