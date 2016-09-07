@@ -583,7 +583,6 @@ $ <i>pcs resource create --force --master p_rabbitmq-server ocf:rabbitmq:rabbitm
   erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672 \
   op monitor interval=30 timeout=60 \
   op monitor interval=27 role=Master timeout=60 \
-  op monitor interval=103 role=Slave timeout=60 OCF_CHECK_LEVEL=30 \
   op start interval=0 timeout=360 \
   op stop interval=0 timeout=120 \
   op promote interval=0 timeout=120 \
@@ -595,7 +594,6 @@ $ <i>crm configure primitive p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
         params erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672 \
         op monitor interval=30 timeout=60 \
         op monitor interval=27 role=Master timeout=60 \
-        op monitor interval=103 role=Slave timeout=60 OCF_CHECK_LEVEL=30 \
         op start interval=0 timeout=360 \
         op stop interval=0 timeout=120 \
         op promote interval=0 timeout=120 \
@@ -619,7 +617,6 @@ $ <i>pcs resource show p_rabbitmq-server-master</i>
    Meta Attrs: migration-threshold=10 failure-timeout=30s resource-stickiness=100
    Operations: monitor interval=30 timeout=60 (p_rabbitmq-server-monitor-interval-30)
                monitor interval=27 role=Master timeout=60 (p_rabbitmq-server-monitor-interval-27)
-               monitor interval=103 role=Slave timeout=60 OCF_CHECK_LEVEL=30 (p_rabbitmq-server-monitor-interval-103)
                start interval=0 timeout=360 (p_rabbitmq-server-start-interval-0)
                stop interval=0 timeout=120 (p_rabbitmq-server-stop-interval-0)
                promote interval=0 timeout=120 (p_rabbitmq-server-promote-interval-0)
@@ -630,7 +627,6 @@ primitive p_rabbitmq-server ocf:rabbitmq:rabbitmq-server-ha \
         params erlang_cookie=DPMDALGUKEOMPTHWPYKC node_port=5672 \
         op monitor interval=30 timeout=60 \
         op monitor interval=27 role=Master timeout=60 \
-        op monitor interval=103 role=Slave timeout=60 OCF_CHECK_LEVEL=30 \
         op start interval=0 timeout=360 \
         op stop interval=0 timeout=120 \
         op promote interval=0 timeout=120 \
