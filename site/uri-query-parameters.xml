@@ -104,7 +104,7 @@ limitations under the License.
           SASL authentication mechanisms to consider when negotiating
           a mechanism with the server. This parameter can be specified
           multiple times,
-          e.g. <code>?sasl_mechanism=plain&amp;sasl_mechanism=amqplain</code>,
+          e.g. <code>?auth_mechanism=plain&amp;auth_mechanism=amqplain</code>,
           to specify multiple mechanisms.
         </td>
       </tr>
