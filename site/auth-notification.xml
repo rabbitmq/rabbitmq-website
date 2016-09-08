@@ -23,23 +23,29 @@ limitations under the License.
     <title>Authentication Failure Notifications</title>
   </head>
   <body>
-    <p>
-      AMQP requires brokers to terminate the network connection if an authentication
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+      <p>
+      AMQP 0-9-1 requires brokers to terminate the network connection if an authentication
       failure occurs during connection establishment. This makes it difficult for
       clients to distinguish such authentication failures from genuine network
       interruptions during the early stages of connection establishment.
       The RabbitMQ broker offers explicit authentication failure notifications
       for clients that advertise their capacity to receive such notifications.
-    </p>
-    <p>
-      The broker will report failures differently depending on the presence of the
-      <code>authentication_failure_close</code> <a href="consumer-cancel.html#capabilities">capability</a>.
-      If this capability is absent then authentication failures are reported
-      in the legacy fashion: by abruptly closing the network connection. If this
-      capability is present then the broker will send a <code>connection.close</code>
-      command to the client indicating ACCESS_REFUSED as the reason. The broker
-      will create a log entry for the authentication failure in either case.
-    </p>
+      </p>
+    </doc:section>
 
+    <doc:section name="usage">
+      <doc:heading>How it Works</doc:heading>
+      <p>
+        The broker will report failures differently depending on the presence of the
+        <code>authentication_failure_close</code> <a href="consumer-cancel.html#capabilities">capability</a>.
+        If this capability is absent then authentication failures are reported
+        in the legacy fashion: by abruptly closing the network connection. If this
+        capability is present then the broker will send a <code>connection.close</code>
+        command to the client indicating <code>ACCESS_REFUSED</code> as the reason. The broker
+        will create a log entry for the authentication failure in either case.
+      </p>
+    </doc:section>
   </body>
 </html>
