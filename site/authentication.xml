@@ -7,8 +7,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -23,7 +23,7 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>SASL Authentication</title>
+    <title>Authentication</title>
   </head>
   <body>
       <doc:section name="intro">
@@ -40,6 +40,10 @@ limitations under the License.
           the <a href="plugin-development.html">plugin development
           guide</a> for more information on general plugin
           development.
+        </p>
+        <p>
+          A separate guide covers <a href="/access-control.html">authentication and authorisation backeds in RabbitMQ</a>
+          and how they are configured.
         </p>
       </doc:section>
 
@@ -126,7 +130,7 @@ limitations under the License.
         </doc:subsection>
 
         <doc:subsection name="dotnet-config">
-          <doc:heading>.Net</doc:heading>
+          <doc:heading>.NET</doc:heading>
           <p>
             The .Net client provides its own SASL mechanism
             implementations based on the <code>AuthMechanism</code>
@@ -136,6 +140,19 @@ limitations under the License.
             preference order.
           </p>
         </doc:subsection>
+      </doc:section>
+
+      <doc:section name="failures">
+        <doc:heading>Authentication Failures</doc:heading>
+
+        <p>
+          Per AMQP 0-9-1 spec, authentication failures should result
+          in the server closing TCP connection immediately. However,
+          with RabbitMQ clients can opt in to receive a more specific
+          notification using the <a
+          href="/auth-notification.html">authentication failure
+          notification</a> extension to AMQP 0-9-1.
+        </p>
       </doc:section>
   </body>
 </html>
