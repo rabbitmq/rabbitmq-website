@@ -416,13 +416,13 @@ The client code is slightly more involved:
 Making the Client request:
 
     :::csharp
-    RPCClient fibonacciRpc = new RPCClient();
+    var rpcClient = new RPCClient();
 
-    System.out.println(" [x] Requesting fib(30)");
-    String response = fibonacciRpc.call("30");
-    System.out.println(" [.] Got '" + response + "'");
+    Console.WriteLine(" [x] Requesting fib(30)");
+    var response = rpcClient.Call("30");
+    Console.WriteLine(" [.] Got '{0}'", response);
 
-    fibonacciRpc.close();
+    rpcClient.Close();
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
