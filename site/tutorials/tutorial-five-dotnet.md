@@ -323,7 +323,7 @@ with more than two routing key parameters.
        <p><a href="#teasers">(hide)</a></p>
    </div>
 
-(Full source code for [EmitLogTopic.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogTopic.cs)
-and [ReceiveLogsTopic.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsTopic.cs))
+(Full source code for [EmitLogTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/EmitLogTopic/EmitLogTopic.cs)
+and [ReceiveLogsTopic.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/ReceiveLogsTopic/ReceiveLogsTopic.cs))
 
 Next, find out how to do a round trip message as a remote procedure call in [tutorial 6](tutorial-six-dotnet.html)
