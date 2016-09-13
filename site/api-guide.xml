@@ -959,7 +959,7 @@ cf.setExceptionHandler(customHandler);
     <doc:section name="metrics">
       <doc:heading>Metrics and monitoring</doc:heading>
       <p>
-        As of version 3.7.0, the client gathers runtime metrics (e.g. number
+        As of version 4.0.0, the client gathers runtime metrics (e.g. number
         of published messages). Metrics collection is optional and is set up
         at the <code>ConnectionFactory</code> level, using the
         <code>setMetricsCollector(metricsCollector)</code> method.
