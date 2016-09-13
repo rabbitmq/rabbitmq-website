@@ -710,8 +710,66 @@ Connection conn = factory.newConnection(addrArr);
           form <code>factory.newConnection(es, addrArr)</code>) the thread pool is
           associated with the (first) successful connection.
         </p>
+        <p>
+          If you want more control over the host to connect to, see
+          <a href="#service-discovery-with-address-resolver">
+          the support for service discovery</a>.
+        </p>
     </doc:subsection>
 
+    <doc:subsection name="service-discovery-with-address-resolver">
+        <doc:heading>Service discovery with the AddressResolver interface</doc:heading>
+        <p>
+          As of version 3.6.6, it is possible to let an implementation of
+          <code>AddressResolver</code> choose where to connect when creating a connection:
+<pre class="sourcecode">
+Connection conn = factory.newConnection(addressResolver);
+</pre>
+        The <code>AddressResolver</code> interface is like the following:
+<pre class="sourcecode">
+public interface AddressResolver {
+
+  List&lt;Address&gt; getAddresses() throws IOException;
+
+}
+</pre>
+          Just like with <a href="#address-array">a list of hosts</a>,
+          the first <code>Address</code> returned will be tried first, then
+          the second if the client fails to connect to the first, and so on.
+        </p>
+        <p>
+          If an <code>ExecutorService</code> is provided as well (using the
+          form <code>factory.newConnection(es, addressResolver)</code>) the thread pool is
+          associated with the (first) successful connection.
+        </p>
+        <p>
+          The <code>AddressResolver</code> is the perfect place to implement
+          custom service discovery logic, which is especially useful in a dynamic
+          infrastructure. Combined with <a href="#recovery">automatic recovery</a>,
+          the client can automatically connect to nodes that weren't even up
+          when it was first started. Affinity and load balancing are other
+          scenarios where a custom <code>AddressResolver</code> could be useful.
+        </p>
+        <p>
+          The Java client ships with the following implementations
+          (see the javadoc for details):
+          <ol>
+            <li>
+              <code>DnsRecordIpAddressResolver</code>: given the name
+              of a host, returns its IP addresses (resolution against
+              the platform DNS server). This can be useful for simple
+              DNS-based load balancing or failover.
+            </li>
+            <li>
+              <code>DnsSrvRecordAddressResolver</code>: given the name
+              of a service, returns hostname/port pairs. The search is
+              implemented as a DNS SRV request. This can be useful
+              when using a service registry like
+              <a href="https://www.consul.io/">HashiCorp Consul</a>.
+            </li>
+          </ol>
+        </p>
+    </doc:subsection>
 
     <doc:subsection name="heartbeats-timeout">
         <doc:heading>Heartbeat Timeout</doc:heading>
