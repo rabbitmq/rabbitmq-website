@@ -227,7 +227,7 @@ We declare our fibonacci function. It assumes only valid positive integer input.
 and it's probably the slowest recursive implementation possible).
 
 
-The code for our RPC server [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer.cs) looks like this:
+The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer/RPCServer.cs) looks like this:
 
 
     :::csharp
@@ -320,7 +320,7 @@ The server code is rather straightforward:
     we wait for request messages, do the work and send the response back.
 
 
-The code for our RPC client [RPCClient.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient.cs):
+The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient/RPCClient.cs):
 
     :::csharp
     using System;
@@ -426,7 +426,7 @@ Making the Client request:
 
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
-[RPCClient.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient.cs) and [RPCServer.cs](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer.cs).
+[RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient/RPCClient.cs) and [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCServer/RPCServer.cs).
 
 
 Compile as usual (see [tutorial one](tutorial-one-dotnet.html)):
