@@ -69,7 +69,7 @@ We'll call our message sender `Send` and our message receiver
 then exit.
 
 In
-[`Send.cs`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs),
+[`Send.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs),
 we need to use some namespaces:
 
     :::csharp
@@ -161,7 +161,7 @@ When the code above finishes running, the channel and the connection
 will be disposed.
 
 [Here's the whole Send.cs
-class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Send/Send.cs).
 
 > #### Sending doesn't work!
 >
@@ -185,7 +185,7 @@ keep it running to listen for messages and print them out.
   <img src="/img/tutorials/receiving.png" alt="[|||] -> (C)" height="100" />
 </div>
 
-The code (in [`Receive.cs`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.cs)) has almost the same `using` statements as `Send`:
+The code (in [`Receive.cs`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive/Receive.cs)) has almost the same `using` statements as `Send`:
 
     :::csharp
     using RabbitMQ.Client;
@@ -267,7 +267,7 @@ does.
 
 
 [Here's the whole Receive.cs
-class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive.cs).
+class](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Receive/Receive.cs).
 
 ### Putting It All Together
 
