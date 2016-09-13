@@ -423,7 +423,7 @@ Final code of our `NewTask.cs` class:
     }
 
 
-[(NewTask.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask.cs)
+[(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask/NewTask.cs)
 
 And our `Worker.cs`:
 
@@ -477,7 +477,7 @@ And our `Worker.cs`:
     }
 
 
-[(Worker.cs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Worker.cs)
+[(Worker.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Worker/Worker.cs)
 
 Using message acknowledgments and `BasicQos` you can set up a
 work queue. The durability options let the tasks survive even if
