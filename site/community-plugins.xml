@@ -361,13 +361,6 @@ limitations under the License.
               <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
             </ul>
           </r:plugin>
-          <r:plugin name="rabbitmq_jsonrpc_channel">
-            These plugins add an HTTP server which makes use of JSON-RPC
-            polling to emulate AMQP channels in a web browser. This functionality is now deprecated and we recommmend against the use of these plugins.
-            <ul>
-              <li>GitHub: <a href="https://github.com/rabbitmq/rabbitmq-jsonrpc-channel">rabbitmq/rabbitmq-jsonrpc-channel</a></li>
-            </ul>
-          </r:plugin>
           <r:plugin name="pgsql_listen_exchange">
             Translates PostgreSQL NOTIFY messages to AMQP messages and
             publishes them to bound queues. The PostgreSQL NOTIFY
