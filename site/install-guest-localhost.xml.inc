@@ -24,7 +24,7 @@ limitations under the License.
     <code>guest</code>. Unconfigured clients will in general use these
     credentials. <strong>By default, these credentials can only be
     used when connecting to the broker as localhost</strong> so you
-    will need to take action before connecting fromn any other
+    will need to take action before connecting from any other
     machine.
   </p>
   <p>
