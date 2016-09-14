@@ -332,7 +332,7 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
 </pre>
 
-          Default value is 30. Nodes that have 8 or more cores available are recommended
+          Default value in recent RabbitMQ releases is 128 (30 previously). Nodes that have 8 or more cores available are recommended
           to use values higher than 96, that is, 12 or more I/O threads for every core available.
           Note that higher values do not necessarily mean better throughput or lower CPU
           burn due to waiting on I/O.
