@@ -49,8 +49,8 @@ limitations under the License.
           The download links on this page let you download the latest
           build of the plugin, compiled against the latest feature
           release of RabbitMQ. Bugfix releases do not affect plugin
-          compatibility. For older versions of plugins or RabbitMQ,
-          see <a href="/community-plugins">the archive</a>. See also
+          compatibility. For older versions of plugins
+          see <a href="https://dl.bintray.com/rabbitmq/community-plugins/">the archive</a>. See also
           <a href="installing-plugins.html">how to install additional
           plugins</a>.
         </p>
@@ -77,7 +77,7 @@ limitations under the License.
             each routing key, and when a queue is bound, it
             automatically enqueues the last value for the binding key.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_lvc/_latestVersion#files">Download</a></li>
               <li>Maintainer: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-lvc-plugin">rabbitmq/rabbitmq-lvc-plugin</a></li>
             </ul>
@@ -88,7 +88,7 @@ limitations under the License.
             routing patterns at publishing time, instead of at
             binding time.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_rtopic_exchange/_latestVersion#files">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-rtopic-exchange">rabbitmq/rabbitmq-rtopic-exchange</a></li>
             </ul>
@@ -118,7 +118,7 @@ limitations under the License.
             A plugin that adds delayed-messaging (or
             scheduled-messaging) to RabbitMQ.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_delayed_message_exchange/_latestVersion#files">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange">rabbitmq/rabbitmq-delayed-message-exchange</a></li>
             </ul>
@@ -128,7 +128,7 @@ limitations under the License.
             A plugin that stamps a message with the node who first
             received it.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_routing_node_stamp/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-routing-node-stamp">rabbitmq/rabbitmq-routing-node-stamp</a></li>
             </ul>
@@ -138,7 +138,7 @@ limitations under the License.
             A plugin that adds a timestamp when a message first enters
             RabbitMQ.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_message_timestamp/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-message-timestamp">rabbitmq/rabbitmq-message-timestamp</a></li>
             </ul>
@@ -156,7 +156,7 @@ limitations under the License.
             authorisation (determining what permissions they have)
             by making requests to an HTTP server.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
             </ul>
@@ -166,7 +166,7 @@ limitations under the License.
             Provides the ability for your RabbitMQ server to perform
             authentication and authorisation over AMQP itself.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_amqp/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">rabbitmq/rabbitmq-auth-backend-amqp</a></li>
             </ul>
@@ -176,7 +176,7 @@ limitations under the License.
             Provides the ability for your RabbitMQ server to perform
             authorisation based on the client IP address.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_ip_range/_latestVersion#files">Download</a></li>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>Github: <a href="https://github.com/gotthardp/rabbitmq-auth-backend-ip-range">gotthardp/rabbitmq-auth-backend-ip-range</a></li>
             </ul>
@@ -185,9 +185,9 @@ limitations under the License.
           <r:plugin name="rabbitmq_trust_store">
             Provides support for TLS (x509) certificate whitelisting.
             All plugins which use the global TLS options will be
-            configured with the same whitelist.
+            configured with the same whitelist. This plugin is provided with
+            the broker's package.
             <ul>
-              <li><r:community-plugin-link/></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-trust-store">rabbitmq/rabbitmq-trust-store</a></li>
             </ul>
@@ -200,9 +200,9 @@ limitations under the License.
         <table class="plugins">
           <r:plugin name="rabbitmq_top">
             Adds a "top" like view of busy processes to the
-            management plugin.
+            management plugin. This plugin is provided with the broker's
+            package.
             <ul>
-              <li><r:community-plugin-link/></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-top">rabbitmq/rabbitmq-top</a></li>
             </ul>
@@ -212,7 +212,7 @@ limitations under the License.
             Adds an exchange type which allows you to connect to the
             management API using AMQP rather than HTTP.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_management_exchange/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-exchange">rabbitmq/rabbitmq-management-exchange</a></li>
             </ul>
@@ -229,7 +229,7 @@ limitations under the License.
             Adds the possibility to customize the management web UI
             look.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_management_themes/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-management-themes">rabbitmq/rabbitmq-management-themes</a></li>
             </ul>
@@ -240,7 +240,7 @@ limitations under the License.
             in a graph. This is a debugging tool: it is of no use in a
             production broker.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_boot_steps_visualiser/_latestVersion#files">Download</a></li>
               <li>Author: <b>Alvaro Videla</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-boot-steps-visualiser">rabbitmq/rabbitmq-boot-steps-visualiser</a></li>
             </ul>
@@ -262,10 +262,10 @@ limitations under the License.
           </r:plugin>
 
           <r:plugin name="rabbitmq_clusterer">
-            Provides an alternative mean for creating and maintaining
+            Provides an alternative means for creating and maintaining
             clusters of Rabbits.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_clusterer/_latestVersion#files">Download</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq/rabbitmq-clusterer</a></li>
             </ul>
@@ -279,8 +279,8 @@ limitations under the License.
           <r:plugin name="lager">
             Basho's <i>Lager</i> logging framework as a RabbitMQ plugin.
             <ul>
-              <li><r:community-plugin-link name="goldrush"/></li>
-              <li><r:community-plugin-link name="lager"/></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/goldrush/_latestVersion#files">goldrush</a></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/lager/_latestVersion#files">lager</a></li>
             </ul>
             <ul>
               <li>Author: <b>Basho Technologies</b></li>
@@ -341,8 +341,8 @@ limitations under the License.
             Application Protocol (CoAP) as specified in the
             <a href="https://www.ietf.org/id/draft-koster-core-coap-pubsub-02.txt">draft-koster-core-coap-pubsub-02</a>.
             <ul>
-              <li><r:community-plugin-link name="gen_coap"/></li>
-              <li><r:community-plugin-link name="rabbitmq_coap_pubsub"/></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/gen_coap/_latestVersion#files">gen_coap</a></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_coap_pubsub/_latestVersion#files">rabbitmq_coap_pubsub</a></li>
             </ul>
             <ul>
               <li>Authors: <b>Petr Gotthard</b></li>
@@ -353,26 +353,12 @@ limitations under the License.
             Maps SMTP to AMQP (to convert an incoming email to an AMQP
             message) and AMQP to SMTP (to send an email from an AMQP message).
             <ul>
-              <li><r:community-plugin-link name="gen_smtp"/></li>
-              <li><r:community-plugin-link name="rabbitmq_email"/></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/gen_smtp/_latestVersion#files">gen_smtp</a></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_email/_latestVersion#files">rabbitmq_email</a></li>
             </ul>
             <ul>
               <li>Authors: <b>Petr Gotthard</b></li>
               <li>GitHub: <a href="https://github.com/gotthardp/rabbitmq-email">gotthardp/rabbitmq-email</a></li>
-            </ul>
-          </r:plugin>
-          <r:plugin name="rabbitmq_jsonrpc_channel">
-            Adds an HTTP server which makes use of JSON-RPC polling
-            to emulate AMQP channels in a web browser. Note that
-            this functionality is split across various plugins:
-            <ul>
-              <li><r:community-plugin-link name="rfc4627_jsonrpc"/></li>
-              <li><r:community-plugin-link name="rabbitmq_jsonrpc"/></li>
-              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel"/></li>
-              <li><r:community-plugin-link name="rabbitmq_jsonrpc_channel_examples"/> <i>(to see example code)</i></li>
-            </ul>
-            <ul>
-              <li>Authors: <b>The RabbitMQ Team</b></li>
             </ul>
           </r:plugin>
           <r:plugin name="pgsql_listen_exchange">
@@ -380,11 +366,6 @@ limitations under the License.
             publishes them to bound queues. The PostgreSQL NOTIFY
             message channel is used as the routing key for the message
             using direct exchange style routing mechanics.
-            <p>Note that two plugin files are required:</p>
-            <ul>
-              <li><r:community-plugin-link name="epgsql"/></li>
-              <li><r:community-plugin-link name="pgsql_listen_exchange"/></li>
-            </ul>
             <ul>
               <li>Author: <b>Gavin M. Roy</b></li>
               <li>Github: <a href="https://github.com/aweber/pgsql-listen-exchange">aweber/pgsql-listen-exchange</a></li>
@@ -394,7 +375,7 @@ limitations under the License.
           <r:plugin name="rabbitmq_web_mqtt">
             Provides support for MQTT-over-WebSockets.
             <ul>
-              <li><r:community-plugin-link/></li>
+              <li>Download: <a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_web_mqtt/_latestVersion#files">rabbitmq_web_mqtt</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-web-mqtt">rabbitmq/rabbitmq-web-mqtt</a></li>
             </ul>
