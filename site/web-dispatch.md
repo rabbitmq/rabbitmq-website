@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Web Dispatch Plugin NOSYNTAX
+# Web dispatch plugin NOSYNTAX
 
 The `rabbitmq-web-dispatch` plugin provides hosting for other plugins that
 have HTTP interfaces. It allows these interfaces to co-exist on one or
