@@ -76,7 +76,7 @@ limitations under the License.
             as a service is to upgrade to a later Windows release or downgrade to an earlier version of
             OpenSSL (v0.9.7e is known to work).
           </p>
-        </doc:subsection>        
+        </doc:subsection>
       </doc:section>
 
 
@@ -441,6 +441,30 @@ SSL-Session:
           </p>
         </doc:subsection>
 
+        <doc:subsection name="configuring-tls-settings-in-java-client">
+          <doc:heading>Configuring TLS Version in Java Client</doc:heading>
+
+          <p>
+            Since RabbitMQ server can be configured to support only specific TLS versions,
+            it may be necessary to configure preferred TLS version in the Java client. This is done using
+            the <code>ConnectionFactory#useSslProtocol</code> overloads that accept a protocol version name
+            or a <code>SSLContext</code>:
+
+            <pre class="sourcecode">
+ConnectionFactory factory = <B><FONT COLOR="#A020F0">new</FONT></B> ConnectionFactory();
+factory.setHost(<B><FONT COLOR="#BC8F8F">&quot;localhost&quot;</FONT></B>);
+factory.setPort(5671);
+
+factory.useSslProtocol("TLSv1.2");
+            </pre>
+          </p>
+
+          <p>
+            As of Java client 3.6.4, the library will attempt to use the latest TLS version
+            supported by the runtime.
+          </p>
+        </doc:subsection>
+
         <doc:subsection name="tls-version-support-in-jdk-and-net">
           <doc:heading>TLS Version Support Table for JDK and .NET</doc:heading>
 
@@ -549,7 +573,6 @@ rabbitmqctl eval 'ssl:cipher_suites(openssl).'
             format, but for client key/certificate pair, we'll use the PKCS#12
             format.</p>
         </doc:subsection>
-
         <doc:subsection name="connecting-without-validating">
           <doc:heading>Connecting without validating certificates</doc:heading>
             <p>Our first example will show a simple client, connecting to a RabbitMQ
