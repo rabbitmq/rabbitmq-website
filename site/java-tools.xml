@@ -22,99 +22,112 @@ limitations under the License.
 
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc">
   <head>
-    <title>Java Client Tools</title>
+    <title>Java Tools</title>
   </head>
   <body>
     <p class="intro">
-      The Java client distribution ships with some utility programs written
-      using the Java client. This page documents how to use them.
-    </p>
-    <p>
-      These utility programs are contained
-      within <code>rabbitmq-client-tests.jar</code>. This jar file also
-      contains several small example programs for exercising the functionality
-      of the RabbitMQ server. The source code for these examples is in
-      the <code>test/src</code> folder in the source distribution. These are
-      intended to be fairly self-explanatory and are not documented here.
-    </p>
-    <p>
-      The script <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> runs Java with
-      the class path correctly configured for the examples, e.g.
-      <code>runjava.sh com.rabbitmq.examples.TestMain</code> runs
-      the <code>TestMain</code> functional tests.
+      This page documents some Java-based utility programs (performance, tracing).
     </p>
 
-    <doc:section name="perftest">
-      <doc:heading>PerfTest</doc:heading>
+    <doc:section name="performance">
+      <doc:heading>Performance tool</doc:heading>
       <p>
-        <code>PerfTest</code> (formerly known
-        as <code>MulticastMain</code>) is a performance testing tool. It
-        starts up zero or more producers and consumers and reports the
-        rate at which messages are sent and received, along with the
-        latency (i.e. time taken for messages to pass through the
-        broker).
+        The performance tool distribution contains Java programs
+        to run various performance scenarios and some HTML utility
+        to display graphs of the performance runs.
       </p>
 
       <p>
-        <code>PerfTest</code> supports many command line
-        flags. Invoke it with <code>--help</code> to see them:
-      </p>
-      <pre>runjava.sh com.rabbitmq.examples.PerfTest --help</pre>
-      <p>Some examples:</p>
-      <dl>
-        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -a</pre></dt>
-        <dd>
-          Send transient messages without acknowledgement, 1
-          producer and 1 consumer.
-        </dd>
-        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -c 1000</pre></dt>
-        <dd>
-          Similar, but with acknowledgments and confirms.
-        </dd>
-        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -c 1000 -f persistent</pre></dt>
-        <dd>
-          ...with acknowledgments, confirms and persistence.
-        </dd>
-        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -y0 -p -u my-queue -s 1000 -C 1000000</pre></dt>
-        <dd>
-          Fill a pre-declared queue with 1M transient messages of 1kB each
-        </dd>
-        <dt><pre>runjava.sh com.rabbitmq.examples.PerfTest -x0 -y10 -p -u another-queue</pre></dt>
-        <dd>
-          Start 10 consumers from a predeclared queue, and no producers.
-        </dd>
-      </dl>
-
-      <p>
-      If a queue name is defined (<code>-u "queue-name"</code>), PerfTest will create a queue with this name
-      and all consumers will consume from this queue. The queue will be bound to the direct exchange with its name
-      as the routing key. The routing key will be used by producers to send messages.
-      This will cause messages from all producers to be sent to this single queue and all consumers to receive
-      messages from this single queue.
-      </p>
-      <p>
-      If the queue name is not defined, PerfTest will create a random UUID routing key with which producers will publish messages.
-      Each consumer will create its own anonymous queue and bind it to the direct exchange with this routing key.
-      This will cause each message from all producers to be replicated to multiple queues
-      (number of queues equals number of consumers), while each consumer will be receiving messages from only one queue.
-      When using PerfTest without a queue name it makes sense to set <code>ratesMode</code> for consumer to
-      <code>producerRatesMode * producersCount</code>
-      For example:
-      <pre>runjava.sh com.rabbitmq.examples.PerfTest -x100 -y100 -r2 -R200</pre>
+        The distribution contains a script (<code>runjava</code> or <code>runjava.bat</code>)
+        to run Java with the class path correctly configured, e.g.
+        <code>runjava com.rabbitmq.perf.PerfTest</code> runs
+        the <code>PerfTest</code> Java class.
       </p>
 
-    </doc:section>
+      <doc:subsection name="perf-test">
+        <doc:heading>PerfTest</doc:heading>
+        <p>
+          <code>PerfTest</code> is a performance testing tool. It
+          starts up zero or more producers and consumers and reports the
+          rate at which messages are sent and received, along with the
+          latency (i.e. time taken for messages to pass through the
+          broker).
+        </p>
 
-    <doc:section name="html-performance-tools">
-      <doc:heading>HTML Performance Tools</doc:heading>
-      <p>
-        The <code>HTML Performance Tools</code> are a set of tools
-        that can help you run automated benchmarks by wrapping around the
-        <code>PerfTest</code> benchmarking framework. You can provide
-        benchmark specs, and the tool will take care of running the benchmark,
-        collecting results and displaying them in an HTML page. Learn more
-        <a href="https://github.com/rabbitmq/rabbitmq-perf-html">here</a>
-      </p>
+        <p>
+          <code>PerfTest</code> supports many command line
+          flags. Invoke it with <code>--help</code> to see them:
+        </p>
+        <pre>runjava com.rabbitmq.perf.PerfTest --help</pre>
+        <p>Some examples:</p>
+        <dl>
+          <dt><pre>runjava com.rabbitmq.perf.PerfTest -a</pre></dt>
+          <dd>
+            Send transient messages without acknowledgement, 1
+            producer and 1 consumer.
+          </dd>
+          <dt><pre>runjava com.rabbitmq.perf.PerfTest -c 1000</pre></dt>
+          <dd>
+            Similar, but with acknowledgments and confirms.
+          </dd>
+          <dt><pre>runjava com.rabbitmq.perf.PerfTest -c 1000 -f persistent</pre></dt>
+          <dd>
+            ...with acknowledgments, confirms and persistence.
+          </dd>
+          <dt><pre>runjava com.rabbitmq.perf.PerfTest -y0 -p -u my-queue -s 1000 -C 1000000</pre></dt>
+          <dd>
+            Fill a pre-declared queue with 1M transient messages of 1kB each
+          </dd>
+          <dt><pre>runjava com.rabbitmq.perf.PerfTest -x0 -y10 -p -u another-queue</pre></dt>
+          <dd>
+            Start 10 consumers from a predeclared queue, and no producers.
+          </dd>
+        </dl>
+
+        <p>
+        If a queue name is defined (<code>-u "queue-name"</code>), PerfTest will create a queue with this name
+        and all consumers will consume from this queue. The queue will be bound to the direct exchange with its name
+        as the routing key. The routing key will be used by producers to send messages.
+        This will cause messages from all producers to be sent to this single queue and all consumers to receive
+        messages from this single queue.
+        </p>
+        <p>
+        If the queue name is not defined, PerfTest will create a random UUID routing key with which producers will publish messages.
+        Each consumer will create its own anonymous queue and bind it to the direct exchange with this routing key.
+        This will cause each message from all producers to be replicated to multiple queues
+        (number of queues equals number of consumers), while each consumer will be receiving messages from only one queue.
+        When using PerfTest without a queue name it makes sense to set <code>ratesMode</code> for consumer to
+        <code>producerRatesMode * producersCount</code>
+        For example:
+        <pre>runjava com.rabbitmq.perf.PerfTest -x100 -y100 -r2 -R200</pre>
+        </p>
+
+      </doc:subsection>
+
+
+      <doc:subsection name="perf-html">
+        <doc:heading>HTML Performance Tools</doc:heading>
+        <p>
+          The <code>HTML Performance Tools</code> are a set of tools
+          that can help you run automated benchmarks by wrapping around the
+          <code>PerfTest</code> benchmarking framework. You can provide
+          benchmark specs, and the tool will take care of running the benchmark,
+          collecting results and displaying them in an HTML page. Learn more
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/blob/master/HTML_PERFORMANCE_TOOLS.md">here</a>
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="perf-download">
+        <doc:heading>Download and source code</doc:heading>
+        <p>
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/releases">Releases</a>
+        </p>
+        <p>
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test">Source code</a>
+        </p>
+      </doc:subsection>
+
+
     </doc:section>
 
     <doc:section name="tracer">
