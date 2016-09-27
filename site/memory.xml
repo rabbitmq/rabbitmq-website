@@ -196,6 +196,11 @@ vm_memory_high_watermark.relative = 0.4</pre>
         blocks publishers at 40%.
       </p>
       <p>
+        Certain workloads can cause RabbitMQ to use a lot of memory during the
+        paging process. These workloads can be better served by a low
+        <code>vm_memory_high_watermark_paging_ratio</code>, or by lazy queues.
+      </p>
+      <p>
         It is possible to
         set <code>vm_memory_high_watermark_paging_ratio</code> to a
         greater value than <code>1.0</code>. In this case queues
