@@ -3,8 +3,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -115,7 +115,7 @@ Memory limit set to 2048MB.</pre>
         using the <code>rabbitmqctl set_vm_memory_high_watermark
         <em>fraction</em></code> command or
 	<code>rabbitmqctl set_vm_memory_high_watermark absolute
-        <em>memory_limit</em></code> command. 
+        <em>memory_limit</em></code> command.
         Memory units can also be used in this command.
         This command will take effect
         until the broker shuts down. The corresponding configuration
@@ -169,9 +169,9 @@ http://www.rabbitmq.com/memory.html#address-space</pre>
       <p>
         Before the broker hits the high watermark and blocks
         publishers, it will attempt to free up memory by instructing
-        queues to page their contents out to disc. Both persistent
+        queues to page their contents out to disk. Both persistent
         and transient messages will be paged out (the persistent
-        messages will already be on disc but will be evicted from
+        messages will already be on disk but will be evicted from
         memory).
       </p>
       <p>
@@ -199,7 +199,7 @@ vm_memory_high_watermark.relative = 0.4</pre>
         It is possible to
         set <code>vm_memory_high_watermark_paging_ratio</code> to a
         greater value than <code>1.0</code>. In this case queues
-        will not page their contents to disc. If this causes the memory alarm
+        will not page their contents to disk. If this causes the memory alarm
         to go off, then producers will be blocked as explained above.
       </p>
     </doc:section>
