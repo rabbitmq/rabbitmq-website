@@ -134,10 +134,10 @@ limitations under the License.
       <doc:heading>Tracer</doc:heading>
       <p>
         The tracer is a very basic, very simple AMQP protocol analyzer.
-        It's part of the Java client distribution. Use it with
-        the <code>runjava.<i>{</i>sh<i>,</i>bat<i>}</i></code> script:
+        Use it with
+        the <code>runtracer</code> or <code>runtracer.bat</code> script:
       </p>
-      <pre>runjava.sh com.rabbitmq.tools.Tracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
+      <pre>runtracer <i>listenPort</i> <i>connectHost</i> <i>connectPort</i></pre>
       <dl>
         <dt>listenPort</dt>
         <dd>port to listen for incoming AMQP connections on - defaults to 5673.</dd>
@@ -146,6 +146,17 @@ limitations under the License.
         <dt>connectPort</dt>
         <dd>port number to use when making an outbound connection - defaults to 5672.</dd>
       </dl>
+
+      <doc:subsection name="tracer-download">
+        <doc:heading>Download and source code</doc:heading>
+        <p>
+          <a href="https://github.com/rabbitmq/rabbitmq-tracer/releases">Releases</a>
+        </p>
+        <p>
+          <a href="https://github.com/rabbitmq/rabbitmq-tracer">Source code</a>
+        </p>
+      </doc:subsection>
+
     </doc:section>
   </body>
 </html>
