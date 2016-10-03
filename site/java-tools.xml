@@ -113,7 +113,7 @@ limitations under the License.
           <code>PerfTest</code> benchmarking framework. You can provide
           benchmark specs, and the tool will take care of running the benchmark,
           collecting results and displaying them in an HTML page. Learn more
-          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/blob/master/HTML_PERFORMANCE_TOOLS.md">here</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-perf-test/blob/master/html/README.md">here</a>
         </p>
       </doc:subsection>
 
