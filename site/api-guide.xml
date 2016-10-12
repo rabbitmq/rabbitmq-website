@@ -797,6 +797,50 @@ cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
 </pre>
       </p>
     </doc:subsection>
+    <doc:subsection name="java-nio">
+      <doc:heading>Support for Java non-blocking IO</doc:heading>
+      <p>
+        Version 4.0 of the Java client brings <i>experimental</i> support for Java non-blocking
+        IO (a.k.a Java NIO). NIO isn't supposed to be faster than blocking IO,
+        it simply allows to control resources (in this case, threads) more easily.
+      </p>
+      <p>
+        With the default blocking IO mode, each connection uses a thread to read
+        from the network socket. With the NIO mode, you can control the number of
+        threads that read and write from/to the network socket.
+      </p>
+      <p>
+        Use the NIO mode if your Java process uses many connections (dozens or hundreds).
+        You should use fewer threads than with the default blocking mode. With the
+        appropriate number of threads set, you shouldn't
+        experiment any decrease in performance, especially if the connections are
+        not so busy.
+      </p>
+      <p>
+        NIO must be enabled explicitly:
+      </p>
+      <p>
+<pre class="sourcecode">
+ConnectionFactory connectionFactory = new ConnectionFactory();
+connectionFactory.useNio();
+</pre>
+      </p>
+      <p>
+        The NIO mode can be configured through the <code>NioParams</code> class:
+      </p>
+      <p>
+<pre class="sourcecode">
+connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
+</pre>
+      </p>
+      <p>
+        The NIO mode uses reasonable defaults, but you may need to change them according
+        to your own workload. Some of the settings are: the total number of IO
+        threads used, the size of buffers, a service executor to use for the IO loops,
+        parameters for the in-memory write queue (write requests are enqueued before
+        being sent on the network). Please read the Javadoc for details and defaults.
+      </p>
+    </doc:subsection>
 </doc:section>
 
 
