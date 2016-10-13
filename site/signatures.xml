@@ -52,6 +52,10 @@ limitations under the License.
 	</p>
 	<pre class="sourcecode">wget https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 gpg --import rabbitmq-release-signing-key.asc</pre>
+    <p>
+      For Debian repos:
+    </p>
+    <pre class="sourcecode">apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 0x6B73A36E6026DFCA</pre>
       </doc:section>
 
       <doc:section name="checking-signatures">
