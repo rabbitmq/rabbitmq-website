@@ -68,6 +68,9 @@ limitations under the License.
             <li>
               <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
             </li>
+              <li>
+              <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="http://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
+            </li> 
           </ul>
         </p>
         <p>
