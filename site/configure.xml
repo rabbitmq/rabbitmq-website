@@ -1034,9 +1034,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <doc:subsection name="configuration-encryption">
           <doc:heading>Configuration entry encryption</doc:heading>
           <p>
-            Any sensitive configuration entry (e.g. password, URL containing
-            credentials) can be encrypted in RabbitMQ configuration file.
-            The broker would decrypt encrypted entries when it starts.
+            Sensitive configuration entries (e.g. password, URL containing
+            credentials) can be encrypted in the RabbitMQ configuration file.
+            The broker decrypts encrypted entries on start.
           </p>
           <p>
             Encrypted values must be inside an Erlang <code>encrypted</code>
@@ -1101,7 +1101,7 @@ $ rabbitmqctl encode --decode '{encrypted,'&lt;&lt;"..."&gt;&gt;}' mypassphrase
             cipher is AES 256 CBC.
           </p>
           <p>
-            You can change these defaults, in the configuration file:
+            You can change these defaults in the configuration file:
             <pre class="example">
 [
   {rabbit, [
