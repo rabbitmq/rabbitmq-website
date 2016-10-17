@@ -108,7 +108,7 @@ config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
           node name, RabbitMQ configuration file location, AMQP 0-9-1 and inter-node communication ports,
           and so on.
         </p>
-        
+
         <doc:subsection name="customise-general-unix-environment">
         <doc:heading>Unix (general)</doc:heading>
           <p>
@@ -471,7 +471,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         </p>
         <p>
           If <code>rabbitmq-env.conf</code> doesn't exist, it can be created manually
-          in the location, specified by the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> variable. 
+          in the location, specified by the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> variable.
           On Windows systems, it is named <code>rabbitmq-env.bat</code>.
         </p>
         <p>
@@ -489,7 +489,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
         <doc:subsection name="example-config">
           <doc:heading>Example rabbitmq.config File</doc:heading>
           <p>
-            RabbitMQ server source repository contains 
+            RabbitMQ server source repository contains
             <a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example">an example configuration file</a>
             named <code>rabbitmq.config.example</code>. This
             example file contains an example of most of the
@@ -690,7 +690,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               exposed to clients due to messaging protocol differences and limitations).
               <p>Default: <code>15000</code></p>
             </td>
-          </tr>          
+          </tr>
           <tr>
             <td><code>heartbeat</code></td>
             <td>
@@ -1030,6 +1030,99 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           <li><a href="ldap.html">rabbitmq_auth_backend_ldap</a></li>
         </ul>
         </doc:subsection>
+
+        <doc:subsection name="configuration-encryption">
+          <doc:heading>Configuration entry encryption</doc:heading>
+          <p>
+            Any sensitive configuration entry (e.g. password, URL containing
+            credentials) can be encrypted in RabbitMQ configuration file.
+            The broker would decrypt encrypted entries when it starts.
+          </p>
+          <p>
+            Encrypted values must be inside an Erlang <code>encrypted</code>
+            tuple: <code>{encrypted, ...}</code>.
+            Here is an example of a configuration file with an encrypted password
+            for the default user:
+            <pre class="example">
+[
+  {rabbit, [
+      {default_user, &lt;&lt;"guest"&gt;&gt;},
+      {default_pass,
+        {encrypted,
+         &lt;&lt;"cPAymwqmMnbPXXRVqVzpxJdrS8mHEKuo2V+3vt1u/fymexD9oztQ2G/oJ4PAaSb2c5N/hRJ2aqP/X0VAfx8xOQ=="&gt;&gt;
+        }
+      },
+      {config_entry_decoder, [
+             {passphrase, &lt;&lt;"mypassphrase"&gt;&gt;}
+         ]}
+    ]}
+].
+            </pre>
+            Note the <code>config_entry_decoder</code> key with the passphrase
+            that RabbitMQ will use to decrypt encrypted values.
+          </p>
+          <p>
+            The passphrase doesn't have to be hardcoded in the configuration file,
+            it can be in a separate file:
+            <pre class="example">
+[
+  {rabbit, [
+      ...
+      {config_entry_decoder, [
+             {passphrase, {file, "/path/to/passphrase/file"}}
+         ]}
+    ]}
+].
+            </pre>
+            RabbitMQ can also request an operator to enter the passphrase
+            when it starts by using <code>{passphrase, prompt}</code>.
+          </p>
+          <p>
+            Use <code>rabbitmqctl</code> and the <code>encode</code>
+            command to encrypt values:
+            <pre class="example">
+$ rabbitmqctl encode '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+$ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
+{encrypted,&lt;&lt;"... long encrypted value..."&gt;&gt;}
+            </pre>
+            Add the <code>--decode</code> option if you want to decrypt values:
+            <pre class="example">
+$ rabbitmqctl encode --decode '{encrypted,'&lt;&lt;"..."&gt;&gt;}' mypassphrase
+&lt;&lt;"guest"&gt;&gt;
+$ rabbitmqctl encode --decode '{encrypted,'&lt;&lt;"..."&gt;&gt;}' mypassphrase
+"amqp://fred:secret@host1.domain/my_vhost"
+            </pre>
+          </p>
+          <p>
+            The encryption mechanism uses PBKDF2 to produce a derived key
+            from the passphrase. The default hash function is SHA512
+            and the default number of iterations is 1000. The default
+            cipher is AES 256 CBC.
+          </p>
+          <p>
+            You can change these defaults, in the configuration file:
+            <pre class="example">
+[
+  {rabbit, [
+      ...
+      {config_entry_decoder, [
+             {passphrase, "mypassphrase"},
+             {cipher, blowfish_cfb64},
+             {hash, sha256},
+             {iterations, 10000}
+         ]}
+    ]}
+].          </pre>
+            On the command line:
+            <pre class="example">
+$ rabbitmqctl encode --cipher blowfish_cfb64 --hash sha256 --iterations 10000 \
+                     '&lt;&lt;"guest"&gt;&gt;' mypassphrase
+            </pre>
+
+          </p>
+        </doc:subsection>
+
       </doc:section>
   </body>
 </html>
