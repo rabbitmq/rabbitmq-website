@@ -1039,9 +1039,10 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             The broker decrypts encrypted entries on start.
           </p>
           <p>
-            Note encrypted configuration entries don't make the
+            Note that encrypted configuration entries don't make the
             system meaningfully more secure. Nevertheless, they
-            conform to regulations in various countries requiring
+            allow deployments of RabbitMQ to conform to
+            regulations in various countries requiring
             that no sensitive data should appear in plain text
             in configuration files.
           </p>
