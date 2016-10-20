@@ -142,6 +142,9 @@ limitations under the License.
          <x:related url="/amqp-0-9-1-reference.html" text="AMQP Reference"/>
          <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
        </x:page>
+       <x:page url="/jms-client-api-guide.html" text="JMS Client">
+         <x:page url="/jms-client-api-compliance.html" text="JMS Client API Compliance"/>
+       </x:page>
        <x:page url="/uri-spec.html" text="AMQP URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
        </x:page>
