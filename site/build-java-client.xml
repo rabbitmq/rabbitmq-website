@@ -38,17 +38,14 @@ limitations under the License.
 
 	  <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
 	    <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-codegen.git rabbitmq_codegen
-$ git clone https://github.com/rabbitmq/rabbitmq-java-client.git
-$ cd rabbitmq-java-client
-$ ant dist</pre>
+$ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 	  </li>
 	</ul>
 
 	<p>
-	  If you choose to check the code out using Git, be
+	  If you choose to download a released source code distribution, be
 	  aware that the code-generation module is a dependency of
-	  the Java client library. If you're  working with a released
-	  source code distribution, though, the code-generation module is included.
+	  the Java client library.
 	</p>
       </doc:section>
 
@@ -76,17 +73,13 @@ $ ant dist</pre>
 	<ul class="compact">
 	  <li>
 	    a <a
-	    href="http://java.sun.com/javase/downloads/index.jsp">Java
-	    compiler</a>, for Java language version 1.5 or newer
+	    href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
+	    compiler</a>, for Java language version 1.6 or newer
 	  </li>
 
 	  <li>
-	    <a href="http://ant.apache.org/">Ant</a>, version 1.6 or
-	    newer, including the optional <code>ant-trax.jar</code>
-	    (if you download ant from the above then this is included;
-	    if you are using the <code>ant</code> Debian/Ubuntu package then
-	    you also need to install the <code>ant-optional</code>
-	    package).
+	    <a href="http://maven.apache.org/">Maven</a>, version 3.3.x or
+	    newer.
 	  </li>
 	</ul>
 
@@ -96,50 +89,27 @@ $ ant dist</pre>
 	  <doc:heading>Building the Java client libraries</doc:heading>
 
 	  <p>
-	    Ensure <code>JAVA_HOME</code> is correctly set. Change to
-	    the <code>rabbitmq-java-client</code> directory and type
-	    <code>ant</code>.
-	  </p>
+		Ensure <code>JAVA_HOME</code> is correctly set and
+		that the <code>rabbitmq-java-client</code> and
+		<code>rabbitmq_codegen</code> directories are in
+		the same directory. Change to
+		the <code>rabbitmq-java-client</code> directory and launch
+		the build:
+		<pre class="sourcecode">
+$ cd rabbitmq-java-client
+$ mvn clean package -Ddeps.dir=../ -DskipTests</pre>
+		The generated JAR file will be in <code>target</code>.
+      </p>
 
 	  <p>
-	    Other interesting <code>build.xml</code> targets include
+		This procedure is enough if you want to build the Java Client
+	  	yourself. If you want to make significant changes or contribute
+		to the Java Client, please follow the
+	    <a href="https://github.com/rabbitmq/rabbitmq-java-client#contributing">instructions
+		on the library repository</a>. They cover among others how to properly
+	  	run the test suite.
 	  </p>
 
-	  <p>
-	    <dl>
-	      <dt>build</dt>
-	      <dd>
-		    The default target. Builds the client library classes
-		    into <code>build/classes</code>.
-	      </dd>
-
-	      <dt>clean</dt>
-	      <dd>
-	        Removes the entire <code>build</code> directory,
-	        including compiled classes, built jar files, and any
-	        distributions placed under <code>build/dist</code>.
-	      </dd>
-
-	      <dt>jar</dt>
-	      <dd>
-	        Builds a jar file from the client library classes into
-	        <code>build/lib</code>.
-	      </dd>
-
-	      <dt>dist</dt>
-	      <dd>
-	        Constructs a directory, by default <code>build/dist</code>,
-	        containing the RabbitMQ Java AMQP client jar files as well
-	        as all the libraries the AMQP client depends on from
-	        <code>lib</code>. The distribution output directory can be
-	        overridden by setting the Ant property <code>dist.out</code>
-	        to a new location:
-	        <p>
-	          <code>ant -Ddist.out=/some/place/to/put/a/distribution dist</code>
-	        </p>
-	      </dd>
-	    </dl>
-	  </p>
       </doc:section>
   </body>
 </html>

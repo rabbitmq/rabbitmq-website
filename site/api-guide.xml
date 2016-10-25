@@ -42,8 +42,8 @@ limitations under the License.
             href="&dir-current-javadoc;">documentation</a>.
         </p>
         <p class="intro">
-            The Java client also ships with
-            some <a href="java-tools.html">command line tools</a>.
+            There are also Java <a href="java-tools.html">command line tools</a>
+            based on the Java client.
         </p>
 
     <p>
