@@ -95,4 +95,4 @@ starting, the RabbitMQ server will detect the existence of an old
 database and will move it to a backup location, before creating a
 fresh, empty database, and will log a warning. If your RabbitMQ
 installation contains important data then we recommend you contact
-support@rabbitmq.com for assistance with the upgrade.
+rabbitmq-sales@pivotal.io for assistance with the upgrade.
