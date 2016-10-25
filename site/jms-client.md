@@ -15,7 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Introduction to RabbitMQ JMS Client
+# RabbitMQ JMS Client
+
+## Introduction
 
 RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
 RabbitMQ is not a JMS provider but includes [a
