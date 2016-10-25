@@ -136,14 +136,17 @@ limitations under the License.
          <x:page url="/java-tools.html" text="Java Client Tools"/>
          <x:related url="/java-client.html"/>
        </x:page>
+       <x:page url="/jms-client.html" text="JMS Client">
+         <x:page url="/jms-client-compliance.html" text="JMS Client Spec Compliance"/>
+       </x:page>
        <x:page url="/dotnet-api-guide.html" text=".NET Client Guide"/>
-       <x:page url="/heartbeats.html" text="Heartbeats"/>
        <x:page url="/erlang-client-user-guide.html" text="Erlang Client Guide">
-         <x:related url="/amqp-0-9-1-reference.html" text="AMQP Reference"/>
          <x:related url="&dir-current-edoc;" text="Erlang edoc"/>
        </x:page>
-       <x:page url="/uri-spec.html" text="AMQP URI Spec">
-         <x:page url="/uri-query-parameters.html" text="AMQP URI Params"/>
+       <x:page url="/heartbeats.html" text="Heartbeats"/>
+       <x:page url="/amqp-0-9-1-reference.html" text="AMQP 0-9-1 Reference"/>
+       <x:page url="/uri-spec.html" text="AMQP 0-9-1 URI Spec">
+         <x:page url="/uri-query-parameters.html" text="AMQP 0-9-1 URI Params"/>
        </x:page>
        <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
