@@ -30,13 +30,13 @@ limitations under the License.
       <h2>Java Client</h2>
       <ul>
         <li>
-          <a href="api-guide.html">API Guide</a>
+          <a href="api-guide.html">Java Client Guide</a>
         </li>
         <li>
           <a href="&dir-current-javadoc;">Javadoc API reference</a>
         </li>
         <li>
-          <a href="https://www.vmware.com/support/pubs/vfabric-rabbitmq.html">JMS client</a> (commercial)
+          <a href="jms-client.html">JMS client</a>
         </li>
         <li>
           <a href="java-tools.html">Command line tools</a>
@@ -48,7 +48,7 @@ limitations under the License.
       <h2>.NET Client</h2>
       <ul>
         <li>
-          <a href="dotnet-api-guide.html">API Guide</a>
+          <a href="dotnet-api-guide.html">.NET Client Guide</a>
         </li>
           <li>
             <a href="&dir-current-dotnet-apidoc;/index.html">API reference</a>
