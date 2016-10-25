@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# JMS Client
+# Introduction
 
-JMS Client for Pivotal RabbitMQ is a client library for Pivotal RabbitMQ.
+RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
 Pivotal RabbitMQ is not a JMS provider but has features needed to support 
 the JMS Queue and Topic messaging models. JMS Client for RabbitMQ 
 implements the JMS 1.1 specification on top of the RabbitMQ Java client 
