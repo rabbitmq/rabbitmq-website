@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Introduction
+# Introduction to RabbitMQ JMS Client
 
 RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
 RabbitMQ is not a JMS provider but includes [a
@@ -84,22 +84,22 @@ Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
  with RabbitMQ. You can call a method that includes the `NoLocal` 
  argument, but it is ignored.
 
-See [the JMS API compliance documentation](jms-client-api-compliance.html) for a 
+See [the JMS API compliance documentation](jms-client-compliance.html) for a 
 detailed list of supported JMS APIs.
 
 ## Installing and Configuring
 
 ### Enabling the Topic Selector Plug-in
 
-The topic selector plug-in is included with RabbitMQ. Like any RabbitMQ 
-plugin, you need to enable the plug-in in order to use it.
+The topic selector plugin is included with RabbitMQ. Like any RabbitMQ 
+plugin, you need to enable the plugin in order to use it.
 
- 1.Enable the plug-in using the rabbitmq-plugins command:
+Enable the plugin using the `rabbitmq-plugins` command:
 
     :::bash
     $ rabbitmq-plugins enable rabbitmq_jms_topic_exchange
 
- 2.Restart the RabbitMQ server to activate the plug-in.
+You don't need to restart the broker to activate the plugin.
 
 ### Enabling the JMS client in a Java container
 
@@ -155,16 +155,16 @@ The following table lists all of the attributes/properties that are available.
 
 | Attribute/Property   | JNDI only? | Description                                                                                                                                                                                                                                                                                                                                             |
 |----------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`               | JNDI only  | Name in JNDI.                                                                                                                                                                                                                                                                                                                                           |
-| `type`               | JNDI only  | Name of the JMS interface the object implements, usually `javax.jms.ConnectionFactory`. Other choices are `javax.jms.QueueConnectionFactory` and `javax.jms.TopicConnectionFactory`. You can also use the name of the (common) implementation class, `com.rabbitmq.jms.admin.RMQConnectionFactory`.                                                              |
-| `factory`            | JNDI only  | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                                                                                                                             |
-| `username`           |            | Name to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                              |
-| `password`           |            | Password to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                          |
-| `virtualHost`        |            | RabbitMQ virtual host within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
-| `host`               |            | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
-| `port`               |            | RabbitMQ port used for connections. The default is "5672" unless this is an SSL connection, in which case the default is "5671".                                                                                                                                                                                                                        |
-| `ssl`                |            | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
-| `uri`                |            | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `userid`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
+| `name`               |    Yes     | Name in JNDI.                                                                                                                                                                                                                                                                                                                                           |
+| `type`               |    Yes     | Name of the JMS interface the object implements, usually `javax.jms.ConnectionFactory`. Other choices are `javax.jms.QueueConnectionFactory` and `javax.jms.TopicConnectionFactory`. You can also use the name of the (common) implementation class, `com.rabbitmq.jms.admin.RMQConnectionFactory`.                                                              |
+| `factory`            |    Yes     | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                                                                                                                             |
+| `username`           |    No      | Name to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                              |
+| `password`           |    No      | Password to use to authenticate a connection with the RabbitMQ broker. The default is "guest".                                                                                                                                                                                                                                                          |
+| `virtualHost`        |    No      | RabbitMQ virtual host within which the application will operate. The default is "/".                                                                                                                                                                                                                                                                    |
+| `host`               |    No      | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
+| `port`               |    No      | RabbitMQ port used for connections. The default is "5672" unless this is an SSL connection, in which case the default is "5671".                                                                                                                                                                                                                        |
+| `ssl`                |    No      | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
+| `uri`                |    No      | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `username`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
 
 ## JMS and AMQP 0-9-1 Destination Interoperability
 
@@ -216,7 +216,7 @@ This constructor creates a destination for JMS for RabbitMQ mapped
 onto an AMQP 0-9-1 resource. The parameters are the following:
 
  * `destinationName` - the name of the queue destination
- * `amqpExchangeName` - the exchange name for the map resource
+ * `amqpExchangeName` - the exchange name for the mapped resource
  * `amqpRoutingKey` - the routing key for the mapped resource
  * `amqpQueueName` - the queue name of the mapped resource (to listen
  messages from)
@@ -277,14 +277,14 @@ available:
 
 | Attribute/Property Name   | JNDI Only? | Description                                                                                                                                                                                                                                   |
 |---------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`                    | JNDI only  | Name in JNDI.                                                                                                                                                                                                                                 |
-| `type`                    | JNDI only  | Name of the JMS interface the object implements, usually `javax.jms.Queue`. Other choices are `javax.jms.Topic` and `javax.jms.Destination`. You can also use the name of the (common) implementation class, `com.rabbitmq.jms.admin.RMQDestination`. |
-| `factory`                 | JNDI only  | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                   |
-| `amqp`                    |            | "**true**" means this is an 'amqp' destination. Default "**false**".                                                                                                                                                                                  |
-| `ampqExchangeName`        |            | Name of the RabbitMQ exchange to publish messages to when an 'amqp' destination. This exchange must exist when messages are published.                                                                                                            |
-| `amqpRoutingKey`          |            | The routing key to use when publishing messages when an 'amqp' destination.                                                                                                                                                                   |
-| `amqpQueueName`           |            | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
-| `destinationName`         |            | Name of the JMS destination.                                                                                                                                                                                                                  |
+| `name`                    |    Yes     | Name in JNDI.                                                                                                                                                                                                                                 |
+| `type`                    |    Yes     | Name of the JMS interface the object implements, usually `javax.jms.Queue`. Other choices are `javax.jms.Topic` and `javax.jms.Destination`. You can also use the name of the (common) implementation class, `com.rabbitmq.jms.admin.RMQDestination`. |
+| `factory`                 |    Yes     | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                   |
+| `amqp`                    |    No      | "**true**" means this is an 'amqp' destination. Default "**false**".                                                                                                                                                                                  |
+| `amqpExchangeName`        |    No      | Name of the RabbitMQ exchange to publish messages to when an 'amqp' destination. This exchange must exist when messages are published.                                                                                                            |
+| `amqpRoutingKey`          |    No      | The routing key to use when publishing messages when an 'amqp' destination.                                                                                                                                                                   |
+| `amqpQueueName`           |    No      | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
+| `destinationName`         |    No      | Name of the JMS destination.                                                                                                                                                                                                                  |
 
 ## Configuring Logging for the JMS Client
 
@@ -477,6 +477,6 @@ normal case, when the message is an instance of
 
 To gain better understanding of AMQP 0-9-1 concepts and interoperability of
 the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
-[Introduction to RabbitMQ Concepts]("tutorials/amqp-concepts.html)
+[Introduction to RabbitMQ Concepts](tutorials/amqp-concepts.html)
 and browse our
 [AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
