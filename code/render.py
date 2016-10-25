@@ -60,9 +60,9 @@ def preprocess_markdown(fpath):
 </html>
 """
     if nosyntax:
-        args = ["markdown.extensions.tables"]
+        args = ["tables"]
     else:
-        args = ["codehilite(css_class=highlight)", "markdown.extensions.tables"]
+        args = ["codehilite(css_class=highlight)", "tables"]
 
     processed = markdown.markdown(contents, args)
 
