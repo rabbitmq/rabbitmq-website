@@ -17,7 +17,7 @@ limitations under the License.
 
 # JMS Client Reference
 
-This page annotates the JMS Client for RabbitMQ implementation
+This page annotates the [RabbitMQ JMS Client](/jms-client.html) implementation
 of the JMS 1.1 API.
 
 You can download the JMS 1.1 specification and API documentation 

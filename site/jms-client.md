@@ -18,49 +18,60 @@ limitations under the License.
 # Introduction
 
 RabbitMQ JMS Client is a client library for Pivotal RabbitMQ.
-Pivotal RabbitMQ is not a JMS provider but has features needed to support 
-the JMS Queue and Topic messaging models. JMS Client for RabbitMQ 
-implements the JMS 1.1 specification on top of the RabbitMQ Java client 
-API, thus allowing new and existing JMS applications to connect with 
-RabbitMQ brokers through Advanced Message Queueing Protocol (AMQP).
+RabbitMQ is not a JMS provider but includes [a
+plugin](https://github.com/rabbitmq/rabbitmq-jms-topic-exchange)
+needed to support the JMS Queue and Topic messaging models. JMS Client
+for RabbitMQ implements the JMS 1.1 specification on top of the
+[RabbitMQ Java client](/api-guide.html), thus allowing new and
+existing JMS applications to connect to RabbitMQ.
+
+The plugin and the JMS client are meant to work and be used together.
 
 ## Components
 
 To fully leverage JMS with RabbitMQ, you need the following components:
 
- * the JMS Client library itself and its dependent libraries. Please visit
- the [JMS client Git repository](https://github.com/rabbitmq/rabbitmq-jms-client)
- to see how to include the library into your project with tools like Maven.
- * RabbitMQ JMS topic selector plugin. To support message selectors for JMS 
- topics, the RabbitMQ Topic Selector plugin must be installed on the 
- RabbitMQ server. Message selectors allow a JMS application to filter 
- messages using an expression based on SQL syntax. Message selectors 
- for Queues are not currently supported.
+ * the [JMS client library](https://github.com/rabbitmq/rabbitmq-jms-client) and its dependent libraries.
+ * [RabbitMQ JMS topic selector plugin](https://github.com/rabbitmq/rabbitmq-jms-topic-exchange) that is included
+   with RabbitMQ starting with version 3.6.3. To support message selectors for JMS 
+   topics, the RabbitMQ Topic Selector plugin must be installed on the 
+   RabbitMQ server. Message selectors allow a JMS application to filter 
+   messages using an expression based on SQL syntax. Message selectors 
+   for Queues are not currently supported.
 
-## JMS and AMQP
+## JMS and AMQP 0-9-1
 
-JMS is the standard messaging service for the Java Extended Edition (JEE) 
-platform. It is available in commercial and open source implementations. 
-Each implementation includes a JMS provider, a JMS client library, and additional, 
-implementation-specific components for administering the messaging 
-system. The JMS provider can be a standalone implementation of the 
-messaging service, or a bridge to a non-JMS messaging system.
+JMS is the standard messaging API for the JEE platform. It is
+available in commercial and open source implementations.  Each
+implementation includes a JMS provider, a JMS client library, and
+additional, implementation-specific components for administering the
+messaging system. The JMS provider can be a standalone implementation
+of the messaging service, or a bridge to a non-JMS messaging system.
 
-The JMS client API is standardized, so JMS applications are portable 
-between vendors’ implementations. However, the underlying messaging implementation is unspecified, so there is no interoperability between JMS implementations. Java applications that want to share messaging must all use the same JMS implementation unless bridging technology exists. Furthermore, non-Java applications cannot access JMS without a vendor-specific JMS client library to enable interoperability.
+The JMS client API is standardized, so JMS applications are portable
+between vendors’ implementations. However, the underlying messaging
+implementation is unspecified, so there is no interoperability between
+JMS implementations. Java applications that want to share messaging
+must all use the same JMS implementation unless bridging technology
+exists. Furthermore, non-Java applications cannot access JMS without a
+vendor-specific JMS client library to enable interoperability.
 
-AMQP is a messaging protocol, rather than an API like JMS. Any client 
-that implements the protocol can access any AMQP broker. Protocol-level interoperability allows AMQP clients written in any programming language and running on any operating system to participate in the messaging system with no need to bridge incompatible vendor implementations.
+AMQP 0-9-1 is a messaging protocol, rather than an API like JMS. Any
+client that implements the protocol can access a broker that supports
+AMQP 0-9-1. Protocol-level interoperability allows AMQP 0-9-1 clients
+written in any programming language and running on any operating
+system to participate in the messaging system with no need to bridge
+incompatible vendor implementations.
 
 Because JMS Client for RabbitMQ is implemented using the RabbitMQ Java 
-client, it is compliant with both the JMS API and the AMQP protocol.
+client, it is compliant with both the JMS API and the AMQP 0-9-1 protocol.
 
 You can download the JMS 1.1 specification and API documentation from 
 the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
 
 ## Limitations
 
-Some JMS features are unsupported in the JMS Client:
+Some JMS 1.1 features are unsupported in the RabbitMQ JMS Client:
 
  * The JMS Client does not support server sessions.
  * XA transaction support interfaces are not implemented.
@@ -153,23 +164,23 @@ The following table lists all of the attributes/properties that are available.
 | `host`               |            | Host on which RabbitMQ is running. The default is "localhost".                                                                                                                                                                                                                                                                                          |
 | `port`               |            | RabbitMQ port used for connections. The default is "5672" unless this is an SSL connection, in which case the default is "5671".                                                                                                                                                                                                                        |
 | `ssl`                |            | Whether to use an SSL connection to RabbitMQ. The default is "false". See the `useSslProtocol` methods for more information.                                                                                                                                                                                                                                                                                 |
-| `uri`                |            | The AMQP URI string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `userid`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. See the [AMQP URI specification](/uri-spec.html) on the public RabbitMQ site for details. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
+| `uri`                |            | The [AMQP 0-9-1 URI](/uri-spec.html) string used to establish a RabbitMQ connection. The value can encode the `host`, `port`, `userid`, `password` and `virtualHost` in a single string. Both 'amqp' and 'amqps' schemes are accepted. Note: this property sets other properties and the set order is unspecified. |                                                                                                                                                                                                                                                                                                                                                      |
 
-## JMS and AMQP Destination Interoperability
+## JMS and AMQP 0-9-1 Destination Interoperability
 
 An interoperability feature allows you to define JMS 'amqp' destinations
-that read and/or write to non-JMS RabbitMQ resources
+that read and/or write to non-JMS RabbitMQ resources.
 
 A JMS destination can be defined so that a JMS application can send
 `Message`s to a predefined RabbitMQ 'destination' (exchange/routing key)
 using the JMS API in the normal way. The messages are written
-"in the clear," which means that any AMQP client can read them without
+"in the clear," which means that any AMQP 0-9-1 client can read them without
 having to understand the internal format of Java JMS messages. 
 Only `BytesMessage`s and `TextMessage`s can be written in this way.
 
 Similarly, a JMS destination can be defined that reads messages from a
 predefined RabbitMQ queue. A JMS application can then read these
-messages using the JMS API. JMS Client for RabbitMQ packs them up into 
+messages using the JMS API. RabbitMQ JMS Client packs them up into 
 JMS Messages automatically. Messages read in this way are, by default, 
 `BytesMessage`s, but individual messages can be marked `TextMessage`
 (by adding an AMQP message property called "JMSType" whose value is 
@@ -179,15 +190,15 @@ encoded String and return them as `TextMessage`s.
 A single 'amqp' destination can be defined for both reading and writing.
 
 When messages are sent to an 'amqp' Destination, JMS message properties
-are mapped onto AMQP headers and properties as appropriate.
+are mapped onto AMQP 0-9-1 headers and properties as appropriate.
 For example, the `JMSPriority` property converts to the `priority` property
-for the AMQP message. (It is also set as a header with the name 
+for the AMQP 0-9-1 message. (It is also set as a header with the name 
 "JMSPriority".) User-defined properties are set as named message header
 values, provided they are `boolean`, numeric or `String` types.
 
 When reading from an 'amqp' Destination, values are mapped back to 
 JMS message properties, except that any explicit JMS property set as
-a message header overrides the natural AMQP header value, unless
+a message header overrides the natural AMQP 0-9-1 header value, unless
 this would misrepresent the message. For example, 
 `JMSDeliveryMode` cannot be overridden in this way.
 
@@ -202,7 +213,7 @@ with a new constructor:
                           String amqpRoutingKey, String amqpQueueName);
                           
 This constructor creates a destination for JMS for RabbitMQ mapped
-onto an AMQP resource. The parameters are the following:
+onto an AMQP 0-9-1 resource. The parameters are the following:
 
  * `destinationName` - the name of the queue destination
  * `amqpExchangeName` - the exchange name for the map resource
@@ -214,18 +225,18 @@ Applications that declare destinations in this way can use them directly,
 or store them in a JNDI provider for JMS applications to retrieve. 
 Such destinations are non-temporary, queue destinations.
 
-### JMS AMQP Destination Definitions
+### JMS AMQP 0-9-1 Destination Definitions
 
 The `RMQDestination` object has the following new instance fields:
 
- * `amqp` – *boolean*, indicates if this is an AMQP destination 
+ * `amqp` – *boolean*, indicates if this is an AMQP 0-9-1 destination 
  (if **true**); the default is **false**.
- * `amqpExchangeName` – *String*, the AMQP exchange name to use when 
+ * `amqpExchangeName` – *String*, the RabbitMQ exchange name to use when 
  sending messages to this destination, if `amqp` is **true**; the default 
  is **null**.
- * `amqpRoutingKey` – *String*, the AMQP routing key to use when sending
+ * `amqpRoutingKey` – *String*, the AMQP 0-9-1 routing key to use when sending
  messages to this destination, if `amqp` is **true**; the default is **null**.
- * `amqpQueueName` – *String*, the AMQP queue name to use when reading 
+ * `amqpQueueName` – *String*, the RabbitMQ queue name to use when reading 
  messages from this destination, if `amqp` is **true**; the default is **null**.
  
 There are getters and setters for these fields, which means that a JNDI
@@ -270,9 +281,9 @@ available:
 | `type`                    | JNDI only  | Name of the JMS interface the object implements, usually `javax.jms.Queue`. Other choices are `javax.jms.Topic` and `javax.jms.Destination`. You can also use the name of the (common) implementation class, `com.rabbitmq.jms.admin.RMQDestination`. |
 | `factory`                 | JNDI only  | JMS Client for RabbitMQ `ObjectFactory` class, always `com.rabbitmq.jms.admin.RMQObjectFactory`.                                                                                                                                                   |
 | `amqp`                    |            | "**true**" means this is an 'amqp' destination. Default "**false**".                                                                                                                                                                                  |
-| `ampqExchangeName`        |            | Name of the AMQP exchange to publish messages to when an 'amqp' destination. This exchange must exist when messages are published.                                                                                                            |
+| `ampqExchangeName`        |            | Name of the RabbitMQ exchange to publish messages to when an 'amqp' destination. This exchange must exist when messages are published.                                                                                                            |
 | `amqpRoutingKey`          |            | The routing key to use when publishing messages when an 'amqp' destination.                                                                                                                                                                   |
-| `amqpQueueName`           |            | Name of the AMQP queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
+| `amqpQueueName`           |            | Name of the RabbitMQ queue to receive messages from when an 'amqp' destination. This queue must exist when messages are received.                                                                                                                 |
 | `destinationName`         |            | Name of the JMS destination.                                                                                                                                                                                                                  |
 
 ## Configuring Logging for the JMS Client
@@ -305,7 +316,7 @@ may have configuration files or command-line options.
 Refer to the documentation for the target logging framework
 for configuration details.
 
-## API Implementation Details
+## Implementation Details
 
 This section provides additional implementation details for specific
 JMS API classes in the JMS Client.
@@ -313,7 +324,7 @@ JMS API classes in the JMS Client.
 Deviations from the specification are implemented to support common
 acknowledgement behaviours.
 
-## <a id="queue_browser_support"></a>QueueBrowser support
+## <a id="queue_browser_support"></a>QueueBrowser Support
 
 ### Overview of queue browsers
 
@@ -349,8 +360,6 @@ may be re-issued, taking a *new* snapshot from the queue each time.
 The contents of an `Enumeration` survive session and/or connection
 close, but a `QueueBrowser` may not be used after the session that
 created it has closed. `QueueBrowser.close()` has no effect.
-
-### Implementation Details
 
 #### Which messages are included
 
@@ -409,7 +418,7 @@ is specified as `0` if this property is not set or is not an integer.
 If a `RMQConnectionFactory` value is obtained from a JNDI provider,
 then the limit set when the factory object was created is preserved.
 
-#### Release support
+#### Release Support
 
 Support for `QueueBrowser`s is introduced in the JMS Client 1.2.0.
 Prior to that release, calling `Session.createBrowser(Queue queue[, String selector])`
@@ -464,3 +473,10 @@ normal case, when the message is an instance of
 `com.rabbitmq.jms.client.RMQMessage`, no copying is done.
 
 
+## Further Reading
+
+To gain better understanding of AMQP 0-9-1 concepts and interoperability of
+the RabbitMQ JMS client with AMQP 0-9-1 clients, you may wish to read an
+[Introduction to RabbitMQ Concepts]("tutorials/amqp-concepts.html)
+and browse our
+[AMQP 0-9-1 Quick Reference Guide](amqp-0-9-1-quickref.html).
