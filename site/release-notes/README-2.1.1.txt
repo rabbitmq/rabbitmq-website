@@ -57,4 +57,4 @@ If, however, you are upgrading from a release prior to 2.1.0, when the
 RabbitMQ server detects the presence of an old database, it moves it to a
 backup location, creates a fresh, empty database, and logs a warning. If
 your RabbitMQ installation contains important data then we recommend you
-contact support@rabbitmq.com for assistance with the upgrade.
+contact rabbitmq-sales@pivotal.io for assistance with the upgrade.
