@@ -56,7 +56,7 @@ messages.
 The upgrade process will be much improved in future releases, to the
 point where a running RabbitMQ cluster can be upgraded without service
 interruption. Meanwhile, if you need assistance in migration please
-contact the RabbitMQ team at support@rabbitmq.com.
+contact the RabbitMQ team at rabbitmq-sales@pivotal.io.
 
 
 Credits

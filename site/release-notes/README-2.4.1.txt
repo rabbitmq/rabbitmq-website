@@ -83,5 +83,5 @@ contain any important data then simply install the new
 version. RabbitMQ will move the existing data to a backup location
 before creating a fresh, empty database. A warning is recorded in the
 logs. If your RabbitMQ installation contains important data then we
-recommend you contact support@rabbitmq.com for assistance with the
+recommend you contact rabbitmq-sales@pivotal.io for assistance with the
 upgrade.
