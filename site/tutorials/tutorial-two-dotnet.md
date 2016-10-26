@@ -80,7 +80,7 @@ program will schedule tasks to our work queue, so let's name it
     var body = Encoding.UTF8.GetBytes(message);
 
     var properties = channel.CreateBasicProperties();
-    properties.SetPersistent(true);
+    properties.Persistent = true;
 
     channel.BasicPublish(exchange: "",
                          routingKey: "task_queue",
@@ -307,7 +307,7 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 
     :::csharp
     var properties = channel.CreateBasicProperties();
-    properties.SetPersistent(true);
+    properties.Persistent = true;
 
 > #### Note on message persistence
 >
@@ -403,7 +403,7 @@ Final code of our `NewTask.cs` class:
                 var body = Encoding.UTF8.GetBytes(message);
 
                 var properties = channel.CreateBasicProperties();
-                properties.SetPersistent(true);
+                properties.Persistent = true;
 
                 channel.BasicPublish(exchange: "",
                                      routingKey: "task_queue",
