@@ -113,18 +113,15 @@ limitations under the License.
         </li>
         <li>
           Quick download:
-          Binary
-          <a href="/releases/&dir-java-client;/rabbitmq-java-client-bin-&version-java-client;.tar.gz">.tar.gz</a>
-          <a href="/releases/&dir-java-client;/rabbitmq-java-client-bin-&version-java-client;.zip">.zip</a> |
-          Source
-          <a href="/releases/&dir-java-client;/rabbitmq-java-client-&version-java-client;.tar.gz">.tar.gz</a>
-          <a href="/releases/&dir-java-client;/rabbitmq-java-client-&version-java-client;.zip">.zip</a>
+          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&dir-java-client;/amqp-client-&version-java-client;.jar">Binary</a>
+          |
+          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/&dir-java-client;/amqp-client-&version-java-client;-sources.jar">Source</a>
         </li>
         <li>
           <a href="java-client.html">All Java client downloads</a>
         </li>
         <li>
-          <a href="/releases/rabbitmq-java-client/">Older versions</a>
+          <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
         </li>
       </ul>
       <h3>.NET/C# Client</h3>
