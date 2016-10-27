@@ -29,7 +29,7 @@ limitations under the License.
   <body>
     <p>
       The RabbitMQ Java client library allows Java code to interface
-      to AMQP servers. The library is platform neutral; the binary
+      with RabbitMQ. The library is platform neutral; the binary
       distributions listed below differ only in the version of Java
       they are intended for use with. Please see the <a
       href="specification.html">specification</a> page for more
@@ -58,7 +58,7 @@ limitations under the License.
       &version-java-client;</b>.
     </p>
 
-    <h2>Dependency management</h2>
+    <h2>Adding Library Dependency</h2>
     <p>
       The recommended way to get started using the RabbitMQ Java AMQP
       in your project is with a dependency management system.
@@ -145,7 +145,7 @@ dependencies {
 
     <h2>OSGi Ready</h2>
     <p>
-      The RabbitMQ Java AMQP library jar comes ready with an OSGi
+      The RabbitMQ Java client jar comes ready with an OSGi
       manifest (with bundle version and package dependencies correctly
       set) so it can be deployed in an OSGi environment.
       This means it is no longer necessary to <i>bundleise</i> or
@@ -154,8 +154,8 @@ dependencies {
 
     <h2>GitHub repositories</h2>
     <p>
-      The Java AMQP client library depends on
-      the code-generation library module. Please see the <a
+      The RabbitMQ Java client depends on
+      the code generation library module. Please see the <a
       href="build-java-client.html">build page</a> for instructions on
       compiling from source code.
     </p>
@@ -166,10 +166,5 @@ dependencies {
       <repository type="github" shortname="rabbitmq-codegen"
         url="https://github.com/rabbitmq/rabbitmq-codegen"/>
     </repositories>
-
-    <h2>Support</h2>
-    <p>
-      For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.
-    </p>
   </body>
 </html>

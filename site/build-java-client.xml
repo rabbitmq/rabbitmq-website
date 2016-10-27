@@ -61,7 +61,7 @@ $ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 	  href="http://www.python.org/download/">Python</a>  and
 	  <a href="http://pypi.python.org/pypi/simplejson">simplejson.py</a>
 	  (an implementation of a <a href="http://json.org">JSON</a>
-	  reader and writer in Python), for generating AMQP framing code.
+	  reader and writer in Python), for generating AMQP 0-9-1 framing code.
           simplejson.py is included as a standard json library in the Python
           core since 2.6 release. 
 	</p>
@@ -73,8 +73,7 @@ $ git clone https://github.com/rabbitmq/rabbitmq-java-client.git</pre>
 	<ul class="compact">
 	  <li>
 	    a <a
-	    href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
-	    compiler</a>, for Java language version 1.6 or newer
+	    href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6</a> or newer
 	  </li>
 
 	  <li>
