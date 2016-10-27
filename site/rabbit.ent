@@ -36,7 +36,7 @@ limitations under the License.
 <!ENTITY version-dotnet-client-tag "rabbitmq_v3_6_5">
 
 <!ENTITY dir-java-client "rabbitmq-java-client/v&version-java-client;">
-<!ENTITY dir-current-javadoc "/releases/&dir-java-client;/rabbitmq-java-client-javadoc-&version-java-client;/">
+<!ENTITY dir-current-javadoc "/releases/rabbitmq-java-client/current-javadoc/">
 
 <!ENTITY dir-current-erlang-client "/releases/rabbitmq-erlang-client/v&version-server;/">
 
