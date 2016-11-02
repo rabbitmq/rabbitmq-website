@@ -531,7 +531,7 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
           </li>
           <li>
         <code>close(int closeCode, String
-        closeMessage)</code>, to explictly notify the object
+        closeMessage)</code>, to explicitly notify the object
         to shut down
           </li>
         </ul>
@@ -554,7 +554,7 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           One can retrieve the
           <code>ShutdownSignalException</code>, which contains all
           the information available about the close reason, either
-          by explictly calling the <code>getCloseReason()</code>
+          by explicitly calling the <code>getCloseReason()</code>
           method or by using the <code>cause</code> parameter in
           the <code>service(ShutdownSignalException cause)</code>
           method of the <code>ShutdownListener</code> class.
@@ -1077,7 +1077,7 @@ metrics.getPublishedMessages(); // get Metrics' Meter object
           </li>
           <li>
             The <code>MetricsCollector</code> is set at the <code>ConnectionFactory</code>
-            level, but can be shared accross different instances.
+            level, but can be shared across different instances.
           </li>
           <li>
             Metrics collection doesn't support transactions. E.g. if an acknowledgment
@@ -1156,7 +1156,7 @@ cf.setRequestedHeartbeat(5);
           <li>When exchange is deleted.</li>
           <li>When binding is deleted.</li>
           <li>When consumer is cancelled on an auto-deleted queue.</li>
-          <li>When queue or exchange is is unbound from an auto-deleted exchange.</li>
+          <li>When queue or exchange is unbound from an auto-deleted exchange.</li>
         </ul>
 
         However, the client cannot track these topology changes beyond a single connection.
