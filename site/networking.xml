@@ -278,7 +278,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false},
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -295,7 +294,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false},
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -305,7 +303,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false}
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -422,7 +419,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -439,7 +435,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -449,7 +444,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
-                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -513,8 +507,7 @@ everything is configured in a single file:
     {tcp_listen_options, [
                           {backlog,       4096},
                           {nodelay,       true},
-                          {linger,        {true, 0}},
-                          {exit_on_close, false}
+                          {linger,        {true, 0}}
                          ]}
   ]}
 ].
