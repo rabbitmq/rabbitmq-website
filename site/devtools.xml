@@ -74,7 +74,7 @@ limitations under the License.
             <doc:heading>.NET</doc:heading>
             <ul class="plain">
               <li>
-                <a href="dotnet.html">RabbitMQ .NET Client</a>
+                <a href="dotnet.html">RabbitMQ .NET Client</a> (supports .NET Core and .NET 4.5.1+ as of <code>4.0.0</code>)
               </li>
               <li>
                 <a href="http://easynetq.com">EasyNetQ</a>, an easy to use, opinionated .NET API for RabbitMQ
