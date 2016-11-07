@@ -230,9 +230,9 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
               <td>RABBITMQ_DIST_PORT</td>
               <td>RABBITMQ_NODE_PORT + 20000</td>
               <td>
-                Port to use for clustering. Ignored if your config
-                file sets <code>inet_dist_listen_min</code> or
-                <code>inet_dist_listen_max</code>
+                Port used for inter-node and CLI tool communition. Ignored if your config
+                file sets <code>kernel.inet_dist_listen_min</code> or
+                <code>kernel.inet_dist_listen_max</code> keys. See <a href="/networking.html">Networking</a> for details.
               </td>
             </tr>
 
@@ -646,7 +646,8 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
         </p>
         <p>
           If <code>rabbitmq-env.conf</code> doesn't exist, it can be created manually
-          in the default location only. On Windows systems, it is named <code>rabbitmq-env-conf.bat</code>.
+          in the location, specified by the <span class="envvar">RABBITMQ_CONF_ENV_FILE</span> variable.
+          On Windows systems, it is named <code>rabbitmq-env.bat</code>.
         </p>
         <p>
           If <code>rabbitmq.conf</code> doesn't exist, it can be created manually.

@@ -214,7 +214,64 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
     <xi:include href="install-selinux-ports.xml.inc" />
 
+    <doc:section name="epmd-inet-dist-port-range">
+      <doc:heading>EPMD and Inter-node Communication Port(s)</doc:heading>
+
+      <p>
+          Erlang makes use of a Port Mapper Daemon (epmd) for
+          resolution of node names in a cluster. The default epmd
+          port is 4369, but this can be changed using the <span
+          class="envvar">ERL_EPMD_PORT</span> environment
+          variable. All nodes must use the same port. For further
+          details see the <a
+          href="http://www.erlang.org/doc/man/epmd.html">Erlang epmd
+          manpage</a>.
+      </p>
+      <p>
+          Once a distributed Erlang node address has been resolved
+          via epmd, other nodes will attempt to communicate directly
+          with that address using the Erlang distribution
+          protocol.
+          See the following section for details.
+      </p>
+      <p>
+        RabbitMQ nodes communicate with CLI tools and other nodes using a port known as
+        the <em>distribution port</em>. It is dynamically allocated from a range of values.
+        By default the range is limited to a single value computed as
+        configured <span class="envvar">RABBITMQ_NODE_PORT</span>
+        (AMQP port) + 20000, or 25672. This single port range can be
+        <a href="configure.html">configured</a> using the <span
+        class="envvar">RABBITMQ_DIST_PORT</span> environment variable.
+      </p>
+      <p>
+        The range can also be controlled via two configuration keys:
+
+        <ul>
+          <li><code>kernel.inet_dist_listen_min</code></li>
+          <li><code>kernel.inet_dist_listen_max</code></li>
+        </ul>
+
+        They define the range's lower and upper bounds, inclusive.
+      </p>
+      <p>
+        The example below uses a range with a single port but a value different from default:
+
+<pre class="code">
+[
+  {kernel, [
+    {inet_dist_listen_min, 33672},
+    {inet_dist_listen_max, 33672}
+  ]},
+  {rabbit, [
+    ...
+  ]}
+].
+</pre>
+      </p>
+    </doc:section>
+
     <doc:section name="tls-support">
+      <doc:heading>TLS (SSL) Support</doc:heading>
       <p>
         It is possible to encrypt connections using TLS with RabbitMQ. Authentication
         using peer certificates is also possible. Please refer to the <a href="/ssl.html">TLS/SSL guide</a>
