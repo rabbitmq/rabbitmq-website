@@ -21,11 +21,13 @@ limitations under the License.
              name="selinux-ports">
   <doc:heading>Port Access</doc:heading>
   <p>
-    SELinux and similar mechanisms may prevent RabbitMQ from binding to a port. When that happens,
-    RabbitMQ will fail to start. Make sure the following ports can be opened:
+    SELinux, and similar mechanisms may prevent RabbitMQ from binding to a port. When that happens,
+    RabbitMQ will fail to start. Firewalls can prevent nodes and CLI tools from communicating with each other.
+    Make sure the following ports can be opened:
 
     <xi:include href="list-of-ports.xml.inc" />
 
-    It is possible to <a href="/configure.html">configure RabbitMQ</a> to use different ports.
+    It is possible to <a href="/configure.html">configure RabbitMQ</a>
+    to use <a href="/networking.html">different ports and specific network interfaces</a>.
   </p>
 </doc:section>
