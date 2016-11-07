@@ -228,6 +228,7 @@ is equivalent to
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false},
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -244,6 +245,7 @@ is equivalent to
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false},
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -253,6 +255,7 @@ is equivalent to
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false}
                           {sndbuf,        196608},
                           {recbuf,        196608}
                          ]}
@@ -358,6 +361,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -374,6 +378,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -383,6 +388,7 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
                           {backlog,       128},
                           {nodelay,       true},
                           {linger,        {true,0}},
+                          {exit_on_close, false},
                           {sndbuf,        32768},
                           {recbuf,        32768}
                          ]}
@@ -426,7 +432,8 @@ RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="+A 128"
     {tcp_listen_options, [
                           {backlog,       4096},
                           {nodelay,       true},
-                          {linger,        {true,0}}
+                          {linger,        {true,0}},
+                          {exit_on_close, false}
                          ]}
   ]}
 ].

@@ -797,6 +797,50 @@ cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
 </pre>
       </p>
     </doc:subsection>
+    <doc:subsection name="java-nio">
+      <doc:heading>Support for Java non-blocking IO</doc:heading>
+      <p>
+        Version 4.0 of the Java client brings <i>experimental</i> support for Java non-blocking
+        IO (a.k.a Java NIO). NIO isn't supposed to be faster than blocking IO,
+        it simply allows to control resources (in this case, threads) more easily.
+      </p>
+      <p>
+        With the default blocking IO mode, each connection uses a thread to read
+        from the network socket. With the NIO mode, you can control the number of
+        threads that read and write from/to the network socket.
+      </p>
+      <p>
+        Use the NIO mode if your Java process uses many connections (dozens or hundreds).
+        You should use fewer threads than with the default blocking mode. With the
+        appropriate number of threads set, you shouldn't
+        experiment any decrease in performance, especially if the connections are
+        not so busy.
+      </p>
+      <p>
+        NIO must be enabled explicitly:
+      </p>
+      <p>
+<pre class="sourcecode">
+ConnectionFactory connectionFactory = new ConnectionFactory();
+connectionFactory.useNio();
+</pre>
+      </p>
+      <p>
+        The NIO mode can be configured through the <code>NioParams</code> class:
+      </p>
+      <p>
+<pre class="sourcecode">
+connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
+</pre>
+      </p>
+      <p>
+        The NIO mode uses reasonable defaults, but you may need to change them according
+        to your own workload. Some of the settings are: the total number of IO
+        threads used, the size of buffers, a service executor to use for the IO loops,
+        parameters for the in-memory write queue (write requests are enqueued before
+        being sent on the network). Please read the Javadoc for details and defaults.
+      </p>
+    </doc:subsection>
 </doc:section>
 
 
@@ -954,6 +998,133 @@ cf.setExceptionHandler(customHandler);
 
         Exception handlers should be used for exception logging.
       </p>
+    </doc:section>
+
+    <doc:section name="metrics">
+      <doc:heading>Metrics and monitoring</doc:heading>
+      <p>
+        As of version 4.0.0, the client gathers runtime metrics (e.g. number
+        of published messages). Metrics collection is optional and is set up
+        at the <code>ConnectionFactory</code> level, using the
+        <code>setMetricsCollector(metricsCollector)</code> method.
+        This method expects a <code>MetricsCollector</code> instance, which is
+        called in several places of the client code.
+      </p>
+      <p>
+        The client ships with a <code>MetricsCollector</code> implementation
+        that uses the <a href="http://metrics.dropwizard.io/">Dropwizard Metrics</a>
+        library. One can enable the metrics collection the following way:
+
+        <pre class="sourcecode">
+ConnectionFactory connectionFactory = new ConnectionFactory();
+StandardMetricsCollector metrics = new StandardMetricsCollector();
+connectionFactory.setMetricsCollector(metrics);
+...
+metrics.getPublishedMessages(); // get Metrics' Meter object
+        </pre>
+
+      </p>
+      <p>
+        Here are the collected metrics:
+        <ul>
+          <li>
+            Number of open connections (a <code>Counter</code>
+            in the default implementation)
+          </li>
+          <li>
+            Number of open channels (a <code>Counter</code>
+            in the default implementation)
+          </li>
+          <li>
+            Number of published messages (a <code>Meter</code> in the
+            default implementation)
+          </li>
+          <li>
+            Number of consumed messages (a <code>Meter</code> in the
+            default implementation)
+          </li>
+          <li>
+            Number of acknowledged messages (a <code>Meter</code> in the
+            default implementation)
+          </li>
+          <li>
+            Number of rejected messages (a <code>Meter</code> in the
+            default implementation)
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        By using Dropwizard Metrics, one gets not only counts, but also mean rate,
+        last five-minute rate, etc, and <a href="#metrics-reporting">out-of-the-box
+        reporting with common tools</a> (JMX, Graphite, Ganglia, HTTP).
+      </p>
+
+      <p>
+        Please note the following about metrics collection:
+
+        <ul>
+          <li>
+            If you use the default implementation based on Dropwizard
+            Metrics, don't forget to add the appropriate JAR file
+            to your classpath (Dropwizard Metrics isn't pulled automatically
+            with the Java client, as it's an optional dependency).
+          </li>
+          <li>
+            Metrics collection is extensible, nothing prevents you from
+            implementing your own
+            <code>MetricsCollector</code> for specific needs.
+          </li>
+          <li>
+            The <code>MetricsCollector</code> is set at the <code>ConnectionFactory</code>
+            level, but can be shared accross different instances.
+          </li>
+          <li>
+            Metrics collection doesn't support transactions. E.g. if an acknowledgment
+            is sent in a transaction and the transaction is then rolled back,
+            the acknowledgment is counted in the client metrics (but not by the broker
+            obviously). Note the acknowledgment is actually sent to the broker and
+            then cancelled by the transaction rollback, so the client metrics
+            are correct in term of acknowledgments sent. As a summary, don't use
+            client metrics for sensitive business checks, as they're not guaranteed
+            to be perfectly accurate.
+          </li>
+        </ul>
+      </p>
+
+      <doc:subsection name="metrics-reporting">
+        <doc:heading>Metrics reporting</doc:heading>
+
+        <p>
+          If you use the <code>StandardMetricsCollector</code> based on Dropwizard
+          Metrics, you can send the metrics to
+          <a href="http://metrics.dropwizard.io/3.1.0/getting-started/">several reporting backends</a>:
+          console, JMX, HTTP, Graphite, Ganglia, etc.
+        </p>
+
+        <p>
+          You would typically pass in an instance of <code>MetricsRegistry</code>
+          to the <code>StandardMetricsCollector</code>. Here is an example
+          with JMX:
+
+          <pre class="sourcecode">
+MetricRegistry registry = new MetricRegistry();
+StandardMetricsCollector metrics = new StandardMetricsCollector(registry);
+
+ConnectionFactory connectionFactory = new ConnectionFactory();
+connectionFactory.setMetricsCollector(metrics);
+
+JmxReporter reporter = JmxReporter
+  .forRegistry(registry)
+  .inDomain("com.rabbitmq.client.jmx")
+  .build();
+reporter.start();
+          </pre>
+
+        </p>
+
+      </doc:subsection>
+
     </doc:section>
 
     <doc:section name="gae-pitfalls">
