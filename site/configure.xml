@@ -1112,11 +1112,20 @@ cluster_nodes.disc.2 = rabbit@hostname2
           </tr>
 
           <tr>
-            <td><code>mnesia_table_loading_timeout</code></td>
+            <td><code>mnesia_table_loading_retry_timeout</code></td>
             <td>
               Timeout used when waiting for Mnesia tables in a cluster to
               become available.
-              <p>Default: <code>mnesia_table_loading_timeout = 30000</code></p>
+              <p>Default: <code>mnesia_table_loading_retry_timeout = 30000</code></p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><code>mnesia_table_loading_retry_limit</code></td>
+            <td>
+              Retries when waiting for Mnesia tables in the cluster startup. Note that
+              this setting is not applied to Mnesia upgrades or node deletions.
+              <p>Default: <code>mnesia_table_loading_retry_limit = 10</code></p>
             </td>
           </tr>
 
