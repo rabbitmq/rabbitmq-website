@@ -86,14 +86,18 @@ limitations under the License.
         <doc:subsection name="overview-cluster-formation-and-membership">
           <doc:heading>Cluster Formation</doc:heading>
           <p>
-            Cluster can formed in a number of ways:
+            A RabbitMQ cluster can formed in a number of ways:
 
             <ul>
+              <li>Declaratively by <a href="/autoclustering.html">listing cluster nodes</a> in <a href="/configure.html">config file</a></li>
+              <li>Declaratively using <a href="/autoclustering.html">DNS-based discovery</a></li>
+              <li>Declaratively using <a href="https://github.com/aweber/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
               <li>Manually with <code>rabbitmqctl</code></li>
-              <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
-              <li>Declaratively with <a href="https://github.com/aweber/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin)</li>
-              <li>Declaratively with <a href="http://github.com/rabbitmq/rabbitmq-clusterer">rabbitmq-clusterer</a> (a plugin)</li>
             </ul>
+          </p>
+
+          <p>
+            Please refer to the <a href="/autoclustering.html">Cluster Formation guide</a> for details.
           </p>
 
           <p>
@@ -130,17 +134,31 @@ limitations under the License.
           <p>
             A node can be a <em>disk node</em> or a <em>RAM node</em>.
             (<b>Note:</b> <i>disk</i> and <i>disc</i> are used
-            interchangeably). In most cases you want all your
-            nodes to be disk nodes; RAM nodes are a special case that
-            can be used to improve the performance
-            clusters with high queue, exchange, or binding churn.
-            When in doubt, use disk nodes only.
+            interchangeably). RAM nodes store internal database tables
+            in RAM. This does not include messages, message store
+            indices, queue indices and other node state.
+          </p>
+
+          <p>
+            In well over 90% of cases you want all your nodes to be
+            disk nodes; RAM nodes are a special case that can be used
+            to improve the performance clusters with high queue,
+            exchange, or binding churn. RAM nodes do not provide
+            meaningfully higher message rates.  When in doubt, use
+            disk nodes only.
+          </p>
+
+          <p>
+            Since RAM nodes store internal database tables in RAM only, they must sync
+            them from a peer node on startup. This means that a cluster must contain
+            at least one disk node. It is therefore not possible to manually remove
+            the last remaining disk node in a cluster.
           </p>
         </doc:subsection>
       </doc:section>
 
       <doc:section name="transcript">
-        <doc:heading>Clustering Transcript</doc:heading>
+        <doc:heading>Clustering Transcript with <code>rabbitmqctl</code></doc:heading>
         <p>
           The following is a transcript of setting up and manipulating
           a RabbitMQ cluster across three machines -
