@@ -82,7 +82,7 @@ limitations under the License.
         <code>autocluster.peer_discovery_backend</code> is the key
         that controls what discovery module (implementation) is used.
         The module has to implement the <a
-        href="https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_peer_discovery.erl">rabbit_peer_discovery_backend</a>
+        href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
         behaviour. Plugins therefore can introduce their own discovery
         mechanisms.
       </p>
