@@ -55,7 +55,7 @@ limitations under the License.
       </p>
 
       <p>
-        If a node node previously was a cluster member, it will try to contact
+        If a node previously was a cluster member, it will try to contact
         its "last seen" peer for a period of time. In this case, no peer discovery
         is performed.
       </p>
