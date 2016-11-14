@@ -55,8 +55,8 @@ limitations under the License.
       </p>
 
       <p>
-        Nodes that previously were cluster members will try to contact
-        their "last seen" peer for a period of time. In this case, no peer discovery
+        If a node node previously was a cluster member, it will try to contact
+        its "last seen" peer for a period of time. In this case, no peer discovery
         is performed.
       </p>
     </doc:section>
@@ -82,7 +82,7 @@ limitations under the License.
         <code>autocluster.peer_discovery_backend</code> is the key
         that controls what discovery module (implementation) is used.
         The module has to implement the <a
-        href="https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_peer_discovery.erl">rabbit_peer_discovery</a>
+        href="https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_peer_discovery.erl">rabbit_peer_discovery_backend</a>
         behaviour. Plugins therefore can introduce their own discovery
         mechanisms.
       </p>
@@ -107,10 +107,11 @@ autocluster.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
         </pre>
       </p>
       <p>
-        The following example in the classic config format. The 2nd
-        member of the <code>rabbit.cluster_nodes</code> tuple is the
-        node type to use for the current node. In the vast majority of
-        cases all nodes should be <code>disc</code>nodes.
+        The following example demonstrates the same configuration in
+        the classic config format. The 2nd member of the
+        <code>rabbit.cluster_nodes</code> tuple is the node type to
+        use for the current node. In the vast majority of cases all
+        nodes should be <code>disc</code> nodes.
 
         <pre class="sourcecode">
 [
@@ -128,7 +129,7 @@ autocluster.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
       <doc:heading>DNS Peer Discovery Backend</doc:heading>
 
       <p>
-        Another build-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
+        Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
         It relies on a pre-configured hostname ("seed hostname") with DNS A records and reverse DNS lookups
         to perform peer discovery. More specifically, this mechanism will perform the following steps:
 
