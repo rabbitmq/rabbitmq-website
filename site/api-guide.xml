@@ -871,14 +871,14 @@ connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
             <li>Recover all consumers</li>
           </ol>
 
-          <em>As of version 4.0.0 of the Java Client, automatic recovery is enabled
+          <em>As of version 4.0.0 of the Java client, automatic recovery is enabled
           by default (and thus topology recovery as well)</em>.
         </p>
         <p>
           To disable or enable automatic connection recovery, use
           the <code>factory.setAutomaticRecoveryEnabled(boolean)</code>
           method. The following snippet shows how to explicitly
-          enable automatic recovery (e.g. for Java Client prior 4.0.0):
+          enable automatic recovery (e.g. for Java client prior 4.0.0):
           <pre class="sourcecode">
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 factory.setUsername(<b>userName</b>);
@@ -946,7 +946,7 @@ factory.newConnection(addresses);</pre>
           Topology recovery involves recovery of exchanges, queues, bindings
           and consumers. It is enabled by default when automatic recovery is
           enabled. <em>Hence topology recovery is enabled by default as of
-          Java Client 4.0.0</em>.
+          Java client 4.0.0</em>.
         </p>
         <p>
           Topology recovery can be disabled explicitly if needed:
@@ -954,7 +954,7 @@ factory.newConnection(addresses);</pre>
 ConnectionFactory factory = <b>new</b> ConnectionFactory();
 
 Connection conn = factory.newConnection();
-// enable automatic recovery (e.g. Java Client prior 4.0.0)
+// enable automatic recovery (e.g. Java client prior 4.0.0)
 factory.setAutomaticRecoveryEnabled(true);
 // disable topology recovery
 factory.setTopologyRecoveryEnabled(false);
