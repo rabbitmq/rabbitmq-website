@@ -61,7 +61,7 @@ limitations under the License.
         <tr>
           <th>Homebrew</th>
           <td>
-            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/lib/rabbitmq/erlang/lib/rabbitmq-</code><i>version</i><code>/plugins</code>
+            <code>/usr/local/Cellar/rabbitmq/</code><i>version</i><code>/plugins</code>
           </td>
         </tr>
         <tr>
