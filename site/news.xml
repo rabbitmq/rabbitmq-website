@@ -23,7 +23,7 @@ limitations under the License.
   </head>
   <body>
     <p><a href="news.atom"><img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe" title="Subscribe" /> Subscribe to this atom feed</a></p>
-    <p>Also keep an eye on the <a href="how.html">How To</a> page, which is constantly updated with links to relevant community tools and documentation.</p>
+    <p>Also keep an eye on the <a href="changelog.html">change log</a> and <a href="http://groups.google.com/forum/#!forum/rabbitmq-users">RabbitMQ mailing list</a>.</p>
     <doc:feed>
       <!-- Please give news items a doc:date/@iso.  It is used in the
        Atom feed, for the updated time and as a guide.
