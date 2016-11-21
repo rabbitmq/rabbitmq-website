@@ -70,7 +70,7 @@ limitations under the License.
     </doc:item>
 
    <doc:item>
-      <doc:date iso="2016-11-21T18:00:00+03:00">21 November 2016</doc:date>
+      <doc:date iso="2016-11-21T17:00:00+03:00">21 November 2016</doc:date>
       <doc:title>RabbitMQ 3.5.8 release</doc:title>
       <doc:link>https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8</doc:link>
       <doc:text>
