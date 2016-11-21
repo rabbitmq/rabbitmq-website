@@ -44,11 +44,11 @@ limitations under the License.
 	RPM for openSUSE Linux (from rabbitmq.com)
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">
+		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
 	RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
       </r:download>
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">
+		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
 	RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
       </r:download>
     </r:downloads>
