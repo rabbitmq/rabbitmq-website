@@ -27,7 +27,7 @@ limitations under the License.
   </head>
   <body>
     <x:modal mode="www">
-    <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
+    <p>The latest release of RabbitMQ is <b>&version-server;</b>. For release notes, see <a href="changelog.html">changelog</a>.</p>
     <div class="landing-box">
       <h2>RabbitMQ Server</h2>
       <h3>Downloads on rabbitmq.com</h3>
@@ -79,6 +79,12 @@ limitations under the License.
             <a href="install-generic-unix.html">Generic Unix</a> |
             <a href="install-homebrew.html">Homebrew</a>
         </li>
+      </ul>
+
+      <h3>Release Signing Key</h3>
+      <ul>
+        <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
+        <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
       </ul>
 
       <h3>Cloud</h3>
