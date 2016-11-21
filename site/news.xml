@@ -95,7 +95,8 @@ limitations under the License.
         </p>
         <p>
           We encourage all users of earlier 3.5.x versions of RabbitMQ to
-          upgrade to this release.
+          upgrade to this release. Note: release 3.5.8 marks the final patch in the 3.5.x series. RabbitMQ 3.5.x is no longer maintained.
+          Upgrade, and refer to the current version of RabbitMQ instead.
         </p>
         <p>
           As always, we welcome any questions, bug reports, and other feedback
