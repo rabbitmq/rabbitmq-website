@@ -26,22 +26,30 @@ limitations under the License.
       xmlns:x="http://www.rabbitmq.com/2011/extensions"
       xmlns:xi="http://www.w3.org/2003/XInclude">
   <head>
-    <title>Installing on RPM-based Linux (CentOS, Fedora, OpenSuse, RedHat)</title>
+    <title>Installing on RPM-based Linux (RHEL, CentOS, Fedora, openSUSE)</title>
   </head>
   <body>
     <h3>Download the Server</h3>
     <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
 		  downloadpath="&dir-server;">
-	RPM for Fedora / RHEL / CentOS Linux (from rabbitmq.com)
+	RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from rabbitmq.com)
       </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		  downloadpath="&dir-server;">
+	RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from rabbitmq.com)
+      </r:download>      
       <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
 		  downloadpath="&dir-server;">
 	RPM for openSUSE Linux (from rabbitmq.com)
       </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm"
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
 		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">
-	RPM for Fedora / RHEL / CentOS Linux (from github.com)
+	RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
+      </r:download>
+      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm">
+	RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
       </r:download>
     </r:downloads>
 
