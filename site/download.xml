@@ -27,7 +27,7 @@ limitations under the License.
   </head>
   <body>
     <x:modal mode="www">
-    <p>The latest release of RabbitMQ is <b>&version-server;</b>.</p>
+    <p>The latest release of RabbitMQ is <b>&version-server;</b>. For release notes, see <a href="changelog.html">changelog</a>.</p>
     <div class="landing-box">
       <h2>RabbitMQ Server</h2>
       <h3>Downloads on rabbitmq.com</h3>
@@ -81,12 +81,18 @@ limitations under the License.
         </li>
       </ul>
 
+      <h3>Release Signing Key</h3>
+      <ul>
+        <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
+        <li><a href="/signatures.html">How to Verify Release Artifact Signatures</a></li>
+      </ul>
+
       <h3>Cloud</h3>
       <ul>
         <li><a href="ec2.html">Amazon EC2</a></li>
         <li><a href="https://github.com/pivotal-cf/cf-rabbitmq-release">Cloud Foundry</a></li>
         <li><a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Pivotal Cloud Foundry</a></li>
-        <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>        
+        <li><a href="https://www.cloudamqp.com">CloudAMQP</a>: RabbitMQ-as-a-Service available in multiple clouds</li>
       </ul>
 
       <h3>Chef, Puppet, Docker</h3>
