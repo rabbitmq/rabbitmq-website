@@ -350,8 +350,8 @@ limitations under the License.
           <li>
             The shovel is running normally:
 <pre class="example">
-  { 'running', {'source', <em>Source</em>},
-               {'destination', <em>Destination</em>}}:
+  { 'running', [{'src_uri', <em>Source</em>},
+                {'dest_uri', <em>Destination</em>}]}:
 </pre>
             <p>
               where <code><em>Source</em></code> and
