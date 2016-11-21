@@ -91,7 +91,7 @@ limitations under the License.
 
       <h3>Chef, Puppet, Docker</h3>
       <ul>
-        <li><a href="https://github.com/jjasghar/rabbitmq">Chef cookbook</a></li>
+        <li><a href="https://github.com/rabbitmq/chef-cookbook">Chef cookbook</a></li>
         <li><a href="https://github.com/puppetlabs/puppetlabs-rabbitmq">Puppet module</a></li>
         <li><a href="https://registry.hub.docker.com/_/rabbitmq/">Docker image</a></li>
       </ul>
