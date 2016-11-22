@@ -131,15 +131,19 @@ limitations under the License.
         <li>
           <a href="http://repo1.maven.org/maven2/com/rabbitmq/amqp-client/">Older versions</a>
         </li>
-        <li>
-          <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">JMS Client (Maven Central)</a>
-        </li>
       </ul>
+      <h3>JMS Client</h3>
+      <ul>
+        <li>
+          On Maven Central:
+          <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
+        </li>
+      </ul>      
       <h3>.NET/C# Client</h3>
       <ul>
         <li>
-          On NuGet:
-          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ.Client</a>.
+          On NuGet (<a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">most recent release series</a>, supports .NET Core):
+          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
         </li>
         <li>
           Quick download:
