@@ -1297,9 +1297,9 @@ $ rabbitmqctl encode '"amqp://fred:secret@host1.domain/my_vhost"' mypassphrase
             </pre>
             Add the <code>--decode</code> option if you want to decrypt values:
             <pre class="example">
-$ rabbitmqctl encode --decode '{encrypted,'&lt;&lt;"..."&gt;&gt;}' mypassphrase
+$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 &lt;&lt;"guest"&gt;&gt;
-$ rabbitmqctl encode --decode '{encrypted,'&lt;&lt;"..."&gt;&gt;}' mypassphrase
+$ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
 "amqp://fred:secret@host1.domain/my_vhost"
             </pre>
           </p>
