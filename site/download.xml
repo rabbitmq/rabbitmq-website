@@ -81,6 +81,12 @@ limitations under the License.
         </li>
       </ul>
 
+      <ul>
+        <h3>Also Available From</h3>
+        <li><a href="https://bintray.com/rabbitmq/">Bintray</a></li>
+        <li><a href="https://packagecloud.io/rabbitmq/">Package Cloud</a></li>
+      </ul>
+
       <h3>Release Signing Key</h3>
       <ul>
         <li><a href="/rabbitmq-release-signing-key.asc">Release Signing Key</a> (<code>0x6B73A36E6026DFCA</code>)</li>
@@ -138,7 +144,7 @@ limitations under the License.
           On Maven Central:
           <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.rabbitmq.jms%22%20AND%20a%3A%22rabbitmq-jms%22">RabbitMQ JMS Client</a>
         </li>
-      </ul>      
+      </ul>
       <h3>.NET/C# Client</h3>
       <ul>
         <li>
