@@ -90,7 +90,7 @@ limitations under the License.
 
         <p>
           Binary and source distributions of the new release can
-          be found on the
+          be found on 
           <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">GitHub</a>,
           <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
