@@ -508,7 +508,7 @@ Starting node rabbit@rabbit2 ...done.</pre>
             case when upgrading from one patch version to another (i.e.
             from 3.0.x to 3.0.y), except when indicated otherwise in
             the release notes; these versions can be mixed in a cluster.
-            Therefore, it is strongly recomended to consult release
+            Therefore, it is strongly recommended to consult release
             notes before upgrading.
           </p>
           <p>
