@@ -148,14 +148,17 @@ limitations under the License.
       <h3>.NET/C# Client</h3>
       <ul>
         <li>
-          On NuGet (<a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">most recent release series</a>, supports .NET Core):
+          On NuGet (<a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">4.x release series</a> for .NET Core and .NET 4.5.1):
           <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
         </li>
         <li>
+          On NuGet (3.6.x series for .NET 4.5.0):
+          <a href="https://www.nuget.org/packages/RabbitMQ.Client">RabbitMQ .NET Client</a>.
+        </li>        
+        <li>
           Quick download:
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-dotnet-4.5.zip">.NET 4.5 binary</a> |
-          <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases/download/&version-dotnet-client-tag;/RabbitMQ.Client.WinRT.dll">WinRT binary</a> (experimental) |
-          <a href="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;.zip">Source</a>
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/&nameVersion-dotnet-client;-dotnet-4.5.zip">Latest 3.6.x binary</a> for .NET 4.5.0 |
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/&nameVersion-dotnet-client;.zip">Source</a>
         </li>
         <li>
           <a href="dotnet.html">All .NET client downloads</a>
