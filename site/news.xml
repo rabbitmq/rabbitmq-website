@@ -53,7 +53,9 @@ limitations under the License.
         <p>
           Binary and source distributions of the new release can
           be found on the
-          <a href="http://www.rabbitmq.com/download.html">downloads page</a>.
+          <a href="http://www.rabbitmq.com/download.html">downloads page</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6">GitHub</a>,
+          <a href="https://packagecloud.io/rabbitmq/">Package Cloud</a>, and <a href="https://bintray.com/rabbitmq/">Bintray</a>.
         </p>
         <p>
           We encourage all users of earlier versions of RabbitMQ to
