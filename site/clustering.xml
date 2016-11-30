@@ -486,11 +486,23 @@ Starting node rabbit@rabbit2 ...done.</pre>
             to another (i.e. from 3.0.x to 3.1.x, or from 2.x.x to
             3.x.x), or when upgrading Erlang, the whole cluster must
             be taken down for the upgrade (since clusters cannot run
-            mixed versions like this). This will not be the case when
-            upgrading from one patch version to another (i.e. from
-            3.0.x to 3.0.y); these versions can be mixed in a cluster
-            (with the exception that 3.0.0 cannot be mixed with later
-            versions from the 3.0.x series).
+            mixed versions like this). This will generally not be the
+            case when upgrading from one patch version to another (i.e.
+            from 3.0.x to 3.0.y), except when indicated otherwise in
+            the release notes; these versions can be mixed in a cluster.
+            Therefore, it is strongly recommended to consult release
+            notes before upgrading.
+          </p>
+          <p>
+            Some patch releases known to require a cluster-wide
+            restart:
+
+            <ul>
+              <li>3.0.0 cannot be mixed with later
+                  versions from the 3.0.x series</li>
+              <li>3.6.6 and later cannot
+                  be mixed with earlier versions from the 3.6.x series</li>
+            </ul>
           </p>
           <p>
             RabbitMQ will automatically update its persistent data

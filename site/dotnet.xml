@@ -28,7 +28,8 @@ limitations under the License.
   <body>
     <p>
       The RabbitMQ .NET client is an implementation of an AMQP 0-9-1 client
-      library for C# (and, implicitly, other .NET languages).
+      library for C# (and, implicitly, other .NET languages). Starting with the <a href="https://groups.google.com/forum/#!searchin/rabbitmq-users/.NET$20client$204.0%7Csort:relevance/rabbitmq-users/mzZ1AoFM4Bk/5ahmQEj6AwAJ">4.0 release</a> release it supports .NET Core
+      and .NET 4.5.1+.
     </p>
 
     <p>
@@ -36,12 +37,6 @@ limitations under the License.
       href="http://www.apache.org/licenses/LICENSE-2.0">the Apache
       License v2</a> and <a href="mpl.html">the Mozilla Public License
       v1.1</a>.
-    </p>
-
-    <p>
-      In order to compile or run the RabbitMQ .NET/C# client library,
-      you will need an appropriate .NET SDK or runtime environment
-      available, respectively.
     </p>
 
     <p>
@@ -55,32 +50,29 @@ limitations under the License.
 
     <p>
       The current release of the RabbitMQ .NET/C# client library is <b>
-      &version-dotnet-client;</b>. Consult
-      <a href="/releases/rabbitmq-dotnet-client/">the archive</a> if
-      you want to download a version of the library or documentation other than the above.
+      &version-dotnet-client;</b>. It is recommended to use the <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>.
+      Release notes can be found on the <a href="/releases/rabbitmq-dotnet-client/">GitHub releases page</a>.
     </p>
 
     <h2>
-      Download the library and documentation
+      Binary Downloads and Documentation
     </h2>
 
     <h3>The library</h3>
 
     <p>
-      The library is available in several compiled forms, and as
-      source:
+      The 4.x series of this library are distributed as a <a href="https://www.nuget.org/packages/RabbitMQ.Client">NuGet package</a>. 3.6.x releases are
+      also available as binary builds.
     </p>
 
     <r:downloads signature="no">
+      <tr>
+        <td class="desc">4.x series NuGet package for .NET Core and .NET 4.5.1 (recommended)</td>
+        <td><a href="https://www.nuget.org/packages/RabbitMQ.Client">4.x NuGet package</a></td>
+      </tr>
       <r:download downloadfile="&nameVersion-dotnet-client;-dotnet-&minimum-dotnet-version;.zip"
 		  downloadpath="&dir-dotnet-client;">
-	Binary, compiled for .NET &minimum-dotnet-version; and newer (zip archive), includes
-	example code, the WCF binding and WCF examples.
-      </r:download>
-
-      <r:download absolute="yes" url="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases/download/&version-dotnet-client-tag;/RabbitMQ.Client.WinRT.dll"
-                    downloadfile="RabbitMQ.Client.WinRT.dll">
-	  (Experimental) Binary, compiled for WinRT (from github.com)
+	Binary, compiled for .NET &minimum-dotnet-version; and newer (zip archive).
       </r:download>
 
       <r:download downloadfile="&nameVersion-dotnet-client;.zip"
@@ -95,8 +87,14 @@ limitations under the License.
       also <a href="&dir-current-dotnet-apidoc;/index.html">an online API reference</a>.
     </p>
 
+    <h2>Change Log</h2>
+    <p>
+      4.x release notes are <a href="https://github.com/rabbitmq/rabbitmq-dotnet-client/releases">published to GitHub</a>.
+      3.6.x releases are <a href="/changelog.html">published in lock step with RabbitMQ server</a>, so see server release notes.
+    </p>
+
     <h2>GitHub repository</h2>
-    <p>The .NET/C# RabbitMQ client library, WCF binding, and example programs. Please
+    <p>The .NET RabbitMQ client library is developed on GitHub. Please
       see the <a href="build-dotnet-client.html">build page</a> for
       instructions on compiling from source-code.</p>
 
@@ -105,9 +103,7 @@ limitations under the License.
         url="https://github.com/rabbitmq/rabbitmq-dotnet-client"/>
     </repositories>
 
-    <h2>
-      Strong naming
-    </h2>
+    <h2>Strong naming</h2>
 
     <p>
       The client assembly is strong named. The public key token is 89e7d7c5feba84ce
@@ -120,6 +116,18 @@ c3153a77faa2d80e6e43b5db93224a20cc7ae384f65f142e89730e2ff0fcc5d578bbe96fa98a71
 fcb943b5.
 </pre>
     </p>
+
+
+    <h2>Building from Source</h2>
+
+    <p>
+      In order to compile or run the RabbitMQ .NET/C# client library,
+      you will need an appropriate .NET SDK available and follow
+      the <a href="/build-dotnet-client.html">build instructions</a>.
+    </p>
+
+
+
     <h2>Support</h2>
     <p>
       For help compiling or installing RabbitMQ, or for general queries, please <a href="contact.html"> contact us</a>.

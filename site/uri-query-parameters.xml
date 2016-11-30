@@ -111,15 +111,15 @@ limitations under the License.
       <tr>
         <td><code>heartbeat</code></td>
         <td>
-          <a href="/heartbeats.html">Heartbeat</a> value (in seconds)
+          <a href="/heartbeats.html">Heartbeat</a> timeout value in seconds (an integer)
           to negotiate with the server.
         </td>
       </tr>
       <tr>
         <td><code>connection_timeout</code></td>
         <td>
-          Time (in seconds) to wait while establishing a connection
-          before giving up.
+          Time in seconds (an integer) to wait while establishing a TCP connection
+          to the server before giving up.
         </td>
       </tr>
       <tr>

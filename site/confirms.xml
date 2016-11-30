@@ -4,8 +4,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -20,143 +20,323 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Confirms (aka Publisher Acknowledgements)</title>
+    <title>Consumer Acknowledgements and Publisher Confirms</title>
   </head>
   <body>
-    <p>
-      Using standard AMQP 0-9-1, the only way to guarantee that a
-      message isn't lost is by using transactions -- make the
-      channel transactional, publish the message, commit.  In this
-      case, transactions are unnecessarily heavyweight and
-      decrease throughput by a factor of 250.  To remedy this,
-      a confirmation mechanism was introduced.
-    </p>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
 
-    <p>
-      To enable confirms, a client sends the
-      <code>confirm.select</code> method.  Depending on whether
-      <code>no-wait</code> was set or not, the broker may respond
-      with a <code>confirm.select-ok</code>.  Once the
-      <code>confirm.select</code> method is used on a channel, it
-      is said to be in confirm mode.  A transactional channel
-      cannot be put into confirm mode and once a channel is in
-      confirm mode, it cannot be made transactional.
-    </p>
+      <p>
+        Systems that use a messaging broker such as RabbitMQ are by
+        definition distributed. Since protocol methods (messages) sent
+        are not guaranteed to reach the peer or be successfully processed
+        by it, both publishers and consumers need a mechanism for
+        delivery and processing confirmation. Several messaging
+        protocols supported by RabbitMQ provide such features.
+        This guide covers the features in AMQP 0-9-1 but the idea
+        is largely the same in other protocols (STOMP, MQTT, et cetera).
+      </p>
+      <p>
+        Delivery processing acknowledgements from consumers to RabbitMQ
+        are known as acknowledgements in AMQP 0-9-1 parlance; broker
+        acknowledgements to publishers are a protocol extension called
+        publisher confirms.
+      </p>
+    </doc:section>
 
-    <p>
-      Once a channel is in confirm mode, both the broker and the
-      client count messages (counting starts at 1 on the first
-      <code>confirm.select</code>).  The broker then confirms
-      messages as it handles them by sending a
-      <code>basic.ack</code> on the same channel. The
-      <code>delivery-tag</code> field contains the sequence number
-      of the confirmed message.  The broker may also set the
-      <code>multiple</code> field in <code>basic.ack</code> to
-      indicate that all messages up to and including the one with
-      the sequence number have been handled.
-    </p>
+    <doc:section name="consumer-acknowledgements">
+      <doc:heading>(Consumer) Delivery Acknowledgements</doc:heading>
 
-    <p>
-      An example in Java that publishes a large number of
-      messages to a channel in confirm mode and waits for the
-      acknowledgements can be found <a
+      <p>
+        When RabbitMQ delivers a message to a consumer, it needs to know
+        when to consider the message successfully sent. What kind of logic is
+        optimal depends on the system. It is therefore primarily an application
+        decision. In AMQP 0-9-1 it is made when a consumer is registered using
+        the <code>basic.consume</code> method or a message is fetched on demand
+        with the <code>basic.get</code> method.
+      </p>
+
+      <p>
+        If you prefer a more example-oriented and step-by-step material, consumer acknowledgements are
+        also covered in <a href="/getstarted.html">RabbitMQ tutorial #2</a>.
+      </p>
+
+      <doc:subsection name="consumer-acks-delivery-tags">
+        <doc:heading>Delivery Identifiers: Delivery Tags</doc:heading>
+
+        <p>
+          Before we proceed to discuss other topics it is important to
+          explain how deliveries are identified (and acknowledgements
+          indicate their respective deliveries).  When a consumer
+          (subscription) is registered, messages will be delivered
+          (pushed) by RabbitMQ using the <code>basic.deliver</code>
+          method.  The method carries a <em>delivery tag</em>, which
+          uniquely identifies the delivery on a channel. Delivery tags are
+          therefore scoped per channel.
+        </p>
+        <p>
+          Delivery tags are monotonically growing positive
+          integers and are presented as such by client libraries.
+          Client library methods that acknowledge deliveries take a delivery tag
+          as an argument.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="acknowledgement-modes">
+        <doc:heading>Acknowledgement Modes</doc:heading>
+
+        <p>
+          Depending on the acknowledgement mode used, RabbitMQ can consider a message to be
+          successfully delivered either immediately after it is sent out (written to a TCP socket)
+          or when an explicit ("manual") client acknowledgement is received. Manually sent
+          acknowledgements can be positive or negative and use one of the following protocol methods:
+
+          <ul>
+            <li><code>basic.ack</code> is used for positive acknowledgements</li>
+            <li><code>basic.nack</code> is used for negative acknowledgements (note: this is a <a href="/extensions.html">RabbitMQ extension to AMQP 0-9-1</a>)</li>
+            <li><code>basic.reject</code> is used for negative acknowledgements but has one limitations compared to <code>basic.nack</code></li>
+          </ul>
+        </p>
+
+        <p>
+          Positive acknowledgements simply instruct RabbitMQ to record a message as delivered.
+          Negative acknowledgements with <code>basic.reject</code> have the same effect. The difference
+          is primarily in the semantics: positive acknowledgements assume
+          a message was successfully processed while their negative counterpart
+          suggests that a delivery wasn't processed but still should be deleted.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="consumer-acks-multiple-parameter">
+        <doc:heading>Acknowledging Multiple Deliveries at Once</doc:heading>
+
+        <p>
+          Manual acknowledgements can be batched to reduce network traffic.
+          This is done by setting the <code>multiple</code> field of acknowledgement
+          methods (see above) to <code>true</code>. Note that <code>basic.reject</code> doesn't
+          historically have the field and that's why <code>basic.nack</code> was introduced
+          by RabbitMQ as a protocol extension.
+        </p>
+        <p>
+          When the <code>multiple</code> field is set to <code></code>, RabbitMQ will acknowledge
+          all outstanding delivery tags up to and including the tag specified in the
+          acknowledgement. Like everything else related to acknowledgements, this is scoped per channel.
+          For example, given that there are delivery tags 5, 6, 7, and 8 unacknowledged on channel <code>Ch</code>,
+          when an acknowledgement frame arrives on that channel with <code>delivery_tag</code> set to <code>8</code>
+          and <code>multiple</code> set to <code>true</code>, all tags from 5 to 8 will be acknowledged.
+          If <code>multiple</code> was set to <code>false</code>, deliveries 5, 6, and 7 would still
+          be unacknowledged.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="channel-qos-prefetch">
+        <doc:heading>Channel Prefetch Setting (QoS)</doc:heading>
+
+        <p>
+          Because messages are sent (pushed) to clients
+          asynchronously, there is usually more than one message "in
+          flight" on a channel at any given moment. In addition,
+          manual acknowledgements from clients are also inherently
+          asynchronous in nature. So there's a sliding window of
+          delivery tags that are unacknowledged. Developers would
+          often prefer to cap the size of this window to avoid the
+          unbounded buffer problem on the consumer end. This is done
+          by setting a "prefetch count" value using the
+          <code>basic.qos</code> method. The value defines the max
+          number of unacknowledged deliveries that are permitted on a
+          channel. Once the number reaches the configured count,
+          RabbitMQ will stop delivering more messages on the channel
+          unless at least one of the outstanding ones is acknowledged.
+        </p>
+        <p>
+          For example, given that there are delivery tags 5, 6, 7, and
+          8 unacknowledged on channel <code>Ch</code> and channel
+          <code>Ch</code>'s prefetch count is set to 4, RabbitMQ will
+          not push any more deliveries on <code>Ch</code> unless at
+          least one of the outstanding deliveries is acknowledged.
+          When an acknowledgement frame arrives on that channel with
+          <code>delivery_tag</code> set to <code>8</code>, RabbitMQ
+          will notice and deliver one more message.
+        </p>
+        <p>
+          It's worth reiterating that the flow of deliveries and
+          manual client acknowledgements is entirely
+          asynchronous. Therefore if prefetch value is changed while
+          there already are deliveries in flight, a natural race
+          condition arises and there can temporarily be more than
+          prefetch count unacknowledged messages on a channel.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="consumer-acks-double-acking">
+        <doc:heading>Client Errors: Double Acking and Unknown Tags</doc:heading>
+        <p>
+          Should a client acknowledge the same delivery tag more than once,
+          RabbitMQ will result a channel error such as <code>PRECONDITION_FAILED - unknown delivery tag 100</code>.
+          The same channel exception will be thrown if an unknown delivery tag is used.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="publisher-confirms">
+      <doc:heading>Publisher Confirms</doc:heading>
+
+      <p>
+        Using standard AMQP 0-9-1, the only way to guarantee that a
+        message isn't lost is by using transactions -- make the
+        channel transactional, publish the message, commit.  In this
+        case, transactions are unnecessarily heavyweight and
+        decrease throughput by a factor of 250.  To remedy this,
+        a confirmation mechanism was introduced. It mimics the consumer
+        acknowledgements mechanism already present in the protocol.
+      </p>
+
+      <p>
+        To enable confirms, a client sends the
+        <code>confirm.select</code> method.  Depending on whether
+        <code>no-wait</code> was set or not, the broker may respond
+        with a <code>confirm.select-ok</code>.  Once the
+        <code>confirm.select</code> method is used on a channel, it
+        is said to be in confirm mode.  A transactional channel
+        cannot be put into confirm mode and once a channel is in
+        confirm mode, it cannot be made transactional.
+      </p>
+
+      <p>
+        Once a channel is in confirm mode, both the broker and the
+        client count messages (counting starts at 1 on the first
+        <code>confirm.select</code>).  The broker then confirms
+        messages as it handles them by sending a
+        <code>basic.ack</code> on the same channel. The
+        <code>delivery-tag</code> field contains the sequence number
+        of the confirmed message.  The broker may also set the
+        <code>multiple</code> field in <code>basic.ack</code> to
+        indicate that all messages up to and including the one with
+        the sequence number have been handled.
+      </p>
+
+      <p>
+        An example in Java that publishes a large number of
+        messages to a channel in confirm mode and waits for the
+        acknowledgements can be found <a
         href="https://raw.githubusercontent.com/rabbitmq/rabbitmq-java-client/master/src/test/java/com/rabbitmq/examples/ConfirmDontLoseMessages.java">here</a>.
-    </p>
+      </p>
 
-    <h3>Negative Acknowledgment</h3>
-    <p>
-      In exceptional cases when the broker is unable to handle
-      messages successfully, instead of a <code>basic.ack</code>,
-      the broker will send a <code>basic.nack</code>.  In this
-      context, fields of the <code>basic.nack</code> have the same
-      meaning as the corresponding ones in <code>basic.ack</code>
-      and the <code>requeue</code> field should be ignored.  By
-      nack'ing one or more messages, the broker indicates that it
-      was unable to process the messages and refuses responsibility
-      for them; at that point, the client may choose to re-publish
-      the messages.
-    </p>
+      <doc:subsection name="server-sent-nacks">
+        <doc:heading>Negative Acknowledgment</doc:heading>
 
-    <p>
-      After a channel is put into confirm mode, all subsequently
-      published messages will be confirmed or nack'd once.  No
-      guarantees are made as to how soon a message is confirmed.
-      No message will be both confirmed and nack'd.
-    </p>
+        <p>
+          In exceptional cases when the broker is unable to handle
+          messages successfully, instead of a <code>basic.ack</code>,
+          the broker will send a <code>basic.nack</code>.  In this
+          context, fields of the <code>basic.nack</code> have the same
+          meaning as the corresponding ones in <code>basic.ack</code>
+          and the <code>requeue</code> field should be ignored.  By
+          nack'ing one or more messages, the broker indicates that it
+          was unable to process the messages and refuses responsibility
+          for them; at that point, the client may choose to re-publish
+          the messages.
+        </p>
 
-    <p>
-      <code>basic.nack</code> will only be delivered if an internal
-      error occurs in the Erlang process responsible for a queue.
-    </p>
+        <p>
+          After a channel is put into confirm mode, all subsequently
+          published messages will be confirmed or nack'd once.  No
+          guarantees are made as to how soon a message is confirmed.
+          No message will be both confirmed and nack'd.
+        </p>
 
-    <h3 id="when">When will messages be confirmed?</h3>
+        <p>
+          <code>basic.nack</code> will only be delivered if an internal
+          error occurs in the Erlang process responsible for a queue.
+        </p>
+        </doc:subsection>
 
-    <p>
-      For unroutable messages, the broker will issue a confirm
-      once the exchange verifies a message won't route to any queue
-      (returns an empty list of queues). If the message is also
-      published as mandatory, the <code>basic.return</code> is sent
-      to the client before <code>basic.ack</code>. The same
-      is true for negative acknowledgements (<code>basic.nack</code>).
-    </p>
+      <doc:subsection name="when-publishes-are-confirmed">
+        <doc:heading>When will messages be confirmed?</doc:heading>
 
-    <p>
-      For routable messages, the <code>basic.ack</code> is sent when a
-      message has been accepted by all the queues. For persistent
-      messages routed to durable queues, this <strong>means persisting
-      to disk</strong>. For mirrored queues, this means that all
-      mirrors have accepted the message.
-    </p>
+        <p>
+          For unroutable messages, the broker will issue a confirm
+          once the exchange verifies a message won't route to any queue
+          (returns an empty list of queues). If the message is also
+          published as mandatory, the <code>basic.return</code> is sent
+          to the client before <code>basic.ack</code>. The same
+          is true for negative acknowledgements (<code>basic.nack</code>).
+        </p>
 
-    <h3 id="latency">Ack Latency for Persistent Messages</h3>
-    <p>
-      <code>basic.ack</code> for a persistent message routed to a
-      durable queue will be sent after persisting the message to
-      disk. The RabbitMQ message store persists messages to disk in
-      batches after an interval (a few hundred milliseconds) to
-      minimise the number of fsync(2) calls, or when a queue is idle.
+        <p>
+          For routable messages, the <code>basic.ack</code> is sent when a
+          message has been accepted by all the queues. For persistent
+          messages routed to durable queues, this <strong>means persisting
+          to disk</strong>. For mirrored queues, this means that all
+          mirrors have accepted the message.
+        </p>
+      </doc:subsection>
 
-      This means that under a constant load, latency for
-      <code>basic.ack</code> can reach a few hundred milliseconds. To
-      improve throughput, applications are strongly advised to
-      process acknowledgements asynchronously (as a stream) or publish
-      batches of messages and wait for outstanding confirms. The exact
-      API for this varies between client libraries.
-    </p>
+      <doc:subsection name="publisher-confirms-latency">
+        <doc:heading>Ack Latency for Persistent Messages</doc:heading>
 
-    <h3>Confirms and Guaranteed Delivery</h3>
+        <p>
+          <code>basic.ack</code> for a persistent message routed to a
+          durable queue will be sent after persisting the message to
+          disk. The RabbitMQ message store persists messages to disk in
+          batches after an interval (a few hundred milliseconds) to
+          minimise the number of fsync(2) calls, or when a queue is idle.
 
-    <p>
-      The broker loses persistent messages if it crashes before
-      said messages are written to disk.  Under certain
-      conditions, this causes the broker to behave in surprising
-      ways.
-    </p>
+          This means that under a constant load, latency for
+          <code>basic.ack</code> can reach a few hundred milliseconds. To
+          improve throughput, applications are strongly advised to
+          process acknowledgements asynchronously (as a stream) or publish
+          batches of messages and wait for outstanding confirms. The exact
+          API for this varies between client libraries.
+        </p>
+      </doc:subsection>
 
-    <p>
-      For instance, consider this scenario:
-      <ol>
-        <li>a client publishes a persistent message to a durable
-          queue</li>
-        <li>a client consumes the message from the queue (noting
-          that the message is persistent and the queue
-          durable), but doesn't yet ack it,</li>
-        <li>the broker dies and is restarted, and</li>
-        <li>the client reconnects and starts consuming messages.</li>
-      </ol>
-      At this point, the client could reasonably assume that the
-      message will be delivered again.  This is not the case: the
-      restart has caused the broker to lose the message.  In order to
-      guarantee persistence, a client should use confirms.  If the
-      publisher's channel had been in confirm mode, the publisher
-      would <em>not</em> have received an ack for the lost message
-      (since the message hadn't been written to disk yet).
-    </p>
+      <doc:subsection name="publisher-confirms-and-guaranteed-delivery">
+        <doc:heading>Confirms and Guaranteed Delivery</doc:heading>
 
-    <h3>Maximum Delivery Tag</h3>
-    <p>
-      Confirm delivery tag is a 64 bit long value, and thus its maximum value
-      is 9223372036854775807.
-    </p>
+        <p>
+          The broker loses persistent messages if it crashes before
+          said messages are written to disk.  Under certain
+          conditions, this causes the broker to behave in surprising
+          ways.
+        </p>
+
+        <p>
+          For instance, consider this scenario:
+          <ol>
+            <li>a client publishes a persistent message to a durable
+              queue</li>
+            <li>a client consumes the message from the queue (noting
+              that the message is persistent and the queue
+              durable), but doesn't yet ack it,</li>
+            <li>the broker dies and is restarted, and</li>
+            <li>the client reconnects and starts consuming messages.</li>
+          </ol>
+          At this point, the client could reasonably assume that the
+          message will be delivered again.  This is not the case: the
+          restart has caused the broker to lose the message.  In order to
+          guarantee persistence, a client should use confirms.  If the
+          publisher's channel had been in confirm mode, the publisher
+          would <em>not</em> have received an ack for the lost message
+          (since the message hadn't been written to disk yet).
+        </p>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="limitations">
+      <doc:heading>Limitations</doc:heading>
+
+      <doc:subsection name="publisher-confirms-and-guaranteed-delivery">
+        <doc:heading>Maximum Delivery Tag</doc:heading>
+
+        <p>
+          Delivery tag is a 64 bit long value, and thus its maximum value
+          is 9223372036854775807. Since delivery tags are scoped per channel,
+          it is very unlikely that a publisher or consumer will run over this
+          value in practice.
+        </p>
+      </doc:subsection>
+    </doc:section>
+
   </body>
 </html>
