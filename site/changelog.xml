@@ -42,17 +42,6 @@ limitations under the License.
       </tr>
 
       <tr>
-        <td class="centre">3.5.8</td>
-        <td class="centre">21 November 2016</td>
-        <td>
-          <ul>
-            <li>Security vulnerability fix</li>
-          </ul>
-        </td>
-        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">(changes)</a></td>
-      </tr>
-
-      <tr>
         <td class="centre">3.6.5</td>
         <td class="centre">5 August 2016</td>
         <td>
@@ -133,6 +122,17 @@ limitations under the License.
           </ul>
         </td>
         <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_0">(changes)</a></td>
+      </tr>
+
+      <tr>
+        <td class="centre">3.5.8</td>
+        <td class="centre">3 November 2016</td>
+        <td>
+          <ul>
+            <li>Security vulnerability fix</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">(changes)</a></td>
       </tr>
 
       <tr>
