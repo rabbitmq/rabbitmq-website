@@ -807,6 +807,17 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             </td>
           </tr>
           <tr>
+            <td><code>management_db_cache_multiplier</code></td>
+            <td>
+              Affects the amount of time the <a href="management.html#statistics-interval">management plugin</a>
+              will cache expensive management queries such as
+              queue listings. The cache will multiply the elapsed time of
+              the last query by this value and cache the result for
+              this amount of time.
+              <p>Default: <code>5</code></p>
+            </td>
+          </tr>
+          <tr>
             <td><code>auth_mechanisms</code></td>
             <td>
               <a href="authentication.html">SASL authentication
