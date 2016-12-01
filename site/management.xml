@@ -535,10 +535,10 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           Statistics database is stored entirely in memory. All of its contents
           is transient and should be treated as such.
 
-          Prior to version 3.6.*version* stats database is stored on a single node.
+          Prior to version 3.6.7 stats database is stored on a single node.
 
-          Starting from version 3.6.*version*, each node has it's own statistics database,
-          containing a fraction of stats, recorded on this node.
+          Starting from version 3.6.7, each node has its own statistics database
+          containing a fraction of stats recorded on this node.
 
           It is possible to restart the stats database.
         </p>
@@ -558,7 +558,7 @@ rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_s
 </pre>
           These commands must be executed on the node hosting the database.
 
-Starting with RabbitMQ 3.6.*version*, the database can be reset per node using
+Starting with RabbitMQ 3.6.7, the database can be reset per node using
 <pre class="example">
 rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
 </pre>
