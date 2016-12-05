@@ -577,8 +577,12 @@ ProxyPassReverse /    http://localhost:15672/</pre>
           Statistics database is stored entirely in memory. All of its contents
           is transient and should be treated as such.
 
-          It is possible to restart the stats database, for example,
-          to make it move to another node.
+          Prior to version 3.6.7 stats database is stored on a single node.
+
+          Starting from version 3.6.7, each node has its own statistics database
+          containing a fraction of stats recorded on this node.
+
+          It is possible to restart the stats database.
         </p>
         <p>
           The statistics database is stored in the memory of the stats process
@@ -589,12 +593,34 @@ ProxyPassReverse /    http://localhost:15672/</pre>
 rabbitmqctl eval 'exit(erlang:whereis(rabbit_mgmt_db), please_terminate).'
 </pre>
 
-Starting with RabbitMQ 3.6.2, use
+Starting with RabbitMQ 3.6.2 and up to 3.6.5, use
 <pre class="example">
 rabbitmqctl eval 'supervisor2:terminate_child(rabbit_mgmt_sup_sup, rabbit_mgmt_sup),
                   rabbit_mgmt_sup_sup:start_child().'
 </pre>
-         These commands must be executed on the node hosting the database.
+          These commands must be executed on the node hosting the database.
+
+Starting with RabbitMQ 3.6.7, the database can be reset per node using
+<pre class="example">
+rabbitmqctl eval 'rabbit_mgmt_storage:reset().'
+</pre>
+
+To reset entire management database on all nodes
+<pre class="example">
+rabbitmqctl eval 'rabbit_mgmt_storage:reset_all().'
+</pre>
+
+There is also HTTP API endpoints to reset a database
+For entire database
+<pre class="example">
+  DELETE /api/reset
+</pre>
+
+For a single node
+<pre class="example">
+  DELETE /api/reset/:node
+</pre>
+
         </p>
       </doc:section>
 
