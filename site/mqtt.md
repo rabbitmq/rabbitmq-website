@@ -215,7 +215,7 @@ Note that:
 * If the virtual host for a certificate cannot be found (because the certificate
 subject's DN cannot be found in the `mqtt_default_vhosts` global parameter JSON
 document or if the global parameter isn't set at all), the virtual host specified
-by the `vhost` option will be used.
+by the `vhost` plugin config option will be used.
 * The broker queries the `mqtt_default_vhosts` global parameter value at connection time.
 If the value changes, connected clients are not notified or disconnected. They need
 to reconnect to switch to a new virtual host.

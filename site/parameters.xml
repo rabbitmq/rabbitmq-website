@@ -44,11 +44,16 @@ limitations under the License.
       invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
       or through <a href="management.html">the management plugin</a>'s HTTP API.
       There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
+      Vhost-scoped parameters are tied to a virtual host and consist
+      of a component name, a name and a value. The complete key of a vhost-scoped
+      parameter is then the triplet <code>{vhost, component, name}</code>.
+      Global parameters are not tied to a particular virtual and they consist
+      of a name and value. The key of a global parameter is just its name.
     </p>
     <p>
       One special case of parameters usage is policies, which are used for specifying
       optional arguments for groups of queues and exchanges, as well as plugins such
-      as Federation and Shovel.
+      as Federation and Shovel. Policies are vhost-scoped.
     </p>
   </doc:section>
 
