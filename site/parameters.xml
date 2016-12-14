@@ -43,7 +43,7 @@ limitations under the License.
       set by
       invoking <a href="man/rabbitmqctl.1.man.html"><code>rabbitmqctl</code></a>
       or through <a href="management.html">the management plugin</a>'s HTTP API.
-      Parameters are scoped per vhost.
+      There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
     </p>
     <p>
       One special case of parameters usage is policies, which are used for specifying
@@ -56,7 +56,7 @@ limitations under the License.
     <doc:heading>Parameter Management</doc:heading>
 
     <p>
-      Parameters can be set, cleared and listed:
+      Vhost-scoped parameters can be set, cleared and listed:
     </p>
     <table>
       <tr>
@@ -77,6 +77,27 @@ limitations under the License.
       </tr>
     </table>
     <p>
+      Global parameters can be set, cleared and listed:
+    </p>
+    <table>
+      <tr>
+        <th>rabbitmqctl</th>
+        <td>
+          <code>rabbitmqctl set_global_parameter <i>name</i> <i>value</i></code><br/>
+          <code>rabbitmqctl clear_global_parameter <i>name</i></code><br/>
+          <code>rabbitmqctl list_global_parameters</code>
+        </td>
+      </tr>
+      <tr>
+        <th>HTTP API</th>
+        <td>
+          <code>PUT /api/global-parameters/<i>name</i></code><br/>
+          <code>DELETE /api/global-parameters/<i>name</i></code><br/>
+          <code>GET /api/global-parameters</code><br/>
+        </td>
+      </tr>
+    </table>
+    <p>
         Since a parameter value is a JSON document, you will usually
         need to quote it when creating one on the command line
         with <code>rabbitmqctl</code>. On Unix it is usually easiest to
@@ -92,7 +113,8 @@ limitations under the License.
         definitions by the management plugin's export feature.
     </p>
     <p>
-        Parameters are used by the federation and shovel plugins.
+        Vhost-scoped parameters are used by the federation and shovel plugins.
+        Global parameters are used by the MQTT plugin.
     </p>
     </doc:section>
 
