@@ -45,10 +45,9 @@ limitations under the License.
       or through <a href="management.html">the management plugin</a>'s HTTP API.
       There are 2 kinds of parameters: vhost-scoped parameters and global parameters.
       Vhost-scoped parameters are tied to a virtual host and consist
-      of a component name, a name and a value. The complete key of a vhost-scoped
-      parameter is then the triplet <code>{vhost, component, name}</code>.
+      of a component name, a name and a value.
       Global parameters are not tied to a particular virtual and they consist
-      of a name and value. The key of a global parameter is just its name.
+      of a name and value.
     </p>
     <p>
       One special case of parameters usage is policies, which are used for specifying
@@ -61,6 +60,13 @@ limitations under the License.
     <doc:heading>Parameter Management</doc:heading>
 
     <p>
+      As stated above, there are vhost-scoped parameters and global parameters.
+      An example of vhost-scoped
+      parameter is a federation upstream: it targets a component
+      (<code>federation-upstream</code>), it has a name that identifies
+      it, it's tied to a virtual host (federation links will target
+      some resources of this virtual host), and its value defines connection
+      parameters to an upstream broker.
       Vhost-scoped parameters can be set, cleared and listed:
     </p>
     <table>
@@ -82,6 +88,8 @@ limitations under the License.
       </tr>
     </table>
     <p>
+      Global parameters is the other kind of parameters.
+      An example of a global parameter is the name of the cluster.
       Global parameters can be set, cleared and listed:
     </p>
     <table>
