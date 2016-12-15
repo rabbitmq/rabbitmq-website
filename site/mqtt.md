@@ -235,8 +235,36 @@ Note that:
 * The authenticated user must exist in the configured authentication / authorisation backend(s).
 * Clients **must not** supply username and password.
 
+You can optionally specify a virtual host for a client certificate by using the `mqtt_default_vhosts`
+[global runtime parameter](/parameters.html). The value of this global parameter must contain a JSON document that
+maps certificates' subject's Distinguished Name to their target virtual host. Let's see how to
+map 2 certificates, `O=client,CN=guest` and `O=client,CN=rabbit`, to the `vhost1` and `vhost2`
+virtual hosts, respectively.
 
+Global parameters can be set up with `rabbitmqctl`:
 
+    rabbitmqctl set_global_parameter mqtt_default_vhosts \
+        '{"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}'
+
+With `rabbitmqctl`, on Windows:
+
+    rabbitmqctl set_global_parameter mqtt_default_vhosts ^
+        "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
+
+And with the HTTP API:
+
+    PUT /api/global-parameters/mqtt_default_vhosts
+    {"value": {"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}}
+
+Note that:
+
+* If the virtual host for a certificate cannot be found (because the certificate
+subject's DN cannot be found in the `mqtt_default_vhosts` global parameter JSON
+document or if the global parameter isn't set at all), the virtual host specified
+by the `vhost` plugin config option will be used.
+* The broker queries the `mqtt_default_vhosts` global parameter value at connection time.
+If the value changes, connected clients are not notified or disconnected. They need
+to reconnect to switch to a new virtual host.
 
 ### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL
 
