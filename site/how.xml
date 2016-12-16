@@ -72,7 +72,10 @@ limitations under the License.
       <a href="http://www.infoq.com/presentations/Multi-Platform-Messaging-with-RabbitMQ">Multi-platform Messaging with RabbitMQ</a><br />
       Rob Harrop demonstrates how to use RabbitMQ from a variety of languages (Java,
       Python, Ruby and Erlang) and different environments using AMQP and STOMP for
-      multi-platform communication.
+      multi-platform com
+      
+      
+      ication.
     </li>
     <li>
       <a href="http://www.youtube.com/watch?v=ZQogoEVXBSA">The RabbitMQ Team's Introduction to RabbitMQ and AMQP</a><br/>
@@ -278,7 +281,11 @@ limitations under the License.
       <a href="http://del.icio.us/alexisrichardson/rabbitmq+monitoring">RabbitMQ Monitoring</a> on del.icio.us<br />
       More links to what others are doing to manage and monitor RabbitMQ.
     </li>
-      </ul>
+    <li>
+      <a href="https://github.com/MeetMe/newrelic-plugin-agent#installation-instructions">New Relic Plugin for RabbitMQ</a><br />
+      Plugins for monitoring a RabbitMQ server with <a href="https://newrelic.com/">New Relic</a>.
+    </li>
+    </ul>
     </doc:section>
     <doc:section name="messaging-patterns">
       <doc:heading>Messaging Patterns and Common Scenarios</doc:heading>
