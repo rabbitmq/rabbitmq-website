@@ -122,7 +122,7 @@ limitations under the License.
   <td id="tutorial-six">
     <h2><span class="tute-num">6</span> <a href="/tutorials/tutorial-six-python.html">RPC</a></h2>
     <p>
-      Request/reply ("RPC") pattern example
+      <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/RequestReply.html">Request/reply ("RPC") pattern</a> example
     </p>
     <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
     <ul>
