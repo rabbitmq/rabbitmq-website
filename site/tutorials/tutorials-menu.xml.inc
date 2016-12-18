@@ -29,7 +29,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-one-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-one-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-one-dotnet.html">C#</a></li>
-      <li><a href="/tutorials/tutorial-one-javascript.html">Javascript</a></li>
+      <li><a href="/tutorials/tutorial-one-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-one-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-one-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-one-objectivec.html">Objective-C</a></li>
@@ -40,7 +40,7 @@ limitations under the License.
   <td id="tutorial-two">
     <h2><span class="tute-num">2</span> <a href="/tutorials/tutorial-two-python.html">Work queues</a></h2>
     <p>
-      Distributing tasks among workers
+      Distributing tasks among workers (the <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/CompetingConsumers.html">competing consumers pattern</a>)
     </p>
     <p><img src="/img/tutorials/python-two.png" width="180" /></p>
     <ul>
@@ -49,7 +49,7 @@ limitations under the License.
         <li><a href="/tutorials/tutorial-two-ruby.html">Ruby</a></li>
         <li><a href="/tutorials/tutorial-two-php.html">PHP</a></li>
         <li><a href="/tutorials/tutorial-two-dotnet.html">C#</a></li>
-        <li><a href="/tutorials/tutorial-two-javascript.html">Javascript</a></li>
+        <li><a href="/tutorials/tutorial-two-javascript.html">JavaScript</a></li>
         <li><a href="/tutorials/tutorial-two-go.html">Go</a></li>
         <li><a href="/tutorials/tutorial-two-elixir.html">Elixir</a></li>
         <li><a href="/tutorials/tutorial-two-objectivec.html">Objective-C</a></li>
@@ -69,7 +69,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-three-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-three-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-three-dotnet.html">C#</a></li>
-      <li><a href="/tutorials/tutorial-three-javascript.html">Javascript</a></li>
+      <li><a href="/tutorials/tutorial-three-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-three-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-three-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-three-objectivec.html">Objective-C</a></li>
@@ -91,7 +91,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-four-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-four-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-four-dotnet.html">C#</a></li>
-      <li><a href="/tutorials/tutorial-four-javascript.html">Javascript</a></li>
+      <li><a href="/tutorials/tutorial-four-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-four-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-four-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-four-objectivec.html">Objective-C</a></li>
@@ -102,7 +102,7 @@ limitations under the License.
   <td id="tutorial-five">
     <h2><span class="tute-num">5</span> <a href="/tutorials/tutorial-five-python.html">Topics</a></h2>
     <p>
-      Receiving messages based on a pattern
+      Receiving messages based on a pattern (topics)
     </p>
     <p><img src="/img/tutorials/python-five.png" height="50" width="180" /></p>
     <ul>
@@ -111,7 +111,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-five-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-five-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-five-dotnet.html">C#</a></li>
-      <li><a href="/tutorials/tutorial-five-javascript.html">Javascript</a></li>
+      <li><a href="/tutorials/tutorial-five-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-five-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-five-elixir.html">Elixir</a></li>
       <li><a href="/tutorials/tutorial-five-objectivec.html">Objective-C</a></li>
@@ -122,7 +122,7 @@ limitations under the License.
   <td id="tutorial-six">
     <h2><span class="tute-num">6</span> <a href="/tutorials/tutorial-six-python.html">RPC</a></h2>
     <p>
-      Remote procedure call implementation
+      Request/reply ("RPC") pattern example
     </p>
     <p><img src="/img/tutorials/python-six.png" height="50" width="180" /></p>
     <ul>
@@ -131,7 +131,7 @@ limitations under the License.
       <li><a href="/tutorials/tutorial-six-ruby.html">Ruby</a></li>
       <li><a href="/tutorials/tutorial-six-php.html">PHP</a></li>
       <li><a href="/tutorials/tutorial-six-dotnet.html">C#</a></li>
-      <li><a href="/tutorials/tutorial-six-javascript.html">Javascript</a></li>
+      <li><a href="/tutorials/tutorial-six-javascript.html">JavaScript</a></li>
       <li><a href="/tutorials/tutorial-six-go.html">Go</a></li>
       <li><a href="/tutorials/tutorial-six-elixir.html">Elixir</a></li>
     </ul>
