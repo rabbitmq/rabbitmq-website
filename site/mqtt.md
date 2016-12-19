@@ -109,12 +109,22 @@ the adapter in case MQTT clients provide no login credentials. If the
 The presence of client-supplied credentials over the network overrides
 the `allow_anonymous` option. Colons may not appear in usernames.
 
-The `vhost` option controls which RabbitMQ vhost the adapter connects to. The `vhost`
+#### Virtual Host Selection
+
+RabbitMQ is a multi-tenant system at the core and every connection belongs
+to a virtual host. Some messaging protocols have the concept of vhosts,
+others don't. MQTT falls into the latter category. Therefor the MQTT plugin
+needs to provide a way to map connections to vhosts.
+
+The `vhost` option controls which RabbitMQ vhost the adapter connects to
+by default. The `vhost`
 configuration is only consulted if no vhost is provided during connection establishment.
 There are several (optional) ways to specify the vhost the client will
 connect to.
 
-A first way consists in mapping TCP/TLS listeners ports to vhosts. The mapping
+#### Port to Virtual Host Mapping
+
+First way is mapping MQTT plugin (TCP or TLS) listener ports to vhosts. The mapping
 is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](/parameters.html).
 Let's take the following plugin configuration:
 
@@ -153,6 +163,8 @@ isn't set at all), the plugin will try to extract the virtual host from the user
 The broker queries the `mqtt_port_to_vhost_mapping` global parameter value at connection time.
 If the value changes, connected clients are not notified or disconnected. They need
 to reconnect to switch to a new virtual host.
+
+#### Virtual Host as Part of Username
 
 Another and more specific way to specify a vhost while connecting is to prepend the vhost
 to the username and to separate with a colon.
