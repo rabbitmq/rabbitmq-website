@@ -49,6 +49,17 @@ limitations under the License.
       </div>
 
       <div>
+        <h2>AMQP 0-9-1 Overview and Quick Reference</h2>
+        <p>
+          Once you have been through the tutorials (or if you want to
+          skip ahead), you may wish to read an
+          <a href="tutorials/amqp-concepts.html">Introduction to RabbitMQ Concepts</a>
+          and browse our
+          <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
+        </p>        
+      </div>
+      
+      <div>
         <h2>Tutorials in other languages</h2>
         <p>
           The tutorials here use a number of popular technologies,
@@ -60,32 +71,26 @@ limitations under the License.
               <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Clojure</a> (using <a href="http://clojurerabbitmq.info">Langohr</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">erlang client</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/erlang">Erlang</a> (using <a href="https://github.com/rabbitmq/rabbitmq-erlang-client">RabbitMQ Erlang client</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Haskell RabbitMQ client</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/haskell">Haskell</a> (using <a href="http://hackage.haskell.org/package/amqp">Network.AMQP</a>)
             </li>
             <li>
               <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/perl">Perl</a> (using <a href="https://github.com/cooldaemon/RabbitFoot">Net::RabbitFoot</a>)
             </li>
               <li>
               <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="http://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
-            </li> 
+            </li>
+            <li>
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Scala</a> (using <a href="http://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
+            </li>
           </ul>
         </p>
         <p>
           We also maintain a list
           of <a href="devtools.html">clients and developer tools</a> for
           a range of platforms, which you may find useful.
-        </p>
-
-        <h2>Further reading</h2>
-        <p>
-          Once you have been through the tutorials (or if you want to
-          skip ahead), you may wish to read an
-          <a href="tutorials/amqp-concepts.html">Introduction to RabbitMQ Concepts</a>
-          and browse our
-          <a href="amqp-0-9-1-quickref.html">AMQP 0-9-1 Quick Reference Guide</a>.
         </p>
       </div>
   </body>
