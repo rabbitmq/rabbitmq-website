@@ -135,23 +135,22 @@ virtual vhost. You can specify port-to-vhost mapping by setting the
     rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
         '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
 
-With `rabbitmqctl`, but on Windows:
+with `rabbitmqctl.bat` on Windows:
 
-    rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping ^
+    rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
         "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
 
-And with the HTTP API:
+and with the HTTP API:
 
     PUT /api/global-parameters/mqtt_port_to_vhost_mapping
     {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
 
-Note that:
-
-* If there's no mapping for a given port (because the port cannot be found in
+If there's no mapping for a given port (because the port cannot be found in
 the `mqtt_port_to_vhost_mapping` global parameter JSON document or if the global parameter
 isn't set at all), the plugin will try to extract the virtual host from the username
 (see below) and will ultimately use the `vhost` plugin config option.
-* The broker queries the `mqtt_port_to_vhost_mapping` global parameter value at connection time.
+
+The broker queries the `mqtt_port_to_vhost_mapping` global parameter value at connection time.
 If the value changes, connected clients are not notified or disconnected. They need
 to reconnect to switch to a new virtual host.
 
@@ -175,7 +174,7 @@ mapping specified with the `mqtt_port_to_vhost_mapping` global parameter.
 
 The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
 as the corresponding options in the `rabbit` section, as explained in the
-[broker configuration documentation](http://www.rabbitmq.com/configure.html).
+[networking](/networking.html) and [broker configuration](/configure.html) doc guides.
 
 ### TLS/SSL
 
