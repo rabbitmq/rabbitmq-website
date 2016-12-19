@@ -204,7 +204,7 @@ default MQTT SSL port is 8883. If this option is non-empty then the
                                      {fail_if_no_peer_cert, true}]}
                      ]},
      {rabbitmq_mqtt, [
-                      {ssl_listeners,    [8883]}
+                      {ssl_listeners,    [8883]},
                       {tcp_listeners,    [1883]}
                       ]}
     ].
