@@ -133,17 +133,17 @@ virtual vhost. You can specify port-to-vhost mapping by setting the
 `mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
 
     rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
-        '{1883:"vhost1", 8883:"vhost1", 1884:"vhost2", 8884:"vhost2"}'
+        '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
 
 With `rabbitmqctl`, but on Windows:
 
     rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping ^
-        "{1883:""vhost1"", 8883:""vhost1"", 1884:""vhost2"", 8884:""vhost2""}"
+        "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
 
 And with the HTTP API:
 
     PUT /api/global-parameters/mqtt_port_to_vhost_mapping
-    {"value": {1883:"vhost1", 8883:"vhost1", 1884:"vhost2", 8884:"vhost2"}}
+    {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
 
 Note that:
 
