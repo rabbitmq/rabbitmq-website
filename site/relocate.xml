@@ -110,14 +110,6 @@ limitations under the License.
       </tr>
 
       <tr>
-        <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-        <td>
-          Working directory used to expand enabled plugins when starting
-          the server.
-        </td>
-      </tr>
-
-      <tr>
         <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
         <td>
           This file records explicitly enabled plugins.
@@ -202,13 +194,6 @@ limitations under the License.
         </tr>
 
         <tr>
-          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-          <td>
-            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
-          </td>
-        </tr>
-
-        <tr>
           <td>RABBITMQ_ENABLED_PLUGINS_FILE</td>
           <td>
             <span class="path"><span class="envvar">${install_prefix}</span>/etc/rabbitmq/enabled_plugins</span>
@@ -279,13 +264,6 @@ limitations under the License.
           <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
             <i>Installation-directory</i><span class="path">/plugins</span>
-          </td>
-        </tr>
-
-        <tr>
-          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-          <td>
-            <span class="path"><span class="envvar">%RABBITMQ_MNESIA_BASE%</span>\<span class="envvar">%RABBITMQ_NODENAME%</span>-plugins-expand</span>
           </td>
         </tr>
 
@@ -366,13 +344,6 @@ limitations under the License.
           <td>RABBITMQ_PLUGINS_DIR</td>
           <td>
             <span class="path"><span class="envvar">$RABBITMQ_HOME</span>/plugins</span>
-          </td>
-        </tr>
-
-        <tr>
-          <td>RABBITMQ_PLUGINS_EXPAND_DIR</td>
-          <td>
-            <span class="path"><span class="envvar">$RABBITMQ_MNESIA_BASE</span>/<span class="envvar">$RABBITMQ_NODENAME</span>-plugins-expand</span>
           </td>
         </tr>
 
