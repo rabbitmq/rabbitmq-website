@@ -615,7 +615,7 @@ file or the <a href="/configure.html#erlang-term-config-file">classic config for
           <p>To list all cipher suites supported by installed Erlang runtime, use</p>
 
 <pre class="sourcecode">
-rabbitmqctl eval 'ssl:cipher_suites(openssl).'
+rabbitmqctl eval 'ssl:cipher_suites().'
 </pre>
         </doc:subsection>
       </doc:section>
