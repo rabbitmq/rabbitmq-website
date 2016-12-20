@@ -601,7 +601,7 @@ rabbitmqctl status
           usage.
           </p>
           <p>
-          total amount of memory consumed by the stats database
+          Total amount of memory consumed by the stats database
           depends on the event emission interval, effective rates mode and
           retention policies.
           </p>
@@ -613,7 +613,7 @@ rabbitmqctl status
           </p>
           <p>
           The memory usage of the channel and stats collector processes can be limited
-          by setting the the maximum backlog queue size using the parameter
+          by setting the maximum backlog queue size using the parameter
           <code>stats_event_max_backlog</code>. If the backlog queue is full, new channel
           and queue stats will be dropped until the previous ones have been processed.
           </p>
