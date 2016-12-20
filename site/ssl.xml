@@ -612,7 +612,18 @@ file or the <a href="/configure.html#erlang-term-config-file">classic config for
 ].
 </pre>
 
-          <p>To list all cipher suites supported by installed Erlang runtime, use</p>
+          <p>
+            To list all cipher suites supported by installed Erlang runtime, use
+
+<pre class="sourcecode">
+rabbitmqctl eval 'ssl:cipher_suites().'
+</pre>
+
+            the output uses Erlang terms and thus can be copied into
+            RabbitMQ's config file.
+          </p>
+
+          <p>The same suites can be listed in the OpenSSL format:</p>
 
 <pre class="sourcecode">
 rabbitmqctl eval 'ssl:cipher_suites(openssl).'
