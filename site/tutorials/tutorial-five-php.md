@@ -254,48 +254,6 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-<p id="teasers">Some teasers:</p>
-
- * [Will "`*`" binding catch a message sent with an empty routing key?](#teaser_answer_1)
-   <div id="teaser_answer_1" class="teaser_answer">
-       <p>No.</p>
-       <pre><code>
-       php receive_logs_topic.php "&#42;"
-       php emit_log_topic.php ""
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
- * [Will "`#.*`" catch a message with a string "`..`" as a key? Will
-   it catch a message with a single word key?](#teaser_answer_2)
-   <div id="teaser_answer_2" class="teaser_answer">
-       <p>No. (but I don't know why!)</p>
-       <pre><code>
-       php receive_logs_topic.php "#.&#42;"
-       php emit_log_topic.php ".."
-       </code></pre>
-       <p>Yes</p>
-       <pre><code>
-       php receive_logs_topic.php "#.&#42;"
-       php emit_log_topic.php "a"
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
- * [How different is "`a.*.#`" from "`a.#`"?](#teaser_answer_3)
-   <div id="teaser_answer_3" class="teaser_answer">
-       <p>
-       'a.&#42;.#' matches anything that has two words or more, and the first
-       word is 'a'. But 'a.#' matches anything that has one word or more
-       with the first word set to 'a'.
-       </p>
-       <pre><code>
-       php receive_logs_topic.php "a.*.#"
-       php emit_log_topic.php "a.b"
-       php receive_logs_topic.php "a.#"
-       php emit_log_topic.php "a.b"
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
-
 (Full source code for [emit_log_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/emit_log_topic.php)
 and [receive_logs_topic.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/receive_logs_topic.php))
 

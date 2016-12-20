@@ -259,48 +259,6 @@ Have fun playing with these programs. Note that the code doesn't make
 any assumption about the routing or binding keys, you may want to play
 with more than two routing key parameters.
 
-<p id="teasers">Some teasers:</p>
-
- * [Will "`*`" binding catch a message sent with an empty routing key?](#teaser_answer_1)
-   <div id="teaser_answer_1" class="teaser_answer">
-       <p>No.</p>
-       <pre><code>
-       ./ReceiveLogsTopic "&#42;"
-       ./EmitLogTopic ""
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
- * [Will "`#.*`" catch a message with a string "`..`" as a key? Will
-   it catch a message with a single word key?](#teaser_answer_2)
-   <div id="teaser_answer_2" class="teaser_answer">
-       <p>No. (but I don't know why!)</p>
-       <pre><code>
-       ./ReceiveLogsTopic "#.&#42;"
-       ./EmitLogTopic ".."
-       </code></pre>
-       <p>Yes</p>
-       <pre><code>
-       ./ReceiveLogsTopic "#.&#42;"
-       ./EmitLogTopic "a"
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
- * [How different is "`a.*.#`" from "`a.#`"?](#teaser_answer_3)
-   <div id="teaser_answer_3" class="teaser_answer">
-       <p>
-       'a.&#42;.#' matches anything that has two words or more, and the first
-       word is 'a'. But 'a.#' matches anything that has one word or more
-       with the first word set to 'a'.
-       </p>
-       <pre><code>
-       ./ReceiveLogsTopic "a.*.#"
-       ./EmitLogTopic "a.b"
-       ./ReceiveLogsTopic "a.#"
-       ./EmitLogTopic "a.b"
-       </code></pre>
-       <p><a href="#teasers">(hide)</a></p>
-   </div>
-
 (Full source code for [EmitLogTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogTopic.java)
 and [ReceiveLogsTopic.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsTopic.java))
 
