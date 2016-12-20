@@ -42,7 +42,7 @@ limitations under the License.
         </p>
 
         <p>
-          This release contains a security vulnerability fix in the MQTT plugin and bug fixes.
+          This release contains a security vulnerability (<a href="https://pivotal.io/security/cve-2016-9877">CVE-2016-9877</a>) fix in the MQTT plugin and bug fixes.
         </p>
 
         <p>
@@ -82,7 +82,7 @@ limitations under the License.
         </p>
 
         <p>
-          This release contains a security vulnerability fix in the MQTT plugin.
+          This release contains a security vulnerability (<a href="https://pivotal.io/security/cve-2016-9877">CVE-2016-9877</a>) fix in the MQTT plugin.
         </p>
 
         <p>
