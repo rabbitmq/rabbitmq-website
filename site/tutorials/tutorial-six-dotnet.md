@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -235,37 +235,32 @@ The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
     using System.Text;
-    
+
     class RPCServer
     {
         public static void Main()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "rpc_queue",
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
+                channel.QueueDeclare(queue: "rpc_queue", durable: false,
+                  exclusive: false, autoDelete: false, arguments: null);
                 channel.BasicQos(0, 1, false);
-                var consumer = new QueueingBasicConsumer(channel);
+                var consumer = new EventingBasicConsumer(channel);
                 channel.BasicConsume(queue: "rpc_queue",
-                                     noAck: false,
-                                     consumer: consumer);
+                  noAck: false, consumer: consumer);
                 Console.WriteLine(" [x] Awaiting RPC requests");
-    
-                while(true)
+
+                consumer.Received += (model, ea) =>
                 {
                     string response = null;
-                    var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
-    
+
                     var body = ea.Body;
                     var props = ea.BasicProperties;
                     var replyProps = channel.CreateBasicProperties();
                     replyProps.CorrelationId = props.CorrelationId;
-    
+
                     try
                     {
                         var message = Encoding.UTF8.GetString(body);
@@ -273,7 +268,7 @@ The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-
                         Console.WriteLine(" [.] fib({0})", message);
                         response = fib(n).ToString();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(" [.] " + e.Message);
                         response = "";
@@ -281,29 +276,30 @@ The code for our RPC server [RPCServer.cs](https://github.com/rabbitmq/rabbitmq-
                     finally
                     {
                         var responseBytes = Encoding.UTF8.GetBytes(response);
-                        channel.BasicPublish(exchange: "",
-                                             routingKey: props.ReplyTo,
-                                             basicProperties: replyProps,
-                                             body: responseBytes);
+                        channel.BasicPublish(exchange: "", routingKey: props.ReplyTo,
+                          basicProperties: replyProps, body: responseBytes);
                         channel.BasicAck(deliveryTag: ea.DeliveryTag,
-                                         multiple: false);
+                          multiple: false);
                     }
-                }
+                };
+
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
             }
         }
-    
+
         /// <summary>
         /// Assumes only valid positive integer input.
-        /// Don't expect this one to work for big numbers,
-        /// and it's probably the slowest recursive implementation possible.
+        /// Don't expect this one to work for big numbers, and it's
+        /// probably the slowest recursive implementation possible.
         /// </summary>
         private static int fib(int n)
         {
-            if(n == 0 || n == 1)
+            if (n == 0 || n == 1)
             {
                 return n;
             }
-    
+
             return fib(n - 1) + fib(n - 2);
         }
     }
@@ -316,8 +312,8 @@ The server code is rather straightforward:
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
     `prefetchCount` setting in channel.basicQos.
-  * We use `basicConsume` to access the queue. Then we enter the while loop in which
-    we wait for request messages, do the work and send the response back.
+  * We use `basicConsume` to access the queue. Then we register a delivery handler in which
+    we do the work and send the response back.
 
 
 The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/RPCClient/RPCClient.cs):
@@ -330,14 +326,14 @@ The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-
     using System.Threading.Tasks;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
-    
+
     class RPCClient
     {
         private IConnection connection;
         private IModel channel;
         private string replyQueueName;
         private QueueingBasicConsumer consumer;
-    
+
         public RPCClient()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -349,20 +345,20 @@ The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-
                                  noAck: true,
                                  consumer: consumer);
         }
-    
+
         public string Call(string message)
         {
             var corrId = Guid.NewGuid().ToString();
             var props = channel.CreateBasicProperties();
             props.ReplyTo = replyQueueName;
             props.CorrelationId = corrId;
-    
+
             var messageBytes = Encoding.UTF8.GetBytes(message);
             channel.BasicPublish(exchange: "",
                                  routingKey: "rpc_queue",
                                  basicProperties: props,
                                  body: messageBytes);
-    
+
             while(true)
             {
                 var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
@@ -372,23 +368,23 @@ The code for our RPC client [RPCClient.cs](https://github.com/rabbitmq/rabbitmq-
                 }
             }
         }
-    
+
         public void Close()
         {
             connection.Close();
         }
     }
-    
+
     class RPC
     {
         public static void Main()
         {
             var rpcClient = new RPCClient();
-    
+
             Console.WriteLine(" [x] Requesting fib(30)");
             var response = rpcClient.Call("30");
             Console.WriteLine(" [.] Got '{0}'", response);
-    
+
             rpcClient.Close();
         }
     }
