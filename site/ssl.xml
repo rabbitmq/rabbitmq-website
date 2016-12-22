@@ -80,6 +80,18 @@ limitations under the License.
       </doc:section>
 
 
+      <doc:section>
+        <doc:heading>The Short Route to Generating a CA, Certificates, and Keys</doc:heading>
+        <p>
+          This guide walks you through the process of setting up a Certificate Authority
+          and using it to generate client and server certificate/key pairs. This is necessary
+          for RabbitMQ clients that connect to the server on a TLS-enabled port.
+          However, the process is fairly labourious and can be error-prone.
+          An easier way of generating all that stuff on MacOS or Linux is with <a href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
+          all you need is <code>make</code> and <code>openssl</code> in <code>PATH</code>.
+        </p>
+      </doc:section>
+
       <doc:section name="keys-and-certs">
         <doc:heading>Keys, Certificates and CA Certificates</doc:heading>
           <p>OpenSSL is a large and complex topic. For a thorough understanding of
