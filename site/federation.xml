@@ -85,7 +85,7 @@ limitations under the License.
         Federation links connect to upstreams using RabbitMQ Erlang client. Therefore
         they can connect to a specific vhost, use TLS, use multiple
         <a href="http://www.rabbitmq.com/authentication.html">authentication mechanisms</a>.
-      </p>      
+      </p>
 
       <p>
         For more details, see the
@@ -300,6 +300,48 @@ limitations under the License.
         </p>
       </doc:subsection>
     </doc:section>
+
+
+    <doc:section name="link-failures">
+      <doc:heading>Federation Link Failures</doc:heading>
+      <p>
+        Inter-node connections used by Federation are based on AMQP 0-9-1
+        connections. Federation links can be treated as special kind of clients
+        by operators.
+      </p>
+      <p>
+        Should a link fail, e.g. due to a network interruption, it will
+        attempt to re-connect. Reconnection period is a configurable value
+        that's defined in upstream definition. See
+        <a href="federation-reference.html">federation
+        reference</a> for more details on setting up upstreams and
+        upstream sets.
+      </p>
+      <p>
+        Links generally try to recover ad infinitum but there are scenarios
+        when they give up:
+
+        <ul>
+          <li>
+            Failure rate is too high (max tolerated rate depends on
+            upstream's <code>reconnect-delay</code> but is generally a failure
+            every few seconds by default).
+          </li>
+          <li>
+            Link no longer can locate its source (upstream) queue or exchange.
+          </li>
+          <li>
+            Policy changes in such a way that a link considers itself no longer
+            necessary.
+          </li>
+        </ul>
+
+        By increasing <code>reconnect-delay</code> for upstreams it is possible
+        to tolerate higher link failure rates. This is primarily relevant
+        for RabbitMQ installations where a moderate or large number of active links.
+      </p>
+    </doc:section>
+
 
     <doc:section name="clustering">
       <doc:heading>Federating Clusters</doc:heading>
