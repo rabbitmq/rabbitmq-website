@@ -303,7 +303,7 @@ limitations under the License.
 
 
     <doc:section name="link-failures">
-      <doc:heading>Federation Link Failures</doc:heading>
+      <doc:heading>Federation Connection (Link) Failures</doc:heading>
       <p>
         Inter-node connections used by Federation are based on AMQP 0-9-1
         connections. Federation links can be treated as special kind of clients
