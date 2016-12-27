@@ -347,9 +347,12 @@ limitations under the License.
         <li><code>${username}</code> - the user name provided at authentication</li>
         <li><code>${user_dn}</code> - the distinguished name of the user</li>
         <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
-        <li><code>${resource}</code> - one of "exchange" or "queue" for the type of resource</li>
+        <li><code>${resource}</code> - one of "exchange", "queue" or "topic" for the type of resource</li>
         <li><code>${name}</code> - the name of the resource</li>
         <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
+        <li><code>${routing_key}</code> (optional) - the routing key of the published message. This parameter
+        is present only when publishing to a topic exchange, to enforce
+        <a href="/access-control.html#topic-authorisation">topic authorisation.</a></li>
       </ul>
 
       <p>
@@ -499,7 +502,8 @@ limitations under the License.
                                     {permission, write, {constant, true}},
                                     {permission, read,  {constant, true}}
                                    ]}},
-        {resource, queue,    {constant, true}}]}}</pre>
+        {resource, queue,    {constant, true}},
+        {resource, topic,    {constant, true}}]}}</pre>
 
         <p>
           This allows members of the <code>wheel</code> group to declare and
@@ -640,7 +644,8 @@ limitations under the License.
       {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
              {permission, write,
               {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
-                     {resource, exchange, {constant, true}}]}},
+                     {resource, exchange, {constant, true}},
+                     {resource, topic,    {constant, true}}]}},
              {permission, read,
               {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
                      {resource, queue,    {constant, true}}]}}
