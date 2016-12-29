@@ -81,8 +81,15 @@ make</pre>
 	      but this location can be overridden by setting the
 	      Makefile variable <code>TEST_TMPDIR</code>:
 	      <p>
-		<code>make run TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
+		<code>make run-broker TEST_TMPDIR=/some/other/location/for/rabbitmq-test-instances</code>
 	      </p>
+	      The Erlang node name can also be changed by setting
+	      <code>RABBITMQ_NODENAME</code>:
+	      <p>
+		<code>make run-broker RABBITMQ_NODENAME=rmq</code>
+	      </p>
+	      See also <code>scripts/rabbitmq-env</code> for other
+	      variables that may be useful.
 	    </dd>
 
 	    <dt>clean</dt>

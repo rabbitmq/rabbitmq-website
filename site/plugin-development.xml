@@ -8,8 +8,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -46,7 +46,7 @@ limitations under the License.
         <ul>
           <li>
             Enable your application to access internal RabbitMQ functionality that is not exposed
-            via the AMQP interface.
+            via one of the supported protocols.
           </li>
           <li>
             Running in the same Erlang VM as the broker may increase performance for certain applications.
@@ -133,6 +133,45 @@ limitations under the License.
           </li>
         </ul>
       </doc:section>
+      <doc:section name="plugin-version-constraints">
+        <doc:heading>Broker and Dependency Version Constraints</doc:heading>
+        <p>
+            It's possible to specify broker and dependency version
+            requirements for a plugin using the
+            <code>broker_version_requirements</code> key in plugin's
+            <code>.app.src</code> file. The requirements are specified as a list of
+            minimum version in each release series.
+            Consider the following example:
+
+            <pre class="sourcecode">
+{application, my_plugin,[
+            ...
+            {broker_version_requirements, ["3.5.2", "3.6.1", "3.7.0"]}
+]}</pre>
+
+            The above requires RabbitMQ
+            3.5.x starting with 3.5.2, 3.6.x starting with 3.6.1 and
+            all versions in the 3.7.x series. Note that when new major and minor (feature) RabbitMQ versions
+            come out, <strong>it is necessary for plugin maintainers to update the list</strong>.
+        </p>
+        <p>
+            Plugins can have dependencies. It is possible to specify supported
+            version series for dependencies, too. This is quite similar
+            to the above but uses a dictionary-like data structure (proplist).
+
+            For example:
+
+<pre class="sourcecode">
+{application, my_plugin, [
+            ...
+            {dependency_version_requirements, [{rabbitmq_management, ["3.6.1", "3.7.0"]}]}
+]}
+</pre>
+
+            means the plugin depends on <code>rabbitmq_management</code> 3.6.x starting
+            with 3.6.1 and all versions in the 3.7.x series.
+        </p>
+      </doc:section>
 
       <doc:section name="plugin-hello-world">
         <doc:heading>Example Plugin: Metronome</doc:heading>
@@ -141,9 +180,9 @@ limitations under the License.
           Seeing as no development guide would be complete without a Hello World example, the following tries to
           provide the basics of how your would build your very own RabbitMQ plugin. The following example details
           how you might build a simple plugin that acts like a metronome. Every second, it fires a message that has
-          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot;. Applications
-          can attach queues to this exchange with various routing keys in order to be invoked at regular intervals. For
-          example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
+          a routing key in the form yyyy.MM.dd.dow.hh.mm.ss to a topic exchange called &quot;metronome&quot; by default.
+          Applications can attach queues to this exchange with various routing keys in order to be invoked at regular intervals.
+          For example, to receive a message every second, a binding of &quot;*.*.*.*.*.*.*&quot; could be applied. To recieve
           a message every minute, a binding of &quot;*.*.*.*.*.*.00&quot; could be applied instead.
         </p>
         <p>
@@ -206,6 +245,26 @@ limitations under the License.
               In this case, just run the following command to update
               your copy:
               <pre>make rabbitmq-components-mk</pre>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="&metronome_repo;/priv/schema/rabbitmq_metronome.schema"><code>rabbitmq_metronome.schema</code></a></td>
+            <td>
+              A <a href="https://github.com/basho/cuttlefish/">Cuttlefish</a>
+              configrution schema.
+              Used to translate <a href="/configure.html#configuration-file">configuration file</a>
+              to the internal format used by RabbitMQ and its runtime.
+
+              Metronome schema contains mappings for the <code>metronome.exchange</code> setting,
+              setting the exchange used by the plugin. Default value is defined in <code>rabbitmq_metronome.app.src</code>.
+
+              Configuration will be regenerated when the plugin is
+              enabled. Plugin-specific values in the config will cause error if
+              plugin has not been enabled.
+
+              More information about writing schema files can be found
+              <a href="https://github.com/basho/cuttlefish/wiki/Cuttlefish-for-Erlang-Developers">in the Cuttlefish docs</a>.
+
             </td>
           </tr>
           <tr>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xml" href="page.xsl"?>
+<!--
+Copyright (c) 2007-2016 Pivotal Software, Inc.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
+    xmlns:x="http://www.rabbitmq.com/2011/extensions">
+  <head>
+    <title>Cluster Formation</title>
+  </head>
+  <body>
+    <doc:section name="intro">
+      <doc:heading>Introduction</doc:heading>
+
+      <p>
+        A RabbitMQ cluster can formed in a number of ways:
+
+        <ul>
+          <li>Declaratively by listing cluster nodes in <a href="/configure.html">config file</a></li>
+          <li>Declaratively using DNS-based discovery</li>
+          <li>
+            Declaratively using <a href="https://github.com/aweber/rabbitmq-autocluster/">rabbitmq-autocluster</a> (a plugin),
+            which supports AWS peer discovery (tags and autoscaling group membership-based), etcd, Consul, and more backends.
+          </li>
+          <li>Manually with <code>rabbitmqctl</code></li>
+        </ul>
+      </p>
+
+      <p>
+        When a node starts and detects it doesn't have a previously
+        initialised database, it will check if there's a peer
+        discovery mechanism configured. If that's the case, it will
+        then perform the discovery and attempt to contact each
+        discovered peer in order. Finally, it will attempt to join the
+        cluster of the first reachable peer.
+      </p>
+
+      <p>
+        If peer discovery isn't configured, or it fails, or no peers are reachable,
+        the node will initialise from scratch and proceed as a standalone node.
+      </p>
+
+      <p>
+        If a node previously was a cluster member, it will try to contact
+        its "last seen" peer for a period of time. In this case, no peer discovery
+        is performed.
+      </p>
+    </doc:section>
+
+    <doc:section name="peer_discovery">
+      <doc:heading>Peer Discovery</doc:heading>
+
+      <p>
+        To form a cluster, new ("blank") nodes need to be able to discover their
+        peers. As of RabbitMQ 3.7.0, peer discovery mechanisms are pluggable.
+        There are two implementations available out of the box:
+
+        <ul>
+          <li>Config file-based (a.k.a. the "classic config" backend)</li>
+          <li>DNS-based</li>
+        </ul>
+      </p>
+      <p>
+        The discovery mechanism to use is specified in the <a
+        href="/configure.html">config file</a>, as are
+        mechanism-specific settings, for example, discovery service
+        hostnames, credentials, and so on.
+        <code>autocluster.peer_discovery_backend</code> is the key
+        that controls what discovery module (implementation) is used.
+        The module has to implement the <a
+        href="https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_peer_discovery_backend.erl">rabbit_peer_discovery_backend</a>
+        behaviour. Plugins therefore can introduce their own discovery
+        mechanisms.
+      </p>
+    </doc:section>
+
+    <doc:section name="peer_discovery_classic_config">
+      <doc:heading>Config File Peer Discovery Backend</doc:heading>
+
+      <p>
+        The most basic way for a node to discover its cluster peers is to read a list
+        of nodes from the config file. This feature has been available in RabbitMQ for a number
+        of years, even before pluggable peer discovery backends were introduced in <code>3.7.0</code>.
+      </p>
+      <p>
+        This is done using the <code>autocluster.classic_config.nodes</code> config setting.
+
+        <pre class="sourcecode">
+autocluster.peer_discovery_backend = rabbit_peer_discovery_classic_config
+
+autocluster.classic_config.nodes.1 = rabbit@hostname1.eng.example.local
+autocluster.classic_config.nodes.2 = rabbit@hostname2.eng.example.local
+        </pre>
+      </p>
+      <p>
+        The following example demonstrates the same configuration in
+        the classic config format. The 2nd member of the
+        <code>rabbit.cluster_nodes</code> tuple is the node type to
+        use for the current node. In the vast majority of cases all
+        nodes should be <code>disc</code> nodes.
+
+        <pre class="sourcecode">
+[
+ {rabbit, [
+           {cluster_nodes, {['rabbit@hostname1.eng.example.local',
+                             'rabbit@hostname2.eng.example.local'], disc}}
+          ]}
+].
+
+        </pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="peer_discovery_dns">
+      <doc:heading>DNS Peer Discovery Backend</doc:heading>
+
+      <p>
+        Another built-in peer discovery mechanism as of RabbitMQ 3.7.0 is DNS-based.
+        It relies on a pre-configured hostname ("seed hostname") with DNS A records and reverse DNS lookups
+        to perform peer discovery. More specifically, this mechanism will perform the following steps:
+
+        <ul>
+          <li>Query DNS A records of the seed hostname.</li>
+          <li>For each returned DNS record's IP address, perform a reverse DNS lookup.</li>
+          <li>
+            Append current node's prefix (e.g. <code>rabbit</code> in <code>rabbit@hostname1.example.local</code>)
+            to each hostname and return the result.
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        For example, let's consider a seed hostname of
+        <code>discovery.eng.example.local</code>.  It has 2 DNS A
+        records that return two IP addresses:
+        <code>192.168.100.1</code> and
+        <code>192.168.100.2</code>. Reverse DNS lookups for those IP
+        addresses return <code>node1.eng.example.local</code> and
+        <code>node2.eng.example.local</code>, respectively. Current node's name is not
+        set and defaults to <code>rabbit@$(hostname)</code>.
+        The final list of nodes discovered will contain two nodes: <code>node2.eng.example.local</code>
+        and <code>node2.eng.example.local</code>.
+      </p>
+
+      <p>
+        The seed hostname is set using the <code>autocluster.dns.hostname</code> config setting:
+
+        <pre class="sourcecode">
+autocluster.peer_discovery_backend = rabbit_peer_discovery_dns
+
+autocluster.dns.hostname = discovery.eng.example.local
+        </pre>
+      </p>
+    </doc:section>
+
+    <doc:section name="peer_discovery_backend_plugins">
+      <doc:heading>Other Peer Discovery Backends</doc:heading>
+
+      <p>
+        There are more peer discovery backends available via community plugins.
+        In fact, the idea of pluggable peer discovery was ported into RabbitMQ core from a plugin developed
+        by <a href="https://github.com/gmr">Gavin Roy</a>, <a href="https://github.com/aweber/rabbitmq-autocluster">rabbitmq-autocluster</a>.
+
+        Some of the mechanisms provided by plugins include
+
+        <ul>
+          <li>AWS (EC2 API)-based discovery, using instance tags or autoscaling group membership</li>
+          <li>etcd</li>
+          <li>Consul</li>
+        </ul>
+
+        and others.
+      </p>
+    </doc:section>
+  </body>
+</html>
