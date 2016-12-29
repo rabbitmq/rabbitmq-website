@@ -229,6 +229,50 @@ limitations under the License.
         </p>
       </doc:section>
 
+      <doc:section name="topic-authorisation">
+        <doc:heading>Topic Authorisation</doc:heading>
+        <p>
+          As of version 3.7.0, RabbitMQ supports topic authorisation. Topic authorisation
+          applies to publishing to topic-typed exchanges. The routing key of a message
+          published to a topic exchange is also implied in the decision process when
+          topic authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
+          the routing key is matched against a regular expression to decide whether the message can be
+          routed downstream or not).
+          Topic authorisation targets protocols like STOMP and MQTT, which are heavily
+          relying on topic exchanges and routing keys under the covers.
+        </p>
+        <p>
+          Note topic authorisation is an additional security check: it is performed
+          after the publishing-to-exchange check. This means publishing a message to a topic-typed
+          exchange will go through both the publishing-to-exchange and the publishing-to-topic
+          checks and the latter is never called if the former blocked the publishing.
+        </p>
+        <p>
+          If you're using RabbitMQ default authorisation backend, publishing to topic-typed
+          exchanges is always authorised if no topic permission has been created (the default
+          on a fresh RabbitMQ installation).
+          With this authorisation backend, consider
+          topic authorisation as optional: you don't need to whitelist any exchanges,
+          you just need to blacklist exchanges (understand "create topic permissions for those
+          exchanges") if you want to use this feature.
+          For details of how to set up topic permissions, please see the
+          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
+          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
+        </p>
+        <p>
+          If you're using another authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>), please refer
+          to this authorisation backend documentation.
+        </p>
+        <p>
+          If you're using your own authorisation backend, you need to know that
+          topic authorisation is enforced with the <code>check_topic_access</code> callback
+          of the <code>rabbit_authz_backend</code> behavior.
+        </p>
+
+      </doc:section>
+
 
       <doc:section name="backends">
         <doc:heading>Alternative Authentication and Authorisation Backends</doc:heading>
@@ -318,7 +362,8 @@ limitations under the License.
  {rabbitmq_auth_backend_http,
    [{user_path,     "http://my-authenticator-app/auth/user"},
     {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-    {resource_path, "http://my-authenticator-app/auth/resource"}]}].
+    {resource_path, "http://my-authenticator-app/auth/resource"},
+    {topic_path,    "http://my-authenticator-app/auth/topic"}]}].
 </pre>      
 
 
@@ -369,52 +414,6 @@ limitations under the License.
         <doc:subsection name="">
           <doc:heading></doc:heading>
         </doc:subsection>
-      </doc:section>
-
-      <doc:section name="topic-authorisation">
-        <doc:heading>Topic Authorisation</doc:heading>
-        <p>
-          As of version 3.7.0, RabbitMQ supports topic authorisation. Topic authorisation
-          applies to publishing to topic-typed exchanges. The routing key of a message
-          published to a topic exchange is also implied in the decision process when
-          topic authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
-          the routing key is matched against a regular expression to decide whether the message can be
-          routed downstream or not).
-          Topic authorisation are targeting protocols like STOMP and MQTT, which are heavily
-          relying on topic exchanges and routing keys under the covers.
-        </p>
-        <p>
-          Note the topic authorisation is an additional security check: it is performed after the publishing-to-exchange
-          check.
-        </p>
-        <p>
-          If you're using RabbitMQ default authorisation backend, publishing to topic-typed
-          exchanges is always authorised if no topic permission has been created (the default
-          on a fresh RabbitMQ installation).
-          With this authorisation backend, consider
-          topic authorisation as optional: you don't need to whitelist any exchanges,
-          you just need to blacklist exchanges (understand "create topic permissions for those
-          exchanges") if you want to use this feature.
-          For details of how to set up topic permissions, please see the
-          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
-          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
-        </p>
-        <p>
-          If you're using another authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
-          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>,
-          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>), please refer
-          to this authorisation backend documentation.
-        </p>
-        <p>
-          If you're using your own authorisation backend, you need to know that
-          topic authorisation is enforced with the <code>check_resource_access</code> callback.
-          The passed-in <code>resource</code> is of <code>kind</code> <code>topic</code>, the
-          message routing key is in the <code>options</code> map, under the <code>routing_key</code>
-          key. At last, the permission value is <code>write</code>. If you don't need to enforce
-          topic authorisation in your authorisation backend, you just need to always let pass
-          checks for <code>topic</code> resources.
-        </p>
-
       </doc:section>
 
   </body>

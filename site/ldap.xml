@@ -292,6 +292,7 @@ limitations under the License.
       <ul>
         <li><code>vhost_access_query</code></li>
         <li><code>resource_access_query</code></li>
+        <li><code>topic_access_query</code></li>
         <li><code>tag_queries</code></li>
       </ul>
 
@@ -312,7 +313,7 @@ limitations under the License.
 
       <p>
         The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>
+        true}</code>, <code>{constant, true}</code>, <code>{constant, true}</code>
         and <code>[{administrator, {constant, false}}]</code>
         respectively, granting all users access to all objects in all
         vhosts, but not making them administrators.
@@ -347,19 +348,30 @@ limitations under the License.
         <li><code>${username}</code> - the user name provided at authentication</li>
         <li><code>${user_dn}</code> - the distinguished name of the user</li>
         <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
-        <li><code>${resource}</code> - one of "exchange", "queue" or "topic" for the type of resource</li>
+        <li><code>${resource}</code> - one of "exchange" or "queue" for the type of resource</li>
         <li><code>${name}</code> - the name of the resource</li>
         <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
-        <li><code>${routing_key}</code> (optional) - the routing key of the published message. This parameter
-        is present only when publishing to a topic exchange, to enforce
-        <a href="/access-control.html#topic-authorisation">topic authorisation.</a></li>
+      </ul>
+
+      <p><code>topic_access_query</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+        <li><code>${resource}</code> - always "topic" in this case</li>
+        <li><code>${name}</code> - the name of the resource</li>
+        <li><code>${permission}</code> - always "write" (publishing) in this case</li>
+        <li><code>${routing_key}</code> - the routing key of the published message</li>
       </ul>
 
       <p>
         The terms configure, write and read for resource access have the
         same meanings that they do for the built-in RabbitMQ permissions
-        system, see http://www.rabbitmq.com/access-control.html
+        system, see http://www.rabbitmq.com/access-control.html. See
+        also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
+        for <code>topic_access_query</code>.
       </p>
+
 
       <p><code>tag_queries</code> allows</p>
       <ul>
@@ -502,8 +514,7 @@ limitations under the License.
                                     {permission, write, {constant, true}},
                                     {permission, read,  {constant, true}}
                                    ]}},
-        {resource, queue,    {constant, true}},
-        {resource, topic,    {constant, true}}]}}</pre>
+        {resource, queue,    {constant, true}}]}}</pre>
 
         <p>
           This allows members of the <code>wheel</code> group to declare and
@@ -628,7 +639,9 @@ limitations under the License.
         controlled by membership of a group per virtual host. Only
         members of <code>admin</code> can declare, delete or
         bind exchanges and queues, but all users can publish to
-        exchanges and declare from queues.
+        exchanges and declare from queues. Publishing to topic-typed
+        exchanges is restricted to messages with a routing key
+        beginning with "a" (topic authorisation).
       </p>
 <pre class="example">[
   {rabbit, [{auth_backends, [rabbit_auth_backend_ldap]}]},
@@ -651,6 +664,7 @@ limitations under the License.
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
+     {topic_access_query, {match, {string, "${routing_key}"}, {string, "^a"}}},
      {tag_queries,           [{administrator, {constant, false}},
                               {management,    {constant, true}}]}
    ]
