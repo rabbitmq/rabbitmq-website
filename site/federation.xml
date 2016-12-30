@@ -328,7 +328,7 @@ limitations under the License.
             every few seconds by default).
           </li>
           <li>
-            Link no longer can locate its source (upstream) queue or exchange.
+            Link no longer can locate its "source" queue or exchange.
           </li>
           <li>
             Policy changes in such a way that a link considers itself no longer
