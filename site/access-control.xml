@@ -238,47 +238,47 @@ loopback_users = none
       <doc:section name="topic-authorisation">
         <doc:heading>Topic Authorisation</doc:heading>
         <p>
-          As of version 3.7.0, RabbitMQ supports topic authorisation. Topic authorisation
-          applies to publishing to topic-typed exchanges. The routing key of a message
-          published to a topic exchange is also implied in the decision process when
-          topic authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
+          As of version 3.7.0, RabbitMQ supports topic authorisation for topic exchanges. The routing key of a message
+          published to a topic exchange is taken into account when
+          publishing authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
           the routing key is matched against a regular expression to decide whether the message can be
           routed downstream or not).
-          Topic authorisation targets protocols like STOMP and MQTT, which are heavily
-          relying on topic exchanges and routing keys under the covers.
+          Topic authorisation targets protocols like STOMP and MQTT, which are structured
+          around topics and use topic exchanges under the hood.
         </p>
         <p>
-          Note topic authorisation is an additional security check: it is performed
-          after the publishing-to-exchange check. This means publishing a message to a topic-typed
-          exchange will go through both the publishing-to-exchange and the publishing-to-topic
-          checks and the latter is never called if the former blocked the publishing.
+          Topic authorisation is an additional layer on top of
+          existing checks for publishers. Publishing a
+          message to a topic-typed exchange will go through both the
+          <code>basic.publish</code> and the routing key checks.
+          The latter is never called if the former refuses access.
         </p>
         <p>
-          If you're using RabbitMQ default authorisation backend, publishing to topic-typed
-          exchanges is always authorised if no topic permission has been created (the default
-          on a fresh RabbitMQ installation).
-          With this authorisation backend, consider
-          topic authorisation as optional: you don't need to whitelist any exchanges,
-          you just need to blacklist exchanges (understand "create topic permissions for those
-          exchanges") if you want to use this feature.
-          For details of how to set up topic permissions, please see the
-          <a href="man/rabbitmqctl.1.man.html#Access%20control">Access Control section</a>
-          of the <a href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man page</a>.
+          When default authorisation backend is used, publishing to a
+          topic exchange is always authorised if no topic permissions
+          are defined (which is the case on a fresh RabbitMQ
+          installation). With this authorisation backend, topic
+          authorisation as optional: you don't need to whitelist any
+          exchanges. To use topic authorisation therefore you need to opt in
+          and define topic permissions for one or more exchanges.  For details please see the <a
+          href="man/rabbitmqctl.1.man.html#Access%20control">Access
+          Control section</a> of the <a
+          href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man
+          page</a>.
         </p>
         <p>
-          If you're using another authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
+          If a different authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
           <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>,
-          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>), please refer
-          to this authorisation backend documentation.
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>) is used, please refer
+          to the documentation of those backends.
         </p>
         <p>
-          If you're using your own authorisation backend, you need to know that
-          topic authorisation is enforced with the <code>check_topic_access</code> callback
-          of the <code>rabbit_authz_backend</code> behavior.
+          If a custom authorisation backend is used, topic
+          authorisation is enforced by implementing the
+          <code>check_topic_access</code> callback of the
+          <code>rabbit_authz_backend</code> behavior.
         </p>
-
       </doc:section>
-
 
       <doc:section name="backends">
         <doc:heading>Alternative Authentication and Authorisation Backends</doc:heading>
