@@ -83,7 +83,7 @@ limitations under the License.
               <a href="https://github.com/oylenshpeegul/RabbitMQ-Tutorial-Perl">Perl</a> (using <a href="http://p3rl.org/Net::AMQP::RabbitMQ">Net::AMQP::RabbitMQ</a>)
             </li>
             <li>
-              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/clojure">Scala</a> (using <a href="http://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
+              <a href="https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/scala">Scala</a> (using <a href="http://www.rabbitmq.com/api-guide.html">RabbitMQ Java client</a>)
             </li>
           </ul>
         </p>
