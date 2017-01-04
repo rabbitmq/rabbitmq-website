@@ -1029,11 +1029,22 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
             <td><code>lazy_queue_explicit_</code>
               <code>gc_run_operation_threshold</code></td>
             <td>
-             Tunable value only for lazy queues when under memory pressure. 
-             This is the threshold at which the garbage collector is triggered.
+             Tunable value only for lazy queues when under memory pressure.
+             This is the threshold at which the garbage collector and other memory reduction activities are triggered.
              A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
              You almost certainly should not change this.
-            <p>Default: <code>250</code></p>
+            <p>Default: <code>1000</code></p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>queue_explicit_</code>
+              <code>gc_run_operation_threshold</code></td>
+            <td>
+             Tunable value only for normal queues when under memory pressure.
+             This is the threshold at which the garbage collector and other memory reduction activities are triggered.
+             A low value could reduce performance, and a high one can improve performance, but cause higher memory consumption.
+             You almost certainly should not change this.
+            <p>Default: <code>1000</code></p>
             </td>
           </tr>
         </table>
