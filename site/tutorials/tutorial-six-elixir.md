@@ -74,15 +74,15 @@ receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
     :::elixir
-    {:ok, %{queue_name: callback_queue}} = AMQP.Queue.declare(channel,
-                                                              "", 
-                                                              exclusive: true)
+    {:ok, %{queue: callback_queue}} = AMQP.Queue.declare(channel,
+                                                         "",
+                                                         exclusive: true)
 
     AMQP.Basic.publish(channel,
                        "",
                        "rpc_queue",
                        request,
-                       reply_to: queue_name)
+                       reply_to: callback_queue)
     # ... and some code to read a response message from the callback_queue ...
 
 
