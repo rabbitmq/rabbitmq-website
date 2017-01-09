@@ -251,7 +251,7 @@ nameless one. Here goes the code for
 
 
 As you see, after establishing the connection we declared the
-exchange. This step is neccesary as publishing to a non-existing
+exchange. This step is necessary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,

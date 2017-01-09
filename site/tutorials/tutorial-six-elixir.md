@@ -74,15 +74,15 @@ receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
     :::elixir
-    {:ok, %{queue_name: callback_queue}} = AMQP.Queue.declare(channel,
-                                                              "", 
-                                                              exclusive: true)
+    {:ok, %{queue: callback_queue}} = AMQP.Queue.declare(channel,
+                                                         "",
+                                                         exclusive: true)
 
     AMQP.Basic.publish(channel,
                        "",
                        "rpc_queue",
                        request,
-                       reply_to: queue_name)
+                       reply_to: callback_queue)
     # ... and some code to read a response message from the callback_queue ...
 
 
@@ -221,7 +221,11 @@ The code for `rpc_server.exs`:
             IO.puts " [.] fib(#{n})"
             response = fib(n)
 
-            AMQP.Basic.publish(channel, "", meta.reply_to, "#{response}", correlation_id: meta.correlation_id)
+            AMQP.Basic.publish(channel,
+                               "",
+                               meta.reply_to,
+                               "#{response}",
+                               correlation_id: meta.correlation_id)
             AMQP.Basic.ack(channel, meta.delivery_tag)
 
             wait_for_messages(channel)
@@ -233,26 +237,24 @@ The code for `rpc_server.exs`:
     {:ok, channel} = AMQP.Channel.open(connection)
 
     AMQP.Queue.declare(channel, "rpc_queue")
-
     AMQP.Basic.qos(channel, prefetch_count: 1)
-
     AMQP.Basic.consume(channel, "rpc_queue")
-
     IO.puts " [x] Awaiting RPC requests"
 
     FibServer.wait_for_messages(channel)
+
 
 The server code is rather straightforward:
 
   * (2-4) We declare our fibonacci function.
     (Don't expect this one to work for big numbers,
     it's probably the slowest recursive implementation possible).
-  * (21-24) As usual we start by establishing the connection and declaring
+  * (25-28) As usual we start by establishing the connection and declaring
     the queue.
-  * (26) We might want to run more than one server process. In order
+  * (29) We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
     `prefetch_count` setting.
-  * (32) We wait for messages from `AMQP.Basic.consume`,
+  * (30) We wait for messages from `AMQP.Basic.consume`,
     the core of the RPC server. It's executed when the request
     is received. It does the work and sends the response back.
 
@@ -272,15 +274,21 @@ The code for `rpc_client.exs`:
         {:ok, connection} = AMQP.Connection.open
         {:ok, channel} = AMQP.Channel.open(connection)
 
-        {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel, "", exclusive: true)
+        {:ok, %{queue: queue_name}} = AMQP.Queue.declare(channel,
+                                                         "",
+                                                         exclusive: true)
         AMQP.Basic.consume(channel, queue_name, nil, no_ack: true)
-        correlation_id = :erlang.unique_integer |> :erlang.integer_to_binary |> Base.encode64
+        correlation_id =
+          :erlang.unique_integer
+          |> :erlang.integer_to_binary
+          |> Base.encode64
+
         request = to_string(n)
-        AMQP.Basic.publish(channel, 
-                           "", 
-                           "rpc_queue", 
-                           request, 
-                           reply_to: queue_name, 
+        AMQP.Basic.publish(channel,
+                           "",
+                           "rpc_queue",
+                           request,
+                           reply_to: queue_name,
                            correlation_id: correlation_id)
 
         FibonacciRpcClient.wait_for_messages(channel, correlation_id)
@@ -314,14 +322,14 @@ The client code is slightly more involved:
     RPC request.
   * (10-13) We establish a connection, channel and declare an
     exclusive 'callback' queue for replies.
-  * (14) We subscribe to the 'callback' queue, so that
+  * (16) We subscribe to the 'callback' queue, so that
     we can receive RPC responses.
-  * (15) In this function, first we generate a unique `correlation_id`
+  * (17) In this function, first we generate a unique `correlation_id`
     number - the 'wait_for_messages' function will
     use this value to catch the appropriate response.
-  * (17) Next, we publish the request message, with two properties:
+  * (23) Next, we publish the request message, with two properties:
     `reply_to` and `correlation_id`.
-  * (24) At this point we can sit back and wait until the proper
+  * (30) At this point we can sit back and wait until the proper
     response arrives.
 
 Our RPC service is now ready. We can start the server:

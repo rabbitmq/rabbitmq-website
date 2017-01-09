@@ -271,7 +271,7 @@ value is ignored for `fanout` exchanges. Here goes the code for
 [(emit_log.exs source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/elixir/emit_log.exs)
 
 As you see, after establishing the connection we declared the
-exchange. This step is neccesary as publishing to a non-existing
+exchange. This step is necessary as publishing to a non-existing
 exchange is forbidden.
 
 The messages will be lost if no queue is bound to the exchange yet,
