@@ -129,6 +129,11 @@ and says: "decimal-value = scale long-uint". We treat the decimal value as
          <p>AMQP 0-8 and 0-9-1 both have rules regarding deletion of exclusive and auto-delete queues.  However, they do not specify whether this happens synchronously; i.e., before the broker responds to its peer.</p>
          <p>(Actually 0-8 said that the server should wait a "polite amount of time").</p>
          <p>RabbitMQ now deletes auto-delete and queues synchronously with basic.cancel, channel close, and connection close, and exclusive queues synchronously with the latter two.</p>
+         <p>An auto-delete queue will not be deleted if:</p>
+         <ul class="plain">
+           <li>it didn't have a consumer - consuming with <code class="">basic.get</code> does not count as having a consumer</li>
+           <li>the consumer failed to send <code class="">basic.cancel</code> (e.g. consumer crashed)</li>
+         </ul>
 
          <doc:section name="section_6">
             <doc:heading>6 Queue and exchange "equivalent" and "pre-existence" rules</doc:heading>
