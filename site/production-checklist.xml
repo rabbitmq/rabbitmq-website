@@ -113,24 +113,24 @@ limitations under the License.
           <ul>
             <li>At least 128 MB</li>
             <li>
-              75% of the configured RAM limit when
+              65% of the configured RAM limit when
               the limit is up to 4 GB of RAM
             </li>
             <li>
-              80% of the configured RAM limit when
+              70% of the configured RAM limit when
               the limit is between 4 and 8 GB of RAM
             </li>
             <li>
-              85% of the configured RAM limit when
+              75% of the configured RAM limit when
               the limit is between 8 and 16 GB of RAM
             </li>
             <li>
-              90% of the configured RAM limit when
+              80% of the configured RAM limit when
               the limit is above 16 GB of RAM
             </li>
           </ul>
 
-          Values higher than 0.9 can be dangerous
+          Values higher than 0.85 can be dangerous
           and are not recommended.
         </p>
       </doc:subsection>
