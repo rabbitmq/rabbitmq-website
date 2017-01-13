@@ -235,6 +235,50 @@ loopback_users = none
         </p>
       </doc:section>
 
+      <doc:section name="topic-authorisation">
+        <doc:heading>Topic Authorisation</doc:heading>
+        <p>
+          As of version 3.7.0, RabbitMQ supports topic authorisation for topic exchanges. The routing key of a message
+          published to a topic exchange is taken into account when
+          publishing authorisation is enforced (e.g. in RabbitMQ default authorisation backend,
+          the routing key is matched against a regular expression to decide whether the message can be
+          routed downstream or not).
+          Topic authorisation targets protocols like STOMP and MQTT, which are structured
+          around topics and use topic exchanges under the hood.
+        </p>
+        <p>
+          Topic authorisation is an additional layer on top of
+          existing checks for publishers. Publishing a
+          message to a topic-typed exchange will go through both the
+          <code>basic.publish</code> and the routing key checks.
+          The latter is never called if the former refuses access.
+        </p>
+        <p>
+          When default authorisation backend is used, publishing to a
+          topic exchange is always authorised if no topic permissions
+          are defined (which is the case on a fresh RabbitMQ
+          installation). With this authorisation backend, topic
+          authorisation as optional: you don't need to whitelist any
+          exchanges. To use topic authorisation therefore you need to opt in
+          and define topic permissions for one or more exchanges.  For details please see the <a
+          href="man/rabbitmqctl.1.man.html#Access%20control">Access
+          Control section</a> of the <a
+          href="man/rabbitmqctl.1.man.html">rabbitmqctl(1) man
+          page</a>.
+        </p>
+        <p>
+          If a different authorisation backend (e.g. <a href="ldap.html">LDAP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">HTTP</a>,
+          <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-amqp">AMQP</a>) is used, please refer
+          to the documentation of those backends.
+        </p>
+        <p>
+          If a custom authorisation backend is used, topic
+          authorisation is enforced by implementing the
+          <code>check_topic_access</code> callback of the
+          <code>rabbit_authz_backend</code> behavior.
+        </p>
+      </doc:section>
 
       <doc:section name="backends">
         <doc:heading>Alternative Authentication and Authorisation Backends</doc:heading>
@@ -369,6 +413,7 @@ auth_backends.2 = rabbit_auth_backend_http
 http.user_path = http://my-authenticator-app/auth/user
 http.vhost_path = http://my-authenticator-app/auth/vhost
 http.resource_path = http://my-authenticator-app/auth/resource
+http.topic_path = http://my-authenticator-app/auth/topic
 </pre>
 
           Or, in the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
@@ -382,8 +427,9 @@ http.resource_path = http://my-authenticator-app/auth/resource
  {rabbitmq_auth_backend_http,
    [{user_path,     "http://my-authenticator-app/auth/user"},
     {vhost_path,    "http://my-authenticator-app/auth/vhost"},
-    {resource_path, "http://my-authenticator-app/auth/resource"}]}].
-</pre>
+    {resource_path, "http://my-authenticator-app/auth/resource"},
+    {topic_path,    "http://my-authenticator-app/auth/topic"}]}].
+</pre>      
 
           <p>
             The following example configures RabbitMQ to use internal
@@ -459,5 +505,6 @@ auth_backends.2       = internal
 </pre>
         </doc:subsection>
       </doc:section>
+
   </body>
 </html>

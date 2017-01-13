@@ -324,6 +324,7 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
       <ul>
         <li><code>vhost_access_query</code></li>
         <li><code>resource_access_query</code></li>
+        <li><code>topic_access_query</code></li>
         <li><code>tag_queries</code></li>
       </ul>
 
@@ -350,7 +351,7 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
 
       <p>
         The default values for these queries are <code>{constant,
-        true}</code>, <code>{constant, true}</code>
+        true}</code>, <code>{constant, true}</code>, <code>{constant, true}</code>
         and <code>[{administrator, {constant, false}}]</code>
         respectively, granting all users access to all objects in all
         vhosts, but not making them administrators.
@@ -390,11 +391,25 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
         <li><code>${permission}</code> - one of "configure", "write" or "read" for the type of access being requested to the resource</li>
       </ul>
 
+      <p><code>topic_access_query</code> allows</p>
+      <ul>
+        <li><code>${username}</code> - the user name provided at authentication</li>
+        <li><code>${user_dn}</code> - the distinguished name of the user</li>
+        <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
+        <li><code>${resource}</code> - always "topic" in this case</li>
+        <li><code>${name}</code> - the name of the resource</li>
+        <li><code>${permission}</code> - always "write" (publishing) in this case</li>
+        <li><code>${routing_key}</code> - the routing key of the published message</li>
+      </ul>
+
       <p>
         The terms configure, write and read for resource access have the
         same meanings that they do for the built-in RabbitMQ permissions
-        system, see http://www.rabbitmq.com/access-control.html
+        system, see http://www.rabbitmq.com/access-control.html. See
+        also <a href="/access-control.html#topic-authorisation">topic authorisation</a>
+        for <code>topic_access_query</code>.
       </p>
+
 
       <p><code>tag_queries</code> allows</p>
       <ul>
@@ -663,7 +678,9 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
         controlled by membership of a group per virtual host. Only
         members of <code>admin</code> can declare, delete or
         bind exchanges and queues, but all users can publish to
-        exchanges and declare from queues.
+        exchanges and declare from queues. Publishing to topic-typed
+        exchanges is restricted to messages with a routing key
+        beginning with "a" (topic authorisation).
       </p>
       The <a href="/configure.html#config-file">standard config</a>
       (rabbitmq.conf) is used to configure authentication backends and
@@ -715,12 +732,14 @@ rabbit_auth_backend_ldap.log        = false
       {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
              {permission, write,
               {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
-                     {resource, exchange, {constant, true}}]}},
+                     {resource, exchange, {constant, true}},
+                     {resource, topic,    {constant, true}}]}},
              {permission, read,
               {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
+     {topic_access_query, {match, {string, "${routing_key}"}, {string, "^a"}}},
      {tag_queries,           [{administrator, {constant, false}},
                               {management,    {constant, true}}]}
    ]
