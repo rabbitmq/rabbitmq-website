@@ -285,6 +285,17 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
           no timeout. Default:
           <code>infinity</code>.
         </dd>
+        <dt><code>pool_size</code></dt>
+        <dd>
+          LDAP queries worker pool size. Default:
+          <code>64</code>.
+        </dd>
+        <dt><code>idle_timeout</code></dt>
+        <dd>
+          Time in milliseconds after which inactive LDAP connections
+          are closed. Set to 'infinity' for no timeout. Default:
+          <code>infinity</code>.
+        </dd>
         <dt><code>log</code></dt>
         <dd>
           <p>
