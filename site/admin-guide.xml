@@ -41,7 +41,16 @@ limitations under the License.
           configuration files and environment variables.
         </li>
         <li>
-          Configuring RabbitMQ to accept <a href="ssl.html">SSL connections</a>.
+          <a href="vhosts.html">Virtual Hosts</a>
+        </li>
+        <li>
+          <a href="relocate.html">Node File and Directory Locations</a>
+        </li>
+        <li>
+          <a href="networking.html">Networking and OS Limits</a>
+        </li>
+        <li>
+          Configuring RabbitMQ to accept <a href="ssl.html">TLS connections</a>.
         </li>
       </ul>
     </div>
@@ -94,15 +103,17 @@ limitations under the License.
       <h2>Authentication and Authorisation</h2>
       <ul>
         <li>
-          How to <a href="access-control.html">set up access
-          control</a> for the objects in your broker.
+          How to <a href="access-control.html">set up authorization</a> for the objects in your broker.
         </li>
         <li>
-          Configuring <a href="authentication.html">SASL authentication</a>.
+          Configuring <a href="authentication.html">Authentication Mechanisms</a>.
         </li>
         <li>
-          Configuring <a href="passwords.html">password hashing algorithm</a>.
-        </li>        
+          Configuring <a href="passwords.html">Password Hashing Algorithms</a>.
+        </li>
+        <li>
+          Using <a href="ldap.html">LDAP</a>.
+        </li>
       </ul>
     </div>
 
