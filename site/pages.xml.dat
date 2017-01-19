@@ -100,11 +100,13 @@ limitations under the License.
          </x:page>
          <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
        </x:page>
+       <x:page url="/vhosts.html" text="Virtual Hosts"/>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
        <x:page url="/access-control.html" text="Access Control (Authorisation)"/>
+       <x:page url="/authentication.html" text="Authentication Mechanisls"/>
+       <x:page url="/ldap.html" text="LDAP"/>
        <x:page url="/production-checklist.html" text="Production Checklist"/>
-       <x:page url="/authentication.html" text="SASL Authentication"/>
        <x:page url="/alarms.html" text="Alarms">
          <x:page url="/memory.html" text="Memory Alarms"/>
          <x:page url="/disk-alarms.html" text="Disk Alarms"/>

@@ -77,6 +77,12 @@ limitations under the License.
             <a href="configure.html">Configuration</a>
           </li>
           <li>
+            <a href="access-control.html">Authorization</a>
+          </li>
+          <li>
+            <a href="vhosts.html">Virtual Hosts</a>
+          </li>          
+          <li>
             <a href="ssl.html">TLS/SSL</a>
           </li>
           <li>
