@@ -231,40 +231,50 @@ The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitm
 
     #!java    
     private static final String RPC_QUEUE_NAME = "rpc_queue";
-    
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("localhost");
-            
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
-    
-    channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-    
-    channel.basicQos(1);
-    
-    QueueingConsumer consumer = new QueueingConsumer(channel);
-    channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
-    
-    System.out.println(" [x] Awaiting RPC requests");
-    
-    while (true) {
-        QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+    private final ConnectionFactory factory;
+    private Connection connection;
+    private Channel    channel;
 
-        BasicProperties props = delivery.getProperties();
-        BasicProperties replyProps = new BasicProperties
-                                         .Builder()
-                                         .correlationId(props.getCorrelationId())
-                                         .build();
+    public RPCServer() {
+        factory = new ConnectionFactory();
+        factory.setHost("localhost");
+    }
 
-        String message = new String(delivery.getBody());
-        int n = Integer.parseInt(message);
-    
-        System.out.println(" [.] fib(" + message + ")");
-        String response = "" + fib(n);
-        
-        channel.basicPublish( "", props.getReplyTo(), replyProps, response.getBytes());
-    
-        channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+    public void start() throws IOException, TimeoutException {
+        connection = factory.newConnection();
+        channel    = connection.createChannel();
+
+        channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+
+        channel.basicQos(1);
+
+        System.out.println(" [x] Awaiting RPC requests");
+
+        Consumer consumer = new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                        .Builder()
+                        .correlationId(properties.getCorrelationId())
+                        .build();
+
+                String message = new String(body);
+                int n = Integer.parseInt(message);
+
+                System.out.println(" [.] fib(" + message + ")");
+
+                String response = "" + fib(n);
+                channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes());
+
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }
+        };
+        channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+    }
+
+    public void stop() throws IOException, TimeoutException {
+        channel.close();
+        connection.close();
     }
 
     
@@ -286,43 +296,40 @@ The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitm
     private Channel channel;
     private String requestQueueName = "rpc_queue";
     private String replyQueueName;
-    private QueueingConsumer consumer;
-    
-    public RPCClient() throws Exception {
+
+    public RPCClient() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         connection = factory.newConnection();
         channel = connection.createChannel();
-    
-        replyQueueName = channel.queueDeclare().getQueue(); 
-        consumer = new QueueingConsumer(channel);
-        channel.basicConsume(replyQueueName, true, consumer);
+
+        replyQueueName = channel.queueDeclare().getQueue();
     }
-    
-    public String call(String message) throws Exception {     
+
+    public String call(String message) throws IOException {
         String response = null;
         String corrId = java.util.UUID.randomUUID().toString();
-                
-        BasicProperties props = new BasicProperties
-                                    .Builder()
-                                    .correlationId(corrId)
-                                    .replyTo(replyQueueName)
-                                    .build();
-    
+
+        AMQP.BasicProperties props = new AMQP.BasicProperties
+                .Builder()
+                .correlationId(corrId)
+                .replyTo(replyQueueName)
+                .build();
+
         channel.basicPublish("", requestQueueName, props, message.getBytes());
-        
+
         while (true) {
-            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+            GetResponse delivery = channel.basicGet(replyQueueName, true);
+            if (delivery != null && delivery.getProps().getCorrelationId().equals(corrId)) {
                 response = new String(delivery.getBody());
                 break;
             }
         }
-    
-        return response; 
+
+        return response;
     }
-    
-    public void close() throws Exception {
+
+    public void close() throws IOException {
         connection.close();
     }
 
