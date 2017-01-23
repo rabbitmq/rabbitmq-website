@@ -254,8 +254,21 @@ loopback_users = none
           The latter is never called if the former refuses access.
         </p>
         <p>
+          Topic authorisation can also be enforced when consuming from
+          a topic. Note there's no topic authorisation check on consumption
+          in AMQP, as consuming from a topic doesn't make sense in this protocol.
+          Topic authorisation on consumption is enforced in the STOMP and
+          MQTT plugins, as the concept of topic does exist in those protocols.
+          The routing key of the binding between the AMQP topic exchange and
+          an AMQP queue is taken into account when consumption authorisation is
+          enforced. For details about how RabbitMQ handles topics, please see
+          the <a href="stomp.html">STOMP</a> and <a href="mqtt.html">MQTT</a>
+          plugins.
+        </p>
+        <p>
           When default authorisation backend is used, publishing to a
-          topic exchange is always authorised if no topic permissions
+          topic exchange or consuming from a topic is always authorised
+          if no topic permissions
           are defined (which is the case on a fresh RabbitMQ
           installation). With this authorisation backend, topic
           authorisation as optional: you don't need to whitelist any

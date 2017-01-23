@@ -409,8 +409,10 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
         <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
         <li><code>${resource}</code> - always "topic" in this case</li>
         <li><code>${name}</code> - the name of the resource</li>
-        <li><code>${permission}</code> - always "write" (publishing) in this case</li>
-        <li><code>${routing_key}</code> - the routing key of the published message</li>
+        <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming)</li>
+        <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
+          or routing key of the topic exchange to queue binding ("read" permission)
+        </li>
       </ul>
 
       <p>
@@ -691,7 +693,8 @@ rabbit_auth_backend_ldap.other_bind.password = password</pre>
         bind exchanges and queues, but all users can publish to
         exchanges and declare from queues. Publishing to topic-typed
         exchanges is restricted to messages with a routing key
-        beginning with "a" (topic authorisation).
+        beginning with "a" and consuming from topics isn't restricted
+        (topic authorisation).
       </p>
       The <a href="/configure.html#config-file">standard config</a>
       (rabbitmq.conf) is used to configure authentication backends and
@@ -721,6 +724,11 @@ rabbit_auth_backend_ldap.log        = false
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
+     {topic_access_query,
+      {for, [{permission, write, {match, {string, "${routing_key}"}, {string, "^a"}}},
+             {permission, read,  {constant, true}}
+            ]
+      }},
      {tag_queries,           [{administrator, {constant, false}},
                               {management,    {constant, true}}]}
 ]}].
@@ -743,14 +751,17 @@ rabbit_auth_backend_ldap.log        = false
       {for, [{permission, configure, {in_group, "cn=admin,dc=example,dc=com"}},
              {permission, write,
               {for, [{resource, queue,    {in_group, "cn=admin,dc=example,dc=com"}},
-                     {resource, exchange, {constant, true}},
-                     {resource, topic,    {constant, true}}]}},
+                     {resource, exchange, {constant, true}}]}},
              {permission, read,
               {for, [{resource, exchange, {in_group, "cn=admin,dc=example,dc=com"}},
                      {resource, queue,    {constant, true}}]}}
             ]
       }},
-     {topic_access_query, {match, {string, "${routing_key}"}, {string, "^a"}}},
+     {topic_access_query,
+      {for, [{permission, write, {match, {string, "${routing_key}"}, {string, "^a"}}},
+             {permission, read,  {constant, true}}
+            ]
+     }},
      {tag_queries,           [{administrator, {constant, false}},
                               {management,    {constant, true}}]}
    ]
