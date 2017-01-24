@@ -372,7 +372,7 @@ Now is a good time to take a look at our full example source code (which include
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
     :::bash
-    $ javac -cp rabbitmq-client.jar RPCClient.java RPCServer.java
+    $ javac -cp $CP RPCClient.java RPCServer.java
   
 Our RPC service is now ready. We can start the server:
 

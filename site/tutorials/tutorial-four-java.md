@@ -324,8 +324,10 @@ The code for `ReceiveLogsDirect.java`:
     }
 
 Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
-For convenience we'll now use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
+For convenience we'll use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
 
+    :::bash
+    $ javac -cp $CP ReceiveLogsDirect.java EmitLogDirect.java
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
