@@ -226,7 +226,13 @@ The code for `ReceiveLogsTopic.java`:
     }
 
 
-Run the following examples, including the classpath as in [Tutorial 1](tutorial-one-java.html) - on Windows, use %CP%.  
+Compile and run the examples, including the classpath as in [Tutorial 1](tutorial-one-java.html) -
+on Windows, use %CP%.
+
+To compile:
+
+    :::bash
+    $ javac -cp $CP ReceiveLogsTopic.java EmitLogTopic.java
 
 To receive all the logs:
 
