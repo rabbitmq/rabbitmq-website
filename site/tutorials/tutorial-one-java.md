@@ -46,14 +46,13 @@ on behalf of the consumer.
 > languages](http://rabbitmq.com/devtools.html). We'll
 > use the Java client provided by RabbitMQ.
 >
-> Download the [client library
-> package](http://www.rabbitmq.com/java-client.html), and check its
-> signature as described. Unzip it into your working directory and grab
-> the JAR files from the unzipped directory:
->
->     :::bash
->     $ unzip rabbitmq-java-client-bin-*.zip
->     $ cp rabbitmq-java-client-bin-*/*.jar ./
+> Download the [client library](http://central.maven.org/maven2/com/rabbitmq/amqp-client/4.0.2/amqp-client-4.0.2.jar)
+> and its dependencies ([SLF4J API](http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar) and
+> [SLF4J Simple](http://central.maven.org/maven2/org/slf4j/slf4j-simple/1.7.22/slf4j-simple-1.7.22.jar)).
+> Copy those files in your working directory, along the tutorials Java files.
+> 
+> Please note SLF4J Simple is enough for tutorials but you should use a full-blown
+> logging library like [Logback](https://logback.qos.ch/) in production.
 >
 > (The RabbitMQ Java client is also in the central Maven repository,
 > with the groupId `com.rabbitmq` and the artifactId `amqp-client`.)
@@ -217,18 +216,18 @@ You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
     :::bash
-    $ javac -cp rabbitmq-client.jar Send.java Recv.java
+    $ javac -cp amqp-client-4.0.2.jar Send.java Recv.java
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the sender:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Send
+    $ java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
 
 then, run the receiver:
 
     :::bash
-    $ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
+    $ java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv
 
 On Windows, use a semicolon instead of a colon to separate items in the classpath.
 
@@ -245,12 +244,12 @@ Time to move on to [part 2](tutorial-two-java.html) and build a simple _work que
 > ####Hint
 > To save typing, you can set an environment variable for the classpath e.g.
 >
->      $ export CP=.:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
+>      $ export CP=.:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar
 >      $ java -cp $CP Send
 >
 > or on Windows:
 >
->      > set CP=.;commons-io-1.2.jar;commons-cli-1.1.jar;rabbitmq-client.jar
+>      > set CP=.;amqp-client-4.0.2.jar;slf4j-api-1.7.21.jar;slf4j-simple-1.7.22.jar
 >      > java -cp %CP% Send
 >
 
