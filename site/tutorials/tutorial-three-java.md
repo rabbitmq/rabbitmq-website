@@ -336,22 +336,22 @@ The code for `ReceiveLogs.java`:
 Compile as before and we're done.
 
     :::bash
-    $ javac -cp .:rabbitmq-client.jar EmitLog.java ReceiveLogs.java
+    $ javac -cp $CP EmitLog.java ReceiveLogs.java
 
 If you want to save logs to a file, just open a console and type:
 
     :::bash
-    $ java -cp .:rabbitmq-client.jar ReceiveLogs > logs_from_rabbit.log
+    $ java -cp $CP ReceiveLogs > logs_from_rabbit.log
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
     :::bash
-    $ java -cp .:rabbitmq-client.jar ReceiveLogs
+    $ java -cp $CP ReceiveLogs
 
 And of course, to emit logs type:
 
     :::bash
-    $ java -cp .:rabbitmq-client.jar EmitLog
+    $ java -cp $CP EmitLog
 
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually

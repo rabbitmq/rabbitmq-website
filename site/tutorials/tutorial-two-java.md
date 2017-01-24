@@ -131,10 +131,11 @@ Our fake task to simulate execution time:
         }
     }    
 
-Compile them as in tutorial one (with the jar files in the working directory):
+Compile them as in tutorial one (with the jar files in the working directory
+and the environment variable `CP`):
 
     :::bash
-    $ javac -cp rabbitmq-client.jar NewTask.java Worker.java
+    $ javac -cp $CP NewTask.java Worker.java
 
 Round-robin dispatching
 -----------------------
@@ -150,37 +151,34 @@ You need three consoles open. Two will run the worker
 program. These consoles will be our two consumers - C1 and C2.
 
     :::bash
-    shell1$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell1$ java -cp $CP Worker
      [*] Waiting for messages. To exit press CTRL+C
 
 <div></div>
 
     :::bash
-    shell2$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell2$ java -cp $CP Worker
      [*] Waiting for messages. To exit press CTRL+C
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
     :::bash
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask First message.
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Second message..
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Third message...
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Fourth message....
-    shell3$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    NewTask Fifth message.....
+    shell3$ java -cp $CP NewTask
+    First message.
+    shell3$ java -cp $CP NewTask
+    Second message..
+    shell3$ java -cp $CP NewTask
+    Third message...
+    shell3$ java -cp $CP NewTask
+    Fourth message....
+    shell3$ java -cp $CP NewTask
+    Fifth message.....
 
 Let's see what is delivered to our workers:
 
     :::bash
-    shell1$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell1$ java -cp $CP Worker
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'First message.'
      [x] Received 'Third message...'
@@ -189,8 +187,7 @@ Let's see what is delivered to our workers:
 <div></div>
 
     :::bash
-    shell2$ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar
-    Worker
+    shell2$ java -cp $CP Worker
      [*] Waiting for messages. To exit press CTRL+C
      [x] Received 'Second message..'
      [x] Received 'Fourth message....'
