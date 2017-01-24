@@ -7,10 +7,10 @@ Pull requests is the primary place of discussing code changes.
 
 The process is fairly standard:
 
- * Fork the repository or repositories you plan on contributing to
- * Clone [RabbitMQ umbrella repository](https://github.com/rabbitmq/rabbitmq-public-umbrella)
- * `cd umbrella`, `make co`
- * Create a branch with a descriptive name in the relevant repositories
+ * Fork the repository
+ * Pick what branch you'd like to base your work on. Something that can be deployed
+   immediately should be branched off of the `live` branch.
+ * Create a branch with a descriptive name
  * Make your changes, run tests, commit with a [descriptive message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), push to your fork
  * Submit pull requests with an explanation what has been changed and **why**
  * Submit a filled out and signed [Contributor Agreement](https://github.com/rabbitmq/ca#how-to-submit) if needed (see below)
