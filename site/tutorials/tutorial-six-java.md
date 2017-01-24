@@ -229,55 +229,67 @@ and it's probably the slowest recursive implementation possible).
 The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java) looks like this:
 
 
-    #!java    
-    private static final String RPC_QUEUE_NAME = "rpc_queue";
-    private final ConnectionFactory factory;
-    private Connection connection;
-    private Channel    channel;
+    #!java
+    import com.rabbitmq.client.*;
 
-    public RPCServer() {
-        factory = new ConnectionFactory();
-        factory.setHost("localhost");
-    }
+    import java.io.IOException;
+    import java.util.concurrent.TimeoutException;
 
-    public void start() throws IOException, TimeoutException {
-        connection = factory.newConnection();
-        channel    = connection.createChannel();
+    public class RPCServer {
 
-        channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+        private static final String RPC_QUEUE_NAME = "rpc_queue";
 
-        channel.basicQos(1);
+        public static void main(String[] argv) {
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
 
-        System.out.println(" [x] Awaiting RPC requests");
+            Connection connection = null;
+            try {
+                connection      = factory.newConnection();
+                Channel channel = connection.createChannel();
 
-        Consumer consumer = new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                        .Builder()
-                        .correlationId(properties.getCorrelationId())
-                        .build();
+                channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 
-                String message = new String(body);
-                int n = Integer.parseInt(message);
+                channel.basicQos(1);
 
-                System.out.println(" [.] fib(" + message + ")");
+                System.out.println(" [x] Awaiting RPC requests");
 
-                String response = "" + fib(n);
-                channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes());
+                Consumer consumer = new DefaultConsumer(channel) {
+                    @Override
+                    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                        AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                                .Builder()
+                                .correlationId(properties.getCorrelationId())
+                                .build();
 
-                channel.basicAck(envelope.getDeliveryTag(), false);
+                        String response = "";
+
+                        try {
+                            String message = new String(body,"UTF-8");
+                            int n = Integer.parseInt(message);
+
+                            System.out.println(" [.] fib(" + message + ")");
+                            response += fib(n);
+                        }
+                        catch (RuntimeException e){
+                            System.out.println(" [.] " + e.toString());
+                        }
+                        finally {
+                            channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
+
+                            channel.basicAck(envelope.getDeliveryTag(), false);
+                        }
+                    }
+                };
+
+                channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+
+                //...
             }
-        };
-        channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+        }
     }
 
-    public void stop() throws IOException, TimeoutException {
-        channel.close();
-        connection.close();
-    }
 
-    
 The server code is rather straightforward:
 
   * As usual we start by establishing the connection, channel and declaring
@@ -285,53 +297,70 @@ The server code is rather straightforward:
   * We might want to run more than one server process. In order
     to spread the load equally over multiple servers we need to set the
     `prefetchCount` setting in channel.basicQos.
-  * We use `basicConsume` to access the queue. Then we enter the while loop in which
-    we wait for request messages, do the work and send the response back.
+  * We use `basicConsume` to access the queue, where we provide a callback in the
+    form of an object (`DefaultConsumer`) that will do the work and send the response back.
 
 
 The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java):
 
-    #!java  
-    private Connection connection;
-    private Channel channel;
-    private String requestQueueName = "rpc_queue";
-    private String replyQueueName;
+    #!java
+    import com.rabbitmq.client.*;
 
-    public RPCClient() throws IOException, TimeoutException {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        connection = factory.newConnection();
-        channel = connection.createChannel();
+    import java.io.IOException;
+    import java.util.UUID;
+    import java.util.concurrent.ArrayBlockingQueue;
+    import java.util.concurrent.BlockingQueue;
+    import java.util.concurrent.TimeoutException;
 
-        replyQueueName = channel.queueDeclare().getQueue();
-    }
+    public class RPCClient {
 
-    public String call(String message) throws IOException {
-        String response = null;
-        String corrId = java.util.UUID.randomUUID().toString();
+        private Connection connection;
+        private Channel channel;
+        private String requestQueueName = "rpc_queue";
+        private String replyQueueName;
 
-        AMQP.BasicProperties props = new AMQP.BasicProperties
-                .Builder()
-                .correlationId(corrId)
-                .replyTo(replyQueueName)
-                .build();
+        public RPCClient() throws IOException, TimeoutException {
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
 
-        channel.basicPublish("", requestQueueName, props, message.getBytes());
+            connection = factory.newConnection();
+            channel = connection.createChannel();
 
-        while (true) {
-            GetResponse delivery = channel.basicGet(replyQueueName, true);
-            if (delivery != null && delivery.getProps().getCorrelationId().equals(corrId)) {
-                response = new String(delivery.getBody());
-                break;
-            }
+            replyQueueName = channel.queueDeclare().getQueue();
         }
 
-        return response;
+        public String call(String message) throws IOException, InterruptedException {
+            String corrId = UUID.randomUUID().toString();
+
+            AMQP.BasicProperties props = new AMQP.BasicProperties
+                    .Builder()
+                    .correlationId(corrId)
+                    .replyTo(replyQueueName)
+                    .build();
+
+            channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
+
+            final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
+
+            channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
+                @Override
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                    if (properties.getCorrelationId().equals(corrId)) {
+                        response.offer(new String(body, "UTF-8"));
+                    }
+                }
+            });
+
+            return response.take();
+        }
+
+        public void close() throws IOException {
+            connection.close();
+        }
+
+        //...
     }
 
-    public void close() throws IOException {
-        connection.close();
-    }
 
 
 The client code is slightly more involved:
@@ -342,26 +371,31 @@ The client code is slightly more involved:
     we can receive RPC responses.
   * Our `call` method makes the actual RPC request.
   * Here, we first generate a unique `correlationId`
-    number and save it - the while loop will
-    use this value to catch the appropriate response.
+    number and save it - our implementation of `handleDelivery`
+    in `DefaultConsumer` will use this value to catch the appropriate response.
   * Next, we publish the request message, with two properties:
     `replyTo` and `correlationId`.
   * At this point we can sit back and wait until the proper
     response arrives.
-  * The while loop is doing a very simple job,
-    for every response message it checks if the `correlationId`
-    is the one we're looking for. If so, it saves the response.    
+  * Since our consumer delivery handling is happening in a separate thread,
+    we're going to need something to suspend `main` thread before response arrives.
+    Usage of `BlockingQueue` is one of possible solutions. Here we are creating `ArrayBlockingQueue`
+    with capacity set to 1 as we need to wait for only one response.
+  * The `handleDelivery` method is doing a very simple job,
+    for every consumed response message it checks if the `correlationId`
+    is the one we're looking for. If so, it puts the response to `BlockingQueue`.
+  * At the same time `main` thread is waiting for response to take it from `BlockingQueue`.
   * Finally we return the response back to the user.
 
 Making the Client request:
 
     :::java
     RPCClient fibonacciRpc = new RPCClient();
-    
-    System.out.println(" [x] Requesting fib(30)");   
+
+    System.out.println(" [x] Requesting fib(30)");
     String response = fibonacciRpc.call("30");
     System.out.println(" [.] Got '" + response + "'");
-    
+
     fibonacciRpc.close();
 
 
