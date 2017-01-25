@@ -565,7 +565,7 @@ listeners.tcp.default = 5673
         </p>
         <p>
             The RabbitMQ server source repository contains <a
-            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.conf.example">an
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example">an
             example rabbitmq.conf file</a> named
             <code>rabbitmq.conf.example</code>. It contains examples of
             most of the configuration items you might want to set
@@ -585,7 +585,7 @@ listeners.tcp.default = 5673
           </p>
           <p>
             The RabbitMQ server source repository contains <a
-            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/advanced.config.example">an
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/advanced.config.example">an
             example advanced.config file</a> named
             <code>advanced.config.example</code>. It focuses on the
             options that are typically set using the advanced config.
@@ -608,7 +608,7 @@ listeners.tcp.default = 5673
           </p>
           <p>
             The RabbitMQ server source repository contains <a
-            href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example">an
+            href="https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.config.example">an
             example configuration file</a> named
             <code>rabbitmq.config.example</code>. It contains an
             example of most of the configuration items in the classic
@@ -668,8 +668,8 @@ Here's how AMQP 0-9-1 listener port is configured using the Erlang term format:
             examples for the configuration files:
 
             <ul>
-              <li><a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.conf.example">rabbitmq.conf.example</a></li>
-              <li><a href="https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/advanced.config.example">advanced.config.example</a></li>
+              <li><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example">rabbitmq.conf.example</a></li>
+              <li><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/advanced.config.example">advanced.config.example</a></li>
             </ul>
 
             These files contain examples of most of the
