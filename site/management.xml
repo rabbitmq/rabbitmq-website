@@ -553,6 +553,11 @@ management.sample_retention_policies.detailed.10 = 5
           enable the <code>rabbitmq-management-agent</code> plugin on
           each node.
         </p>
+        <p>
+          When clustered the management plugin performs cluster-wide queries
+          which means it can be affected by various network events such as
+          <a href="nettick.html">partitions</a>.
+        </p>
       </doc:section>
 
       <doc:section name="proxy">
