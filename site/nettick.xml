@@ -91,5 +91,16 @@ node rabbit@cordelia down: net_tick_timeout
     ].</pre>
       </p>
     </doc:section>
+    <doc:section name="http-api">
+      <doc:heading>HTTP API</doc:heading>
+      <p>
+          The HTTP API often needs to perform cluster-wide queries
+          which has the effect that the UI can appear unresponsive until a
+          partition is detected and handled. Lowering <code>net_ticktime</code>
+          can help to improve the responsiveness during such events but any
+          decision to change <code>net_ticktime</code> should be done carefully
+          as emphasised above.
+      </p>
+    </doc:section>
   </body>
 </html>
