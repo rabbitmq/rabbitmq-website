@@ -258,9 +258,7 @@ loopback_users = none
           Note that it works different for different protocols. The concept
           of topic authorisation only really makes sense for the topic-oriented protocols such as MQTT
           and STOMP. In AMQP 0-9-1, for example, consumers consume from queues
-          and thus the standard resource permissions apply. In addition for AMQP 0-9-1,
-          binding routing keys between an AMQP 0-9-1 topic exchange and
-          a queue are checked against the topic permissions configured, if any.
+          and thus the standard resource permissions apply.
           For more information about how RabbitMQ handles authorization for topics, please see
           the <a href="stomp.html">STOMP</a> and <a href="mqtt.html">MQTT</a>
           documentation guides.
