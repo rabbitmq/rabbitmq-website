@@ -23,6 +23,9 @@ of the JMS 1.1 API.
 You can download the JMS 1.1 specification and API documentation 
 from the [Oracle Technology Network Web site](http://www.oracle.com/technetwork/java/docs-136352.html).
 
+The Compliance Test Suite the JMS Client uses is
+[available on GitHub](https://github.com/rabbitmq/rabbitmq-jms-cts).
+
 ## <a id="ConnectionFactories"></a>Connection Factory Interfaces
 
 ### <a id="ConnectionFactory"></a>ConnectionFactory
