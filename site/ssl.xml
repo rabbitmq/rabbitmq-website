@@ -32,10 +32,51 @@ limitations under the License.
         <p class="intro">RabbitMQ has inbuilt support for TLS. This includes
         client connections and popular plugins, where applicable, such as <a href="federation.html">Federation
         links</a>. It is also possible to use TLS to encrypt inter-node connections in clusters.</p>
+
         <p>
-          A separate guide on <a href="troubleshooting-ssl.html">Troubleshooting TLS-related issues</a>
-          is available.
+          This guide covers various topics related to TLS in RabbitMQ:
+
+          <ul>
+            <li>Enabling TLS listeners in RabbitMQ</li>
+            <li>How to generate self-signed certificates for development and QA environments</li>
+            <li>TLS configuration in Java and .NET clients</li>
+            <li>TLS version and cipher suite configuration</li>
+            <li>Certificate chain validation depth</li>
+          </ul>
+
+          and more. It is not, however, a primer on TLS, encryption, <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure">Public Key Infrastructure</a>
+          and related topics, so the concepts are covered very briefly.
+          A number of beginner-oriented primers are <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html">available</a> <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html">elsewhere</a> on the Web.
         </p>
+
+        <p>
+          TLS can be enabled for all protocols supported by RabbitMQ, not just AMQP 0-9-1,
+          which this guide focuses on. <a href="/management.html">HTTP API</a> can be configured
+          to use TLS (HTTPS) as well.
+        </p>
+
+        <p>
+          For an overview of common TLS troubleshooting techniques,
+          see <a href="troubleshooting-ssl.html">Troubleshooting TLS-related issues</a>.
+        </p>
+
+        <doc:subsection name="tls-connectivity-options">
+          <doc:heading>Using TLS for Client Connections with RabbitMQ</doc:heading>
+          <p>
+            For client connections, there are two common approaches:
+            <ul>
+              <li>Configure RabbitMQ to handle TLS connections</li>
+              <li>
+                Use a proxy or load balancer (such as <a href="http://www.haproxy.org/">HAproxy</a>)
+                to perform <a href="https://en.wikipedia.org/wiki/TLS_termination_proxy">TLS termination</a> of client connections and use plain TCP connections
+                to RabbitMQ nodes.
+              </li>
+            </ul>
+
+            Both approaches are valid and have pros and cons. This guide will focus on the
+            first option.
+          </p>
+        </doc:subsection>
 
         <doc:subsection name="erlang-otp-requirements">
           <doc:heading>Erlang/OTP Requirements for TLS Support</doc:heading>
@@ -67,6 +108,10 @@ limitations under the License.
             expected to be used, the most recent Erlang/OTP release
             (e.g. 19.x) is highly recommended. Earlier releases have
             known limitations around ECC.
+          </p>
+          <p>
+            If you face the above limitations or any other incompatibilities,
+            use the TLS termination option (see above).
           </p>
           <p>
             For Windows XP users running RabbitMQ as a service: It is not possible to
@@ -106,11 +151,11 @@ limitations under the License.
 
       <doc:section name="keys-and-certs">
         <doc:heading>Keys, Certificates and CA Certificates</doc:heading>
-          <p>OpenSSL is a large and complex topic. For a thorough understanding of
-          OpenSSL and how to get the most out of it, we would recommend the use
+          <p>TLS is a large and complex topic. For a thorough understanding of
+          TLS, OpenSSL and how to get the most out of it, we would recommend the use
           of other resources, for example <a class="extlink" href="http://oreilly.com/catalog/9780596002701/">Network Security with
           OpenSSL</a>.</p>
-          <p>OpenSSL can be used simply to establish an encrypted communication
+          <p>TLS can be used simply to establish an encrypted communication
           channel, but can additionally exchange signed certificates between the
           end points of the channel, and those certificates can optionally be
           verified. The verification of a certificate requires establishing a
