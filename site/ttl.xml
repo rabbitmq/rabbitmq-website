@@ -101,10 +101,9 @@ model.QueueDeclare("myqueue", false, false, false, args);</pre>
       </p>
 
       <p>
-        When a TTL policy is being applied to a queue which already
-        has messages in it, matching messages will be discarded
-        immediately (with <a
-        href="ttl.html#per-message-ttl-caveats">some caveats</a>).
+        It is possible to apply a message TTL policy to a queue which already
+        has messages in it but this involves <a
+        href="ttl.html#per-message-ttl-caveats">some caveats</a>.
       </p>
 
       <p>
@@ -175,16 +174,34 @@ model.BasicPublish(exchangeName,
       <doc:subsection name="per-message-ttl-caveats">
         <doc:heading>Caveats</doc:heading>
         <p>
-          While consumers never see expired messages, only when
-          expired messages reach the head of a queue will they
-          actually be discarded (or dead-lettered).  When setting a
-          per-queue TTL this is not a problem, since expired messages
-          are always at the head of the queue. When setting
-          per-message TTL however, expired messages can queue up
+          Queues that had a per-message TTL applied to them
+          retroactively (when they already had messages) will discard
+          the messages when specific events occur. Only when expired
+          messages reach the head of a queue will they actually be
+          discarded (or dead-lettered). Consumers will not have
+          expired messages delivered to them. Keep in mind that
+          there can be a natural race condition between message expiration
+          and consumer delivery, e.g. a message can expire
+          after it was written to the socket but before it has reached
+          a consumer.
+        </p>
+        <p>
+          When setting per-message TTL expired messages can queue up
           behind non-expired ones until the latter are consumed or
           expired. Hence resources used by such expired messages will
           not be freed, and they will be counted in queue statistics
           (e.g. the number of messages in the queue).
+        </p>
+        <p>
+          When retroactively applying a per-message TTL policy, it is
+          recommended to have consumers online to make sure the
+          messages are discarded quicker.
+        </p>
+        <p>
+          Given this behaviour of per-message TTL settings on existing
+          queues, when the need to delete messages to free up
+          resources arises, queue TTL should be used instead (or queue
+          purging, or queue deletion).
         </p>
       </doc:subsection>
     </doc:section>
