@@ -125,8 +125,8 @@ auth_backends.2 = internal</pre>
           certainly want to change this. Default: <code>["ldap"]</code>
           Example of configuration using the sysctl config format:
           <pre class="example">
-ldap.servers.1 = some_server
-ldap.servers.2 = some_other_server
+auth_ldap.servers.1 = some_server
+auth_ldap.servers.2 = some_other_server
           </pre>
           Using the classic config format:
           <pre class="example">[{rabbitmq_auth_backend_ldap, [{servers, ["some_server", "some_other_server"]}]}].</pre>
@@ -188,8 +188,8 @@ ldap.servers.2 = some_other_server
             For example, if I set
           </p>
           <pre class="example">
-ldap.dn_lookup_attribute = userPrincipalName
-ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
+auth_ldap.dn_lookup_attribute = userPrincipalName
+auth_ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
           <p>
             I can authenticate as <code>smacmullen@gopivotal.com</code> and have my
             local Active Directory server return my real DN.
@@ -236,8 +236,8 @@ ldap.dn_lookup_base = DC=gopivotal,DC=com</pre>
             to bind with a specified username and password.
             For example:
             <pre class="example">
-ldap.other_bind.user_dn = username
-ldap.other_bind.password = password</pre>
+auth_ldap.other_bind.user_dn = username
+auth_ldap.other_bind.password = password</pre>
 
             Using the classic config format:
             <pre class="example">[{rabbitmq_auth_backend_ldap, [{other_bind, {"username", "password"}}]}].</pre>
@@ -703,11 +703,11 @@ ldap.other_bind.password = password</pre>
 <pre class="example">
 auth_backends.1 = ldap
 
-ldap.servers.1  = my-ldap-server
-ldap.user_dn_pattern = cn=${username},ou=People,dc=example,dc=com
-ldap.use_ssl    = false
-ldap.port       = 389
-ldap.log        = false
+auth_ldap.servers.1  = my-ldap-server
+auth_ldap.user_dn_pattern = cn=${username},ou=People,dc=example,dc=com
+auth_ldap.use_ssl    = false
+auth_ldap.port       = 389
+auth_ldap.log        = false
 </pre>
     <a href="/configure.html#advanced-config-file">Advanced config</a> is used to define LDAP queries:
 <pre class="example">
