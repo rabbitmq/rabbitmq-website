@@ -1156,6 +1156,25 @@ cluster_nodes.disc.2 = rabbit@hostname2
               <p>Default: <code>queue_master_locator = client-local</code></p>
             </td>
           </tr>
+          <tr>
+            <td><code>proxy_protocol</code></td>
+            <td>
+              If set to <code>true</code>, RabbitMQ will expect a
+              <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>
+              header to be sent first when an AMQP connection is opened.
+              This implies to set up a proxy-protocol-compliant
+              reverse-proxy (e.g. AWS ELB, HAproxy) in front of RabbitMQ.
+              Clients can't directly connect to RabbitMQ when
+              proxy protocol is enabled, they must go through the reverse-proxy.
+
+              <p>
+                See <a href="networking.html#proxy-protocol">the
+                networking guide</a> for more information.
+              </p>
+
+              <p>Default: <code>proxy_protocol = false</code></p>
+            </td>
+          </tr>
         </table>
 
         <p>

@@ -210,6 +210,40 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
           See our <a href="/configure.html">Configuration guide</a> for detalis.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="proxy-protocol">
+        <doc:heading>Proxy protocol</doc:heading>
+    <p>
+        RabbitMQ supports the
+        <a href="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">proxy protocol</a>.
+        This feature is disabled by default, to enable it for AMQP clients:
+
+<pre class="code">
+proxy_protocol = true
+</pre>
+
+        In the <a href="/configure.html#erlang-term-config-file">classic config format</a>:
+
+<pre class="code">
+[
+  {rabbit, [
+    {proxy_protocol, true}
+  ]}
+].
+</pre>
+    </p>
+    <p>
+        Proxy protocol allows to see the real client host and network port in RabbitMQ when
+        a reverse-proxy sits in-between.
+        Once enabled, clients cannot directly connect to the broker
+        anymore. They must connect through the reverse-proxy that will send the
+        proxy protocol header to the broker at connection time.
+        This setting applies only to AMQP clients, other protocols
+        like <a href="stomp.html#proxy-protocol">STOMP</a> or
+        <a href="mqtt.html#proxy-protocol">MQTT</a>
+        have their own setting to enable proxy protocol.
+    </p>
+      </doc:subsection>
     </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc" />
