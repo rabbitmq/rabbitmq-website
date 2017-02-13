@@ -373,6 +373,21 @@ The `exchange` option determines which exchange messages from MQTT clients are p
 to. If a non-default exchange is chosen then it must be created before clients
 publish any messages. The exchange is expected to be a topic exchange.
 
+### <a id="proxy-protocol"/> Proxy Protocol
+
+The MQTT plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+This feature is disabled by default, to enable it for MQTT clients:
+
+    mqtt.proxy_protocol = true
+
+Or, using the [classic config format](/configure.html#erlang-term-config-file):
+
+    [
+      {rabbitmq_mqtt, [{proxy_protocol, true}]}
+    ].  
+
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
+about the proxy protocol.
 
 
 ## <a id="retained"/> Retained Messages and Stores
