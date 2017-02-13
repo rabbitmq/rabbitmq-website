@@ -195,7 +195,7 @@ Implicit connect is *not* enabled by default.
 **Note:** A client causing an implicit connect will *not* receive a
 `CONNECTED` frame from the server.
 
-## <a id="proxy-protocol"/> Proxy protocol
+## <a id="proxy-protocol"/> Proxy Protocol
 
 The STOMP plugin supports the [proxy protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 This feature is disabled by default, to enable it for STOMP clients:
@@ -208,7 +208,7 @@ Or, using the [classic config format](/configure.html#erlang-term-config-file):
       {rabbitmq_stomp, [{proxy_protocol, true}]}
     ].  
 
-See the [networking guide](/networking.html#proxy-protocol) for more information
+See the [Networking Guide](/networking.html#proxy-protocol) for more information
 about the proxy protocol.
 
 ### <a id="cta.tta"/>Testing the Adapter
