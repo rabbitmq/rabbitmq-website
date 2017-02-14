@@ -72,6 +72,9 @@ limitations under the License.
           <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>: a
           simpler command line tool for managing RabbitMQ.
         </li>
+        <li>
+          A plugin that <a href="/event-exchange.html">allows applications to get notified of internal RabbitMQ events</a>.
+        </li>
       </ul>
     </div>
 
