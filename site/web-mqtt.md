@@ -95,7 +95,7 @@ connection with the broker:
 ## <a id="examples">Web MQTT Examples</a>
 
 A few simple Web MQTT examples are provided as a
-[RabbitMQ Web MQTT examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
+[RabbitMQ Web MQTT examples](https://github.com/rabbitmq/rabbitmq-web-mqtt-examples)
 plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
@@ -111,7 +111,7 @@ We encourage you to take a look [at the source code](https://github.com/rabbitmq
 
 ## <a id="config">Configuration</a>
 
-When no configuration is specified the Web-Stomp plugin will listen on
+When no configuration is specified the Web MQTT plugin will listen on
 all interfaces on port 15674 and have a default user login and password of
 `guest`/`guest`. Note that this user is only [allowed to connect from localhost](/access-control.html) by default.
 We highly recommend creating a separate user production systems.
