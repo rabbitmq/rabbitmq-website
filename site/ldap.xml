@@ -409,9 +409,11 @@ auth_ldap.other_bind.password = password</pre>
         <li><code>${vhost}</code> - the virtual host in which the resource resides</li>
         <li><code>${resource}</code> - always "topic" in this case</li>
         <li><code>${name}</code> - the name of the resource</li>
-        <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming)</li>
+        <li><code>${permission}</code> - one of "write" (publishing) or "read" (consuming, exchange-to-queue and
+          exchange-to-exchange binding for topic-typed exchanges)
+        </li>
         <li><code>${routing_key}</code> - the routing key of the published message ("write" permission)
-          or routing key of the topic exchange to queue binding ("read" permission)
+          or routing key of the topic exchange to queue/exchange binding ("read" permission)
         </li>
       </ul>
 
