@@ -23,20 +23,20 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Clustering Communication using SSL</title>
+    <title>Clustering Communication using TLS (SSL)</title>
   </head>
   <body>
       <doc:section name="intro">
         <p class="intro">Sometimes is desirable to make the Erlang
-        nodes talk to each other using SSL, and thus make the whole RabbitMQ
-        cluster communication via SSL. To achieve that we need to make the
-        Erlang distribution mechanism to use SSL. In this document we are
+        nodes talk to each other using TLS (SSL), and thus make the whole RabbitMQ
+        cluster communication via TLS. To achieve that we need to make the
+        Erlang distribution mechanism to use TLS. In this document we are
         going to review the steps to make this possible.</p>
       </doc:section>
 
       <doc:section name="how-to-linux">
         <doc:heading>Linux</doc:heading>
-        <p>First we need to create the SSL certificate that's going to
+        <p>First we need to create the TLS certificate that's going to
         be used by the Erlang distribution mechanism. We assume you have done
         that already, otherwise follow the guide <a href="/ssl.html">here</a>.
         Once we have our certificates ready we need to concatenate the server
@@ -64,7 +64,7 @@ $ export ERL_SSL_PATH=/path/to/erl/lib/ssl-5.3.5/ebin
 
         <p>By using the previous information now is time to craft the
         <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> environment variable
-        so RabbitMQ is able to start Erlang using SSL for distribution. We do
+        so RabbitMQ is able to start Erlang using TLS for distribution. We do
         that by setting the <code>proto_dist</code> argument to
         <code>inet_tls</code> and then telling Erlang what certificate to use
         (in our case that's the <code>rabbit.pem</code> file we just
@@ -80,7 +80,7 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 
         <p>Keep in mind that every Erlang program that tries to
         communicate with our RabbitMQ server by using Erlang's distribution
-        must now use SSL as well. One of such programs is
+        must now use TLS as well. One of such programs is
         <code>rabbitmqctl</code> that we use for administering RabbitMQ. This
         means we have to do what we just did for
         <code>$RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> but this time for
@@ -88,7 +88,7 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
 
         <p>Now that we have this in place, it's just a matter of
         starting RabbitMQ as we usually do to get the Erlang distribution to
-        use SSL for internode communication. Keep in mind that other nodes in
+        use TLS for internode communication. Keep in mind that other nodes in
         the cluster that want to join our initial node must use the same
         certificate and the same
         <code>RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS</code> arguments. The same
@@ -100,7 +100,7 @@ $ export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
         <doc:heading>OS X</doc:heading>
         <p>If you are using the OSX Standalone Release, then you need
         to add some extra arguments in order to run the <code>erl</code>
-        command to find the path of Erlang's SSL library.  Assuming you are
+        command to find the path of Erlang's TLS library.  Assuming you are
         inside the folder where you installed the standalone release, the
         commands will look like these:</p>
 
