@@ -178,8 +178,10 @@ for details about accepted parameters.
 
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
 
-## <a id="encoding">WebSocket Options</a> The Web MQTT plugin uses the
-Cowboy web server under the hood.  Cowboy provides [a number of
+## <a id="encoding">WebSocket Options</a>
+
+The Web MQTT plugin uses the Cowboy web server under the hood.  Cowboy
+provides [a number of
 options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server
 w.r.t. WebSocket connection handling. You can specify those in the Web
