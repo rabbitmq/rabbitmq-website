@@ -84,6 +84,7 @@ limitations under the License.
        </x:page>
        <x:page url="/ssl.html" text="TLS/SSL Support">
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
+         <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Cluster) Traffic"/>
          <x:related url="/clustering-ssl.html"/>
        </x:page>
        <x:page url="/distributed.html" text="Distributed RabbitMQ"/>
@@ -97,7 +98,7 @@ limitations under the License.
          <x:page url="/nettick.html" text="Net Tick Time">
            <x:related url="/heartbeats.html" text="Heartbeats"/>
          </x:page>
-         <x:page url="/clustering-ssl.html" text="Clustering SSL"/>
+         <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Cluster) Traffic"/>
        </x:page>
        <x:page url="/vhosts.html" text="Virtual Hosts"/>
        <x:page url="/ha.html" text="High Availability"/>
