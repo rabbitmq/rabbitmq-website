@@ -14,14 +14,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-# RabbitMQ Web-Stomp Plugin NOSYNTAX
+# RabbitMQ Web STOMP Plugin NOSYNTAX
 
 The Web STOMP plugin is a simple bridge exposing the
 [STOMP](http://stomp.github.com) protocol over direct or emulated
 [HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
 
 The main intention of Web-Stomp is to make it possible to use RabbitMQ
-from web browsers.
+from Web browsers. It influenced the [Web MQTT plugin](/web-mqtt.html)
+which is the same idea for a different protocol, [MQTT](/mqtt.html).
 
 More context is available in
 [the introductory blog post](http://www.rabbitmq.com/blog/2012/05/14/introducing-rabbitmq-web-stomp/).
@@ -38,7 +39,7 @@ browsers that don't have native WebSocket support, as well as in new
 browsers that are behind WebSocket-unfriendly proxies.
 
 
-## <a id="iws"/>Enabling the Plugin
+## <a id="iws">Enabling the Plugin</a>
 
 `rabbitmq_web_stomp` plugin ships with RabbitMQ.
 
@@ -46,15 +47,15 @@ To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_web_stomp
 
-## <a id="usage"/>Usage
+## <a id="usage">Usage</a>
 
-In order to use STOMP in a web-browser context, a JavaScript STOMP
+In order to use STOMP in a Web browser context, a JavaScript STOMP
 library is required. We've tested a
 [stomp-websocket](https://github.com/jmesnil/stomp-websocket/) library
 by [Jeff Mesnil](https://github.com/jmesnil) and
 [Jeff Lindsay](https://github.com/progrium).
 [This library](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/blob/master/priv/stomp.js)
-is included as part of RabbitMQ Web STOMP examples.
+is included as part of [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples).
 
 By default the Web STOMP plugin exposes both a WebSocket and a
 SockJS endpoint on port 15674. The WebSocket endpoint is available
@@ -113,16 +114,14 @@ connection with the broker:
         [...]
 
 
-## <a id="examples"/>Web STOMP Examples
+## <a id="examples">Web STOMP Examples</a>
 
-A few simple Web-Stomp examples are provided as a
+A few simple Web STOMP examples are provided as a
 [RabbitMQ Web STOMP examples](https://github.com/rabbitmq/rabbitmq-web-stomp-examples)
-plugin. To get it running follow the installation instructions above
+plugin. To get it running follow the installation instructions for that plugin
 and enable the plugin:
 
     rabbitmq-plugins enable rabbitmq_web_stomp_examples
-
-To apply the changes you need to restart the RabbitMQ broker.
 
 The examples will be available under
 [http://127.0.0.1:15670/](http://127.0.0.1:15670/) url. You will see two examples:
@@ -134,9 +133,10 @@ We encourage you to take a look [at the source code](https://github.com/rabbitmq
 
 ## <a id="config">Configuration</a>
 
-When no configuration is specified the Web-Stomp plugin will listen on
+When no configuration is specified the Web STOMP plugin will listen on
 all interfaces on port 15674 and have a default user login/passcode of
-`guest`/`guest`.
+`guest`/`guest`. Note that this user is only [allowed to connect from localhost](/access-control.html) by default.
+We highly recommend creating a separate user production systems.
 
 To change this, edit your
 [Configuration file](/configure.html#configuration-file),
@@ -186,7 +186,7 @@ for details about accepted parameters.
 
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
 
-## <a id="encoding">Content Encoding</a>
+## <a id="encoding">WebSocket Options and Content Encoding</a>
 
 By default, the Web STOMP plugin will expect to handle messages
 encoded as UTF-8. This cannot be changed for the SockJS endpoint,
@@ -198,10 +198,11 @@ The `ws_frame` option serves this purpose:
     ].
 
 The Web STOMP plugin uses the Cowboy web server under the hood.
-Cowboy provides [a number of options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
-that can be used to customize the behavior of the server. You
-can specify those in the Web-Stomp plugin configuration, in
-the `cowboy_opts` section:
+Cowboy provides [a number of
+options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
+that can be used to customize the behavior of the server
+w.r.t. WebSocket connection handling. You can specify those in the Web
+STOMP plugin configuration, in the `cowboy_opts` section:
 
     [
       {rabbitmq_web_stomp,
@@ -233,6 +234,6 @@ in the CONNECT frame, if any, are ignored.
 
 ## <a id="missing"/>Missing features
 
-RabbitMQ-Web-Stomp is fully compatible with the
-[RabbitMQ-STOMP](/stomp.html) plugin, with the exception of STOMP
-heartbeats. STOMP heartbeats won't work with SockJS.
+RabbitMQ Web STOMP is fully compatible with the
+[RabbitMQ STOMP](/stomp.html) plugin, with the exception of STOMP
+heartbeats. STOMP heartbeats won't work with SockJS (WebSocket emulation).
