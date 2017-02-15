@@ -31,7 +31,7 @@ limitations under the License.
         <doc:heading>Intro</doc:heading>
         <p class="intro">RabbitMQ has inbuilt support for TLS. This includes
         client connections and popular plugins, where applicable, such as <a href="federation.html">Federation
-        links</a>. It is also possible to use TLS to encrypt inter-node connections in clusters.</p>
+        links</a>. It is also possible to use TLS to <a href="clustering-ssl.html">encrypt inter-node connections in clusters</a>.</p>
 
         <p>
           This guide covers various topics related to TLS in RabbitMQ:
