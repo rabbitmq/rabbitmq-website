@@ -176,11 +176,11 @@ limitations under the License.
          <x:related url="/uri-query-parameters.html"/>
        </x:page>
        <x:page url="/stomp.html" text="STOMP plugin"/>
-       <x:page url="/web-stomp.html" text="STOMP-over-WebSockets plugin"/>
+       <x:page url="/web-stomp.html" text="STOMP-over-WebSockets"/>
        <x:page url="/mqtt.html" text="MQTT plugin"/>
-       <x:page url="/web-mqtt.html" text="MQTT-over-WebSockets plugin"/>
+       <x:page url="/web-mqtt.html" text="MQTT-over-WebSockets"/>
        <x:page url="/ldap.html" text="LDAP plugin"/>
-       <x:page url="/web-dispatch.html" text="Configuring web plugins"/>
+       <x:page url="/web-dispatch.html" text="Configuring HTTP-based (Web) plugins"/>
        <x:page url="/installing-plugins.html" text="Installing plugins"/>
        <x:page url="/plugin-development.html" text="Plugin development"/>
        <x:related url="/community-plugins.html"/>
