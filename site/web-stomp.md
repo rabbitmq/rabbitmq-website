@@ -16,7 +16,7 @@ limitations under the License.
 -->
 # RabbitMQ Web-Stomp Plugin NOSYNTAX
 
-The Web-Stomp plugin is a simple bridge exposing the
+The Web STOMP plugin is a simple bridge exposing the
 [STOMP](http://stomp.github.com) protocol over direct or emulated
 [HTML5 WebSockets](https://en.wikipedia.org/wiki/WebSockets).
 
@@ -26,11 +26,11 @@ from web browsers.
 More context is available in
 [the introductory blog post](http://www.rabbitmq.com/blog/2012/05/14/introducing-rabbitmq-web-stomp/).
 
-## <a id="rationale"/>What it actually does
+## <a id="rationale">How It Works</a>
 
-RabbitMQ Web-Stomp plugin is rather simple. It takes the STOMP protocol,
-as provided by [RabbitMQ-STOMP plugin](/stomp.html) and exposes it using
-either plain WebSockets or [a SockJS server](http://sockjs.org).
+RabbitMQ Web STOMP plugin is rather simple. It takes the STOMP protocol,
+as provided by [RabbitMQ STOMP plugin](/stomp.html) and exposes it using
+either plain WebSockets or [a SockJS server](http://sockjs.org) (WebSocket emulation).
 
 SockJS is a WebSockets poly-fill that provides a WebSocket-like
 JavaScript object in any browser. It will therefore work in older
@@ -38,7 +38,10 @@ browsers that don't have native WebSocket support, as well as in new
 browsers that are behind WebSocket-unfriendly proxies.
 
 
-## <a id="iws"/>Installing Web-Stomp
+## <a id="iws"/>Enabling the Plugin
+
+`rabbitmq_web_stomp` plugin ships with RabbitMQ.
+
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
     rabbitmq-plugins enable rabbitmq_web_stomp
@@ -129,7 +132,7 @@ The examples will be available under
 
 We encourage you to take a look [at the source code](https://github.com/rabbitmq/rabbitmq-web-stomp-examples/tree/master/priv).
 
-## <a id="config"/>Configuration
+## <a id="config">Configuration</a>
 
 When no configuration is specified the Web-Stomp plugin will listen on
 all interfaces on port 15674 and have a default user login/passcode of
@@ -157,8 +160,15 @@ You can use the `tcp_config` section to specify any TCP option you need.
 When both a `port` and a `tcp_config` sections exist, the plugin will
 use the former as a port number, ignoring the one in `tcp_config`.
 
-In addition, encrypted connections are supported if SSL configuration parameters are
-provided in the `ssl_config` section:
+See [RabbitMQ Networking guide](/networking.html) for more information.
+
+
+### TLS (SSL)
+
+The plugin supports WebSockets with TLS (WSS) connections. That requires
+Erlang/OTP 17.5 or a later version.
+
+TLS (SSL) configuration parameters are provided in the `ssl_config` section:
 
     [
       {rabbitmq_web_stomp,
@@ -167,15 +177,20 @@ provided in the `ssl_config` section:
                          {certfile,   "path/to/certs/client/cert.pem"},
                          {keyfile,    "path/to/certs/client/key.pem"},
                          {cacertfile, "path/to/certs/testca/cacert.pem"},
+                         %% needed when private key has a passphrase
                          {password,   "changeme"}]}]}
     ].
 
-Note that port, certfile, keyfile and password are all mandatory. See the [webserver documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
+Note that port, certfile, keyfile and password are all mandatory. See the [Cowboy documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
 for details about accepted parameters.
+
+See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
+
+## <a id="encoding">Content Encoding</a>
 
 By default, the Web STOMP plugin will expect to handle messages
 encoded as UTF-8. This cannot be changed for the SockJS endpoint,
-however you can switch the Websocket endpoint to binary if needed.
+however you can switch the WebSocket endpoint to binary if needed.
 The `ws_frame` option serves this purpose:
 
     [
