@@ -15,7 +15,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!ENTITY version-java-client "4.0.2">
+<!ENTITY version-java-client "4.1.0">
 <!ENTITY version-dotnet-client "3.6.6">
 <!ENTITY version-server "3.6.6">
 <!ENTITY version-erlang-client "3.6.6">
