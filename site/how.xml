@@ -566,6 +566,7 @@ limitations under the License.
    <doc:section name="in-print">
      <doc:heading>Books and Print Articles</doc:heading>
       <ul>
+        <li><a href="https://www.packtpub.com/application-development/mastering-rabbitmq">Mastering RabbitMQ</a></li>
         <li><a href="http://www.packtpub.com/rabbitmq-cookbook/book">RabbitMQ Cookbook</a></li>
         <li><a href="http://www.packtpub.com/rabbitmq-essentials/book">RabbitMQ Essentials</a></li>
         <li><a href="http://www.packtpub.com/rabbitmq-messaging-application-development/book">Instant RabbitMQ Messaging Application Development</a></li>
