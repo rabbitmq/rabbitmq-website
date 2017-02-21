@@ -227,7 +227,7 @@ limitations under the License.
       href="http://www.erlang.org/doc/man/erl.html#async_thread_pool_size">here</a>,
       and is typically configured through the envirnment variable
       <code>RABBITMQ_SERVER_ERL_ARGS</code>. The default value is
-      <code>+A 30</code>. It is likely to be a good idea to experiment
+      <code>+A 64</code>. It is likely to be a good idea to experiment
       with several different values before changing this.
     </p>
 
