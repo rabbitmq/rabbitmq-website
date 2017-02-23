@@ -50,15 +50,16 @@ limitations under the License.
       of a name and value.
     </p>
     <p>
-      One special case of parameters usage is policies, which are used for specifying
-      optional arguments for groups of queues and exchanges, as well as plugins such
-      as Federation and Shovel. Policies are vhost-scoped.
+      One special case of parameters usage is <a
+      href="#policies">policies</a>, which are used for specifying
+      optional arguments for groups of queues and exchanges, as well
+      as plugins such as <a href="/federation.html">Federation</a> and <a href="/shovel.html">Shovel</a>.
+      Policies are vhost-scoped.
     </p>
   </doc:section>
 
   <doc:section name="parameter-management">
-    <doc:heading>Parameter Management</doc:heading>
-
+    <doc:heading>Global and Per-vhost Parameters</doc:heading>
     <p>
       As stated above, there are vhost-scoped parameters and global parameters.
       An example of vhost-scoped
@@ -118,8 +119,8 @@ limitations under the License.
         quotes within it. On Windows you will have to escape every
         double quote. We give examples for both Unix and Windows for
         this reason.
-    </p>
-    <p>
+      </p>
+      <p>
         Parameters reside in the database used by RabbitMQ for
         definitions of virtual hosts, exchanges, queues, bindings, users
         and permissions. Parameters are exported along with other object
@@ -134,186 +135,262 @@ limitations under the License.
     <doc:section name="policies">
       <doc:heading>Policies</doc:heading>
 
-    <p>
-      Policies automatically match against exchanges and queues, and help
-      determine how they behave. Each exchange or queue will have at most
-      one policy matching, and each policy then maps a set of key-value
-      pairs on to the exchange or queue.
-    </p>
-    <p>
-      Policies therefore act somewhat like the arguments to
-      exchange.declare and queue.declare, except that they are applied
-      automatically without the involvement of the client application,
-      and they can change at any time. Note that the set of features
-      which can be controlled by policy is not the same as the set of
-      features which can be controlled by arguments.
-    </p>
-    <p>
-      Policies are matched every time an exchange or queue is created,
-      not just when the policy is created.
-    </p>
-    <p>
-      Policies can be used to configure
-      the <a href="federation.html">federation
-      plugin</a>, <a href="ha.html">mirrored
-      queues</a>, <a href="ae.html">alternate exchanges</a>,
-      <a href="dlx.html">dead lettering</a>,
-      <a href="ttl.html">per-queue TTLs</a>, and
-      <a href="maxlength.html">maximum queue length</a>.
-    </p>
-    <p>
-      An example of defining a policy looks like:
-    </p>
+      <doc:subsection name="why-policies-exist">
+        <doc:heading>Why Policies Exist</doc:heading>
 
-    <table>
-      <tr>
-        <th>rabbitmqctl</th>
-        <td>
-          <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' --priority 1 --apply-to exchanges</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>rabbitmqctl (Windows)</th>
-        <td>
-          <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>HTTP API</th>
-        <td>
-          <pre>PUT /api/policies/%2f/federate-me
-{"pattern": "^amq\.",
- "definition": {"federation-upstream-set":"all"},
- "priority": 1,
- "apply-to": "exchanges"}</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>Web UI</th>
-        <td>
+        <p>
+          Before we explain what policies are and how to use them it would
+          be helpful to explain why they were introduced to RabbitMQ.
+        </p>
+        <p>
+          In addition to mandatory properties
+          (e.g. <code>durable</code> or <code>exclusive</code>),
+          queues and exchanges in RabbitMQ have optional parameters
+          (arguments), sometimes referred to as
+          <code>x-arguments</code>. Those are provided by clients when
+          they declare queues (exchanges) and control various optional
+          features, such as <a href="/ha.html">mirroring</a> or <a
+          href="/ttl.html">TTL</a>.
+        </p>
+        <p>
+          Client-controlled properties in some of the protocols RabbitMQ supports
+          generally work well but they can be inflexible: updating TTL values
+          or mirroring parameters that way required application changes, redeployment
+          and queue re-declaration (which involves deletion). In addition, there is
+          no way to control the extra arguments for groups of queues and exchanges.
+          Policies were introduced to address the above pain points.
+        </p>
+        <p>
+          A policy matches one or more queues by name (using a regular
+          expression pattern) and appends its definition (a map of
+          optional arguments) to the x-arguments of the matching
+          queues. In other words, it is possible to configure
+          x-arguments for multiple queues at once with a policy, and
+          update them all at once by updating policy definition.
+        </p>
+        <p>
+          In modern versions of RabbitMQ the set of features which can
+          be controlled by policy is not the same as the set of
+          features which can be controlled by client-provided
+          arguments.
+        </p>
+      </doc:subsection>
+
+      <doc:subsection name="how-policies-work">
+        <doc:heading>How Policies Work</doc:heading>
+
+        <p>
+          Key policy attributes are
+
           <ul>
             <li>
-              Navigate to Admin > Policies > Add / update a
-              policy.
+              name: it can be anything but ASCII-based names without spaces
+              are recommended
             </li>
             <li>
-              Enter "federate-me" next to Name, "^amq\." next to
-              Pattern, and select "Exchanges" next to Apply to.
+              pattern: a regular expression that matches one or more queue (exchange) names. Any
+              regular expression can be used.
             </li>
             <li>
-              Enter "federation-upstream-set" = "all" in the first line next to
-              Policy.
+              definition: a set of key/value pairs (think a JSON document) that will be injected
+              into the map of optional arguments of the matching queues and exchanges
             </li>
             <li>
-              Click Add policy.
+              priority: see below
             </li>
           </ul>
-        </td>
-      </tr>
-    </table>
+        </p>
+        <p>
+          Policies automatically match against exchanges and queues,
+          and help determine how they behave. Each exchange or queue
+          will have at most one policy matching (see <a
+          href="#combining-policy-definitions">Combining Policy
+          Definitions</a> below), and each policy then injects a set
+          of key-value pairs (policy definition) on to the matching
+          queues (exchanges).
+        </p>
+        <p>
+          Policies can match only queues, only exchanges, or both.
+          This is controlled using the <code>apply-to</code> flag
+          when a policy is created.
+        </p>
+        <p>
+          Policies can change at any time. When a policy definition is
+          updated, its effect on matching exchanges and queues will be
+          reapplied. Usually it happens instantaneously but for very
+          busy queues can take a bit of time (say, a few seconds).
+        </p>
+        <p>
+          Policies are matched and applied every time an exchange or
+          queue is created, not just when the policy is created.
+        </p>
+        <p>
+          Policies can be used to configure
+          the <a href="federation.html">federation
+          plugin</a>, <a href="ha.html">mirrored
+          queues</a>, <a href="ae.html">alternate exchanges</a>,
+          <a href="dlx.html">dead lettering</a>,
+          <a href="ttl.html">per-queue TTLs</a>, and
+          <a href="maxlength.html">maximum queue length</a>.
+        </p>
+      </doc:subsection>
 
-    <p>
-      This matches the value <code>"all"</code> with the key
-      <code>"federation-upstream-set"</code> for all exchanges
-      with names beginning with <code>"amq."</code>, in the
-      virtual host <code>"/"</code>.
-    </p>
+      <p>
+        An example of defining a policy looks like:
+      </p>
 
-    <p>
-      The <code>"pattern"</code> argument is a regular expression used
-      to match exchange or queue names.
-    </p>
+      <table>
+        <tr>
+          <th>rabbitmqctl</th>
+          <td>
+            <pre>rabbitmqctl set_policy federate-me "^amq\." '{"federation-upstream-set":"all"}' --priority 1 --apply-to exchanges</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>rabbitmqctl (Windows)</th>
+          <td>
+            <pre>rabbitmqctl set_policy federate-me "^amq\." "{""federation-upstream-set"":""all""}" --priority 1 --apply-to exchanges</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>HTTP API</th>
+          <td>
+            <pre>PUT /api/policies/%2f/federate-me
+                    {"pattern": "^amq\.",
+                     "definition": {"federation-upstream-set":"all"},
+                     "priority": 1,
+                    "apply-to": "exchanges"}</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>Web UI</th>
+          <td>
+            <ul>
+              <li>
+                Navigate to Admin > Policies > Add / update a
+                policy.
+              </li>
+              <li>
+                Enter "federate-me" next to Name, "^amq\." next to
+                Pattern, and select "Exchanges" next to Apply to.
+              </li>
+              <li>
+                Enter "federation-upstream-set" = "all" in the first line next to
+                Policy.
+              </li>
+              <li>
+                Click Add policy.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
 
-    <p>
-      In the event that more than one policy can match a given
-      exchange or queue, the policy with the greatest priority applies.
-    </p>
+      <p>
+        This matches the value <code>"all"</code> with the key
+        <code>"federation-upstream-set"</code> for all exchanges
+        with names beginning with <code>"amq."</code>, in the
+        virtual host <code>"/"</code>.
+      </p>
 
-    <p>
-      The <code>"apply-to"</code> argument can be <code>"exchanges"</code>,
-      <code>"queues"</code> or <code>"all"</code>. The <code>"apply-to"</code>
-      and <code>"priority"</code> settings are optional, in which case the
-      defaults are <code>"all"</code> and <code>"0"</code> respectively.
-    </p>
-    </doc:section>
+      <p>
+        The <code>"pattern"</code> argument is a regular expression used
+        to match exchange or queue names.
+      </p>
+
+      <p>
+        In the event that more than one policy can match a given
+        exchange or queue, the policy with the greatest priority applies.
+      </p>
+
+      <p>
+        The <code>"apply-to"</code> argument can be <code>"exchanges"</code>,
+        <code>"queues"</code> or <code>"all"</code>. The <code>"apply-to"</code>
+        and <code>"priority"</code> settings are optional, in which case the
+        defaults are <code>"all"</code> and <code>"0"</code> respectively.
+      </p>
 
 
-    <h2 id="combining-policy-definitions">Combining policy definitions</h2>
-    <p>
-      In some cases we might want to apply more than one policy
-      definition to a resource.  For example we might need a queue to
-      be federated and mirrored. At most one policy will apply to a
-      resource at any given time, but we can apply multiple
-      definitions in that policy.
-    </p>
-    <p>
-      A federation policy definition would require an <em>upstream set</em>
-      to be specified, so we would need the <code>federation-upstream-set</code>
-      key in our definition. On the other hand to define some queues as mirrored,
-      we would need the <code>ha-mode</code> key to be defined as well for the
-      policy. Since the policy definition is just a JSON object, we can have both
-      keys in the same policy definition.
-    </p>
-    <p>
-      Here's an example:
-    </p>
+      <doc:subsection name="combining-policy-definitions">
+          <doc:heading>Combining policy definitions</doc:heading>
 
-    <table>
-      <tr>
-        <th>rabbitmqctl</th>
-        <td>
-          <pre>rabbitmqctl set_policy ha-fed "^hf\." '{"federation-upstream-set":"all","ha-mode":"all"}' \
+          <p>
+            In some cases we might want to apply more than one policy
+            definition to a resource.  For example we might need a queue to
+            be federated and mirrored. At most one policy will apply to a
+            resource at any given time, but we can apply multiple
+            definitions in that policy.
+          </p>
+          <p>
+            A federation policy definition would require an <em>upstream set</em>
+            to be specified, so we would need the <code>federation-upstream-set</code>
+            key in our definition. On the other hand to define some queues as mirrored,
+            we would need the <code>ha-mode</code> key to be defined as well for the
+            policy. Since the policy definition is just a JSON object, we can have both
+            keys in the same policy definition.
+          </p>
+          <p>
+            Here's an example:
+          </p>
+
+          <table>
+            <tr>
+              <th>rabbitmqctl</th>
+              <td>
+                <pre>rabbitmqctl set_policy ha-fed "^hf\." '{"federation-upstream-set":"all","ha-mode":"all"}' \
 --priority 1 --apply-to queues</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>rabbitmqctl (Windows)</th>
-        <td>
-          <pre>rabbitmqctl set_policy ha-fed "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""all""}" ^
+              </td>
+            </tr>
+            <tr>
+              <th>rabbitmqctl (Windows)</th>
+              <td>
+                <pre>rabbitmqctl set_policy ha-fed "^hf\." "{""federation-upstream-set"":""all"", ""ha-mode"":""all""}" ^
 --priority 1 --apply-to queues</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>HTTP API</th>
-        <td>
-          <pre>PUT /api/policies/%2f/ha-fed
+              </td>
+            </tr>
+            <tr>
+              <th>HTTP API</th>
+              <td>
+                <pre>PUT /api/policies/%2f/ha-fed
 {"pattern": "^hf\.",
  "definition": {"federation-upstream-set":"all", "ha-mode": "all"},
  "priority": 1,
  "apply-to": "queues"}</pre>
-        </td>
-      </tr>
-      <tr>
-        <th>Web UI</th>
-        <td>
-          <ul>
-            <li>
-              Navigate to Admin > Policies > Add / update a
-              policy.
-            </li>
-            <li>
-              Enter "ha-fed" next to Name, "^hf\." next to
-              Pattern, and select "Queues" next to Apply to.
-            </li>
-            <li>
-              Enter "federation-upstream-set" = "all" in the first line next to
-              Policy.
-            </li>
-            <li>
-              Enter "ha-mode" = "all" on the next line.
-            </li>
-            <li>
-              Click Add policy.
-            </li>
-          </ul>
-        </td>
-      </tr>
-    </table>
+              </td>
+            </tr>
+            <tr>
+              <th>Web UI</th>
+              <td>
+                <ul>
+                  <li>
+                    Navigate to Admin > Policies > Add / update a
+                    policy.
+                  </li>
+                  <li>
+                    Enter "ha-fed" next to Name, "^hf\." next to
+                    Pattern, and select "Queues" next to Apply to.
+                  </li>
+                  <li>
+                    Enter "federation-upstream-set" = "all" in the first line next to
+                    Policy.
+                  </li>
+                  <li>
+                    Enter "ha-mode" = "all" on the next line.
+                  </li>
+                  <li>
+                    Click Add policy.
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
 
-    <p>
-      By doing that all the queues matched by the pattern "^hf\." will have the <code>"federation-upstream-set"</code>
-      and the <code>"ha-mode"</code> definitions applied to them.
-    </p>
-
+          <p>
+            By doing that all the queues matched by the pattern "^hf\." will have the <code>"federation-upstream-set"</code>
+            and the <code>"ha-mode"</code> definitions applied to them.
+          </p>
+      </doc:subsection>
+      
+    </doc:section>
   </body>
 </html>
