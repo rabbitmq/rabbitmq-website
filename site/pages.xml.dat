@@ -80,7 +80,7 @@ limitations under the License.
          <x:page url="/relocate.html" text="File Locations"/>
          <x:page url="/persistence-conf.html" text="Persistence"/>
          <x:page url="/networking.html" text="Networking"/>
-         <x:page url="/parameters.html" text="Parameters"/>
+         <x:page url="/parameters.html" text="Parameters and Policies"/>
        </x:page>
        <x:page url="/ssl.html" text="TLS/SSL Support">
          <x:page url="/troubleshooting-ssl.html" text="Troubleshooting"/>
@@ -152,7 +152,6 @@ limitations under the License.
        <x:page url="/uri-spec.html" text="AMQP 0-9-1 URI Spec">
          <x:page url="/uri-query-parameters.html" text="AMQP 0-9-1 URI Params"/>
        </x:page>
-       <x:related url="/releases/&dir-dotnet-client;/&nameVersion-dotnet-client;-user-guide.pdf" text=".NET Guide (pdf)"/>
        <x:related url="&dir-current-javadoc;" text="Java Client javadoc"/>
        <x:related url="&dir-current-dotnet-apidoc;/index.html" text=".NET htmldoc"/>
        <x:related url="&dir-current-edoc;" text="Erlang edoc"/>

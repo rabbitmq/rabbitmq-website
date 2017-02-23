@@ -19,7 +19,7 @@ limitations under the License.
       xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc"
       xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Highly Available Queues</title>
+    <title>Highly Available (Mirrored) Queues</title>
   </head>
   <body show-in-this-page="true">
       <doc:section name="overview">
@@ -30,14 +30,14 @@ limitations under the License.
           which can always be considered to be on all nodes. Queues
           can optionally be made <i>mirrored</i> across multiple
           nodes. Each mirrored queue consists of one <i>master</i> and
-          one or more <i>slaves</i>, with the oldest slave being
+          one or more <i>mirrors</i>, with the oldest mirror being
           promoted to the new master if the old master disappears for
           any reason.
         </p>
         <p>
           Messages published to the queue are replicated to all
-          slaves. Consumers are connected to the master regardless of
-          which node they connect to, with slaves dropping messages
+          mirrors. Consumers are connected to the master regardless of
+          which node they connect to, with mirrors dropping messages
           that have been acknowledged at the master. Queue mirroring
           therefore enhances availability, but does not distribute
           load across nodes (all participating nodes each do all the
@@ -50,23 +50,64 @@ limitations under the License.
           across a WAN (though of course, clients can still connect
           from as near and as far as needed).
         </p>
+        <p>
+          There are multiple terms commonly used to identify primary
+          and secondary replicas in a distributed system. This guide
+          typically uses "master" to refer to the primary replica of a
+          queue and "mirror" for secondary replicas.  However, you
+          will find "slave" used here in there. This is because
+          RabbitMQ CLI tools historically have been using the term
+          "slave" to refer to secondaries. Therefore both terms are
+          currently used interchangeably but we'd like to eventually
+          get rid of the legacy terminology.
+        </p>
       </doc:section>
 
-      <doc:section name="genesis">
-        <doc:heading>Configuring Mirroring</doc:heading>
+      <doc:section name="ways-to-configure">
+        <doc:heading>How Mirroring is Configured</doc:heading>
+
         <p>
-          Queues have mirroring enabled
+          Before we provide an example of how to enable mirroring we should take a look
+          at how it had been done historically and what is the recommended way today.
+        </p>
+        <p>
+          In addition to mandatory properties
+          (e.g. <code>durable</code> or <code>exclusive</code>),
+          queues in RabbitMQ have optional parameters (arguments),
+          sometimes referred to as <code>x-arguments</code>. Those are
+          provided by clients when they declare queues and control
+          various optional queue features, such as mirroring or <a
+          href="/ttl.html">TTL</a>. The x-arguments can be used to
+          configure mirroring parameters but there's a better way.
+        </p>
+        <p>
+          A more flexible, unobtrisuve, and manageable way of configuring x-arguments
+          is via <a href="/parameters.html#policies">policies</a>. A policy matches
+          one or more queues by name (using a regular expression pattern) and
+          appends its definition (a map of optional arguments) to the x-arguments of the matching
+          queues. In other words, it is possible to configure x-arguments for multiple queues
+          at once with a policy, and update them all at once by updating policy definition.
+          This is the most common and recommended way of configuring mirroring in modern
+          RabbitMQ versions. Please see <a href="/parameters.html#policies">documentation on policies</a>
+          for more information.
+        </p>
+      </doc:section>
+
+      <doc:section name="mirroring-arguments">
+        <doc:heading>Queue Arguments that Control Mirroring</doc:heading>
+        <p>
+          As we've covered above, queues typically have mirroring enabled
           via <a href="parameters.html#policies">policy</a>. Policies
           can change at any time; it is valid to create a non-mirrored
           queue, and then make it mirrored at some later point (and
           vice versa). There is a difference between a non-mirrored
-          queue and a mirrored queue which does not have any slaves -
+          queue and a mirrored queue which does not have any mirrors -
           the former lacks the extra mirroring infrastructure and will
-          run faster.
+          likely provide higher throughput.
         </p>
         <p>
           You should be aware of the behaviour
-          of <a href="#unsynchronised-slaves">adding mirrors to a
+          of <a href="#unsynchronised-mirrors">adding mirrors to a
           queue</a>.
         </p>
         <p>
@@ -132,6 +173,21 @@ limitations under the License.
           policy.
         </p>
 
+        <h3 id="replication-factor">To How Many Nodes to Mirror?</h3>
+        <p>
+          Note that mirroring to all queues is the most conservative option
+          and is unnecessary in many cases. For clusters of 3 and more nodes
+          it is recommended to mirror to a quorum (the majority) of nodes,
+          e.g. 2 nodes in a 3 node cluster or 3 nodes in a 5 node cluster.
+          Since some data can be inherently transient or very time sensitive,
+          it can be perfectly reasonable to use a lower number of mirrors
+          for some queues (or even not use any mirroring).
+        </p>
+      </doc:section>
+
+      <doc:section name="master-migration-data-locality">
+        <doc:heading>Queue Masters, Master Migration, Data Locality</doc:heading>
+
         <h3 id="queue-master-location">Queue Master Location</h3>
         <p>
           Every queue in RabbitMQ has a home node. That node is called
@@ -158,14 +214,14 @@ limitations under the License.
           </ul>
         </p>
 
-        <h3>"nodes" policy and migrating masters</h3>
+        <h3>"nodes" Policy and Migrating Masters</h3>
 
         <p>
           Note that setting or modifying a "nodes" policy can cause
           the existing master to go away if it is not listed in the
           new policy. In order to prevent message loss, RabbitMQ will
           keep the existing master around until at least one other
-          slave has synchronised (even if this is a long
+          mirror has synchronised (even if this is a long
           time). However, once synchronisation has occurred things will
           proceed just as if the node had failed: consumers will be
           disconnected from the master and will need to reconnect.
@@ -180,7 +236,7 @@ limitations under the License.
           will shut down.
         </p>
 
-        <h3>Exclusive queues</h3>
+        <h3>Exclusive Queues</h3>
 
         <p>
           Exclusive queues will be deleted when the connection that
@@ -196,12 +252,15 @@ limitations under the License.
           if they match a policy stating that they should be). They
           are also never durable (even if declared as such).
         </p>
+      </doc:section>
 
-        <h3>Some examples</h3>
+      <doc:section name="examples">
+        <doc:heading>Examples</doc:heading>
 
         <p>
-          Policy where queues whose names begin with
-          "<code>ha.</code>" are mirrored to all nodes in the cluster:
+          The following example declares a policy named <code>ha-all</code> which matches
+          the queues whose names begin with
+          "<code>ha.</code>" and configures mirroring to all nodes in the cluster (see <a href="#replication-factor">To How Many Nodes to Mirror?</a> above):
         </p>
 
         <table>
@@ -355,250 +414,48 @@ limitations under the License.
         </table>
       </doc:section>
 
-      <doc:section name="unsynchronised-slaves">
-        <doc:heading>Unsynchronised Slaves</doc:heading>
-        <p>
-          A node may join a cluster at any time. Depending on the
-          configuration of a queue, when a node joins a cluster,
-          queues may add a slave on the new node. At this point, the
-          new slave will be empty: it will not contain any existing
-          contents of the queue. Such a slave will receive new
-          messages published to the queue, and thus over time will
-          accurately represent the tail of the mirrored queue. As
-          messages are drained from the mirrored queue, the size of
-          the head of the queue for which the new slave is missing
-          messages, will shrink until eventually the slave's contents
-          precisely match the master's contents. At this point, the
-          slave can be considered fully synchronised, but it is
-          important to note that this has occurred because of actions
-          of clients in terms of draining the pre-existing head of the
-          queue.
-        </p>
-        <p>
-          Thus a newly added slave provides no additional form of
-          redundancy or availability of the queue's contents that
-          existed before the slave was added, unless the queue has
-          been explicitly synchronised. Since the queue becomes
-          unresponsive while explicit synchronisation is occurring, it
-          is preferable to allow active queues from which messages are
-          being drained to synchronise naturally, and only explicitly
-          synchronise inactive queues.
-        </p>
-
-        <p>
-          You can determine which slaves are synchronised with the
-          following rabbitmqctl invocation:
-        </p>
-        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
-        <p>
-          You can manually synchronise a queue with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
-        <p>
-          And you can cancel synchronisation with:
-        </p>
-        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
-        <p>
-          These features are also available through the management plugin.
-        </p>
-
-        <doc:subsection name="start-stop">
-          <doc:heading>Stopping nodes and synchronisation</doc:heading>
-          <p>
-            If you stop a RabbitMQ node which contains the master of a
-            mirrored queue, some slave on some other node will be
-            promoted to the master (assuming there is a synchronised slave;
-            see <a href="#cluster-shutdown">below</a>). If you
-            continue to stop nodes then you will reach a point where a
-            mirrored queue has no more slaves: it exists only on one
-            node, which is now its master.  If the mirrored queue was
-            declared <i>durable</i> then, if its last remaining node is
-            shutdown, durable messages in the queue will survive the
-            restart of that node. In general, as you restart other
-            nodes, if they were previously part of a mirrored queue then
-            they will rejoin the mirrored queue.
-          </p>
-          <p>
-            However, there is currently no way for a slave to know
-            whether or not its queue contents have diverged from the
-            master to which it is rejoining (this could happen during a
-            network partition, for example). As such, when a slave
-            rejoins a mirrored queue, it throws away any durable local
-            contents it already has and starts empty. Its behaviour is
-            at this point the same as if it were a <a
-            href="#unsynchronised-slaves">new node joining the
-            cluster</a>.
-          </p>
-        </doc:subsection>
-
-        <doc:subsection name="cluster-shutdown">
-          <doc:heading>Stopping master nodes with only unsynchronised slaves</doc:heading>
-          <p>
-            It's possible that when you shut down a master node that
-            all available slaves are unsynchronised. A common
-            situation in which this can occur is rolling cluster
-            upgrades. By default, RabbitMQ will refuse to fail over to
-            an unsynchronised slave on controlled master shutdown
-            (i.e. explicit stop of the RabbitMQ service or shutdown of
-            the OS) in order to avoid message loss; instead the entire
-            queue will shut down as if the unsynchronised slaves were
-            not there. An uncontrolled master shutdown (i.e. server or
-            node crash, or network outage) will still trigger a
-            failover even to an unsynchronised slave.
-          </p>
-          <p>
-            If you would prefer to have master nodes fail over to
-            unsynchronised slaves in all circumstances (i.e. you would
-            choose availability of the queue over avoiding message
-            loss) then you can set the
-            <code>ha-promote-on-shutdown</code> policy key to
-            <code>always</code> rather than its default value of
-            <code>when-synced</code>.
-          </p>
-
-        </doc:subsection>
-
-        <doc:subsection name="promotion-while-down">
-          <doc:heading>Loss of a master while all slaves are stopped</doc:heading>
-          <p>
-            It is possible to lose the master for a queue while all
-            slaves for the queue are shut down. In normal operation
-            the last node for a queue to shut down will become the
-            master, and we want that node to still be the master when
-            it starts again (since it may have received messages that
-            no other slave saw).
-          </p>
-
-          <p>
-            However, when you invoke <code>rabbitmqctl
-            forget_cluster_node</code>, RabbitMQ will attempt to find
-            a currently stopped slave for each queue which has its
-            master on the node we are forgetting, and "promote" that
-            slave to be the new master when it starts up again. If
-            there is more than one candidate, the most recently
-            stopped slave will be chosen.
-          </p>
-
-          <p>
-            It's important to understand that RabbitMQ can only
-            promote <b>stopped</b> slaves during
-            <code>forget_cluster_node</code>, since any slaves that
-            are started again will clear out their contents as
-            described at "<a href="#start-stop">stopping nodes and
-            synchronisation</a>" above. Therefore when removing a lost
-            master in a stopped cluster, you must invoke
-            <code>rabbitmqctl forget_cluster_node</code> <i>before</i>
-            starting slaves again.
-          </p>
-        </doc:subsection>
-
-
-        <doc:subsection name="batch-sync">
-          <doc:heading>Batch Synchronization</doc:heading>
-
-          <h3 id="sync-since-3-6-0">The Goal of Batch Synchronization</h3>
-
-          <p>RabbitMQ 3.6.0 introduced a new paramter for mirrored queues:
-          <code>ha-sync-batch-size</code>. By synchronising messages in
-          batches, the synchronisation process can be sped up
-          considerably.</p>
-
-          <h3 id="sync-batch-size">Choosing the Right Synchronisation Batch Size</h3>
-          <p>
-            To choose the right value for
-            <code>ha-sync-batch-size</code> you need to consider: a)
-            your queue average message size. This value will be a
-            multipier for the batch size which you must take into
-            account according to your particular network bandwidth; b)
-            setting a batch size that is too high can result in the
-            nodes in your cluster missing <a href="nettick.html">tick
-            messages.</a> from other nodes.
-          </p>
-          <p>
-            If for example you set <code>ha-sync-batch-size</code> to
-            <code>50000</code> messages per batch, and each message in
-            the queue weights 1kb, then each synchronisation message
-            between nodes will be of 50 megabytes. You need to make sure
-            that your network links between queue mirrors can accomodate
-            to this kind traffic. As mentioned above, if the network
-            takes longer than <a href="nettick.html">net_ticktime</a> to
-            send one batch of messages, then nodes in the cluster could
-            think they are in the presence of a network
-            partition. <em>Note that these are example values.</em>.
-          </p>
-
-          <h3 id="eager-synchronisation">Configuring Eager (Explicit) Synchronisation</h3>
-
-          <p>
-            Explicit synchronisation can be triggered in two ways:
-            manually or automatically. If a queue is set to
-            automatically synchronise it will synchronise whenever a
-            new slave joins - blocking all other operations until it has done
-            so.
-          </p>
-
-          <p>
-            Queues can be set to automatically synchronise by setting
-            the <code>ha-sync-mode</code> policy key
-            to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
-            to <code>manual</code>. If it is not set then <code>manual</code> is
-            assumed.
-          </p>
-
-          <p>
-            By default queues will synchronise one message at a time but
-            since RabbitMQ 3.6.0 we can tell masters to synchronise
-            messages in batches. To do so, set the
-            <code>ha-sync-batch-size</code> policy key to an integer
-            value that fits your <a href="#sync-batch-size">particular
-            workload</a>. If <code>ha-sync-batch-size</code> is not
-            specified, then a value of <code>1</code> is assumed.
-          </p>          
-        </doc:subsection>
-      </doc:section>
-
       <doc:section name="behaviour">
-        <doc:heading>Mirrored queue implementation and semantics</doc:heading>
+        <doc:heading>Mirrored Queue Implementation and Semantics</doc:heading>
         <p>
           As discussed, for each mirrored queue there is one
-          <i>master</i> and several <i>slaves</i>, each on a
-          different node. The slaves apply the operations that occur
+          <i>master</i> and several <i>mirrors</i>, each on a
+          different node. The mirrors apply the operations that occur
           to the master in exactly the same order as the master and
           thus maintain the same state. All actions other than
           publishes go only to the master, and the master then
-          broadcasts the effect of the actions to the slaves. Thus
+          broadcasts the effect of the actions to the mirrors. Thus
           clients consuming from a mirrored queue are in fact
           consuming from the master.
         </p>
         <p>
-          Should a slave fail, there is little to be done other than
+          Should a mirror fail, there is little to be done other than
           some bookkeeping: the master remains the master and no
           client need take any action or be informed of the failure.
-          Note that slave failures may not be detected immediately and
+          Note that mirror failures may not be detected immediately and
           the interruption of the per-connection flow control mechanism
           can delay message publication. The details are described
           <a href="nettick.html">here</a>.
         </p>
         <p>
-          If the master fails, then one of the slaves must be
+          If the master fails, then one of the mirrors must be
           promoted. At this point, the following happens:
           <ol>
-            <li>A slave is promoted to become the new master. The
-            slave chosen for promotion is the eldest slave. As such,
+            <li>A mirror is promoted to become the new master. The
+            mirror chosen for promotion is the eldest mirror. As such,
             it has the best chance of being synchronised with the
-            master. However, note that should there be no slave that
-            is <a href="#unsynchronised-slaves">synchronised</a> with
+            master. However, note that should there be no mirror that
+            is <a href="#unsynchronised-mirrors">synchronised</a> with
             the master, messages that only the master held will be
             lost.</li>
 
-            <li>The slave considers all previous consumers to have
+            <li>The mirror considers all previous consumers to have
             been abruptly disconnected. As such, it requeues all
             messages that have been delivered to clients but are
             pending acknowledgement. This can include messages for
             which a client has issued acknowledgements: either the
             acknowledgement was lost on the wire before reaching the
             master, or it was lost during broadcast from the master to
-            the slaves. In either case, the new master has no choice
+            the mirrors. In either case, the new master has no choice
             but to requeue all messages it thinks have not been
             acknowledged.</li>
 
@@ -612,19 +469,19 @@ limitations under the License.
           </ol>
         </p>
         <p>
-          As the chosen slave becomes the master, no messages that are
+          As the chosen mirror becomes the master, no messages that are
           published to the mirrored queue during this time will be
           lost: messages published to a mirrored queue are always
-          published directly to the master and all slaves. Thus should
+          published directly to the master and all mirrors. Thus should
           the master fail, the messages continue to be sent to the
-          slaves and will be added to the queue once the promotion of
-          a slave to the master completes.
+          mirrors and will be added to the queue once the promotion of
+          a mirror to the master completes.
         </p>
         <p>
           Similarly, messages published by clients using <a
           href="confirms.html">publisher confirms</a> will
           still be confirmed correctly even if the master (or any
-          slaves) fail between the message being published and the
+          mirrors) fail between the message being published and the
           message being able to be confirmed to the publisher. Thus
           from the point of view of the publisher, publishing to a
           mirrored queue is no different from publishing to any other
@@ -677,10 +534,10 @@ limitations under the License.
             message publication</a>.  Publishers are permitted to
             publish when they receive credit from all mirrors of a
             queue.  Credit in this context means permission to
-            publish.  Slaves that fail to issue credit can cause
-            publishers to stall.  Publishers will remain stalled until
-            all slaves issue credit or until the remaining nodes
-            consider the slave to be disconnected from the cluster.
+            publish.  Mirrors that fail to issue credit can cause
+            publishers to stall. Publishers will remain blocked until
+            all mirrors issue credit or until the remaining nodes
+            consider the mirror to be disconnected from the cluster.
             Erlang detects such disconnections by periodically sending
             a tick to all nodes. The tick interval can be controlled
             with the <a href="nettick.html">net_ticktime</a>
@@ -688,7 +545,7 @@ limitations under the License.
           </p>
         </doc:subsection>
         <doc:subsection name="cancellation">
-          <doc:heading>Consumer Cancellation</doc:heading>
+          <doc:heading>Master Failures and Consumer Cancellation</doc:heading>
           <p>
             Clients that are consuming from a mirrored queue may wish
             to know that the queue from which they have been consuming
@@ -724,6 +581,210 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           </p>
         </doc:subsection>
 
+      </doc:section>
+
+
+
+      <doc:section name="unsynchronised-mirrors">
+        <doc:heading>Unsynchronised Mirrors</doc:heading>
+        <p>
+          A node may join a cluster at any time. Depending on the
+          configuration of a queue, when a node joins a cluster,
+          queues may add a mirror on the new node. At this point, the
+          new mirror will be empty: it will not contain any existing
+          contents of the queue. Such a mirror will receive new
+          messages published to the queue, and thus over time will
+          accurately represent the tail of the mirrored queue. As
+          messages are drained from the mirrored queue, the size of
+          the head of the queue for which the new mirror is missing
+          messages, will shrink until eventually the mirror's contents
+          precisely match the master's contents. At this point, the
+          mirror can be considered fully synchronised, but it is
+          important to note that this has occurred because of actions
+          of clients in terms of draining the pre-existing head of the
+          queue.
+        </p>
+        <p>
+          Thus a newly added mirror provides no additional form of
+          redundancy or availability of the queue's contents that
+          existed before the mirror was added, unless the queue has
+          been explicitly synchronised. Since the queue becomes
+          unresponsive while explicit synchronisation is occurring, it
+          is preferable to allow active queues from which messages are
+          being drained to synchronise naturally, and only explicitly
+          synchronise inactive queues.
+        </p>
+
+        <p>
+          You can determine which mirrors are synchronised with the
+          following rabbitmqctl invocation:
+        </p>
+        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <p>
+          You can manually synchronise a queue with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <p>
+          And you can cancel synchronisation with:
+        </p>
+        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <p>
+          These features are also available through the management plugin.
+        </p>
+
+        <doc:subsection name="start-stop">
+          <doc:heading>Stopping nodes and synchronisation</doc:heading>
+          <p>
+            If you stop a RabbitMQ node which contains the master of a
+            mirrored queue, some mirror on some other node will be
+            promoted to the master (assuming there is a synchronised mirror;
+            see <a href="#cluster-shutdown">below</a>). If you
+            continue to stop nodes then you will reach a point where a
+            mirrored queue has no more mirrors: it exists only on one
+            node, which is now its master.  If the mirrored queue was
+            declared <i>durable</i> then, if its last remaining node is
+            shutdown, durable messages in the queue will survive the
+            restart of that node. In general, as you restart other
+            nodes, if they were previously part of a mirrored queue then
+            they will rejoin the mirrored queue.
+          </p>
+          <p>
+            However, there is currently no way for a mirror to know
+            whether or not its queue contents have diverged from the
+            master to which it is rejoining (this could happen during a
+            network partition, for example). As such, when a mirror
+            rejoins a mirrored queue, it throws away any durable local
+            contents it already has and starts empty. Its behaviour is
+            at this point the same as if it were a <a
+            href="#unsynchronised-mirrors">new node joining the
+            cluster</a>.
+          </p>
+        </doc:subsection>
+
+        <doc:subsection name="cluster-shutdown">
+          <doc:heading>Stopping Master Nodes with Only Unsynchronised Mirrors</doc:heading>
+          <p>
+            It's possible that when you shut down a master node that
+            all available mirrors are unsynchronised. A common
+            situation in which this can occur is rolling cluster
+            upgrades. By default, RabbitMQ will refuse to fail over to
+            an unsynchronised mirror on controlled master shutdown
+            (i.e. explicit stop of the RabbitMQ service or shutdown of
+            the OS) in order to avoid message loss; instead the entire
+            queue will shut down as if the unsynchronised mirrors were
+            not there. An uncontrolled master shutdown (i.e. server or
+            node crash, or network outage) will still trigger a
+            failover even to an unsynchronised mirror.
+          </p>
+          <p>
+            If you would prefer to have master nodes fail over to
+            unsynchronised mirrors in all circumstances (i.e. you would
+            choose availability of the queue over avoiding message
+            loss) then you can set the
+            <code>ha-promote-on-shutdown</code> policy key to
+            <code>always</code> rather than its default value of
+            <code>when-synced</code>.
+          </p>
+
+        </doc:subsection>
+
+        <doc:subsection name="promotion-while-down">
+          <doc:heading>Loss of a Master While All Mirrors are Stopped</doc:heading>
+          <p>
+            It is possible to lose the master for a queue while all
+            mirrors for the queue are shut down. In normal operation
+            the last node for a queue to shut down will become the
+            master, and we want that node to still be the master when
+            it starts again (since it may have received messages that
+            no other mirror saw).
+          </p>
+
+          <p>
+            However, when you invoke <code>rabbitmqctl
+            forget_cluster_node</code>, RabbitMQ will attempt to find
+            a currently stopped mirror for each queue which has its
+            master on the node we are forgetting, and "promote" that
+            mirror to be the new master when it starts up again. If
+            there is more than one candidate, the most recently
+            stopped mirror will be chosen.
+          </p>
+
+          <p>
+            It's important to understand that RabbitMQ can only
+            promote <b>stopped</b> mirrors during
+            <code>forget_cluster_node</code>, since any mirrors that
+            are started again will clear out their contents as
+            described at "<a href="#start-stop">stopping nodes and
+            synchronisation</a>" above. Therefore when removing a lost
+            master in a stopped cluster, you must invoke
+            <code>rabbitmqctl forget_cluster_node</code> <i>before</i>
+            starting mirrors again.
+          </p>
+        </doc:subsection>
+
+
+        <doc:subsection name="batch-sync">
+          <doc:heading>Batch Synchronization</doc:heading>
+
+          <h3 id="sync-since-3-6-0">The Goal of Batch Synchronization</h3>
+
+          <p>RabbitMQ 3.6.0 introduced a new paramter for mirrored queues:
+          <code>ha-sync-batch-size</code>. By synchronising messages in
+          batches, the synchronisation process can be sped up
+          considerably.</p>
+
+          <h3 id="sync-batch-size">Choosing the Right Synchronisation Batch Size</h3>
+          <p>
+            To choose the right value for
+            <code>ha-sync-batch-size</code> you need to consider: a)
+            your queue average message size. This value will be a
+            multipier for the batch size which you must take into
+            account according to your particular network bandwidth; b)
+            setting a batch size that is too high can result in the
+            nodes in your cluster missing <a href="nettick.html">tick
+            messages.</a> from other nodes.
+          </p>
+          <p>
+            If for example you set <code>ha-sync-batch-size</code> to
+            <code>50000</code> messages per batch, and each message in
+            the queue weights 1kb, then each synchronisation message
+            between nodes will be of 50 megabytes. You need to make sure
+            that your network links between queue mirrors can accomodate
+            to this kind traffic. As mentioned above, if the network
+            takes longer than <a href="nettick.html">net_ticktime</a> to
+            send one batch of messages, then nodes in the cluster could
+            think they are in the presence of a network
+            partition. <em>Note that these are example values.</em>.
+          </p>
+
+          <h3 id="eager-synchronisation">Configuring Eager (Explicit) Synchronisation</h3>
+
+          <p>
+            Explicit synchronisation can be triggered in two ways:
+            manually or automatically. If a queue is set to
+            automatically synchronise it will synchronise whenever a
+            new mirror joins - blocking all other operations until it has done
+            so.
+          </p>
+
+          <p>
+            Queues can be set to automatically synchronise by setting
+            the <code>ha-sync-mode</code> policy key
+            to <code>automatic</code>. <code>ha-sync-mode</code> can also be set
+            to <code>manual</code>. If it is not set then <code>manual</code> is
+            assumed.
+          </p>
+
+          <p>
+            By default queues will synchronise one message at a time but
+            since RabbitMQ 3.6.0 we can tell masters to synchronise
+            messages in batches. To do so, set the
+            <code>ha-sync-batch-size</code> policy key to an integer
+            value that fits your <a href="#sync-batch-size">particular
+            workload</a>. If <code>ha-sync-batch-size</code> is not
+            specified, then a value of <code>1</code> is assumed.
+          </p>
+        </doc:subsection>
       </doc:section>
   </body>
 </html>
