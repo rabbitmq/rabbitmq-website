@@ -349,10 +349,11 @@ durable, non-exclusive, non-autodeleted.
 
 ### <a id="d.td"/>Topic Destinations
 
-For simple topic destinations which deliver a copy of each message to
-all active subscribers, destinations of the form `/topic/<name>` can
-be used. Topic destinations support all the routing patterns of AMQP
-topic exchanges.
+Perhaps the most common destination type used by STOMP clients is `/topic/<name>`.
+They perform topic matching on publishing messages against subscriber patterns
+and can route a message to multiple subscribers (each gets its own copy).
+Topic destinations support all the routing patterns of [AMQP 0-9-1
+topic exchanges](/tutorials/amqp-concepts.html).
 
 Messages sent to a topic destination that has no active subscribers
 are simply discarded.
