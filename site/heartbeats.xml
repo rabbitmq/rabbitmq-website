@@ -42,7 +42,7 @@ limitations under the License.
       <doc:heading>Heartbeat Timeout Interval</doc:heading>
       <p>
         The heartbeat timeout value defines after what period of time
-        the peer TCP connection should be considered dead by RabbitMQ
+        the peer TCP connection should be considered unreachable (down) by RabbitMQ
         and client libraries. This value is negotiated between the
         client and RabbitMQ server at the time of connection. The
         client must be configured to request heartbeats. In RabbitMQ
@@ -60,7 +60,15 @@ limitations under the License.
         to re-connect.
       </p>
       <p>
+        Any traffic (e.g. protocol operations, published messages, <a
+        href="/confirms.html">acknowledgements</a>) counts for a valid
+        heartbeat. Clients may choose to send heartbeat frames
+        regardless of whether there was any other traffic on the
+        connection but some only do it when necessary.
+      </p>
+      <p>
         Heartbeats can be disabled by setting the timeout interval to <code>0</code>.
+        This is not a recommended practice.
       </p>
     </doc:section>
 
