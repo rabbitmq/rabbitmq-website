@@ -37,7 +37,7 @@ limitations under the License.
       of the installed RAM, it raises a memory alarm and blocks all
       connections that are publishing messages. Once the memory alarm has cleared (e.g. due
       to the server paging messages to disk or delivering them to
-      clients that use their connections in a consume-only fashion) normal service resumes.
+      clients that only consume) normal service resumes.
     </p>
 
     <p>
