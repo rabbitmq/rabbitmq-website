@@ -94,7 +94,7 @@ limitations under the License.
   <!-- Remember to edit the wordpress template too! -->
   <xsl:template name="page-header">
     <div id="rabbit-logo">
-      <a href="/"><img src="/img/rabbitmq_logo_strap.png" alt="RabbitMQ" width="253" height="53"/></a>
+      <a href="/"><img src="/img/rabbitmq-logo.svg" alt="RabbitMQ" height="42"/></a>
     </div>
     <div id="pivotal-logo">
       <a href="https://pivotal.io/"><img src="/img/logo-pivotal-118x25.png" alt="Pivotal" width="118" height="25"/></a>
