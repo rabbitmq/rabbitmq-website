@@ -22,7 +22,7 @@ limitations under the License.
 ]>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:doc="http://www.rabbitmq.com/namespaces/ad-hoc/doc" xmlns:x="http://www.rabbitmq.com/2011/extensions">
   <head>
-    <title>Documentation</title>
+    <title>Documentation: Table of Contents</title>
   </head>
   <body>
     <x:modal mode="www">
@@ -62,40 +62,153 @@ limitations under the License.
         <p>
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
-          messaging, the protocol, RabbitMQ features, and common usage scenarios.
+          messaging, the protocol, RabbitMQ features, and some common usage scenarios.
         </p>
       </div>
 
       <div class="landing-box">
-        <h2>Server</h2>
+        <h2>Server and Key Plugins</h2>
         <p>
-          <a href="admin-guide.html">RabbitMQ server documentation</a> is organised in a number of guides.
+          <a href="admin-guide.html">RabbitMQ server documentation</a> is organised in a number of guides:
         </p>
         <ul>
-          <p>Some popular guides are:</p>
           <li>
-            <a href="configure.html">Configuration</a>
+            <a href="download.html">Installation and Provisioning</a>:
+
+            <ul>
+              <li><a href="/install-debian.html">Debian and Ubuntu</a></li>
+              <li><a href="/install-rpm.html">RHEL, CentOS, Fedora</a></li>
+              <li><a href="/install-windows.html">Windows Installer</a>, <a href="/windows-quirks.html">Windows-specific Issues</a></li>
+              <li><a href="/install-windows.html">Generic UNIX Binary Build</a></li>
+              <li><a href="/install-standalone-mac.html">MacOS via Standalone Binary Build</a></li>
+              <li><a href="/install-homebrew.html">MacOS via Homebrew</a></li>
+              <li><a href="/install-solaris.html">Solaris</a></li>
+              <li><a href="/signatures.html">Package Signatures</a></li>
+              <li><a href="/which-erlang.html">Supported Erlang/OTP Versions</a></li>
+            </ul>
           </li>
           <li>
-            <a href="access-control.html">Authorization</a>
+            Configuration
+
+            <ul>
+              <li><a href="configure.html">Configuration</a></li>
+              <li>
+                <a href="relocate.html">File and Directory Locations</a>
+              </li>
+              <li>
+                <a href="parameters.html">Policies and Runtime Parameters</a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a href="vhosts.html">Virtual Hosts</a>
-          </li>          
+            Authentication and Authorization:
+
+            <ul>
+              <li>
+                <a href="access-control.html">Authentication and Authorization Backends</a>:
+              </li>
+              <li>
+                <a href="authentication.html">Authentication Mechanisms</a>
+              </li>
+              <li>
+                <a href="vhosts.html">Virtual Hosts</a>
+              </li>
+              <li>
+                <a href="passwords.html">Credentials and Passwords</a>
+              </li>
+              <li>
+                <a href="ldap.html">LDAP</a>
+              </li>
+            </ul>
+          </li>
+
           <li>
-            <a href="ssl.html">TLS/SSL</a>
+            Networking and TLS:
+
+            <ul>
+              <li>
+                <a href="networking.html">Networking</a>
+              </li>
+              <li>
+                <a href="ssl.html">Using TLS for Client Connections</a>
+              </li>
+              <li>
+                <a href="/clustering-ssl.html">Using TLS for Inter-node Traffic</a>
+              </li>
+              <li>
+                <a href="troubleshooting-ssl.html">Troubleshooting TLS</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            Monitoring, Audit, Application Troubleshooting:
+
+            <ul>
+              <li>
+                <a href="management.html">Management UI and HTTP API</a>
+              </li>
+              <li>
+                <a href="event-exchange.html">Internal Event Exchange</a>
+              </li>
+              <li>
+                <a href="firehose.html">Message Tracing</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            Distributed RabbitMQ:
+
+            <ul>
+              <li>
+                <a href="distributed.html">Mirroring, Shovel, Federation Overview</a>
+              </li>
+              <li>
+                <a href="clustering.html">Clustering</a>
+              </li>
+              <li>
+                <a href="ha.html">Queue Mirroring</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            Guidelines:
+            <ul>
+              <li>
+                <a href="production-checklist.html">Production Checklist</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            Message Store and Resource Management:
+
+            <ul>
+              <li>
+                <a href="memory.html">Memory Management</a>
+              </li>
+              <li>
+                <a href="alarms.html">Resource Alarms</a>
+              </li>
+              <li>
+                <a href="persistence-conf.html">Message Store Configuration</a>
+              </li>
+              <li>
+                <a href="lazy-queues.html">Lazy Queues</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="stomp.html">STOMP</a>
           </li>
           <li>
-            <a href="management.html">Management UI and HTTP API</a>
+            <a href="mqtt.html">MQTT</a>
           </li>
           <li>
-            <a href="clustering.html">Clustering</a>
-          </li>
-          <li>
-            <a href="ha.html">High Availability</a>
-          </li>
-          <li>
-            <a href="production-checklist.html">Production Checklist</a>
+            <a href="/manpages.html">man Pages</a>
           </li>
         </ul>
       </div>
@@ -104,23 +217,28 @@ limitations under the License.
         <h2>Clients</h2>
         <p>
           <a href="clients.html">RabbitMQ clients documentation</a> is organised in a number
-          of guides and API references.
+          of guides and API references. A separate set of <a href="/getstarted.html">tutorials</a> for
+          many popular programming languages are also available.
         </p>
         <ul>
           <p>Documentation guides:</p>
           <li>
-            <a href="api-guide.html">Java</a>
+            <a href="api-guide.html">Java client</a>
           </li>
           <li>
-            <a href="dotnet-api-guide.html">.NET</a>
+            <a href="dotnet-api-guide.html">.NET client</a>
           </li>
           <li>
-            <a href="http://rubybunny.info">Ruby</a>
+            <a href="http://rubybunny.info">Ruby client</a>
           </li>
           <li>
-            <a href="jms-client.html">JMS</a>
+            <a href="jms-client.html">JMS library</a>
+          </li>
+          <li>
+            <a href="confirms.html">Publisher Confirms and Consumer Acknowledgements</a>
           </li>
         </ul>
+
         <ul>
           API reference:
           <li>
@@ -144,54 +262,56 @@ limitations under the License.
         <ul>
           <p>Popular plugins:</p>
           <li>
-            <a href="management.html">Management</a> |
+            <a href="management.html">Management</a>
           </li>
           <li>
-            <a href="stomp.html">STOMP</a> |
+            <a href="stomp.html">STOMP</a>
           </li>
           <li>
-            <a href="mqtt.html">MQTT</a> |
+            <a href="mqtt.html">MQTT</a>
           </li>
           <li>
-            <a href="federation.html">Federation</a> |
+            <a href="federation.html">Federation</a>
           </li>
           <li>
             <a href="shovel.html">Shovel</a>
           </li>
-          <p>
-            See the <a href="plugins.html">plugins guide</a> for details.
-          </p>
+          <li>
+            <a href="event-exchange.html">Internal Event Exchange</a>
+          </li>
         </ul>
+
+        <p>
+          See  <a href="/community-plugins.html">Community Plugins</a> and
+ the <a href="plugins.html">Plugins Guide</a> for more information.
+        </p>
       </div>
 
       <div class="landing-box">
-        <h2>Case Studies</h2>
+        <h2>Development</h2>
         <ul>
           <li>
-            <a href="http://blog.pivotal.io/tag/rabbitmq">Who is using RabbitMQ</a>
+            How to <a href="build.html">build RabbitMQ</a> from source, or
+            from <a href="github.html">GitHub</a>.
           </li>
         </ul>
       </div>
 
       <div class="landing-box">
-        <h2>Other</h2>
+        <h2>Protocols</h2>
         <ul>
-          <li>
-            <a href="news.html">News about RabbitMQ</a>
-          </li>
           <li>
             AMQP 0-9-1: <a href="extensions.html">Extensions</a> |
             <a href="amqp-0-9-1-quickref.html">Quick Reference</a>
           </li>
           <li>
-            View all <a href="protocol.html">protocol documentation</a>.
+            <a href="stomp.html">STOMP</a>
           </li>
           <li>
-            How to <a href="build.html">build RabbitMQ</a> from source, or
-            from <a href="github.html">GitHub</a>.
+            <a href="mqtt.html">MQTT</a>
           </li>
           <li>
-            <a href="troubleshooting.html">Some troubleshooting tips</a>.
+            Other <a href="protocol.html">protocol documentation</a>.
           </li>
         </ul>
       </div>
