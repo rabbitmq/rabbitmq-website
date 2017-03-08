@@ -47,14 +47,14 @@ limitations under the License.
           <ul>
             <li>Interfaces and ports</li>
             <li>TLS</li>
-            <li>TCP socket settings</li>
-            <li>Kernel TCP settings</li>
-            <li>(AMQP 0-9-1, STOMP) Heartbeats</li>
+            <li>TCP socket settings (e.g. buffer size)</li>
+            <li>Kernel TCP settings (e.g. TCP keepalives)</li>
+            <li>(AMQP 0-9-1, STOMP) Heartbeats, known as keepalives in MQTT</li>
             <li>Hostnames and DNS</li>
           </ul>
 
           Except for OS kernel parameters and DNS, all RabbitMQ settings
-          are <a href="/configure.html">configured the same way</a>.
+          are <a href="/configure.html">configured via RabbitMQ configuration file(s)</a>.
         </p>
         <p>
           Networking is a broad topic. There are many configuration options
@@ -734,9 +734,12 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
 
               AMQP 0-9-1 and STOMP have <a href="/heartbeats.html">Heartbeats</a> which partially
               undo its effect, namely that it can take minutes to detect an unresponsive peer,
-              e.g. in case of a hardware or power failure.
+              e.g. in case of a hardware or power failure. MQTT also has its own keepalives
+              mechanism which is the same idea under a different name.
 
-              When enabling TCP keepalive, we recommend setting heartbeat timeout to 8-20 seconds.
+              When enabling TCP keepalive with default settings, we
+              recommend setting heartbeat timeout to 8-20 seconds. Also see a note on TCP keepalives
+              later in this guide.
             </dd>
 
             <dt><code>net.ipv4.conf.default.rp_filter</code></dt>
@@ -745,7 +748,6 @@ In the <a href="/configure.html#erlang-term-config-file">classic config format</
               is not a concern for your system, disable it.
             </dd>
           </dl>
-
 
           Note that default values for these vary between Linux kernel releases and distributions.
           Using a recent kernel (3.9 or later) is recommended.
@@ -858,6 +860,36 @@ sysctl -w fs.file-max 200000
         between clients and RabbitMQ nodes. <a href="/net_ticktime.html">net_ticktime</a> serves
         the same purpose but for cluster node communication. Values lower than 5 (seconds)
         may result in false positive and are not recommended.
+      </p>
+    </doc:section>
+
+    <doc:section name="tcp-keepalives">
+      <doc:heading>TCP Keepalives</doc:heading>
+      <p>
+        TCP contains a mechanism similar in purpose to the heartbeat
+        (a.k.a. keepalive) one in messaging protocols and net tick
+        timeout covered above: TCP keepalives. Due to inadequate
+        defaults, TCP keepalives often don't work the way they are
+        supposed to: it takes a very long time (say, an hour or more)
+        to detect a dead peer. However, with tuning they can serve
+        the same purpose as heartbeats and clean up stale TCP connections
+        e.g. with clients that opted to not use heartbeats, intentionally or
+        not.
+
+        Below is an example sysctl configuration for TCP keepalives
+        that considers TCP connections dead or unreachable after 60
+        seconds (4 attempts every 15 seconds) and sends keepalive
+        packets every 60 seconds:
+
+<pre class="code">
+net.ipv4.tcp_keepalive_time=60
+net.ipv4.tcp_keepalive_intvl=15
+net.ipv4.tcp_keepalive_probes=4
+</pre>
+
+        TCP keepalives can be a useful additional defense mechanism
+        in environments where RabbitMQ operator has no control
+        over application settings or client libraries used.
       </p>
     </doc:section>
 

@@ -1349,6 +1349,11 @@ $ rabbitmqctl encode --decode '{encrypted, &lt;&lt;"..."&gt;&gt;}' mypassphrase
             </pre>
           </p>
           <p>
+            Values of different types can be encoded. The example above encodes
+            both binaries (<code>&lt;&lt;"guest"&gt;&gt;</code>) and strings
+            (<code>"amqp://fred:secret@host1.domain/my_vhost"</code>).
+          </p>
+          <p>
             The encryption mechanism uses PBKDF2 to produce a derived key
             from the passphrase. The default hash function is SHA512
             and the default number of iterations is 1000. The default
