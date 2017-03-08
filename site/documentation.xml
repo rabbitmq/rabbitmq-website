@@ -31,17 +31,9 @@ limitations under the License.
       </p>
 
       <ul>
-        <li><a href="previous.html">Documentation for previous stable releases</a></li>
-        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a></li>
+        <li><a href="previous.html">Documentation for previous release series</a></li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branches)</li>
       </ul>
-    </x:modal>
-
-    <x:modal mode="www">
-      <p class="intro">
-        The content on this site is open source and <a href="https://github.com/rabbitmq/rabbitmq-website/">available
-        on GitHub</a>. Community contributions are welcome and will be
-        considered.
-      </p>
     </x:modal>
 
     <x:modal mode="next">
@@ -332,6 +324,9 @@ limitations under the License.
           </li>
           <li>
             <a href="jms-client.html">JMS library</a>
+          </li>
+          <li>
+            <a href="/extensions.html">RabbitMQ extensions to AMQP 0-9-1</a>
           </li>
         </ul>
 
