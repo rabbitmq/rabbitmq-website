@@ -230,7 +230,7 @@ limitations under the License.
      <x:page url="/mpl.html" text="License"/>
    </x:page>
    <x:page url="/getstarted.html" text="Tutorials">
-     <x:page url="/tutorials/amqp-concepts.html" text="AMQP Concepts" gap-after="true"/>
+     <x:page url="/tutorials/amqp-concepts.html" text="AMQP 0-9-1 Concepts" gap-after="true"/>
      <x:page url="/tutorials/tutorial-one-java.html" text="Java">
        <x:page url="/tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
        <x:page url="/tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>

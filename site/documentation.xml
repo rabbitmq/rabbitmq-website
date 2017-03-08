@@ -63,6 +63,8 @@ limitations under the License.
           See the <a href="getstarted.html">Get Started</a> page
           for our tutorials that offer a gentle introduction to
           messaging, the protocol, RabbitMQ features, and some common usage scenarios.
+          <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 Overview</a> provides a brief overview
+          for the original RabbitMQ protocol.
         </p>
       </div>
 
@@ -85,6 +87,7 @@ limitations under the License.
               <li><a href="/install-solaris.html">Solaris</a></li>
               <li><a href="/signatures.html">Package Signatures</a></li>
               <li><a href="/which-erlang.html">Supported Erlang/OTP Versions</a></li>
+              <li><a href="/changelog.html">Change log</a></li>
             </ul>
           </li>
           <li>
@@ -97,6 +100,15 @@ limitations under the License.
               </li>
               <li>
                 <a href="parameters.html">Policies and Runtime Parameters</a>
+              </li>
+              <li>
+                <a href="heartbeats.html">Client Connection Heartbeats</a>
+              </li>
+              <li>
+                <a href="nettick.html">Inter-node Connection Heartbeats</a>
+              </li>
+              <li>
+                <a href="ttl.html">Queue and Message TTL</a>
               </li>
             </ul>
           </li>
@@ -118,6 +130,12 @@ limitations under the License.
               </li>
               <li>
                 <a href="ldap.html">LDAP</a>
+              </li>
+              <li>
+                <a href="/validated-user-id.html">Validated User ID</a>
+              </li>
+              <li>
+                <a href="/auth-notification.html">Authentication Failure Notifications</a>
               </li>
             </ul>
           </li>
@@ -152,7 +170,13 @@ limitations under the License.
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
               <li>
+                <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
+              </li>
+              <li>
                 <a href="firehose.html">Message Tracing</a>
+              </li>
+              <li>
+                <a href="/amqp-wireshark.html">Capturing Traffic with Wireshark</a>
               </li>
             </ul>
           </li>
@@ -170,6 +194,9 @@ limitations under the License.
               <li>
                 <a href="ha.html">Queue Mirroring</a>
               </li>
+              <li>
+                <a href="/reliability.html">Reliable Message Delivery</a>
+              </li>
             </ul>
           </li>
 
@@ -178,6 +205,9 @@ limitations under the License.
             <ul>
               <li>
                 <a href="production-checklist.html">Production Checklist</a>
+              </li>
+              <li>
+                <a href="/reliability.html">Reliable Message Delivery</a>
               </li>
             </ul>
           </li>
@@ -193,35 +223,101 @@ limitations under the License.
                 <a href="alarms.html">Resource Alarms</a>
               </li>
               <li>
+                <a href=""></a>
+              </li>
+              <li>
                 <a href="persistence-conf.html">Message Store Configuration</a>
               </li>
               <li>
+                <a href="ttl.html">Queue and Message TTL</a>
+              </li>
+              <li>
+                <a href="maxlength.html">Queue Length Limits</a>
+              </li>
+              <li>
                 <a href="lazy-queues.html">Lazy Queues</a>
+              </li>
+              <li>
+                <a href=""></a>
               </li>
             </ul>
           </li>
 
           <li>
-            <a href="stomp.html">STOMP</a>
+            Queue, Routing, and Consumer Features:
+
+            <ul>
+              <li>
+                <a href="ttl.html">Queue and Message TTL</a>
+              </li>
+              <li>
+                <a href="maxlength.html">Queue Length Limits</a>
+              </li>
+              <li>
+                <a href="lazy-queues.html">Lazy Queues</a>
+              </li>
+              <li>
+                <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
+              </li>
+              <li>
+                <a href="/dlx.html">Dead Lettering</a>
+              </li>
+              <li>
+                <a href="/sender-selected.html">Sender-Selected Distribution</a>
+              </li>
+              <li>
+                <a href="/priority.html">Priority Queues</a>
+              </li>
+              <li>
+                <a href="/consumer-cancel.html">Consumer Cancellation Notifications</a>
+              </li>
+              <li>
+                <a href="/consumer-prefetch.html">Consumer Prefetch</a>
+              </li>
+              <li>
+                <a href="/consumer-priority.html">Consumer Priorities</a>
+              </li>
+              <li>
+                <a href="/ae.html">Alternate Exchanges</a>
+              </li>
+            </ul>
           </li>
+
           <li>
-            <a href="mqtt.html">MQTT</a>
-          </li>
-          <li>
-            <a href="/manpages.html">man Pages</a>
+            STOMP, MQTT, WebSockets
+
+            <ul>
+              <li>
+                <a href="stomp.html">STOMP</a>
+              </li>
+              <li>
+                <a href="mqtt.html">MQTT</a>
+              </li>
+
+              <li>
+                <a href="web-stomp.html">STOMP over WebSockets</a>
+              </li>
+              <li>
+                <a href="web-mqtt.html">MQTT over WebSockets</a>
+              </li>
+
+              <li>
+                <a href="/manpages.html">man Pages</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
 
       <div class="landing-box">
-        <h2>Clients</h2>
+        <h2>Client Libraries and Features</h2>
         <p>
           <a href="clients.html">RabbitMQ clients documentation</a> is organised in a number
           of guides and API references. A separate set of <a href="/getstarted.html">tutorials</a> for
-          many popular programming languages are also available.
+          many popular programming languages are also available, as is an <a href="/tutorials/amqp-concepts.html">AMQP 0-9-1 Overview</a>.
         </p>
         <ul>
-          <p>Documentation guides:</p>
+          <p>Client Documentation guides:</p>
           <li>
             <a href="api-guide.html">Java client</a>
           </li>
@@ -234,13 +330,56 @@ limitations under the License.
           <li>
             <a href="jms-client.html">JMS library</a>
           </li>
+        </ul>
+
+        <ul>
+          <p>Client-driven Features:</p>
           <li>
             <a href="confirms.html">Publisher Confirms and Consumer Acknowledgements</a>
+          </li>
+          <li>
+            <a href="ttl.html">Queue and Message TTL</a>
+          </li>
+          <li>
+            <a href="maxlength.html">Queue Length Limits</a>
+          </li>
+          <li>
+            <a href="lazy-queues.html">Lazy Queues</a>
+          </li>
+          <li>
+            <a href="/e2e.html">Exchange-to-Exchange Bindings</a>
+          </li>
+          <li>
+            <a href="/sender-selected.html">Sender-Selected Distribution</a>
+          </li>
+          <li>
+            <a href="/priority.html">Priority Queues</a>
+          </li>
+          <li>
+            <a href="/consumer-cancel.html">Consumer Cancellation Notifications</a>
+          </li>
+          <li>
+            <a href="/consumer-prefetch.html">Consumer Prefetch</a>
+          </li>
+          <li>
+            <a href="/consumer-priority.html">Consumer Priorities</a>
+          </li>
+          <li>
+            <a href="/dlx.html">Dead Lettering</a>
+          </li>
+          <li>
+            <a href="/ae.html">Alternate Exchanges</a>
+          </li>
+          <li>
+            <a href="firehose.html">Message Tracing</a>
+          </li>
+          <li>
+            <a href="/amqp-wireshark.html">Capturing Traffic with Wireshark</a>
           </li>
         </ul>
 
         <ul>
-          API reference:
+          References:
           <li>
             <a href="&dir-current-javadoc;">Java</a>
           </li>
@@ -249,6 +388,12 @@ limitations under the License.
           </li>
           <li>
             <a href="&dir-current-edoc;">Erlang</a>
+          </li>
+          <li>
+            <a href="/uri-spec.html">AMQP 0-9-1 URI Specification</a>
+          </li>
+          <li>
+            <a href="/uri-query-parameters.html">URI Query Parameters</a>
           </li>
         </ul>
         <p>
@@ -271,6 +416,12 @@ limitations under the License.
             <a href="mqtt.html">MQTT</a>
           </li>
           <li>
+            <a href="web-stomp.html">STOMP over WebSockets</a>
+          </li>
+          <li>
+            <a href="web-mqtt.html">MQTT over WebSockets</a>
+          </li>
+          <li>
             <a href="federation.html">Federation</a>
           </li>
           <li>
@@ -282,14 +433,23 @@ limitations under the License.
         </ul>
 
         <p>
-          See  <a href="/community-plugins.html">Community Plugins</a> and
- the <a href="plugins.html">Plugins Guide</a> for more information.
+          See <a href="/community-plugins.html">Community Plugins</a>,
+          <a href="https://github.com/rabbitmq/">RabbitMQ GitHub
+          repositories</a> the <a href="plugins.html">Plugins
+          Guide</a> for more information about plugins.
         </p>
       </div>
 
       <div class="landing-box">
         <h2>Development</h2>
         <ul>
+          <li>
+            <a href="https://github.com/rabbitmq/">RabbitMQ GitHub
+            repositories</a>
+          </li>
+          <li>
+            <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>
+          </li>
           <li>
             How to <a href="build.html">build RabbitMQ</a> from source, or
             from <a href="github.html">GitHub</a>.
@@ -309,6 +469,12 @@ limitations under the License.
           </li>
           <li>
             <a href="mqtt.html">MQTT</a>
+          </li>
+          <li>
+            <a href="web-stomp.html">STOMP over WebSockets</a>
+          </li>
+          <li>
+            <a href="web-mqtt.html">MQTT over WebSockets</a>
           </li>
           <li>
             Other <a href="protocol.html">protocol documentation</a>.
