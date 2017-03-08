@@ -78,12 +78,15 @@ limitations under the License.
             <a href="download.html">Installation and Provisioning</a>:
 
             <ul>
+              <li><a href="/download.html">All Packages and Repositories</a></li>
+              <li><a href="/download.html">Provisioning Tools</a> (e.g. Chef cookbook, Puppet module, Docker image)</li>
               <li><a href="/install-debian.html">Debian and Ubuntu</a></li>
               <li><a href="/install-rpm.html">RHEL, CentOS, Fedora</a></li>
               <li><a href="/install-windows.html">Windows Installer</a>, <a href="/windows-quirks.html">Windows-specific Issues</a></li>
               <li><a href="/install-windows.html">Generic UNIX Binary Build</a></li>
               <li><a href="/install-standalone-mac.html">MacOS via Standalone Binary Build</a></li>
               <li><a href="/install-homebrew.html">MacOS via Homebrew</a></li>
+              <li><a href="/ec2.html">Amazon EC2</a></li>
               <li><a href="/install-solaris.html">Solaris</a></li>
               <li><a href="/signatures.html">Package Signatures</a></li>
               <li><a href="/which-erlang.html">Supported Erlang/OTP Versions</a></li>
