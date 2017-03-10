@@ -140,16 +140,10 @@ We highly recommend creating a separate user production systems.
 
 To change this, edit your
 [Configuration file](/configure.html#configuration-file),
-to contain a `port` variable for the `rabbitmq_web_stomp` application.
+to contain a `tcp_config` section with a `port` variable for the `rabbitmq_web_stomp` application.
 
 For example, a complete configuration file which changes the listener
 port to 12345 would look like:
-
-    [
-      {rabbitmq_web_stomp, [{port, 12345}]}
-    ].
-
-This is a shorthand for the following:
 
     [
       {rabbitmq_web_stomp,
@@ -157,10 +151,10 @@ This is a shorthand for the following:
     ].
 
 You can use the `tcp_config` section to specify any TCP option you need.
-When both a `port` and a `tcp_config` sections exist, the plugin will
-use the former as a port number, ignoring the one in `tcp_config`.
+See the [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
+for details about accepted parameters.
 
-See [RabbitMQ Networking guide](/networking.html) for more information.
+See also [RabbitMQ Networking guide](/networking.html) for more information.
 
 
 ### TLS (SSL)
@@ -181,7 +175,8 @@ TLS (SSL) configuration parameters are provided in the `ssl_config` section:
                          {password,   "changeme"}]}]}
     ].
 
-Note that port, certfile, keyfile and password are all mandatory. See the [Cowboy documentation](https://github.com/rabbitmq/cowboy/blob/4b93c2d19a10e5d9cee207038103bb83f1ab9436/src/cowboy_ssl_transport.erl#L40)
+Note that port, certfile, keyfile and password are all mandatory.
+See the [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_ssl/)
 for details about accepted parameters.
 
 See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
@@ -199,7 +194,7 @@ The `ws_frame` option serves this purpose:
 
 The Web STOMP plugin uses the Cowboy web server under the hood.
 Cowboy provides [a number of
-options](http://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
+options](https://ninenines.eu/docs/en/cowboy/1.0/manual/cowboy_protocol/)
 that can be used to customize the behavior of the server
 w.r.t. WebSocket connection handling. You can specify those in the Web
 STOMP plugin configuration, in the `cowboy_opts` section:
