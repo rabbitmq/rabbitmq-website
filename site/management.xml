@@ -27,7 +27,8 @@ limitations under the License.
     <title>Management Plugin</title>
   </head>
   <body show-in-this-page="true">
-      <doc:section name="features">
+      <doc:section name="intro">
+        <doc:heading>Introduction</doc:heading>
         <p>
           The rabbitmq-management plugin provides an HTTP-based API
           for management and monitoring of your RabbitMQ server, along
@@ -45,55 +46,25 @@ limitations under the License.
             channel, data rates per connection, etc.
           </li>
           <li>
-            Send and receive messages.
+            Monitor resource usage, such as file descriptors, memory
+            use, available disk space.
           </li>
           <li>
-            Monitor Erlang processes, file descriptors, memory use.
+            Manage users (provided administrative permissions of the current user).
           </li>
           <li>
-            Export / import object definitions to JSON.
+            Export and import object definitions (vhosts, users,
+            permissions, queues, exchanges, bindings, parameters,
+            policies) to JSON.
           </li>
           <li>
             Force close connections, purge queues.
           </li>
+          <li>
+            Send and receive messages (useful in development environments
+            and for troubleshooting).
+          </li>
         </ul>
-        <doc:subsection name="screenshots">
-          <doc:heading>Screenshots</doc:heading>
-          <table class="screenshots">
-            <tr>
-              <th>Overview</th>
-              <th>Import / Export</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="/img/management/overview.png">
-                  <img src="/img/management/thumbs/overview.png"/>
-                </a>
-              </td>
-              <td>
-                <a href="/img/management/import-export.png">
-                  <img src="/img/management/thumbs/import-export.png"/>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <th>Channel List</th>
-              <th>Queue Details</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="/img/management/channels.png">
-                  <img src="/img/management/thumbs/channels.png"/>
-                </a>
-              </td>
-              <td>
-                <a href="/img/management/queue.png">
-                  <img src="/img/management/thumbs/queue.png"/>
-                </a>
-              </td>
-            </tr>
-          </table>
-        </doc:subsection>
       </doc:section>
 
       <doc:section name="getting-started">
@@ -101,25 +72,18 @@ limitations under the License.
 
         <p>
           The management plugin is included in the RabbitMQ
-          distribution.  To enable it, use <a
+          distribution. To enable it, use <a
           href="man/rabbitmq-plugins.1.man.html">rabbitmq-plugins</a>:
         </p>
         <pre class="example">rabbitmq-plugins enable rabbitmq_management</pre>
-        <p>
-          If you wish to build the plugin from source, it can be built
-          like any other. See
-          the <a href="plugin-development.html">plugin development</a>
-          page for more information.
-        </p>
-
         <ul>
           <li>
-            The web UI is located at:
+            The Web UI is located at:
             http://<i>server-name</i>:15672/
           </li>
           <li>
-            The HTTP API and its documentation are both located at:
-            http://<i>server-name</i>:15672/api/ (or view
+            The Web UI uses an HTTP API provided by the same plugin. Said API's documentation can be accessed at
+            http://<i>server-host</i>:15672/api/ or
             our <a href="https://rawcdn.githack.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
             latest HTTP API documentation here</a>).
           </li>
@@ -253,7 +217,6 @@ limitations under the License.
         </p>
       </doc:section>
 
-
       <doc:section name="http-api">
         <doc:heading>HTTP API</doc:heading>
         <p>
@@ -264,9 +227,24 @@ limitations under the License.
           <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">
           latest HTTP API documentation</a> on GitHub.
         </p>
+
+        <p>
+          HTTP API can be used on any node that has the <code>rabbitmq-management</code> plugin
+          enabled. It then will be able to provide metrics on any (or all) cluster node.
+          When monitoring a cluster of nodes, there is no need to contact each node via HTTP API
+          individually. Instead, contact a random node or a load balancer that sits in front
+          of the cluster.
+        </p>
+
         <p>
           For HTTP API clients in several languages,
           see <a href="/devtools.html">Developer Tools</a>.
+        </p>
+
+        <p>
+          <a href="management-cli.html">rabbitmqadmin</a> is a Python command  line tool
+          that interacts with the HTTP API. It can be downloaded from any RabbitMQ node that
+          has the management plugin enabled, see http://<i>server-name</i>:15672/cli/
         </p>
       </doc:section>
 
@@ -425,8 +403,8 @@ limitations under the License.
             The management plugin will retain samples of some data
             such as message rates and queue lengths. You can
             configure how long such data is retained.
-          </p>          
-        <pre class="example">           
+          </p>
+        <pre class="example">
 [
   ...
   {rabbitmq_management,
