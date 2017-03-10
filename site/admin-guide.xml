@@ -85,15 +85,15 @@ limitations under the License.
           The different ways to <a href="distributed.html">run RabbitMQ in a distributed environment</a>.
         </li>
         <li>
-          How to achieve <a href="reliability.html">reliable message
-          delivery</a>.
-        </li>
-        <li>
           How to <a href="clustering.html">set up a RabbitMQ cluster</a>.
         </li>
         <li>
           Configuring a RabbitMQ cluster to
           use <a href="ha.html">active-active highly available queues</a>.
+        </li>
+        <li>
+          How to achieve <a href="reliability.html">reliable message
+          delivery</a>.
         </li>
         <li>
           Configuring a pair of RabbitMQ brokers in an active-passive
