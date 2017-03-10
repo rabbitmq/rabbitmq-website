@@ -17,14 +17,14 @@ limitations under the License.
 -->
 
 <ul>
-  <li>4369 (epmd)</li>
-  <li>5672, 5671 (AMQP 0-9-1 and 1.0 without and with TLS)</li>
+  <li>4369 (<a href="http://erlang.org/doc/man/epmd.html">epmd</a>, a peer discovery service used by RabbitMQ nodes and CLI tools)</li>
+  <li>5672, 5671 (used by AMQP 0-9-1 and 1.0 clients without and with TLS)</li>
   <li>
     25672. This port used by Erlang distribution for inter-node and CLI tools communication
     and is allocated from a dynamic range (limited to a single port by default,
     computed as AMQP port + 20000). See <a href="/networking.html">networking guide</a> for details.
   </li>
-  <li>15672 (if management plugin is enabled)</li>
-  <li>61613, 61614 (if STOMP is enabled)</li>
-  <li>1883, 8883 (if MQTT is enabled)</li>
+  <li>15672 (<a href="/management.html">HTTP API</a> clients and <a href="/management-cli.html">rabbitmqadmin</a>, only if <a href="/management.html">management plugin</a> is enabled)</li>
+  <li>61613, 61614 (<a href="https://stomp.github.io/stomp-specification-1.2.html">STOMP clients</a> without and with TLS, only if <a href="/stomp.html">STOMP plugin</a> is enabled)</li>
+  <li>1883, 8883 (<a href="http://mqtt.org/">MQTT clients</a> without and with TLS, if <a href="/mqtt.html">MQTT plugin</a> is enabled)</li>
 </ul>
