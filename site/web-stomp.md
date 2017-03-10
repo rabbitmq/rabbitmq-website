@@ -151,10 +151,8 @@ port to 12345 would look like:
     ].
 
 You can use the `tcp_config` section to specify any TCP option you need.
-See the [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
+See the [RabbitMQ Networking guide](/networking.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_tcp/)
 for details about accepted parameters.
-
-See also [RabbitMQ Networking guide](/networking.html) for more information.
 
 
 ### TLS (SSL)
@@ -176,10 +174,10 @@ TLS (SSL) configuration parameters are provided in the `ssl_config` section:
     ].
 
 Note that port, certfile, keyfile and password are all mandatory.
-See the [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_ssl/)
+See the [TLS guide](/ssl.html) and [Ranch documentation](https://ninenines.eu/docs/en/ranch/1.3/manual/ranch_ssl/)
 for details about accepted parameters.
 
-See [RabbitMQ TLS](/ssl.html) and [TLS Troubleshooting](/troubleshooting-ssl.html) for details.
+A separate guide on [TLS Troubleshooting](/troubleshooting-ssl.html) is also available.
 
 ## <a id="encoding">WebSocket Options and Content Encoding</a>
 
