@@ -28,131 +28,197 @@ limitations under the License.
   <body>
     <p class="intro">
       RabbitMQ ships in a state where it can be used straight away in
-      simple cases - just start the server and it's ready to go. If
-      you have more complex needs you may need to adjust your server
-      configuration.
+      simple cases such as development and QA environments - just
+      start the server and it's ready to go. If you have more complex
+      needs you may need to adjust your server configuration.
+    </p>
+
+    <p>
+      This guide provides a table of contents of server operator documentation.
+      For a complete documentation ToC, see <a href="/documentation.html">All Documentation</a>.
     </p>
 
     <div class="landing-box">
       <h2>Configuring your Server</h2>
       <ul>
+        <li><a href="configure.html">Configuration</a></li>
         <li>
-          How to <a href="configure.html">configure</a> RabbitMQ:
-          configuration files and environment variables.
+          <a href="relocate.html">File and Directory Locations</a>
+        </li>
+        <li>
+          <a href="parameters.html">Policies and Runtime Parameters</a>
+        </li>
+        <li>
+          <a href="heartbeats.html">Client Connection Heartbeats</a>
+        </li>
+        <li>
+          <a href="nettick.html">Inter-node Connection Heartbeats</a>
+        </li>
+        <li>
+          <a href="ttl.html">Queue and Message TTL</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Authentication and Authorization</h2>
+
+      <ul>
+        <li>
+          <a href="access-control.html">Authentication and Authorization Backends</a>:
+        </li>
+        <li>
+          <a href="authentication.html">Authentication Mechanisms</a>
         </li>
         <li>
           <a href="vhosts.html">Virtual Hosts</a>
         </li>
         <li>
-          <a href="relocate.html">Node File and Directory Locations</a>
+          <a href="passwords.html">Credentials and Passwords</a>
         </li>
         <li>
-          <a href="networking.html">Networking and OS Limits</a>
+          <a href="ldap.html">LDAP</a>
         </li>
         <li>
-          Configuring RabbitMQ to accept <a href="ssl.html">TLS connections</a>.
-        </li>
-      </ul>
-    </div>
-
-    <div class="landing-box">
-      <h2>Management and Monitoring</h2>
-      <p>
-        RabbitMQ ships with:
-      </p>
-      <ul>
-        <li>
-          The <a href="management.html">management plugin</a>: a web UI
-          and HTTP API for managing and monitoring RabbitMQ.<br/>
-          See its <a href="https://cdn.rawgit.com/rabbitmq/rabbitmq-management/&version-server-tag;/priv/www/api/index.html">HTTP API documentation</a> and its
-          <a href="/management-cli.html">command line interface,
-          rabbitmqadmin</a>.
+          <a href="/validated-user-id.html">Validated User ID</a>
         </li>
         <li>
-          <a href="man/rabbitmqctl.1.man.html">rabbitmqctl</a>: a
-          simpler command line tool for managing RabbitMQ.
-        </li>
-        <li>
-          A plugin that <a href="/event-exchange.html">allows applications to get notified of internal RabbitMQ events</a>.
+          <a href="/auth-notification.html">Authentication Failure Notifications</a>
         </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>Clustering and High Availability</h2>
+      <h2>Networking and TLS</h2>
+
       <ul>
         <li>
-          The different ways to <a href="distributed.html">run RabbitMQ in a distributed environment</a>.
+          <a href="networking.html">Networking</a>
         </li>
         <li>
-          How to <a href="clustering.html">set up a RabbitMQ cluster</a>.
+          <a href="ssl.html">Using TLS for Client Connections</a>
         </li>
         <li>
-          Configuring a RabbitMQ cluster to
-          use <a href="ha.html">active-active highly available queues</a>.
+          <a href="/clustering-ssl.html">Using TLS for Inter-node Traffic</a>
         </li>
         <li>
-          How to achieve <a href="reliability.html">reliable message
-          delivery</a>.
-        </li>
-        <li>
-          Configuring a pair of RabbitMQ brokers in an active-passive
-          <a href="pacemaker.html">highly available</a> configuration (legacy).
+          <a href="troubleshooting-ssl.html">Troubleshooting TLS</a>
         </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>Authentication and Authorisation</h2>
-      <ul>
-        <li>
-          How to <a href="access-control.html">set up authorization</a> for the objects in your broker.
-        </li>
-        <li>
-          Configuring <a href="authentication.html">Authentication Mechanisms</a>.
-        </li>
-        <li>
-          Configuring <a href="passwords.html">Password Hashing Algorithms</a>.
-        </li>
-        <li>
-          Using <a href="ldap.html">LDAP</a>.
-          </li>
-      </ul>
-    </div>
+      <h2>Monitoring, Audit, Application Troubleshooting</h2>
 
-    <div class="landing-box">
-      <h2>Operations</h2>
       <ul>
         <li>
-          <a href="/production-checklist.html">Production Checklist</a>: for those
-          moving into production.
+          <a href="management.html">Management UI and HTTP API</a>
         </li>
         <li>
-          <a href="/networking.html">Networking</a>: network tuning for various scenarios.
+          <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
         </li>
         <li>
-          <a href="alarms.html">Resource-driven alarms</a>.
+          <a href="event-exchange.html">Internal Event Exchange</a>
         </li>
         <li>
-          Documentation on how RabbitMQ <a href="memory.html">manages
-          memory</a>.
+          <a href="/web-dispatch.html">Configuring HTTP-based (Web) plugins</a>
+        </li>
+        <li>
+          <a href="firehose.html">Message Tracing</a>
+        </li>
+        <li>
+          <a href="/amqp-wireshark.html">Capturing Traffic with Wireshark</a>
         </li>
       </ul>
     </div>
 
     <div class="landing-box">
-      <h2>Development and Troubleshooting</h2>
+      <h2>Distributed RabbitMQ</h2>
+
       <ul>
         <li>
-          <a href="troubleshooting.html">Troubleshooting</a>.
+          <a href="distributed.html">Mirroring, Shovel, Federation Overview</a>
         </li>
         <li>
-          <a href="troubleshooting-ssl.html">Troubleshooting TLS-specific topics</a>.
+          <a href="clustering.html">Clustering</a>
         </li>
         <li>
-          <a href="firehose.html">The Firehose</a> - trace messages as
-          they pass through your RabbitMQ server.
+          <a href="ha.html">Queue Mirroring</a>
         </li>
+        <li>
+          <a href="/reliability.html">Reliable Message Delivery</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Guidelines</h2>
+      <ul>
+        <li>
+          <a href="production-checklist.html">Production Checklist</a>
+        </li>
+        <li>
+          <a href="/reliability.html">Reliable Message Delivery</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Message Store and Resource Management</h2>
+
+      <ul>
+        <li>
+          <a href="memory.html">Memory Management</a>
+        </li>
+        <li>
+          <a href="alarms.html">Resource Alarms</a>
+        </li>
+        <li>
+          <a href="disk-alarms">Free Disk Space Alarms</a>
+        </li>
+        <li>
+          <a href="flow-control">Flow Control</a>
+        </li>
+        <li>
+          <a href="persistence-conf.html">Message Store Configuration</a>
+        </li>
+        <li>
+          <a href="ttl.html">Queue and Message TTL</a>
+        </li>
+        <li>
+          <a href="maxlength.html">Queue Length Limits</a>
+        </li>
+        <li>
+          <a href="lazy-queues.html">Lazy Queues</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>STOMP, MQTT, WebSockets</h2>
+
+      <ul>
+        <li>
+          <a href="stomp.html">STOMP</a>
+        </li>
+        <li>
+          <a href="mqtt.html">MQTT</a>
+        </li>
+
+        <li>
+          <a href="web-stomp.html">STOMP over WebSockets</a>
+        </li>
+        <li>
+          <a href="web-mqtt.html">MQTT over WebSockets</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="landing-box">
+      <h2>Command Line Tools</h2>
+
+      <ul>
+        <li><a href="/manpages.html">man Pages</a></li>
       </ul>
     </div>
   </body>
