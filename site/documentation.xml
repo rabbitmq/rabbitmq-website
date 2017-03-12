@@ -163,7 +163,7 @@ limitations under the License.
               </li>
               <li>
                 <a href="management-cli.html">rabbitmqadmin</a>, an HTTP API command line tool
-              </li>              
+              </li>
               <li>
                 <a href="event-exchange.html">Internal Event Exchange</a>
               </li>
@@ -195,6 +195,11 @@ limitations under the License.
               <li>
                 <a href="/reliability.html">Reliable Message Delivery</a>
               </li>
+              <li>
+                Active-passive (standby) <a
+                href="pacemaker.html">highly available</a>
+                configuration with Pacemaker (legacy).
+              </li>
             </ul>
           </li>
 
@@ -221,7 +226,10 @@ limitations under the License.
                 <a href="alarms.html">Resource Alarms</a>
               </li>
               <li>
-                <a href=""></a>
+                <a href="disk-alarms">Free Disk Space Alarms</a>
+              </li>
+              <li>
+                <a href="flow-control">Flow Control</a>
               </li>
               <li>
                 <a href="persistence-conf.html">Message Store Configuration</a>
@@ -234,9 +242,6 @@ limitations under the License.
               </li>
               <li>
                 <a href="lazy-queues.html">Lazy Queues</a>
-              </li>
-              <li>
-                <a href=""></a>
               </li>
             </ul>
           </li>
@@ -298,11 +303,11 @@ limitations under the License.
               <li>
                 <a href="web-mqtt.html">MQTT over WebSockets</a>
               </li>
-
-              <li>
-                <a href="/manpages.html">man Pages</a>
-              </li>
             </ul>
+          </li>
+
+          <li>
+            <a href="/manpages.html">man Pages</a>
           </li>
         </ul>
       </div>
