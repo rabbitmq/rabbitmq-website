@@ -30,6 +30,19 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.7</td>
+        <td class="centre">15 March 2017</td>
+        <td>
+          <ul>
+            <li>Bug fixes</li>
+            <li><a href="https://github.com/rabbitmq/rabbitmq-management/issues/236">Distributed management plugin</a></li>
+            <li>Usability improvements</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_7">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.6</td>
         <td class="centre">21 November 2016</td>
         <td>
