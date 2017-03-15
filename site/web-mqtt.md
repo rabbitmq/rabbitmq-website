@@ -32,8 +32,7 @@ WebSocket emulation via SockJS.
 
 ## <a id="iwm">Installation and Enabling the Plugin</a>
 
-Please follow `rabbitmq_web_mqtt` [installation instructions](https://github.com/rabbitmq/rabbitmq-web-mqtt)
-in the repository.
+`rabbitmq_web_mqtt` plugin ships with RabbitMQ as of 3.6.7.
 
 To enable the plugin run [rabbitmq-plugins](/man/rabbitmq-plugins.1.man.html):
 
