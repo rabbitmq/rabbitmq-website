@@ -67,7 +67,7 @@ limitations under the License.
           <p>
             Below is a list of supported Debian-based distributions as of RabbitMQ 3.6.3:
             <ul>
-              <li>Ubuntu 14.04 through 16.04</li>
+              <li>Ubuntu 14.04 through 16.10</li>
               <li>Debian Jessie</li>
               <li>Debian Wheezy (<a href="https://backports.debian.org/Instructions/">Wheezy backports repository</a> is required)</li>
             </ul>
@@ -76,6 +76,18 @@ limitations under the License.
             if dependencies (see below) are satisfied (e.g. using the
             Wheezy backports repository) but their testing and support
             is done on a best effort basis.
+          </p>
+      </doc:subsection>
+
+      <doc:subsection name="erlang-requirementes">
+          <doc:heading>Installing Erlang/OTP</doc:heading>
+          <p>
+            RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
+            standard Debian and Ubuntu also can be quite
+            outdated. Consider installing a newer version, such as
+            18.0+, <a
+            href="https://packages.erlang-solutions.com/erlang/">from
+            Erlang Solutions</a>.
           </p>
       </doc:subsection>
 
@@ -238,7 +250,6 @@ sudo apt-get install rabbitmq-server
 
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
-    <xi:include href="install-unix-manage.xml.inc"/>
 
     <doc:section name="kernel-resource-limits">
       <doc:heading>Controlling System Limits on Linux</doc:heading>
@@ -249,5 +260,7 @@ sudo apt-get install rabbitmq-server
       <xi:include href="max-open-files-limit-verifying-linux.xml.inc" />
       <xi:include href="max-open-files-limit-tools.xml.inc" />
     </doc:section>
+
+    <xi:include href="install-unix-manage.xml.inc"/>
   </body>
 </html>
