@@ -29,188 +29,231 @@ limitations under the License.
     <title>Installing on RPM-based Linux (RHEL, CentOS, Fedora, openSUSE)</title>
   </head>
   <body>
-    <h3>Download the Server</h3>
-    <r:downloads signature="yes">
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		  downloadpath="&dir-server;">
-	RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from rabbitmq.com)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		  downloadpath="&dir-server;">
-	RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from rabbitmq.com)
-      </r:download>      
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
-		  downloadpath="&dir-server;">
-	RPM for openSUSE Linux (from rabbitmq.com)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
-		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
-	RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
-      </r:download>
-      <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
-		  absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
-	RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
-      </r:download>
-    </r:downloads>
+    <doc:section name="rpm-packages">
+      <doc:heading>Download the Server</doc:heading>
+      <r:downloads signature="yes">
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    downloadpath="&dir-server;">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from rabbitmq.com)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    downloadpath="&dir-server;">
+	  RPM for RHEL 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from rabbitmq.com)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.suse.noarch.rpm"
+		    downloadpath="&dir-server;">
+	  RPM for openSUSE Linux (from rabbitmq.com)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el6.noarch.rpm">
+	  RPM for RHEL Linux 6.x, CentOS 6.x, Fedora prior to 19 (from github.com)
+        </r:download>
+        <r:download downloadfile="rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm"
+		    absolute="yes" url="https://github.com/rabbitmq/rabbitmq-server/releases/download/&version-server-tag;/rabbitmq-server-&version-server;-&serverRPMMinorVersion;.el7.noarch.rpm">
+	  RPM for RHEL Linux 7.x, CentOS 7.x, Fedora 19+ (supports systemd, from github.com)
+        </r:download>
+      </r:downloads>
+    </doc:section>
 
-    <h2>Overview</h2>
-    <p>
-      <code>rabbitmq-server</code> is included in Fedora. However,
-      the versions included are often quite old. You will probably
-      get better results installing the .rpm from our website. Check
-      the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
-      package</a> details for which version of the server is
-      available for which versions of the distribution.
-    </p>
+    <doc:section name="overview">
+      <doc:heading>Overview</doc:heading>
+      <p>
+        <code>rabbitmq-server</code> is included in Fedora. However,
+        the versions included are often quite old. You will probably
+        get better results installing the .rpm from our website. Check
+        the <a href="https://admin.fedoraproject.org/updates/rabbitmq-server">Fedora
+        package</a> details for which version of the server is
+        available for which versions of the distribution.
+      </p>
 
-    <p>
-      We also upload our RPM packages to <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
-      and <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>.
-    </p>
+      <p>
+        We also upload our RPM packages to <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/">PackageCloud</a>
+        and <a href="https://bintray.com/rabbitmq/rabbitmq-server-rpm">Bintray</a>.
+      </p>
+    </doc:section>
 
-    <h2>Install Erlang</h2>
-    <p>
-      Before installing RabbitMQ, you must install Erlang. We strongly
-      recommend using a packaged version. There are three suggested sources
-      for Erlang packages:
-    </p>
+   <doc:section name="supported-rpm-distributions">
+       <doc:heading>Supported Distributions</doc:heading>
 
-    <ul>
-      <li>
-        <a
-        href="https://www.erlang-solutions.com/resources/download.html">Erlang
-        Solutions</a> produces packages that are usually up to
-        date. They produce two sets of packages - ones which are split
-        up and are more convenient to use if you can add a yum
-        repository, and a monolithic package which might be easier if
-        you have to download manually.
-      </li>
-      <li>
-        We produce <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
-        down to only provide those components needed to run
-        RabbitMQ. <b>It may not be as up to date as Erlang Solutions'
-        packages</b>, but it might be easiest to use if installing
-        Erlang's dependencies is proving difficult.
-      </li>
-      <li>
-        <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> ("Extra Packages
-        for Enterprise Linux"); part of the Red Hat / Fedora organisation,
-        provides many additional packages, including Erlang. These are the
-        most official packages, and are split into many small packages, but
-        are not always up to date.
-      </li>
-    </ul>
+       <p>
+         Below is a list of supported RPM-based distributions as of RabbitMQ 3.6.3:
+         <ul>
+           <li>CentOS 6.x and 7.x (note: there are two separate RPM packages for 6.x and 7.x)</li>
+           <li>RedHat Enterprise Linux 6.x and 7.x (same as for CentOS, there are two separate packages)</li>
+           <li>Fedora 23 through 25 (use the RHEL 7.x package)</li>
+         </ul>
 
-    <h3>Install Erlang from the Erlang Solutions repository <i>or</i></h3>
-    <ol class="plain">
-      <li>
-        Follow the instructions under "Installation using repository"
-        at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
-      </li>
-    </ol>
+         The packages may work on other RPM-based distributions
+         if dependencies (see below) are satisfied (e.g. using the
+         Wheezy backports repository) but their testing and support
+         is done on a best effort basis.
+       </p>
+   </doc:section>
 
-    <h3>Install monolithic Erlang from Erlang Solutions <i>or</i></h3>
-    <ol class="plain">
-      <li>
-        Download and install the appropriate <code>esl-erlang</code> RPM
-        from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
-      </li>
-      <li>
-        Download and install
-        the <a href="https://github.com/jasonmcintosh/esl-erlang-compat">esl-erlang-compat</a>
-        RPM
-        (<a href="https://github.com/jasonmcintosh/esl-erlang-compat/releases/download/1.1.1/esl-erlang-compat-18.1-1.noarch.rpm">direct
-        download</a>) produced by <a href="https://github.com/jasonmcintosh/">Jason
-        McIntosh</a>.
-        <p>
-          This is needed since Erlang Solutions' monolithic packages provide
-          "esl-erlang"; this package just requires "esl-erlang" and provides
-          "erlang".
-        </p>
-      </li>
-    </ol>
+    <doc:section name="install-erlang">
+      <doc:heading>Install Erlang</doc:heading>
 
-    <h3>Install zero-dependency Erlang from RabbitMQ</h3>
-    <ol class="plain">
-      <li>
-        Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>. As the name suggests, the package strips off some Erlang modules and dependencies
-        that are not essential for running RabbitMQ.
-      </li>
-    </ol>
-
-    <h3>Install Erlang from the EPEL repository <i>or</i></h3>
-    <ol class="plain">
-      <li>
-        Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
-      </li>
-      <li>
-        Issue the following command as 'root':
-        <pre>yum install erlang</pre>
-      </li>
-    </ol>
-
-    <h2>Install RabbitMQ Server</h2>
-    <h3>With rpm and Downloaded RPM</h3>
-    <p>
-      After downloading the server package, issue the following command as
-      'root':
-    </p>
-    <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-    yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
-
-    <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
-
-    <h3>Using PackageCloud RPM Repository</h3>
-    <p>
-      PackageCloud installs packages via HTTPS and signs them using their GPG key.
-      There are multiple ways to install:
+      <p>
+        Before installing RabbitMQ, you must install a <a href="/which-erlang.html">supported version</a> of Erlang/OTP. We strongly
+        recommend using a packaged version. There are three suggested sources
+        for Erlang packages:
+      </p>
 
       <ul>
-        <li>Provided installation scripts</li>
-        <li>Using PackageCloud Chef cookbook</li>
-        <li>Using PackageCloud Puppet module</li>
-        <li>Manually</li>
+        <li>
+          We produce <a href="https://github.com/rabbitmq/erlang-rpm">a package</a> stripped
+          down to only provide those components needed to run
+          RabbitMQ. <b>It may not be as up to date as Erlang Solutions'
+          packages</b>, but it might be easiest to use if installing
+          Erlang's dependencies is proving difficult.
+        </li>
+        <li>
+          <a href="https://www.erlang-solutions.com/resources/download.html">Erlang
+          Solutions</a> produces packages that are usually up to
+          date. They produce two sets of packages - ones which are split
+          up and are more convenient to use if you can add a yum
+          repository, and a monolithic package which might be easier if
+          you have to download manually.
+        </li>
+        <li>
+          <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> ("Extra Packages
+          for Enterprise Linux"); part of the Red Hat / Fedora organisation,
+          provides many additional packages, including Erlang. These are the
+          most official packages, and are split into many small packages, but
+          are not always up to date.
+        </li>
       </ul>
 
-      See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
-    </p>
+      <doc:subsection name="install-zero-dependency-rpm">
+        <doc:heading>Install zero-dependency Erlang from RabbitMQ</doc:heading>
 
-    <h3>Run RabbitMQ Server</h3>
-    <dl class="instructions">
-      <dt>Customise RabbitMQ Environment Variables</dt>
-      <dd>
+        <ol class="plain">
+          <li>
+            Download and install the <a href="https://github.com/rabbitmq/erlang-rpm">zero dependency Erlang RPM package for running RabbitMQ</a>. As the name suggests, the package strips off some Erlang modules and dependencies
+            that are not essential for running RabbitMQ.
+          </li>
+        </ol>
+
+        <h3>Install Erlang from the EPEL repository <i>or</i></h3>
+        <ol class="plain">
+          <li>
+            Follow the steps in the <a href="http://fedoraproject.org/wiki/EPEL/FAQ#howtouse">EPEL FAQ</a> to enable EPEL on your machine.
+          </li>
+          <li>
+            Issue the following command as 'root':
+            <pre>yum install erlang</pre>
+          </li>
+        </ol>
+      </doc:subsection>
+
+      <doc:subsection name="install-from-esl-repository">
+        <doc:heading>Install Erlang from the Erlang Solutions repository <i>or</i></doc:heading>
+        <ol class="plain">
+          <li>
+            Follow the instructions under "Installation using repository"
+            at <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
+          </li>
+        </ol>
+      </doc:subsection>
+
+      <doc:subsection name="install-monolithic-from-esl-repository">
+        <doc:heading>Install monolithic Erlang from Erlang Solutions <i>or</i></doc:heading>
+
+        <ol class="plain">
+          <li>
+            Download and install the appropriate <code>esl-erlang</code> RPM
+            from <a href="https://www.erlang-solutions.com/resources/download.html">Erlang Solutions</a>.
+          </li>
+          <li>
+            Download and install
+            the <a href="https://github.com/jasonmcintosh/esl-erlang-compat">esl-erlang-compat</a>
+            RPM
+            (<a href="https://github.com/jasonmcintosh/esl-erlang-compat/releases/download/1.1.1/esl-erlang-compat-18.1-1.noarch.rpm">direct
+            download</a>) produced by <a href="https://github.com/jasonmcintosh/">Jason
+            McIntosh</a>.
+            <p>
+              This is needed since Erlang Solutions' monolithic packages provide
+              "esl-erlang"; this package just requires "esl-erlang" and provides
+              "erlang".
+            </p>
+          </li>
+        </ol>
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="install-rabbitmq">
+      <doc:heading>Install RabbitMQ Server</doc:heading>
+
+      <doc:subsection name="with-rpm">
+        <doc:heading>With rpm and Downloaded RPM</doc:heading>
+
         <p>
-          The server should start using defaults. You can
-          <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
-          Also see how to <a href="configure.html#configuration-file">configure components</a>.
+          After downloading the server package, issue the following command as
+          'root':
         </p>
-      </dd>
-      <dt>Start the Server</dt>
-      <dd>
+        <pre>rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+        yum install rabbitmq-server-&version-server;-&serverRPMMinorVersion;.noarch.rpm</pre>
+
+        <p>Our public signing key is also <a href="https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq">available from Bintray</a>.</p>
+      </doc:subsection>
+
+      <doc:subsection name="from-package-cloud">
+        <doc:heading>Using PackageCloud RPM Repository</doc:heading>
+
         <p>
-          The server is not started as a daemon by default when the
-          RabbitMQ server package is installed. To start the daemon by default
-          when the system boots, as an administrator run
-          <code>chkconfig rabbitmq-server on</code>.
+          PackageCloud installs packages via HTTPS and signs them using their GPG key.
+          There are multiple ways to install:
+
+          <ul>
+            <li>Provided installation scripts</li>
+            <li>Using PackageCloud Chef cookbook</li>
+            <li>Using PackageCloud Puppet module</li>
+            <li>Manually</li>
+          </ul>
+
+          See <a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a>.
         </p>
-        <p>
-          As an administrator, start and stop the
-          server as usual using <code>/sbin/service rabbitmq-server
+      </doc:subsection>
+    </doc:section>
+
+    <doc:section name="run-rabbitmq">
+      <doc:heading>Run RabbitMQ Server</doc:heading>
+
+      <dl class="instructions">
+        <dt>Customise RabbitMQ Environment Variables</dt>
+        <dd>
+          <p>
+            The server should start using defaults. You can
+            <a href="configure.html#customise-general-unix-environment">customise the RabbitMQ environment</a>.
+            Also see how to <a href="configure.html#configuration-file">configure components</a>.
+          </p>
+        </dd>
+        <dt>Start the Server</dt>
+        <dd>
+          <p>
+            The server is not started as a daemon by default when the
+            RabbitMQ server package is installed. To start the daemon by default
+            when the system boots, as an administrator run
+            <code>chkconfig rabbitmq-server on</code>.
+          </p>
+          <p>
+            As an administrator, start and stop the
+            server as usual using <code>/sbin/service rabbitmq-server
             <i>stop/start/etc</i></code>.
-        </p>
-        <p>
-          <em>Note: </em>The server is set up to run as system user
-          <code>rabbitmq</code>.
-          If you change the location of the Mnesia database or the logs,
-          you must ensure the files are owned by this user
-          (and also update the environment variables).
-        </p>
-      </dd>
-    </dl>
+          </p>
+          <p>
+            <em>Note: </em>The server is set up to run as system user
+            <code>rabbitmq</code>.
+            If you change the location of the Mnesia database or the logs,
+            you must ensure the files are owned by this user
+            (and also update the environment variables).
+          </p>
+        </dd>
+      </dl>
+    </doc:section>
 
     <xi:include href="install-selinux-ports.xml.inc"/>
     <xi:include href="install-guest-localhost.xml.inc"/>
-    <xi:include href="install-unix-manage.xml.inc"/>
 
     <doc:section name="kernel-resource-limits">
       <doc:heading>Controlling System Limits on Linux</doc:heading>
@@ -221,5 +264,7 @@ limitations under the License.
       <xi:include href="max-open-files-limit-verifying-linux.xml.inc" />
       <xi:include href="max-open-files-limit-tools.xml.inc" />
     </doc:section>
+
+    <xi:include href="install-unix-manage.xml.inc"/>
   </body>
 </html>

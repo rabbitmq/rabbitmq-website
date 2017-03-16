@@ -20,7 +20,8 @@ limitations under the License.
              name="managing-unix">
   <doc:heading>Managing the Broker</doc:heading>
   <p>
-    To stop the server or check its status, etc., you can invoke
+    To stop the server or check its status, etc., you can use package-specific
+    scripts (e.g. the <code>service</code> tool) or invoke
     <code>rabbitmqctl</code> (as an administrator). It should be
     available on the path. All <code>rabbitmqctl</code> commands will
     report the node absence if no broker is running.
