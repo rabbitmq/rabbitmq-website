@@ -88,7 +88,7 @@ limitations under the License.
          outdated. Consider installing a newer version, such as
          18.0+, <a
          href="https://packages.erlang-solutions.com/erlang/">from
-         Erlang Solutions</a>.
+         Erlang Solutions</a> or <a href="https://packages.debian.org/search?suite=jessie-backports&amp;searchon=names&amp;keywords=erlang">Debian Jessie backports repository</a>.
        </p>
    </doc:section>
 
@@ -104,7 +104,7 @@ limitations under the License.
 
        <ul>
          <li><code>erlang-nox (>= 1:16.b.3) | esl-erlang.</code> <a href="/which-erlang.html">Erlang</a>
-         can installed either from the standard repositories or <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>.</li>
+         can installed either from the standard repositories, <a href="https://backports.debian.org/Instructions/">backport repositories</a> or <a href="https://packages.erlang-solutions.com/erlang/">Erlang Solutions</a>.</li>
          <li><code>init-system-helpers >= 1.13</code>. Required for systemd support.</li>
          <li><code>socat</code></li>
          <li><code>adduser</code></li>
