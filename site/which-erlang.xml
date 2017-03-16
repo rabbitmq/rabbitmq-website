@@ -121,13 +121,18 @@ limitations under the License.
       </p>
     </doc:section>
 
-    <doc:section name="old-timers">
-      <doc:heading>Last Version to Support R13B03</doc:heading>
 
-      <p>
-        If you absolutely must use an older version of Erlang, RabbitMQ
-        3.5.x is the newest version compatible with R13B03.
-      </p>
+    <doc:section name="old-timers">
+      <doc:heading>Older Erlang Versions</doc:heading>
+
+      <doc:subsection name="r13b03">
+        <doc:heading>Last Version to Support R13B03</doc:heading>
+
+        <p>
+          If you absolutely must use an older version of Erlang, <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_5_8">RabbitMQ
+          3.5.8</a> is the newest version compatible with R13B03.
+        </p>
+      </doc:subsection>
     </doc:section>
   </body>
 </html>
