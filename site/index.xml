@@ -25,81 +25,182 @@ limitations under the License.
   </head>
   <body suppress-rhs="true">
     <x:modal mode="www">
-    <div class="rgt-third">
-      <h3>
-	<span class="subscribe">
-	  <a href="news.atom">
-	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our news" title="Subscribe to our news" />
-	  </a>
-	</span>Latest News
-      </h3>
-      <doc:homefeed src="news.atom" type="ournews" limit="5" />
-
-      <h3>
-	<span class="subscribe">
-	  <a href="/blog/feed/">
-	    <img src="img/feed-icon-14x14.png" height="14" width="14" alt="Subscribe to our blog posts" title="Subscribe to our blog posts" />
-	  </a>
-	</span>Latest Blog Posts
-      </h3>
-      <doc:homefeed src="http://www.rabbitmq.com/blog/feed/" type="ourblog" limit="5" />
-    </div>
-
-    <div id="home-content">
-      <h3>What is RabbitMQ?</h3>
-      <ul id="large-bullets">
-        <li>Robust <a href="features.html">messaging</a> for applications</li>
-        <li><a href="getstarted.html">Easy to use</a></li>
-        <li>Runs on all major <a href="download.html">operating systems</a></li>
-        <li>Supports a huge number of <a href="devtools.html">developer platforms</a></li>
-        <li><a href="github.html">Open source</a> and <a href="services.html">commercially supported</a></li>
-      </ul>
-
-      <div id="home-what-is">
-        <h3>Get Started</h3>
-        <ul id="buttons">
-          <li>
-            <a href="download.html">
-              <h4>Download</h4>
-              <p>Server and clients for various operating systems and languages</p>
-            </a>
-          </li>
-          <li>
-            <a href="getstarted.html">
-              <h4>Tutorials</h4>
-              <p>Teach yourself RabbitMQ in six easy lessons</p>
-            </a>
-          </li>
-          <li>
-            <a href="documentation.html">
-              <h4>Documentation</h4>
-              <p>How to do almost anything with RabbitMQ</p>
-            </a>
-          </li>
-        </ul>
+      <div id="hero" class='center'>
+        <div class='container'>
+          <h1>10 years of <br/> RabbitMQ Messaging!</h1>
+          <!-- <h2>Check out our original <a href=''>announcement.</a></h2> -->
+        </div>
       </div>
-
-      <h3>Read More</h3>
-      <ul>
-        <li>
-          Languages:
-          <a href="devtools.html#java-dev">Java</a> |
-          <a href="devtools.html#dotnet-dev">.NET</a> |
-          <a href="devtools.html#ruby-dev">Ruby</a> |
-          <a href="devtools.html#python-dev">Python</a> |
-          <a href="devtools.html#php-dev">PHP</a> |
-          <a href="devtools.html#node-dev">JavaScript</a> |
-          <a href="devtools.html">more...</a>
-        </li>
-        <li>
-          Cloud:
-          <a href="http://docs.pivotal.io/rabbitmq-cf/index.html">Cloud Foundry</a> |
-          <a href="ec2.html">EC2</a> |
-          <a href="https://developers.google.com/cloud/rabbitmq/click-to-deploy">Google Compute Engine</a> |
-          <a href="devtools.html">more...</a>
-        </li>        
-      </ul>
-    </div>
+      <div id='intro'>
+        <div class='container'>
+          <div class='column twothirds'>
+            <div class='inner'>
+              <h1>RabbitMQ is the most widely deployed open source message broker.</h1>
+              <p>
+                RabbitMQ lets developers decouple their applications through asynchronous messages.  RabbitMQ is lightweight and easy to deploy on premise and in the cloud. It supports multiple messaging protocols, and can be deployed in distributed configurations to meet high-scale and high-availability requirements. RabbitMQ runs on many operating systems and cloud environments, and provides a wide range of developer tools for most popular languages.
+              </p>
+              <p>
+                RabbitMQ is used in thousands of deployments at companies such as <a href='https://www.youtube.com/watch?v=E708csv4XgY' target="_blank">Instagram</a>, <a href='http://www.eharmony.com/engineering/in-pursuit-of-messaging-brokers' target="_blank">eHarmony</a>, <a href='http://engineering.indeedblog.com/blog/2013/04/indeedeng-how-to-get-a-job-35-million-times-a-day-using-rabbitmq-slides-video/' target="_blank">Indeed.com</a>, <a href='https://conferences.oreilly.com/oscon/oscon2014/public/schedule/detail/34332' target="_blank">New York Times</a>, <a href='http://cloudengineering.autodesk.com/blog/2015/05/scalable-eventing-over-mesos.html' target="_blank">Autodesk</a>, <a href='https://stripe.com/blog/ctf3-architecture' target="_blank">Stripe</a>, and <a href='https://content.pivotal.io/rabbitmq' target="_blank">many others.</a>
+              </p>
+            </div>
+          </div>
+          <div class='column onethird'>
+            <div class='container'>
+              <div id='releases'>
+                <h2>Releases</h2>
+                <doc:homefeed src="news.atom" type="ournews" limit="3" />
+                <p><a href='/news.html'>More<span class='arrow'></span></a></p>
+              </div>
+              <div id='twitterfeed'>
+                <h2>@RabbitMQ</h2>
+                <a class="twitter-timeline" href="https://twitter.com/RabbitMQ" data-chrome="noheader nofooter noborders transparent noscrollbar" data-tweet-limit='1'></a> <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <p><a href='https://twitter.com/RabbitMQ' target="_blank">View on Twitter<span class='arrow'></span></a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--end intro-->
+      <div class='container'>
+        <hr/>
+      </div>
+      <div id='features'>
+        <div class='container'>
+          <h1 class='center'>RabbitMQ Features</h1>
+          <div class='features'>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/messaging.svg" height="62" width="71" alt="Asynchronous Messaging" title="Asynchronous Messaging" />
+                <h2>Asynchronous Messaging</h2>
+                <p>
+                  Supports multiple messaging protocols, message queuing, delivery acknowledgement, flexible routing to queues, multiple exchange types.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/monitor.svg" height="62" width="71" alt="Developer Experience" title="Developer Experience" />
+                <h2>Developer Experience</h2>
+                <p>
+                  Deploy with Chef, Puppet, and Docker. Develop cross-language messaging with favorite programming languages such as: Java, .NET, Ruby, Python, C++, Go, Node.js, <a href='/devtools.html'>and many more clients</a>.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/network.svg" height="62" width="71" alt="Distributed Deployment" title="Distributed Deployment" />
+                <h2>Distributed Deployment</h2>
+                <p>
+                  Deploy as clusters, mirroring, and load balancing for high availability and bandwidth; federate for cross cluster communication &amp; decoupling.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/clouds.svg" height="62" width="71" alt="Enterprise &amp; Cloud Ready" title="Enterprise &amp; Cloud Ready" />
+                <h2>Enterprise &amp; Cloud Ready</h2>
+                <p>
+                  Pluggable authentication, authorization, supports TLS and LDAP. Lightweight and easy to deploy in public and private clouds.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/tools.svg" height="62" width="71" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
+                <h2>Tools &amp; Plugins</h2>
+                <p>
+                  Diverse array of <a href='/devtools.html'>tools and plugins</a> supporting continous integration, operational metrics, and integration to other enterprise systems. Flexible plug-in approach for extending RabbitMQ functionality.
+                </p>
+              </div>
+            </div>
+            <div class='feature column onethird'>
+              <div class='inner'>
+                <img src="img/gauge.svg" height="62" width="71" alt="Management &amp; Monitoring" title="Management &amp; Monitoring" />
+                <h2>Management &amp; Monitoring</h2>
+                <p>
+                  HTTP-API, command line tool, and UI for managing and monitoring RabbitMQ.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--end features-->
+      <div id='getstarted' class='center'>
+        <div class='container'>
+          <h1>Get Started</h1>
+          <div class='columns'>
+            <div class='column fifty'>
+              <div class='inner'>
+                <div class='container'>
+                  <a class='btn' href='/download.html'>Download + Installation</a>
+                  <p>Servers and clients for popular operating systems and languages</p>
+                </div>
+              </div>
+            </div>
+            <div class='column fifty'>
+              <div class='inner'>
+                <div class='container'>
+                  <a class='btn orangebtn' href='/getstarted.html'>RabbitMQ Tutorials</a>
+                  <p>Hands-on examples of messaging patterns supported by RabbitMQ</p>
+                </div>
+              </div>            
+            </div>
+          </div>
+        </div>
+      </div><!--end getstarted-->
+      <div id='support'>
+        <div class='container'>
+          <h1 class='center'>RabbitMQ Commercial Services</h1>
+          <div class='columns'>
+            <div class='column onequarter'>
+              <div id='commercialservicesillustration'></div>
+            </div>
+            <div class='column threequarters'>
+              <img src="img/commercial-distribution-phone.svg" height="111" width="88" />
+              <h2>Commercial Distribution</h2>
+              <p>Pivotal Software produces a commercial distribution called Pivotal RabbitMQ, as well as version that deploys in Pivotal Cloud Foundry. These distributions include all of the features of the open source version, with RabbitMQ for Pivotal Cloud Foundry providing some additional management features. Support agreements are part of the commercial licensing.</p>
+              <img src="img/support-and-hosting-phone.svg" height="94" width="109" />
+              <h2>Support + Hosting</h2>
+              <p>The following companies provide technical support and/or cloud hosting of open source RabbitMQ: Pivotal Software, <a href='https://www.cloudamqp.com/' target="_blank">CloudAMQP</a>, <a href='https://cloudplatform.googleblog.com/2014/06/rabbitmq-on-google-compute-engine.html' target="_blank">Google Cloud Platform</a>. RabbitMQ can also be deployed in AWS, Microsoft Azure, Rackspace, and Digital Ocean.</p>
+              <img src="img/testing-phone.svg" height="109" width="94" />
+              <h2>Training</h2>
+              <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ: Pivotal Software, NetCom Learning, Skills Matter, LearnQuest, Open Source Architect.</p>
+              <h2>Consulting</h2>
+              <p>The following companies provide consulting services for installing, operating, or implementing solutions based on RabbitMQ: Pivotal Software.</p>
+            </div>
+          </div>
+        </div>
+      </div><!--end support-->
+      <div id='community'>
+        <div class='container'>
+          <div class='column twothirds'>
+            <div class='inner'>
+              <h1>Community</h1>
+              <br/>
+              <a class='btn orangebtn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank">Slack User Group</a>
+              <a class='btn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank">User Mail List</a>
+              <br/><br/>
+              <p>Meet your fellow Rabbits to share advice, get help, or discuss usage.</p>
+              <h2>Issues + Bug Reports</h2>
+              <p>Select the <a href='https://github.com/rabbitmq' target="_blank">appropriate component GitHub repository</a> and post an issue. Consider asking in the User Mail List first.</p>
+              <h2>Contributions</h2>
+              <p>RabbitMQ welcomes contributions from the community. Please see our <a href='/github.html'>Contributors Page</a> to learn more.</p>
+            </div>
+          </div>
+          <div class='column onethird'>
+            <div class='inner'>
+              <div class='container'>
+                <h1>Contact Us</h1>
+                <h2>Commercial inquiries</h2>
+                <p><a href='mailto:rabbitmq-sales@pivotal.io'>Pivotal Sales</a> | <a href='https://support.pivotal.io' target="_blank">Pivotal Support</a></p>
+                <h2>Security vulnerability report</h2>
+                <p><a href='mailto:security@rabbitmq.com'>security@rabbitmq.com</a></p>
+                <h2>Social media</h2>
+                <p><a href='https://twitter.com/RabbitMQ' target="_blank">Twitter</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--end community-->
     </x:modal>
     <x:modal mode="next">
      <div id="home-content">
@@ -132,5 +233,6 @@ limitations under the License.
       </ul>
      </div>
     </x:modal>
+    <script type="text/javascript" src="/js/index.js"></script>
   </body>
 </html>
