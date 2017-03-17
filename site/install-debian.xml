@@ -119,7 +119,7 @@ limitations under the License.
              <td>17.x</td>
              <td>
                <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
-               <a href="https://packages.debian.org/search?suite=jessie&amp;searchon=names&amp;keywords=erlang">Debian Jessie</a>
+               <a href="https://packages.debian.org/search?suite=jessie&amp;searchon=names&amp;keywords=erlang">Debian Jessie</a>,
                <a href="https://packages.debian.org/search?suite=wheezy-backports&amp;searchon=names&amp;keywords=erlang">Debian Wheezy backports</a>
              </td>
            </tr>
