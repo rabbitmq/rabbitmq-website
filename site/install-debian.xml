@@ -86,10 +86,45 @@ limitations under the License.
          RabbitMQ needs Erlang/OTP to run. Erlang/OTP packages in
          standard Debian and Ubuntu also can be quite
          outdated. Consider installing a newer version, such as
-         18.0+, <a
-         href="https://packages.erlang-solutions.com/erlang/">from
-         Erlang Solutions</a> or <a href="https://packages.debian.org/search?suite=jessie-backports&amp;searchon=names&amp;keywords=erlang">Debian Jessie backports repository</a>.
+         19.x.
        </p>
+
+       <table>
+         <thead>
+           <tr>
+             <td><strong>Erlang Release Series</strong></td>
+             <td><strong>Repositories that provide it</strong></td>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td>19.x</td>
+             <td>
+               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
+               <a href="https://packages.debian.org/search?suite=stretch&amp;searchon=names&amp;keywords=erlang">Debian Stretch</a>,
+               <a href="https://packages.debian.org/search?suite=jessie-backports&amp;searchon=names&amp;keywords=erlang">Debian Jessie backports</a>,
+               Ubuntu Zesty (17.04)
+             </td>
+           </tr>
+
+           <tr>
+             <td>18.x</td>
+             <td>
+               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
+               Ubuntu Yakkety (16.10), Ubuntu Xenial (16.04)
+             </td>
+           </tr>
+
+           <tr>
+             <td>17.x</td>
+             <td>
+               <a href="https://packages.erlang-solutions.com/erlang/#tabs-debian">Erlang Solutions</a>,
+               <a href="https://packages.debian.org/search?suite=jessie&amp;searchon=names&amp;keywords=erlang">Debian Jessie</a>,
+               <a href="https://packages.debian.org/search?suite=wheezy-backports&amp;searchon=names&amp;keywords=erlang">Debian Wheezy backports</a>
+             </td>
+           </tr>
+         </tbody>
+       </table>
    </doc:section>
 
    <doc:section name="deb-package-dependencies">

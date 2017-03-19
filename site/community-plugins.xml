@@ -156,7 +156,8 @@ limitations under the License.
             authorisation (determining what permissions they have)
             by making requests to an HTTP server.
             <ul>
-              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http/_latestVersion#files">Download</a></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http/_latestVersion#files">Download for RabbitMQ 3.6.7+</a></li>
+              <li><a href="https://bintray.com/rabbitmq/community-plugins/rabbitmq_auth_backend_http/v3.6.x#files">Download for RabbitMQ 3.6.0 through 3.6.6</a></li>
               <li>Author: <b>Team RabbitMQ</b></li>
               <li>Github: <a href="https://github.com/rabbitmq/rabbitmq-auth-backend-http">rabbitmq/rabbitmq-auth-backend-http</a></li>
             </ul>
