@@ -137,7 +137,7 @@ limitations under the License.
           and can be error-prone. An easier way of generating all that
           stuff on MacOS or Linux is with <a
           href="https://github.com/michaelklishin/tls-gen">tls-gen</a>:
-          all you need is <code>make</code> and <code>openssl</code>
+          you will need <code>Python 3.4+</code>, <code>make</code> and <code>openssl</code>
           in <code>PATH</code>.
         </p>
         <p>
@@ -147,31 +147,40 @@ limitations under the License.
           should use certificates and keys issued by a well known commercial
           CA.
         </p>
+        <p>
+          <code>tls-gen</code> supports RSA and <a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/">Elliptic Curve Cryptography</a> algorithms for key generation.
+        </p>
       </doc:section>
 
       <doc:section name="keys-and-certs">
         <doc:heading>Keys, Certificates and CA Certificates</doc:heading>
-          <p>TLS is a large and complex topic. For a thorough understanding of
-          TLS, OpenSSL and how to get the most out of it, we would recommend the use
-          of other resources, for example <a class="extlink" href="http://oreilly.com/catalog/9780596002701/">Network Security with
-          OpenSSL</a>.</p>
-          <p>TLS can be used simply to establish an encrypted communication
-          channel, but can additionally exchange signed certificates between the
-          end points of the channel, and those certificates can optionally be
-          verified. The verification of a certificate requires establishing a
-          chain of trust from a known, trusted <i>root</i> certificate, and the
-          certificate presented. The <i>root</i> certificate is a self-signed
-          certificate, made available by a <i>Certificate Authority</i>. These
-          exist as commercial companies, and will, for a fee, sign TLS
-          Certificates that you have generated.</p>
+          <p>
+            TLS is a large and complex topic. For a thorough understanding of
+            TLS, OpenSSL and how to get the most out of it, we would recommend the use
+            of other resources, for example <a class="extlink" href="http://oreilly.com/catalog/9780596002701/">Network Security with
+            OpenSSL</a>.
+          </p>
+          <p>
+            TLS can be used simply to establish an encrypted communication
+            channel, but can additionally exchange signed certificates between the
+            end points of the channel, and those certificates can optionally be
+            verified. The verification of a certificate requires establishing a
+            chain of trust from a known, trusted <i>root</i> certificate, and the
+            certificate presented. The <i>root</i> certificate is a self-signed
+            certificate, made available by a <i>Certificate Authority</i>. These
+            exist as commercial companies, and will, for a fee, sign TLS (x509)
+            certificates that you have generated.
+          </p>
 
-          <p>For the purposes of this guide, we will start by creating our own
-          <i>Certificate Authority</i>. Once we have done this, we will generate
-          signed certificates for the server and clients, in a number of
-          formats. These will we then use with the Java, .Net and Erlang AMQP
-          clients. Note that Mono has more stringent requirements on OpenSSL
-          certificates (and a few bugs too), so we will be specifying slightly
-          more stringent key usage constraints than is normally necessary.</p>
+          <p>
+            For the purposes of this guide, we will start by creating our own
+            <i>Certificate Authority</i>. Once we have done this, we will generate
+            signed certificates for the server and clients, in a number of
+            formats. These will we then use with the Java, .Net and Erlang AMQP
+            clients. Note that Mono has more stringent requirements on OpenSSL
+            certificates (and a few bugs too), so we will be specifying slightly
+            more stringent key usage constraints than is normally necessary.
+          </p>
 <pre class="sourcecode">
 # mkdir testca
 # cd testca
@@ -180,8 +189,10 @@ limitations under the License.
 # echo 01 &gt; serial
 # touch index.txt
 </pre>
-          <p>Now place the following in <code>openssl.cnf</code> within the <code>testca</code>
-          directory we've just created:</p>
+          <p>
+            Now place the following in <code>openssl.cnf</code> within the <code>testca</code>
+            directory we've just created:
+          </p>
 
 <pre class="sourcecode">
 [ ca ]
@@ -239,35 +250,46 @@ basicConstraints = CA:false
 keyUsage = keyEncipherment
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 </pre>
-          <p>Now we can generate the key and certificates that our test
-          <i>Certificate Authority</i> will use. Still within the <code>testca</code>
-          directory:</p>
-          <pre class="sourcecode">
+          <p>
+            Now we can generate the key and certificates that our test
+            <i>Certificate Authority</i> will use. Still within the <code>testca</code>
+            directory:
+          </p>
+
+<pre class="sourcecode">
 # openssl req -x509 -config openssl.cnf -newkey rsa:2048 -days 365 \
     -out cacert.pem -outform PEM -subj /CN=MyTestCA/ -nodes
-# openssl x509 -in cacert.pem -out cacert.cer -outform DER</pre>
-          <p>This is all that is needed to generate our test <i>Certificate
-          Authority</i>. The <i>root</i> certificate is in <code>testca/cacert.pem</code>
+# openssl x509 -in cacert.pem -out cacert.cer -outform DER
+</pre>
 
-          and is also in <code>testca/cacert.cer</code>. These two files contain the
-          same information, but in different formats. Whilst the vast majority
-          of the world is perfectly happy to use the <i>PEM</i> format, Microsoft
-          and Mono like to be different, and so use the <i>DER</i> format.</p>
-          <p>Having set up our <i>Certificate Authority</i>, we now need to generate
-          keys and certificates for the clients and the server. The Erlang
-          client and the RabbitMQ broker are both able to use <i>PEM</i> files
-          directly.  They will both be informed of three files: the <i>root</i>
-
-          certificate, which is implicitly trusted, the private key, which is
-          used to prove ownership of the public certificate being presented, and
-          the public certificate itself, which identifies the peer.</p>
-          <p>For convenience, we provide to the Java and .Net clients, a <i>PKCS
-          #12</i> store, which contains both the client's certificate and key. The
-          <i>PKCS store</i> is usually password protected itself, and so that
-          password must also be provided.</p>
-          <p>The process for creating server and client certificates is very
-          similar. The only difference is the <i>keyUsage</i> field that is added
-          when signing the certificate. First the server:</p>
+          <p>
+            This is all that is needed to generate our test <i>Certificate
+            Authority</i>. The <i>root</i> certificate is in <code>testca/cacert.pem</code>
+            and is also in <code>testca/cacert.cer</code>. These two files contain the
+            same information, but in different formats. Whilst the vast majority
+            of the world is perfectly happy to use the <i>PEM</i> format, Microsoft
+            and Mono like to be different, and so use the <i>DER</i> format.
+          </p>
+          <p>
+            Having set up our <i>Certificate Authority</i>, we now need to generate
+            keys and certificates for the clients and the server. The Erlang
+            client and the RabbitMQ broker are both able to use <i>PEM</i> files
+            directly.  They will both be informed of three files: the <i>root</i>
+            certificate, which is implicitly trusted, the private key, which is
+            used to prove ownership of the public certificate being presented, and
+            the public certificate itself, which identifies the peer.
+          </p>
+          <p>
+            For convenience, we provide to the Java and .Net clients, a <i>PKCS
+            #12</i> store, which contains both the client's certificate and key. The
+            <i>PKCS store</i> is usually password protected itself, and so that
+            password must also be provided.
+          </p>
+          <p>
+            The process for creating server and client certificates is very
+            similar. The only difference is the <i>keyUsage</i> field that is added
+            when signing the certificate. First the server:
+          </p>
 <pre class="sourcecode">
 # cd ..
 # ls
@@ -281,10 +303,12 @@ testca
 # openssl ca -config openssl.cnf -in ../server/req.pem -out \
     ../server/cert.pem -notext -batch -extensions server_ca_extensions
 # cd ../server
-# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem -passout pass:MySecretPassword
+# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
+    -passout pass:MySecretPassword
 </pre>
 
-          <p>And now the client:</p>
+          <p>
+          And now the client:
 <pre class="sourcecode">
 # cd ..
 # ls
@@ -298,12 +322,35 @@ server testca
 # openssl ca -config openssl.cnf -in ../client/req.pem -out \
     ../client/cert.pem -notext -batch -extensions client_ca_extensions
 # cd ../client
-# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem -passout pass:MySecretPassword
+# openssl pkcs12 -export -out keycert.p12 -in cert.pem -inkey key.pem \
+    -passout pass:MySecretPassword
 </pre>
+          </p>
+          <p>
+            The two examples above generate private keys that are 2048 bits in size.
+            It is possible to use longer (and thus more secure but also slower to generate)
+            keys by providing a different value to <code>openssl genrsa</code>, e.g.:
+
+<pre class="sourcecode">
+# openssl genrsa -out key.pem 4096
+</pre>
+          </p>
+          <p>
+            Another option would be to generate a key using <a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/">Elliptic Curve Cryptography</a>. Instead of <code>openssl genrsa</code> use
+            <code>openssl ecparam</code> like so:
+
+<pre class="sourcecode">
+# openssl ecparam -out key.pem -genkey -name prime256v1
+</pre>
+
+            <code>prime256v1</code> in the example above is an elliptic curve name.
+            Different versions of OpenSSL will have a different set of curves available,
+            list them with <code>openssl ecparam -list_curves</code>.
+          </p>
       </doc:section>
 
       <doc:section name="enabling-ssl">
-        <doc:heading>Enabling SSL Support in RabbitMQ</doc:heading>
+        <doc:heading>Enabling TLS Support in RabbitMQ</doc:heading>
 
           <p>To enable the SSL/TLS support in RabbitMQ, we need to
           provide to RabbitMQ the location of the <i>root</i>
