@@ -269,7 +269,7 @@ as part of the property array.
 
     :::php
     $msg = new AMQPMessage($data,
-           array('delivery_mode' => 2) # make message persistent
+           array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
            );
 
 > #### Note on message persistence
@@ -359,7 +359,7 @@ Final code of our `new_task.php` file:
     $data = implode(' ', array_slice($argv, 1));
     if(empty($data)) $data = "Hello World!";
     $msg = new AMQPMessage($data,
-                            array('delivery_mode' => 2) # make message persistent
+                            array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
                           );
 
     $channel->basic_publish($msg, '', 'task_queue');
