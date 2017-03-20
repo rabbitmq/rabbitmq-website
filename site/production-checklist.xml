@@ -293,6 +293,18 @@ limitations under the License.
           before going into production. When in doubt, use the <code>autoheal</code> strategy.
         </p>
       </doc:subsection>
+
+      <doc:subsection name="distribution-considerations-ntp">
+        <doc:heading>Node Time Synchronization</doc:heading>
+        <p>
+            A RabbitMQ cluster will typically function well without clocks
+            of participating servers being synchronized. However some plugins,
+            such as the Management UI, make use of local timestamps for metrics
+            processing and may display incorrect statistics when the current
+            time of nodes drift apart. It is therefore recommended that servers
+            use NTP or similar to ensure clocks remain in sync.
+        </p>
+      </doc:subsection>
     </doc:section>
 
   </body>

@@ -226,10 +226,10 @@ limitations under the License.
                 <a href="alarms.html">Resource Alarms</a>
               </li>
               <li>
-                <a href="disk-alarms">Free Disk Space Alarms</a>
+                <a href="disk-alarms.html">Free Disk Space Alarms</a>
               </li>
               <li>
-                <a href="flow-control">Flow Control</a>
+                <a href="flow-control.html">Flow Control</a>
               </li>
               <li>
                 <a href="persistence-conf.html">Message Store Configuration</a>

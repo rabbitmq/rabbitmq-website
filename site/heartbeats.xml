@@ -134,12 +134,30 @@ cf.RequestedHeartbeat = 60;
     <doc:section name="stomp">
       <doc:heading>Heartbeats in STOMP</doc:heading>
       <p>
-        <a href="https://stomp.github.io/stomp-specification-1.2.html#Heart-beating">STOMP 1.2 includes heartbeats</a>. In STOMP, heartbeat timeouts can be assymetrical: that is to say, client
-        and server can use different values. RabbitMQ STOMP plugin fully supports this feature.
+        <a
+        href="https://stomp.github.io/stomp-specification-1.2.html#Heart-beating">STOMP 1.2 includes heartbeats</a>.  In STOMP, heartbeat timeouts can
+        be assymetrical: that is to say, client and server can use
+        different values. RabbitMQ STOMP plugin fully supports this
+        feature.
       </p>
       <p>
         Heartbeats in STOMP are opt-in. To enable them, use the <code>heart-beat</code>
         header when connecting. See <a href="https://stomp.github.io/stomp-specification-1.2.html#Heart-beating">STOMP specification</a> for an example.
+      </p>
+    </doc:section>
+
+    <doc:section name="stomp">
+      <doc:heading>Heartbeats (Keepalives) in MQTT</doc:heading>
+      <p>
+        <a
+        href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/csprd02/mqtt-v3.1.1-csprd02.html#_Toc385349238">MQTT 3.1.1 includes heartbeats</a> under a different name
+        ("keepalives").  RabbitMQ MQTT plugin fully supports this
+        feature.
+      </p>
+      <p>
+        Keepalives in MQTT are opt-in. To enable them, set the
+        <code>keepalive</code> interval when connecting. Please
+        consult your MQTT client's documentation for examples.
       </p>
     </doc:section>
 

@@ -109,10 +109,65 @@ the adapter in case MQTT clients provide no login credentials. If the
 The presence of client-supplied credentials over the network overrides
 the `allow_anonymous` option. Colons may not appear in usernames.
 
-The `vhost` option controls which RabbitMQ vhost the adapter connects to. The `vhost`
+#### Virtual Host Selection
+
+RabbitMQ is a multi-tenant system at the core and every connection belongs
+to a virtual host. Some messaging protocols have the concept of vhosts,
+others don't. MQTT falls into the latter category. Therefor the MQTT plugin
+needs to provide a way to map connections to vhosts.
+
+The `vhost` option controls which RabbitMQ vhost the adapter connects to
+by default. The `vhost`
 configuration is only consulted if no vhost is provided during connection establishment.
-You can optionally specify a vhost while connecting, by prepending the vhost
-to the username and separating with a colon.
+There are several (optional) ways to specify the vhost the client will
+connect to.
+
+#### Port to Virtual Host Mapping
+
+First way is mapping MQTT plugin (TCP or TLS) listener ports to vhosts. The mapping
+is specified thanks to the `mqtt_port_to_vhost_mapping` [global runtime parameter](/parameters.html).
+Let's take the following plugin configuration:
+
+    [{rabbitmq_mqtt, [{default_user,     <<"guest">>},
+                      {default_pass,     <<"guest">>},
+                      {allow_anonymous,  true},
+                      {vhost,            <<"/">>},
+                      {tcp_listeners,    [1883, 1884]},
+                      {ssl_listeners,    [8883, 8884]}]
+    }].
+
+Note the plugin listens on ports 1883, 1884, 8883, and 8884. Imagine you
+want clients connecting to ports 1883 and 8883 to connect to the `vhost1` virtual
+host, and clients connecting to ports 1884 and 8884 to connect to the `vhost2`
+virtual vhost. You can specify port-to-vhost mapping by setting the
+`mqtt_port_to_vhost_mapping` global parameter with `rabbitmqctl`:
+
+    rabbitmqctl set_global_parameter mqtt_port_to_vhost_mapping \
+        '{"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}'
+
+with `rabbitmqctl.bat` on Windows:
+
+    rabbitmqctl.bat set_global_parameter mqtt_port_to_vhost_mapping ^
+        "{""1883"":""vhost1"", ""8883"":""vhost1"", ""1884"":""vhost2"", ""8884"":""vhost2""}"
+
+and with the HTTP API:
+
+    PUT /api/global-parameters/mqtt_port_to_vhost_mapping
+    {"value": {"1883":"vhost1", "8883":"vhost1", "1884":"vhost2", "8884":"vhost2"}}
+
+If there's no mapping for a given port (because the port cannot be found in
+the `mqtt_port_to_vhost_mapping` global parameter JSON document or if the global parameter
+isn't set at all), the plugin will try to extract the virtual host from the username
+(see below) and will ultimately use the `vhost` plugin config option.
+
+The broker queries the `mqtt_port_to_vhost_mapping` global parameter value at connection time.
+If the value changes, connected clients are not notified or disconnected. They need
+to reconnect to switch to a new virtual host.
+
+#### Virtual Host as Part of Username
+
+Another and more specific way to specify a vhost while connecting is to prepend the vhost
+to the username and to separate with a colon.
 
 For example, connecting with
 
@@ -124,11 +179,14 @@ is equivalent to the default vhost and username.
 
 means connecting to the vhost `mqtt-host` with username `mqtt-username`.
 
+Specifying the virtual host in the username takes precedence over the port-to-vhost
+mapping specified with the `mqtt_port_to_vhost_mapping` global parameter.
+
 ### Host and Port
 
 The `tcp_listeners` and `tcp_listen_options` options are interpreted in the same way
 as the corresponding options in the `rabbit` section, as explained in the
-[broker configuration documentation](http://www.rabbitmq.com/configure.html).
+[networking](/networking.html) and [broker configuration](/configure.html) doc guides.
 
 ### TLS/SSL
 
@@ -189,8 +247,39 @@ Note that:
 * The authenticated user must exist in the configured authentication / authorisation backend(s).
 * Clients **must not** supply username and password.
 
+You can optionally specify a virtual host for a client certificate by using the `mqtt_default_vhosts`
+[global runtime parameter](/parameters.html). The value of this global parameter must contain a JSON document that
+maps certificates' subject's Distinguished Name to their target virtual host. Let's see how to
+map 2 certificates, `O=client,CN=guest` and `O=client,CN=rabbit`, to the `vhost1` and `vhost2`
+virtual hosts, respectively.
 
+Global parameters can be set up with `rabbitmqctl`:
 
+    rabbitmqctl set_global_parameter mqtt_default_vhosts \
+        '{"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}'
+
+With `rabbitmqctl`, on Windows:
+
+    rabbitmqctl set_global_parameter mqtt_default_vhosts ^
+        "{""O=client,CN=guest"": ""vhost1"", ""O=client,CN=rabbit"": ""vhost2""}'
+
+And with the HTTP API:
+
+    PUT /api/global-parameters/mqtt_default_vhosts
+    {"value": {"O=client,CN=guest": "vhost1", "O=client,CN=rabbit": "vhost2"}}
+
+Note that:
+
+* If the virtual host for a certificate cannot be found (because the certificate
+subject's DN cannot be found in the `mqtt_default_vhosts` global parameter JSON
+document or if the global parameter isn't set at all), the virtual host specified
+by the `vhost` plugin config option will be used.
+* The broker queries the `mqtt_default_vhosts` global parameter value at connection time.
+If the value changes, connected clients are not notified or disconnected. They need
+to reconnect to switch to a new virtual host.
+* The certificate-to-vhost mapping with the `mqtt_default_vhosts` global parameter
+is considered more specific than the port-to-vhost mapping with the `mqtt_port_to_vhost_mapping`
+global parameter and so takes precedence over it.
 
 ### <a id="stickiness"/> Session Stickiness (Clean and Non-clean Sessions) and Queue/Subscription TTL
 
