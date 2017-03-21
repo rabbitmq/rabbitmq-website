@@ -40,7 +40,16 @@ limitations under the License.
                 RabbitMQ lets developers decouple their applications through asynchronous messages.  RabbitMQ is lightweight and easy to deploy on premise and in the cloud. It supports multiple messaging protocols, and can be deployed in distributed configurations to meet high-scale and high-availability requirements. RabbitMQ runs on many operating systems and cloud environments, and provides a wide range of developer tools for most popular languages.
               </p>
               <p>
-                RabbitMQ is used in thousands of deployments at companies such as <a href='https://www.youtube.com/watch?v=E708csv4XgY' target="_blank">Instagram</a>, <a href='http://www.eharmony.com/engineering/in-pursuit-of-messaging-brokers' target="_blank">eHarmony</a>, <a href='http://engineering.indeedblog.com/blog/2013/04/indeedeng-how-to-get-a-job-35-million-times-a-day-using-rabbitmq-slides-video/' target="_blank">Indeed.com</a>, <a href='https://conferences.oreilly.com/oscon/oscon2014/public/schedule/detail/34332' target="_blank">New York Times</a>, <a href='http://cloudengineering.autodesk.com/blog/2015/05/scalable-eventing-over-mesos.html' target="_blank">Autodesk</a>, <a href='https://stripe.com/blog/ctf3-architecture' target="_blank">Stripe</a>, and <a href='https://content.pivotal.io/rabbitmq' target="_blank">many others.</a>
+                RabbitMQ is used in thousands of deployments at companies such as:
+                <ul>
+                  <li><a href='https://www.youtube.com/watch?v=E708csv4XgY' target="_blank">Instagram</a></li>
+                  <li><a href='http://www.eharmony.com/engineering/in-pursuit-of-messaging-brokers' target="_blank">eHarmony</a></li>
+                  <li><a href='http://engineering.indeedblog.com/blog/2013/04/indeedeng-how-to-get-a-job-35-million-times-a-day-using-rabbitmq-slides-video/' target="_blank">Indeed.com</a></li>
+                  <li><a href='https://conferences.oreilly.com/oscon/oscon2014/public/schedule/detail/34332' target="_blank">New York Times</a></li>
+                  <li><a href='http://cloudengineering.autodesk.com/blog/2015/05/scalable-eventing-over-mesos.html' target="_blank">Autodesk</a></li>
+                  <li><a href='https://stripe.com/blog/ctf3-architecture' target="_blank">Stripe</a></li>
+                  <li><a href='https://content.pivotal.io/rabbitmq' target="_blank">Many others</a></li>
+                </ul>
               </p>
             </div>
           </div>
