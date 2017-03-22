@@ -32,7 +32,7 @@ limitations under the License.
 
       <ul>
         <li><a href="previous.html">Documentation for previous release series</a></li>
-        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branches)</li>
+        <li><a href="http://next.rabbitmq.com/documentation.html">Documentation for the nightly builds</a> (master branch)</li>
       </ul>
     </x:modal>
 
