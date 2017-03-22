@@ -46,7 +46,6 @@ div#outerContainer {
 	text-align: left;
 	clear: both;
 	margin: 0 auto;
-	max-width: 1236px;
 }
 
 div#innerContainer {
@@ -646,7 +645,7 @@ div#right-nav a.selected { font-weight: bold; }
 
 /* landing box */
 
-.landing-box { background: #ffebde; border-radius: 3px; padding: 1px 20px 20px 20px; margin-bottom: 30px; -moz-border-radius: 3px; }
+.landing-box { background: #f9fafb; border-radius: 3px; padding: 1px 20px 20px 20px; margin-bottom: 30px; -moz-border-radius: 3px; }
 
 #sitemap h3 { clear: both; padding: 20px 0 0 0; }
 #sitemap ul { float: left; }
@@ -657,7 +656,7 @@ div#right-nav a.selected { font-weight: bold; }
 /* Homepage */
 body#index #innerContainer {
 	padding: 0;
-	max-width: 1236px;
+	max-width: 100%;
 }
 
 #hero,
@@ -803,6 +802,7 @@ body#index #getstarted .fifty .container {
 	background: url(../img/commercial-services.svg) no-repeat center center;
 	height: 430px;
   width: 217px;
+  margin: 24px 0 0;
 }
 
 #support h2:first-child {
@@ -947,9 +947,9 @@ body#index #getstarted .fifty .container {
 	.menubtn {
 		display: none;
 	}
-	#hero .container {
-		background: url(../img/hero-phone.svg) no-repeat bottom center;
-		padding: 15px 20px 160px;
+	#hero h1 {
+		max-width: 270px;
+    margin: 0 auto;
 	}
 	.fifty,
 	#features .feature,
