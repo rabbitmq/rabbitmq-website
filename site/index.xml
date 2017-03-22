@@ -38,8 +38,10 @@ limitations under the License.
             <div class='inner'>
               <h1>RabbitMQ is the most widely deployed open source message broker</h1>
               <p>
-                World's biggest automotive companies, technology conglomerates, social media companies and payment service providers depend on RabbitMQ's stability and performance.
-                With more than 35,000 production deployments of RabbitMQ world-wide, RabbitMQ is the most popular open source message broker:
+                With more than 35,000 production deployments of
+                RabbitMQ world-wide at small startups and large
+                enterprises, RabbitMQ is the most popular open source
+                message broker. RabbitMQ is used at companies like:
               </p>
               <p>
                 <ul class="column onequarter">
@@ -59,11 +61,16 @@ limitations under the License.
                 </ul>
               </p>
               <p>
-                RabbitMQ is lightweight and easy to deploy on premise and in the cloud.
-                It supports multiple messaging protocols, and can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
+                RabbitMQ is lightweight and easy to deploy on premise
+                and in the cloud. It supports multiple messaging
+                protocols. RabbitMQ can be deployed in distributed and
+                federated configurations to meet high-scale,
+                high-availability requirements.
               </p>
               <p>
-                RabbitMQ runs on many operating systems and cloud environments, and provides a wide range of developer tools for most popular languages.
+                RabbitMQ runs on many operating systems and cloud
+                environments, and provides a <a href="/devtools.html">wide range of developer
+                tools for most popular languages</a>.
               </p>
             </div>
           </div>
@@ -131,7 +138,7 @@ limitations under the License.
                 <img src="img/tools.svg" height="62" width="71" alt="Tools &amp; Plugins" title="Tools &amp; Plugins" />
                 <h2>Tools &amp; Plugins</h2>
                 <p>
-                  Diverse array of <a href='/devtools.html'>tools and plugins</a> supporting continous integration, operational metrics, and integration to other enterprise systems. Flexible plug-in approach for extending RabbitMQ functionality.
+                  Diverse array of <a href='/devtools.html'>tools and plugins</a> supporting continuous integration, operational metrics, and integration to other enterprise systems. Flexible plug-in approach for extending RabbitMQ functionality.
                 </p>
               </div>
             </div>
@@ -180,16 +187,31 @@ limitations under the License.
             <div class='column threequarters'>
               <img src="img/commercial-distribution-phone.svg" height="111" width="88" />
               <h2>Commercial Distribution</h2>
-              <p>Pivotal Software produces a commercial distribution called Pivotal RabbitMQ, as well as a version that integrates natively with Pivotal Cloud Foundry. These distributions include all of the features of the open source version, with RabbitMQ for Pivotal Cloud Foundry providing some additional management features. Support agreements are part of the commercial licensing.</p>
+              <p>
+                Pivotal Software produces a commercial distribution
+                called Pivotal RabbitMQ, as well as a version that
+                integrates natively with Pivotal Cloud Foundry. These
+                distributions include all of the features of the open
+                source version, with RabbitMQ for Pivotal Cloud
+                Foundry providing some additional management
+                features. Support agreements are part of the
+                commercial licensing.
+              </p>
               <img src="img/support-and-hosting-phone.svg" height="94" width="109" />
               <h2>Support + Hosting</h2>
               <p>
-                The following companies provide technical support and/or cloud hosting of open source RabbitMQ: <a href="https://network.pivotal.io/" target="_blank">Pivotal Software</a>, <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>, <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>. RabbitMQ can also be deployed in <a href="/ec2.html">AWS</a> and <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.rabbitmq?tab=Overview" target="_blank">Microsoft Azure</a>.</p>
+                The following companies provide free, virtual, or instructor-led support and/or cloud hosting of open source RabbitMQ: <a href="https://network.pivotal.io/" target="_blank">Pivotal Software</a>,
+                <a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a>,
+              <a href="https://console.cloud.google.com/launcher/details/click-to-deploy-images/rabbitmq" target="_blank">Google Cloud Platform</a>. RabbitMQ can also be deployed in <a href="/ec2.html">AWS</a>
+              and <a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/bitnami.rabbitmq?tab=Overview" target="_blank">Microsoft Azure</a>.</p>
               <img src="img/testing-phone.svg" height="109" width="94" />
               <h2>Training</h2>
-              <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ: <a href="https://pivotal.io/training/courses" target="_blank">Pivotal Software</a>, <a href="https://skillsmatter.com/courses/505-rabbitmq" target="_blank">Skills Matter</a>, NetCom Learning, LearnQuest and Open Source Architect.</p>
+              <p>The following companies provide free, virtual, or instructor-led courses for RabbitMQ: <a href="https://pivotal.io/training/courses" target="_blank">Pivotal Software</a>,
+              <a href="https://skillsmatter.com/courses/505-rabbitmq" target="_blank">Skills Matter</a>, <a href="https://www.netcomlearning.com/courses/18482/Pivotal-RabbitMQ-training.html" target="_blank">NetCom Learning,
+              <a href="http://www.learnquest.com/course-detail.aspx?cnum=rabbitmq-e1xc" target="_blank">LearnQuest</a> and <a href="http://www.opensourcearchitect.co/education/pivotal/rabbitmq/" target="_blank">Open Source Architect.</p>
               <h2>Consulting</h2>
-              <p>The following companies provide consulting services for installing, operating, or implementing solutions based on RabbitMQ: <a href="/contact.html">Pivotal Software</a>, <a href="https://www.erlang-solutions.com/products/rabbitmq.html" target="_blank">Erlang Solutions</a>, and LShift.</p>
+              <p>The following companies provide consulting services for installing, operating, or implementing solutions based on RabbitMQ: <a href="/contact.html">Pivotal Software</a>,
+              <a href="https://www.erlang-solutions.com/products/rabbitmq.html" target="_blank">Erlang Solutions</a>, and LShift.</p>
             </div>
           </div>
         </div>
@@ -203,7 +225,7 @@ limitations under the License.
               <a class='btn orangebtn' href='https://groups.google.com/forum/#!forum/rabbitmq-users' target="_blank">Mailing List</a>
               <a class='btn' href='https://rabbitmq-slack.herokuapp.com/' target="_blank">Slack Channel</a>
               <br/><br/>
-              <p>Meet your fellow Rabbits to share advice, get help, or simply discuss.</p>
+              <p>Meet your fellow Rabbits to share stories, advice, and get help.</p>
               <h2>Issues &amp; Bug Reports</h2>
               <p>Start by searching the <a href="https://groups.google.com/forum/#!forum/rabbitmq-users" target="_blank">Mailing List</a> archive. Most questions have already been answered at length, some even multiple times. Confirmed issues will be moved to <a href="https://github.com/rabbitmq?q=rabbitmq" target="_blank">Github</a>.</p>
               <h2>Contributions</h2>
