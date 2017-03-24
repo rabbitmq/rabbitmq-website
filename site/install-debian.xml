@@ -221,24 +221,25 @@ limitations under the License.
        Below is an example of how the above repositories can be added on the command line:
 
 <pre class="sourcecode">
-# ADebian Wheezy backports repository to obtain init-system-helpers
-gpgkeyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
-gpg --export 7638D0442B90D010 | sudo apt-key add -
-echdeb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
+#Add Debian Wheezy backports repository to obtain init-system-helpers
+gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
+gpg -a --export 7638D0442B90D010 | sudo apt-key add -
+echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
 
-# AErlang Solutions repository to obtain esl-erlang
-wgeO- https://packages.erlang-solutions.com/debian/erlang_solutions.asc | sudo apt-key add -
-echdeb https://packages.erlang-solutions.com/debian wheezy contrib' | sudo tee /etc/apt/sources.list.d/esl.list
+# Add Erlang Solutions repository to obtain esl-erlang
+wget -O- https://packages.erlang-solutions.com/debian/erlang_solutions.asc | sudo apt-key add -
+echo 'deb https://packages.erlang-solutions.com/debian wheezy contrib' | sudo tee /etc/apt/sources.list.d/esl.list
 
-sudpt-get update
-sudpt-get install init-system-helpers socat esl-erlang
+sudo apt-get update
+sudo apt-get install init-system-helpers socat esl-erlang
 
-# cinue with RabbitMQ installation as explained above
-wgeO- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
-echdeb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+# continue with RabbitMQ installation as explained above
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
 
-sudpt-get update
-sudpt-get install rabbitmq-server
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+```
 </pre>
      </p>
      <p>
