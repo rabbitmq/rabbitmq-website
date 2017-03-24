@@ -269,6 +269,14 @@ limitations under the License.
               </li>
             </ul>
           </doc:section>
+          <doc:section name="unity-dev">
+            <doc:heading>Unity 3D</doc:heading>
+            <ul class="plain">
+              <li>
+                <a href="https://github.com/CymaticLabs/Unity3D.Amqp">Unity 3D RabbitMQ Client</a>
+              </li>
+            </ul>
+          </doc:section>
           <doc:section name="erlang-dev">
             <doc:heading>Erlang</doc:heading>
             <ul class="plain">
