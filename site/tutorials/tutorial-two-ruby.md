@@ -195,7 +195,7 @@ from the worker, once we're done with a task.
     q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
       puts " [x] Received '#{body}'"
       # imitate some work
-      sleep 1.0
+      sleep body.count(".").to_i
       puts " [x] Done"
       ch.ack(delivery_info.delivery_tag)
     end
@@ -376,7 +376,7 @@ And our `worker.rb`:
       q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
         puts " [x] Received '#{body}'"
         # imitate some work
-        sleep 1.0
+        sleep body.count(".").to_i
         puts " [x] Done"
         ch.ack(delivery_info.delivery_tag)
       end
