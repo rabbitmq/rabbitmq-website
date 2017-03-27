@@ -89,14 +89,3 @@ registerOnLoadHandler(function() {
         decorate_links();
     }catch(err){};
 });
-
-
-/* Mobile menu */
-function showHide() {
-    var mobileMenu = document.getElementById('mainNav');
-    if (mobileMenu.style.display === 'block') {
-        mobileMenu.style.display = 'none';
-    } else {
-        mobileMenu.style.display = 'block';
-    }
-}
