@@ -35,12 +35,6 @@ limitations under the License.
      as the url attribute.
   -->
 
-   <x:page url="/features.html" text="Features">
-     <x:modal mode="www">
-       <x:page url="/protocols.html" text="Supported Protocols"/>
-     </x:modal>
-   </x:page>
-
    <x:page url="/download.html" text="Installation">
    <x:modal mode="www">
      <x:page url="/install-windows.html" text="Install: Windows">
@@ -101,6 +95,7 @@ limitations under the License.
          </x:page>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
        </x:page>
+       <x:page url="/protocols.html" text="Supported Protocols"/>
        <x:page url="/vhosts.html" text="Virtual Hosts"/>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
@@ -230,30 +225,7 @@ limitations under the License.
      </x:modal>
      <x:page url="/mpl.html" text="License"/>
    </x:page>
-   <x:page url="/getstarted.html" text="Tutorials">
-     <x:page url="/tutorials/amqp-concepts.html" text="AMQP 0-9-1 Concepts" gap-after="true"/>
-     <x:page url="/tutorials/tutorial-one-java.html" text="Java">
-       <x:page url="/tutorials/tutorial-one-java.html" text="1: Hello world! (Java)"/>
-       <x:page url="/tutorials/tutorial-two-java.html" text="2: Work Queues (Java)"/>
-       <x:page url="/tutorials/tutorial-three-java.html" text="3: Publish / Subscribe (Java)"/>
-       <x:page url="/tutorials/tutorial-four-java.html" text="4: Routing (Java)"/>
-       <x:page url="/tutorials/tutorial-five-java.html" text="5: Topics (Java)"/>
-       <x:page url="/tutorials/tutorial-six-java.html" text="6: RPC (Java)" gap-after="true"/>
-     </x:page>
-     <x:page url="/tutorials/tutorial-one-python.html" text="Python">
-       <x:page url="/tutorials/tutorial-one-python.html" text="1: Hello world! (Python)"/>
-       <x:page url="/tutorials/tutorial-two-python.html" text="2: Work Queues (Python)"/>
-       <x:page url="/tutorials/tutorial-three-python.html" text="3: Publish / Subscribe (Python)"/>
-       <x:page url="/tutorials/tutorial-four-python.html" text="4: Routing (Python)"/>
-       <x:page url="/tutorials/tutorial-five-python.html" text="5: Topics (Python)"/>
-       <x:page url="/tutorials/tutorial-six-python.html" text="6: RPC (Python)"/>
-     </x:page>
-   </x:page>
+   <x:page url="/getstarted.html" text="Tutorials"/>
    <x:page url="/services.html" text="Support"/>
-   <x:page url="/community.html" text="Community">
-     <x:page url="/getstarted.html" text="Tutorials"/>
-     <x:page url="/devtools.html" text="Development tools"/>
-     <x:page url="/contact.html" text="Contact Us"/>
-   </x:page>
    <x:page url="http://pivotal.io/careers/engineering" text="Pivotal is Hiring"/>
 </x:pages>

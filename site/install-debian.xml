@@ -221,7 +221,7 @@ limitations under the License.
        Below is an example of how the above repositories can be added on the command line:
 
 <pre class="sourcecode">
-#Add Debian Wheezy backports repository to obtain init-system-helpers
+# Add Debian Wheezy backports repository to obtain init-system-helpers
 gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
 gpg -a --export 7638D0442B90D010 | sudo apt-key add -
 echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
