@@ -742,7 +742,7 @@ rabbitmqctl eval 'ssl:cipher_suites().'
           <p>The same suites can be listed in the OpenSSL format:</p>
 
 <pre class="sourcecode">
-rabbitmqctl eval 'ssl:cipher_suites(openssl).'
+rabbitmqctl eval 'ssl:cipher_suites().'
 </pre>
         </doc:subsection>
       </doc:section>
