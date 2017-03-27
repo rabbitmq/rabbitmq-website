@@ -47,11 +47,15 @@ limitations under the License.
       discussions about RabbitMQ. Once you join you can get help with technical issues,
       ask questions and share your experiences with RabbitMQ.
     </p>
+    <h3 id="slack">Slack</h3>
+    <p>
+      Feel free to join our community-driven <a href="https://rabbitmq-slack.herokuapp.com/">RabbitMQ Slack channel</a>.
+    </p>    
     <h3 id="irc">IRC</h3>
     <p>
       RabbitMQ IRC channgel is <code>#rabbitmq</code> on
       irc.freenode.net: <strong>#rabbitmq --
-      irc://irc.freenode.net/rabbitmq</strong>.  There's a <a
+      irc://irc.freenode.net/rabbitmq</strong>. There's a <a
       href="http://webchat.freenode.net/">Web interface to
       Freenode</a> if you don't have an IRC client installed.
     </p>
