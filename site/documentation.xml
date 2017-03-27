@@ -50,6 +50,14 @@ limitations under the License.
     </x:modal>
 
       <div class="landing-box">
+        <h2>Installation</h2>
+        <p>
+          See the <a href="download.html">Downloads and Installation</a> page
+          for information on the most recent release and how to install it.
+        </p>
+      </div>
+
+      <div class="landing-box">
         <h2>Get Started</h2>
         <p>
           See the <a href="getstarted.html">Get Started</a> page
