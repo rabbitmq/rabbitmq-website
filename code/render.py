@@ -71,12 +71,11 @@ def preprocess_markdown(fpath):
 
     tutorial = re.search(r'tutorials/(tutorial-[a-z]*)-[a-z]*.md$', fpath)
     if tutorial is not None:
-        tutorial_head = """<div id="sidebar" class="{0}">
+        tutorial_head = """<div id="left-content" class="tutorial">"""
+        tutorial_foot = """</div><div id="right-nav" class="{0}">
    <xi:include href="site/tutorials/tutorials-menu.xml.inc"/>
-</div>
-
-<div id="tutorial">""".format(tutorial.group(1))
-        processed = tutorial_head + processed + '</div>'
+</div>""".format(tutorial.group(1))
+        processed = tutorial_head + processed + tutorial_foot
     utf8_parser = etree.XMLParser(encoding='utf-8')
     s = (pre + head + processed + post).encode("utf-8")
     return etree.fromstring(s, parser = utf8_parser).getroottree()

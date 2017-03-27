@@ -17,38 +17,18 @@ limitations under the License.
 
 /* Tutorials */
 
-#tutorial {
-   width: 50em;
-   float: left;
-}
-
-#sidebar {
-   width: 22em;
-   float: left;
-   margin-right: 1.2em;
-}
-
-#sidebar #tutorials { margin-top: 2.2em; }
-
-#sidebar.tutorial-one #tutorials > li#tutorial-one { border-color: #444; }
-#sidebar.tutorial-two #tutorials > li#tutorial-two { border-color: #444; }
-#sidebar.tutorial-three #tutorials > li#tutorial-three { border-color: #444; }
-#sidebar.tutorial-four #tutorials > li#tutorial-four { border-color: #444; }
-#sidebar.tutorial-five #tutorials > li#tutorial-five { border-color: #444; }
-#sidebar.tutorial-six #tutorials > li#tutorial-six { border-color: #444; }
-
 table#tutorials {
    border: none;
 }
 
-#tutorial .aside {
+.tutorial .aside {
    padding: 0.6em;
    float: right;
    width: 20em;
    margin: 0.1em 0.1em 0.2em 0.3em;
 }
 
-#tutorial .aside h3 {
+.tutorial .aside h3 {
    margin-top: 0.4em;
    color: #444;
 }
@@ -78,6 +58,15 @@ table#tutorials td {
    min-height: 520px;
 }
 
+#right-nav table#tutorials td {
+  width: auto;
+  min-height: auto;
+}
+
+#right-nav table#tutorials td img {
+  display: none
+}
+
 table#tutorials td {
    background: none;
    border: 1px solid #ccc;
@@ -90,28 +79,28 @@ table#tutorials td p {
 	margin: auto;
 }
 
-#tutorial pre {
+.tutorial pre {
     background-color: #eee;
     padding: 5px 15px;
     border-radius: 5px;
     -moz-border-radius: 5px;
 }
 
-#tutorial code {
+.tutorial code {
    background: none;
    padding: 0;
 }
 
-#tutorial .linenodiv pre {
+.tutorial .linenodiv pre {
     padding-left: 10px;
 }
 
-#tutorial pre code {
+.tutorial pre code {
     background-color: inherit;
     padding: 0px;
 }
 
-#tutorial blockquote {
+.tutorial blockquote {
     padding: 2px 12px;
     margin: 40px 6px;
     border: 1px solid #aaa;
@@ -134,17 +123,17 @@ table#tutorials td p {
    clear: both;
 }
 
-#tutorial .highlighttable tr {
+.tutorial .highlighttable tr {
     width: auto;
     display: block;
 }
 
-#tutorial table.highlighttable, #tutorial .highlighttable td {
+.tutorial table.highlighttable, .tutorial .highlighttable td {
     border: 0px none;
     padding: 0px;
 }
 
-#tutorial table.highlighttable {
+.tutorial table.highlighttable {
     background-color: #eee;
     padding: 5px 15px;
     margin: 12px;
@@ -152,35 +141,35 @@ table#tutorials td p {
     -moz-border-radius: 5px;
 }
 
-#tutorial ul p {
+.tutorial ul p {
     margin-top: 0px;
 }
 
-#tutorial .linenodiv {
+.tutorial .linenodiv {
     text-align: center;
 }
 
-#tutorial h1, #tutorial h2, #tutorial h3 {
+.tutorial h1, .tutorial h2, .tutorial h3 {
     float: none;
     margin-top: 1.3em;
 }
 
-#tutorial div.diagram {
+.tutorial div.diagram {
     width: 100%;
 }
-#tutorial div.diagram img{
+.tutorial div.diagram img{
     margin-left: auto;
     margin-right: auto;
     display:block;
 }
-#tutorial div.diagram_source {
+.tutorial div.diagram_source {
     display: none;
 }
 
-#tutorial .teaser_answer {
+.tutorial .teaser_answer {
     display: none;
 }
-#tutorial .teaser_answer:target {
+.tutorial .teaser_answer:target {
     display: block;
 }
 
