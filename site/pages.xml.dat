@@ -35,6 +35,12 @@ limitations under the License.
      as the url attribute.
   -->
 
+   <x:page url="/features.html" text="Features">
+     <x:modal mode="www">
+       <x:page url="/protocols.html" text="Supported Protocols"/>
+     </x:modal>
+   </x:page>
+
    <x:page url="/download.html" text="Installation">
    <x:modal mode="www">
      <x:page url="/install-windows.html" text="Install: Windows">
@@ -94,7 +100,6 @@ limitations under the License.
          </x:page>
          <x:page url="/clustering-ssl.html" text="TLS for Inter-node (Clustering) Traffic"/>
        </x:page>
-       <x:page url="/protocols.html" text="Supported Protocols"/>
        <x:page url="/vhosts.html" text="Virtual Hosts"/>
        <x:page url="/ha.html" text="High Availability"/>
        <x:page url="/pacemaker.html" text="High Availability (pacemaker)"/>
