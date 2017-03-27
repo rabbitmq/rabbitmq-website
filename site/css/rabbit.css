@@ -171,7 +171,7 @@ ul {
 
 div#right-nav ul { margin: 0; }
 table#changelog ul { margin: 0 0 10px 0; }
-table#changelog .centre { text-align: center; white-space: nowrap; }
+table#changelog .centre { text-align: center; }
 table#changelog .centre a { font-size: 80%; }
 
 li {
@@ -371,10 +371,12 @@ pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.c
     color: #333;
     font-family: "Courier New", Courier, monospace;
     font-size: small;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 span.code {
-  white-space: nowrap;
+  /*white-space: nowrap;*/
 }
 
 pre span.code {
@@ -384,10 +386,10 @@ pre span.code {
 	
 span.envvar {
   color: black;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
 }
 span.path {
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 }
 
 .sourcecode i {
@@ -426,6 +428,7 @@ th, td {
 	border-right: #e4e4e4 1px solid;
 	text-align: left;
 	padding: 2px 0.5em 2px 0.5em;
+	font-size: .9em;
 }
 
 div.auto-index table, div.auto-index th, div.auto-index td { border: none; }
