@@ -6,11 +6,30 @@ Version: 1.6
 Author: Simon MacMullen
 */
 
+#sidebar {
+  border-left: 1px solid #E4E4E4;
+  width: 250px;
+  padding-left: 10px;
+  float: right;
+}
+
+#sidebar input#s {
+  width: 150px;
+  border: 1px solid #E4E4E4;
+}
+
+#sidebar input#searchsubmit {
+  border: 1px solid #E4E4E4;
+  background: #E4E4E4;
+  float: right;
+}
+
+#sidebar ul li {
+  background: none;
+}
 
 #content {
-  max-width: 75%;
-  display: inline-block;
-  vertical-align: top;
+  width: 650px;
 }
 
 #content .entry p {
@@ -29,56 +48,4 @@ Author: Simon MacMullen
 
 #content .entry img.aligncenter {
     display: block; margin: 10px auto;
-}
-
-#sidebar {
-  border-left: 1px solid #E4E4E4;
-  display: inline-block;
-  vertical-align: top;
-}
-
-#sidebar input#s {
-  width: 150px;
-  border: 1px solid #E4E4E4;
-}
-
-#sidebar input#searchsubmit {
-  border: 1px solid #E4E4E4;
-  background: #E4E4E4;
-  float: right;
-}
-
-#sidebar ul li {
-  background: none;
-}
-
-.post {
-  padding-right: 30px;
-}
-
-@media(max-width: 982px) {
-  #content {
-    max-width: 50%;
-  }
-  #sidebar {
-    padding-left: 30px;
-    margin-top: 50px;
-  }
-}
-
-@media(max-width: 660px) {
-  #content {
-    max-width: 100%;
-  }
-  .post {
-    padding-right: 0;
-  }
-  #sidebar {
-    padding-left: 0;
-    border-left: none;
-    margin-top: 50px;
-  }
-  #sidebar li {
-    padding-left: 0;
-  }
 }
