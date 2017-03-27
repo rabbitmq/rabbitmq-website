@@ -123,7 +123,6 @@ def render_page(page_name, site_mode, version = None):
     match = re.match('/(.*?)(\.html)?$', page_name)
     if match:
         page_name = match.group(1)
-        page_id = match.group(1)
     else:
         raise Error404
 
@@ -136,8 +135,7 @@ def render_page(page_name, site_mode, version = None):
     xslt_file_name = xml_doc.xpath(query)[0].get('href')
     xslt_doc = parse(os.path.join(SITE_DIR, xslt_file_name))
     params = {'page-name': "'/%s.html'" % page_name,
-              'site-mode': "'%s'" % site_mode,
-              'page-id': "'%s'" % page_id}
+              'site-mode': "'%s'" % site_mode}
     transform = etree.XSLT(xslt_doc)
     xhtml_doc = transform(xml_doc, **params)
     if version:
