@@ -54,7 +54,7 @@ limitations under the License.
     <p>
       This example rejects a single message, asking the broker to requeue it:
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 GetResponse gr = channel.basicGet("some.queue", false);
 channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
     <p>
@@ -62,7 +62,7 @@ channel.basicNack(gr.getEnvelope().getDeliveryTag(), false, true);</pre>
       the broker (the second argument on
       <code>basicNack</code> is the <code>multiple</code> flag):
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 GetResponse gr1 = channel.basicGet("some.queue", false);
 GetResponse gr2 = channel.basicGet("some.queue", false);
 channel.basicNack(gr2.getEnvelope().getDeliveryTag(), true, true);</pre>

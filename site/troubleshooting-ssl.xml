@@ -53,9 +53,9 @@ limitations under the License.
          is SSL support in the broker. Confirm that the Erlang VM has support
          for SSL by running the
          <code>erl</code> (or <code>werl.exe</code> on Windows) shell and
-         entering <pre class="sourcecode">ssl:versions().</pre>
+         entering <pre class="sourcecode erlang">ssl:versions().</pre>
          The output should look similar to this (with version number differences possible):
-<pre>
+<pre class="sourcecode">
 [{ssl_app,"5.3.6"},
  {supported,['tlsv1.2','tlsv1.1',tlsv1]},
  {available,['tlsv1.2','tlsv1.1',tlsv1]}]
@@ -110,10 +110,12 @@ limitations under the License.
          </table>
        <p>
          In one terminal window execute the following command:
-         <pre class="sourcecode">openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
+         <pre class="sourcecode bash">
+openssl s_server -accept 8443 -cert server/cert.pem -key server/key.pem \
   -CAfile testca/cacert.pem</pre>
          In another terminal window execute
-         <pre class="sourcecode">openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
+         <pre class="sourcecode bash">
+openssl s_client -connect localhost:8443 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
          If the certificates and keys have been correctly created, an SSL connection establishment
          sequence will appear and the terminals will be linked. Input from either terminal will appear
@@ -151,7 +153,8 @@ started SSL Listener on 0.0.0.0:5671</pre>
          without needing to configure an AMQPS client.
          The example assumes a broker with an "ssl_listeners" configuration directive set to listen for
          SSL connections on localhost port 5671:
-         <pre class="sourcecode">openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
+         <pre class="sourcecode bash">
+openssl s_client -connect localhost:5671 -cert client/cert.pem -key client/key.pem \
   -CAfile testca/cacert.pem</pre>
          The output should appear similar to the case where port 8443 was used. The broker logfile
          should contain a new entry when the connection is established:
