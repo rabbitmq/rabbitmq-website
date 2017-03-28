@@ -109,4 +109,4 @@ function showHide() {
     } else {
         mobileMenu.style.display = 'block';
     }
-}
+};
