@@ -44,7 +44,10 @@ limitations under the License.
       <meta name="google-site-verification" content="6UEaC3SWhpGQvqRnSJIEm2swxXpM5Adn4dxZhFsNdw0"/>
       <meta content='width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no' id='viewport' name='viewport'/>
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet"/>
+
       <link rel="stylesheet" href="/css/rabbit.css" type="text/css"/>
+      <link rel="stylesheet" href="/css/highlightjs_style.css" type="text/css" />
+
       <xsl:if test="$site-mode = 'next'">
         <link rel="stylesheet" href="/css/rabbit-next.css" type="text/css"/>
       </xsl:if>
@@ -62,8 +65,9 @@ limitations under the License.
       <![endif]]]></xsl:comment>
       <link rel="icon" type="/image/vnd.microsoft.icon" href="/favicon.ico"/>
       <link rel="stylesheet" href="/css/tutorial.css" type="text/css"/>
-      <script type="text/javascript" src="/js/site.js"/>
-      <script type="text/javascript" src="/js/ga-bootstrap.js"/>
+      <script type="text/javascript" src="/js/site.js"></script>
+      <script type="text/javascript" src="/js/ga-bootstrap.js"></script>
+
       <title>RabbitMQ - <xsl:value-of select="//html:title"/></title>
       <xsl:apply-templates/>
     </head>
@@ -96,6 +100,16 @@ limitations under the License.
         </div>
         <xsl:call-template name="page-footer"/>
       </div>
+
+      <script type="text/javascript" src="/js/highlight.pack.js"></script>
+      <script type="text/javascript">
+        // code highlighting
+        onDOMReady(function() {
+          document.querySelectorAll(".sourcecode").forEach(function(el) {
+            hljs.highlightBlock(el);
+          });
+        });
+      </script>
     </body>
   </xsl:template>
 

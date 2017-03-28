@@ -33,14 +33,14 @@ limitations under the License.
 
         <p>
         First, obtain the source code from <a href="github.html">our GitHub repositories</a>:
-	    <pre class="sourcecode">
+	    <pre class="sourcecode bash">
 git clone https://github.com/rabbitmq/rabbitmq-server.git
 </pre>
         </p>
 
         <p>
           Then, use <code>make</code> to pull down dependencies and build the server:
-	<pre class="sourcecode">
+	<pre class="sourcecode bash">
 cd rabbitmq-server
 make</pre>
         </p>
@@ -127,7 +127,7 @@ make</pre>
                   in the server repository. You'd need to provide a version and (commonly) opt out of artifact
                   signing:
 
-	          <pre class="sourcecode">
+	          <pre class="sourcecode bash">
 # replace x, y, z, and build with your own values, e.g.
 # 3.7.0.801
 make package-generic-unix VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
@@ -144,7 +144,7 @@ make package-generic-unix VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
                   Producing a Debian package requires a number of build time dependencies. On a recent Debian-based
                   system (e.g. Ubuntu 15.10), they can be installed with
 
-                  <pre class="sourcecode">
+                  <pre class="sourcecode bash">
 sudo apt-get install -y debhelper erlang-dev erlang-src python-simplejson \
                         xmlto xsltproc erlang-nox zip rsync
                   </pre>
@@ -155,7 +155,7 @@ sudo apt-get install -y debhelper erlang-dev erlang-src python-simplejson \
                   in the server repository. You'd need to provide a version and (commonly) opt out of artifact
                   signing:
 
-	          <pre class="sourcecode">
+	          <pre class="sourcecode bash">
 # replace x, y, z, and build with your own values, e.g.
 # 3.7.0.801
 make package-deb VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
@@ -174,7 +174,7 @@ make package-deb VERSION=x.y.z.build UNOFFICIAL_RELEASE=true
                   recent Debian-based system (e.g. Ubuntu 15.10), they
                   can be installed with
 
-                  <pre class="sourcecode">
+                  <pre class="sourcecode bash">
 sudo apt-get install -y tofrodos nsis elinks
                   </pre>
                 </p>
@@ -185,7 +185,7 @@ sudo apt-get install -y tofrodos nsis elinks
                   in the server repository. You'd need to provide a version and (commonly) opt out of artifact
                   signing:
 
-	          <pre class="sourcecode">
+	          <pre class="sourcecode bash">
 # replace x, y, z, and build with your own values, e.g.
 # 3.7.0.801
 make package-windows VERSION=x.y.z.build UNOFFICIAL_RELEASE=true

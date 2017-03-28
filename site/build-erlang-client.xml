@@ -39,9 +39,11 @@ limitations under the License.
           </li>
 
           <li>Check the code out directly from <a href="github.html">our GitHub repositories</a>:
-            <pre class="sourcecode">$ git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
-$ cd rabbitmq-erlang-client
-$ make</pre>
+          <pre class="sourcecode bash">
+git clone https://github.com/rabbitmq/rabbitmq-erlang-client.git
+cd rabbitmq-erlang-client
+make
+</pre>
           </li>
         </ul>
 
@@ -119,8 +121,8 @@ $ make</pre>
               file from default location:
               <code>~/.dialyzer_plt</code>. Use
 
-              <pre class="sourcecode">
-$ make PLT=/path/to/plt dialyze</pre>
+              <pre class="sourcecode bash">
+make PLT=/path/to/plt dialyze</pre>
 
               to override this. Add broker to PLT beforehand,
               otherwise you will a lot of 'unknown function'

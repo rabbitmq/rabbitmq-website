@@ -96,7 +96,7 @@ limitations under the License.
           <code>[]</code>. A complete <code>rabbitmq.config</code>
           which does this would look like:
         </p>
-        <pre class="sourcecode">
+        <pre class="sourcecode erlang">
 [{rabbit, [{loopback_users, []}]}].</pre>
       </doc:section>
 

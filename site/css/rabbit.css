@@ -361,18 +361,22 @@ div.nav-separator {
 	margin-left: 0em;
 }
 
-pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
+pre span.code, pre.code, pre.example, pre.ec2_sourcecode, .docSection div.cmdsynopsis {
 	background: #eee;
 	padding: 5px;
 	border: 1px solid #ddd;
 }
 
-pre span.code, pre.code, pre.example, pre.sourcecode, pre.ec2_sourcecode, span.code, span.path {
+pre span.code, pre.code, pre.example, pre.ec2_sourcecode, span.code, span.path {
     color: #333;
     font-family: "Courier New", Courier, monospace;
     font-size: small;
     word-wrap: break-word;
     white-space: pre-wrap;
+}
+
+pre.sourcecode {
+    font-size: medium;
 }
 
 span.code {

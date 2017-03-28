@@ -121,7 +121,7 @@ config file(s) : /var/lib/rabbitmq/hare.config (not found)</pre>
             <p>
               Use the standard environment variable names
               (but drop the RABBITMQ_ prefix) e.g.
-              <pre class="sourcecode">
+              <pre class="sourcecode bash">
 #example rabbitmq-env.conf file entries
 #Rename the node
 NODENAME=bunny@myhost
@@ -429,7 +429,7 @@ CONFIG_FILE=/etc/rabbitmq/testdir/bunnies</pre>
           An minimalistic example configuration file follows:
         </p>
         <p>
-<pre class="sourcecode">
+<pre class="sourcecode erlang">
   [
     {rabbit, [{tcp_listeners, [5673]}]}
   ].

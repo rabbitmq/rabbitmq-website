@@ -81,8 +81,10 @@ limitations under the License.
             and <code>Channel</code>, representing an AMQP 0-9-1 connection and an
             channel, respectively. They are typically imported before used:
     </p>
-    <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Connection;
-<b>import</b> com.rabbitmq.client.Channel;</pre>
+<pre class="sourcecode java">
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+</pre>
 
     <doc:heading>Connecting to a broker</doc:heading>
 
@@ -90,13 +92,13 @@ limitations under the License.
         The following code connects to an AMQP broker using the given parameters (host name, port number, etc):
     </p>
 
-<pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
-factory.setUsername(<b>userName</b>);
-factory.setPassword(<b>password</b>);
-factory.setVirtualHost(<b>virtualHost</b>);
-factory.setHost(<b>hostName</b>);
-factory.setPort(<b>portNumber</b>);
+<pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUsername(userName);
+factory.setPassword(password);
+factory.setVirtualHost(virtualHost);
+factory.setHost(hostName);
+factory.setPort(portNumber);
 Connection conn = factory.newConnection();
 </pre>
 
@@ -107,9 +109,9 @@ Connection conn = factory.newConnection();
         Alternatively, <a href="uri-spec.html">URIs</a> may be used:
     </p>
 
-<pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
-factory.setUri("<b>amqp://userName:password@hostName:portNumber/virtualHost</b>");
+<pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUri("amqp://userName:password@hostName:portNumber/virtualHost");
 Connection conn = factory.newConnection();
 </pre>
 
@@ -122,7 +124,7 @@ Connection conn = factory.newConnection();
         The <code>Connection</code> interface can then be used to open a channel:
         </p>
 
-<pre class="sourcecode">
+<pre class="sourcecode java">
 Channel channel = conn.createChannel();
 </pre>
     <p>
@@ -133,7 +135,7 @@ Channel channel = conn.createChannel();
         To disconnect, simply close the channel and the connection:
     </p>
 
-    <pre class="sourcecode">channel.close();
+    <pre class="sourcecode java">channel.close();
 conn.close();</pre>
 
     <p>
@@ -158,9 +160,9 @@ conn.close();</pre>
        then binds them together.
       </p>
 
-      <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
-String <b>queueName</b> = channel.queueDeclare().getQueue();
-channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+      <pre class="sourcecode java">channel.exchangeDeclare(exchangeName, "direct", true);
+String queueName = channel.queueDeclare().getQueue();
+channel.queueBind(queueName, exchangeName, routingKey);</pre>
 
       <p>
         This will actively declare the following objects,
@@ -185,9 +187,9 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
         with a well-known name, this code would be appropriate:
       </p>
 
-      <pre class="sourcecode">channel.exchangeDeclare(<b>exchangeName</b>, <b>"direct"</b>, <b>true</b>);
-channel.queueDeclare(<b>queueName</b>, <b>true</b>, <b>false</b>, <b>false</b>, <b>null</b>);
-channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+      <pre class="sourcecode java">channel.exchangeDeclare(exchangeName, "direct", true);
+channel.queueDeclare(queueName, true, false, false, null);
+channel.queueBind(queueName, exchangeName, routingKey);</pre>
 
       <p>
         This will actively declare:
@@ -216,15 +218,15 @@ channel.queueBind(<b>queueName</b>, <b>exchangeName</b>, <b>routingKey</b>);</pr
         To publish a message to an exchange, use <code>Channel.basicPublish</code> as follows:
       </p>
 
-      <pre class="sourcecode"><b>byte</b>[] messageBodyBytes = <b>"Hello, world!"</b>.getBytes();
-channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messageBodyBytes);</pre>
+      <pre class="sourcecode java">byte[] messageBodyBytes = "Hello, world!".getBytes();
+channel.basicPublish(exchangeName, routingKey, null, messageBodyBytes);</pre>
 
       <p>
         For fine control, you can use overloaded variants to specify the <code>mandatory</code> flag,
         or send messages with pre-set message properties:
       </p>
 
-      <pre class="sourcecode">channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>mandatory</b>,
+      <pre class="sourcecode java">channel.basicPublish(exchangeName, routingKey, mandatory,
                      MessageProperties.PERSISTENT_TEXT_PLAIN,
                      messageBodyBytes);</pre>
 
@@ -235,9 +237,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>, <b>null</b>, messag
         mentioning as many properties as you like, for example:
       </p>
 
-      <pre class="sourcecode">
-channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
-             <b>new</b> AMQP.BasicProperties.Builder()
+      <pre class="sourcecode java">
+channel.basicPublish(exchangeName, routingKey,
+             new AMQP.BasicProperties.Builder()
                .contentType("text/plain")
                .deliveryMode(2)
                .priority(1)
@@ -249,13 +251,13 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
         This example publishes a message with custom headers:
       </p>
 
-      <pre class="sourcecode">
+      <pre class="sourcecode java">
 Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
 headers.put("latitude",  51.5252949);
 headers.put("longitude", -0.0905493);
 
-channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
-             <b>new</b> AMQP.BasicProperties.Builder()
+channel.basicPublish(exchangeName, routingKey,
+             new AMQP.BasicProperties.Builder()
                .headers(headers)
                .build()),
                messageBodyBytes);</pre>
@@ -264,9 +266,9 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
         This example publishes a message with expiration:
       </p>
 
-      <pre class="sourcecode">
-channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
-             <b>new</b> AMQP.BasicProperties.Builder()
+      <pre class="sourcecode java">
+channel.basicPublish(exchangeName, routingKey,
+             new AMQP.BasicProperties.Builder()
                .expiration("60000")
                .build()),
                messageBodyBytes);</pre>
@@ -303,8 +305,8 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
     <doc:section name="consuming">
       <doc:heading>Receiving messages by subscription</doc:heading>
 
-      <pre class="sourcecode"><b>import</b> com.rabbitmq.client.Consumer;
-<b>import</b> com.rabbitmq.client.DefaultConsumer;</pre>
+      <pre class="sourcecode java">import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;</pre>
 
       <p>
         The most efficient way to receive messages is to set up a
@@ -331,26 +333,26 @@ channel.basicPublish(<b>exchangeName</b>, <b>routingKey</b>,
         call to set up the subscription:
       </p>
 
-      <pre class="sourcecode"><b>boolean</b> autoAck = <b>false</b>;
+      <pre class="sourcecode java">boolean autoAck = false;
 channel.basicConsume(queueName, autoAck, "myConsumerTag",
-     <b>new</b> DefaultConsumer(channel) {
+     new DefaultConsumer(channel) {
          @Override
-         <b>public</b> <b>void</b> handleDelivery(String consumerTag,
+         public void handleDelivery(String consumerTag,
                                     Envelope envelope,
                                     AMQP.BasicProperties properties,
-                                    <b>byte</b>[] body)
-             <b>throws</b> IOException
+                                    byte[] body)
+             throws IOException
          {
              String routingKey = envelope.getRoutingKey();
              String contentType = properties.getContentType();
-             <b>long</b> deliveryTag = envelope.getDeliveryTag();
+             long deliveryTag = envelope.getDeliveryTag();
              <i>// (process the message components here ...)</i>
-             channel.basicAck(deliveryTag, <b>false</b>);
+             channel.basicAck(deliveryTag, false);
          }
      });</pre>
 
       <p>
-          Here, since we specified <code>autoAck = </code><b><code>false</code></b>,
+          Here, since we specified <code>autoAck = </code><code>false</code>,
           it is necessary to acknowledge messages delivered to the <code>Consumer</code>,
           most conveniently done in the <code>handleDelivery</code>
           method, as illustrated.
@@ -376,7 +378,7 @@ channel.basicConsume(queueName, autoAck, "myConsumerTag",
         <code>Channel.basicCancel</code>:
       </p>
 
-      <pre class="sourcecode">channel.basicCancel(consumerTag);</pre>
+      <pre class="sourcecode java">channel.basicCancel(consumerTag);</pre>
 
       <p>
         passing the consumer tag.
@@ -414,14 +416,14 @@ channel.basicConsume(queueName, autoAck, "myConsumerTag",
         header information (properties) and message body can be
         extracted:
       </p>
-<pre class="sourcecode">
-<b>boolean</b> autoAck = <b>false</b>;
-GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
-<b>if</b> (response == <b>null</b>) {
+<pre class="sourcecode java">
+boolean autoAck = false;
+GetResponse response = channel.basicGet(queueName, autoAck);
+if (response == null) {
     <i>// No message retrieved.
-</i>} <b>else</b> {
+</i>} else {
     AMQP.BasicProperties props = response.getProps();
-    <b>byte</b>[] body = response.getBody();
+    byte[] body = response.getBody();
     long deliveryTag = response.getEnvelope().getDeliveryTag();
     ...</pre>
 
@@ -430,9 +432,9 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
         you must also call <code>Channel.basicAck</code> to
         acknowledge that you have successfully received the message:
       </p>
-<pre class="sourcecode">
+<pre class="sourcecode java">
     ...
-    channel.basicAck(method.deliveryTag, <b>false</b>); <i>// acknowledge receipt of the message</i>
+    channel.basicAck(method.deliveryTag, false); <i>// acknowledge receipt of the message</i>
 }</pre>
 
     </doc:section>
@@ -453,15 +455,15 @@ GetResponse response = channel.basicGet(<b>queueName</b>, autoAck);
         then the associated returned messages will be silently dropped.
       </p>
 
-<pre class="sourcecode">
-channel.setReturnListener(<b>new</b> ReturnListener() {
-    <b>public</b> <b>void</b> handleBasicReturn(int replyCode,
+<pre class="sourcecode java">
+channel.setReturnListener(new ReturnListener() {
+    public void handleBasicReturn(int replyCode,
                                   String replyText,
                                   String exchange,
                                   String routingKey,
                                   AMQP.BasicProperties properties,
                                   byte[] body)
-    <b>throws</b> IOException {
+    throws IOException {
         ...
     }
 });</pre>
@@ -538,11 +540,11 @@ channel.setReturnListener(<b>new</b> ReturnListener() {
         <p>
           Simple usage of listeners would look like:
         </p>
-            <pre class="sourcecode"><b>import</b> com.rabbitmq.client.ShutdownSignalException;
-<b>import</b> com.rabbitmq.client.ShutdownListener;
+            <pre class="sourcecode java">import com.rabbitmq.client.ShutdownSignalException;
+import com.rabbitmq.client.ShutdownListener;
 
-connection.addShutdownListener(<b>new</b> ShutdownListener() {
-    <b>public void</b> shutdownCompleted(ShutdownSignalException cause)
+connection.addShutdownListener(new ShutdownListener() {
+    public void shutdownCompleted(ShutdownSignalException cause)
     {
         ...
     }
@@ -572,18 +574,18 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           communication failure, in which case that exception can
           be retrieved with <code>getCause()</code>).
         </p>
-            <pre class="sourcecode"><b>public void</b> shutdownCompleted(ShutdownSignalException cause)
+            <pre class="sourcecode java">public void shutdownCompleted(ShutdownSignalException cause)
 {
-  <b>if</b> (cause.isHardError())
+  if (cause.isHardError())
   {
     Connection conn = (Connection)cause.getReference();
-    <b>if</b> (!cause.isInitiatedByApplication())
+    if (!cause.isInitiatedByApplication())
     {
       Method reason = cause.getReason();
       ...
     }
     ...
-  } <b>else</b> {
+  } else {
     Channel ch = (Channel)cause.getReference();
     ...
   }
@@ -599,9 +601,9 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
              following code illustrates the possibility of race
              conditions:
         </p>
-        <pre class="sourcecode"><b>public void</b> brokenMethod(Channel channel)
+        <pre class="sourcecode java">public void brokenMethod(Channel channel)
 {
-    <b>if</b> (channel.isOpen())
+    if (channel.isOpen())
     {
         // The following code depends on the channel being in open state.
         // However there is a possibility of the change in the channel state
@@ -622,17 +624,17 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           <code>ShutdownSignalException</code>, when broker
           initiated clean close.
         </p>
-        <pre class="sourcecode"><b>public void</b> validMethod(Channel channel)
+        <pre class="sourcecode java">public void validMethod(Channel channel)
 {
-    <b>try</b> {
+    try {
         ...
         channel.basicQos(1);
-    } <b>catch</b> (ShutdownSignalException sse) {
+    } catch (ShutdownSignalException sse) {
         // possibly check if channel was closed
         // by the time we started action and reasons for
         // closing it
         ...
-    } <b>catch</b> (IOException ioe) {
+    } catch (IOException ioe) {
         // check why connection was closed
         ...
     }
@@ -652,9 +654,9 @@ connection.addShutdownListener(<b>new</b> ShutdownListener() {
           <code>newConnection()</code> method, so that this pool of threads is
           used instead. Here is an example where a larger thread pool is
           supplied than is normally allocated:
-<pre class="sourcecode">
-ExecutorService <b>es</b> = Executors.newFixedThreadPool(20);
-Connection conn = factory.newConnection(<b>es</b>);
+<pre class="sourcecode java">
+ExecutorService es = Executors.newFixedThreadPool(20);
+Connection conn = factory.newConnection(es);
 </pre>
           Both <code>Executors</code> and <code>ExecutorService</code> classes
           are in the <code>java.util.concurrent</code> package.
@@ -662,7 +664,7 @@ Connection conn = factory.newConnection(<b>es</b>);
         <p>
           When the connection is closed a default <code>ExecutorService</code>
           will be <code>shutdown()</code>, but a user-supplied
-          <code>ExecutorService</code> (like <code><b>es</b></code> above) will
+          <code>ExecutorService</code> (like <code>es</code> above) will
           <i>not</i> be <code>shutdown()</code>.
           Clients that supply a custom <code>ExecutorService</code> must ensure
           it is shutdown eventually (by calling its <code>shutdown()</code>
@@ -693,9 +695,9 @@ Connection conn = factory.newConnection(<b>es</b>);
           in the <code>com.rabbitmq.client</code> package with <i>host</i>
           and <i>port</i> components.
           For example:
-<pre class="sourcecode">
-Address[] addrArr = <b>new</b> Address[]{ <b>new</b> Address(hostname1, portnumber1)
-                                 , <b>new</b> Address(hostname2, portnumber2)};
+<pre class="sourcecode java">
+Address[] addrArr = new Address[]{ new Address(hostname1, portnumber1)
+                                 , new Address(hostname2, portnumber2)};
 Connection conn = factory.newConnection(addrArr);
 </pre>
           will attempt to connect to <code>hostname1:portnumber1</code>, and if
@@ -722,11 +724,11 @@ Connection conn = factory.newConnection(addrArr);
         <p>
           As of version 3.6.6, it is possible to let an implementation of
           <code>AddressResolver</code> choose where to connect when creating a connection:
-<pre class="sourcecode">
+<pre class="sourcecode java">
 Connection conn = factory.newConnection(addressResolver);
 </pre>
         The <code>AddressResolver</code> interface is like the following:
-<pre class="sourcecode">
+<pre class="sourcecode java">
 public interface AddressResolver {
 
   List&lt;Address&gt; getAddresses() throws IOException;
@@ -789,7 +791,7 @@ public interface AddressResolver {
         Below is an example for Google App Engine.
       </p>
       <p>
-<pre class="sourcecode">
+<pre class="sourcecode java">
 import com.google.appengine.api.ThreadManager;
 
 ConnectionFactory cf = new ConnectionFactory();
@@ -820,7 +822,7 @@ cf.setThreadFactory(ThreadManager.backgroundThreadFactory());
         NIO must be enabled explicitly:
       </p>
       <p>
-<pre class="sourcecode">
+<pre class="sourcecode java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
 connectionFactory.useNio();
 </pre>
@@ -829,7 +831,7 @@ connectionFactory.useNio();
         The NIO mode can be configured through the <code>NioParams</code> class:
       </p>
       <p>
-<pre class="sourcecode">
+<pre class="sourcecode java">
 connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
 </pre>
       </p>
@@ -879,13 +881,13 @@ connectionFactory.setNioParams(new NioParams().setNbIoThreads(4));
           the <code>factory.setAutomaticRecoveryEnabled(boolean)</code>
           method. The following snippet shows how to explicitly
           enable automatic recovery (e.g. for Java client prior 4.0.0):
-          <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
-factory.setUsername(<b>userName</b>);
-factory.setPassword(<b>password</b>);
-factory.setVirtualHost(<b>virtualHost</b>);
-factory.setHost(<b>hostName</b>);
-factory.setPort(<b>portNumber</b>);
+          <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setUsername(userName);
+factory.setPassword(password);
+factory.setVirtualHost(virtualHost);
+factory.setHost(hostName);
+factory.setPort(portNumber);
 factory.setAutomaticRecoveryEnabled(true);
 // connection that will recover automatically
 Connection conn = factory.newConnection();</pre>
@@ -894,16 +896,16 @@ Connection conn = factory.newConnection();</pre>
           still not reachable), it will be retried after a fixed time interval (default
           is 5 seconds). The interval can be configured:
 
-          <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
+          <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
 // attempt recovery every 10 seconds
 factory.setNetworkRecoveryInterval(10000);</pre>
 
           When a list of addresses is provided, the list is shuffled and
           all addresses are tried, one after the next:
 
-          <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
+          <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
 
 Address[] addresses = {new Address("192.168.1.4"), new Address("192.168.1.5")};
 factory.newConnection(addresses);</pre>
@@ -950,8 +952,8 @@ factory.newConnection(addresses);</pre>
         </p>
         <p>
           Topology recovery can be disabled explicitly if needed:
-          <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
+          <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
 
 Connection conn = factory.newConnection();
 // enable automatic recovery (e.g. Java client prior 4.0.0)
@@ -980,7 +982,7 @@ factory.setTopologyRecoveryEnabled(false);
           <code>Channel.basicReject</code> then translate adjusted
           delivery tags into those used by RabbitMQ.
 
-          <b>Acknowledgements with stale delivery tags will not be sent</b>. Applications
+          Acknowledgements with stale delivery tags will not be sent. Applications
           that use manual acknowledgements and automatic recovery must
           be capable of handling redeliveries.
         </p>
@@ -1003,8 +1005,8 @@ factory.setTopologyRecoveryEnabled(false);
         <code>ConnectionFactory#setExceptionHandler</code>. It will be
         used for all connections created by the factory:
 
-        <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
+        <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
 cf.setExceptionHandler(customHandler);
         </pre>
 
@@ -1027,7 +1029,7 @@ cf.setExceptionHandler(customHandler);
         that uses the <a href="http://metrics.dropwizard.io/">Dropwizard Metrics</a>
         library. One can enable the metrics collection the following way:
 
-        <pre class="sourcecode">
+        <pre class="sourcecode java">
 ConnectionFactory connectionFactory = new ConnectionFactory();
 StandardMetricsCollector metrics = new StandardMetricsCollector();
 connectionFactory.setMetricsCollector(metrics);
@@ -1119,7 +1121,7 @@ metrics.getPublishedMessages(); // get Metrics' Meter object
           to the <code>StandardMetricsCollector</code>. Here is an example
           with JMX:
 
-          <pre class="sourcecode">
+          <pre class="sourcecode java">
 MetricRegistry registry = new MetricRegistry();
 StandardMetricsCollector metrics = new StandardMetricsCollector(registry);
 
@@ -1147,8 +1149,8 @@ reporter.start();
         In addition, it is necessary to set a low heartbeat interval (4-5 seconds) to avoid running
         into the low <code>InputStream</code> read timeouts on GAE:
 
-        <pre class="sourcecode">
-ConnectionFactory factory = <b>new</b> ConnectionFactory();
+        <pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
 cf.setRequestedHeartbeat(5);
         </pre>
       </p>
@@ -1195,10 +1197,10 @@ cf.setRequestedHeartbeat(5);
       routing key, and waiting for a response on a reply queue.
     </p>
 
-    <pre class="sourcecode">
-<b>import</b> com.rabbitmq.client.RpcClient;
+    <pre class="sourcecode java">
+import com.rabbitmq.client.RpcClient;
 
-RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>routingKey</b>);</pre>
+RpcClient rpc = new RpcClient(channel, exchangeName, routingKey);</pre>
 
     <p>
       (The implementation details of how this class uses AMQP 0-9-1 are as follows: request messages are sent with the
@@ -1210,7 +1212,7 @@ RpcClient rpc = <b>new</b> RpcClient(<b>channel</b>, <b>exchangeName</b>, <b>rou
       Once you have created an instance of this class, you can use it to send RPC requests by using any of the following methods:
     </p>
 
-    <pre class="sourcecode"><b>byte</b>[] primitiveCall(<b>byte</b>[] message);
+    <pre class="sourcecode java">byte[] primitiveCall(byte[] message);
 String stringCall(String message)
 Map mapCall(Map message)
 Map mapCall(Object[] keyValuePairs)</pre>
