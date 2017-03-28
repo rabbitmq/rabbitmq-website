@@ -49,12 +49,13 @@ table#tutorials > li h2, #tutorial-index .aside > h2 {
 
 table#tutorials td {
    float: left;
-   width: 19.5em;
-   border-radius: 8px;
-   -moz-border-radius: 8px;
+   width: 18em;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
    margin-bottom: 2.0em;
    padding: 0.6em 0.4em 1.0em 1.0em;
-   margin-right: 2.4em;
+   margin-right: 10px;
+   min-height: 520px;
 }
 
 #right-nav table#tutorials td {
