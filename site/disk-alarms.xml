@@ -83,13 +83,13 @@ Disabling disk free space monitoring</pre>
         required to be free on the database partition. (See the description of
         <a href="/relocate.html">file locations</a> for the default location).
         This configuration file sets the disk free space limit to 1GB:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
+        <pre class="sourcecode erlang">[{rabbit, [{disk_free_limit, 1000000000}]}].</pre>
         Or you can use memory units (kB, kiB, MB, MiB, GB, GiB etc.) like this:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, "1GB"}]}].</pre>
+        <pre class="sourcecode erlang">[{rabbit, [{disk_free_limit, "1GB"}]}].</pre>
         It is also possible to set a free space limit relative to the RAM in the machine.
         This configuration file sets the disk free space limit to the same
         as the amount of RAM on the machine:
-        <pre class="sourcecode">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
+        <pre class="sourcecode erlang">[{rabbit, [{disk_free_limit, {mem_relative, 1.0}}]}].</pre>
       </p>
       <p>
         The limit can be changed while the broker is running

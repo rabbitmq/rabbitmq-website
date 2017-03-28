@@ -153,7 +153,7 @@ limitations under the License.
             distribution.  To run the test suite, execute the
             following command in the aforementioned directory:
           </p>
-          <pre class="sourcecode">% python2.5 ./qpid-python-test -m tests_0-9 -m tests_0-8</pre>
+          <pre class="sourcecode bash">python2.7 ./qpid-python-test -m tests_0-9 -m tests_0-8</pre>
           <p>
             The following table details the results of running the 0-8
             and 0-9 tests against the RabbitMQ broker.

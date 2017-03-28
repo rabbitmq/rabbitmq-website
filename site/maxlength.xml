@@ -72,7 +72,7 @@ limitations under the License.
       This example in Java declares a queue with a maximum length
       of 10 messages:
     </p>
-    <pre class="sourcecode">
+    <pre class="sourcecode java">
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-max-length", 10);
 channel.queueDeclare("myqueue", false, false, false, args);</pre>

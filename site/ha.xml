@@ -569,7 +569,7 @@ limitations under the License.
             For example (in Java):
           </p>
 
-          <pre class="sourcecode">
+          <pre class="sourcecode java">
 Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();
@@ -619,15 +619,15 @@ channel.basicConsume("my-queue", false, args, consumer);</pre>
           You can determine which mirrors are synchronised with the
           following rabbitmqctl invocation:
         </p>
-        <pre class="sourcecode">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
+        <pre class="sourcecode bash">rabbitmqctl list_queues name slave_pids synchronised_slave_pids</pre>
         <p>
           You can manually synchronise a queue with:
         </p>
-        <pre class="sourcecode">rabbitmqctl sync_queue <i>name</i></pre>
+        <pre class="sourcecode bash">rabbitmqctl sync_queue <i>name</i></pre>
         <p>
           And you can cancel synchronisation with:
         </p>
-        <pre class="sourcecode">rabbitmqctl cancel_sync_queue <i>name</i></pre>
+        <pre class="sourcecode bash">rabbitmqctl cancel_sync_queue <i>name</i></pre>
         <p>
           These features are also available through the management plugin.
         </p>

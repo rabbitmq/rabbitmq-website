@@ -57,7 +57,7 @@ limitations under the License.
       <code>Connection</code> using the
       <code>Connection.addBlockedListener</code> method:</p>
 
-      <pre class="sourcecode">
+      <pre class="sourcecode java">
 ConnectionFactory factory = new ConnectionFactory();
 Connection connection = factory.newConnection();
 connection.addBlockedListener(new BlockedListener() {
@@ -84,7 +84,7 @@ connection.addBlockedListener(new BlockedListener() {
       <code>IConnection.ConnectionBlocked</code> and
       <code>IConnection.ConnectionUnblocked</code> events:</p>
 
-      <pre class="sourcecode">
+      <pre class="sourcecode java">
         public void HandleBlocked(IConnection sender, ConnectionBlockedEventArgs args)
         {
             // Connection is now blocked

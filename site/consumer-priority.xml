@@ -90,7 +90,7 @@ limitations under the License.
       For example (in Java):
     </p>
 
-      <pre class="sourcecode">
+      <pre class="sourcecode java">
 Channel channel = ...;
 Consumer consumer = ...;
 Map&lt;String, Object> args = new HashMap&lt;String, Object>();

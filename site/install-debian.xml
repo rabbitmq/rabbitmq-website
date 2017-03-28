@@ -159,7 +159,7 @@ limitations under the License.
      <ol>
        <li>
          Execute the following command to add the APT repository to your <code>/etc/apt/sources.list.d</code>:
-         <pre class="sourcecode">echo 'deb http://www.rabbitmq.com/debian/ testing main' |
+         <pre class="sourcecode bash">echo 'deb http://www.rabbitmq.com/debian/ testing main' |
      sudo tee /etc/apt/sources.list.d/rabbitmq.list</pre>
          (Please note that the word <code>testing</code> in this
          line refers to the state of our release of RabbitMQ, not
@@ -173,17 +173,17 @@ limitations under the License.
          our <a href="rabbitmq-release-signing-key.asc">public
            key</a> to your trusted key list using
          <code>apt-key(8)</code>:
-         <pre class="sourcecode">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
+         <pre class="sourcecode bash">wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
      sudo apt-key add -</pre>
          <p>Our public signing key is also <a href="https://bintray.com/rabbitmq/Keys/download_file?file_path=rabbitmq-release-signing-key.asc">available from Bintray</a>.</p>
        </li>
        <li>
          Run the following command to update the package list:
-         <pre class="sourcecode">sudo apt-get update</pre>
+         <pre class="sourcecode bash">sudo apt-get update</pre>
        </li>
        <li>
          Install <code>rabbitmq-server</code> package:
-         <pre class="sourcecode">sudo apt-get install rabbitmq-server</pre>
+         <pre class="sourcecode bash">sudo apt-get install rabbitmq-server</pre>
        </li>
      </ol>
 
@@ -220,7 +220,7 @@ limitations under the License.
      <p>
        Below is an example of how the above repositories can be added on the command line:
 
-<pre class="sourcecode">
+<pre class="sourcecode bash">
 # Add Debian Wheezy backports repository to obtain init-system-helpers
 gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
 gpg -a --export 7638D0442B90D010 | sudo apt-key add -

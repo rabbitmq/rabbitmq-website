@@ -102,7 +102,8 @@ limitations under the License.
         This example in Java declares a queue with the queue mode set
         to <code>"lazy"</code>:
       </p>
-      <pre class="sourcecode">Map&lt;String, Object> args = new HashMap&lt;String, Object>();
+      <pre class="sourcecode java">
+Map&lt;String, Object> args = new HashMap&lt;String, Object>();
 args.put("x-queue-mode", "lazy");
 channel.queueDeclare("myqueue", false, false, false, args);</pre>
 
@@ -209,8 +210,10 @@ channel.queueDeclare("myqueue", false, false, false, args);</pre>
         href="java-tools.html">Java library</a> by running:
       </p>
 
-      <pre class="sourcecode">./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue \
--f persistent -s 1000 -x1 -y0 -C10000000</pre>
+      <pre class="sourcecode bash">
+./runjava.sh com.rabbitmq.examples.PerfTest -e test -u test_queue \
+  -f persistent -s 1000 -x1 -y0 -C10000000
+</pre>
 
       <p>
         <bold>Note that this was a very simplistic test. Please make
