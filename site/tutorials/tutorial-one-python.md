@@ -78,13 +78,13 @@ Our first program `send.py` will send a single message to the queue.
 The first thing we need to do is to establish a connection with
 RabbitMQ server.
 
-    :::python
-    #!/usr/bin/env python
-    import pika
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-                   'localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+</pre>
 
 We're connected now, to a broker on the local machine - hence the
 _localhost_. If we wanted to connect to a broker on a different
@@ -95,8 +95,9 @@ exists. If we send a message to non-existing location, RabbitMQ will
 just trash the message. Let's create a queue to which the message will
 be delivered, let's name it _hello_:
 
-    :::python
-    channel.queue_declare(queue='hello')
+<pre class="sourcecode python">
+channel.queue_declare(queue='hello')
+</pre>
 
 At that point we're ready to send a message. Our first message will
 just contain a string _Hello World!_ and we want to send it to our
@@ -110,19 +111,20 @@ identified by an empty string. This exchange is special &#8210; it
 allows us to specify exactly to which queue the message should go.
 The queue name needs to be specified in the `routing_key` parameter:
 
-    :::python
-    channel.basic_publish(exchange='',
-                          routing_key='hello',
-                          body='Hello World!')
-    print(" [x] Sent 'Hello World!'")
-
+<pre class="sourcecode python">
+channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+</pre>
 
 Before exiting the program we need to make sure the network buffers
 were flushed and our message was actually delivered to RabbitMQ. We
 can do it by gently closing the connection.
 
-    :::python
-    connection.close()
+<pre class="sourcecode python">
+connection.close()
+</pre>
 
 > #### Sending doesn't work!
 >
@@ -171,8 +173,9 @@ exists. Creating a queue using `queue_declare` is idempotent &#8210; we
 can run the command as many times as we like, and only one will be
 created.
 
-    :::python
-    channel.queue_declare(queue='hello')
+<pre class="sourcecode python">
+channel.queue_declare(queue='hello')
+</pre>
 
 You may ask why we declare the queue again &#8210; we have already declared it
 in our previous code. We could avoid that if we were sure
@@ -201,18 +204,19 @@ a message, this `callback` function is called by the Pika library.
 In our case this function will print on the screen the contents of
 the message.
 
-    :::python
-    def callback(ch, method, properties, body):
-        print(" [x] Received %r" % body)
-
+<pre class="sourcecode python">
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+</pre>
 
 Next, we need to tell RabbitMQ that this particular callback function should
 receive messages from our _hello_ queue:
 
-    :::python
-    channel.basic_consume(callback,
-                          queue='hello',
-                          no_ack=True)
+<pre class="sourcecode python">
+channel.basic_consume(callback,
+                      queue='hello',
+                      no_ack=True)
+</pre>
 
 For that command to succeed we must be sure that a queue which we want
 to subscribe to exists. Fortunately we're confident about that &#8210; we've
@@ -223,72 +227,78 @@ The `no_ack` parameter will be described [later on](tutorial-two-python.html).
 And finally, we enter a never-ending loop that waits for data and runs callbacks
 whenever necessary.
 
-    :::python
-    print(' [*] Waiting for messages. To exit press CTRL+C')
-    channel.start_consuming()
-
+<pre class="sourcecode python">
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+</pre>
 
 ### Putting it all together
 
 
 Full code for `send.py`:
 
-    #!/usr/bin/env python
-    import pika
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
 
 
-    channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello')
 
-    channel.basic_publish(exchange='',
-                          routing_key='hello',
-                          body='Hello World!')
-    print(" [x] Sent 'Hello World!'")
-    connection.close()
+channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+connection.close()
+</pre>
 
 [(send.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/send.py)
 
 
 Full `receive.py` code:
 
-    #!/usr/bin/env python
-    import pika
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
 
 
-    channel.queue_declare(queue='hello')
+channel.queue_declare(queue='hello')
 
-    def callback(ch, method, properties, body):
-        print(" [x] Received %r" % body)
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
 
-    channel.basic_consume(callback,
-                          queue='hello',
-                          no_ack=True)
+channel.basic_consume(callback,
+                      queue='hello',
+                      no_ack=True)
 
-    print(' [*] Waiting for messages. To exit press CTRL+C')
-    channel.start_consuming()
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+</pre>
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
 Now we can try out our programs in a terminal. First, let's send a
 message using our `send.py` program:
 
-     :::bash
-     $ python send.py
-     [x] Sent 'Hello World!'
+<pre class="sourcecode bash">
+python send.py
+# => [x] Sent 'Hello World!'
+</pre>
 
 The producer program `send.py` will stop after every run. Let's receive it:
 
-     :::bash
-     $ python receive.py
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Hello World!'
+<pre class="sourcecode bash">
+python receive.py
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Hello World!'
+</pre>
 
 Hurray! We were able to send our first message through RabbitMQ. As you might
 have noticed, the `receive.py` program doesn't exit. It will stay ready to

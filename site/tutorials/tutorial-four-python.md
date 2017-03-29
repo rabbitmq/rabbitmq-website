@@ -38,10 +38,10 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::python
-    channel.queue_bind(exchange=exchange_name,
-                       queue=queue_name)
-
+<pre class="sourcecode python">
+channel.queue_bind(exchange=exchange_name,
+                   queue=queue_name)
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -51,10 +51,11 @@ Bindings can take an extra `routing_key` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::python
-    channel.queue_bind(exchange=exchange_name,
-                       queue=queue_name,
-                       routing_key='black')
+<pre class="sourcecode python">
+channel.queue_bind(exchange=exchange_name,
+                   queue=queue_name,
+                   routing_key='black')
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -184,16 +185,18 @@ first.
 
 Like always we need to create an exchange first:
 
-    :::python
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
+<pre class="sourcecode python">
+channel.exchange_declare(exchange='direct_logs',
+                         type='direct')
+</pre>
 
 And we're ready to send a message:
 
-    :::python
-    channel.basic_publish(exchange='direct_logs',
-                          routing_key=severity,
-                          body=message)
+<pre class="sourcecode python">
+channel.basic_publish(exchange='direct_logs',
+                      routing_key=severity,
+                      body=message)
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -207,15 +210,15 @@ one exception - we're going to create a new binding for each severity
 we're interested in.
 
 
-    :::python
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.method.queue
+<pre class="sourcecode python">
+result = channel.queue_declare(exclusive=True)
+queue_name = result.method.queue
 
-    for severity in severities:
-        channel.queue_bind(exchange='direct_logs',
-                           queue=queue_name,
-                           routing_key=severity)
-
+for severity in severities:
+    channel.queue_bind(exchange='direct_logs',
+                       queue=queue_name,
+                       routing_key=severity)
+</pre>
 
 Putting it all together
 -----------------------
@@ -263,83 +266,86 @@ Putting it all together
 
 The code for `emit_log_direct.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import sys
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
 
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
+channel.exchange_declare(exchange='direct_logs',
+                         type='direct')
 
-    severity = sys.argv[1] if len(sys.argv) > 2 else 'info'
-    message = ' '.join(sys.argv[2:]) or 'Hello World!'
-    channel.basic_publish(exchange='direct_logs',
-                          routing_key=severity,
-                          body=message)
-    print(" [x] Sent %r:%r" % (severity, message))
-    connection.close()
-
+severity = sys.argv[1] if len(sys.argv) > 2 else 'info'
+message = ' '.join(sys.argv[2:]) or 'Hello World!'
+channel.basic_publish(exchange='direct_logs',
+                      routing_key=severity,
+                      body=message)
+print(" [x] Sent %r:%r" % (severity, message))
+connection.close()
+</pre>
 
 The code for `receive_logs_direct.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import sys
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import sys
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
-    channel = connection.channel()
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
 
-    channel.exchange_declare(exchange='direct_logs',
-                             type='direct')
+channel.exchange_declare(exchange='direct_logs',
+                         type='direct')
 
-    result = channel.queue_declare(exclusive=True)
-    queue_name = result.method.queue
+result = channel.queue_declare(exclusive=True)
+queue_name = result.method.queue
 
-    severities = sys.argv[1:]
-    if not severities:
-        sys.stderr.write("Usage: %s [info] [warning] [error]\n" % sys.argv[0])
-        sys.exit(1)
+severities = sys.argv[1:]
+if not severities:
+    sys.stderr.write("Usage: %s [info] [warning] [error]\n" % sys.argv[0])
+    sys.exit(1)
 
-    for severity in severities:
-        channel.queue_bind(exchange='direct_logs',
-                           queue=queue_name,
-                           routing_key=severity)
+for severity in severities:
+    channel.queue_bind(exchange='direct_logs',
+                       queue=queue_name,
+                       routing_key=severity)
 
-    print(' [*] Waiting for logs. To exit press CTRL+C')
+print(' [*] Waiting for logs. To exit press CTRL+C')
 
-    def callback(ch, method, properties, body):
-        print(" [x] %r:%r" % (method.routing_key, body))
+def callback(ch, method, properties, body):
+    print(" [x] %r:%r" % (method.routing_key, body))
 
-    channel.basic_consume(callback,
-                          queue=queue_name,
-                          no_ack=True)
+channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
 
-    channel.start_consuming()
-
+channel.start_consuming()
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ python receive_logs_direct.py warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+python receive_logs_direct.py warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ python receive_logs_direct.py info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+python receive_logs_direct.py info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ python emit_log_direct.py error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+python emit_log_direct.py error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [emit_log_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/emit_log_direct.py) and [receive_logs_direct.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive_logs_direct.py))
 

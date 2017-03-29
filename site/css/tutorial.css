@@ -80,8 +80,6 @@ table#tutorials td p {
 }
 
 .tutorial pre {
-    background-color: #eee;
-    padding: 5px 15px;
     border-radius: 5px;
     -moz-border-radius: 5px;
 }
