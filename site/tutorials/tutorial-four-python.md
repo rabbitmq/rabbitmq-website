@@ -339,6 +339,7 @@ terminal and do:
 <pre class="sourcecode bash">
 python receive_logs_direct.py info warning error
 # => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 

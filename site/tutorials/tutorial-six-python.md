@@ -41,10 +41,11 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-    :::python
-    fibonacci_rpc = FibonacciRpcClient()
-    result = fibonacci_rpc.call(4)
-    print("fib(4) is %r" % result)
+<pre class="sourcecode bash">
+fibonacci_rpc = FibonacciRpcClient()
+result = fibonacci_rpc.call(4)
+print("fib(4) is %r" % result)
+</pre>
 
 > #### A note on RPC
 >
@@ -74,19 +75,19 @@ message and a server replies with a response message. In order to
 receive a response the client needs to send a 'callback' queue address with the
 request. Let's try it:
 
-    :::python
-    result = channel.queue_declare(exclusive=True)
-    callback_queue = result.method.queue
+<pre class="sourcecode python">
+result = channel.queue_declare(exclusive=True)
+callback_queue = result.method.queue
 
-    channel.basic_publish(exchange='',
-                          routing_key='rpc_queue',
-                          properties=pika.BasicProperties(
-                                reply_to = callback_queue,
-                                ),
-                          body=request)
+channel.basic_publish(exchange='',
+                      routing_key='rpc_queue',
+                      properties=pika.BasicProperties(
+                            reply_to = callback_queue,
+                            ),
+                      body=request)
 
-    # ... and some code to read a response message from the callback_queue ...
-
+# ... and some code to read a response message from the callback_queue ...
+</pre>
 
 > #### Message properties
 >
@@ -210,43 +211,44 @@ Putting it all together
 
 The code for `rpc_server.py`:
 
-    #!/usr/bin/env python
-    import pika
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
 
-    channel = connection.channel()
+channel = connection.channel()
 
-    channel.queue_declare(queue='rpc_queue')
+channel.queue_declare(queue='rpc_queue')
 
-    def fib(n):
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
-        else:
-            return fib(n-1) + fib(n-2)
+def fib(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
 
-    def on_request(ch, method, props, body):
-        n = int(body)
+def on_request(ch, method, props, body):
+    n = int(body)
 
-        print(" [.] fib(%s)" % n)
-        response = fib(n)
+    print(" [.] fib(%s)" % n)
+    response = fib(n)
 
-        ch.basic_publish(exchange='',
-                         routing_key=props.reply_to,
-                         properties=pika.BasicProperties(correlation_id = \
-                                                             props.correlation_id),
-                         body=str(response))
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+    ch.basic_publish(exchange='',
+                     routing_key=props.reply_to,
+                     properties=pika.BasicProperties(correlation_id = \
+                                                         props.correlation_id),
+                     body=str(response))
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
-    channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(on_request, queue='rpc_queue')
+channel.basic_qos(prefetch_count=1)
+channel.basic_consume(on_request, queue='rpc_queue')
 
-    print(" [x] Awaiting RPC requests")
-    channel.start_consuming()
-
+print(" [x] Awaiting RPC requests")
+channel.start_consuming()
+</pre>
 
 The server code is rather straightforward:
 
@@ -265,47 +267,48 @@ The server code is rather straightforward:
 
 The code for `rpc_client.py`:
 
-    #!/usr/bin/env python
-    import pika
-    import uuid
+<pre class="sourcecode python">
+#!/usr/bin/env python
+import pika
+import uuid
 
-    class FibonacciRpcClient(object):
-        def __init__(self):
-            self.connection = pika.BlockingConnection(pika.ConnectionParameters(
-                    host='localhost'))
+class FibonacciRpcClient(object):
+    def __init__(self):
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(
+                host='localhost'))
 
-            self.channel = self.connection.channel()
+        self.channel = self.connection.channel()
 
-            result = self.channel.queue_declare(exclusive=True)
-            self.callback_queue = result.method.queue
+        result = self.channel.queue_declare(exclusive=True)
+        self.callback_queue = result.method.queue
 
-            self.channel.basic_consume(self.on_response, no_ack=True,
-                                       queue=self.callback_queue)
+        self.channel.basic_consume(self.on_response, no_ack=True,
+                                   queue=self.callback_queue)
 
-        def on_response(self, ch, method, props, body):
-            if self.corr_id == props.correlation_id:
-                self.response = body
+    def on_response(self, ch, method, props, body):
+        if self.corr_id == props.correlation_id:
+            self.response = body
 
-        def call(self, n):
-            self.response = None
-            self.corr_id = str(uuid.uuid4())
-            self.channel.basic_publish(exchange='',
-                                       routing_key='rpc_queue',
-                                       properties=pika.BasicProperties(
-                                             reply_to = self.callback_queue,
-                                             correlation_id = self.corr_id,
-                                             ),
-                                       body=str(n))
-            while self.response is None:
-                self.connection.process_data_events()
-            return int(self.response)
+    def call(self, n):
+        self.response = None
+        self.corr_id = str(uuid.uuid4())
+        self.channel.basic_publish(exchange='',
+                                   routing_key='rpc_queue',
+                                   properties=pika.BasicProperties(
+                                         reply_to = self.callback_queue,
+                                         correlation_id = self.corr_id,
+                                         ),
+                                   body=str(n))
+        while self.response is None:
+            self.connection.process_data_events()
+        return int(self.response)
 
-    fibonacci_rpc = FibonacciRpcClient()
+fibonacci_rpc = FibonacciRpcClient()
 
-    print(" [x] Requesting fib(30)")
-    response = fibonacci_rpc.call(30)
-    print(" [.] Got %r" % response)
-
+print(" [x] Requesting fib(30)")
+response = fibonacci_rpc.call(30)
+print(" [.] Got %r" % response)
+</pre>
 
 The client code is slightly more involved:
 
@@ -330,15 +333,17 @@ The client code is slightly more involved:
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ python rpc_server.py
-     [x] Awaiting RPC requests
+<pre class="sourcecode bash">
+python rpc_server.py
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ python rpc_client.py
-     [x] Requesting fib(30)
+<pre class="sourcecode python">
+python rpc_client.py
+# => [x] Requesting fib(30)
+</pre>
 
 The presented design is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -361,7 +366,7 @@ complex (but important) problems, like:
    (eg checking bounds) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >
 
 (Full source code for [rpc_client.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_client.py) and [rpc_server.py](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/rpc_server.py))
