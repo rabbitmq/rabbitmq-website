@@ -30,6 +30,18 @@ limitations under the License.
       </tr>
 
       <tr>
+        <td class="centre">3.6.9</td>
+        <td class="centre">29 March 2017</td>
+        <td>
+          <ul>
+            <li>Security vulnerability fixes: CVE-2017-4965, CVE-2017-4966, CVE-2017-4967</li>
+            <li>Bug fixes</li>
+          </ul>
+        </td>
+        <td class="centre"><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_9">(changes)</a></td>
+      </tr>
+
+      <tr>
         <td class="centre">3.6.8</td>
         <td class="centre">17 March 2017</td>
         <td>
