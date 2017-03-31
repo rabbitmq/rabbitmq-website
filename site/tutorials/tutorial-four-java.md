@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -38,8 +38,9 @@ Bindings
 In previous examples we were already creating bindings. You may recall
 code like:
 
-    :::java
-    channel.queueBind(queueName, EXCHANGE_NAME, "");
+<pre class="sourcecode java">
+channel.queueBind(queueName, EXCHANGE_NAME, "");
+</pre>
 
 A binding is a relationship between an exchange and a queue. This can
 be simply read as: the queue is interested in messages from this
@@ -49,8 +50,9 @@ Bindings can take an extra `routingKey` parameter. To avoid the
 confusion with a `basic_publish` parameter we're going to call it a
 `binding key`. This is how we could create a binding with a key:
 
-    :::java
-    channel.queueBind(queueName, EXCHANGE_NAME, "black");
+<pre class="sourcecode java">
+channel.queueBind(queueName, EXCHANGE_NAME, "black");
+</pre>
 
 The meaning of a binding key depends on the exchange type. The
 `fanout` exchanges, which we used previously, simply ignored its
@@ -180,13 +182,15 @@ first.
 
 As always, we need to create an exchange first:
 
-    :::java
-    channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+<pre class="sourcecode java">
+channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+</pre>
 
 And we're ready to send a message:
 
-    :::java
-    channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+<pre class="sourcecode java">
+channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+</pre>
 
 To simplify things we will assume that 'severity' can be one of
 'info', 'warning', 'error'.
@@ -199,18 +203,17 @@ Receiving messages will work just like in the previous tutorial, with
 one exception - we're going to create a new binding for each severity
 we're interested in.
 
+<pre class="sourcecode java">
+String queueName = channel.queueDeclare().getQueue();
 
-    :::java
-    String queueName = channel.queueDeclare().getQueue();
+for(String severity : argv){
+  channel.queueBind(queueName, EXCHANGE_NAME, severity);
+}
+</pre>
 
-    for(String severity : argv){    
-      channel.queueBind(queueName, EXCHANGE_NAME, severity);
-    }
 
 Putting it all together
 -----------------------
-
-
 
 <div class="diagram">
   <img src="/img/tutorials/python-four.png" height="170" />
@@ -254,100 +257,109 @@ Putting it all together
 
 The code for `EmitLogDirect.java` class:
 
-    #!java
-    public class EmitLogDirect {
-    
-        private static final String EXCHANGE_NAME = "direct_logs";
-    
-        public static void main(String[] argv)
-                      throws java.io.IOException {
-    
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-    
-            channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-    
-            String severity = getSeverity(argv);
-            String message = getMessage(argv);
-    
-            channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
-            System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
-    
-            channel.close();
-            connection.close();
-        }
-        //..
-    }
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
 
-The code for `ReceiveLogsDirect.java`:
+import java.io.IOException;
 
-    #!java
-    import com.rabbitmq.client.*;
-    
-    import java.io.IOException;
-    
-    public class ReceiveLogsDirect {
-    
-      private static final String EXCHANGE_NAME = "direct_logs";
-    
-      public static void main(String[] argv) throws Exception {
+public class EmitLogDirect {
+
+    private static final String EXCHANGE_NAME = "direct_logs";
+
+    public static void main(String[] argv)
+                  throws java.io.IOException {
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
-    
+
         channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-        String queueName = channel.queueDeclare().getQueue();
-    
-        if (argv.length < 1){
-          System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
-          System.exit(1);
-        }
-    
-        for(String severity : argv){
-          channel.queueBind(queueName, EXCHANGE_NAME, severity);
-        }
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
-        Consumer consumer = new DefaultConsumer(channel) {
-          @Override
-          public void handleDelivery(String consumerTag, Envelope envelope,
-                                     AMQP.BasicProperties properties, byte[] body) throws IOException {
-            String message = new String(body, "UTF-8");
-            System.out.println(" [x] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
-          }
-        };
-        channel.basicConsume(queueName, true, consumer);
-      }
+
+        String severity = getSeverity(argv);
+        String message = getMessage(argv);
+
+        channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
+        System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
+
+        channel.close();
+        connection.close();
     }
+    //..
+}
+</pre>
+
+The code for `ReceiveLogsDirect.java`:
+
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+
+public class ReceiveLogsDirect {
+
+  private static final String EXCHANGE_NAME = "direct_logs";
+
+  public static void main(String[] argv) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+
+    channel.exchangeDeclare(EXCHANGE_NAME, "direct");
+    String queueName = channel.queueDeclare().getQueue();
+
+    if (argv.length &lt; 1){
+      System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
+      System.exit(1);
+    }
+
+    for(String severity : argv){
+      channel.queueBind(queueName, EXCHANGE_NAME, severity);
+    }
+    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+    Consumer consumer = new DefaultConsumer(channel) {
+      @Override
+      public void handleDelivery(String consumerTag, Envelope envelope,
+                                 AMQP.BasicProperties properties, byte[] body) throws IOException {
+        String message = new String(body, "UTF-8");
+        System.out.println(" [x] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
+      }
+    };
+    channel.basicConsume(queueName, true, consumer);
+  }
+}
+</pre>
 
 Compile as usual (see [tutorial one](tutorial-one-java.html) for compilation and classpath advice).
 For convenience we'll use an environment variable $CP (that's %CP% on Windows) for the classpath when running examples.
 
-    :::bash
-    $ javac -cp $CP ReceiveLogsDirect.java EmitLogDirect.java
+<pre class="sourcecode bash">
+javac -cp $CP ReceiveLogsDirect.java EmitLogDirect.java
+</pre>
 
 If you want to save only 'warning' and 'error' (and not 'info') log
 messages to a file, just open a console and type:
 
-    :::bash
-    $ java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
+<pre class="sourcecode bash">
+java -cp $CP ReceiveLogsDirect warning error > logs_from_rabbit.log
+</pre>
 
 If you'd like to see all the log messages on your screen, open a new
 terminal and do:
 
-    :::bash
-    $ java -cp $CP ReceiveLogsDirect info warning error
-     [*] Waiting for logs. To exit press CTRL+C
+<pre class="sourcecode bash">
+java -cp $CP ReceiveLogsDirect info warning error
+# => [*] Waiting for logs. To exit press CTRL+C
+</pre>
 
 And, for example, to emit an `error` log message just type:
 
-    :::bash
-    $ java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
-     [x] Sent 'error':'Run. Run. Or it will explode.'
-
+<pre class="sourcecode bash">
+java -cp $CP EmitLogDirect error "Run. Run. Or it will explode."
+# => [x] Sent 'error':'Run. Run. Or it will explode.'
+</pre>
 
 (Full source code for [(EmitLogDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLogDirect.java)
 and [(ReceiveLogsDirect.java source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogsDirect.java))

@@ -90,9 +90,9 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of this type, and call it `logs`:
 
-    :::java
-    channel.exchangeDeclare("logs", "fanout");
-
+<pre class="sourcecode java">
+channel.exchangeDeclare("logs", "fanout");
+</pre>
 
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
@@ -103,18 +103,18 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
->     $ sudo rabbitmqctl list_exchanges
->     Listing exchanges ...
->             direct
->     amq.direct      direct
->     amq.fanout      fanout
->     amq.headers     headers
->     amq.match       headers
->     amq.rabbitmq.log        topic
->     amq.rabbitmq.trace      topic
->     amq.topic       topic
->     logs    fanout
->     ...done.
+>     sudo rabbitmqctl list_exchanges
+>     # => Listing exchanges ...
+>     # =>         direct
+>     # => amq.direct      direct
+>     # => amq.fanout      fanout
+>     # => amq.headers     headers
+>     # => amq.match       headers
+>     # => amq.rabbitmq.log        topic
+>     # => amq.rabbitmq.trace      topic
+>     # => amq.topic       topic
+>     # => logs    fanout
+>     # => ...done.
 >
 > In this list there are some `amq.*` exchanges and the default (unnamed)
 > exchange. These are created by default, but it is unlikely you'll need to
@@ -129,7 +129,6 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
->     :::java
 >     channel.basicPublish("", "hello", null, message.getBytes());
 >
 > The first parameter is the the name of the exchange.
@@ -138,9 +137,9 @@ queues it knows. And that's exactly what we need for our logger.
 
 Now, we can publish to our named exchange instead:
 
-    :::java
-    channel.basicPublish( "logs", "", null, message.getBytes());
-
+<pre class="sourcecode java">
+channel.basicPublish( "logs", "", null, message.getBytes());
+</pre>
 
 Temporary queues
 ----------------
@@ -166,8 +165,9 @@ automatically deleted.
 In the Java client, when we supply no parameters to `queueDeclare()`
 we create a non-durable, exclusive, autodelete queue with a generated name:
 
-    :::java
-    String queueName = channel.queueDeclare().getQueue();
+<pre class="sourcecode java">
+String queueName = channel.queueDeclare().getQueue();
+</pre>
 
 At that point `queueName` contains a random queue name. For example
 it may look like `amq.gen-JzTY20BRgKO-HjmUJj0wLg`.
@@ -202,8 +202,9 @@ We've already created a fanout exchange and a queue. Now we need to
 tell the exchange to send messages to our queue. That relationship
 between exchange and a queue is called a _binding_.
 
-    :::java
-    channel.queueBind(queueName, "logs", "");
+<pre class="sourcecode java">
+channel.queueBind(queueName, "logs", "");
+</pre>
 
 From now on the `logs` exchange will append messages to our queue.
 
@@ -256,36 +257,37 @@ nameless one. We need to supply a `routingKey` when sending, but its
 value is ignored for `fanout` exchanges. Here goes the code for
 `EmitLog.java` program:
 
-    #!java
-    import java.io.IOException;
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
+<pre class="sourcecode java">
+import java.io.IOException;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
 
-    public class EmitLog {
+public class EmitLog {
 
-        private static final String EXCHANGE_NAME = "logs";
+    private static final String EXCHANGE_NAME = "logs";
 
-        public static void main(String[] argv)
-                      throws java.io.IOException {
+    public static void main(String[] argv)
+                  throws java.io.IOException {
 
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
-            channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
 
-            String message = getMessage(argv);
+        String message = getMessage(argv);
 
-            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
-            System.out.println(" [x] Sent '" + message + "'");
+        channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
+        System.out.println(" [x] Sent '" + message + "'");
 
-            channel.close();
-            connection.close();
-        }
-        //...
+        channel.close();
+        connection.close();
     }
+    //...
+}
+</pre>
 
 [(EmitLog.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/EmitLog.java)
 
@@ -298,72 +300,77 @@ but that's okay for us; if no consumer is listening yet we can safely discard th
 
 The code for `ReceiveLogs.java`:
 
-    #!java
-    import com.rabbitmq.client.*;
-    
-    import java.io.IOException;
-    
-    public class ReceiveLogs {
-      private static final String EXCHANGE_NAME = "logs";
-    
-      public static void main(String[] argv) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-    
-        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-        String queueName = channel.queueDeclare().getQueue();
-        channel.queueBind(queueName, EXCHANGE_NAME, "");
-    
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-    
-        Consumer consumer = new DefaultConsumer(channel) {
-          @Override
-          public void handleDelivery(String consumerTag, Envelope envelope,
-                                     AMQP.BasicProperties properties, byte[] body) throws IOException {
-            String message = new String(body, "UTF-8");
-            System.out.println(" [x] Received '" + message + "'");
-          }
-        };
-        channel.basicConsume(queueName, true, consumer);
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+
+public class ReceiveLogs {
+  private static final String EXCHANGE_NAME = "logs";
+
+  public static void main(String[] argv) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+
+    channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+    String queueName = channel.queueDeclare().getQueue();
+    channel.queueBind(queueName, EXCHANGE_NAME, "");
+
+    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+    Consumer consumer = new DefaultConsumer(channel) {
+      @Override
+      public void handleDelivery(String consumerTag, Envelope envelope,
+                                 AMQP.BasicProperties properties, byte[] body) throws IOException {
+        String message = new String(body, "UTF-8");
+        System.out.println(" [x] Received '" + message + "'");
       }
-    }
+    };
+    channel.basicConsume(queueName, true, consumer);
+  }
+}
+</pre>
 
 [(ReceiveLogs.java source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/ReceiveLogs.java)
 
 
 Compile as before and we're done.
 
-    :::bash
-    $ javac -cp $CP EmitLog.java ReceiveLogs.java
+<pre class="sourcecode bash">
+javac -cp $CP EmitLog.java ReceiveLogs.java
+</pre>
 
 If you want to save logs to a file, just open a console and type:
 
-    :::bash
-    $ java -cp $CP ReceiveLogs > logs_from_rabbit.log
+<pre class="sourcecode bash">
+java -cp $CP ReceiveLogs > logs_from_rabbit.log
+</pre>
 
 If you wish to see the logs on your screen, spawn a new terminal and run:
 
-    :::bash
-    $ java -cp $CP ReceiveLogs
+<pre class="sourcecode bash">
+java -cp $CP ReceiveLogs
+</pre>
 
 And of course, to emit logs type:
 
-    :::bash
-    $ java -cp $CP EmitLog
-
+<pre class="sourcecode bash">
+java -cp $CP EmitLog
+</pre>
 
 Using `rabbitmqctl list_bindings` you can verify that the code actually
 creates bindings and queues as we want. With two `ReceiveLogs.java`
 programs running you should see something like:
 
-    :::bash
-    $ sudo rabbitmqctl list_bindings
-    Listing bindings ...
-    logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
-    logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
-    ...done.
+<pre class="sourcecode bash">
+sudo rabbitmqctl list_bindings
+# => Listing bindings ...
+# => logs    exchange        amq.gen-JzTY20BRgKO-HjmUJj0wLg  queue           []
+# => logs    exchange        amq.gen-vso0PVvyiRIL2WoV3i48Yg  queue           []
+# => ...done.
+</pre>
 
 The interpretation of the result is straightforward: data from
 exchange `logs` goes to two queues with server-assigned names. And

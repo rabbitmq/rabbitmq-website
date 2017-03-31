@@ -74,30 +74,33 @@ In
 [`Send.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java),
 we need some classes imported:
 
-    :::java
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
+<pre class="sourcecode java">
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+</pre>
 
 Set up the class and name the queue:
 
-    :::java
-    public class Send {
-      private final static String QUEUE_NAME = "hello";
+<pre class="sourcecode java">
+public class Send {
+  private final static String QUEUE_NAME = "hello";
 
-      public static void main(String[] argv)
-          throws java.io.IOException {
-          ...
-      }
-    }    
-    
+  public static void main(String[] argv)
+      throws java.io.IOException {
+      ...
+  }
+}    
+</pre>
+
 then we can create a connection to the server:
 
-    :::java
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+<pre class="sourcecode java">
+ConnectionFactory factory = new ConnectionFactory();
+factory.setHost("localhost");
+Connection connection = factory.newConnection();
+Channel channel = connection.createChannel();
+</pre>
 
 The connection abstracts the socket connection, and takes care of
 protocol version negotiation and authentication and so on for us. Here
@@ -111,11 +114,12 @@ things done resides.
 To send, we must declare a queue for us to send to; then we can publish a message
 to the queue:
 
-    :::java
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        String message = "Hello World!";
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-        System.out.println(" [x] Sent '" + message + "'");
+<pre class="sourcecode java">
+channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+String message = "Hello World!";
+channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+System.out.println(" [x] Sent '" + message + "'");
+</pre>
 
 Declaring a queue is idempotent - it will only be created if it doesn't
 exist already. The message content is a byte array, so you can encode
@@ -123,9 +127,10 @@ whatever you like there.
 
 Lastly, we close the channel and the connection;
 
-    :::java
-        channel.close();
-        connection.close();
+<pre class="sourcecode java">
+channel.close();
+connection.close();
+</pre>
 
 [Here's the whole Send.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java).
@@ -154,12 +159,13 @@ keep it running to listen for messages and print them out.
 
 The code (in [`Recv.java`](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)) has almost the same imports as `Send`:
 
-    :::java
-    import com.rabbitmq.client.ConnectionFactory;
-    import com.rabbitmq.client.Connection;
-    import com.rabbitmq.client.Channel;
-    import com.rabbitmq.client.Consumer;
-    import com.rabbitmq.client.DefaultConsumer;
+<pre class="sourcecode java">
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+</pre>
 
 The extra `DefaultConsumer` is a class implementing the `Consumer`
 interface we'll use to buffer the messages pushed to us by the server.
@@ -168,24 +174,25 @@ Setting up is the same as the sender; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
-    :::java
-    public class Recv {
-      private final static String QUEUE_NAME = "hello";
-    
-      public static void main(String[] argv)
-          throws java.io.IOException,
-                 java.lang.InterruptedException {
-                 
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+<pre class="sourcecode java">
+public class Recv {
+  private final static String QUEUE_NAME = "hello";
 
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-        ...
-        }
+  public static void main(String[] argv)
+      throws java.io.IOException,
+             java.lang.InterruptedException {
+             
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+
+    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+    ...
     }
+}
+</pre>
 
 Note that we declare the queue here, as well. Because we might start
 the receiver before the sender, we want to make sure the queue exists
@@ -196,16 +203,18 @@ queue. Since it will push us messages asynchronously, we provide a
 callback in the form of an object that will buffer the messages until
 we're ready to use them. That is what a `DefaultConsumer` subclass does.
 
-    :::java
-        Consumer consumer = new DefaultConsumer(channel) {
-          @Override
-          public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
-              throws IOException {
-            String message = new String(body, "UTF-8");
-            System.out.println(" [x] Received '" + message + "'");
-          }
-        };
-        channel.basicConsume(QUEUE_NAME, true, consumer);
+<pre class="sourcecode java">
+Consumer consumer = new DefaultConsumer(channel) {
+  @Override
+  public void handleDelivery(String consumerTag, Envelope envelope,
+                             AMQP.BasicProperties properties, byte[] body)
+      throws IOException {
+    String message = new String(body, "UTF-8");
+    System.out.println(" [x] Received '" + message + "'");
+  }
+};
+channel.basicConsume(QUEUE_NAME, true, consumer);
+</pre>
 
 [Here's the whole Recv.java
 class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java).
@@ -215,19 +224,22 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Recv.java)
 You can compile both of these with just the RabbitMQ java client on
 the classpath:
 
-    :::bash
-    $ javac -cp amqp-client-4.0.2.jar Send.java Recv.java
+<pre class="sourcecode bash">
+javac -cp amqp-client-4.0.2.jar Send.java Recv.java
+</pre>
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
 the classpath.  In a terminal, run the sender:
 
-    :::bash
-    $ java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
+<pre class="sourcecode bash">
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
+</pre>
 
 then, run the receiver:
 
-    :::bash
-    $ java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv
+<pre class="sourcecode bash">
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv
+</pre>
 
 On Windows, use a semicolon instead of a colon to separate items in the classpath.
 
@@ -235,21 +247,34 @@ The receiver will print the message it gets from the sender via
 RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
 the sender from another terminal.
 
-If you want to check on the queue, try using `rabbitmqctl list_queues`.
+> #### Listing queues
+>
+> You may wish to see what queues RabbitMQ has and how many
+> messages are in them. You can do it (as a privileged user) using the `rabbitmqctl` tool:
+>
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues
+> </pre>
+>
+> On Windows, omit the sudo:
+> <pre class="sourcecode powershell">
+> rabbitmqctl.bat list_queues
+> </pre>
 
-hello
 
 Time to move on to [part 2](tutorial-two-java.html) and build a simple _work queue_.
 
-> ####Hint
+> #### Hint
 > To save typing, you can set an environment variable for the classpath e.g.
 >
->      $ export CP=.:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar
->      $ java -cp $CP Send
+> <pre class="sourcecode bash">
+> export CP=.:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar
+> java -cp $CP Send
+> </pre>
 >
 > or on Windows:
->
->      > set CP=.;amqp-client-4.0.2.jar;slf4j-api-1.7.21.jar;slf4j-simple-1.7.22.jar
->      > java -cp %CP% Send
->
+> <pre class="sourcecode powershell">
+> set CP=.;amqp-client-4.0.2.jar;slf4j-api-1.7.21.jar;slf4j-simple-1.7.22.jar
+> java -cp %CP% Send
+> </pre>
 

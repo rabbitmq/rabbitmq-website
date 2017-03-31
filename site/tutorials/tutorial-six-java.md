@@ -2,8 +2,8 @@
 Copyright (c) 2007-2016 Pivotal Software, Inc.
 
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the under the Apache License, 
-Version 2.0 (the "License”); you may not use this file except in compliance 
+are made available under the terms of the under the Apache License,
+Version 2.0 (the "License”); you may not use this file except in compliance
 with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
@@ -41,10 +41,11 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-    :::java
-    FibonacciRpcClient fibonacciRpc = new FibonacciRpcClient();   
-    String result = fibonacciRpc.call("4");
-    System.out.println( "fib(4) is " + result);
+<pre class="sourcecode java">
+FibonacciRpcClient fibonacciRpc = new FibonacciRpcClient();
+String result = fibonacciRpc.call("4");
+System.out.println( "fib(4) is " + result);
+</pre>
 
 > #### A note on RPC
 >
@@ -75,18 +76,18 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue (which is exclusive in the Java client).
 Let's try it:
 
-    :::java
-    callbackQueueName = channel.queueDeclare().getQueue();
-    
-    BasicProperties props = new BasicProperties
-                                .Builder()
-                                .replyTo(callbackQueueName)
-                                .build();
+<pre class="sourcecode java">
+callbackQueueName = channel.queueDeclare().getQueue();
 
-    channel.basicPublish("", "rpc_queue", props, message.getBytes());
+BasicProperties props = new BasicProperties
+                            .Builder()
+                            .replyTo(callbackQueueName)
+                            .build();
 
-    // ... then code to read a response message from the callback_queue ...
+channel.basicPublish("", "rpc_queue", props, message.getBytes());
 
+// ... then code to read a response message from the callback_queue ...
+</pre>
 
 > #### Message properties
 >
@@ -105,8 +106,9 @@ Let's try it:
 
 We need this new import:
 
-    :::java
-    import com.rabbitmq.client.AMQP.BasicProperties;
+<pre class="sourcecode java">
+import com.rabbitmq.client.AMQP.BasicProperties;
+</pre>
 
 ### Correlation Id
 
@@ -213,82 +215,82 @@ Putting it all together
 
 The Fibonacci task:
 
-    :::java        
-    private static int fib(int n) {
-        if (n == 0) return 0;
-        if (n == 1) return 1;
-        return fib(n-1) + fib(n-2);
-    }
-
+<pre class="sourcecode java">
+private static int fib(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fib(n-1) + fib(n-2);
+}
+</pre>
 
 We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
 and it's probably the slowest recursive implementation possible).
 
-  
+
 The code for our RPC server [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java) looks like this:
 
 
-    #!java
-    import com.rabbitmq.client.*;
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
 
-    import java.io.IOException;
-    import java.util.concurrent.TimeoutException;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
-    public class RPCServer {
+public class RPCServer {
 
-        private static final String RPC_QUEUE_NAME = "rpc_queue";
+    private static final String RPC_QUEUE_NAME = "rpc_queue";
 
-        public static void main(String[] argv) {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+    public static void main(String[] argv) {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
 
-            Connection connection = null;
-            try {
-                connection      = factory.newConnection();
-                Channel channel = connection.createChannel();
+        Connection connection = null;
+        try {
+            connection      = factory.newConnection();
+            Channel channel = connection.createChannel();
 
-                channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
 
-                channel.basicQos(1);
+            channel.basicQos(1);
 
-                System.out.println(" [x] Awaiting RPC requests");
+            System.out.println(" [x] Awaiting RPC requests");
 
-                Consumer consumer = new DefaultConsumer(channel) {
-                    @Override
-                    public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                        AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                                .Builder()
-                                .correlationId(properties.getCorrelationId())
-                                .build();
+            Consumer consumer = new DefaultConsumer(channel) {
+                @Override
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                    AMQP.BasicProperties replyProps = new AMQP.BasicProperties
+                            .Builder()
+                            .correlationId(properties.getCorrelationId())
+                            .build();
 
-                        String response = "";
+                    String response = "";
 
-                        try {
-                            String message = new String(body,"UTF-8");
-                            int n = Integer.parseInt(message);
+                    try {
+                        String message = new String(body,"UTF-8");
+                        int n = Integer.parseInt(message);
 
-                            System.out.println(" [.] fib(" + message + ")");
-                            response += fib(n);
-                        }
-                        catch (RuntimeException e){
-                            System.out.println(" [.] " + e.toString());
-                        }
-                        finally {
-                            channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
-
-                            channel.basicAck(envelope.getDeliveryTag(), false);
-                        }
+                        System.out.println(" [.] fib(" + message + ")");
+                        response += fib(n);
                     }
-                };
+                    catch (RuntimeException e){
+                        System.out.println(" [.] " + e.toString());
+                    }
+                    finally {
+                        channel.basicPublish( "", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
 
-                channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+                        channel.basicAck(envelope.getDeliveryTag(), false);
+                    }
+                }
+            };
 
-                //...
-            }
+            channel.basicConsume(RPC_QUEUE_NAME, false, consumer);
+
+            //...
         }
     }
-
+}
+</pre>
 
 The server code is rather straightforward:
 
@@ -303,64 +305,64 @@ The server code is rather straightforward:
 
 The code for our RPC client [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java):
 
-    #!java
-    import com.rabbitmq.client.*;
+<pre class="sourcecode java">
+import com.rabbitmq.client.*;
 
-    import java.io.IOException;
-    import java.util.UUID;
-    import java.util.concurrent.ArrayBlockingQueue;
-    import java.util.concurrent.BlockingQueue;
-    import java.util.concurrent.TimeoutException;
+import java.io.IOException;
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeoutException;
 
-    public class RPCClient {
+public class RPCClient {
 
-        private Connection connection;
-        private Channel channel;
-        private String requestQueueName = "rpc_queue";
-        private String replyQueueName;
+    private Connection connection;
+    private Channel channel;
+    private String requestQueueName = "rpc_queue";
+    private String replyQueueName;
 
-        public RPCClient() throws IOException, TimeoutException {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+    public RPCClient() throws IOException, TimeoutException {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
 
-            connection = factory.newConnection();
-            channel = connection.createChannel();
+        connection = factory.newConnection();
+        channel = connection.createChannel();
 
-            replyQueueName = channel.queueDeclare().getQueue();
-        }
-
-        public String call(String message) throws IOException, InterruptedException {
-            String corrId = UUID.randomUUID().toString();
-
-            AMQP.BasicProperties props = new AMQP.BasicProperties
-                    .Builder()
-                    .correlationId(corrId)
-                    .replyTo(replyQueueName)
-                    .build();
-
-            channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
-
-            final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
-
-            channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
-                @Override
-                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    if (properties.getCorrelationId().equals(corrId)) {
-                        response.offer(new String(body, "UTF-8"));
-                    }
-                }
-            });
-
-            return response.take();
-        }
-
-        public void close() throws IOException {
-            connection.close();
-        }
-
-        //...
+        replyQueueName = channel.queueDeclare().getQueue();
     }
 
+    public String call(String message) throws IOException, InterruptedException {
+        String corrId = UUID.randomUUID().toString();
+
+        AMQP.BasicProperties props = new AMQP.BasicProperties
+                .Builder()
+                .correlationId(corrId)
+                .replyTo(replyQueueName)
+                .build();
+
+        channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
+
+        final BlockingQueue&lt;String&gt; response = new ArrayBlockingQueue&lt;String&gt;(1);
+
+        channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                if (properties.getCorrelationId().equals(corrId)) {
+                    response.offer(new String(body, "UTF-8"));
+                }
+            }
+        });
+
+        return response.take();
+    }
+
+    public void close() throws IOException {
+        connection.close();
+    }
+
+    //...
+}
+</pre>
 
 
 The client code is slightly more involved:
@@ -389,15 +391,15 @@ The client code is slightly more involved:
 
 Making the Client request:
 
-    :::java
-    RPCClient fibonacciRpc = new RPCClient();
+<pre class="sourcecode java">
+RPCClient fibonacciRpc = new RPCClient();
 
-    System.out.println(" [x] Requesting fib(30)");
-    String response = fibonacciRpc.call("30");
-    System.out.println(" [.] Got '" + response + "'");
+System.out.println(" [x] Requesting fib(30)");
+String response = fibonacciRpc.call("30");
+System.out.println(" [.] Got '" + response + "'");
 
-    fibonacciRpc.close();
-
+fibonacciRpc.close();
+</pre>
 
 Now is a good time to take a look at our full example source code (which includes basic exception handling) for
 [RPCClient.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCClient.java) and [RPCServer.java](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/RPCServer.java).
@@ -405,20 +407,23 @@ Now is a good time to take a look at our full example source code (which include
 
 Compile and set up the classpath as usual (see [tutorial one](tutorial-one-java.html)):
 
-    :::bash
-    $ javac -cp $CP RPCClient.java RPCServer.java
-  
+<pre class="sourcecode bash">
+javac -cp $CP RPCClient.java RPCServer.java
+</pre>
+
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ java -cp $CP RPCServer
-     [x] Awaiting RPC requests
+<pre class="sourcecode bash">
+java -cp $CP RPCServer
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ java -cp $CP RPCClient
-     [x] Requesting fib(30)
+<pre class="sourcecode bash">
+java -cp $CP RPCClient
+# => [x] Requesting fib(30)
+</pre>
 
 The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -443,4 +448,3 @@ complex (but important) problems, like:
 >
 >If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
 >
-

@@ -90,9 +90,10 @@ There are a few exchange types available: `direct`, `topic`, `headers`
 and `fanout`. We'll focus on the last one -- the fanout. Let's create
 an exchange of that type, and call it `logs`:
 
-    :::python
-    channel.exchange_declare(exchange='logs',
-                             type='fanout')
+<pre class="sourcecode python">
+channel.exchange_declare(exchange='logs',
+                         type='fanout')
+</pre>
 
 The fanout exchange is very simple. As you can probably guess from the
 name, it just broadcasts all the messages it receives to all the
@@ -103,22 +104,16 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
->     :::bash
->     $ sudo rabbitmqctl list_exchanges
->     Listing exchanges ...
->     logs      fanout
->     amq.direct      direct
->     amq.topic       topic
->     amq.fanout      fanout
->     amq.headers     headers
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_exchanges
+> </pre>
 >
-> In this list there are some `amq.*` exchanges and the default (unnamed)
+> In this list there will be some `amq.*` exchanges and the default (unnamed)
 > exchange. These are created by default, but it is unlikely you'll need to
 > use them at the moment.
 
 
-> #### Nameless exchange
+> #### The default exchange
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
 > but still were able to send messages to queues. That was possible
@@ -126,9 +121,11 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
->     channel.basic_publish(exchange='',
->                           routing_key='hello',
->                           body=message)
+> <pre class="sourcecode python">
+> channel.basic_publish(exchange='',
+>                       routing_key='hello',
+>                       body=message)
+> </pre>
 >
 > The `exchange` parameter is the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are

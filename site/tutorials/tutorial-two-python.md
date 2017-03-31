@@ -115,45 +115,50 @@ You need three consoles open. Two will run the `worker.py`
 script. These consoles will be our two consumers - C1 and C2.
 
 <pre class="sourcecode bash">
-shell1$ python worker.py
- [*] Waiting for messages. To exit press CTRL+C
+# shell 1
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
 <div></div>
 
 <pre class="sourcecode bash">
-shell2$ python worker.py
- [*] Waiting for messages. To exit press CTRL+C
+# shell 2
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
 </pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
 <pre class="sourcecode bash">
-shell3$ python new_task.py First message.
-shell3$ python new_task.py Second message..
-shell3$ python new_task.py Third message...
-shell3$ python new_task.py Fourth message....
-shell3$ python new_task.py Fifth message.....
+# shell 3
+python new_task.py First message.
+python new_task.py Second message..
+python new_task.py Third message...
+python new_task.py Fourth message....
+python new_task.py Fifth message.....
 </pre>
 
 Let's see what is delivered to our workers:
 
 <pre class="sourcecode bash">
-shell1$ python worker.py
- [*] Waiting for messages. To exit press CTRL+C
- [x] Received 'First message.'
- [x] Received 'Third message...'
- [x] Received 'Fifth message.....'
+# shell 1
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
 </pre>
 
 <div></div>
 
 <pre class="sourcecode bash">
-shell2$ python worker.py
- [*] Waiting for messages. To exit press CTRL+C
- [x] Received 'Second message..'
- [x] Received 'Fourth message....'
+# shell 2
+python worker.py
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
 </pre>
 
 By default, RabbitMQ will send each message to the next consumer,
@@ -223,10 +228,15 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
+
 
 
 Message durability
