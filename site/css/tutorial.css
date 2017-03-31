@@ -102,9 +102,13 @@ table#tutorials td p {
     padding: 2px 12px;
     margin: 40px 6px;
     border: 1px solid #aaa;
-    background: #ddd;
+    background: #bbb;
     border-radius: 5px;
     -moz-border-radius: 5px;
+}
+
+.tutorial blockquote a {
+    color: #222;
 }
 
 .aside {
@@ -116,6 +120,11 @@ table#tutorials td p {
 .aside h2 {
    color: #444;
 }
+
+div.aside a {
+    color: #222;
+}
+
 
 #tutorial-index {
    clear: both;
