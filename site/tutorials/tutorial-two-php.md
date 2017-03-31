@@ -75,38 +75,46 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.php`:
 
-    :::php
-    $data = implode(' ', array_slice($argv, 1));
-    if(empty($data)) $data = "Hello World!";
-    $msg = new AMQPMessage($data,
-                            array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-                          );
+<pre class="sourcecode php">
+$data = implode(' ', array_slice($argv, 1));
+if(empty($data)) $data = "Hello World!";
+$msg = new AMQPMessage($data,
+                        array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+                      );
 
-    $channel->basic_publish($msg, '', 'task_queue');
+$channel->basic_publish($msg, '', 'task_queue');
 
-    echo " [x] Sent ", $data, "\n";
+echo " [x] Sent ", $data, "\n";
+</pre>
 
 Our old _receive.php_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.php`:
 
-    :::php
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-    };
+<pre class="sourcecode php">
+$callback = function($msg){
+  echo " [x] Received ", $msg->body, "\n";
+  sleep(substr_count($msg->body, '.'));
+  echo " [x] Done", "\n";
+};
 
-    $channel->basic_qos(null, 1, null);
-    $channel->basic_consume('task_queue', '', false, true, false, false, $callback);
+$channel->basic_qos(null, 1, null);
+$channel->basic_consume('task_queue', '', false, true, false, false, $callback);
+</pre>
 
 Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-    :::bash
-    shell1$ php new_task.php "A very hard task which takes two seconds.."
-    shell2$ php worker.php
+<pre class="sourcecode bash">
+# shell 1
+php worker.php
+</pre>
+
+<pre class="sourcecode bash">
+# shell 2
+php new_task.php "A very hard task which takes two seconds.."
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -121,42 +129,48 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.php`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ php worker.php
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+php worker.php
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ php worker.php
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+php worker.php
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ php new_task.php First message.
-    shell3$ php new_task.php Second message..
-    shell3$ php new_task.php Third message...
-    shell3$ php new_task.php Fourth message....
-    shell3$ php new_task.php Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+php new_task.php First message.
+php new_task.php Second message..
+php new_task.php Third message...
+php new_task.php Fourth message....
+php new_task.php Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ php worker.php
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+# shell 1
+php worker.php
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ php worker.php
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+# shell 2
+php worker.php
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -199,15 +213,16 @@ It's time to turn them on by setting the fourth parameter to `basic_consume` to 
 (true means _no ack_) and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::php
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-      $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
+<pre class="sourcecode php">
+$callback = function($msg){
+  echo " [x] Received ", $msg->body, "\n";
+  sleep(substr_count($msg->body, '.'));
+  echo " [x] Done", "\n";
+  $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+};
 
-    $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
+$channel->basic_consume('task_queue', '', false, false, false, false, $callback);
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -215,7 +230,7 @@ after the worker dies all unacknowledged messages will be redelivered.
 
 > #### Forgotten acknowledgment
 >
-> It's a common mistake to miss the `basic_ack`. It's an easy error,
+> It's a common mistake to miss the `ack`. It's an easy error,
 > but the consequences are serious. Messages will be redelivered
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
@@ -224,11 +239,14 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 
 Message durability
@@ -246,8 +264,9 @@ First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_.
 To do so we pass the third parameter to `queue_declare` as `true`:
 
-    :::php
-    $channel->queue_declare('hello', false, true, false, false);
+<pre class="sourcecode php">
+$channel->queue_declare('hello', false, true, false, false);
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -256,8 +275,9 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::php
-    $channel->queue_declare('task_queue', false, true, false, false);
+<pre class="sourcecode php">
+$channel->queue_declare('task_queue', false, true, false, false);
+</pre>
 
 This flag set to `true` needs to be applied to both the producer
 and consumer code.
@@ -267,10 +287,11 @@ even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by setting the `delivery_mode = 2` message property which `AMQPMessage` takes
 as part of the property array.
 
-    :::php
-    $msg = new AMQPMessage($data,
-           array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-           );
+<pre class="sourcecode php">
+$msg = new AMQPMessage($data,
+       array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+       );
+</pre>
 
 > #### Note on message persistence
 >
@@ -330,8 +351,9 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::php
-    $channel->basic_qos(null, 1, null);
+<pre class="sourcecode php">
+$channel->basic_qos(null, 1, null);
+</pre>
 
 > #### Note about queue size
 >
@@ -343,71 +365,72 @@ Putting it all together
 
 Final code of our `new_task.php` file:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
 
-    $channel->queue_declare('task_queue', false, true, false, false);
+$channel->queue_declare('task_queue', false, true, false, false);
 
-    $data = implode(' ', array_slice($argv, 1));
-    if(empty($data)) $data = "Hello World!";
-    $msg = new AMQPMessage($data,
-                            array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-                          );
+$data = implode(' ', array_slice($argv, 1));
+if(empty($data)) $data = "Hello World!";
+$msg = new AMQPMessage($data,
+                        array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+                      );
 
-    $channel->basic_publish($msg, '', 'task_queue');
+$channel->basic_publish($msg, '', 'task_queue');
 
-    echo " [x] Sent ", $data, "\n";
+echo " [x] Sent ", $data, "\n";
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
-
+?&gt;
+</pre>
 
 
 [(new_task.php source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/new_task.php)
 
 And our `worker.php`:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->queue_declare('task_queue', false, true, false, false);
+$channel->queue_declare('task_queue', false, true, false, false);
 
-    echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
+echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
 
-    $callback = function($msg){
-      echo " [x] Received ", $msg->body, "\n";
-      sleep(substr_count($msg->body, '.'));
-      echo " [x] Done", "\n";
-      $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
+$callback = function($msg){
+  echo " [x] Received ", $msg->body, "\n";
+  sleep(substr_count($msg->body, '.'));
+  echo " [x] Done", "\n";
+  $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+};
 
-    $channel->basic_qos(null, 1, null);
-    $channel->basic_consume('task_queue', '', false, false, false, false, $callback);
+$channel->basic_qos(null, 1, null);
+$channel->basic_consume('task_queue', '', false, false, false, false, $callback);
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+while(count($channel->callbacks)) {
+    $channel->wait();
+}
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
+?&gt;
+</pre>
 
 [(worker.php source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/worker.php)
 
@@ -417,4 +440,3 @@ RabbitMQ is restarted.
 
 Now we can move on to [tutorial 3](tutorial-three-php.html) and learn how
 to deliver the same message to many consumers.
-

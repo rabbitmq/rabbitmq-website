@@ -41,10 +41,11 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-    :::php
-    $fibonacci_rpc = new FibonacciRpcClient();
-    $response = $fibonacci_rpc->call(30);
-    echo " [.] Got ", $response, "\n";
+<pre class="sourcecode php">
+$fibonacci_rpc = new FibonacciRpcClient();
+$response = $fibonacci_rpc->call(30);
+echo " [.] Got ", $response, "\n";
+</pre>
 
 > #### A note on RPC
 >
@@ -74,16 +75,17 @@ receive a response we need to send a 'callback' queue address with the
 request. We can use the default queue.
 Let's try it:
 
-    :::php
-    list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
+<pre class="sourcecode php">
+list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
 
-    $msg = new AMQPMessage(
-        $payload,
-        array('reply_to' => $queue_name));
+$msg = new AMQPMessage(
+    $payload,
+    array('reply_to' => $queue_name));
 
-    $channel->basic_publish($msg, '', 'rpc_queue');
+$channel->basic_publish($msg, '', 'rpc_queue');
 
-    # ... then code to read a response message from the callback_queue ...
+# ... then code to read a response message from the callback_queue ...
+</pre>
 
 > #### Message properties
 >
@@ -205,14 +207,15 @@ Putting it all together
 
 The Fibonacci task:
 
-    :::php
-    function fib($n) {
-        if ($n == 0)
-            return 0;
-        if ($n == 1)
-            return 1;
-        return fib($n-1) + fib($n-2);
-    }
+<pre class="sourcecode php">
+function fib($n) {
+    if ($n == 0)
+        return 0;
+    if ($n == 1)
+        return 1;
+    return fib($n-1) + fib($n-2);
+}
+</pre>
 
 We declare our fibonacci function. It assumes only valid positive integer input.
 (Don't expect this one to work for big numbers,
@@ -220,53 +223,55 @@ and it's probably the slowest recursive implementation possible).
 
 The code for our RPC server [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_server.php) looks like this:
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
-    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-    $channel = $connection->channel();
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$channel = $connection->channel();
 
-    $channel->queue_declare('rpc_queue', false, false, false, false);
+$channel->queue_declare('rpc_queue', false, false, false, false);
 
-    function fib($n) {
-    	if ($n == 0)
-    		return 0;
-    	if ($n == 1)
-    		return 1;
-    	return fib($n-1) + fib($n-2);
-    }
+function fib($n) {
+	if ($n == 0)
+		return 0;
+	if ($n == 1)
+		return 1;
+	return fib($n-1) + fib($n-2);
+}
 
-    echo " [x] Awaiting RPC requests\n";
-    $callback = function($req) {
-    	$n = intval($req->body);
-    	echo " [.] fib(", $n, ")\n";
+echo " [x] Awaiting RPC requests\n";
+$callback = function($req) {
+	$n = intval($req->body);
+	echo " [.] fib(", $n, ")\n";
 
-    	$msg = new AMQPMessage(
-    		(string) fib($n),
-    		array('correlation_id' => $req->get('correlation_id'))
-    		);
+	$msg = new AMQPMessage(
+		(string) fib($n),
+		array('correlation_id' => $req->get('correlation_id'))
+		);
 
-    	$req->delivery_info['channel']->basic_publish(
-    		$msg, '', $req->get('reply_to'));
-    	$req->delivery_info['channel']->basic_ack(
-    		$req->delivery_info['delivery_tag']);
-    };
+	$req->delivery_info['channel']->basic_publish(
+		$msg, '', $req->get('reply_to'));
+	$req->delivery_info['channel']->basic_ack(
+		$req->delivery_info['delivery_tag']);
+};
 
-    $channel->basic_qos(null, 1, null);
-    $channel->basic_consume('rpc_queue', '', false, false, false, false, $callback);
+$channel->basic_qos(null, 1, null);
+$channel->basic_consume('rpc_queue', '', false, false, false, false, $callback);
 
-    while(count($channel->callbacks)) {
-        $channel->wait();
-    }
+while(count($channel->callbacks)) {
+    $channel->wait();
+}
 
-    $channel->close();
-    $connection->close();
+$channel->close();
+$connection->close();
 
-    ?>
+?&gt;
+</pre>
+
 
 
 The server code is rather straightforward:
@@ -281,58 +286,59 @@ The server code is rather straightforward:
 
 The code for our RPC client [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_client.php):
 
-    :::php
-    <?php
+<pre class="sourcecode php">
+&lt;?php
 
-    require_once __DIR__ . '/vendor/autoload.php';
-    use PhpAmqpLib\Connection\AMQPStreamConnection;
-    use PhpAmqpLib\Message\AMQPMessage;
+require_once __DIR__ . '/vendor/autoload.php';
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
-    class FibonacciRpcClient {
-    	private $connection;
-    	private $channel;
-    	private $callback_queue;
-    	private $response;
-    	private $corr_id;
+class FibonacciRpcClient {
+	private $connection;
+	private $channel;
+	private $callback_queue;
+	private $response;
+	private $corr_id;
 
-    	public function __construct() {
-    		$this->connection = new AMQPStreamConnection(
-    			'localhost', 5672, 'guest', 'guest');
-    		$this->channel = $this->connection->channel();
-    		list($this->callback_queue, ,) = $this->channel->queue_declare(
-    			"", false, false, true, false);
-    		$this->channel->basic_consume(
-    			$this->callback_queue, '', false, false, false, false,
-    			array($this, 'on_response'));
-    	}
-    	public function on_response($rep) {
-    		if($rep->get('correlation_id') == $this->corr_id) {
-    			$this->response = $rep->body;
-    		}
-    	}
+	public function __construct() {
+		$this->connection = new AMQPStreamConnection(
+			'localhost', 5672, 'guest', 'guest');
+		$this->channel = $this->connection->channel();
+		list($this->callback_queue, ,) = $this->channel->queue_declare(
+			"", false, false, true, false);
+		$this->channel->basic_consume(
+			$this->callback_queue, '', false, false, false, false,
+			array($this, 'on_response'));
+	}
+	public function on_response($rep) {
+		if($rep->get('correlation_id') == $this->corr_id) {
+			$this->response = $rep->body;
+		}
+	}
 
-    	public function call($n) {
-    		$this->response = null;
-    		$this->corr_id = uniqid();
+	public function call($n) {
+		$this->response = null;
+		$this->corr_id = uniqid();
 
-    		$msg = new AMQPMessage(
-    			(string) $n,
-    			array('correlation_id' => $this->corr_id,
-    			      'reply_to' => $this->callback_queue)
-    			);
-    		$this->channel->basic_publish($msg, '', 'rpc_queue');
-    		while(!$this->response) {
-    			$this->channel->wait();
-    		}
-    		return intval($this->response);
-    	}
-    };
+		$msg = new AMQPMessage(
+			(string) $n,
+			array('correlation_id' => $this->corr_id,
+			      'reply_to' => $this->callback_queue)
+			);
+		$this->channel->basic_publish($msg, '', 'rpc_queue');
+		while(!$this->response) {
+			$this->channel->wait();
+		}
+		return intval($this->response);
+	}
+};
 
-    $fibonacci_rpc = new FibonacciRpcClient();
-    $response = $fibonacci_rpc->call(30);
-    echo " [.] Got ", $response, "\n";
+$fibonacci_rpc = new FibonacciRpcClient();
+$response = $fibonacci_rpc->call(30);
+echo " [.] Got ", $response, "\n";
 
-    ?>
+?&gt;
+</pre>
 
 Now is a good time to take a look at our full example source code for
 [rpc_client.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_client.php) and [rpc_server.php](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/php/rpc_server.php).
@@ -340,15 +346,17 @@ Now is a good time to take a look at our full example source code for
 
 Our RPC service is now ready. We can start the server:
 
-    :::bash
-    $ php rpc_server.php
-     [x] Awaiting RPC requests
+<pre class="sourcecode php">
+php rpc_server.php
+# => [x] Awaiting RPC requests
+</pre>
 
 To request a fibonacci number run the client:
 
-    :::bash
-    $ php rpc_client.php
-     [x] Requesting fib(30)
+<pre class="sourcecode php">
+php rpc_client.php
+# => [x] Requesting fib(30)
+</pre>
 
 The design presented here is not the only possible implementation of a RPC
 service, but it has some important advantages:
@@ -371,5 +379,5 @@ complex (but important) problems, like:
    (eg checking bounds, type) before processing.
 
 >
->If you want to experiment, you may find the [rabbitmq-management plugin](/plugins.html) useful for viewing the queues.
+>If you want to experiment, you may find the [management UI](/management.html) useful for viewing the queues.
 >

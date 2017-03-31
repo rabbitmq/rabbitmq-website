@@ -66,8 +66,8 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `Send` and our message receiver
-`Recv`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message publisher (sender) `Send` and our message consumer (receiver)
+`Recv`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
 In
@@ -149,8 +149,8 @@ class](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/java/Send.java)
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our publisher.  Our consumer is pushed messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -170,7 +170,7 @@ import com.rabbitmq.client.DefaultConsumer;
 The extra `DefaultConsumer` is a class implementing the `Consumer`
 interface we'll use to buffer the messages pushed to us by the server.
 
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
@@ -195,7 +195,7 @@ public class Recv {
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -229,23 +229,23 @@ javac -cp amqp-client-4.0.2.jar Send.java Recv.java
 </pre>
 
 To run them, you'll need `rabbitmq-client.jar` and its dependencies on
-the classpath.  In a terminal, run the sender:
-
-<pre class="sourcecode bash">
-java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
-</pre>
-
-then, run the receiver:
+the classpath.  In a terminal, run the consumer (receiver):
 
 <pre class="sourcecode bash">
 java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv
 </pre>
 
+then, run the publisher (sender):
+
+<pre class="sourcecode bash">
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send
+</pre>
+
 On Windows, use a semicolon instead of a colon to separate items in the classpath.
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+The consumer will print the message it gets from the publisher via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the publisher from another terminal.
 
 > #### Listing queues
 >

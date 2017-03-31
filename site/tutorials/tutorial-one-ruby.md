@@ -25,7 +25,7 @@ limitations under the License.
 ### (using the Bunny Ruby Client)
 
 In this part of the tutorial we'll write two small programs in Ruby; a
-producer that sends a single message, and a consumer that receives
+producer (sender) that sends a single message, and a consumer (receiver) that receives
 messages and prints them out.  We'll gloss over some of the detail in
 the [Bunny](http://rubybunny.info) API, concentrating on this very simple thing just to get
 started. It's a "Hello World" of messaging.
@@ -60,8 +60,8 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.rb` and our message receiver
-`receive.rb`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message producer `send.rb` and our message consumer
+`receive.rb`.  The producer will connect to RabbitMQ, send a single message,
 then exit.
 
 In
@@ -137,8 +137,8 @@ conn.close
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our producer. Our consumer is pushed messages from
+RabbitMQ, so unlike the producer which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -154,7 +154,7 @@ The code (in [`receive.rb`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 require "bunny"
 </pre>
 
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the producer; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `send` publishes to.
 
@@ -167,7 +167,7 @@ q    = ch.queue("hello")
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the producer, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -192,21 +192,21 @@ block the calling thread (we don't want the script to finish running immediately
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, run the sender:
-
-<pre class="sourcecode bash">
-ruby -rubygems send.rb
-</pre>
-
-then, run the receiver:
+Now we can run both scripts. In a terminal, run the consumer (receiver):
 
 <pre class="sourcecode bash">
 ruby -rubygems receive.rb
 </pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+then, run the publisher (sender):
+
+<pre class="sourcecode bash">
+ruby -rubygems send.rb
+</pre>
+
+The consumer will print the message it gets from the producer via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the producer from another terminal.
 
 > #### Listing queues
 >
