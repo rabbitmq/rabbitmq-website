@@ -41,7 +41,7 @@ To illustrate how an RPC service could be used we're going to
 create a simple client class. It's going to expose a method named `call`
 which sends an RPC request and blocks until the answer is received:
 
-<pre class="sourcecode bash">
+<pre class="sourcecode python">
 fibonacci_rpc = FibonacciRpcClient()
 result = fibonacci_rpc.call(4)
 print("fib(4) is %r" % result)
