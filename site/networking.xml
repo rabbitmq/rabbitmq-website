@@ -763,9 +763,8 @@ sysctl -w fs.file-max 200000
         not.
 
         Below is an example sysctl configuration for TCP keepalives
-        that considers TCP connections dead or unreachable after 60
-        seconds (4 attempts every 15 seconds) and sends keepalive
-        packets every 60 seconds:
+        that considers TCP connections dead or unreachable after 120
+        seconds (4 attempts every 15 seconds after connection idle for 60 seconds):
 
 <pre class="code">
 net.ipv4.tcp_keepalive_time=60
