@@ -75,59 +75,61 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `NewTask.cs`:
 
-    :::csharp
-    var message = GetMessage(args);
-    var body = Encoding.UTF8.GetBytes(message);
+<pre class="sourcecode csharp">
+var message = GetMessage(args);
+var body = Encoding.UTF8.GetBytes(message);
 
-    var properties = channel.CreateBasicProperties();
-    properties.Persistent = true;
+var properties = channel.CreateBasicProperties();
+properties.Persistent = true;
 
-    channel.BasicPublish(exchange: "",
-                         routingKey: "task_queue",
-                         basicProperties: properties,
-                         body: body);
-
+channel.BasicPublish(exchange: "",
+                     routingKey: "task_queue",
+                     basicProperties: properties,
+                     body: body);
+</pre>
 
 Some help to get the message from the command line argument:
 
-    :::csharp
-    private static string GetMessage(string[] args)
-    {
-        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-    }
-
+<pre class="sourcecode csharp">
+private static string GetMessage(string[] args)
+{
+    return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
+}
+</pre>
 
 Our old _Receive.cs_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will
 handle messages delivered by RabbitMQ and perform the task, so let's call it `Worker.cs`:
 
-    :::csharp
-    var consumer = new EventingBasicConsumer(channel);
-    consumer.Received += (model, ea) =>
-    {
-        var body = ea.Body;
-        var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine(" [x] Received {0}", message);
+<pre class="sourcecode csharp">
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
+{
+    var body = ea.Body;
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine(" [x] Received {0}", message);
 
-        int dots = message.Split('.').Length - 1;
-        Thread.Sleep(dots * 1000);
-
-        Console.WriteLine(" [x] Done");
-    };
-    channel.BasicConsume(queue: "task_queue", noAck: true, consumer: consumer);
-
-
-Our fake task to simulate execution time:
-
-    :::csharp
     int dots = message.Split('.').Length - 1;
     Thread.Sleep(dots * 1000);
 
+    Console.WriteLine(" [x] Done");
+};
+channel.BasicConsume(queue: "task_queue", noAck: true, consumer: consumer);
+</pre>
+
+Our fake task to simulate execution time:
+
+<pre class="sourcecode csharp">
+int dots = message.Split('.').Length - 1;
+Thread.Sleep(dots * 1000);
+</pre>
+
 Compile them as in tutorial one (with the client assembly in the working directory):
 
-    :::bash
-    $ csc /r:"RabbitMQ.Client.dll" NewTask.cs
-    $ csc /r:"RabbitMQ.Client.dll" Worker.cs
+<pre class="sourcecode bash">
+csc /r:"RabbitMQ.Client.dll" NewTask.cs
+csc /r:"RabbitMQ.Client.dll" Worker.cs
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -142,44 +144,48 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `Worker.cs`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ Worker.exe
-    Worker
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+Worker.exe
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ Worker.exe
-    Worker
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+Worker.exe
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ NewTask.exe First message.
-    shell3$ NewTask.exe Second message..
-    shell3$ NewTask.exe Third message...
-    shell3$ NewTask.exe Fourth message....
-    shell3$ NewTask.exe Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+NewTask.exe First message.
+NewTask.exe Second message..
+NewTask.exe Third message...
+NewTask.exe Fourth message....
+NewTask.exe Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ Worker.exe
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+# shell 1
+Worker.exe
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ Worker.exe
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+# shell 2
+Worker.exe
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -222,22 +228,23 @@ examples we explicitly turned them off by setting the `noAck` ("no manual acks")
 parameter to `true`. It's time to remove this flag and send a proper acknowledgment
 from the worker, once we're done with a task.
 
-    :::csharp
-    var consumer = new EventingBasicConsumer(channel);
-    consumer.Received += (model, ea) =>
-    {
-        var body = ea.Body;
-        var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine(" [x] Received {0}", message);
+<pre class="sourcecode csharp">
+var consumer = new EventingBasicConsumer(channel);
+consumer.Received += (model, ea) =>
+{
+    var body = ea.Body;
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine(" [x] Received {0}", message);
 
-        int dots = message.Split('.').Length - 1;
-        Thread.Sleep(dots * 1000);
+    int dots = message.Split('.').Length - 1;
+    Thread.Sleep(dots * 1000);
 
-        Console.WriteLine(" [x] Done");
+    Console.WriteLine(" [x] Done");
 
-        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-    };
-    channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+};
+channel.BasicConsume(queue: "task_queue", noAck: false, consumer: consumer);
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -254,11 +261,14 @@ after the worker dies all unacknowledged messages will be redelivered.
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 
 Message durability
@@ -275,13 +285,13 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::csharp
-    channel.QueueDeclare(queue: "hello",
-                         durable: true,
-                         exclusive: false,
-                         autoDelete: false,
-                         arguments: null);
-
+<pre class="sourcecode csharp">
+channel.QueueDeclare(queue: "hello",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -290,13 +300,13 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::csharp
-    channel.QueueDeclare(queue: "task_queue",
-                         durable: true,
-                         exclusive: false,
-                         autoDelete: false,
-                         arguments: null);
-
+<pre class="sourcecode csharp">
+channel.QueueDeclare(queue: "task_queue",
+                     durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+</pre>
 
 This `queueDeclare` change needs to be applied to both the producer
 and consumer code.
@@ -305,9 +315,10 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by setting `IBasicProperties.SetPersistent` to `true`.
 
-    :::csharp
-    var properties = channel.CreateBasicProperties();
-    properties.Persistent = true;
+<pre class="sourcecode csharp">
+var properties = channel.CreateBasicProperties();
+properties.Persistent = true;
+</pre>
 
 > #### Note on message persistence
 >
@@ -367,8 +378,9 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::csharp
-    channel.BasicQos(0, 1, false);
+<pre class="sourcecode csharp">
+channel.BasicQos(0, 1, false);
+</pre>
 
 > #### Note about queue size
 >
@@ -380,102 +392,102 @@ Putting it all together
 
 Final code of our `NewTask.cs` class:
 
-    :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using System.Text;
+<pre class="sourcecode csharp">
+using System;
+using RabbitMQ.Client;
+using System.Text;
 
-    class NewTask
+class NewTask
+{
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using(var connection = factory.CreateConnection())
+        using(var channel = connection.CreateModel())
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "task_queue",
-                                     durable: true,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
+            channel.QueueDeclare(queue: "task_queue",
+                                 durable: true,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
 
-                var message = GetMessage(args);
-                var body = Encoding.UTF8.GetBytes(message);
+            var message = GetMessage(args);
+            var body = Encoding.UTF8.GetBytes(message);
 
-                var properties = channel.CreateBasicProperties();
-                properties.Persistent = true;
+            var properties = channel.CreateBasicProperties();
+            properties.Persistent = true;
 
-                channel.BasicPublish(exchange: "",
-                                     routingKey: "task_queue",
-                                     basicProperties: properties,
-                                     body: body);
-                Console.WriteLine(" [x] Sent {0}", message);
-            }
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
+            channel.BasicPublish(exchange: "",
+                                 routingKey: "task_queue",
+                                 basicProperties: properties,
+                                 body: body);
+            Console.WriteLine(" [x] Sent {0}", message);
         }
 
-        private static string GetMessage(string[] args)
-        {
-            return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
-        }
+        Console.WriteLine(" Press [enter] to exit.");
+        Console.ReadLine();
     }
 
+    private static string GetMessage(string[] args)
+    {
+        return ((args.Length > 0) ? string.Join(" ", args) : "Hello World!");
+    }
+}
+</pre>
 
 [(NewTask.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/NewTask/NewTask.cs)
 
 And our `Worker.cs`:
 
-    :::csharp
-    using System;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Events;
-    using System.Text;
-    using System.Threading;
+<pre class="sourcecode csharp">
+using System;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+using System.Threading;
 
-    class Worker
+class Worker
+{
+    public static void Main()
     {
-        public static void Main()
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using(var connection = factory.CreateConnection())
+        using(var channel = connection.CreateModel())
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using(var connection = factory.CreateConnection())
-            using(var channel = connection.CreateModel())
+            channel.QueueDeclare(queue: "task_queue",
+                                 durable: true,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
+
+            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+            Console.WriteLine(" [*] Waiting for messages.");
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (model, ea) =>
             {
-                channel.QueueDeclare(queue: "task_queue",
-                                     durable: true,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
+                var body = ea.Body;
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine(" [x] Received {0}", message);
 
-                channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+                int dots = message.Split('.').Length - 1;
+                Thread.Sleep(dots * 1000);
 
-                Console.WriteLine(" [*] Waiting for messages.");
+                Console.WriteLine(" [x] Done");
 
-                var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (model, ea) =>
-                {
-                    var body = ea.Body;
-                    var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine(" [x] Received {0}", message);
+                channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+            };
+            channel.BasicConsume(queue: "task_queue",
+                                 noAck: false,
+                                 consumer: consumer);
 
-                    int dots = message.Split('.').Length - 1;
-                    Thread.Sleep(dots * 1000);
-
-                    Console.WriteLine(" [x] Done");
-
-                    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-                };
-                channel.BasicConsume(queue: "task_queue",
-                                     noAck: false,
-                                     consumer: consumer);
-
-                Console.WriteLine(" Press [enter] to exit.");
-                Console.ReadLine();
-            }
+            Console.WriteLine(" Press [enter] to exit.");
+            Console.ReadLine();
         }
     }
-
+}
+</pre>
 
 [(Worker.cs source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/dotnet/Worker/Worker.cs)
 

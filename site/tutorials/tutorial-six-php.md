@@ -89,7 +89,7 @@ $channel->basic_publish($msg, '', 'rpc_queue');
 
 > #### Message properties
 >
-> The AMQP protocol predefines a set of 14 properties that go with
+> The AMQP 0-9-1 protocol predefines a set of 14 properties that go with
 > a message. Most of the properties are rarely used, with the exception of
 > the following:
 >

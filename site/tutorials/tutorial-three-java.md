@@ -103,20 +103,11 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > To list the exchanges on the server you can run the ever useful `rabbitmqctl`:
 >
->     sudo rabbitmqctl list_exchanges
->     # => Listing exchanges ...
->     # =>         direct
->     # => amq.direct      direct
->     # => amq.fanout      fanout
->     # => amq.headers     headers
->     # => amq.match       headers
->     # => amq.rabbitmq.log        topic
->     # => amq.rabbitmq.trace      topic
->     # => amq.topic       topic
->     # => logs    fanout
->     # => ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_exchanges
+> </pre>
 >
-> In this list there are some `amq.*` exchanges and the default (unnamed)
+> In this list there will be some `amq.*` exchanges and the default (unnamed)
 > exchange. These are created by default, but it is unlikely you'll need to
 > use them at the moment.
 
@@ -129,7 +120,9 @@ queues it knows. And that's exactly what we need for our logger.
 >
 > Recall how we published a message before:
 >
->     channel.basicPublish("", "hello", null, message.getBytes());
+> <pre class="sourcecode java">
+> channel.basicPublish("", "hello", null, message.getBytes());
+> </pre>
 >
 > The first parameter is the the name of the exchange.
 > The empty string denotes the default or _nameless_ exchange: messages are
@@ -211,7 +204,9 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> `rabbitmqctl list_bindings`.
+> <pre class="sourcecode bash">
+> rabbitmqctl list_bindings
+> </pre>
 
 
 Putting it all together

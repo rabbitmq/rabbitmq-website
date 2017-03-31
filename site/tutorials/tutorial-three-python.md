@@ -211,7 +211,9 @@ From now on the `logs` exchange will append messages to our queue.
 > #### Listing bindings
 >
 > You can list existing bindings using, you guessed it,
-> `rabbitmqctl list_bindings`.
+> <pre class="sourcecode bash">
+> rabbitmqctl list_bindings
+> </pre>
 
 
 Putting it all together
