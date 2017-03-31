@@ -649,7 +649,7 @@ sysctl -w fs.file-max 200000
           TCP stack tuning is a broad topic that is covered in much detail elsewhere:
 
           <ul>
-            <li><a href="http://www.psc.edu/index.php/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
+            <li><a href="https://psc.edu/index.php/services/networking/68-research/networking/641-tcp-tune">Enabling High Performance Data Transfers</a></li>
             <li><a href="https://fasterdata.es.net/network-tuning/">Network Tuning Guide</a></li>
           </ul>
         </p>
