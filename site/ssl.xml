@@ -46,7 +46,9 @@ limitations under the License.
 
           and more. It is not, however, a primer on TLS, encryption, <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure">Public Key Infrastructure</a>
           and related topics, so the concepts are covered very briefly.
-          A number of beginner-oriented primers are <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html">available</a> <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html">elsewhere</a> on the Web.
+          A number of beginner-oriented primers are available elsewhere on the Web:
+          <a href="https://blog.talpor.com/2015/07/ssltls-certificates-beginners-tutorial/">one</a>,
+          <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-1---data-encryption.html">two</a>, <a href="https://blogs.akamai.com/2016/03/enterprise-security---ssltls-primer-part-2---public-key-certificates.html">three</a>.
         </p>
 
         <p>
