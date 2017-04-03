@@ -350,7 +350,7 @@ channel.basic_qos(prefetch_count=1)
 > #### Note about queue size
 >
 > If all the workers are busy, your queue can fill up. You will want to keep an
-> eye on that, and maybe add more workers, or have some other strategy.
+> eye on that, and maybe add more workers, or use [message TTL](/ttl.html).
 
 Putting it all together
 -----------------------

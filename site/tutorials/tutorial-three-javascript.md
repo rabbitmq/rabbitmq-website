@@ -112,7 +112,7 @@ queues it knows. And that's exactly what we need for our logger.
 > use them at the moment.
 
 
-> #### Nameless exchange
+> #### The default exchange
 >
 > In previous parts of the tutorial we knew nothing about exchanges,
 > but still were able to send messages to queues. That was possible

@@ -9,10 +9,13 @@ Hello World!
 ------------
 ### (using the pika 0.10.0 Python client)
 
-Our "Hello world" won't be too complex &#8210; let's send a message, receive
-it and print it on the screen. To do so we need two programs: one that
-sends a message and one that receives and prints it.
+In this part of the tutorial we'll write two small programs in Elixir; a
+producer (sender) that sends a single message, and a consumer (receiver) that receives
+messages and prints them out. It's a "Hello World" of messaging.
 
+In the diagram below, "P" is our producer and "C" is our consumer. The
+box in the middle is a queue - a message buffer that RabbitMQ keeps
+on behalf of the consumer.
 
 Our overall design will look like:
 
@@ -50,6 +53,7 @@ messages from that queue.
 > which is the Python client recommended
 > by the RabbitMQ team. To install it you can use the
 > [`pip`](https://pip.pypa.io/en/stable/quickstart/) package management tool.
+
 
 ### Sending
 
@@ -131,7 +135,7 @@ connection.close()
 > If this is your first time using RabbitMQ and you don't see the "Sent"
 > message then you may be left scratching your head wondering what could
 > be wrong. Maybe the broker was started without enough free disk space
-> (by default it needs at least 1Gb free) and is therefore refusing to
+> (by default it needs at least 200 MB free) and is therefore refusing to
 > accept messages. Check the broker logfile to confirm and reduce the
 > limit if necessary. The <a
 > href="http://www.rabbitmq.com/configure.html#config-items">configuration
@@ -197,8 +201,6 @@ declaring the queue in both programs.
 > <pre class="sourcecode powershell">
 > rabbitmqctl.bat list_queues
 > </pre>
-
-
 
 Receiving messages from the queue is more complex. It works by subscribing
 a `callback` function to a queue. Whenever we receive
@@ -286,21 +288,22 @@ channel.start_consuming()
 
 [(receive.py source)](http://github.com/rabbitmq/rabbitmq-tutorials/blob/master/python/receive.py)
 
-Now we can try out our programs in a terminal. First, let's send a
-message using our `send.py` program:
-
-<pre class="sourcecode bash">
-python send.py
-# => [x] Sent 'Hello World!'
-</pre>
-
-The producer program `send.py` will stop after every run. Let's receive it:
+Now we can try out our programs in a terminal. First, let's start
+a consumer, which will run continuously waiting for deliveries:
 
 <pre class="sourcecode bash">
 python receive.py
 # => [*] Waiting for messages. To exit press CTRL+C
 # => [x] Received 'Hello World!'
 </pre>
+
+Now start the producer. The producer program will stop after every run:
+
+<pre class="sourcecode bash">
+python send.py
+# => [x] Sent 'Hello World!'
+</pre>
+
 
 Hurray! We were able to send our first message through RabbitMQ. As you might
 have noticed, the `receive.py` program doesn't exit. It will stay ready to
