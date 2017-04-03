@@ -75,35 +75,42 @@ to allow arbitrary messages to be sent from the command line. This
 program will schedule tasks to our work queue, so let's name it
 `new_task.js`:
 
-    :::javascript
-    var q = 'task_queue';
-    var msg = process.argv.slice(2).join(' ') || "Hello World!";
+<pre class="sourcecode javascript">
+var q = 'task_queue';
+var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-    ch.assertQueue(q, {durable: true});
-    ch.sendToQueue(q, new Buffer(msg), {persistent: true});
-    console.log(" [x] Sent '%s'", msg);
+ch.assertQueue(q, {durable: true});
+ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+console.log(" [x] Sent '%s'", msg);
+</pre>
 
 Our old _receive.js_ script also requires some changes: it needs to
 fake a second of work for every dot in the message body. It will pop
 messages from the queue and perform the task, so let's call it `worker.js`:
 
-    :::javascript
-    ch.consume(q, function(msg) {
-      var secs = msg.content.toString().split('.').length - 1;
+<pre class="sourcecode javascript">
+ch.consume(q, function(msg) {
+  var secs = msg.content.toString().split('.').length - 1;
 
-      console.log(" [x] Received %s", msg.content.toString());
-      setTimeout(function() {
-        console.log(" [x] Done");
-      }, secs * 1000);
-    }, {noAck: true});
+  console.log(" [x] Received %s", msg.content.toString());
+  setTimeout(function() {
+    console.log(" [x] Done");
+  }, secs * 1000);
+}, {noAck: true});
+</pre>
 
 Note that our fake task simulates execution time.
 
 Run them as in tutorial one:
 
-    :::bash
-    shell1$ ./worker.js
-    shell2$ ./new_task.js
+<pre class="sourcecode bash">
+# shell 1
+./worker.js
+</pre>
+<pre class="sourcecode bash">
+# shell 2
+./new_task.js
+</pre>
 
 Round-robin dispatching
 -----------------------
@@ -118,42 +125,48 @@ will both get messages from the queue, but how exactly? Let's see.
 You need three consoles open. Two will run the `worker.js`
 script. These consoles will be our two consumers - C1 and C2.
 
-    :::bash
-    shell1$ ./worker.js
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 1
+./worker.js
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ ./worker.js
-     [*] Waiting for messages. To exit press CTRL+C
+<pre class="sourcecode bash">
+# shell 2
+./worker.js
+# => [*] Waiting for messages. To exit press CTRL+C
+</pre>
 
 In the third one we'll publish new tasks. Once you've started
 the consumers you can publish a few messages:
 
-    :::bash
-    shell3$ ./new_task.js First message.
-    shell3$ ./new_task.js Second message..
-    shell3$ ./new_task.js Third message...
-    shell3$ ./new_task.js Fourth message....
-    shell3$ ./new_task.js Fifth message.....
+<pre class="sourcecode bash">
+# shell 3
+./new_task.js First message.
+./new_task.js Second message..
+./new_task.js Third message...
+./new_task.js Fourth message....
+./new_task.js Fifth message.....
+</pre>
 
 Let's see what is delivered to our workers:
 
-    :::bash
-    shell1$ ./worker.js
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'First message.'
-     [x] Received 'Third message...'
-     [x] Received 'Fifth message.....'
+<pre class="sourcecode bash">
+# shell 1
+./worker.js
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'First message.'
+# => [x] Received 'Third message...'
+# => [x] Received 'Fifth message.....'
+</pre>
 
-<div></div>
-
-    :::bash
-    shell2$ ./worker.js
-     [*] Waiting for messages. To exit press CTRL+C
-     [x] Received 'Second message..'
-     [x] Received 'Fourth message....'
+<pre class="sourcecode bash">
+# shell 2
+./worker.js
+# => [*] Waiting for messages. To exit press CTRL+C
+# => [x] Received 'Second message..'
+# => [x] Received 'Fourth message....'
+</pre>
 
 By default, RabbitMQ will send each message to the next consumer,
 in sequence. On average every consumer will get the same number of
@@ -196,16 +209,17 @@ It's time to turn them on using the `{noAck: false}` (you may also remove the
 options altogether) option and send a proper acknowledgment from the worker,
 once we're done with a task.
 
-    :::javascript
-    ch.consume(q, function(msg) {
-      var secs = msg.content.toString().split('.').length - 1;
+<pre class="sourcecode javascript">
+ch.consume(q, function(msg) {
+  var secs = msg.content.toString().split('.').length - 1;
 
-      console.log(" [x] Received %s", msg.content.toString());
-      setTimeout(function() {
-        console.log(" [x] Done");
-        ch.ack(msg);
-      }, secs * 1000);
-    }, {noAck: false});
+  console.log(" [x] Received %s", msg.content.toString());
+  setTimeout(function() {
+    console.log(" [x] Done");
+    ch.ack(msg);
+  }, secs * 1000);
+}, {noAck: false});
+</pre>
 
 Using this code we can be sure that even if you kill a worker using
 CTRL+C while it was processing a message, nothing will be lost. Soon
@@ -218,15 +232,18 @@ after the worker dies all unacknowledged messages will be redelivered.
 > when your client quits (which may look like random redelivery), but
 > RabbitMQ will eat more and more memory as it won't be able to release
 > any unacked messages.
->
+
 > In order to debug this kind of mistake you can use `rabbitmqctl`
 > to print the `messages_unacknowledged` field:
 >
->     :::bash
->     $ sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
->     Listing queues ...
->     hello    0       0
->     ...done.
+> <pre class="sourcecode bash">
+> sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+> </pre>
+>
+> On Windows, drop the sudo:
+> <pre class="sourcecode bash">
+> rabbitmqctl.bat list_queues name messages_ready messages_unacknowledged
+> </pre>
 
 
 Message durability
@@ -243,8 +260,9 @@ durable.
 First, we need to make sure that RabbitMQ will never lose our
 queue. In order to do so, we need to declare it as _durable_:
 
-    :::javascript
-    ch.assertQueue('hello', {durable: true});
+<pre class="sourcecode javascript">
+ch.assertQueue('hello', {durable: true});
+</pre>
 
 Although this command is correct by itself, it won't work in our present
 setup. That's because we've already defined a queue called `hello`
@@ -253,8 +271,9 @@ with different parameters and will return an error to any program
 that tries to do that. But there is a quick workaround - let's declare
 a queue with different name, for example `task_queue`:
 
-    :::javascript
-    ch.assertQueue('task_queue', {durable: true});
+<pre class="sourcecode javascript">
+ch.assertQueue('task_queue', {durable: true});
+</pre>
 
 This `durable` option change needs to be applied to both the producer
 and consumer code.
@@ -263,8 +282,9 @@ At this point we're sure that the `task_queue` queue won't be lost
 even if RabbitMQ restarts. Now we need to mark our messages as persistent
 - by using the `persistent` option `Channel.sendToQueue` takes.
 
-    :::javascript
-    ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+<pre class="sourcecode javascript">
+ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+</pre>
 
 > #### Note on message persistence
 >
@@ -324,8 +344,9 @@ one message to a worker at a time. Or, in other words, don't dispatch
 a new message to a worker until it has processed and acknowledged the
 previous one. Instead, it will dispatch it to the next worker that is not still busy.
 
-    :::javascript
-    ch.prefetch(1);
+<pre class="sourcecode javascript">
+ch.prefetch(1);
+</pre>
 
 > #### Note about queue size
 >
@@ -337,50 +358,52 @@ Putting it all together
 
 Final code of our `new_task.js` class:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var q = 'task_queue';
-        var msg = process.argv.slice(2).join(' ') || "Hello World!";
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'task_queue';
+    var msg = process.argv.slice(2).join(' ') || "Hello World!";
 
-        ch.assertQueue(q, {durable: true});
-        ch.sendToQueue(q, new Buffer(msg), {persistent: true});
-        console.log(" [x] Sent '%s'", msg);
-      });
-      setTimeout(function() { conn.close(); process.exit(0) }, 500);
-    });
+    ch.assertQueue(q, {durable: true});
+    ch.sendToQueue(q, new Buffer(msg), {persistent: true});
+    console.log(" [x] Sent '%s'", msg);
+  });
+  setTimeout(function() { conn.close(); process.exit(0) }, 500);
+});
+</pre>
 
 [(new_task.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/new_task.js)
 
 And our `worker.js`:
 
-    :::javascript
-    #!/usr/bin/env node
+<pre class="sourcecode javascript">
+#!/usr/bin/env node
 
-    var amqp = require('amqplib/callback_api');
+var amqp = require('amqplib/callback_api');
 
-    amqp.connect('amqp://localhost', function(err, conn) {
-      conn.createChannel(function(err, ch) {
-        var q = 'task_queue';
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'task_queue';
 
-        ch.assertQueue(q, {durable: true});
-        ch.prefetch(1);
-        console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
-        ch.consume(q, function(msg) {
-          var secs = msg.content.toString().split('.').length - 1;
+    ch.assertQueue(q, {durable: true});
+    ch.prefetch(1);
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
+    ch.consume(q, function(msg) {
+      var secs = msg.content.toString().split('.').length - 1;
 
-          console.log(" [x] Received %s", msg.content.toString());
-          setTimeout(function() {
-            console.log(" [x] Done");
-            ch.ack(msg);
-          }, secs * 1000);
-        }, {noAck: false});
-      });
-    });
+      console.log(" [x] Received %s", msg.content.toString());
+      setTimeout(function() {
+        console.log(" [x] Done");
+        ch.ack(msg);
+      }, secs * 1000);
+    }, {noAck: false});
+  });
+});
+</pre>
 
 [(worker.js source)](https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/javascript-nodejs/src/worker.js)
 
