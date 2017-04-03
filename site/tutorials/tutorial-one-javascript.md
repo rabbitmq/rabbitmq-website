@@ -60,8 +60,8 @@ code.
   <img src="/img/tutorials/sending.png" alt="(P) -> [|||]" height="100" />
 </div>
 
-We'll call our message sender `send.js` and our message receiver
-`receive.js`.  The sender will connect to RabbitMQ, send a single message,
+We'll call our message publisher (sender) `send.js` and our message consumer (receiver)
+`receive.js`.  The publisher will connect to RabbitMQ, send a single message,
 then exit.
 
 In
@@ -131,8 +131,8 @@ setTimeout(function() { conn.close(); process.exit(0) }, 500);
 
 ### Receiving
 
-That's it for our sender.  Our receiver is pushed messages from
-RabbitMQ, so unlike the sender which publishes a single message, we'll
+That's it for our publisher.  Our consumer is pushed messages from
+RabbitMQ, so unlike the publisher which publishes a single message, we'll
 keep it running to listen for messages and print them out.
 
 <div class="diagram">
@@ -147,7 +147,7 @@ The code (in [`receive.js`](https://github.com/rabbitmq/rabbitmq-tutorials/blob/
 var amqp = require('amqplib/callback_api');
 </pre>
 
-Setting up is the same as the sender; we open a connection and a
+Setting up is the same as the publisher; we open a connection and a
 channel, and declare the queue from which we're going to consume.
 Note this matches up with the queue that `sendToQueue` publishes to.
 
@@ -162,7 +162,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
 </pre>
 
 Note that we declare the queue here, as well. Because we might start
-the receiver before the sender, we want to make sure the queue exists
+the consumer before the publisher, we want to make sure the queue exists
 before we try to consume messages from it.
 
 We're about to tell the server to deliver us the messages from the
@@ -181,21 +181,21 @@ ch.consume(q, function(msg) {
 
 ### Putting it all together
 
-Now we can run both scripts. In a terminal, from the rabbitmq-tutorials/javascript-nodejs/src/ folder, run the sender:
+Now we can run both scripts. In a terminal, from the rabbitmq-tutorials/javascript-nodejs/src/ folder, run the publisher:
 
 <pre class="sourcecode bash">
 ./send.js
 </pre>
 
-then, run the receiver:
+then, run the consumer:
 
 <pre class="sourcecode bash">
 ./receive.js
 </pre>
 
-The receiver will print the message it gets from the sender via
-RabbitMQ. The receiver will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
-the sender from another terminal.
+The consumer will print the message it gets from the publisher via
+RabbitMQ. The consumer will keep running, waiting for messages (Use Ctrl-C to stop it), so try running
+the publisher from another terminal.
 
 > #### Listing queues
 >
